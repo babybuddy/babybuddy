@@ -3,13 +3,19 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .models import Baby, Feeding, Sleep, TummyTime
+from .models import Baby, DiaperChange, Feeding, Sleep, TummyTime
 
 
 @admin.register(Baby)
 class BabyAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'birth_date',)
     search_fields = ('first_name', 'last_name', 'birth_date',)
+
+
+@admin.register(DiaperChange)
+class DiaperChangeAdmin(admin.ModelAdmin):
+    list_display = ('baby', 'time', 'wet', 'solid', 'color')
+    search_fields = ('baby__first_name', 'baby__last_name',)
 
 
 @admin.register(Feeding)

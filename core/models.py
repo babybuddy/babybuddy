@@ -22,6 +22,28 @@ class Baby(models.Model):
         return '{} {}'.format(self.first_name, self.last_name)
 
 
+class DiaperChange(models.Model):
+    baby = models.ForeignKey('Baby', related_name='diaper_change')
+    time = models.DateTimeField(blank=False, null=False)
+    wet = models.BooleanField()
+    solid = models.BooleanField()
+    color = models.CharField(max_length=255, blank=True, choices=[
+        ('black', 'Black'),
+        ('brown', 'Brown'),
+        ('green', 'Green'),
+        ('yellow', 'Yellow'),
+    ])
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-time']
+
+    def __str__(self):
+        return 'Diaper change for {} on {}'.format(self.baby, self.time.date())
+
+
 class Feeding(models.Model):
     baby = models.ForeignKey('Baby', related_name='feeding')
     start = models.DateTimeField(blank=False, null=False)
