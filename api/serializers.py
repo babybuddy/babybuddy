@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from core.models import Baby, DiaperChange, Feeding, Sleep, TummyTime
@@ -35,9 +34,3 @@ class TummyTimeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TummyTime
         fields = ('baby', 'start', 'end', 'duration', 'milestone')
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
