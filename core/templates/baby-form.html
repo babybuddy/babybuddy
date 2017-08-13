@@ -1,0 +1,9 @@
+<script type="text/javascript">
+    angular.module('djangular-demo', ['djng.forms']);
+</script>
+
+<form method="post" action="babyblotter" validate>
+    {% csrf_token %}
+    {{ form.as_div }}
+    <button type="submit" class="btn btn-primary">Subscribe</button>
+</form>
