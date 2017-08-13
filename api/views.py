@@ -3,10 +3,10 @@ from __future__ import unicode_literals
 
 from rest_framework import viewsets
 
-from core.models import Baby, DiaperChange, Feeding, Sleep, TummyTime
+from core.models import Baby, DiaperChange, Feeding, Note, Sleep, TummyTime
 from core.utils import filter_by_params
 from .serializers import (BabySerializer, DiaperChangeSerializer,
-                          FeedingSerializer, SleepSerializer,
+                          FeedingSerializer, NoteSerializer, SleepSerializer,
                           TummyTimeSerializer,)
 
 
@@ -35,6 +35,15 @@ class FeedingViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         params = ['baby__last_name', 'type', 'method']
         return filter_by_params(self.request, Feeding, params)
+
+
+class NoteViewSet(viewsets.ModelViewSet):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+
+    def get_queryset(self):
+        params = ['baby__last_name']
+        return filter_by_params(self.request, Note, params)
 
 
 class SleepViewSet(viewsets.ModelViewSet):

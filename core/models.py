@@ -72,6 +72,21 @@ class Feeding(models.Model):
         return duration_string(self.start, self.end)
 
 
+class Note(models.Model):
+    baby = models.ForeignKey('Baby', related_name='note')
+    note = models.TextField()
+    time = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-time']
+
+    def __str__(self):
+        return 'Note about {} on {}'.format(self.baby, self.time.date())
+
+
 class Sleep(models.Model):
     baby = models.ForeignKey('Baby', related_name='sleep')
     start = models.DateTimeField(blank=False, null=False)

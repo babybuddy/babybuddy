@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .models import Baby, DiaperChange, Feeding, Sleep, TummyTime
+from .models import Baby, DiaperChange, Feeding, Note, Sleep, TummyTime
 
 
 @admin.register(Baby)
@@ -25,6 +25,13 @@ class FeedingAdmin(admin.ModelAdmin):
     list_display = ('start', 'end', 'duration', 'baby', 'type', 'method',)
     list_filter = ('baby', 'type', 'method',)
     search_fields = ('baby__first_name', 'baby__last_name', 'type', 'method',)
+
+
+@admin.register(Note)
+class NoteAdmin(admin.ModelAdmin):
+    list_display = ('time', 'baby', 'note',)
+    list_filter = ('baby',)
+    search_fields = ('baby__last_name',)
 
 
 @admin.register(Sleep)
