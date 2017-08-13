@@ -68,3 +68,23 @@ class Sleep(models.Model):
 
     def duration(self):
         return duration_string(self.start, self.end)
+
+
+class TummyTime(models.Model):
+    baby = models.ForeignKey('Baby', related_name='tummy_time')
+    start = models.DateTimeField(blank=False, null=False)
+    end = models.DateTimeField(blank=False, null=False)
+    milestone = models.CharField(max_length=255, blank=True)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-start']
+
+    def __str__(self):
+        return 'Tummy time for {} on {} ({})'.format(
+            self.baby, self.end.date(), self.duration())
+
+    def duration(self):
+        return duration_string(self.start, self.end)

@@ -4,9 +4,9 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 
-from core.models import Baby, Feeding, Sleep
+from core.models import Baby, Feeding, Sleep, TummyTime
 from .serializers import (BabySerializer, FeedingSerializer, SleepSerializer,
-                          UserSerializer,)
+                          TummyTimeSerializer, UserSerializer,)
 
 
 class BabyViewSet(viewsets.ModelViewSet):
@@ -22,6 +22,11 @@ class FeedingViewSet(viewsets.ModelViewSet):
 class SleepViewSet(viewsets.ModelViewSet):
     queryset = Sleep.objects.all()
     serializer_class = SleepSerializer
+
+
+class TummyTimeViewSet(viewsets.ModelViewSet):
+    queryset = TummyTime.objects.all()
+    serializer_class = TummyTimeSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):

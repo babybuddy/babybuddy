@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from core.models import Baby, Feeding, Sleep
+from core.models import Baby, Feeding, Sleep, TummyTime
 
 
 class BabySerializer(serializers.HyperlinkedModelSerializer):
@@ -23,6 +23,12 @@ class SleepSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Sleep
         fields = ('baby', 'start', 'end', 'duration')
+
+
+class TummyTimeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = TummyTime
+        fields = ('baby', 'start', 'end', 'duration', 'milestone')
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
