@@ -22,4 +22,4 @@ class BabySerializer(serializers.HyperlinkedModelSerializer):
 class SleepSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Sleep
-        fields = ('baby', 'start', 'end')
+        fields = ('baby', 'start', 'end', 'duration')

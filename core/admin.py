@@ -14,5 +14,5 @@ class BabyAdmin(admin.ModelAdmin):
 
 @admin.register(Sleep)
 class SleepAdmin(admin.ModelAdmin):
-    list_display = ('baby', 'start', 'end',)
+    list_display = ('baby', 'start', 'end', 'duration',)
     search_fields = ('baby__first_name', 'baby__last_name',)
