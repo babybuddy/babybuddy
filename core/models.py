@@ -43,7 +43,8 @@ class Feeding(models.Model):
         ordering = ['-start']
 
     def __str__(self):
-        return '{} fed for {}'.format(self.baby, self.duration())
+        return 'Feeding for {} on {} ({})'.format(
+            self.baby, self.end.date(), self.duration())
 
     def duration(self):
         return duration_string(self.start, self.end)
@@ -62,7 +63,8 @@ class Sleep(models.Model):
         verbose_name_plural = 'Sleep'
 
     def __str__(self):
-        return '{} slept for {}'.format(self.baby, self.duration())
+        return 'Sleep for {} on {} ({})'.format(
+            self.baby, self.end.date(), self.duration())
 
     def duration(self):
         return duration_string(self.start, self.end)
