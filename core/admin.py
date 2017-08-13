@@ -14,11 +14,11 @@ class BabyAdmin(admin.ModelAdmin):
 
 @admin.register(Feeding)
 class FeedingAdmin(admin.ModelAdmin):
-    list_display = ('baby', 'start', 'end', 'duration', 'type', 'method',)
+    list_display = ('start', 'end', 'duration', 'baby', 'type', 'method',)
     search_fields = ('baby__first_name', 'baby__last_name', 'type', 'method')
 
 
 @admin.register(Sleep)
 class SleepAdmin(admin.ModelAdmin):
-    list_display = ('baby', 'start', 'end', 'duration',)
+    list_display = ('start', 'end', 'duration', 'baby',)
     search_fields = ('baby__first_name', 'baby__last_name',)
