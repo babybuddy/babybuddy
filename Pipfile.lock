@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a0ef885217179eed1565af7ec6a732e8b141fb42c156f152380a65feac7cb1fe"
+            "sha256": "58ee3f51b748a5b05db80eda5a1885ac84e5645f540c5d67a00555a2b1156cc1"
         },
         "requires": {},
         "sources": [
@@ -15,6 +15,9 @@
         "django": {
             "version": "==1.11.4"
         },
+        "django-angular": {
+            "version": "==1.0.2"
+        },
         "django-filter": {
             "version": "==1.0.4"
         },
@@ -23,6 +26,9 @@
         },
         "pytz": {
             "version": "==2017.2"
+        },
+        "whitenoise": {
+            "version": "==3.3.0"
         }
     },
     "develop": {}
