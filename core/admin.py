@@ -9,28 +9,33 @@ from .models import Baby, DiaperChange, Feeding, Sleep, TummyTime
 @admin.register(Baby)
 class BabyAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'birth_date',)
+    list_filter = ('last_name',)
     search_fields = ('first_name', 'last_name', 'birth_date',)
 
 
 @admin.register(DiaperChange)
 class DiaperChangeAdmin(admin.ModelAdmin):
     list_display = ('baby', 'time', 'wet', 'solid', 'color')
+    list_filter = ('baby', 'wet', 'solid', 'color')
     search_fields = ('baby__first_name', 'baby__last_name',)
 
 
 @admin.register(Feeding)
 class FeedingAdmin(admin.ModelAdmin):
     list_display = ('start', 'end', 'duration', 'baby', 'type', 'method',)
+    list_filter = ('baby', 'type', 'method',)
     search_fields = ('baby__first_name', 'baby__last_name', 'type', 'method',)
 
 
 @admin.register(Sleep)
 class SleepAdmin(admin.ModelAdmin):
     list_display = ('start', 'end', 'duration', 'baby',)
+    list_filter = ('baby',)
     search_fields = ('baby__first_name', 'baby__last_name',)
 
 
 @admin.register(TummyTime)
 class TummyTimeAdmin(admin.ModelAdmin):
     list_display = ('start', 'end', 'duration', 'baby', 'milestone',)
+    list_filter = ('baby',)
     search_fields = ('baby__first_name', 'baby__last_name', 'milestone',)

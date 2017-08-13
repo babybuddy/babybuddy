@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cf364d603966857cd128557bc679634e0e6754c0ee8fe7d80af6b38d5e2dc745"
+            "sha256": "a0ef885217179eed1565af7ec6a732e8b141fb42c156f152380a65feac7cb1fe"
         },
         "requires": {},
         "sources": [
@@ -14,6 +14,9 @@
     "default": {
         "django": {
             "version": "==1.11.4"
+        },
+        "django-filter": {
+            "version": "==1.0.4"
         },
         "djangorestframework": {
             "version": "==3.6.3"
