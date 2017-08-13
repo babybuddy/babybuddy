@@ -21,3 +21,14 @@ def duration_string(start, end):
             '' if duration is '' else ', ', s, 's' if s > 1 else '')
 
     return duration
+
+
+def filter_by_params(request, model, available_params):
+    queryset = model.objects.all()
+
+    for param in available_params:
+        value = request.query_params.get(param, None)
+        if value is not None:
+            queryset = queryset.filter(**{param: value})
+
+    return queryset
