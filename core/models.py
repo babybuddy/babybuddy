@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from datetime import datetime
-from math import floor
-
 from django.db import models
+
+from .utils import duration_string
 
 
 class Baby(models.Model):
@@ -23,6 +22,33 @@ class Baby(models.Model):
         return '{} {}'.format(self.first_name, self.last_name)
 
 
+class Feeding(models.Model):
+    baby = models.ForeignKey('Baby', related_name='feeding')
+    start = models.DateTimeField(blank=False, null=False)
+    end = models.DateTimeField(blank=False, null=False)
+    type = models.CharField(max_length=255, choices=[
+        ('breast milk', 'Breast milk'),
+        ('formula', 'Formula'),
+    ])
+    method = models.CharField(max_length=255, choices=[
+        ('bottle', 'Bottle'),
+        ('left breast', 'Left breast'),
+        ('right breast', 'Right breast'),
+    ])
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-start']
+
+    def __str__(self):
+        return '{} fed for {}'.format(self.baby, self.duration())
+
+    def duration(self):
+        return duration_string(self.start, self.end)
+
+
 class Sleep(models.Model):
     baby = models.ForeignKey('Baby', related_name='sleep')
     start = models.DateTimeField(blank=False, null=False)
@@ -36,32 +62,7 @@ class Sleep(models.Model):
         verbose_name_plural = 'Sleep'
 
     def __str__(self):
-        return '{} slept for {}'.format(
-            self.baby,
-            self.duration()
-        )
+        return '{} slept for {}'.format(self.baby, self.duration())
 
     def duration(self):
-        diff = self.end - self.start
-        if diff.seconds < 60:
-            duration = '{} second{}'.format(
-                diff.seconds,
-                's' if diff.seconds > 1 else ''
-            )
-        elif diff.seconds < 3600:
-            duration = '{} minute{}, {} second{}'.format(
-                floor(diff.seconds / 60),
-                's' if floor(diff.seconds / 60) > 1 else '',
-                diff.seconds % 60,
-                's' if diff.seconds % 60 > 1 else ''
-            )
-        else:
-            duration = '{} hour{}, {} minute{}, {} second{}'.format(
-                floor(diff.seconds / 3600),
-                's' if floor(diff.seconds / 3600) > 1 else '',
-                floor((diff.seconds - 3600) / 60),
-                's' if floor((diff.seconds - 3600) / 60) > 1 else '',
-                diff.seconds % 60,
-                's' if diff.seconds % 60 > 1 else ''
-            )
-        return duration
+        return duration_string(self.start, self.end)
