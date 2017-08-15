@@ -12,7 +12,7 @@
 </head>
 <body style="padding-top: 5rem;">
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#"><span class="text-info">Baby</span> Blotter</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -23,10 +23,10 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item{% if request.path == '/' %} active{% endif %}">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
             </li>
-            <li class="nav-item{% if request.path == '/baby/add' %} active{% endif %}">
-                <a class="nav-link" href="/baby/add">Add Baby</a>
+            <li class="nav-item{% if request.path == '/baby/add/' %} active{% endif %}">
+                <a class="nav-link" href="{% url 'baby-add' %}">Add Baby</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
