@@ -7,7 +7,7 @@ from django.contrib import admin
 from core import views
 
 urlpatterns = [
-    url(r'^baby/new/$', views.BabyFormView.as_view(), name='baby_new'),
+    url(r'^baby/add/$', views.BabyFormView.as_view(), name='baby_add'),
 
     url(r'^admin/', admin.site.urls),
     url(r'', include('api.urls')),
