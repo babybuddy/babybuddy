@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'core',
 
     'rest_framework',
+    'widget_tweaks',
 
     'django.contrib.admin',
     'django.contrib.auth',
