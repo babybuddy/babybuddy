@@ -1,12 +1,28 @@
 {% extends 'core/base.html' %}
+{% load i18n widget_tweaks %}
 
 {% block title %}Add a Baby{% endblock %}
 
 {% block content %}
     <h1>Add a Baby</h1>
-    <form method="POST" class="post-form">
+    <form role="form" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        {% for field in form %}
+            <div class="form-group">
+                <label for="id_{{ field.name }}">{{ field.label }}</label>
+                {% if field.errors %}
+                    {{ field|attr:"class:form-control is-invalid" }}
+                {% else %}
+                    {{ field|attr:"class:form-control" }}
+                {% endif %}
+                {% if field.help_text %}
+                    <p class="help-block"><small>{{ field.help_text }}</small></p>
+                {% endif %}
+            {% if field.errors %}
+                <p class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</p>
+            {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
     </form>
 {% endblock %}
