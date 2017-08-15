@@ -1,8 +1,5 @@
-# database
-*.sqlite3
-
 # python
 *.pyc
 
-# static files
-babyblotter/static
+# database
+*.sqlite3
