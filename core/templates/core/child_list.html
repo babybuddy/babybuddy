@@ -13,7 +13,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Birth Date</th>
-                <th>Actions</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +23,12 @@
                     <td><a href="{% url 'child-update' child.id %}">{{ child.first_name }}</a></td>
                     <td>{{ child.last_name }}</td>
                     <td>{{ child.birth_date }}</td>
-                    <td><a href="{% url 'child-update' child.id %}">modify<a/> | <a href="{% url 'child-delete' child.id %}">delete<a/></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Child actions">
+                            <a href="{% url 'child-update' child.id %}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="{% url 'child-delete' child.id %}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
                 </tr>
             {% empty %}
                 <tr>
