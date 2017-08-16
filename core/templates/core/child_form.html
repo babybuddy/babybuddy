@@ -1,10 +1,20 @@
 {% extends 'core/base.html' %}
-{% load i18n widget_tweaks %}
+{% load widget_tweaks %}
 
-{% block title %}Add a Child{% endblock %}
+{% block title %}
+    {% if request.resolver_match.url_name == 'child-update' %}
+        Update a Child
+    {% else %}
+        Add a Child
+    {% endif %}
+{% endblock %}
 
 {% block content %}
-    <h1>Add a Child</h1>
+    {% if object %}
+        <h1>Update <span class="text-info">{{ object.first_name }} {{ object.last_name }}</span></h1>
+    {% else %}
+        <h1>Add a Child</h1>
+    {% endif %}
     <form role="form" method="post">
         {% csrf_token %}
         {% for field in form %}
@@ -23,6 +33,6 @@
             {% endif %}
             </div>
         {% endfor %}
-        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}
