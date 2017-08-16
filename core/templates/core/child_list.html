@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% load i18n widget_tweaks %}
+
+{% block title %}Children{% endblock %}
+
+{% block content %}
+    <h1>Children</h1>
+
+    <table class="table table-striped table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Birth Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for child in object_list %}
+                <tr>
+                    <th scope="row">{{ child.id }}</th>
+                    <td><a href="{% url 'child-update' child.id %}">{{ child.first_name }}</a></td>
+                    <td>{{ child.last_name }}</td>
+                    <td>{{ child.birth_date }}</td>
+                    <td><a href="{% url 'child-update' child.id %}">modify<a/> | <a href="{% url 'child-delete' child.id %}">delete<a/></td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <th colspan="4">No children added.</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

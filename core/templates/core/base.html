@@ -25,8 +25,8 @@
             <li class="nav-item{% if request.path == '/' %} active{% endif %}">
                 <a class="nav-link" href="{% url 'index' %}">Home</a>
             </li>
-            <li class="nav-item{% if request.path == '/child/add/' %} active{% endif %}">
-                <a class="nav-link" href="{% url 'child-add' %}">Add Child</a>
+            <li class="nav-item{% if request.path == '/children/' %} active{% endif %}">
+                <a class="nav-link" href="{% url 'child-list' %}">Children</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -39,7 +39,7 @@
     </div>
 </nav>
 
-<div class="container" style="padding: 3rem 1.5rem; text-align: center;">
+<div class="container" style="padding: 3rem 1.5rem;">
     {% block content %}{% endblock %}
 </div>
 </body>
