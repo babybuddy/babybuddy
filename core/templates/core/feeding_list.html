@@ -11,11 +11,11 @@
                 <tr>
                     <th>#</th>
                     <th>Child</th>
-                    <th>Start</th>
-                    <th>End</th>
+                    <th>Date</th>
                     <th>Duration</th>
                     <th>Type</th>
                     <th>Method</th>
+                    <th>Amount (oz)</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -25,10 +25,10 @@
                         <th scope="row">{{ feeding.id }}</th>
                         <td>{{ feeding.child }}</td>
                         <td>{{ feeding.start }}</td>
-                        <td>{{ feeding.end }}</td>
                         <td>{{ feeding.duration }}</td>
                         <td>{{ feeding.type }}</td>
                         <td>{{ feeding.method }}</td>
+                        <td>{{ feeding.amount }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
                                 <a href="{% url 'feeding-update' feeding.id %}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>

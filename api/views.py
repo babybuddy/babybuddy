@@ -33,7 +33,7 @@ class FeedingViewSet(viewsets.ModelViewSet):
     serializer_class = FeedingSerializer
 
     def get_queryset(self):
-        params = ['baby__last_name', 'type', 'method']
+        params = ['baby__last_name', 'type', 'method', 'amount']
         return filter_by_params(self.request, Feeding, params)
 
 

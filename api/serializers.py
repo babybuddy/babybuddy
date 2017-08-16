@@ -21,7 +21,8 @@ class DiaperChangeSerializer(serializers.HyperlinkedModelSerializer):
 class FeedingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Feeding
-        fields = ('baby', 'start', 'end', 'duration', 'type', 'method')
+        fields = ('baby', 'start', 'end', 'duration', 'type', 'method',
+                  'amount')
 
 
 class NoteSerializer(serializers.HyperlinkedModelSerializer):

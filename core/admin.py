@@ -22,9 +22,11 @@ class DiaperChangeAdmin(admin.ModelAdmin):
 
 @admin.register(Feeding)
 class FeedingAdmin(admin.ModelAdmin):
-    list_display = ('start', 'end', 'duration', 'child', 'type', 'method',)
+    list_display = ('start', 'end', 'duration', 'child', 'type', 'method',
+                    'amount')
     list_filter = ('child', 'type', 'method',)
-    search_fields = ('child__first_name', 'child__last_name', 'type', 'method',)
+    search_fields = ('child__first_name', 'child__last_name', 'type',
+                     'method',)
 
 
 @admin.register(Note)

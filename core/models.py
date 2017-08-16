@@ -57,6 +57,7 @@ class Feeding(models.Model):
         ('left breast', 'Left breast'),
         ('right breast', 'Right breast'),
     ])
+    amount = models.FloatField(blank=True, null=True)
 
     objects = models.Manager()
 
