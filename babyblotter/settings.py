@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'api',
+    'babyblotter',
     'core',
 
     'rest_framework',
@@ -73,6 +74,16 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
+# Authentication
+# https://docs.djangoproject.com/en/1.11/topics/auth/default/
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/login/'
+
+LOGOUT_REDIRECT_URL = '/login/'
 
 
 # Internationalization

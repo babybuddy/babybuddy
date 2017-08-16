@@ -1,0 +1,39 @@
+{% extends "registration/base.html" %}
+{% load static widget_tweaks %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
+    <form class="login-form" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <label class="sr-only" for="username-input-group">
+            {{ form.username.label }}
+        </label>
+        <div class="input-group mb-3 fade-in">
+            <div class="input-group-addon">
+                <i class="fa fa-user" aria-hidden="true"></i>
+            </div>
+            {% render_field form.username name='username' class+='form-control' id='username-input-group' placeholder=form.username.label %}
+        </div>
+
+        <label class="sr-only" for="password-input-group">
+            {{ form.password.label }}
+        </label>
+        <div class="input-group mb-3 fade-in">
+            <div class="input-group-addon">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+            </div>
+            {% render_field form.password name='password' class+='form-control' id='password-input-group' placeholder=form.password.label %}
+        </div>
+
+        <button class="btn btn-primary w-100 fade-in" type="submit" name="login">
+            Login
+        </button>
+    </form>
+
+    <div class="bg-faded text-center px-4 py-3 rounded-bottom">
+        <a href="{% url 'password_reset' %}" name="reset">Forgot your password?</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load static widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %} | Baby Blotter</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+          crossorigin="anonymous">
+</head>
+    <body class="bg-dark registration">
+        <div id="view-{{ request.resolver_match.view_name }}" class="container">
+            <div class="text-center mb-4">
+                <h1 class="display-3 mb-3 text-white"><span class="text-info">Baby</span> Blotter</h1>
+            </div>
+            <div class="bg-light p-4 rounded">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item{% if request.path == '/' %} active{% endif %}">
-                <a class="nav-link" href="{% url 'index' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                <a class="nav-link" href="{% url 'index' %}"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a>
             </li>
             <li class="nav-item{% if request.path == '/children/' %} active{% endif %}">
                 <a class="nav-link" href="{% url 'child-list' %}"><i class="fa fa-child" aria-hidden="true"></i> Children</a>
@@ -51,7 +51,7 @@
     </div>
 </nav>
 
-<div class="container-fluid">
+<div id="view-{{ request.resolver_match.view_name }}" class="container-fluid">
     {% block content %}{% endblock %}
 </div>
 </body>
