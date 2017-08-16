@@ -126,7 +126,8 @@ class Timer(models.Model):
         return 'Timer ({})'.format(self.name)
 
     def duration(self):
-        return duration_string(self.start, self.end or timezone.now())
+        return duration_string(self.start, self.end or timezone.now(),
+                               short=True)
 
     def save(self, *args, **kwargs):
         self.active = self.end is None
