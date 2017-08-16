@@ -5,7 +5,6 @@
 
 {% block content %}
     <h1>Children</h1>
-
     <table class="table table-striped table-hover">
         <thead class="thead-inverse">
             <tr>
@@ -37,4 +36,5 @@
             {% endfor %}
         </tbody>
     </table>
+    <a href="{% url 'child-add' %}" class="btn btn-sm btn-success"><i class="fa fa-child" aria-hidden="true"></i> Add a Child</a>
 {% endblock %}
