@@ -37,3 +37,13 @@
         <a href="{% url 'diaperchange-list' %}" class="btn btn-default">Cancel</a>
     </form>
 {% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $(function () {
+            $('#id_time').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm'
+            });
+        });
+    </script>
+{% endblock %}

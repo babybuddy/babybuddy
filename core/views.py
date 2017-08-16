@@ -7,7 +7,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 from .models import Child, DiaperChange, Feeding, Note, Sleep, TummyTime
-from .forms import ChildAddForm
+from .forms import (ChildForm, DiaperChangeForm, FeedingForm, SleepForm,
+                    TummyTimeForm)
 
 
 class Dashboard(LoginRequiredMixin, TemplateView):
@@ -19,14 +20,14 @@ class ChildList(LoginRequiredMixin, ListView):
 
 
 class ChildAdd(LoginRequiredMixin, CreateView):
-    form_class = ChildAddForm
     model = Child
+    form_class = ChildForm
     success_url = '/children'
 
 
 class ChildUpdate(LoginRequiredMixin, UpdateView):
     model = Child
-    fields = ['first_name', 'last_name', 'birth_date']
+    form_class = ChildForm
     success_url = '/children'
 
 
@@ -41,13 +42,13 @@ class DiaperChangeList(LoginRequiredMixin, ListView):
 
 class DiaperChangeAdd(LoginRequiredMixin, CreateView):
     model = DiaperChange
-    fields = ['child', 'time', 'wet', 'solid', 'color']
+    form_class = DiaperChangeForm
     success_url = '/changes'
 
 
 class DiaperChangeUpdate(LoginRequiredMixin, UpdateView):
     model = DiaperChange
-    fields = ['child', 'time', 'wet', 'solid', 'color']
+    form_class = DiaperChangeForm
     success_url = '/changes'
 
 
@@ -62,13 +63,13 @@ class FeedingList(LoginRequiredMixin, ListView):
 
 class FeedingAdd(LoginRequiredMixin, CreateView):
     model = Feeding
-    fields = ['child', 'start', 'end', 'type', 'method']
+    form_class = FeedingForm
     success_url = '/feedings'
 
 
 class FeedingUpdate(LoginRequiredMixin, UpdateView):
     model = Feeding
-    fields = ['child', 'start', 'end', 'type', 'method']
+    form_class = FeedingForm
     success_url = '/feedings'
 
 
@@ -104,13 +105,13 @@ class SleepList(LoginRequiredMixin, ListView):
 
 class SleepAdd(LoginRequiredMixin, CreateView):
     model = Sleep
-    fields = ['child', 'start', 'end']
+    form_class = SleepForm
     success_url = '/sleep'
 
 
 class SleepUpdate(LoginRequiredMixin, UpdateView):
     model = Sleep
-    fields = ['child', 'start', 'end']
+    form_class = SleepForm
     success_url = '/sleep'
 
 
@@ -125,13 +126,13 @@ class TummyTimeList(LoginRequiredMixin, ListView):
 
 class TummyTimeAdd(LoginRequiredMixin, CreateView):
     model = TummyTime
-    fields = ['child', 'start', 'end', 'milestone']
+    form_class = TummyTimeForm
     success_url = '/tummy-time'
 
 
 class TummyTimeUpdate(LoginRequiredMixin, UpdateView):
     model = TummyTime
-    fields = ['child', 'start', 'end', 'milestone']
+    form_class = TummyTimeForm
     success_url = '/tummy-time'
 
 

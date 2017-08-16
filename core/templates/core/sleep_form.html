@@ -37,3 +37,17 @@
         <a href="{% url 'sleep-list' %}" class="btn btn-default">Cancel</a>
     </form>
 {% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $(function () {
+            $('#id_start').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm',
+                useCurrent: false
+            });
+            $('#id_end').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm'
+            });
+        });
+    </script>
+{% endblock %}
