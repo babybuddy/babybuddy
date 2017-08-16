@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils import timezone
 
 from .utils import duration_string
 
@@ -41,7 +42,8 @@ class DiaperChange(models.Model):
         ordering = ['-time']
 
     def __str__(self):
-        return 'Diaper change for {} on {}'.format(self.child, self.time.date())
+        return 'Diaper change for {} on {}'.format(
+            self.child, self.time.date())
 
 
 class Feeding(models.Model):
@@ -106,6 +108,29 @@ class Sleep(models.Model):
 
     def duration(self):
         return duration_string(self.start, self.end)
+
+
+class Timer(models.Model):
+    name = models.CharField(max_length=255, blank=True)
+    start = models.DateTimeField(auto_now=True)
+    end = models.DateTimeField(blank=True, null=True, editable=False)
+    active = models.BooleanField(default=True, editable=False)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['active', '-start']
+
+    def __str__(self):
+        return 'Timer ({})'.format(self.name)
+
+    def duration(self):
+        return duration_string(self.start, self.end or timezone.now())
+
+    def save(self, *args, **kwargs):
+        self.active = self.end is None
+        super(Timer, self).save(*args, **kwargs)
 
 
 class TummyTime(models.Model):
