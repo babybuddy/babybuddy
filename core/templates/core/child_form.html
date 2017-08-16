@@ -1,10 +1,10 @@
 {% extends 'core/base.html' %}
 {% load i18n widget_tweaks %}
 
-{% block title %}Add a Baby{% endblock %}
+{% block title %}Add a Child{% endblock %}
 
 {% block content %}
-    <h1>Add a Baby</h1>
+    <h1>Add a Child</h1>
     <form role="form" method="post">
         {% csrf_token %}
         {% for field in form %}

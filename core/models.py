@@ -6,7 +6,7 @@ from django.db import models
 from .utils import duration_string
 
 
-class Baby(models.Model):
+class Child(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField(blank=False, null=False)
@@ -16,14 +16,14 @@ class Baby(models.Model):
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
         ordering = ['last_name', 'first_name']
-        verbose_name_plural = 'Babies'
+        verbose_name_plural = 'Children'
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
 
 class DiaperChange(models.Model):
-    baby = models.ForeignKey('Baby', related_name='diaper_change')
+    baby = models.ForeignKey('Child', related_name='diaper_change')
     time = models.DateTimeField(blank=False, null=False)
     wet = models.BooleanField()
     solid = models.BooleanField()
@@ -45,7 +45,7 @@ class DiaperChange(models.Model):
 
 
 class Feeding(models.Model):
-    baby = models.ForeignKey('Baby', related_name='feeding')
+    baby = models.ForeignKey('Child', related_name='feeding')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
     type = models.CharField(max_length=255, choices=[
@@ -73,7 +73,7 @@ class Feeding(models.Model):
 
 
 class Note(models.Model):
-    baby = models.ForeignKey('Baby', related_name='note')
+    baby = models.ForeignKey('Child', related_name='note')
     note = models.TextField()
     time = models.DateTimeField(auto_now=True)
 
@@ -88,7 +88,7 @@ class Note(models.Model):
 
 
 class Sleep(models.Model):
-    baby = models.ForeignKey('Baby', related_name='sleep')
+    baby = models.ForeignKey('Child', related_name='sleep')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
 
@@ -108,7 +108,7 @@ class Sleep(models.Model):
 
 
 class TummyTime(models.Model):
-    baby = models.ForeignKey('Baby', related_name='tummy_time')
+    baby = models.ForeignKey('Child', related_name='tummy_time')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
     milestone = models.CharField(max_length=255, blank=True)

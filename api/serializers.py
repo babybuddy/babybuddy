@@ -3,12 +3,12 @@ from __future__ import unicode_literals
 
 from rest_framework import serializers
 
-from core.models import Baby, DiaperChange, Feeding, Note, Sleep, TummyTime
+from core.models import Child, DiaperChange, Feeding, Note, Sleep, TummyTime
 
 
-class BabySerializer(serializers.HyperlinkedModelSerializer):
+class ChildSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Baby
+        model = Child
         fields = ('first_name', 'last_name', 'birth_date')
 
 
