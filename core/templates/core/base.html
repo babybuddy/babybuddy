@@ -1,4 +1,5 @@
 {% load static %}
+{% load timers %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,8 +57,12 @@
 
 <div id="view-{{ request.resolver_match.view_name }}" class="container-fluid">
     <div class="row justify-content-md-center">
-        <div class="col-lg-8">
+        <div class="col-lg-8 mb-4">
             {% block content %}{% endblock %}
+        </div>
+        <div class="col-lg-2">
+            <h1>Timers</h1>
+            {% list_timers %}
         </div>
     </div>
 </div>
