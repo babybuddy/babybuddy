@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Delete a Feeding{% endblock %}
+
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a href="{% url 'feeding-list' %}" class="btn btn-default">Cancel</a>
+    </form>
+{% endblock %}

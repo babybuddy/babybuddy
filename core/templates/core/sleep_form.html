@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    {% if request.resolver_match.url_name == 'sleep-update' %}
+        Update a Sleep Entry
+    {% else %}
+        Add a Sleep Entry
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if object %}
+        <h1>Update <span class="text-info">{{ object }}</span></h1>
+    {% else %}
+        <h1>Add a Sleep Entry</h1>
+    {% endif %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="id_{{ field.name }}">{{ field.label }}</label>
+                {% if field.errors %}
+                    {{ field|attr:"class:form-control is-invalid" }}
+                {% else %}
+                    {{ field|attr:"class:form-control" }}
+                {% endif %}
+                {% if field.help_text %}
+                    <p class="help-block"><small>{{ field.help_text }}</small></p>
+                {% endif %}
+            {% if field.errors %}
+                <p class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</p>
+            {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{% url 'sleep-list' %}" class="btn btn-default">Cancel</a>
+    </form>
+{% endblock %}
