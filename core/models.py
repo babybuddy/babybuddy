@@ -23,7 +23,7 @@ class Child(models.Model):
 
 
 class DiaperChange(models.Model):
-    baby = models.ForeignKey('Child', related_name='diaper_change')
+    child = models.ForeignKey('Child', related_name='diaper_change')
     time = models.DateTimeField(blank=False, null=False)
     wet = models.BooleanField()
     solid = models.BooleanField()
@@ -41,11 +41,11 @@ class DiaperChange(models.Model):
         ordering = ['-time']
 
     def __str__(self):
-        return 'Diaper change for {} on {}'.format(self.baby, self.time.date())
+        return 'Diaper change for {} on {}'.format(self.child, self.time.date())
 
 
 class Feeding(models.Model):
-    baby = models.ForeignKey('Child', related_name='feeding')
+    child = models.ForeignKey('Child', related_name='feeding')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
     type = models.CharField(max_length=255, choices=[
@@ -66,14 +66,14 @@ class Feeding(models.Model):
 
     def __str__(self):
         return 'Feeding for {} on {} ({})'.format(
-            self.baby, self.end.date(), self.duration())
+            self.child, self.end.date(), self.duration())
 
     def duration(self):
         return duration_string(self.start, self.end)
 
 
 class Note(models.Model):
-    baby = models.ForeignKey('Child', related_name='note')
+    child = models.ForeignKey('Child', related_name='note')
     note = models.TextField()
     time = models.DateTimeField(auto_now=True)
 
@@ -84,11 +84,11 @@ class Note(models.Model):
         ordering = ['-time']
 
     def __str__(self):
-        return 'Note about {} on {}'.format(self.baby, self.time.date())
+        return 'Note about {} on {}'.format(self.child, self.time.date())
 
 
 class Sleep(models.Model):
-    baby = models.ForeignKey('Child', related_name='sleep')
+    child = models.ForeignKey('Child', related_name='sleep')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
 
@@ -101,14 +101,14 @@ class Sleep(models.Model):
 
     def __str__(self):
         return 'Sleep for {} on {} ({})'.format(
-            self.baby, self.end.date(), self.duration())
+            self.child, self.end.date(), self.duration())
 
     def duration(self):
         return duration_string(self.start, self.end)
 
 
 class TummyTime(models.Model):
-    baby = models.ForeignKey('Child', related_name='tummy_time')
+    child = models.ForeignKey('Child', related_name='tummy_time')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
     milestone = models.CharField(max_length=255, blank=True)
@@ -121,7 +121,7 @@ class TummyTime(models.Model):
 
     def __str__(self):
         return 'Tummy time for {} on {} ({})'.format(
-            self.baby, self.end.date(), self.duration())
+            self.child, self.end.date(), self.duration())
 
     def duration(self):
         return duration_string(self.start, self.end)

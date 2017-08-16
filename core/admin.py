@@ -15,34 +15,34 @@ class ChildAdmin(admin.ModelAdmin):
 
 @admin.register(DiaperChange)
 class DiaperChangeAdmin(admin.ModelAdmin):
-    list_display = ('baby', 'time', 'wet', 'solid', 'color')
-    list_filter = ('baby', 'wet', 'solid', 'color')
-    search_fields = ('baby__first_name', 'baby__last_name',)
+    list_display = ('child', 'time', 'wet', 'solid', 'color')
+    list_filter = ('child', 'wet', 'solid', 'color')
+    search_fields = ('child__first_name', 'child__last_name',)
 
 
 @admin.register(Feeding)
 class FeedingAdmin(admin.ModelAdmin):
-    list_display = ('start', 'end', 'duration', 'baby', 'type', 'method',)
-    list_filter = ('baby', 'type', 'method',)
-    search_fields = ('baby__first_name', 'baby__last_name', 'type', 'method',)
+    list_display = ('start', 'end', 'duration', 'child', 'type', 'method',)
+    list_filter = ('child', 'type', 'method',)
+    search_fields = ('child__first_name', 'child__last_name', 'type', 'method',)
 
 
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ('time', 'baby', 'note',)
-    list_filter = ('baby',)
-    search_fields = ('baby__last_name',)
+    list_display = ('time', 'child', 'note',)
+    list_filter = ('child',)
+    search_fields = ('child__last_name',)
 
 
 @admin.register(Sleep)
 class SleepAdmin(admin.ModelAdmin):
-    list_display = ('start', 'end', 'duration', 'baby',)
-    list_filter = ('baby',)
-    search_fields = ('baby__first_name', 'baby__last_name',)
+    list_display = ('start', 'end', 'duration', 'child',)
+    list_filter = ('child',)
+    search_fields = ('child__first_name', 'child__last_name',)
 
 
 @admin.register(TummyTime)
 class TummyTimeAdmin(admin.ModelAdmin):
-    list_display = ('start', 'end', 'duration', 'baby', 'milestone',)
-    list_filter = ('baby',)
-    search_fields = ('baby__first_name', 'baby__last_name', 'milestone',)
+    list_display = ('start', 'end', 'duration', 'child', 'milestone',)
+    list_filter = ('child',)
+    search_fields = ('child__first_name', 'child__last_name', 'milestone',)
