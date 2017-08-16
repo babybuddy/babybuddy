@@ -30,3 +30,4 @@ class ChildUpdate(UpdateView):
 
 class ChildDelete(DeleteView):
     model = Child
+    success_url = '/children'

@@ -11,7 +11,7 @@
 
 {% block content %}
     {% if object %}
-        <h1>Update <span class="text-info">{{ object.first_name }} {{ object.last_name }}</span></h1>
+        <h1>Update <span class="text-info">{{ object }}</span></h1>
     {% else %}
         <h1>Add a Child</h1>
     {% endif %}
@@ -34,5 +34,6 @@
             </div>
         {% endfor %}
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{% url 'child-list' %}" class="btn btn-default">Cancel</a>
     </form>
 {% endblock %}
