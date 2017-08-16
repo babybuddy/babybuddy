@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 from .models import Child, DiaperChange, Feeding, Note, Sleep, TummyTime
+from .forms import ChildAddForm
 
 
 class Dashboard(LoginRequiredMixin, TemplateView):
@@ -18,8 +19,8 @@ class ChildList(LoginRequiredMixin, ListView):
 
 
 class ChildAdd(LoginRequiredMixin, CreateView):
+    form_class = ChildAddForm
     model = Child
-    fields = ['first_name', 'last_name', 'birth_date']
     success_url = '/children'
 
 

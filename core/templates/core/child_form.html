@@ -37,3 +37,14 @@
         <a href="{% url 'child-list' %}" class="btn btn-default">Cancel</a>
     </form>
 {% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $(function () {
+            $('#id_birth_date').datetimepicker({
+                viewMode: 'years',
+                format: 'YYYY-MM-DD'
+            });
+        });
+    </script>
+{% endblock %}
