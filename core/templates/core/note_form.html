@@ -21,9 +21,9 @@
             <div class="form-group">
                 <label for="id_{{ field.name }}">{{ field.label }}</label>
                 {% if field.errors %}
-                    {{ field|attr:"class:form-control is-invalid" }}
+                    {{ field|add_class:"form-control is-invalid" }}
                 {% else %}
-                    {{ field|attr:"class:form-control" }}
+                    {{ field|add_class:"form-control" }}
                 {% endif %}
                 {% if field.help_text %}
                     <p class="help-block"><small>{{ field.help_text }}</small></p>
