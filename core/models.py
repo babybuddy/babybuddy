@@ -115,6 +115,7 @@ class Timer(models.Model):
     start = models.DateTimeField(auto_now=True)
     end = models.DateTimeField(blank=True, null=True, editable=False)
     active = models.BooleanField(default=True, editable=False)
+    user = models.ForeignKey('auth.User', related_name='timers')
 
     objects = models.Manager()
 

@@ -9,9 +9,10 @@ from core.models import Timer
 register = template.Library()
 
 
-@register.inclusion_tag('timer_list.html')
-def list_timers(active=True):
-    timers = Timer.objects.filter(active=active)
+@register.inclusion_tag('timer_list.html', takes_context=True)
+def list_timers(context, active=True):
+    request = context['request'] or None
+    timers = Timer.objects.filter(user=request.user, active=active)
     return {'timers': timers}
 
 

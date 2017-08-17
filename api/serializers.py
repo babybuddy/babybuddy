@@ -49,7 +49,7 @@ class SleepSerializer(serializers.HyperlinkedModelSerializer):
 class TimerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Timer
-        fields = ('name', 'start', 'end', 'duration', 'active')
+        fields = ('name', 'start', 'end', 'duration', 'active', 'user')
 
 
 class TummyTimeSerializer(serializers.HyperlinkedModelSerializer):

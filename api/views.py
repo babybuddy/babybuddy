@@ -62,7 +62,7 @@ class TimerViewSet(viewsets.ModelViewSet):
     serializer_class = TimerSerializer
 
     def get_queryset(self):
-        params = ['name', 'active']
+        params = ['name', 'active', 'user']
         return filter_by_params(self.request, Timer, params)
 
 

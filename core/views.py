@@ -169,12 +169,10 @@ class TummyTimeAdd(PermissionRequiredMixin, CreateView):
 
 class TummyTimeUpdate(PermissionRequiredMixin, UpdateView):
     model = TummyTime
-    permission_required = ('core.change_tummytime',)
     form_class = TummyTimeForm
     success_url = '/tummy-time'
 
 
 class TummyTimeDelete(PermissionRequiredMixin, DeleteView):
     model = TummyTime
-    permission_required = ('core.delete_tummytime',)
     success_url = '/tummy-time'

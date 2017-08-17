@@ -46,9 +46,9 @@ class SleepAdmin(admin.ModelAdmin):
 
 @admin.register(Timer)
 class TimerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'start', 'end', 'duration', 'active',)
-    list_filter = ('active',)
-    search_fields = ('name',)
+    list_display = ('name', 'start', 'end', 'duration', 'active', 'user')
+    list_filter = ('active', 'user')
+    search_fields = ('name', 'user')
 
 
 @admin.register(TummyTime)
