@@ -45,6 +45,8 @@ urlpatterns = [
     url(r'sleep/(?P<pk>[0-9]+)/delete/$', views.SleepDelete.as_view(),
         name='sleep-delete'),
 
+    url(r'timer/add/$', views.TimerAdd.as_view(), name='timer-add'),
+
     url(r'tummy-time/$', views.TummyTimeList.as_view(), name='tummytime-list'),
     url(r'tummy-time/add/$', views.TummyTimeAdd.as_view(),
         name='tummytime-add'),

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django import forms
 
-from .models import Child, DiaperChange, Feeding, Sleep, TummyTime
+from .models import Child, DiaperChange, Feeding, Sleep, Timer, TummyTime
 
 
 class ChildForm(forms.ModelForm):
@@ -66,6 +66,14 @@ class SleepForm(forms.ModelForm):
                 'data-target': '#id_end',
             }),
         }
+
+
+class TimerForm(forms.ModelForm):
+    next = forms.CharField(required=False)
+
+    class Meta:
+        model = Timer
+        fields = ['name']
 
 
 class TummyTimeForm(forms.ModelForm):

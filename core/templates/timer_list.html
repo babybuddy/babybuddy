@@ -1,16 +1,3 @@
-<div class="card border-primary text-center mb-2">
-    <div class="card-header text-white bg-primary ">New Timer</div>
-    <div class="card-body text-primary">
-        <form class="form-inline" role="form" method="post">
-            {% csrf_token %}
-            <div class="input-group input-group-sm">
-                <input name="name" value="" class="form-control" id="id_name" maxlength="255" type="text" placeholder="Timer Name (optional)">
-                <button type="submit" class="input-group-addon btn btn-primary">Start</button>
-            </div>
-        </form>
-    </div>
-</div>
-
 {% for timer in timers %}
     <div class="card border-success text-center mb-2">
         <div class="card-header text-white bg-success ">{{ timer.name }}</div>

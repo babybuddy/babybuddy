@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import resolve
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
-from .models import Child, DiaperChange, Feeding, Note, Sleep, TummyTime
+from .models import Child, DiaperChange, Feeding, Note, Sleep, Timer, TummyTime
 from .forms import (ChildForm, DiaperChangeForm, FeedingForm, SleepForm,
-                    TummyTimeForm)
+                    TimerForm, TummyTimeForm)
 
 
 class Dashboard(LoginRequiredMixin, TemplateView):
@@ -118,6 +119,18 @@ class SleepUpdate(LoginRequiredMixin, UpdateView):
 class SleepDelete(LoginRequiredMixin, DeleteView):
     model = Sleep
     success_url = '/sleep'
+
+
+class TimerAdd(LoginRequiredMixin, CreateView):
+    model = Timer
+    form_class = TimerForm
+
+    def get_success_url(self):
+        if resolve(self.request.POST['success_url']).url_name:
+            url = self.request.POST['success_url']
+        else:
+            url = '/'
+        return url
 
 
 class TummyTimeList(LoginRequiredMixin, ListView):

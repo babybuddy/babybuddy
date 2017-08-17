@@ -131,6 +131,7 @@ class Timer(models.Model):
 
     def save(self, *args, **kwargs):
         self.active = self.end is None
+        self.name = self.name or 'Unnamed Timer'
         super(Timer, self).save(*args, **kwargs)
 
 
