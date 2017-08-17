@@ -9,7 +9,7 @@ from .views import (ChildViewSet, DiaperChangeViewSet, FeedingViewSet,
 
 router = routers.DefaultRouter()
 router.register(r'children', ChildViewSet)
-router.register(r'diaper-changes', DiaperChangeViewSet)
+router.register(r'changes', DiaperChangeViewSet)
 router.register(r'feedings', FeedingViewSet)
 router.register(r'notes', NoteViewSet)
 router.register(r'sleep', SleepViewSet)

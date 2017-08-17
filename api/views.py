@@ -26,7 +26,7 @@ class DiaperChangeViewSet(viewsets.ModelViewSet):
     serializer_class = DiaperChangeSerializer
 
     def get_queryset(self):
-        params = ['baby__last_name', 'wet', 'solid', 'color']
+        params = ['child__last_name', 'wet', 'solid', 'color']
         return filter_by_params(self.request, DiaperChange, params)
 
 
@@ -35,7 +35,7 @@ class FeedingViewSet(viewsets.ModelViewSet):
     serializer_class = FeedingSerializer
 
     def get_queryset(self):
-        params = ['baby__last_name', 'type', 'method', 'amount']
+        params = ['child__last_name', 'type', 'method', 'amount']
         return filter_by_params(self.request, Feeding, params)
 
 
@@ -44,7 +44,7 @@ class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
 
     def get_queryset(self):
-        params = ['baby__last_name']
+        params = ['child__last_name']
         return filter_by_params(self.request, Note, params)
 
 
@@ -53,7 +53,7 @@ class SleepViewSet(viewsets.ModelViewSet):
     serializer_class = SleepSerializer
 
     def get_queryset(self):
-        params = ['baby__last_name']
+        params = ['child__last_name']
         return filter_by_params(self.request, Sleep, params)
 
 
@@ -71,5 +71,5 @@ class TummyTimeViewSet(viewsets.ModelViewSet):
     serializer_class = TummyTimeSerializer
 
     def get_queryset(self):
-        params = ['baby__last_name']
+        params = ['child__last_name']
         return filter_by_params(self.request, TummyTime, params)

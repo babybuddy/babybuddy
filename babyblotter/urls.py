@@ -13,6 +13,6 @@ urlpatterns = [
     url('^password_reset/$', views.PasswordResetView.as_view(),
         name='password_reset',),
 
+    url(r'', include('api.urls', namespace='api')),
     url(r'', include('core.urls')),
-    url(r'', include('api.urls')),
 ]

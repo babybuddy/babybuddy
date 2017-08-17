@@ -14,28 +14,36 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DiaperChangeSerializer(serializers.HyperlinkedModelSerializer):
+    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+
     class Meta:
         model = DiaperChange
-        fields = ('baby', 'time', 'wet', 'solid', 'color')
+        fields = ('child', 'time', 'wet', 'solid', 'color')
 
 
 class FeedingSerializer(serializers.HyperlinkedModelSerializer):
+    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+
     class Meta:
         model = Feeding
-        fields = ('baby', 'start', 'end', 'duration', 'type', 'method',
+        fields = ('child', 'start', 'end', 'duration', 'type', 'method',
                   'amount')
 
 
 class NoteSerializer(serializers.HyperlinkedModelSerializer):
+    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+
     class Meta:
         model = Note
-        fields = ('baby', 'note', 'time')
+        fields = ('child', 'note', 'time')
 
 
 class SleepSerializer(serializers.HyperlinkedModelSerializer):
+    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+
     class Meta:
         model = Sleep
-        fields = ('baby', 'start', 'end', 'duration')
+        fields = ('child', 'start', 'end', 'duration')
 
 
 class TimerSerializer(serializers.HyperlinkedModelSerializer):
@@ -45,6 +53,8 @@ class TimerSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class TummyTimeSerializer(serializers.HyperlinkedModelSerializer):
+    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+
     class Meta:
         model = TummyTime
-        fields = ('baby', 'start', 'end', 'duration', 'milestone')
+        fields = ('child', 'start', 'end', 'duration', 'milestone')
