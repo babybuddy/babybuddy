@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.core.urlresolvers import resolve
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -16,113 +17,134 @@ class Dashboard(LoginRequiredMixin, TemplateView):
     template_name = 'core/index.html'
 
 
-class ChildList(LoginRequiredMixin, ListView):
+class ChildList(PermissionRequiredMixin, ListView):
     model = Child
+    permission_required = ('core.view_child',)
 
 
-class ChildAdd(LoginRequiredMixin, CreateView):
+class ChildAdd(PermissionRequiredMixin, CreateView):
     model = Child
+    permission_required = ('core.add_child',)
     form_class = ChildForm
     success_url = '/children'
 
 
-class ChildUpdate(LoginRequiredMixin, UpdateView):
+class ChildUpdate(PermissionRequiredMixin, UpdateView):
     model = Child
+    permission_required = ('core.change_child',)
     form_class = ChildForm
     success_url = '/children'
 
 
-class ChildDelete(LoginRequiredMixin, DeleteView):
+class ChildDelete(PermissionRequiredMixin, DeleteView):
     model = Child
+    permission_required = ('core.delete_child',)
     success_url = '/children'
 
 
-class DiaperChangeList(LoginRequiredMixin, ListView):
+class DiaperChangeList(PermissionRequiredMixin, ListView):
     model = DiaperChange
+    permission_required = ('core.view_diaperchange',)
 
 
-class DiaperChangeAdd(LoginRequiredMixin, CreateView):
+class DiaperChangeAdd(PermissionRequiredMixin, CreateView):
     model = DiaperChange
+    permission_required = ('core.add_diaperchange',)
     form_class = DiaperChangeForm
     success_url = '/changes'
 
 
-class DiaperChangeUpdate(LoginRequiredMixin, UpdateView):
+class DiaperChangeUpdate(PermissionRequiredMixin, UpdateView):
     model = DiaperChange
+    permission_required = ('core.change_diaperchange',)
     form_class = DiaperChangeForm
     success_url = '/changes'
 
 
-class DiaperChangeDelete(LoginRequiredMixin, DeleteView):
+class DiaperChangeDelete(PermissionRequiredMixin, DeleteView):
     model = DiaperChange
+    permission_required = ('core.delete_diaperchange',)
     success_url = '/changes'
 
 
-class FeedingList(LoginRequiredMixin, ListView):
+class FeedingList(PermissionRequiredMixin, ListView):
     model = Feeding
+    permission_required = ('core.view_feeding',)
 
 
-class FeedingAdd(LoginRequiredMixin, CreateView):
+class FeedingAdd(PermissionRequiredMixin, CreateView):
     model = Feeding
+    permission_required = ('core.add_feeding',)
     form_class = FeedingForm
     success_url = '/feedings'
 
 
-class FeedingUpdate(LoginRequiredMixin, UpdateView):
+class FeedingUpdate(PermissionRequiredMixin, UpdateView):
     model = Feeding
+    permission_required = ('core.change_feeding',)
     form_class = FeedingForm
     success_url = '/feedings'
 
 
-class FeedingDelete(LoginRequiredMixin, DeleteView):
+class FeedingDelete(PermissionRequiredMixin, DeleteView):
     model = Feeding
+    permission_required = ('core.delete_feeding',)
     success_url = '/feedings'
 
 
-class NoteList(LoginRequiredMixin, ListView):
+class NoteList(PermissionRequiredMixin, ListView):
     model = Note
+    permission_required = ('core.view_note',)
 
 
-class NoteAdd(LoginRequiredMixin, CreateView):
+class NoteAdd(PermissionRequiredMixin, CreateView):
     model = Note
+    permission_required = ('core.add_note',)
     fields = ['child', 'note']
     success_url = '/notes'
 
 
-class NoteUpdate(LoginRequiredMixin, UpdateView):
+class NoteUpdate(PermissionRequiredMixin, UpdateView):
     model = Note
+    permission_required = ('core.change_note',)
     fields = ['child', 'note']
     success_url = '/notes'
 
 
-class NoteDelete(LoginRequiredMixin, DeleteView):
+class NoteDelete(PermissionRequiredMixin, DeleteView):
     model = Note
+    permission_required = ('core.delete_note',)
     success_url = '/notes'
 
 
-class SleepList(LoginRequiredMixin, ListView):
+class SleepList(PermissionRequiredMixin, ListView):
     model = Sleep
+    permission_required = ('core.view_sleep',)
 
 
-class SleepAdd(LoginRequiredMixin, CreateView):
+class SleepAdd(PermissionRequiredMixin, CreateView):
     model = Sleep
+    permission_required = ('core.add_sleep',)
     form_class = SleepForm
     success_url = '/sleep'
 
 
-class SleepUpdate(LoginRequiredMixin, UpdateView):
+class SleepUpdate(PermissionRequiredMixin, UpdateView):
     model = Sleep
+    permission_required = ('core.change_sleep',)
     form_class = SleepForm
     success_url = '/sleep'
 
 
-class SleepDelete(LoginRequiredMixin, DeleteView):
+class SleepDelete(PermissionRequiredMixin, DeleteView):
     model = Sleep
+    permission_required = ('core.delete_sleep',)
     success_url = '/sleep'
 
 
-class TimerAdd(LoginRequiredMixin, CreateView):
+class TimerAdd(PermissionRequiredMixin, CreateView):
     model = Timer
+    permission_required = ('core.add_timer',)
     form_class = TimerForm
 
     def get_success_url(self):
@@ -133,22 +155,26 @@ class TimerAdd(LoginRequiredMixin, CreateView):
         return url
 
 
-class TummyTimeList(LoginRequiredMixin, ListView):
+class TummyTimeList(PermissionRequiredMixin, ListView):
     model = TummyTime
+    permission_required = ('core.view_tummytime',)
 
 
-class TummyTimeAdd(LoginRequiredMixin, CreateView):
+class TummyTimeAdd(PermissionRequiredMixin, CreateView):
     model = TummyTime
+    permission_required = ('core.add_tummytime',)
     form_class = TummyTimeForm
     success_url = '/tummy-time'
 
 
-class TummyTimeUpdate(LoginRequiredMixin, UpdateView):
+class TummyTimeUpdate(PermissionRequiredMixin, UpdateView):
     model = TummyTime
+    permission_required = ('core.change_tummytime',)
     form_class = TummyTimeForm
     success_url = '/tummy-time'
 
 
-class TummyTimeDelete(LoginRequiredMixin, DeleteView):
+class TummyTimeDelete(PermissionRequiredMixin, DeleteView):
     model = TummyTime
+    permission_required = ('core.delete_tummytime',)
     success_url = '/tummy-time'
