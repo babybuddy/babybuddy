@@ -20,13 +20,24 @@
                 {% for child in object_list %}
                     <tr>
                         <th scope="row">{{ child.id }}</th>
-                        <td><a href="{% url 'child-update' child.id %}">{{ child.first_name }}</a></td>
+                        <td>{{ child.first_name }}</td>
                         <td>{{ child.last_name }}</td>
                         <td>{{ child.birth_date }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-                                <a href="{% url 'child-update' child.id %}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <a href="{% url 'child-delete' child.id %}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                {% if perms.core.change_child %}
+                                    <a href="{% url 'child-update' child.id %}" class="btn btn-primary">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.delete_child %}
+                                    <a href="{% url 'child-delete' child.id %}" class="btn btn-danger">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
                             </div>
                         </td>
                     </tr>
@@ -38,5 +49,11 @@
             </tbody>
         </table>
     </div>
-    <a href="{% url 'child-add' %}" class="btn btn-sm btn-success"><i class="fa fa-child" aria-hidden="true"></i> Add a Child</a>
+
+    {% if perms.core.add_child %}
+        <a href="{% url 'child-add' %}" class="btn btn-sm btn-success">
+            <i class="fa fa-child" aria-hidden="true"></i> Add a Child
+        </a>
+    {% endif %}
+
 {% endblock %}

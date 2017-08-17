@@ -29,8 +29,19 @@
                         <td>{{ change.color }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-                                <a href="{% url 'diaperchange-update' change.id %}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <a href="{% url 'diaperchange-delete' change.id %}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                {% if perms.core.change_diaperchange %}
+                                    <a href="{% url 'diaperchange-update' change.id %}" class="btn btn-primary">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.delete_diaperchange %}
+                                    <a href="{% url 'diaperchange-delete' change.id %}" class="btn btn-danger">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
                             </div>
                         </td>
                     </tr>
@@ -42,5 +53,11 @@
             </tbody>
         </table>
     </div>
-    <a href="{% url 'diaperchange-add' %}" class="btn btn-sm btn-success"><i class="fa fa-trash" aria-hidden="true"></i> Add a Change</a>
+
+    {% if perms.core.add_diaperchange %}
+        <a href="{% url 'diaperchange-add' %}" class="btn btn-sm btn-success">
+            <i class="fa fa-trash" aria-hidden="true"></i> Add a Change
+        </a>
+    {% endif %}
+
 {% endblock %}

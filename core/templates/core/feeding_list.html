@@ -31,8 +31,19 @@
                         <td>{{ feeding.amount }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-                                <a href="{% url 'feeding-update' feeding.id %}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <a href="{% url 'feeding-delete' feeding.id %}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                {% if perms.core.change_feeding %}
+                                    <a href="{% url 'feeding-update' feeding.id %}" class="btn btn-primary">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.delete_feeding %}
+                                    <a href="{% url 'feeding-delete' feeding.id %}" class="btn btn-danger">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
                             </div>
                         </td>
                     </tr>
@@ -44,5 +55,11 @@
             </tbody>
         </table>
     </div>
-    <a href="{% url 'feeding-add' %}" class="btn btn-sm btn-success"><i class="fa fa-spoon" aria-hidden="true"></i> Add a Feeding</a>
+
+    {% if perms.core.add_feeding %}
+        <a href="{% url 'feeding-add' %}" class="btn btn-sm btn-success">
+            <i class="fa fa-spoon" aria-hidden="true"></i> Add a Feeding
+        </a>
+    {% endif %}
+
 {% endblock %}

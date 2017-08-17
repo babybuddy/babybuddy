@@ -25,8 +25,19 @@
                         <td>{{ note.time }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-                                <a href="{% url 'note-update' note.id %}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <a href="{% url 'note-delete' note.id %}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                {% if perms.core.change_note %}
+                                    <a href="{% url 'note-update' note.id %}" class="btn btn-primary">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.delete_note %}
+                                    <a href="{% url 'note-delete' note.id %}" class="btn btn-danger">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
                             </div>
                         </td>
                     </tr>
@@ -38,5 +49,11 @@
             </tbody>
         </table>
     </div>
-    <a href="{% url 'note-add' %}" class="btn btn-sm btn-success"><i class="fa fa-sticky-note" aria-hidden="true"></i> Add a Note</a>
+
+    {% if perms.core.add_note %}
+        <a href="{% url 'note-add' %}" class="btn btn-sm btn-success">
+            <i class="fa fa-sticky-note" aria-hidden="true"></i> Add a Note
+        </a>
+    {% endif %}
+
 {% endblock %}
