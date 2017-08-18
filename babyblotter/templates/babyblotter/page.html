@@ -1,0 +1,22 @@
+{% extends 'babyblotter/nav-horizontal.html' %}
+{% load static %}
+{% load timers %}
+
+{% block page %}
+    <div id="view-{{ request.resolver_match.view_name }}" class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-10 mb-4">
+                {% block content %}{% endblock %}
+            </div>
+            {% if perms.core.view_timer %}
+                <div class="col-lg-2">
+                    <h1>Timers</h1>
+                    {% if perms.core.add_timer %}
+                        {% add_timer request.path %}
+                    {% endif %}
+                    {% list_timers %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

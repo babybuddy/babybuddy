@@ -1,0 +1,71 @@
+{% extends 'babyblotter/base.html' %}
+
+{% block nav %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/"><span class="text-info">Baby</span> Blotter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item{% if request.path == '/' %} active{% endif %}">
+                    <a class="nav-link" href="{% url 'index' %}">
+                        <i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard
+                    </a>
+                </li>
+
+                {% if perms.core.view_child %}
+                    <li class="nav-item{% if request.path == '/children/' %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'child-list' %}">
+                            <i class="fa fa-child" aria-hidden="true"></i> Children
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if perms.core.view_diaperchange %}
+                    <li class="nav-item{% if request.path == '/changes/' %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'diaperchange-list' %}">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Changes
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if perms.core.view_feeding %}
+                    <li class="nav-item{% if request.path == '/feedings/' %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'feeding-list' %}">
+                            <i class="fa fa-spoon" aria-hidden="true"></i> Feedings
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if perms.core.view_sleep %}
+                    <li class="nav-item{% if request.path == '/sleep/' %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'sleep-list' %}">
+                            <i class="fa fa-bed" aria-hidden="true"></i> Sleep
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if perms.core.view_tummytime %}
+                    <li class="nav-item{% if request.path == '/tummy-time/' %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'tummytime-list' %}">
+                            <i class="fa fa-smile-o" aria-hidden="true"></i> Tummy Time
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if perms.core.view_note %}
+                    <li class="nav-item{% if request.path == '/notes/' %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'note-list' %}">
+                            <i class="fa fa-sticky-note" aria-hidden="true"></i> Notes
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
