@@ -1,0 +1,13 @@
+<div class="card border-dark mb-3">
+    <div class="card-header text-white bg-dark h4">
+        <i class="fa fa-bed pull-left" aria-hidden="true"></i>
+        {% block header %}{% endblock %}
+    </div>
+    <div class="card-body text-dark">
+        <h4 class="card-title">{% block title %}{% endblock %}</h4>
+        <div class="card-text">{% block content %}{% endblock %}</div>
+    </div>
+    <div class="card-footer text-muted">
+        {% block footer %}{% endblock %}
+    </div>
+</div>

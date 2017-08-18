@@ -1,0 +1,18 @@
+{% extends 'cards/tummytime.html' %}
+
+{% block header %}Last Tummy Time{% endblock %}
+
+{% block title %}
+    <strong>{{ tummytime.end|timesince }}</strong> ago
+{% endblock %}
+
+{% block content %}
+    <div class="text-muted">
+        {{ tummytime.duration }}
+        {% if tummytime.milestone %}
+            <br /> {{ tummytime.milestone }}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block footer %}{{ tummytime.end }}{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'cards/sleep.html' %}
+
+{% block header %}Last Slept{% endblock %}
+
+{% block title %}
+    <strong>{{ sleep.end|timesince }}</strong> ago
+{% endblock %}
+
+{% block content %}
+    <div class="text-muted">
+        {{ sleep.duration }}
+    </div>
+{% endblock %}
+
+{% block footer %}{{ sleep.end }}{% endblock %}
