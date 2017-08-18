@@ -6,17 +6,29 @@
     <div class="jumbotron text-center">
         <h1 class="display-1">{{ object.duration }}</h1>
         <p class="lead text-muted">Started {{ object.start }} by {{ object.user }}</p>
-        <a class="btn btn-success btn-lg btn-block p-3 mb-3"
-           href="{% url 'feeding-add' %}?timer={{ timer.id }}"
-           role="button"><i class="fa fa-spoon" aria-hidden="true"></i> Feeding</a>
-        <a class="btn btn-success btn-lg btn-block p-3 mb-3"
-           href="{% url 'sleep-add' %}?timer={{ timer.id }}"
-           role="button"><i class="fa fa-bed" aria-hidden="true"></i> Sleep</a>
-        <a class="btn btn-success btn-lg btn-block p-3 mb-3"
-           href="{% url 'tummytime-add' %}?timer={{ timer.id }}"
-           role="button"><i class="fa fa-smile-o" aria-hidden="true"></i> Tummy Time</a>
-        <a class="btn btn-danger btn-lg btn-block p-3 mb-3"
-           href="{% url 'timer-delete' timer.id %}"
-           role="button"><i class="fa fa-times-circle" aria-hidden="true"></i> Delete Timer</a>
+
+        {% if perms.core.add_feeding %}
+            <a class="btn btn-success btn-lg btn-block p-3 mb-3"
+               href="{% url 'feeding-add' %}?timer={{ timer.id }}"
+               role="button"><i class="fa fa-spoon" aria-hidden="true"></i> Feeding</a>
+        {% endif %}
+
+        {% if perms.core.add_sleep %}
+            <a class="btn btn-success btn-lg btn-block p-3 mb-3"
+               href="{% url 'sleep-add' %}?timer={{ timer.id }}"
+               role="button"><i class="fa fa-bed" aria-hidden="true"></i> Sleep</a>
+        {% endif %}
+
+        {% if perms.core.add_tummytime %}
+            <a class="btn btn-success btn-lg btn-block p-3 mb-3"
+               href="{% url 'tummytime-add' %}?timer={{ timer.id }}"
+               role="button"><i class="fa fa-smile-o" aria-hidden="true"></i> Tummy Time</a>
+        {% endif %}
+
+        {% if perms.core.delete_timer %}
+            <a class="btn btn-danger btn-lg btn-block p-3 mb-3"
+               href="{% url 'timer-delete' timer.id %}"
+               role="button"><i class="fa fa-times-circle" aria-hidden="true"></i> Delete Timer</a>
+        {% endif %}
     </div>
 {% endblock %}
