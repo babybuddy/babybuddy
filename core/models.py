@@ -111,7 +111,7 @@ class Sleep(models.Model):
 
 
 class Timer(models.Model):
-    name = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
     start = models.DateTimeField(auto_now=True)
     end = models.DateTimeField(blank=True, null=True, editable=False)
     active = models.BooleanField(default=True, editable=False)
@@ -124,7 +124,7 @@ class Timer(models.Model):
         ordering = ['active', '-start']
 
     def __str__(self):
-        return 'Timer ({})'.format(self.name)
+        return self.name or 'Timer #{}'.format(self.id)
 
     def duration(self):
         return duration_string(self.start, self.end or timezone.now(),
@@ -132,7 +132,7 @@ class Timer(models.Model):
 
     def save(self, *args, **kwargs):
         self.active = self.end is None
-        self.name = self.name or 'Unnamed Timer'
+        self.name = self.name or None
         super(Timer, self).save(*args, **kwargs)
 
 
