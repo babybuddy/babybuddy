@@ -16,7 +16,7 @@ from .forms import (ChildForm, DiaperChangeForm, FeedingForm, SleepForm,
 
 
 class Dashboard(LoginRequiredMixin, TemplateView):
-    template_name = 'core/index.html'
+    template_name = 'core/dashboard.html'
 
 
 class ChildList(PermissionRequiredMixin, ListView):

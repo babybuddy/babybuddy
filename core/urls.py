@@ -6,13 +6,17 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.Dashboard.as_view(), name='index'),
+    url(r'^$', views.Dashboard.as_view(), name='dashboard'),
 
     url(r'children/$', views.ChildList.as_view(), name='child-list'),
     url(r'children/add/$', views.ChildAdd.as_view(), name='child-add'),
     url(r'children/(?P<pk>[0-9]+)/$', views.ChildUpdate.as_view(),
         name='child-update'),
+    url(r'children/(?P<slug>[^/.]+)/$', views.ChildUpdate.as_view(),
+        name='child-update'),
     url(r'children/(?P<pk>[0-9]+)/delete/$', views.ChildDelete.as_view(),
+        name='child-delete'),
+    url(r'children/(?P<slug>[^/.]+)/delete/$', views.ChildDelete.as_view(),
         name='child-delete'),
 
     url(r'changes/$', views.DiaperChangeList.as_view(),
