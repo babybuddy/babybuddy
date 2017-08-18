@@ -1,0 +1,31 @@
+{% extends 'babyblotter/page.html' %}
+
+{% block title %}Dashboard - {{ object }}{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">{{ object }}</h1>
+    <div class="container">
+        <div class="row align-items-start text-center">
+            <div class="col-sm-12 col-md-4 border">
+                awake time
+            </div>
+            <div class="col-sm-12 col-md-4 border">
+                last feeding
+            </div>
+            <div class="col-sm-12 col-md-4 border">
+                change statistics
+            </div>
+        </div>
+        <div class="row align-items-start text-center">
+            <div class="col-sm-12 col-md-4 border">
+                tummy time for the day
+            </div>
+            <div class="col-sm-12 col-md-4 border">
+                available
+            </div>
+            <div class="col-sm-12 col-md-4 border">
+                available
+            </div>
+        </div>
+    </div>
+{% endblock %}
