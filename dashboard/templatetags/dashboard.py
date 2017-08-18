@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from collections import OrderedDict
+
 from django import template
+from django.utils import timezone
 
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
 
@@ -20,6 +23,30 @@ def card_diaperchange_last(child):
     instance = DiaperChange.objects.filter(
         child=child).order_by('-time').first()
     return {'change': instance}
+
+
+@register.inclusion_tag('cards/diaperchange_types.html')
+def card_diaperchange_types(child):
+    """Diaper change statistics for the last five days including today."""
+    limit = timezone.now() - timezone.timedelta(days=4)
+    instances = DiaperChange.objects.filter(
+        child=child).filter(time__gt=limit.date()).order_by('-time')
+    stats = OrderedDict()
+    for instance in instances:
+        date = instance.time.date()
+        if date not in stats.keys():
+            stats[date] = {'wet': 0, 'solid': 0}
+        if instance.wet:
+            stats[date]['wet'] += 1
+        if instance.solid:
+            stats[date]['solid'] += 1
+
+    for date, info in stats.items():
+        total = info['wet'] + info['solid']
+        stats[date]['wet_pct'] = info['wet'] / total * 100
+        stats[date]['solid_pct'] = info['solid'] / total * 100
+
+    return {'stats': stats, 'last_change': instances.last()}
 
 
 @register.inclusion_tag('cards/tummytime_last.html')
