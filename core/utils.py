@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from math import floor
 
+from django.utils import timezone
+
 
 def duration_string(start, end, short=False):
     diff = end - start
@@ -35,3 +37,13 @@ def filter_by_params(request, model, available_params):
             queryset = queryset.filter(**{param: value})
 
     return queryset
+
+
+# Stop a timer instance by setting it's end field.
+def timer_stop(timer_id, end=None):
+    if not end:
+        end = timezone.now()
+    from .models import Timer
+    timer_instance = Timer.objects.get(id=timer_id)
+    timer_instance.end = end
+    timer_instance.save()

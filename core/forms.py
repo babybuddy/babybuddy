@@ -5,6 +5,7 @@ from django import forms
 from django.utils import timezone
 
 from .models import Child, DiaperChange, Feeding, Sleep, Timer, TummyTime
+from .utils import timer_stop
 
 
 # Sets the default Child instance if only one exists in the database.
@@ -25,14 +26,13 @@ def set_default_duration(kwargs):
         kwargs.update(initial={})
     if not instance and timer_id:
         timer_instance = Timer.objects.get(id=timer_id)
-        timer_instance.end = timezone.now()
         kwargs['initial'].update({
+            'timer': timer_instance,
             'start': timer_instance.start,
-            'end': timer_instance.end
+            'end': timezone.now()
         })
-        timer_instance.save()
     try:
-        kwargs.pop('timer')  # This is not part of the model so must be removed.
+        kwargs.pop('timer')
     except KeyError:
         pass
     return kwargs
@@ -87,8 +87,16 @@ class FeedingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
+        self.timer_id = kwargs.get('timer', None)
         kwargs = set_default_duration(kwargs)
         super(FeedingForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(FeedingForm, self).save(commit=False)
+        if self.timer_id:
+            timer_stop(self.timer_id, instance.end)
+        instance.save()
+        return instance
 
 
 class SleepForm(forms.ModelForm):
@@ -110,8 +118,16 @@ class SleepForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
+        self.timer_id = kwargs.get('timer', None)
         kwargs = set_default_duration(kwargs)
         super(SleepForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(SleepForm, self).save(commit=False)
+        if self.timer_id:
+            timer_stop(self.timer_id, instance.end)
+        instance.save()
+        return instance
 
 
 class TimerForm(forms.ModelForm):
@@ -151,5 +167,13 @@ class TummyTimeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
+        self.timer_id = kwargs.get('timer', None)
         kwargs = set_default_duration(kwargs)
         super(TummyTimeForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(TummyTimeForm, self).save(commit=False)
+        if self.timer_id:
+            timer_stop(self.timer_id, instance.end)
+        instance.save()
+        return instance
