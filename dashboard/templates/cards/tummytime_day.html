@@ -1,0 +1,21 @@
+{% extends 'cards/tummytime.html' %}
+
+{% block header %}Today's Tummy Time{% endblock %}
+
+{% block title %}
+    <strong>{{ stats.total }}</strong> seconds
+{% endblock %}
+
+{% block content %}
+    {{ stats.count }} total entries
+{% endblock %}
+
+{% block listgroup %}
+    <ul class="list-group list-group-flush text-muted small">
+    {% for instance in instances %}
+        <li class="list-group-item">{{ instance.duration }} at {{ instance.end|time }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block footer %}Time since last: {{ last.end|timesince }}{% endblock %}

@@ -55,6 +55,16 @@ def card_tummytime_last(child):
     return {'tummytime': instance}
 
 
+@register.inclusion_tag('cards/tummytime_day.html')
+def card_tummytime_day(child, date=timezone.now().date()):
+    instances = TummyTime.objects.filter(
+        child=child, end__day=date.day).order_by('-end')
+    stats = {'total': 0, 'count': instances.count()}
+    for instance in instances:
+        stats['total'] += instance.duration_td().seconds
+    return {'stats': stats, 'instances': instances, 'last': instances.first()}
+
+
 @register.inclusion_tag('cards/sleep_last.html')
 def card_sleep_last(child):
     instance = Sleep.objects.filter(child=child).order_by('-end').first()

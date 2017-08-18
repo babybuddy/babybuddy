@@ -183,5 +183,8 @@ class TummyTime(models.Model):
     def duration(self):
         return duration_string(self.start, self.end)
 
+    def duration_td(self):
+        return self.end - self.start
+
     def since(self, time=timezone.now()):
         return timesince.timesince(self.end, time)
