@@ -6,6 +6,14 @@ from django import forms
 from .models import Child, DiaperChange, Feeding, Sleep, Timer, TummyTime
 
 
+# Sets the default Child instance if only one exists in the database.
+def set_default_child(kwargs):
+    instance = kwargs.get('instance', None)
+    if instance is None and Child.objects.count() == 1:
+        kwargs.update(initial={'child': Child.objects.first()})
+    return kwargs
+
+
 class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
@@ -31,6 +39,10 @@ class DiaperChangeForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        kwargs = set_default_child(kwargs)
+        super(DiaperChangeForm, self).__init__(*args, **kwargs)
+
 
 class FeedingForm(forms.ModelForm):
     class Meta:
@@ -49,6 +61,10 @@ class FeedingForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        kwargs = set_default_child(kwargs)
+        super(FeedingForm, self).__init__(*args, **kwargs)
+
 
 class SleepForm(forms.ModelForm):
     class Meta:
@@ -66,6 +82,10 @@ class SleepForm(forms.ModelForm):
                 'data-target': '#id_end',
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        kwargs = set_default_child(kwargs)
+        super(SleepForm, self).__init__(*args, **kwargs)
 
 
 class TimerForm(forms.ModelForm):
@@ -102,3 +122,7 @@ class TummyTimeForm(forms.ModelForm):
                 'data-target': '#id_end',
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        kwargs = set_default_child(kwargs)
+        super(TummyTimeForm, self).__init__(*args, **kwargs)
