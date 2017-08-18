@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.core.urlresolvers import resolve
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
@@ -158,6 +158,16 @@ class TimerAdd(PermissionRequiredMixin, CreateView):
         else:
             url = '/'
         return url
+
+
+class TimerAddQuick(PermissionRequiredMixin, RedirectView):
+    permission_required = ('core.add_timer',)
+
+    def get(self, request, *args, **kwargs):
+        instance = Timer.objects.create(user=request.user)
+        instance.save()
+        self.url = request.GET.get('next', '/')
+        return super(TimerAddQuick, self).get(request, *args, **kwargs)
 
 
 class TummyTimeList(PermissionRequiredMixin, ListView):

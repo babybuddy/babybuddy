@@ -1,0 +1,20 @@
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle"
+       id="timer-dropdown-menu-link"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false"><i class="fa fa-clock-o" aria-hidden="true"></i> Timers</a>
+    <div class="dropdown-menu" aria-labelledby="timer-dropdown-menu-link">
+        {% if perms.core.add_timer %}
+            <a class="dropdown-item" href="{% url 'timer-add-quick' %}?next={{ next }}">
+                <i class="fa fa-plus" aria-hidden="true"></i> Create Timer
+            </a>
+            {% if timers %}
+                <div class="dropdown-divider"></div>
+            {% endif %}
+        {% endif %}
+        {% for timer in timers %}
+            <button class="dropdown-item" type="button">{{ timer }}</button>
+        {% endfor %}
+    </div>
+</li>

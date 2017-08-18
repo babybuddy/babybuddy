@@ -5,10 +5,10 @@
 {% block page %}
     <div id="view-{{ request.resolver_match.view_name }}" class="container-fluid">
         <div class="row justify-content-md-center">
-            <div class="col-lg-10 mb-4">
+            <div class="col-lg-12 mb-4">
                 {% block content %}{% endblock %}
             </div>
-            {% if perms.core.view_timer %}
+            {% if false and perms.core.view_timer %}
                 <div class="col-lg-2">
                     <h1>Timers</h1>
                     {% if perms.core.add_timer %}
