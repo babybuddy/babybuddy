@@ -121,7 +121,7 @@ class Timer(models.Model):
 
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['active', '-start']
+        ordering = ['-active', '-start', '-end']
 
     def __str__(self):
         return self.name or 'Timer #{}'.format(self.id)
