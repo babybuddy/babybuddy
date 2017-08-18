@@ -1,4 +1,5 @@
 {% extends 'babyblotter/page.html' %}
+{% load dashboard_cards %}
 
 {% block title %}Dashboard - {{ object }}{% endblock %}
 
@@ -6,24 +7,24 @@
     <h1 class="text-center">{{ object }}</h1>
     <div class="container">
         <div class="row align-items-start text-center">
-            <div class="col-sm-12 col-md-4 border">
-                awake time
+            <div class="col-sm-12 col-md-4">
+                {% feeding_last object %}
             </div>
-            <div class="col-sm-12 col-md-4 border">
+            <div class="col-sm-12 col-md-4">
                 last feeding
             </div>
-            <div class="col-sm-12 col-md-4 border">
+            <div class="col-sm-12 col-md-4">
                 change statistics
             </div>
         </div>
         <div class="row align-items-start text-center">
-            <div class="col-sm-12 col-md-4 border">
+            <div class="col-sm-12 col-md-4">
                 tummy time for the day
             </div>
-            <div class="col-sm-12 col-md-4 border">
+            <div class="col-sm-12 col-md-4">
                 available
             </div>
-            <div class="col-sm-12 col-md-4 border">
+            <div class="col-sm-12 col-md-4">
                 available
             </div>
         </div>
