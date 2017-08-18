@@ -9,7 +9,7 @@ from core.models import Feeding
 register = template.Library()
 
 
-@register.inclusion_tag('dashboard_cards/feeding_last.html')
-def feeding_last(child):
+@register.inclusion_tag('cards/feeding_last.html')
+def card_feeding_last(child):
     feeding_instance = Feeding.objects.filter(child=child).last()
     return {'feeding': feeding_instance}

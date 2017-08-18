@@ -1,5 +1,5 @@
 {% extends 'babyblotter/page.html' %}
-{% load dashboard_cards %}
+{% load dashboard %}
 
 {% block title %}Dashboard - {{ object }}{% endblock %}
 
@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row align-items-start text-center">
             <div class="col-sm-12 col-md-4">
-                {% feeding_last object %}
+                {% card_feeding_last object %}
             </div>
             <div class="col-sm-12 col-md-4">
                 last feeding

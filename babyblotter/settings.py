@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'api',
     'babyblotter',
     'core',
+    'dashboard',
 
     'rest_framework',
     'widget_tweaks',
