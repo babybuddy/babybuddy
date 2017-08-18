@@ -10,7 +10,8 @@ from core.models import (Child, DiaperChange, Feeding, Note, Sleep, Timer,
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Child
-        fields = ('first_name', 'last_name', 'birth_date')
+        fields = ('first_name', 'last_name', 'birth_date', 'slug')
+        lookup_field = 'slug'
 
 
 class DiaperChangeSerializer(serializers.HyperlinkedModelSerializer):

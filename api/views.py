@@ -15,9 +15,10 @@ from .serializers import (ChildSerializer, DiaperChangeSerializer,
 class ChildViewSet(viewsets.ModelViewSet):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
+    lookup_field = 'slug'
 
     def get_queryset(self):
-        params = ['first_name', 'last_name']
+        params = ['first_name', 'last_name', 'slug']
         return filter_by_params(self.request, Child, params)
 
 

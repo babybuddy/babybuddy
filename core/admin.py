@@ -9,7 +9,7 @@ from .models import (Child, DiaperChange, Feeding, Note, Sleep, Timer,
 
 @admin.register(Child)
 class ChildAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'birth_date',)
+    list_display = ('first_name', 'last_name', 'birth_date', 'slug')
     list_filter = ('last_name',)
     search_fields = ('first_name', 'last_name', 'birth_date',)
 

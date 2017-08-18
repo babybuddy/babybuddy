@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.utils import timezone
 
 from .utils import duration_string
@@ -11,6 +12,7 @@ class Child(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField(blank=False, null=False)
+    slug = models.SlugField(max_length=100, unique=True, editable=False)
 
     objects = models.Manager()
 
@@ -21,6 +23,10 @@ class Child(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self)
+        super(Child, self).save(*args, **kwargs)
 
 
 class DiaperChange(models.Model):
