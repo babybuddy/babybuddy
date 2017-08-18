@@ -54,6 +54,16 @@ class DiaperChange(models.Model):
     def since(self, time=timezone.now()):
         return timesince.timesince(self.time, time)
 
+    def attributes(self):
+        attributes = []
+        if self.wet:
+            attributes.append(DiaperChange._meta.get_field('wet').name)
+        if self.solid:
+            attributes.append(DiaperChange._meta.get_field('solid').name)
+        if self.color:
+            attributes.append(self.color)
+        return attributes
+
 
 class Feeding(models.Model):
     child = models.ForeignKey('Child', related_name='feeding')
