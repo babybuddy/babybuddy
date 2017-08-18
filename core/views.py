@@ -79,6 +79,12 @@ class FeedingAdd(PermissionRequiredMixin, CreateView):
     form_class = FeedingForm
     success_url = '/feedings'
 
+    def get_form_kwargs(self):
+        kwargs = super(FeedingAdd, self).get_form_kwargs()
+        # Add timer to be used by FeedingForm.__init__
+        kwargs.update({'timer': self.request.GET.get('timer', None)})
+        return kwargs
+
 
 class FeedingUpdate(PermissionRequiredMixin, UpdateView):
     model = Feeding
@@ -128,6 +134,12 @@ class SleepAdd(PermissionRequiredMixin, CreateView):
     permission_required = ('core.add_sleep',)
     form_class = SleepForm
     success_url = '/sleep'
+
+    def get_form_kwargs(self):
+        kwargs = super(SleepAdd, self).get_form_kwargs()
+        # Add timer to be used by SleepForm.__init__
+        kwargs.update({'timer': self.request.GET.get('timer', None)})
+        return kwargs
 
 
 class SleepUpdate(PermissionRequiredMixin, UpdateView):
@@ -187,6 +199,12 @@ class TummyTimeAdd(PermissionRequiredMixin, CreateView):
     permission_required = ('core.add_tummytime',)
     form_class = TummyTimeForm
     success_url = '/tummy-time'
+
+    def get_form_kwargs(self):
+        kwargs = super(TummyTimeAdd, self).get_form_kwargs()
+        # Add timer to be used by TummyTimeForm.__init__
+        kwargs.update({'timer': self.request.GET.get('timer', None)})
+        return kwargs
 
 
 class TummyTimeUpdate(PermissionRequiredMixin, UpdateView):

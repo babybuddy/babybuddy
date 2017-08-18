@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django import forms
+from django.utils import timezone
 
 from .models import Child, DiaperChange, Feeding, Sleep, Timer, TummyTime
 
@@ -9,8 +10,31 @@ from .models import Child, DiaperChange, Feeding, Sleep, Timer, TummyTime
 # Sets the default Child instance if only one exists in the database.
 def set_default_child(kwargs):
     instance = kwargs.get('instance', None)
+    if not kwargs.get('initial'):
+        kwargs.update(initial={})
     if instance is None and Child.objects.count() == 1:
-        kwargs.update(initial={'child': Child.objects.first()})
+        kwargs['initial'].update({'child': Child.objects.first()})
+    return kwargs
+
+
+# Uses a timer to set the default start and end date and updates the timer.
+def set_default_duration(kwargs):
+    instance = kwargs.get('instance', None)
+    timer_id = kwargs.get('timer', None)
+    if not kwargs.get('initial'):
+        kwargs.update(initial={})
+    if not instance and timer_id:
+        timer_instance = Timer.objects.get(id=timer_id)
+        timer_instance.end = timezone.now()
+        kwargs['initial'].update({
+            'start': timer_instance.start,
+            'end': timer_instance.end
+        })
+        timer_instance.save()
+    try:
+        kwargs.pop('timer')  # This is not part of the model so must be removed.
+    except KeyError:
+        pass
     return kwargs
 
 
@@ -63,6 +87,7 @@ class FeedingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
+        kwargs = set_default_duration(kwargs)
         super(FeedingForm, self).__init__(*args, **kwargs)
 
 
@@ -85,6 +110,7 @@ class SleepForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
+        kwargs = set_default_duration(kwargs)
         super(SleepForm, self).__init__(*args, **kwargs)
 
 
@@ -125,4 +151,5 @@ class TummyTimeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
+        kwargs = set_default_duration(kwargs)
         super(TummyTimeForm, self).__init__(*args, **kwargs)
