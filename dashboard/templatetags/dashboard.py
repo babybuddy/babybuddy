@@ -11,5 +11,6 @@ register = template.Library()
 
 @register.inclusion_tag('cards/feeding_last.html')
 def card_feeding_last(child):
-    feeding_instance = Feeding.objects.filter(child=child).last()
+    feeding_instance = Feeding.objects.filter(
+        child=child).order_by('-end').first()
     return {'feeding': feeding_instance}

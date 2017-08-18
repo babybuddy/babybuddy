@@ -1,8 +1,18 @@
-<div class="card border-primary mb-3">
-    <div class="card-header text-white bg-primary">
-        <i class="fa fa-2x fa-spoon" aria-hidden="true"></i></div>
-    <div class="card-body text-primary">
-        <h4 class="card-title">Last Feeding</h4>
-        <p class="card-text text-muted small">{{ feeding }}</p>
+{% extends 'cards/feeding.html' %}
+
+{% block header %}Last Feeding{% endblock %}
+
+{% block title %}
+    <strong>{{ feeding.end|timesince }}</strong> ago
+{% endblock %}
+
+{% block content %}
+    <div class="text-muted">
+        {{ feeding.type }}, {{ feeding.method }}
+        {% if feeding.amount %}
+            , {{ feeding.amount }}oz.
+        {% endif %}
     </div>
-</div>
+{% endblock %}
+
+{% block footer %}{{ feeding.end }}{% endblock %}
