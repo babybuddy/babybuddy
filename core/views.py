@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.core.urlresolvers import resolve
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
+from django.urls import reverse
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -185,7 +186,8 @@ class TimerAddQuick(PermissionRequiredMixin, RedirectView):
     def get(self, request, *args, **kwargs):
         instance = Timer.objects.create(user=request.user)
         instance.save()
-        self.url = request.GET.get('next', '/')
+        self.url = request.GET.get(
+            'next', reverse('timer-detail', args={instance.id}))
         return super(TimerAddQuick, self).get(request, *args, **kwargs)
 
 

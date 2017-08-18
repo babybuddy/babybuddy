@@ -6,7 +6,7 @@
        aria-expanded="false"><i class="fa fa-clock-o" aria-hidden="true"></i> Timers</a>
     <div class="dropdown-menu" aria-labelledby="timer-dropdown-menu-link">
         {% if perms.core.add_timer %}
-            <a class="dropdown-item" href="{% url 'timer-add-quick' %}?next={{ next }}">
+            <a class="dropdown-item" href="{% url 'timer-add-quick' %}">
                 <i class="fa fa-plus" aria-hidden="true"></i> Create Timer
             </a>
             {% if timers %}
