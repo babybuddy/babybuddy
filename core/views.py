@@ -5,6 +5,7 @@ from django.core.urlresolvers import resolve
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
@@ -140,6 +141,12 @@ class SleepDelete(PermissionRequiredMixin, DeleteView):
     model = Sleep
     permission_required = ('core.delete_sleep',)
     success_url = '/sleep'
+
+
+class TimerDetail(PermissionRequiredMixin, DetailView):
+    model = Timer
+    template_name = 'timer_detail.html'  # To be consistent w/Timer templates.
+    permission_required = ('core.view_timer',)
 
 
 class TimerAdd(PermissionRequiredMixin, CreateView):

@@ -1,0 +1,19 @@
+{% extends 'babyblotter/page.html' %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-1">{{ object.duration }}</h1>
+        <p class="lead text-muted">Started {{ object.start }} by {{ object.user }}</p>
+        <a class="btn btn-success btn-lg btn-block p-3 mb-3" href="{% url 'feeding-add' %}" role="button">
+            <i class="fa fa-spoon" aria-hidden="true"></i> Feeding</a>
+        <a class="btn btn-success btn-lg btn-block p-3 mb-3" href="{% url 'sleep-add' %}" role="button">
+            <i class="fa fa-bed" aria-hidden="true"></i> Sleep</a>
+        <a class="btn btn-success btn-lg btn-block p-3 mb-3" href="{% url 'tummytime-add' %}" role="button">
+            <i class="fa fa-smile-o" aria-hidden="true"></i> Tummy Time</a>
+        <a class="btn btn-danger btn-lg btn-block p-3 mb-3" href="#" role="button">
+            <i class="fa fa-times-circle" aria-hidden="true"></i> Delete Timer</a>
+        </p>
+    </div>
+{% endblock %}

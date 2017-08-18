@@ -14,7 +14,7 @@
             {% endif %}
         {% endif %}
         {% for timer in timers %}
-            <button class="dropdown-item" type="button">{{ timer }}</button>
+            <a class="dropdown-item" href="{% url 'timer-detail' timer.id %}">{{ timer }}</a>
         {% endfor %}
     </div>
 </li>
