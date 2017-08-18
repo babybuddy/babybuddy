@@ -50,6 +50,8 @@ urlpatterns = [
         name='timer-add-quick'),
     url(r'timer/(?P<pk>[0-9]+)/$', views.TimerDetail.as_view(),
         name='timer-detail'),
+    url(r'timer/(?P<pk>[0-9]+)/delete/$', views.TimerDelete.as_view(),
+        name='timer-delete'),
 
     url(r'tummy-time/$', views.TummyTimeList.as_view(), name='tummytime-list'),
     url(r'tummy-time/add/$', views.TummyTimeAdd.as_view(),

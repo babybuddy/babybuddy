@@ -9,14 +9,14 @@ from core.models import Timer
 register = template.Library()
 
 
-@register.inclusion_tag('timer_list.html', takes_context=True)
+@register.inclusion_tag('core/timer_list.html', takes_context=True)
 def list_timers(context, active=True):
     request = context['request'] or None
     timers = Timer.objects.filter(user=request.user, active=active)
     return {'timers': timers}
 
 
-@register.inclusion_tag('timer_nav.html', takes_context=True)
+@register.inclusion_tag('core/timer_nav.html', takes_context=True)
 def timer_nav(context, active=True):
     request = context['request'] or None
     timers = Timer.objects.filter(user=request.user, active=active)
@@ -25,7 +25,7 @@ def timer_nav(context, active=True):
     return {'timers': timers, 'perms': perms, 'next': request.path}
 
 
-@register.inclusion_tag('timer_add.html')
+@register.inclusion_tag('core/timer_add.html')
 def add_timer(success_url):
     return {'success_url': success_url}
 

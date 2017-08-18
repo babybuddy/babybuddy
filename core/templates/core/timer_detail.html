@@ -16,7 +16,7 @@
            href="{% url 'tummytime-add' %}?timer={{ timer.id }}"
            role="button"><i class="fa fa-smile-o" aria-hidden="true"></i> Tummy Time</a>
         <a class="btn btn-danger btn-lg btn-block p-3 mb-3"
-           href="#"
+           href="{% url 'timer-delete' timer.id %}"
            role="button"><i class="fa fa-times-circle" aria-hidden="true"></i> Delete Timer</a>
     </div>
 {% endblock %}

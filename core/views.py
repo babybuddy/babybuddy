@@ -158,7 +158,6 @@ class SleepDelete(PermissionRequiredMixin, DeleteView):
 
 class TimerDetail(PermissionRequiredMixin, DetailView):
     model = Timer
-    template_name = 'timer_detail.html'  # To be consistent w/Timer templates.
     permission_required = ('core.view_timer',)
 
 
@@ -191,6 +190,12 @@ class TimerAddQuick(PermissionRequiredMixin, RedirectView):
         return super(TimerAddQuick, self).get(request, *args, **kwargs)
 
 
+class TimerDelete(PermissionRequiredMixin, DeleteView):
+    model = Timer
+    permission_required = ('core.delete_timer',)
+    success_url = '/'
+
+
 class TummyTimeList(PermissionRequiredMixin, ListView):
     model = TummyTime
     permission_required = ('core.view_tummytime',)
@@ -211,10 +216,12 @@ class TummyTimeAdd(PermissionRequiredMixin, CreateView):
 
 class TummyTimeUpdate(PermissionRequiredMixin, UpdateView):
     model = TummyTime
+    permission_required = ('core.change_tummytime',)
     form_class = TummyTimeForm
     success_url = '/tummy-time'
 
 
 class TummyTimeDelete(PermissionRequiredMixin, DeleteView):
     model = TummyTime
+    permission_required = ('core.delete_tummytime',)
     success_url = '/tummy-time'
