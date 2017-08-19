@@ -1,0 +1,15 @@
+{
+  "name": "babyblotter",
+  "description": "Baby activities tracker application.",
+  "version": "0.1.0",
+  "devDependencies": {
+    "bootstrap": "^4.0.0-beta",
+    "font-awesome": "^4.7.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "popper.js": "^1.12.3",
+    "tempusdominus-bootstrap-4": "^5.0.0-alpha9"
+  }
+}

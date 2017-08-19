@@ -1,5 +1,12 @@
+# database
+*.sqlite3
+
+# npm folder
+/node_modules
+
 # python
 *.pyc
 
-# database
-*.sqlite3
+# static files
+/babyblotter/static
+/static
