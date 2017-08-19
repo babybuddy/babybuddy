@@ -7,3 +7,6 @@ django = "*"
 djangorestframework = "*"
 django-filter = "*"
 django-widget-tweaks = "*"
+
+[dev-packages]
+faker = "*"

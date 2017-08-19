@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bae82f005879197d15002ee3084605c5d70e02154eb49c1bc76d085d4cd6d51b"
+            "sha256": "837c05c254d8603c80ce3add8dfd5e9a80701a742fdd1b98568f1b664586870f"
         },
         "requires": {},
         "sources": [
@@ -28,5 +28,15 @@
             "version": "==2017.2"
         }
     },
-    "develop": {}
+    "develop": {
+        "faker": {
+            "version": "==0.7.18"
+        },
+        "python-dateutil": {
+            "version": "==2.6.1"
+        },
+        "six": {
+            "version": "==1.10.0"
+        }
+    }
 }
