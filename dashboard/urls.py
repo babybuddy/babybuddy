@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^$', views.DashboardRedirect.as_view(), name='dashboard'),
     url(r'^dashboard/$', views.Dashboard.as_view(), name='dashboard'),
     url(r'children/(?P<slug>[^/.]+)/dashboard/$',
-        views.ChildDashboard.as_view(), name='child-dashboard'),
+        views.ChildDashboard.as_view(), name='dashboard-child'),
 ]

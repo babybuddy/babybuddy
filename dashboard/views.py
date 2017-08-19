@@ -15,7 +15,7 @@ class DashboardRedirect(LoginRequiredMixin, RedirectView):
     def get(self, request, *args, **kwargs):
         if Child.objects.count() == 1:
             child_instance = Child.objects.first()
-            self.url = reverse('child-dashboard', args={child_instance.slug})
+            self.url = reverse('dashboard-child', args={child_instance.slug})
         else:
             self.url = reverse('dashboard')
         return super(DashboardRedirect, self).get(request, *args, **kwargs)

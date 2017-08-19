@@ -27,6 +27,12 @@
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
                                 {% if perms.core.change_child %}
+                                    <a href="{% url 'dashboard-child' child.slug %}" class="btn btn-success">
+                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.change_child %}
                                     <a href="{% url 'child-update' child.slug %}" class="btn btn-primary">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
