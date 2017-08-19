@@ -1,4 +1,5 @@
 {% extends 'cards/sleep.html' %}
+{% load timers %}
 
 {% block header %}Last Slept{% endblock %}
 
@@ -8,7 +9,7 @@
 
 {% block content %}
     <div class="text-muted">
-        {{ sleep.duration }}
+        {{ sleep.duration|duration_string }}
     </div>
 {% endblock %}
 

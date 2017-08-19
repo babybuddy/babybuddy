@@ -1,5 +1,6 @@
 {% extends 'babyblotter/page.html' %}
 {% load widget_tweaks %}
+{% load timers %}
 
 {% block title %}Tummy Time{% endblock %}
 
@@ -23,7 +24,7 @@
                         <th scope="row">{{ tummytime.child }}</th>
                         <td>{{ tummytime.start }}</td>
                         <td>{{ tummytime.end }}</td>
-                        <td>{{ tummytime.duration }}</td>
+                        <td>{{ tummytime.duration|duration_string }}</td>
                         <td>{{ tummytime.milestone }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">

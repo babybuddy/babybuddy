@@ -1,4 +1,5 @@
 {% extends 'cards/tummytime.html' %}
+{% load timers %}
 
 {% block header %}Last Tummy Time{% endblock %}
 
@@ -8,7 +9,7 @@
 
 {% block content %}
     <div class="text-muted">
-        {{ tummytime.duration }}
+        {{ tummytime.duration|duration_string }}
         {% if tummytime.milestone %}
             <br /> {{ tummytime.milestone }}
         {% endif %}

@@ -1,5 +1,6 @@
 {% extends 'babyblotter/page.html' %}
 {% load widget_tweaks %}
+{% load timers %}
 
 {% block title %}Feedings{% endblock %}
 
@@ -23,7 +24,7 @@
                     <tr>
                         <th scope="row">{{ feeding.child }}</th>
                         <td>{{ feeding.start }}</td>
-                        <td>{{ feeding.duration }}</td>
+                        <td>{{ feeding.duration|duration_string }}</td>
                         <td>{{ feeding.type }}</td>
                         <td>{{ feeding.method }}</td>
                         <td>{{ feeding.amount }}</td>

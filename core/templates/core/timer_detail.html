@@ -1,10 +1,11 @@
 {% extends 'babyblotter/page.html' %}
+{% load timers %}
 
 {% block title %}{{ object }}{% endblock %}
 
 {% block content %}
     <div class="jumbotron text-center">
-        <h1 class="display-1">{{ object.duration }}</h1>
+        <h1 class="display-1">{{ object.current_duration|duration_string_short }}</h1>
         <p class="lead text-muted">Started {{ object.start }} by {{ object.user }}</p>
 
         {% if perms.core.add_feeding %}

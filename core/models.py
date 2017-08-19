@@ -159,6 +159,12 @@ class Timer(models.Model):
     def __str__(self):
         return self.name or 'Timer #{}'.format(self.id)
 
+    def current_duration(self):
+        if self.duration:
+            return self.duration
+        else:
+            return timezone.now() - self.start
+
     def save(self, *args, **kwargs):
         self.active = self.end is None
         self.name = self.name or None
