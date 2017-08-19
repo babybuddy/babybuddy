@@ -9,7 +9,6 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Birth Date</th>
@@ -19,8 +18,7 @@
             <tbody>
                 {% for child in object_list %}
                     <tr>
-                        <th scope="row">{{ child.id }}</th>
-                        <td>{{ child.first_name }}</td>
+                        <th scope="row">{{ child.first_name }}</th>
                         <td>{{ child.last_name }}</td>
                         <td>{{ child.birth_date }}</td>
                         <td class="text-center">
@@ -49,7 +47,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="5">No children found.</th>
+                        <th colspan="4">No children found.</th>
                     </tr>
                 {% endfor %}
             </tbody>

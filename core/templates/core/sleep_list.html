@@ -9,7 +9,6 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>#</th>
                     <th>Child</th>
                     <th>Start</th>
                     <th>End</th>
@@ -20,8 +19,7 @@
             <tbody>
                 {% for sleep in object_list %}
                     <tr>
-                        <th scope="row">{{ sleep.id }}</th>
-                        <td>{{ sleep.child }}</td>
+                        <th scope="row">{{ sleep.child }}</th>
                         <td>{{ sleep.start }}</td>
                         <td>{{ sleep.end }}</td>
                         <td>{{ sleep.duration }}</td>
@@ -45,7 +43,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="6">No sleep entries found.</th>
+                        <th colspan="5">No sleep entries found.</th>
                     </tr>
                 {% endfor %}
             </tbody>

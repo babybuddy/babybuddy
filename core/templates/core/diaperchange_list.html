@@ -9,7 +9,6 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>#</th>
                     <th>Child</th>
                     <th>Time</th>
                     <th>Wet</th>
@@ -21,8 +20,7 @@
             <tbody>
                 {% for change in object_list %}
                     <tr>
-                        <th scope="row">{{ change.id }}</th>
-                        <td>{{ change.child }}</td>
+                        <th scope="row">{{ change.child }}</th>
                         <td>{{ change.time }}</td>
                         <td>{{ change.wet }}</td>
                         <td>{{ change.solid }}</td>
@@ -47,7 +45,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="7">No diaper changes found.</th>
+                        <th colspan="6">No diaper changes found.</th>
                     </tr>
                 {% endfor %}
             </tbody>

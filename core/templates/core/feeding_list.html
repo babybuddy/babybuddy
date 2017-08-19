@@ -9,7 +9,6 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>#</th>
                     <th>Child</th>
                     <th>Date</th>
                     <th>Duration</th>
@@ -22,8 +21,7 @@
             <tbody>
                 {% for feeding in object_list %}
                     <tr>
-                        <th scope="row">{{ feeding.id }}</th>
-                        <td>{{ feeding.child }}</td>
+                        <th scope="row">{{ feeding.child }}</th>
                         <td>{{ feeding.start }}</td>
                         <td>{{ feeding.duration }}</td>
                         <td>{{ feeding.type }}</td>
@@ -49,7 +47,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="8">No feedings found.</th>
+                        <th colspan="7">No feedings found.</th>
                     </tr>
                 {% endfor %}
             </tbody>

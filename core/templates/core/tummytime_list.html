@@ -9,7 +9,6 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>#</th>
                     <th>Child</th>
                     <th>Start</th>
                     <th>End</th>
@@ -21,8 +20,7 @@
             <tbody>
                 {% for tummytime in object_list %}
                     <tr>
-                        <th scope="row">{{ tummytime.id }}</th>
-                        <td>{{ tummytime.child }}</td>
+                        <th scope="row">{{ tummytime.child }}</th>
                         <td>{{ tummytime.start }}</td>
                         <td>{{ tummytime.end }}</td>
                         <td>{{ tummytime.duration }}</td>
@@ -47,7 +45,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="7">No tummy time entries found.</th>
+                        <th colspan="6">No tummy time entries found.</th>
                     </tr>
                 {% endfor %}
             </tbody>
