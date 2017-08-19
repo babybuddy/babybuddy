@@ -5,8 +5,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone, timesince
 
-from .utils import duration_string
-
 
 class Child(models.Model):
     first_name = models.CharField(max_length=255)
@@ -69,6 +67,7 @@ class Feeding(models.Model):
     child = models.ForeignKey('Child', related_name='feeding')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
+    duration = models.DurationField(null=True, editable=False)
     type = models.CharField(max_length=255, choices=[
         ('breast milk', 'Breast milk'),
         ('formula', 'Formula'),
@@ -88,13 +87,15 @@ class Feeding(models.Model):
 
     def __str__(self):
         return 'Feeding for {} on {} ({})'.format(
-            self.child, self.end.date(), self.duration())
-
-    def duration(self):
-        return duration_string(self.start, self.end)
+            self.child, self.end.date(), self.duration)
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.end, time)
+
+    def save(self, *args, **kwargs):
+        if self.start and self.end:
+            self.duration = self.end - self.start
+        super(Feeding, self).save(*args, **kwargs)
 
 
 class Note(models.Model):
@@ -119,6 +120,7 @@ class Sleep(models.Model):
     child = models.ForeignKey('Child', related_name='sleep')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
+    duration = models.DurationField(null=True, editable=False)
 
     objects = models.Manager()
 
@@ -129,19 +131,22 @@ class Sleep(models.Model):
 
     def __str__(self):
         return 'Sleep for {} on {} ({})'.format(
-            self.child, self.end.date(), self.duration())
-
-    def duration(self):
-        return duration_string(self.start, self.end)
+            self.child, self.end.date(), self.duration)
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.end, time)
+
+    def save(self, *args, **kwargs):
+        if self.start and self.end:
+            self.duration = self.end - self.start
+        super(Sleep, self).save(*args, **kwargs)
 
 
 class Timer(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     start = models.DateTimeField(auto_now_add=True)
     end = models.DateTimeField(blank=True, null=True, editable=False)
+    duration = models.DurationField(null=True, editable=False)
     active = models.BooleanField(default=True, editable=False)
     user = models.ForeignKey('auth.User', related_name='timers')
 
@@ -154,13 +159,11 @@ class Timer(models.Model):
     def __str__(self):
         return self.name or 'Timer #{}'.format(self.id)
 
-    def duration(self):
-        return duration_string(self.start, self.end or timezone.now(),
-                               short=True)
-
     def save(self, *args, **kwargs):
         self.active = self.end is None
         self.name = self.name or None
+        if self.start and self.end:
+            self.duration = self.end - self.start
         super(Timer, self).save(*args, **kwargs)
 
 
@@ -168,6 +171,7 @@ class TummyTime(models.Model):
     child = models.ForeignKey('Child', related_name='tummy_time')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
+    duration = models.DurationField(null=True, editable=False)
     milestone = models.CharField(max_length=255, blank=True)
 
     objects = models.Manager()
@@ -180,11 +184,13 @@ class TummyTime(models.Model):
         return 'Tummy time for {} on {} ({})'.format(
             self.child, self.end.date(), self.duration())
 
-    def duration(self):
-        return duration_string(self.start, self.end)
-
     def duration_td(self):
         return self.end - self.start
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.end, time)
+
+    def save(self, *args, **kwargs):
+        if self.start and self.end:
+            self.duration = self.end - self.start
+        super(TummyTime, self).save(*args, **kwargs)
