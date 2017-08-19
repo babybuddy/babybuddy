@@ -1,22 +1,17 @@
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(
+            os.path.abspath(__file__)
+        )
+    )
+)
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(z4ha%^_=7#jco0wmna_#0jvyyt!03#f7l_y%@1x(a2xj$nrx%'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
+# Applications
+# https://docs.djangoproject.com/en/1.11/ref/applications/
 
 INSTALLED_APPS = [
     'api',
@@ -35,6 +30,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# Middleware
+# https://docs.djangoproject.com/en/1.11/ref/middleware/
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -45,7 +43,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# URL dispatcher
+# https://docs.djangoproject.com/en/1.11/topics/http/urls/
+
 ROOT_URLCONF = 'babyblotter.urls'
+
+
+# Templates
+# https://docs.djangoproject.com/en/1.11/ref/templates/upgrading/#the-templates-settings
 
 TEMPLATES = [
     {
@@ -63,18 +69,11 @@ TEMPLATES = [
     },
 ]
 
+
+# WGSI
+# https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
+
 WSGI_APPLICATION = 'babyblotter.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Authentication
@@ -115,6 +114,7 @@ STATICFILES_DIRS = [
 
 # Django Rest Framework
 # http://www.django-rest-framework.org/#
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'api.permissions.BabyBlotterDjangoModelPermissions'

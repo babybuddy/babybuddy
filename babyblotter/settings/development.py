@@ -1,0 +1,19 @@
+from .base import *
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+
+SECRET_KEY = '(z4ha%^_=7#jco0wmna_#0jvyyt!03#f7l_y%@1x(a2xj$nrx%'
+DEBUG = True
+ALLOWED_HOSTS = ['*']
+
+
+# Database
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
