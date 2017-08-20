@@ -5,13 +5,12 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="/"><span class="text-info">Baby</span> Blotter</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarsExampleDefault"
-                aria-controls="navbarsExampleDefault" aria-expanded="false"
-                aria-label="Toggle navigation">
+                data-target="#navbar-app" aria-controls="navbar-app"
+                aria-expanded="false"  aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <div class="collapse navbar-collapse" id="navbar-app">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item{% if request.path == '/' %} active{% endif %}">
                     <a class="nav-link" href="{% url 'dashboard' %}">
@@ -84,6 +83,30 @@
                     {% timer_nav %}
                 {% endif %}
             </ul>
+
+            {% if request.user %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user" aria-hidden="true"></i> {{ request.user }}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="{% url 'api:api-root' %}"
+                               class="dropdown-item"
+                               target="_blank">API Browser</a>
+
+                            {% if request.user.is_staff %}
+                                <a href="{% url 'admin:index' %}"
+                                   class="dropdown-item"
+                                   target="_blank">Admin</a>
+                            {% endif %}
+
+                            <a href="{% url 'logout' %}"
+                               class="dropdown-item">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            {% endif %}
         </div>
     </nav>
 {% endblock %}
