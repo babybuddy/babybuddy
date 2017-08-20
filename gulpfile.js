@@ -1,5 +1,9 @@
 var gulp = require('gulp');
+
+var pump = require('pump');
 var concat = require('gulp-concat');
+var csso = require('gulp-csso');
+var uglify = require('gulp-uglify');
 
 /* APP FILES */
 
@@ -49,6 +53,47 @@ gulp.task('vendor:fonts', function() {
 
 gulp.task('vendor', ['vendor:styles', 'vendor:scripts', 'vendor:fonts']);
 
+/* COMPRESSION */
+
+gulp.task('compress:app:scripts', function (cb) {
+    pump([
+            gulp.src('babyblotter/static/babyblotter/js/app.js'),
+            concat('app.min.js'),
+            uglify(),
+            gulp.dest('babyblotter/static/babyblotter/js/')
+        ],
+        cb
+    );
+});
+
+gulp.task('compress:vendor:scripts', function (cb) {
+    pump([
+            gulp.src('babyblotter/static/babyblotter/js/vendor.js'),
+            concat('vendor.min.js'),
+            uglify(),
+            gulp.dest('babyblotter/static/babyblotter/js/')
+        ],
+        cb
+    );
+});
+
+gulp.task('compress:vendor:css', function (cb) {
+    pump([
+            gulp.src('babyblotter/static/babyblotter/css/vendor.css'),
+            concat('vendor.min.css'),
+            csso(),
+            gulp.dest('babyblotter/static/babyblotter/css/')
+        ],
+        cb
+    );
+});
+
+gulp.task('compress', [
+    'compress:app:scripts',
+    'compress:vendor:scripts',
+    'compress:vendor:css'
+]);
+
 /* DEFAULT */
 
-gulp.task('default', ['vendor', 'app']);
+gulp.task('default', ['vendor', 'app', 'compress']);

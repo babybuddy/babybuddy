@@ -7,15 +7,15 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %} | Baby Blotter</title>
-    <link rel="stylesheet" href="{% static "babyblotter/css/vendor.css" %}" />
+    <link rel="stylesheet" href="{% static "babyblotter/css/vendor.min.css" %}" />
 </head>
 <body style="padding-top: 5rem;">
 
 {% block nav %}{% endblock %}
 {% block page %}{% endblock %}
 
-<script src="{% static "babyblotter/js/vendor.js" %}"></script>
-<script src="{% static "babyblotter/js/app.js" %}"></script>
+<script src="{% static "babyblotter/js/vendor.min.js" %}"></script>
+<script src="{% static "babyblotter/js/app.min.js" %}"></script>
 {% block javascript %}{% endblock %}
 </body>
 </html>
