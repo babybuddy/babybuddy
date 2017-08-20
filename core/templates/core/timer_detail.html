@@ -6,10 +6,10 @@
 
 {% block content %}
     <div class="jumbotron text-center">
-        <h1 class="display-1">
-            <span id="timer_hours">{{ object.current_duration|hours }}</span>h
-            <span id="timer_minutes">{{ object.current_duration|minutes }}</span>m
-            <span id="timer_seconds">{{ object.current_duration|seconds }}</span>s
+        <h1 id="timer-status" class="display-1">
+            <span class="timer-hours">{{ object.current_duration|hours }}</span>h
+            <span class="timer-minutes">{{ object.current_duration|minutes }}</span>m
+            <span class="timer-seconds">{{ object.current_duration|seconds }}</span>s
         </h1>
         <p class="lead text-muted">Started {{ object.start }} by {{ object.user }}</p>
 
@@ -37,4 +37,10 @@
                role="button"><i class="fa fa-times-circle" aria-hidden="true"></i> Delete Timer</a>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="application/javascript">
+        BBTimer.run('timer-status');
+    </script>
 {% endblock %}

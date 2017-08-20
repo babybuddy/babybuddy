@@ -1,6 +1,20 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 
+/* APP FILES */
+
+gulp.task('app:scripts', function() {
+    return gulp.src([
+        'core/static/js/timer.js'
+    ])
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('babyblotter/static/babyblotter/js/'));
+});
+
+gulp.task('app', ['app:scripts']);
+
+/* VENDOR FILES */
+
 gulp.task('vendor:scripts', function() {
     return gulp.src([
         'node_modules/jquery/dist/jquery.js',
@@ -32,4 +46,6 @@ gulp.task('vendor:fonts', function() {
 
 gulp.task('vendor', ['vendor:styles', 'vendor:scripts', 'vendor:fonts']);
 
-gulp.task('default', ['vendor']);
+/* DEFAULT */
+
+gulp.task('default', ['vendor', 'app']);
