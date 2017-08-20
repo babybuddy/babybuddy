@@ -5,7 +5,10 @@ var concat = require('gulp-concat');
 
 gulp.task('app:scripts', function() {
     return gulp.src([
-        'core/static/js/timer.js'
+        'babyblotter/static_site/js/babyblotter.js',
+        'api/static/js/*.js',
+        'core/static/js/*.js',
+        'dashboard/static/js/*.js'
     ])
         .pipe(concat('app.js'))
         .pipe(gulp.dest('babyblotter/static/babyblotter/js/'));

@@ -1,25 +1,21 @@
-if (typeof jQuery === 'undefined') {
-  throw new Error('BabyBlotter Timer requires jQuery.')
-}
-
-var BBTimer = function ($) {
-    /* Baby Blotter Timer
-     *
-     * Uses a supplied ID to run a timer. The element using the ID must have
-     * three children with the following classes:
-     *  * timer-seconds
-     *  * timer-minutes
-     *  * timer-hours
-     */
+/* Baby Blotter Timer
+ *
+ * Uses a supplied ID to run a timer. The element using the ID must have
+ * three children with the following classes:
+ *  * timer-seconds
+ *  * timer-minutes
+ *  * timer-hours
+ */
+BabyBlotter.Timer = function ($) {
     var runIntervalId = null;
     var timerElement = null;
 
-    var BBTimer = {
+    var Timer = {
         run: function(id) {
             timerElement = $('#' + id);
 
             if (timerElement.length == 0) {
-                console.error('BBTimer: Timer element not found.')
+                console.error('BBTimer: Timer element not found.');
                 return false;
             }
 
@@ -61,5 +57,5 @@ var BBTimer = function ($) {
         }
     };
 
-    return BBTimer;
+    return Timer;
 }(jQuery);
