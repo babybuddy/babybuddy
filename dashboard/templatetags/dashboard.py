@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from collections import OrderedDict
-from datetime import timedelta
 
 from django import template
 from django.utils import timezone
@@ -30,8 +29,9 @@ def card_diaperchange_last(child):
 def card_diaperchange_types(child):
     """Diaper change statistics for the last five days including today."""
     limit = timezone.now() - timezone.timedelta(days=4)
+    limit = limit.replace(hour=0, minute=0, second=0)
     instances = DiaperChange.objects.filter(
-        child=child).filter(time__gt=limit.date()).order_by('-time')
+        child=child).filter(time__gt=limit).order_by('-time')
     stats = OrderedDict()
     for instance in instances:
         date = instance.time.date()
@@ -60,9 +60,9 @@ def card_tummytime_last(child):
 def card_tummytime_day(child, date=timezone.now().date()):
     instances = TummyTime.objects.filter(
         child=child, end__day=date.day).order_by('-end')
-    stats = {'total': timedelta(seconds=0), 'count': instances.count()}
+    stats = {'total': timezone.timedelta(seconds=0), 'count': instances.count()}
     for instance in instances:
-        stats['total'] += timedelta(seconds=instance.duration_td().seconds)
+        stats['total'] += timezone.timedelta(seconds=instance.duration_td().seconds)
     return {'stats': stats, 'instances': instances, 'last': instances.first()}
 
 
