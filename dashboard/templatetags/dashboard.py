@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from collections import OrderedDict
+from datetime import timedelta
 
 from django import template
 from django.utils import timezone
@@ -59,9 +60,9 @@ def card_tummytime_last(child):
 def card_tummytime_day(child, date=timezone.now().date()):
     instances = TummyTime.objects.filter(
         child=child, end__day=date.day).order_by('-end')
-    stats = {'total': 0, 'count': instances.count()}
+    stats = {'total': timedelta(seconds=0), 'count': instances.count()}
     for instance in instances:
-        stats['total'] += instance.duration_td().seconds
+        stats['total'] += timedelta(seconds=instance.duration_td().seconds)
     return {'stats': stats, 'instances': instances, 'last': instances.first()}
 
 
