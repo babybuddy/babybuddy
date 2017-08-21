@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'babyblotter',
     'core',
     'dashboard',
+    'reports',
 
     'rest_framework',
     'widget_tweaks',
