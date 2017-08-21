@@ -27,16 +27,16 @@ def card_diaperchange_last(child):
 
 @register.inclusion_tag('cards/diaperchange_types.html')
 def card_diaperchange_types(child):
-    """Diaper change statistics for the last five days including today."""
-    limit = timezone.now() - timezone.timedelta(days=4)
-    limit = limit.replace(hour=0, minute=0, second=0)
-    instances = DiaperChange.objects.filter(
-        child=child).filter(time__gt=limit).order_by('-time')
+    """Diaper change statistics for the last seven days including today."""
     stats = OrderedDict()
+    for x in range(0, 5):
+        date = (timezone.now() - timezone.timedelta(days=x)).date()
+        stats[date] = {'wet': 0, 'solid': 0}
+
+    instances = DiaperChange.objects.filter(
+        child=child).filter(time__gt=list(stats.keys())[-1]).order_by('-time')
     for instance in instances:
         date = instance.time.date()
-        if date not in stats.keys():
-            stats[date] = {'wet': 0, 'solid': 0}
         if instance.wet:
             stats[date]['wet'] += 1
         if instance.solid:
@@ -44,8 +44,9 @@ def card_diaperchange_types(child):
 
     for date, info in stats.items():
         total = info['wet'] + info['solid']
-        stats[date]['wet_pct'] = info['wet'] / total * 100
-        stats[date]['solid_pct'] = info['solid'] / total * 100
+        if total > 0:
+            stats[date]['wet_pct'] = info['wet'] / total * 100
+            stats[date]['solid_pct'] = info['solid'] / total * 100
 
     return {'stats': stats, 'last_change': instances.last()}
 
