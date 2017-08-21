@@ -9,6 +9,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^3.0.0",
     "gulp-sass": "^3.1.0",
+    "gulp-sass-glob": "^1.0.8",
     "gulp-uglify": "^3.0.0",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",

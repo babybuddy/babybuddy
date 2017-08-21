@@ -1,4 +1,7 @@
 @import "functions";
 @import "variables";
-@import "custom";
+@import "mixins";
+@import "global";
 @import "../../../node_modules/bootstrap/scss/bootstrap";
+
+@import "../../../**/static/scss/*.scss";

@@ -4,6 +4,7 @@ var concat = require('gulp-concat');
 var csso = require('gulp-csso');
 var pump = require('pump');
 var sass = require('gulp-sass');
+var sassGlob = require('gulp-sass-glob');
 var uglify = require('gulp-uglify');
 
 /* APP FILES */
@@ -21,10 +22,8 @@ gulp.task('app:scripts', function() {
 
 gulp.task('app:styles', function (cb) {
     pump([
-            gulp.src([
-                'babyblotter/static_site/scss/babyblotter.scss',
-                '*/static/scss/*.scss'
-            ]),
+            gulp.src('babyblotter/static_site/scss/babyblotter.scss'),
+            sassGlob(),
             sass().on('error', sass.logError),
             concat('app.css'),
             gulp.dest('babyblotter/static/babyblotter/css/')
