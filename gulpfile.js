@@ -69,7 +69,7 @@ gulp.task('vendor', ['vendor:styles', 'vendor:scripts', 'vendor:fonts']);
 
 /* COMPRESSION */
 
-gulp.task('compress:app:scripts', function (cb) {
+gulp.task('compress:app:scripts', ['app:scripts'], function (cb) {
     pump([
             gulp.src('babyblotter/static/babyblotter/js/app.js'),
             concat('app.min.js'),
@@ -80,7 +80,7 @@ gulp.task('compress:app:scripts', function (cb) {
     );
 });
 
-gulp.task('compress:app:styles', function (cb) {
+gulp.task('compress:app:styles', ['app:styles'], function (cb) {
     pump([
             gulp.src('babyblotter/static/babyblotter/css/app.css'),
             concat('app.min.css'),
@@ -91,7 +91,7 @@ gulp.task('compress:app:styles', function (cb) {
     );
 });
 
-gulp.task('compress:vendor:scripts', function (cb) {
+gulp.task('compress:vendor:scripts', ['vendor:scripts'], function (cb) {
     pump([
             gulp.src('babyblotter/static/babyblotter/js/vendor.js'),
             concat('vendor.min.js'),
@@ -102,7 +102,7 @@ gulp.task('compress:vendor:scripts', function (cb) {
     );
 });
 
-gulp.task('compress:vendor:styles', function (cb) {
+gulp.task('compress:vendor:styles', ['vendor:styles'], function (cb) {
     pump([
             gulp.src('babyblotter/static/babyblotter/css/vendor.css'),
             concat('vendor.min.css'),
@@ -122,4 +122,4 @@ gulp.task('compress', [
 
 /* DEFAULT */
 
-gulp.task('default', ['vendor', 'app']);
+gulp.task('default', ['vendor', 'app', 'compress']);
