@@ -29,7 +29,7 @@ def card_diaperchange_last(child):
 def card_diaperchange_types(child):
     """Diaper change statistics for the last seven days including today."""
     stats = OrderedDict()
-    for x in range(0, 5):
+    for x in range(0, 7):
         date = (timezone.now() - timezone.timedelta(days=x)).date()
         stats[date] = {'wet': 0, 'solid': 0}
 

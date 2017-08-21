@@ -5,12 +5,24 @@
 
 {% block content %}
     <h1 class="text-center">{{ object }}</h1>
-    <div class="card-columns">
-        {% card_feeding_last object %}
-        {% card_diaperchange_last object %}
-        {% card_tummytime_last object %}
-        {% card_tummytime_day object %}
-        {% card_sleep_last object %}
-        {% card_diaperchange_types object %}
+    <div class="row align-items-start">
+        <div class="col-lg-4 col-sm-12">
+            <div class="row">
+                <div class="col-lg-12 col-sm-6">
+                    {% card_diaperchange_last object %}
+                    {% card_feeding_last object %}
+                </div>
+                <div class="col-lg-12 col-sm-6">
+                    {% card_tummytime_last object %}
+                    {% card_sleep_last object %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            {% card_tummytime_day object %}
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            {% card_diaperchange_types object %}
+        </div>
     </div>
 {% endblock %}
