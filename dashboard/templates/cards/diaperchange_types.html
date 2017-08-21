@@ -9,13 +9,19 @@
 {% block content %}
     {% for date, info in stats.items %}
         <div class="progress mt-3">
-            <div class="progress-bar bg-info lead"
-                 role="progressbar"
-                 style="width: {{ info.wet_pct }}%; height: 30px; line-height: 30px">{{ info.wet }} wet</div>
-            <div class="progress-bar bg-dark lead"
-                 role="progressbar"
-                 style="width: {{ info.solid_pct }}%; height: 30px; line-height: 30px">
-                <strong>{{ info.solid }}</strong> solid</div>
+
+            {% if info.wet_pct > 0 %}
+                <div class="progress-bar bg-info lead"
+                     role="progressbar"
+                     style="width: {{ info.wet_pct }}%;">{{ info.wet }}&nbsp;wet</div>
+            {% endif %}
+
+            {% if info.solid_pct > 0 %}
+                <div class="progress-bar bg-dark lead"
+                     role="progressbar"
+                     style="width: {{ info.solid_pct }}%;">
+                    <strong>{{ info.solid }}</strong>&nbsp;solid</div>
+            {% endif %}
         </div>
         <div class="text-center text-dark small">
             {{ date|date:'D' }}

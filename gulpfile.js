@@ -21,7 +21,10 @@ gulp.task('app:scripts', function() {
 
 gulp.task('app:styles', function (cb) {
     pump([
-            gulp.src('babyblotter/static_site/scss/babyblotter.scss'),
+            gulp.src([
+                'babyblotter/static_site/scss/babyblotter.scss',
+                '*/static/scss/*.scss'
+            ]),
             sass().on('error', sass.logError),
             concat('app.css'),
             gulp.dest('babyblotter/static/babyblotter/css/')
