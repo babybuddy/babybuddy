@@ -1,0 +1,15 @@
+#view-timer-detail {
+  #timer-status {
+    font-size: $display4-size;
+    font-weight: $display4-weight;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  #view-timer-detail {
+    #timer-status {
+      font-size: $display1-size;
+      font-weight: $display1-weight;
+    }
+  }
+}
