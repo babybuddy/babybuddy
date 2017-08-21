@@ -27,10 +27,17 @@ class Command(BaseCommand):
             default=1,
             help='The number of fake children to create.'
         )
+        parser.add_argument(
+            '--days',
+            dest='days',
+            default=5,
+            help='How many days of fake entries to create.'
+        )
 
     def handle(self, *args, **kwargs):
-        verbosity = kwargs['verbosity'] or 1
-        children = kwargs['children'] or 1
+        verbosity = int(kwargs['verbosity']) or 1
+        children = int(kwargs['children']) or 1
+        days = int(kwargs['days']) or 5
 
         for i in range(0, children):
             child = Child.objects.create(
@@ -40,8 +47,9 @@ class Command(BaseCommand):
             )
             child.save()
 
-            for j in range(1, 6):
-                date = timezone.now() - timedelta(days=j)
+            for j in range(0, days):
+                date = (timezone.now() - timedelta(days=j)).replace(
+                    hour=0, minute=0, second=0)
                 self._add_child_data(child, date)
 
         if verbosity > 0:
@@ -62,14 +70,14 @@ class Command(BaseCommand):
 
             DiaperChange.objects.create(
                 child=child,
-                time=date + timedelta(seconds=randint(-86400, 86400)),
+                time=date + timedelta(seconds=randint(0, 86400)),
                 wet=wet,
                 solid=solid,
                 color=color
             ).save()
 
         for i in (range(0, randint(5, 20))):
-            start = date + timedelta(seconds=randint(-86400, 86400))
+            start = date + timedelta(seconds=randint(0, 86400))
             method = choice(Feeding._meta.get_field('method').choices)[0]
 
             if method is 'bottle':
@@ -87,7 +95,7 @@ class Command(BaseCommand):
             ).save()
 
         for i in (range(0, randint(2, 10))):
-            start = date + timedelta(seconds=randint(-86400, 86400))
+            start = date + timedelta(seconds=randint(0, 86400))
 
             Sleep.objects.create(
                 child=child,
@@ -96,7 +104,7 @@ class Command(BaseCommand):
             ).save()
 
         for i in (range(0, randint(2, 10))):
-            start = date + timedelta(seconds=randint(-86400, 86400))
+            start = date + timedelta(seconds=randint(0, 86400))
 
             if choice([True, False]):
                 milestone = self.faker.sentence()
