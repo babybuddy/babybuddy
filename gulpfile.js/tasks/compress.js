@@ -5,6 +5,9 @@ var csso = require('gulp-csso');
 var pump = require('pump');
 var uglify = require('gulp-uglify');
 
+var basePath = require('../config.js').basePath;
+var compressConfig = require('../config.js').compressConfig;
+
 
 gulp.task('compress', [
     'compress:scripts:app',
@@ -15,36 +18,36 @@ gulp.task('compress', [
 
 gulp.task('compress:scripts:app', ['scripts:app'], function (cb) {
     pump([
-        gulp.src('babyblotter/static/babyblotter/js/app.js'),
+        gulp.src(basePath + 'js/app.js'),
         concat('app.min.js'),
         uglify(),
-        gulp.dest('babyblotter/static/babyblotter/js/')
+        gulp.dest(compressConfig.scripts.dest)
     ], cb);
 });
 
 gulp.task('compress:scripts:vendor', ['scripts:vendor'], function (cb) {
     pump([
-        gulp.src('babyblotter/static/babyblotter/js/vendor.js'),
+        gulp.src(basePath + 'js/vendor.js'),
         concat('vendor.min.js'),
         uglify(),
-        gulp.dest('babyblotter/static/babyblotter/js/')
+        gulp.dest(compressConfig.scripts.dest)
     ], cb);
 });
 
 gulp.task('compress:styles:app', ['styles:app'], function (cb) {
     pump([
-        gulp.src('babyblotter/static/babyblotter/css/app.css'),
+        gulp.src(basePath + 'css/app.css'),
         concat('app.min.css'),
         csso(),
-        gulp.dest('babyblotter/static/babyblotter/css/')
+        gulp.dest(compressConfig.styles.dest)
     ], cb);
 });
 
 gulp.task('compress:styles:vendor', ['styles:vendor'], function (cb) {
     pump([
-        gulp.src('babyblotter/static/babyblotter/css/vendor.css'),
+        gulp.src(basePath + 'css/vendor.css'),
         concat('vendor.min.css'),
         csso(),
-        gulp.dest('babyblotter/static/babyblotter/css/')
+        gulp.dest(compressConfig.styles.dest)
     ], cb);
 });
