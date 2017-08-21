@@ -1,10 +1,11 @@
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle"
-       id="timer-dropdown-menu-link"
+    <a id="nav-timer-menu-link"
+       class="nav-link dropdown-toggle"
+       href="#"
        data-toggle="dropdown"
        aria-haspopup="true"
        aria-expanded="false"><i class="fa fa-clock-o" aria-hidden="true"></i> Timers</a>
-    <div class="dropdown-menu" aria-labelledby="timer-dropdown-menu-link">
+    <div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
         {% if perms.core.add_timer %}
             <a class="dropdown-item" href="{% url 'timer-add-quick' %}">
                 <i class="fa fa-plus" aria-hidden="true"></i> Create Timer

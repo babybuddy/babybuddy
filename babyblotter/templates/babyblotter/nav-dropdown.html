@@ -19,8 +19,9 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       id="nav-activity-menu-link"
+                    <a id="nav-activity-menu-link"
+                       class="nav-link dropdown-toggle"
+                       href="#"
                        data-toggle="dropdown"
                        aria-haspopup="true"
                        aria-expanded="false"><i class="fa fa-child" aria-hidden="true"></i> Activities</a>
@@ -87,10 +88,14 @@
             {% if request.user %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user" aria-hidden="true"></i> {{ request.user }}
+                        <a id="nav-user-menu-link"
+                           class="nav-link dropdown-toggle"
+                           href="#"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{ request.user }}
                         </a>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu" aria-labelledby="nav-user-menu-link">
                             <a href="{% url 'api:api-root' %}"
                                class="dropdown-item"
                                target="_blank">API Browser</a>
