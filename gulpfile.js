@@ -1,8 +1,9 @@
 var gulp = require('gulp');
 
-var pump = require('pump');
 var concat = require('gulp-concat');
 var csso = require('gulp-csso');
+var pump = require('pump');
+var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 
 /* APP FILES */
@@ -18,7 +19,18 @@ gulp.task('app:scripts', function() {
         .pipe(gulp.dest('babyblotter/static/babyblotter/js/'));
 });
 
-gulp.task('app', ['app:scripts']);
+gulp.task('app:styles', function (cb) {
+    pump([
+            gulp.src('babyblotter/static_site/scss/babyblotter.scss'),
+            sass().on('error', sass.logError),
+            concat('app.css'),
+            gulp.dest('babyblotter/static/babyblotter/css/')
+        ],
+        cb
+    );
+});
+
+gulp.task('app', ['app:scripts', 'app:styles']);
 
 /* VENDOR FILES */
 
@@ -36,7 +48,7 @@ gulp.task('vendor:scripts', function() {
 
 gulp.task('vendor:styles', function() {
     return gulp.src([
-        'node_modules/bootstrap/dist/css/bootstrap.css',
+        //'node_modules/bootstrap/dist/css/bootstrap.css',
         'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css',
         'node_modules/font-awesome/css/font-awesome.css'
     ])
@@ -66,6 +78,17 @@ gulp.task('compress:app:scripts', function (cb) {
     );
 });
 
+gulp.task('compress:app:styles', function (cb) {
+    pump([
+            gulp.src('babyblotter/static/babyblotter/css/app.css'),
+            concat('app.min.css'),
+            csso(),
+            gulp.dest('babyblotter/static/babyblotter/css/')
+        ],
+        cb
+    );
+});
+
 gulp.task('compress:vendor:scripts', function (cb) {
     pump([
             gulp.src('babyblotter/static/babyblotter/js/vendor.js'),
@@ -77,7 +100,7 @@ gulp.task('compress:vendor:scripts', function (cb) {
     );
 });
 
-gulp.task('compress:vendor:css', function (cb) {
+gulp.task('compress:vendor:styles', function (cb) {
     pump([
             gulp.src('babyblotter/static/babyblotter/css/vendor.css'),
             concat('vendor.min.css'),
@@ -90,10 +113,11 @@ gulp.task('compress:vendor:css', function (cb) {
 
 gulp.task('compress', [
     'compress:app:scripts',
+    'compress:app:styles',
     'compress:vendor:scripts',
-    'compress:vendor:css'
+    'compress:vendor:styles'
 ]);
 
 /* DEFAULT */
 
-gulp.task('default', ['vendor', 'app', 'compress']);
+gulp.task('default', ['vendor', 'app']);
