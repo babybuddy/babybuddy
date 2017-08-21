@@ -49,5 +49,6 @@ def _get_hms(duration):
     if not isinstance(duration, timedelta):
         return 0, 0, 0
     h, remainder = divmod(duration.seconds, 3600)
+    h += duration.days * 24
     m, s = divmod(remainder, 60)
     return h, m, s
