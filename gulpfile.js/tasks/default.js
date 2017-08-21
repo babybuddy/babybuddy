@@ -1,4 +1,4 @@
 const gulp = require('gulp');
 
 
-gulp.task('default', ['scripts', 'styles', 'compress', 'extras']);
+gulp.task('default', ['scripts', 'styles', 'extras']);
