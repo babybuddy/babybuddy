@@ -10,3 +10,4 @@ django-widget-tweaks = "*"
 
 [dev-packages]
 faker = "*"
+flake8 = "*"

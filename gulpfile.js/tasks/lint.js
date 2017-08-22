@@ -2,11 +2,26 @@ var gulp = require('gulp');
 
 var sassLint = require('gulp-sass-lint');
 var pump = require('pump');
+var spawn  = require('child_process').spawn;
 
 var watchConfig = require('../config.js').watchConfig;
 
 
-gulp.task('lint', ['lint:styles']);
+gulp.task('lint', ['lint:styles', 'lint:python']);
+
+gulp.task('lint:python', function(cb) {
+    spawn(
+        'pipenv',
+        [
+            'run',
+            'flake8',
+            '--exclude=node_modules,migrations'
+        ],
+        {
+            stdio: 'inherit'
+        }
+    ).on('exit', cb);
+});
 
 gulp.task('lint:styles', function(cb) {
     pump([

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "837c05c254d8603c80ce3add8dfd5e9a80701a742fdd1b98568f1b664586870f"
+            "sha256": "547b11caae0d9c3ca69111553ae252eaae921249de5f2bce48bb3eb59b61d853"
         },
         "requires": {},
         "sources": [
@@ -22,7 +22,7 @@
             "version": "==1.4.1"
         },
         "djangorestframework": {
-            "version": "==3.6.3"
+            "version": "==3.6.4"
         },
         "pytz": {
             "version": "==2017.2"
@@ -31,6 +31,18 @@
     "develop": {
         "faker": {
             "version": "==0.7.18"
+        },
+        "flake8": {
+            "version": "==3.4.1"
+        },
+        "mccabe": {
+            "version": "==0.6.1"
+        },
+        "pycodestyle": {
+            "version": "==2.3.1"
+        },
+        "pyflakes": {
+            "version": "==1.5.0"
         },
         "python-dateutil": {
             "version": "==2.6.1"
