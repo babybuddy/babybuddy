@@ -30,14 +30,14 @@ class Command(BaseCommand):
         parser.add_argument(
             '--days',
             dest='days',
-            default=5,
+            default=7,
             help='How many days of fake entries to create.'
         )
 
     def handle(self, *args, **kwargs):
         verbosity = int(kwargs['verbosity']) or 1
         children = int(kwargs['children']) or 1
-        days = int(kwargs['days']) or 5
+        days = int(kwargs['days']) or 7
 
         for i in range(0, children):
             child = Child.objects.create(
@@ -58,7 +58,8 @@ class Command(BaseCommand):
             )
 
     def _add_child_data(self, child, date):
-        """TODO: Make sure the dates do not intersect (by advancing date?)."""
+        now = timezone.now()
+
         for i in (range(0, randint(5, 20))):
             solid = choice([True, False])
             if solid:
@@ -69,54 +70,68 @@ class Command(BaseCommand):
                 wet = True
                 color = ''
 
-            DiaperChange.objects.create(
-                child=child,
-                time=date + timedelta(seconds=randint(0, 86400)),
-                wet=wet,
-                solid=solid,
-                color=color
-            ).save()
+            time = date + timedelta(minutes=randint(0, 60 * 24))
 
-        for i in (range(0, randint(5, 20))):
-            start = date + timedelta(seconds=randint(0, 86400))
+            if time < now:
+                DiaperChange.objects.create(
+                    child=child,
+                    time=time,
+                    wet=wet,
+                    solid=solid,
+                    color=color
+                ).save()
+
+        start = date
+        while start < date + timedelta(days=1):
             method = choice(Feeding._meta.get_field('method').choices)[0]
-
             if method is 'bottle':
                 amount = Decimal('%d.%d' % (randint(0, 6), randint(0, 9)))
             else:
                 amount = None
 
+            start += timedelta(minutes=randint(0, 60 * 2))
+            end = start + timedelta(minutes=randint(5, 20))
+            if end > now:
+                break
+
             Feeding.objects.create(
                 child=child,
                 start=start,
-                end=start + timedelta(minutes=randint(5, 60)),
+                end=end,
                 type=choice(Feeding._meta.get_field('type').choices)[0],
                 method=method,
                 amount=amount
             ).save()
+            start = end
 
-        for i in (range(0, randint(2, 10))):
-            start = date + timedelta(seconds=randint(0, 86400))
+        start = date
+        while start < date + timedelta(days=1):
+            start += timedelta(minutes=randint(0, 60 * 2))
+            end = start + timedelta(minutes=randint(10, 60 * 3))
+            if end > now:
+                break
 
-            Sleep.objects.create(
-                child=child,
-                start=start,
-                end=start + timedelta(minutes=randint(5, 120))
-            ).save()
+            Sleep.objects.create(child=child, start=start, end=end).save()
+            start = end
 
-        for i in (range(0, randint(2, 10))):
-            start = date + timedelta(seconds=randint(0, 86400))
-
+        start = date
+        while start < date + timedelta(days=1):
             if choice([True, False]):
                 milestone = self.faker.sentence()
             else:
                 milestone = ''
 
+            start += timedelta(minutes=randint(0, 60 * 2))
+            end = start + timedelta(minutes=randint(1, 10))
+            if end > now:
+                break
+
             TummyTime.objects.create(
                 child=child,
                 start=start,
-                end=start + timedelta(minutes=randint(1, 10)),
+                end=end,
                 milestone=milestone
             ).save()
+            start = end
 
 

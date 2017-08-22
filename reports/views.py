@@ -8,6 +8,7 @@ from core.models import Child
 
 
 class SleepReport(PermissionRequiredMixin, DetailView):
+    """TODO: Account for sleep sessions crossing midnight."""
     model = Child
     permission_required = ('core.view_child',)
     template_name = 'reports/sleep.html'
