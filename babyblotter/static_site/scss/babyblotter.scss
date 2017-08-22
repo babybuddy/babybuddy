@@ -1,7 +1,7 @@
-@import "functions";
-@import "variables";
-@import "mixins";
-@import "global";
-@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import 'functions';
+@import 'variables';
+@import 'mixins';
+@import 'global';
+@import '../../../node_modules/bootstrap/scss/bootstrap';
 
-@import "../../../**/static/scss/*.scss";
+@import '../../../**/static/scss/*';
