@@ -61,9 +61,13 @@ def card_tummytime_last(child):
 def card_tummytime_day(child, date=timezone.now().date()):
     instances = TummyTime.objects.filter(
         child=child, end__day=date.day).order_by('-end')
-    stats = {'total': timezone.timedelta(seconds=0), 'count': instances.count()}
+    stats = {
+        'total': timezone.timedelta(seconds=0),
+        'count': instances.count()
+    }
     for instance in instances:
-        stats['total'] += timezone.timedelta(seconds=instance.duration_td().seconds)
+        stats['total'] += timezone.timedelta(
+            seconds=instance.duration_td().seconds)
     return {'stats': stats, 'instances': instances, 'last': instances.first()}
 
 

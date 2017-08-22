@@ -23,8 +23,8 @@ urlpatterns = [
         name='diaperchange-add'),
     url(r'^changes/(?P<pk>[0-9]+)/$', views.DiaperChangeUpdate.as_view(),
         name='diaperchange-update'),
-    url(r'^changes/(?P<pk>[0-9]+)/delete/$', views.DiaperChangeDelete.as_view(),
-        name='diaperchange-delete'),
+    url(r'^changes/(?P<pk>[0-9]+)/delete/$',
+        views.DiaperChangeDelete.as_view(), name='diaperchange-delete'),
 
     url(r'^feedings/$', views.FeedingList.as_view(), name='feeding-list'),
     url(r'^feedings/add/$', views.FeedingAdd.as_view(), name='feeding-add'),
@@ -55,11 +55,12 @@ urlpatterns = [
     url(r'^timer/(?P<pk>[0-9]+)/delete/$', views.TimerDelete.as_view(),
         name='timer-delete'),
 
-    url(r'^tummy-time/$', views.TummyTimeList.as_view(), name='tummytime-list'),
+    url(r'^tummy-time/$', views.TummyTimeList.as_view(),
+        name='tummytime-list'),
     url(r'^tummy-time/add/$', views.TummyTimeAdd.as_view(),
         name='tummytime-add'),
     url(r'^tummy-time/(?P<pk>[0-9]+)/$', views.TummyTimeUpdate.as_view(),
         name='tummytime-update'),
-    url(r'^tummy-time/(?P<pk>[0-9]+)/delete/$', views.TummyTimeDelete.as_view(),
-        name='tummytime-delete'),
+    url(r'^tummy-time/(?P<pk>[0-9]+)/delete/$',
+        views.TummyTimeDelete.as_view(), name='tummytime-delete'),
 ]

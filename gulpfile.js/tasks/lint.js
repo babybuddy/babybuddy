@@ -15,7 +15,7 @@ gulp.task('lint:python', function(cb) {
         [
             'run',
             'flake8',
-            '--exclude=node_modules,migrations'
+            '--exclude=migrations,manage.py,node_modules,settings'
         ],
         {
             stdio: 'inherit'

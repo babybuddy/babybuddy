@@ -133,5 +133,3 @@ class Command(BaseCommand):
                 milestone=milestone
             ).save()
             start = end
-
-
