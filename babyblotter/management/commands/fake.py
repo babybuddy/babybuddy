@@ -58,6 +58,7 @@ class Command(BaseCommand):
             )
 
     def _add_child_data(self, child, date):
+        """TODO: Make sure the dates do not intersect (by advancing date?)."""
         for i in (range(0, randint(5, 20))):
             solid = choice([True, False])
             if solid:
