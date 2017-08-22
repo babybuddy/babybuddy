@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from os import path
+
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
@@ -33,7 +35,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('Database flushed.'))
 
         for config in apps.app_configs.values():
-            if config.path.split('/')[-2] == 'babyblotter':
+            if path.split(path.split(config.path)[0])[1] == 'babyblotter':
                 migrate = Migrate()
                 options['app_label'] = config.name
                 options['migration_name'] = 'zero'
