@@ -39,5 +39,16 @@ module.exports = {
             'node_modules/font-awesome/css/font-awesome.css'
         ],
         app: 'babyblotter/static_site/scss/babyblotter.scss'
+    },
+    watchConfig: {
+        scriptsGlob: [
+            '**/static/js/**/*.js',
+            'babyblotter/static_site/js/**/*.js',
+            '!babyblotter/static/js/'
+        ],
+        stylesGlob: [
+            '**/static/scss/**/*.scss',
+            'babyblotter/static_site/scss/**/*.scss'
+        ]
     }
 };
