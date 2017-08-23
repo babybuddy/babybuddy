@@ -48,7 +48,7 @@ class Command(BaseCommand):
             child.save()
 
             for j in range(0, days):
-                date = (timezone.now() - timedelta(days=j)).replace(
+                date = (timezone.localtime() - timedelta(days=j)).replace(
                     hour=0, minute=0, second=0)
                 self._add_child_data(child, date)
 
@@ -58,7 +58,7 @@ class Command(BaseCommand):
             )
 
     def _add_child_data(self, child, date):
-        now = timezone.now()
+        now = timezone.localtime()
 
         for i in (range(0, randint(5, 20))):
             solid = choice([True, False])
