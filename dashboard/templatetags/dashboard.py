@@ -30,7 +30,7 @@ def card_diaperchange_types(child):
     """Diaper change statistics for the last seven days including today."""
     stats = OrderedDict()
     for x in range(0, 7):
-        date = (timezone.now() - timezone.timedelta(days=x)).date()
+        date = (timezone.localtime() - timezone.timedelta(days=x)).date()
         stats[date] = {'wet': 0, 'solid': 0}
 
     instances = DiaperChange.objects.filter(
@@ -58,7 +58,7 @@ def card_tummytime_last(child):
 
 
 @register.inclusion_tag('cards/tummytime_day.html')
-def card_tummytime_day(child, date=timezone.now().date()):
+def card_tummytime_day(child, date=timezone.localtime().date()):
     instances = TummyTime.objects.filter(
         child=child, end__day=date.day).order_by('-end')
     stats = {
