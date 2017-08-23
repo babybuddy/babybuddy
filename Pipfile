@@ -7,6 +7,7 @@ django = "*"
 djangorestframework = "*"
 django-filter = "*"
 django-widget-tweaks = "*"
+plotly = "*"
 
 [dev-packages]
 faker = "*"

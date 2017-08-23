@@ -1,0 +1,19 @@
+{% extends 'reports/report_base.html' %}
+
+{% block title %}Diaper Change Report - {{ object }}{% endblock %}
+
+{% block content %}
+    <div>
+        Diaper change report for {{ object }}.
+    </div>
+
+    <div style="min-height: 600px;">
+        {{ html|safe }}
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {{ javascript|safe }}
+{% endblock %}

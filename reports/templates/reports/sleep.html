@@ -1,4 +1,4 @@
-{% extends 'babyblotter/page.html' %}
+{% extends 'reports/report_base.html' %}
 
 {% block title %}Sleep Report - {{ object }}{% endblock %}
 
@@ -7,54 +7,6 @@
         Sleep report for {{ object }}.
     </div>
 
-    <pre>{{ stats|pprint }}</pre>
-
-    <div class="row">
-        <div class="col-md-1 d-flex align-self-center">
-            Tuesday, 22 Aug.
-        </div>
-        <div class="col-md-11">
-            <div class="progress" style="height: 32px; border-radius: 0;">
-                <div class="progress-bar" role="progressbar" style="width: 5%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 2%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 15%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 6%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 3%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 10%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 5%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 2%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 15%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 6%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 3%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 10%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 8%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 10%"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-1">
-            Monday, 21 Aug.
-        </div>
-        <div class="col-md-11">
-            <div class="progress" style="height: 32px; border-radius: 0;">
-                <div class="progress-bar" role="progressbar" style="width: 5%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 2%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 3%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 10%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 5%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 2%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 15%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 6%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 3%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 10%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 8%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 10%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 15%; background: none;"></div>
-                <div class="progress-bar bg-info" role="progressbar" style="width: 6%"></div>
-            </div>
-        </div>
-    </div>
+    Test
 
 {% endblock %}
