@@ -81,15 +81,15 @@ class Command(BaseCommand):
                     color=color
                 ).save()
 
-        start = date
-        while start < date + timedelta(days=1):
+        last_end = date
+        while last_end < date + timedelta(days=1):
             method = choice(Feeding._meta.get_field('method').choices)[0]
             if method is 'bottle':
                 amount = Decimal('%d.%d' % (randint(0, 6), randint(0, 9)))
             else:
                 amount = None
 
-            start += timedelta(minutes=randint(0, 60 * 2))
+            start = last_end + timedelta(minutes=randint(0, 60 * 2))
             end = start + timedelta(minutes=randint(5, 20))
             if end > now:
                 break
@@ -102,26 +102,26 @@ class Command(BaseCommand):
                 method=method,
                 amount=amount
             ).save()
-            start = end
+            last_end = end
 
-        start = date
-        while start < date + timedelta(days=1):
-            start += timedelta(minutes=randint(0, 60 * 2))
+        last_end = date
+        while last_end < date + timedelta(days=1):
+            start = last_end + timedelta(minutes=randint(0, 60 * 2))
             end = start + timedelta(minutes=randint(10, 60 * 3))
             if end > now:
                 break
 
             Sleep.objects.create(child=child, start=start, end=end).save()
-            start = end
+            last_end = end
 
-        start = date
-        while start < date + timedelta(days=1):
+        last_end = date
+        while last_end < date + timedelta(days=1):
             if choice([True, False]):
                 milestone = self.faker.sentence()
             else:
                 milestone = ''
 
-            start += timedelta(minutes=randint(0, 60 * 2))
+            start = last_end + timedelta(minutes=randint(0, 60 * 2))
             end = start + timedelta(minutes=randint(1, 10))
             if end > now:
                 break
@@ -132,4 +132,4 @@ class Command(BaseCommand):
                 end=end,
                 milestone=milestone
             ).save()
-            start = end
+            last_end = end
