@@ -55,7 +55,7 @@ def card_diaperchange_types(child):
             stats[date]['wet_pct'] = info['wet'] / total * 100
             stats[date]['solid_pct'] = info['solid'] / total * 100
 
-    return {'stats': stats, 'last_change': instances.last()}
+    return {'stats': stats, 'last_change': instances.first()}
 
 
 @register.inclusion_tag('cards/tummytime_last.html')
