@@ -4,8 +4,27 @@
 {% block title %}Dashboard - {{ object }}{% endblock %}
 
 {% block content %}
-    <h1 class="text-center">{{ object }}</h1>
-    <div class="row align-items-start">
+
+    <div class="bg-light text-dark rounded text-center pb-2">
+        <h1 class="display-4">{{ object }}</h1>
+
+        <div class="dropdown">
+            <button id="reports-dropdown"
+                    class="btn btn-success dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reports</button>
+            <div class="dropdown-menu" aria-labelledby="reports-dropdown">
+                {% if perms.core.view_diaperchange %}
+                    <a class="dropdown-item" href="{% url 'reports:report-diaperchange' object.slug %}">
+                        <i class="fa fa-trash" aria-hidden="true"></i> Changes</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-start mt-4">
         <div class="col-lg-4 col-sm-12">
             <div class="row">
                 <div class="col-lg-12 col-sm-6">

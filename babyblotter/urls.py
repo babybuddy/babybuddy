@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'', include('api.urls', namespace='api')),
     url(r'', include('core.urls')),
     url(r'', include('dashboard.urls')),
-    url(r'', include('reports.urls')),
+    url(r'', include('reports.urls', namespace='reports')),
 ]
