@@ -5,6 +5,11 @@ from .base import *
 
 SECRET_KEY = '(z4ha%^_=7#jco0wmna_#0jvyyt!03#f7l_y%@1x(a2xj$nrx%'
 DEBUG = True
+# Enables the debug template varaible.
+INTERNAL_IPS = (
+    '0.0.0.0',
+    '127.0.0.1',
+)
 ALLOWED_HOSTS = ['*']
 
 

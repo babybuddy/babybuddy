@@ -7,16 +7,27 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %} | Baby Blotter</title>
-    <link rel="stylesheet" href="{% static "babyblotter/css/app.css" %}" />
-    <link rel="stylesheet" href="{% static "babyblotter/css/vendor.css" %}" />
+    {% if debug %}
+        <link rel="stylesheet" href="{% static "babyblotter/css/app.css" %}" />
+        <link rel="stylesheet" href="{% static "babyblotter/css/vendor.css" %}" />
+    {% else %}
+        <link rel="stylesheet" href="{% static "babyblotter/css/app.min.css" %}" />
+        <link rel="stylesheet" href="{% static "babyblotter/css/vendor.min.css" %}" />
+    {% endif %}
 </head>
 <body style="padding-top: 5rem;">
 
 {% block nav %}{% endblock %}
 {% block page %}{% endblock %}
 
-<script src="{% static "babyblotter/js/vendor.js" %}"></script>
-<script src="{% static "babyblotter/js/app.js" %}"></script>
+{% if debug %}
+    <script src="{% static "babyblotter/js/vendor.js" %}"></script>
+    <script src="{% static "babyblotter/js/app.js" %}"></script>
+{% else %}
+    <script src="{% static "babyblotter/js/vendor.min.js" %}"></script>
+    <script src="{% static "babyblotter/js/app.min.js" %}"></script>
+{% endif %}
+
 {% block javascript %}{% endblock %}
 </body>
 </html>
