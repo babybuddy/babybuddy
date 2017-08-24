@@ -1,5 +1,10 @@
 {% extends 'babyblotter/page.html' %}
+{% load static %}
 
 {% block javascript %}
-    <script src="https://cdn.plot.ly/plotly-latest.js"></script>
+    {% if debug %}
+        <script src="{% static "babyblotter/js/graph.js" %}"></script>
+    {% else %}
+        <script src="{% static "babyblotter/js/graph.min.js" %}"></script>
+    {% endif %}
 {% endblock %}
