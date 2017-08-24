@@ -25,6 +25,9 @@ module.exports = {
             'node_modules/moment/moment.js',
             'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
         ],
+        graph: [
+            'node_modules/plotly.js/dist/plotly-cartesian.js'
+        ],
         app: [
             'babyblotter/static_src/js/babyblotter.js',
             'api/static_src/js/*.js',

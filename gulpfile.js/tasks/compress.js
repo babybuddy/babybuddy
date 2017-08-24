@@ -13,7 +13,8 @@ gulp.task('compress', [
     'compress:scripts:app',
     'compress:styles:app',
     'compress:scripts:vendor',
-    'compress:styles:vendor'
+    'compress:styles:vendor',
+    'compress:scripts:graph'
 ]);
 
 gulp.task('compress:scripts:app', ['scripts:app'], function (cb) {
@@ -29,6 +30,15 @@ gulp.task('compress:scripts:vendor', ['scripts:vendor'], function (cb) {
     pump([
         gulp.src(basePath + 'js/vendor.js'),
         concat('vendor.min.js'),
+        uglify(),
+        gulp.dest(compressConfig.scripts.dest)
+    ], cb);
+});
+
+gulp.task('compress:scripts:graph', ['scripts:graph'], function (cb) {
+    pump([
+        gulp.src(basePath + 'js/graph.js'),
+        concat('graph.min.js'),
         uglify(),
         gulp.dest(compressConfig.scripts.dest)
     ], cb);

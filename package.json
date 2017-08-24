@@ -15,6 +15,7 @@
     "gulp-uglify": "^3.0.0",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
+    "plotly.js": "^1.30.0",
     "popper.js": "^1.12.3",
     "pump": "^1.0.2",
     "require-dir": "^0.3.2",
