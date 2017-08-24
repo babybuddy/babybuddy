@@ -21,7 +21,7 @@ gulp.task('styles:vendor', function(cb) {
 gulp.task('styles:app', function (cb) {
     pump([
         gulp.src(stylesConfig.app),
-        sassGlob(),
+        sassGlob({ignorePaths: stylesConfig.ignore}),
         sass().on('error', sass.logError),
         concat('app.css'),
         gulp.dest(stylesConfig.dest)

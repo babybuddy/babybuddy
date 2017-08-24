@@ -41,7 +41,10 @@ module.exports = {
             'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css',
             'node_modules/font-awesome/css/font-awesome.css'
         ],
-        app: 'babyblotter/static_src/scss/babyblotter.scss'
+        app: 'babyblotter/static_src/scss/babyblotter.scss',
+        ignore: [
+            'babyblotter.scss'
+        ]
     },
     watchConfig: {
         scriptsGlob: [
