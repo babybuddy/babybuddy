@@ -26,10 +26,10 @@ module.exports = {
             'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
         ],
         app: [
-            'babyblotter/static_site/js/babyblotter.js',
-            'api/static/js/*.js',
-            'core/static/js/*.js',
-            'dashboard/static/js/*.js'
+            'babyblotter/static_src/js/babyblotter.js',
+            'api/static_src/js/*.js',
+            'core/static_src/js/*.js',
+            'dashboard/static_src/js/*.js'
         ]
     },
     stylesConfig: {
@@ -38,17 +38,15 @@ module.exports = {
             'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css',
             'node_modules/font-awesome/css/font-awesome.css'
         ],
-        app: 'babyblotter/static_site/scss/babyblotter.scss'
+        app: 'babyblotter/static_src/scss/babyblotter.scss'
     },
     watchConfig: {
         scriptsGlob: [
-            '**/static/js/**/*.js',
-            'babyblotter/static_site/js/**/*.js',
+            '**/static_src/js/**/*.js',
             '!babyblotter/static/js/'
         ],
         stylesGlob: [
-            '**/static/scss/**/*.scss',
-            'babyblotter/static_site/scss/**/*.scss'
+            '**/static_src/scss/**/*.scss'
         ]
     }
 };
