@@ -14,12 +14,16 @@ register = template.Library()
 
 @register.inclusion_tag('cards/feeding_last.html')
 def card_feeding_last(child):
+    """Information about the most recent feeding.
+    """
     instance = Feeding.objects.filter(child=child).order_by('-end').first()
     return {'feeding': instance}
 
 
 @register.inclusion_tag('cards/diaperchange_last.html')
 def card_diaperchange_last(child):
+    """Information about the most recent diaper change.
+    """
     instance = DiaperChange.objects.filter(
         child=child).order_by('-time').first()
     return {'change': instance}
@@ -27,14 +31,17 @@ def card_diaperchange_last(child):
 
 @register.inclusion_tag('cards/diaperchange_types.html')
 def card_diaperchange_types(child):
-    """Diaper change statistics for the last seven days including today."""
+    """Diaper change statistics for the last seven days including today.
+    """
     stats = OrderedDict()
     for x in range(0, 7):
         date = (timezone.localtime() - timezone.timedelta(days=x)).date()
         stats[date] = {'wet': 0, 'solid': 0}
 
-    instances = DiaperChange.objects.filter(
-        child=child).filter(time__gt=list(stats.keys())[-1]).order_by('-time')
+    instances = DiaperChange.objects.filter(child=child)\
+        .filter(time__gt=list(stats.keys())[-1])\
+        .filter(time__lt=timezone.localtime())\
+        .order_by('-time')
     for instance in instances:
         date = instance.time.date()
         if instance.wet:
@@ -53,12 +60,16 @@ def card_diaperchange_types(child):
 
 @register.inclusion_tag('cards/tummytime_last.html')
 def card_tummytime_last(child):
+    """Information about the most recent tummy time.
+    """
     instance = TummyTime.objects.filter(child=child).order_by('-end').first()
     return {'tummytime': instance}
 
 
 @register.inclusion_tag('cards/tummytime_day.html')
 def card_tummytime_day(child, date=timezone.localtime().date()):
+    """Tummy time over the course of `date`.
+    """
     instances = TummyTime.objects.filter(
         child=child, end__day=date.day).order_by('-end')
     stats = {
@@ -73,5 +84,7 @@ def card_tummytime_day(child, date=timezone.localtime().date()):
 
 @register.inclusion_tag('cards/sleep_last.html')
 def card_sleep_last(child):
+    """Information about the most recent sleep entry.
+    """
     instance = Sleep.objects.filter(child=child).order_by('-end').first()
     return {'sleep': instance}
