@@ -13,7 +13,11 @@ from core.models import Child
 class DashboardRedirect(LoginRequiredMixin, RedirectView):
     # Show the overall dashboard or a child dashboard if one Child instance.
     def get(self, request, *args, **kwargs):
-        if Child.objects.count() == 1:
+        children = Child.objects.count()
+        if children == 0:
+            # TODO: Create some sort of welcome page.
+            self.url = reverse('child-add')
+        elif children == 1:
             child_instance = Child.objects.first()
             self.url = reverse('dashboard-child', args={child_instance.slug})
         else:
