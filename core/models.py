@@ -26,6 +26,12 @@ class Child(models.Model):
         self.slug = slugify(self)
         super(Child, self).save(*args, **kwargs)
 
+    def name(self, reverse=False):
+        if reverse:
+            return '{}, {}'.format(self.last_name, self.first_name)
+        else:
+            return '{} {}'.format(self.first_name, self.last_name)
+
 
 class DiaperChange(models.Model):
     child = models.ForeignKey('Child', related_name='diaper_change')

@@ -24,7 +24,7 @@
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
-                                {% if perms.core.change_child %}
+                                {% if perms.core.view_child %}
                                     <a href="{% url 'dashboard-child' child.slug %}" class="btn btn-success">
                                         <i class="fa fa-tachometer" aria-hidden="true"></i>
                                     </a>
