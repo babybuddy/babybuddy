@@ -29,8 +29,8 @@ class Child(models.Model):
     def name(self, reverse=False):
         if reverse:
             return '{}, {}'.format(self.last_name, self.first_name)
-        else:
-            return '{} {}'.format(self.first_name, self.last_name)
+
+        return '{} {}'.format(self.first_name, self.last_name)
 
 
 class DiaperChange(models.Model):
