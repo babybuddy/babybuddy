@@ -76,12 +76,8 @@ class DiaperChangesChildReport(PermissionRequiredMixin, DetailView):
         self.javascript += javascript
 
 
-class SleepReport(PermissionRequiredMixin, DetailView):
+class SleepChildReport(PermissionRequiredMixin, DetailView):
     """All sleep data for a child."""
     model = Child
     permission_required = ('core.view_child',)
     template_name = 'reports/sleep.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(SleepReport, self).get_context_data(**kwargs)
-        return context

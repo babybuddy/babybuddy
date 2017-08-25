@@ -17,8 +17,12 @@
                     aria-expanded="false"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reports</button>
             <div class="dropdown-menu" aria-labelledby="reports-dropdown">
                 {% if perms.core.view_diaperchange %}
-                    <a class="dropdown-item" href="{% url 'reports:report-diaperchange' object.slug %}">
+                    <a class="dropdown-item" href="{% url 'reports:report-diaperchange-child' object.slug %}">
                         <i class="fa fa-trash" aria-hidden="true"></i> Changes</a>
+                {% endif %}
+            {% if perms.core.view_sleep %}
+                    <a class="dropdown-item" href="{% url 'reports:report-sleep-child' object.slug %}">
+                        <i class="fa fa-bed" aria-hidden="true"></i> Sleep</a>
                 {% endif %}
             </div>
         </div>
