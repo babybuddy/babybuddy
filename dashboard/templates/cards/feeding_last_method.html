@@ -1,0 +1,15 @@
+{% extends 'cards/feeding.html' %}
+
+{% block header %}Last Feeding Method{% endblock %}
+
+{% block title %}
+    <h2 class="display-4 text-center">{{ feeding.method }}</h2>
+{% endblock %}
+
+{% block content %}
+    {% if feeding.amount %}
+        <div class="text-muted">Amount: {{ feeding.amount }}oz.</div>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}{{ feeding.end }}{% endblock %}

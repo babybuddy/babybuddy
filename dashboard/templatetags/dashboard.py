@@ -20,6 +20,14 @@ def card_feeding_last(child):
     return {'feeding': instance}
 
 
+@register.inclusion_tag('cards/feeding_last_method.html')
+def card_feeding_last_method(child):
+    """Information about the most recent feeding _method_.
+    """
+    instance = Feeding.objects.filter(child=child).order_by('-end').first()
+    return {'feeding': instance}
+
+
 @register.inclusion_tag('cards/diaperchange_last.html')
 def card_diaperchange_last(child):
     """Information about the most recent diaper change.
