@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "547b11caae0d9c3ca69111553ae252eaae921249de5f2bce48bb3eb59b61d853"
+            "sha256": "34e7008c14a0e6f48f74fb087da15a34ef419ec1830d92b8d230927450e6adc8"
         },
         "requires": {},
         "sources": [
@@ -12,6 +12,15 @@
         ]
     },
     "default": {
+        "certifi": {
+            "version": "==2017.7.27.1"
+        },
+        "chardet": {
+            "version": "==3.0.4"
+        },
+        "decorator": {
+            "version": "==4.1.2"
+        },
         "django": {
             "version": "==1.11.4"
         },
@@ -24,8 +33,38 @@
         "djangorestframework": {
             "version": "==3.6.4"
         },
+        "idna": {
+            "version": "==2.6"
+        },
+        "ipython-genutils": {
+            "version": "==0.2.0"
+        },
+        "jsonschema": {
+            "version": "==2.6.0"
+        },
+        "jupyter-core": {
+            "version": "==4.3.0"
+        },
+        "nbformat": {
+            "version": "==4.4.0"
+        },
+        "plotly": {
+            "version": "==2.0.15"
+        },
         "pytz": {
             "version": "==2017.2"
+        },
+        "requests": {
+            "version": "==2.18.4"
+        },
+        "six": {
+            "version": "==1.10.0"
+        },
+        "traitlets": {
+            "version": "==4.3.2"
+        },
+        "urllib3": {
+            "version": "==1.22"
         }
     },
     "develop": {
