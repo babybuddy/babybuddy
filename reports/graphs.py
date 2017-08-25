@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from collections import OrderedDict
+
 from django.db.models import Count, Case, When
 from django.db.models.functions import TruncDate
-from django.utils import timezone
+from django.utils import timezone, duration
 
 import pandas as pd
 import plotly.offline as plotly
@@ -57,31 +59,58 @@ def diaperchange_types(child):
 
 def sleep_times(child):
     instances = Sleep.objects.filter(child=child).order_by('start')
-    df = pd.DataFrame()
+    y_df = pd.DataFrame()
+    text_df = pd.DataFrame()
     last_end_time = None
     df_index = 0
     for instance in instances:
         start_time = timezone.localtime(instance.start)
         end_time = timezone.localtime(instance.end)
         start_date = start_time.date().isoformat()
-        if start_date not in df:
-            df.assign(**{start_date: 0 in range(0, len(df.index))})
+        if start_date not in y_df:
+            y_df.assign(**{start_date: 0 in range(0, len(y_df.index))})
+            text_df.assign(**{start_date: 0 in range(0, len(y_df.index))})
             last_end_time = start_time.replace(hour=0, minute=0, second=0)
             df_index = 0
-        df.set_value(
-            df_index, start_date, (start_time - last_end_time).seconds/60)
+
+        # Awake time.
+        y_df.set_value(
+            df_index, start_date, (start_time - last_end_time).seconds/60,
+        )
+        text_df.set_value(
+            df_index,
+            start_date,
+            'Awake for from {} to {} ({})'.format(
+                last_end_time.strftime('%I:%M %p'),
+                start_time.strftime('%I:%M %p'),
+                duration.duration_string(start_time - last_end_time)
+            )
+        )
         df_index += 1
-        df.set_value(df_index, start_date, instance.duration.seconds/60)
+
+        # Asleep time.
+        y_df.set_value(df_index, start_date, instance.duration.seconds/60)
+        text_df.set_value(
+            df_index,
+            start_date,
+            'Asleep for from {} to {} ({})'.format(
+                start_time.strftime('%I:%M %p'),
+                end_time.strftime('%I:%M %p'),
+                duration.duration_string(instance.duration)
+            )
+        )
         df_index += 1
         last_end_time = end_time
 
-    dates = list(df)
+    dates = list(y_df)
     traces = []
     color = 'rgba(255, 255, 255, 0)'
-    for index, row in df.iterrows():
+    for index, row in y_df.iterrows():
         traces.append(go.Bar(
             x=dates,
             y=row,
+            text=text_df.ix[index],
+            hoverinfo='text',
             marker={'color': color},
             showlegend=False,
         ))
@@ -91,19 +120,29 @@ def sleep_times(child):
             color = 'rgba(255, 255, 255, 0)'
 
     layout_args = default_graph_layout_options()
+    layout_args['margin']['b'] = 100
 
     layout_args['barmode'] = 'stack'
     layout_args['hovermode'] = 'closest'
-    layout_args['title'] = 'Sleep entries per day'
+    layout_args['title'] = 'Sleep vs. wake times'
+    layout_args['height'] = 600
 
     layout_args['xaxis']['title'] = 'Date'
     layout_args['xaxis']['type'] = 'category'
+    layout_args['xaxis']['tickangle'] = -65
+
+    start = timezone.localtime().strptime('12:00 AM', '%I:%M %p')
+    ticks = OrderedDict()
+    ticks[0] = start.strftime('%I:%M %p')
+    for i in range(30, 60*24, 30):
+        ticks[i] = (start + timezone.timedelta(minutes=i)).strftime('%I:%M %p')
 
     layout_args['yaxis']['title'] = 'Time of day'
     layout_args['yaxis']['rangemode'] = 'tozero'
     layout_args['yaxis']['tickmode'] = 'array'
-    layout_args['yaxis']['tickvals'] = list(range(0, 1441, 60))
-    layout_args['yaxis']['ticktext'] = list(range(0, 1441, 60))
+    layout_args['yaxis']['tickvals'] = list(ticks.keys())
+    layout_args['yaxis']['ticktext'] = list(ticks.values())
+    layout_args['yaxis']['tickfont'] = {'size': 10}
 
     fig = go.Figure({
         'data': traces,
