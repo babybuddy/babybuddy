@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "34e7008c14a0e6f48f74fb087da15a34ef419ec1830d92b8d230927450e6adc8"
+            "sha256": "f33aa87b10b706d27411d7202390daf72230a62394b9f7f3c5988e5f3608ff32"
         },
         "requires": {},
         "sources": [
@@ -48,8 +48,17 @@
         "nbformat": {
             "version": "==4.4.0"
         },
+        "numpy": {
+            "version": "==1.13.1"
+        },
+        "pandas": {
+            "version": "==0.20.3"
+        },
         "plotly": {
             "version": "==2.0.15"
+        },
+        "python-dateutil": {
+            "version": "==2.6.1"
         },
         "pytz": {
             "version": "==2017.2"
