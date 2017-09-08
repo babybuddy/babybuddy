@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from collections import OrderedDict
-
 from django import template
-from django.utils import timezone
+from django.utils import formats, timezone
 
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
 
@@ -41,27 +39,29 @@ def card_diaperchange_last(child):
 def card_diaperchange_types(child):
     """Diaper change statistics for the last seven days including today.
     """
-    stats = OrderedDict()
-    for x in range(0, 7):
-        date = (timezone.localtime() - timezone.timedelta(days=x)).date()
-        stats[date] = {'wet': 0, 'solid': 0}
+    stats = {}
+    max_date = (timezone.localtime() + timezone.timedelta(
+        days=1)).replace(hour=0, minute=0, second=0)
+    min_date = (max_date - timezone.timedelta(
+        days=7)).replace(hour=0, minute=0, second=0)
+
+    for x in range(6):
+        stats[x] = {'wet': 0, 'solid': 0}
 
     instances = DiaperChange.objects.filter(child=child)\
-        .filter(time__gt=list(stats.keys())[-1])\
-        .filter(time__lt=timezone.localtime())\
-        .order_by('-time')
+        .filter(time__gt=min_date).filter(time__lt=max_date).order_by('-time')
     for instance in instances:
-        date = instance.time.date()
+        key = (max_date - instance.time).days
         if instance.wet:
-            stats[date]['wet'] += 1
+            stats[key]['wet'] += 1
         if instance.solid:
-            stats[date]['solid'] += 1
+            stats[key]['solid'] += 1
 
-    for date, info in stats.items():
+    for key, info in stats.items():
         total = info['wet'] + info['solid']
         if total > 0:
-            stats[date]['wet_pct'] = info['wet'] / total * 100
-            stats[date]['solid_pct'] = info['solid'] / total * 100
+            stats[key]['wet_pct'] = info['wet'] / total * 100
+            stats[key]['solid_pct'] = info['solid'] / total * 100
 
     return {'stats': stats, 'last_change': instances.first()}
 

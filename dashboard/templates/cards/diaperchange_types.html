@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    {% for date, info in stats.items %}
+    {% for key, info in stats.items %}
         <div class="progress mt-3">
 
             {% if info.wet_pct > 0 %}
@@ -24,7 +24,13 @@
             {% endif %}
         </div>
         <div class="text-center text-dark small">
-            {{ date|date:'D' }}
+            {% if key == 0  %}
+                today
+            {% elif key == 1 %}
+                yesterday
+            {% else %}
+                {{ key }} days ago
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock %}
