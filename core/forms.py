@@ -25,11 +25,11 @@ def set_default_duration(kwargs):
     if not kwargs.get('initial'):
         kwargs.update(initial={})
     if not instance and timer_id:
-        timer_instance = Timer.objects.get(id=timer_id)
+        instance = Timer.objects.get(id=timer_id)
         kwargs['initial'].update({
-            'timer': timer_instance,
-            'start': timer_instance.start,
-            'end': timezone.now()
+            'timer': instance,
+            'start': instance.start,
+            'end': instance.end or timezone.now()
         })
     try:
         kwargs.pop('timer')

@@ -16,7 +16,7 @@ def filter_by_params(request, model, available_params):
 
 
 def timer_stop(timer_id, end=None):
-    """Stop a timer instance by setting it's end field."""
+    """Stop a timer instance by setting the end field value."""
     if not end:
         end = timezone.now()
     from .models import Timer

@@ -11,7 +11,12 @@
             <span class="timer-minutes">{{ object.current_duration|minutes }}</span>m
             <span class="timer-seconds">{{ object.current_duration|seconds }}</span>s
         </h1>
-        <p class="lead text-muted">Started {{ object.start }} by {{ object.user }}</p>
+        <p class="lead text-muted">
+            Started {{ object.start }}
+            {% if not timer.active %}
+                / Stopped {{ object.end }}
+            {% endif %}
+        </p>
 
         {% if perms.core.add_feeding %}
             <a class="btn btn-success btn-lg btn-block p-3 mb-3"
@@ -34,13 +39,21 @@
         {% if perms.core.delete_timer %}
             <a class="btn btn-danger btn-lg btn-block p-3 mb-3"
                href="{% url 'timer-delete' timer.id %}"
-               role="button"><i class="fa fa-times-circle" aria-hidden="true"></i> Delete Timer</a>
+               role="button"><i class="fa fa-trash" aria-hidden="true"></i> Delete Timer</a>
+        {% endif %}
+
+        {% if object.active and perms.core.change_timer %}
+            <a class="btn btn-warning btn-lg btn-block p-3 mb-3"
+               href="{% url 'timer-stop' timer.id %}"
+               role="button"><i class="fa fa-stop" aria-hidden="true"></i> Stop Timer</a>
         {% endif %}
     </div>
 {% endblock %}
 
 {% block javascript %}
-    <script type="application/javascript">
-        BabyBlotter.Timer.run('timer-status');
-    </script>
+    {% if object.active %}
+        <script type="application/javascript">
+            BabyBlotter.Timer.run('timer-status');
+        </script>
+    {% endif %}
 {% endblock %}
