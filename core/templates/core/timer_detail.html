@@ -5,7 +5,7 @@
 {% block title %}{{ object }}{% endblock %}
 
 {% block content %}
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center{% if not object.active %} text-danger{% endif %}">
         <h1 id="timer-status">
             <span class="timer-hours">{{ object.current_duration|hours }}</span>h
             <span class="timer-minutes">{{ object.current_duration|minutes }}</span>m
@@ -13,7 +13,7 @@
         </h1>
         <p class="lead text-muted">
             Started {{ object.start }}
-            {% if not timer.active %}
+            {% if not object.active %}
                 / Stopped {{ object.end }}
             {% endif %}
         </p>
