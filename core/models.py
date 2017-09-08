@@ -194,7 +194,7 @@ class TummyTime(models.Model):
 
     def __str__(self):
         return 'Tummy time for {} on {} ({})'.format(
-            self.child, self.end.date(), self.duration())
+            self.child, self.end.date(), self.duration)
 
     def duration_td(self):
         return self.end - self.start
