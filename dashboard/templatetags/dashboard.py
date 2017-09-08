@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django import template
-from django.utils import formats, timezone
+from django.utils import timezone
 
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
 
@@ -75,9 +75,11 @@ def card_tummytime_last(child):
 
 
 @register.inclusion_tag('cards/tummytime_day.html')
-def card_tummytime_day(child, date=timezone.localtime().date()):
+def card_tummytime_day(child, date=None):
     """Tummy time over the course of `date`.
     """
+    if not date:
+        date = timezone.localtime().date()
     instances = TummyTime.objects.filter(
         child=child, end__day=date.day).order_by('-end')
     stats = {
