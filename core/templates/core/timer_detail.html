@@ -6,11 +6,12 @@
 
 {% block content %}
     <div class="jumbotron text-center{% if not object.active %} text-danger{% endif %}">
-        <h1 id="timer-status">
+
+        <div class="h1" id="timer-status">
             <span class="timer-hours">{{ object.current_duration|hours }}</span>h
             <span class="timer-minutes">{{ object.current_duration|minutes }}</span>m
             <span class="timer-seconds">{{ object.current_duration|seconds }}</span>s
-        </h1>
+        </div>
         <p class="lead text-secondary">
             Started {{ object.start }}
             {% if not object.active %}
@@ -48,6 +49,10 @@
             {% endif %}
 
             {% if object.active and perms.core.change_timer %}
+                <a class="btn btn-secondary"
+                   href="{% url 'timer-restart' timer.id %}"
+                   role="button"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+
                 <a class="btn btn-warning"
                    href="{% url 'timer-stop' timer.id %}"
                    role="button"><i class="fa fa-stop" aria-hidden="true"></i></a>

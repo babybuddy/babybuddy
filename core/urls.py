@@ -57,6 +57,8 @@ urlpatterns = [
         name='timer-delete'),
     url(r'^timer/(?P<pk>[0-9]+)/stop/$', views.TimerStop.as_view(),
         name='timer-stop'),
+    url(r'^timer/(?P<pk>[0-9]+)/restart/$', views.TimerRestart.as_view(),
+        name='timer-restart'),
 
     url(r'^tummy-time/$', views.TummyTimeList.as_view(),
         name='tummytime-list'),
