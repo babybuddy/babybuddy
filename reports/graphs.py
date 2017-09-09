@@ -59,7 +59,7 @@ def diaperchange_types(child):
 
 
 def sleep_times(child):
-    """Create a graph showing blocked out period of sleep during each day."""
+    """Create a graph showing blocked out periods of sleep during each day."""
     instances = Sleep.objects.filter(child=child).order_by('start')
     y_df = pd.DataFrame()
     text_df = pd.DataFrame()
@@ -83,9 +83,9 @@ def sleep_times(child):
                 text_df,
                 df_index,
                 adjustment['column'],
-                adjustment['duration'],
+                adjustment['duration'].seconds/60,
                 'Asleep {} ({} to {})'.format(
-                    duration_string(duration),
+                    duration_string(adjustment['duration']),
                     adjustment['start_time'].strftime('%I:%M %p'),
                     adjustment['end_time'].strftime('%I:%M %p')
                 )
@@ -100,7 +100,7 @@ def sleep_times(child):
                 'column': end_time.date().isoformat(),
                 'start_time': adj_start_time,
                 'end_time': end_time,
-                'duration': (end_time - adj_start_time).seconds/60
+                'duration': end_time - adj_start_time
             }
 
             # Adjust end_time for the current entry.
