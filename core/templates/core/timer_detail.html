@@ -22,34 +22,38 @@
         </p>
 
         {% if perms.core.add_feeding %}
-            <a class="btn btn-success btn-lg btn-block p-3 mb-3"
+            <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'feeding-add' %}?timer={{ timer.id }}"
                role="button"><i class="fa fa-spoon" aria-hidden="true"></i> Feeding</a>
         {% endif %}
 
         {% if perms.core.add_sleep %}
-            <a class="btn btn-success btn-lg btn-block p-3 mb-3"
+            <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'sleep-add' %}?timer={{ timer.id }}"
                role="button"><i class="fa fa-bed" aria-hidden="true"></i> Sleep</a>
         {% endif %}
 
         {% if perms.core.add_tummytime %}
-            <a class="btn btn-success btn-lg btn-block p-3 mb-3"
+            <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'tummytime-add' %}?timer={{ timer.id }}"
                role="button"><i class="fa fa-smile-o" aria-hidden="true"></i> Tummy Time</a>
         {% endif %}
 
-        {% if perms.core.delete_timer %}
-            <a class="btn btn-danger btn-lg btn-block p-3 mb-3"
-               href="{% url 'timer-delete' timer.id %}"
-               role="button"><i class="fa fa-trash" aria-hidden="true"></i> Delete Timer</a>
-        {% endif %}
+        <div class="btn-group btn-group-lg center-block" role="group" aria-label="Timer actions">
 
-        {% if object.active and perms.core.change_timer %}
-            <a class="btn btn-warning btn-lg btn-block p-3 mb-3"
-               href="{% url 'timer-stop' timer.id %}"
-               role="button"><i class="fa fa-stop" aria-hidden="true"></i> Stop Timer</a>
-        {% endif %}
+            {% if perms.core.delete_timer %}
+                <a class="btn btn-danger"
+                   href="{% url 'timer-delete' timer.id %}"
+                   role="button"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            {% endif %}
+
+            {% if object.active and perms.core.change_timer %}
+                <a class="btn btn-warning"
+                   href="{% url 'timer-stop' timer.id %}"
+                   role="button"><i class="fa fa-stop" aria-hidden="true"></i></a>
+            {% endif %}
+
+        </div>
     </div>
 {% endblock %}
 

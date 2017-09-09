@@ -12,7 +12,6 @@ from django.views.generic.list import ListView
 from .models import Child, DiaperChange, Feeding, Note, Sleep, Timer, TummyTime
 from .forms import (ChildForm, DiaperChangeForm, FeedingForm, SleepForm,
                     TimerForm, TummyTimeForm)
-from .utils import timer_stop
 
 
 class ChildList(PermissionRequiredMixin, ListView):
@@ -191,11 +190,24 @@ class TimerAddQuick(PermissionRequiredMixin, RedirectView):
         return super(TimerAddQuick, self).get(request, *args, **kwargs)
 
 
+class TimerRestart(PermissionRequiredMixin, RedirectView):
+    permission_required = ('core.change_timer',)
+
+    def get(self, request, *args, **kwargs):
+        instance = Timer.objects.get(id=kwargs['pk'])
+        instance.restart()
+        return super(TimerRestart, self).get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return '/timer/{}'.format(kwargs['pk'])
+
+
 class TimerStop(PermissionRequiredMixin, RedirectView):
     permission_required = ('core.change_timer',)
 
     def get(self, request, *args, **kwargs):
-        timer_stop(kwargs['pk'])
+        instance = Timer.objects.get(id=kwargs['pk'])
+        instance.stop()
         return super(TimerStop, self).get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):

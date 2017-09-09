@@ -5,7 +5,6 @@ from django import forms
 from django.utils import timezone
 
 from .models import Child, DiaperChange, Feeding, Sleep, Timer, TummyTime
-from .utils import timer_stop
 
 
 # Sets the default Child instance if only one exists in the database.
@@ -94,7 +93,8 @@ class FeedingForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(FeedingForm, self).save(commit=False)
         if self.timer_id:
-            timer_stop(self.timer_id, instance.end)
+            timer = Timer.objects.get(id=self.timer_id)
+            timer.stop(instance.end)
         instance.save()
         return instance
 
@@ -125,7 +125,8 @@ class SleepForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(SleepForm, self).save(commit=False)
         if self.timer_id:
-            timer_stop(self.timer_id, instance.end)
+            timer = Timer.objects.get(id=self.timer_id)
+            timer.stop(instance.end)
         instance.save()
         return instance
 
@@ -174,6 +175,7 @@ class TummyTimeForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(TummyTimeForm, self).save(commit=False)
         if self.timer_id:
-            timer_stop(self.timer_id, instance.end)
+            timer = Timer.objects.get(id=self.timer_id)
+            timer.stop(instance.end)
         instance.save()
         return instance

@@ -15,16 +15,6 @@ def filter_by_params(request, model, available_params):
     return queryset
 
 
-def timer_stop(timer_id, end=None):
-    """Stop a timer instance by setting the end field value."""
-    if not end:
-        end = timezone.now()
-    from .models import Timer
-    timer_instance = Timer.objects.get(id=timer_id)
-    timer_instance.end = end
-    timer_instance.save()
-
-
 def duration_string(duration):
     """Format hours, minutes and seconds in a human-friendly way (e.g. "2
     hours, 25 minutes, 31 seconds")"""

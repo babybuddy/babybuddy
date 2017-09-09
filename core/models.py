@@ -171,6 +171,21 @@ class Timer(models.Model):
         else:
             return timezone.now() - self.start
 
+    def restart(self):
+        """Restart the timer."""
+        self.start = timezone.now()
+        self.end = None
+        self.duration = None
+        self.active = True
+        self.save()
+
+    def stop(self, end=None):
+        """Stop the timer."""
+        if not self.end:
+            self.end = timezone.now()
+        self.end = end
+        self.save()
+
     def save(self, *args, **kwargs):
         self.active = self.end is None
         self.name = self.name or None
