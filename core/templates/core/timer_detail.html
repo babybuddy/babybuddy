@@ -11,11 +11,14 @@
             <span class="timer-minutes">{{ object.current_duration|minutes }}</span>m
             <span class="timer-seconds">{{ object.current_duration|seconds }}</span>s
         </h1>
-        <p class="lead text-muted">
+        <p class="lead text-secondary">
             Started {{ object.start }}
             {% if not object.active %}
                 / Stopped {{ object.end }}
             {% endif %}
+        </p>
+        <p class="text-muted">
+            Created by {{ object.user }}
         </p>
 
         {% if perms.core.add_feeding %}
