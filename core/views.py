@@ -152,6 +152,11 @@ class SleepDelete(PermissionRequiredMixin, DeleteView):
     success_url = '/sleep'
 
 
+class TimerList(PermissionRequiredMixin, ListView):
+    model = Timer
+    permission_required = ('core.view_timer',)
+
+
 class TimerDetail(PermissionRequiredMixin, DetailView):
     model = Timer
     permission_required = ('core.view_timer',)

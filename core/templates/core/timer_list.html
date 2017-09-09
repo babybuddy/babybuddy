@@ -1,11 +1,39 @@
-{% for timer in timers %}
-    <div class="card border-success text-center mb-2">
-        <div class="card-header text-white bg-success ">{{ timer.name }}</div>
-        <div class="card-body text-success">
-            <h4 class="card-text">{{ timer.current_duration }}</h4>
-        </div>
-        <div class="card-footer text-muted small">
-            {{ timer.start }}
-        </div>
+{% extends 'babyblotter/page.html' %}
+{% load widget_tweaks %}
+{% load duration %}
+
+{% block title %}Sleep{% endblock %}
+
+{% block content %}
+    <h1>Timers</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-inverse">
+            <tr>
+                <th>Name</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Duration</th>
+                <th>Active</th>
+                <th>User</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for timer in object_list %}
+                <tr>
+                    <th scope="row"><a href="{% url 'timer-detail' timer.id %}">{{ timer }}</a></th>
+                    <td>{{ timer.start }}</td>
+                    <td>{{ timer.end }}</td>
+                    <td>{{ timer.duration|duration_string }}</td>
+                    <td>{{ timer.active }}</td>
+                    <td>{{ timer.user }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <th colspan="7">No timer entries found.</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
-{% endfor %}
+{% endblock %}
