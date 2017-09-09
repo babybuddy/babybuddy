@@ -48,14 +48,16 @@
                    role="button"><i class="fa fa-trash" aria-hidden="true"></i></a>
             {% endif %}
 
-            {% if object.active and perms.core.change_timer %}
+            {% if perms.core.change_timer %}
                 <a class="btn btn-secondary"
                    href="{% url 'timer-restart' timer.id %}"
                    role="button"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 
-                <a class="btn btn-warning"
-                   href="{% url 'timer-stop' timer.id %}"
-                   role="button"><i class="fa fa-stop" aria-hidden="true"></i></a>
+                {% if object.active %}
+                    <a class="btn btn-warning"
+                       href="{% url 'timer-stop' timer.id %}"
+                       role="button"><i class="fa fa-stop" aria-hidden="true"></i></a>
+                {% endif %}
             {% endif %}
 
         </div>

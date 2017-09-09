@@ -182,7 +182,7 @@ class Timer(models.Model):
     def stop(self, end=None):
         """Stop the timer."""
         if not self.end:
-            self.end = timezone.now()
+            end = timezone.now()
         self.end = end
         self.save()
 
