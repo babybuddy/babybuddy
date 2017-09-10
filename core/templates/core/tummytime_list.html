@@ -51,6 +51,8 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        {% include 'babyblotter/paginator.html' %}
     </div>
 
     {% if perms.core.add_tummytime %}

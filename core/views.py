@@ -16,6 +16,7 @@ from .forms import (ChildForm, DiaperChangeForm, FeedingForm, SleepForm,
 class ChildList(PermissionRequiredMixin, ListView):
     model = Child
     permission_required = ('core.view_child',)
+    paginate_by = 10
 
 
 class ChildAdd(PermissionRequiredMixin, CreateView):
@@ -41,6 +42,7 @@ class ChildDelete(PermissionRequiredMixin, DeleteView):
 class DiaperChangeList(PermissionRequiredMixin, ListView):
     model = DiaperChange
     permission_required = ('core.view_diaperchange',)
+    paginate_by = 10
 
 
 class DiaperChangeAdd(PermissionRequiredMixin, CreateView):
@@ -66,6 +68,7 @@ class DiaperChangeDelete(PermissionRequiredMixin, DeleteView):
 class FeedingList(PermissionRequiredMixin, ListView):
     model = Feeding
     permission_required = ('core.view_feeding',)
+    paginate_by = 10
 
 
 class FeedingAdd(PermissionRequiredMixin, CreateView):
@@ -97,6 +100,7 @@ class FeedingDelete(PermissionRequiredMixin, DeleteView):
 class NoteList(PermissionRequiredMixin, ListView):
     model = Note
     permission_required = ('core.view_note',)
+    paginate_by = 10
 
 
 class NoteAdd(PermissionRequiredMixin, CreateView):
@@ -122,6 +126,7 @@ class NoteDelete(PermissionRequiredMixin, DeleteView):
 class SleepList(PermissionRequiredMixin, ListView):
     model = Sleep
     permission_required = ('core.view_sleep',)
+    paginate_by = 10
 
 
 class SleepAdd(PermissionRequiredMixin, CreateView):
@@ -153,6 +158,7 @@ class SleepDelete(PermissionRequiredMixin, DeleteView):
 class TimerList(PermissionRequiredMixin, ListView):
     model = Timer
     permission_required = ('core.view_timer',)
+    paginate_by = 10
 
 
 class TimerDetail(PermissionRequiredMixin, DetailView):
@@ -232,6 +238,7 @@ class TimerDelete(PermissionRequiredMixin, DeleteView):
 class TummyTimeList(PermissionRequiredMixin, ListView):
     model = TummyTime
     permission_required = ('core.view_tummytime',)
+    paginate_by = 10
 
 
 class TummyTimeAdd(PermissionRequiredMixin, CreateView):

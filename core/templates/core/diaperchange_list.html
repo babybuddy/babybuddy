@@ -11,8 +11,8 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>Child</th>
-                    <th>Wet</th>
-                    <th>Solid</th>
+                    <th class="text-center">Wet</th>
+                    <th class="text-center">Solid</th>
                     <th>Color</th>
                     <th>Time</th>
                     <th class="text-center">Actions</th>
@@ -51,6 +51,8 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        {% include 'babyblotter/paginator.html' %}
     </div>
 
     {% if perms.core.add_diaperchange %}
