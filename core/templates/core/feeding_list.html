@@ -11,11 +11,11 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>Child</th>
-                    <th>Date</th>
-                    <th>Duration</th>
-                    <th>Type</th>
                     <th>Method</th>
-                    <th>Amount (oz)</th>
+                    <th>Type</th>
+                    <th>Amt.</th>
+                    <th>Duration</th>
+                    <th>Date</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -23,11 +23,15 @@
                 {% for feeding in object_list %}
                     <tr>
                         <th scope="row">{{ feeding.child }}</th>
-                        <td>{{ feeding.start }}</td>
-                        <td>{{ feeding.duration|duration_string }}</td>
-                        <td>{{ feeding.type }}</td>
                         <td>{{ feeding.method }}</td>
-                        <td>{{ feeding.amount }}</td>
+                        <td>{{ feeding.type }}</td>
+                        <td>
+                            {% if feeding.amount %}
+                                {{ feeding.amount }} oz.
+                            {% endif %}
+                        </td>
+                        <td>{{ feeding.duration|duration_string }}</td>
+                        <td>{{ feeding.start|date:'n/j/y G:i' }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 

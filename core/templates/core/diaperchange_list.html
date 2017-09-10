@@ -1,5 +1,6 @@
 {% extends 'babyblotter/page.html' %}
 {% load widget_tweaks %}
+{% load bootstrap %}
 
 {% block title %}Diaper Changes{% endblock %}
 
@@ -10,10 +11,10 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>Child</th>
-                    <th>Time</th>
                     <th>Wet</th>
                     <th>Solid</th>
                     <th>Color</th>
+                    <th>Time</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -21,10 +22,10 @@
                 {% for change in object_list %}
                     <tr>
                         <th scope="row">{{ change.child }}</th>
-                        <td>{{ change.time }}</td>
-                        <td>{{ change.wet }}</td>
-                        <td>{{ change.solid }}</td>
+                        <td class="text-center">{{ change.wet|bool_icon }}</td>
+                        <td class="text-center">{{ change.solid|bool_icon }}</td>
                         <td>{{ change.color }}</td>
+                        <td>{{ change.time|date:'n/j/y G:i' }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 

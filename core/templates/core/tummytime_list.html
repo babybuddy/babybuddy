@@ -11,9 +11,9 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>Child</th>
+                    <th>Duration</th>
                     <th>Start</th>
                     <th>End</th>
-                    <th>Duration</th>
                     <th>Milestone</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -22,9 +22,9 @@
                 {% for tummytime in object_list %}
                     <tr>
                         <th scope="row">{{ tummytime.child }}</th>
-                        <td>{{ tummytime.start }}</td>
-                        <td>{{ tummytime.end }}</td>
                         <td>{{ tummytime.duration|duration_string }}</td>
+                        <td>{{ tummytime.start|date:'n/j/y G:i' }}</td>
+                        <td>{{ tummytime.end|date:'n/j/y G:i' }}</td>
                         <td>{{ tummytime.milestone }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">

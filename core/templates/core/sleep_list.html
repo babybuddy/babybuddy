@@ -11,9 +11,9 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>Child</th>
+                    <th>Duration</th>
                     <th>Start</th>
                     <th>End</th>
-                    <th>Duration</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -21,9 +21,9 @@
                 {% for sleep in object_list %}
                     <tr>
                         <th scope="row">{{ sleep.child }}</th>
-                        <td>{{ sleep.start }}</td>
-                        <td>{{ sleep.end }}</td>
                         <td>{{ sleep.duration|duration_string }}</td>
+                        <td>{{ sleep.start|date:'n/j/y G:i' }}</td>
+                        <td>{{ sleep.end|date:'n/j/y G:i' }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 

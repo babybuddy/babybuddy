@@ -1,6 +1,7 @@
 {% extends 'babyblotter/page.html' %}
-{% load widget_tweaks %}
+{% load bootstrap %}
 {% load duration %}
+{% load widget_tweaks %}
 
 {% block title %}Sleep{% endblock %}
 
@@ -12,8 +13,8 @@
             <tr>
                 <th>Name</th>
                 <th>Start</th>
-                <th>End</th>
                 <th>Duration</th>
+                <th>End</th>
                 <th>Active</th>
                 <th>User</th>
             </tr>
@@ -22,10 +23,10 @@
             {% for timer in object_list %}
                 <tr>
                     <th scope="row"><a href="{% url 'timer-detail' timer.id %}">{{ timer }}</a></th>
-                    <td>{{ timer.start }}</td>
-                    <td>{{ timer.end }}</td>
+                    <td>{{ timer.start|date:'n/j/y G:i' }}</td>
                     <td>{{ timer.duration|duration_string }}</td>
-                    <td>{{ timer.active }}</td>
+                    <td>{{ timer.end|date:'n/j/y G:i' }}</td>
+                    <td>{{ timer.active|bool_icon }}</td>
                     <td>{{ timer.user }}</td>
                 </tr>
             {% empty %}
