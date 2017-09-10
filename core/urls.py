@@ -49,6 +49,8 @@ urlpatterns = [
 
     url(r'^timers/$', views.TimerList.as_view(), name='timer-list'),
     url(r'^timer/add/$', views.TimerAdd.as_view(), name='timer-add'),
+    url(r'^timer/(?P<pk>[0-9]+)/edit$', views.TimerUpdate.as_view(),
+        name='timer-update'),
     url(r'^timer/add/quick/$', views.TimerAddQuick.as_view(),
         name='timer-add-quick'),
     url(r'^timer/(?P<pk>[0-9]+)/$', views.TimerDetail.as_view(),

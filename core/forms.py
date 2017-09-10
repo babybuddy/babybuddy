@@ -137,12 +137,14 @@ class TimerForm(forms.ModelForm):
         fields = ['name']
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
+        if 'user' in kwargs:
+            self.user = kwargs.pop('user')
         super(TimerForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
         instance = super(TimerForm, self).save(commit=False)
-        instance.user = self.user
+        if 'user' in self:
+            instance.user = self.user
         instance.save()
         return instance
 

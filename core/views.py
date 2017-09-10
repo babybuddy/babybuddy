@@ -173,6 +173,17 @@ class TimerAdd(PermissionRequiredMixin, CreateView):
         return kwargs
 
 
+class TimerUpdate(PermissionRequiredMixin, UpdateView):
+    model = Timer
+    permission_required = ('core.change_timer',)
+    form_class = TimerForm
+    success_url = '/timers'
+
+    def get_success_url(self):
+        instance = self.get_object()
+        return '/timer/{}/'.format(instance.id)
+
+
 class TimerAddQuick(PermissionRequiredMixin, RedirectView):
     permission_required = ('core.add_timer',)
 
