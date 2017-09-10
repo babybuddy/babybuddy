@@ -19,12 +19,14 @@
                 <i class="fa fa-list" aria-hidden="true"></i> View Timers
             </a>
         {% endif %}
-        <div class="dropdown-divider"></div>
-        <h6 class="dropdown-header">Active Timers</h6>
-        {% for timer in timers %}
-            <a class="dropdown-item" href="{% url 'timer-detail' timer.id %}">{{ timer }} ({{ timer.user }})</a>
-        {% empty %}
-            None
-        {% endfor %}
+        {% if timers %}
+            <div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">Active Timers</h6>
+            {% for timer in timers %}
+                <a class="dropdown-item" href="{% url 'timer-detail' timer.id %}">{{ timer }} ({{ timer.user }})</a>
+            {% empty %}
+                <a class="dropdown-item disabled" href="#">None</a>
+            {% endfor %}
+        {% endif %}
     </div>
 </li>
