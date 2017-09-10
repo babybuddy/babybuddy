@@ -132,8 +132,6 @@ class SleepForm(forms.ModelForm):
 
 
 class TimerForm(forms.ModelForm):
-    next = forms.CharField(required=False)
-
     class Meta:
         model = Timer
         fields = ['name']

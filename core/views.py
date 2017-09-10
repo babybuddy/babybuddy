@@ -165,18 +165,12 @@ class TimerAdd(PermissionRequiredMixin, CreateView):
     model = Timer
     permission_required = ('core.add_timer',)
     form_class = TimerForm
+    success_url = '/timers'
 
     def get_form_kwargs(self):
         kwargs = super(TimerAdd, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
-
-    def get_success_url(self):
-        if resolve(self.request.POST['success_url']).url_name:
-            url = self.request.POST['success_url']
-        else:
-            url = '/'
-        return url
 
 
 class TimerAddQuick(PermissionRequiredMixin, RedirectView):

@@ -1,0 +1,34 @@
+{% extends 'babyblotter/page.html' %}
+{% load widget_tweaks %}
+{% load duration %}
+
+{% block title %}Timer{% endblock %}
+
+{% block content %}
+    {% if object %}
+        <h1>Update <span class="text-info">{{ object }}</span></h1>
+    {% else %}
+        <h1>Start Timer</h1>
+    {% endif %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="id_{{ field.name }}">{{ field.label }}</label>
+                {% if field.errors %}
+                    {{ field|add_class:"form-control is-invalid" }}
+                {% else %}
+                    {{ field|add_class:"form-control" }}
+                {% endif %}
+                {% if field.help_text %}
+                    <p class="help-block"><small>{{ field.help_text }}</small></p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success">Start Timer</button>
+        <a href="{% url 'timer-list' %}" class="btn btn-default">Cancel</a>
+    </form>
+{% endblock %}
