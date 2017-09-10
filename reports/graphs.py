@@ -58,6 +58,21 @@ def diaperchange_types(child):
     return split_graph_output(output)
 
 
+def sleep_amount(child):
+    """Create a graph showing total time sleeping for each day."""
+    instances = Sleep.objects.filter(child=child).order_by('start')
+
+    totals = {}
+    for instance in instances:
+        start_time = timezone.localtime(instance.start)
+        start_date = start_time.date().isoformat()
+
+        if start_date not in totals.keys():
+            totals[start_date] = timezone.timedelta()
+
+        totals[start_date] += instance.duration
+
+
 def sleep_times(child):
     """Create a graph showing blocked out periods of sleep during each day."""
     instances = Sleep.objects.filter(child=child).order_by('start')
