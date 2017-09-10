@@ -43,7 +43,7 @@ def card_diaperchange_types(child):
     max_date = (timezone.localtime() + timezone.timedelta(
         days=1)).replace(hour=0, minute=0, second=0)
     min_date = (max_date - timezone.timedelta(
-        days=7)).replace(hour=0, minute=0, second=0)
+        days=6)).replace(hour=0, minute=0, second=0)
 
     for x in range(6):
         stats[x] = {'wet': 0, 'solid': 0}
