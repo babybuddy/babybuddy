@@ -4,6 +4,11 @@
 {% block nav %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="/"><span class="text-info">Baby</span> Blotter</a>
+
+        <a class="d-lg-none d-md-none text-secondary ml-auto p-0 mr-3" href="{% url 'timer-add-quick' %}">
+            <i class="fa fa-2x fa-clock-o" aria-hidden="true"></i>
+        </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-app" aria-controls="navbar-app"
                 aria-expanded="false"  aria-label="Toggle navigation">
