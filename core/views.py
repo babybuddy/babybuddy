@@ -179,6 +179,11 @@ class TimerUpdate(PermissionRequiredMixin, UpdateView):
     form_class = TimerForm
     success_url = '/timers'
 
+    def get_form_kwargs(self):
+        kwargs = super(TimerUpdate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
     def get_success_url(self):
         instance = self.get_object()
         return '/timer/{}/'.format(instance.id)
