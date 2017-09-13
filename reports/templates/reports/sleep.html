@@ -1,17 +1,6 @@
 {% extends 'reports/report_base.html' %}
 
-{% block title %}Sleep Reports - {{ object }}{% endblock %}
-
-{% block content %}
-    <div class="jumbotron jumbotron-fluid text-center">
-        <h1 class="display-3">Sleep Reports</h1>
-        <h2 class="text-muted">{{ object }}</h2>
-    </div>
-    <div class="container-fluid">
-        {{ html|safe }}
-    </div>
-
-{% endblock %}
+{% block title %}Sleep Patterns - {{ object }}{% endblock %}
 
 {% block javascript %}
     {{ block.super }}

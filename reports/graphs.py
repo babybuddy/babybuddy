@@ -46,7 +46,7 @@ def diaperchange_types(child):
 
     layout_args = default_graph_layout_options()
     layout_args['barmode'] = 'stack'
-    layout_args['title'] = 'Diaper Change types'
+    layout_args['title'] = '<b>Diaper Change Types</b><br>{}'.format(child)
     layout_args['xaxis']['title'] = 'Date'
     layout_args['yaxis']['title'] = 'Number of changes'
 
@@ -173,7 +173,7 @@ def sleep_times(child):
 
     layout_args['barmode'] = 'stack'
     layout_args['hovermode'] = 'closest'
-    layout_args['title'] = 'Sleep vs. wake times'
+    layout_args['title'] = '<b>Sleep Patterns</b><br>{}'.format(child)
     layout_args['height'] = 600
 
     layout_args['xaxis']['title'] = 'Date'
