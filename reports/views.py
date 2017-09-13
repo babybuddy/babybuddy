@@ -6,7 +6,7 @@ from django.views.generic.detail import DetailView
 
 from core.models import Child
 
-from .graphs import diaperchange_types, sleep_pattern
+from .graphs import diaperchange_types, sleep_pattern, sleep_totals
 
 
 class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
@@ -37,4 +37,22 @@ class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
         context = super(SleepPatternChildReport, self).get_context_data(**kwargs)
         child = context['object']
         context['html'], context['javascript'] = sleep_pattern(child)
+        return context
+
+
+class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
+    """Graph of total sleep by day."""
+    model = Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/sleep_totals.html'
+
+    def __init__(self):
+        super(SleepTotalsChildReport, self).__init__()
+        self.html = ''
+        self.javascript = ''
+
+    def get_context_data(self, **kwargs):
+        context = super(SleepTotalsChildReport, self).get_context_data(**kwargs)
+        child = context['object']
+        context['html'], context['javascript'] = sleep_totals(child)
         return context

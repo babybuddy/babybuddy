@@ -58,19 +58,48 @@ def diaperchange_types(child):
     return split_graph_output(output)
 
 
-def sleep_amount(child):
+def sleep_totals(child):
     """Create a graph showing total time sleeping for each day."""
     instances = Sleep.objects.filter(child=child).order_by('start')
 
     totals = {}
     for instance in instances:
-        start_time = timezone.localtime(instance.start)
-        start_date = start_time.date().isoformat()
+        start = timezone.localtime(instance.start)
+        end = timezone.localtime(instance.end)
+        if start.date() not in totals.keys():
+            totals[start.date()] = timezone.timedelta(seconds=0)
+        if end.date() not in totals.keys():
+            totals[end.date()] = timezone.timedelta(seconds=0)
 
-        if start_date not in totals.keys():
-            totals[start_date] = timezone.timedelta()
+        # Account for dates crossing midnight.
+        if start.date() != end.date():
+            totals[start.date()] += end.replace(
+                day=start.day, hour=23, minute=59, second=59) - start
+            totals[end.date()] += end - start.replace(
+                day=end.day, hour=0, minute=0, second=0)
+        else:
+            totals[start.date()] += instance.duration
 
-        totals[start_date] += instance.duration
+    trace = go.Bar(
+        name='Total sleep',
+        x=list(totals.keys()),
+        y=[td.seconds/3600 for td in totals.values()],
+        hoverinfo='text',
+        text=[duration_string(td) for td in totals.values()]
+    )
+
+    layout_args = default_graph_layout_options()
+    layout_args['barmode'] = 'stack'
+    layout_args['title'] = '<b>Sleep Totals</b><br>{}'.format(child)
+    layout_args['xaxis']['title'] = 'Date'
+    layout_args['yaxis']['title'] = 'Hours of sleep'
+
+    fig = go.Figure({
+        'data': [trace],
+        'layout': go.Layout(**layout_args)
+    })
+    output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
+    return split_graph_output(output)
 
 
 def sleep_pattern(child):

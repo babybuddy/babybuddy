@@ -1,0 +1,8 @@
+{% extends 'reports/report_base.html' %}
+
+{% block title %}Sleep Totals - {{ object }}{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {{ javascript|safe }}
+{% endblock %}
