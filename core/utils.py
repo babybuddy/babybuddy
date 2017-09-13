@@ -16,7 +16,7 @@ def filter_by_params(request, model, available_params):
 
 
 def duration_string(duration):
-    """Format hours, minutes and seconds in a human-friendly way (e.g. "2
+    """Format hours, minutes and seconds as a human-friendly string (e.g. "2
     hours, 25 minutes, 31 seconds")"""
     h, m, s = duration_parts(duration)
 
@@ -31,6 +31,12 @@ def duration_string(duration):
             '' if duration is '' else ', ', s, 's' if s > 1 else '')
 
     return duration
+
+
+def duration_string_short(duration):
+    """Format hours, minutes and seconds as a short string (e.g. "0h2m35s")."""
+    h, m, s = duration_parts(duration)
+    return '{}h{}m{}s'.format(h, m, s)
 
 
 def duration_parts(duration):
