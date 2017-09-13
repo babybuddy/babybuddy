@@ -98,3 +98,31 @@ def card_sleep_last(child):
     """
     instance = Sleep.objects.filter(child=child).order_by('-end').first()
     return {'sleep': instance}
+
+
+@register.inclusion_tag('cards/sleep_day.html')
+def card_sleep_day(child, date=None):
+    """Total sleep time for a child on the current day.
+    """
+    if not date:
+        date = timezone.localtime().date()
+    instances = Sleep.objects.filter(child=child).filter(start__day=date.day) \
+        | Sleep.objects.filter(child=child).filter(end__day=date.day)
+
+    total = timezone.timedelta(seconds=0)
+    for instance in instances:
+        start = timezone.localtime(instance.start)
+        end = timezone.localtime(instance.end)
+        # Account for dates crossing midnight.
+        if start.date() != date:
+            start = start.replace(day=end.day, hour=0, minute=0, second=0)
+        elif end.date() != date:
+            end = start.replace(day=start.day, hour=23, minute=59, second=59)
+
+        total += end - start
+
+    return {
+        'total': total,
+        'count': len(instances),
+        'average': total/len(instances)
+    }

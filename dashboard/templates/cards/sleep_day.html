@@ -1,0 +1,22 @@
+{% extends 'cards/sleep.html' %}
+{% load duration %}
+
+{% block header %}Today's Sleep{% endblock %}
+
+{% block title %}
+    {% if total %}
+        <strong>{{ total|duration_string }}</strong>
+    {% else %}
+        <i class="fa fa-frown-o" aria-hidden="true"></i>
+        <strong>None yet today</strong>
+        <i class="fa fa-frown-o" aria-hidden="true"></i>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="text-muted">
+        Average sleep duration: <strong>{{ average|duration_string }}</strong>.
+    </div>
+{% endblock %}
+
+{% block footer %}{{ count }} sleep entries{% endblock %}
