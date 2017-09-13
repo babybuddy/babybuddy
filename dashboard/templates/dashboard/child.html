@@ -18,11 +18,11 @@
             <div class="dropdown-menu" aria-labelledby="reports-dropdown">
                 {% if perms.core.view_diaperchange %}
                     <h6 class="dropdown-header"><i class="fa fa-trash" aria-hidden="true"></i> Diaper Changes</h6>
-                    <a class="dropdown-item" href="{% url 'reports:report-diaperchange-child' object.slug %}">Change Types</a>
+                    <a class="dropdown-item" href="{% url 'reports:report-diaperchange-types-child' object.slug %}">Change Types</a>
                 {% endif %}
                 {% if perms.core.view_sleep %}
                     <h6 class="dropdown-header"><i class="fa fa-bed" aria-hidden="true"></i> Sleep</h6>
-                    <a class="dropdown-item" href="{% url 'reports:report-sleep-child' object.slug %}">Sleep Patterns</a>
+                    <a class="dropdown-item" href="{% url 'reports:report-sleep-pattern-child' object.slug %}">Sleep Pattern</a>
                 {% endif %}
             </div>
         </div>

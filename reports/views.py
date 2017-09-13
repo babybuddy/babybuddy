@@ -6,35 +6,35 @@ from django.views.generic.detail import DetailView
 
 from core.models import Child
 
-from .graphs import diaperchange_types, sleep_times
+from .graphs import diaperchange_types, sleep_pattern
 
 
-class DiaperChangesChildReport(PermissionRequiredMixin, DetailView):
-    """Diaper change information by type."""
+class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
+    """Graph of diaper changes by day and type."""
     model = Child
     permission_required = ('core.view_child',)
-    template_name = 'reports/diaperchange.html'
+    template_name = 'reports/diaperchange_types.html'
 
     def get_context_data(self, **kwargs):
-        context = super(DiaperChangesChildReport, self).get_context_data(**kwargs)
+        context = super(DiaperChangeTypesChildReport, self).get_context_data(**kwargs)
         child = context['object']
         context['html'], context['javascript'] = diaperchange_types(child)
         return context
 
 
-class SleepChildReport(PermissionRequiredMixin, DetailView):
-    """All sleep times by date."""
+class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
+    """Graph of sleep pattern comparing sleep to wake times by day."""
     model = Child
     permission_required = ('core.view_child',)
-    template_name = 'reports/sleep.html'
+    template_name = 'reports/sleep_pattern.html'
 
     def __init__(self):
-        super(SleepChildReport, self).__init__()
+        super(SleepPatternChildReport, self).__init__()
         self.html = ''
         self.javascript = ''
 
     def get_context_data(self, **kwargs):
-        context = super(SleepChildReport, self).get_context_data(**kwargs)
+        context = super(SleepPatternChildReport, self).get_context_data(**kwargs)
         child = context['object']
-        context['html'], context['javascript'] = sleep_times(child)
+        context['html'], context['javascript'] = sleep_pattern(child)
         return context

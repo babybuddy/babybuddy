@@ -73,7 +73,7 @@ def sleep_amount(child):
         totals[start_date] += instance.duration
 
 
-def sleep_times(child):
+def sleep_pattern(child):
     """Create a graph showing blocked out periods of sleep during each day."""
     instances = Sleep.objects.filter(child=child).order_by('start')
     y_df = pd.DataFrame()
@@ -173,7 +173,7 @@ def sleep_times(child):
 
     layout_args['barmode'] = 'stack'
     layout_args['hovermode'] = 'closest'
-    layout_args['title'] = '<b>Sleep Patterns</b><br>{}'.format(child)
+    layout_args['title'] = '<b>Sleep Pattern</b><br>{}'.format(child)
     layout_args['height'] = 600
 
     layout_args['xaxis']['title'] = 'Date'
