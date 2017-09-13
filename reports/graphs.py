@@ -12,7 +12,7 @@ import plotly.offline as plotly
 import plotly.graph_objs as go
 
 from core.models import DiaperChange, Sleep
-from core.utils import duration_string
+from core.utils import duration_string, duration_string_short
 
 from .utils import default_graph_layout_options, split_graph_output
 
@@ -85,7 +85,8 @@ def sleep_totals(child):
         x=list(totals.keys()),
         y=[td.seconds/3600 for td in totals.values()],
         hoverinfo='text',
-        text=[duration_string(td) for td in totals.values()]
+        textposition='outside',
+        text=[duration_string_short(td) for td in totals.values()]
     )
 
     layout_args = default_graph_layout_options()
