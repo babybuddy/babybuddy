@@ -15,7 +15,7 @@ def default_graph_layout_options():
                       '"Segoe UI Symbol"',
             'size': 14,
         },
-        'margin': {'b': 40, 't': 40},
+        'margin': {'b': 40, 't': 80},
         'xaxis': {
             'titlefont': {
                 'color': 'rgba(0, 0, 0, 0.54)'
