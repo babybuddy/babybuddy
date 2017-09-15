@@ -52,8 +52,15 @@ class DiaperChange(models.Model):
         ordering = ['-time']
 
     def __str__(self):
-        return 'Diaper change for {} on {}'.format(
-            self.child, self.time.date())
+        if self.wet and self.solid:
+            name = 'Wet, solid ({}) diaper change'.format(self.color)
+        elif self.wet:
+            name = 'Wet diaper change'
+        elif self.solid:
+            name = self.solid = 'Solid ({}) diaper change'.format(self.color)
+        else:
+            name = 'Diaper change'
+        return name
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.time, time)
@@ -92,8 +99,10 @@ class Feeding(models.Model):
         ordering = ['-start']
 
     def __str__(self):
-        return 'Feeding for {} on {} ({})'.format(
-            self.child, self.end.date(), self.duration)
+        name = '{} ({}) feeding'.format(self.method, self.type)
+        if self.amount:
+            name += ' ({} oz.)'.format(self.amount)
+        return name.capitalize()
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.end, time)
@@ -116,7 +125,7 @@ class Note(models.Model):
         ordering = ['-time']
 
     def __str__(self):
-        return 'Note about {} on {}'.format(self.child, self.time.date())
+        return 'Note about {}'.format(self.child)
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.time, time)
@@ -136,8 +145,7 @@ class Sleep(models.Model):
         verbose_name_plural = 'Sleep'
 
     def __str__(self):
-        return 'Sleep for {} on {} ({})'.format(
-            self.child, self.end.date(), self.duration)
+        return 'Sleep ({})'.format(self.duration)
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.end, time)
@@ -208,8 +216,7 @@ class TummyTime(models.Model):
         ordering = ['-start']
 
     def __str__(self):
-        return 'Tummy time for {} on {} ({})'.format(
-            self.child, self.end.date(), self.duration)
+        return 'Tummy time ({})'.format(self.duration)
 
     def duration_td(self):
         return self.end - self.start
