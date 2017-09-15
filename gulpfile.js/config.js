@@ -38,8 +38,7 @@ module.exports = {
     stylesConfig: {
         dest: basePath + 'css/',
         vendor: [
-            'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css',
-            'node_modules/font-awesome/css/font-awesome.css'
+            'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css'
         ],
         app: 'babyblotter/static_src/scss/babyblotter.scss',
         ignore: [
