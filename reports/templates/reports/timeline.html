@@ -1,0 +1,67 @@
+{% extends 'babyblotter/page.html' %}
+{% load static %}
+
+{% block title %}Timeline - {{ object }}{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Timeline</h1>
+    <h2 class="text-center text-muted">{{ object }}</h2>
+    <ul class="timeline">
+        <li>
+            <div class="timeline-badge bg-info"><i class="fa fa-trash"></i></div>
+            <div class="card">
+                <div class="card-body">
+                    This is some text within a card block.
+                </div>
+            </div>
+        </li>
+        <li class="timeline-inverted">
+            <div class="timeline-badge bg-warning"><i class="fa fa-bed"></i></div>
+            <div class="card">
+                <div class="card-body">
+                    This is some text within a card block.
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="timeline-badge bg-danger"><i class="fa fa-spoon"></i></div>
+            <div class="card">
+                <div class="card-body">
+                    This is some text within a card block.
+                </div>
+            </div>
+        </li>
+        <li class="timeline-inverted">
+            <div class="timeline-badge bg-default"><i class="fa fa-spoon"></i></div>
+            <div class="card">
+                <div class="card-body">
+                    This is some text within a card block.
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="timeline-badge bg-default"><i class="fa fa-smile-o"></i></div>
+            <div class="card">
+                <div class="card-body">
+                    This is some text within a card block.
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="timeline-badge bg-default"><i class="fa fa-spoon"></i></div>
+            <div class="card">
+                <div class="card-body">
+                    This is some text within a card block.
+                </div>
+            </div>
+        </li>
+        <li class="timeline-inverted">
+            <div class="timeline-badge bg-success"><i class="fa fa-bed"></i></div>
+            <div class="card">
+                <div class="card-body">
+                    This is some text within a card block.
+                </div>
+            </div>
+        </li>
+    </ul>
+{% endblock %}

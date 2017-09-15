@@ -16,4 +16,8 @@ urlpatterns = [
     url(r'^reports/sleep/totals/(?P<slug>[^/.]+)$',
         views.SleepTotalsChildReport.as_view(),
         name='report-sleep-totals-child'),
+
+    url(r'^reports/timeline/(?P<slug>[^/.]+)$',
+        views.TimelineChildReport.as_view(),
+        name='report-timeline-child'),
 ]

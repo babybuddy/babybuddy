@@ -1,0 +1,157 @@
+/* Adapted for Bootstrap 4 from https://www.bootply.com/SzXin8KDZJ. */
+.timeline {
+    list-style: none;
+    padding: 10px 0 10px;
+    position: relative;
+
+    &:before {
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        content: " ";
+        width: 3px;
+        background-color: #eeeeee;
+        left: 50%;
+        margin-left: -1.5px;
+
+    }
+
+    li {
+        margin-bottom: 10px;
+        position: relative;
+
+        &:before {
+            content: " ";
+            display: table;
+        }
+
+        &:after {
+            content: " ";
+            display: table;
+            clear: both;
+        }
+
+        .card {
+            width: 47%;
+            float: left;
+            border: 1px solid #d4d4d4;
+            border-radius: 2px;
+            padding: 10px;
+            position: relative;
+            -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+
+            &:before {
+                position: absolute;
+                top: 26px;
+                right: -15px;
+                display: inline-block;
+                border-top: 15px solid transparent;
+                border-left: 15px solid #ccc;
+                border-right: 0 solid #ccc;
+                border-bottom: 15px solid transparent;
+                content: " ";
+            }
+
+            &:after {
+                position: absolute;
+                top: 27px;
+                right: -14px;
+                display: inline-block;
+                border-top: 14px solid transparent;
+                border-left: 14px solid #fff;
+                border-right: 0 solid #fff;
+                border-bottom: 14px solid transparent;
+                content: " ";
+            }
+        }
+
+        &.timeline-inverted {
+            .card {
+                float: right;
+
+                &:before {
+                    border-left-width: 0;
+                    border-right-width: 15px;
+                    left: -15px;
+                    right: auto;
+                }
+
+                &:after {
+                    border-left-width: 0;
+                    border-right-width: 14px;
+                    left: -14px;
+                    right: auto;
+                }
+            }
+        }
+
+        .timeline-badge {
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 1.4em;
+            text-align: center;
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            margin-left: -25px;
+            background-color: #999999;
+            z-index: 100;
+            border-radius: 50%;
+        }
+
+        .timeline-badge.arrow {
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 1.4em;
+            text-align: center;
+            position: absolute;
+            top: 26px;
+            left: 50%;
+            margin-left: -25px;
+            background-color: #999999;
+            z-index: 100;
+            border-radius: 50%;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    ul.timeline:before {
+        left: 40px;
+    }
+
+    ul.timeline > li > .card {
+        width: calc(100% - 90px);
+        width: -moz-calc(100% - 90px);
+        width: -webkit-calc(100% - 90px);
+    }
+
+    ul.timeline > li > .timeline-badge {
+        left: 15px;
+        margin-left: 0;
+        top: 16px;
+    }
+
+    ul.timeline > li > .card {
+        float: right;
+    }
+
+    ul.timeline > li > .card:before {
+        border-left-width: 0;
+        border-right-width: 15px;
+        left: -15px;
+        right: auto;
+    }
+
+    ul.timeline > li > .card:after {
+        border-left-width: 0;
+        border-right-width: 14px;
+        left: -14px;
+        right: auto;
+    }
+}

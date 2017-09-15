@@ -105,6 +105,7 @@ def sleep_totals(child):
 
 def sleep_pattern(child):
     """Create a graph showing blocked out periods of sleep during each day."""
+    # TODO: Simplify this using the bar charts "base" property.
     instances = Sleep.objects.filter(child=child).order_by('start')
     y_df = pd.DataFrame()
     text_df = pd.DataFrame()

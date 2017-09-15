@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.detail import DetailView
+from django.utils import timezone
 
 from core.models import Child
 
@@ -16,7 +17,8 @@ class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
     template_name = 'reports/diaperchange_types.html'
 
     def get_context_data(self, **kwargs):
-        context = super(DiaperChangeTypesChildReport, self).get_context_data(**kwargs)
+        context = super(DiaperChangeTypesChildReport, self).get_context_data(
+            **kwargs)
         child = context['object']
         context['html'], context['javascript'] = diaperchange_types(child)
         return context
@@ -34,7 +36,8 @@ class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
         self.javascript = ''
 
     def get_context_data(self, **kwargs):
-        context = super(SleepPatternChildReport, self).get_context_data(**kwargs)
+        context = super(SleepPatternChildReport, self).get_context_data(
+            **kwargs)
         child = context['object']
         context['html'], context['javascript'] = sleep_pattern(child)
         return context
@@ -52,7 +55,21 @@ class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
         self.javascript = ''
 
     def get_context_data(self, **kwargs):
-        context = super(SleepTotalsChildReport, self).get_context_data(**kwargs)
+        context = super(SleepTotalsChildReport, self).get_context_data(
+            **kwargs)
         child = context['object']
         context['html'], context['javascript'] = sleep_totals(child)
+        return context
+
+
+class TimelineChildReport(PermissionRequiredMixin, DetailView):
+    """Graph of total sleep by day."""
+    model = Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/timeline.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TimelineChildReport, self).get_context_data(**kwargs)
+        date = kwargs.get('date', timezone.now().date())
+        print(date)
         return context
