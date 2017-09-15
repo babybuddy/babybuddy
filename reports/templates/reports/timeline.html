@@ -7,14 +7,16 @@
     <h1 class="text-center">Timeline</h1>
     <h2 class="text-center text-muted">{{ object }}</h2>
     <ul class="timeline">
-        <li>
-            <div class="timeline-badge bg-info"><i class="fa fa-trash"></i></div>
-            <div class="card">
-                <div class="card-body">
-                    This is some text within a card block.
+        {% for object in objects %}
+            <li>
+                <div class="timeline-badge bg-info"><i class="icon icon-{{ object.model_name }}"></i></div>
+                <div class="card">
+                    <div class="card-body">
+                        {{ object }}
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
+        {% endfor %}
         <li class="timeline-inverted">
             <div class="timeline-badge bg-warning"><i class="fa fa-bed"></i></div>
             <div class="card">

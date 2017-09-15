@@ -7,6 +7,7 @@ from django.utils import timezone, timesince
 
 
 class Child(models.Model):
+    model_name = 'child'
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField(blank=False, null=False)
@@ -34,6 +35,7 @@ class Child(models.Model):
 
 
 class DiaperChange(models.Model):
+    model_name = 'diaperchange'
     child = models.ForeignKey('Child', related_name='diaper_change')
     time = models.DateTimeField(blank=False, null=False)
     wet = models.BooleanField()
@@ -77,6 +79,7 @@ class DiaperChange(models.Model):
 
 
 class Feeding(models.Model):
+    model_name = 'feeding'
     child = models.ForeignKey('Child', related_name='feeding')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
@@ -114,6 +117,7 @@ class Feeding(models.Model):
 
 
 class Note(models.Model):
+    model_name = 'note'
     child = models.ForeignKey('Child', related_name='note')
     note = models.TextField()
     time = models.DateTimeField(auto_now=True)
@@ -132,6 +136,7 @@ class Note(models.Model):
 
 
 class Sleep(models.Model):
+    model_name = 'sleep'
     child = models.ForeignKey('Child', related_name='sleep')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
@@ -157,6 +162,7 @@ class Sleep(models.Model):
 
 
 class Timer(models.Model):
+    model_name = 'timer'
     name = models.CharField(max_length=255, null=True, blank=True)
     start = models.DateTimeField(auto_now_add=True)
     end = models.DateTimeField(blank=True, null=True, editable=False)
@@ -203,6 +209,7 @@ class Timer(models.Model):
 
 
 class TummyTime(models.Model):
+    model_name = 'tummytime'
     child = models.ForeignKey('Child', related_name='tummy_time')
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)

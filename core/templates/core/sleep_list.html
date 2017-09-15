@@ -29,13 +29,13 @@
 
                                 {% if perms.core.change_sleep %}
                                     <a href="{% url 'sleep-update' sleep.id %}" class="btn btn-primary">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_sleep %}
                                     <a href="{% url 'sleep-delete' sleep.id %}" class="btn btn-danger">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -55,7 +55,7 @@
 
     {% if perms.core.add_sleep %}
         <a href="{% url 'sleep-add' %}" class="btn btn-sm btn-success">
-            <i class="fa fa-bed" aria-hidden="true"></i> Add a Sleep Entry
+            <i class="icon icon-sleep" aria-hidden="true"></i> Add a Sleep Entry
         </a>
     {% endif %}
 

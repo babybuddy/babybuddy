@@ -25,19 +25,19 @@
         {% if perms.core.add_feeding %}
             <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'feeding-add' %}?timer={{ timer.id }}"
-               role="button"><i class="fa fa-spoon" aria-hidden="true"></i> Feeding</a>
+               role="button"><i class="icon icon-feeding" aria-hidden="true"></i> Feeding</a>
         {% endif %}
 
         {% if perms.core.add_sleep %}
             <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'sleep-add' %}?timer={{ timer.id }}"
-               role="button"><i class="fa fa-bed" aria-hidden="true"></i> Sleep</a>
+               role="button"><i class="icon icon-sleep" aria-hidden="true"></i> Sleep</a>
         {% endif %}
 
         {% if perms.core.add_tummytime %}
             <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'tummytime-add' %}?timer={{ timer.id }}"
-               role="button"><i class="fa fa-smile-o" aria-hidden="true"></i> Tummy Time</a>
+               role="button"><i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time</a>
         {% endif %}
 
         <div class="btn-group btn-group-lg center-block" role="group" aria-label="Timer actions">
@@ -45,22 +45,22 @@
             {% if perms.core.delete_timer %}
                 <a class="btn btn-danger"
                    href="{% url 'timer-delete' timer.id %}"
-                   role="button"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                   role="button"><i class="icon icon-delete" aria-hidden="true"></i></a>
             {% endif %}
 
             {% if perms.core.change_timer %}
                 <a class="btn btn-primary"
                    href="{% url 'timer-update' timer.id %}"
-                   role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                   role="button"><i class="icon icon-update" aria-hidden="true"></i></a>
 
                 <a class="btn btn-dark"
                    href="{% url 'timer-restart' timer.id %}"
-                   role="button"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                   role="button"><i class="icon icon-refresh" aria-hidden="true"></i></a>
 
                 {% if object.active %}
                     <a class="btn btn-warning"
                        href="{% url 'timer-stop' timer.id %}"
-                       role="button"><i class="fa fa-stop" aria-hidden="true"></i></a>
+                       role="button"><i class="icon icon-stop" aria-hidden="true"></i></a>
                 {% endif %}
             {% endif %}
 

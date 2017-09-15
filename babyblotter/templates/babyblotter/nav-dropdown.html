@@ -6,7 +6,7 @@
         <a class="navbar-brand" href="/"><span class="text-info">Baby</span> Blotter</a>
 
         <a class="d-lg-none d-md-none text-secondary ml-auto p-0 mr-3" href="{% url 'timer-add-quick' %}">
-            <i class="fa fa-2x fa-clock-o" aria-hidden="true"></i>
+            <i class="icon icon-2x icon-timer" aria-hidden="true"></i>
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -19,7 +19,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item{% if request.path == '/' %} active{% endif %}">
                     <a class="nav-link" href="{% url 'dashboard' %}">
-                        <i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard
+                        <i class="icon icon-dashboard" aria-hidden="true"></i> Dashboard
                     </a>
                 </li>
 
@@ -29,56 +29,56 @@
                        href="#"
                        data-toggle="dropdown"
                        aria-haspopup="true"
-                       aria-expanded="false"><i class="fa fa-child" aria-hidden="true"></i> Activities</a>
+                       aria-expanded="false"><i class="icon icon-child" aria-hidden="true"></i> Activities</a>
                     <div class="dropdown-menu" aria-labelledby="nav-activity-menu-link">
 
                         {% if perms.core.view_diaperchange %}
                             <a class="dropdown-item{% if request.path == '/changes/' %} active{% endif %}"
-                               href="{% url 'diaperchange-list' %}"><i class="fa fa-trash" aria-hidden="true"></i> Changes</a>
+                               href="{% url 'diaperchange-list' %}"><i class="icon icon-diaperchange" aria-hidden="true"></i> Changes</a>
                         {% endif %}
                         {% if perms.core.add_diaperchange %}
                             <a class="dropdown-item pl-5{% if request.path == '/changes/add/' %} active{% endif %}"
-                               href="{% url 'diaperchange-add' %}"><i class="fa fa-plus" aria-hidden="true"></i> Change</a>
+                               href="{% url 'diaperchange-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Change</a>
                         {% endif %}
 
                         {% if perms.core.view_feeding %}
                             <a class="dropdown-item{% if request.path == '/feedings/' %} active{% endif %}"
-                               href="{% url 'feeding-list' %}"><i class="fa fa-spoon" aria-hidden="true"></i> Feedings</a>
+                               href="{% url 'feeding-list' %}"><i class="icon icon-feeding" aria-hidden="true"></i> Feedings</a>
                         {% endif %}
                         {% if perms.core.add_diaperchange %}
                             <a class="dropdown-item pl-5{% if request.path == '/feedings/add/' %} active{% endif %}"
-                               href="{% url 'feeding-add' %}"><i class="fa fa-plus" aria-hidden="true"></i> Feeding</a>
+                               href="{% url 'feeding-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Feeding</a>
                         {% endif %}
 
                         {% if perms.core.view_sleep %}
                             <a class="dropdown-item{% if request.path == '/sleep/' %} active{% endif %}"
-                               href="{% url 'sleep-list' %}"><i class="fa fa-bed" aria-hidden="true"></i> Sleep</a>
+                               href="{% url 'sleep-list' %}"><i class="icon icon-sleep" aria-hidden="true"></i> Sleep</a>
                         {% endif %}
                         {% if perms.core.add_sleep %}
                             <a class="dropdown-item pl-5{% if request.path == '/sleep/add/' %} active{% endif %}"
-                               href="{% url 'sleep-add' %}"><i class="fa fa-plus" aria-hidden="true"></i> Sleep entry</a>
+                               href="{% url 'sleep-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Sleep entry</a>
                         {% endif %}
 
                         {% if perms.core.view_tummytime %}
                             <a class="dropdown-item{% if request.path == '/tummy-time/' %} active{% endif %}"
-                               href="{% url 'tummytime-list' %}"><i class="fa fa-smile-o" aria-hidden="true"></i> Tummy Time</a>
+                               href="{% url 'tummytime-list' %}"><i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time</a>
                         {% endif %}
                         {% if perms.core.add_tummytime %}
                             <a class="dropdown-item pl-5{% if request.path == '/tummy-time/add/' %} active{% endif %}"
-                               href="{% url 'tummytime-add' %}"><i class="fa fa-plus" aria-hidden="true"></i> Tummy Time entry</a>
+                               href="{% url 'tummytime-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Tummy Time entry</a>
                         {% endif %}
 
                         <div class="dropdown-divider"></div>
 
                         {% if perms.core.view_child %}
                             <a class="dropdown-item{% if request.path == '/children/' %} active{% endif %}" href="{% url 'child-list' %}">
-                                <i class="fa fa-child" aria-hidden="true"></i> Children
+                                <i class="icon icon-child" aria-hidden="true"></i> Children
                             </a>
                         {% endif %}
 
                         {% if perms.core.view_note %}
                             <a class="dropdown-item{% if request.path == '/notes/' %} active{% endif %}" href="{% url 'note-list' %}">
-                                <i class="fa fa-sticky-note" aria-hidden="true"></i> Notes
+                                <i class="icon icon-note" aria-hidden="true"></i> Notes
                             </a>
                         {% endif %}
 
@@ -98,7 +98,7 @@
                            href="#"
                            data-toggle="dropdown"
                            aria-haspopup="true"
-                           aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{ request.user }}
+                           aria-expanded="false"><i class="icon icon-user" aria-hidden="true"></i> {{ request.user }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="nav-user-menu-link">
                             <a href="{% url 'api:api-root' %}"

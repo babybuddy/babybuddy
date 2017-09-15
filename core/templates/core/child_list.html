@@ -26,19 +26,19 @@
 
                                 {% if perms.core.view_child %}
                                     <a href="{% url 'dashboard-child' child.slug %}" class="btn btn-success">
-                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                        <i class="icon icon-dashboard" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.change_child %}
                                     <a href="{% url 'child-update' child.slug %}" class="btn btn-primary">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_child %}
                                     <a href="{% url 'child-delete' child.slug %}" class="btn btn-danger">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -58,7 +58,7 @@
 
     {% if perms.core.add_child %}
         <a href="{% url 'child-add' %}" class="btn btn-sm btn-success">
-            <i class="fa fa-child" aria-hidden="true"></i> Add a Child
+            <i class="icon icon-child" aria-hidden="true"></i> Add a Child
         </a>
     {% endif %}
 

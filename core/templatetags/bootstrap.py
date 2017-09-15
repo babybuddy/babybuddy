@@ -10,8 +10,8 @@ register = template.Library()
 @register.filter()
 def bool_icon(value):
     if value:
-        classes = 'fa-check-circle-o text-success'
+        classes = 'icon-true text-success'
     else:
-        classes = 'fa-times-circle-o text-danger'
-    icon_html = '<i class="fa {}" aria-hidden="true"></i>'.format(classes)
+        classes = 'icon-false text-danger'
+    icon_html = '<i class="icon {}" aria-hidden="true"></i>'.format(classes)
     return mark_safe(icon_html)

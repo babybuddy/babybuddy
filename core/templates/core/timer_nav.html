@@ -4,19 +4,19 @@
        href="#"
        data-toggle="dropdown"
        aria-haspopup="true"
-       aria-expanded="false"><i class="fa fa-clock-o" aria-hidden="true"></i> Timers</a>
+       aria-expanded="false"><i class="icon icon-timer" aria-hidden="true"></i> Timers</a>
     <div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
         {% if perms.core.add_timer %}
             <a class="dropdown-item" href="{% url 'timer-add-quick' %}">
-                <i class="fa fa-clock-o" aria-hidden="true"></i> Quick Start Timer
+                <i class="icon icon-timer" aria-hidden="true"></i> Quick Start Timer
             </a>
             <a class="dropdown-item" href="{% url 'timer-add' %}">
-                <i class="fa fa-plus" aria-hidden="true"></i> Start Timer
+                <i class="icon icon-add" aria-hidden="true"></i> Start Timer
             </a>
         {% endif %}
         {% if perms.core.view_timer %}
             <a class="dropdown-item" href="{% url 'timer-list' %}">
-                <i class="fa fa-list" aria-hidden="true"></i> View Timers
+                <i class="icon icon-list" aria-hidden="true"></i> View Timers
             </a>
         {% endif %}
         {% if timers %}

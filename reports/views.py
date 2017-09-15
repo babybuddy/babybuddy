@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.detail import DetailView
 from django.utils import timezone
 
-from core.models import Child
+from core.models import Child, DiaperChange
 
 from .graphs import diaperchange_types, sleep_pattern, sleep_totals
 
@@ -70,6 +70,10 @@ class TimelineChildReport(PermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TimelineChildReport, self).get_context_data(**kwargs)
-        date = kwargs.get('date', timezone.now().date())
-        print(date)
+        date = self.request.GET.get('date', timezone.now().date())
+
+        changes = DiaperChange.objects.filter(child=self.object).filter(
+            time__contains=date).order_by('-time')
+
+        context['objects'] = changes
         return context

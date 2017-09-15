@@ -31,13 +31,13 @@
 
                                 {% if perms.core.change_tummytime %}
                                     <a href="{% url 'tummytime-update' tummytime.id %}" class="btn btn-primary">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_tummytime %}
                                     <a href="{% url 'tummytime-delete' tummytime.id %}" class="btn btn-danger">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -56,7 +56,8 @@
     </div>
 
     {% if perms.core.add_tummytime %}
-        <a href="{% url 'tummytime-add' %}" class="btn btn-sm btn-success"><i class="fa fa-smile-o" aria-hidden="true"></i> Add a Tummy Time Entry</a>
+        <a href="{% url 'tummytime-add' %}" class="btn btn-sm btn-success">
+            <i class="icon icon-tummytime" aria-hidden="true"></i> Add a Tummy Time Entry</a>
     {% endif %}
 
 {% endblock %}

@@ -37,13 +37,13 @@
 
                                 {% if perms.core.change_feeding %}
                                     <a href="{% url 'feeding-update' feeding.id %}" class="btn btn-primary">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_feeding %}
                                     <a href="{% url 'feeding-delete' feeding.id %}" class="btn btn-danger">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -63,7 +63,7 @@
 
     {% if perms.core.add_feeding %}
         <a href="{% url 'feeding-add' %}" class="btn btn-sm btn-success">
-            <i class="fa fa-spoon" aria-hidden="true"></i> Add a Feeding
+            <i class="icon icon-feeding" aria-hidden="true"></i> Add a Feeding
         </a>
     {% endif %}
 

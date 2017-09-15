@@ -14,14 +14,14 @@
                     type="button"
                     data-toggle="dropdown"
                     aria-haspopup="true"
-                    aria-expanded="false"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reports</button>
+                    aria-expanded="false"><i class="icon icon-graph" aria-hidden="true"></i> Reports</button>
             <div class="dropdown-menu" aria-labelledby="reports-dropdown">
                 {% if perms.core.view_diaperchange %}
-                    <h6 class="dropdown-header"><i class="fa fa-trash" aria-hidden="true"></i> Diaper Changes</h6>
+                    <h6 class="dropdown-header"><i class="icon icon-delete" aria-hidden="true"></i> Diaper Changes</h6>
                     <a class="dropdown-item" href="{% url 'reports:report-diaperchange-types-child' object.slug %}">Change Types</a>
                 {% endif %}
                 {% if perms.core.view_sleep %}
-                    <h6 class="dropdown-header"><i class="fa fa-bed" aria-hidden="true"></i> Sleep</h6>
+                    <h6 class="dropdown-header"><i class="icon icon-sleep" aria-hidden="true"></i> Sleep</h6>
                     <a class="dropdown-item" href="{% url 'reports:report-sleep-pattern-child' object.slug %}">Sleep Pattern</a>
                     <a class="dropdown-item" href="{% url 'reports:report-sleep-totals-child' object.slug %}">Sleep Totals</a>
                 {% endif %}
