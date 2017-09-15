@@ -14,9 +14,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="text-muted">
-        Average sleep duration: <strong>{{ average|duration_string }}</strong>.
-    </div>
+    {% if total %}
+        <div class="text-muted">
+            Average sleep duration: <strong>{{ average|duration_string }}</strong>.
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block footer %}{{ count }} sleep entries{% endblock %}

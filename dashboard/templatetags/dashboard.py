@@ -121,8 +121,10 @@ def card_sleep_day(child, date=None):
 
         total += end - start
 
-    return {
-        'total': total,
-        'count': len(instances),
-        'average': total/len(instances)
-    }
+    count = len(instances)
+    if count > 0:
+        average = total/count
+    else:
+        average = 0
+
+    return {'total': total, 'count': count, 'average': average}
