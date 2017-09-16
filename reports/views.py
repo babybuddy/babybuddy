@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from core.models import Child, DiaperChange
 
-from .graphs import diaperchange_types, sleep_pattern, sleep_totals
+from .graphs import diaperchange_types, sleep_pattern, sleep_totals, timeline
 
 
 class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
@@ -71,9 +71,8 @@ class TimelineChildReport(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(TimelineChildReport, self).get_context_data(**kwargs)
         date = self.request.GET.get('date', timezone.now().date())
-
-        changes = DiaperChange.objects.filter(child=self.object).filter(
-            time__contains=date).order_by('-time')
-
-        context['objects'] = changes
+        date = timezone.datetime.strptime(date, '%Y-%m-%d')
+        date = timezone.localtime(timezone.make_aware(date))
+        context['objects'] = timeline(self.object, date)
+        context['date'] = date
         return context

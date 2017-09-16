@@ -11,13 +11,14 @@ import pandas as pd
 import plotly.offline as plotly
 import plotly.graph_objs as go
 
-from core.models import DiaperChange, Sleep
+from core.models import DiaperChange, Feeding, Sleep, TummyTime
 from core.utils import duration_string, duration_string_short
 
 from .utils import default_graph_layout_options, split_graph_output
 
 
 def diaperchange_types(child):
+    """Create a graph showing types of totals for diaper changes."""
     changes = DiaperChange.objects.filter(child=child) \
         .annotate(date=TruncDate('time')) \
         .values('date') \
@@ -243,3 +244,61 @@ def _add_sleep_entry(y_df, text_df, index, column, duration, text=''):
     y_df.set_value(index, column, duration)
     text_df.set_value(index, column, text)
     return index + 1
+
+
+def timeline(child, date):
+    """Create a time-sorted dictionary for all events for a child."""
+    min_date = date
+    max_date = date.replace(hour=23, minute=59, second=59)
+    events = []
+    instances = DiaperChange.objects.filter(child=child).filter(
+        time__range=(min_date, max_date)).order_by('-time')
+    for instance in instances:
+        events.append({
+            'time': timezone.localtime(instance.time),
+            'event': '{} had a diaper change.'.format(child.first_name),
+            'model_name': instance.model_name
+        })
+    instances = Feeding.objects.filter(child=child).filter(
+        start__range=(min_date, max_date)).order_by('-start')
+    for instance in instances:
+        events.append({
+            'time': timezone.localtime(instance.start),
+            'event': '{} started feeding.'.format(instance.child.first_name),
+            'model_name': instance.model_name
+        })
+        events.append({
+            'time': timezone.localtime(instance.end),
+            'event': '{} finished feeding.'.format(instance.child.first_name),
+            'model_name': instance.model_name
+        })
+    instances = Sleep.objects.filter(child=child).filter(
+        start__range=(min_date, max_date)).order_by('-start')
+    for instance in instances:
+        events.append({
+            'time': timezone.localtime(instance.start),
+            'event': '{} fell asleep.'.format(instance.child.first_name),
+            'model_name': instance.model_name
+        })
+        events.append({
+            'time': timezone.localtime(instance.end),
+            'event': '{} woke up.'.format(instance.child.first_name),
+            'model_name': instance.model_name
+        })
+    instances = TummyTime.objects.filter(child=child).filter(
+        start__range=(min_date, max_date)).order_by('-start')
+    for instance in instances:
+        events.append({
+            'time': timezone.localtime(instance.start),
+            'event': '{} started tummy time!'.format(
+                instance.child.first_name),
+            'model_name': instance.model_name
+        })
+        events.append({
+            'time': timezone.localtime(instance.end),
+            'event': '{} finished tummy time.'.format(
+                instance.child.first_name),
+            'model_name': instance.model_name
+        })
+    events.sort(key=lambda x: x['time'], reverse=True)
+    return events
