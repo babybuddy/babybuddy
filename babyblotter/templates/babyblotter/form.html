@@ -1,0 +1,22 @@
+{% load widget_tweaks %}
+
+<form role="form" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+            <label for="id_{{ field.name }}">{{ field.label }}</label>
+            {% if field.errors %}
+                {{ field|add_class:"form-control is-invalid" }}
+            {% else %}
+                {{ field|add_class:"form-control" }}
+            {% endif %}
+            {% if field.help_text %}
+                <p class="help-block"><small>{{ field.help_text }}</small></p>
+            {% endif %}
+            {% if field.errors %}
+                <p class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

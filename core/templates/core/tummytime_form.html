@@ -1,5 +1,4 @@
 {% extends 'babyblotter/page.html' %}
-{% load widget_tweaks %}
 
 {% block title %}
     {% if request.resolver_match.url_name == 'tummytime-update' %}
@@ -15,27 +14,7 @@
     {% else %}
         <h1>Add a Tummy Time Entry</h1>
     {% endif %}
-    <form role="form" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="form-group">
-                <label for="id_{{ field.name }}">{{ field.label }}</label>
-                {% if field.errors %}
-                    {{ field|add_class:"form-control is-invalid" }}
-                {% else %}
-                    {{ field|add_class:"form-control" }}
-                {% endif %}
-                {% if field.help_text %}
-                    <p class="help-block"><small>{{ field.help_text }}</small></p>
-                {% endif %}
-            {% if field.errors %}
-                <p class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</p>
-            {% endif %}
-            </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="{% url 'tummytime-list' %}" class="btn btn-default">Cancel</a>
-    </form>
+    {% include 'babyblotter/form.html' %}
 {% endblock %}
 
 {% block javascript %}
