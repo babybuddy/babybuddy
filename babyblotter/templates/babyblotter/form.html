@@ -28,12 +28,11 @@
                                 <div class="input-group-addon" data-target="#datetimepicker_{{ field.name }}" data-toggle="datetimepicker">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input name="{{ field.html_name }}"
-                                       required="{{ field.required }}"
-                                       class="form-control datetimepicker-input{% if field.errors %} is-invalid{% endif %}"
-                                       data-target="#datetimepicker_{{ field.name }}"
-                                       id="id_{{ field.name }}"
-                                       type="text"/>
+                                {% if field.errors %}
+                                    {{ field|add_class:"form-control is-invalid" }}
+                                {% else %}
+                                    {{ field|add_class:"form-control" }}
+                                {% endif %}
                             </div>
                         </div>
                     </div>

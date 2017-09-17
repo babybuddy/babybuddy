@@ -44,8 +44,7 @@ class ChildForm(forms.ModelForm):
         widgets = {
             'birth_date': forms.DateInput(attrs={
                 'class': 'datepicker-input',
-                'data-toggle': 'datetimepicker',
-                'data-target': '#id_birth_date',
+                'data-target': '#datetimepicker_date',
             }),
         }
 
@@ -57,8 +56,7 @@ class DiaperChangeForm(forms.ModelForm):
         widgets = {
             'time': forms.DateTimeInput(attrs={
                 'class': 'datepicker-input',
-                'data-toggle': 'datetimepicker',
-                'data-target': '#id_time',
+                'data-target': '#datetimepicker_time',
             }),
         }
 
@@ -74,13 +72,11 @@ class FeedingForm(forms.ModelForm):
         widgets = {
             'start': forms.DateTimeInput(attrs={
                 'class': 'datepicker-input',
-                'data-toggle': 'datetimepicker',
-                'data-target': '#id_start',
+                'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
                 'class': 'datepicker-input',
-                'data-toggle': 'datetimepicker',
-                'data-target': '#id_end',
+                'data-target': '#datetimepicker_end',
             }),
         }
 
@@ -106,13 +102,11 @@ class SleepForm(forms.ModelForm):
         widgets = {
             'start': forms.DateTimeInput(attrs={
                 'class': 'datepicker-input',
-                'data-toggle': 'datetimepicker',
-                'data-target': '#id_start',
+                'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
                 'class': 'datepicker-input',
-                'data-toggle': 'datetimepicker',
-                'data-target': '#id_end',
+                'data-target': '#datetimepicker_end',
             }),
         }
 
@@ -154,13 +148,11 @@ class TummyTimeForm(forms.ModelForm):
         widgets = {
             'start': forms.DateTimeInput(attrs={
                 'class': 'datepicker-input',
-                'data-toggle': 'datetimepicker',
-                'data-target': '#id_start',
+                'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
                 'class': 'datepicker-input',
-                'data-toggle': 'datetimepicker',
-                'data-target': '#id_end',
+                'data-target': '#datetimepicker_end',
             }),
         }
 
