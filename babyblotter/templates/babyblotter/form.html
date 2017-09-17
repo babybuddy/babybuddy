@@ -6,27 +6,44 @@
         {% for field in form %}
             <div class="d-none">{{ field|field_type }}</div>
             <div class="form-group row">
-                {% if field|field_type == 'booleanfield' %}
-                    <div class="col-sm-1">&nbsp;</div>
+                {% if field|field_type == "booleanfield" %}
+                    <div class="col-sm-1 d-none d-sm-block">&nbsp;</div>
                     <div class="col-sm-11">
                         <div class="form-check">
                             <label for="id_{{ field.name }}" class="form-check-label">
                                 {% if field.errors %}
-                                    {{ field|add_class:'form-check-input is-invalid' }}
+                                    {{ field|add_class:"form-check-input is-invalid" }}
                                 {% else %}
-                                    {{ field|add_class:'form-check-input' }}
+                                    {{ field|add_class:"form-check-input" }}
                                 {% endif %}
                                 {{ field.label }}
                             </label>
+                        </div>
+                    </div>
+                {% elif field|field_type == "datetimefield" or field|field_type == "datefield" %}
+                    <label for="id_{{ field.name }}" class="col-sm-1 col-form-label">{{ field.label }}</label>
+                    <div class="col-sm-11">
+                        <div class="form-group">
+                            <div class="input-group date" id="datetimepicker_{{ field.name }}" data-target-input="nearest">
+                                <div class="input-group-addon" data-target="#datetimepicker_{{ field.name }}" data-toggle="datetimepicker">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input name="{{ field.html_name }}"
+                                       required="{{ field.required }}"
+                                       class="form-control datetimepicker-input{% if field.errors %} is-invalid{% endif %}"
+                                       data-target="#datetimepicker_{{ field.name }}"
+                                       id="id_{{ field.name }}"
+                                       type="text"/>
+                            </div>
                         </div>
                     </div>
                 {% else %}
                     <label for="id_{{ field.name }}" class="col-sm-1 col-form-label">{{ field.label }}</label>
                     <div class="col-sm-11">
                         {% if field.errors %}
-                            {{ field|add_class:'form-control is-invalid' }}
+                            {{ field|add_class:"form-control is-invalid" }}
                         {% else %}
-                            {{ field|add_class:'form-control' }}
+                            {{ field|add_class:"form-control" }}
                         {% endif %}
                     </div>
                 {% endif %}
