@@ -70,9 +70,11 @@ class TimelineChildReport(PermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TimelineChildReport, self).get_context_data(**kwargs)
-        date = self.request.GET.get('date', timezone.now().date())
+        date = self.request.GET.get('date', str(timezone.now().date()))
         date = timezone.datetime.strptime(date, '%Y-%m-%d')
         date = timezone.localtime(timezone.make_aware(date))
         context['objects'] = timeline(self.object, date)
         context['date'] = date
+        context['date_previous'] = date - timezone.timedelta(days=1)
+        context['date_next'] = date + timezone.timedelta(days=1)
         return context
