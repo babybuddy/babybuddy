@@ -28,7 +28,7 @@
                         {{ object.event }}
                     </div>
                     <div class="card-footer text-muted">
-                        {{ object.time|time }}
+                        {{ object.time|timesince }} ago ({{ object.time|time }})
                     </div>
                 </div>
             </li>
