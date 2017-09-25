@@ -6,6 +6,9 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^reports/changes/lifetimes/(?P<slug>[^/.]+)/$',
+        views.DiaperChangeLifetimesChildReport.as_view(),
+        name='report-diaperchange-lifetimes-child'),
     url(r'^reports/changes/types/(?P<slug>[^/.]+)/$',
         views.DiaperChangeTypesChildReport.as_view(),
         name='report-diaperchange-types-child'),

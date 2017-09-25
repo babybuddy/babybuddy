@@ -17,6 +17,40 @@ from core.utils import duration_string, duration_parts
 from .utils import default_graph_layout_options, split_graph_output
 
 
+def diaperchange_lifetimes(child):
+    """Create a graph showing how long diapers last (time between changes)."""
+    changes = DiaperChange.objects.filter(child=child).order_by('time')
+
+    durations = []
+    last_change = changes.first()
+    for change in changes[1:]:
+        duration = change.time - last_change.time
+        if duration.seconds > 0:
+            durations.append(duration)
+        last_change = change
+
+    trace = go.Box(
+        y=[round(d.seconds/3600, 2) for d in durations],
+        name='Changes',
+        jitter=0.3,
+        pointpos=-1.8,
+        boxpoints='all'
+    )
+
+    layout_args = default_graph_layout_options()
+    layout_args['title'] = '<b>Diaper Lifetimes</b><br>{}'.format(child)
+    layout_args['yaxis']['title'] = 'Time between changes (hours)'
+    layout_args['yaxis']['zeroline'] = False
+    layout_args['yaxis']['dtick'] = 1
+
+    fig = go.Figure({
+        'data': [trace],
+        'layout': go.Layout(**layout_args)
+    })
+    output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
+    return split_graph_output(output)
+
+
 def diaperchange_types(child):
     """Create a graph showing types of totals for diaper changes."""
     changes = DiaperChange.objects.filter(child=child) \

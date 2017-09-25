@@ -5,9 +5,24 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.detail import DetailView
 from django.utils import timezone
 
-from core.models import Child, DiaperChange
+from core.models import Child
 
-from .graphs import diaperchange_types, sleep_pattern, sleep_totals, timeline
+from .graphs import (diaperchange_types, diaperchange_lifetimes, sleep_pattern,
+                     sleep_totals, timeline)
+
+
+class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
+    """Graph of diaper changes by day and type."""
+    model = Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/diaperchange_lifetimes.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DiaperChangeLifetimesChildReport, self).get_context_data(
+            **kwargs)
+        child = context['object']
+        context['html'], context['javascript'] = diaperchange_lifetimes(child)
+        return context
 
 
 class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
