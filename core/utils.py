@@ -33,12 +33,6 @@ def duration_string(duration):
     return duration
 
 
-def duration_string_short(duration):
-    """Format hours, minutes and seconds as a short string (e.g. "0h2m35s")."""
-    h, m, s = duration_parts(duration)
-    return '{}h{}m{}s'.format(h, m, s)
-
-
 def duration_parts(duration):
     """Get hours, minutes and seconds from a timedelta."""
     if not isinstance(duration, timezone.timedelta):

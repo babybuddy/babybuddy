@@ -12,7 +12,7 @@ import plotly.offline as plotly
 import plotly.graph_objs as go
 
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
-from core.utils import duration_string, duration_string_short
+from core.utils import duration_string, duration_parts
 
 from .utils import default_graph_layout_options, split_graph_output
 
@@ -87,7 +87,7 @@ def sleep_totals(child):
         y=[td.seconds/3600 for td in totals.values()],
         hoverinfo='text',
         textposition='outside',
-        text=[duration_string_short(td) for td in totals.values()]
+        text=[_duration_string_short(td) for td in totals.values()]
     )
 
     layout_args = default_graph_layout_options()
@@ -102,6 +102,13 @@ def sleep_totals(child):
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
     return split_graph_output(output)
+
+
+def _duration_string_short(duration):
+    """Format a "short" duration string without seconds precision. This is
+    intended to fit better in smaller spaces on a graph."""
+    h, m, s = duration_parts(duration)
+    return '{}h{}m'.format(h, m)
 
 
 def sleep_pattern(child):
