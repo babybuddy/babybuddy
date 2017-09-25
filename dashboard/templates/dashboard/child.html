@@ -1,5 +1,5 @@
 {% extends 'babyblotter/page.html' %}
-{% load dashboard %}
+{% load cards %}
 
 {% block title %}Dashboard - {{ object }}{% endblock %}
 
@@ -28,6 +28,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
             {% card_feeding_last object %}
             {% card_feeding_last_method object %}
+            {% card_timer_list %}
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12">
             {% card_sleep_last object %}
