@@ -29,18 +29,18 @@ def diaperchange_types(child):
 
     solid_trace = go.Scatter(
         mode='markers',
-        name='Solid changes',
+        name='Solid',
         x=list(changes.values_list('date', flat=True)),
         y=list(changes.values_list('solid_count', flat=True)),
     )
     wet_trace = go.Scatter(
         mode='markers',
-        name='Wet changes',
+        name='Wet',
         x=list(changes.values_list('date', flat=True)),
         y=list(changes.values_list('wet_count', flat=True))
     )
     total_trace = go.Scatter(
-        name='Total changes',
+        name='Total',
         x=list(changes.values_list('date', flat=True)),
         y=list(changes.values_list('total', flat=True))
     )
