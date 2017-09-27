@@ -9,7 +9,7 @@ $indigo: #472395;
 $purple: #712395;
 $pink: #952393;
 $red: #952330;
-$orange: #ff7f00;
+$orange: #984c00;
 $yellow: #ffbe42;
 $green: #239556;
 $teal: #5abccc;
@@ -91,7 +91,7 @@ $dropdown-link-hover-color: darken($body-color, 5%);
 $dropdown-link-hover-bg: theme-color("primary");
 $dropdown-link-active-color: $component-active-color;
 $dropdown-link-active-bg: $component-active-bg;
-$dropdown-header-color: theme-color("secondary");
+$dropdown-header-color: darken($body-color, 25%);
 
 
 // Pagination
