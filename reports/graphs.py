@@ -109,9 +109,11 @@ def sleep_totals(child):
         # Account for dates crossing midnight.
         if start.date() != end.date():
             totals[start.date()] += end.replace(
-                day=start.day, hour=23, minute=59, second=59) - start
+                year=start.year, month=start.month, day=start.day,
+                hour=23, minute=59, second=59) - start
             totals[end.date()] += end - start.replace(
-                day=end.day, hour=0, minute=0, second=0)
+                year=end.year, month=end.month, day=end.day, hour=0, minute=0,
+                second=0)
         else:
             totals[start.date()] += instance.duration
 
@@ -193,6 +195,7 @@ def sleep_pattern(child):
 
             # Adjust end_time for the current entry.
             end_time = end_time.replace(
+                year=start_time.year, month=start_time.month,
                 day=start_time.day, hour=23, minute=59, second=0)
             duration = end_time - start_time
 

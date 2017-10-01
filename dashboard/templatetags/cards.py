@@ -89,9 +89,11 @@ def card_sleep_day(child, date=None):
         end = timezone.localtime(instance.end)
         # Account for dates crossing midnight.
         if start.date() != date:
-            start = start.replace(day=end.day, hour=0, minute=0, second=0)
+            start = start.replace(year=end.year, month=end.month, day=end.day,
+                                  hour=0, minute=0, second=0)
         elif end.date() != date:
-            end = start.replace(day=start.day, hour=23, minute=59, second=59)
+            end = start.replace(year=start.year, month=start.month,
+                                day=start.day, hour=23, minute=59, second=59)
 
         total += end - start
 
