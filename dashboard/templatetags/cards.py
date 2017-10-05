@@ -80,8 +80,13 @@ def card_sleep_day(child, date=None):
     """
     if not date:
         date = timezone.localtime().date()
-    instances = Sleep.objects.filter(child=child).filter(start__day=date.day) \
-        | Sleep.objects.filter(child=child).filter(end__day=date.day)
+    instances = Sleep.objects.filter(child=child).filter(
+        start__year=date.year,
+        start__month=date.month,
+        start__day=date.day) | Sleep.objects.filter(child=child).filter(
+        end__year=date.year,
+        end__month=date.month,
+        end__day=date.day)
 
     total = timezone.timedelta(seconds=0)
     for instance in instances:
@@ -129,7 +134,8 @@ def card_tummytime_day(child, date=None):
     if not date:
         date = timezone.localtime().date()
     instances = TummyTime.objects.filter(
-        child=child, end__day=date.day).order_by('-end')
+        child=child, end__year=date.year, end__month=date.month,
+        end__day=date.day).order_by('-end')
     stats = {
         'total': timezone.timedelta(seconds=0),
         'count': instances.count()
