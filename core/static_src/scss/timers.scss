@@ -1,7 +1,7 @@
 #view-timer-detail {
     #timer-status {
-        font-size: $display4-size;
-        font-weight: $display4-weight;
+        font-size: $h1-font-size;
+        font-weight: $display1-weight;
     }
 }
 
@@ -9,7 +9,6 @@
     #view-timer-detail {
         #timer-status {
             font-size: $display1-size;
-            font-weight: $display1-weight;
         }
     }
 }
