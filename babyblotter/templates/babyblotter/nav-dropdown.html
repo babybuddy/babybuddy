@@ -5,9 +5,43 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="/"><span class="text-info">Baby</span> Blotter</a>
 
-        <a class="d-lg-none d-md-none text-success ml-auto p-0 mr-3" href="{% url 'timer-add-quick' %}">
-            <i class="icon icon-2x icon-timer" aria-hidden="true"></i>
-        </a>
+        <div class="d-lg-none d-md-none ml-auto p-0 mr-2">
+            <a class="text-success mr-2" href="{% url 'timer-add-quick' %}"><i class="icon icon-2x icon-timer" aria-hidden="true"></i></a>
+            <div class="dropdown show d-inline">
+                <a class="text-success"
+                   href="#"
+                   role="button"
+                   id="nav-quick-add-link"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false"><i class="icon icon-2x icon-add" aria-hidden="true"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-quick-add-link">
+                    {% if perms.core.add_diaperchange %}
+                        <a class="dropdown-item p-2" href="{% url 'diaperchange-add' %}">
+                            <i class="icon icon-diaperchange" aria-hidden="true"></i> Diaper Change
+                        </a>
+                    {% endif %}
+                    {% if perms.core.add_feeding %}
+                        <a class="dropdown-item p-2" href="{% url 'feeding-add' %}">
+                            <i class="icon icon-feeding" aria-hidden="true"></i> Feeding
+                        </a>
+                    {% endif %}
+                    {% if perms.core.add_sleep %}
+                        <a class="dropdown-item p-2" href="{% url 'sleep-add' %}">
+                            <i class="icon icon-sleep" aria-hidden="true"></i> Sleep
+                        </a>
+                    {% endif %}
+                    {% if perms.core.add_tummytime %}
+                        <a class="dropdown-item p-2" href="{% url 'tummytime-add' %}">
+                            <i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-app" aria-controls="navbar-app"
@@ -100,7 +134,7 @@
                            aria-haspopup="true"
                            aria-expanded="false"><i class="icon icon-user" aria-hidden="true"></i> {{ request.user }}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="nav-user-menu-link">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-user-menu-link">
                             <a href="{% url 'api:api-root' %}"
                                class="dropdown-item"
                                target="_blank">API Browser</a>

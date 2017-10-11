@@ -1,1 +1,7 @@
-// Baby Blotter site-wide custom functions.
+// Baby Blotter site-wide custom styles.
+
+// Temporary workaround. See: https://github.com/twbs/bootstrap/issues/23553
+.dropdown-menu-right {
+  right: 0;
+  left: auto; // Reset the default from `.dropdown-menu`
+  }
