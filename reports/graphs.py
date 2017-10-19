@@ -14,7 +14,7 @@ import plotly.graph_objs as go
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
 from core.utils import duration_string, duration_parts
 
-from .utils import default_graph_layout_options, split_graph_output
+from . import utils
 
 
 def diaperchange_lifetimes(child):
@@ -37,7 +37,7 @@ def diaperchange_lifetimes(child):
         boxpoints='all'
     )
 
-    layout_args = default_graph_layout_options()
+    layout_args = utils.default_graph_layout_options()
     layout_args['title'] = '<b>Diaper Lifetimes</b><br>{}'.format(child)
     layout_args['yaxis']['title'] = 'Time between changes (hours)'
     layout_args['yaxis']['zeroline'] = False
@@ -48,7 +48,7 @@ def diaperchange_lifetimes(child):
         'layout': go.Layout(**layout_args)
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
-    return split_graph_output(output)
+    return utils.split_graph_output(output)
 
 
 def diaperchange_types(child):
@@ -79,10 +79,11 @@ def diaperchange_types(child):
         y=list(changes.values_list('total', flat=True))
     )
 
-    layout_args = default_graph_layout_options()
+    layout_args = utils.default_graph_layout_options()
     layout_args['barmode'] = 'stack'
     layout_args['title'] = '<b>Diaper Change Types</b><br>{}'.format(child)
     layout_args['xaxis']['title'] = 'Date'
+    layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
     layout_args['yaxis']['title'] = 'Number of changes'
 
     fig = go.Figure({
@@ -90,7 +91,7 @@ def diaperchange_types(child):
         'layout': go.Layout(**layout_args)
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
-    return split_graph_output(output)
+    return utils.split_graph_output(output)
 
 
 def sleep_totals(child):
@@ -126,10 +127,11 @@ def sleep_totals(child):
         text=[_duration_string_short(td) for td in totals.values()]
     )
 
-    layout_args = default_graph_layout_options()
+    layout_args = utils.default_graph_layout_options()
     layout_args['barmode'] = 'stack'
     layout_args['title'] = '<b>Sleep Totals</b><br>{}'.format(child)
     layout_args['xaxis']['title'] = 'Date'
+    layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
     layout_args['yaxis']['title'] = 'Hours of sleep'
 
     fig = go.Figure({
@@ -137,7 +139,7 @@ def sleep_totals(child):
         'layout': go.Layout(**layout_args)
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
-    return split_graph_output(output)
+    return utils.split_graph_output(output)
 
 
 def _duration_string_short(duration):
@@ -244,7 +246,7 @@ def sleep_pattern(child):
         else:
             color = 'rgba(255, 255, 255, 0)'
 
-    layout_args = default_graph_layout_options()
+    layout_args = utils.default_graph_layout_options()
     layout_args['margin']['b'] = 100
 
     layout_args['barmode'] = 'stack'
@@ -253,8 +255,8 @@ def sleep_pattern(child):
     layout_args['height'] = 600
 
     layout_args['xaxis']['title'] = 'Date'
-    layout_args['xaxis']['type'] = 'category'
     layout_args['xaxis']['tickangle'] = -65
+    layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
 
     start = timezone.localtime().strptime('12:00 AM', '%I:%M %p')
     ticks = OrderedDict()
@@ -274,7 +276,7 @@ def sleep_pattern(child):
         'layout': go.Layout(**layout_args)
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
-    return split_graph_output(output)
+    return utils.split_graph_output(output)
 
 
 def _add_sleep_entry(y_df, text_df, index, column, duration, text=''):

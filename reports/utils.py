@@ -29,6 +29,50 @@ def default_graph_layout_options():
     }
 
 
+def rangeselector_date():
+    """Graph date range selectors settings for 1w, 2w, 1m, 3m, and all.
+    """
+    return {
+        'buttons': [
+            {
+                'count': 7,
+                'label': '1w',
+                'step': 'day',
+                'stepmode': 'backward'
+            },
+            {
+                'count': 14,
+                'label': '2w',
+                'step': 'day',
+                'stepmode': 'backward'
+            },
+            {
+                'count': 1,
+                'label': '1m',
+                'step': 'month',
+                'stepmode': 'backward'
+            },
+            {
+                'count': 3,
+                'label': '3m',
+                'step': 'month',
+                'stepmode': 'backward'
+            },
+            {
+                'step': 'all'
+            }
+        ]
+    }
+
+
+def rangeslider():
+    """A range slider.
+    """
+    return {
+
+    }
+
+
 def split_graph_output(output):
     """Split out of a Plotly graph in to html and javascript.
     """
