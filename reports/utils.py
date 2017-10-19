@@ -6,8 +6,10 @@ def default_graph_layout_options():
     """Default layout options for all graphs.
     """
     return {
+        'paper_bgcolor': 'rgb(52, 58, 64)',
+        'plot_bgcolor': 'rgb(52, 58, 64)',
         'font': {
-            'color': 'rgba(0, 0, 0, 1)',
+            'color': 'rgba(255, 255, 255, 1)',
             # Bootstrap 4 font family.
             'family': '-apple-system, BlinkMacSystemFont, "Segoe UI", '
                       'Roboto, "Helvetica Neue", Arial, sans-serif, '
@@ -15,16 +17,20 @@ def default_graph_layout_options():
                       '"Segoe UI Symbol"',
             'size': 14,
         },
-        'margin': {'b': 40, 't': 80},
+        'margin': {'b': 80, 't': 80},
         'xaxis': {
             'titlefont': {
-                'color': 'rgba(0, 0, 0, 0.54)'
-            }
+                'color': 'rgba(255, 255, 255, 0.5)'
+            },
+            'gridcolor': 'rgba(0, 0, 0, 0.25)',
+            'zerolinecolor': 'rgba(0, 0, 0, 0.5)'
         },
         'yaxis': {
             'titlefont': {
-                'color': 'rgba(0, 0, 0, 0.54)'
-            }
+                'color': 'rgba(255, 255, 255, 0.5)'
+            },
+            'gridcolor': 'rgba(0, 0, 0, 0.25)',
+            'zerolinecolor': 'rgba(0, 0, 0, 0.5)'
         }
     }
 
@@ -33,6 +39,8 @@ def rangeselector_date():
     """Graph date range selectors settings for 1w, 2w, 1m, 3m, and all.
     """
     return {
+        'bgcolor': 'rgb(35, 149, 86)',
+        'activecolor': 'rgb(25, 108, 62)',
         'buttons': [
             {
                 'count': 7,

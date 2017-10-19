@@ -38,6 +38,7 @@ def diaperchange_lifetimes(child):
     )
 
     layout_args = utils.default_graph_layout_options()
+    layout_args['height'] = 800
     layout_args['title'] = '<b>Diaper Lifetimes</b><br>{}'.format(child)
     layout_args['yaxis']['title'] = 'Time between changes (hours)'
     layout_args['yaxis']['zeroline'] = False
@@ -242,7 +243,7 @@ def sleep_pattern(child):
             showlegend=False,
         ))
         if color == 'rgba(255, 255, 255, 0)':
-            color = 'rgb(0, 0, 255)'
+            color = 'rgb(35, 110, 150)'
         else:
             color = 'rgba(255, 255, 255, 0)'
 
@@ -252,7 +253,7 @@ def sleep_pattern(child):
     layout_args['barmode'] = 'stack'
     layout_args['hovermode'] = 'closest'
     layout_args['title'] = '<b>Sleep Pattern</b><br>{}'.format(child)
-    layout_args['height'] = 600
+    layout_args['height'] = 800
 
     layout_args['xaxis']['title'] = 'Date'
     layout_args['xaxis']['tickangle'] = -65
