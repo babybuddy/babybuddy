@@ -6,21 +6,21 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^reports/changes/lifetimes/(?P<slug>[^/.]+)/$',
+    url(r'^children/(?P<slug>[^/.]+)/reports/changes/lifetimes/$',
         views.DiaperChangeLifetimesChildReport.as_view(),
         name='report-diaperchange-lifetimes-child'),
-    url(r'^reports/changes/types/(?P<slug>[^/.]+)/$',
+    url(r'^children/(?P<slug>[^/.]+)/reports/changes/types/$',
         views.DiaperChangeTypesChildReport.as_view(),
         name='report-diaperchange-types-child'),
 
-    url(r'^reports/sleep/pattern/(?P<slug>[^/.]+)$',
+    url(r'^children/(?P<slug>[^/.]+)/reports/sleep/pattern/$',
         views.SleepPatternChildReport.as_view(),
         name='report-sleep-pattern-child'),
-    url(r'^reports/sleep/totals/(?P<slug>[^/.]+)$',
+    url(r'^children/(?P<slug>[^/.]+)/reports/sleep/totals/$',
         views.SleepTotalsChildReport.as_view(),
         name='report-sleep-totals-child'),
 
-    url(r'^reports/timeline/(?P<slug>[^/.]+)$',
+    url(r'^children/(?P<slug>[^/.]+)/reports/timeline/$',
         views.TimelineChildReport.as_view(),
         name='report-timeline-child'),
 ]
