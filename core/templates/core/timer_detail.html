@@ -1,8 +1,12 @@
 {% extends 'babyblotter/page.html' %}
-{% load timers %}
-{% load duration %}
+{% load duration timers %}
 
 {% block title %}{{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'timer-list' %}">Timers</a></li>
+    <li class="breadcrumb-item font-weight-bold">{{ object }}</li>
+{% endblock %}
 
 {% block content %}
     <div class="jumbotron text-center{% if not object.active %} text-danger{% endif %}">
@@ -53,7 +57,7 @@
                    href="{% url 'timer-update' timer.id %}"
                    role="button"><i class="icon icon-update" aria-hidden="true"></i></a>
 
-                <a class="btn btn-dark"
+                <a class="btn btn-secondary"
                    href="{% url 'timer-restart' timer.id %}"
                    role="button"><i class="icon icon-refresh" aria-hidden="true"></i></a>
 

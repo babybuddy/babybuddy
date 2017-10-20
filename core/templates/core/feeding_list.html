@@ -4,6 +4,10 @@
 
 {% block title %}Feedings{% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Feedings</li>
+{% endblock %}
+
 {% block content %}
     <h1>Feedings</h1>
     <div class="table-responsive">
@@ -22,7 +26,7 @@
             <tbody>
                 {% for feeding in object_list %}
                     <tr>
-                        <th scope="row">{{ feeding.child }}</th>
+                        <th scope="row"><a href="{% url 'child' feeding.child.slug %}">{{ feeding.child }}</a></th>
                         <td>{{ feeding.method }}</td>
                         <td>{{ feeding.type }}</td>
                         <td>

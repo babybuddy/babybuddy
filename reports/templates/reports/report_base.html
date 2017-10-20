@@ -3,6 +3,12 @@
 
 {% block title %}{% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'child-list' %}">Children</a></li>
+    <li class="breadcrumb-item font-weight-bold"><a href="{% url 'child' object.slug %}">{{ object }}</a></li>
+    <li class="breadcrumb-item">Reports</li>
+{% endblock %}
+
 {% block content %}
     <div class="container-fluid">
         {{ html|safe }}

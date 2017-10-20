@@ -1,9 +1,11 @@
 {% extends 'babyblotter/page.html' %}
-{% load bootstrap %}
-{% load duration %}
-{% load widget_tweaks %}
+{% load bootstrap duration widget_tweaks %}
 
-{% block title %}Sleep{% endblock %}
+{% block title %}Timers{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Timers</li>
+{% endblock %}
 
 {% block content %}
     <h1>Timers</h1>

@@ -2,6 +2,11 @@
 
 {% block title %}{{ object }}{% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'child-list' %}">Children</a></li>
+    <li class="breadcrumb-item font-weight-bold">{{ object }}</li>
+{% endblock %}
+
 {% block content %}
     <div class="jumbotron text-center">
         <div class="display-3">{{ object }}</div>

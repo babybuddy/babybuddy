@@ -1,7 +1,12 @@
-{% extends 'babyblotter/page.html' %}
+{% extends 'reports/report_base.html' %}
 {% load static %}
 
 {% block title %}Timeline - {{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="breadcrumb-item active" aria-current="page">Timeline</li>
+{% endblock %}
 
 {% block content %}
     <h1 class="text-center">Timeline</h1>

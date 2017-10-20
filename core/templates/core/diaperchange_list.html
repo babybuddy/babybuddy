@@ -4,6 +4,10 @@
 
 {% block title %}Diaper Changes{% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Diaper Changes</li>
+{% endblock %}
+
 {% block content %}
     <h1>Diaper Changes</h1>
     <div class="table-responsive">
@@ -21,7 +25,7 @@
             <tbody>
                 {% for change in object_list %}
                     <tr>
-                        <th scope="row">{{ change.child }}</th>
+                        <th scope="row"><a href="{% url 'child' change.child.slug %}">{{ change.child }}</a></th>
                         <td class="text-center">{{ change.wet|bool_icon }}</td>
                         <td class="text-center">{{ change.solid|bool_icon }}</td>
                         <td>{{ change.color }}</td>

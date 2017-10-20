@@ -3,6 +3,10 @@
 
 {% block title %}Children{% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Children</li>
+{% endblock %}
+
 {% block content %}
     <h1>Children</h1>
     <div class="table-responsive">
@@ -18,20 +22,14 @@
             <tbody>
                 {% for child in object_list %}
                     <tr>
-                        <th scope="row">{{ child.first_name }}</th>
+                        <th scope="row"><a href="{% url 'child' child.slug %}">{{ child.first_name }}</a></th>
                         <td>{{ child.last_name }}</td>
                         <td>{{ child.birth_date }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
-                                {% if perms.core.view_child %}
-                                    <a href="{% url 'dashboard-child' child.slug %}" class="btn btn-success">
-                                        <i class="icon icon-dashboard" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-
                                 {% if perms.core.change_child %}
-                                    <a href="{% url 'child-update' child.slug %}" class="btn btn-primary">
+                                    <a href="{% url 'child-update' child.slug %}" class="btn btn-warning">
                                         <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}

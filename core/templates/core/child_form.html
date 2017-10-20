@@ -1,10 +1,20 @@
 {% extends 'babyblotter/page.html' %}
 
 {% block title %}
-    {% if request.resolver_match.url_name == 'child-update' %}
+    {% if object %}
         {{ object }}
     {% else %}
         Add a Child
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'child-list' %}">Children</a></li>
+    {% if object %}
+        <li class="breadcrumb-item font-weight-bold"><a href="{% url 'child' object.slug %}">{{ object }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Update</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">Add a Child</li>
     {% endif %}
 {% endblock %}
 

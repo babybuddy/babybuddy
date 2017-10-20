@@ -4,6 +4,10 @@
 
 {% block title %}Sleep{% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Sleep</li>
+{% endblock %}
+
 {% block content %}
     <h1>Sleep</h1>
     <div class="table-responsive">
@@ -20,7 +24,7 @@
             <tbody>
                 {% for sleep in object_list %}
                     <tr>
-                        <th scope="row">{{ sleep.child }}</th>
+                        <th scope="row"><a href="{% url 'child' sleep.child.slug %}">{{ sleep.child }}</a></th>
                         <td>{{ sleep.duration|duration_string }}</td>
                         <td>{{ sleep.start|date:'n/j/y G:i' }}</td>
                         <td>{{ sleep.end|date:'n/j/y G:i' }}</td>

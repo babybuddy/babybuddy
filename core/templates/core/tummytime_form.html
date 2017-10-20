@@ -8,6 +8,15 @@
     {% endif %}
 {% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'tummytime-list' %}">Tummy Time</a></li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">Update</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">Add</li>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     {% if object %}
         <h1>Update <span class="text-info">{{ object }}</span></h1>

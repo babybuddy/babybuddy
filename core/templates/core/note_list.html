@@ -3,6 +3,10 @@
 
 {% block title %}Notes{% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Notes</li>
+{% endblock %}
+
 {% block content %}
     <h1>Notes</h1>
     <div class="table-responsive">
@@ -18,7 +22,7 @@
             <tbody>
                 {% for note in object_list %}
                     <tr>
-                        <th scope="row">{{ note.child }}</th>
+                        <th scope="row"><a href="{% url 'child' note.child.slug %}">{{ note.child }}</a></th>
                         <td>{{ note.note }}</td>
                         <td>{{ note.time }}</td>
                         <td class="text-center">

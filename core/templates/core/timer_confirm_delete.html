@@ -3,6 +3,12 @@
 
 {% block title %}Delete {{ object }}{% endblock %}
 
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'timer-list' %}">Timers</a></li>
+    <li class="breadcrumb-item font-weight-bold"><a href="{% url 'timer-detail' object.id %}">{{ object }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+{% endblock %}
+
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}

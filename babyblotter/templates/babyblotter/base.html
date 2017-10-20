@@ -18,6 +18,14 @@
 <body style="padding-top: 3rem;">
 
 {% block nav %}{% endblock %}
+
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        {% block breadcrumbs %}{% endblock %}
+    </ol>
+</nav>
+
 {% block page %}{% endblock %}
 
 {% if debug %}
