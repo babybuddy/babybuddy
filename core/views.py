@@ -26,6 +26,11 @@ class ChildAdd(PermissionRequiredMixin, CreateView):
     success_url = '/children'
 
 
+class ChildDetail(PermissionRequiredMixin, DetailView):
+    model = Child
+    permission_required = ('core.view_child',)
+
+
 class ChildUpdate(PermissionRequiredMixin, UpdateView):
     model = Child
     permission_required = ('core.change_child',)

@@ -8,12 +8,10 @@ from . import views
 urlpatterns = [
     url(r'^children/$', views.ChildList.as_view(), name='child-list'),
     url(r'^children/add/$', views.ChildAdd.as_view(), name='child-add'),
-    url(r'^children/(?P<pk>[0-9]+)/$', views.ChildUpdate.as_view(),
+    url(r'^children/(?P<slug>[^/.]+)/$', views.ChildDetail.as_view(),
+        name='child'),
+    url(r'^children/(?P<slug>[^/.]+)/edit$', views.ChildUpdate.as_view(),
         name='child-update'),
-    url(r'^children/(?P<slug>[^/.]+)/$', views.ChildUpdate.as_view(),
-        name='child-update'),
-    url(r'^children/(?P<pk>[0-9]+)/delete/$', views.ChildDelete.as_view(),
-        name='child-delete'),
     url(r'^children/(?P<slug>[^/.]+)/delete/$', views.ChildDelete.as_view(),
         name='child-delete'),
 
