@@ -2,7 +2,7 @@
 
 {% block title %}
     {% if request.resolver_match.url_name == 'child-update' %}
-        Update a Child
+        {{ object }}
     {% else %}
         Add a Child
     {% endif %}

@@ -1,5 +1,5 @@
 {% extends 'babyblotter/base.html' %}
-{% load timers %}
+{% load babyblotter timers %}
 
 {% block nav %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -153,4 +153,7 @@
             {% endif %}
         </div>
     </nav>
+
+    {% breadcrumbs %}
+
 {% endblock %}
