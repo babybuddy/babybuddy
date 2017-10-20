@@ -1,21 +1,7 @@
+{% extends "babyblotter/base.html" %}
 {% load static widget_tweaks %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock %} | Baby Blotter</title>
-    {% if debug %}
-        <link rel="stylesheet" href="{% static "babyblotter/css/app.css" %}" />
-        <link rel="stylesheet" href="{% static "babyblotter/css/vendor.css" %}" />
-    {% else %}
-        <link rel="stylesheet" href="{% static "babyblotter/css/app.min.css" %}" />
-        <link rel="stylesheet" href="{% static "babyblotter/css/vendor.min.css" %}" />
-    {% endif %}
-</head>
-<body class="bg-dark registration">
+{% block page %}
     <div id="view-{{ request.resolver_match.view_name }}" class="container">
         <div class="text-center mb-4">
             <h1 class="display-3 mb-3"><span class="text-info">Baby</span> Blotter</h1>
@@ -24,5 +10,4 @@
             {% block content %}{% endblock %}
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
