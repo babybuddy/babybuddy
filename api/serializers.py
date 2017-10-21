@@ -3,8 +3,16 @@ from __future__ import unicode_literals
 
 from rest_framework import serializers
 
+from django.contrib.auth.models import User
+
 from core.models import (Child, DiaperChange, Feeding, Note, Sleep, Timer,
                          TummyTime)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
 
 
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
@@ -15,7 +23,7 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DiaperChangeSerializer(serializers.HyperlinkedModelSerializer):
-    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+    child = ChildSerializer()
 
     class Meta:
         model = DiaperChange
@@ -23,7 +31,7 @@ class DiaperChangeSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class FeedingSerializer(serializers.HyperlinkedModelSerializer):
-    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+    child = ChildSerializer()
 
     class Meta:
         model = Feeding
@@ -32,7 +40,7 @@ class FeedingSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class NoteSerializer(serializers.HyperlinkedModelSerializer):
-    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+    child = ChildSerializer()
 
     class Meta:
         model = Note
@@ -40,7 +48,7 @@ class NoteSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class SleepSerializer(serializers.HyperlinkedModelSerializer):
-    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+    child = ChildSerializer()
 
     class Meta:
         model = Sleep
@@ -48,13 +56,15 @@ class SleepSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class TimerSerializer(serializers.HyperlinkedModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Timer
         fields = ('name', 'start', 'end', 'duration', 'active', 'user')
 
 
 class TummyTimeSerializer(serializers.HyperlinkedModelSerializer):
-    child = serializers.HyperlinkedIdentityField(view_name='api:child-detail')
+    child = ChildSerializer()
 
     class Meta:
         model = TummyTime
