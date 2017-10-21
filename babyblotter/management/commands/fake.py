@@ -30,20 +30,22 @@ class Command(BaseCommand):
         parser.add_argument(
             '--days',
             dest='days',
-            default=7,
+            default=31,
             help='How many days of fake entries to create.'
         )
 
     def handle(self, *args, **kwargs):
         verbosity = int(kwargs['verbosity']) or 1
         children = int(kwargs['children']) or 1
-        days = int(kwargs['days']) or 7
+        days = int(kwargs['days']) or 31
 
+        # User first day of data that will created for birth date.
+        birth_date = (timezone.localtime() - timedelta(days=days))
         for i in range(0, children):
             child = Child.objects.create(
                 first_name=self.faker.first_name(),
                 last_name=self.faker.last_name(),
-                birth_date=self.faker.date()
+                birth_date=birth_date
             )
             child.save()
 
@@ -105,8 +107,12 @@ class Command(BaseCommand):
             last_end = end
 
         last_end = date
+        # TODO: Update last_end if a previous day's end overlapped midnight.
         while last_end < date + timedelta(days=1):
             start = last_end + timedelta(minutes=randint(0, 60 * 2))
+            if start.date() != date.date():
+                break
+
             end = start + timedelta(minutes=randint(10, 60 * 3))
             if end > now:
                 break
