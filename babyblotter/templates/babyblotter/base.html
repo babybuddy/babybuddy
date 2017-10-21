@@ -19,12 +19,14 @@
 
 {% block nav %}{% endblock %}
 
-<nav aria-label="breadcrumb" role="navigation">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        {% block breadcrumbs %}{% endblock %}
-    </ol>
-</nav>
+{% block breadcrumb_nav %}
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            {% block breadcrumbs %}{% endblock %}
+        </ol>
+    </nav>
+{% endblock %}
 
 {% block page %}{% endblock %}
 
