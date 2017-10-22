@@ -18,8 +18,8 @@ class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
     template_name = 'reports/diaperchange_lifetimes.html'
 
     def get_context_data(self, **kwargs):
-        context = super(DiaperChangeLifetimesChildReport, self).get_context_data(
-            **kwargs)
+        context = super(
+            DiaperChangeLifetimesChildReport, self).get_context_data(**kwargs)
         child = context['object']
         context['html'], context['javascript'] = diaperchange_lifetimes(child)
         return context

@@ -16,14 +16,14 @@ $teal: #5abccc;
 $cyan: #15b2d3;
 
 $theme-colors: (
- primary: $blue,
- secondary: $orange,
- success: $green,
- info: $cyan,
- warning: $yellow,
- danger: $red,
- light: $gray-100,
- dark: $gray-800
+    primary: $blue,
+    secondary: $orange,
+    success: $green,
+    info: $cyan,
+    warning: $yellow,
+    danger: $red,
+    light: $gray-100,
+    dark: $gray-800
 );
 
 
@@ -39,7 +39,7 @@ $body-color: $gray-400;
 //
 // Style anchor elements.
 
-$link-color: theme-color("info");
+$link-color: theme-color('info');
 $link-hover-color: darken($link-color, 15%);
 
 
@@ -49,7 +49,7 @@ $link-hover-color: darken($link-color, 15%);
 
 $border-color: $gray-200;
 $component-active-color: $gray-400;
-$component-active-bg: theme-color("primary");
+$component-active-bg: theme-color('primary');
 
 
 // Fonts
@@ -58,7 +58,7 @@ $component-active-bg: theme-color("primary");
 
 $text-muted: $gray-600 !default;
 $blockquote-small-color: $gray-600 !default;
-$hr-border-color: rgba($black,.1) !default;
+$hr-border-color: rgba($black, .1) !default;
 $mark-bg: #fcf8e3 !default;
 
 
@@ -67,16 +67,16 @@ $mark-bg: #fcf8e3 !default;
 // Customizes the `.table` component with basic values, each used across all table variations.
 
 $table-border-color: $gray-800;
-$table-head-bg: theme-color("primary");
-$table-inverse-bg: theme-color("primary");
-$table-accent-bg: rgba(theme-color("primary"), .1);
+$table-head-bg: theme-color('primary');
+$table-inverse-bg: theme-color('primary');
+$table-accent-bg: rgba(theme-color('primary'), .1);
 
 // Forms
 
 $input-bg: $white;
 $input-disabled-bg: $gray-600;
 $input-color: $black;
-$input-border-color: rgba($gray-600,.15);
+$input-border-color: rgba($gray-600, .15);
 $input-group-addon-bg: $gray-500;
 
 
@@ -88,7 +88,7 @@ $dropdown-bg: $gray-700;
 $dropdown-divider-bg: $gray-800;
 $dropdown-link-color: $body-color;
 $dropdown-link-hover-color: darken($body-color, 5%);
-$dropdown-link-hover-bg: theme-color("primary");
+$dropdown-link-hover-bg: theme-color('primary');
 $dropdown-link-active-color: $component-active-color;
 $dropdown-link-active-bg: $component-active-bg;
 $dropdown-header-color: darken($body-color, 25%);
@@ -97,16 +97,16 @@ $dropdown-header-color: darken($body-color, 25%);
 // Pagination
 
 $pagination-color: $link-color;
-$pagination-bg: theme-color("dark");
-$pagination-border-color: lighten(theme-color("dark"), 5%);
+$pagination-bg: theme-color('dark');
+$pagination-border-color: lighten(theme-color('dark'), 5%);
 
 $pagination-hover-color: $link-hover-color;
 $pagination-hover-bg: $gray-900;
 $pagination-hover-border-color: $gray-800;
 
 $pagination-active-color: $body-color;
-$pagination-active-bg: theme-color("primary");
-$pagination-active-border-color: theme-color("primary");
+$pagination-active-bg: theme-color('primary');
+$pagination-active-border-color: theme-color('primary');
 
 $pagination-disabled-color: $gray-600;
 $pagination-disabled-bg: $pagination-bg;
@@ -115,13 +115,13 @@ $pagination-disabled-border-color: $pagination-border-color;
 
 // Jumbotron
 
-$jumbotron-bg: theme-color("dark");
+$jumbotron-bg: theme-color('dark');
 
 
 // Cards
 
-$card-bg: theme-color("dark");
-$card-cap-bg: rgba(theme-color("light"), .05);
+$card-bg: theme-color('dark');
+$card-cap-bg: rgba(theme-color('light'), .05);
 
 
 // Progress bars
@@ -131,7 +131,7 @@ $progress-bg: $gray-600;
 
 // List group
 
-$list-group-bg: theme-color("dark");
+$list-group-bg: theme-color('dark');
 $list-group-hover-bg: darken($list-group-bg, 5%);
 $list-group-active-color: $component-active-color !default;
 $list-group-active-bg: $component-active-bg !default;

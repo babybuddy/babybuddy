@@ -32,6 +32,7 @@ gulp.task('lint:styles', function(cb) {
                 'indentation': [ 1, { 'size': 4 } ],
                 'no-ids': 0,
                 'no-vendor-prefixes': 2,
+                'placeholder-in-extend': 0,
                 'property-sort-order': 0
             }
         }),

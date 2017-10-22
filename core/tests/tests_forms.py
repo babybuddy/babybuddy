@@ -103,7 +103,8 @@ class FormsTestCase(TestCase):
 
         timer = models.Timer.objects.create(user=self.user)
         timer.save()
-        page = self.c.post('/tummy-time/add/?timer={}'.format(timer.id), params)
+        page = self.c.post(
+            '/tummy-time/add/?timer={}'.format(timer.id), params)
         self.assertEqual(page.status_code, 302)
 
         entry = models.TummyTime.objects.first()

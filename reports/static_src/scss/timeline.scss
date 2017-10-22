@@ -1,14 +1,16 @@
-/* Adapted for Bootstrap 4 from https://www.bootply.com/SzXin8KDZJ. */
+// Adapted for Bootstrap 4 from https://www.bootply.com/SzXin8KDZJ.
+$card-shadow: rgba(0, 0, 0, .175);
+
 .timeline {
     list-style: none;
-    padding: 10px 0 10px;
+    padding: 10px 0;
     position: relative;
 
-    &:before {
+    &::before {
         top: 0;
         bottom: 0;
         position: absolute;
-        content: " ";
+        content: ' ';
         width: 3px;
         background-color: theme-color('primary');
         left: 50%;
@@ -20,13 +22,13 @@
         margin-bottom: 10px;
         position: relative;
 
-        &:before {
-            content: " ";
+        &::before {
+            content: ' ';
             display: table;
         }
 
-        &:after {
-            content: " ";
+        &::after {
+            content: ' ';
             display: table;
             clear: both;
         }
@@ -35,9 +37,9 @@
             width: 47%;
             float: left;
             position: relative;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+            box-shadow: 0 1px 6px $card-shadow;
 
-            &:before {
+            &::before {
                 position: absolute;
                 top: 26px;
                 right: -15px;
@@ -46,10 +48,10 @@
                 border-left: 15px solid theme-color('dark');
                 border-right: 0 solid theme-color('dark');
                 border-bottom: 15px solid transparent;
-                content: " ";
+                content: ' ';
             }
 
-            &:after {
+            &::after {
                 position: absolute;
                 top: 27px;
                 right: -14px;
@@ -58,7 +60,7 @@
                 border-left: 14px solid theme-color('dark');
                 border-right: 0 solid theme-color('dark');
                 border-bottom: 14px solid transparent;
-                content: " ";
+                content: ' ';
             }
         }
 
@@ -66,14 +68,14 @@
             .card {
                 float: right;
 
-                &:before {
+                &::before {
                     border-left-width: 0;
                     border-right-width: 15px;
                     left: -15px;
                     right: auto;
                 }
 
-                &:after {
+                &::after {
                     border-left-width: 0;
                     border-right-width: 14px;
                     left: -14px;
@@ -83,7 +85,7 @@
         }
 
         .timeline-badge {
-            color: #fff;
+            color: $white;
             width: 50px;
             height: 50px;
             line-height: 50px;
@@ -96,58 +98,57 @@
             background-color: theme-color('dark');
             z-index: 100;
             border-radius: 50%;
-        }
 
-        .timeline-badge.arrow {
-            color: #fff;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            font-size: 1.4em;
-            text-align: center;
-            position: absolute;
-            top: 26px;
-            left: 50%;
-            margin-left: -25px;
-            background-color: theme-color('dark');
-            z-index: 100;
-            border-radius: 50%;
+            .arrow {
+                color: $white;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                font-size: 1.4em;
+                text-align: center;
+                position: absolute;
+                top: 26px;
+                left: 50%;
+                margin-left: -25px;
+                background-color: theme-color('dark');
+                z-index: 100;
+                border-radius: 50%;
+            }
         }
     }
 }
 
 @media (max-width: 767px) {
-    ul.timeline:before {
-        left: 40px;
-    }
+    .timeline {
+        &::before {
+            left: 40px;
+        }
 
-    ul.timeline > li > .card {
-        width: calc(100% - 90px);
-        width: -moz-calc(100% - 90px);
-        width: -webkit-calc(100% - 90px);
-    }
+        li {
+            .card {
+                float: right;
+                width: calc(100% - 90px);
 
-    ul.timeline > li > .timeline-badge {
-        left: 15px;
-        margin-left: 0;
-        top: 16px;
-    }
+                &::before {
+                    border-left-width: 0;
+                    border-right-width: 15px;
+                    left: -15px;
+                    right: auto;
+                }
 
-    ul.timeline > li > .card {
-        float: right;
-    }
+                &::after {
+                    border-left-width: 0;
+                    border-right-width: 14px;
+                    left: -14px;
+                    right: auto;
+                }
+            }
 
-    ul.timeline > li > .card:before {
-        border-left-width: 0;
-        border-right-width: 15px;
-        left: -15px;
-        right: auto;
-    }
-
-    ul.timeline > li > .card:after {
-        border-left-width: 0;
-        border-right-width: 14px;
-        left: -14px;
-        right: auto;
+            .timeline-badge {
+                left: 15px;
+                margin-left: 0;
+                top: 16px;
+            }
+        }
     }
 }
