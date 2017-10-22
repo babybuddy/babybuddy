@@ -1,5 +1,9 @@
 # Baby Buddy
 
+[![Build Status](https://travis-ci.org/cdubz/babybuddy.svg?branch=master)](https://travis-ci.org/cdubz/babybuddy)
+[![Coverage Status](https://coveralls.io/repos/github/cdubz/babybuddy/badge.svg?branch=master)](https://coveralls.io/github/cdubz/babybuddy?branch=master)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+
 A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and
 tummy time to learn about and predict baby's needs without all the guess work.
 
