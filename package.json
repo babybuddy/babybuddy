@@ -1,8 +1,23 @@
 {
   "name": "babybuddy",
-  "description": "Baby activities tracker application.",
+  "description": "A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and tummy time to learn about and predict baby's needs without all the guess work.",
   "version": "0.1.0",
-  "devDependencies": {
+  "license": "BSD-2-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdubz/babybuddy.git"
+  },
+  "keywords": [
+    "baby",
+    "infant",
+    "newborn",
+    "baby tracking",
+    "baby buddy",
+    "python",
+    "django",
+    "web"
+  ],
+  "dependencies": {
     "bootstrap": "^4.0.0-beta.2",
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",

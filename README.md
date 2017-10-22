@@ -1,7 +1,7 @@
 # Baby Buddy
 
-A buddy for babies to help caregivers to track sleep, feedings, diaper changes,
-and tummy time!
+A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and
+tummy time to learn about and predict baby's needs without all the guess work.
 
 ## Installation (development)
 
