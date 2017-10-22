@@ -15,7 +15,6 @@ python manage.py migrate
 python manage.py createsuperuser
 npm install
 gulp build
-python manage.py collectstatic
 python manage.py runserver
 ```
 
