@@ -1,4 +1,4 @@
-{% extends 'babyblotter/page.html' %}
+{% extends 'babybuddy/page.html' %}
 {% load static %}
 
 {% block title %}{% endblock %}
@@ -17,8 +17,8 @@
 
 {% block javascript %}
     {% if debug %}
-        <script src="{% static "babyblotter/js/graph.js" %}"></script>
+        <script src="{% static "babybuddy/js/graph.js" %}"></script>
     {% else %}
-        <script src="{% static "babyblotter/js/graph.min.js" %}"></script>
+        <script src="{% static "babybuddy/js/graph.min.js" %}"></script>
     {% endif %}
 {% endblock %}

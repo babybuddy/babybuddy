@@ -1,4 +1,4 @@
-{% extends "babyblotter/base.html" %}
+{% extends "babybuddy/base.html" %}
 {% load static widget_tweaks %}
 
 {% block breadcrumb_nav %}{% endblock %}
@@ -6,7 +6,7 @@
 {% block page %}
     <div id="view-{{ request.resolver_match.view_name }}" class="container">
         <div class="text-center mb-4">
-            <h1 class="display-3 mb-3"><span class="text-info">Baby</span> Blotter</h1>
+            <h1 class="display-3 mb-3"><span class="text-info">Baby</span> Buddy</h1>
         </div>
         <div class="bg-light p-4 rounded text-dark">
             {% block content %}{% endblock %}

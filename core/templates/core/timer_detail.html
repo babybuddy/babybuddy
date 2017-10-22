@@ -1,4 +1,4 @@
-{% extends 'babyblotter/page.html' %}
+{% extends 'babybuddy/page.html' %}
 {% load duration timers %}
 
 {% block title %}{{ object }}{% endblock %}
@@ -75,7 +75,7 @@
 {% block javascript %}
     {% if object.active %}
         <script type="application/javascript">
-            BabyBlotter.Timer.run('timer-status');
+            BabyBuddy.Timer.run('timer-status');
         </script>
     {% endif %}
 {% endblock %}

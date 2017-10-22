@@ -1,4 +1,4 @@
-/* Baby Blotter Timer
+/* Baby Buddy Timer
  *
  * Uses a supplied ID to run a timer. The element using the ID must have
  * three children with the following classes:
@@ -6,7 +6,7 @@
  *  * timer-minutes
  *  * timer-hours
  */
-BabyBlotter.Timer = function ($) {
+BabyBuddy.Timer = function ($) {
     var runIntervalId = null;
     var timerElement = null;
 

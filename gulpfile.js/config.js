@@ -1,4 +1,4 @@
-var basePath = 'babyblotter/static/babyblotter/';
+var basePath = 'babybuddy/static/babybuddy/';
 
 module.exports = {
     basePath: basePath,
@@ -29,7 +29,7 @@ module.exports = {
             'node_modules/plotly.js/dist/plotly-cartesian.js'
         ],
         app: [
-            'babyblotter/static_src/js/babyblotter.js',
+            'babybuddy/static_src/js/babybuddy.js',
             'api/static_src/js/*.js',
             'core/static_src/js/*.js',
             'dashboard/static_src/js/*.js'
@@ -40,15 +40,15 @@ module.exports = {
         vendor: [
             'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css'
         ],
-        app: 'babyblotter/static_src/scss/babyblotter.scss',
+        app: 'babybuddy/static_src/scss/babybuddy.scss',
         ignore: [
-            'babyblotter.scss'
+            'babybuddy.scss'
         ]
     },
     watchConfig: {
         scriptsGlob: [
             '**/static_src/js/**/*.js',
-            '!babyblotter/static/js/'
+            '!babybuddy/static/js/'
         ],
         stylesGlob: [
             '**/static_src/scss/**/*.scss'

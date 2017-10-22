@@ -1,4 +1,4 @@
-{% extends 'babyblotter/page.html' %}
+{% extends 'babybuddy/page.html' %}
 
 {% block title %}
     {% if request.resolver_match.url_name == 'feeding-update' %}
@@ -23,7 +23,7 @@
     {% else %}
         <h1>Add a Feeding</h1>
     {% endif %}
-    {% include 'babyblotter/form.html' %}
+    {% include 'babybuddy/form.html' %}
 {% endblock %}
 
 {% block javascript %}

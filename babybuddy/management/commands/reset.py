@@ -35,7 +35,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('Database flushed.'))
 
         for config in apps.app_configs.values():
-            if path.split(path.split(config.path)[0])[1] == 'babyblotter':
+            if path.split(path.split(config.path)[0])[1] == 'babybuddy':
                 migrate = Migrate()
                 options['app_label'] = config.name
                 options['migration_name'] = 'zero'

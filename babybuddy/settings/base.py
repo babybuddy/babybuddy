@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(
 
 INSTALLED_APPS = [
     'api',
-    'babyblotter',
+    'babybuddy',
     'core',
     'dashboard',
     'reports',
@@ -48,7 +48,7 @@ MIDDLEWARE = [
 # URL dispatcher
 # https://docs.djangoproject.com/en/1.11/topics/http/urls/
 
-ROOT_URLCONF = 'babyblotter.urls'
+ROOT_URLCONF = 'babybuddy.urls'
 
 
 # Templates
@@ -74,7 +74,7 @@ TEMPLATES = [
 # WGSI
 # https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 
-WSGI_APPLICATION = 'babyblotter.wsgi.application'
+WSGI_APPLICATION = 'babybuddy.wsgi.application'
 
 
 # Authentication
@@ -114,7 +114,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'api.permissions.BabyBlotterDjangoModelPermissions'
+        'api.permissions.BabyBuddyDjangoModelPermissions'
     ],
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',

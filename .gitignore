@@ -8,5 +8,5 @@
 *.pyc
 
 # static files
-/babyblotter/static
+/babybuddy/static
 /static
