@@ -3,7 +3,7 @@ from .base import *
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-SECRET_KEY = '(z4ha%^_=7#jco0wmna_#0jvyyt!03#f7l_y%@1x(a2xj$nrx%'
+SECRET_KEY = 'CHANGE ME'
 DEBUG = True
 
 INTERNAL_IPS = (
