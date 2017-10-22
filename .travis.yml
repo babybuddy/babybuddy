@@ -17,6 +17,8 @@ install:
 before_script:
     - gulp lint
     - gulp build
+script:
+    - gulp coverage
 after_success:
     - pipenv run coveralls
 notifications:
