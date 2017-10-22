@@ -12,15 +12,6 @@
         ]
     },
     "default": {
-        "certifi": {
-            "version": "==2017.7.27.1"
-        },
-        "chardet": {
-            "version": "==3.0.4"
-        },
-        "decorator": {
-            "version": "==4.1.2"
-        },
         "django": {
             "version": "==1.11.6"
         },
@@ -32,21 +23,6 @@
         },
         "djangorestframework": {
             "version": "==3.7.1"
-        },
-        "idna": {
-            "version": "==2.6"
-        },
-        "ipython-genutils": {
-            "version": "==0.2.0"
-        },
-        "jsonschema": {
-            "version": "==2.6.0"
-        },
-        "jupyter-core": {
-            "version": "==4.3.0"
-        },
-        "nbformat": {
-            "version": "==4.4.0"
         },
         "numpy": {
             "version": "==1.13.3"
@@ -63,26 +39,11 @@
         "pytz": {
             "version": "==2017.2"
         },
-        "requests": {
-            "version": "==2.18.4"
-        },
         "six": {
             "version": "==1.11.0"
-        },
-        "traitlets": {
-            "version": "==4.3.2"
-        },
-        "urllib3": {
-            "version": "==1.22"
         }
     },
     "develop": {
-        "certifi": {
-            "version": "==2017.7.27.1"
-        },
-        "chardet": {
-            "version": "==3.0.4"
-        },
         "coverage": {
             "version": "==4.4.1"
         },
@@ -97,9 +58,6 @@
         },
         "flake8": {
             "version": "==3.4.1"
-        },
-        "idna": {
-            "version": "==2.6"
         },
         "mccabe": {
             "version": "==0.6.1"
@@ -121,9 +79,6 @@
         },
         "text-unidecode": {
             "version": "==1.0"
-        },
-        "urllib3": {
-            "version": "==1.22"
         }
     }
 }

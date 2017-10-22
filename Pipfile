@@ -2,6 +2,11 @@
 verify_ssl = true
 url = "https://pypi.python.org/simple"
 
+[dev-packages]
+coveralls = "*"
+faker = "*"
+flake8 = "*"
+
 [packages]
 django = "*"
 djangorestframework = "*"
@@ -9,8 +14,3 @@ django-filter = "*"
 django-widget-tweaks = "*"
 plotly = "*"
 pandas = "*"
-
-[dev-packages]
-coveralls = "*"
-faker = "*"
-flake8 = "*"
