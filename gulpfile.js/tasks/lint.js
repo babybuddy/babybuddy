@@ -2,7 +2,7 @@ var gulp = require('gulp');
 
 var sassLint = require('gulp-sass-lint');
 var pump = require('pump');
-var spawn  = require('child_process').spawn;
+var spawn = require('child_process').spawn;
 
 var watchConfig = require('../config.js').watchConfig;
 
