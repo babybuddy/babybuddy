@@ -49,7 +49,7 @@ class Command(BaseCommand):
             )
             child.save()
 
-            for j in range(0, days):
+            for j in range(days - 1, -1, -1):
                 date = (timezone.localtime() - timedelta(days=j)).replace(
                     hour=0, minute=0, second=0)
                 self._add_child_data(child, date)
@@ -107,7 +107,14 @@ class Command(BaseCommand):
             last_end = end
 
         last_end = date
-        # TODO: Update last_end if a previous day's end overlapped midnight.
+
+        # Adjust last_end if the last sleep entry crossed in to date.
+        last_entry = Sleep.objects.filter(child=child).order_by('end').last()
+        if last_entry:
+            last_entry_end = timezone.localtime(last_entry.end)
+            if last_entry_end > last_end:
+                last_end = last_entry_end
+
         while last_end < date + timedelta(days=1):
             start = last_end + timedelta(minutes=randint(0, 60 * 2))
             if start.date() != date.date():
@@ -127,7 +134,7 @@ class Command(BaseCommand):
             else:
                 milestone = ''
 
-            start = last_end + timedelta(minutes=randint(0, 60 * 2))
+            start = last_end + timedelta(minutes=randint(0, 60 * 5))
             end = start + timedelta(minutes=randint(1, 10))
             if end > now:
                 break
