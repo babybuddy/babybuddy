@@ -12,6 +12,7 @@ pip install pipenv
 pipenv install --dev
 pipenv shell
 python manage.py migrate
+npm install -g gulp-cli
 npm install
 gulp build
 python manage.py runserver
