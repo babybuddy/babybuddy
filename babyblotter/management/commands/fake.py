@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from faker import Factory
 
-from core.models import Child, DiaperChange, Feeding, Sleep, TummyTime
+from core.models import Child, DiaperChange, Feeding, Note, Sleep, TummyTime
 
 
 class Command(BaseCommand):
@@ -35,7 +35,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **kwargs):
-        verbosity = int(kwargs['verbosity']) or 1
+        verbosity = int(kwargs['verbosity'])
         children = int(kwargs['children']) or 1
         days = int(kwargs['days']) or 31
 
@@ -146,3 +146,10 @@ class Command(BaseCommand):
                 milestone=milestone
             ).save()
             last_end = end
+
+        note = self.faker.sentence()
+        Note.objects.create(
+            child=child,
+            note=note,
+            time=date + timedelta(minutes=randint(0, 60 * 24))
+        ).save()
