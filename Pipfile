@@ -11,5 +11,6 @@ plotly = "*"
 pandas = "*"
 
 [dev-packages]
+coveralls = "*"
 faker = "*"
 flake8 = "*"
