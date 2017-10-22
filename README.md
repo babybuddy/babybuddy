@@ -12,11 +12,13 @@ pip install pipenv
 pipenv install --dev
 pipenv shell
 python manage.py migrate
-python manage.py createsuperuser
 npm install
 gulp build
 python manage.py runserver
 ```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
+user name and password (admin/admin).
 
 ## Development
 
