@@ -104,13 +104,8 @@ class ViewsTestCase(TestCase):
         entry = models.Timer.objects.first()
         page = self.c.get('/timer/{}/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
-
         page = self.c.get('/timer/{}/edit/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
-        # Post to test custom get_success_url() method.
-        page = self.c.post('/timer/{}/edit/'.format(entry.id), {'name': 'New'})
-        self.assertEqual(page.status_code, 302)
-
         page = self.c.get('/timer/{}/delete/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
         page = self.c.get('/timer/{}/stop/'.format(entry.id))
