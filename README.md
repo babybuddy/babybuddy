@@ -11,7 +11,6 @@ cd babybuddy
 pip install pipenv
 pipenv install --dev
 pipenv shell
-export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
 python manage.py migrate
 python manage.py createsuperuser
 npm install
