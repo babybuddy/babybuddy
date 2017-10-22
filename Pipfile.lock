@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "de9e2ccb120ed37e0adc3bd4f7054692647908b13127feb81f888290d060c1c8"
+            "sha256": "6320081dc17e4c796cda43fc5a5bef12a154917fc572a75a5444e78454385e12"
         },
         "requires": {},
         "sources": [
@@ -100,6 +100,9 @@
         },
         "idna": {
             "version": "==2.6"
+        },
+        "ipaddress": {
+            "version": "==1.0.18"
         },
         "mccabe": {
             "version": "==0.6.1"
