@@ -7,6 +7,12 @@
 A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and
 tummy time to learn about and predict baby's needs without (as much) guess work.
 
+## Demo
+
+A demo of Baby Buddy is available on Heroku: 
+[https://babybuddy.herokuapp.com](https://babybuddy.herokuapp.com). Login 
+credentials are `admin`/`admin`.
+
 ## Development
 
 ### Installation
