@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "52db700b9c061baeb935565e2910f5205547ba93306d53f12634b7a0a4c3cb02"
+            "sha256": "b9baed35cbefffb676928f6379dbeee78e94efa96382465afabc49c2e1685a44"
         },
         "requires": {},
         "sources": [
@@ -86,6 +86,9 @@
         },
         "urllib3": {
             "version": "==1.22"
+        },
+        "whitenoise": {
+            "version": "==3.3.1"
         }
     },
     "develop": {

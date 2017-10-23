@@ -12,6 +12,7 @@ pandas = "*"
 faker = "*"
 dj-database-url = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 coveralls = "*"
