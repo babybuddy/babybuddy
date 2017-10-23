@@ -15,7 +15,8 @@
     "baby buddy",
     "python",
     "django",
-    "web"
+    "web",
+    "self-host"
   ],
   "dependencies": {
     "bootstrap": "^4.0.0-beta.2",

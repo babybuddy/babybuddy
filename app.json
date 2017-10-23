@@ -1,0 +1,40 @@
+{
+    "name": "Baby Buddy",
+    "author": "Baby Buddy's Contributors",
+    "description": "A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and tummy time to learn about and predict baby's needs without (as much) guess work.",
+    "repository": "https://github.com/cdubz/babybuddy",
+    "keywords": [
+        "baby",
+        "infant",
+        "newborn",
+        "baby tracking",
+        "baby buddy",
+        "python",
+        "django",
+        "web",
+        "self-host"
+    ],
+    "version": "0.1.0",
+    "license": "BSD-2-Clause",
+    "buildpacks": [
+        {
+            "url": "heroku/nodejs"
+        },
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "env": {
+        "DJANGO_SETTINGS_MODULE": {
+            "description": "We have a prebuilt config for Heroku",
+            "value": "babybuddy.settings.heroku"
+        },
+        "SECRET_KEY": {
+            "description": "Used for the Django auth system",
+            "generator": "secret"
+        }
+    },
+    "scripts": {
+        "postdeploy": "python manage.py migrate"
+    }
+}

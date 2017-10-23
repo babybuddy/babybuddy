@@ -9,9 +9,11 @@ django-filter = "*"
 django-widget-tweaks = "*"
 plotly = "*"
 pandas = "*"
+faker = "*"
+dj-database-url = "*"
+gunicorn = "*"
 
 [dev-packages]
 coveralls = "*"
-faker = "*"
 flake8 = "*"
 ipaddress = "*"

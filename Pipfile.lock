@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6320081dc17e4c796cda43fc5a5bef12a154917fc572a75a5444e78454385e12"
+            "sha256": "52db700b9c061baeb935565e2910f5205547ba93306d53f12634b7a0a4c3cb02"
         },
         "requires": {},
         "sources": [
@@ -21,6 +21,9 @@
         "decorator": {
             "version": "==4.1.2"
         },
+        "dj-database-url": {
+            "version": "==0.4.2"
+        },
         "django": {
             "version": "==1.11.6"
         },
@@ -32,6 +35,12 @@
         },
         "djangorestframework": {
             "version": "==3.7.1"
+        },
+        "faker": {
+            "version": "==0.8.6"
+        },
+        "gunicorn": {
+            "version": "==19.7.1"
         },
         "idna": {
             "version": "==2.6"
@@ -69,6 +78,9 @@
         "six": {
             "version": "==1.11.0"
         },
+        "text-unidecode": {
+            "version": "==1.0"
+        },
         "traitlets": {
             "version": "==4.3.2"
         },
@@ -92,9 +104,6 @@
         "docopt": {
             "version": "==0.6.2"
         },
-        "faker": {
-            "version": "==0.8.6"
-        },
         "flake8": {
             "version": "==3.4.1"
         },
@@ -113,17 +122,8 @@
         "pyflakes": {
             "version": "==1.5.0"
         },
-        "python-dateutil": {
-            "version": "==2.6.1"
-        },
         "requests": {
             "version": "==2.18.4"
-        },
-        "six": {
-            "version": "==1.11.0"
-        },
-        "text-unidecode": {
-            "version": "==1.0"
         },
         "urllib3": {
             "version": "==1.22"

@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
 
 A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and
-tummy time to learn about and predict baby's needs without all the guess work.
+tummy time to learn about and predict baby's needs without (as much) guess work.
 
 ## Development
 
