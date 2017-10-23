@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b9baed35cbefffb676928f6379dbeee78e94efa96382465afabc49c2e1685a44"
+            "sha256": "8ecb16e5e548134a5bdee9b54f0f792890b2e92ebc47d219b9dfef3ea7b9dcfb"
         },
         "requires": {},
         "sources": [
@@ -66,6 +66,9 @@
         "plotly": {
             "version": "==2.1.0"
         },
+        "psycopg2": {
+            "version": "==2.7.3.1"
+        },
         "python-dateutil": {
             "version": "==2.6.1"
         },
@@ -108,7 +111,7 @@
             "version": "==0.6.2"
         },
         "flake8": {
-            "version": "==3.4.1"
+            "version": "==3.5.0"
         },
         "idna": {
             "version": "==2.6"
@@ -123,7 +126,7 @@
             "version": "==2.3.1"
         },
         "pyflakes": {
-            "version": "==1.5.0"
+            "version": "==1.6.0"
         },
         "requests": {
             "version": "==2.18.4"
