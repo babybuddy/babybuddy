@@ -123,6 +123,8 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
+
 
 # Django Rest Framework
 # http://www.django-rest-framework.org/#

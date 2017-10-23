@@ -13,7 +13,11 @@ module.exports = {
     extrasConfig: {
         fonts: {
             dest: basePath + 'fonts/',
-            extras: 'node_modules/font-awesome/fonts/*'
+            files: 'node_modules/font-awesome/fonts/*'
+        },
+        root: {
+            dest: basePath + 'root/',
+            files: 'babybuddy/static_src/root/*'
         }
     },
     scriptsConfig: {
