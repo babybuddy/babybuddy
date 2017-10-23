@@ -1,0 +1,22 @@
+{% extends 'cards/sleep.html' %}
+{% load duration %}
+
+{% block header %}Today's Naps{% endblock %}
+
+{% block title %}
+    {% if count %}
+        <strong>{{ count }} naps</strong>
+    {% else %}
+        <i class="icon icon-sad" aria-hidden="true"></i>
+        <strong>None yet today</strong>
+        <i class="icon icon-sad" aria-hidden="true"></i>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="text-muted">
+        {{ total.duration__sum|duration_string }}
+    </div>
+{% endblock %}
+
+{% block footer %}<em>Naps are sleep entries starting 7AM - 7PM.</em>{% endblock %}

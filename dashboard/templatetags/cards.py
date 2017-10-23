@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django import template
+from django.db.models import Sum
 from django.utils import timezone
 
 from core.models import DiaperChange, Feeding, Sleep, Timer, TummyTime
@@ -103,12 +104,25 @@ def card_sleep_day(child, date=None):
         total += end - start
 
     count = len(instances)
-    if count > 0:
-        average = total/count
-    else:
-        average = 0
 
-    return {'total': total, 'count': count, 'average': average}
+    return {'total': total, 'count': count}
+
+
+@register.inclusion_tag('cards/sleep_naps_day.html')
+def card_sleep_naps_day(child, date=None):
+    """Nap information for the current day.
+    """
+    local = timezone.localtime(date)
+    start_lower = local.replace(
+        hour=7, minute=0, second=0).astimezone(timezone.utc)
+    start_upper = local.replace(
+        hour=19, minute=0, second=0).astimezone(timezone.utc)
+    instances = Sleep.objects.filter(child=child) \
+        .filter(start__gte=start_lower, start__lte=start_upper)
+    return {
+        'total': instances.aggregate(Sum('duration')),
+        'count': len(instances)
+    }
 
 
 @register.inclusion_tag('cards/timer_list.html')
