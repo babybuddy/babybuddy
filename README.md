@@ -23,16 +23,12 @@ The demo instance resets every hour. Login credentials are:
 ### Installation
 
 ```
-git clone https://github.com/cdubz/babybuddy.git
-cd babybuddy
 pip install pipenv
 pipenv install --dev
-pipenv shell
-python manage.py migrate
 npm install -g gulp-cli
 npm install
-gulp build
-python manage.py runserver
+gulp migrate
+gulp
 ```
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default

@@ -35,9 +35,10 @@
     "popper.js": "^1.12.5",
     "pump": "^1.0.2",
     "require-dir": "^0.3.2",
+    "run-sequence": "^2.2.0",
     "tempusdominus-bootstrap-4": "^5.0.0-alpha9"
   },
-    "scripts": {
-      "heroku-postbuild": "npm rebuild node-sass && gulp build"
+  "scripts": {
+    "heroku-postbuild": "npm rebuild node-sass && gulp build"
   }
 }

@@ -17,6 +17,7 @@ install:
 before_script:
     - gulp lint
     - gulp build
+    - gulp collectstatic
 script:
     - gulp coverage
 after_success:

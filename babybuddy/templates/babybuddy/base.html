@@ -7,13 +7,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %} | Baby Buddy</title>
-    {% if debug %}
-        <link rel="stylesheet" href="{% static "babybuddy/css/app.css" %}" />
-        <link rel="stylesheet" href="{% static "babybuddy/css/vendor.css" %}" />
-    {% else %}
-        <link rel="stylesheet" href="{% static "babybuddy/css/app.min.css" %}" />
-        <link rel="stylesheet" href="{% static "babybuddy/css/vendor.min.css" %}" />
-    {% endif %}
+    <link rel="stylesheet" href="{% static "babybuddy/css/app.css" %}" />
+    <link rel="stylesheet" href="{% static "babybuddy/css/vendor.css" %}" />
 </head>
 <body style="padding-top: 3rem;">
 
@@ -30,13 +25,8 @@
 
 {% block page %}{% endblock %}
 
-{% if debug %}
     <script src="{% static "babybuddy/js/vendor.js" %}"></script>
     <script src="{% static "babybuddy/js/app.js" %}"></script>
-{% else %}
-    <script src="{% static "babybuddy/js/vendor.min.js" %}"></script>
-    <script src="{% static "babybuddy/js/app.min.js" %}"></script>
-{% endif %}
 
 {% block javascript %}{% endblock %}
 </body>
