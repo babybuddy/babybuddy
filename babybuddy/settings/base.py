@@ -10,6 +10,11 @@ BASE_DIR = os.path.dirname(
 )
 
 
+# SECURITY WARNING: set this to your domain name in production!
+
+ALLOWED_HOSTS = ['*']
+
+
 # Applications
 # https://docs.djangoproject.com/en/1.11/ref/applications/
 
