@@ -2,12 +2,14 @@
 
 [![Build Status](https://travis-ci.org/cdubz/babybuddy.svg?branch=master)](https://travis-ci.org/cdubz/babybuddy)
 [![Coverage Status](https://coveralls.io/repos/github/cdubz/babybuddy/badge.svg?branch=master)](https://coveralls.io/github/cdubz/babybuddy?branch=master)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
 
 A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and
 tummy time to learn about and predict baby's needs without all the guess work.
 
-## Installation (development)
+## Development
+
+### Installation
 
 ```
 git clone https://github.com/cdubz/babybuddy.git
@@ -24,8 +26,6 @@ python manage.py runserver
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
 user name and password (admin/admin).
-
-## Development
 
 ### Fake data
 
