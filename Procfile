@@ -1,0 +1,1 @@
+web: gunicorn babybuddy.wsgi:application --timeout 30 --log-file -
