@@ -5,13 +5,18 @@
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
 
 A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and
-tummy time to learn about and predict baby's needs without (as much) guess work.
+tummy time to learn about and predict baby's needs without (as much) guess 
+work.
+
+![Baby Buddy](screenshot.png)
 
 ## Demo
 
-A demo of Baby Buddy is available on Heroku: 
-[https://babybuddy.herokuapp.com](https://babybuddy.herokuapp.com). Login 
-credentials are `admin`/`admin`.
+A [demo of Baby Buddy](https://babybuddy.herokuapp.com) is available on Heroku.
+The demo instance resets every hour. Login credentials are:
+
+- Username: `admin`
+- Password: `admin`
 
 ## Development
 
@@ -31,7 +36,7 @@ python manage.py runserver
 ```
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
-user name and password (admin/admin).
+user name and password (`admin`/`admin`).
 
 ### Fake data
 
