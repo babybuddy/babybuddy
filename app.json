@@ -1,7 +1,7 @@
 {
     "name": "Baby Buddy",
     "author": "Baby Buddy's Contributors",
-    "description": "A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and tummy time to learn about and predict baby's needs without (as much) guess work.",
+    "description": "Helps caregivers track baby's habits to learn about and predict needs without (as much) guess work.",
     "repository": "https://github.com/cdubz/babybuddy",
     "keywords": [
         "baby",
