@@ -16,9 +16,5 @@
 {% endblock %}
 
 {% block javascript %}
-    {% if debug %}
-        <script src="{% static "babybuddy/js/graph.js" %}"></script>
-    {% else %}
-        <script src="{% static "babybuddy/js/graph.min.js" %}"></script>
-    {% endif %}
+    <script src="{% static "babybuddy/js/graph.js" %}"></script>
 {% endblock %}
