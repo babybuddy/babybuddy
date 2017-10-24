@@ -5,7 +5,7 @@
 
 {% block title %}
     {% if count %}
-        <strong>{{ count }} naps</strong>
+        <strong>{{ count }}</strong> nap{{ count|pluralize }}
     {% else %}
         <i class="icon icon-sad" aria-hidden="true"></i>
         <strong>None yet today</strong>
