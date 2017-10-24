@@ -7,10 +7,4 @@
     <strong>{{ sleep.end|timesince }}</strong> ago
 {% endblock %}
 
-{% block content %}
-    <div class="text-muted">
-        {{ sleep.duration|duration_string }}
-    </div>
-{% endblock %}
-
-{% block footer %}{{ sleep.end }}{% endblock %}
+{% block content %}{{ sleep.duration|duration_string }}{% endblock %}

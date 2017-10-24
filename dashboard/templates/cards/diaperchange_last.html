@@ -6,10 +6,4 @@
     <strong>{{ change.time|timesince }}</strong> ago
 {% endblock %}
 
-{% block content %}
-    <div class="text-muted">
-        {{ change.attributes|join:', ' }}
-    </div>
-{% endblock %}
-
-{% block footer %}{{ change.time }}{% endblock %}
+{% block content %}{{ change.attributes|join:', ' }}{% endblock %}

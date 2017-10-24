@@ -8,12 +8,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="text-muted">
-        {{ tummytime.duration|duration_string }}
-        {% if tummytime.milestone %}
-            <br /> {{ tummytime.milestone }}
-        {% endif %}
-    </div>
+    {{ tummytime.duration|duration_string }}
+    {% if tummytime.milestone %}
+        <br /> {{ tummytime.milestone }}
+    {% endif %}
 {% endblock %}
-
-{% block footer %}{{ tummytime.end }}{% endblock %}

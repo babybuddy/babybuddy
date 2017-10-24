@@ -1,7 +1,7 @@
 {% extends 'cards/sleep.html' %}
 {% load duration %}
 
-{% block header %}Today's Naps{% endblock %}
+{% block header %}Today's Naps <small><em>(7AM - 7PM)</em></small>{% endblock %}
 
 {% block title %}
     {% if count %}
@@ -14,9 +14,5 @@
 {% endblock %}
 
 {% block content %}
-    <div class="text-muted">
-        {{ total.duration__sum|duration_string }}
-    </div>
+    {{ total.duration__sum|duration_string }} <br/>
 {% endblock %}
-
-{% block footer %}<em>Naps are sleep entries starting 7AM - 7PM.</em>{% endblock %}
