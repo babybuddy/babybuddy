@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
 
 A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and
-tummy time to learn about and predict baby's needs without (as much) guess 
+tummy time to learn about and predict baby's needs without (*as much*) guess 
 work.
 
 ![Baby Buddy](screenshot.png)
@@ -17,6 +17,17 @@ The demo instance resets every hour. Login credentials are:
 
 - Username: `admin`
 - Password: `admin`
+
+## Deployment
+
+**:warning: Baby Buddy is still in early development and does not yet have a 
+stable production deployment flow. :warning:**
+
+### Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+Once the app is deployed, log in with the default credentials (`admin`/`admin`).
 
 ## Development
 
@@ -40,4 +51,14 @@ From within the pipenv shell, execute:
 
 ```
 python manage.py fake
+```
+
+### Testing
+
+:exclamation: Tests require static files to be collected, it may be necessary 
+to execute ``gulp build && gulp collectstatic`` before tests (if static files 
+have changed).
+
+```
+gulp test
 ```
