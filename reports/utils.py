@@ -73,14 +73,6 @@ def rangeselector_date():
     }
 
 
-def rangeslider():
-    """A range slider.
-    """
-    return {
-
-    }
-
-
 def split_graph_output(output):
     """Split out of a Plotly graph in to html and javascript.
     """
