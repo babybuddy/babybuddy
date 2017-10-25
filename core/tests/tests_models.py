@@ -71,7 +71,7 @@ class FeedingChangeTestCase(TestCase):
         )
         self.assertEqual(feeding, models.Feeding.objects.first())
         self.assertEqual(str(feeding), 'Feeding')
-        self.assertEqual(feeding.duration, timezone.timedelta(minutes=30))
+        self.assertEqual(feeding.duration, feeding.end - feeding.start)
 
 
 class NoteTestCase(TestCase):
@@ -107,7 +107,7 @@ class SleepTestCase(TestCase):
         )
         self.assertEqual(sleep, models.Sleep.objects.first())
         self.assertEqual(str(sleep), 'Sleep')
-        self.assertEqual(sleep.duration, timezone.timedelta(minutes=30))
+        self.assertEqual(sleep.duration, sleep.end - sleep.start)
 
 
 class TimerTestCase(TestCase):
@@ -141,7 +141,8 @@ class TimerTestCase(TestCase):
         self.unnamed.stop(end=stop_time)
         self.assertEqual(self.unnamed.end, stop_time)
         self.assertEqual(
-            self.unnamed.duration, self.unnamed.start - self.unnamed.end)
+            self.unnamed.duration.seconds,
+            (self.unnamed.end - self.unnamed.start).seconds)
         self.assertFalse(self.unnamed.active)
 
     def test_timer_current_duration(self):
@@ -151,10 +152,12 @@ class TimerTestCase(TestCase):
         timer.save()
 
         self.assertEqual(
-            timer.current_duration(), timezone.timedelta(minutes=30))
+            timer.current_duration().seconds,
+            timezone.timedelta(minutes=30).seconds)
         timer.stop()
         self.assertEqual(
-            timer.current_duration(), timezone.timedelta(minutes=30))
+            timer.current_duration().seconds,
+            timezone.timedelta(minutes=30).seconds)
 
 
 class TummyTimeTestCase(TestCase):
@@ -174,4 +177,5 @@ class TummyTimeTestCase(TestCase):
         )
         self.assertEqual(tummy_time, models.TummyTime.objects.first())
         self.assertEqual(str(tummy_time), 'Tummy Time')
-        self.assertEqual(tummy_time.duration, timezone.timedelta(minutes=30))
+        self.assertEqual(
+            tummy_time.duration, tummy_time.end - tummy_time.start)
