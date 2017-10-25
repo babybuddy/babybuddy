@@ -54,15 +54,7 @@ class DiaperChange(models.Model):
         ordering = ['-time']
 
     def __str__(self):
-        if self.wet and self.solid:
-            name = 'Wet, solid ({}) diaper change'.format(self.color)
-        elif self.wet:
-            name = 'Wet diaper change'
-        elif self.solid:
-            name = self.solid = 'Solid ({}) diaper change'.format(self.color)
-        else:
-            name = 'Diaper change'
-        return name
+        return 'Diaper Change'
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.time, time)
@@ -102,10 +94,7 @@ class Feeding(models.Model):
         ordering = ['-start']
 
     def __str__(self):
-        name = '{} ({}) feeding'.format(self.method, self.type)
-        if self.amount:
-            name += ' ({} oz.)'.format(self.amount)
-        return name.capitalize()
+        return 'Feeding'
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.end, time)
@@ -129,7 +118,7 @@ class Note(models.Model):
         ordering = ['-time']
 
     def __str__(self):
-        return 'Note about {}'.format(self.child)
+        return 'Note'
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.time, time)
@@ -150,7 +139,7 @@ class Sleep(models.Model):
         verbose_name_plural = 'Sleep'
 
     def __str__(self):
-        return 'Sleep ({})'.format(self.duration)
+        return 'Sleep'
 
     def since(self, time=timezone.now()):
         return timesince.timesince(self.end, time)
@@ -223,7 +212,7 @@ class TummyTime(models.Model):
         ordering = ['-start']
 
     def __str__(self):
-        return 'Tummy time ({})'.format(self.duration)
+        return 'Tummy Time'
 
     def duration_td(self):
         return self.end - self.start
