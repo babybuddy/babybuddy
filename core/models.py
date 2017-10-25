@@ -202,9 +202,6 @@ class TummyTime(models.Model):
     def __str__(self):
         return 'Tummy Time'
 
-    def duration_td(self):
-        return self.end - self.start
-
     def save(self, *args, **kwargs):
         if self.start and self.end:
             self.duration = self.end - self.start

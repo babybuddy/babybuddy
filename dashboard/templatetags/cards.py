@@ -155,6 +155,5 @@ def card_tummytime_day(child, date=None):
         'count': instances.count()
     }
     for instance in instances:
-        stats['total'] += timezone.timedelta(
-            seconds=instance.duration_td().seconds)
+        stats['total'] += timezone.timedelta(seconds=instance.duration.seconds)
     return {'stats': stats, 'instances': instances, 'last': instances.first()}
