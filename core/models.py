@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.utils import timezone, timesince
+from django.utils import timezone
 
 
 class Child(models.Model):
@@ -56,9 +56,6 @@ class DiaperChange(models.Model):
     def __str__(self):
         return 'Diaper Change'
 
-    def since(self, time=timezone.now()):
-        return timesince.timesince(self.time, time)
-
     def attributes(self):
         attributes = []
         if self.wet:
@@ -96,9 +93,6 @@ class Feeding(models.Model):
     def __str__(self):
         return 'Feeding'
 
-    def since(self, time=timezone.now()):
-        return timesince.timesince(self.end, time)
-
     def save(self, *args, **kwargs):
         if self.start and self.end:
             self.duration = self.end - self.start
@@ -120,9 +114,6 @@ class Note(models.Model):
     def __str__(self):
         return 'Note'
 
-    def since(self, time=timezone.now()):
-        return timesince.timesince(self.time, time)
-
 
 class Sleep(models.Model):
     model_name = 'sleep'
@@ -140,9 +131,6 @@ class Sleep(models.Model):
 
     def __str__(self):
         return 'Sleep'
-
-    def since(self, time=timezone.now()):
-        return timesince.timesince(self.end, time)
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
@@ -216,9 +204,6 @@ class TummyTime(models.Model):
 
     def duration_td(self):
         return self.end - self.start
-
-    def since(self, time=timezone.now()):
-        return timesince.timesince(self.end, time)
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
