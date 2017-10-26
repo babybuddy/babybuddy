@@ -47,11 +47,16 @@ user name and password (`admin`/`admin`).
 
 ### Fake data
 
-From within the pipenv shell, execute:
+Add some fake data to the database with the following command:
 
 ```
-python manage.py fake
+gulp fake
 ```
+
+By default, ``fake`` creates one child and 31 days of random data. Use the 
+``--children`` and ``--days`` flags to change the default values, e.g. 
+``gulp fake --children 5 --days 7`` to generate five fake children and seven
+days of data for each.
 
 ### Testing
 

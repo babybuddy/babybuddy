@@ -18,6 +18,27 @@ gulp.task('collectstatic', function(cb) {
     ).on('exit', cb);
 });
 
+gulp.task('fake', function(cb) {
+    var command = ['run', 'python', 'manage.py', 'fake'];
+    command = command.concat(process.argv.splice(3));
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+});
+
+gulp.task('migrate', function(cb) {
+    spawn(
+        'pipenv',
+        [
+            'run',
+            'python',
+            'manage.py',
+            'migrate'
+        ],
+        {
+            stdio: 'inherit'
+        }
+    ).on('exit', cb);
+});
+
 gulp.task('reset', function(cb) {
     spawn(
         'pipenv',
