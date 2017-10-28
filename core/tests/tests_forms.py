@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.test import TestCase
-from django.test import Client as HttpClient
 from django.contrib.auth.models import User
 from django.core.management import call_command
+from django.test import TestCase
+from django.test import Client as HttpClient
+from django.utils import timezone
 
 from faker import Factory
 
@@ -89,9 +90,24 @@ class FormsTestCase(TestCase):
     def test_timer_forms(self):
         timer = models.Timer.objects.create(user=self.user)
         timer.save()
-        # Post to test custom get_success_url() method.
-        page = self.c.post('/timer/{}/edit/'.format(timer.id), {'name': 'New'})
+
+        params = {
+            'name': 'New',
+            'start': timer.start.strftime('%Y-%m-%d %H:%M:%S')
+        }
+        page = self.c.post('/timer/{}/edit/'.format(timer.id), params)
         self.assertEqual(page.status_code, 302)
+        timer.refresh_from_db()
+        self.assertEqual(timer.name, params['name'])
+
+        # Test changing the timer start time.
+        start_time = timer.start - timezone.timedelta(hours=1)
+        params['start'] = timezone.localtime(start_time).strftime(
+            '%Y-%m-%d %H:%M:%S')
+        page = self.c.post('/timer/{}/edit/'.format(timer.id), params)
+        self.assertEqual(page.status_code, 302)
+        timer.refresh_from_db()
+        self.assertEqual(timer.start, start_time)
 
     def test_tummytime_forms(self):
         params = {

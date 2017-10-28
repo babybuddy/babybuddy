@@ -141,7 +141,11 @@ class Sleep(models.Model):
 class Timer(models.Model):
     model_name = 'timer'
     name = models.CharField(max_length=255, null=True, blank=True)
-    start = models.DateTimeField(auto_now_add=True)
+    start = models.DateTimeField(
+        default=timezone.now,
+        blank=False,
+        verbose_name='Start Time'
+    )
     end = models.DateTimeField(blank=True, null=True, editable=False)
     duration = models.DurationField(null=True, editable=False)
     active = models.BooleanField(default=True, editable=False)

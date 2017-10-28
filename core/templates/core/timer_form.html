@@ -21,3 +21,13 @@
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker_start').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss'
+            });
+        });
+    </script>
+{% endblock %}

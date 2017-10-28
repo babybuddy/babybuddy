@@ -128,7 +128,13 @@ class SleepForm(forms.ModelForm):
 class TimerForm(forms.ModelForm):
     class Meta:
         model = Timer
-        fields = ['name']
+        fields = ['name', 'start']
+        widgets = {
+            'start': forms.DateTimeInput(attrs={
+                'class': 'datepicker-input',
+                'data-target': '#datetimepicker_start',
+            })
+        }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
