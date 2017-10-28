@@ -13,4 +13,6 @@
     {% endif %}
 {% endblock %}
 
-{% block content %}{{ count }} sleep entries{% endblock %}
+{% block content %}
+    {% if count > 0 %}{{ count }} sleep entries{% endif %}
+{% endblock %}

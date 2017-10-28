@@ -3,5 +3,9 @@
 {% block header %}Last Feeding Method{% endblock %}
 
 {% block title %}
-    <div class="display-4 text-center">{{ feeding.method }}</div>
+    {% if feeding %}
+        <div class="display-4 text-center">{{ feeding.method }}</div>
+    {% else %}
+        None
+    {% endif %}
 {% endblock %}

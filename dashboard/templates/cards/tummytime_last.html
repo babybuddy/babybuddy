@@ -4,12 +4,18 @@
 {% block header %}Last Tummy Time{% endblock %}
 
 {% block title %}
-    <strong>{{ tummytime.end|timesince }}</strong> ago
+    {% if tummytime %}
+        <strong>{{ tummytime.time|timesince }}</strong> ago
+    {% else %}
+        Never
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-    {{ tummytime.duration|duration_string }}
-    {% if tummytime.milestone %}
-        <br /> {{ tummytime.milestone }}
+    {% if tummytime %}
+        {{ tummytime.duration|duration_string }}
+        {% if tummytime.milestone %}
+            <br /> {{ tummytime.milestone }}
+        {% endif %}
     {% endif %}
 {% endblock %}

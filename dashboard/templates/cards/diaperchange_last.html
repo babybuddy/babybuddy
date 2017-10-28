@@ -2,8 +2,15 @@
 
 {% block header %}Last Diaper Change{% endblock %}
 
+
 {% block title %}
-    <strong>{{ change.time|timesince }}</strong> ago
+    {% if change %}
+        <strong>{{ change.time|timesince }}</strong> ago
+    {% else %}
+        Never
+    {% endif %}
 {% endblock %}
 
-{% block content %}{{ change.attributes|join:', ' }}{% endblock %}
+{% block content %}
+    {% if change %}{{ change.attributes|join:', ' }}{% endif %}
+{% endblock %}

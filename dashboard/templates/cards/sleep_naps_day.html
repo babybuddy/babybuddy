@@ -14,5 +14,5 @@
 {% endblock %}
 
 {% block content %}
-    {{ total.duration__sum|duration_string }} <br/>
+    {% if total.duration__sum %}{{ total.duration__sum|duration_string }}{% endif %}
 {% endblock %}

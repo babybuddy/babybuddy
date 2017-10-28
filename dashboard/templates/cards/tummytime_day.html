@@ -4,11 +4,13 @@
 {% block header %}Today's Tummy Time{% endblock %}
 
 {% block title %}
-    <strong>{{ stats.total|duration_string }}</strong>
-{% endblock %}
-
-{% block content %}
-    {{ stats.count }} total entries
+    {% if stats.count > 0 %}
+        {{ stats.total|duration_string }}
+    {% else %}
+        <i class="icon icon-sad" aria-hidden="true"></i>
+        <strong>None yet today</strong>
+        <i class="icon icon-sad" aria-hidden="true"></i>
+    {% endif %}
 {% endblock %}
 
 {% block listgroup %}

@@ -4,7 +4,11 @@
 {% block header %}Last Slept{% endblock %}
 
 {% block title %}
-    <strong>{{ sleep.end|timesince }}</strong> ago
+    {% if sleep %}
+        {{ sleep.end|timesince }} ago
+    {% else %}
+        Never
+    {% endif %}
 {% endblock %}
 
 {% block content %}{{ sleep.duration|duration_string }}{% endblock %}

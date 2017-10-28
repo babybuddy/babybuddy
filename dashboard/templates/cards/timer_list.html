@@ -4,7 +4,7 @@
 
 {% block title %}
     {% with instances|length as count %}
-        <strong>{{ count }}</strong> active timer{{ count|pluralize }}
+        {{ count }} active timer{{ count|pluralize }}
     {% endwith %}
 {% endblock %}
 
