@@ -5,14 +5,15 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.detail import DetailView
 from django.utils import timezone
 
-from core.models import Child
+from core.models import Child, DiaperChange, Sleep
 
 from .graphs import (diaperchange_types, diaperchange_lifetimes, sleep_pattern,
                      sleep_totals, timeline)
 
 
 class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
-    """Graph of diaper changes by day and type."""
+    """Graph of diaper changes by day and type.
+    """
     model = Child
     permission_required = ('core.view_child',)
     template_name = 'reports/diaperchange_lifetimes.html'
@@ -21,12 +22,16 @@ class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
         context = super(
             DiaperChangeLifetimesChildReport, self).get_context_data(**kwargs)
         child = context['object']
-        context['html'], context['javascript'] = diaperchange_lifetimes(child)
+        changes = DiaperChange.objects.filter(child=child)
+        if changes and changes.count() > 1:
+            context['html'], context['javascript'] = diaperchange_lifetimes(
+                changes)
         return context
 
 
 class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
-    """Graph of diaper changes by day and type."""
+    """Graph of diaper changes by day and type.
+    """
     model = Child
     permission_required = ('core.view_child',)
     template_name = 'reports/diaperchange_types.html'
@@ -35,12 +40,16 @@ class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
         context = super(DiaperChangeTypesChildReport, self).get_context_data(
             **kwargs)
         child = context['object']
-        context['html'], context['javascript'] = diaperchange_types(child)
+        changes = DiaperChange.objects.filter(child=child)
+        if changes:
+            context['html'], context['javascript'] = diaperchange_types(
+                changes)
         return context
 
 
 class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
-    """Graph of sleep pattern comparing sleep to wake times by day."""
+    """Graph of sleep pattern comparing sleep to wake times by day.
+    """
     model = Child
     permission_required = ('core.view_child',)
     template_name = 'reports/sleep_pattern.html'
@@ -54,12 +63,15 @@ class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
         context = super(SleepPatternChildReport, self).get_context_data(
             **kwargs)
         child = context['object']
-        context['html'], context['javascript'] = sleep_pattern(child)
+        instances = Sleep.objects.filter(child=child).order_by('start')
+        if instances:
+            context['html'], context['javascript'] = sleep_pattern(instances)
         return context
 
 
 class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
-    """Graph of total sleep by day."""
+    """Graph of total sleep by day.
+    """
     model = Child
     permission_required = ('core.view_child',)
     template_name = 'reports/sleep_totals.html'
@@ -73,7 +85,9 @@ class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
         context = super(SleepTotalsChildReport, self).get_context_data(
             **kwargs)
         child = context['object']
-        context['html'], context['javascript'] = sleep_totals(child)
+        instances = Sleep.objects.filter(child=child).order_by('start')
+        if instances:
+            context['html'], context['javascript'] = sleep_totals(instances)
         return context
 
 

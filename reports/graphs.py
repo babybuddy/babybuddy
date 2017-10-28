@@ -17,10 +17,9 @@ from core.utils import duration_string, duration_parts
 from . import utils
 
 
-def diaperchange_lifetimes(child):
-    """Create a graph showing how long diapers last (time between changes)."""
-    changes = DiaperChange.objects.filter(child=child).order_by('time')
-
+def diaperchange_lifetimes(changes):
+    """Create a graph showing how long diapers last (time between changes).
+    """
     durations = []
     last_change = changes.first()
     for change in changes[1:]:
@@ -39,7 +38,7 @@ def diaperchange_lifetimes(child):
 
     layout_args = utils.default_graph_layout_options()
     layout_args['height'] = 800
-    layout_args['title'] = '<b>Diaper Lifetimes</b><br>{}'.format(child)
+    layout_args['title'] = '<b>Diaper Lifetimes</b>'
     layout_args['yaxis']['title'] = 'Time between changes (hours)'
     layout_args['yaxis']['zeroline'] = False
     layout_args['yaxis']['dtick'] = 1
@@ -52,10 +51,10 @@ def diaperchange_lifetimes(child):
     return utils.split_graph_output(output)
 
 
-def diaperchange_types(child):
-    """Create a graph showing types of totals for diaper changes."""
-    changes = DiaperChange.objects.filter(child=child) \
-        .annotate(date=TruncDate('time')) \
+def diaperchange_types(changes):
+    """Create a graph showing types of totals for diaper changes.
+    """
+    changes = changes.annotate(date=TruncDate('time'))\
         .values('date') \
         .annotate(wet_count=Count(Case(When(wet=True, then=1)))) \
         .annotate(solid_count=Count(Case(When(solid=True, then=1)))) \
@@ -82,7 +81,7 @@ def diaperchange_types(child):
 
     layout_args = utils.default_graph_layout_options()
     layout_args['barmode'] = 'stack'
-    layout_args['title'] = '<b>Diaper Change Types</b><br>{}'.format(child)
+    layout_args['title'] = '<b>Diaper Change Types</b>'
     layout_args['xaxis']['title'] = 'Date'
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
     layout_args['yaxis']['title'] = 'Number of changes'
@@ -95,10 +94,9 @@ def diaperchange_types(child):
     return utils.split_graph_output(output)
 
 
-def sleep_totals(child):
-    """Create a graph showing total time sleeping for each day."""
-    instances = Sleep.objects.filter(child=child).order_by('start')
-
+def sleep_totals(instances):
+    """Create a graph showing total time sleeping for each day.
+    """
     totals = {}
     for instance in instances:
         start = timezone.localtime(instance.start)
@@ -130,7 +128,7 @@ def sleep_totals(child):
 
     layout_args = utils.default_graph_layout_options()
     layout_args['barmode'] = 'stack'
-    layout_args['title'] = '<b>Sleep Totals</b><br>{}'.format(child)
+    layout_args['title'] = '<b>Sleep Totals</b>'
     layout_args['xaxis']['title'] = 'Date'
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
     layout_args['yaxis']['title'] = 'Hours of sleep'
@@ -145,15 +143,16 @@ def sleep_totals(child):
 
 def _duration_string_short(duration):
     """Format a "short" duration string without seconds precision. This is
-    intended to fit better in smaller spaces on a graph."""
+    intended to fit better in smaller spaces on a graph.
+    """
     h, m, s = duration_parts(duration)
     return '{}h{}m'.format(h, m)
 
 
-def sleep_pattern(child):
-    """Create a graph showing blocked out periods of sleep during each day."""
+def sleep_pattern(instances):
+    """Create a graph showing blocked out periods of sleep during each day.
+    """
     # TODO: Simplify this using the bar charts "base" property.
-    instances = Sleep.objects.filter(child=child).order_by('start')
     y_df = pd.DataFrame()
     text_df = pd.DataFrame()
     last_end_time = None
@@ -252,7 +251,7 @@ def sleep_pattern(child):
 
     layout_args['barmode'] = 'stack'
     layout_args['hovermode'] = 'closest'
-    layout_args['title'] = '<b>Sleep Pattern</b><br>{}'.format(child)
+    layout_args['title'] = '<b>Sleep Pattern</b>'
     layout_args['height'] = 800
 
     layout_args['xaxis']['title'] = 'Date'
@@ -282,7 +281,8 @@ def sleep_pattern(child):
 
 def _add_sleep_entry(y_df, text_df, index, column, duration, text=''):
     """Create a duration and text description entry in a DataFrame and return
-    the next index on success."""
+    the next index on success.
+    """
     if column not in y_df:
         y_df.assign(**{column: 0 in range(0, len(y_df.index))})
         text_df.assign(**{column: 0 in range(0, len(text_df.index))})
@@ -294,7 +294,8 @@ def _add_sleep_entry(y_df, text_df, index, column, duration, text=''):
 
 
 def timeline(child, date):
-    """Create a time-sorted dictionary for all events for a child."""
+    """Create a time-sorted dictionary for all events for a child.
+    """
     min_date = date
     max_date = date.replace(hour=23, minute=59, second=59)
     events = []
