@@ -145,18 +145,19 @@ class TimerTestCase(TestCase):
             (self.unnamed.end - self.unnamed.start).seconds)
         self.assertFalse(self.unnamed.active)
 
-    def test_timer_current_duration(self):
+    def test_timer_duration(self):
         timer = models.Timer.objects.create(user=User.objects.first())
         # Timer.start uses auto_now_add, so it cannot be set in create().
         timer.start = timezone.localtime() - timezone.timedelta(minutes=30)
         timer.save()
+        timer.refresh_from_db()
 
         self.assertEqual(
-            timer.duration().seconds,
+            timer.duration.seconds,
             timezone.timedelta(minutes=30).seconds)
         timer.stop()
         self.assertEqual(
-            timer.duration().seconds,
+            timer.duration.seconds,
             timezone.timedelta(minutes=30).seconds)
 
 
