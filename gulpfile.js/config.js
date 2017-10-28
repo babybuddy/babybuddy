@@ -27,7 +27,8 @@ module.exports = {
             'node_modules/popper.js/dist/umd/popper.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
             'node_modules/moment/moment.js',
-            'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
+            'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js',
+            'node_modules/visibilityjs/lib/visibility.core.js'
         ],
         graph: [
             'node_modules/plotly.js/dist/plotly-cartesian.js'

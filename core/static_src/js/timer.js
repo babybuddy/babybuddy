@@ -8,11 +8,14 @@
  */
 BabyBuddy.Timer = function ($) {
     var runIntervalId = null;
+    var timerId = null;
     var timerElement = null;
+    var lastUpdate = moment();
 
     var Timer = {
-        run: function(id) {
-            timerElement = $('#' + id);
+        run: function(timer_id, element_id) {
+            timerId = timer_id;
+            timerElement = $('#' + element_id);
 
             if (timerElement.length == 0) {
                 console.error('BBTimer: Timer element not found.');
@@ -27,7 +30,17 @@ BabyBuddy.Timer = function ($) {
             }
 
             runIntervalId = setInterval(this.tick, 1000);
-            return runIntervalId;
+
+            // If the page just came in to view, update the timer data with the
+            // current actual duration. This will (potentially) help mobile
+            // phones that lock with the timer page open.
+            Visibility.change(function (e, state) {
+                if (state == 'visible' && moment().diff(lastUpdate) > 2000) {
+                    clearInterval(runIntervalId);
+                    Timer.update();
+                    runIntervalId = setInterval(Timer.tick, 1000);
+                }
+            });
         },
 
         tick: function() {
@@ -54,6 +67,18 @@ BabyBuddy.Timer = function ($) {
             var h = timerElement.find('.timer-hours');
             var hours = Number(h.text());
             h.text(hours + 1);
+        },
+
+        update: function() {
+            $.get('/api/timers/' + timerId + '/', function(data) {
+                if (data && 'duration' in data) {
+                    var duration = moment.duration(data.duration);
+                    timerElement.find('.timer-hours').text(duration.hours());
+                    timerElement.find('.timer-minutes').text(duration.minutes());
+                    timerElement.find('.timer-seconds').text(duration.seconds());
+                    lastUpdate = moment();
+                }
+            });
         }
     };
 
