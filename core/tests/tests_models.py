@@ -152,11 +152,11 @@ class TimerTestCase(TestCase):
         timer.save()
 
         self.assertEqual(
-            timer.current_duration().seconds,
+            timer.duration().seconds,
             timezone.timedelta(minutes=30).seconds)
         timer.stop()
         self.assertEqual(
-            timer.current_duration().seconds,
+            timer.duration().seconds,
             timezone.timedelta(minutes=30).seconds)
 
 

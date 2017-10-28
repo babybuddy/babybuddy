@@ -156,11 +156,12 @@ class Timer(models.Model):
     def __str__(self):
         return self.name or 'Timer #{}'.format(self.id)
 
-    def current_duration(self):
-        if self.duration:
-            return self.duration
-        else:
-            return timezone.now() - self.start
+    @classmethod
+    def from_db(cls, db, field_names, values):
+        instance = super(Timer, cls).from_db(db, field_names, values)
+        if not instance.duration:
+            instance.duration = timezone.now() - instance.start
+        return instance
 
     def restart(self):
         """Restart the timer."""

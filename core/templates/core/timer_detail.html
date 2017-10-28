@@ -12,9 +12,9 @@
     <div class="jumbotron text-center{% if not object.active %} text-danger{% endif %}">
 
         <div class="h1" id="timer-status">
-            <span class="timer-hours">{{ object.current_duration|hours }}</span>h
-            <span class="timer-minutes">{{ object.current_duration|minutes }}</span>m
-            <span class="timer-seconds">{{ object.current_duration|seconds }}</span>s
+            <span class="timer-hours">{{ object.duration|hours }}</span>h
+            <span class="timer-minutes">{{ object.duration|minutes }}</span>m
+            <span class="timer-seconds">{{ object.duration|seconds }}</span>s
         </div>
         <p class="lead text-secondary">
             Started {{ object.start }}
@@ -75,7 +75,7 @@
 {% block javascript %}
     {% if object.active %}
         <script type="application/javascript">
-            BabyBuddy.Timer.run('timer-status');
+            BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');
         </script>
     {% endif %}
 {% endblock %}
