@@ -183,6 +183,8 @@ class Timer(models.Model):
         self.name = self.name or None
         if self.start and self.end:
             self.duration = self.end - self.start
+        else:
+            self.duration = None
         super(Timer, self).save(*args, **kwargs)
 
 
