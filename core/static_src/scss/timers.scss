@@ -1,7 +1,9 @@
-#view-timer-detail {
-    #timer-status {
-        font-size: $h1-font-size;
-        font-weight: $display1-weight;
+#timer-status {
+    font-size: $h1-font-size;
+    font-weight: $display1-weight;
+
+    &.timer-stopped {
+        color: theme-color('danger');
     }
 }
 
