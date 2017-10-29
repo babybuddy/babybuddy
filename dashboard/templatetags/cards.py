@@ -17,7 +17,7 @@ def card_diaperchange_last(child):
     """
     instance = DiaperChange.objects.filter(
         child=child).order_by('-time').first()
-    return {'change': instance}
+    return {'type': 'diaperchange', 'change': instance}
 
 
 @register.inclusion_tag('cards/diaperchange_types.html')
@@ -48,7 +48,10 @@ def card_diaperchange_types(child):
             stats[key]['wet_pct'] = info['wet'] / total * 100
             stats[key]['solid_pct'] = info['solid'] / total * 100
 
-    return {'stats': stats, 'last_change': instances.first()}
+    return {
+        'type': 'diaperchange',
+        'stats': stats,
+        'last_change': instances.first()}
 
 
 @register.inclusion_tag('cards/feeding_last.html')
@@ -56,7 +59,7 @@ def card_feeding_last(child):
     """Information about the most recent feeding.
     """
     instance = Feeding.objects.filter(child=child).order_by('-end').first()
-    return {'feeding': instance}
+    return {'type': 'feeding', 'feeding': instance}
 
 
 @register.inclusion_tag('cards/feeding_last_method.html')
@@ -64,7 +67,7 @@ def card_feeding_last_method(child):
     """Information about the most recent feeding _method_.
     """
     instance = Feeding.objects.filter(child=child).order_by('-end').first()
-    return {'feeding': instance}
+    return {'type': 'feeding', 'feeding': instance}
 
 
 @register.inclusion_tag('cards/sleep_last.html')
@@ -72,7 +75,7 @@ def card_sleep_last(child):
     """Information about the most recent sleep entry.
     """
     instance = Sleep.objects.filter(child=child).order_by('-end').first()
-    return {'sleep': instance}
+    return {'type': 'sleep', 'sleep': instance}
 
 
 @register.inclusion_tag('cards/sleep_day.html')
@@ -105,7 +108,7 @@ def card_sleep_day(child, date=None):
 
     count = len(instances)
 
-    return {'total': total, 'count': count}
+    return {'type': 'sleep', 'total': total, 'count': count}
 
 
 @register.inclusion_tag('cards/sleep_naps_day.html')
@@ -120,9 +123,9 @@ def card_sleep_naps_day(child, date=None):
     instances = Sleep.objects.filter(child=child) \
         .filter(start__gte=start_lower, start__lte=start_upper)
     return {
+        'type': 'sleep',
         'total': instances.aggregate(Sum('duration')),
-        'count': len(instances)
-    }
+        'count': len(instances)}
 
 
 @register.inclusion_tag('cards/timer_list.html')
@@ -130,7 +133,7 @@ def card_timer_list():
     """Information about currently active timers.
     """
     instances = Timer.objects.filter(active=True).order_by('-start')
-    return {'instances': list(instances)}
+    return {'type': 'timer', 'instances': list(instances)}
 
 
 @register.inclusion_tag('cards/tummytime_last.html')
@@ -138,7 +141,7 @@ def card_tummytime_last(child):
     """Information about the most recent tummy time.
     """
     instance = TummyTime.objects.filter(child=child).order_by('-end').first()
-    return {'tummytime': instance}
+    return {'type': 'tummytime', 'tummytime': instance}
 
 
 @register.inclusion_tag('cards/tummytime_day.html')
@@ -156,4 +159,8 @@ def card_tummytime_day(child, date=None):
     }
     for instance in instances:
         stats['total'] += timezone.timedelta(seconds=instance.duration.seconds)
-    return {'stats': stats, 'instances': instances, 'last': instances.first()}
+    return {
+        'type': 'tummytime',
+        'stats': stats,
+        'instances': instances,
+        'last': instances.first()}
