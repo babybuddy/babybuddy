@@ -27,8 +27,8 @@
                     <tr>
                         <th scope="row"><a href="{% url 'child' tummytime.child.slug %}">{{ tummytime.child }}</a></th>
                         <td>{{ tummytime.duration|duration_string }}</td>
-                        <td>{{ tummytime.start|date:'n/j/y G:i' }}</td>
-                        <td>{{ tummytime.end|date:'n/j/y G:i' }}</td>
+                        <td>{{ tummytime.start|date:'DATETIME_FORMAT' }}</td>
+                        <td>{{ tummytime.end|date:'DATETIME_FORMAT' }}</td>
                         <td>{{ tummytime.milestone }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
