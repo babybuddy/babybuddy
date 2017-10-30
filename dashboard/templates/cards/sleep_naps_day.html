@@ -5,10 +5,10 @@
 
 {% block title %}
     {% if count %}
-        <strong>{{ count }}</strong> nap{{ count|pluralize }}
+        {{ count }} nap{{ count|pluralize }}
     {% else %}
         <i class="icon icon-sad" aria-hidden="true"></i>
-        <strong>None yet today</strong>
+        None yet today
         <i class="icon icon-sad" aria-hidden="true"></i>
     {% endif %}
 {% endblock %}

@@ -4,7 +4,7 @@
 
 {% block title %}
     {% if change %}
-        <strong>{{ change.time|timesince }}</strong> ago
+        {{ change.time|timesince }} ago
     {% else %}
         Never
     {% endif %}

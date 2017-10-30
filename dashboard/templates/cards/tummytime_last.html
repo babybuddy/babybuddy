@@ -5,7 +5,7 @@
 
 {% block title %}
     {% if tummytime %}
-        <strong>{{ tummytime.time|timesince }}</strong> ago
+        {{ tummytime.time|timesince }} ago
     {% else %}
         Never
     {% endif %}
