@@ -17,6 +17,21 @@
     }
 }
 
+.card-averages {
+    @extend .border-light;
+
+    .card-header {
+        @extend .text-dark, .bg-light;
+    }
+
+    .card-body {
+        @extend .text-light;
+
+        .container {
+            padding: 0;
+        }
+    }
+}
 
 .card-diaperchange {
     @extend .border-danger;

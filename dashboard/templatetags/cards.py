@@ -11,6 +11,64 @@ from core.models import DiaperChange, Feeding, Sleep, Timer, TummyTime
 register = template.Library()
 
 
+@register.inclusion_tag('cards/averages.html')
+def card_averages(child):
+    """Averages data for all models.
+    """
+    instances = Sleep.objects.filter(child=child).order_by('start')
+    sleep = {
+        'total': instances.aggregate(Sum('duration'))['duration__sum'],
+        'count': instances.count(),
+        'average': 0,
+        'btwn_total': timezone.timedelta(0),
+        'btwn_count': instances.count() - 1,
+        'btwn_average': 0}
+
+    last_instance = None
+    for instance in instances:
+        if last_instance:
+            sleep['btwn_total'] += instance.start - last_instance.end
+        last_instance = instance
+
+    if sleep['count'] > 0:
+        sleep['average'] = sleep['total']/sleep['count']
+    if sleep['btwn_count'] > 0:
+        sleep['btwn_average'] = sleep['btwn_total']/sleep['btwn_count']
+
+    instances = DiaperChange.objects.filter(child=child).order_by('time')
+    changes = {
+        'btwn_total': timezone.timedelta(0),
+        'btwn_count': instances.count() - 1,
+        'btwn_average': 0}
+    last_instance = None
+
+    for instance in instances:
+        if last_instance:
+            changes['btwn_total'] += instance.time - last_instance.time
+        last_instance = instance
+
+    if changes['btwn_count'] > 0:
+        changes['btwn_average'] = changes['btwn_total']/changes['btwn_count']
+
+    instances = Feeding.objects.filter(child=child).order_by('start')
+    feedings = {
+        'btwn_total': timezone.timedelta(0),
+        'btwn_count': instances.count() - 1,
+        'btwn_average': 0}
+    last_instance = None
+
+    for instance in instances:
+        if last_instance:
+            feedings['btwn_total'] += instance.start - last_instance.end
+        last_instance = instance
+
+    if feedings['btwn_count'] > 0:
+        feedings['btwn_average'] = \
+            feedings['btwn_total']/feedings['btwn_count']
+
+    return {'changes': changes, 'feedings': feedings, 'sleep': sleep}
+
+
 @register.inclusion_tag('cards/diaperchange_last.html')
 def card_diaperchange_last(child):
     """Information about the most recent diaper change.
