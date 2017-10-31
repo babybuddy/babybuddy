@@ -92,14 +92,15 @@ class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
 
 
 class TimelineChildReport(PermissionRequiredMixin, DetailView):
-    """Graph of total sleep by day."""
+    """Chronological daily view of events (non-graph).
+    """
     model = Child
     permission_required = ('core.view_child',)
     template_name = 'reports/timeline.html'
 
     def get_context_data(self, **kwargs):
         context = super(TimelineChildReport, self).get_context_data(**kwargs)
-        date = self.request.GET.get('date', str(timezone.now().date()))
+        date = self.request.GET.get('date', str(timezone.localdate()))
         date = timezone.datetime.strptime(date, '%Y-%m-%d')
         date = timezone.localtime(timezone.make_aware(date))
         context['objects'] = timeline(self.object, date)
