@@ -5,3 +5,8 @@
     right: 0;
     left: auto; // Reset the default from `.dropdown-menu`
 }
+
+// BB form fields do not follow typical BS4 style that enables this display.
+.invalid-feedback {
+    display: block;
+}
