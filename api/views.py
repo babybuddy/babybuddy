@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 
 from rest_framework import viewsets
 
+from api.utils import filter_by_params
 from core.models import (Child, DiaperChange, Feeding, Note, Sleep, Timer,
                          TummyTime)
-from core.utils import filter_by_params
 
 from .serializers import (ChildSerializer, DiaperChangeSerializer,
                           FeedingSerializer, NoteSerializer, SleepSerializer,

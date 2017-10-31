@@ -4,17 +4,6 @@ from __future__ import unicode_literals
 from django.utils import timezone
 
 
-def filter_by_params(request, model, available_params):
-    queryset = model.objects.all()
-
-    for param in available_params:
-        value = request.query_params.get(param, None)
-        if value is not None:
-            queryset = queryset.filter(**{param: value})
-
-    return queryset
-
-
 def duration_string(duration, precision='s'):
     """Format hours, minutes and seconds as a human-friendly string (e.g. "2
     hours, 25 minutes, 31 seconds") with precision to h = hours, m = minutes or
