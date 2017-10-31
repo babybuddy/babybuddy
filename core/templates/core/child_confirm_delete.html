@@ -13,6 +13,10 @@
     <form role="form" method="post">
         {% csrf_token %}
         <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
+        <div class="form-group">
+            <label for="confirm_name">To confirm this action. Type the full name of the child below.</label>
+            <input type="text" id="confirm_name" name="confirm_name" class="form-control" placeholder="{{ object }}" />
+        </div>
         <input type="submit" value="Delete" class="btn btn-danger" />
         <a href="{% url 'child-list' %}" class="btn btn-default">Cancel</a>
     </form>

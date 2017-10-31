@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
@@ -42,6 +43,12 @@ class ChildDelete(PermissionRequiredMixin, DeleteView):
     model = Child
     permission_required = ('core.delete_child',)
     success_url = '/children'
+
+    def post(self, request, *args, **kwargs):
+        if str(self.get_object()) != self.request.POST.get('confirm_name'):
+            # TODO: Provide some error feedback.
+            return HttpResponseRedirect(self.request.path)
+        return self.delete(request, *args, **kwargs)
 
 
 class DiaperChangeList(PermissionRequiredMixin, ListView):
