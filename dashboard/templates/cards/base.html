@@ -1,0 +1,11 @@
+<div class="card card-dashboard card-{{ type }}">
+    <div class="card-header">
+        <i class="icon icon-{{ type }} pull-left" aria-hidden="true"></i>
+        {% block header %}{% endblock %}
+    </div>
+    <div class="card-body">
+        <span class="card-title"><strong>{% block title %}{% endblock %}</strong></span>
+        <div class="card-text">{% block content %}{% endblock %}</div>
+    </div>
+    {% block listgroup %}{% endblock %}
+</div>

@@ -10,3 +10,8 @@
 .bootstrap-datetimepicker-widget.dropdown-menu {
     width: auto; // Reset the default
 }
+
+// BB form fields do not follow typical BS4 style that enables this display.
+.invalid-feedback {
+    display: block;
+}

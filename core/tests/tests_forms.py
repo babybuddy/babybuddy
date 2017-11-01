@@ -48,7 +48,7 @@ class FormsTestCase(TestCase):
             'time': '2000-01-01 1:01',
             'wet': 1,
             'solid': 1,
-            'color': entry.color
+            'color': 'black'
         })
         self.assertEqual(page.status_code, 302)
 
@@ -58,8 +58,8 @@ class FormsTestCase(TestCase):
             'child': 1,
             'start': '2000-01-01 1:01',
             'end': '2000-01-01 1:31',
-            'type': entry.type,
-            'method': entry.method,
+            'type': 'formula',
+            'method': 'bottle',
             'amount': 0
         }
 

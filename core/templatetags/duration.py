@@ -10,12 +10,12 @@ register = template.Library()
 
 
 @register.filter
-def duration_string(duration):
+def duration_string(duration, precision='s'):
     """Format a duration (e.g. "2 hours, 3 minutes, 35 seconds")."""
     if not duration:
         return ''
     try:
-        return d_string(duration)
+        return d_string(duration, precision)
     except (ValueError, TypeError):
         return ''
 

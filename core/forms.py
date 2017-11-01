@@ -49,6 +49,25 @@ class ChildForm(forms.ModelForm):
         }
 
 
+class ChildDeleteForm(forms.ModelForm):
+    confirm_name = forms.CharField(max_length=511)
+
+    class Meta:
+        model = Child
+        fields = []
+
+    def clean_confirm_name(self):
+        confirm_name = self.cleaned_data['confirm_name']
+        if confirm_name != str(self.instance):
+            raise forms.ValidationError('Name does not match child name.')
+        return confirm_name
+
+    def save(self, commit=True):
+        instance = self.instance
+        self.instance.delete()
+        return instance
+
+
 class DiaperChangeForm(forms.ModelForm):
     class Meta:
         model = DiaperChange
@@ -63,6 +82,31 @@ class DiaperChangeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
         super(DiaperChangeForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        """Additional form validation/cleaning.
+        """
+        errors = {}
+
+        # One or both of Wet and Solid is required.
+        if not self.cleaned_data['wet'] and not self.cleaned_data['solid']:
+            errors['wet'] = forms.ValidationError(
+                'Wet and/or solid is required.',
+                code='missing-wet-or-solid')
+            errors['solid'] = forms.ValidationError(
+                'Wet and/or solid is required.',
+                code='missing-wet-or-solid')
+
+        # Color is required when Solid is selected.
+        if self.cleaned_data['solid'] and not self.cleaned_data['color']:
+            errors['color'] = forms.ValidationError(
+                'Color is required for solid changes.',
+                code='missing-color')
+
+        if len(errors) > 0:
+            raise forms.ValidationError(errors)
+
+        return self.cleaned_data
 
 
 class FeedingForm(forms.ModelForm):
@@ -85,6 +129,23 @@ class FeedingForm(forms.ModelForm):
         self.timer_id = kwargs.get('timer', None)
         kwargs = set_default_duration(kwargs)
         super(FeedingForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        """Additional form validation/cleaning.
+        """
+        errors = {}
+
+        # "Formula" Type may only be associated with "Bottle" Method.
+        if (self.cleaned_data['type'] == 'formula'
+                and self.cleaned_data['method'] != 'bottle'):
+            errors['method'] = forms.ValidationError(
+                'Only "Bottle" method is allowed with type "Formula".',
+                code='bottle-formula-mismatch')
+
+        if len(errors) > 0:
+            raise forms.ValidationError(errors)
+
+        return self.cleaned_data
 
     def save(self, commit=True):
         instance = super(FeedingForm, self).save(commit=False)

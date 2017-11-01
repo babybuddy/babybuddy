@@ -1,14 +1,14 @@
-{% extends 'cards/sleep.html' %}
+{% extends 'cards/base.html' %}
 {% load duration %}
 
 {% block header %}Today's Naps <small><em>(7AM - 7PM)</em></small>{% endblock %}
 
 {% block title %}
     {% if count %}
-        <strong>{{ count }}</strong> nap{{ count|pluralize }}
+        {{ count }} nap{{ count|pluralize }}
     {% else %}
         <i class="icon icon-sad" aria-hidden="true"></i>
-        <strong>None yet today</strong>
+        None yet today
         <i class="icon icon-sad" aria-hidden="true"></i>
     {% endif %}
 {% endblock %}

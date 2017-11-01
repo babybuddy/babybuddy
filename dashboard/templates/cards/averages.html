@@ -1,0 +1,46 @@
+{% load duration %}
+
+<div class="card card-dashboard card-averages">
+    <div class="card-header">
+         <i class="icon icon-graph pull-left" aria-hidden="true"></i>
+        Averages
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row no-gutters text-center">
+                <div class="col-md-6 col-sm-3 col-xs-12">
+                    <div class="text-muted">Sleep time</div>
+                    {% if sleep.average %}
+                        {{ sleep.average|duration_string:'m' }}
+                    {% else %}
+                        <em>Not enough data</em>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 col-sm-3 col-xs-12">
+                    <div class="text-muted">Awake time</div>
+                    {% if sleep.btwn_average %}
+                        {{ sleep.btwn_average|duration_string:'m' }}
+                    {% else %}
+                        <em>Not enough data</em>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 col-sm-3 col-xs-12">
+                    <div class="text-muted">Change freq.</div>
+                    {% if changes.btwn_average %}
+                        {{ changes.btwn_average|duration_string:'m' }}
+                    {% else %}
+                        <em>Not enough data</em>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 col-sm-3 col-xs-12">
+                    <div class="text-muted">Feeding freq.</div>
+                    {% if feedings.btwn_average %}
+                        {{ feedings.btwn_average|duration_string:'m' }}
+                    {% else %}
+                        <em>Not enough data</em>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

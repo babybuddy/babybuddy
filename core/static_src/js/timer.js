@@ -36,9 +36,7 @@ BabyBuddy.Timer = function ($) {
             // phones that lock with the timer page open.
             Visibility.change(function (e, state) {
                 if (state == 'visible' && moment().diff(lastUpdate) > 2000) {
-                    clearInterval(runIntervalId);
                     Timer.update();
-                    runIntervalId = setInterval(Timer.tick, 1000);
                 }
             });
         },
@@ -72,11 +70,19 @@ BabyBuddy.Timer = function ($) {
         update: function() {
             $.get('/api/timers/' + timerId + '/', function(data) {
                 if (data && 'duration' in data) {
+                    clearInterval(runIntervalId);
                     var duration = moment.duration(data.duration);
                     timerElement.find('.timer-hours').text(duration.hours());
                     timerElement.find('.timer-minutes').text(duration.minutes());
                     timerElement.find('.timer-seconds').text(duration.seconds());
                     lastUpdate = moment();
+
+                    if (data['active']) {
+                        runIntervalId = setInterval(Timer.tick, 1000);
+                    }
+                    else {
+                        timerElement.addClass('timer-stopped');
+                    }
                 }
             });
         }

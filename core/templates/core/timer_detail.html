@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="jumbotron text-center{% if not object.active %} text-danger{% endif %}">
+    <div class="jumbotron text-center">
 
-        <div class="h1" id="timer-status">
+        <div class="h1{% if not object.active %} timer-stopped{% endif %}" id="timer-status">
             <span class="timer-hours">{{ object.duration|hours }}</span>h
             <span class="timer-minutes">{{ object.duration|minutes }}</span>m
             <span class="timer-seconds">{{ object.duration|seconds }}</span>s

@@ -10,8 +10,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row align-items-start">
+    <div id="dashboard-child" class="row align-items-start">
         <div class="col-lg-4 col-md-6 col-sm-12">
+            {% card_averages object %}
             {% card_feeding_last object %}
             {% card_feeding_last_method object %}
             {% card_timer_list %}
@@ -27,4 +28,10 @@
             {% card_diaperchange_types object %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="application/javascript">
+        BabyBuddy.Dashboard.watch('dashboard-child');
+    </script>
 {% endblock %}

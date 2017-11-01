@@ -1,14 +1,14 @@
-{% extends 'cards/sleep.html' %}
+{% extends 'cards/base.html' %}
 {% load duration %}
 
 {% block header %}Today's Sleep{% endblock %}
 
 {% block title %}
     {% if total %}
-        <strong>{{ total|duration_string }}</strong>
+        {{ total|duration_string }}
     {% else %}
         <i class="icon icon-sad" aria-hidden="true"></i>
-        <strong>None yet today</strong>
+        None yet today
         <i class="icon icon-sad" aria-hidden="true"></i>
     {% endif %}
 {% endblock %}
