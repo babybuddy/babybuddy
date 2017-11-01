@@ -33,24 +33,53 @@ class FormsTestCase(TestCase):
         cls.c.login(**cls.credentials)
 
     def test_child_forms(self):
-        entry = models.Child.objects.first()
-        page = self.c.post('/children/{}/edit/'.format(entry.slug), {
+        params = {
             'first_name': 'Child',
             'last_name': 'One',
             'birth_date': '2000-01-01'
-        })
+        }
+
+        entry = models.Child.objects.first()
+        page = self.c.post('/children/{}/edit/'.format(entry.slug), params)
+        self.assertEqual(page.status_code, 302)
+        entry.refresh_from_db()
+
+        params = {'confirm_name': 'Incorrect'}
+        page = self.c.post('/children/{}/delete/'.format(entry.slug), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', 'confirm_name',
+                             'Name does not match child name.')
+
+        params['confirm_name'] = str(entry)
+        page = self.c.post('/children/{}/delete/'.format(entry.slug), params)
         self.assertEqual(page.status_code, 302)
 
     def test_diaperchange_forms(self):
-        entry = models.DiaperChange.objects.first()
-        page = self.c.post('/changes/{}/'.format(entry.id), {
+        params = {
             'child': 1,
             'time': '2000-01-01 1:01',
             'wet': 1,
             'solid': 1,
             'color': 'black'
-        })
+        }
+
+        entry = models.DiaperChange.objects.first()
+        page = self.c.post('/changes/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
+
+        params['solid'] = 0
+        params['color'] = ''
+        page = self.c.post('/changes/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', 'color',
+                             'Color is required for solid diaper changes.')
+
+        del params['solid']
+        del params['wet']
+        page = self.c.post('/changes/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', None,
+                             'Wet and/or solid is required.')
 
     def test_feeding_forms(self):
         entry = models.Feeding.objects.first()
@@ -75,7 +104,15 @@ class FormsTestCase(TestCase):
         page = self.c.post('/feedings/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', None,
-                             'Start time must come before end time')
+                             'Start time must come before end time.')
+
+        params['start'] = '2000-01-01 1:01'
+        params['method'] = 'left breast'
+        page = self.c.post('/feedings/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(
+            page, 'form', 'method',
+            'Only "Bottle" method is allowed with "Formula" type.')
 
     def test_sleeping_forms(self):
         params = {
@@ -97,7 +134,7 @@ class FormsTestCase(TestCase):
         page = self.c.post('/sleep/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', None,
-                             'Start time must come before end time')
+                             'Start time must come before end time.')
 
     def test_timer_forms(self):
         timer = models.Timer.objects.create(user=self.user)
@@ -143,4 +180,4 @@ class FormsTestCase(TestCase):
         page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', None,
-                             'Start time must come before end time')
+                             'Start time must come before end time.')

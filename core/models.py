@@ -19,10 +19,14 @@ def validate_duration(model, max_duration=timedelta(hours=24)):
     """
     if model.start and model.end:
         if model.start > model.end:
-            raise ValidationError('Start time must come before end time')
+            raise ValidationError(
+                'Start time must come before end time.',
+                code='end_before_start')
         if model.end - model.start > max_duration:
-            raise ValidationError('Duration too long (%(timesince)s)', params={
-                'timesince': timesince(model.start, model.end)})
+            raise ValidationError(
+                'Duration too long (%(timesince)s).',
+                params={'timesince': timesince(model.start, model.end)},
+                code='max_duration')
 
 
 class Child(models.Model):
@@ -85,6 +89,18 @@ class DiaperChange(models.Model):
             attributes.append(self.color)
         return attributes
 
+    def clean(self):
+        # One or both of Wet and Solid is required.
+        if not self.wet and not self.solid:
+            raise ValidationError(
+                'Wet and/or solid is required.', code='wet_or_solid')
+
+        # Color is required when Solid is selected.
+        if self.solid and not self.color:
+            raise ValidationError(
+                {'color': 'Color is required for solid diaper changes.'},
+                code='solid_color_required')
+
 
 class Feeding(models.Model):
     model_name = 'feeding'
@@ -119,6 +135,13 @@ class Feeding(models.Model):
 
     def clean(self):
         validate_duration(self)
+
+        # "Formula" Type may only be associated with "Bottle" Method.
+        if self.type == 'formula'and self.method != 'bottle':
+            raise ValidationError(
+                {'method':
+                 'Only "Bottle" method is allowed with "Formula" type.'},
+                code='bottle_formula_mismatch')
 
 
 class Note(models.Model):
