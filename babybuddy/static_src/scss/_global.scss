@@ -7,8 +7,10 @@
 }
 
 // Temporary workaround. See: https://github.com/tempusdominus/bootstrap-4/issues/18
-.bootstrap-datetimepicker-widget.dropdown-menu {
-    width: auto; // Reset the default
+.bootstrap-datetimepicker-widget {
+    &.dropdown-menu {
+        width: auto; // Reset the default
+    }
 }
 
 // BB form fields do not follow typical BS4 style that enables this display.
