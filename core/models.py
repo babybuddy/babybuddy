@@ -1,9 +1,28 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from datetime import timedelta
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from django.utils.timesince import timesince
+
+
+def validate_duration(model, max_duration=timedelta(hours=24)):
+    """
+    Basic sanity checks for models with a duration
+    :param model: a model instance with 'start' and 'end' attributes
+    :param max_duration: maximum allowed duration between start and end time
+    :return:
+    """
+    if model.start and model.end:
+        if model.start > model.end:
+            raise ValidationError('Start time must come before end time')
+        if model.end - model.start > max_duration:
+            raise ValidationError('Duration too long (%(timesince)s)', params={
+                'timesince': timesince(model.start, model.end)})
 
 
 class Child(models.Model):
@@ -98,6 +117,9 @@ class Feeding(models.Model):
             self.duration = self.end - self.start
         super(Feeding, self).save(*args, **kwargs)
 
+    def clean(self):
+        validate_duration(self)
+
 
 class Note(models.Model):
     model_name = 'note'
@@ -136,6 +158,9 @@ class Sleep(models.Model):
         if self.start and self.end:
             self.duration = self.end - self.start
         super(Sleep, self).save(*args, **kwargs)
+
+    def clean(self):
+        validate_duration(self)
 
 
 class Timer(models.Model):
@@ -191,6 +216,9 @@ class Timer(models.Model):
             self.duration = None
         super(Timer, self).save(*args, **kwargs)
 
+    def clean(self):
+        validate_duration(self)
+
 
 class TummyTime(models.Model):
     model_name = 'tummytime'
@@ -213,3 +241,6 @@ class TummyTime(models.Model):
         if self.start and self.end:
             self.duration = self.end - self.start
         super(TummyTime, self).save(*args, **kwargs)
+
+    def clean(self):
+        validate_duration(self)
