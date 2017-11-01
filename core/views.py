@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
@@ -10,8 +9,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 from .models import Child, DiaperChange, Feeding, Note, Sleep, Timer, TummyTime
-from .forms import (ChildForm, DiaperChangeForm, FeedingForm, SleepForm,
-                    TimerForm, TummyTimeForm)
+from .forms import (ChildForm, ChildDeleteForm, DiaperChangeForm, FeedingForm,
+                    SleepForm, TimerForm, TummyTimeForm)
 
 
 class ChildList(PermissionRequiredMixin, ListView):
@@ -39,16 +38,12 @@ class ChildUpdate(PermissionRequiredMixin, UpdateView):
     success_url = '/children'
 
 
-class ChildDelete(PermissionRequiredMixin, DeleteView):
+class ChildDelete(PermissionRequiredMixin, UpdateView):
     model = Child
+    form_class = ChildDeleteForm
+    template_name = 'core/child_confirm_delete.html'
     permission_required = ('core.delete_child',)
     success_url = '/children'
-
-    def post(self, request, *args, **kwargs):
-        if str(self.get_object()) != self.request.POST.get('confirm_name'):
-            # TODO: Provide some error feedback.
-            return HttpResponseRedirect(self.request.path)
-        return self.delete(request, *args, **kwargs)
 
 
 class DiaperChangeList(PermissionRequiredMixin, ListView):

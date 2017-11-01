@@ -49,6 +49,25 @@ class ChildForm(forms.ModelForm):
         }
 
 
+class ChildDeleteForm(forms.ModelForm):
+    confirm_name = forms.CharField(max_length=511)
+
+    class Meta:
+        model = Child
+        fields = []
+
+    def clean_confirm_name(self):
+        confirm_name = self.cleaned_data['confirm_name']
+        if confirm_name != str(self.instance):
+            raise forms.ValidationError('Name does not match child name.')
+        return confirm_name
+
+    def save(self, commit=True):
+        instance = self.instance
+        self.instance.delete()
+        return instance
+
+
 class DiaperChangeForm(forms.ModelForm):
     class Meta:
         model = DiaperChange
