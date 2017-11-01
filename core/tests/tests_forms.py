@@ -71,6 +71,12 @@ class FormsTestCase(TestCase):
         page = self.c.post('/feedings/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
+        params['start'] = '2001-01-01 1:01'
+        page = self.c.post('/feedings/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', None,
+                             'Start time must come before end time')
+
     def test_sleeping_forms(self):
         params = {
             'child': 1,
@@ -86,6 +92,12 @@ class FormsTestCase(TestCase):
         entry = models.Sleep.objects.first()
         page = self.c.post('/sleep/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
+
+        params['start'] = '2001-01-01 1:01'
+        page = self.c.post('/sleep/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', None,
+                             'Start time must come before end time')
 
     def test_timer_forms(self):
         timer = models.Timer.objects.create(user=self.user)
@@ -126,3 +138,9 @@ class FormsTestCase(TestCase):
         entry = models.TummyTime.objects.first()
         page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
+
+        params['start'] = '2001-01-01 1:01'
+        page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', None,
+                             'Start time must come before end time')
