@@ -6,15 +6,17 @@ from django.urls import reverse
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic.list import ListView
+
+from django_filters.views import FilterView
 
 from .models import Child, DiaperChange, Feeding, Note, Sleep, Timer, TummyTime
 from .forms import (ChildForm, ChildDeleteForm, DiaperChangeForm, FeedingForm,
                     SleepForm, TimerForm, TummyTimeForm)
 
 
-class ChildList(PermissionRequiredMixin, ListView):
+class ChildList(PermissionRequiredMixin, FilterView):
     model = Child
+    template_name = 'core/child_list.html'
     permission_required = ('core.view_child',)
     paginate_by = 10
 
@@ -46,8 +48,9 @@ class ChildDelete(PermissionRequiredMixin, UpdateView):
     success_url = '/children'
 
 
-class DiaperChangeList(PermissionRequiredMixin, ListView):
+class DiaperChangeList(PermissionRequiredMixin, FilterView):
     model = DiaperChange
+    template_name = 'core/diaperchange_list.html'
     permission_required = ('core.view_diaperchange',)
     paginate_by = 10
 
@@ -72,8 +75,9 @@ class DiaperChangeDelete(PermissionRequiredMixin, DeleteView):
     success_url = '/changes'
 
 
-class FeedingList(PermissionRequiredMixin, ListView):
+class FeedingList(PermissionRequiredMixin, FilterView):
     model = Feeding
+    template_name = 'core/feeding_list.html'
     permission_required = ('core.view_feeding',)
     paginate_by = 10
 
@@ -104,8 +108,9 @@ class FeedingDelete(PermissionRequiredMixin, DeleteView):
     success_url = '/feedings'
 
 
-class NoteList(PermissionRequiredMixin, ListView):
+class NoteList(PermissionRequiredMixin, FilterView):
     model = Note
+    template_name = 'core/note_list.html'
     permission_required = ('core.view_note',)
     paginate_by = 10
 
@@ -130,8 +135,9 @@ class NoteDelete(PermissionRequiredMixin, DeleteView):
     success_url = '/notes'
 
 
-class SleepList(PermissionRequiredMixin, ListView):
+class SleepList(PermissionRequiredMixin, FilterView):
     model = Sleep
+    template_name = 'core/sleep_list.html'
     permission_required = ('core.view_sleep',)
     paginate_by = 10
 
@@ -162,8 +168,9 @@ class SleepDelete(PermissionRequiredMixin, DeleteView):
     success_url = '/sleep'
 
 
-class TimerList(PermissionRequiredMixin, ListView):
+class TimerList(PermissionRequiredMixin, FilterView):
     model = Timer
+    template_name = 'core/timer_list.html'
     permission_required = ('core.view_timer',)
     paginate_by = 10
 
@@ -242,8 +249,9 @@ class TimerDelete(PermissionRequiredMixin, DeleteView):
     success_url = '/'
 
 
-class TummyTimeList(PermissionRequiredMixin, ListView):
+class TummyTimeList(PermissionRequiredMixin, FilterView):
     model = TummyTime
+    template_name = 'core/tummytime_list.html'
     permission_required = ('core.view_tummytime',)
     paginate_by = 10
 
