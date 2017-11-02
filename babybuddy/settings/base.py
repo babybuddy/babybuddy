@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'dashboard',
     'reports',
 
+    'django_filters',
     'rest_framework',
     'widget_tweaks',
 
@@ -130,12 +131,15 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
 # http://www.django-rest-framework.org/#
 
 REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'api.permissions.BabyBuddyDjangoModelPermissions'
     ],
-    'DEFAULT_RENDERER_CLASSES': (
+    'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-    ),
+    ],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100
