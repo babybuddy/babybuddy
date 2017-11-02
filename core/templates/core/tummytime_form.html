@@ -30,12 +30,12 @@
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker_start').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss',
+                format: '{{ MOMENTJS_FORMAT }}',
                 useCurrent: false
             });
             $('#datetimepicker_end').datetimepicker({
                 defaultDate: 'now',
-                format: 'YYYY-MM-DD HH:mm:ss'
+                format: '{{ MOMENTJS_FORMAT }}'
             });
         });
     </script>
