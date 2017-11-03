@@ -9,6 +9,7 @@
 
 {% block content %}
     <h1>Timers</h1>
+    {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
@@ -38,7 +39,6 @@
             {% endfor %}
             </tbody>
         </table>
-
-        {% include 'babybuddy/paginator.html' %}
     </div>
+    {% include 'babybuddy/paginator.html' %}
 {% endblock %}

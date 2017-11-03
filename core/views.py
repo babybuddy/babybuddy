@@ -19,6 +19,7 @@ class ChildList(PermissionRequiredMixin, FilterView):
     template_name = 'core/child_list.html'
     permission_required = ('core.view_child',)
     paginate_by = 10
+    filter_fields = ('first_name', 'last_name')
 
 
 class ChildAdd(PermissionRequiredMixin, CreateView):
@@ -53,6 +54,7 @@ class DiaperChangeList(PermissionRequiredMixin, FilterView):
     template_name = 'core/diaperchange_list.html'
     permission_required = ('core.view_diaperchange',)
     paginate_by = 10
+    filter_fields = ('child', 'wet', 'solid', 'color')
 
 
 class DiaperChangeAdd(PermissionRequiredMixin, CreateView):
@@ -80,6 +82,7 @@ class FeedingList(PermissionRequiredMixin, FilterView):
     template_name = 'core/feeding_list.html'
     permission_required = ('core.view_feeding',)
     paginate_by = 10
+    filter_fields = ('child', 'type', 'method')
 
 
 class FeedingAdd(PermissionRequiredMixin, CreateView):
@@ -113,6 +116,7 @@ class NoteList(PermissionRequiredMixin, FilterView):
     template_name = 'core/note_list.html'
     permission_required = ('core.view_note',)
     paginate_by = 10
+    filter_fields = ('child',)
 
 
 class NoteAdd(PermissionRequiredMixin, CreateView):
@@ -140,6 +144,7 @@ class SleepList(PermissionRequiredMixin, FilterView):
     template_name = 'core/sleep_list.html'
     permission_required = ('core.view_sleep',)
     paginate_by = 10
+    filter_fields = ('child',)
 
 
 class SleepAdd(PermissionRequiredMixin, CreateView):
@@ -173,6 +178,7 @@ class TimerList(PermissionRequiredMixin, FilterView):
     template_name = 'core/timer_list.html'
     permission_required = ('core.view_timer',)
     paginate_by = 10
+    filter_fields = ('active', 'user')
 
 
 class TimerDetail(PermissionRequiredMixin, DetailView):
@@ -254,6 +260,7 @@ class TummyTimeList(PermissionRequiredMixin, FilterView):
     template_name = 'core/tummytime_list.html'
     permission_required = ('core.view_tummytime',)
     paginate_by = 10
+    filter_fields = ('child',)
 
 
 class TummyTimeAdd(PermissionRequiredMixin, CreateView):
