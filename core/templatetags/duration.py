@@ -11,7 +11,13 @@ register = template.Library()
 
 @register.filter
 def duration_string(duration, precision='s'):
-    """Format a duration (e.g. "2 hours, 3 minutes, 35 seconds")."""
+    """
+    Format a duration (e.g. "2 hours, 3 minutes, 35 seconds").
+    :param duration: a timedetla instance.
+    :param precision: the level of precision to return (h for hours, m for
+                      minutes, s for seconds)
+    :returns: a string representation of the duration.
+    """
     if not duration:
         return ''
     try:
@@ -22,7 +28,11 @@ def duration_string(duration, precision='s'):
 
 @register.filter
 def hours(duration):
-    """Return "hours" portion of a duration."""
+    """
+    Return the "hours" portion of a duration.
+    :param duration: a timedetla instance.
+    :returns: an integer representing the number of hours in duration.
+    """
     if not duration:
         return 0
     try:
@@ -34,7 +44,11 @@ def hours(duration):
 
 @register.filter
 def minutes(duration):
-    """Return "minutes" portion of a duration."""
+    """
+    Return the "minutes" portion of a duration.
+    :param duration: a timedetla instance.
+    :returns: an integer representing the number of minutes in duration.
+    """
     if not duration:
         return 0
     try:
@@ -46,7 +60,11 @@ def minutes(duration):
 
 @register.filter
 def seconds(duration):
-    """Return "seconds" portion of a duration."""
+    """
+    Return the "seconds" portion of a duration.
+    :param duration: a timedetla instance.
+    :returns: an integer representing the number of seconds in duration.
+    """
     if not duration:
         return 0
     try:

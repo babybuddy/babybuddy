@@ -7,7 +7,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
-from django.utils.timesince import timesince
 
 
 def validate_duration(model, max_duration=timedelta(hours=24)):

@@ -196,4 +196,3 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', 'end',
                              'Date/time can not be in the future.')
-
