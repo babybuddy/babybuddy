@@ -174,6 +174,12 @@ class Note(models.Model):
         return 'Note'
 
 
+class NapsManager(models.Manager):
+    def get_queryset(self):
+        qs = super(NapsManager, self).get_queryset()
+        return qs.filter(id__in=[obj.id for obj in qs if obj.nap])
+
+
 class Sleep(models.Model):
     model_name = 'sleep'
     child = models.ForeignKey('Child', related_name='sleep')
@@ -182,6 +188,7 @@ class Sleep(models.Model):
     duration = models.DurationField(null=True, editable=False)
 
     objects = models.Manager()
+    naps = NapsManager()
 
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
@@ -191,8 +198,8 @@ class Sleep(models.Model):
     def __str__(self):
         return 'Sleep'
 
+    @property
     def nap(self):
-        # TODO: Add a way to filter naps from Sleep.objects() easily.
         nap_start_min = timezone.datetime.strptime(
             settings.BABY_BUDDY['NAP_START_MIN'], '%H:%M').time()
         nap_start_max = timezone.datetime.strptime(
