@@ -2,18 +2,16 @@
 
 <form role="form" action="" method="get">
     <div class="form-group form-row">
-    {% for field in filter.form %}
-        <label for="id_{{ field.name }}" class="col-xs-2 col-sm-auto col-form-label col-form-label-sm">
-            {{ field.label }}
-        </label>
-        <div class="col-xs-10 col-sm-auto">
-            {{ field|add_class:"form-control form-control-sm" }}
-        </div>
-    {% endfor %}
-        <div class="col-xs-12 col-sm-auto">
-            <button type="submit" class="btn btn-sm btn-primary">Filter</button>
-        </div>
-        <div class="col-xs-12 col-sm-auto">
+        {% for field in filter.form %}
+            <label for="id_{{ field.name }}" class="col-xs-2 col-sm-auto col-form-label col-form-label-sm">
+                {{ field.label }}
+            </label>
+            <div class="col-xs-10 col-sm-auto">
+                {{ field|add_class:"form-control form-control-sm" }}
+            </div>
+        {% endfor %}
+        <div class="col-xs-12 col-sm-auto mt-3 mt-sm-0">
+            <button type="submit" class="btn btn-sm btn-primary mr-2">Filter</button>
             <a href="{{ request.path }}" class="btn btn-sm btn-dark">Reset</a>
         </div>
     </div>
