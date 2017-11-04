@@ -39,7 +39,7 @@ class NoteAdmin(admin.ModelAdmin):
 
 @admin.register(Sleep)
 class SleepAdmin(admin.ModelAdmin):
-    list_display = ('start', 'end', 'duration', 'child',)
+    list_display = ('start', 'end', 'duration', 'child', 'nap')
     list_filter = ('child',)
     search_fields = ('child__first_name', 'child__last_name',)
 

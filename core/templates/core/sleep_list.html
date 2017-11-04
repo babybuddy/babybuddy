@@ -1,6 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
-{% load duration %}
+{% load bootstrap duration widget_tweaks %}
 
 {% block title %}Sleep{% endblock %}
 
@@ -19,6 +18,7 @@
                     <th>Duration</th>
                     <th>Start</th>
                     <th>End</th>
+                    <th class="text-center">Nap</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -29,6 +29,7 @@
                         <td>{{ sleep.duration|duration_string }}</td>
                         <td>{{ sleep.start|date:'n/j/y G:i' }}</td>
                         <td>{{ sleep.end|date:'n/j/y G:i' }}</td>
+                        <td class="text-center">{{ sleep.nap|bool_icon }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 

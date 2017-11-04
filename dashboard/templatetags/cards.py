@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django import template
+from django.conf import settings
 from django.db.models import Sum
 from django.utils import timezone
 
@@ -196,17 +197,28 @@ def card_sleep_naps_day(child, date=None):
     specific date.
     :param child: an instance of the Child model.
     :param date: a Date object for the day to filter.
-    :returns: a dictionary of nap data statistics.
+    :returns: a dictionary of nap data statistics and the nap bounds.
     """
+    nap_start_min = timezone.datetime.strptime(
+        settings.BABY_BUDDY['NAP_START_MIN'], '%H:%M').time()
+    nap_start_max = timezone.datetime.strptime(
+        settings.BABY_BUDDY['NAP_START_MAX'], '%H:%M').time()
+
     local = timezone.localtime(date)
     start_lower = local.replace(
-        hour=7, minute=0, second=0).astimezone(timezone.utc)
+        hour=nap_start_min.hour,
+        minute=nap_start_min.minute,
+        second=0).astimezone(timezone.utc)
     start_upper = local.replace(
-        hour=19, minute=0, second=0).astimezone(timezone.utc)
+        hour=nap_start_max.hour,
+        minute=nap_start_max.minute,
+        second=0).astimezone(timezone.utc)
     instances = Sleep.objects.filter(child=child) \
         .filter(start__gte=start_lower, start__lte=start_upper)
     return {
         'type': 'sleep',
+        'min_time': nap_start_min,
+        'max_time': nap_start_max,
         'total': instances.aggregate(Sum('duration')),
         'count': len(instances)}
 

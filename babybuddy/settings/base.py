@@ -144,3 +144,12 @@ REST_FRAMEWORK = {
         'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100
 }
+
+# Baby Buddy configuration
+
+BABY_BUDDY = {
+    # A sleep entry with a start time between NAP_START_MIN and NAP_START_MAX
+    # (in the current TZ) will be categorized as a nap. Use the format %H:%M.
+    'NAP_START_MIN': '06:00',
+    'NAP_START_MAX': '18:00'
+}

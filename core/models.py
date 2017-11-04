@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from datetime import timedelta
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -189,6 +190,15 @@ class Sleep(models.Model):
 
     def __str__(self):
         return 'Sleep'
+
+    def nap(self):
+        # TODO: Add a way to filter naps from Sleep.objects() easily.
+        nap_start_min = timezone.datetime.strptime(
+            settings.BABY_BUDDY['NAP_START_MIN'], '%H:%M').time()
+        nap_start_max = timezone.datetime.strptime(
+            settings.BABY_BUDDY['NAP_START_MAX'], '%H:%M').time()
+        local_start_time = timezone.localtime(self.start).time()
+        return nap_start_min <= local_start_time <= nap_start_max
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
