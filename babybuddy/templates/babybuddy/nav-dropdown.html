@@ -28,6 +28,11 @@
                             <i class="icon icon-feeding" aria-hidden="true"></i> Feeding
                         </a>
                     {% endif %}
+                    {% if perms.core.add_note %}
+                        <a class="dropdown-item p-2" href="{% url 'note-add' %}">
+                            <i class="icon icon-note" aria-hidden="true"></i> Note
+                        </a>
+                    {% endif %}
                     {% if perms.core.add_sleep %}
                         <a class="dropdown-item p-2" href="{% url 'sleep-add' %}">
                             <i class="icon icon-sleep" aria-hidden="true"></i> Sleep
