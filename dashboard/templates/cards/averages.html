@@ -8,6 +8,22 @@
     <div class="card-body">
         <div class="container">
             <div class="row no-gutters text-center">
+                <div class="col-md-6 col-sm-3">
+                    <div class="text-muted">Nap time</div>
+                    {% if naps.average %}
+                        {{ naps.average|duration_string:'m' }}
+                    {% else %}
+                        <em>Not enough data</em>
+                    {% endif %}
+                </div>
+            <div class="col-md-6 col-sm-3">
+                    <div class="text-muted">Naps/day</div>
+                    {% if naps.avg_per_day %}
+                        {{ naps.avg_per_day|floatformat }}
+                    {% else %}
+                        <em>Not enough data</em>
+                    {% endif %}
+                </div>
                 <div class="col-md-6 col-sm-3 col-xs-12">
                     <div class="text-muted">Sleep time</div>
                     {% if sleep.average %}
