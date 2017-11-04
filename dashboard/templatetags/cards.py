@@ -13,7 +13,10 @@ register = template.Library()
 
 @register.inclusion_tag('cards/averages.html')
 def card_averages(child):
-    """Averages data for all models.
+    """
+    Averages data for all models.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of Diaper Change, Feeding and Sleep averages data.
     """
     instances = Sleep.objects.filter(child=child).order_by('start')
     sleep = {
@@ -71,7 +74,10 @@ def card_averages(child):
 
 @register.inclusion_tag('cards/diaperchange_last.html')
 def card_diaperchange_last(child):
-    """Information about the most recent diaper change.
+    """
+    Information about the most recent diaper change.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Diaper Change instance.
     """
     instance = DiaperChange.objects.filter(
         child=child).order_by('-time').first()
@@ -80,7 +86,11 @@ def card_diaperchange_last(child):
 
 @register.inclusion_tag('cards/diaperchange_types.html')
 def card_diaperchange_types(child):
-    """Diaper change statistics for the last seven days including today.
+    """
+    Creates a break down of wet and solid Diaper Change instances for the past
+    seven days.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the wet/dry statistics.
     """
     stats = {}
     max_date = (timezone.localtime() + timezone.timedelta(
@@ -106,15 +116,15 @@ def card_diaperchange_types(child):
             stats[key]['wet_pct'] = info['wet'] / total * 100
             stats[key]['solid_pct'] = info['solid'] / total * 100
 
-    return {
-        'type': 'diaperchange',
-        'stats': stats,
-        'last_change': instances.first()}
+    return {'type': 'diaperchange', 'stats': stats}
 
 
 @register.inclusion_tag('cards/feeding_last.html')
 def card_feeding_last(child):
-    """Information about the most recent feeding.
+    """
+    Information about the most recent feeding.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Feeding instance.
     """
     instance = Feeding.objects.filter(child=child).order_by('-end').first()
     return {'type': 'feeding', 'feeding': instance}
@@ -122,7 +132,10 @@ def card_feeding_last(child):
 
 @register.inclusion_tag('cards/feeding_last_method.html')
 def card_feeding_last_method(child):
-    """Information about the most recent feeding _method_.
+    """
+    Information about the most recent feeding method.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Feeding instance.
     """
     instance = Feeding.objects.filter(child=child).order_by('-end').first()
     return {'type': 'feeding', 'feeding': instance}
@@ -130,7 +143,10 @@ def card_feeding_last_method(child):
 
 @register.inclusion_tag('cards/sleep_last.html')
 def card_sleep_last(child):
-    """Information about the most recent sleep entry.
+    """
+    Information about the most recent sleep entry.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Sleep instance.
     """
     instance = Sleep.objects.filter(child=child).order_by('-end').first()
     return {'type': 'sleep', 'sleep': instance}
@@ -138,7 +154,11 @@ def card_sleep_last(child):
 
 @register.inclusion_tag('cards/sleep_day.html')
 def card_sleep_day(child, date=None):
-    """Total sleep time for a child on the current day.
+    """
+    Filters Sleep instances to get count and total values for a specific date.
+    :param child: an instance of the Child model.
+    :param date: a Date object for the day to filter.
+    :returns: a dictionary with count and total values for the Sleep instances.
     """
     if not date:
         date = timezone.localtime().date()
@@ -171,7 +191,12 @@ def card_sleep_day(child, date=None):
 
 @register.inclusion_tag('cards/sleep_naps_day.html')
 def card_sleep_naps_day(child, date=None):
-    """Nap information for the current day.
+    """
+    Filters Sleep instances categorized as naps and generates statistics for a
+    specific date.
+    :param child: an instance of the Child model.
+    :param date: a Date object for the day to filter.
+    :returns: a dictionary of nap data statistics.
     """
     local = timezone.localtime(date)
     start_lower = local.replace(
@@ -188,7 +213,9 @@ def card_sleep_naps_day(child, date=None):
 
 @register.inclusion_tag('cards/timer_list.html')
 def card_timer_list():
-    """Information about currently active timers.
+    """
+    Filters for currently active Timer instances.
+    :returns: a dictionary with a list of active Timer instances.
     """
     instances = Timer.objects.filter(active=True).order_by('-start')
     return {'type': 'timer', 'instances': list(instances)}
@@ -196,7 +223,10 @@ def card_timer_list():
 
 @register.inclusion_tag('cards/tummytime_last.html')
 def card_tummytime_last(child):
-    """Information about the most recent tummy time.
+    """
+    Filters the most recent tummy time.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Tummy Time instance.
     """
     instance = TummyTime.objects.filter(child=child).order_by('-end').first()
     return {'type': 'tummytime', 'tummytime': instance}
@@ -204,7 +234,11 @@ def card_tummytime_last(child):
 
 @register.inclusion_tag('cards/tummytime_day.html')
 def card_tummytime_day(child, date=None):
-    """Tummy time over the course of `date`.
+    """
+    Filters Tummy Time instances and generates statistics for a specific date.
+    :param child: an instance of the Child model.
+    :param date: a Date object for the day to filter.
+    :returns: a dictionary of all Tummy Time instances and stats for date.
     """
     if not date:
         date = timezone.localtime().date()
