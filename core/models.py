@@ -29,6 +29,19 @@ def validate_duration(model, max_duration=timedelta(hours=24)):
                 code='max_duration')
 
 
+def validate_time(time, field_name):
+    """
+    Confirm that a time is not in the future.
+    :param time: a timezone aware datetime instance.
+    :param field_name: the name of the field being checked.
+    :return:
+    """
+    if time > timezone.localtime():
+        raise ValidationError(
+            {field_name: 'Times can not be in the future.'},
+            code='time_invalid')
+
+
 class Child(models.Model):
     model_name = 'child'
     first_name = models.CharField(max_length=255)
@@ -90,6 +103,8 @@ class DiaperChange(models.Model):
         return attributes
 
     def clean(self):
+        validate_time(self.time, 'time')
+
         # One or both of Wet and Solid is required.
         if not self.wet and not self.solid:
             raise ValidationError(
@@ -134,6 +149,8 @@ class Feeding(models.Model):
         super(Feeding, self).save(*args, **kwargs)
 
     def clean(self):
+        validate_time(self.start, 'start')
+        validate_time(self.end, 'end')
         validate_duration(self)
 
         # "Formula" Type may only be associated with "Bottle" Method.
@@ -183,6 +200,8 @@ class Sleep(models.Model):
         super(Sleep, self).save(*args, **kwargs)
 
     def clean(self):
+        validate_time(self.start, 'start')
+        validate_time(self.end, 'end')
         validate_duration(self)
 
 
@@ -240,6 +259,9 @@ class Timer(models.Model):
         super(Timer, self).save(*args, **kwargs)
 
     def clean(self):
+        validate_time(self.start, 'start')
+        if self.end:
+            validate_time(self.end, 'end')
         validate_duration(self)
 
 
@@ -266,4 +288,6 @@ class TummyTime(models.Model):
         super(TummyTime, self).save(*args, **kwargs)
 
     def clean(self):
+        validate_time(self.start, 'start')
+        validate_time(self.end, 'end')
         validate_duration(self)
