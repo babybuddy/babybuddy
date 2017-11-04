@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 
 
 def default_graph_layout_options():
-    """Default layout options for all graphs.
+    """
+    Default layout options for all graphs.
+    :returns: a dict of default options.
     """
     return {
         'paper_bgcolor': 'rgb(52, 58, 64)',
@@ -36,7 +38,9 @@ def default_graph_layout_options():
 
 
 def rangeselector_date():
-    """Graph date range selectors settings for 1w, 2w, 1m, 3m, and all.
+    """
+    Graph date range selectors settings for 1w, 2w, 1m, 3m, and all.
+    :returns: a dict of settings for the selectors.
     """
     return {
         'bgcolor': 'rgb(35, 149, 86)',
@@ -74,7 +78,10 @@ def rangeselector_date():
 
 
 def split_graph_output(output):
-    """Split out of a Plotly graph in to html and javascript.
+    """
+    Split out of a Plotly graph in to html and javascript.
+    :param output: a string of html and javascript comprising the graph.
+    :returns: a tuple of the the graph's html and javascript.
     """
     html, javascript = output.split('<script')
     javascript = '<script' + javascript
