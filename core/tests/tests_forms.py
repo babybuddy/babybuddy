@@ -100,13 +100,6 @@ class FormsTestCase(TestCase):
         page = self.c.post('/feedings/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
-        params['start'] = '2001-01-01 1:01'
-        page = self.c.post('/feedings/{}/'.format(entry.id), params)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, 'form', None,
-                             'Start time must come before end time.')
-
-        params['start'] = '2000-01-01 1:01'
         params['method'] = 'left breast'
         page = self.c.post('/feedings/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 200)
@@ -130,19 +123,14 @@ class FormsTestCase(TestCase):
         page = self.c.post('/sleep/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
-        params['start'] = '2001-01-01 1:01'
-        page = self.c.post('/sleep/{}/'.format(entry.id), params)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, 'form', None,
-                             'Start time must come before end time.')
-
     def test_timer_forms(self):
-        timer = models.Timer.objects.create(user=self.user)
+        start_time = timezone.localtime()
+        timer = models.Timer.objects.create(user=self.user, start=start_time)
         timer.save()
 
         params = {
             'name': 'New',
-            'start': timer.start.strftime('%Y-%m-%d %H:%M:%S')
+            'start': start_time.strftime('%Y-%m-%d %H:%M:%S')
         }
         page = self.c.post('/timer/{}/edit/'.format(timer.id), params)
         self.assertEqual(page.status_code, 302)
@@ -157,6 +145,13 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 302)
         timer.refresh_from_db()
         self.assertEqual(timer.start, start_time)
+
+        # Test changing a stopped timer
+        timer.end = timer.start + timezone.timedelta(hours=1)
+        timer.save()
+        params['name'] = 'New timer name'
+        page = self.c.post('/timer/{}/edit/'.format(timer.id), params)
+        self.assertEqual(page.status_code, 302)
 
     def test_tummytime_forms(self):
         params = {
@@ -176,8 +171,29 @@ class FormsTestCase(TestCase):
         page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
-        params['start'] = '2001-01-01 1:01'
+    def test_validators(self):
+        params = {
+            'child': 1,
+            'start': '2001-01-01 1:01',
+            'end': '2000-01-01 1:11',
+            'milestone': ''
+        }
+        entry = models.TummyTime.objects.first()
+
         page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', None,
                              'Start time must come before end time.')
+
+        params['start'] = '1999-01-01 1:11'
+        page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', None, 'Duration too long.')
+
+        tomorrow = (timezone.localtime() + timezone.timedelta(days=1))
+        params['end'] = tomorrow.strftime('%Y-%m-%d %H:%M:%S')
+        page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', 'end',
+                             'Date/time can not be in the future.')
+

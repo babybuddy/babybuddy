@@ -23,10 +23,7 @@ def validate_duration(model, max_duration=timedelta(hours=24)):
                 'Start time must come before end time.',
                 code='end_before_start')
         if model.end - model.start > max_duration:
-            raise ValidationError(
-                'Duration too long (%(timesince)s).',
-                params={'timesince': timesince(model.start, model.end)},
-                code='max_duration')
+            raise ValidationError('Duration too long.', code='max_duration')
 
 
 def validate_time(time, field_name):
@@ -38,7 +35,7 @@ def validate_time(time, field_name):
     """
     if time > timezone.localtime():
         raise ValidationError(
-            {field_name: 'Times can not be in the future.'},
+            {field_name: 'Date/time can not be in the future.'},
             code='time_invalid')
 
 
