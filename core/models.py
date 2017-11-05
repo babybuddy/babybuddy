@@ -322,4 +322,5 @@ class TummyTime(models.Model):
         validate_time(self.start, 'start')
         validate_time(self.end, 'end')
         validate_duration(self)
-        validate_unique_period(TummyTime.objects.filter(child=self.child), self)
+        validate_unique_period(
+            TummyTime.objects.filter(child=self.child), self)
