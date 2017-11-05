@@ -97,6 +97,9 @@ class FormsTestCase(TestCase):
         page = self.c.post('/feedings/add/?timer={}'.format(timer.id), params)
         self.assertEqual(page.status_code, 302)
 
+        # Change start and end to prevent intersection validation errors.
+        params['start'] = '2000-01-01 2:01'
+        params['end'] = '2000-01-01 2:31'
         page = self.c.post('/feedings/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
@@ -107,7 +110,7 @@ class FormsTestCase(TestCase):
             page, 'form', 'method',
             'Only "Bottle" method is allowed with "Formula" type.')
 
-    def test_sleeping_forms(self):
+    def test_sleep_forms(self):
         params = {
             'child': 1,
             'start': '2000-01-01 1:01',
@@ -119,6 +122,9 @@ class FormsTestCase(TestCase):
         page = self.c.post('/sleep/add/?timer={}'.format(timer.id), params)
         self.assertEqual(page.status_code, 302)
 
+        # Change start and end to prevent intersection validation errors.
+        params['start'] = '2000-01-01 4:01'
+        params['end'] = '2000-01-01 6:01'
         entry = models.Sleep.objects.first()
         page = self.c.post('/sleep/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
@@ -167,11 +173,14 @@ class FormsTestCase(TestCase):
             '/tummy-time/add/?timer={}'.format(timer.id), params)
         self.assertEqual(page.status_code, 302)
 
+        # Change start and end to prevent intersection validation errors.
+        params['start'] = '2000-01-01 2:01'
+        params['end'] = '2000-01-01 2:11'
         entry = models.TummyTime.objects.first()
         page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
-    def test_validators(self):
+    def test_validate_duration(self):
         params = {
             'child': 1,
             'start': '2001-01-01 1:01',
@@ -190,9 +199,43 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', None, 'Duration too long.')
 
-        tomorrow = (timezone.localtime() + timezone.timedelta(days=1))
-        params['end'] = tomorrow.strftime('%Y-%m-%d %H:%M:%S')
+    def test_validate_time(self):
+        future = (timezone.localtime() + timezone.timedelta(hours=1))
+        params = {
+            'child': 1,
+            'start': timezone.localtime().strftime('%Y-%m-%d %H:%M:%S'),
+            'end': future.strftime('%Y-%m-%d %H:%M:%S'),
+            'milestone': ''
+        }
+        entry = models.TummyTime.objects.first()
+
         page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', 'end',
                              'Date/time can not be in the future.')
+
+    def test_validate_unique_period(self):
+        entry = models.TummyTime.objects.first()
+        base_time = timezone.localtime()
+        new_entry = models.TummyTime.objects.create(
+            child=entry.child,
+            start=base_time - timezone.timedelta(minutes=45),
+            end=base_time - timezone.timedelta(minutes=15),
+        )
+        new_entry.save()
+
+        params = {
+            'child': 1,
+            'start': (base_time - timezone.timedelta(minutes=35)).strftime(
+                '%Y-%m-%d %H:%M'),
+            'end': (base_time - timezone.timedelta(minutes=5)).strftime(
+                '%Y-%m-%d %H:%M'),
+            'milestone': ''
+        }
+        page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(
+            page,
+            'form',
+            None,
+            'Another entry already exists within the specified time period.')

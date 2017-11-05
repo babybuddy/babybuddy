@@ -26,6 +26,22 @@ def validate_duration(model, max_duration=timedelta(hours=24)):
             raise ValidationError('Duration too long.', code='max_duration')
 
 
+def validate_unique_period(queryset, model):
+    """
+    Confirm that model's start and end date do not intersect with other
+    instances.
+    :param queryset: a queryset of instances to check against.
+    :param model: a model instance with 'start' and 'end' attributes
+    :return:
+    """
+    if model.id:
+        queryset = queryset.exclude(id=model.id)
+    if queryset.filter(start__lte=model.end, end__gte=model.start):
+        raise ValidationError(
+            'Another entry already exists within the specified time period.',
+            code='period_intersection')
+
+
 def validate_time(time, field_name):
     """
     Confirm that a time is not in the future.
@@ -149,6 +165,7 @@ class Feeding(models.Model):
         validate_time(self.start, 'start')
         validate_time(self.end, 'end')
         validate_duration(self)
+        validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
         # "Formula" Type may only be associated with "Bottle" Method.
         if self.type == 'formula'and self.method != 'bottle':
@@ -216,6 +233,7 @@ class Sleep(models.Model):
         validate_time(self.start, 'start')
         validate_time(self.end, 'end')
         validate_duration(self)
+        validate_unique_period(Sleep.objects.filter(child=self.child), self)
 
 
 class Timer(models.Model):
@@ -304,3 +322,4 @@ class TummyTime(models.Model):
         validate_time(self.start, 'start')
         validate_time(self.end, 'end')
         validate_duration(self)
+        validate_unique_period(TummyTime.objects.filter(child=self.child), self)
