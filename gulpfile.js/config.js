@@ -15,6 +15,10 @@ module.exports = {
             dest: basePath + 'fonts/',
             files: 'node_modules/font-awesome/fonts/*'
         },
+        images: {
+            dest: basePath + 'img/',
+            files: '**/static_src/img/**/*'
+        },
         root: {
             dest: basePath + 'root/',
             files: 'babybuddy/static_src/root/*'

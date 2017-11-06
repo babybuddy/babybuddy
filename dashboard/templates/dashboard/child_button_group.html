@@ -1,0 +1,37 @@
+<div class="child-actions btn-group btn-group-lg center-block" role="group" aria-label="Child actions">
+
+    {% if perms.core.view_child %}
+        <a href="{% url 'dashboard-child' object.slug %}" class="btn btn-success">
+            <i class="icon icon-dashboard" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+
+    <div class="btn-group" role="group">
+        <button id="reports-dropdown"
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"><i class="icon icon-graph" aria-hidden="true"></i></button>
+        <div class="dropdown-menu" aria-labelledby="reports-dropdown">
+            <a class="dropdown-item" href="{% url 'reports:report-diaperchange-types-child' object.slug %}">Diaper Change Types</a>
+            <a class="dropdown-item" href="{% url 'reports:report-diaperchange-lifetimes-child' object.slug %}">Diaper Lifetimes</a>
+            <a class="dropdown-item" href="{% url 'reports:report-sleep-pattern-child' object.slug %}">Sleep Pattern</a>
+            <a class="dropdown-item" href="{% url 'reports:report-sleep-totals-child' object.slug %}">Sleep Totals</a>
+            <a class="dropdown-item" href="{% url 'reports:report-timeline-child' object.slug %}">Timeline</a>
+        </div>
+    </div>
+
+    {% if perms.core.change_child %}
+        <a class="btn btn-warning"
+           href="{% url 'child-update' object.slug %}"
+           role="button"><i class="icon icon-update" aria-hidden="true"></i></a>
+    {% endif %}
+
+    {% if perms.core.delete_child %}
+        <a class="btn btn-danger"
+           href="{% url 'child-delete' object.slug %}"
+           role="button"><i class="icon icon-delete" aria-hidden="true"></i></a>
+    {% endif %}
+
+</div>

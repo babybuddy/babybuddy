@@ -31,17 +31,20 @@ class ViewsTestCase(TestCase):
         cls.c.login(**cls.credentials)
 
     def test_dashboard_views(self):
-        page = self.c.get('/dashboard/')
-        self.assertEqual(page.status_code, 200)
-
-        """ Dashboard handles the root URL and redirects based on zero, one, or
+        """Dashboard handles the root URL and redirects based on zero, one, or
         more than one child is in the database."""
         page = self.c.get('/')
+        self.assertEqual(page.url, '/dashboard/')
+        page = self.c.get('/dashboard/')
         self.assertEqual(page.url, '/children/add/')
 
-        call_command('fake', verbosity=0, children=1)
+        call_command('fake', verbosity=0, children=1, days=1)
         child = Child.objects.first()
-        page = self.c.get('/')
+        page = self.c.get('/dashboard/')
+        self.assertEqual(
+            page.url, '/children/{}/dashboard/'.format(child.slug))
+
+        page = self.c.get('/dashboard/')
         self.assertEqual(
             page.url, '/children/{}/dashboard/'.format(child.slug))
         # Test the actual child dashboard (including cards).
@@ -54,5 +57,5 @@ class ViewsTestCase(TestCase):
             last_name='Child',
             birth_date='2000-01-01'
         )
-        page = self.c.get('/')
-        self.assertEqual(page.url, '/dashboard/')
+        page = self.c.get('/dashboard/')
+        self.assertEqual(page.status_code, 200)
