@@ -3,12 +3,11 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.detail import DetailView
-from django.utils import timezone
 
 from core.models import Child, DiaperChange, Sleep
 
 from .graphs import (diaperchange_types, diaperchange_lifetimes, sleep_pattern,
-                     sleep_totals, timeline)
+                     sleep_totals)
 
 
 class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
@@ -88,23 +87,4 @@ class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
         instances = Sleep.objects.filter(child=child).order_by('start')
         if instances:
             context['html'], context['javascript'] = sleep_totals(instances)
-        return context
-
-
-class TimelineChildReport(PermissionRequiredMixin, DetailView):
-    """Chronological daily view of events (non-graph).
-    """
-    model = Child
-    permission_required = ('core.view_child',)
-    template_name = 'reports/timeline.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(TimelineChildReport, self).get_context_data(**kwargs)
-        date = self.request.GET.get('date', str(timezone.localdate()))
-        date = timezone.datetime.strptime(date, '%Y-%m-%d')
-        date = timezone.localtime(timezone.make_aware(date))
-        context['objects'] = timeline(self.object, date)
-        context['date'] = date
-        context['date_previous'] = date - timezone.timedelta(days=1)
-        context['date_next'] = date + timezone.timedelta(days=1)
         return context

@@ -19,8 +19,4 @@ urlpatterns = [
     url(r'^children/(?P<slug>[^/.]+)/reports/sleep/totals/$',
         views.SleepTotalsChildReport.as_view(),
         name='report-sleep-totals-child'),
-
-    url(r'^children/(?P<slug>[^/.]+)/reports/timeline/$',
-        views.TimelineChildReport.as_view(),
-        name='report-timeline-child'),
 ]

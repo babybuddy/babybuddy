@@ -6,9 +6,9 @@ from django.utils import timezone
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
 
 
-def timeline(child, date):
+def get_objects(child, date):
     """
-    Create a time-sorted dictionary for all events for a child.
+    Create a time-sorted dictionary of all events for a child.
     :param child: an instance of a Child.
     :param date: a DateTime instance for the day to be summarized.
     :returns: a list of the day's events.

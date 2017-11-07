@@ -44,6 +44,3 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         page = self.c.get('{}/sleep/totals/'.format(base_url))
         self.assertEqual(page.status_code, 200)
-
-        page = self.c.get('{}/timeline/'.format(base_url))
-        self.assertEqual(page.status_code, 200)

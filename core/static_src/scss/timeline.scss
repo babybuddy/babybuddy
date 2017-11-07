@@ -118,7 +118,7 @@ $card-shadow: rgba(0, 0, 0, .175);
     }
 }
 
-@media (max-width: 767px) {
+@include media-breakpoint-down(md) {
     .timeline {
         &::before {
             left: 40px;

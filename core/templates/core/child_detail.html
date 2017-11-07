@@ -9,13 +9,53 @@
 {% endblock %}
 
 {% block content %}
-    <div class="jumbotron text-center">
-        <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" class="child-photo img-fluid rounded-circle" />
-        <div class="child-name display-4">{{ object }}</div>
-        <p class="lead">
-            Born <span class="text-secondary">{{ object.birth_date }}</span><br/>
-            Age <span class="text-secondary">{{ object.birth_date|timesince }}</span>
-        </p>
-        {% include 'dashboard/child_button_group.html' %}
+    <div class="child-detail-column">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 pb-3 text-center">
+                <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" class="child-photo img-fluid rounded-circle" />
+                <div class="child-name display-4">{{ object }}</div>
+                <p class="lead">
+                    Born <span class="text-secondary">{{ object.birth_date }}</span><br/>
+                    Age <span class="text-secondary">{{ object.birth_date|timesince }}</span>
+                </p>
+                {% include 'dashboard/child_button_group.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 offset-lg-4 col-md-6 offset-md-6">
+            <h3 class="text-center">
+                {% if date_previous %}
+                    <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="Previous">
+                        <i class="icon icon-chevron-left" aria-hidden="true"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                {% endif %}
+                {{ date|date }}
+                {% if date_next %}
+                    <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="Next">
+                        <i class="icon icon-chevron-right" aria-hidden="true"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
+                {% endif %}
+            </h3>
+            <ul class="timeline m-auto">
+                {% for object in timeline_objects %}
+                    <li{% cycle "" ' class="timeline-inverted"' %}>
+                        <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
+                            <i class="icon icon-{{ object.model_name }}"></i>
+                        </div>
+                        <div class="card text-right">
+                            <div class="card-body">
+                                {{ object.event }}
+                            </div>
+                            <div class="card-footer text-muted">
+                                {{ object.time|timesince }} ago ({{ object.time|time }})
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 {% endblock %}

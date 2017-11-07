@@ -3,3 +3,12 @@
         max-width: 150px;
     }
 }
+
+@include media-breakpoint-up(md) {
+    #view-child {
+        .child-detail-column {
+            position: fixed;
+            width: 100%;
+        }
+    }
+}
