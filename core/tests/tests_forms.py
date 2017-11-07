@@ -238,4 +238,4 @@ class FormsTestCase(TestCase):
             page,
             'form',
             None,
-            'Another entry already exists within the specified time period.')
+            'Another entry intersects the specified time period.')

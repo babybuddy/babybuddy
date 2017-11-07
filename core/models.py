@@ -36,10 +36,11 @@ def validate_unique_period(queryset, model):
     """
     if model.id:
         queryset = queryset.exclude(id=model.id)
-    if queryset.filter(start__lte=model.end, end__gte=model.start):
-        raise ValidationError(
-            'Another entry already exists within the specified time period.',
-            code='period_intersection')
+    if model.start and model.end:
+        if queryset.filter(start__lte=model.end, end__gte=model.start):
+            raise ValidationError(
+                'Another entry intersects the specified time period.',
+                code='period_intersection')
 
 
 def validate_time(time, field_name):
@@ -49,7 +50,7 @@ def validate_time(time, field_name):
     :param field_name: the name of the field being checked.
     :return:
     """
-    if time > timezone.localtime():
+    if time and time > timezone.localtime():
         raise ValidationError(
             {field_name: 'Date/time can not be in the future.'},
             code='time_invalid')
