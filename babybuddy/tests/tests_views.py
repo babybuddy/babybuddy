@@ -30,28 +30,20 @@ class ViewsTestCase(TestCase):
 
         cls.c.login(**cls.credentials)
 
-    def test_dashboard_views(self):
-        page = self.c.get('/dashboard/')
+    def test_root_router(self):
+        page = self.c.get('/')
         self.assertEqual(page.url, '/welcome/')
 
         call_command('fake', verbosity=0, children=1, days=1)
         child = Child.objects.first()
-        page = self.c.get('/dashboard/')
+        page = self.c.get('/')
         self.assertEqual(
             page.url, '/children/{}/dashboard/'.format(child.slug))
-
-        page = self.c.get('/dashboard/')
-        self.assertEqual(
-            page.url, '/children/{}/dashboard/'.format(child.slug))
-        # Test the actual child dashboard (including cards).
-        # TODO: Test cards more granularly.
-        page = self.c.get('/children/{}/dashboard/'.format(child.slug))
-        self.assertEqual(page.status_code, 200)
 
         Child.objects.create(
             first_name='Second',
             last_name='Child',
             birth_date='2000-01-01'
         )
-        page = self.c.get('/dashboard/')
-        self.assertEqual(page.status_code, 200)
+        page = self.c.get('/')
+        self.assertEqual(page.url, '/dashboard/')

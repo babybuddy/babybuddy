@@ -5,14 +5,10 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
 from core.models import Child
-
-
-class DashboardRedirect(LoginRequiredMixin, RedirectView):
-    url = '/dashboard/'
 
 
 class Dashboard(LoginRequiredMixin, TemplateView):
@@ -23,8 +19,7 @@ class Dashboard(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         children = Child.objects.count()
         if children == 0:
-            # TODO: Create some sort of welcome page.
-            return HttpResponseRedirect(reverse('child-add'))
+            return HttpResponseRedirect(reverse('welcome'))
         elif children == 1:
             return HttpResponseRedirect(
                 reverse('dashboard-child', args={Child.objects.first().slug}))
