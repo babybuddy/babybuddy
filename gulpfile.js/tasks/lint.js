@@ -10,17 +10,9 @@ var watchConfig = require('../config.js').watchConfig;
 gulp.task('lint', ['lint:styles', 'lint:python']);
 
 gulp.task('lint:python', function(cb) {
-    spawn(
-        'pipenv',
-        [
-            'run',
-            'flake8',
-            '--exclude=migrations,manage.py,node_modules,settings'
-        ],
-        {
-            stdio: 'inherit'
-        }
-    ).on('exit', cb);
+    var command = ['run', 'flake8', '--exclude=migrations,manage.py,node_modules,settings'];
+    command = command.concat(process.argv.splice(3));
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
 gulp.task('lint:styles', function(cb) {
