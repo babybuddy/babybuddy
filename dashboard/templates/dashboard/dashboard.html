@@ -10,7 +10,7 @@
 {% block content %}
     <div class="row">
     {% for object in objects %}
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-2 mb-4">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-2 mb-4">
             <div class="card">
                 <a href="{% url 'child' object.slug %}">
                      <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}"
