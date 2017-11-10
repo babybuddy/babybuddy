@@ -5,7 +5,7 @@ import dj_database_url
 from .base import *  # noqa: F401,F403
 
 
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', False)
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
