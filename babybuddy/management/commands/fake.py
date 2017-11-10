@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from random import randint, choice
+from random import choice, randint, uniform
 from datetime import timedelta
 from decimal import Decimal
 
@@ -150,9 +150,15 @@ class Command(BaseCommand):
             ).save()
             last_end = end
 
+        last_entry = models.Weight.objects.filter(child=child) \
+            .order_by('date').last()
+        if not last_entry:
+            weight = uniform(2.0, 5.0)
+        else:
+            weight = last_entry.weight + uniform(0, 0.04)
         models.Weight.objects.create(
             child=child,
-            weight=Decimal('%d.%d' % (randint(3, 15), randint(0, 9))),
+            weight=weight,
             date=date.date()
         ).save()
 
