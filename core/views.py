@@ -298,3 +298,31 @@ class TummyTimeDelete(PermissionRequiredMixin, DeleteView):
     model = models.TummyTime
     permission_required = ('core.delete_tummytime',)
     success_url = '/tummy-time'
+
+
+class WeightList(PermissionRequiredMixin, FilterView):
+    model = models.Weight
+    template_name = 'core/weight_list.html'
+    permission_required = ('core.view_weight',)
+    paginate_by = 10
+    filter_fields = ('child',)
+
+
+class WeightAdd(PermissionRequiredMixin, CreateView):
+    model = models.Weight
+    permission_required = ('core.add_weight',)
+    form_class = forms.WeightForm
+    success_url = '/weight'
+
+
+class WeightUpdate(PermissionRequiredMixin, UpdateView):
+    model = models.Weight
+    permission_required = ('core.change_weight',)
+    fields = ['child', 'weight', 'date']
+    success_url = '/weight'
+
+
+class WeightDelete(PermissionRequiredMixin, DeleteView):
+    model = models.Weight
+    permission_required = ('core.delete_weight',)
+    success_url = '/weight'

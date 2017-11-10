@@ -205,3 +205,19 @@ class TummyTimeForm(forms.ModelForm):
             timer.stop(instance.end)
         instance.save()
         return instance
+
+
+class WeightForm(forms.ModelForm):
+    class Meta:
+        model = models.Weight
+        fields = ['child', 'weight', 'date']
+        widgets = {
+            'date': forms.DateInput(attrs={
+                'class': 'datepicker-input',
+                'data-target': '#datetimepicker_date',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        kwargs = set_default_child(kwargs)
+        super(WeightForm, self).__init__(*args, **kwargs)

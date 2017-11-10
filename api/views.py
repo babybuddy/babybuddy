@@ -3,52 +3,55 @@ from __future__ import unicode_literals
 
 from rest_framework import viewsets
 
-from core.models import (Child, DiaperChange, Feeding, Note, Sleep, Timer,
-                         TummyTime)
+from core import models
 
-from .serializers import (ChildSerializer, DiaperChangeSerializer,
-                          FeedingSerializer, NoteSerializer, SleepSerializer,
-                          TimerSerializer, TummyTimeSerializer,)
+from . import serializers
 
 
 class ChildViewSet(viewsets.ModelViewSet):
-    queryset = Child.objects.all()
-    serializer_class = ChildSerializer
+    queryset = models.Child.objects.all()
+    serializer_class = serializers.ChildSerializer
     lookup_field = 'slug'
     filter_fields = ('first_name', 'last_name', 'slug')
 
 
 class DiaperChangeViewSet(viewsets.ModelViewSet):
-    queryset = DiaperChange.objects.all()
-    serializer_class = DiaperChangeSerializer
+    queryset = models.DiaperChange.objects.all()
+    serializer_class = serializers.DiaperChangeSerializer
     filter_fields = ('child', 'wet', 'solid', 'color')
 
 
 class FeedingViewSet(viewsets.ModelViewSet):
-    queryset = Feeding.objects.all()
-    serializer_class = FeedingSerializer
+    queryset = models.Feeding.objects.all()
+    serializer_class = serializers.FeedingSerializer
     filter_fields = ('child', 'type', 'method')
 
 
 class NoteViewSet(viewsets.ModelViewSet):
-    queryset = Note.objects.all()
-    serializer_class = NoteSerializer
+    queryset = models.Note.objects.all()
+    serializer_class = serializers.NoteSerializer
     filter_fields = ('child',)
 
 
 class SleepViewSet(viewsets.ModelViewSet):
-    queryset = Sleep.objects.all()
-    serializer_class = SleepSerializer
+    queryset = models.Sleep.objects.all()
+    serializer_class = serializers.SleepSerializer
     filter_fields = ('child',)
 
 
 class TimerViewSet(viewsets.ModelViewSet):
-    queryset = Timer.objects.all()
-    serializer_class = TimerSerializer
+    queryset = models.Timer.objects.all()
+    serializer_class = serializers.TimerSerializer
     filter_fields = ('active', 'user')
 
 
 class TummyTimeViewSet(viewsets.ModelViewSet):
-    queryset = TummyTime.objects.all()
-    serializer_class = TummyTimeSerializer
+    queryset = models.TummyTime.objects.all()
+    serializer_class = serializers.TummyTimeSerializer
+    filter_fields = ('child',)
+
+
+class WeightViewSet(viewsets.ModelViewSet):
+    queryset = models.Weight.objects.all()
+    serializer_class = serializers.WeightSerializer
     filter_fields = ('child',)

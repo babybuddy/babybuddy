@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.test import TestCase
-from django.test import Client as HttpClient
 from django.contrib.auth.models import User
 from django.core.management import call_command
+from django.test import TestCase
+from django.test import Client as HttpClient
+from django.utils import timezone
 
 from faker import Factory
 
@@ -40,6 +41,11 @@ class ViewsTestCase(TestCase):
         entry = models.Child.objects.first()
         page = self.c.get('/children/{}/'.format(entry.slug))
         self.assertEqual(page.status_code, 200)
+        page = self.c.get(
+            '/children/{}/'.format(entry.slug),
+            {'date': timezone.localdate() - timezone.timedelta(days=1)})
+        self.assertEqual(page.status_code, 200)
+
         page = self.c.get('/children/{}/edit/'.format(entry.slug))
         self.assertEqual(page.status_code, 200)
         page = self.c.get('/children/{}/delete/'.format(entry.slug))
@@ -123,4 +129,16 @@ class ViewsTestCase(TestCase):
         page = self.c.get('/tummy-time/{}/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
         page = self.c.get('/tummy-time/{}/delete/'.format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
+    def test_weight_views(self):
+        page = self.c.get('/weight/')
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get('/weight/add/')
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.Weight.objects.first()
+        page = self.c.get('/weight/{}/'.format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get('/weight/{}/delete/'.format(entry.id))
         self.assertEqual(page.status_code, 200)

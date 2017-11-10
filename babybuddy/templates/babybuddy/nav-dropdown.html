@@ -43,6 +43,11 @@
                             <i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time
                         </a>
                     {% endif %}
+                    {% if perms.core.add_weight %}
+                        <a class="dropdown-item p-2" href="{% url 'weight-add' %}">
+                            <i class="icon icon-weight" aria-hidden="true"></i> Weight
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -89,6 +94,16 @@
                         {% if perms.core.add_note %}
                             <a class="dropdown-item pl-5{% if request.path == '/notes/add/' %} active{% endif %}"
                                href="{% url 'note-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Note</a>
+                        {% endif %}
+
+                        {% if perms.core.view_weight %}
+                            <a class="dropdown-item{% if request.path == '/weight/' %} active{% endif %}" href="{% url 'weight-list' %}">
+                                <i class="icon icon-weight" aria-hidden="true"></i> Weight
+                            </a>
+                        {% endif %}
+                        {% if perms.core.add_weight %}
+                            <a class="dropdown-item pl-5{% if request.path == '/weight/add/' %} active{% endif %}"
+                               href="{% url 'weight-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Weight entry</a>
                         {% endif %}
 
                     </div>

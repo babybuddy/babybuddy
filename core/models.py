@@ -10,6 +10,19 @@ from django.template.defaultfilters import slugify
 from django.utils import timezone
 
 
+def validate_date(date, field_name):
+    """
+    Confirm that a date is not in the future.
+    :param date: a timezone aware date instance.
+    :param field_name: the name of the field being checked.
+    :return:
+    """
+    if date and date > timezone.localdate():
+        raise ValidationError(
+            {field_name: 'Date can not be in the future.'},
+            code='date_invalid')
+
+
 def validate_duration(model, max_duration=timedelta(hours=24)):
     """
     Basic sanity checks for models with a duration
@@ -325,3 +338,23 @@ class TummyTime(models.Model):
         validate_duration(self)
         validate_unique_period(
             TummyTime.objects.filter(child=self.child), self)
+
+
+class Weight(models.Model):
+    model_name = 'weight'
+    child = models.ForeignKey('Child', related_name='weight')
+    weight = models.FloatField(blank=False, null=False)
+    date = models.DateField(blank=False, null=False)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-date']
+        verbose_name_plural = 'Weight'
+
+    def __str__(self):
+        return 'Weight'
+
+    def clean(self):
+        validate_date(self.date, 'date')

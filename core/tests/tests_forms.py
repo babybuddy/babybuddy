@@ -180,6 +180,31 @@ class FormsTestCase(TestCase):
         page = self.c.post('/tummy-time/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
+    def test_weight_forms(self):
+        params = {
+            'child': 1,
+            'weight': '8.5',
+            'date': '2000-01-01'
+        }
+
+        entry = models.Weight.objects.first()
+        page = self.c.post('/weight/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 302)
+
+    def test_validate_date(self):
+        future = (timezone.localdate() + timezone.timedelta(days=1))
+        params = {
+            'child': 1,
+            'weight': '8.5',
+            'date': future.strftime('%Y-%m-%d')
+        }
+        entry = models.Weight.objects.first()
+
+        page = self.c.post('/weight/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', 'date',
+                             'Date can not be in the future.')
+
     def test_validate_duration(self):
         params = {
             'child': 1,

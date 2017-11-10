@@ -68,4 +68,11 @@ urlpatterns = [
         name='tummytime-update'),
     url(r'^tummy-time/(?P<pk>[0-9]+)/delete/$',
         views.TummyTimeDelete.as_view(), name='tummytime-delete'),
+
+    url(r'^weight/$', views.WeightList.as_view(), name='weight-list'),
+    url(r'^weight/add/$', views.WeightAdd.as_view(), name='weight-add'),
+    url(r'^weight/(?P<pk>[0-9]+)/$', views.WeightUpdate.as_view(),
+        name='weight-update'),
+    url(r'^weight/(?P<pk>[0-9]+)/delete/$', views.WeightDelete.as_view(),
+        name='weight-delete'),
 ]

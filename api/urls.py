@@ -4,17 +4,18 @@ from __future__ import unicode_literals
 from django.conf.urls import url, include
 from rest_framework import routers
 
-from .views import (ChildViewSet, DiaperChangeViewSet, FeedingViewSet,
-                    NoteViewSet, SleepViewSet, TimerViewSet, TummyTimeViewSet)
+from . import views
+
 
 router = routers.DefaultRouter()
-router.register(r'children', ChildViewSet)
-router.register(r'changes', DiaperChangeViewSet)
-router.register(r'feedings', FeedingViewSet)
-router.register(r'notes', NoteViewSet)
-router.register(r'sleep', SleepViewSet)
-router.register(r'timers', TimerViewSet)
-router.register(r'tummy-times', TummyTimeViewSet)
+router.register(r'children', views.ChildViewSet)
+router.register(r'changes', views.DiaperChangeViewSet)
+router.register(r'feedings', views.FeedingViewSet)
+router.register(r'notes', views.NoteViewSet)
+router.register(r'sleep', views.SleepViewSet)
+router.register(r'timers', views.TimerViewSet)
+router.register(r'tummy-times', views.TummyTimeViewSet)
+router.register(r'weight', views.WeightViewSet)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

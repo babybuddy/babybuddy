@@ -1,0 +1,63 @@
+{% extends 'babybuddy/page.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Weight{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Weight</li>
+{% endblock %}
+
+{% block content %}
+    <h1>Weight</h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Child</th>
+                    <th>Weight</th>
+                    <th>Date</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <th scope="row"><a href="{% url 'child' object.child.slug %}">{{ object.child }}</a></th>
+                        <td>{{ object.weight }}</td>
+                        <td>{{ object.date }}</td>
+                        <td class="text-center">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+
+                                {% if perms.core.change_weight %}
+                                    <a href="{% url 'weight-update' object.id %}" class="btn btn-primary">
+                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.delete_weight %}
+                                    <a href="{% url 'weight-delete' object.id %}" class="btn btn-danger">
+                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <th colspan="4">No weight entries found.</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+
+    {% if perms.core.add_weight %}
+        <a href="{% url 'weight-add' %}" class="btn btn-sm btn-success">
+            <i class="icon icon-weight" aria-hidden="true"></i> Add a Weight Entry
+        </a>
+    {% endif %}
+
+{% endblock %}

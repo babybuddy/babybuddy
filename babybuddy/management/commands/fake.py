@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from faker import Factory
 
-from core.models import Child, DiaperChange, Feeding, Note, Sleep, TummyTime
+from core import models
 
 
 class Command(BaseCommand):
@@ -42,7 +42,7 @@ class Command(BaseCommand):
         # User first day of data that will created for birth date.
         birth_date = (timezone.localtime() - timedelta(days=days))
         for i in range(0, children):
-            child = Child.objects.create(
+            child = models.Child.objects.create(
                 first_name=self.faker.first_name(),
                 last_name=self.faker.last_name(),
                 birth_date=birth_date
@@ -67,7 +67,7 @@ class Command(BaseCommand):
             if solid:
                 wet = False
                 color = choice(
-                    DiaperChange._meta.get_field('color').choices)[0]
+                    models.DiaperChange._meta.get_field('color').choices)[0]
             else:
                 wet = True
                 color = ''
@@ -75,7 +75,7 @@ class Command(BaseCommand):
             time = date + timedelta(minutes=randint(0, 60 * 24))
 
             if time < now:
-                DiaperChange.objects.create(
+                models.DiaperChange.objects.create(
                     child=child,
                     time=time,
                     wet=wet,
@@ -85,7 +85,8 @@ class Command(BaseCommand):
 
         last_end = date
         while last_end < date + timedelta(days=1):
-            method = choice(Feeding._meta.get_field('method').choices)[0]
+            method = choice(models.Feeding._meta.get_field(
+                'method').choices)[0]
             if method is 'bottle':
                 amount = Decimal('%d.%d' % (randint(0, 6), randint(0, 9)))
             else:
@@ -96,11 +97,11 @@ class Command(BaseCommand):
             if end > now:
                 break
 
-            Feeding.objects.create(
+            models.Feeding.objects.create(
                 child=child,
                 start=start,
                 end=end,
-                type=choice(Feeding._meta.get_field('type').choices)[0],
+                type=choice(models.Feeding._meta.get_field('type').choices)[0],
                 method=method,
                 amount=amount
             ).save()
@@ -109,7 +110,8 @@ class Command(BaseCommand):
         last_end = date
 
         # Adjust last_end if the last sleep entry crossed in to date.
-        last_entry = Sleep.objects.filter(child=child).order_by('end').last()
+        last_entry = models.Sleep.objects.filter(
+            child=child).order_by('end').last()
         if last_entry:
             last_entry_end = timezone.localtime(last_entry.end)
             if last_entry_end > last_end:
@@ -124,7 +126,8 @@ class Command(BaseCommand):
             if end > now:
                 break
 
-            Sleep.objects.create(child=child, start=start, end=end).save()
+            models.Sleep.objects.create(
+                child=child, start=start, end=end).save()
             last_end = end
 
         last_end = date
@@ -139,7 +142,7 @@ class Command(BaseCommand):
             if end > now:
                 break
 
-            TummyTime.objects.create(
+            models.TummyTime.objects.create(
                 child=child,
                 start=start,
                 end=end,
@@ -147,8 +150,14 @@ class Command(BaseCommand):
             ).save()
             last_end = end
 
+        models.Weight.objects.create(
+            child=child,
+            weight=Decimal('%d.%d' % (randint(3, 15), randint(0, 9))),
+            date=date.date()
+        ).save()
+
         note = self.faker.sentence()
-        Note.objects.create(
+        models.Note.objects.create(
             child=child,
             note=note,
             time=date + timedelta(minutes=randint(0, 60 * 24))
