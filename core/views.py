@@ -133,7 +133,7 @@ class NoteList(PermissionRequiredMixin, FilterView):
 class NoteAdd(PermissionRequiredMixin, CreateView):
     model = models.Note
     permission_required = ('core.add_note',)
-    fields = ['child', 'note']
+    form_class = forms.NoteForm
     success_url = '/notes'
 
 

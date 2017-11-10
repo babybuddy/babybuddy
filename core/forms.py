@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.utils import timezone
 
-from .models import Child, DiaperChange, Feeding, Sleep, Timer, TummyTime
+from core import models
 
 
 # Sets the default Child instance if only one exists in the database.
@@ -12,8 +12,8 @@ def set_default_child(kwargs):
     instance = kwargs.get('instance', None)
     if not kwargs.get('initial'):
         kwargs.update(initial={})
-    if instance is None and Child.objects.count() == 1:
-        kwargs['initial'].update({'child': Child.objects.first()})
+    if instance is None and models.Child.objects.count() == 1:
+        kwargs['initial'].update({'child': models.Child.objects.first()})
     return kwargs
 
 
@@ -24,7 +24,7 @@ def set_default_duration(kwargs):
     if not kwargs.get('initial'):
         kwargs.update(initial={})
     if not instance and timer_id:
-        instance = Timer.objects.get(id=timer_id)
+        instance = models.Timer.objects.get(id=timer_id)
         kwargs['initial'].update({
             'timer': instance,
             'start': instance.start,
@@ -39,7 +39,7 @@ def set_default_duration(kwargs):
 
 class ChildForm(forms.ModelForm):
     class Meta:
-        model = Child
+        model = models.Child
         fields = ['first_name', 'last_name', 'birth_date']
         widgets = {
             'birth_date': forms.DateInput(attrs={
@@ -53,7 +53,7 @@ class ChildDeleteForm(forms.ModelForm):
     confirm_name = forms.CharField(max_length=511)
 
     class Meta:
-        model = Child
+        model = models.Child
         fields = []
 
     def clean_confirm_name(self):
@@ -71,7 +71,7 @@ class ChildDeleteForm(forms.ModelForm):
 
 class DiaperChangeForm(forms.ModelForm):
     class Meta:
-        model = DiaperChange
+        model = models.DiaperChange
         fields = ['child', 'time', 'wet', 'solid', 'color']
         widgets = {
             'time': forms.DateTimeInput(attrs={
@@ -87,7 +87,7 @@ class DiaperChangeForm(forms.ModelForm):
 
 class FeedingForm(forms.ModelForm):
     class Meta:
-        model = Feeding
+        model = models.Feeding
         fields = ['child', 'start', 'end', 'type', 'method', 'amount']
         widgets = {
             'start': forms.DateTimeInput(attrs={
@@ -109,15 +109,25 @@ class FeedingForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(FeedingForm, self).save(commit=False)
         if self.timer_id:
-            timer = Timer.objects.get(id=self.timer_id)
+            timer = models.Timer.objects.get(id=self.timer_id)
             timer.stop(instance.end)
         instance.save()
         return instance
 
 
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = models.Note
+        fields = ['child', 'note']
+
+    def __init__(self, *args, **kwargs):
+        kwargs = set_default_child(kwargs)
+        super(NoteForm, self).__init__(*args, **kwargs)
+
+
 class SleepForm(forms.ModelForm):
     class Meta:
-        model = Sleep
+        model = models.Sleep
         fields = ['child', 'start', 'end']
         widgets = {
             'start': forms.DateTimeInput(attrs={
@@ -139,7 +149,7 @@ class SleepForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(SleepForm, self).save(commit=False)
         if self.timer_id:
-            timer = Timer.objects.get(id=self.timer_id)
+            timer = models.Timer.objects.get(id=self.timer_id)
             timer.stop(instance.end)
         instance.save()
         return instance
@@ -147,7 +157,7 @@ class SleepForm(forms.ModelForm):
 
 class TimerForm(forms.ModelForm):
     class Meta:
-        model = Timer
+        model = models.Timer
         fields = ['name', 'start']
         widgets = {
             'start': forms.DateTimeInput(attrs={
@@ -169,7 +179,7 @@ class TimerForm(forms.ModelForm):
 
 class TummyTimeForm(forms.ModelForm):
     class Meta:
-        model = TummyTime
+        model = models.TummyTime
         fields = ['child', 'start', 'end', 'milestone']
         widgets = {
             'start': forms.DateTimeInput(attrs={
@@ -191,7 +201,7 @@ class TummyTimeForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(TummyTimeForm, self).save(commit=False)
         if self.timer_id:
-            timer = Timer.objects.get(id=self.timer_id)
+            timer = models.Timer.objects.get(id=self.timer_id)
             timer.stop(instance.end)
         instance.save()
         return instance
