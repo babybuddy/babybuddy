@@ -63,12 +63,44 @@
                 </li>
 
                 <li class="nav-item dropdown">
+                    <a id="nav-children-menu-link"
+                       class="nav-link dropdown-toggle"
+                       href="#"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false"><i class="icon icon-child" aria-hidden="true"></i> Children</a>
+                    <div class="dropdown-menu" aria-labelledby="nav-children-menu-link">
+
+                        {% if perms.core.view_child %}
+                            <a class="dropdown-item{% if request.path == '/children/' %} active{% endif %}" href="{% url 'child-list' %}">
+                                <i class="icon icon-child" aria-hidden="true"></i> Children
+                            </a>
+                        {% endif %}
+                        {% if perms.core.add_child %}
+                            <a class="dropdown-item pl-5{% if request.path == '/children/add/' %} active{% endif %}"
+                               href="{% url 'child-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Child</a>
+                        {% endif %}
+
+                        {% if perms.core.view_note %}
+                            <a class="dropdown-item{% if request.path == '/notes/' %} active{% endif %}" href="{% url 'note-list' %}">
+                                <i class="icon icon-note" aria-hidden="true"></i> Notes
+                            </a>
+                        {% endif %}
+                        {% if perms.core.add_note %}
+                            <a class="dropdown-item pl-5{% if request.path == '/notes/add/' %} active{% endif %}"
+                               href="{% url 'note-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Note</a>
+                        {% endif %}
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
                     <a id="nav-activity-menu-link"
                        class="nav-link dropdown-toggle"
                        href="#"
                        data-toggle="dropdown"
                        aria-haspopup="true"
-                       aria-expanded="false"><i class="icon icon-child" aria-hidden="true"></i> Activities</a>
+                       aria-expanded="false"><i class="icon icon-activities" aria-hidden="true"></i> Activities</a>
                     <div class="dropdown-menu" aria-labelledby="nav-activity-menu-link">
 
                         {% if perms.core.view_diaperchange %}
@@ -105,20 +137,6 @@
                         {% if perms.core.add_tummytime %}
                             <a class="dropdown-item pl-5{% if request.path == '/tummy-time/add/' %} active{% endif %}"
                                href="{% url 'tummytime-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Tummy Time entry</a>
-                        {% endif %}
-
-                        <div class="dropdown-divider"></div>
-
-                        {% if perms.core.view_child %}
-                            <a class="dropdown-item{% if request.path == '/children/' %} active{% endif %}" href="{% url 'child-list' %}">
-                                <i class="icon icon-child" aria-hidden="true"></i> Children
-                            </a>
-                        {% endif %}
-
-                        {% if perms.core.view_note %}
-                            <a class="dropdown-item{% if request.path == '/notes/' %} active{% endif %}" href="{% url 'note-list' %}">
-                                <i class="icon icon-note" aria-hidden="true"></i> Notes
-                            </a>
                         {% endif %}
 
                     </div>
