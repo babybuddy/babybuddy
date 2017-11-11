@@ -58,7 +58,7 @@ class Command(BaseCommand):
                 'password': 'admin'
             }
         )
-        if options['verbosity'] > 0:
+        if verbosity > 0:
             self.stdout.write('Superuser created successfully.')
 
         fake = Fake()
