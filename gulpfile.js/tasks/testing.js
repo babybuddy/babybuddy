@@ -16,7 +16,6 @@ gulp.task('coverage', function(cb) {
             'run',
             'coverage',
             'run',
-            '--source=api,core,dashboard,reports',
             'manage.py',
             'test'
         ],

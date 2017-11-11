@@ -1,0 +1,13 @@
+[run]
+omit =
+    babybuddy/settings/*
+    babybuddy/wsgi.py
+source =
+    api
+    babybuddy
+    core
+    dashboard
+    reports
+
+[html]
+directory = htmlcov
