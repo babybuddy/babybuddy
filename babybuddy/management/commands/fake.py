@@ -5,6 +5,7 @@ from random import choice, randint, uniform
 from datetime import timedelta
 from decimal import Decimal
 
+from django.db import transaction
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
@@ -19,6 +20,10 @@ class Command(BaseCommand):
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
         self.faker = Factory.create()
+        self.child = None
+        self.weight = None
+        self.time = None
+        self.time_now = timezone.localtime()
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -39,132 +44,158 @@ class Command(BaseCommand):
         children = int(kwargs['children']) or 1
         days = int(kwargs['days']) or 31
 
-        # User first day of data that will created for birth date.
         birth_date = (timezone.localtime() - timedelta(days=days))
         for i in range(0, children):
-            child = models.Child.objects.create(
+            self.child = models.Child.objects.create(
                 first_name=self.faker.first_name(),
                 last_name=self.faker.last_name(),
                 birth_date=birth_date
             )
-            child.save()
-
-            for j in range(days - 1, -1, -1):
-                date = (timezone.localtime() - timedelta(days=j)).replace(
-                    hour=0, minute=0, second=0)
-                self._add_child_data(child, date)
+            self.child.save()
+            self._add_child_data()
 
         if verbosity > 0:
             self.stdout.write(
                 self.style.SUCCESS('Successfully added fake data.')
             )
 
-    def _add_child_data(self, child, date):
-        now = timezone.localtime()
+    @transaction.atomic
+    def _add_child_data(self):
+        """
+        Adds fake data for child from child.birth_date to now. The fake data
+        follows a semi-regular pattern of sleep, feed, change, tummy time,
+        change, tummy time, sleep, etc.
+        :returns:
+        """
+        self.time = self.child.birth_date
+        last_weight_entry_time = self.time
+        self.weight = uniform(2.0, 5.0)
+        self._add_weight_entry()
+        self._add_note_entry()
+        while self.time < self.time_now:
+            self._add_sleep_entry()
+            if choice([True, False]):
+                self._add_diaperchange_entry()
+            self._add_feeding_entry()
+            self._add_diaperchange_entry()
+            if choice([True, False]):
+                self._add_tummytime_entry()
+            if choice([True, False]):
+                self._add_diaperchange_entry()
+                self._add_tummytime_entry()
+            if (self.time - last_weight_entry_time).days > 6:
+                self._add_weight_entry()
+                last_weight_entry_time = self.time
 
-        for i in (range(0, randint(5, 20))):
-            solid = choice([True, False])
-            if solid:
-                wet = False
-                color = choice(
-                    models.DiaperChange._meta.get_field('color').choices)[0]
-            else:
-                wet = True
-                color = ''
+    @transaction.atomic
+    def _add_diaperchange_entry(self):
+        """
+        Add a Diaper Change entry and advance self.time.
+        :returns:
+        """
+        solid = choice([True, False, False, False])
+        wet = choice([True, False])
+        color = ''
+        if not wet and not solid:
+            wet = True
+        time = self.time + timedelta(minutes=randint(1, 60))
 
-            time = date + timedelta(minutes=randint(0, 60 * 24))
+        if time < self.time_now:
+            models.DiaperChange.objects.create(
+                child=self.child,
+                time=time,
+                wet=wet,
+                solid=solid,
+                color=color
+            ).save()
+        self.time = time
 
-            if time < now:
-                models.DiaperChange.objects.create(
-                    child=child,
-                    time=time,
-                    wet=wet,
-                    solid=solid,
-                    color=color
-                ).save()
+    @transaction.atomic
+    def _add_feeding_entry(self):
+        """
+        Add a Feeding entry and advance self.time.
+        :returns:
+        """
+        method = choice(models.Feeding._meta.get_field('method').choices)[0]
+        amount = None
+        if method is 'bottle':
+            amount = Decimal('%d.%d' % (randint(0, 6), randint(0, 9)))
+        start = self.time + timedelta(minutes=randint(1, 60))
+        end = start + timedelta(minutes=randint(5, 20))
 
-        last_end = date
-        while last_end < date + timedelta(days=1):
-            method = choice(models.Feeding._meta.get_field(
-                'method').choices)[0]
-            if method is 'bottle':
-                amount = Decimal('%d.%d' % (randint(0, 6), randint(0, 9)))
-            else:
-                amount = None
-
-            start = last_end + timedelta(minutes=randint(0, 60 * 2))
-            end = start + timedelta(minutes=randint(5, 20))
-            if end > now:
-                break
-
+        if end < self.time_now:
             models.Feeding.objects.create(
-                child=child,
+                child=self.child,
                 start=start,
                 end=end,
                 type=choice(models.Feeding._meta.get_field('type').choices)[0],
                 method=method,
                 amount=amount
             ).save()
-            last_end = end
+        self.time = end
 
-        last_end = date
+    @transaction.atomic
+    def _add_note_entry(self):
+        """
+        Add a Note entry.
+        :returns:
+        """
+        note = self.faker.sentence()
+        models.Note.objects.create(child=self.child, note=note).save()
 
-        # Adjust last_end if the last sleep entry crossed in to date.
-        last_entry = models.Sleep.objects.filter(
-            child=child).order_by('end').last()
-        if last_entry:
-            last_entry_end = timezone.localtime(last_entry.end)
-            if last_entry_end > last_end:
-                last_end = last_entry_end
+    @transaction.atomic
+    def _add_sleep_entry(self):
+        """
+        Add a Sleep entry and advance self.time. Between the hours of 18 and 6,
+        extend the minimum and maximum sleep duration settings.
+        :returns:
+        """
+        if self.time.hour < 6 or self.time.hour > 18:
+            minutes = randint(60 * 2, 60 * 6)
+        else:
+            minutes = randint(30, 60 * 2)
+        end = self.time + timedelta(minutes=minutes)
 
-        while last_end < date + timedelta(days=1):
-            start = last_end + timedelta(minutes=randint(0, 60 * 2))
-            if start.date() != date.date():
-                break
-
-            end = start + timedelta(minutes=randint(10, 60 * 3))
-            if end > now:
-                break
-
+        if end < self.time_now:
             models.Sleep.objects.create(
-                child=child, start=start, end=end).save()
-            last_end = end
+                child=self.child,
+                start=self.time,
+                end=end
+            ).save()
+        self.time = end
 
-        last_end = date
-        while last_end < date + timedelta(days=1):
-            if choice([True, False]):
-                milestone = self.faker.sentence()
-            else:
-                milestone = ''
+    @transaction.atomic
+    def _add_tummytime_entry(self):
+        """
+        Add a Tummy time entry and advance self.time.
+        :returns:
+        """
+        milestone = ''
+        if choice([True, False]):
+            milestone = self.faker.sentence()
+        start = self.time + timedelta(minutes=randint(1, 60))
+        end = start + timedelta(minutes=randint(0, 10), seconds=randint(0, 59))
+        if (end - start).seconds < 20:
+            end = start + timedelta(minutes=1, seconds=30)
 
-            start = last_end + timedelta(minutes=randint(0, 60 * 5))
-            end = start + timedelta(minutes=randint(1, 10))
-            if end > now:
-                break
-
+        if end < self.time_now:
             models.TummyTime.objects.create(
-                child=child,
+                child=self.child,
                 start=start,
                 end=end,
                 milestone=milestone
             ).save()
-            last_end = end
+        self.time = end
 
-        last_entry = models.Weight.objects.filter(child=child) \
-            .order_by('date').last()
-        if not last_entry:
-            weight = uniform(2.0, 5.0)
-        else:
-            weight = last_entry.weight + uniform(0, 0.04)
+    @transaction.atomic
+    def _add_weight_entry(self):
+        """
+        Add a Weight entry. This assumes a weekly interval.
+        :returns:
+        """
+        self.weight += uniform(0.1, 0.3)
         models.Weight.objects.create(
-            child=child,
-            weight=weight,
-            date=date.date()
-        ).save()
-
-        note = self.faker.sentence()
-        models.Note.objects.create(
-            child=child,
-            note=note,
-            time=date + timedelta(minutes=randint(0, 60 * 24))
+            child=self.child,
+            weight=self.weight,
+            date=self.time.date()
         ).save()
