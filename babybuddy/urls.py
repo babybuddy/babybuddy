@@ -17,6 +17,8 @@ urlpatterns = [
 
     url(r'^$', views.RootRouter.as_view(), name='root-router'),
     url(r'^welcome/$', views.Welcome.as_view(), name='welcome'),
+    url(r'^user/settings/$', views.UserSettings.as_view(),
+        name='user-settings'),
 
     url(r'', include('api.urls', namespace='api')),
     url(r'', include('core.urls')),

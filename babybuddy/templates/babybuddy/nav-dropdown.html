@@ -173,16 +173,17 @@
                            aria-expanded="false"><i class="icon icon-user" aria-hidden="true"></i> {{ request.user }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-user-menu-link">
+                            <a href="{% url 'user-settings' %}" class="dropdown-item">Settings</a>
+                            <div class="dropdown-divider"></div>
                             <a href="{% url 'api:api-root' %}"
                                class="dropdown-item"
                                target="_blank">API Browser</a>
-
                             {% if request.user.is_staff %}
                                 <a href="{% url 'admin:index' %}"
                                    class="dropdown-item"
-                                   target="_blank">Admin</a>
+                                   target="_blank">Site Admin</a>
                             {% endif %}
-
+                            <div class="dropdown-divider"></div>
                             <a href="{% url 'logout' %}"
                                class="dropdown-item">Logout</a>
                         </div>

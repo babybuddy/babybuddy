@@ -16,50 +16,7 @@
         {% endif %}
         {% for field in form %}
             <div class="form-group row">
-                <label for="id_{{ field.name }}" class="col-sm-1 col-form-label">
-                    {% if field|field_type != "booleanfield" %}
-                        {{ field.label }}
-                    {% endif %}
-                </label>
-                <div class="col-sm-11">
-                    {% if field|field_type == "booleanfield" %}
-                        <div class="form-check">
-                            <label for="id_{{ field.name }}" class="form-check-label">
-                                {% if field.errors %}
-                                    {{ field|add_class:"form-check-input is-invalid" }}
-                                {% else %}
-                                    {{ field|add_class:"form-check-input" }}
-                                {% endif %}
-                                {{ field.label }}
-                            </label>
-                        </div>
-                    {% elif field|field_type == "datetimefield" or field|field_type == "datefield" %}
-                        <div class="form-group">
-                            <div class="input-group date" id="datetimepicker_{{ field.name }}" data-target-input="nearest">
-                                <div class="input-group-addon" data-target="#datetimepicker_{{ field.name }}" data-toggle="datetimepicker">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                {% if field.errors %}
-                                    {{ field|add_class:"form-control is-invalid" }}
-                                {% else %}
-                                    {{ field|add_class:"form-control" }}
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% else %}
-                        {% if field.errors %}
-                            {{ field|add_class:"form-control is-invalid" }}
-                        {% else %}
-                            {{ field|add_class:"form-control" }}
-                        {% endif %}
-                    {% endif %}
-                    {% if field.help_text %}
-                        <div class="help-block"><small>{{ field.help_text }}</small></div>
-                    {% endif %}
-                    {% if field.errors %}
-                        <div class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</div>
-                    {% endif %}
-                </div>
+                {% include 'babybuddy/form_field.html' %}
             </div>
         {% endfor %}
         <button type="submit" class="btn btn-primary">Submit</button>

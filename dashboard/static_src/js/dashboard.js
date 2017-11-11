@@ -9,7 +9,7 @@ BabyBuddy.Dashboard = function ($) {
     var lastUpdate = moment();
 
     var Dashboard = {
-        watch: function(element_id) {
+        watch: function(element_id, refresh_rate) {
             dashboardElement = $('#' + element_id);
 
             if (dashboardElement.length == 0) {
@@ -17,7 +17,7 @@ BabyBuddy.Dashboard = function ($) {
                 return false;
             }
 
-            runIntervalId = setInterval(this.update, 60000);
+            runIntervalId = setInterval(this.update, refresh_rate);
 
             Visibility.change(function (e, state) {
                 if (state == 'visible' && moment().diff(lastUpdate) > 60000) {
