@@ -12,121 +12,6 @@ from core.models import DiaperChange, Feeding, Sleep, Timer, TummyTime
 register = template.Library()
 
 
-@register.inclusion_tag('cards/averages.html')
-def card_averages(child):
-    """
-    Averages data for all models.
-    :param child: an instance of the Child model.
-    :returns: a dictionary of Diaper Change, Feeding and Sleep averages data.
-    """
-    return {
-        'changes': _diaperchange_averages(child),
-        'feedings': _feeding_averages(child),
-        'naps': _nap_averages(child),
-        'sleep': _sleep_averages(child)}
-
-
-def _diaperchange_averages(child):
-    """
-    Averaged Diaper Change data.
-    :param child: an instance of the Child model.
-    :returns: a dictionary of Diaper Change averages data.
-    """
-    instances = DiaperChange.objects.filter(child=child).order_by('time')
-    changes = {
-        'btwn_total': timezone.timedelta(0),
-        'btwn_count': instances.count() - 1,
-        'btwn_average': 0}
-    last_instance = None
-
-    for instance in instances:
-        if last_instance:
-            changes['btwn_total'] += instance.time - last_instance.time
-        last_instance = instance
-
-    if changes['btwn_count'] > 0:
-        changes['btwn_average'] = changes['btwn_total'] / changes['btwn_count']
-
-    return changes
-
-
-def _feeding_averages(child):
-    """
-    Averaged Feeding data.
-    :param child: an instance of the Child model.
-    :returns: a dictionary of Feeding averages data.
-    """
-    instances = Feeding.objects.filter(child=child).order_by('start')
-    feedings = {
-        'btwn_total': timezone.timedelta(0),
-        'btwn_count': instances.count() - 1,
-        'btwn_average': 0}
-    last_instance = None
-
-    for instance in instances:
-        if last_instance:
-            feedings['btwn_total'] += instance.start - last_instance.end
-        last_instance = instance
-
-    if feedings['btwn_count'] > 0:
-        feedings['btwn_average'] = \
-            feedings['btwn_total'] / feedings['btwn_count']
-
-    return feedings
-
-
-def _nap_averages(child):
-    """
-    Averaged nap data.
-    :param child: an instance of the Child model.
-    :returns: a dictionary of nap (Sleep) averages data.
-    """
-    instances = Sleep.naps.filter(child=child).order_by('start')
-    naps = {
-        'total': instances.aggregate(Sum('duration'))['duration__sum'],
-        'count': instances.count(),
-        'average': 0,
-        'avg_per_day': 0}
-    if naps['count'] > 0:
-        naps['average'] = naps['total'] / naps['count']
-
-    naps_avg = instances.annotate(date=TruncDate('start')).values('date') \
-        .annotate(naps_count=Count('id')).order_by() \
-        .aggregate(Avg('naps_count'))
-    naps['avg_per_day'] = naps_avg['naps_count__avg']
-
-    return naps
-
-
-def _sleep_averages(child):
-    """
-    Averaged Sleep data.
-    :param child: an instance of the Child model.
-    :returns: a dictionary of Sleep averages data.
-    """
-    instances = Sleep.objects.filter(child=child).order_by('start')
-    sleep = {
-        'total': instances.aggregate(Sum('duration'))['duration__sum'],
-        'count': instances.count(),
-        'average': 0,
-        'btwn_total': timezone.timedelta(0),
-        'btwn_count': instances.count() - 1,
-        'btwn_average': 0}
-
-    last_instance = None
-    for instance in instances:
-        if last_instance:
-            sleep['btwn_total'] += instance.start - last_instance.end
-        last_instance = instance
-
-    if sleep['count'] > 0:
-        sleep['average'] = sleep['total'] / sleep['count']
-    if sleep['btwn_count'] > 0:
-        sleep['btwn_average'] = sleep['btwn_total'] / sleep['btwn_count']
-
-    return sleep
-
-
 @register.inclusion_tag('cards/diaperchange_last.html')
 def card_diaperchange_last(child):
     """
@@ -259,6 +144,151 @@ def card_sleep_naps_day(child, date=None):
         'type': 'sleep',
         'total': instances.aggregate(Sum('duration')),
         'count': len(instances)}
+
+
+@register.inclusion_tag('cards/statistics.html')
+def card_statistics(child):
+    """
+    Statistics data for all models.
+    :param child: an instance of the Child model.
+    :returns: a list of dictionaries with "type", "stat" and "title" entries.
+    """
+    stats = []
+
+    changes = _diaperchange_averages(child)
+    stats.append({
+        'type': 'duration',
+        'stat': changes['btwn_average'],
+        'title': 'Diaper change frequency'})
+
+    feedings = _feeding_averages(child)
+    stats.append({
+        'type': 'duration',
+        'stat': feedings['btwn_average'],
+        'title': 'Feeding frequency'})
+
+    naps = _nap_averages(child)
+    stats.append({
+        'type': 'duration',
+        'stat': naps['average'],
+        'title': 'Average nap duration'})
+    stats.append({
+        'type': 'float',
+        'stat': naps['avg_per_day'],
+        'title': 'Average naps per day'})
+
+    sleep = _sleep_averages(child)
+    stats.append({
+        'type': 'duration',
+        'stat': sleep['average'],
+        'title': 'Average sleep duration'})
+    stats.append({
+        'type': 'duration',
+        'stat': sleep['btwn_average'],
+        'title': 'Average awake duration'})
+
+    return {'stats': stats}
+
+
+def _diaperchange_averages(child):
+    """
+    Averaged Diaper Change data.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of Diaper Change averages data.
+    """
+    instances = DiaperChange.objects.filter(child=child).order_by('time')
+    changes = {
+        'btwn_total': timezone.timedelta(0),
+        'btwn_count': instances.count() - 1,
+        'btwn_average': 0}
+    last_instance = None
+
+    for instance in instances:
+        if last_instance:
+            changes['btwn_total'] += instance.time - last_instance.time
+        last_instance = instance
+
+    if changes['btwn_count'] > 0:
+        changes['btwn_average'] = changes['btwn_total'] / changes['btwn_count']
+
+    return changes
+
+
+def _feeding_averages(child):
+    """
+    Averaged Feeding data.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of Feeding averages data.
+    """
+    instances = Feeding.objects.filter(child=child).order_by('start')
+    feedings = {
+        'btwn_total': timezone.timedelta(0),
+        'btwn_count': instances.count() - 1,
+        'btwn_average': 0}
+    last_instance = None
+
+    for instance in instances:
+        if last_instance:
+            feedings['btwn_total'] += instance.start - last_instance.end
+        last_instance = instance
+
+    if feedings['btwn_count'] > 0:
+        feedings['btwn_average'] = \
+            feedings['btwn_total'] / feedings['btwn_count']
+
+    return feedings
+
+
+def _nap_averages(child):
+    """
+    Averaged nap data.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of nap (Sleep) averages data.
+    """
+    instances = Sleep.naps.filter(child=child).order_by('start')
+    naps = {
+        'total': instances.aggregate(Sum('duration'))['duration__sum'],
+        'count': instances.count(),
+        'average': 0,
+        'avg_per_day': 0}
+    if naps['count'] > 0:
+        naps['average'] = naps['total'] / naps['count']
+
+    naps_avg = instances.annotate(date=TruncDate('start')).values('date') \
+        .annotate(naps_count=Count('id')).order_by() \
+        .aggregate(Avg('naps_count'))
+    naps['avg_per_day'] = naps_avg['naps_count__avg']
+
+    return naps
+
+
+def _sleep_averages(child):
+    """
+    Averaged Sleep data.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of Sleep averages data.
+    """
+    instances = Sleep.objects.filter(child=child).order_by('start')
+    sleep = {
+        'total': instances.aggregate(Sum('duration'))['duration__sum'],
+        'count': instances.count(),
+        'average': 0,
+        'btwn_total': timezone.timedelta(0),
+        'btwn_count': instances.count() - 1,
+        'btwn_average': 0}
+
+    last_instance = None
+    for instance in instances:
+        if last_instance:
+            sleep['btwn_total'] += instance.start - last_instance.end
+        last_instance = instance
+
+    if sleep['count'] > 0:
+        sleep['average'] = sleep['total'] / sleep['count']
+    if sleep['btwn_count'] > 0:
+        sleep['btwn_average'] = sleep['btwn_total'] / sleep['btwn_count']
+
+    return sleep
 
 
 @register.inclusion_tag('cards/timer_list.html')
