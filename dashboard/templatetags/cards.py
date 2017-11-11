@@ -6,7 +6,7 @@ from django.db.models import Avg, Count, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 
-from core.models import DiaperChange, Feeding, Sleep, Timer, TummyTime
+from core import models
 
 
 register = template.Library()
@@ -19,7 +19,7 @@ def card_diaperchange_last(child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Diaper Change instance.
     """
-    instance = DiaperChange.objects.filter(
+    instance = models.DiaperChange.objects.filter(
         child=child).order_by('-time').first()
     return {'type': 'diaperchange', 'change': instance}
 
@@ -41,7 +41,7 @@ def card_diaperchange_types(child):
     for x in range(6):
         stats[x] = {'wet': 0, 'solid': 0}
 
-    instances = DiaperChange.objects.filter(child=child) \
+    instances = models.DiaperChange.objects.filter(child=child) \
         .filter(time__gt=min_date).filter(time__lt=max_date).order_by('-time')
     for instance in instances:
         key = (max_date - instance.time).days
@@ -66,7 +66,8 @@ def card_feeding_last(child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Feeding instance.
     """
-    instance = Feeding.objects.filter(child=child).order_by('-end').first()
+    instance = models.Feeding.objects.filter(child=child) \
+        .order_by('-end').first()
     return {'type': 'feeding', 'feeding': instance}
 
 
@@ -77,7 +78,8 @@ def card_feeding_last_method(child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Feeding instance.
     """
-    instance = Feeding.objects.filter(child=child).order_by('-end').first()
+    instance = models.Feeding.objects.filter(child=child) \
+        .order_by('-end').first()
     return {'type': 'feeding', 'feeding': instance}
 
 
@@ -88,7 +90,8 @@ def card_sleep_last(child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Sleep instance.
     """
-    instance = Sleep.objects.filter(child=child).order_by('-end').first()
+    instance = models.Sleep.objects.filter(child=child) \
+        .order_by('-end').first()
     return {'type': 'sleep', 'sleep': instance}
 
 
@@ -102,10 +105,10 @@ def card_sleep_day(child, date=None):
     """
     if not date:
         date = timezone.localtime().date()
-    instances = Sleep.objects.filter(child=child).filter(
+    instances = models.Sleep.objects.filter(child=child).filter(
         start__year=date.year,
         start__month=date.month,
-        start__day=date.day) | Sleep.objects.filter(child=child).filter(
+        start__day=date.day) | models.Sleep.objects.filter(child=child).filter(
         end__year=date.year,
         end__month=date.month,
         end__day=date.day)
@@ -139,7 +142,7 @@ def card_sleep_naps_day(child, date=None):
     :returns: a dictionary of nap data statistics.
     """
     date = timezone.localtime(date).astimezone(timezone.utc)
-    instances = Sleep.naps.filter(child=child, start__date=date)
+    instances = models.Sleep.naps.filter(child=child, start__date=date)
     return {
         'type': 'sleep',
         'total': instances.aggregate(Sum('duration')),
@@ -155,19 +158,19 @@ def card_statistics(child):
     """
     stats = []
 
-    changes = _diaperchange_averages(child)
+    changes = _diaperchange_statistics(child)
     stats.append({
         'type': 'duration',
         'stat': changes['btwn_average'],
         'title': 'Diaper change frequency'})
 
-    feedings = _feeding_averages(child)
+    feedings = _feeding_statistics(child)
     stats.append({
         'type': 'duration',
         'stat': feedings['btwn_average'],
         'title': 'Feeding frequency'})
 
-    naps = _nap_averages(child)
+    naps = _nap_statistics(child)
     stats.append({
         'type': 'duration',
         'stat': naps['average'],
@@ -177,7 +180,7 @@ def card_statistics(child):
         'stat': naps['avg_per_day'],
         'title': 'Average naps per day'})
 
-    sleep = _sleep_averages(child)
+    sleep = _sleep_statistics(child)
     stats.append({
         'type': 'duration',
         'stat': sleep['average'],
@@ -187,16 +190,23 @@ def card_statistics(child):
         'stat': sleep['btwn_average'],
         'title': 'Average awake duration'})
 
+    weight = _weight_statistics(child)
+    stats.append({
+        'type': 'float',
+        'stat': weight['change_weekly'],
+        'title': 'Weight change per week'})
+
     return {'stats': stats}
 
 
-def _diaperchange_averages(child):
+def _diaperchange_statistics(child):
     """
     Averaged Diaper Change data.
     :param child: an instance of the Child model.
-    :returns: a dictionary of Diaper Change averages data.
+    :returns: a dictionary of statistics.
     """
-    instances = DiaperChange.objects.filter(child=child).order_by('time')
+    instances = models.DiaperChange.objects.filter(child=child) \
+        .order_by('time')
     changes = {
         'btwn_total': timezone.timedelta(0),
         'btwn_count': instances.count() - 1,
@@ -214,13 +224,13 @@ def _diaperchange_averages(child):
     return changes
 
 
-def _feeding_averages(child):
+def _feeding_statistics(child):
     """
     Averaged Feeding data.
     :param child: an instance of the Child model.
-    :returns: a dictionary of Feeding averages data.
+    :returns: a dictionary of statistics.
     """
-    instances = Feeding.objects.filter(child=child).order_by('start')
+    instances = models.Feeding.objects.filter(child=child).order_by('start')
     feedings = {
         'btwn_total': timezone.timedelta(0),
         'btwn_count': instances.count() - 1,
@@ -239,13 +249,13 @@ def _feeding_averages(child):
     return feedings
 
 
-def _nap_averages(child):
+def _nap_statistics(child):
     """
     Averaged nap data.
     :param child: an instance of the Child model.
-    :returns: a dictionary of nap (Sleep) averages data.
+    :returns: a dictionary of statistics.
     """
-    instances = Sleep.naps.filter(child=child).order_by('start')
+    instances = models.Sleep.naps.filter(child=child).order_by('start')
     naps = {
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': instances.count(),
@@ -262,13 +272,13 @@ def _nap_averages(child):
     return naps
 
 
-def _sleep_averages(child):
+def _sleep_statistics(child):
     """
     Averaged Sleep data.
     :param child: an instance of the Child model.
-    :returns: a dictionary of Sleep averages data.
+    :returns: a dictionary of statistics.
     """
-    instances = Sleep.objects.filter(child=child).order_by('start')
+    instances = models.Sleep.objects.filter(child=child).order_by('start')
     sleep = {
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': instances.count(),
@@ -291,13 +301,33 @@ def _sleep_averages(child):
     return sleep
 
 
+def _weight_statistics(child):
+    """
+    Statistical weight data.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of statistics.
+    """
+    weight = {'change_weekly': 0}
+
+    instances = models.Weight.objects.filter(child=child).order_by('-date')
+    newest = instances.first()
+    oldest = instances.last()
+
+    if newest != oldest:
+        weight_change = newest.weight - oldest.weight
+        weeks = (newest.date - oldest.date).days/7
+        weight['change_weekly'] = weight_change/weeks
+
+    return weight
+
+
 @register.inclusion_tag('cards/timer_list.html')
 def card_timer_list():
     """
     Filters for currently active Timer instances.
     :returns: a dictionary with a list of active Timer instances.
     """
-    instances = Timer.objects.filter(active=True).order_by('-start')
+    instances = models.Timer.objects.filter(active=True).order_by('-start')
     return {'type': 'timer', 'instances': list(instances)}
 
 
@@ -308,7 +338,8 @@ def card_tummytime_last(child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Tummy Time instance.
     """
-    instance = TummyTime.objects.filter(child=child).order_by('-end').first()
+    instance = models.TummyTime.objects.filter(child=child) \
+        .order_by('-end').first()
     return {'type': 'tummytime', 'tummytime': instance}
 
 
@@ -322,7 +353,7 @@ def card_tummytime_day(child, date=None):
     """
     if not date:
         date = timezone.localtime().date()
-    instances = TummyTime.objects.filter(
+    instances = models.TummyTime.objects.filter(
         child=child, end__year=date.year, end__month=date.month,
         end__day=date.day).order_by('-end')
     stats = {
