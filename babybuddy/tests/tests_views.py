@@ -47,3 +47,11 @@ class ViewsTestCase(TestCase):
         )
         page = self.c.get('/')
         self.assertEqual(page.url, '/dashboard/')
+
+    def test_user_settings(self):
+        page = self.c.get('/user/settings/')
+        self.assertEqual(page.status_code, 200)
+
+    def test_welcome(self):
+        page = self.c.get('/welcome/')
+        self.assertEqual(page.status_code, 200)
