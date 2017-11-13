@@ -1,0 +1,32 @@
+run.config:
+  engine: python
+
+  cache_dirs:
+    - node_modules
+
+  extra_packages:
+    - nodejs
+    - nginx
+
+  extra_path_dirs:
+    - node_modules/.bin
+
+  extra_steps:
+    - npm install
+
+deploy.config:
+  extra_steps:
+    - gulp build
+    - python manage.py collectstatic --no-input --clear
+
+  before_live:
+    web.main:
+      - python manage.py migrate --fake-initial
+
+web.main:
+  start:
+    nginx: nginx -c /app/etc/nginx.conf
+    django: gunicorn -c /app/etc/gunicorn.py babybuddy.wsgi
+
+data.db:
+  image: nanobox/postgresql:9.5
