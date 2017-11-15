@@ -12,6 +12,8 @@ run.config:
     - node_modules/.bin
 
   extra_steps:
+    - pip install pipenv gunicorn
+    - pipenv lock -r | pip install -r /dev/stdin
     - npm install
 
 deploy.config:
