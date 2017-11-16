@@ -16,8 +16,9 @@ work.
 
 - [Demo](#demo)
 - [Deployment](#deployment)
-  - [Heroku](#heroku)
+  - [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
   - [Nanobox](#nanobox)
+  - [Heroku](#heroku)
 - [Development](#development)
   - [Installation](#installation)
   - [Fake data](#fake-data)
@@ -39,15 +40,35 @@ stable production deployment flow. :warning:**
 The default user name and password for Baby Buddy is `admin`/`admin`. For any 
 deployment, **log in and change the default password immediately**. 
 
-### Heroku
+### AWS Elastic Beanstalk
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+A basic [Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/)
+configuration is provided in `.ebextensions\babybuddy.config`.   The steps 
+below are a rough guide to deployment. See [Working with Python](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-apps.html)
+for detailed information.
 
-For manual deployments to Heroku without using the deploy button, make sure to
-create two settings before pushing using `heroku config:set`:
+1. Clone/download the Baby Buddy repo
 
-    heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
-    heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
+        git clone https://github.com/cdubz/babybuddy.git
+
+1. Enter the cloned/downloaded directory
+
+        cd babybuddy
+        
+1. Change the `SECREY_KEY` value to something random in `.ebextensions\babybuddy.config`
+
+1. [Create an IAM user](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) in AWS with EB, EC2, RDS and S3 privileges.
+
+1. Initialize the Elastic Bean application (using the IAM user from the previous step)
+
+        eb init
+        
+1. Create/deploy the environment! :rocket:
+
+        eb create -db -db.engine postgres
+
+The create command will also do an initial deployment. Run `eb deploy` to 
+redeploy the app (e.g. if there are errors or settings are changed).
 
 ### Nanobox
 
@@ -72,6 +93,16 @@ for detailed information about Nanobox's deployment and configuration process.
 1. Deploy! :rocket:
 
         nanobox deploy
+
+### Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+For manual deployments to Heroku without using the deploy button, make sure to
+create two settings before pushing using `heroku config:set`:
+
+    heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
+    heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
 
 ## Development
 
