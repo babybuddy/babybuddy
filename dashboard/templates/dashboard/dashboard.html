@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load static %}
+{% load static thumbnail %}
 
 {% block title %}Dashboard{% endblock %}
 
@@ -13,8 +13,12 @@
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-2 mb-4">
             <div class="card">
                 <a href="{% url 'child' object.slug %}">
-                     <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}"
-                          class="child-photo img-fluid" />
+                    {% if object.picture %}
+                        {% thumbnail object.picture 300x300 upscale crop as thumb %}
+                        <img src="{{ thumb.url }}" class="child-photo img-fluid" />
+                    {% else %}
+                        <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" class="child-photo img-fluid" />
+                    {% endif %}
                 </a>
                 <div class="card-body text-center">
                     <h4 class="card-title">{{ object }}</h4>
