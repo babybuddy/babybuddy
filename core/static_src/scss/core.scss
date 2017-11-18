@@ -4,6 +4,20 @@
     }
 }
 
+#view-child-list {
+    .picture-column {
+        text-align: center;
+        width: 65px;
+        min-width: 65px;
+    }
+
+    .child-list {
+        th, td {
+            vertical-align: middle;
+        }
+    }
+}
+
 @include media-breakpoint-up(md) {
     #view-child {
         .child-detail-column {

@@ -11,10 +11,10 @@
     <h1>Children</h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover child-list">
             <thead class="thead-inverse">
                 <tr>
-                    <th><i class="fa fa-camera" aria-hidden="true"></i></th>
+                    <th class="picture-column"><i class="icon icon-camera" aria-hidden="true"></i></th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Birth Date</th>
@@ -24,7 +24,7 @@
             <tbody>
                 {% for child in object_list %}
                     <tr>
-                        <td>
+                        <td class="picture-column">
                             {% if child.picture %}
                                 {% thumbnail child.picture 40x40 upscale crop as thumb %}
                                 <img src="{{ thumb.url }}" class="img-fluid rounded-circle" />
@@ -32,12 +32,12 @@
                                 <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" width="40" height="40" class="img-fluid rounded-circle" />
                             {% endif %}
                         </td>
-                        <th scope="row" class="align-middle">
+                        <th scope="row">
                             <a href="{% url 'child' child.slug %}">{{ child.first_name }}</a>
                         </th>
-                        <td class="align-middle">{{ child.last_name }}</td>
-                        <td class="align-middle">{{ child.birth_date }}</td>
-                        <td class="text-center align-middle">
+                        <td>{{ child.last_name }}</td>
+                        <td>{{ child.birth_date }}</td>
+                        <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
                                 {% if perms.core.change_child %}
