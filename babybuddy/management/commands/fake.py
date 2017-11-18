@@ -96,6 +96,9 @@ class Command(BaseCommand):
         solid = choice([True, False, False, False])
         wet = choice([True, False])
         color = ''
+        if solid:
+            color = choice(
+                models.DiaperChange._meta.get_field('color').choices)[0]
         if not wet and not solid:
             wet = True
         time = self.time + timedelta(minutes=randint(1, 60))
