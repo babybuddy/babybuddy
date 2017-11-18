@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
+{% load widget_tweaks thumbnail %}
 
 {% block title %}Children{% endblock %}
 
@@ -14,6 +14,7 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
+                    <th><i class="fa fa-camera" aria-hidden="true"></i></th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Birth Date</th>
@@ -23,10 +24,16 @@
             <tbody>
                 {% for child in object_list %}
                     <tr>
-                        <th scope="row"><a href="{% url 'child' child.slug %}">{{ child.first_name }}</a></th>
-                        <td>{{ child.last_name }}</td>
-                        <td>{{ child.birth_date }}</td>
-                        <td class="text-center">
+                        <td>
+                            {% thumbnail child.picture 40x40 upscale crop as thumb %}
+                            <img src="{{ thumb.url }}" class="img-fluid rounded-circle" />
+                        </td>
+                        <th scope="row" class="align-middle">
+                            <a href="{% url 'child' child.slug %}">{{ child.first_name }}</a>
+                        </th>
+                        <td class="align-middle">{{ child.last_name }}</td>
+                        <td class="align-middle">{{ child.birth_date }}</td>
+                        <td class="text-center align-middle">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
                                 {% if perms.core.change_child %}

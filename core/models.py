@@ -75,6 +75,11 @@ class Child(models.Model):
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField(blank=False, null=False)
     slug = models.SlugField(max_length=100, unique=True, editable=False)
+    picture = models.ImageField(
+        upload_to='child/picture/',
+        blank=True,
+        null=True
+    )
 
     objects = models.Manager()
 

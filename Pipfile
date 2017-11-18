@@ -1,8 +1,11 @@
 [[source]]
+
 verify_ssl = true
 url = "https://pypi.python.org/simple"
 
+
 [packages]
+
 django = "*"
 djangorestframework = "*"
 django-filter = "*"
@@ -13,9 +16,12 @@ faker = "*"
 dj-database-url = "*"
 gunicorn = "*"
 whitenoise = "*"
-psycopg2 = "*"
+"psycopg2" = "*"
+easy-thumbnails = "*"
+
 
 [dev-packages]
+
 coveralls = "*"
-flake8 = "*"
+"flake8" = "*"
 ipaddress = "*"

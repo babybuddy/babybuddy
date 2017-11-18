@@ -21,6 +21,12 @@ gulp.task('migrate', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
+gulp.task('makemigrations', function(cb) {
+    var command = ['run', 'python', 'manage.py', 'makemigrations'];
+    command = command.concat(process.argv.splice(3));
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+});
+
 
 gulp.task('reset', function(cb) {
     spawn(
