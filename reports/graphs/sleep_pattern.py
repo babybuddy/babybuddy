@@ -100,7 +100,7 @@ def sleep_pattern(instances):
         if start_time.utcoffset() != end_time.utcoffset():
             diff = start_time.utcoffset() - end_time.utcoffset()
             duration -= timezone.timedelta(seconds=diff.seconds)
-            y_df.set_value(df_index - 1, start_date, duration.seconds/60)
+            y_df.at[df_index - 1, start_date] = duration.seconds/60
 
         last_end_time = end_time
 
@@ -171,6 +171,6 @@ def _add_sleep_entry(y_df, text_df, index, column, duration, text=''):
         text_df.assign(**{column: 0 in range(0, len(text_df.index))})
         index = 0
 
-    y_df.set_value(index, column, duration)
-    text_df.set_value(index, column, text)
+    y_df.at[index, column] = duration
+    text_df.at[index, column] = text
     return index + 1
