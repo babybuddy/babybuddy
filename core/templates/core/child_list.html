@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks thumbnail %}
+{% load widget_tweaks static thumbnail %}
 
 {% block title %}Children{% endblock %}
 
@@ -25,8 +25,12 @@
                 {% for child in object_list %}
                     <tr>
                         <td>
-                            {% thumbnail child.picture 40x40 upscale crop as thumb %}
-                            <img src="{{ thumb.url }}" class="img-fluid rounded-circle" />
+                            {% if child.picture %}
+                                {% thumbnail child.picture 40x40 upscale crop as thumb %}
+                                <img src="{{ thumb.url }}" class="img-fluid rounded-circle" />
+                            {% else %}
+                                <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" width="40" height="40" class="img-fluid rounded-circle" />
+                            {% endif %}
                         </td>
                         <th scope="row" class="align-middle">
                             <a href="{% url 'child' child.slug %}">{{ child.first_name }}</a>
