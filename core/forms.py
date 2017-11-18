@@ -40,7 +40,7 @@ def set_default_duration(kwargs):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = models.Child
-        fields = ['first_name', 'last_name', 'birth_date']
+        fields = ['first_name', 'last_name', 'birth_date', 'picture']
         widgets = {
             'birth_date': forms.DateInput(attrs={
                 'class': 'datepicker-input',

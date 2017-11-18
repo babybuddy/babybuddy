@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8ecb16e5e548134a5bdee9b54f0f792890b2e92ebc47d219b9dfef3ea7b9dcfb"
+            "sha256": "4ff4dd2c2df1b4b46d5dc1872aa1a240f519915b1e0bf2a64b3ee650d1489fd2"
         },
         "requires": {},
         "sources": [
@@ -13,7 +13,7 @@
     },
     "default": {
         "certifi": {
-            "version": "==2017.7.27.1"
+            "version": "==2017.11.5"
         },
         "chardet": {
             "version": "==3.0.4"
@@ -25,7 +25,7 @@
             "version": "==0.4.2"
         },
         "django": {
-            "version": "==1.11.6"
+            "version": "==1.11.7"
         },
         "django-filter": {
             "version": "==1.1.0"
@@ -34,10 +34,13 @@
             "version": "==1.4.1"
         },
         "djangorestframework": {
-            "version": "==3.7.1"
+            "version": "==3.7.3"
+        },
+        "easy-thumbnails": {
+            "version": "==2.5"
         },
         "faker": {
-            "version": "==0.8.6"
+            "version": "==0.8.7"
         },
         "gunicorn": {
             "version": "==19.7.1"
@@ -52,7 +55,7 @@
             "version": "==2.6.0"
         },
         "jupyter-core": {
-            "version": "==4.3.0"
+            "version": "==4.4.0"
         },
         "nbformat": {
             "version": "==4.4.0"
@@ -60,20 +63,26 @@
         "numpy": {
             "version": "==1.13.3"
         },
+        "olefile": {
+            "version": "==0.44"
+        },
         "pandas": {
-            "version": "==0.20.3"
+            "version": "==0.21.0"
+        },
+        "pillow": {
+            "version": "==4.3.0"
         },
         "plotly": {
-            "version": "==2.1.0"
+            "version": "==2.2.1"
         },
         "psycopg2": {
-            "version": "==2.7.3.1"
+            "version": "==2.7.3.2"
         },
         "python-dateutil": {
             "version": "==2.6.1"
         },
         "pytz": {
-            "version": "==2017.2"
+            "version": "==2017.3"
         },
         "requests": {
             "version": "==2.18.4"
@@ -82,7 +91,7 @@
             "version": "==1.11.0"
         },
         "text-unidecode": {
-            "version": "==1.0"
+            "version": "==1.1"
         },
         "traitlets": {
             "version": "==4.3.2"
@@ -96,13 +105,13 @@
     },
     "develop": {
         "certifi": {
-            "version": "==2017.7.27.1"
+            "version": "==2017.11.5"
         },
         "chardet": {
             "version": "==3.0.4"
         },
         "coverage": {
-            "version": "==4.4.1"
+            "version": "==4.4.2"
         },
         "coveralls": {
             "version": "==1.2.0"

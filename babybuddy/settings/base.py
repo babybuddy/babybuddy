@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'widget_tweaks',
+    'easy_thumbnails',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -122,7 +123,11 @@ STATICFILES_FINDERS = [
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
 
