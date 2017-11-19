@@ -45,7 +45,7 @@ def card_diaperchange_types(child, date=None):
         hour=0, minute=0, second=0)
 
     for x in range(7):
-        stats[x] = {'wet': 0, 'solid': 0}
+        stats[x] = {'wet': 0.0, 'solid': 0.0}
 
     instances = models.DiaperChange.objects.filter(child=child) \
         .filter(time__gt=min_date).filter(time__lt=max_date).order_by('-time')
@@ -213,7 +213,7 @@ def _diaperchange_statistics(child):
     changes = {
         'btwn_total': timezone.timedelta(0),
         'btwn_count': instances.count() - 1,
-        'btwn_average': 0}
+        'btwn_average': 0.0}
     last_instance = None
 
     for instance in instances:
@@ -237,7 +237,7 @@ def _feeding_statistics(child):
     feedings = {
         'btwn_total': timezone.timedelta(0),
         'btwn_count': instances.count() - 1,
-        'btwn_average': 0}
+        'btwn_average': 0.0}
     last_instance = None
 
     for instance in instances:
@@ -262,8 +262,8 @@ def _nap_statistics(child):
     naps = {
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': instances.count(),
-        'average': 0,
-        'avg_per_day': 0}
+        'average': 0.0,
+        'avg_per_day': 0.0}
     if naps['count'] > 0:
         naps['average'] = naps['total'] / naps['count']
 
@@ -285,10 +285,10 @@ def _sleep_statistics(child):
     sleep = {
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': instances.count(),
-        'average': 0,
+        'average': 0.0,
         'btwn_total': timezone.timedelta(0),
         'btwn_count': instances.count() - 1,
-        'btwn_average': 0}
+        'btwn_average': 0.0}
 
     last_instance = None
     for instance in instances:
@@ -310,7 +310,7 @@ def _weight_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    weight = {'change_weekly': 0}
+    weight = {'change_weekly': 0.0}
 
     instances = models.Weight.objects.filter(child=child).order_by('-date')
     newest = instances.first()
