@@ -18,9 +18,9 @@
     {
       "child": 1,
       "time": "2017-11-18T16:00:00Z",
-      "wet": true,
+      "wet": false,
       "solid": true,
-      "color": "yellow"
+      "color": "green"
     }
   },
   {
@@ -42,7 +42,7 @@
     {
       "child": 1,
       "time": "2017-11-17T13:00:00Z",
-      "wet": true,
+      "wet": false,
       "solid": true,
       "color": "green"
     }
