@@ -148,7 +148,7 @@ def card_sleep_naps_day(child, date=None):
     instances = models.Sleep.naps.filter(child=child, start__date=date)
     return {
         'type': 'sleep',
-        'total': instances.aggregate(Sum('duration')),
+        'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': len(instances)}
 
 
