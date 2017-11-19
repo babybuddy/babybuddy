@@ -11,8 +11,8 @@ from core import models
 class ChildAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'birth_date', 'slug')
     list_filter = ('last_name',)
-    search_fields = ('first_name', 'last_name', 'birth_date',)
-    fields = ['first_name', 'last_name', 'birth_date',]
+    search_fields = ('first_name', 'last_name', 'birth_date')
+    fields = ['first_name', 'last_name', 'birth_date']
     if settings.ALLOW_UPLOADS:
         fields.append('picture')
 
