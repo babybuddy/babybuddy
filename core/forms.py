@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.utils import timezone
+from django.conf import settings
 
 from core import models
 
@@ -40,7 +41,13 @@ def set_default_duration(kwargs):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = models.Child
-        fields = ['first_name', 'last_name', 'birth_date', 'picture']
+        fields = [
+            'first_name',
+            'last_name',
+            'birth_date'
+        ]
+        if settings.ALLOW_UPLOADS:
+            fields.append('picture')
         widgets = {
             'birth_date': forms.DateInput(attrs={
                 'class': 'datepicker-input',

@@ -131,6 +131,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
 
+ALLOW_UPLOADS = True
+
 
 # Django Rest Framework
 # http://www.django-rest-framework.org/#
