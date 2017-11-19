@@ -1,0 +1,336 @@
+[
+  {
+    "model": "core.child",
+    "pk": 1,
+    "fields":
+    {
+      "first_name": "Fake",
+      "last_name": "Child",
+      "birth_date": "2017-11-11",
+      "slug": "fake-child",
+      "picture": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-18T16:00:00Z",
+      "wet": true,
+      "solid": true,
+      "color": "yellow"
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 3,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-18T19:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 4,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-17T13:00:00Z",
+      "wet": true,
+      "solid": true,
+      "color": "green"
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 5,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-17T16:00:00Z",
+      "wet": false,
+      "solid": true,
+      "color": "green"
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 6,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-16T15:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 7,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-16T18:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 8,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-15T15:00:00Z",
+      "wet": false,
+      "solid": true,
+      "color": "brown"
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 9,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-15T13:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 10,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-15T16:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 11,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-15T21:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 12,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-14T15:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 13,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-13T14:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 14,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-13T18:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 15,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-12T15:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.diaperchange",
+    "pk": 16,
+    "fields":
+    {
+      "child": 1,
+      "time": "2017-11-11T15:00:00Z",
+      "wet": true,
+      "solid": false,
+      "color": ""
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T14:00:00Z",
+      "end": "2017-11-18T14:30:00Z",
+      "duration": "00:30:00",
+      "type": "breast milk",
+      "method": "left breast",
+      "amount": null
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T16:30:00Z",
+      "end": "2017-11-18T17:00:00Z",
+      "duration": "00:30:00",
+      "type": "breast milk",
+      "method": "right breast",
+      "amount": null
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 3,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T19:00:00Z",
+      "end": "2017-11-18T19:15:00Z",
+      "duration": "00:15:00",
+      "type": "formula",
+      "method": "bottle",
+      "amount": 2.5
+    }
+  },
+  {
+    "model": "core.sleep",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T04:30:00Z",
+      "end": "2017-11-18T05:30:00Z",
+      "duration": "01:00:00"
+    }
+  },
+  {
+    "model": "core.sleep",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T15:00:00Z",
+      "end": "2017-11-18T17:00:00Z",
+      "duration": "02:00:00"
+    }
+  },
+  {
+    "model": "core.sleep",
+    "pk": 3,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T19:00:00Z",
+      "end": "2017-11-18T19:30:00Z",
+      "duration": "00:30:00"
+    }
+  },
+  {
+    "model": "core.sleep",
+    "pk": 4,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-19T00:00:00Z",
+      "end": "2017-11-19T04:00:00Z",
+      "duration": "04:00:00"
+    }
+  },
+  {
+    "model": "core.tummytime",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T15:00:00Z",
+      "end": "2017-11-18T15:03:00Z",
+      "duration": "00:03:00",
+      "milestone": ""
+    }
+  },
+  {
+    "model": "core.tummytime",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T17:15:30Z",
+      "end": "2017-11-18T17:16:45Z",
+      "duration": "00:01:15",
+      "milestone": ""
+    }
+  },
+  {
+    "model": "core.tummytime",
+    "pk": 3,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-18T20:30:00Z",
+      "end": "2017-11-18T20:30:45Z",
+      "duration": "00:00:45",
+      "milestone": ""
+    }
+  },
+  {
+    "model": "core.weight",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "weight": 8.5,
+      "date": "2017-11-11"
+    }
+  },
+  {
+    "model": "core.weight",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "weight": 9.5,
+      "date": "2017-11-18"
+    }
+  }
+]

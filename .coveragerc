@@ -1,5 +1,7 @@
 [run]
 omit =
+    */migrations/*
+    babybuddy/management/*
     babybuddy/settings/*
     babybuddy/wsgi.py
 source =
