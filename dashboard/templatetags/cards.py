@@ -25,20 +25,26 @@ def card_diaperchange_last(child):
 
 
 @register.inclusion_tag('cards/diaperchange_types.html')
-def card_diaperchange_types(child):
+def card_diaperchange_types(child, date=None):
     """
     Creates a break down of wet and solid Diaper Change instances for the past
     seven days.
     :param child: an instance of the Child model.
+    :param date: a Date object for the day to filter.
     :returns: a dictionary with the wet/dry statistics.
     """
+    if not date:
+        time = timezone.localtime()
+    else:
+        time = timezone.datetime.combine(date, timezone.localtime().min.time())
+        time = timezone.make_aware(time)
     stats = {}
-    max_date = (timezone.localtime() + timezone.timedelta(
-        days=1)).replace(hour=0, minute=0, second=0)
-    min_date = (max_date - timezone.timedelta(
-        days=6)).replace(hour=0, minute=0, second=0)
+    max_date = (time + timezone.timedelta(days=1)).replace(
+        hour=0, minute=0, second=0)
+    min_date = (max_date - timezone.timedelta(days=7)).replace(
+        hour=0, minute=0, second=0)
 
-    for x in range(6):
+    for x in range(7):
         stats[x] = {'wet': 0, 'solid': 0}
 
     instances = models.DiaperChange.objects.filter(child=child) \
@@ -121,9 +127,6 @@ def card_sleep_day(child, date=None):
         if start.date() != date:
             start = start.replace(year=end.year, month=end.month, day=end.day,
                                   hour=0, minute=0, second=0)
-        elif end.date() != date:
-            end = start.replace(year=start.year, month=start.month,
-                                day=start.day, hour=23, minute=59, second=59)
 
         total += end - start
 
