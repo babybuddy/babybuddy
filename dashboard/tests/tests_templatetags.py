@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils import timezone
 
+import six
+
 from core import models
 from dashboard.templatetags import cards
 
@@ -30,10 +32,8 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_diaperchange_types(self.child, self.date)
         self.assertEqual(data['type'], 'diaperchange')
         stats = {
-            0: {'wet_pct': 66.66666666666666, 'solid_pct': 33.33333333333333,
-                'solid': 1, 'wet': 2},
-            1: {'wet_pct': 33.33333333333333, 'solid_pct': 66.66666666666666,
-                'solid': 2, 'wet': 1},
+            0: {'wet_pct': 50.0, 'solid_pct': 50.0, 'solid': 1, 'wet': 1},
+            1: {'wet_pct': 0.0, 'solid_pct': 100.0, 'solid': 2, 'wet': 0},
             2: {'wet_pct': 100.0, 'solid_pct': 0.0, 'solid': 0, 'wet': 2},
             3: {'wet_pct': 75.0, 'solid_pct': 25.0, 'solid': 1, 'wet': 3},
             4: {'wet_pct': 100.0, 'solid_pct': 0.0, 'solid': 0, 'wet': 1},
@@ -114,6 +114,11 @@ class TemplateTagsTestCase(TestCase):
                 'float'
             }
         ]
+
+        # Python 2 comes up with a slightly different number for one record.
+        if six.PY2:
+            stats[0]['stat'] = timezone.timedelta(0, 44228, 571428)
+
         self.assertEqual(data['stats'], stats)
 
     def test_card_timer_list(self):
