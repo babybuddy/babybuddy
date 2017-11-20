@@ -19,6 +19,7 @@ work.
   - [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
   - [Nanobox](#nanobox)
   - [Heroku](#heroku)
+  - [Manual](#manual)
 - [Development](#development)
   - [Installation](#installation)
   - [Fake data](#fake-data)
@@ -43,7 +44,7 @@ deployment, **log in and change the default password immediately**.
 ### AWS Elastic Beanstalk
 
 A basic [Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/)
-configuration is provided in `.ebextensions\babybuddy.config`.   The steps 
+configuration is provided in `.ebextensions/babybuddy.config`.   The steps 
 below are a rough guide to deployment. See [Working with Python](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-apps.html)
 for detailed information.
 
@@ -55,7 +56,7 @@ for detailed information.
 
         cd babybuddy
         
-1. Change the `SECREY_KEY` value to something random in `.ebextensions\babybuddy.config`
+1. Change the `SECRET_KEY` value to something random in `.ebextensions/babybuddy.config`
 
 1. [Create an IAM user](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) in AWS with EB, EC2, RDS and S3 privileges.
 
@@ -103,6 +104,135 @@ create two settings before pushing using `heroku config:set`:
 
     heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
     heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
+    
+### Manual
+
+There are a number of ways to deploy Baby Buddy manually to any server/VPS.
+The application can run fine in low memory (below 1GB) situations, however a 
+32-bit operating system is recommended in such cases. This is primarily 
+because the build process can be memory intensive and cause excessive memory
+usage on 64-bit systems. If all fails, assets can be built on a local machine
+and then uploaded to a server.
+
+#### Requirements
+
+- Python 2.7+, pip, pipenv
+- Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
+- Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
+- Database ([sqlite](https://sqlite.org/), [Postgres](https://www.postgresql.org/), [MySQL](https://www.mysql.com/), etc.)
+- NodeJS 8.x and NPM 5.x (for building assets)
+- Gulp (for building assets)
+
+#### Example deployment
+
+*This example assumes a 512MB VPS instance with Ubuntu 16.04 **x32**.* It uses
+Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
+(e.g. two parents and 1+ child).
+
+1. Install Python 3.x, pip, nginx and uwsgi
+
+        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3
+
+1. Install pipenv
+
+        sudo -H pip install pipenv
+
+1. Install NodeJS, NPM and Gulp
+
+        curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+        sudo apt-get install nodejs
+        sudo npm install -g gulp-cli
+    
+1. Set up directories and files
+
+        sudo mkdir /var/www/babybuddy
+        sudo chown user:user /var/www/babybuddy
+        mkdir -p /var/www/babybuddy/data/media
+        sudo chown -R www-data:www-data /var/www/babybuddy/data
+        git clone https://github.com/cdubz/babybuddy.git /var/www/babybuddy/public
+    
+1. Move in to the application folder
+
+        cd /var/www/babybuddy/public
+
+1. Initiate the Python environment
+
+        pipenv --three --dev
+    
+1. Build static assets
+
+        npm install
+        gulp build
+    
+1. Create a production settings file and set the ``SECRET_KEY`` and ``ALLOWED_HOSTS`` values
+
+        cp babybuddy/settings/production.example.py babybuddy/settings/production.py
+        editor babybuddy/settings/production.py
+
+1. Initiate the application
+
+        export DJANGO_SETTINGS_MODULE=babybuddy.settings.production
+        gulp collectstatic
+        gulp migrate
+    
+1. Set appropriate permissions on the database and data folder
+
+        sudo chown www-data:www-data /var/www/babybuddy/data/db.sqlite3
+        sudo chmod 640 /var/www/babybuddy/data/db.sqlite3
+        sudo chmod 750 /var/www/babybuddy/data
+
+1. Create and configure the uwsgi app
+
+        sudo editor /etc/uwsgi/apps-available/babybuddy.ini
+        sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
+        sudo service uwsgi restart
+    
+    Example config:
+    
+        [uwsgi]
+        plugins = python3
+        project = babybuddy
+        base_dir = /var/www/babybuddy
+        
+        virtualenv = /home/user/.local/share/virtualenvs/babybuddy-XXXXXXXX
+        chdir = %(base_dir)/babybuddy
+        module =  %(project).wsgi:application
+        env = DJANGO_SETTINGS_MODULE=%(project).settings.production
+        master = True
+        vacuum = True
+    
+    See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/) 
+    for more advanced configuration details.
+    
+    *Note: Find the location of the pipenv virtual environment with the command 
+    ``pipenv --venv``.*
+    
+1. Create and configure the nginx server
+
+        sudo vim /etc/nginx/sites-available/babybuddy
+        sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
+        sudo service nginx restart
+
+    Example config:
+
+        upstream babybuddy {
+            server unix:///var/run/uwsgi/app/babybuddy/socket;
+        }
+        
+        server {
+            listen 80;
+            server_name babybuddy.example.com;
+        
+            location / {
+                uwsgi_pass babybuddy;
+                include uwsgi_params;
+            }
+        }
+
+    See the [nginx documentation](https://nginx.org/en/docs/) for more advanced
+    configuration details.
+    
+1. That's it (hopefully)! :tada:
 
 ## Development
 
