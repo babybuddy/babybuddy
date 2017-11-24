@@ -14,6 +14,7 @@ RUN gulp build
 
 
 FROM python:3 as app
+ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pipenv gunicorn
 WORKDIR /app
 COPY Pipfile /app/

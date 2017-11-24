@@ -18,6 +18,7 @@ work.
 - [Demo](#demo)
 - [Deployment](#deployment)
   - [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
+  - [Docker](#docker)
   - [Nanobox](#nanobox)
   - [Heroku](#heroku)
   - [Manual](#manual)
@@ -71,6 +72,39 @@ for detailed information.
 
 The create command will also do an initial deployment. Run `eb deploy` to 
 redeploy the app (e.g. if there are errors or settings are changed).
+
+### Docker
+
+A Docker deploy requires [Docker](http://docker.com/) and 
+[Docker Compose](https://docs.docker.com/compose/overview/) to create two
+containers - one for the database and one for the application.
+
+1. Copy the `docker.env.example` to `docker.env` and set the `ALLOWED_HOSTS` and
+`SECRET_KEY` variables within
+
+        cp docker.env.example docker.env
+        editor docker.env
+        
+1. Build the web container
+
+        docker-compose build
+            
+1. Initialize the database (this will also build the db container)
+
+        docker-compose run --rm web python manage.py migrate
+
+1. Initialize static assets
+
+        docker-compose run --rm web python manage.py collectstatic
+        
+1. Launch! :rocket:
+
+        docker-composer up
+        
+The app should now be locally available at 
+[http://127.0.0.1:8000](http://127.0.0.1:8000). See 
+[Get Started, Part 6: Deploy your app](https://docs.docker.com/get-started/part6/)
+for detailed information about how to deployment methods with Docker.
 
 ### Nanobox
 
