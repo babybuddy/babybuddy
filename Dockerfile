@@ -27,9 +27,8 @@ ADD core /app/core
 ADD dashboard /app/dashboard
 ADD reports /app/reports
 ENV DJANGO_SETTINGS_MODULE babybuddy.settings.development
+ENV SECRET_KEY TODOCHANGEME
 COPY --from=build /build/babybuddy/static /app/babybuddy/static
 RUN python manage.py collectstatic --no-input
 RUN python manage.py migrate
 ADD etc/gunicorn.py /app/
-EXPOSE 8000
-ENTRYPOINT gunicorn -c /app/gunicorn.py babybuddy.wsgi
