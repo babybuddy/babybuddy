@@ -5,6 +5,9 @@
 # database
 *.sqlite3
 
+# docker
+docker.env
+
 # npm folder
 /node_modules
 
