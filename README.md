@@ -85,21 +85,17 @@ containers - one for the database and one for the application.
         cp docker.env.example docker.env
         editor docker.env
         
-1. Build the web container
+1. Build/run the application
 
-        docker-compose build
+        docker-compose up -d
             
-1. Initialize the database (this will also build the db container)
+1. Initialize the database *(first run/after updates)*
 
-        docker-compose run --rm web python manage.py migrate
+        docker-compose exec app python manage.py migrate
 
-1. Initialize static assets
+1. Initialize static assets *(first run/after updates)*
 
-        docker-compose run --rm web python manage.py collectstatic
-        
-1. Launch! :rocket:
-
-        docker-composer up
+        docker-compose exec app python manage.py collectstatic
         
 The app should now be locally available at 
 [http://127.0.0.1:8000](http://127.0.0.1:8000). See 
@@ -121,7 +117,7 @@ for detailed information about Nanobox's deployment and configuration process.
 
         cd babybuddy
     
-1. Add the `SECREY_KEY` and `DJANGO_SETTINGS_MODULE` environment variables
+1. Add the `SECRET_KEY` and `DJANGO_SETTINGS_MODULE` environment variables
 
         nanobox evar add DJANGO_SETTINGS_MODULE=babybuddy.settings.nanobox
         nanobox evar add SECRET_KEY=<CHANGE TO SOMETHING RANDOM>

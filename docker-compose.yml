@@ -3,7 +3,7 @@ version: "2"
 services:
   db:
     image: postgres
-  web:
+  app:
     env_file: docker.env
     build: .
     command: gunicorn -c /app/gunicorn.py babybuddy.wsgi
