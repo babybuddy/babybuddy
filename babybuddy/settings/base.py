@@ -10,9 +10,11 @@ BASE_DIR = os.path.dirname(
 )
 
 
-# SECURITY WARNING: set this to your domain name in production!
+# Required settings
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
+DEBUG = os.environ.get('DEBUG', False)
 
 
 # Applications
@@ -102,7 +104,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = os.environ.get('TIME_ZONE', 'Etc/UTC')
 
 USE_I18N = True
 
@@ -131,7 +133,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
 
-ALLOW_UPLOADS = True
+ALLOW_UPLOADS = os.environ.get('ALLOW_UPLOADS', True)
 
 
 # Django Rest Framework
@@ -153,10 +155,9 @@ REST_FRAMEWORK = {
 }
 
 # Baby Buddy configuration
+# See README.md#configuration for details about these settings.
 
 BABY_BUDDY = {
-    # A sleep entry with a start time between NAP_START_MIN and NAP_START_MAX
-    # (in the current TZ) will be categorized as a nap. Use the format %H:%M.
-    'NAP_START_MIN': '06:00',
-    'NAP_START_MAX': '18:00'
+    'NAP_START_MIN': os.environ.get('NAP_START_MIN', '06:00'),
+    'NAP_START_MAX': os.environ.get('NAP_START_MAX', '18:00')
 }

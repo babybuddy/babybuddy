@@ -5,15 +5,7 @@ import dj_database_url
 from .base import *  # noqa: F401,F403
 
 
-DEBUG = os.environ.get('DEBUG', False)
-
-
-ALLOW_UPLOADS = False
-
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
-SECRET_KEY = os.environ['SECRET_KEY']
+ALLOW_UPLOADS = os.environ.get('ALLOW_UPLOADS', False)
 
 
 # Database

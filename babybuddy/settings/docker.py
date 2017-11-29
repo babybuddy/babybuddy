@@ -1,16 +1,4 @@
-import os
-
 from .base import *  # noqa: F401,F403
-
-
-# Production settings
-# See babybuddy.settings.base for additional settings information.
-
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-
-DEBUG = os.environ.get('DEBUG', False)
 
 
 # Database

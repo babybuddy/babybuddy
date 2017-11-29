@@ -22,6 +22,7 @@ work.
   - [Nanobox](#nanobox)
   - [Heroku](#heroku)
   - [Manual](#manual)
+- [Configuration](#configuration)
 - [Development](#development)
   - [Installation](#installation)
   - [Fake data](#fake-data)
@@ -64,7 +65,7 @@ for detailed information.
 
 1. Initialize the Elastic Bean application (using the IAM user from the previous step)
 
-        eb init
+        eb init -p python-3.6
         
 1. Create/deploy the environment! :rocket:
 
@@ -264,6 +265,60 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
     configuration details.
     
 1. That's it (hopefully)! :tada:
+
+## Configuration
+
+Environment variables can be use to set a number of configuration settings:
+
+### `ALLOWED_HOSTS`
+
+Default: *
+
+This option may be set a single host or comma-separated list of hosts (without
+spaces). This should *always* be set accurately for production deployments.
+
+See also: [Django's documentation on the ALLOWED_HOSTS setting](https://docs.djangoproject.com/en/1.11/ref/settings/#allowed-hosts)
+
+### `ALLOW_UPLOADS`
+
+Default: True
+
+Whether or not to allow uploads (e.g. of Child photos). For some deployments 
+(AWS, Heroku, Nanobox) this setting will actually default to False.
+
+### `DEBUG`
+
+Default: False
+
+See [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/1.11/ref/settings/#debug).
+
+### `NAP_START_MAX`
+
+Default: 18:00
+
+The maximum *start* time (in the application's time zone) before which a sleep
+entry is consider a nap. Expects the format %H:%M.
+
+### `NAP_START_MIN`
+
+Default: 06:00
+
+The minimum *start* time (in the application's time zone) after which a sleep
+entry is considered a nap. Expects the format %H:%M.
+
+### `SECRET_KEY`
+
+Default: None
+
+See [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/1.11/ref/settings/#secret-key).
+
+
+### `TIME_ZONE`
+
+Default: Etc/UTC
+
+The time zone to use for the application. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+for all available settings.
 
 ## Development
 
