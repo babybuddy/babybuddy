@@ -13,7 +13,7 @@ run.config:
 
   extra_steps:
     - pip install pipenv gunicorn
-    - pipenv lock -r | pip install -r /dev/stdin
+    - pipenv install --system --deploy
     - npm install
 
 deploy.config:
