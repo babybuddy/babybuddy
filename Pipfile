@@ -18,6 +18,7 @@ gunicorn = "*"
 whitenoise = "*"
 "psycopg2" = "*"
 easy-thumbnails = "*"
+python-dotenv = "*"
 
 
 [dev-packages]
