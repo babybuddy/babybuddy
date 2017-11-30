@@ -33,35 +33,47 @@ def feeding_duration(instances):
     for total in totals:
         averages.append(total['sum']/total['count'])
 
-    trace = go.Bar(
+    trace_avg = go.Scatter(
         name='Average duration',
+        line=dict(shape='spline'),
         x=list(totals.values_list('date', flat=True)),
         y=[td.seconds/60 for td in averages],
         hoverinfo='text',
         textposition='outside',
-        text=[_duration_string_minutes(td) for td in averages]
+        text=[_duration_string_ms(td) for td in averages]
+    )
+    trace_count = go.Scatter(
+        name='Total feedings',
+        mode='markers',
+        x=list(totals.values_list('date', flat=True)),
+        y=list(totals.values_list('count', flat=True)),
+        yaxis='y2',
+        hoverinfo='y'
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args['barmode'] = 'stack'
     layout_args['title'] = '<b>Average Feeding Durations</b>'
     layout_args['xaxis']['title'] = 'Date'
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
     layout_args['yaxis']['title'] = 'Average duration (minutes)'
+    layout_args['yaxis2'] = dict(layout_args['yaxis'])
+    layout_args['yaxis2']['title'] = 'Number of feedings'
+    layout_args['yaxis2']['overlaying'] = 'y'
+    layout_args['yaxis2']['side'] = 'right'
 
     fig = go.Figure({
-        'data': [trace],
+        'data': [trace_avg, trace_count],
         'layout': go.Layout(**layout_args)
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
     return utils.split_graph_output(output)
 
 
-def _duration_string_minutes(duration):
+def _duration_string_ms(duration):
     """
-    Format a "short" duration string with only minutes precision. This is
+    Format a "short" duration string with only minutes and seconds. This is
     intended to fit better in smaller spaces on a graph.
     :returns: a string of the form Xm.
     """
     h, m, s = duration_parts(duration)
-    return '{}m'.format(m)
+    return '{}m{}s'.format(m, s)
