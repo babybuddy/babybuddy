@@ -30,7 +30,7 @@ work.
 
 ## Demo
 
-A [demo of Baby Buddy](https://babybuddy.herokuapp.com) is available on Heroku.
+A [demo of Baby Buddy](http://demo.baby-buddy.net) is available on Heroku.
 The demo instance resets every hour. Login credentials are:
 
 - Username: `admin`
@@ -38,11 +38,11 @@ The demo instance resets every hour. Login credentials are:
 
 ## Deployment
 
-**:warning: Baby Buddy is still in early development and does not yet have a 
-stable production deployment flow. :warning:**
-
 The default user name and password for Baby Buddy is `admin`/`admin`. For any 
-deployment, **log in and change the default password immediately**. 
+deployment, **log in and change the default admin password immediately**.
+
+Many of Baby Buddy's configuration settings can be controlled using environment
+variables - see [Configuration](#configuration) for detailed information.
 
 ### AWS Elastic Beanstalk
 
@@ -86,6 +86,9 @@ containers - one for the database and one for the application.
         cp docker.env.example docker.env
         editor docker.env
         
+    *See [Configuration](#configuration) for other settings that can be 
+    controlled by environment variables added to the `docker.env` file.*
+        
 1. Build/run the application
 
         docker-compose up -d
@@ -122,6 +125,9 @@ for detailed information about Nanobox's deployment and configuration process.
 
         nanobox evar add DJANGO_SETTINGS_MODULE=babybuddy.settings.nanobox
         nanobox evar add SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
+        
+    *See [Configuration](#configuration) for other settings that can be 
+    controlled by environment variables.*
 
 1. Deploy! :rocket:
 
@@ -136,6 +142,9 @@ create two settings before pushing using `heroku config:set`:
 
     heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
     heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
+    
+See [Configuration](#configuration) for other settings that can be controlled 
+by `heroku config:set`.
     
 ### Manual
 
@@ -268,57 +277,65 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 ## Configuration
 
-Environment variables can be use to set a number of configuration settings:
+Environment variables can be used to define a number of configuration settings:
 
 ### `ALLOWED_HOSTS`
 
-Default: *
+*Default: * (any)*
 
-This option may be set a single host or comma-separated list of hosts (without
-spaces). This should *always* be set accurately for production deployments.
+This option may be set to a single host or comma-separated list of hosts 
+(without spaces). This should *always* be set to a specific host or hosts in
+production deployments.
 
 See also: [Django's documentation on the ALLOWED_HOSTS setting](https://docs.djangoproject.com/en/1.11/ref/settings/#allowed-hosts)
 
 ### `ALLOW_UPLOADS`
 
-Default: True
+*Default: True*
 
 Whether or not to allow uploads (e.g. of Child photos). For some deployments 
-(AWS, Heroku, Nanobox) this setting will actually default to False.
+(AWS, Heroku, Nanobox) this setting will default to False due to the lack of
+available persistent storage.
 
 ### `DEBUG`
 
-Default: False
+*Default: False*
 
-See [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/1.11/ref/settings/#debug).
+When in debug mode, Baby Buddy will print much more detailed error information
+for exceptions. This setting should be *False* in production deployments.
+
+See also [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/1.11/ref/settings/#debug).
 
 ### `NAP_START_MAX`
 
-Default: 18:00
+*Default: 18:00*
 
-The maximum *start* time (in the application's time zone) before which a sleep
+The maximum *start* time (in the instance's time zone) before which a sleep
 entry is consider a nap. Expects the format %H:%M.
 
 ### `NAP_START_MIN`
 
-Default: 06:00
+*Default: 06:00*
 
-The minimum *start* time (in the application's time zone) after which a sleep
+The minimum *start* time (in the instance's time zone) after which a sleep
 entry is considered a nap. Expects the format %H:%M.
 
 ### `SECRET_KEY`
 
-Default: None
+*Default: None*
 
-See [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/1.11/ref/settings/#secret-key).
+A random, unique string must be set as the "secret key" before Baby Buddy can 
+be deployed and run.
+
+See also [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/1.11/ref/settings/#secret-key).
 
 
 ### `TIME_ZONE`
 
 Default: Etc/UTC
 
-The time zone to use for the application. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
-for all available settings.
+The time zone to use for the instance. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+for all possible values.
 
 ## Development
 
