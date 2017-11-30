@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import timezone
 
 import six
@@ -11,6 +11,8 @@ from core import models
 from dashboard.templatetags import cards
 
 
+# Test file data uses the US/Eastern time zone.
+@override_settings(TIME_ZONE='US/Eastern')
 class TemplateTagsTestCase(TestCase):
     fixtures = ['tests_templatetags.json']
 
