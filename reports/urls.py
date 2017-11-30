@@ -13,6 +13,10 @@ urlpatterns = [
         views.DiaperChangeTypesChildReport.as_view(),
         name='report-diaperchange-types-child'),
 
+    url(r'^children/(?P<slug>[^/.]+)/reports/feeding/duration/$',
+        views.FeedingDurationChildReport.as_view(),
+        name='report-feeding-duration-child'),
+
     url(r'^children/(?P<slug>[^/.]+)/reports/sleep/pattern/$',
         views.SleepPatternChildReport.as_view(),
         name='report-sleep-pattern-child'),

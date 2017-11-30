@@ -1,0 +1,13 @@
+{% extends 'reports/report_base.html' %}
+
+{% block title %}Average Feeding Durations - {{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="breadcrumb-item active" aria-current="page">Average Feeding Durations</li>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {{ javascript|safe }}
+{% endblock %}

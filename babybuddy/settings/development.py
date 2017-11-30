@@ -5,6 +5,7 @@ from .base import *
 
 SECRET_KEY = 'CHANGE ME'
 DEBUG = True
+TIME_ZONE = 'America/New_York'
 
 
 # Database
