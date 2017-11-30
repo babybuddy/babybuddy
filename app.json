@@ -26,12 +26,16 @@
     ],
     "env": {
         "DJANGO_SETTINGS_MODULE": {
-            "description": "We have a prebuilt config for Heroku",
+            "description": "A prebuilt configuration for Heroku.",
             "value": "babybuddy.settings.heroku"
         },
         "SECRET_KEY": {
-            "description": "Used for the Django auth system",
+            "description": "Used for the auth system.",
             "generator": "secret"
+        },
+        "TIME_ZONE": {
+            "description": "Sets the instance time zone.",
+            "value": "Etc/UTC"
         }
     },
     "scripts": {

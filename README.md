@@ -329,10 +329,9 @@ be deployed and run.
 
 See also [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/1.11/ref/settings/#secret-key).
 
-
 ### `TIME_ZONE`
 
-Default: Etc/UTC
+*Default: Etc/UTC*
 
 The time zone to use for the instance. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 for all possible values.
