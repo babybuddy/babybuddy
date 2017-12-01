@@ -78,9 +78,8 @@ redeploy the app (e.g. if there are errors or settings are changed).
 
 A Docker deploy requires [Docker](http://docker.com/) and 
 [Docker Compose](https://docs.docker.com/compose/overview/) to create two
-containers - one for the database and one for the application.
-
-Baby Buddy uses a [multi-stage build](https://docs.docker.com/engine/userguide/eng-image/multistage-build/),
+containers - one for the database and one for the application. Baby Buddy uses a
+[multi-stage build](https://docs.docker.com/engine/userguide/eng-image/multistage-build/),
 which requires Docker version 17.05 or newer.
 
 1. Copy the `docker.env.example` to `docker.env` and set the `ALLOWED_HOSTS` and
@@ -280,7 +279,18 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 ## Configuration
 
-Environment variables can be used to define a number of configuration settings:
+Environment variables can be used to define a number of configuration settings.
+Baby Buddy will check the application directory structure for an `.env` file or
+take these variables from the system environment. **System environment variables
+take precedence over the contents of an `.env` file.**
+
+- [`ALLOWED_HOSTS`](#allowed_hosts)
+- [`ALLOW_UPLOADS`](#allow_uploads)
+- [`DEBUG`](#debug)
+- [`NAP_START_MAX`](#nap_start_max)
+- [`NAP_START_MIN`](#nap_start_min)
+- [`SECRET_KEY`](#secret_key)
+- [`TIME_ZONE`](#time_zone)
 
 ### `ALLOWED_HOSTS`
 

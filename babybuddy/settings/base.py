@@ -1,5 +1,7 @@
 import os
 
+from dotenv import load_dotenv, find_dotenv
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(
     os.path.dirname(
@@ -9,6 +11,10 @@ BASE_DIR = os.path.dirname(
     )
 )
 
+# Environment variables
+# Check for and load environment variables from a .env file.
+
+load_dotenv(find_dotenv())
 
 # Required settings
 
