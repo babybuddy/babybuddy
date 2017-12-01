@@ -10,6 +10,8 @@ python:
     - 3.4
     - 3.5
     - 3.6
+env:
+    - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
 install:
     - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 8
     - npm install -g gulp-cli && npm install
