@@ -80,6 +80,9 @@ A Docker deploy requires [Docker](http://docker.com/) and
 [Docker Compose](https://docs.docker.com/compose/overview/) to create two
 containers - one for the database and one for the application.
 
+Baby Buddy uses a [multi-stage build](https://docs.docker.com/engine/userguide/eng-image/multistage-build/),
+which requires Docker version 17.05 or newer.
+
 1. Copy the `docker.env.example` to `docker.env` and set the `ALLOWED_HOSTS` and
 `SECRET_KEY` variables within
 
