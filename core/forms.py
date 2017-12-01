@@ -46,7 +46,7 @@ class ChildForm(forms.ModelForm):
             'last_name',
             'birth_date'
         ]
-        if settings.ALLOW_UPLOADS:
+        if settings.BABY_BUDDY['ALLOW_UPLOADS']:
             fields.append('picture')
         widgets = {
             'birth_date': forms.DateInput(attrs={

@@ -3,7 +3,7 @@ import dj_database_url
 from .base import *
 
 
-ALLOW_UPLOADS = os.environ.get('ALLOW_UPLOADS', False)
+BABY_BUDDY['ALLOW_UPLOADS'] = os.environ.get('ALLOW_UPLOADS', False)
 
 
 # Database
