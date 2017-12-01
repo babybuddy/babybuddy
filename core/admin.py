@@ -13,7 +13,7 @@ class ChildAdmin(admin.ModelAdmin):
     list_filter = ('last_name',)
     search_fields = ('first_name', 'last_name', 'birth_date')
     fields = ['first_name', 'last_name', 'birth_date']
-    if settings.ALLOW_UPLOADS:
+    if settings.BABY_BUDDY['ALLOW_UPLOADS']:
         fields.append('picture')
 
 

@@ -139,8 +139,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
 
-ALLOW_UPLOADS = os.environ.get('ALLOW_UPLOADS', True)
-
 
 # Django Rest Framework
 # http://www.django-rest-framework.org/#
@@ -165,5 +163,6 @@ REST_FRAMEWORK = {
 
 BABY_BUDDY = {
     'NAP_START_MIN': os.environ.get('NAP_START_MIN', '06:00'),
-    'NAP_START_MAX': os.environ.get('NAP_START_MAX', '18:00')
+    'NAP_START_MAX': os.environ.get('NAP_START_MAX', '18:00'),
+    'ALLOW_UPLOADS': os.environ.get('ALLOW_UPLOADS', True)
 }
