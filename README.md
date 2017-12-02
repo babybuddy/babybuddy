@@ -351,14 +351,48 @@ for all possible values.
 
 ## Development
 
+### Requirements
+
+- Python 2.7+, pip, pipenv
+- NodeJS 8.x and NPM 5.x
+- Gulp
+
 ### Installation
 
-    pip install pipenv
-    pipenv install --dev
-    npm install -g gulp-cli
-    npm install
-    gulp migrate
-    gulp
+1. Install pipenv
+
+        pip install pipenv
+        
+1. Install required Python packages, including dev packages
+
+        pipenv install --dev
+
+1. Install Gulp CLI
+
+        npm install -g gulp-cli
+
+1. Install required Node packages
+
+        npm install
+
+1. Set, at least, the `DJANGO_SETTINGS_MODULE` environment variable
+
+        export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
+    
+    This process will differ based on the host OS. The above example is for 
+    Linux-based systems. See [Configuration](#configuration) for other settings
+    and methods for defining them.
+
+1. Migrate the database
+
+        gulp migrate
+        
+1. Build assets and run the server
+
+        gulp
+
+    This command will also watch for file system changes to rebuild assets and 
+    restart the server as needed.
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
 user name and password (`admin`/`admin`).
