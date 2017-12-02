@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^welcome/$', views.Welcome.as_view(), name='welcome'),
     url(r'^user/settings/$', views.UserSettings.as_view(),
         name='user-settings'),
+    url(r'^user/password/$', views.UserPassword.as_view(),
+        name='user-password'),
 
     url(r'', include('api.urls', namespace='api')),
     url(r'', include('core.urls')),
@@ -28,7 +30,7 @@ urlpatterns = [
     url(r'', include('reports.urls', namespace='reports')),
 ]
 
-if settings.DEBUG:
+if settings.DEBUG:  # pragma: no cover
     urlpatterns += static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
