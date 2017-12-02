@@ -27,9 +27,37 @@ class FormsTestCase(TestCase):
         cls.user = User.objects.create_user(
             is_superuser=True, **cls.credentials)
 
-        cls.c.login(**cls.credentials)
+    def test_change_password(self):
+        self.c.login(**self.credentials)
+
+        page = self.c.get('/user/password/')
+        self.assertEqual(page.status_code, 200)
+
+        params = {
+            'old_password': 'wrong',
+            'new_password1': 'mynewpassword',
+            'new_password2': 'notmynewpassword'
+        }
+
+        page = self.c.post('/user/password/', params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', 'old_password',
+                             'Your old password was entered incorrectly. '
+                             'Please enter it again.')
+
+        params['old_password'] = self.credentials['password']
+        page = self.c.post('/user/password/', params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', 'new_password2',
+                             "The two password fields didn't match.")
+
+        params['new_password2'] = 'mynewpassword'
+        page = self.c.post('/user/password/', params)
+        self.assertEqual(page.status_code, 302)
 
     def test_user_settings(self):
+        self.c.login(**self.credentials)
+
         params = {
             'first_name': 'User',
             'last_name': 'Name',
