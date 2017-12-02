@@ -25,8 +25,7 @@ work.
 - [Configuration](#configuration)
 - [Development](#development)
   - [Installation](#installation)
-  - [Fake data](#fake-data)
-  - [Testing](#testing)
+  - [Gulp Commands](#gulp-commands)
 
 ## Demo
 
@@ -397,21 +396,109 @@ for all possible values.
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
 user name and password (`admin`/`admin`).
 
-### Fake data
+### Gulp commands
 
-Add some fake data to the database with the following command:
+Baby Buddy's Gulp commands are defined and configured by files in the
+[`gulpfile.js`](gulpfile.js) folder. Django's management commands are defined 
+in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 
-    gulp fake
+- [`gulp`](#gulp)
+- [`gulp build`](#build)
+- [`gulp collectstatic`](#collectstatic)
+- [`gulp compress`](#compress)
+- [`gulp coverage`](#coverage)
+- [`gulp extras`](#extras)
+- [`gulp fake`](#fake)
+- [`gulp lint`](#lint)
+- [`gulp makemigrations`](#makemigrations)
+- [`gulp migrate`](#migrate)
+- [`gulp reset`](#reset)
+- [`gulp runserver`](#runserver)
+- [`gulp scripts`](#scripts)
+- [`gulp styles`](#styles)
+- [`gulp test`](#test)
 
-By default, ``fake`` creates one child and 31 days of random data. Use the 
-``--children`` and ``--days`` flags to change the default values, e.g. 
-``gulp fake --children 5 --days 7`` to generate five fake children and seven
-days of data for each.
+#### `gulp`
 
-### Testing
+Executes the `build` and `watch` commands and runs Django's development server.
+
+#### `build`
+
+Creates all script, style and "extra" assets and places them in the 
+`babybuddy/static` folder.
+
+#### `collectstatic`
+
+Executes Django's `collectstatic` management task. This task relies on files in
+the `babybuddy/static` folder, so generally `gulp build` should be run before
+this command for production deployments. Gulp also passes along 
+non-overlapping arguments for this command, e.g. `--no-input`.
+
+#### `compress`
+
+:exclamation: *DEPRECATED* :exclamation:
+
+Compresses built scripts and styles. This command has been deprecated in favor
+of WhiteNoise's compression as part of the `collectstatic` command.
+
+#### `coverage`
+
+Create a test coverage report. See [`.coveragerc`](.coveragerc) for default
+settings information.
+
+#### `extras`
+
+Copies "extra" files (fonts, images and server root contents) to the build 
+folder.
+
+#### `fake`
+
+Adds some fake data to the database. By default, ``fake`` creates one child and
+31 days of random data. Use the  `--children` and `--days` flags to change the 
+default values, e.g. `gulp fake --children 5 --days 7` to generate five fake 
+children and seven days of data for each.
+
+#### `lint`
+
+Executes Python and SASS linting for all relevant source files.
+
+#### `makemigrations`
+
+Executes Django's `makemigrations` management task. Gulp also passes along 
+non-overlapping arguments for this command.
+
+#### `migrate`
+
+Executes Django's `migrate` management task. In addition to migrating the 
+database, this command creates the default `admin` user. Gulp also passes along 
+non-overlapping arguments for this command.
+
+#### `reset`
+
+Resets the database to a default state *with* one fake child and 31 days of 
+fake data.
+
+#### `runserver`
+
+Executes Django's `runserver` management task. Gulp also passes along 
+non-overlapping arguments for this command.
+
+#### `scripts`
+
+Builds and combines relevant application scripts. Generally this command does 
+not need to be executed independently - see the `build` command.
+
+#### `styles`
+
+Builds and combines SASS styles in to CSS files. Generally this command does 
+not need to be executed independently - see the `build` command.
+
+#### `test`
+
+Executes Baby Buddy's suite of tests.
 
 :exclamation: Tests require static files to be collected, it may be necessary 
 to execute ``gulp build && gulp collectstatic`` before tests (if static files 
-have changed).
-
-    gulp test
+have changed). Gulp also passes along non-overlapping arguments for this 
+command, however individual tests cannot be run with this command. 
+`python manage.py test` can be used for individual test execution.
