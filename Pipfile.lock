@@ -1,20 +1,20 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c5ac6ecd43c4ca8d47778100d289c1c89930208ede625a2e0628b8b49f226726"
+            "sha256": "35748ef1a5210da6a65397df185de9994bcdf8d8b18db8971711ee27b16086bb"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
-            "implementation_version": "3.6.1",
-            "os_name": "nt",
-            "platform_machine": "AMD64",
+            "implementation_version": "3.5.2",
+            "os_name": "posix",
+            "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "10",
-            "platform_system": "Windows",
-            "platform_version": "10.0.16299",
-            "python_full_version": "3.6.1",
-            "python_version": "3.6",
-            "sys_platform": "win32"
+            "platform_release": "4.4.0-101-generic",
+            "platform_system": "Linux",
+            "platform_version": "#124-Ubuntu SMP Fri Nov 10 18:29:59 UTC 2017",
+            "python_full_version": "3.5.2",
+            "python_version": "3.5",
+            "sys_platform": "linux"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -63,10 +63,10 @@
         },
         "django": {
             "hashes": [
-                "sha256:75ce405d60f092f6adf904058d023eeea0e6d380f8d9c36134bac73da736023d",
-                "sha256:8918e392530d8fc6965a56af6504229e7924c27265893f3949aa0529cd1d4b99"
+                "sha256:fad46f44f6f4de66aacaa92e7753dbc4fe3ae834aa2daffaca0bf16c64798186",
+                "sha256:fed3e79bb5a3a8d5eb054c7a1ec1de229ef3f43335a67821cc3e489e9582f711"
             ],
-            "version": "==1.11.7"
+            "version": "==1.11.8"
         },
         "django-filter": {
             "hashes": [
