@@ -18,6 +18,12 @@ DATABASES = {
 }
 
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+
 # Django Rest Framework
 # http://www.django-rest-framework.org/#
 
