@@ -1,7 +1,7 @@
 <div class="child-actions btn-group btn-group-lg center-block" role="group" aria-label="Child actions">
 
     {% if perms.core.view_child %}
-        <a href="{% url 'dashboard-child' object.slug %}" class="btn btn-success">
+        <a href="{% url 'core:dashboard-child' object.slug %}" class="btn btn-success">
             <i class="icon icon-dashboard" aria-hidden="true"></i>
         </a>
     {% endif %}
@@ -25,13 +25,13 @@
 
     {% if perms.core.change_child %}
         <a class="btn btn-warning"
-           href="{% url 'child-update' object.slug %}"
+           href="{% url 'core:child-update' object.slug %}"
            role="button"><i class="icon icon-update" aria-hidden="true"></i></a>
     {% endif %}
 
     {% if perms.core.delete_child %}
         <a class="btn btn-danger"
-           href="{% url 'child-delete' object.slug %}"
+           href="{% url 'core:child-delete' object.slug %}"
            role="button"><i class="icon icon-delete" aria-hidden="true"></i></a>
     {% endif %}
 

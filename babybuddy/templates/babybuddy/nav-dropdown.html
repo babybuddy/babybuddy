@@ -6,7 +6,7 @@
         <a class="navbar-brand" href="/"><span class="text-info">Baby</span> Buddy</a>
 
         <div class="d-lg-none d-md-none ml-auto p-0 mr-2">
-            <a class="text-success mr-2" href="{% url 'timer-add-quick' %}"><i class="icon icon-2x icon-timer" aria-hidden="true"></i></a>
+            <a class="text-success mr-2" href="{% url 'core:timer-add-quick' %}"><i class="icon icon-2x icon-timer" aria-hidden="true"></i></a>
             <div class="dropdown show d-inline">
                 <a class="text-success"
                    href="#"
@@ -19,32 +19,32 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-quick-add-link">
                     {% if perms.core.add_diaperchange %}
-                        <a class="dropdown-item p-2" href="{% url 'diaperchange-add' %}">
+                        <a class="dropdown-item p-2" href="{% url 'core:diaperchange-add' %}">
                             <i class="icon icon-diaperchange" aria-hidden="true"></i> Diaper Change
                         </a>
                     {% endif %}
                     {% if perms.core.add_feeding %}
-                        <a class="dropdown-item p-2" href="{% url 'feeding-add' %}">
+                        <a class="dropdown-item p-2" href="{% url 'core:feeding-add' %}">
                             <i class="icon icon-feeding" aria-hidden="true"></i> Feeding
                         </a>
                     {% endif %}
                     {% if perms.core.add_note %}
-                        <a class="dropdown-item p-2" href="{% url 'note-add' %}">
+                        <a class="dropdown-item p-2" href="{% url 'core:note-add' %}">
                             <i class="icon icon-note" aria-hidden="true"></i> Note
                         </a>
                     {% endif %}
                     {% if perms.core.add_sleep %}
-                        <a class="dropdown-item p-2" href="{% url 'sleep-add' %}">
+                        <a class="dropdown-item p-2" href="{% url 'core:sleep-add' %}">
                             <i class="icon icon-sleep" aria-hidden="true"></i> Sleep
                         </a>
                     {% endif %}
                     {% if perms.core.add_tummytime %}
-                        <a class="dropdown-item p-2" href="{% url 'tummytime-add' %}">
+                        <a class="dropdown-item p-2" href="{% url 'core:tummytime-add' %}">
                             <i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time
                         </a>
                     {% endif %}
                     {% if perms.core.add_weight %}
-                        <a class="dropdown-item p-2" href="{% url 'weight-add' %}">
+                        <a class="dropdown-item p-2" href="{% url 'core:weight-add' %}">
                             <i class="icon icon-weight" aria-hidden="true"></i> Weight
                         </a>
                     {% endif %}
@@ -62,7 +62,7 @@
         <div class="collapse navbar-collapse" id="navbar-app">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item{% if request.path == '/' %} active{% endif %}">
-                    <a class="nav-link" href="{% url 'dashboard' %}">
+                    <a class="nav-link" href="{% url 'dashboard:dashboard' %}">
                         <i class="icon icon-dashboard" aria-hidden="true"></i> Dashboard
                     </a>
                 </li>
@@ -77,33 +77,36 @@
                     <div class="dropdown-menu" aria-labelledby="nav-children-menu-link">
 
                         {% if perms.core.view_child %}
-                            <a class="dropdown-item{% if request.path == '/children/' %} active{% endif %}" href="{% url 'child-list' %}">
+                            <a class="dropdown-item{% if request.path == '/children/' %} active{% endif %}"
+                               href="{% url 'core:child-list' %}">
                                 <i class="icon icon-child" aria-hidden="true"></i> Children
                             </a>
                         {% endif %}
                         {% if perms.core.add_child %}
                             <a class="dropdown-item pl-5{% if request.path == '/children/add/' %} active{% endif %}"
-                               href="{% url 'child-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Child</a>
+                               href="{% url 'core:child-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Child</a>
                         {% endif %}
 
                         {% if perms.core.view_note %}
-                            <a class="dropdown-item{% if request.path == '/notes/' %} active{% endif %}" href="{% url 'note-list' %}">
+                            <a class="dropdown-item{% if request.path == '/notes/' %} active{% endif %}"
+                               href="{% url 'core:note-list' %}">
                                 <i class="icon icon-note" aria-hidden="true"></i> Notes
                             </a>
                         {% endif %}
                         {% if perms.core.add_note %}
                             <a class="dropdown-item pl-5{% if request.path == '/notes/add/' %} active{% endif %}"
-                               href="{% url 'note-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Note</a>
+                               href="{% url 'core:note-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Note</a>
                         {% endif %}
 
                         {% if perms.core.view_weight %}
-                            <a class="dropdown-item{% if request.path == '/weight/' %} active{% endif %}" href="{% url 'weight-list' %}">
+                            <a class="dropdown-item{% if request.path == '/weight/' %} active{% endif %}"
+                               href="{% url 'core:weight-list' %}">
                                 <i class="icon icon-weight" aria-hidden="true"></i> Weight
                             </a>
                         {% endif %}
                         {% if perms.core.add_weight %}
                             <a class="dropdown-item pl-5{% if request.path == '/weight/add/' %} active{% endif %}"
-                               href="{% url 'weight-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Weight entry</a>
+                               href="{% url 'core:weight-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Weight entry</a>
                         {% endif %}
 
                     </div>
@@ -120,38 +123,38 @@
 
                         {% if perms.core.view_diaperchange %}
                             <a class="dropdown-item{% if request.path == '/changes/' %} active{% endif %}"
-                               href="{% url 'diaperchange-list' %}"><i class="icon icon-diaperchange" aria-hidden="true"></i> Changes</a>
+                               href="{% url 'core:diaperchange-list' %}"><i class="icon icon-diaperchange" aria-hidden="true"></i> Changes</a>
                         {% endif %}
                         {% if perms.core.add_diaperchange %}
                             <a class="dropdown-item pl-5{% if request.path == '/changes/add/' %} active{% endif %}"
-                               href="{% url 'diaperchange-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Change</a>
+                               href="{% url 'core:diaperchange-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Change</a>
                         {% endif %}
 
                         {% if perms.core.view_feeding %}
                             <a class="dropdown-item{% if request.path == '/feedings/' %} active{% endif %}"
-                               href="{% url 'feeding-list' %}"><i class="icon icon-feeding" aria-hidden="true"></i> Feedings</a>
+                               href="{% url 'core:feeding-list' %}"><i class="icon icon-feeding" aria-hidden="true"></i> Feedings</a>
                         {% endif %}
                         {% if perms.core.add_diaperchange %}
                             <a class="dropdown-item pl-5{% if request.path == '/feedings/add/' %} active{% endif %}"
-                               href="{% url 'feeding-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Feeding</a>
+                               href="{% url 'core:feeding-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Feeding</a>
                         {% endif %}
 
                         {% if perms.core.view_sleep %}
                             <a class="dropdown-item{% if request.path == '/sleep/' %} active{% endif %}"
-                               href="{% url 'sleep-list' %}"><i class="icon icon-sleep" aria-hidden="true"></i> Sleep</a>
+                               href="{% url 'core:sleep-list' %}"><i class="icon icon-sleep" aria-hidden="true"></i> Sleep</a>
                         {% endif %}
                         {% if perms.core.add_sleep %}
                             <a class="dropdown-item pl-5{% if request.path == '/sleep/add/' %} active{% endif %}"
-                               href="{% url 'sleep-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Sleep entry</a>
+                               href="{% url 'core:sleep-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Sleep entry</a>
                         {% endif %}
 
                         {% if perms.core.view_tummytime %}
                             <a class="dropdown-item{% if request.path == '/tummy-time/' %} active{% endif %}"
-                               href="{% url 'tummytime-list' %}"><i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time</a>
+                               href="{% url 'core:tummytime-list' %}"><i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time</a>
                         {% endif %}
                         {% if perms.core.add_tummytime %}
                             <a class="dropdown-item pl-5{% if request.path == '/tummy-time/add/' %} active{% endif %}"
-                               href="{% url 'tummytime-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Tummy Time entry</a>
+                               href="{% url 'core:tummytime-add' %}"><i class="icon icon-add" aria-hidden="true"></i> Tummy Time entry</a>
                         {% endif %}
 
                     </div>
@@ -174,9 +177,9 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-user-menu-link">
                             <h6 class="dropdown-header">User</h6>
-                            <a href="{% url 'user-settings' %}" class="dropdown-item">Settings</a>
-                            <a href="{% url 'user-password' %}" class="dropdown-item">Password</a>
-                            <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                            <a href="{% url 'babybuddy:user-settings' %}" class="dropdown-item">Settings</a>
+                            <a href="{% url 'babybuddy:user-password' %}" class="dropdown-item">Password</a>
+                            <a href="{% url 'babybuddy:logout' %}" class="dropdown-item">Logout</a>
                             <h6 class="dropdown-header">Site</h6>
                             <a href="{% url 'api:api-root' %}"
                                class="dropdown-item"

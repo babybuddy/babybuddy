@@ -3,7 +3,7 @@
 
 {% block title %}Login{% endblock %}
 {% block content %}
-    <form class="login-form" method="post" action="{% url 'login' %}">
+    <form class="login-form" method="post" action="{% url 'babybuddy:login' %}">
         {% csrf_token %}
 
         <input type="hidden" name="next" value="{{ next }}">
@@ -34,6 +34,7 @@
     </form>
 
     <div class="bg-faded text-center px-4 py-3 rounded-bottom">
-        <a href="{% url 'password_reset' %}" name="reset">Forgot your password?</a>
+        <a href="{% url 'babybuddy:password_reset' %}" name="reset">
+            Forgot your password?</a>
     </div>
 {% endblock %}

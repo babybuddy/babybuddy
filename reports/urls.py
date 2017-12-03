@@ -5,6 +5,8 @@ from django.conf.urls import url
 
 from . import views
 
+app_name = 'reports'
+
 urlpatterns = [
     url(r'^children/(?P<slug>[^/.]+)/reports/changes/lifetimes/$',
         views.DiaperChangeLifetimesChildReport.as_view(),

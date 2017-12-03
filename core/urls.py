@@ -5,6 +5,8 @@ from django.conf.urls import url
 
 from . import views
 
+app_name = 'core'
+
 urlpatterns = [
     url(r'^children/$', views.ChildList.as_view(), name='child-list'),
     url(r'^children/add/$', views.ChildAdd.as_view(), name='child-add'),

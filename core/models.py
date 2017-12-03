@@ -104,7 +104,8 @@ class Child(models.Model):
 
 class DiaperChange(models.Model):
     model_name = 'diaperchange'
-    child = models.ForeignKey('Child', related_name='diaper_change')
+    child = models.ForeignKey(
+        'Child', related_name='diaper_change', on_delete=models.CASCADE)
     time = models.DateTimeField(blank=False, null=False)
     wet = models.BooleanField()
     solid = models.BooleanField()
@@ -151,7 +152,8 @@ class DiaperChange(models.Model):
 
 class Feeding(models.Model):
     model_name = 'feeding'
-    child = models.ForeignKey('Child', related_name='feeding')
+    child = models.ForeignKey(
+        'Child', related_name='feeding', on_delete=models.CASCADE)
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
     duration = models.DurationField(null=True, editable=False)
@@ -196,7 +198,8 @@ class Feeding(models.Model):
 
 class Note(models.Model):
     model_name = 'note'
-    child = models.ForeignKey('Child', related_name='note')
+    child = models.ForeignKey(
+        'Child', related_name='note', on_delete=models.CASCADE)
     note = models.TextField()
     time = models.DateTimeField(auto_now=True)
 
@@ -218,7 +221,8 @@ class NapsManager(models.Manager):
 
 class Sleep(models.Model):
     model_name = 'sleep'
-    child = models.ForeignKey('Child', related_name='sleep')
+    child = models.ForeignKey(
+        'Child', related_name='sleep', on_delete=models.CASCADE)
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
     duration = models.DurationField(null=True, editable=False)
@@ -266,7 +270,8 @@ class Timer(models.Model):
     end = models.DateTimeField(blank=True, null=True, editable=False)
     duration = models.DurationField(null=True, editable=False)
     active = models.BooleanField(default=True, editable=False)
-    user = models.ForeignKey('auth.User', related_name='timers')
+    user = models.ForeignKey(
+        'auth.User', related_name='timers', on_delete=models.CASCADE)
 
     objects = models.Manager()
 
@@ -317,7 +322,8 @@ class Timer(models.Model):
 
 class TummyTime(models.Model):
     model_name = 'tummytime'
-    child = models.ForeignKey('Child', related_name='tummy_time')
+    child = models.ForeignKey(
+        'Child', related_name='tummy_time', on_delete=models.CASCADE)
     start = models.DateTimeField(blank=False, null=False)
     end = models.DateTimeField(blank=False, null=False)
     duration = models.DurationField(null=True, editable=False)
@@ -347,7 +353,8 @@ class TummyTime(models.Model):
 
 class Weight(models.Model):
     model_name = 'weight'
-    child = models.ForeignKey('Child', related_name='weight')
+    child = models.ForeignKey(
+        'Child', related_name='weight', on_delete=models.CASCADE)
     weight = models.FloatField(blank=False, null=False)
     date = models.DateField(blank=False, null=False)
 

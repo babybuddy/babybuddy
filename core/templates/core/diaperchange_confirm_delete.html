@@ -4,7 +4,7 @@
 {% block title %}Delete a Diaper Change{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'diaperchange-list' %}">Diaper Changes</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:diaperchange-list' %}">Diaper Changes</a></li>
     <li class="breadcrumb-item active" aria-current="page">Delete</li>
 {% endblock %}
 
@@ -13,6 +13,6 @@
         {% csrf_token %}
         <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a href="{% url 'diaperchange-list' %}" class="btn btn-default">Cancel</a>
+        <a href="{% url 'core:diaperchange-list' %}" class="btn btn-default">Cancel</a>
     </form>
 {% endblock %}

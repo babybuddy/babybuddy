@@ -4,7 +4,7 @@
 {% block title %}Delete a Weight Entry{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'weight-list' %}">Weight</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:weight-list' %}">Weight</a></li>
     <li class="breadcrumb-item active" aria-current="page">Delete</li>
 {% endblock %}
 
@@ -13,6 +13,6 @@
         {% csrf_token %}
         <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a href="{% url 'weight-list' %}" class="btn btn-default">Cancel</a>
+        <a href="{% url 'core:weight-list' %}" class="btn btn-default">Cancel</a>
     </form>
 {% endblock %}

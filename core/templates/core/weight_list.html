@@ -23,20 +23,20 @@
             <tbody>
                 {% for object in object_list %}
                     <tr>
-                        <th scope="row"><a href="{% url 'child' object.child.slug %}">{{ object.child }}</a></th>
+                        <th scope="row"><a href="{% url 'core:child' object.child.slug %}">{{ object.child }}</a></th>
                         <td>{{ object.weight }}</td>
                         <td>{{ object.date }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
                                 {% if perms.core.change_weight %}
-                                    <a href="{% url 'weight-update' object.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:weight-update' object.id %}" class="btn btn-primary">
                                         <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_weight %}
-                                    <a href="{% url 'weight-delete' object.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:weight-delete' object.id %}" class="btn btn-danger">
                                         <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
@@ -55,7 +55,7 @@
     {% include 'babybuddy/paginator.html' %}
 
     {% if perms.core.add_weight %}
-        <a href="{% url 'weight-add' %}" class="btn btn-sm btn-success">
+        <a href="{% url 'core:weight-add' %}" class="btn btn-sm btn-success">
             <i class="icon icon-weight" aria-hidden="true"></i> Add a Weight Entry
         </a>
     {% endif %}

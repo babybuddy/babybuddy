@@ -33,7 +33,7 @@
                             {% endif %}
                         </td>
                         <th scope="row">
-                            <a href="{% url 'child' child.slug %}">{{ child.first_name }}</a>
+                            <a href="{% url 'core:child' child.slug %}">{{ child.first_name }}</a>
                         </th>
                         <td>{{ child.last_name }}</td>
                         <td>{{ child.birth_date }}</td>
@@ -41,13 +41,13 @@
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
                                 {% if perms.core.change_child %}
-                                    <a href="{% url 'child-update' child.slug %}" class="btn btn-warning">
+                                    <a href="{% url 'core:child-update' child.slug %}" class="btn btn-warning">
                                         <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_child %}
-                                    <a href="{% url 'child-delete' child.slug %}" class="btn btn-danger">
+                                    <a href="{% url 'core:child-delete' child.slug %}" class="btn btn-danger">
                                         <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
@@ -66,7 +66,7 @@
     {% include 'babybuddy/paginator.html' %}
 
     {% if perms.core.add_child %}
-        <a href="{% url 'child-add' %}" class="btn btn-sm btn-success">
+        <a href="{% url 'core:child-add' %}" class="btn btn-sm btn-success">
             <i class="icon icon-child" aria-hidden="true"></i> Add a Child
         </a>
     {% endif %}

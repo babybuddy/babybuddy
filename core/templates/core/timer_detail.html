@@ -4,7 +4,7 @@
 {% block title %}{{ object }}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'timer-list' %}">Timers</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">Timers</a></li>
     <li class="breadcrumb-item font-weight-bold">{{ object }}</li>
 {% endblock %}
 
@@ -28,19 +28,19 @@
 
         {% if perms.core.add_feeding %}
             <a class="btn btn-success btn-lg btn-block mb-3"
-               href="{% url 'feeding-add' %}?timer={{ timer.id }}"
+               href="{% url 'core:feeding-add' %}?timer={{ timer.id }}"
                role="button"><i class="icon icon-feeding" aria-hidden="true"></i> Feeding</a>
         {% endif %}
 
         {% if perms.core.add_sleep %}
             <a class="btn btn-success btn-lg btn-block mb-3"
-               href="{% url 'sleep-add' %}?timer={{ timer.id }}"
+               href="{% url 'core:sleep-add' %}?timer={{ timer.id }}"
                role="button"><i class="icon icon-sleep" aria-hidden="true"></i> Sleep</a>
         {% endif %}
 
         {% if perms.core.add_tummytime %}
             <a class="btn btn-success btn-lg btn-block mb-3"
-               href="{% url 'tummytime-add' %}?timer={{ timer.id }}"
+               href="{% url 'core:tummytime-add' %}?timer={{ timer.id }}"
                role="button"><i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time</a>
         {% endif %}
 
@@ -48,22 +48,22 @@
 
             {% if perms.core.delete_timer %}
                 <a class="btn btn-danger"
-                   href="{% url 'timer-delete' timer.id %}"
+                   href="{% url 'core:timer-delete' timer.id %}"
                    role="button"><i class="icon icon-delete" aria-hidden="true"></i></a>
             {% endif %}
 
             {% if perms.core.change_timer %}
                 <a class="btn btn-primary"
-                   href="{% url 'timer-update' timer.id %}"
+                   href="{% url 'core:timer-update' timer.id %}"
                    role="button"><i class="icon icon-update" aria-hidden="true"></i></a>
 
                 <a class="btn btn-secondary"
-                   href="{% url 'timer-restart' timer.id %}"
+                   href="{% url 'core:timer-restart' timer.id %}"
                    role="button"><i class="icon icon-refresh" aria-hidden="true"></i></a>
 
                 {% if object.active %}
                     <a class="btn btn-warning"
-                       href="{% url 'timer-stop' timer.id %}"
+                       href="{% url 'core:timer-stop' timer.id %}"
                        role="button"><i class="icon icon-stop" aria-hidden="true"></i></a>
                 {% endif %}
             {% endif %}

@@ -232,7 +232,7 @@ class TimerAddQuick(PermissionRequiredMixin, RedirectView):
         instance = models.Timer.objects.create(user=request.user)
         instance.save()
         self.url = request.GET.get(
-            'next', reverse('timer-detail', args={instance.id}))
+            'next', reverse('core:timer-detail', args={instance.id}))
         return super(TimerAddQuick, self).get(request, *args, **kwargs)
 
 

@@ -23,20 +23,20 @@
             <tbody>
                 {% for note in object_list %}
                     <tr>
-                        <th scope="row"><a href="{% url 'child' note.child.slug %}">{{ note.child }}</a></th>
+                        <th scope="row"><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></th>
                         <td>{{ note.note }}</td>
                         <td>{{ note.time }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
                                 {% if perms.core.change_note %}
-                                    <a href="{% url 'note-update' note.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:note-update' note.id %}" class="btn btn-primary">
                                         <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_note %}
-                                    <a href="{% url 'note-delete' note.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:note-delete' note.id %}" class="btn btn-danger">
                                         <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
@@ -55,7 +55,7 @@
     {% include 'babybuddy/paginator.html' %}
 
     {% if perms.core.add_note %}
-        <a href="{% url 'note-add' %}" class="btn btn-sm btn-success">
+        <a href="{% url 'core:note-add' %}" class="btn btn-sm btn-success">
             <i class="icon icon-note" aria-hidden="true"></i> Add a Note
         </a>
     {% endif %}

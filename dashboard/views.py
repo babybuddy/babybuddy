@@ -19,10 +19,14 @@ class Dashboard(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         children = Child.objects.count()
         if children == 0:
-            return HttpResponseRedirect(reverse('welcome'))
+            return HttpResponseRedirect(reverse('babybuddy:welcome'))
         elif children == 1:
             return HttpResponseRedirect(
-                reverse('dashboard-child', args={Child.objects.first().slug}))
+                reverse(
+                    'dashboard:dashboard-child',
+                    args={Child.objects.first().slug}
+                )
+            )
         return super(Dashboard, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

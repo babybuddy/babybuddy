@@ -9,7 +9,7 @@ from django.utils.timezone import timedelta
 
 
 class Settings(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     dashboard_refresh_rate = models.DurationField(
         verbose_name='Refresh rate',
         blank=True,

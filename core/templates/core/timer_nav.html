@@ -7,22 +7,22 @@
        aria-expanded="false"><i class="icon icon-timer" aria-hidden="true"></i> Timers</a>
     <div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
         {% if perms.core.add_timer %}
-            <a class="dropdown-item" href="{% url 'timer-add-quick' %}">
+            <a class="dropdown-item" href="{% url 'core:timer-add-quick' %}">
                 <i class="icon icon-timer" aria-hidden="true"></i> Quick Start Timer
             </a>
-            <a class="dropdown-item" href="{% url 'timer-add' %}">
+            <a class="dropdown-item" href="{% url 'core:timer-add' %}">
                 <i class="icon icon-add" aria-hidden="true"></i> Start Timer
             </a>
         {% endif %}
         {% if perms.core.view_timer %}
-            <a class="dropdown-item" href="{% url 'timer-list' %}">
+            <a class="dropdown-item" href="{% url 'core:timer-list' %}">
                 <i class="icon icon-list" aria-hidden="true"></i> View Timers
             </a>
         {% endif %}
         {% if timers %}
             <h6 class="dropdown-header">Active Timers</h6>
             {% for timer in timers %}
-                <a class="dropdown-item" href="{% url 'timer-detail' timer.id %}">{{ timer }} ({{ timer.user }})</a>
+                <a class="dropdown-item" href="{% url 'core:timer-detail' timer.id %}">{{ timer }} ({{ timer.user }})</a>
             {% empty %}
                 <a class="dropdown-item disabled" href="#">None</a>
             {% endfor %}

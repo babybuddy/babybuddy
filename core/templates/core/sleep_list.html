@@ -25,7 +25,7 @@
             <tbody>
                 {% for sleep in object_list %}
                     <tr>
-                        <th scope="row"><a href="{% url 'child' sleep.child.slug %}">{{ sleep.child }}</a></th>
+                        <th scope="row"><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></th>
                         <td>{{ sleep.duration|duration_string }}</td>
                         <td>{{ sleep.start|date:'n/j/y G:i' }}</td>
                         <td>{{ sleep.end|date:'n/j/y G:i' }}</td>
@@ -34,13 +34,13 @@
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 
                                 {% if perms.core.change_sleep %}
-                                    <a href="{% url 'sleep-update' sleep.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:sleep-update' sleep.id %}" class="btn btn-primary">
                                         <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_sleep %}
-                                    <a href="{% url 'sleep-delete' sleep.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:sleep-delete' sleep.id %}" class="btn btn-danger">
                                         <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
@@ -59,7 +59,7 @@
     {% include 'babybuddy/paginator.html' %}
 
     {% if perms.core.add_sleep %}
-        <a href="{% url 'sleep-add' %}" class="btn btn-sm btn-success">
+        <a href="{% url 'core:sleep-add' %}" class="btn btn-sm btn-success">
             <i class="icon icon-sleep" aria-hidden="true"></i> Add a Sleep Entry
         </a>
     {% endif %}

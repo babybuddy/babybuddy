@@ -4,8 +4,8 @@
 {% block title %}Dashboard - {{ object }}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'child-list' %}">Children</a></li>
-    <li class="breadcrumb-item font-weight-bold"><a href="{% url 'child' object.slug %}">{{ object }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">Children</a></li>
+    <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:child' object.slug %}">{{ object }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 {% endblock %}
 

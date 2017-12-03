@@ -25,7 +25,7 @@
             <tbody>
             {% for timer in object_list %}
                 <tr>
-                    <th scope="row"><a href="{% url 'timer-detail' timer.id %}">{{ timer }}</a></th>
+                    <th scope="row"><a href="{% url 'core:timer-detail' timer.id %}">{{ timer }}</a></th>
                     <td>{{ timer.start|date:'n/j/y G:i' }}</td>
                     <td>{{ timer.duration|duration_string }}</td>
                     <td>{{ timer.end|date:'n/j/y G:i' }}</td>

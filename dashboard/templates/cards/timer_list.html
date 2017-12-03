@@ -11,7 +11,8 @@
 {% block listgroup %}
     <ul class="list-group list-group-flush">
     {% for instance in instances %}
-        <a href="{% url 'timer-detail' instance.id %}" class="list-group-item list-group-item-action">
+        <a href="{% url 'core:timer-detail' instance.id %}"
+           class="list-group-item list-group-item-action">
             <strong>{{ instance }}</strong> <p class="text-muted small m-0">Started by {{ instance.user }} at {{ instance.start|time }}</p>
         </a>
     {% endfor %}

@@ -23,12 +23,12 @@ class RootRouter(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         children = Child.objects.count()
         if children == 0:
-            self.url = reverse('welcome')
+            self.url = reverse('babybuddy:welcome')
         elif children == 1:
             self.url = reverse(
-                'dashboard-child', args={Child.objects.first().slug})
+                'dashboard:dashboard-child', args={Child.objects.first().slug})
         else:
-            self.url = reverse('dashboard')
+            self.url = reverse('dashboard:dashboard')
         return super(RootRouter, self).get_redirect_url(self, *args, **kwargs)
 
 
@@ -81,7 +81,7 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
-            return redirect('user-settings')
+            return redirect('babybuddy:user-settings')
         return render(request, self.template_name, {
             'user_form': form_user,
             'settings_form': form_settings
