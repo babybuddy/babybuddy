@@ -8,7 +8,7 @@
 }
 
 @include media-breakpoint-up(sm) {
-    #view-timer-detail {
+    #view-core\:timer-detail {
         #timer-status {
             font-size: $display1-size;
         }

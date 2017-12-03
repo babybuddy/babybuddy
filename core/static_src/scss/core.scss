@@ -1,10 +1,10 @@
-#view-child {
+#view-core\:child {
     .child-photo {
         max-width: 150px;
     }
 }
 
-#view-child-list {
+#view-core\:child-list {
     .picture-column {
         text-align: center;
         width: 65px;
@@ -20,7 +20,7 @@
 }
 
 @include media-breakpoint-up(md) {
-    #view-child {
+    #view-core\:child {
         .child-detail-column {
             position: fixed;
             width: 100%;
