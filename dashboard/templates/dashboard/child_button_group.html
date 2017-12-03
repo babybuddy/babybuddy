@@ -1,7 +1,7 @@
 <div class="child-actions btn-group btn-group-lg center-block" role="group" aria-label="Child actions">
 
     {% if perms.core.view_child %}
-        <a href="{% url 'core:dashboard-child' object.slug %}" class="btn btn-success">
+        <a href="{% url 'dashboard:dashboard-child' object.slug %}" class="btn btn-success">
             <i class="icon icon-dashboard" aria-hidden="true"></i>
         </a>
     {% endif %}
