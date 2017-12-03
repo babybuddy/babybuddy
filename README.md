@@ -497,8 +497,6 @@ not need to be executed independently - see the `build` command.
 
 Executes Baby Buddy's suite of tests.
 
-:exclamation: Tests require static files to be collected, it may be necessary 
-to execute ``gulp build && gulp collectstatic`` before tests (if static files 
-have changed). Gulp also passes along non-overlapping arguments for this 
-command, however individual tests cannot be run with this command. 
-`python manage.py test` can be used for individual test execution.
+Gulp also passes along non-overlapping arguments for this command, however 
+individual tests cannot be run with this command. `python manage.py test` can be
+used for individual test execution.

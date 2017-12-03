@@ -17,8 +17,6 @@ install:
     - pip install pipenv && pipenv install --dev
 before_script:
     - gulp lint
-    - gulp build
-    - gulp collectstatic
 script:
     - gulp coverage
 after_success:
