@@ -158,7 +158,7 @@ and then uploaded to a server.
 
 #### Requirements
 
-- Python 2.7+, pip, pipenv
+- Python 3.4+, pip, pipenv
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database ([sqlite](https://sqlite.org/), [Postgres](https://www.postgresql.org/), [MySQL](https://www.mysql.com/), etc.)
@@ -352,7 +352,7 @@ for all possible values.
 
 ### Requirements
 
-- Python 2.7+, pip, pipenv
+- Python 3.4+, pip, pipenv
 - NodeJS 8.x and NPM 5.x
 - Gulp
 

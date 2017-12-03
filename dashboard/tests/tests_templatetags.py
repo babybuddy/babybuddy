@@ -5,8 +5,6 @@ from django.contrib.auth.models import User
 from django.test import TestCase, override_settings
 from django.utils import timezone
 
-import six
-
 from core import models
 from dashboard.templatetags import cards
 
@@ -116,10 +114,6 @@ class TemplateTagsTestCase(TestCase):
                 'float'
             }
         ]
-
-        # Python 2 comes up with a slightly different number for one record.
-        if six.PY2:
-            stats[0]['stat'] = timezone.timedelta(0, 44228, 571428)
 
         self.assertEqual(data['stats'], stats)
 
