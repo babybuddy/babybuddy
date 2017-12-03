@@ -9,7 +9,7 @@ from django.contrib.auth import views as auth_views
 
 from . import views
 
-babybuddy_patterns = [
+app_patterns = [
     url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url('^password_reset/$', auth_views.PasswordResetView.as_view(),
@@ -26,7 +26,7 @@ babybuddy_patterns = [
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('api.urls', namespace='api')),
-    url(r'', include((babybuddy_patterns, 'babybuddy'), namespace='babybuddy')),
+    url(r'', include((app_patterns, 'babybuddy'), namespace='babybuddy')),
     url(r'', include('core.urls', namespace='core')),
     url(r'', include('dashboard.urls', namespace='dashboard')),
     url(r'', include('reports.urls', namespace='reports')),
