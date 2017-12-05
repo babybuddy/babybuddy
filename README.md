@@ -23,6 +23,9 @@ work.
   - [Heroku](#heroku)
   - [Manual](#manual)
 - [Configuration](#configuration)
+- [API](#api)
+  - [Authentication](#authentication)
+  - [Responses](#responses)
 - [Development](#development)
   - [Installation](#installation)
   - [Gulp Commands](#gulp-commands)
@@ -347,6 +350,88 @@ See also [Django's documentation on the SECRET_KEY setting](https://docs.djangop
 
 The time zone to use for the instance. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 for all possible values.
+
+## API
+
+Baby Buddy uses the [Django REST Framework](http://www.django-rest-framework.org/)
+(DRF) to provide a REST API.
+
+### Authentication
+
+By default, the [TokenAuthentication](http://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
+and [SessionAuthentication](http://www.django-rest-framework.org/api-guide/authentication/#sessionauthentication)
+classes are enabled. Session authentication covers local API requests made by
+the application itself. Token authentication allows external requests to be 
+made.
+
+:exclamation: **In a production environment, token authentication should only 
+be used for API calls to an `https` endpoint.** :exclamation:
+
+Each user is automatically assigned an API key that can be used for token 
+authentication. This key can be found on the User Settings page for the logged
+in the user. To use a key for an API request, set the request `Authorization`
+header to `Token <user-key>`. E.g.
+
+    Authorization: Token 2h23807gd72h7hop382p98hd823dw3g665g56
+    
+If the `Authorization` header is not set or the key is not valid, the API will
+return `403 Forbidden` with additional details in the response body.
+
+### Responses
+
+#### `GET`
+
+Returns JSON data in the response body in the following format:
+
+    {
+        "count":<int>,
+        "next":<url>,
+        "previous":<url>,
+        "results":[{...}]
+    }
+    
+- `count`: Total number of records (*in the database*, not just the response).
+- `next`: URL for the next set of results.
+- `previous`: URL for the previous set of results.
+- `results`: An array of the results of the request.
+
+#### `OPTIONS`
+
+Returns JSON data in the response body describing the endpoint and available
+options for `POST` requests. The following example describes the 
+`/api/children` endpoint:
+
+    {
+        "name": "Child List",
+        "description": "",
+        "renders": [
+            "application/json",
+            "text/html"
+        ],
+        "parses": [
+            "application/json",
+            "application/x-www-form-urlencoded",
+            "multipart/form-data"
+        ],
+        "actions": {
+            "POST": {
+                "id": {
+                    "type": "integer",
+                    "required": false,
+                    "read_only": true,
+                    "label": "ID"
+                },
+                [...]
+            }
+        }
+    }
+
+#### `POST`
+
+Returns JSON data in the response body describing the added/updated instance or
+error details if errors exist. Errors are keyed by either the field in error or
+the general string "non_field_errors" (usually when validation incorporates 
+multiple fields).
 
 ## Development
 
