@@ -8,6 +8,20 @@ from django.contrib.auth.models import User
 from core import models
 
 
+class CoreModelSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Provide the child link (used by most core models) and run model clean()
+    methods during POST operations.
+    """
+    child = serializers.PrimaryKeyRelatedField(
+        queryset=models.Child.objects.all())
+
+    def validate(self, attrs):
+        instance = self.Meta.model(**attrs)
+        instance.clean()
+        return attrs
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -17,62 +31,50 @@ class UserSerializer(serializers.ModelSerializer):
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Child
-        fields = ('first_name', 'last_name', 'birth_date', 'slug')
+        fields = ('id', 'first_name', 'last_name', 'birth_date', 'slug')
         lookup_field = 'slug'
 
 
-class DiaperChangeSerializer(serializers.HyperlinkedModelSerializer):
-    child = ChildSerializer()
-
+class DiaperChangeSerializer(CoreModelSerializer):
     class Meta:
         model = models.DiaperChange
-        fields = ('child', 'time', 'wet', 'solid', 'color')
+        fields = ('id', 'child', 'time', 'wet', 'solid', 'color')
 
 
-class FeedingSerializer(serializers.HyperlinkedModelSerializer):
-    child = ChildSerializer()
-
+class FeedingSerializer(CoreModelSerializer):
     class Meta:
         model = models.Feeding
-        fields = ('child', 'start', 'end', 'duration', 'type', 'method',
+        fields = ('id', 'child', 'start', 'end', 'duration', 'type', 'method',
                   'amount')
 
 
-class NoteSerializer(serializers.HyperlinkedModelSerializer):
-    child = ChildSerializer()
-
+class NoteSerializer(CoreModelSerializer):
     class Meta:
         model = models.Note
-        fields = ('child', 'note', 'time')
+        fields = ('id', 'child', 'note', 'time')
 
 
-class SleepSerializer(serializers.HyperlinkedModelSerializer):
-    child = ChildSerializer()
-
+class SleepSerializer(CoreModelSerializer):
     class Meta:
         model = models.Sleep
-        fields = ('child', 'start', 'end', 'duration')
+        fields = ('id', 'child', 'start', 'end', 'duration')
 
 
-class TimerSerializer(serializers.HyperlinkedModelSerializer):
-    user = UserSerializer()
+class TimerSerializer(CoreModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = models.Timer
-        fields = ('name', 'start', 'end', 'duration', 'active', 'user')
+        fields = ('id', 'name', 'start', 'end', 'duration', 'active', 'user')
 
 
-class TummyTimeSerializer(serializers.HyperlinkedModelSerializer):
-    child = ChildSerializer()
-
+class TummyTimeSerializer(CoreModelSerializer):
     class Meta:
         model = models.TummyTime
-        fields = ('child', 'start', 'end', 'duration', 'milestone')
+        fields = ('id', 'child', 'start', 'end', 'duration', 'milestone')
 
 
-class WeightSerializer(serializers.HyperlinkedModelSerializer):
-    child = ChildSerializer()
-
+class WeightSerializer(CoreModelSerializer):
     class Meta:
         model = models.Weight
-        fields = ('child', 'weight', 'date')
+        fields = ('id', 'child', 'weight', 'date')
