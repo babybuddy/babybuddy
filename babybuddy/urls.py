@@ -17,10 +17,13 @@ app_patterns = [
 
     url(r'^$', views.RootRouter.as_view(), name='root-router'),
     url(r'^welcome/$', views.Welcome.as_view(), name='welcome'),
-    url(r'^user/settings/$', views.UserSettings.as_view(),
-        name='user-settings'),
+
     url(r'^user/password/$', views.UserPassword.as_view(),
         name='user-password'),
+    url(r'^user/reset-api-key/$', views.UserResetAPIKey.as_view(),
+        name='user-reset-api-key'),
+    url(r'^user/settings/$', views.UserSettings.as_view(),
+        name='user-settings'),
 ]
 
 urlpatterns = [

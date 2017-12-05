@@ -50,6 +50,16 @@
                     {% endwith %}
                 </div>
             </fieldset>
+            <fieldset>
+                <legend>API</legend>
+                <div class="form-group row">
+                    <label for="id_email" class="col-sm-2 col-form-label">Key</label>
+                    <div class="col-sm-10">
+                        <samp>{{ user.settings.api_key }}</samp>
+                        <a class="btn btn-xs btn-danger" href="{% url 'babybuddy:user-reset-api-key' %}">Regenerate</a>
+                    </div>
+                </div>
+            </fieldset>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

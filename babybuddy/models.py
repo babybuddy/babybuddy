@@ -7,6 +7,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.timezone import timedelta
 
+from rest_framework.authtoken.models import Token
+
 
 class Settings(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -29,6 +31,16 @@ class Settings(models.Model):
 
     def __str__(self):
         return '{}\'s Settings'.format(self.user)
+
+    def api_key(self, reset=False):
+        """
+        Get or create an API key for the associated user.
+        :param reset: If True, delete the existing key and create a new one.
+        :return: The user's API key.
+        """
+        if reset:
+            Token.objects.get(user=self.user).delete()
+        return Token.objects.get_or_create(user=self.user)[0]
 
     @property
     def dashboard_refresh_rate_milliseconds(self):

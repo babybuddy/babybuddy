@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
     'widget_tweaks',
     'easy_thumbnails',
 
@@ -144,6 +145,10 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
 # http://www.django-rest-framework.org/#
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
