@@ -20,8 +20,10 @@ $theme-colors: (
     secondary: $orange,
     success: $green,
     info: $cyan,
+    debug: $cyan,
     warning: $yellow,
     danger: $red,
+    error: $red,
     light: $gray-100,
     dark: $gray-800
 );
