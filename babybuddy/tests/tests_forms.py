@@ -53,7 +53,7 @@ class FormsTestCase(TestCase):
 
         params['new_password2'] = 'mynewpassword'
         page = self.c.post('/user/password/', params)
-        self.assertEqual(page.status_code, 302)
+        self.assertEqual(page.status_code, 200)
 
     def test_user_settings(self):
         self.c.login(**self.credentials)
