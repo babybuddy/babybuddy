@@ -1,0 +1,25 @@
+{% block messages %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if form %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error:</strong> {{ error }}
+                </div>
+            {% endfor %}
+        {% elif form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Error:</strong> Some fields have errors. See below for details.
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

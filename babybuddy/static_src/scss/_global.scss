@@ -7,6 +7,11 @@
     }
 }
 
+// Remove extra margin below site breadcrumb.
+.breadcrumb {
+    margin-bottom: 0;
+}
+
 // Extra-small button.
 .btn-xs {
     @include button-size(.2rem, .12rem, .75rem, 1, .2rem);
