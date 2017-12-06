@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -49,7 +50,7 @@ class UserPassword(LoginRequiredMixin, View):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            return redirect('/')
+            messages.success(request, 'Password updated.')
         return render(request, self.template_name, {'form': form})
 
 
@@ -59,6 +60,7 @@ class UserResetAPIKey(LoginRequiredMixin, View):
     """
     def get(self, request):
         request.user.settings.api_key(reset=True)
+        messages.success(request, 'User API key regenerated.')
         return redirect('babybuddy:user-settings')
 
 
@@ -90,6 +92,7 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
+            messages.success(request, 'Settings saved!')
             return redirect('babybuddy:user-settings')
         return render(request, self.template_name, {
             'user_form': form_user,
