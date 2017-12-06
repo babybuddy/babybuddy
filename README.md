@@ -25,7 +25,9 @@ work.
 - [Configuration](#configuration)
 - [API](#api)
   - [Authentication](#authentication)
-  - [Responses](#responses)
+  - [`GET` Method](#get-method)
+  - [`OPTIONS` Method](#options-method)
+  - [`POST` Method](#post-method)
 - [Development](#development)
   - [Installation](#installation)
   - [Gulp Commands](#gulp-commands)
@@ -356,6 +358,22 @@ for all possible values.
 Baby Buddy uses the [Django REST Framework](http://www.django-rest-framework.org/)
 (DRF) to provide a REST API.
 
+The only requirement for (most) requests is that the `Authorization` header is
+set as described in the [Authentication](#authentication) section. The one 
+exception is the `/api` endpoint, which lists all available endpoints.
+
+Currently, the following endpoints are available for `GET`, `OPTIONS`, and 
+`POST` requests:
+
+- `/api/children/`
+- `/api/changes/` (Diaper Changes)
+- `/api/feedings/`
+- `/api/notes/`
+- `/api/sleep/`
+- `/api/timers/`
+- `/api/tummy-times/`
+- `/api/weight/`
+
 ### Authentication
 
 By default, the [TokenAuthentication](http://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
@@ -377,9 +395,26 @@ header to `Token <user-key>`. E.g.
 If the `Authorization` header is not set or the key is not valid, the API will
 return `403 Forbidden` with additional details in the response body.
 
-### Responses
+### `GET` Method
 
-#### `GET`
+#### Request
+
+The `limit` and `offset` request parameters can be used to limit
+and offset the results set respectively. For example, the following request
+will return five diaper changes starting from the 10th diaper change entry:
+
+    curl -X GET 'https://[...]/api/changes/?limit=5&offset=10' -H 'Authorization: Token [...]'
+    {
+        "count": <int>,
+        "next": "https://[...]/api/changes/?limit=5&offset=15",
+        "previous": "https://[...]/api/changes/?limit=5&offset=5",
+        "results": [...]
+    }
+    
+Field-based filters for specific endpoints can be found the in the `filters` 
+field of the `OPTIONS` response for specific endpoints.
+
+#### Response
 
 Returns JSON data in the response body in the following format:
 
@@ -395,15 +430,21 @@ Returns JSON data in the response body in the following format:
 - `previous`: URL for the previous set of results.
 - `results`: An array of the results of the request.
 
-#### `OPTIONS`
+### `OPTIONS` Method
 
-Returns JSON data in the response body describing the endpoint and available
-options for `POST` requests. The following example describes the 
-`/api/children` endpoint:
+#### Request
+
+All endpoints will respond to an `OPTIONS` request with detailed information
+about the endpoint's purpose, parameters, filters, etc.
+
+#### Response
+
+Returns JSON data in the response body describing the endpoint, available
+options for `POST` requests, and available filters for `GET` requests. The 
+following example describes the `/api/children` endpoint:
 
     {
         "name": "Child List",
-        "description": "",
         "renders": [
             "application/json",
             "text/html"
@@ -423,10 +464,27 @@ options for `POST` requests. The following example describes the
                 },
                 [...]
             }
-        }
+        },
+        "filters": [
+            "first_name",
+            "last_name",
+            "slug"
+        ]
     }
 
-#### `POST`
+### `POST` Method
+
+#### Request
+
+To add new entries for a particular endpoint, send a `POST` request with the 
+entry data in JSON format in the request body. The `Content-Type` header for 
+`POST` request must be set to `application/json`.
+
+Regular sanity checks will be performed on relevant data. See the `OPTIONS` 
+response for a particular endpoint for details on required fields and data 
+formats.
+
+#### Response
 
 Returns JSON data in the response body describing the added/updated instance or
 error details if errors exist. Errors are keyed by either the field in error or
