@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic.base import RedirectView
@@ -13,6 +15,38 @@ from django_filters.views import FilterView
 from core import forms, models, timeline
 
 
+class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    def get_success_message(self, cleaned_data):
+        cleaned_data['model'] = self.model._meta.verbose_name.title()
+        if 'child' in cleaned_data:
+            self.success_message = '%(model)s entry for %(child)s added!'
+        else:
+            self.success_message = '%(model)s entry added!'
+        return self.success_message % cleaned_data
+
+
+class CoreUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    def get_success_message(self, cleaned_data):
+        cleaned_data['model'] = self.model._meta.verbose_name.title()
+        if 'child' in cleaned_data:
+            self.success_message = '%(model)s entry for %(child)s updated.'
+        else:
+            self.success_message = '%(model)s entry updated.'
+        return self.success_message % cleaned_data
+
+
+class CoreDeleteView(PermissionRequiredMixin, DeleteView):
+    """
+    SuccessMessageMixin is not compatible DeleteView.
+    See: https://code.djangoproject.com/ticket/21936
+    """
+    def delete(self, request, *args, **kwargs):
+        success_message = '{} entry deleted.'.format(
+            self.model._meta.verbose_name.title())
+        messages.success(request, success_message)
+        return super(CoreDeleteView, self).delete(request, *args, **kwargs)
+
+
 class ChildList(PermissionRequiredMixin, FilterView):
     model = models.Child
     template_name = 'core/child_list.html'
@@ -21,11 +55,12 @@ class ChildList(PermissionRequiredMixin, FilterView):
     filter_fields = ('first_name', 'last_name')
 
 
-class ChildAdd(PermissionRequiredMixin, CreateView):
+class ChildAdd(CoreAddView):
     model = models.Child
     permission_required = ('core.add_child',)
     form_class = forms.ChildForm
     success_url = '/children'
+    success_message = '%(first_name)s %(last_name)s added!'
 
 
 class ChildDetail(PermissionRequiredMixin, DetailView):
@@ -45,14 +80,14 @@ class ChildDetail(PermissionRequiredMixin, DetailView):
         return context
 
 
-class ChildUpdate(PermissionRequiredMixin, UpdateView):
+class ChildUpdate(CoreUpdateView):
     model = models.Child
     permission_required = ('core.change_child',)
     form_class = forms.ChildForm
     success_url = '/children'
 
 
-class ChildDelete(PermissionRequiredMixin, UpdateView):
+class ChildDelete(CoreUpdateView):
     model = models.Child
     form_class = forms.ChildDeleteForm
     template_name = 'core/child_confirm_delete.html'
@@ -68,21 +103,21 @@ class DiaperChangeList(PermissionRequiredMixin, FilterView):
     filter_fields = ('child', 'wet', 'solid', 'color')
 
 
-class DiaperChangeAdd(PermissionRequiredMixin, CreateView):
+class DiaperChangeAdd(CoreAddView):
     model = models.DiaperChange
     permission_required = ('core.add_diaperchange',)
     form_class = forms.DiaperChangeForm
     success_url = '/changes'
 
 
-class DiaperChangeUpdate(PermissionRequiredMixin, UpdateView):
+class DiaperChangeUpdate(CoreUpdateView):
     model = models.DiaperChange
     permission_required = ('core.change_diaperchange',)
     form_class = forms.DiaperChangeForm
     success_url = '/changes'
 
 
-class DiaperChangeDelete(PermissionRequiredMixin, DeleteView):
+class DiaperChangeDelete(CoreDeleteView):
     model = models.DiaperChange
     permission_required = ('core.delete_diaperchange',)
     success_url = '/changes'
@@ -96,7 +131,7 @@ class FeedingList(PermissionRequiredMixin, FilterView):
     filter_fields = ('child', 'type', 'method')
 
 
-class FeedingAdd(PermissionRequiredMixin, CreateView):
+class FeedingAdd(CoreAddView):
     model = models.Feeding
     permission_required = ('core.add_feeding',)
     form_class = forms.FeedingForm
@@ -109,14 +144,14 @@ class FeedingAdd(PermissionRequiredMixin, CreateView):
         return kwargs
 
 
-class FeedingUpdate(PermissionRequiredMixin, UpdateView):
+class FeedingUpdate(CoreUpdateView):
     model = models.Feeding
     permission_required = ('core.change_feeding',)
     form_class = forms.FeedingForm
     success_url = '/feedings'
 
 
-class FeedingDelete(PermissionRequiredMixin, DeleteView):
+class FeedingDelete(CoreDeleteView):
     model = models.Feeding
     permission_required = ('core.delete_feeding',)
     success_url = '/feedings'
@@ -130,21 +165,21 @@ class NoteList(PermissionRequiredMixin, FilterView):
     filter_fields = ('child',)
 
 
-class NoteAdd(PermissionRequiredMixin, CreateView):
+class NoteAdd(CoreAddView):
     model = models.Note
     permission_required = ('core.add_note',)
     form_class = forms.NoteForm
     success_url = '/notes'
 
 
-class NoteUpdate(PermissionRequiredMixin, UpdateView):
+class NoteUpdate(CoreUpdateView):
     model = models.Note
     permission_required = ('core.change_note',)
     fields = ['child', 'note']
     success_url = '/notes'
 
 
-class NoteDelete(PermissionRequiredMixin, DeleteView):
+class NoteDelete(CoreDeleteView):
     model = models.Note
     permission_required = ('core.delete_note',)
     success_url = '/notes'
@@ -158,7 +193,7 @@ class SleepList(PermissionRequiredMixin, FilterView):
     filter_fields = ('child',)
 
 
-class SleepAdd(PermissionRequiredMixin, CreateView):
+class SleepAdd(CoreAddView):
     model = models.Sleep
     permission_required = ('core.add_sleep',)
     form_class = forms.SleepForm
@@ -171,14 +206,14 @@ class SleepAdd(PermissionRequiredMixin, CreateView):
         return kwargs
 
 
-class SleepUpdate(PermissionRequiredMixin, UpdateView):
+class SleepUpdate(CoreUpdateView):
     model = models.Sleep
     permission_required = ('core.change_sleep',)
     form_class = forms.SleepForm
     success_url = '/sleep'
 
 
-class SleepDelete(PermissionRequiredMixin, DeleteView):
+class SleepDelete(CoreDeleteView):
     model = models.Sleep
     permission_required = ('core.delete_sleep',)
     success_url = '/sleep'
@@ -197,7 +232,7 @@ class TimerDetail(PermissionRequiredMixin, DetailView):
     permission_required = ('core.view_timer',)
 
 
-class TimerAdd(PermissionRequiredMixin, CreateView):
+class TimerAdd(CoreAddView):
     model = models.Timer
     permission_required = ('core.add_timer',)
     form_class = forms.TimerForm
@@ -209,7 +244,7 @@ class TimerAdd(PermissionRequiredMixin, CreateView):
         return kwargs
 
 
-class TimerUpdate(PermissionRequiredMixin, UpdateView):
+class TimerUpdate(CoreUpdateView):
     model = models.Timer
     permission_required = ('core.change_timer',)
     form_class = forms.TimerForm
@@ -231,6 +266,7 @@ class TimerAddQuick(PermissionRequiredMixin, RedirectView):
     def get(self, request, *args, **kwargs):
         instance = models.Timer.objects.create(user=request.user)
         instance.save()
+        messages.success(request, '{} started!'.format(instance))
         self.url = request.GET.get(
             'next', reverse('core:timer-detail', args={instance.id}))
         return super(TimerAddQuick, self).get(request, *args, **kwargs)
@@ -242,28 +278,31 @@ class TimerRestart(PermissionRequiredMixin, RedirectView):
     def get(self, request, *args, **kwargs):
         instance = models.Timer.objects.get(id=kwargs['pk'])
         instance.restart()
+        messages.success(request, '{} restarted.'.format(instance))
         return super(TimerRestart, self).get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):
         return '/timer/{}'.format(kwargs['pk'])
 
 
-class TimerStop(PermissionRequiredMixin, RedirectView):
+class TimerStop(PermissionRequiredMixin, SuccessMessageMixin, RedirectView):
     permission_required = ('core.change_timer',)
+    success_message = '%(timer)s stopped.'
 
     def get(self, request, *args, **kwargs):
         instance = models.Timer.objects.get(id=kwargs['pk'])
         instance.stop()
+        messages.success(request, '{} stopped.'.format(instance))
         return super(TimerStop, self).get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):
         return '/timer/{}'.format(kwargs['pk'])
 
 
-class TimerDelete(PermissionRequiredMixin, DeleteView):
+class TimerDelete(CoreDeleteView):
     model = models.Timer
     permission_required = ('core.delete_timer',)
-    success_url = '/'
+    success_url = '/timers'
 
 
 class TummyTimeList(PermissionRequiredMixin, FilterView):
@@ -274,7 +313,7 @@ class TummyTimeList(PermissionRequiredMixin, FilterView):
     filter_fields = ('child',)
 
 
-class TummyTimeAdd(PermissionRequiredMixin, CreateView):
+class TummyTimeAdd(CoreAddView):
     model = models.TummyTime
     permission_required = ('core.add_tummytime',)
     form_class = forms.TummyTimeForm
@@ -287,14 +326,14 @@ class TummyTimeAdd(PermissionRequiredMixin, CreateView):
         return kwargs
 
 
-class TummyTimeUpdate(PermissionRequiredMixin, UpdateView):
+class TummyTimeUpdate(CoreUpdateView):
     model = models.TummyTime
     permission_required = ('core.change_tummytime',)
     form_class = forms.TummyTimeForm
     success_url = '/tummy-time'
 
 
-class TummyTimeDelete(PermissionRequiredMixin, DeleteView):
+class TummyTimeDelete(CoreDeleteView):
     model = models.TummyTime
     permission_required = ('core.delete_tummytime',)
     success_url = '/tummy-time'
@@ -308,21 +347,21 @@ class WeightList(PermissionRequiredMixin, FilterView):
     filter_fields = ('child',)
 
 
-class WeightAdd(PermissionRequiredMixin, CreateView):
+class WeightAdd(CoreAddView):
     model = models.Weight
     permission_required = ('core.add_weight',)
     form_class = forms.WeightForm
     success_url = '/weight'
 
 
-class WeightUpdate(PermissionRequiredMixin, UpdateView):
+class WeightUpdate(CoreUpdateView):
     model = models.Weight
     permission_required = ('core.change_weight',)
     fields = ['child', 'weight', 'date']
     success_url = '/weight'
 
 
-class WeightDelete(PermissionRequiredMixin, DeleteView):
+class WeightDelete(CoreDeleteView):
     model = models.Weight
     permission_required = ('core.delete_weight',)
     success_url = '/weight'
