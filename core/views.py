@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
@@ -59,7 +59,7 @@ class ChildAdd(CoreAddView):
     model = models.Child
     permission_required = ('core.add_child',)
     form_class = forms.ChildForm
-    success_url = '/children'
+    success_url = reverse_lazy('core:child-list')
     success_message = '%(first_name)s %(last_name)s added!'
 
 
@@ -84,7 +84,7 @@ class ChildUpdate(CoreUpdateView):
     model = models.Child
     permission_required = ('core.change_child',)
     form_class = forms.ChildForm
-    success_url = '/children'
+    success_url = reverse_lazy('core:child-list')
 
 
 class ChildDelete(CoreUpdateView):
@@ -92,7 +92,7 @@ class ChildDelete(CoreUpdateView):
     form_class = forms.ChildDeleteForm
     template_name = 'core/child_confirm_delete.html'
     permission_required = ('core.delete_child',)
-    success_url = '/children'
+    success_url = reverse_lazy('core:child-list')
 
 
 class DiaperChangeList(PermissionRequiredMixin, FilterView):
@@ -107,20 +107,20 @@ class DiaperChangeAdd(CoreAddView):
     model = models.DiaperChange
     permission_required = ('core.add_diaperchange',)
     form_class = forms.DiaperChangeForm
-    success_url = '/changes'
+    success_url = reverse_lazy('core:diaperchange-list')
 
 
 class DiaperChangeUpdate(CoreUpdateView):
     model = models.DiaperChange
     permission_required = ('core.change_diaperchange',)
     form_class = forms.DiaperChangeForm
-    success_url = '/changes'
+    success_url = reverse_lazy('core:diaperchange-list')
 
 
 class DiaperChangeDelete(CoreDeleteView):
     model = models.DiaperChange
     permission_required = ('core.delete_diaperchange',)
-    success_url = '/changes'
+    success_url = reverse_lazy('core:diaperchange-list')
 
 
 class FeedingList(PermissionRequiredMixin, FilterView):
@@ -135,7 +135,7 @@ class FeedingAdd(CoreAddView):
     model = models.Feeding
     permission_required = ('core.add_feeding',)
     form_class = forms.FeedingForm
-    success_url = '/feedings'
+    success_url = reverse_lazy('core:feeding-list')
 
     def get_form_kwargs(self):
         kwargs = super(FeedingAdd, self).get_form_kwargs()
@@ -148,13 +148,13 @@ class FeedingUpdate(CoreUpdateView):
     model = models.Feeding
     permission_required = ('core.change_feeding',)
     form_class = forms.FeedingForm
-    success_url = '/feedings'
+    success_url = reverse_lazy('core:feeding-list')
 
 
 class FeedingDelete(CoreDeleteView):
     model = models.Feeding
     permission_required = ('core.delete_feeding',)
-    success_url = '/feedings'
+    success_url = reverse_lazy('core:feeding-list')
 
 
 class NoteList(PermissionRequiredMixin, FilterView):
@@ -169,20 +169,20 @@ class NoteAdd(CoreAddView):
     model = models.Note
     permission_required = ('core.add_note',)
     form_class = forms.NoteForm
-    success_url = '/notes'
+    success_url = reverse_lazy('core:note-list')
 
 
 class NoteUpdate(CoreUpdateView):
     model = models.Note
     permission_required = ('core.change_note',)
     fields = ['child', 'note']
-    success_url = '/notes'
+    success_url = reverse_lazy('core:note-list')
 
 
 class NoteDelete(CoreDeleteView):
     model = models.Note
     permission_required = ('core.delete_note',)
-    success_url = '/notes'
+    success_url = reverse_lazy('core:note-list')
 
 
 class SleepList(PermissionRequiredMixin, FilterView):
@@ -197,7 +197,7 @@ class SleepAdd(CoreAddView):
     model = models.Sleep
     permission_required = ('core.add_sleep',)
     form_class = forms.SleepForm
-    success_url = '/sleep'
+    success_url = reverse_lazy('core:sleep-list')
 
     def get_form_kwargs(self):
         kwargs = super(SleepAdd, self).get_form_kwargs()
@@ -210,13 +210,13 @@ class SleepUpdate(CoreUpdateView):
     model = models.Sleep
     permission_required = ('core.change_sleep',)
     form_class = forms.SleepForm
-    success_url = '/sleep'
+    success_url = reverse_lazy('core:sleep-list')
 
 
 class SleepDelete(CoreDeleteView):
     model = models.Sleep
     permission_required = ('core.delete_sleep',)
-    success_url = '/sleep'
+    success_url = reverse_lazy('core:sleep-list')
 
 
 class TimerList(PermissionRequiredMixin, FilterView):
@@ -236,19 +236,21 @@ class TimerAdd(CoreAddView):
     model = models.Timer
     permission_required = ('core.add_timer',)
     form_class = forms.TimerForm
-    success_url = '/timers'
 
     def get_form_kwargs(self):
         kwargs = super(TimerAdd, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
 
+    def get_success_url(self):
+        return reverse('core:timer-detail', kwargs={'pk': self.object.pk})
+
 
 class TimerUpdate(CoreUpdateView):
     model = models.Timer
     permission_required = ('core.change_timer',)
     form_class = forms.TimerForm
-    success_url = '/timers'
+    success_url = reverse_lazy('core:timer-list')
 
     def get_form_kwargs(self):
         kwargs = super(TimerUpdate, self).get_form_kwargs()
@@ -257,7 +259,7 @@ class TimerUpdate(CoreUpdateView):
 
     def get_success_url(self):
         instance = self.get_object()
-        return '/timer/{}/'.format(instance.id)
+        return reverse('core:timer-detail', kwargs={'pk': instance.pk})
 
 
 class TimerAddQuick(PermissionRequiredMixin, RedirectView):
@@ -282,7 +284,7 @@ class TimerRestart(PermissionRequiredMixin, RedirectView):
         return super(TimerRestart, self).get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):
-        return '/timer/{}'.format(kwargs['pk'])
+        return reverse('core:timer-detail', kwargs={'pk': kwargs['pk']})
 
 
 class TimerStop(PermissionRequiredMixin, SuccessMessageMixin, RedirectView):
@@ -296,13 +298,13 @@ class TimerStop(PermissionRequiredMixin, SuccessMessageMixin, RedirectView):
         return super(TimerStop, self).get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):
-        return '/timer/{}'.format(kwargs['pk'])
+        return reverse('core:timer-detail', kwargs={'pk': kwargs['pk']})
 
 
 class TimerDelete(CoreDeleteView):
     model = models.Timer
     permission_required = ('core.delete_timer',)
-    success_url = '/timers'
+    success_url = reverse_lazy('core:timer-list')
 
 
 class TummyTimeList(PermissionRequiredMixin, FilterView):
@@ -317,7 +319,7 @@ class TummyTimeAdd(CoreAddView):
     model = models.TummyTime
     permission_required = ('core.add_tummytime',)
     form_class = forms.TummyTimeForm
-    success_url = '/tummy-time'
+    success_url = reverse_lazy('core:tummytime-list')
 
     def get_form_kwargs(self):
         kwargs = super(TummyTimeAdd, self).get_form_kwargs()
@@ -330,13 +332,13 @@ class TummyTimeUpdate(CoreUpdateView):
     model = models.TummyTime
     permission_required = ('core.change_tummytime',)
     form_class = forms.TummyTimeForm
-    success_url = '/tummy-time'
+    success_url = reverse_lazy('core:tummytime-list')
 
 
 class TummyTimeDelete(CoreDeleteView):
     model = models.TummyTime
     permission_required = ('core.delete_tummytime',)
-    success_url = '/tummy-time'
+    success_url = reverse_lazy('core:tummytime-list')
 
 
 class WeightList(PermissionRequiredMixin, FilterView):
@@ -351,17 +353,17 @@ class WeightAdd(CoreAddView):
     model = models.Weight
     permission_required = ('core.add_weight',)
     form_class = forms.WeightForm
-    success_url = '/weight'
+    success_url = reverse_lazy('core:weight-list')
 
 
 class WeightUpdate(CoreUpdateView):
     model = models.Weight
     permission_required = ('core.change_weight',)
     fields = ['child', 'weight', 'date']
-    success_url = '/weight'
+    success_url = reverse_lazy('core:weight-list')
 
 
 class WeightDelete(CoreDeleteView):
     model = models.Weight
     permission_required = ('core.delete_weight',)
-    success_url = '/weight'
+    success_url = reverse_lazy('core:weight-list')
