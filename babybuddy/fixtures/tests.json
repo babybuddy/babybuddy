@@ -234,6 +234,16 @@
     }
   },
   {
+    "model": "core.note",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "note": "Fake note.",
+      "time": "2017-11-18T03:45:00Z"
+    }
+  },
+  {
     "model": "core.sleep",
     "pk": 1,
     "fields":
@@ -275,6 +285,19 @@
       "start": "2017-11-19T00:00:00Z",
       "end": "2017-11-19T04:00:00Z",
       "duration": "04:00:00"
+    }
+  },
+  {
+    "model": "core.timer",
+    "pk": 1,
+    "fields":
+    {
+      "name": "Fake timer",
+      "start": "2017-11-18T04:30:00Z",
+      "end": "2017-11-18T05:30:00Z",
+      "duration": "01:00:00",
+      "active": false,
+      "user": 1
     }
   },
   {
