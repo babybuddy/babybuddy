@@ -9,10 +9,9 @@ from core import models
 from dashboard.templatetags import cards
 
 
-# Test file data uses the US/Eastern time zone.
 @override_settings(TIME_ZONE='US/Eastern')
 class TemplateTagsTestCase(TestCase):
-    fixtures = ['tests_templatetags.json']
+    fixtures = ['tests.json']
 
     @classmethod
     def setUpClass(cls):
