@@ -184,6 +184,9 @@
                             <a href="{% url 'api:api-root' %}"
                                class="dropdown-item"
                                target="_blank">API Browser</a>
+                            {% if perms.admin.add_user %}
+                                <a href="{% url 'babybuddy:user-list' %}" class="dropdown-item">Users</a>
+                            {% endif %}
                             {% if request.user.is_staff %}
                                 <a href="{% url 'admin:index' %}"
                                    class="dropdown-item"

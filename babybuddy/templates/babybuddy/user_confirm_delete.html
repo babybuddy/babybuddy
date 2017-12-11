@@ -1,0 +1,19 @@
+{% extends 'babybuddy/page.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Delete User{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'babybuddy:user-list' %}">Users</a></li>
+    <li class="breadcrumb-item">{{ object }}</li>
+    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+{% endblock %}
+
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a href="{% url 'babybuddy:user-list' %}" class="btn btn-default">Cancel</a>
+    </form>
+{% endblock %}

@@ -4,15 +4,20 @@ from __future__ import unicode_literals
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
+from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
-from django.urls import reverse
-
+from django.urls import reverse, reverse_lazy
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from .forms import UserForm, UserPasswordForm, UserSettingsForm
-from core.models import Child
+from django_filters.views import FilterView
+
+from babybuddy import forms
+from core import models
 
 
 class RootRouter(LoginRequiredMixin, RedirectView):
@@ -22,22 +27,62 @@ class RootRouter(LoginRequiredMixin, RedirectView):
     more than one child is in the database.
     """
     def get_redirect_url(self, *args, **kwargs):
-        children = Child.objects.count()
+        children = models.Child.objects.count()
         if children == 0:
             self.url = reverse('babybuddy:welcome')
         elif children == 1:
             self.url = reverse(
-                'dashboard:dashboard-child', args={Child.objects.first().slug})
+                'dashboard:dashboard-child',
+                args={models.Child.objects.first().slug}
+            )
         else:
             self.url = reverse('dashboard:dashboard')
         return super(RootRouter, self).get_redirect_url(self, *args, **kwargs)
+
+
+class UserList(PermissionRequiredMixin, FilterView):
+    model = User
+    template_name = 'babybuddy/user_list.html'
+    permission_required = ('admin.add_user',)
+    paginate_by = 10
+    filter_fields = ('username', 'first_name', 'last_name', 'email')
+
+
+class UserAdd(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    model = User
+    template_name = 'babybuddy/user_form.html'
+    permission_required = ('admin.add_user',)
+    form_class = forms.UserAddForm
+    success_url = reverse_lazy('babybuddy:user-list')
+    success_message = 'User %(username)s added!'
+
+
+class UserUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = User
+    template_name = 'babybuddy/user_form.html'
+    permission_required = ('admin.change_user',)
+    form_class = forms.UserUpdateForm
+    success_url = reverse_lazy('babybuddy:user-list')
+    success_message = 'User %(username)s updated.'
+
+
+class UserDelete(PermissionRequiredMixin, DeleteView):
+    model = User
+    template_name = 'babybuddy/user_confirm_delete.html'
+    permission_required = ('admin.delete_user',)
+    success_url = reverse_lazy('babybuddy:user-list')
+
+    def delete(self, request, *args, **kwargs):
+        success_message = 'User {} deleted.'.format(self.get_object())
+        messages.success(request, success_message)
+        return super(UserDelete, self).delete(request, *args, **kwargs)
 
 
 class UserPassword(LoginRequiredMixin, View):
     """
     Handles user password changes.
     """
-    form_class = UserPasswordForm
+    form_class = forms.UserPasswordForm
     template_name = 'babybuddy/user_password_form.html'
 
     def get(self, request):
@@ -69,8 +114,8 @@ class UserSettings(LoginRequiredMixin, View):
     Handles both the User and Settings models.
     Based on this SO answer: https://stackoverflow.com/a/45056835.
     """
-    form_user_class = UserForm
-    form_settings_class = UserSettingsForm
+    form_user_class = forms.UserForm
+    form_settings_class = forms.UserSettingsForm
     template_name = 'babybuddy/user_settings_form.html'
 
     def get(self, request):

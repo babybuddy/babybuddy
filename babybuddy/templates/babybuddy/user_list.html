@@ -1,0 +1,65 @@
+{% extends 'babybuddy/page.html' %}
+{% load widget_tweaks static thumbnail %}
+
+{% block title %}Users{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Users</li>
+{% endblock %}
+
+{% block content %}
+    <h1>Users</h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover user-list">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>User</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <th scope="row">{{ object.username }}</th>
+                        <td>{{ object.first_name }}</td>
+                        <td>{{ object.last_name }}</td>
+                        <td>{{ object.email }}</td>
+                        <td class="text-center">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+
+                                {% if perms.admin.change_user %}
+                                    <a href="{% url 'babybuddy:user-update' object.id %}" class="btn btn-warning">
+                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.admin.delete_user %}
+                                    <a href="{% url 'babybuddy:user-delete' object.id %}" class="btn btn-danger">
+                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <th colspan="4">No users found.</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+
+    {% if perms.admin.add_user %}
+        <a href="{% url 'babybuddy:user-add' %}" class="btn btn-sm btn-success">
+            <i class="icon icon-add" aria-hidden="true"></i> Create User
+        </a>
+    {% endif %}
+
+{% endblock %}
