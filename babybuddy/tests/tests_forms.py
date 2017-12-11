@@ -55,6 +55,33 @@ class FormsTestCase(TestCase):
         page = self.c.post('/user/password/', params)
         self.assertEqual(page.status_code, 200)
 
+    def test_user_forms(self):
+        self.c.login(**self.credentials)
+
+        params = {
+            'username': 'username',
+            'first_name': 'User',
+            'last_name': 'Name',
+            'email': 'user@user.user',
+            'password1': 'password',
+            'password2': 'password'
+        }
+
+        page = self.c.post('/user/add/', params)
+        self.assertEqual(page.status_code, 302)
+        new_user = User.objects.get(username='username')
+        self.assertIsInstance(new_user, User)
+
+        params['first_name'] = 'Changed'
+        page = self.c.post('/user/{}/'.format(new_user.id), params)
+        self.assertEqual(page.status_code, 302)
+        new_user.refresh_from_db()
+        self.assertEqual(new_user.first_name, params['first_name'])
+
+        page = self.c.post('/user/{}/delete/'.format(new_user.id))
+        self.assertEqual(page.status_code, 302)
+        self.assertQuerysetEqual(User.objects.filter(username='username'), [])
+
     def test_user_settings(self):
         self.c.login(**self.credentials)
 
