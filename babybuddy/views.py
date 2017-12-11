@@ -43,6 +43,7 @@ class RootRouter(LoginRequiredMixin, RedirectView):
 class UserList(PermissionRequiredMixin, FilterView):
     model = User
     template_name = 'babybuddy/user_list.html'
+    ordering = 'username'
     permission_required = ('admin.add_user',)
     paginate_by = 10
     filter_fields = ('username', 'first_name', 'last_name', 'email')
