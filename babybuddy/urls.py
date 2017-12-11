@@ -18,11 +18,11 @@ app_patterns = [
     url(r'^$', views.RootRouter.as_view(), name='root-router'),
     url(r'^welcome/$', views.Welcome.as_view(), name='welcome'),
 
-    url(r'^user/list/$', views.UserList.as_view(), name='user-list'),
-    url(r'^user/add/$', views.UserAdd.as_view(), name='user-add'),
-    url(r'^user/(?P<pk>[0-9]+)/$', views.UserUpdate.as_view(),
+    url(r'^users/$', views.UserList.as_view(), name='user-list'),
+    url(r'^users/add/$', views.UserAdd.as_view(), name='user-add'),
+    url(r'^users/(?P<pk>[0-9]+)/edit$', views.UserUpdate.as_view(),
         name='user-update'),
-    url(r'^user/(?P<pk>[0-9]+)/delete/$', views.UserDelete.as_view(),
+    url(r'^users/(?P<pk>[0-9]+)/delete/$', views.UserDelete.as_view(),
         name='user-delete'),
 
     url(r'^user/password/$', views.UserPassword.as_view(),

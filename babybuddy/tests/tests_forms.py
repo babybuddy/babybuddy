@@ -67,18 +67,18 @@ class FormsTestCase(TestCase):
             'password2': 'password'
         }
 
-        page = self.c.post('/user/add/', params)
+        page = self.c.post('/users/add/', params)
         self.assertEqual(page.status_code, 302)
         new_user = User.objects.get(username='username')
         self.assertIsInstance(new_user, User)
 
         params['first_name'] = 'Changed'
-        page = self.c.post('/user/{}/'.format(new_user.id), params)
+        page = self.c.post('/users/{}/edit'.format(new_user.id), params)
         self.assertEqual(page.status_code, 302)
         new_user.refresh_from_db()
         self.assertEqual(new_user.first_name, params['first_name'])
 
-        page = self.c.post('/user/{}/delete/'.format(new_user.id))
+        page = self.c.post('/users/{}/delete/'.format(new_user.id))
         self.assertEqual(page.status_code, 302)
         self.assertQuerysetEqual(User.objects.filter(username='username'), [])
 

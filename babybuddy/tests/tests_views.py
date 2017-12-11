@@ -62,15 +62,15 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
 
     def test_user_views(self):
-        page = self.c.get('/user/list/')
+        page = self.c.get('/users/')
         self.assertEqual(page.status_code, 200)
-        page = self.c.get('/user/add/')
+        page = self.c.get('/users/add/')
         self.assertEqual(page.status_code, 200)
 
         entry = User.objects.first()
-        page = self.c.get('/user/{}/'.format(entry.id))
+        page = self.c.get('/users/{}/edit'.format(entry.id))
         self.assertEqual(page.status_code, 200)
-        page = self.c.get('/user/{}/delete/'.format(entry.id))
+        page = self.c.get('/users/{}/delete/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
 
     def test_welcome(self):
