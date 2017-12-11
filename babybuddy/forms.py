@@ -11,13 +11,15 @@ from .models import Settings
 class UserAddForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email',
+                  'is_staff', 'is_active']
 
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email',
+                  'is_staff', 'is_active']
 
 
 class UserForm(forms.ModelForm):
