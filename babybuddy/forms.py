@@ -14,6 +14,13 @@ class UserAddForm(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'email',
                   'is_staff', 'is_active']
 
+    def save(self, commit=True):
+        user = super(UserAddForm, self).save(commit=False)
+        user.is_superuser = True
+        if commit:
+            user.save()
+        return user
+
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
