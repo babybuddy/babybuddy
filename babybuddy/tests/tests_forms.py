@@ -75,7 +75,7 @@ class FormsTestCase(TestCase):
         self.assertIsInstance(new_user, User)
 
         params['first_name'] = 'Changed'
-        page = self.c.post('/users/{}/edit'.format(new_user.id), params)
+        page = self.c.post('/users/{}/edit/'.format(new_user.id), params)
         self.assertEqual(page.status_code, 302)
         new_user.refresh_from_db()
         self.assertEqual(new_user.first_name, params['first_name'])

@@ -74,7 +74,7 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
 
         entry = User.objects.first()
-        page = self.c.get('/users/{}/edit'.format(entry.id))
+        page = self.c.get('/users/{}/edit/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
         page = self.c.get('/users/{}/delete/'.format(entry.id))
         self.assertEqual(page.status_code, 200)

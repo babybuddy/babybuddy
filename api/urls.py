@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.conf.urls import url, include
+from django.urls import include, path
 from rest_framework import routers
 
 from . import views
@@ -19,7 +19,9 @@ router.register(r'weight', views.WeightViewSet)
 app_name = 'api'
 
 urlpatterns = [
-    url(r'^api/', include(router.urls)),
-    url(r'^api/auth/', include('rest_framework.urls',
-                               namespace='rest_framework'))
+    path('api/', include(router.urls)),
+    path('api/auth/', include(
+        'rest_framework.urls',
+        namespace='rest_framework'
+    ))
 ]
