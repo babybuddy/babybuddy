@@ -56,6 +56,8 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
 
     def test_user_forms(self):
+        self.user.is_staff = True
+        self.user.save()
         self.c.login(**self.credentials)
 
         params = {

@@ -17,6 +17,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
 
 from babybuddy import forms
+from babybuddy.mixins import StaffOnlyMixin
 from core import models
 
 
@@ -40,16 +41,16 @@ class RootRouter(LoginRequiredMixin, RedirectView):
         return super(RootRouter, self).get_redirect_url(self, *args, **kwargs)
 
 
-class UserList(PermissionRequiredMixin, FilterView):
+class UserList(StaffOnlyMixin, FilterView):
     model = User
     template_name = 'babybuddy/user_list.html'
     ordering = 'username'
-    permission_required = ('admin.add_user',)
     paginate_by = 10
     filter_fields = ('username', 'first_name', 'last_name', 'email')
 
 
-class UserAdd(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class UserAdd(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin,
+              CreateView):
     model = User
     template_name = 'babybuddy/user_form.html'
     permission_required = ('admin.add_user',)
@@ -58,7 +59,8 @@ class UserAdd(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = 'User %(username)s added!'
 
 
-class UserUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class UserUpdate(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin,
+                 UpdateView):
     model = User
     template_name = 'babybuddy/user_form.html'
     permission_required = ('admin.change_user',)
@@ -67,7 +69,8 @@ class UserUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = 'User %(username)s updated.'
 
 
-class UserDelete(PermissionRequiredMixin, DeleteView):
+class UserDelete(StaffOnlyMixin, PermissionRequiredMixin,
+                 DeleteView):
     model = User
     template_name = 'babybuddy/user_confirm_delete.html'
     permission_required = ('admin.delete_user',)
