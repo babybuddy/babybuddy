@@ -232,7 +232,7 @@ class TimerDetail(PermissionRequiredMixin, DetailView):
     permission_required = ('core.view_timer',)
 
 
-class TimerAdd(CoreAddView):
+class TimerAdd(PermissionRequiredMixin, CreateView):
     model = models.Timer
     permission_required = ('core.add_timer',)
     form_class = forms.TimerForm
@@ -268,7 +268,6 @@ class TimerAddQuick(PermissionRequiredMixin, RedirectView):
     def get(self, request, *args, **kwargs):
         instance = models.Timer.objects.create(user=request.user)
         instance.save()
-        messages.success(request, '{} started!'.format(instance))
         self.url = request.GET.get(
             'next', reverse('core:timer-detail', args={instance.id}))
         return super(TimerAddQuick, self).get(request, *args, **kwargs)
