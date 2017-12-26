@@ -50,3 +50,5 @@ __version__ = '0.1.0'
 __license__ = 'BSD 2-Clause'
 
 VERSION = __version__
+
+default_app_config = 'babybuddy.apps.BabyBuddyConfig'
