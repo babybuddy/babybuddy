@@ -1,23 +1,11 @@
 {
   "name": "babybuddy",
-  "description": "A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and tummy time to learn about and predict baby's needs without all the guess work.",
-  "version": "0.1.0",
+  "version": "",
   "license": "BSD-2-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/cdubz/babybuddy.git"
   },
-  "keywords": [
-    "baby",
-    "infant",
-    "newborn",
-    "baby tracking",
-    "baby buddy",
-    "python",
-    "django",
-    "web",
-    "self-host"
-  ],
   "dependencies": {
     "bootstrap": "^4.0.0-beta.2",
     "font-awesome": "^4.7.0",
@@ -31,7 +19,7 @@
     "gulp-spawn": "^0.4.0",
     "gulp-uglify": "^3.0.0",
     "jquery": "^3.2.1",
-    "moment": "^2.19.4",
+    "moment": "^2.20.1",
     "plotly.js": "^1.31.2",
     "popper.js": "^1.13.0",
     "pump": "^2.0.0",

@@ -1,5 +1,5 @@
 {% extends 'babybuddy/base.html' %}
-{% load timers %}
+{% load babybuddy_tags timers %}
 
 {% block nav %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -199,6 +199,7 @@
                                class="dropdown-item"
                                target="_blank">
                                 <i class="icon icon-chat" aria-hidden="true"></i> Chat / Support</a>
+                            <h6 class="dropdown-header">v{% version_string %}</h6>
                         </div>
                     </li>
                 </ul>

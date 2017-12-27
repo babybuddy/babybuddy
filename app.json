@@ -1,21 +1,18 @@
 {
     "name": "Baby Buddy",
-    "author": "Baby Buddy's Contributors",
     "description": "Helps caregivers track baby's habits to learn about and predict needs without (as much) guess work.",
-    "repository": "https://github.com/cdubz/babybuddy",
     "keywords": [
         "baby",
+        "baby buddy",
+        "dashboard",
+        "django",
         "infant",
         "newborn",
-        "baby tracking",
-        "baby buddy",
         "python",
-        "django",
-        "web",
         "self-host"
     ],
-    "version": "0.1.0",
-    "license": "BSD-2-Clause",
+    "repository": "https://github.com/cdubz/babybuddy",
+    "website": "http://www.baby-buddy.net",
     "buildpacks": [
         {
             "url": "heroku/nodejs"
