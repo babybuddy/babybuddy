@@ -1,12 +1,5 @@
 // Baby Buddy site-wide custom styles.
 
-// Temporary workaround. See: https://github.com/tempusdominus/bootstrap-4/issues/18
-.bootstrap-datetimepicker-widget {
-    &.dropdown-menu {
-        width: auto; // Reset the default
-    }
-}
-
 // Remove extra margin below site breadcrumb.
 .breadcrumb {
     margin-bottom: 0;
