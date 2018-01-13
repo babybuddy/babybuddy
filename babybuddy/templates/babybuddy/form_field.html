@@ -8,14 +8,13 @@
 <div class="col-sm-10">
     {% if field|field_type == "booleanfield" %}
         <div class="form-check">
-            <label for="id_{{ field.name }}" class="form-check-label">
-                {% if field.errors %}
-                    {{ field|add_class:"form-check-input is-invalid" }}
-                {% else %}
-                    {{ field|add_class:"form-check-input" }}
-                {% endif %}
-                {{ field.label }}
-            </label>
+            <label for="id_{{ field.name }}" class="form-check-label"></label>
+            {% if field.errors %}
+                {{ field|add_class:"form-check-input is-invalid" }}
+            {% else %}
+                {{ field|add_class:"form-check-input" }}
+            {% endif %}
+            {{ field.label }}
         </div>
     {% elif field|field_type == "datetimefield" or field|field_type == "datefield" %}
         <div class="form-group">
