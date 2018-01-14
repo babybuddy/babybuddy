@@ -50,7 +50,7 @@ class ChildForm(forms.ModelForm):
             fields.append('picture')
         widgets = {
             'birth_date': forms.DateInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_date',
             }),
         }
@@ -82,7 +82,7 @@ class DiaperChangeForm(forms.ModelForm):
         fields = ['child', 'time', 'wet', 'solid', 'color']
         widgets = {
             'time': forms.DateTimeInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_time',
             }),
         }
