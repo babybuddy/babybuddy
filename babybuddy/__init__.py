@@ -46,7 +46,7 @@
 """
 
 __title__ = 'Baby Buddy'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __license__ = 'BSD 2-Clause'
 
 VERSION = __version__
