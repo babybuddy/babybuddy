@@ -7,14 +7,13 @@
 </label>
 <div class="col-sm-10">
     {% if field|field_type == "booleanfield" %}
-        <div class="form-check">
-            <label for="id_{{ field.name }}" class="form-check-label"></label>
+        <div class="custom-control custom-checkbox">
             {% if field.errors %}
-                {{ field|add_class:"form-check-input is-invalid" }}
+                {{ field|add_class:"custom-control-input is-invalid" }}
             {% else %}
-                {{ field|add_class:"form-check-input" }}
+                {{ field|add_class:"custom-control-input" }}
             {% endif %}
-            {{ field.label }}
+            <label for="id_{{ field.name }}" class="custom-control-label">{{ field.label }}</label>
         </div>
     {% elif field|field_type == "datetimefield" or field|field_type == "datefield" %}
         <div class="form-group">
