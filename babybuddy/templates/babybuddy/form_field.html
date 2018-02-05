@@ -7,13 +7,15 @@
 </label>
 <div class="col-sm-10">
     {% if field|field_type == "booleanfield" %}
-        <div class="custom-control custom-checkbox">
-            {% if field.errors %}
-                {{ field|add_class:"custom-control-input is-invalid" }}
-            {% else %}
-                {{ field|add_class:"custom-control-input" }}
-            {% endif %}
-            <label for="id_{{ field.name }}" class="custom-control-label">{{ field.label }}</label>
+        <div class="btn-group-toggle" data-toggle="buttons">
+            <label for="id_{{ field.name }}" class="btn btn-outline-light{% if field.value %} active{% endif %}">
+                {% if field.errors %}
+                    {{ field|add_class:"is-invalid" }}
+                {% else %}
+                    {{ field }}
+                {% endif %}
+                {{ field.label }}
+            </label>
         </div>
     {% elif field|field_type == "datetimefield" or field|field_type == "datefield" %}
             <div class="input-group date" id="datetimepicker_{{ field.name }}" data-target-input="nearest">
