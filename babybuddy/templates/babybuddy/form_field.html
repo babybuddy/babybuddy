@@ -26,6 +26,12 @@
                     {{ field|add_class:"form-control" }}
                 {% endif %}
             </div>
+    {% elif 'choice' in field|field_type %}
+        {% if field.errors %}
+            {{ field|add_class:"custom-select is-invalid" }}
+        {% else %}
+            {{ field|add_class:"custom-select" }}
+        {% endif %}
     {% else %}
         {% if field.errors %}
             {{ field|add_class:"form-control is-invalid" }}
