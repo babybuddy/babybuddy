@@ -143,12 +143,6 @@ class DiaperChange(models.Model):
             raise ValidationError(
                 'Wet and/or solid is required.', code='wet_or_solid')
 
-        # Color is required when Solid is selected.
-        if self.solid and not self.color:
-            raise ValidationError(
-                {'color': 'Color is required for solid diaper changes.'},
-                code='solid_color_required')
-
 
 class Feeding(models.Model):
     model_name = 'feeding'

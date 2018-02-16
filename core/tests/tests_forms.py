@@ -67,15 +67,9 @@ class FormsTestCase(TestCase):
         page = self.c.post('/changes/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
-        params['solid'] = 0
-        params['color'] = ''
-        page = self.c.post('/changes/{}/'.format(entry.id), params)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, 'form', 'color',
-                             'Color is required for solid diaper changes.')
-
         del params['solid']
         del params['wet']
+        del params['color']
         page = self.c.post('/changes/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', None,
