@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django import template
 
 from core.utils import duration_parts, duration_string as d_string

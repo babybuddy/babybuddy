@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django import template
 from django.db.models import Avg, Count, Sum
 from django.db.models.functions import TruncDate

@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import plotly.offline as plotly
 import plotly.graph_objs as go
 

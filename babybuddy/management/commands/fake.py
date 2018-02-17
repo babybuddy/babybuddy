@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from random import choice, randint, uniform
 from datetime import timedelta
 from decimal import Decimal
