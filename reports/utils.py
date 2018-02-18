@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 def default_graph_layout_options():
     """
     Default layout options for all graphs.

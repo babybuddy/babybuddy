@@ -22,8 +22,10 @@
 }
 
 // Disable hover effect on buttons (used for checkbox buttons).
-.btn-no-hover:hover {
-    color: inherit;
-    background-color: inherit;
-    border-color: inherit;
+.btn-no-hover {
+    &:hover {
+        color: inherit;
+        background-color: inherit;
+        border-color: inherit;
+    }
 }
