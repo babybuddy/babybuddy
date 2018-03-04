@@ -19,6 +19,8 @@ whitenoise = "*"
 "psycopg2" = "*"
 easy-thumbnails = "*"
 python-dotenv = "*"
+django-storages = "*"
+"boto3" = "*"
 
 
 [dev-packages]

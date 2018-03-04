@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'widget_tweaks',
     'easy_thumbnails',
+    'storages',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -132,13 +133,27 @@ STATICFILES_FINDERS = [
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
+
+
+# Media files (User uploaded content)
+# https://docs.djangoproject.com/en/2.0/topics/files/
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
+MEDIA_URL = '/media/'
+
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', None)
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
+
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', None)
+
+if AWS_STORAGE_BUCKET_NAME:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 # Django Rest Framework
