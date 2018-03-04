@@ -19,14 +19,14 @@
     "gulp-spawn": "^0.4.0",
     "gulp-uglify": "^3.0.0",
     "jquery": "^3.3.1",
-    "moment": "^2.20.1",
-    "plotly.js": "^1.33.0",
+    "moment": "^2.21.0",
+    "plotly.js": "^1.34.0",
     "popper.js": "^1.13.0",
-    "pump": "^2.0.1",
-    "require-dir": "^0.3.2",
+    "pump": "^3.0.0",
+    "require-dir": "^1.0.0",
     "run-sequence": "^2.2.1",
-    "tempusdominus-bootstrap-4": "^5.0.0-alpha15",
-    "visibilityjs": "^1.2.6"
+    "tempusdominus-bootstrap-4": "^5.0.0-alpha17",
+    "visibilityjs": "^1.2.7"
   },
   "scripts": {
     "heroku-postbuild": "npm rebuild node-sass && gulp build"
