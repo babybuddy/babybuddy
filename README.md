@@ -290,14 +290,14 @@ take precedence over the contents of an `.env` file.**
 
 - [`ALLOWED_HOSTS`](#allowed_hosts)
 - [`ALLOW_UPLOADS`](#allow_uploads)
+- [`AWS_ACCESS_KEY_ID`](#aws_access_key_id)
+- [`AWS_SECRET_ACCESS_KEY`](#aws_secret_access_key)
+- [`AWS_STORAGE_BUCKET_NAME`](#aws_storage_bucket_name)
 - [`DEBUG`](#debug)
 - [`NAP_START_MAX`](#nap_start_max)
 - [`NAP_START_MIN`](#nap_start_min)
 - [`SECRET_KEY`](#secret_key)
 - [`TIME_ZONE`](#time_zone)
-- [`AWS_STORAGE_BUCKET_NAME`](#aws_storage_bucket_name)
-- [`AWS_ACCESS_KEY_ID`](#aws_access_key_id)
-- [`AWS_SECRET_ACCESS_KEY`](#aws_secret_access_key)
 
 ### `ALLOWED_HOSTS`
 
@@ -316,6 +316,33 @@ See also: [Django's documentation on the ALLOWED_HOSTS setting](https://docs.dja
 Whether or not to allow uploads (e.g. of Child photos). For some deployments
 (AWS, Heroku, Nanobox) this setting will default to False due to the lack of
 available persistent storage.
+
+### `AWS_ACCESS_KEY_ID`
+
+*Default: None*
+
+Required to access your AWS S3 bucket, should be uniquely generated per bucket
+for security.
+
+See also: [`AWS_STORAGE_BUCKET_NAME`](#aws_storage_bucket_name)
+
+### `AWS_SECRET_ACCESS_KEY`
+
+*Default: None*
+
+Required to access your AWS S3 bucket, should be uniquely generated per bucket
+for security.
+
+See also: [`AWS_STORAGE_BUCKET_NAME`](#aws_storage_bucket_name)
+
+### `AWS_STORAGE_BUCKET_NAME`
+
+*Default: None*
+
+If you would like to use AWS S3 for storage on ephemeral storage platforms like
+Heroku you will need to create a bucket and add it's name. See django-storages'
+[Amazon S3 documentation]
+(http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html).
 
 ### `DEBUG`
 
@@ -355,29 +382,6 @@ See also [Django's documentation on the SECRET_KEY setting](https://docs.djangop
 
 The time zone to use for the instance. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 for all possible values.
-
-### `AWS_STORAGE_BUCKET_NAME`
-
-*Default: None*
-
-If you would like to use AWS S3 for storage on ephemeral storage platforms like
-Heroku you will need to create a bucket and add it's name. See django-storages'
-[Amazon S3 documentation]
-(http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html).
-
-### `AWS_ACCESS_KEY_ID`
-
-*Default: None*
-
-Required to access your AWS S3 bucket, should be uniquely generated per bucket
-for security.
-
-### `AWS_SECRET_ACCESS_KEY`
-
-*Default: None*
-
-Required to access your AWS S3 bucket, should be uniquely generated per bucket
-for security.
 
 ## API
 
