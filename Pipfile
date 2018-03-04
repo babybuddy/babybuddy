@@ -16,15 +16,15 @@ faker = "*"
 dj-database-url = "*"
 gunicorn = "*"
 whitenoise = "*"
-"psycopg2" = "*"
+psycopg2-binary = "*"
 easy-thumbnails = "*"
 python-dotenv = "*"
 django-storages = "*"
-"boto3" = "*"
+boto3 = "*"
 
 
 [dev-packages]
 
 coveralls = "*"
-"flake8" = "*"
+flake8 = "*"
 ipaddress = "*"
