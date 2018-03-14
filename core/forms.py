@@ -36,6 +36,18 @@ def set_default_duration(kwargs):
     return kwargs
 
 
+# Sets the default Feeding type to the one used in the most recent entry.
+def set_default_feeding_type(kwargs):
+    instance = kwargs.get('instance', None)
+    if not kwargs.get('initial'):
+        kwargs.update(initial={})
+    if instance is None and models.Feeding.objects.latest('end'):
+        kwargs['initial'].update({
+            'type': models.Feeding.objects.latest('end').type
+        })
+    return kwargs
+
+
 class ChildForm(forms.ModelForm):
     class Meta:
         model = models.Child
@@ -107,6 +119,7 @@ class FeedingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
+        kwargs = set_default_feeding_type(kwargs)
         self.timer_id = kwargs.get('timer', None)
         kwargs = set_default_duration(kwargs)
         super(FeedingForm, self).__init__(*args, **kwargs)
