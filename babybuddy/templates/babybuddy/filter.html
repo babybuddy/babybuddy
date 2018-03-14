@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<form role="form" action="" method="get">
+<form id="filter_form" role="form" action="" method="get" class="collapse{% if request.GET.filtered %} show{% endif %}">
     <div class="form-group form-row">
         {% for field in filter.form %}
             <label for="id_{{ field.name }}" class="col-xs-2 col-sm-auto col-form-label col-form-label-sm">
@@ -16,7 +16,19 @@
         {% endfor %}
         <div class="col-xs-12 col-sm-auto mt-3 mt-sm-0">
             <button type="submit" class="btn btn-sm btn-primary mr-2">Filter</button>
-            <a href="{{ request.path }}" class="btn btn-sm btn-dark">Reset</a>
+            <a href="{{ request.path }}" class="btn btn-sm btn-error">Reset</a>
         </div>
     </div>
+    <input type="hidden" name="filtered" value="1"/>
 </form>
+
+<p>
+    <a class="btn btn-dark btn-sm"
+       data-toggle="collapse"
+       href="#filter_form"
+       role="button"
+       aria-expanded="false"
+       aria-controls="filter_form">
+        Filters
+    </a>
+</p>
