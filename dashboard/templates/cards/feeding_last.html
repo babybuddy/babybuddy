@@ -14,7 +14,7 @@
     {% if feeding %}
         {{ feeding.type }}, {{ feeding.method }}
         {% if feeding.amount %}
-            , {{ feeding.amount }}oz.
+            ({{ feeding.amount }})
         {% endif %}
     {% endif %}
 {% endblock %}
