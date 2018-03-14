@@ -7,7 +7,11 @@
                 {{ field.label }}
             </label>
             <div class="col-xs-10 col-sm-auto">
-                {{ field|add_class:"form-control form-control-sm" }}
+                {% if 'choice' or 'boolean' in field|field_type %}
+                    {{ field|add_class:"custom-select custom-select-sm" }}
+                {% else %}
+                    {{ field|add_class:"form-control form-control-sm" }}
+                {% endif %}
             </div>
         {% endfor %}
         <div class="col-xs-12 col-sm-auto mt-3 mt-sm-0">
