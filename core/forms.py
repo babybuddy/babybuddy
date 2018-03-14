@@ -96,11 +96,11 @@ class FeedingForm(forms.ModelForm):
         fields = ['child', 'start', 'end', 'type', 'method', 'amount']
         widgets = {
             'start': forms.DateTimeInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_end',
             }),
         }
@@ -136,11 +136,11 @@ class SleepForm(forms.ModelForm):
         fields = ['child', 'start', 'end']
         widgets = {
             'start': forms.DateTimeInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_end',
             }),
         }
@@ -166,7 +166,7 @@ class TimerForm(forms.ModelForm):
         fields = ['name', 'start']
         widgets = {
             'start': forms.DateTimeInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_start',
             })
         }
@@ -188,11 +188,11 @@ class TummyTimeForm(forms.ModelForm):
         fields = ['child', 'start', 'end', 'milestone']
         widgets = {
             'start': forms.DateTimeInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_end',
             }),
         }
@@ -218,7 +218,7 @@ class WeightForm(forms.ModelForm):
         fields = ['child', 'weight', 'date']
         widgets = {
             'date': forms.DateInput(attrs={
-                'class': 'datepicker-input',
+                'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_date',
             }),
         }
