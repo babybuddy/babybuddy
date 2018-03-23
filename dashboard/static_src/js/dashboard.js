@@ -6,7 +6,7 @@
 BabyBuddy.Dashboard = function ($) {
     var runIntervalId = null;
     var dashboardElement = null;
-    var lastUpdate = moment();
+    var hidden = null;
 
     var Dashboard = {
         watch: function(element_id, refresh_rate) {
@@ -17,13 +17,30 @@ BabyBuddy.Dashboard = function ($) {
                 return false;
             }
 
-            runIntervalId = setInterval(this.update, refresh_rate);
+            if (typeof document.hidden !== "undefined") {
+                hidden = "hidden";
+            }
+            else if (typeof document.msHidden !== "undefined") {
+                hidden = "msHidden";
+            }
+            else if (typeof document.webkitHidden !== "undefined") {
+                hidden = "webkitHidden";
+            }
 
-            Visibility.change(function (e, state) {
-                if (state == 'visible' && moment().diff(lastUpdate) > 60000) {
-                    Dashboard.update();
+            if (typeof window.addEventListener === "undefined" || typeof document.hidden === "undefined") {
+                if (refresh_rate) {
+                    runIntervalId = setInterval(this.update, refresh_rate);
                 }
-            });
+            }
+            else {
+                window.addEventListener('focus', Dashboard.handleVisibilityChange, false);
+            }
+        },
+
+        handleVisibilityChange: function() {
+            if (!document[hidden]) {
+                Dashboard.update();
+            }
         },
 
         update: function() {

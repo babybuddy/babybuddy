@@ -35,5 +35,9 @@
         <script type="application/javascript">
             BabyBuddy.Dashboard.watch('dashboard-child', {{ user.settings.dashboard_refresh_rate_milliseconds }});
         </script>
+    {% else %}
+        <script type="application/javascript">
+            BabyBuddy.Dashboard.watch('dashboard-child', false);
+        </script>
     {% endif %}
 {% endblock %}

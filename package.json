@@ -25,9 +25,8 @@
     "pump": "^3.0.0",
     "require-dir": "^1.0.0",
     "run-sequence": "^2.2.1",
-    "tempusdominus-core": "latest",
     "tempusdominus-bootstrap-4": "latest",
-    "visibilityjs": "^1.2.7"
+    "tempusdominus-core": "latest"
   },
   "scripts": {
     "heroku-postbuild": "npm rebuild node-sass && gulp build"
