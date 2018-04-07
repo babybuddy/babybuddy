@@ -41,7 +41,7 @@ def set_default_feeding_type(kwargs):
     instance = kwargs.get('instance', None)
     if not kwargs.get('initial'):
         kwargs.update(initial={})
-    if instance is None and models.Feeding.objects.latest('end'):
+    if instance is None and models.Feeding.objects.count() > 0:
         kwargs['initial'].update({
             'type': models.Feeding.objects.latest('end').type
         })
