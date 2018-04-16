@@ -1,3 +1,5 @@
+<p align="center"><img src="babybuddy/static_src/logo/icon.png" alt="babybuddy" height="150px"></p>
+
 # Baby Buddy
 
 [![Build Status](https://travis-ci.org/cdubz/babybuddy.svg?branch=master)](https://travis-ci.org/cdubz/babybuddy)
