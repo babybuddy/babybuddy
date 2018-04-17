@@ -1,4 +1,4 @@
-<p align="center"><img src="babybuddy/static_src/logo/icon.png" alt="babybuddy" height="150px"></p>
+<img src="babybuddy/static_src/logo/icon.png" height="150" align="left">
 
 # Baby Buddy
 
