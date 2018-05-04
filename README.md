@@ -185,11 +185,10 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Default python3 to python and pip3 to pip for this session
 
         alias python=python3
-        alias pip=pip3
 
 1. Install pipenv
 
-        sudo -H pip install pipenv
+        sudo -H pip3 install pipenv
 
 1. Install NodeJS, NPM and Gulp
 
