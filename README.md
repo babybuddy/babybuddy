@@ -180,7 +180,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 1. Install Python 3.x, pip, nginx and uwsgi
 
-        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3
+        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git
 
 1. Install pipenv
 
@@ -206,7 +206,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 1. Initiate the Python environment
 
-        pipenv --three --dev
+        pipenv install --three --dev
 
 1. Build static assets
 
