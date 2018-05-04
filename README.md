@@ -180,11 +180,15 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 1. Install Python 3.x, pip, nginx and uwsgi
 
-        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3
+        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git
+
+1. Default python3 to python and pip3 to pip for this session
+
+        alias python=python3
 
 1. Install pipenv
 
-        sudo -H pip install pipenv
+        sudo -H pip3 install pipenv
 
 1. Install NodeJS, NPM and Gulp
 
@@ -206,7 +210,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 1. Initiate the Python environment
 
-        pipenv --three --dev
+        pipenv install --three --dev
 
 1. Build static assets
 
