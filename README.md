@@ -182,7 +182,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
         sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git
 
-1. Default python3 to python and pip3 to pip for this session
+1. Default python3 to python for this session
 
         alias python=python3
 
