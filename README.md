@@ -201,7 +201,6 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
         sudo mkdir /var/www/babybuddy
         sudo chown user:user /var/www/babybuddy
         mkdir -p /var/www/babybuddy/data/media
-        sudo chown -R www-data:www-data /var/www/babybuddy/data
         git clone https://github.com/cdubz/babybuddy.git /var/www/babybuddy/public
 
 1. Move in to the application folder
@@ -230,7 +229,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 1. Set appropriate permissions on the database and data folder
 
-        sudo chown www-data:www-data /var/www/babybuddy/data/db.sqlite3
+        sudo chown -R www-data:www-data /var/www/babybuddy/data
         sudo chmod 640 /var/www/babybuddy/data/db.sqlite3
         sudo chmod 750 /var/www/babybuddy/data
 
