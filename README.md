@@ -246,8 +246,8 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
         project = babybuddy
         base_dir = /var/www/babybuddy
 
-        virtualenv = /home/user/.local/share/virtualenvs/babybuddy-XXXXXXXX
-        chdir = %(base_dir)/babybuddy
+        virtualenv = /path/to/venv
+        chdir = %(base_dir)/public
         module =  %(project).wsgi:application
         env = DJANGO_SETTINGS_MODULE=%(project).settings.production
         master = True
@@ -256,8 +256,8 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
     See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
     for more advanced configuration details.
 
-    *Note: Find the location of the pipenv virtual environment with the command
-    ``pipenv --venv``.*
+    **Note: Find the location of the pipenv virtual environment for the 
+    `virtualenv` parameter with the command `pipenv --venv`.**
 
 1. Create and configure the nginx server
 
