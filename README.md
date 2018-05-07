@@ -258,8 +258,8 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
     **Note: Find the location of the pipenv virtual environment for the
     `virtualenv` parameter with the command `pipenv --venv`.**
 
-    sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
-    sudo service uwsgi restart
+        sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
+        sudo service uwsgi restart
 
 1. Create and configure the nginx server
 
