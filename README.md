@@ -237,8 +237,6 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Create and configure the uwsgi app
 
         sudo editor /etc/uwsgi/apps-available/babybuddy.ini
-        sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
-        sudo service uwsgi restart
 
     Example config:
 
@@ -257,12 +255,15 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
     See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
     for more advanced configuration details.
 
-    **Note: Find the location of the pipenv virtual environment for the 
+    **Note: Find the location of the pipenv virtual environment for the
     `virtualenv` parameter with the command `pipenv --venv`.**
+
+    sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
+    sudo service uwsgi restart
 
 1. Create and configure the nginx server
 
-        sudo vim /etc/nginx/sites-available/babybuddy
+        sudo editor /etc/nginx/sites-available/babybuddy
         sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
         sudo service nginx restart
 
