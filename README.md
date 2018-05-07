@@ -210,6 +210,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Initiate the Python environment
 
         pipenv install --three --dev
+        pipenv shell
 
 1. Build static assets
 
