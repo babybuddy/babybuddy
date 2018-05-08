@@ -266,8 +266,6 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Create and configure the nginx server
 
         sudo editor /etc/nginx/sites-available/babybuddy
-        sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
-        sudo service nginx restart
 
     Example config:
 
@@ -287,6 +285,11 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
     See the [nginx documentation](https://nginx.org/en/docs/) for more advanced
     configuration details.
+
+1. Symlink config and restart NGINX:
+
+        sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
+        sudo service nginx restart
 
 1. That's it (hopefully)! :tada:
 
