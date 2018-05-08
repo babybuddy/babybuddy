@@ -258,7 +258,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
     **Note: Find the location of the pipenv virtual environment for the
     `virtualenv` parameter with the command `pipenv --venv`.**
 
-    Symlink it and restart:
+1. Symlink config and restart uWSGI:
 
         sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
         sudo service uwsgi restart
