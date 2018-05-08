@@ -180,7 +180,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 1. Install Python 3.x, pip, nginx and uwsgi
 
-        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git
+        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev
 
 1. Default python3 to python for this session
 
