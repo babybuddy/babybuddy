@@ -180,7 +180,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
 1. Install Python 3.x, pip, nginx and uwsgi
 
-        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git
+        sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev
 
 1. Default python3 to python for this session
 
@@ -210,6 +210,7 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Initiate the Python environment
 
         pipenv install --three --dev
+        pipenv shell
 
 1. Build static assets
 
@@ -236,8 +237,6 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Create and configure the uwsgi app
 
         sudo editor /etc/uwsgi/apps-available/babybuddy.ini
-        sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
-        sudo service uwsgi restart
 
     Example config:
 
@@ -256,14 +255,17 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
     See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
     for more advanced configuration details.
 
-    **Note: Find the location of the pipenv virtual environment for the 
+    **Note: Find the location of the pipenv virtual environment for the
     `virtualenv` parameter with the command `pipenv --venv`.**
+
+1. Symlink config and restart uWSGI:
+
+        sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
+        sudo service uwsgi restart
 
 1. Create and configure the nginx server
 
-        sudo vim /etc/nginx/sites-available/babybuddy
-        sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
-        sudo service nginx restart
+        sudo editor /etc/nginx/sites-available/babybuddy
 
     Example config:
 
@@ -283,6 +285,11 @@ Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
 
     See the [nginx documentation](https://nginx.org/en/docs/) for more advanced
     configuration details.
+
+1. Symlink config and restart NGINX:
+
+        sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
+        sudo service nginx restart
 
 1. That's it (hopefully)! :tada:
 
