@@ -117,7 +117,7 @@ class SleepTotalsChildReport(PermissionRequired403Mixin, DetailView):
         return context
 
 
-class WeightWeightChildReoport(PermissionRequired403Mixin, DetailView):
+class WeightWeightChildReport(PermissionRequired403Mixin, DetailView):
     """
     Graph of weight change over time.
     """
@@ -126,7 +126,7 @@ class WeightWeightChildReoport(PermissionRequired403Mixin, DetailView):
     template_name = 'reports/weight_change.html'
 
     def get_context_data(self, **kwargs):
-        context = super(WeightWeightChildReoport, self).get_context_data(
+        context = super(WeightWeightChildReport, self).get_context_data(
             **kwargs)
         child = context['object']
         objects = models.Weight.objects.filter(child=child)

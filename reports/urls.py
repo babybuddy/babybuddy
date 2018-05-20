@@ -33,7 +33,7 @@ urlpatterns = [
     ),
     path(
         'children/<slug:slug>/reports/weight/weight/',
-        views.WeightWeightChildReoport.as_view(),
+        views.WeightWeightChildReport.as_view(),
         name='report-weight-weight-child'
     ),
 ]
