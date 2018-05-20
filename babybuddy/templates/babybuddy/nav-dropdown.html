@@ -1,9 +1,12 @@
 {% extends 'babybuddy/base.html' %}
-{% load babybuddy_tags timers %}
+{% load babybuddy_tags static timers %}
 
 {% block nav %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/"><span class="text-info">Baby</span> Buddy</a>
+        <a class="navbar-brand" href="/">
+            <img src="{% static "babybuddy/logo/icon-brand.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
+            <span class="text-primary">Baby</span> Buddy
+        </a>
 
         <div class="d-lg-none d-md-none ml-auto p-0 mr-2">
             <a class="text-success mr-2" href="{% url 'core:timer-add-quick' %}"><i class="icon icon-2x icon-timer" aria-hidden="true"></i></a>

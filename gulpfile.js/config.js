@@ -19,6 +19,10 @@ module.exports = {
             dest: basePath + 'img/',
             files: '**/static_src/img/**/*'
         },
+        logo: {
+            dest: basePath + 'logo/',
+            files: 'babybuddy/static_src/logo/**/*'
+        },
         root: {
             dest: basePath + 'root/',
             files: 'babybuddy/static_src/root/*'

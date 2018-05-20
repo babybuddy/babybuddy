@@ -6,7 +6,7 @@ var pump = require('pump');
 var extrasConfig = require('../config.js').extrasConfig;
 
 
-gulp.task('extras', ['extras:fonts', 'extras:images', 'extras:root']);
+gulp.task('extras', ['extras:fonts', 'extras:images', 'extras:logo', 'extras:root']);
 
 gulp.task('extras:fonts', function(cb) {
     pump([
@@ -20,6 +20,14 @@ gulp.task('extras:images', function(cb) {
         gulp.src(extrasConfig.images.files),
         flatten({ subPath: 3 }),
         gulp.dest(extrasConfig.images.dest)
+    ], cb);
+});
+
+gulp.task('extras:logo', function(cb) {
+    pump([
+        gulp.src(extrasConfig.logo.files),
+        flatten({ subPath: 3 }),
+        gulp.dest(extrasConfig.logo.dest)
     ], cb);
 });
 
