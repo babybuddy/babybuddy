@@ -165,7 +165,7 @@ and then uploaded to a server.
 
 #### Requirements
 
-- Python 3.4+, pip, pipenv
+- Python 3.5+, pip, pipenv
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database ([sqlite](https://sqlite.org/), [Postgres](https://www.postgresql.org/), [MySQL](https://www.mysql.com/), etc.)
@@ -175,10 +175,10 @@ and then uploaded to a server.
 #### Example deployment
 
 *This example assumes a 512MB VPS instance with Ubuntu 16.04 **x32**.* It uses
-Python 3.x, nginx, uwsgi and sqlite and should be sufficient for a few users
+Python 3.5+, nginx, uwsgi and sqlite and should be sufficient for a few users
 (e.g. two parents and 1+ child).
 
-1. Install Python 3.x, pip, nginx and uwsgi
+1. Install Python 3.5+, pip, nginx and uwsgi
 
         sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev
 
@@ -537,7 +537,7 @@ multiple fields).
 
 ### Requirements
 
-- Python 3.4+, pip, pipenv
+- Python 3.5+, pip, pipenv
 - NodeJS 8.x and NPM 5.x
 - Gulp
 
