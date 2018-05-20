@@ -26,16 +26,7 @@ class RootRouter(LoginRequiredMixin, RedirectView):
     more than one child is in the database.
     """
     def get_redirect_url(self, *args, **kwargs):
-        children = models.Child.objects.count()
-        if children == 0:
-            self.url = reverse('babybuddy:welcome')
-        elif children == 1:
-            self.url = reverse(
-                'dashboard:dashboard-child',
-                args={models.Child.objects.first().slug}
-            )
-        else:
-            self.url = reverse('dashboard:dashboard')
+        self.url = reverse('dashboard:dashboard')
         return super(RootRouter, self).get_redirect_url(self, *args, **kwargs)
 
 
