@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.mixins import AccessMixin
+from django.contrib.auth.mixins import AccessMixin, PermissionRequiredMixin
+
+
+class PermissionRequired403Mixin(PermissionRequiredMixin):
+    """
+    Raise an exception instead of redirecting to login.
+    """
+    raise_exception = True
 
 
 class StaffOnlyMixin(AccessMixin):

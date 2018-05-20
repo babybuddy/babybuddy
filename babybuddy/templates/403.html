@@ -1,0 +1,15 @@
+{% extends 'babybuddy/page.html' %}
+{% load widget_tweaks %}
+
+{% block title %}403 Permission Denied{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Permission Denied</li>
+{% endblock %}
+
+{% block content %}
+    <div class="alert alert-danger" role="alert">
+        You do not have permission to access this resource. Contact a site
+        administrator for assistance.
+    </div>
+{% endblock %}

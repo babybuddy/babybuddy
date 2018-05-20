@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.detail import DetailView
 
+from babybuddy.mixins import PermissionRequired403Mixin
 from core import models
 
 from . import graphs
 
 
-class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
+class DiaperChangeLifetimesChildReport(PermissionRequired403Mixin, DetailView):
     """
     Graph of diaper "lifetimes" - time between diaper changes.
     """
@@ -26,7 +26,7 @@ class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
-class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
+class DiaperChangeTypesChildReport(PermissionRequired403Mixin, DetailView):
     """
     Graph of diaper changes by day and type.
     """
@@ -45,7 +45,7 @@ class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
-class FeedingDurationChildReport(PermissionRequiredMixin, DetailView):
+class FeedingDurationChildReport(PermissionRequired403Mixin, DetailView):
     """
     Graph of feeding durations over time.
     """
@@ -69,7 +69,7 @@ class FeedingDurationChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
-class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
+class SleepPatternChildReport(PermissionRequired403Mixin, DetailView):
     """
     Graph of sleep pattern comparing sleep to wake times by day.
     """
@@ -93,7 +93,7 @@ class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
-class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
+class SleepTotalsChildReport(PermissionRequired403Mixin, DetailView):
     """
     Graph of total sleep by day.
     """
@@ -117,7 +117,7 @@ class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
-class WeightWeightChildReoport(PermissionRequiredMixin, DetailView):
+class WeightWeightChildReoport(PermissionRequired403Mixin, DetailView):
     """
     Graph of weight change over time.
     """

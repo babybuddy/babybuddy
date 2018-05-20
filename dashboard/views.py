@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.mixins import (LoginRequiredMixin,
-                                        PermissionRequiredMixin)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
+from babybuddy.mixins import PermissionRequired403Mixin
 from core.models import Child
 
 
@@ -33,7 +33,8 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         return context
 
 
-class ChildDashboard(PermissionRequiredMixin, DetailView):
+class ChildDashboard(PermissionRequired403Mixin, DetailView):
     model = Child
     permission_required = ('core.view_child',)
+    raise_exception = True
     template_name = 'dashboard/child.html'

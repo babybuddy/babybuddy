@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
@@ -10,10 +9,11 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django_filters.views import FilterView
 
+from babybuddy.mixins import PermissionRequired403Mixin
 from core import forms, models, timeline
 
 
-class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class CoreAddView(PermissionRequired403Mixin, SuccessMessageMixin, CreateView):
     def get_success_message(self, cleaned_data):
         cleaned_data['model'] = self.model._meta.verbose_name.title()
         if 'child' in cleaned_data:
@@ -23,7 +23,8 @@ class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
         return self.success_message % cleaned_data
 
 
-class CoreUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class CoreUpdateView(PermissionRequired403Mixin, SuccessMessageMixin,
+                     UpdateView):
     def get_success_message(self, cleaned_data):
         cleaned_data['model'] = self.model._meta.verbose_name.title()
         if 'child' in cleaned_data:
@@ -33,7 +34,7 @@ class CoreUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
         return self.success_message % cleaned_data
 
 
-class CoreDeleteView(PermissionRequiredMixin, DeleteView):
+class CoreDeleteView(PermissionRequired403Mixin, DeleteView):
     """
     SuccessMessageMixin is not compatible DeleteView.
     See: https://code.djangoproject.com/ticket/21936
@@ -45,7 +46,7 @@ class CoreDeleteView(PermissionRequiredMixin, DeleteView):
         return super(CoreDeleteView, self).delete(request, *args, **kwargs)
 
 
-class ChildList(PermissionRequiredMixin, FilterView):
+class ChildList(PermissionRequired403Mixin, FilterView):
     model = models.Child
     template_name = 'core/child_list.html'
     permission_required = ('core.view_child',)
@@ -61,7 +62,7 @@ class ChildAdd(CoreAddView):
     success_message = '%(first_name)s %(last_name)s added!'
 
 
-class ChildDetail(PermissionRequiredMixin, DetailView):
+class ChildDetail(PermissionRequired403Mixin, DetailView):
     model = models.Child
     permission_required = ('core.view_child',)
 
@@ -93,7 +94,7 @@ class ChildDelete(CoreUpdateView):
     success_url = reverse_lazy('core:child-list')
 
 
-class DiaperChangeList(PermissionRequiredMixin, FilterView):
+class DiaperChangeList(PermissionRequired403Mixin, FilterView):
     model = models.DiaperChange
     template_name = 'core/diaperchange_list.html'
     permission_required = ('core.view_diaperchange',)
@@ -121,7 +122,7 @@ class DiaperChangeDelete(CoreDeleteView):
     success_url = reverse_lazy('core:diaperchange-list')
 
 
-class FeedingList(PermissionRequiredMixin, FilterView):
+class FeedingList(PermissionRequired403Mixin, FilterView):
     model = models.Feeding
     template_name = 'core/feeding_list.html'
     permission_required = ('core.view_feeding',)
@@ -155,7 +156,7 @@ class FeedingDelete(CoreDeleteView):
     success_url = reverse_lazy('core:feeding-list')
 
 
-class NoteList(PermissionRequiredMixin, FilterView):
+class NoteList(PermissionRequired403Mixin, FilterView):
     model = models.Note
     template_name = 'core/note_list.html'
     permission_required = ('core.view_note',)
@@ -183,7 +184,7 @@ class NoteDelete(CoreDeleteView):
     success_url = reverse_lazy('core:note-list')
 
 
-class SleepList(PermissionRequiredMixin, FilterView):
+class SleepList(PermissionRequired403Mixin, FilterView):
     model = models.Sleep
     template_name = 'core/sleep_list.html'
     permission_required = ('core.view_sleep',)
@@ -217,7 +218,7 @@ class SleepDelete(CoreDeleteView):
     success_url = reverse_lazy('core:sleep-list')
 
 
-class TimerList(PermissionRequiredMixin, FilterView):
+class TimerList(PermissionRequired403Mixin, FilterView):
     model = models.Timer
     template_name = 'core/timer_list.html'
     permission_required = ('core.view_timer',)
@@ -225,12 +226,12 @@ class TimerList(PermissionRequiredMixin, FilterView):
     filter_fields = ('active', 'user')
 
 
-class TimerDetail(PermissionRequiredMixin, DetailView):
+class TimerDetail(PermissionRequired403Mixin, DetailView):
     model = models.Timer
     permission_required = ('core.view_timer',)
 
 
-class TimerAdd(PermissionRequiredMixin, CreateView):
+class TimerAdd(PermissionRequired403Mixin, CreateView):
     model = models.Timer
     permission_required = ('core.add_timer',)
     form_class = forms.TimerForm
@@ -260,7 +261,7 @@ class TimerUpdate(CoreUpdateView):
         return reverse('core:timer-detail', kwargs={'pk': instance.pk})
 
 
-class TimerAddQuick(PermissionRequiredMixin, RedirectView):
+class TimerAddQuick(PermissionRequired403Mixin, RedirectView):
     permission_required = ('core.add_timer',)
 
     def get(self, request, *args, **kwargs):
@@ -271,7 +272,7 @@ class TimerAddQuick(PermissionRequiredMixin, RedirectView):
         return super(TimerAddQuick, self).get(request, *args, **kwargs)
 
 
-class TimerRestart(PermissionRequiredMixin, RedirectView):
+class TimerRestart(PermissionRequired403Mixin, RedirectView):
     permission_required = ('core.change_timer',)
 
     def get(self, request, *args, **kwargs):
@@ -284,7 +285,7 @@ class TimerRestart(PermissionRequiredMixin, RedirectView):
         return reverse('core:timer-detail', kwargs={'pk': kwargs['pk']})
 
 
-class TimerStop(PermissionRequiredMixin, SuccessMessageMixin, RedirectView):
+class TimerStop(PermissionRequired403Mixin, SuccessMessageMixin, RedirectView):
     permission_required = ('core.change_timer',)
     success_message = '%(timer)s stopped.'
 
@@ -304,7 +305,7 @@ class TimerDelete(CoreDeleteView):
     success_url = reverse_lazy('core:timer-list')
 
 
-class TummyTimeList(PermissionRequiredMixin, FilterView):
+class TummyTimeList(PermissionRequired403Mixin, FilterView):
     model = models.TummyTime
     template_name = 'core/tummytime_list.html'
     permission_required = ('core.view_tummytime',)
@@ -338,7 +339,7 @@ class TummyTimeDelete(CoreDeleteView):
     success_url = reverse_lazy('core:tummytime-list')
 
 
-class WeightList(PermissionRequiredMixin, FilterView):
+class WeightList(PermissionRequired403Mixin, FilterView):
     model = models.Weight
     template_name = 'core/weight_list.html'
     permission_required = ('core.view_weight',)

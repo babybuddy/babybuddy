@@ -2,8 +2,7 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.mixins import (LoginRequiredMixin,
-                                        PermissionRequiredMixin)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
@@ -15,15 +14,12 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
 
 from babybuddy import forms
-from babybuddy.mixins import StaffOnlyMixin
-from core import models
+from babybuddy.mixins import PermissionRequired403Mixin, StaffOnlyMixin
 
 
 class RootRouter(LoginRequiredMixin, RedirectView):
     """
-    Redirects to the welcome page if no children are in the database, a child
-    dashboard if only one child is in the database, and the dashboard page if
-    more than one child is in the database.
+    Redirects to the site dashboard.
     """
     def get_redirect_url(self, *args, **kwargs):
         self.url = reverse('dashboard:dashboard')
@@ -38,7 +34,7 @@ class UserList(StaffOnlyMixin, FilterView):
     filter_fields = ('username', 'first_name', 'last_name', 'email')
 
 
-class UserAdd(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin,
+class UserAdd(StaffOnlyMixin, PermissionRequired403Mixin, SuccessMessageMixin,
               CreateView):
     model = User
     template_name = 'babybuddy/user_form.html'
@@ -48,8 +44,8 @@ class UserAdd(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin,
     success_message = 'User %(username)s added!'
 
 
-class UserUpdate(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin,
-                 UpdateView):
+class UserUpdate(StaffOnlyMixin, PermissionRequired403Mixin,
+                 SuccessMessageMixin, UpdateView):
     model = User
     template_name = 'babybuddy/user_form.html'
     permission_required = ('admin.change_user',)
@@ -58,7 +54,7 @@ class UserUpdate(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin,
     success_message = 'User %(username)s updated.'
 
 
-class UserDelete(StaffOnlyMixin, PermissionRequiredMixin,
+class UserDelete(StaffOnlyMixin, PermissionRequired403Mixin,
                  DeleteView):
     model = User
     template_name = 'babybuddy/user_confirm_delete.html'
