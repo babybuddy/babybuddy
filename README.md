@@ -210,7 +210,12 @@ Python 3.5+, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Initiate the Python environment
 
         pipenv install --three --dev
-        pipenv shell
+        
+    **Note:** Python dependencies are locked on x86-64 architecture. Installs 
+    on other architectures (like Raspberry Pi's ARM) may result in a 
+    ``THESE PACKAGES DO NOT MATCH THE HASHES FROM Pipfile.lock!`` error. Add 
+    the ``--skip-lock`` flag to the above command to suppress this error 
+    (i.e.: ``pipenv install --three --dev --skip-lock``).
 
 1. Build static assets
 
