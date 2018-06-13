@@ -3,6 +3,10 @@ version: "2"
 services:
   db:
     image: postgres
+    environment:
+       - PGDATA=/db-data
+    volumes:
+       - db:/db-data
   app:
     env_file: docker.env
     build: .
@@ -11,3 +15,9 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    volumes:
+      - baby_data:/app
+
+volumes:
+   db:
+   baby_data:
