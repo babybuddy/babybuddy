@@ -9,7 +9,7 @@
   "dependencies": {
     "bootstrap": "4.1.2",
     "font-awesome": "^4.7.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^3.0.1",
     "gulp-flatten": "^0.4.0",
@@ -23,8 +23,6 @@
     "plotly.js": "^1.39.1",
     "popper.js": "^1.14.3",
     "pump": "^3.0.0",
-    "require-dir": "^1.0.0",
-    "run-sequence": "^2.2.1",
     "tempusdominus-bootstrap-4": "^5.0.1",
     "tempusdominus-core": "^5.0.0"
   },

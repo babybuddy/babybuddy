@@ -2,14 +2,6 @@ var basePath = 'babybuddy/static/babybuddy/';
 
 module.exports = {
     basePath: basePath,
-    compressConfig: {
-        scripts: {
-            dest: basePath + 'js/'
-        },
-        styles: {
-            dest: basePath + 'css/'
-        }
-    },
     extrasConfig: {
         fonts: {
             dest: basePath + 'fonts/',
@@ -35,8 +27,7 @@ module.exports = {
             'node_modules/popper.js/dist/umd/popper.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
             'node_modules/moment/moment.js',
-            'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js',
-            'node_modules/visibilityjs/lib/visibility.core.js'
+            'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
         ],
         graph: [
             'node_modules/plotly.js/dist/plotly-cartesian.js'
@@ -60,11 +51,11 @@ module.exports = {
     },
     watchConfig: {
         scriptsGlob: [
-            '**/static_src/js/**/*.js',
+            '*/static_src/js/**/*.js',
             '!babybuddy/static/js/'
         ],
         stylesGlob: [
-            '**/static_src/scss/**/*.scss'
+            '*/static_src/scss/**/*.scss'
         ]
     }
 };

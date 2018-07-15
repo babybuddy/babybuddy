@@ -595,7 +595,6 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 - [`gulp`](#gulp)
 - [`gulp build`](#build)
 - [`gulp collectstatic`](#collectstatic)
-- [`gulp compress`](#compress)
 - [`gulp coverage`](#coverage)
 - [`gulp extras`](#extras)
 - [`gulp fake`](#fake)
@@ -623,13 +622,6 @@ Executes Django's `collectstatic` management task. This task relies on files in
 the `babybuddy/static` folder, so generally `gulp build` should be run before
 this command for production deployments. Gulp also passes along
 non-overlapping arguments for this command, e.g. `--no-input`.
-
-#### `compress`
-
-:exclamation: *DEPRECATED* :exclamation:
-
-Compresses built scripts and styles. This command has been deprecated in favor
-of WhiteNoise's compression as part of the `collectstatic` command.
 
 #### `coverage`
 
