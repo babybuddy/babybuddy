@@ -7,7 +7,7 @@
     "url": "https://github.com/cdubz/babybuddy.git"
   },
   "dependencies": {
-    "bootstrap": "4.0.0",
+    "bootstrap": "4.1.2",
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
@@ -15,18 +15,18 @@
     "gulp-flatten": "^0.4.0",
     "gulp-sass": "^4.0.1",
     "gulp-sass-glob": "^1.0.9",
-    "gulp-sass-lint": "^1.3.4",
+    "gulp-sass-lint": "^1.4.0",
     "gulp-spawn": "^0.4.0",
     "gulp-uglify": "^3.0.0",
     "jquery": "^3.3.1",
-    "moment": "^2.22.1",
-    "plotly.js": "^1.37.1",
+    "moment": "^2.22.2",
+    "plotly.js": "^1.39.1",
     "popper.js": "^1.14.3",
     "pump": "^3.0.0",
     "require-dir": "^1.0.0",
     "run-sequence": "^2.2.1",
-    "tempusdominus-bootstrap-4": "latest",
-    "tempusdominus-core": "latest"
+    "tempusdominus-bootstrap-4": "^5.0.1",
+    "tempusdominus-core": "^5.0.0"
   },
   "scripts": {
     "heroku-postbuild": "npm rebuild node-sass && gulp build"
