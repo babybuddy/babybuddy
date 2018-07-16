@@ -5,6 +5,7 @@ ADD package-lock.json /build/
 RUN npm install
 RUN npm install -g gulp-cli
 ADD gulpfile.js /build/gulpfile.js
+ADD gulpfile.config.js /build/gulpfile.config.js
 ADD api /build/api
 ADD babybuddy /build/babybuddy
 ADD core /build/core
