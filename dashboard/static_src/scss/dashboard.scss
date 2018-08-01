@@ -1,0 +1,7 @@
+@include media-breakpoint-between(sm, md) {
+    #dashboard-child {
+        &.card-columns {
+            column-count: 2;
+        }
+    }
+}
