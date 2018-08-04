@@ -26,12 +26,21 @@ class RootRouter(LoginRequiredMixin, RedirectView):
         return super(RootRouter, self).get_redirect_url(self, *args, **kwargs)
 
 
-class UserList(StaffOnlyMixin, FilterView):
+class BabyBuddyFilterView(FilterView):
+    """
+    Disables "strictness" for django-filter. It is unclear from the
+    documentation exactly what this does...
+    """
+    # TODO Figure out the correct way to use this.
+    strict = False
+
+
+class UserList(StaffOnlyMixin, BabyBuddyFilterView):
     model = User
     template_name = 'babybuddy/user_list.html'
     ordering = 'username'
     paginate_by = 10
-    filter_fields = ('username', 'first_name', 'last_name', 'email')
+    filterset_fields = ('username', 'first_name', 'last_name', 'email')
 
 
 class UserAdd(StaffOnlyMixin, PermissionRequired403Mixin, SuccessMessageMixin,

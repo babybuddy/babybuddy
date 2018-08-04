@@ -7,9 +7,8 @@ from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from django_filters.views import FilterView
-
 from babybuddy.mixins import PermissionRequired403Mixin
+from babybuddy.views import BabyBuddyFilterView
 from core import forms, models, timeline
 
 
@@ -46,12 +45,12 @@ class CoreDeleteView(PermissionRequired403Mixin, DeleteView):
         return super(CoreDeleteView, self).delete(request, *args, **kwargs)
 
 
-class ChildList(PermissionRequired403Mixin, FilterView):
+class ChildList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.Child
     template_name = 'core/child_list.html'
     permission_required = ('core.view_child',)
     paginate_by = 10
-    filter_fields = ('first_name', 'last_name')
+    filterset_fields = ('first_name', 'last_name')
 
 
 class ChildAdd(CoreAddView):
@@ -94,12 +93,12 @@ class ChildDelete(CoreUpdateView):
     success_url = reverse_lazy('core:child-list')
 
 
-class DiaperChangeList(PermissionRequired403Mixin, FilterView):
+class DiaperChangeList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.DiaperChange
     template_name = 'core/diaperchange_list.html'
     permission_required = ('core.view_diaperchange',)
     paginate_by = 10
-    filter_fields = ('child', 'wet', 'solid', 'color')
+    filterset_fields = ('child', 'wet', 'solid', 'color')
 
 
 class DiaperChangeAdd(CoreAddView):
@@ -122,12 +121,12 @@ class DiaperChangeDelete(CoreDeleteView):
     success_url = reverse_lazy('core:diaperchange-list')
 
 
-class FeedingList(PermissionRequired403Mixin, FilterView):
+class FeedingList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.Feeding
     template_name = 'core/feeding_list.html'
     permission_required = ('core.view_feeding',)
     paginate_by = 10
-    filter_fields = ('child', 'type', 'method')
+    filterset_fields = ('child', 'type', 'method')
 
 
 class FeedingAdd(CoreAddView):
@@ -156,12 +155,12 @@ class FeedingDelete(CoreDeleteView):
     success_url = reverse_lazy('core:feeding-list')
 
 
-class NoteList(PermissionRequired403Mixin, FilterView):
+class NoteList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.Note
     template_name = 'core/note_list.html'
     permission_required = ('core.view_note',)
     paginate_by = 10
-    filter_fields = ('child',)
+    filterset_fields = ('child',)
 
 
 class NoteAdd(CoreAddView):
@@ -184,12 +183,12 @@ class NoteDelete(CoreDeleteView):
     success_url = reverse_lazy('core:note-list')
 
 
-class SleepList(PermissionRequired403Mixin, FilterView):
+class SleepList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.Sleep
     template_name = 'core/sleep_list.html'
     permission_required = ('core.view_sleep',)
     paginate_by = 10
-    filter_fields = ('child',)
+    filterset_fields = ('child',)
 
 
 class SleepAdd(CoreAddView):
@@ -218,12 +217,12 @@ class SleepDelete(CoreDeleteView):
     success_url = reverse_lazy('core:sleep-list')
 
 
-class TimerList(PermissionRequired403Mixin, FilterView):
+class TimerList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.Timer
     template_name = 'core/timer_list.html'
     permission_required = ('core.view_timer',)
     paginate_by = 10
-    filter_fields = ('active', 'user')
+    filterset_fields = ('active', 'user')
 
 
 class TimerDetail(PermissionRequired403Mixin, DetailView):
@@ -305,12 +304,12 @@ class TimerDelete(CoreDeleteView):
     success_url = reverse_lazy('core:timer-list')
 
 
-class TummyTimeList(PermissionRequired403Mixin, FilterView):
+class TummyTimeList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.TummyTime
     template_name = 'core/tummytime_list.html'
     permission_required = ('core.view_tummytime',)
     paginate_by = 10
-    filter_fields = ('child',)
+    filterset_fields = ('child',)
 
 
 class TummyTimeAdd(CoreAddView):
@@ -339,12 +338,12 @@ class TummyTimeDelete(CoreDeleteView):
     success_url = reverse_lazy('core:tummytime-list')
 
 
-class WeightList(PermissionRequired403Mixin, FilterView):
+class WeightList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.Weight
     template_name = 'core/weight_list.html'
     permission_required = ('core.view_weight',)
     paginate_by = 10
-    filter_fields = ('child',)
+    filterset_fields = ('child',)
 
 
 class WeightAdd(CoreAddView):

@@ -9,6 +9,6 @@ class APIMetadata(metadata.SimpleMetadata):
     def determine_metadata(self, request, view):
         data = super(APIMetadata, self).determine_metadata(request, view)
         data.pop('description')
-        if hasattr(view, 'filter_fields'):
-            data.update({'filters': view.filter_fields})
+        if hasattr(view, 'filterset_fields'):
+            data.update({'filters': view.filterset_fields})
         return data

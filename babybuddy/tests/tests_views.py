@@ -46,7 +46,7 @@ class ViewsTestCase(TestCase):
     def test_user_views(self):
         # Staff setting is required to access user management.
         page = self.c.get('/users/')
-        self.assertEqual(page.status_code, 302)
+        self.assertEqual(page.status_code, 403)
         self.user.is_staff = True
         self.user.save()
 

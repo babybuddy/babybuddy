@@ -37,7 +37,6 @@ def feeding_duration(instances):
         x=list(totals.values_list('date', flat=True)),
         y=[td.seconds/60 for td in averages],
         hoverinfo='text',
-        textposition='outside',
         text=[_duration_string_ms(td) for td in averages]
     )
     trace_count = go.Scatter(
