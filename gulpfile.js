@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 
 var concat = require('gulp-concat');
+var del = require('del');
 var flatten = require('gulp-flatten');
 var pump = require('pump');
 var sass = require('gulp-sass');
@@ -153,7 +154,6 @@ gulp.task('makemigrations', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
-
 gulp.task('reset', function(cb) {
     spawn(
         'pipenv',
@@ -169,6 +169,15 @@ gulp.task('reset', function(cb) {
         }
     ).on('exit', cb);
 });
+
+function clean() {
+    return del([
+        '**/static',
+        'static'
+    ]);
+}
+
+gulp.task('clean', clean);
 
 gulp.task('runserver', function(cb) {
     var command = ['run', 'python', 'manage.py', 'runserver'];
