@@ -594,6 +594,7 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 
 - [`gulp`](#gulp)
 - [`gulp build`](#build)
+- [`gulp clear`](#clean)
 - [`gulp collectstatic`](#collectstatic)
 - [`gulp coverage`](#coverage)
 - [`gulp extras`](#extras)
@@ -601,6 +602,7 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 - [`gulp lint`](#lint)
 - [`gulp makemigrations`](#makemigrations)
 - [`gulp migrate`](#migrate)
+- [`gulp pre-commit`](#pre-commit)
 - [`gulp reset`](#reset)
 - [`gulp runserver`](#runserver)
 - [`gulp scripts`](#scripts)
@@ -615,6 +617,12 @@ Executes the `build` and `watch` commands and runs Django's development server.
 
 Creates all script, style and "extra" assets and places them in the
 `babybuddy/static` folder.
+
+#### `clean`
+
+Deletes all build folders and the root `static` folder. Generally this should
+be run before a `gulp build` to remove previous build files and the generated
+static assets.
 
 #### `collectstatic`
 
@@ -654,6 +662,12 @@ non-overlapping arguments for this command.
 Executes Django's `migrate` management task. In addition to migrating the
 database, this command creates the default `admin` user. Gulp also passes along
 non-overlapping arguments for this command.
+
+#### `pre-commit`
+
+Executes the gulp commands `lint`, `test`, `clear`, `build`, and 
+`collectstatic` in a series. This command should be executed before any commit,
+preferably in a pre-commit hook.
 
 #### `reset`
 
