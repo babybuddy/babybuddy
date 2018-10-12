@@ -15,7 +15,8 @@ docker.env
 # python
 *.pyc
 
-# static files
-/babybuddy/static
-/static
+# static build files
+/*/static
+
+# media folder
 /media
