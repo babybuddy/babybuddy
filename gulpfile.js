@@ -132,7 +132,21 @@ gulp.task('coverage', coverage);
 
 gulp.task('collectstatic', function(cb) {
     var command = ['run', 'python', 'manage.py', 'collectstatic'];
-    command = command.concat(process.argv.splice(3));
+
+    /* Use base settings if no settings parameter is supplied. */
+    var parameters = process.argv.splice(3);
+    var noSettings = true;
+    for (var i = 0; i < parameters.length; i++) {
+        if (parameters[i].substring(0, 10) === '--settings') {
+            noSettings = false;
+            break;
+        }
+    }
+    if (noSettings) {
+        parameters.push('--settings=babybuddy.settings.base');
+    }
+
+    command = command.concat(parameters);
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
@@ -178,6 +192,14 @@ function clean() {
 }
 
 gulp.task('clean', clean);
+
+gulp.task('pre-commit', gulp.series(
+    'lint',
+    'test',
+    'clean',
+    'build',
+    'collectstatic'
+));
 
 gulp.task('runserver', function(cb) {
     var command = ['run', 'python', 'manage.py', 'runserver'];
