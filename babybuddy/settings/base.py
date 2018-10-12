@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
+WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'babybuddy', 'root')
 
 
 # Media files (User uploaded content)
