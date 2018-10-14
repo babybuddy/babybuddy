@@ -33,6 +33,7 @@ work.
 - [Development](#development)
   - [Installation](#installation)
   - [Gulp Commands](#gulp-commands)
+  - [Pre-commit Hook](#pre-commit-hook)
 
 ## Demo
 
@@ -690,7 +691,7 @@ Gulp also passes along non-overlapping arguments for this command, however
 individual tests cannot be run with this command. `python manage.py test` can be
 used for individual test execution.
 
-### Pre-commit hook
+### Pre-commit Hook
 
 A pre-commit hook is recommended for all commits in order to make sure that
 static assets are correctly committed. Here is an example working script for 
