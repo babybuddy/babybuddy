@@ -86,7 +86,10 @@ gulp.task('watch', watch);
 function lint(cb) {
     var command = ['run', 'flake8', '--exclude=etc,migrations,manage.py,node_modules,settings'];
     command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function (code) {
+        if (code) process.exit(code);
+        cb();
+    });
 
     pump([
         gulp.src(config.watchConfig.stylesGlob),
