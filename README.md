@@ -594,7 +594,7 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 
 - [`gulp`](#gulp)
 - [`gulp build`](#build)
-- [`gulp clear`](#clean)
+- [`gulp clean`](#clean)
 - [`gulp collectstatic`](#collectstatic)
 - [`gulp coverage`](#coverage)
 - [`gulp extras`](#extras)
@@ -602,7 +602,6 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 - [`gulp lint`](#lint)
 - [`gulp makemigrations`](#makemigrations)
 - [`gulp migrate`](#migrate)
-- [`gulp pre-commit`](#pre-commit)
 - [`gulp reset`](#reset)
 - [`gulp runserver`](#runserver)
 - [`gulp scripts`](#scripts)
@@ -663,12 +662,6 @@ Executes Django's `migrate` management task. In addition to migrating the
 database, this command creates the default `admin` user. Gulp also passes along
 non-overlapping arguments for this command.
 
-#### `pre-commit`
-
-Executes the gulp commands `lint`, `test`, `clear`, `build`, and 
-`collectstatic` in a series. This command should be executed before any commit,
-preferably in a pre-commit hook.
-
 #### `reset`
 
 Resets the database to a default state *with* one fake child and 31 days of
@@ -696,3 +689,29 @@ Executes Baby Buddy's suite of tests.
 Gulp also passes along non-overlapping arguments for this command, however
 individual tests cannot be run with this command. `python manage.py test` can be
 used for individual test execution.
+
+### Pre-commit hook
+
+A pre-commit hook is recommended for all commits in order to make sure that
+static assets are correctly committed. Here is an example working script for 
+bash:
+
+```
+#!/bin/sh
+
+if [ $(git diff --cached --name-only | grep static_src -c) -ne 0 ]
+then
+    gulp clean && gulp build && gulp collectstatic
+    if [ $? -ne 0 ]; then exit $?; fi
+    git add ./static
+fi
+
+gulp lint && gulp test
+
+exit $?
+```
+
+This script will build and add static assets to the commit only if changes have
+been made to files in a `static_src` directory of the project. It will always
+run the `gulp lint` and `gulp test` commands. If any of these processes result
+in an error, the commit will be rejected.

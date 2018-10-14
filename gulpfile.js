@@ -196,14 +196,6 @@ function clean() {
 
 gulp.task('clean', clean);
 
-gulp.task('pre-commit', gulp.series(
-    'lint',
-    'test',
-    'clean',
-    'build',
-    'collectstatic'
-));
-
 gulp.task('runserver', function(cb) {
     var command = ['run', 'python', 'manage.py', 'runserver'];
     command = command.concat(process.argv.splice(3));
