@@ -693,12 +693,12 @@ used for individual test execution.
 
 ### Pre-commit Hook
 
-A pre-commit hook is recommended for all commits in order to make sure that
-static assets are correctly committed. Here is an example working script for 
-bash:
+A [pre-commit hook](https://git-scm.com/docs/githooks#_pre_commit) is 
+recommended for all commits in order to make sure that static assets are 
+correctly committed. Here is an example working script for bash:
 
 ```
-#!/bin/sh
+#!/bin/bash
 
 if [ $(git diff --cached --name-only | grep static_src -c) -ne 0 ]
 then
