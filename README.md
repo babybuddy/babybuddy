@@ -157,12 +157,8 @@ by `heroku config:set`.
 
 ### Manual
 
-There are a number of ways to deploy Baby Buddy manually to any server/VPS.
-The application can run fine in low memory (below 1GB) situations, however a
-32-bit operating system is recommended in such cases. This is primarily
-because the build process can be memory intensive and cause excessive memory
-usage on 64-bit systems. If all fails, assets can be built on a local machine
-and then uploaded to a server.
+There are many ways to deploy Baby Buddy manually to any server/VPS. The basic 
+requirements are Python, a web server, an application server, and a database.
 
 #### Requirements
 
@@ -170,16 +166,14 @@ and then uploaded to a server.
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database ([sqlite](https://sqlite.org/), [Postgres](https://www.postgresql.org/), [MySQL](https://www.mysql.com/), etc.)
-- NodeJS 8.x and NPM 5.x (for building assets)
-- Gulp (for building assets)
 
 #### Example deployment
 
-*This example assumes a 512MB VPS instance with Ubuntu 16.04 **x32**.* It uses
+*This example assumes a 512MB VPS instance with Ubuntu 16.04.* It uses
 Python 3.5+, nginx, uwsgi and sqlite and should be sufficient for a few users
 (e.g. two parents and 1+ child).
 
-1. Install Python 3.5+, pip, nginx and uwsgi
+1. Install system packages
 
         sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev
 
@@ -190,12 +184,6 @@ Python 3.5+, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Install pipenv
 
         sudo -H pip3 install pipenv
-
-1. Install NodeJS, NPM and Gulp
-
-        curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-        sudo apt-get install nodejs
-        sudo npm install -g gulp-cli
 
 1. Set up directories and files
 
@@ -208,20 +196,16 @@ Python 3.5+, nginx, uwsgi and sqlite and should be sufficient for a few users
 
         cd /var/www/babybuddy/public
 
-1. Initiate the Python environment
+1. Initiate and enter the Python environment
 
-        pipenv install --three --dev
+        pipenv install --three
+        pipenv shell
         
     **Note:** Python dependencies are locked on x86-64 architecture. Installs 
     on other architectures (like Raspberry Pi's ARM) may result in a 
     ``THESE PACKAGES DO NOT MATCH THE HASHES FROM Pipfile.lock!`` error. Add 
     the ``--skip-lock`` flag to the above command to suppress this error 
     (i.e.: ``pipenv install --three --dev --skip-lock``).
-
-1. Build static assets
-
-        npm install
-        gulp build
 
 1. Create a production settings file and set the ``SECRET_KEY`` and ``ALLOWED_HOSTS`` values
 
@@ -231,8 +215,7 @@ Python 3.5+, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Initiate the application
 
         export DJANGO_SETTINGS_MODULE=babybuddy.settings.production
-        gulp collectstatic
-        gulp migrate
+        python manage.py migrate
 
 1. Set appropriate permissions on the database and data folder
 
@@ -286,6 +269,10 @@ Python 3.5+, nginx, uwsgi and sqlite and should be sufficient for a few users
             location / {
                 uwsgi_pass babybuddy;
                 include uwsgi_params;
+            }
+            
+            location /media {
+                alias /var/www/babybuddy/data/media;
             }
         }
 
