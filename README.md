@@ -21,7 +21,6 @@ work.
 - [Deployment](#deployment)
   - [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
   - [Docker](#docker)
-  - [Nanobox](#nanobox)
   - [Heroku](#heroku)
   - [Manual](#manual)
 - [Configuration](#configuration)
@@ -108,33 +107,6 @@ The app should now be locally available at
 [http://127.0.0.1:8000](http://127.0.0.1:8000). See
 [Get Started, Part 6: Deploy your app](https://docs.docker.com/get-started/part6/)
 for detailed information about how to deployment methods with Docker.
-
-### Nanobox
-
-An example [Nanobox](https://nanobox.io/) configuration, `boxfile.yml`, is
-provided with Baby Buddy. The steps below are a rough guide to deployment. See
-[Create and Deploy a Custom Django App](https://guides.nanobox.io/python/django/)
-for detailed information about Nanobox's deployment and configuration process.
-
-1. Clone/download the Baby Buddy repo
-
-        git clone https://github.com/cdubz/babybuddy.git
-
-1. Enter the cloned/downloaded directory
-
-        cd babybuddy
-
-1. Add the `SECRET_KEY` and `DJANGO_SETTINGS_MODULE` environment variables
-
-        nanobox evar add DJANGO_SETTINGS_MODULE=babybuddy.settings.nanobox
-        nanobox evar add SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
-
-    *See [Configuration](#configuration) for other settings that can be
-    controlled by environment variables.*
-
-1. Deploy! :rocket:
-
-        nanobox deploy
 
 ### Heroku
 
