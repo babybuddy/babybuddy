@@ -83,11 +83,9 @@ redeploy the app (e.g. if there are errors or settings are changed).
 
 ### Docker
 
-A Docker deploy requires [Docker](http://docker.com/) and
+A Docker deployment requires [Docker](http://docker.com/) and
 [Docker Compose](https://docs.docker.com/compose/overview/) to create two
-containers - one for the database and one for the application. Baby Buddy uses a
-[multi-stage build](https://docs.docker.com/engine/userguide/eng-image/multistage-build/),
-which requires Docker version 17.05 or newer.
+containers - one for the database and one for the application.
 
 1. Copy the `docker.env.example` to `docker.env` and set the `ALLOWED_HOSTS` and
 `SECRET_KEY` variables within
@@ -105,10 +103,6 @@ which requires Docker version 17.05 or newer.
 1. Initialize the database *(first run/after updates)*
 
         docker-compose exec app python manage.py migrate
-
-1. Initialize static assets *(first run/after updates)*
-
-        docker-compose exec app python manage.py collectstatic
 
 The app should now be locally available at
 [http://127.0.0.1:8000](http://127.0.0.1:8000). See
