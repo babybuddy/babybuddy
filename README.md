@@ -113,10 +113,11 @@ for detailed information about how to deployment methods with Docker.
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 For manual deployments to Heroku without using the deploy button, make sure to
-create two settings before pushing using `heroku config:set`:
+create the following settings before pushing:
 
     heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
     heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
+    heroku config:set DISABLE_COLLECTSTATIC=1
 
 See [Configuration](#configuration) for other settings that can be controlled
 by `heroku config:set`.

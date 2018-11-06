@@ -15,9 +15,6 @@
     "website": "http://www.baby-buddy.net",
     "buildpacks": [
         {
-            "url": "heroku/nodejs"
-        },
-        {
             "url": "heroku/python"
         }
     ],
@@ -29,6 +26,10 @@
         "SECRET_KEY": {
             "description": "Used for the auth system.",
             "generator": "secret"
+        },
+        "DISABLE_COLLECTSTATIC": {
+            "description": "Prevent static asset collection.",
+            "value": "1"
         },
         "TIME_ZONE": {
             "description": "Sets the instance time zone.",

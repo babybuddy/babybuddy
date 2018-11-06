@@ -26,8 +26,5 @@
     "pump": "^3.0.0",
     "tempusdominus-bootstrap-4": "^5.0.1",
     "tempusdominus-core": "^5.0.0"
-  },
-  "scripts": {
-    "heroku-postbuild": "npm rebuild node-sass && gulp build"
   }
 }
