@@ -119,7 +119,7 @@ class Command(BaseCommand):
         """
         method = choice(models.Feeding._meta.get_field('method').choices)[0]
         amount = None
-        if method is 'bottle':
+        if method == 'bottle':
             amount = Decimal('%d.%d' % (randint(0, 6), randint(0, 9)))
         start = self.time + timedelta(minutes=randint(1, 60))
         end = start + timedelta(minutes=randint(5, 20))

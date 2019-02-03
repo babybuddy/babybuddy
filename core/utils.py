@@ -14,10 +14,10 @@ def duration_string(duration, precision='s'):
         duration = '{} hour{}'.format(h, 's' if h > 1 else '')
     if m > 0 and precision != 'h':
         duration += '{}{} minute{}'.format(
-            '' if duration is '' else ', ', m, 's' if m > 1 else '')
+            '' if duration == '' else ', ', m, 's' if m > 1 else '')
     if s > 0 and precision != 'h' and precision != 'm':
         duration += '{}{} second{}'.format(
-            '' if duration is '' else ', ', s, 's' if s > 1 else '')
+            '' if duration == '' else ', ', s, 's' if s > 1 else '')
 
     return duration
 
