@@ -8,6 +8,7 @@ cache:
 python:
     - 3.5
     - 3.6
+    - 3.7
 env:
     - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
 install:
