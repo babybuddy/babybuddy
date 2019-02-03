@@ -9,6 +9,9 @@
 .env
 docker.env
 
+# ide
+/.idea
+
 # npm folder
 /node_modules
 
