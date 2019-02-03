@@ -82,6 +82,7 @@ def split_graph_output(output):
     :param output: a string of html and javascript comprising the graph.
     :returns: a tuple of the the graph's html and javascript.
     """
-    html, javascript = output.split('<script')
-    javascript = '<script' + javascript
-    return html, javascript
+    html, js_graph, js_listener = output.split('<script')
+    js_graph = '<script' + js_graph
+    js_listener = '<script' + js_listener
+    return html, js_graph, js_listener

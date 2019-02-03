@@ -25,4 +25,6 @@
 
 {% block javascript %}
     <script src="{% static "babybuddy/js/graph.js" %}"></script>
+    {{ js_graph|safe }}
+    {{ js_listener|safe }}
 {% endblock %}

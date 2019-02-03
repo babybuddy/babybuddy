@@ -21,7 +21,7 @@ class DiaperChangeLifetimesChildReport(PermissionRequired403Mixin, DetailView):
         child = context['object']
         changes = models.DiaperChange.objects.filter(child=child)
         if changes and changes.count() > 1:
-            context['html'], context['javascript'] = \
+            context['html'], context['js_graph'], context['js_listener'] = \
                 graphs.diaperchange_lifetimes(changes)
         return context
 
@@ -40,7 +40,7 @@ class DiaperChangeTypesChildReport(PermissionRequired403Mixin, DetailView):
         child = context['object']
         changes = models.DiaperChange.objects.filter(child=child)
         if changes:
-            context['html'], context['javascript'] = \
+            context['html'], context['js_graph'], context['js_listener'] = \
                 graphs.diaperchange_types(changes)
         return context
 
@@ -64,7 +64,7 @@ class FeedingDurationChildReport(PermissionRequired403Mixin, DetailView):
         child = context['object']
         instances = models.Feeding.objects.filter(child=child)
         if instances:
-            context['html'], context['javascript'] = \
+            context['html'], context['js_graph'], context['js_listener'] = \
                 graphs.feeding_duration(instances)
         return context
 
@@ -88,7 +88,7 @@ class SleepPatternChildReport(PermissionRequired403Mixin, DetailView):
         child = context['object']
         instances = models.Sleep.objects.filter(child=child).order_by('start')
         if instances:
-            context['html'], context['javascript'] = \
+            context['html'], context['js_graph'], context['js_listener'] = \
                 graphs.sleep_pattern(instances)
         return context
 
@@ -112,7 +112,7 @@ class SleepTotalsChildReport(PermissionRequired403Mixin, DetailView):
         child = context['object']
         instances = models.Sleep.objects.filter(child=child).order_by('start')
         if instances:
-            context['html'], context['javascript'] = \
+            context['html'], context['js_graph'], context['js_listener'] = \
                 graphs.sleep_totals(instances)
         return context
 
@@ -131,6 +131,6 @@ class WeightWeightChildReport(PermissionRequired403Mixin, DetailView):
         child = context['object']
         objects = models.Weight.objects.filter(child=child)
         if objects:
-            context['html'], context['javascript'] = \
+            context['html'], context['js_graph'], context['js_listener'] = \
                 graphs.weight_weight(objects)
         return context
