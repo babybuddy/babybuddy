@@ -69,7 +69,9 @@ $mark-bg: #fcf8e3 !default;
 // Customizes the `.table` component with basic values, each used across all table variations.
 
 $table-border-color: $gray-800;
+$table-color: $body-color;
 $table-head-bg: theme-color('primary');
+$table-hover-color: $body-color;
 $table-inverse-bg: theme-color('primary');
 $table-accent-bg: rgba(theme-color('primary'), .1);
 

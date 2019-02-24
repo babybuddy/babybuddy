@@ -1056,7 +1056,7 @@ pre {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #212529; }
+  color: #ced4da; }
   .table th,
   .table td {
     padding: 0.75rem;
@@ -1091,7 +1091,7 @@ pre {
   background-color: rgba(34, 111, 151, 0.1); }
 
 .table-hover tbody tr:hover {
-  color: #212529;
+  color: #ced4da;
   background-color: rgba(0, 0, 0, 0.075); }
 
 .table-primary,
