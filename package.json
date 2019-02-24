@@ -7,7 +7,7 @@
     "url": "https://github.com/cdubz/babybuddy.git"
   },
   "devDependencies": {
-    "bootstrap": "4.2.1",
+    "bootstrap": "4.3.1",
     "del": "^3.0.0",
     "font-awesome": "^4.7.0",
     "gulp": "^4.0.0",
@@ -21,7 +21,7 @@
     "gulp-uglify": "^3.0.1",
     "jquery": "^3.3.1",
     "moment": "^2.24.0",
-    "plotly.js": "^1.44.1",
+    "plotly.js": "^1.44.4",
     "popper.js": "^1.14.7",
     "pump": "^3.0.0",
     "tempusdominus-bootstrap-4": "^5.1.2",
