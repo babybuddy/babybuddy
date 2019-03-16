@@ -8,16 +8,14 @@ services:
     volumes:
        - db:/db-data
   app:
-    env_file: docker.env
-    build: .
+    image: cosme/babybuddy
+    env_file: 
+      - /path/to/docker.env
     command: gunicorn -c /app/gunicorn.py babybuddy.wsgi
     ports:
       - "8000:8000"
     depends_on:
       - db
-    volumes:
-      - baby_data:/app
 
 volumes:
    db:
-   baby_data:
