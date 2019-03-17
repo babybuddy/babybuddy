@@ -8,9 +8,9 @@ services:
     volumes:
        - db:/db-data
   app:
-    image: cosme/babybuddy
+    image: cdubzzz/babybuddy
     env_file: 
-      - /path/to/docker.env
+      - docker.env
     command: gunicorn -c /app/gunicorn.py babybuddy.wsgi
     ports:
       - "8000:8000"
