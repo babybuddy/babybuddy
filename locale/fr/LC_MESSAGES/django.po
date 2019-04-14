@@ -1,0 +1,1053 @@
+# French translations file.
+# Copyright (C) 2019 Baby Buddy's Contributors
+# This file is distributed under the same license as the Baby Buddy package.
+# Christopher C. Wells <wells@chrxs.net>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-13 22:41-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\babybuddy\admin.py:12 .\babybuddy\admin.py:13
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:219
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:8
+msgid "Settings"
+msgstr "Paramètres"
+
+#: .\babybuddy\admin.py:16 .\babybuddy\templates\babybuddy\nav-dropdown.html:76
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:63
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: .\babybuddy\models.py:15
+msgid "Refresh rate"
+msgstr "Fréquence de rafraîchissement"
+
+#: .\babybuddy\models.py:16
+msgid ""
+"This setting will only be used when a browser does not support refresh on "
+"focus."
+msgstr ""
+"Ce paramètre ne sera utilisé que lorsqu'un navigateur ne prend pas en charge "
+"l'actualisation lors de la mise au point."
+
+#: .\babybuddy\models.py:22
+msgid "disabled"
+msgstr "désactivé"
+
+#: .\babybuddy\models.py:23
+msgid "1 min."
+msgstr ""
+
+#: .\babybuddy\models.py:24
+msgid "2 min."
+msgstr ""
+
+#: .\babybuddy\models.py:25
+msgid "3 min."
+msgstr ""
+
+#: .\babybuddy\models.py:26
+msgid "4 min."
+msgstr ""
+
+#: .\babybuddy\models.py:27
+msgid "5 min."
+msgstr ""
+
+#: .\babybuddy\models.py:28
+msgid "10 min."
+msgstr ""
+
+#: .\babybuddy\models.py:29
+msgid "15 min."
+msgstr ""
+
+#: .\babybuddy\models.py:30
+msgid "30 min."
+msgstr ""
+
+#: .\babybuddy\settings\base.py:128
+msgid "English"
+msgstr "Anglais"
+
+#: .\babybuddy\settings\base.py:129
+msgid "French"
+msgstr "français"
+
+#: .\babybuddy\templates\403.html:4 .\babybuddy\templates\403.html:7
+msgid "Permission Denied"
+msgstr "Permission Refusée"
+
+#: .\babybuddy\templates\403.html:12
+msgid ""
+"You do not have permission to access this resource.\n"
+"        Contact a site administrator for assistance."
+msgstr ""
+
+#: .\babybuddy\templates\babybuddy\base.html:34
+msgid "Home"
+msgstr ""
+
+#: .\babybuddy\templates\babybuddy\filter.html:18
+msgid "Filter"
+msgstr "Filtre"
+
+#: .\babybuddy\templates\babybuddy\filter.html:19
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: .\babybuddy\templates\babybuddy\filter.html:32
+msgid "Filters"
+msgstr "Les filtres"
+
+#: .\babybuddy\templates\babybuddy\form.html:11
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:80
+msgid "Submit"
+msgstr "Soumettre"
+
+#: .\babybuddy\templates\babybuddy\messages.html:18
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:19
+#, python-format
+msgid "<strong>Error:</strong> %(error)s"
+msgstr "<strong>Erreur:</strong> %(error)s"
+
+#: .\babybuddy\templates\babybuddy\messages.html:23
+msgid ""
+"<strong>Error:</strong> Some fields have errors. See below for details. "
+msgstr ""
+"<strong>Erreur:</strong> Certains champs comportent des erreurs. Voir ci-"
+"dessous pour plus de détails. "
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:27 .\core\models.py:128
+msgid "Diaper Change"
+msgstr "Changement"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:33
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:169 .\core\models.py:180
+#: .\core\templates\core\timer_detail.html:33
+msgid "Feeding"
+msgstr "Allaitement"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:39
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:115 .\core\models.py:221
+#: .\core\templates\core\note_list.html:18
+msgid "Note"
+msgstr "Annotation"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:45
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:176
+#: .\babybuddy\templates\babybuddy\welcome.html:40 .\core\models.py:252
+#: .\core\models.py:253 .\core\templates\core\sleep_confirm_delete.html:7
+#: .\core\templates\core\sleep_form.html:13
+#: .\core\templates\core\sleep_list.html:4
+#: .\core\templates\core\sleep_list.html:7
+#: .\core\templates\core\timer_detail.html:41
+msgid "Sleep"
+msgstr "Sommeil"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:51
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:189
+#: .\babybuddy\templates\babybuddy\welcome.html:48 .\core\models.py:360
+#: .\core\models.py:361 .\core\templates\core\timer_detail.html:49
+#: .\core\templates\core\tummytime_confirm_delete.html:7
+#: .\core\templates\core\tummytime_form.html:13
+#: .\core\templates\core\tummytime_list.html:4
+#: .\core\templates\core\tummytime_list.html:7
+msgid "Tummy Time"
+msgstr "Heure de Ventre"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:57
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:123 .\core\models.py:395
+#: .\core\models.py:396 .\core\templates\core\weight_confirm_delete.html:7
+#: .\core\templates\core\weight_form.html:13
+#: .\core\templates\core\weight_list.html:4
+#: .\core\templates\core\weight_list.html:7
+#: .\core\templates\core\weight_list.html:18
+msgid "Weight"
+msgstr "Poids"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:87
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:95 .\core\models.py:89
+#: .\core\templates\core\child_confirm_delete.html:7
+#: .\core\templates\core\child_detail.html:7
+#: .\core\templates\core\child_form.html:13
+#: .\core\templates\core\child_list.html:4
+#: .\core\templates\core\child_list.html:7
+msgid "Children"
+msgstr "Enfants"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:101 .\core\models.py:88
+#: .\core\models.py:111 .\core\models.py:159 .\core\models.py:211
+#: .\core\models.py:240 .\core\models.py:348 .\core\models.py:385
+#: .\core\templates\core\diaperchange_list.html:17
+#: .\core\templates\core\feeding_list.html:17
+#: .\core\templates\core\note_list.html:17
+#: .\core\templates\core\sleep_list.html:17
+#: .\core\templates\core\tummytime_list.html:17
+#: .\core\templates\core\weight_list.html:17
+msgid "Child"
+msgstr "Enfant"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:109 .\core\models.py:222
+#: .\core\templates\core\note_confirm_delete.html:7
+#: .\core\templates\core\note_form.html:13
+#: .\core\templates\core\note_list.html:4
+#: .\core\templates\core\note_list.html:7
+msgid "Notes"
+msgstr "Annotations"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:129
+msgid "Weight entry"
+msgstr "Annotation du poids"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:143
+msgid "Activities"
+msgstr "Activités"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:150
+msgid "Changes"
+msgstr "Changements"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:156
+msgid "Change"
+msgstr "Changement"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:163
+#: .\babybuddy\templates\babybuddy\welcome.html:32 .\core\models.py:181
+#: .\core\templates\core\feeding_confirm_delete.html:7
+#: .\core\templates\core\feeding_form.html:13
+#: .\core\templates\core\feeding_list.html:4
+#: .\core\templates\core\feeding_list.html:7
+msgid "Feedings"
+msgstr "Allaitement"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:182
+msgid "Sleep entry"
+msgstr "Annotation de sommeil"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:195
+msgid "Tummy Time entry"
+msgstr "Annotation d'heure de ventre"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:218
+#: .\babybuddy\templates\babybuddy\user_list.html:17
+#: .\babybuddy\templates\babybuddy\user_password_form.html:7
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:7
+#: .\core\templates\core\timer_list.html:22
+msgid "User"
+msgstr "Utilisateur"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:220
+msgid "Password"
+msgstr "Mot de passe"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:221
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:222
+msgid "Site"
+msgstr ""
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:225
+msgid "API Browser"
+msgstr "Navigateur d'API"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:227
+#: .\babybuddy\templates\babybuddy\user_confirm_delete.html:7
+#: .\babybuddy\templates\babybuddy\user_form.html:13
+#: .\babybuddy\templates\babybuddy\user_list.html:4
+#: .\babybuddy\templates\babybuddy\user_list.html:7
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:230
+msgid "Backend Admin"
+msgstr "Administration de Django"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:232
+msgid "Support"
+msgstr ""
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:236
+msgid "Source Code"
+msgstr "Code source"
+
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:240
+msgid "Chat / Support"
+msgstr "Tchat / Support"
+
+#: .\babybuddy\templates\babybuddy\paginator.html:11
+#: .\core\templates\core\child_detail.html:34
+#: .\core\templates\core\child_detail.html:36
+msgid "Previous"
+msgstr "Précédente"
+
+#: .\babybuddy\templates\babybuddy\paginator.html:28
+#: .\core\templates\core\child_detail.html:41
+#: .\core\templates\core\child_detail.html:43
+msgid "Next"
+msgstr "Suivante"
+
+#: .\babybuddy\templates\babybuddy\user_confirm_delete.html:4
+msgid "Delete User"
+msgstr "Supprimer l'utilisateur"
+
+#: .\babybuddy\templates\babybuddy\user_confirm_delete.html:9
+#: .\core\templates\core\child_confirm_delete.html:9
+#: .\core\templates\core\child_confirm_delete.html:29
+#: .\core\templates\core\diaperchange_confirm_delete.html:8
+#: .\core\templates\core\diaperchange_confirm_delete.html:15
+#: .\core\templates\core\feeding_confirm_delete.html:8
+#: .\core\templates\core\feeding_confirm_delete.html:15
+#: .\core\templates\core\note_confirm_delete.html:8
+#: .\core\templates\core\note_confirm_delete.html:15
+#: .\core\templates\core\sleep_confirm_delete.html:8
+#: .\core\templates\core\sleep_confirm_delete.html:15
+#: .\core\templates\core\timer_confirm_delete.html:9
+#: .\core\templates\core\timer_confirm_delete.html:16
+#: .\core\templates\core\tummytime_confirm_delete.html:8
+#: .\core\templates\core\tummytime_confirm_delete.html:15
+#: .\core\templates\core\weight_confirm_delete.html:8
+#: .\core\templates\core\weight_confirm_delete.html:15
+msgid "Delete"
+msgstr "Supprimer"
+
+#: .\babybuddy\templates\babybuddy\user_confirm_delete.html:15
+#: .\core\templates\core\child_confirm_delete.html:15
+#: .\core\templates\core\diaperchange_confirm_delete.html:14
+#: .\core\templates\core\feeding_confirm_delete.html:14
+#: .\core\templates\core\note_confirm_delete.html:14
+#: .\core\templates\core\sleep_confirm_delete.html:14
+#: .\core\templates\core\timer_confirm_delete.html:15
+#: .\core\templates\core\tummytime_confirm_delete.html:14
+#: .\core\templates\core\weight_confirm_delete.html:14
+#, python-format
+msgid ""
+"<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+"span>?</h1>"
+msgstr ""
+"<h1>Etes-vous sûr que vous voulez supprimer <span class=\"text-info\">"
+"%(object)s</span>?</h1>"
+
+#: .\babybuddy\templates\babybuddy\user_confirm_delete.html:17
+#: .\core\templates\core\child_confirm_delete.html:30
+#: .\core\templates\core\diaperchange_confirm_delete.html:16
+#: .\core\templates\core\feeding_confirm_delete.html:16
+#: .\core\templates\core\note_confirm_delete.html:16
+#: .\core\templates\core\sleep_confirm_delete.html:16
+#: .\core\templates\core\timer_confirm_delete.html:17
+#: .\core\templates\core\tummytime_confirm_delete.html:16
+#: .\core\templates\core\weight_confirm_delete.html:16
+msgid "Cancel"
+msgstr "Annuler"
+
+#: .\babybuddy\templates\babybuddy\user_form.html:8
+#: .\babybuddy\templates\babybuddy\user_form.html:18
+#: .\babybuddy\templates\babybuddy\user_form.html:26
+#: .\babybuddy\templates\babybuddy\user_list.html:65
+msgid "Create User"
+msgstr "Créer un utilisateur"
+
+#: .\babybuddy\templates\babybuddy\user_form.html:16
+#: .\core\templates\core\child_form.html:16
+#: .\core\templates\core\diaperchange_form.html:15
+#: .\core\templates\core\feeding_form.html:15
+#: .\core\templates\core\note_form.html:15
+#: .\core\templates\core\sleep_form.html:15
+#: .\core\templates\core\timer_form.html:10
+#: .\core\templates\core\tummytime_form.html:15
+#: .\core\templates\core\weight_form.html:15
+msgid "Update"
+msgstr "Mis à jour"
+
+#: .\babybuddy\templates\babybuddy\user_form.html:24
+#: .\core\templates\core\child_form.html:24
+#: .\core\templates\core\diaperchange_form.html:23
+#: .\core\templates\core\feeding_form.html:23
+#: .\core\templates\core\note_form.html:23
+#: .\core\templates\core\sleep_form.html:23
+#: .\core\templates\core\timer_form.html:18
+#: .\core\templates\core\tummytime_form.html:23
+#: .\core\templates\core\weight_form.html:23
+#, python-format
+msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+msgstr "<h1>Mettre à jour <span class=\"text-info\">%(object)s</span></h1>"
+
+#: .\babybuddy\templates\babybuddy\user_list.html:18
+#: .\core\templates\core\child_list.html:18
+msgid "First Name"
+msgstr "Prénom"
+
+#: .\babybuddy\templates\babybuddy\user_list.html:19
+#: .\core\templates\core\child_list.html:19
+msgid "Last Name"
+msgstr "Nom"
+
+#: .\babybuddy\templates\babybuddy\user_list.html:20
+msgid "Email"
+msgstr "Adresse électronique"
+
+#: .\babybuddy\templates\babybuddy\user_list.html:21
+msgid "Staff"
+msgstr "Personnel"
+
+#: .\babybuddy\templates\babybuddy\user_list.html:22
+#: .\core\templates\core\timer_list.html:21
+msgid "Active"
+msgstr "Actif"
+
+#: .\babybuddy\templates\babybuddy\user_list.html:23
+#: .\core\templates\core\child_list.html:21
+#: .\core\templates\core\child_list.html:41
+#: .\core\templates\core\diaperchange_list.html:22
+#: .\core\templates\core\diaperchange_list.html:34
+#: .\core\templates\core\feeding_list.html:25
+#: .\core\templates\core\feeding_list.html:42
+#: .\core\templates\core\note_list.html:20
+#: .\core\templates\core\note_list.html:30
+#: .\core\templates\core\sleep_list.html:22
+#: .\core\templates\core\sleep_list.html:34
+#: .\core\templates\core\tummytime_list.html:22
+#: .\core\templates\core\tummytime_list.html:34
+#: .\core\templates\core\weight_list.html:20
+#: .\core\templates\core\weight_list.html:30
+msgid "Actions"
+msgstr "Opérations"
+
+#: .\babybuddy\templates\babybuddy\user_list.html:55
+msgid "No users found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\babybuddy\templates\babybuddy\user_password_form.html:4
+#: .\babybuddy\templates\babybuddy\user_password_form.html:8
+#: .\babybuddy\templates\babybuddy\user_password_form.html:12
+msgid "Change Password"
+msgstr "Changer le mot de passe"
+
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:4
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:12
+msgid "User Settings"
+msgstr "Paramètres Utilisateur"
+
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:24
+msgid "<strong>Error:</strong> Some fields have errors. See below for details."
+msgstr ""
+"<strong>Erreur:</strong> Certains champs comportent des erreurs. Voir ci-"
+"dessous pour plus de détails."
+
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:28
+msgid "User Profile"
+msgstr "Profil de l'utilisateur"
+
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:46
+msgid "Language"
+msgstr "Langue"
+
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:71
+msgid "API"
+msgstr ""
+
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:73
+msgid "Key"
+msgstr "Clé"
+
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:76
+msgid "Regenerate"
+msgstr "Recréer"
+
+#: .\babybuddy\templates\babybuddy\welcome.html:4
+#: .\babybuddy\templates\babybuddy\welcome.html:7
+msgid "Welcome!"
+msgstr "Bienvenue!"
+
+#: .\babybuddy\templates\babybuddy\welcome.html:12
+msgid "Welcome to Baby Buddy!"
+msgstr "Bienvenue à Baby Buddy!"
+
+#: .\babybuddy\templates\babybuddy\welcome.html:14
+msgid ""
+"Learn about and predict baby's needs without\n"
+"            (<em>as much</em>) guess work by using Baby Buddy to track "
+"&mdash;"
+msgstr ""
+"En savoir plus sur et en prédire les besoins de bébé sans (<em>trop</em>) de "
+"devinettes en utilisant Baby Buddy pour suivre &mdash;"
+
+#: .\babybuddy\templates\babybuddy\welcome.html:24 .\core\models.py:129
+#: .\core\templates\core\diaperchange_confirm_delete.html:7
+#: .\core\templates\core\diaperchange_form.html:13
+#: .\core\templates\core\diaperchange_list.html:4
+#: .\core\templates\core\diaperchange_list.html:7
+#: .\core\templates\core\diaperchange_list.html:11
+msgid "Diaper Changes"
+msgstr "Changement"
+
+#: .\babybuddy\templates\babybuddy\welcome.html:54
+msgid ""
+"As the amount of entries grows, Baby Buddy will help\n"
+"            parents and caregivers to identify small patterns in baby's "
+"habits\n"
+"            using the dashboard and graphs. Baby Buddy is mobile-friendly "
+"and\n"
+"            uses a dark theme to help weary moms and dads with 2AM feedings "
+"and\n"
+"            changings. To get started, just click the button below to add "
+"your\n"
+"            first (or second, third, etc.) child!"
+msgstr ""
+"Au fur et à mesure que le nombre d'entrées augmente, Baby Buddy aidera les "
+"parents et les éducateurs à identifier de petites tendances dans les "
+"habitudes de bébé à l'aide du tableau de bord et des graphiques. Baby Buddy "
+"est compatible avec les appareils mobiles et utilise un thème sombre pour "
+"aider les mamans et les papas épuisés à s'alimenter et à changer de "
+"nourriture. Pour commencer, cliquez simplement sur le bouton ci-dessous pour "
+"ajouter votre premier (ou deuxième, troisième, etc.) enfant!"
+
+#: .\babybuddy\templates\babybuddy\welcome.html:64
+#: .\core\templates\core\child_form.html:8
+#: .\core\templates\core\child_form.html:18
+#: .\core\templates\core\child_form.html:26
+#: .\core\templates\core\child_list.html:70
+msgid "Add a Child"
+msgstr "Ajouter un Enfant"
+
+#: .\babybuddy\templates\registration\login.html:32
+msgid "Login"
+msgstr ""
+
+#: .\babybuddy\templates\registration\login.html:38
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié?"
+
+#: .\babybuddy\templates\registration\password_reset_complete.html:4
+msgid "Password Reset Successfully!"
+msgstr "Mot de passe réinitialisé avec succès!"
+
+#: .\babybuddy\templates\registration\password_reset_complete.html:8
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr ""
+"Votre mot de passe a été défini. Vous pouvez vous connecter maintenant."
+
+#: .\babybuddy\templates\registration\password_reset_complete.html:9
+msgid "Log in"
+msgstr "Se connecter"
+
+#: .\babybuddy\templates\registration\password_reset_confirm.html:4
+msgid "Password Reset"
+msgstr "Réinitialiser le mot de passe"
+
+#: .\babybuddy\templates\registration\password_reset_confirm.html:12
+msgid ""
+"<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
+"                two passwords did not match. Please try again.</p>"
+msgstr ""
+"<p class=\"mb-0\"><strong>Oh non!</strong> Les deux mots de passe ne "
+"correspondent pas. Veuillez réessayer.</p>"
+
+#: .\babybuddy\templates\registration\password_reset_confirm.html:18
+msgid "Enter your new password in each field below."
+msgstr "Entrez votre nouveau mot de passe dans chaque champ ci-dessous."
+
+#: .\babybuddy\templates\registration\password_reset_confirm.html:42
+#: .\babybuddy\templates\registration\password_reset_form.html:27
+msgid "Reset Password"
+msgstr "Réinitialiser"
+
+#: .\babybuddy\templates\registration\password_reset_done.html:4
+msgid "Reset Email Sent"
+msgstr "Réinitialiser Email envoyé"
+
+#: .\babybuddy\templates\registration\password_reset_done.html:8
+msgid ""
+"<p>We've emailed you instructions for setting your\n"
+"            password, if an account exists with the email you entered. You\n"
+"            should receive them shortly.</p>\n"
+"        <p class=\"mb-0\">If you don't receive an email, please make sure "
+"you've\n"
+"            entered the address you registered with, and check your spam\n"
+"            folder.</p>"
+msgstr ""
+"<p>Les instructions pour définir votre mot de passe ont été envoyées, si "
+"uncompte existe avec le courrier électronique que vous avez entré.</p>\n"
+"        <p class=\"mb-0\">Si vous ne recevez pas d'e-mail, assurez-vous "
+"d'avoir entré l'adresse avec laquelle vous vous êtes inscrit et vérifiez "
+"votre dossier de courrier indésirable.</p>"
+
+#: .\babybuddy\templates\registration\password_reset_form.html:4
+msgid "Forgot Password"
+msgstr "Mot de passe oublié"
+
+#: .\babybuddy\templates\registration\password_reset_form.html:8
+msgid ""
+"<p class=\"mb-0\">Enter your account email address in the\n"
+"        form below. If the address is valid, you will receive instructions "
+"for\n"
+"        resetting your password.</p>"
+msgstr ""
+"<p class=\"mb-0\">Entrez l'adresse email de votre compte dans le formulaire "
+"ci-dessous. Si l'adresse est valide, vous recevrez des instructions pour "
+"réinitialiser votre mot de passe.</p>"
+
+#: .\babybuddy\views.py:55
+#, python-format
+msgid "User %(username)s added!"
+msgstr "Utilisateur %(username)s ajouté!"
+
+#: .\babybuddy\views.py:65
+#, python-format
+msgid "User %(username)s updated."
+msgstr "Utilisateur %(username)s mis à jour!"
+
+#: .\babybuddy\views.py:98
+msgid "Password updated."
+msgstr "Mot de passe enregistré."
+
+#: .\babybuddy\views.py:108
+msgid "User API key regenerated."
+msgstr "Clé de l'API utilisateur régénérée."
+
+#: .\babybuddy\views.py:141
+msgid "Settings saved!"
+msgstr "Paramètres sauvegardés!"
+
+#: .\core\forms.py:81
+msgid "Name does not match child name."
+msgstr ""
+
+#: .\core\models.py:21
+msgid "Date can not be in the future."
+msgstr ""
+
+#: .\core\models.py:35
+msgid "Start time must come before end time."
+msgstr ""
+
+#: .\core\models.py:38
+msgid "Duration too long."
+msgstr ""
+
+#: .\core\models.py:54
+msgid "Another entry intersects the specified time period."
+msgstr ""
+
+#: .\core\models.py:67
+msgid "Date/time can not be in the future."
+msgstr ""
+
+#: .\core\models.py:117
+msgid "Black"
+msgstr ""
+
+#: .\core\models.py:118
+msgid "Brown"
+msgstr ""
+
+#: .\core\models.py:119
+msgid "Green"
+msgstr ""
+
+#: .\core\models.py:120
+msgid "Yellow"
+msgstr ""
+
+#: .\core\models.py:150
+msgid "Wet and/or solid is required."
+msgstr ""
+
+#: .\core\models.py:165
+msgid "Breast milk"
+msgstr ""
+
+#: .\core\models.py:166
+msgid "Formula"
+msgstr ""
+
+#: .\core\models.py:169
+msgid "Bottle"
+msgstr ""
+
+#: .\core\models.py:170
+msgid "Left breast"
+msgstr ""
+
+#: .\core\models.py:171
+msgid "Right breast"
+msgstr ""
+
+#: .\core\models.py:201
+msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
+msgstr ""
+
+#: .\core\models.py:285
+msgid "Start Time"
+msgstr ""
+
+#: .\core\models.py:298 .\core\templates\core\timer_form.html:4
+msgid "Timer"
+msgstr ""
+
+#: .\core\models.py:299 .\core\templates\core\timer_confirm_delete.html:7
+#: .\core\templates\core\timer_detail.html:7
+#: .\core\templates\core\timer_form.html:7
+#: .\core\templates\core\timer_list.html:4
+#: .\core\templates\core\timer_list.html:7
+#: .\core\templates\core\timer_nav.html:10
+msgid "Timers"
+msgstr ""
+
+#: .\core\templates\core\child_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a Child"
+msgid "Delete a Child"
+msgstr "Ajouter un Enfant"
+
+#: .\core\templates\core\child_confirm_delete.html:18
+msgid "To confirm this action. Type the full name of the child below."
+msgstr ""
+
+#: .\core\templates\core\child_detail.html:23
+msgid "Born"
+msgstr ""
+
+#: .\core\templates\core\child_detail.html:24
+msgid "Age"
+msgstr ""
+
+#: .\core\templates\core\child_list.html:20
+msgid "Birth Date"
+msgstr ""
+
+#: .\core\templates\core\child_list.html:60
+#, fuzzy
+#| msgid "No users found."
+msgid "No children found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\core\templates\core\diaperchange_confirm_delete.html:4
+#, fuzzy
+#| msgid "Diaper Change"
+msgid "Delete a Diaper Change"
+msgstr "Changement"
+
+#: .\core\templates\core\diaperchange_form.html:6
+#, fuzzy
+#| msgid "Diaper Change"
+msgid "Update a Diaper Change"
+msgstr "Changement"
+
+#: .\core\templates\core\diaperchange_form.html:8
+#: .\core\templates\core\diaperchange_form.html:25
+#, fuzzy
+#| msgid "Diaper Change"
+msgid "Add a Diaper Change"
+msgstr "Changement"
+
+#: .\core\templates\core\diaperchange_form.html:17
+#: .\core\templates\core\feeding_form.html:17
+#: .\core\templates\core\note_form.html:17
+#: .\core\templates\core\sleep_form.html:17
+#: .\core\templates\core\tummytime_form.html:17
+msgid "Add"
+msgstr ""
+
+#: .\core\templates\core\diaperchange_list.html:18
+#, fuzzy
+#| msgid "Weight"
+msgid "Wet"
+msgstr "Poids"
+
+#: .\core\templates\core\diaperchange_list.html:19
+msgid "Solid"
+msgstr ""
+
+#: .\core\templates\core\diaperchange_list.html:20
+msgid "Color"
+msgstr ""
+
+#: .\core\templates\core\diaperchange_list.html:21
+#: .\core\templates\core\note_list.html:19
+msgid "Time"
+msgstr ""
+
+#: .\core\templates\core\diaperchange_list.html:53
+#, fuzzy
+#| msgid "No users found."
+msgid "No diaper changes found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\core\templates\core\diaperchange_list.html:63
+#, fuzzy
+#| msgid "Add a Child"
+msgid "Add a Change"
+msgstr "Ajouter un Enfant"
+
+#: .\core\templates\core\feeding_confirm_delete.html:4
+#, fuzzy
+#| msgid "Feeding"
+msgid "Delete a Feeding"
+msgstr "Allaitement"
+
+#: .\core\templates\core\feeding_form.html:6
+#, fuzzy
+#| msgid "Feeding"
+msgid "Update a Feeding"
+msgstr "Allaitement"
+
+#: .\core\templates\core\feeding_form.html:8
+#: .\core\templates\core\feeding_form.html:25
+#: .\core\templates\core\feeding_list.html:71
+#, fuzzy
+#| msgid "Feeding"
+msgid "Add a Feeding"
+msgstr "Allaitement"
+
+#: .\core\templates\core\feeding_list.html:18
+msgid "Method"
+msgstr ""
+
+#: .\core\templates\core\feeding_list.html:19
+msgid "Type"
+msgstr ""
+
+#: .\core\templates\core\feeding_list.html:22
+msgid "Amt."
+msgstr ""
+
+#: .\core\templates\core\feeding_list.html:23
+#: .\core\templates\core\sleep_list.html:18
+#: .\core\templates\core\timer_list.html:19
+#: .\core\templates\core\tummytime_list.html:18
+msgid "Duration"
+msgstr ""
+
+#: .\core\templates\core\feeding_list.html:24
+#: .\core\templates\core\weight_list.html:19
+msgid "Date"
+msgstr ""
+
+#: .\core\templates\core\feeding_list.html:61
+#, fuzzy
+#| msgid "No users found."
+msgid "No feedings found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\core\templates\core\note_confirm_delete.html:4
+#, fuzzy
+#| msgid "Delete User"
+msgid "Delete a Note"
+msgstr "Supprimer l'utilisateur"
+
+#: .\core\templates\core\note_form.html:6
+#, fuzzy
+#| msgid "Update"
+msgid "Update a Note"
+msgstr "Mis à jour"
+
+#: .\core\templates\core\note_form.html:8
+#: .\core\templates\core\note_form.html:25
+#: .\core\templates\core\note_list.html:59
+msgid "Add a Note"
+msgstr ""
+
+#: .\core\templates\core\note_list.html:49
+#, fuzzy
+#| msgid "No users found."
+msgid "No notes found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\core\templates\core\sleep_confirm_delete.html:4
+#, fuzzy
+#| msgid "Sleep entry"
+msgid "Delete a Sleep Entry"
+msgstr "Annotation de sommeil"
+
+#: .\core\templates\core\sleep_form.html:6
+#, fuzzy
+#| msgid "Sleep entry"
+msgid "Update a Sleep Entry"
+msgstr "Annotation de sommeil"
+
+#: .\core\templates\core\sleep_form.html:8
+#: .\core\templates\core\sleep_form.html:25
+#: .\core\templates\core\sleep_list.html:63
+#, fuzzy
+#| msgid "Sleep entry"
+msgid "Add a Sleep Entry"
+msgstr "Annotation de sommeil"
+
+#: .\core\templates\core\sleep_list.html:19
+#: .\core\templates\core\timer_form.html:12
+#: .\core\templates\core\timer_list.html:18
+#: .\core\templates\core\tummytime_list.html:19
+msgid "Start"
+msgstr ""
+
+#: .\core\templates\core\sleep_list.html:20
+#: .\core\templates\core\timer_list.html:20
+#: .\core\templates\core\tummytime_list.html:20
+msgid "End"
+msgstr ""
+
+#: .\core\templates\core\sleep_list.html:21
+msgid "Nap"
+msgstr ""
+
+#: .\core\templates\core\sleep_list.html:53
+#, fuzzy
+#| msgid "No users found."
+msgid "No sleep entries found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\core\templates\core\timer_confirm_delete.html:4
+#, python-format
+msgid "Delete %(object)s"
+msgstr ""
+
+#: .\core\templates\core\timer_detail.html:20
+msgid "Started"
+msgstr ""
+
+#: .\core\templates\core\timer_detail.html:22
+msgid "Stopped"
+msgstr ""
+
+#: .\core\templates\core\timer_detail.html:26
+#, python-format
+msgid "%(timer)s created by %(object.user)s"
+msgstr ""
+
+#: .\core\templates\core\timer_detail.html:53
+#, fuzzy
+#| msgid "Actions"
+msgid "Timer actions"
+msgstr "Opérations"
+
+#: .\core\templates\core\timer_form.html:20
+#: .\core\templates\core\timer_nav.html:18
+msgid "Start Timer"
+msgstr ""
+
+#: .\core\templates\core\timer_list.html:17
+#, fuzzy
+#| msgid "Last Name"
+msgid "Name"
+msgstr "Nom"
+
+#: .\core\templates\core\timer_list.html:37
+#, fuzzy
+#| msgid "No users found."
+msgid "No timer entries found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\core\templates\core\timer_nav.html:15
+msgid "Quick Start Timer"
+msgstr ""
+
+#: .\core\templates\core\timer_nav.html:23
+msgid "View Timers"
+msgstr ""
+
+#: .\core\templates\core\timer_nav.html:27
+#, fuzzy
+#| msgid "Activities"
+msgid "Active Timers"
+msgstr "Activités"
+
+#: .\core\templates\core\timer_nav.html:31
+msgid "None"
+msgstr ""
+
+#: .\core\templates\core\tummytime_confirm_delete.html:4
+#, fuzzy
+#| msgid "Tummy Time entry"
+msgid "Delete a Tummy Time Entry"
+msgstr "Annotation d'heure de ventre"
+
+#: .\core\templates\core\tummytime_form.html:6
+#, fuzzy
+#| msgid "Tummy Time entry"
+msgid "Update a Tummy Time Entry"
+msgstr "Annotation d'heure de ventre"
+
+#: .\core\templates\core\tummytime_form.html:8
+#: .\core\templates\core\tummytime_form.html:25
+#: .\core\templates\core\tummytime_list.html:63
+#, fuzzy
+#| msgid "Tummy Time entry"
+msgid "Add a Tummy Time Entry"
+msgstr "Annotation d'heure de ventre"
+
+#: .\core\templates\core\tummytime_list.html:21
+msgid "Milestone"
+msgstr ""
+
+#: .\core\templates\core\tummytime_list.html:53
+#, fuzzy
+#| msgid "No users found."
+msgid "No tummy time entries found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\core\templates\core\weight_confirm_delete.html:4
+#, fuzzy
+#| msgid "Weight entry"
+msgid "Delete a Weight Entry"
+msgstr "Annotation du poids"
+
+#: .\core\templates\core\weight_form.html:8
+#: .\core\templates\core\weight_form.html:17
+#: .\core\templates\core\weight_form.html:25
+#: .\core\templates\core\weight_list.html:59
+#, fuzzy
+#| msgid "Weight entry"
+msgid "Add a Weight Entry"
+msgstr "Annotation du poids"
+
+#: .\core\templates\core\weight_list.html:49
+#, fuzzy
+#| msgid "No users found."
+msgid "No weight entries found."
+msgstr "Aucun utilisateur trouvé."
+
+#: .\core\views.py:20
+#, python-format
+msgid "%(model)s entry for %(child)s added!"
+msgstr ""
+
+#: .\core\views.py:22
+#, python-format
+msgid "%(model)s entry added!"
+msgstr ""
+
+#: .\core\views.py:31
+#, python-format
+msgid "%(model)s entry for %(child)s updated."
+msgstr ""
+
+#: .\core\views.py:33
+#, fuzzy, python-format
+#| msgid "User %(username)s updated."
+msgid "%(model)s entry updated."
+msgstr "Utilisateur %(username)s mis à jour!"
+
+#: .\core\views.py:62
+#, fuzzy, python-format
+#| msgid "User %(username)s added!"
+msgid "%(first_name)s %(last_name)s added!"
+msgstr "Utilisateur %(username)s ajouté!"
+
+#: .\core\views.py:290
+#, python-format
+msgid "%(timer)s stopped."
+msgstr ""
