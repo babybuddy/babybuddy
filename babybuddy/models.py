@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.timezone import timedelta
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.authtoken.models import Token
@@ -31,7 +32,7 @@ class Settings(models.Model):
         ])
 
     def __str__(self):
-        return '{}\'s Settings'.format(self.user)
+        return str(format_lazy(_('{user}\'s Settings'), user=self.user))
 
     def api_key(self, reset=False):
         """

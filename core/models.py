@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 
@@ -129,7 +130,7 @@ class DiaperChange(models.Model):
         verbose_name_plural = _('Diaper Changes')
 
     def __str__(self):
-        return 'Diaper Change'
+        return str(_('Diaper Change'))
 
     def attributes(self):
         attributes = []
@@ -181,7 +182,7 @@ class Feeding(models.Model):
         verbose_name_plural = _('Feedings')
 
     def __str__(self):
-        return 'Feeding'
+        return str(_('Feeding'))
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
@@ -222,7 +223,7 @@ class Note(models.Model):
         verbose_name_plural = _('Notes')
 
     def __str__(self):
-        return 'Note'
+        return str(_('Note'))
 
 
 class NapsManager(models.Manager):
@@ -253,7 +254,7 @@ class Sleep(models.Model):
         verbose_name_plural = _('Sleep')
 
     def __str__(self):
-        return 'Sleep'
+        return str(_('Sleep'))
 
     @property
     def nap(self):
@@ -299,7 +300,7 @@ class Timer(models.Model):
         verbose_name_plural = _('Timers')
 
     def __str__(self):
-        return self.name or 'Timer #{}'.format(self.id)
+        return self.name or str(format_lazy(_('Timer #{id}'), id=self.id))
 
     @classmethod
     def from_db(cls, db, field_names, values):
@@ -361,7 +362,7 @@ class TummyTime(models.Model):
         verbose_name_plural = _('Tummy Time')
 
     def __str__(self):
-        return 'Tummy Time'
+        return str(_('Tummy Time'))
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
@@ -396,7 +397,7 @@ class Weight(models.Model):
         verbose_name_plural = _('Weight')
 
     def __str__(self):
-        return 'Weight'
+        return str(_('Weight'))
 
     def clean(self):
         validate_date(self.date, 'date')

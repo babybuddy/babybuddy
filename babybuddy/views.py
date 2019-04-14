@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from django.utils.translation import gettext as _
+from django.utils.text import format_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -52,7 +53,7 @@ class UserAdd(StaffOnlyMixin, PermissionRequired403Mixin, SuccessMessageMixin,
     permission_required = ('admin.add_user',)
     form_class = forms.UserAddForm
     success_url = reverse_lazy('babybuddy:user-list')
-    success_message = _('User %(username)s added!')
+    success_message = gettext_lazy('User %(username)s added!')
 
 
 class UserUpdate(StaffOnlyMixin, PermissionRequired403Mixin,
@@ -62,7 +63,7 @@ class UserUpdate(StaffOnlyMixin, PermissionRequired403Mixin,
     permission_required = ('admin.change_user',)
     form_class = forms.UserUpdateForm
     success_url = reverse_lazy('babybuddy:user-list')
-    success_message = _('User %(username)s updated.')
+    success_message = gettext_lazy('User %(username)s updated.')
 
 
 class UserDelete(StaffOnlyMixin, PermissionRequired403Mixin,
@@ -73,7 +74,9 @@ class UserDelete(StaffOnlyMixin, PermissionRequired403Mixin,
     success_url = reverse_lazy('babybuddy:user-list')
 
     def delete(self, request, *args, **kwargs):
-        success_message = 'User {} deleted.'.format(self.get_object())
+        success_message = format_lazy(gettext_lazy(
+            'User {user} deleted.'), user=self.get_object()
+        )
         messages.success(request, success_message)
         return super(UserDelete, self).delete(request, *args, **kwargs)
 
