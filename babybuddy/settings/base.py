@@ -1,5 +1,6 @@
 import os
 
+from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv, find_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -121,6 +122,11 @@ USE_TZ = True
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
+]
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('fr', _('French')),
 ]
 
 
