@@ -1,13 +1,13 @@
 {% extends 'cards/base.html' %}
-{% load duration %}
+{% load duration i18n %}
 
-{% block header %}Last Tummy Time{% endblock %}
+{% block header %}{% trans "Last Tummy Time" %}{% endblock %}
 
 {% block title %}
     {% if tummytime %}
-        {{ tummytime.time|timesince }} ago
+        {% blocktrans %}{{ tummytime.time|timesince }} ago{% endblocktrans %}
     {% else %}
-        Never
+        {% trans "Never" %}
     {% endif %}
 {% endblock %}
 

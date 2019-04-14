@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-13 22:41-0700\n"
+"POT-Creation-Date: 2019-04-14 08:38-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,10 @@ msgstr "Paramètres"
 
 #: .\babybuddy\admin.py:16 .\babybuddy\templates\babybuddy\nav-dropdown.html:76
 #: .\babybuddy\templates\babybuddy\user_settings_form.html:63
+#: .\dashboard\templates\dashboard\child.html:4
+#: .\dashboard\templates\dashboard\child.html:9
+#: .\dashboard\templates\dashboard\dashboard.html:4
+#: .\dashboard\templates\dashboard\dashboard.html:7
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -174,6 +178,7 @@ msgstr "Heure de Ventre"
 #: .\core\templates\core\weight_list.html:4
 #: .\core\templates\core\weight_list.html:7
 #: .\core\templates\core\weight_list.html:18
+#: .\dashboard\templates\dashboard\child_button_group.html:24
 msgid "Weight"
 msgstr "Poids"
 
@@ -184,6 +189,7 @@ msgstr "Poids"
 #: .\core\templates\core\child_form.html:13
 #: .\core\templates\core\child_list.html:4
 #: .\core\templates\core\child_list.html:7
+#: .\dashboard\templates\dashboard\child.html:7
 msgid "Children"
 msgstr "Enfants"
 
@@ -291,12 +297,14 @@ msgstr "Tchat / Support"
 #: .\babybuddy\templates\babybuddy\paginator.html:11
 #: .\core\templates\core\child_detail.html:34
 #: .\core\templates\core\child_detail.html:36
+#: .\dashboard\templates\cards\statistics.html:32
 msgid "Previous"
 msgstr "Précédente"
 
 #: .\babybuddy\templates\babybuddy\paginator.html:28
 #: .\core\templates\core\child_detail.html:41
 #: .\core\templates\core\child_detail.html:43
+#: .\dashboard\templates\cards\statistics.html:36
 msgid "Next"
 msgstr "Suivante"
 
@@ -491,6 +499,7 @@ msgstr ""
 #: .\core\templates\core\diaperchange_list.html:4
 #: .\core\templates\core\diaperchange_list.html:7
 #: .\core\templates\core\diaperchange_list.html:11
+#: .\dashboard\templates\cards\diaperchange_types.html:4
 msgid "Diaper Changes"
 msgstr "Changement"
 
@@ -718,10 +727,12 @@ msgid "To confirm this action. Type the full name of the child below."
 msgstr ""
 
 #: .\core\templates\core\child_detail.html:23
+#: .\dashboard\templates\dashboard\dashboard.html:27
 msgid "Born"
 msgstr ""
 
 #: .\core\templates\core\child_detail.html:24
+#: .\dashboard\templates\dashboard\dashboard.html:28
 msgid "Age"
 msgstr ""
 
@@ -960,12 +971,14 @@ msgid "View Timers"
 msgstr ""
 
 #: .\core\templates\core\timer_nav.html:27
+#: .\dashboard\templates\cards\timer_list.html:4
 #, fuzzy
 #| msgid "Activities"
 msgid "Active Timers"
 msgstr "Activités"
 
 #: .\core\templates\core\timer_nav.html:31
+#: .\dashboard\templates\cards\feeding_last_method.html:10
 msgid "None"
 msgstr ""
 
@@ -1051,3 +1064,185 @@ msgstr "Utilisateur %(username)s ajouté!"
 #, python-format
 msgid "%(timer)s stopped."
 msgstr ""
+
+#: .\dashboard\templates\cards\diaperchange_last.html:4
+#, fuzzy
+#| msgid "Diaper Change"
+msgid "Last Diaper Change"
+msgstr "Changement"
+
+#: .\dashboard\templates\cards\diaperchange_last.html:8
+#, python-format
+msgid "%(change.time|timesince)s ago"
+msgstr ""
+
+#: .\dashboard\templates\cards\diaperchange_last.html:10
+#: .\dashboard\templates\cards\feeding_last.html:10
+#: .\dashboard\templates\cards\sleep_last.html:10
+#: .\dashboard\templates\cards\tummytime_last.html:10
+msgid "Never"
+msgstr ""
+
+#: .\dashboard\templates\cards\diaperchange_types.html:7
+msgid "Past Week"
+msgstr ""
+
+#: .\dashboard\templates\cards\diaperchange_types.html:18
+#, fuzzy
+#| msgid "Weight"
+msgid "wet"
+msgstr "Poids"
+
+#: .\dashboard\templates\cards\diaperchange_types.html:25
+msgid "solid"
+msgstr ""
+
+#: .\dashboard\templates\cards\diaperchange_types.html:30
+msgid "today"
+msgstr ""
+
+#: .\dashboard\templates\cards\diaperchange_types.html:32
+msgid "yesterday"
+msgstr ""
+
+#: .\dashboard\templates\cards\diaperchange_types.html:34
+#, python-format
+msgid "%(key)s days ago"
+msgstr ""
+
+#: .\dashboard\templates\cards\feeding_last.html:4
+#, fuzzy
+#| msgid "Feeding"
+msgid "Last Feeding"
+msgstr "Allaitement"
+
+#: .\dashboard\templates\cards\feeding_last.html:8
+#, python-format
+msgid "%(feeding.end|timesince)s ago"
+msgstr ""
+
+#: .\dashboard\templates\cards\feeding_last_method.html:4
+msgid "Last Feeding Method"
+msgstr ""
+
+#: .\dashboard\templates\cards\sleep_day.html:4
+msgid "Today's Sleep"
+msgstr ""
+
+#: .\dashboard\templates\cards\sleep_day.html:11
+#: .\dashboard\templates\cards\sleep_naps_day.html:11
+#: .\dashboard\templates\cards\tummytime_day.html:11
+msgid "None yet today"
+msgstr ""
+
+#: .\dashboard\templates\cards\sleep_day.html:18
+#, fuzzy, python-format
+#| msgid "No users found."
+msgid "%(count)s sleep entries"
+msgstr "Aucun utilisateur trouvé."
+
+#: .\dashboard\templates\cards\sleep_last.html:4
+#, fuzzy
+#| msgid "Last Name"
+msgid "Last Slept"
+msgstr "Nom"
+
+#: .\dashboard\templates\cards\sleep_last.html:8
+#, python-format
+msgid "%(sleep.end|timesince)s ago"
+msgstr ""
+
+#: .\dashboard\templates\cards\sleep_naps_day.html:4
+msgid "Today's Naps"
+msgstr ""
+
+#: .\dashboard\templates\cards\sleep_naps_day.html:8
+#, python-format
+msgid "%(count)s nap%(count|pluralize)s"
+msgstr ""
+
+#: .\dashboard\templates\cards\statistics.html:6
+msgid "Statistics"
+msgstr ""
+
+#: .\dashboard\templates\cards\statistics.html:23
+msgid "Not enough data"
+msgstr ""
+
+#: .\dashboard\templates\cards\timer_list.html:8
+#, python-format
+msgid "%(count)s active timer%(count|pluralize)s"
+msgstr ""
+
+#: .\dashboard\templates\cards\timer_list.html:19
+#, python-format
+msgid "Started by %(instance.user)s at %(instance.start|time)s"
+msgstr ""
+
+#: .\dashboard\templates\cards\tummytime_day.html:4
+#, fuzzy
+#| msgid "Tummy Time"
+msgid "Today's Tummy Time"
+msgstr "Heure de Ventre"
+
+#: .\dashboard\templates\cards\tummytime_day.html:20
+#, python-format
+msgid "%(instance.duration|duration_string)s at %(instance.end|time)s"
+msgstr ""
+
+#: .\dashboard\templates\cards\tummytime_last.html:4
+#, fuzzy
+#| msgid "Tummy Time"
+msgid "Last Tummy Time"
+msgstr "Heure de Ventre"
+
+#: .\dashboard\templates\cards\tummytime_last.html:8
+#, python-format
+msgid "%(tummytime.time|timesince)s ago"
+msgstr ""
+
+#: .\dashboard\templates\dashboard\child_button_group.html:3
+#, fuzzy
+#| msgid "Actions"
+msgid "Child actions"
+msgstr "Opérations"
+
+#: .\dashboard\templates\dashboard\child_button_group.html:19
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Change Types"
+msgstr "Changement"
+
+#: .\dashboard\templates\dashboard\child_button_group.html:20
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Lifetimes"
+msgstr "Changement"
+
+#: .\dashboard\templates\dashboard\child_button_group.html:21
+msgid "Feeding Durations (Average)"
+msgstr ""
+
+#: .\dashboard\templates\dashboard\child_button_group.html:22
+#, fuzzy
+#| msgid "Sleep entry"
+msgid "Sleep Pattern"
+msgstr "Annotation de sommeil"
+
+#: .\dashboard\templates\dashboard\child_button_group.html:23
+#, fuzzy
+#| msgid "Sleep entry"
+msgid "Sleep Totals"
+msgstr "Annotation de sommeil"
+
+#, fuzzy
+#~| msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#~ msgid ""
+#~ "Born <span class=\"text-secondary\">%(object.birth_date)s</span><br/>"
+#~ msgstr "<h1>Mettre à jour <span class=\"text-info\">%(object)s</span></h1>"
+
+#, fuzzy
+#~| msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#~ msgid ""
+#~ "Age <span class=\"text-secondary\">%(object.birth_date|timesince)s</span>"
+#~ msgstr "<h1>Mettre à jour <span class=\"text-info\">%(object)s</span></h1>"

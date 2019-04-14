@@ -1,11 +1,12 @@
 {% extends 'cards/base.html' %}
+{% load i18n %}
 
-{% block header %}Last Feeding Method{% endblock %}
+{% block header %}{% trans "Last Feeding Method" %}{% endblock %}
 
 {% block title %}
     {% if feeding %}
         <div class="display-4 text-center">{{ feeding.method }}</div>
     {% else %}
-        None
+        {% trans "None" %}
     {% endif %}
 {% endblock %}

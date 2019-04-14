@@ -1,10 +1,10 @@
 {% extends 'babybuddy/page.html' %}
-{% load static thumbnail %}
+{% load i18n static thumbnail %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item font-weight-bold">Dashboard</li>
+    <li class="breadcrumb-item font-weight-bold">{% trans "Dashboard" %}</li>
 {% endblock %}
 
 {% block content %}
@@ -24,8 +24,8 @@
                     <h4 class="card-title">{{ object }}</h4>
                     <div class="card-text">
                         <p class="lead">
-                            Born <span class="text-secondary">{{ object.birth_date }}</span><br/>
-                            Age <span class="text-secondary">{{ object.birth_date|timesince }}</span>
+                            {% trans "Born" %} <span class="text-secondary">{{ object.birth_date }}</span><br/>
+                            {% trans "Age" %} <span class="text-secondary">{{ object.birth_date|timesince }}</span>
                         </p>
                         {% include 'dashboard/child_button_group.html' %}
                     </div>

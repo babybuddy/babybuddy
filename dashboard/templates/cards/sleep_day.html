@@ -1,18 +1,20 @@
 {% extends 'cards/base.html' %}
-{% load duration %}
+{% load duration i18n %}
 
-{% block header %}Today's Sleep{% endblock %}
+{% block header %}{% trans "Today's Sleep" %}{% endblock %}
 
 {% block title %}
     {% if total %}
         {{ total|duration_string }}
     {% else %}
         <i class="icon icon-sad" aria-hidden="true"></i>
-        None yet today
+        {% trans "None yet today" %}
         <i class="icon icon-sad" aria-hidden="true"></i>
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    {% if count > 0 %}{{ count }} sleep entries{% endif %}
+    {% if count > 0 %}
+        {% blocktrans %}{{ count }} sleep entries{% endblocktrans %}
+    {% endif %}
 {% endblock %}

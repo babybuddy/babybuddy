@@ -1,14 +1,14 @@
 {% extends 'cards/base.html' %}
-{% load duration %}
+{% load duration i18n %}
 
-{% block header %}Today's Naps{% endblock %}
+{% block header %}{% trans "Today's Naps" %}{% endblock %}
 
 {% block title %}
     {% if count %}
-        {{ count }} nap{{ count|pluralize }}
+        {% blocktrans %}{{ count }} nap{{ count|pluralize }}{% endblocktrans %}
     {% else %}
         <i class="icon icon-sad" aria-hidden="true"></i>
-        None yet today
+        {% trans "None yet today" %}
         <i class="icon icon-sad" aria-hidden="true"></i>
     {% endif %}
 {% endblock %}
