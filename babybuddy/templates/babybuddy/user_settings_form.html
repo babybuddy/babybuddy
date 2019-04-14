@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
+{% load i18n widget_tweaks %}
 
 {% block title %}User Settings{% endblock %}
 
@@ -40,6 +40,23 @@
                     {% with form_user.email as field %}
                         {% include 'babybuddy/form_field.html' %}
                     {% endwith %}
+                </div>
+                <div class="form-group row">
+                    <label for="id_language" class="col-sm-2 col-form-label">
+                        Language
+                    </label>
+                    <div class="col-sm-10">
+                        <select name="language">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                    {{ language.name_local }} ({{ language.code }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </fieldset>
             <fieldset>

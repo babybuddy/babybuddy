@@ -10,6 +10,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.i18n import set_language
 
 from django_filters.views import FilterView
 
@@ -135,6 +136,7 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
+            set_language(request)
             messages.success(request, 'Settings saved!')
             return redirect('babybuddy:user-settings')
         return render(request, self.template_name, {
