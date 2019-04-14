@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.timezone import timedelta
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework.authtoken.models import Token
 
@@ -11,22 +12,22 @@ from rest_framework.authtoken.models import Token
 class Settings(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dashboard_refresh_rate = models.DurationField(
-        verbose_name='Refresh rate',
-        help_text='This setting will only be used when a browser does not '
-                  'support refresh on focus.',
+        verbose_name=_('Refresh rate'),
+        help_text=_('This setting will only be used when a browser does not '
+                    'support refresh on focus.'),
         blank=True,
         null=True,
         default=timedelta(minutes=1),
         choices=[
-            (None, 'disabled'),
-            (timedelta(minutes=1), '1 min.'),
-            (timedelta(minutes=2), '2 min.'),
-            (timedelta(minutes=3), '3 min.'),
-            (timedelta(minutes=4), '4 min.'),
-            (timedelta(minutes=5), '5 min.'),
-            (timedelta(minutes=10), '10 min.'),
-            (timedelta(minutes=15), '15 min.'),
-            (timedelta(minutes=30), '30 min.'),
+            (None, _('disabled')),
+            (timedelta(minutes=1), _('1 min.')),
+            (timedelta(minutes=2), _('2 min.')),
+            (timedelta(minutes=3), _('3 min.')),
+            (timedelta(minutes=4), _('4 min.')),
+            (timedelta(minutes=5), _('5 min.')),
+            (timedelta(minutes=10), _('10 min.')),
+            (timedelta(minutes=15), _('15 min.')),
+            (timedelta(minutes=30), _('30 min.')),
         ])
 
     def __str__(self):

@@ -1,4 +1,4 @@
-{% load widget_tweaks %}
+{% load i18n widget_tweaks %}
 
 <form id="filter_form" role="form" action="" method="get" class="collapse{% if request.GET.filtered %} show{% endif %}">
     <div class="form-group form-row">
@@ -15,8 +15,8 @@
             </div>
         {% endfor %}
         <div class="col-xs-12 col-sm-auto mt-3 mt-sm-0">
-            <button type="submit" class="btn btn-sm btn-primary mr-2">Filter</button>
-            <a href="{{ request.path }}" class="btn btn-sm btn-error">Reset</a>
+            <button type="submit" class="btn btn-sm btn-primary mr-2">{% trans "Filter" %}</button>
+            <a href="{{ request.path }}" class="btn btn-sm btn-error">{% trans "Reset" %}</a>
         </div>
     </div>
     <input type="hidden" name="filtered" value="1"/>
@@ -29,6 +29,6 @@
        role="button"
        aria-expanded="false"
        aria-controls="filter_form">
-        Filters
+        {% trans "Filters" %}
     </a>
 </p>

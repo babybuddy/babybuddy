@@ -2,16 +2,18 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from babybuddy import models
 
 
 class SettingsInline(admin.StackedInline):
     model = models.Settings
-    verbose_name_plural = 'Settings'
+    verbose_name = _('Settings')
+    verbose_name_plural = _('Settings')
     can_delete = False
     fieldsets = (
-        ('Dashboard', {
+        (_('Dashboard'), {
             'fields': ('dashboard_refresh_rate',)
         }),
     )
