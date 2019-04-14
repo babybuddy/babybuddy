@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.utils.translation import gettext as _
+
 import plotly.offline as plotly
 import plotly.graph_objs as go
 
@@ -22,7 +24,7 @@ def diaperchange_lifetimes(changes):
 
     trace = go.Box(
         y=[round(d.seconds/3600, 2) for d in durations],
-        name='Changes',
+        name=_('Changes'),
         jitter=0.3,
         pointpos=-1.8,
         boxpoints='all'
@@ -30,8 +32,8 @@ def diaperchange_lifetimes(changes):
 
     layout_args = utils.default_graph_layout_options()
     layout_args['height'] = 800
-    layout_args['title'] = '<b>Diaper Lifetimes</b>'
-    layout_args['yaxis']['title'] = 'Time between changes (hours)'
+    layout_args['title'] = _('<b>Diaper Lifetimes</b>')
+    layout_args['yaxis']['title'] = _('Time between changes (hours)')
     layout_args['yaxis']['zeroline'] = False
     layout_args['yaxis']['dtick'] = 1
 

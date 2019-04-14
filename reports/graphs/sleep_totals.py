@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 import plotly.offline as plotly
 import plotly.graph_objs as go
@@ -36,7 +37,7 @@ def sleep_totals(instances):
             totals[start.date()] += instance.duration
 
     trace = go.Bar(
-        name='Total sleep',
+        name=_('Total sleep'),
         x=list(totals.keys()),
         y=[td.seconds/3600 for td in totals.values()],
         hoverinfo='text',
@@ -46,10 +47,10 @@ def sleep_totals(instances):
 
     layout_args = utils.default_graph_layout_options()
     layout_args['barmode'] = 'stack'
-    layout_args['title'] = '<b>Sleep Totals</b>'
-    layout_args['xaxis']['title'] = 'Date'
+    layout_args['title'] = _('<b>Sleep Totals</b>')
+    layout_args['xaxis']['title'] = _('Date')
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
-    layout_args['yaxis']['title'] = 'Hours of sleep'
+    layout_args['yaxis']['title'] = _('Hours of sleep')
 
     fig = go.Figure({
         'data': [trace],

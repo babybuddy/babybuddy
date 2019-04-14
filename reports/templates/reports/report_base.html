@@ -1,12 +1,12 @@
 {% extends 'babybuddy/page.html' %}
-{% load static %}
+{% load i18n static %}
 
 {% block title %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">Children</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">{% trans "Children" %}</a></li>
     <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:child' object.slug %}">{{ object }}</a></li>
-    <li class="breadcrumb-item">Reports</li>
+    <li class="breadcrumb-item">{% trans "Reports" %}</li>
 {% endblock %}
 
 {% block content %}
@@ -16,7 +16,7 @@
         {% else %}
             <div class="jumbotron text-center">
                 <i class="icon icon-sad" aria-hidden="true"></i>
-                There is no enough data to generate this report.
+                {% trans "There is no enough data to generate this report." %}
                 <i class="icon icon-sad" aria-hidden="true"></i>
             </div>
         {% endif %}

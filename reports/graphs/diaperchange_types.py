@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Count, Case, When
 from django.db.models.functions import TruncDate
+from django.utils.translation import gettext as _
 
 import plotly.offline as plotly
 import plotly.graph_objs as go
@@ -23,28 +24,28 @@ def diaperchange_types(changes):
 
     solid_trace = go.Scatter(
         mode='markers',
-        name='Solid',
+        name=_('Solid'),
         x=list(changes.values_list('date', flat=True)),
         y=list(changes.values_list('solid_count', flat=True)),
     )
     wet_trace = go.Scatter(
         mode='markers',
-        name='Wet',
+        name=_('Wet'),
         x=list(changes.values_list('date', flat=True)),
         y=list(changes.values_list('wet_count', flat=True))
     )
     total_trace = go.Scatter(
-        name='Total',
+        name=_('Total'),
         x=list(changes.values_list('date', flat=True)),
         y=list(changes.values_list('total', flat=True))
     )
 
     layout_args = utils.default_graph_layout_options()
     layout_args['barmode'] = 'stack'
-    layout_args['title'] = '<b>Diaper Change Types</b>'
-    layout_args['xaxis']['title'] = 'Date'
+    layout_args['title'] = _('<b>Diaper Change Types</b>')
+    layout_args['xaxis']['title'] = _('Date')
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
-    layout_args['yaxis']['title'] = 'Number of changes'
+    layout_args['yaxis']['title'] = _('Number of changes')
 
     fig = go.Figure({
         'data': [solid_trace, wet_trace, total_trace],

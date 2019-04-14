@@ -2,6 +2,7 @@
 from collections import OrderedDict
 
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 import pandas as pd
 import plotly.offline as plotly
@@ -124,10 +125,10 @@ def sleep_pattern(instances):
 
     layout_args['barmode'] = 'stack'
     layout_args['hovermode'] = 'closest'
-    layout_args['title'] = '<b>Sleep Pattern</b>'
+    layout_args['title'] = _('<b>Sleep Pattern</b>')
     layout_args['height'] = 800
 
-    layout_args['xaxis']['title'] = 'Date'
+    layout_args['xaxis']['title'] = _('Date')
     layout_args['xaxis']['tickangle'] = -65
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
 
@@ -137,7 +138,7 @@ def sleep_pattern(instances):
     for i in range(30, 60*24, 30):
         ticks[i] = (start + timezone.timedelta(minutes=i)).strftime('%I:%M %p')
 
-    layout_args['yaxis']['title'] = 'Time of day'
+    layout_args['yaxis']['title'] = _('Time of day')
     layout_args['yaxis']['rangemode'] = 'tozero'
     layout_args['yaxis']['tickmode'] = 'array'
     layout_args['yaxis']['tickvals'] = list(ticks.keys())

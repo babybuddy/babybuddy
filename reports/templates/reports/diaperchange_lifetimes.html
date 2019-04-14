@@ -1,8 +1,9 @@
 {% extends 'reports/report_base.html' %}
+{% load i18n %}
 
-{% block title %}Diaper Lifetimes - {{ object }}{% endblock %}
+{% block title %}{% trans "Diaper Lifetimes" %} - {{ object }}{% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
-    <li class="breadcrumb-item active" aria-current="page">Diaper Lifetimes</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Diaper Lifetimes" %}</li>
 {% endblock %}
