@@ -1,10 +1,10 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
+{% load i18n widget_tweaks %}
 
-{% block title %}Notes{% endblock %}
+{% block title %}{% trans "Notes" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">Notes</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Notes" %}</li>
 {% endblock %}
 
 {% block content %}
@@ -14,10 +14,10 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>Child</th>
-                    <th>Note</th>
-                    <th>Time</th>
-                    <th class="text-center">Actions</th>
+                    <th>{% trans "Child" %}</th>
+                    <th>{% trans "Note" %}</th>
+                    <th>{% trans "Time" %}</th>
+                    <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
                         <td>{{ note.note }}</td>
                         <td>{{ note.time }}</td>
                         <td class="text-center">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_note %}
                                     <a href="{% url 'core:note-update' note.id %}" class="btn btn-primary">
@@ -46,7 +46,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="4">No notes found.</th>
+                        <th colspan="4">{% trans "No notes found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -56,7 +56,7 @@
 
     {% if perms.core.add_note %}
         <a href="{% url 'core:note-add' %}" class="btn btn-sm btn-success">
-            <i class="icon icon-note" aria-hidden="true"></i> Add a Note
+            <i class="icon icon-note" aria-hidden="true"></i> {% trans "Add a Note" %}
         </a>
     {% endif %}
 

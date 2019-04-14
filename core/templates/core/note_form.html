@@ -1,27 +1,28 @@
 {% extends 'babybuddy/page.html' %}
+{% load i18n %}
 
 {% block title %}
     {% if request.resolver_match.url_name == 'note-update' %}
-        Update a Note
+        {% trans "Update a Note" %}
     {% else %}
-        Add a Note
+        {% trans "Add a Note" %}
     {% endif %}
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:note-list' %}">Notes</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:note-list' %}">{% trans "Notes" %}</a></li>
     {% if object %}
-        <li class="breadcrumb-item active" aria-current="page">Update</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">Add</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add" %}</li>
     {% endif %}
 {% endblock %}
 
 {% block content %}
     {% if object %}
-        <h1>Update <span class="text-info">{{ object }}</span></h1>
+        {% blocktrans %}<h1>Update <span class="text-info">{{ object }}</span></h1>{% endblocktrans %}
     {% else %}
-        <h1>Add a Note</h1>
+        <h1>{% trans "Add a Note" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

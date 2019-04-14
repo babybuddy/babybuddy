@@ -1,23 +1,23 @@
 {% extends 'babybuddy/page.html' %}
-{% load duration %}
+{% load duration i18n %}
 
-{% block title %}Timer{% endblock %}
+{% block title %}{% trans "Timer" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">Timers</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">{% trans "Timers" %}</a></li>
     {% if object %}
         <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:timer-detail' object.id %}">{{ object }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Update</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">Start</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Start" %}</li>
     {% endif %}
 {% endblock %}
 
 {% block content %}
     {% if object %}
-        <h1>Update <span class="text-info">{{ object }}</span></h1>
+        {% blocktrans %}<h1>Update <span class="text-info">{{ object }}</span></h1>{% endblocktrans %}
     {% else %}
-        <h1>Start Timer</h1>
+        <h1>{% trans "Start Timer" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

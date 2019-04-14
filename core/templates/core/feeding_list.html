@@ -1,11 +1,10 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
-{% load duration %}
+{% load duration i18n widget_tweaks %}
 
-{% block title %}Feedings{% endblock %}
+{% block title %}{% trans "Feedings" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">Feedings</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Feedings" %}</li>
 {% endblock %}
 
 {% block content %}
@@ -15,13 +14,14 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>Child</th>
-                    <th>Method</th>
-                    <th>Type</th>
-                    <th>Amt.</th>
-                    <th>Duration</th>
-                    <th>Date</th>
-                    <th class="text-center">Actions</th>
+                    <th>{% trans "Child" %}</th>
+                    <th>{% trans "Method" %}</th>
+                    <th>{% trans "Type" %}</th>
+                    {% comment %}Abbreviation of "Amount"{% endcomment %}
+                    <th>{% trans "Amt." %}</th>
+                    <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Date" %}</th>
+                    <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                         <td>{{ feeding.duration|duration_string }}</td>
                         <td>{{ feeding.start|date:'n/j/y G:i' }}</td>
                         <td class="text-center">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_feeding %}
                                     <a href="{% url 'core:feeding-update' feeding.id %}" class="btn btn-primary">
@@ -57,7 +57,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="7">No feedings found.</th>
+                        <th colspan="7">{% trans "No feedings found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -67,7 +67,7 @@
 
     {% if perms.core.add_feeding %}
         <a href="{% url 'core:feeding-add' %}" class="btn btn-sm btn-success">
-            <i class="icon icon-feeding" aria-hidden="true"></i> Add a Feeding
+            <i class="icon icon-feeding" aria-hidden="true"></i> {% trans "Add a Feeding" %}
         </a>
     {% endif %}
 

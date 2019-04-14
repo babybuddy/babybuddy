@@ -1,10 +1,10 @@
 {% extends 'babybuddy/page.html' %}
-{% load bootstrap duration widget_tweaks %}
+{% load bootstrap duration i18n widget_tweaks %}
 
-{% block title %}Sleep{% endblock %}
+{% block title %}{% trans "Sleep" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">Sleep</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Sleep" %}</li>
 {% endblock %}
 
 {% block content %}
@@ -14,12 +14,12 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>Child</th>
-                    <th>Duration</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th class="text-center">Nap</th>
-                    <th class="text-center">Actions</th>
+                    <th>{% trans "Child" %}</th>
+                    <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Start" %}</th>
+                    <th>{% trans "End" %}</th>
+                    <th class="text-center">{% trans "Nap" %}</th>
+                    <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
                         <td>{{ sleep.end|date:'n/j/y G:i' }}</td>
                         <td class="text-center">{{ sleep.nap|bool_icon }}</td>
                         <td class="text-center">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_sleep %}
                                     <a href="{% url 'core:sleep-update' sleep.id %}" class="btn btn-primary">
@@ -50,7 +50,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="5">No sleep entries found.</th>
+                        <th colspan="5">{% trans "No sleep entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -60,7 +60,7 @@
 
     {% if perms.core.add_sleep %}
         <a href="{% url 'core:sleep-add' %}" class="btn btn-sm btn-success">
-            <i class="icon icon-sleep" aria-hidden="true"></i> Add a Sleep Entry
+            <i class="icon icon-sleep" aria-hidden="true"></i> {% trans "Add a Sleep Entry" %}
         </a>
     {% endif %}
 

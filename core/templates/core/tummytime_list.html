@@ -1,11 +1,10 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
-{% load duration %}
+{% load duration i18n widget_tweaks %}
 
-{% block title %}Tummy Time{% endblock %}
+{% block title %}{% trans "Tummy Time" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">Tummy Time</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Tummy Time" %}</li>
 {% endblock %}
 
 {% block content %}
@@ -15,12 +14,12 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
-                    <th>Child</th>
-                    <th>Duration</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Milestone</th>
-                    <th class="text-center">Actions</th>
+                    <th>{% trans "Child" %}</th>
+                    <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Start" %}</th>
+                    <th>{% trans "End" %}</th>
+                    <th>{% trans "Milestone" %}</th>
+                    <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +31,7 @@
                         <td>{{ tummytime.end|date:'n/j/y G:i' }}</td>
                         <td>{{ tummytime.milestone }}</td>
                         <td class="text-center">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_tummytime %}
                                     <a href="{% url 'core:tummytime-update' tummytime.id %}" class="btn btn-primary">
@@ -51,7 +50,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="6">No tummy time entries found.</th>
+                        <th colspan="6">{% trans "No tummy time entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -61,7 +60,7 @@
 
     {% if perms.core.add_tummytime %}
         <a href="{% url 'core:tummytime-add' %}" class="btn btn-sm btn-success">
-            <i class="icon icon-tummytime" aria-hidden="true"></i> Add a Tummy Time Entry</a>
+            <i class="icon icon-tummytime" aria-hidden="true"></i> {% trans "Add a Tummy Time Entry" %}</a>
     {% endif %}
 
 {% endblock %}

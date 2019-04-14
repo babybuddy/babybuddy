@@ -1,19 +1,19 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
+{% load i18n widget_tweaks %}
 
-{% block title %}Delete {{ object }}{% endblock %}
+{% block title %}{% blocktrans %}Delete {{ object }}{% endblocktrans %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">Timers</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">{% trans "Timers" %}</a></li>
     <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:timer-detail' object.id %}">{{ object }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
 {% endblock %}
 
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
-        <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <a href="/" class="btn btn-default">Cancel</a>
+        {% blocktrans %}<h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>{% endblocktrans %}
+        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
+        <a href="/" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}

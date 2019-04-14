@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.utils.translation import gettext as _
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -16,9 +17,9 @@ class CoreAddView(PermissionRequired403Mixin, SuccessMessageMixin, CreateView):
     def get_success_message(self, cleaned_data):
         cleaned_data['model'] = self.model._meta.verbose_name.title()
         if 'child' in cleaned_data:
-            self.success_message = '%(model)s entry for %(child)s added!'
+            self.success_message = _('%(model)s entry for %(child)s added!')
         else:
-            self.success_message = '%(model)s entry added!'
+            self.success_message = _('%(model)s entry added!')
         return self.success_message % cleaned_data
 
 
@@ -27,9 +28,9 @@ class CoreUpdateView(PermissionRequired403Mixin, SuccessMessageMixin,
     def get_success_message(self, cleaned_data):
         cleaned_data['model'] = self.model._meta.verbose_name.title()
         if 'child' in cleaned_data:
-            self.success_message = '%(model)s entry for %(child)s updated.'
+            self.success_message = _('%(model)s entry for %(child)s updated.')
         else:
-            self.success_message = '%(model)s entry updated.'
+            self.success_message = _('%(model)s entry updated.')
         return self.success_message % cleaned_data
 
 
@@ -58,7 +59,7 @@ class ChildAdd(CoreAddView):
     permission_required = ('core.add_child',)
     form_class = forms.ChildForm
     success_url = reverse_lazy('core:child-list')
-    success_message = '%(first_name)s %(last_name)s added!'
+    success_message = _('%(first_name)s %(last_name)s added!')
 
 
 class ChildDetail(PermissionRequired403Mixin, DetailView):
@@ -286,7 +287,7 @@ class TimerRestart(PermissionRequired403Mixin, RedirectView):
 
 class TimerStop(PermissionRequired403Mixin, SuccessMessageMixin, RedirectView):
     permission_required = ('core.change_timer',)
-    success_message = '%(timer)s stopped.'
+    success_message = _('%(timer)s stopped.')
 
     def get(self, request, *args, **kwargs):
         instance = models.Timer.objects.get(id=kwargs['pk'])
