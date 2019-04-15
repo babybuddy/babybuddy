@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: babybuddy 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-14 14:40-0700\n"
-"PO-Revision-Date: 2019-04-14 14:00-0700\n"
+"POT-Creation-Date: 2019-04-14 18:58-0700\n"
+"PO-Revision-Date: 2019-04-14 18:53-0700\n"
 "Last-Translator: Christopher C. Wells <wells@chrxs.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
@@ -140,27 +140,28 @@ msgstr ""
 "<strong>Erreur:</strong> Certains champs comportent des erreurs. Voir ci-"
 "dessous pour plus de détails. "
 
-#: .\babybuddy\templates\babybuddy\nav-dropdown.html:27 .\core\models.py:129
-#: .\core\models.py:133
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:27 .\core\models.py:144
+#: .\core\models.py:148
 msgid "Diaper Change"
 msgstr "Changement"
 
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:33
-#: .\babybuddy\templates\babybuddy\nav-dropdown.html:169 .\core\models.py:181
-#: .\core\models.py:185 .\core\templates\core\timer_detail.html:33
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:169 .\core\models.py:213
+#: .\core\models.py:217 .\core\templates\core\timer_detail.html:33
 msgid "Feeding"
 msgstr "Allaitement"
 
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:39
-#: .\babybuddy\templates\babybuddy\nav-dropdown.html:115 .\core\models.py:222
-#: .\core\models.py:226 .\core\templates\core\note_list.html:18
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:115 .\core\models.py:246
+#: .\core\models.py:254 .\core\models.py:258
+#: .\core\templates\core\note_list.html:18
 msgid "Note"
 msgstr "Annotation"
 
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:45
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:176
-#: .\babybuddy\templates\babybuddy\welcome.html:40 .\core\models.py:253
-#: .\core\models.py:254 .\core\models.py:257
+#: .\babybuddy\templates\babybuddy\welcome.html:40 .\core\models.py:297
+#: .\core\models.py:298 .\core\models.py:301
 #: .\core\templates\core\sleep_confirm_delete.html:7
 #: .\core\templates\core\sleep_form.html:13
 #: .\core\templates\core\sleep_list.html:4
@@ -171,8 +172,8 @@ msgstr "Sommeil"
 
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:51
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:189
-#: .\babybuddy\templates\babybuddy\welcome.html:48 .\core\models.py:361
-#: .\core\models.py:362 .\core\models.py:365
+#: .\babybuddy\templates\babybuddy\welcome.html:48 .\core\models.py:443
+#: .\core\models.py:444 .\core\models.py:447
 #: .\core\templates\core\timer_detail.html:49
 #: .\core\templates\core\tummytime_confirm_delete.html:7
 #: .\core\templates\core\tummytime_form.html:13
@@ -182,8 +183,8 @@ msgid "Tummy Time"
 msgstr "Heure de Ventre"
 
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:57
-#: .\babybuddy\templates\babybuddy\nav-dropdown.html:123 .\core\models.py:396
-#: .\core\models.py:397 .\core\models.py:400
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:123 .\core\models.py:473
+#: .\core\models.py:486 .\core\models.py:487 .\core\models.py:490
 #: .\core\templates\core\weight_confirm_delete.html:7
 #: .\core\templates\core\weight_form.html:13
 #: .\core\templates\core\weight_list.html:4
@@ -197,7 +198,7 @@ msgid "Weight"
 msgstr "Poids"
 
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:87
-#: .\babybuddy\templates\babybuddy\nav-dropdown.html:95 .\core\models.py:90
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:95 .\core\models.py:100
 #: .\core\templates\core\child_confirm_delete.html:7
 #: .\core\templates\core\child_detail.html:7
 #: .\core\templates\core\child_form.html:13
@@ -208,9 +209,9 @@ msgstr "Poids"
 msgid "Children"
 msgstr "Enfants"
 
-#: .\babybuddy\templates\babybuddy\nav-dropdown.html:101 .\core\models.py:89
-#: .\core\models.py:112 .\core\models.py:160 .\core\models.py:212
-#: .\core\models.py:241 .\core\models.py:349 .\core\models.py:386
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:101 .\core\models.py:99
+#: .\core\models.py:122 .\core\models.py:175 .\core\models.py:244
+#: .\core\models.py:273 .\core\models.py:415 .\core\models.py:468
 #: .\core\templates\core\diaperchange_list.html:17
 #: .\core\templates\core\feeding_list.html:17
 #: .\core\templates\core\note_list.html:17
@@ -220,7 +221,7 @@ msgstr "Enfants"
 msgid "Child"
 msgstr "Enfant"
 
-#: .\babybuddy\templates\babybuddy\nav-dropdown.html:109 .\core\models.py:223
+#: .\babybuddy\templates\babybuddy\nav-dropdown.html:109 .\core\models.py:255
 #: .\core\templates\core\note_confirm_delete.html:7
 #: .\core\templates\core\note_form.html:13
 #: .\core\templates\core\note_list.html:4
@@ -246,7 +247,7 @@ msgid "Change"
 msgstr "Changement"
 
 #: .\babybuddy\templates\babybuddy\nav-dropdown.html:163
-#: .\babybuddy\templates\babybuddy\welcome.html:32 .\core\models.py:182
+#: .\babybuddy\templates\babybuddy\welcome.html:32 .\core\models.py:214
 #: .\core\templates\core\feeding_confirm_delete.html:7
 #: .\core\templates\core\feeding_form.html:13
 #: .\core\templates\core\feeding_list.html:4
@@ -266,7 +267,7 @@ msgstr "Annotation d'heure de ventre"
 #: .\babybuddy\templates\babybuddy\user_list.html:17
 #: .\babybuddy\templates\babybuddy\user_password_form.html:7
 #: .\babybuddy\templates\babybuddy\user_settings_form.html:7
-#: .\core\templates\core\timer_list.html:22
+#: .\core\models.py:357 .\core\templates\core\timer_list.html:22
 msgid "User"
 msgstr "Utilisateur"
 
@@ -427,7 +428,7 @@ msgstr "Adresse électronique"
 msgid "Staff"
 msgstr "Personnel"
 
-#: .\babybuddy\templates\babybuddy\user_list.html:22
+#: .\babybuddy\templates\babybuddy\user_list.html:22 .\core\models.py:351
 #: .\core\templates\core\timer_list.html:21
 msgid "Active"
 msgstr "Actif"
@@ -509,7 +510,7 @@ msgstr ""
 "En savoir plus sur et en prédire les besoins de bébé sans (<em>trop</em>) de "
 "devinettes en utilisant Baby Buddy pour suivre &mdash;"
 
-#: .\babybuddy\templates\babybuddy\welcome.html:24 .\core\models.py:130
+#: .\babybuddy\templates\babybuddy\welcome.html:24 .\core\models.py:145
 #: .\core\templates\core\diaperchange_confirm_delete.html:7
 #: .\core\templates\core\diaperchange_form.html:13
 #: .\core\templates\core\diaperchange_list.html:4
@@ -676,59 +677,129 @@ msgstr "Une autre entrée coupe la période spécifiée."
 msgid "Date/time can not be in the future."
 msgstr "La date / heure ne peut pas être dans le futur."
 
-#: .\core\models.py:118
+#: .\core\models.py:74
+msgid "First name"
+msgstr "Prénom"
+
+#: .\core\models.py:75
+msgid "Last name"
+msgstr "Nom"
+
+#: .\core\models.py:79
+msgid "Birth date"
+msgstr "Date de Naissance"
+
+#: .\core\models.py:85
+msgid "Slug"
+msgstr "Jeton"
+
+#: .\core\models.py:91
+msgid "Picture"
+msgstr "Image"
+
+#: .\core\models.py:124 .\core\models.py:247
+#: .\core\templates\core\diaperchange_list.html:21
+#: .\core\templates\core\note_list.html:19
+msgid "Time"
+msgstr "Temps"
+
+#: .\core\models.py:125 .\core\templates\core\diaperchange_list.html:18
+#: .\reports\graphs\diaperchange_types.py:33
+msgid "Wet"
+msgstr "Humide"
+
+#: .\core\models.py:126 .\core\templates\core\diaperchange_list.html:19
+#: .\reports\graphs\diaperchange_types.py:27
+msgid "Solid"
+msgstr "Souillés"
+
+#: .\core\models.py:130
 msgid "Black"
 msgstr "Noir"
 
-#: .\core\models.py:119
+#: .\core\models.py:131
 msgid "Brown"
 msgstr "Brun"
 
-#: .\core\models.py:120
+#: .\core\models.py:132
 msgid "Green"
 msgstr "Verte"
 
-#: .\core\models.py:121
+#: .\core\models.py:133
 msgid "Yellow"
 msgstr "Jaune"
 
-#: .\core\models.py:151
+#: .\core\models.py:136 .\core\templates\core\diaperchange_list.html:20
+msgid "Color"
+msgstr "Couleur"
+
+#: .\core\models.py:166
 msgid "Wet and/or solid is required."
 msgstr "Humide et / ou solide est requis."
 
-#: .\core\models.py:166
+#: .\core\models.py:180 .\core\models.py:278 .\core\models.py:335
+#: .\core\models.py:420
+msgid "Start time"
+msgstr "Heure de début"
+
+#: .\core\models.py:185 .\core\models.py:283 .\core\models.py:341
+#: .\core\models.py:425
+msgid "End time"
+msgstr "Heure de fin"
+
+#: .\core\models.py:190 .\core\models.py:288 .\core\models.py:346
+#: .\core\models.py:430 .\core\templates\core\feeding_list.html:23
+#: .\core\templates\core\sleep_list.html:18
+#: .\core\templates\core\timer_list.html:19
+#: .\core\templates\core\tummytime_list.html:18
+msgid "Duration"
+msgstr "Durée"
+
+#: .\core\models.py:193
 msgid "Breast milk"
 msgstr "Lait maternel"
 
-#: .\core\models.py:167
+#: .\core\models.py:193
 msgid "Formula"
 msgstr "Formule bébé"
 
-#: .\core\models.py:170
+#: .\core\models.py:195 .\core\templates\core\feeding_list.html:19
+msgid "Type"
+msgstr ""
+
+#: .\core\models.py:199
 msgid "Bottle"
 msgstr "Biberon"
 
-#: .\core\models.py:171
+#: .\core\models.py:200
 msgid "Left breast"
 msgstr "Sein gauche"
 
-#: .\core\models.py:172
+#: .\core\models.py:201
 msgid "Right breast"
 msgstr "Sein droit"
 
-#: .\core\models.py:202
-msgid "Seule la méthode \"Biberon\" est autorisée avec le type \"Formule\"."
-msgstr ""
+#: .\core\models.py:204 .\core\templates\core\feeding_list.html:18
+msgid "Method"
+msgstr "Mode"
 
-#: .\core\models.py:286
-msgid "Start Time"
-msgstr "Heure de début"
+#: .\core\models.py:206
+msgid "Amount"
+msgstr "Quantité"
 
-#: .\core\models.py:299 .\core\templates\core\timer_form.html:4
+#: .\core\models.py:234
+msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
+msgstr "Seule la méthode \"Bottle\" est autorisée avec le type \"Formula\"."
+
+#: .\core\models.py:330 .\core\templates\core\timer_list.html:17
+msgid "Name"
+msgstr "Prénom"
+
+#: .\core\models.py:365 .\core\templates\core\timer_form.html:4
 msgid "Timer"
 msgstr "Chronomètre"
 
-#: .\core\models.py:300 .\core\templates\core\timer_confirm_delete.html:7
+#: .\core\models.py:366 .\core\templates\core\timer_confirm_delete.html:7
 #: .\core\templates\core\timer_detail.html:7
 #: .\core\templates\core\timer_form.html:7
 #: .\core\templates\core\timer_list.html:4
@@ -737,21 +808,32 @@ msgstr "Chronomètre"
 msgid "Timers"
 msgstr "Chronomètres"
 
-#: .\core\models.py:303
+#: .\core\models.py:369
 #, python-brace-format
 msgid "Timer #{id}"
 msgstr "Chronomètre #{id}"
 
+#: .\core\models.py:435 .\core\templates\core\tummytime_list.html:21
+msgid "Milestone"
+msgstr "Étape importante"
+
+#: .\core\models.py:478 .\core\templates\core\feeding_list.html:24
+#: .\core\templates\core\weight_list.html:19
+#: .\reports\graphs\diaperchange_types.py:46
+#: .\reports\graphs\feeding_duration.py:54
+#: .\reports\graphs\sleep_pattern.py:131 .\reports\graphs\sleep_totals.py:51
+#: .\reports\graphs\weight_weight.py:28
+msgid "Date"
+msgstr ""
+
 #: .\core\templates\core\child_confirm_delete.html:4
-#, fuzzy
-#| msgid "Add a Child"
 msgid "Delete a Child"
-msgstr "Ajouter un Enfant"
+msgstr "Supprimer un Enfant"
 
 #: .\core\templates\core\child_confirm_delete.html:18
 msgid "To confirm this action. Type the full name of the child below."
-msgstr "Tapez le nom complet de l'enfant ci-dessous pour confirmer cette "
-"action."
+msgstr ""
+"Tapez le nom complet de l'enfant ci-dessous pour confirmer cette action."
 
 #: .\core\templates\core\child_detail.html:23
 #: .\dashboard\templates\dashboard\dashboard.html:27
@@ -792,25 +874,6 @@ msgstr "Ajuter un Changement"
 msgid "Add"
 msgstr "Ajouter"
 
-#: .\core\templates\core\diaperchange_list.html:18
-#: .\reports\graphs\diaperchange_types.py:33
-msgid "Wet"
-msgstr "Humide"
-
-#: .\core\templates\core\diaperchange_list.html:19
-#: .\reports\graphs\diaperchange_types.py:27
-msgid "Solid"
-msgstr "Souillés"
-
-#: .\core\templates\core\diaperchange_list.html:20
-msgid "Color"
-msgstr "Couleur"
-
-#: .\core\templates\core\diaperchange_list.html:21
-#: .\core\templates\core\note_list.html:19
-msgid "Time"
-msgstr "Temps"
-
 #: .\core\templates\core\diaperchange_list.html:53
 msgid "No diaper changes found."
 msgstr "Aucun changement trouvé."
@@ -833,33 +896,9 @@ msgstr "Mettre à Jour une Alimentation"
 msgid "Add a Feeding"
 msgstr "Ajouter une Alimentation"
 
-#: .\core\templates\core\feeding_list.html:18
-msgid "Method"
-msgstr "Mode"
-
-#: .\core\templates\core\feeding_list.html:19
-msgid "Type"
-msgstr ""
-
 #: .\core\templates\core\feeding_list.html:22
 msgid "Amt."
 msgstr "Montant"
-
-#: .\core\templates\core\feeding_list.html:23
-#: .\core\templates\core\sleep_list.html:18
-#: .\core\templates\core\timer_list.html:19
-#: .\core\templates\core\tummytime_list.html:18
-msgid "Duration"
-msgstr "Durée"
-
-#: .\core\templates\core\feeding_list.html:24
-#: .\core\templates\core\weight_list.html:19
-#: .\reports\graphs\diaperchange_types.py:46
-#: .\reports\graphs\feeding_duration.py:54
-#: .\reports\graphs\sleep_pattern.py:131 .\reports\graphs\sleep_totals.py:51
-#: .\reports\graphs\weight_weight.py:28
-msgid "Date"
-msgstr ""
 
 #: .\core\templates\core\feeding_list.html:61
 msgid "No feedings found."
@@ -937,8 +976,6 @@ msgid "%(timer)s created by %(object.user)s"
 msgstr "%(timer)s a été créé par %(object.user)s"
 
 #: .\core\templates\core\timer_detail.html:53
-#, fuzzy
-#| msgid "Actions"
 msgid "Timer actions"
 msgstr "Opérations sur le chronomètre"
 
@@ -946,10 +983,6 @@ msgstr "Opérations sur le chronomètre"
 #: .\core\templates\core\timer_nav.html:18
 msgid "Start Timer"
 msgstr "Démarrer un chronomètre"
-
-#: .\core\templates\core\timer_list.html:17
-msgid "Name"
-msgstr "Prénom"
 
 #: .\core\templates\core\timer_list.html:37
 msgid "No timer entries found."
@@ -986,10 +1019,6 @@ msgstr "Mettre à Jour une entrée d'heure de ventre"
 #: .\core\templates\core\tummytime_list.html:63
 msgid "Add a Tummy Time Entry"
 msgstr "Ajouter une entrée d'heure de ventre"
-
-#: .\core\templates\core\tummytime_list.html:21
-msgid "Milestone"
-msgstr "Étape importante"
 
 #: .\core\templates\core\tummytime_list.html:53
 msgid "No tummy time entries found."
@@ -1045,9 +1074,12 @@ msgid "Last Diaper Change"
 msgstr "Dernier Changement"
 
 #: .\dashboard\templates\cards\diaperchange_last.html:8
+#: .\dashboard\templates\cards\feeding_last.html:8
+#: .\dashboard\templates\cards\sleep_last.html:8
+#: .\dashboard\templates\cards\tummytime_last.html:8
 #, python-format
-msgid "%(change.time|timesince)s ago"
-msgstr "il y a %(change.time|timesince)s"
+msgid "%(time)s ago"
+msgstr "il y a %(time)s"
 
 #: .\dashboard\templates\cards\diaperchange_last.html:10
 #: .\dashboard\templates\cards\feeding_last.html:10
@@ -1085,11 +1117,6 @@ msgstr "il y a %(key)s jours"
 msgid "Last Feeding"
 msgstr "Dernière Alimentation"
 
-#: .\dashboard\templates\cards\feeding_last.html:8
-#, python-format
-msgid "%(feeding.end|timesince)s ago"
-msgstr "il y a %(feeding.end|timesince)s"
-
 #: .\dashboard\templates\cards\feeding_last_method.html:4
 msgid "Last Feeding Method"
 msgstr "Dernière Méthode d'Alimentation"
@@ -1113,19 +1140,14 @@ msgstr "%(count)s entrées de sommeil."
 msgid "Last Slept"
 msgstr "Dernier dormi"
 
-#: .\dashboard\templates\cards\sleep_last.html:8
-#, python-format
-msgid "%(sleep.end|timesince)s ago"
-msgstr "il y a %(sleep.end|timesince)s"
-
 #: .\dashboard\templates\cards\sleep_naps_day.html:4
 msgid "Today's Naps"
 msgstr "Siestes Aujourd'hui"
 
 #: .\dashboard\templates\cards\sleep_naps_day.html:8
 #, python-format
-msgid "%(count)s nap%(count|pluralize)s"
-msgstr "%(count)s Sieste%(count|pluralize)s"
+msgid "%(count)s nap%(plural)s"
+msgstr "%(count)s Sieste%(plural)s"
 
 #: .\dashboard\templates\cards\statistics.html:6
 msgid "Statistics"
@@ -1137,13 +1159,13 @@ msgstr "Pas assez de données"
 
 #: .\dashboard\templates\cards\timer_list.html:8
 #, python-format
-msgid "%(count)s active timer%(count|pluralize)s"
-msgstr "%(count)s chronomètre%(count|pluralize)s actif"
+msgid "%(count)s active timer%(plural)s"
+msgstr "%(count)s chronomètre%(plural)s actif"
 
 #: .\dashboard\templates\cards\timer_list.html:19
 #, python-format
-msgid "Started by %(instance.user)s at %(instance.start|time)s"
-msgstr "Lancé par %(instance.user)s à %(instance.start|time)s"
+msgid "Started by %(instance.user)s at %(start)s"
+msgstr "Lancé par %(instance.user)s à %(start)s"
 
 #: .\dashboard\templates\cards\tummytime_day.html:4
 msgid "Today's Tummy Time"
@@ -1151,17 +1173,12 @@ msgstr "L'heure du Ventre Aujourd'hui"
 
 #: .\dashboard\templates\cards\tummytime_day.html:20
 #, python-format
-msgid "%(instance.duration|duration_string)s at %(instance.end|time)s"
-msgstr "%(instance.duration|duration_string)s à %(instance.end|time)s"
+msgid "%(duration)s at %(end)s"
+msgstr "%(duration)s à %(end)s"
 
 #: .\dashboard\templates\cards\tummytime_last.html:4
 msgid "Last Tummy Time"
 msgstr "Dernière Heure de Ventre"
-
-#: .\dashboard\templates\cards\tummytime_last.html:8
-#, python-format
-msgid "%(tummytime.time|timesince)s ago"
-msgstr "il y a %(tummytime.time|timesince)s"
 
 #: .\dashboard\templates\dashboard\child_button_group.html:3
 msgid "Child actions"
@@ -1208,8 +1225,6 @@ msgid "Total"
 msgstr ""
 
 #: .\reports\graphs\diaperchange_types.py:45
-#, fuzzy
-#| msgid "Diaper Changes"
 msgid "<b>Diaper Change Types</b>"
 msgstr "<b>Types de Changements</b>"
 
@@ -1238,8 +1253,6 @@ msgid "Number of feedings"
 msgstr "Nombre de alimentation"
 
 #: .\reports\graphs\sleep_pattern.py:128
-#, fuzzy
-#| msgid "Sleep entry"
 msgid "<b>Sleep Pattern</b>"
 msgstr "<b>Rythme de Sommeil</b>"
 
