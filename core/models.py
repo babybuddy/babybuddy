@@ -71,14 +71,24 @@ def validate_time(time, field_name):
 
 class Child(models.Model):
     model_name = 'child'
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    birth_date = models.DateField(blank=False, null=False)
-    slug = models.SlugField(max_length=100, unique=True, editable=False)
+    first_name = models.CharField(max_length=255, verbose_name=_('First name'))
+    last_name = models.CharField(max_length=255, verbose_name=_('Last name'))
+    birth_date = models.DateField(
+        blank=False,
+        null=False,
+        verbose_name=_('Birth date')
+    )
+    slug = models.SlugField(
+        editable=False,
+        max_length=100,
+        unique=True,
+        verbose_name=_('Slug')
+    )
     picture = models.ImageField(
-        upload_to='child/picture/',
         blank=True,
-        null=True
+        null=True,
+        upload_to='child/picture/',
+        verbose_name=_('Picture')
     )
 
     objects = models.Manager()
@@ -111,15 +121,20 @@ class DiaperChange(models.Model):
         related_name='diaper_change',
         verbose_name=_('Child')
     )
-    time = models.DateTimeField(blank=False, null=False)
-    wet = models.BooleanField()
-    solid = models.BooleanField()
-    color = models.CharField(max_length=255, blank=True, choices=[
-        ('black', _('Black')),
-        ('brown', _('Brown')),
-        ('green', _('Green')),
-        ('yellow', _('Yellow')),
-    ])
+    time = models.DateTimeField(blank=False, null=False, verbose_name=_('Time'))
+    wet = models.BooleanField(verbose_name=_('Wet'))
+    solid = models.BooleanField(verbose_name=_('Solid'))
+    color = models.CharField(
+        blank=True,
+        choices=[
+            ('black', _('Black')),
+            ('brown', _('Brown')),
+            ('green', _('Green')),
+            ('yellow', _('Yellow')),
+        ],
+        max_length=255,
+        verbose_name=_('Color')
+    )
 
     objects = models.Manager()
 
@@ -159,19 +174,36 @@ class Feeding(models.Model):
         related_name='feeding',
         verbose_name=_('Child')
     )
-    start = models.DateTimeField(blank=False, null=False)
-    end = models.DateTimeField(blank=False, null=False)
-    duration = models.DurationField(null=True, editable=False)
-    type = models.CharField(max_length=255, choices=[
-        ('breast milk', _('Breast milk')),
-        ('formula', _('Formula')),
-    ])
-    method = models.CharField(max_length=255, choices=[
-        ('bottle', _('Bottle')),
-        ('left breast', _('Left breast')),
-        ('right breast', _('Right breast')),
-    ])
-    amount = models.FloatField(blank=True, null=True)
+    start = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name=_('Start time')
+    )
+    end = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name=_('End time')
+    )
+    duration = models.DurationField(
+        editable=False,
+        null=True,
+        verbose_name=_('Duration')
+    )
+    type = models.CharField(
+        choices=[('breast milk', _('Breast milk')), ('formula', _('Formula'))],
+        max_length=255,
+        verbose_name=_('Type')
+    )
+    method = models.CharField(
+        choices=[
+            ('bottle', _('Bottle')),
+            ('left breast', _('Left breast')),
+            ('right breast', _('Right breast')),
+        ],
+        max_length=255,
+        verbose_name=_('Method')
+    )
+    amount = models.FloatField(blank=True, null=True, verbose_name=_('Amount'))
 
     objects = models.Manager()
 
@@ -211,8 +243,8 @@ class Note(models.Model):
         related_name='note',
         verbose_name=_('Child')
     )
-    note = models.TextField()
-    time = models.DateTimeField(auto_now=True)
+    note = models.TextField(verbose_name=_('Note'))
+    time = models.DateTimeField(auto_now=True, verbose_name=_('Time'))
 
     objects = models.Manager()
 
@@ -240,9 +272,21 @@ class Sleep(models.Model):
         related_name='sleep',
         verbose_name=_('Child')
     )
-    start = models.DateTimeField(blank=False, null=False)
-    end = models.DateTimeField(blank=False, null=False)
-    duration = models.DurationField(null=True, editable=False)
+    start = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name=_('Start time')
+    )
+    end = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name=_('End time')
+    )
+    duration = models.DurationField(
+        editable=False,
+        null=True,
+        verbose_name=_('Duration')
+    )
 
     objects = models.Manager()
     naps = NapsManager()
@@ -279,17 +323,39 @@ class Sleep(models.Model):
 
 class Timer(models.Model):
     model_name = 'timer'
-    name = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(
+        blank=True,
+        max_length=255,
+        null=True,
+        verbose_name=_('Name')
+    )
     start = models.DateTimeField(
         default=timezone.now,
         blank=False,
-        verbose_name=_('Start Time')
+        verbose_name=_('Start time')
     )
-    end = models.DateTimeField(blank=True, null=True, editable=False)
-    duration = models.DurationField(null=True, editable=False)
-    active = models.BooleanField(default=True, editable=False)
+    end = models.DateTimeField(
+        blank=True,
+        editable=False,
+        null=True,
+        verbose_name=_('End time')
+    )
+    duration = models.DurationField(
+        editable=False,
+        null=True,
+        verbose_name=_('Duration')
+    )
+    active = models.BooleanField(
+        default=True,
+        editable=False,
+        verbose_name=_('Active')
+    )
     user = models.ForeignKey(
-        'auth.User', related_name='timers', on_delete=models.CASCADE)
+        'auth.User',
+        on_delete=models.CASCADE,
+        related_name='timers',
+        verbose_name=_('User')
+    )
 
     objects = models.Manager()
 
@@ -348,10 +414,26 @@ class TummyTime(models.Model):
         related_name='tummy_time',
         verbose_name=_('Child')
     )
-    start = models.DateTimeField(blank=False, null=False)
-    end = models.DateTimeField(blank=False, null=False)
-    duration = models.DurationField(null=True, editable=False)
-    milestone = models.CharField(max_length=255, blank=True)
+    start = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name=_('Start time')
+    )
+    end = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name=_('End time')
+    )
+    duration = models.DurationField(
+        editable=False,
+        null=True,
+        verbose_name=_('Duration')
+    )
+    milestone = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Milestone')
+    )
 
     objects = models.Manager()
 
@@ -385,8 +467,16 @@ class Weight(models.Model):
         related_name='weight',
         verbose_name=_('Child')
     )
-    weight = models.FloatField(blank=False, null=False)
-    date = models.DateField(blank=False, null=False)
+    weight = models.FloatField(
+        blank=False,
+        null=False,
+        verbose_name=_('Weight')
+    )
+    date = models.DateField(
+        blank=False,
+        null=False,
+        verbose_name=_('Date')
+    )
 
     objects = models.Manager()
 
