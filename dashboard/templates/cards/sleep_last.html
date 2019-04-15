@@ -5,7 +5,7 @@
 
 {% block title %}
     {% if sleep %}
-        {% blocktrans %}{{ sleep.end|timesince }} ago{% endblocktrans %}
+        {% blocktrans with time=sleep.end|timesince %}{{ time }} ago{% endblocktrans %}
     {% else %}
         {% trans "Never" %}
     {% endif %}

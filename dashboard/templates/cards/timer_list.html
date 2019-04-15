@@ -5,7 +5,7 @@
 
 {% block title %}
     {% with instances|length as count %}
-        {% blocktrans %}{{ count }} active timer{{ count|pluralize }}{% endblocktrans %}
+        {% blocktrans with plural=count|pluralize %}{{ count }} active timer{{ plural }}{% endblocktrans %}
     {% endwith %}
 {% endblock %}
 
@@ -16,7 +16,7 @@
            class="list-group-item list-group-item-action">
             <strong>{{ instance }}</strong>
             <p class="text-muted small m-0">
-                {% blocktrans %}Started by {{ instance.user }} at {{ instance.start|time }}{% endblocktrans %}
+                {% blocktrans with start=instance.start|time %}Started by {{ instance.user }} at {{ start }}{% endblocktrans %}
             </p>
         </a>
     {% endfor %}
