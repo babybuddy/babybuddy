@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: babybuddy 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-16 20:31-0700\n"
-"PO-Revision-Date: 2019-04-16 20:23-0700\n"
+"POT-Creation-Date: 2019-04-16 21:43-0700\n"
+"PO-Revision-Date: 2019-04-16 21:43-0700\n"
 "Last-Translator: Christopher C. Wells <wells@chrxs.net>\n"
 "Language-Team: French <fr@li.org>\n"
 "Language: fr\n"
@@ -25,7 +25,7 @@ msgid "Settings"
 msgstr "Paramètres"
 
 #: .\babybuddy\admin.py:16 .\babybuddy\templates\babybuddy\nav-dropdown.html:76
-#: .\babybuddy\templates\babybuddy\user_settings_form.html:63
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:51
 #: .\dashboard\templates\dashboard\child.html:4
 #: .\dashboard\templates\dashboard\child.html:9
 #: .\dashboard\templates\dashboard\dashboard.html:4
@@ -33,11 +33,11 @@ msgstr "Paramètres"
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: .\babybuddy\models.py:16
+#: .\babybuddy\models.py:18
 msgid "Refresh rate"
 msgstr "Fréquence de rafraîchissement"
 
-#: .\babybuddy\models.py:17
+#: .\babybuddy\models.py:19
 msgid ""
 "This setting will only be used when a browser does not support refresh on "
 "focus."
@@ -45,43 +45,47 @@ msgstr ""
 "Ce paramètre ne sera utilisé que lorsqu'un navigateur ne prend pas en charge "
 "l'actualisation lors de la mise au point."
 
-#: .\babybuddy\models.py:23
+#: .\babybuddy\models.py:25
 msgid "disabled"
 msgstr "désactivé"
 
-#: .\babybuddy\models.py:24
+#: .\babybuddy\models.py:26
 msgid "1 min."
 msgstr ""
 
-#: .\babybuddy\models.py:25
+#: .\babybuddy\models.py:27
 msgid "2 min."
 msgstr ""
 
-#: .\babybuddy\models.py:26
+#: .\babybuddy\models.py:28
 msgid "3 min."
 msgstr ""
 
-#: .\babybuddy\models.py:27
+#: .\babybuddy\models.py:29
 msgid "4 min."
 msgstr ""
 
-#: .\babybuddy\models.py:28
+#: .\babybuddy\models.py:30
 msgid "5 min."
 msgstr ""
 
-#: .\babybuddy\models.py:29
+#: .\babybuddy\models.py:31
 msgid "10 min."
 msgstr ""
 
-#: .\babybuddy\models.py:30
+#: .\babybuddy\models.py:32
 msgid "15 min."
 msgstr ""
 
-#: .\babybuddy\models.py:31
+#: .\babybuddy\models.py:33
 msgid "30 min."
 msgstr ""
 
-#: .\babybuddy\models.py:35
+#: .\babybuddy\models.py:39
+msgid "Language"
+msgstr "Langue"
+
+#: .\babybuddy\models.py:43
 #, python-brace-format
 msgid "{user}'s Settings"
 msgstr "Paramètres d'utilisateur {user}"
@@ -123,7 +127,7 @@ msgid "Filters"
 msgstr "Les filtres"
 
 #: .\babybuddy\templates\babybuddy\form.html:11
-#: .\babybuddy\templates\babybuddy\user_settings_form.html:80
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:68
 msgid "Submit"
 msgstr "Soumettre"
 
@@ -482,19 +486,15 @@ msgstr ""
 msgid "User Profile"
 msgstr "Profil de l'utilisateur"
 
-#: .\babybuddy\templates\babybuddy\user_settings_form.html:46
-msgid "Language"
-msgstr "Langue"
-
-#: .\babybuddy\templates\babybuddy\user_settings_form.html:71
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:59
 msgid "API"
 msgstr ""
 
-#: .\babybuddy\templates\babybuddy\user_settings_form.html:73
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:61
 msgid "Key"
 msgstr "Clé"
 
-#: .\babybuddy\templates\babybuddy\user_settings_form.html:76
+#: .\babybuddy\templates\babybuddy\user_settings_form.html:64
 msgid "Regenerate"
 msgstr "Recréer"
 
