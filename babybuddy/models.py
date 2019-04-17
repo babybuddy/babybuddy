@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth.signals import user_logged_in
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.timezone import timedelta
 from django.utils.text import format_lazy
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate, gettext_lazy as _, LANGUAGE_SESSION_KEY
 
 from rest_framework.authtoken.models import Token
 
@@ -30,6 +32,12 @@ class Settings(models.Model):
             (timedelta(minutes=15), _('15 min.')),
             (timedelta(minutes=30), _('30 min.')),
         ])
+    language = models.CharField(
+        choices=settings.LANGUAGES,
+        default=settings.LANGUAGE_CODE,
+        max_length=255,
+        verbose_name=_('Language')
+    )
 
     def __str__(self):
         return str(format_lazy(_('{user}\'s Settings'), user=self.user))
@@ -65,3 +73,9 @@ def create_user_settings(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_settings(sender, instance, **kwargs):
     instance.settings.save()
+
+
+@receiver(user_logged_in)
+def user_logged_in_callback(sender, request, user, **kwargs):
+    activate(user.settings.language)
+    request.session[LANGUAGE_SESSION_KEY] = user.settings.language

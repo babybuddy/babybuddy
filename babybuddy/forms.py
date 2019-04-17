@@ -41,4 +41,4 @@ class UserPasswordForm(PasswordChangeForm):
 class UserSettingsForm(forms.ModelForm):
     class Meta:
         model = Settings
-        fields = ['dashboard_refresh_rate']
+        fields = ['dashboard_refresh_rate', 'language']
