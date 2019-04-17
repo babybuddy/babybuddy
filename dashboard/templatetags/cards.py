@@ -3,6 +3,7 @@ from django import template
 from django.db.models import Avg, Count, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from core import models
 
@@ -163,39 +164,39 @@ def card_statistics(child):
     stats.append({
         'type': 'duration',
         'stat': changes['btwn_average'],
-        'title': 'Diaper change frequency'})
+        'title': _('Diaper change frequency')})
 
     feedings = _feeding_statistics(child)
     stats.append({
         'type': 'duration',
         'stat': feedings['btwn_average'],
-        'title': 'Feeding frequency'})
+        'title': _('Feeding frequency')})
 
     naps = _nap_statistics(child)
     stats.append({
         'type': 'duration',
         'stat': naps['average'],
-        'title': 'Average nap duration'})
+        'title': _('Average nap duration')})
     stats.append({
         'type': 'float',
         'stat': naps['avg_per_day'],
-        'title': 'Average naps per day'})
+        'title': _('Average naps per day')})
 
     sleep = _sleep_statistics(child)
     stats.append({
         'type': 'duration',
         'stat': sleep['average'],
-        'title': 'Average sleep duration'})
+        'title': _('Average sleep duration')})
     stats.append({
         'type': 'duration',
         'stat': sleep['btwn_average'],
-        'title': 'Average awake duration'})
+        'title': _('Average awake duration')})
 
     weight = _weight_statistics(child)
     stats.append({
         'type': 'float',
         'stat': weight['change_weekly'],
-        'title': 'Weight change per week'})
+        'title': _('Weight change per week')})
 
     return {'stats': stats}
 
