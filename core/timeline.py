@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
 
@@ -20,7 +21,9 @@ def get_objects(child, date):
     for instance in instances:
         events.append({
             'time': timezone.localtime(instance.time),
-            'event': '{} had a diaper change.'.format(child.first_name),
+            'event': _('%(child)s had a diaper change.') % {
+                'child': child.first_name
+            },
             'model_name': instance.model_name,
         })
 
@@ -29,13 +32,17 @@ def get_objects(child, date):
     for instance in instances:
         events.append({
             'time': timezone.localtime(instance.start),
-            'event': '{} started feeding.'.format(instance.child.first_name),
+            'event': _('%(child)s started feeding.') % {
+                'child': instance.child.first_name
+            },
             'model_name': instance.model_name,
             'type': 'start'
         })
         events.append({
             'time': timezone.localtime(instance.end),
-            'event': '{} finished feeding.'.format(instance.child.first_name),
+            'event': _('%(child)s finished feeding.') % {
+                'child': instance.child.first_name
+            },
             'model_name': instance.model_name,
             'type': 'end'
         })
@@ -45,13 +52,17 @@ def get_objects(child, date):
     for instance in instances:
         events.append({
             'time': timezone.localtime(instance.start),
-            'event': '{} fell asleep.'.format(instance.child.first_name),
+            'event': _('%(child)s fell asleep.') % {
+                'child': instance.child.first_name
+            },
             'model_name': instance.model_name,
             'type': 'start'
         })
         events.append({
             'time': timezone.localtime(instance.end),
-            'event': '{} woke up.'.format(instance.child.first_name),
+            'event': _('%(child)s woke up.') % {
+                'child': instance.child.first_name
+            },
             'model_name': instance.model_name,
             'type': 'end'
         })
@@ -61,15 +72,17 @@ def get_objects(child, date):
     for instance in instances:
         events.append({
             'time': timezone.localtime(instance.start),
-            'event': '{} started tummy time!'.format(
-                instance.child.first_name),
+            'event': _('%(child)s started tummy time!') % {
+                'child': instance.child.first_name
+            },
             'model_name': instance.model_name,
             'type': 'start'
         })
         events.append({
             'time': timezone.localtime(instance.end),
-            'event': '{} finished tummy time.'.format(
-                instance.child.first_name),
+            'event': _('%(child)s finished tummy time.') % {
+                'child': instance.child.first_name
+            },
             'model_name': instance.model_name,
             'type': 'end'
         })
