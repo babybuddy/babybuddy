@@ -15,13 +15,13 @@
                 {% if info.wet_pct > 0 %}
                     <div class="progress-bar bg-primary lead"
                          role="progressbar"
-                         style="width: {{ info.wet_pct }}%;">{{ info.wet|floatformat:'0' }}&nbsp;{% trans "wet" %}</div>
+                         style="width: {{ info.wet_pct|safe }}%;">{{ info.wet|floatformat:'0' }}&nbsp;{% trans "wet" %}</div>
                 {% endif %}
 
                 {% if info.solid_pct > 0 %}
                     <div class="progress-bar bg-secondary lead"
                          role="progressbar"
-                         style="width: {{ info.solid_pct }}%;">
+                         style="width: {{ info.solid_pct|safe }}%;">
                         {{ info.solid|floatformat:'0' }}&nbsp;{% trans "solid" %}</div>
                 {% endif %}
             </div>
