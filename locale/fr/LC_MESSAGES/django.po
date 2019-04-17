@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: babybuddy 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-14 18:58-0700\n"
-"PO-Revision-Date: 2019-04-14 18:53-0700\n"
+"POT-Creation-Date: 2019-04-16 20:31-0700\n"
+"PO-Revision-Date: 2019-04-16 20:23-0700\n"
 "Last-Translator: Christopher C. Wells <wells@chrxs.net>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: French <fr@li.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,6 +166,7 @@ msgstr "Annotation"
 #: .\core\templates\core\sleep_form.html:13
 #: .\core\templates\core\sleep_list.html:4
 #: .\core\templates\core\sleep_list.html:7
+#: .\core\templates\core\sleep_list.html:11
 #: .\core\templates\core\timer_detail.html:41
 msgid "Sleep"
 msgstr "Sommeil"
@@ -179,6 +180,7 @@ msgstr "Sommeil"
 #: .\core\templates\core\tummytime_form.html:13
 #: .\core\templates\core\tummytime_list.html:4
 #: .\core\templates\core\tummytime_list.html:7
+#: .\core\templates\core\tummytime_list.html:11
 msgid "Tummy Time"
 msgstr "Heure de Ventre"
 
@@ -189,6 +191,7 @@ msgstr "Heure de Ventre"
 #: .\core\templates\core\weight_form.html:13
 #: .\core\templates\core\weight_list.html:4
 #: .\core\templates\core\weight_list.html:7
+#: .\core\templates\core\weight_list.html:11
 #: .\core\templates\core\weight_list.html:18
 #: .\dashboard\templates\dashboard\child_button_group.html:24
 #: .\reports\graphs\weight_weight.py:19 .\reports\graphs\weight_weight.py:30
@@ -204,6 +207,7 @@ msgstr "Poids"
 #: .\core\templates\core\child_form.html:13
 #: .\core\templates\core\child_list.html:4
 #: .\core\templates\core\child_list.html:7
+#: .\core\templates\core\child_list.html:11
 #: .\dashboard\templates\dashboard\child.html:7
 #: .\reports\templates\reports\report_base.html:7
 msgid "Children"
@@ -226,6 +230,7 @@ msgstr "Enfant"
 #: .\core\templates\core\note_form.html:13
 #: .\core\templates\core\note_list.html:4
 #: .\core\templates\core\note_list.html:7
+#: .\core\templates\core\note_list.html:11
 msgid "Notes"
 msgstr "Annotations"
 
@@ -252,6 +257,7 @@ msgstr "Changement"
 #: .\core\templates\core\feeding_form.html:13
 #: .\core\templates\core\feeding_list.html:4
 #: .\core\templates\core\feeding_list.html:7
+#: .\core\templates\core\feeding_list.html:11
 msgid "Feedings"
 msgstr "Allaitement"
 
@@ -804,6 +810,7 @@ msgstr "Chronomètre"
 #: .\core\templates\core\timer_form.html:7
 #: .\core\templates\core\timer_list.html:4
 #: .\core\templates\core\timer_list.html:7
+#: .\core\templates\core\timer_list.html:11
 #: .\core\templates\core\timer_nav.html:10
 msgid "Timers"
 msgstr "Chronomètres"
@@ -844,6 +851,11 @@ msgstr "Né"
 #: .\dashboard\templates\dashboard\dashboard.html:28
 msgid "Age"
 msgstr "L'âge"
+
+#: .\core\templates\core\child_detail.html:58
+#, python-format
+msgid "%(since)s ago (%(time)s)"
+msgstr "il y a %(since)s (%(time)s)"
 
 #: .\core\templates\core\child_list.html:20
 msgid "Birth Date"
@@ -1039,6 +1051,41 @@ msgstr "Ajouter une entrée de poids"
 msgid "No weight entries found."
 msgstr "Aucune entrée de poids trouvée."
 
+#: .\core\timeline.py:24
+#, python-format
+msgid "%(child)s had a diaper change."
+msgstr "La couche de %(child)s a été changée."
+
+#: .\core\timeline.py:35
+#, python-format
+msgid "%(child)s started feeding."
+msgstr "%(child)s a commencé à se nourrir."
+
+#: .\core\timeline.py:43
+#, python-format
+msgid "%(child)s finished feeding."
+msgstr "%(child)s a fini de se nourrir."
+
+#: .\core\timeline.py:55
+#, python-format
+msgid "%(child)s fell asleep."
+msgstr "%(child)s s'est endormi."
+
+#: .\core\timeline.py:63
+#, python-format
+msgid "%(child)s woke up."
+msgstr "%(child)s s'est réveillé."
+
+#: .\core\timeline.py:75
+#, python-format
+msgid "%(child)s started tummy time!"
+msgstr "%(child)s a commencé l'heure du ventre."
+
+#: .\core\timeline.py:83
+#, python-format
+msgid "%(child)s finished tummy time."
+msgstr "%(child)s a fini l'heure du ventre."
+
 #: .\core\views.py:20
 #, python-format
 msgid "%(model)s entry for %(child)s added!"
@@ -1211,6 +1258,34 @@ msgstr "Rythme de Sommeil"
 #: .\reports\templates\reports\sleep_totals.html:8
 msgid "Sleep Totals"
 msgstr "Totaux de Sommeil"
+
+#: .\dashboard\templatetags\cards.py:167
+msgid "Diaper change frequency"
+msgstr "Fréquence de changement"
+
+#: .\dashboard\templatetags\cards.py:173
+msgid "Feeding frequency"
+msgstr "Fréquence d'alimentation"
+
+#: .\dashboard\templatetags\cards.py:179
+msgid "Average nap duration"
+msgstr "Durée moyenne des siestes"
+
+#: .\dashboard\templatetags\cards.py:183
+msgid "Average naps per day"
+msgstr "Moyen de siestes par jour"
+
+#: .\dashboard\templatetags\cards.py:189
+msgid "Average sleep duration"
+msgstr "Durée moyenne du sommeil"
+
+#: .\dashboard\templatetags\cards.py:193
+msgid "Average awake duration"
+msgstr "Durée moyenne de veille"
+
+#: .\dashboard\templatetags\cards.py:199
+msgid "Weight change per week"
+msgstr "Changement de poids par semaine"
 
 #: .\reports\graphs\diaperchange_lifetimes.py:35
 msgid "<b>Diaper Lifetimes</b>"
