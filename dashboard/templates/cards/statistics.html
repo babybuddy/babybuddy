@@ -1,9 +1,9 @@
-{% load duration %}
+{% load duration i18n %}
 
 <div class="card card-dashboard card-statistics">
     <div class="card-header">
          <i class="icon icon-graph pull-left" aria-hidden="true"></i>
-        Statistics
+        {% trans "Statistics" %}
     </div>
     <div class="card-body text-center">
         <div id="statistics-carousel" class="carousel slide" data-interval="false">
@@ -20,7 +20,7 @@
                                     {{ stat.stat }}
                                 {% endif %}
                             {% else %}
-                                <em>Not enough data</em>
+                                <em>{% trans "Not enough data" %}</em>
                             {% endif %}
                         </span>
                         <div class="card-text">{{ stat.title }}</div>
@@ -29,11 +29,11 @@
             </div>
             <a class="carousel-control-prev" href="#statistics-carousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
+                <span class="sr-only">{% trans "Previous" %}</span>
             </a>
             <a class="carousel-control-next" href="#statistics-carousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
+                <span class="sr-only">{% trans "Next" %}</span>
             </a>
         </div>
     </div>

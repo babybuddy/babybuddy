@@ -7,9 +7,12 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
+from django.utils.text import format_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.i18n import set_language
 
 from django_filters.views import FilterView
 
@@ -50,7 +53,7 @@ class UserAdd(StaffOnlyMixin, PermissionRequired403Mixin, SuccessMessageMixin,
     permission_required = ('admin.add_user',)
     form_class = forms.UserAddForm
     success_url = reverse_lazy('babybuddy:user-list')
-    success_message = 'User %(username)s added!'
+    success_message = gettext_lazy('User %(username)s added!')
 
 
 class UserUpdate(StaffOnlyMixin, PermissionRequired403Mixin,
@@ -60,7 +63,7 @@ class UserUpdate(StaffOnlyMixin, PermissionRequired403Mixin,
     permission_required = ('admin.change_user',)
     form_class = forms.UserUpdateForm
     success_url = reverse_lazy('babybuddy:user-list')
-    success_message = 'User %(username)s updated.'
+    success_message = gettext_lazy('User %(username)s updated.')
 
 
 class UserDelete(StaffOnlyMixin, PermissionRequired403Mixin,
@@ -71,7 +74,9 @@ class UserDelete(StaffOnlyMixin, PermissionRequired403Mixin,
     success_url = reverse_lazy('babybuddy:user-list')
 
     def delete(self, request, *args, **kwargs):
-        success_message = 'User {} deleted.'.format(self.get_object())
+        success_message = format_lazy(gettext_lazy(
+            'User {user} deleted.'), user=self.get_object()
+        )
         messages.success(request, success_message)
         return super(UserDelete, self).delete(request, *args, **kwargs)
 
@@ -93,7 +98,7 @@ class UserPassword(LoginRequiredMixin, View):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            messages.success(request, 'Password updated.')
+            messages.success(request, _('Password updated.'))
         return render(request, self.template_name, {'form': form})
 
 
@@ -103,7 +108,7 @@ class UserResetAPIKey(LoginRequiredMixin, View):
     """
     def get(self, request):
         request.user.settings.api_key(reset=True)
-        messages.success(request, 'User API key regenerated.')
+        messages.success(request, _('User API key regenerated.'))
         return redirect('babybuddy:user-settings')
 
 
@@ -135,7 +140,8 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
-            messages.success(request, 'Settings saved!')
+            set_language(request)
+            messages.success(request, _('Settings saved!'))
             return redirect('babybuddy:user-settings')
         return render(request, self.template_name, {
             'user_form': form_user,

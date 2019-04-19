@@ -1,12 +1,13 @@
 {% extends 'cards/base.html' %}
+{% load i18n %}
 
-{% block header %}Last Feeding{% endblock %}
+{% block header %}{% trans "Last Feeding" %}{% endblock %}
 
 {% block title %}
     {% if feeding %}
-        {{ feeding.end|timesince }} ago
+        {% blocktrans with time=feeding.end|timesince %}{{ time }} ago{% endblocktrans %}
     {% else %}
-        Never
+        {% trans "Never" %}
     {% endif %}
 {% endblock %}
 

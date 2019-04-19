@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.utils import timezone
 from django.conf import settings
+from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from core import models
 
@@ -77,7 +78,7 @@ class ChildDeleteForm(forms.ModelForm):
         confirm_name = self.cleaned_data['confirm_name']
         if confirm_name != str(self.instance):
             raise forms.ValidationError(
-                'Name does not match child name.', code='confirm_mismatch')
+                _('Name does not match child name.'), code='confirm_mismatch')
         return confirm_name
 
     def save(self, commit=True):

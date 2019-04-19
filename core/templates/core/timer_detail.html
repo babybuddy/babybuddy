@@ -1,10 +1,10 @@
 {% extends 'babybuddy/page.html' %}
-{% load duration timers %}
+{% load duration i18n timers %}
 
 {% block title %}{{ object }}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">Timers</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">{% trans "Timers" %}</a></li>
     <li class="breadcrumb-item font-weight-bold">{{ object }}</li>
 {% endblock %}
 
@@ -17,34 +17,40 @@
             <span class="timer-seconds">{{ object.duration|seconds }}</span>s
         </div>
         <p class="lead text-secondary">
-            Started {{ object.start }}
+            {% trans "Started" %} {{ object.start }}
             {% if not object.active %}
-                / Stopped {{ object.end }}
+                / {% trans "Stopped" %} {{ object.end }}
             {% endif %}
         </p>
         <p class="text-muted">
-            {{ timer }} created by {{ object.user }}
+            {% blocktrans %}{{ timer }} created by {{ object.user }}{% endblocktrans %}
         </p>
 
         {% if perms.core.add_feeding %}
             <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'core:feeding-add' %}?timer={{ timer.id }}"
-               role="button"><i class="icon icon-feeding" aria-hidden="true"></i> Feeding</a>
+               role="button"><i class="icon icon-feeding" aria-hidden="true"></i>
+                {% trans "Feeding" %}
+            </a>
         {% endif %}
 
         {% if perms.core.add_sleep %}
             <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'core:sleep-add' %}?timer={{ timer.id }}"
-               role="button"><i class="icon icon-sleep" aria-hidden="true"></i> Sleep</a>
+               role="button"><i class="icon icon-sleep" aria-hidden="true"></i>
+                {% trans "Sleep" %}
+            </a>
         {% endif %}
 
         {% if perms.core.add_tummytime %}
             <a class="btn btn-success btn-lg btn-block mb-3"
                href="{% url 'core:tummytime-add' %}?timer={{ timer.id }}"
-               role="button"><i class="icon icon-tummytime" aria-hidden="true"></i> Tummy Time</a>
+               role="button"><i class="icon icon-tummytime" aria-hidden="true"></i>
+                {% trans "Tummy Time" %}
+            </a>
         {% endif %}
 
-        <div class="btn-group btn-group-lg center-block" role="group" aria-label="Timer actions">
+        <div class="btn-group btn-group-lg center-block" role="group" aria-label="{% trans "Timer actions" %}">
 
             {% if perms.core.delete_timer %}
                 <a class="btn btn-danger"

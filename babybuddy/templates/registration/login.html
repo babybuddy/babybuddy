@@ -1,5 +1,5 @@
 {% extends "registration/base.html" %}
-{% load static widget_tweaks %}
+{% load i18n static widget_tweaks %}
 
 {% block title %}Login{% endblock %}
 {% block content %}
@@ -29,12 +29,12 @@
         </div>
 
         <button class="btn btn-primary w-100 fade-in" type="submit" name="login">
-            Login
+            {% trans "Login" %}
         </button>
     </form>
 
     <div class="bg-faded text-center px-4 py-3 rounded-bottom">
         <a href="{% url 'babybuddy:password_reset' %}" name="reset">
-            Forgot your password?</a>
+            {% trans "Forgot your password?" %}</a>
     </div>
 {% endblock %}

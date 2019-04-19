@@ -53,6 +53,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('api.urls', namespace='api')),
     path('', include((app_patterns, 'babybuddy'), namespace='babybuddy')),
+    path('user/lang', include('django.conf.urls.i18n')),
     path('', include('core.urls', namespace='core')),
     path('', include('dashboard.urls', namespace='dashboard')),
     path('', include('reports.urls', namespace='reports')),

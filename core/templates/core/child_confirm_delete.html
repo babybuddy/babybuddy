@@ -1,20 +1,22 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
+{% load i18n widget_tweaks %}
 
-{% block title %}Delete a Child{% endblock %}
+{% block title %}{% trans "Delete a Child" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">Children</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">{% trans "Children" %}</a></li>
     <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:child' object.slug %}">{{ object }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
 {% endblock %}
 
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
-        <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
+        {% blocktrans %}<h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>{% endblocktrans %}
         <div class="form-group">
-            <label for="{{ form.confirm_name.id_for_label }}">To confirm this action. Type the full name of the child below.</label>
+            <label for="{{ form.confirm_name.id_for_label }}">
+                {% trans "To confirm this action. Type the full name of the child below." %}
+            </label>
             {% if form.confirm_name.errors %}
                 {{ form.confirm_name|add_class:"form-control is-invalid" }}
             {% else %}
@@ -24,7 +26,7 @@
                 <div class="invalid-feedback">{{ form.confirm_name.errors.0 }}</div>
             {% endif %}
         </div>
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <a href="{% url 'core:child-list' %}" class="btn btn-default">Cancel</a>
+        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
+        <a href="{% url 'core:child-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}

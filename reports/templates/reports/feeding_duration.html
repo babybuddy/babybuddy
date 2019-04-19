@@ -1,8 +1,9 @@
 {% extends 'reports/report_base.html' %}
+{% load i18n %}
 
-{% block title %}Average Feeding Durations - {{ object }}{% endblock %}
+{% block title %}{% trans "Average Feeding Durations" %} - {{ object }}{% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
-    <li class="breadcrumb-item active" aria-current="page">Average Feeding Durations</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Average Feeding Durations" %}</li>
 {% endblock %}

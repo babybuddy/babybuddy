@@ -1,27 +1,28 @@
 {% extends 'babybuddy/page.html' %}
+{% load i18n %}
 
 {% block title %}
     {% if request.resolver_match.url_name == 'sleep-update' %}
-        Update a Sleep Entry
+        {% trans "Update a Sleep Entry" %}
     {% else %}
-        Add a Sleep Entry
+        {% trans "Add a Sleep Entry" %}
     {% endif %}
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:sleep-list' %}">Sleep</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:sleep-list' %}">{% trans "Sleep" %}</a></li>
     {% if object %}
-        <li class="breadcrumb-item active" aria-current="page">Update</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">Add</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add" %}</li>
     {% endif %}
 {% endblock %}
 
 {% block content %}
     {% if object %}
-        <h1>Update <span class="text-info">{{ object }}</span></h1>
+        {% blocktrans %}<h1>Update <span class="text-info">{{ object }}</span></h1>{% endblocktrans %}
     {% else %}
-        <h1>Add a Sleep Entry</h1>
+        <h1>{% trans "Add a Sleep Entry" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

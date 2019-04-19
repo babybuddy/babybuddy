@@ -1,8 +1,9 @@
 {% extends 'reports/report_base.html' %}
+{% load i18n %}
 
-{% block title %}Sleep Totals - {{ object }}{% endblock %}
+{% block title %}{% trans "Sleep Totals" %} - {{ object }}{% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
-    <li class="breadcrumb-item active" aria-current="page">Sleep Totals</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Sleep Totals" %}</li>
 {% endblock %}

@@ -171,6 +171,18 @@ gulp.task('makemigrations', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
+gulp.task('makemessages', function(cb) {
+    var command = ['run', 'python', 'manage.py', 'makemessages'];
+    command = command.concat(process.argv.splice(3));
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+});
+
+gulp.task('compilemessages', function(cb) {
+    var command = ['run', 'python', 'manage.py', 'compilemessages'];
+    command = command.concat(process.argv.splice(3));
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+});
+
 gulp.task('reset', function(cb) {
     spawn(
         'pipenv',

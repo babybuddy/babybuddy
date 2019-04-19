@@ -1,31 +1,31 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
+{% load i18n widget_tweaks %}
 
-{% block title %}User Settings{% endblock %}
+{% block title %}{% trans "User Settings" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item">User</li>
-    <li class="breadcrumb-item active">Settings</li>
+    <li class="breadcrumb-item">{% trans "User" %}</li>
+    <li class="breadcrumb-item active">{% trans "Settings" %}</li>
 {% endblock %}
 
 {% block content %}
-    <h1>User Settings</h1>
+    <h1>{% trans "User Settings" %}</h1>
     <div class="container-fluid">
         <form role="form" method="post">
             {% csrf_token %}
             {% if form.non_field_errors %}
                 {% for error in form.non_field_errors %}
                     <div class="alert alert-danger" role="alert">
-                        <strong>Error:</strong> {{ error }}
+                        {% blocktrans %}<strong>Error:</strong> {{ error }}{% endblocktrans %}
                     </div>
                 {% endfor %}
             {% elif form.errors %}
                 <div class="alert alert-danger" role="alert">
-                    <strong>Error:</strong> Some fields have errors. See below for details.
+                    {% blocktrans %}<strong>Error:</strong> Some fields have errors. See below for details.{% endblocktrans %}
                 </div>
             {% endif %}
             <fieldset>
-                <legend>User Profile</legend>
+                <legend>{% trans "User Profile" %}</legend>
                 <div class="form-group row">
                     {% with form_user.first_name as field %}
                         {% include 'babybuddy/form_field.html' %}
@@ -41,9 +41,14 @@
                         {% include 'babybuddy/form_field.html' %}
                     {% endwith %}
                 </div>
+                <div class="form-group row">
+                    {% with form_settings.language as field %}
+                        {% include 'babybuddy/form_field.html' %}
+                    {% endwith %}
+                </div>
             </fieldset>
             <fieldset>
-                <legend>Dashboard</legend>
+                <legend>{% trans "Dashboard" %}</legend>
                 <div class="form-group row">
                     {% with form_settings.dashboard_refresh_rate as field %}
                         {% include 'babybuddy/form_field.html' %}
@@ -51,16 +56,16 @@
                 </div>
             </fieldset>
             <fieldset>
-                <legend>API</legend>
+                <legend>{% trans "API" %}</legend>
                 <div class="form-group row">
-                    <label for="id_email" class="col-sm-2 col-form-label">Key</label>
+                    <label for="id_email" class="col-sm-2 col-form-label">{% trans "Key" %}</label>
                     <div class="col-sm-10">
                         <samp>{{ user.settings.api_key }}</samp>
-                        <a class="btn btn-xs btn-danger" href="{% url 'babybuddy:user-reset-api-key' %}">Regenerate</a>
+                        <a class="btn btn-xs btn-danger" href="{% url 'babybuddy:user-reset-api-key' %}">{% trans "Regenerate" %}</a>
                     </div>
                 </div>
             </fieldset>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
         </form>
     </div>
 {% endblock %}

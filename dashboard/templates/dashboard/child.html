@@ -1,12 +1,12 @@
 {% extends 'babybuddy/page.html' %}
-{% load cards %}
+{% load cards i18n %}
 
-{% block title %}Dashboard - {{ object }}{% endblock %}
+{% block title %}{% trans "Dashboard" %} - {{ object }}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">Children</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">{% trans "Children" %}</a></li>
     <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:child' object.slug %}">{{ object }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Dashboard" %}</li>
 {% endblock %}
 
 {% block content %}

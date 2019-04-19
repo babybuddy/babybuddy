@@ -1,10 +1,11 @@
 {% extends 'cards/base.html' %}
+{% load i18n %}
 
-{% block header %}Active Timers{% endblock %}
+{% block header %}{% trans "Active Timers" %}{% endblock %}
 
 {% block title %}
     {% with instances|length as count %}
-        {{ count }} active timer{{ count|pluralize }}
+        {% blocktrans with plural=count|pluralize %}{{ count }} active timer{{ plural }}{% endblocktrans %}
     {% endwith %}
 {% endblock %}
 
@@ -13,7 +14,10 @@
     {% for instance in instances %}
         <a href="{% url 'core:timer-detail' instance.id %}"
            class="list-group-item list-group-item-action">
-            <strong>{{ instance }}</strong> <p class="text-muted small m-0">Started by {{ instance.user }} at {{ instance.start|time }}</p>
+            <strong>{{ instance }}</strong>
+            <p class="text-muted small m-0">
+                {% blocktrans with start=instance.start|time %}Started by {{ instance.user }} at {{ start }}{% endblocktrans %}
+            </p>
         </a>
     {% endfor %}
     </ul>

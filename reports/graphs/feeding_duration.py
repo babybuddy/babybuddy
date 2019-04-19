@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
+from django.utils.translation import gettext as _
 
 import plotly.offline as plotly
 import plotly.graph_objs as go
@@ -32,7 +33,7 @@ def feeding_duration(instances):
         averages.append(total['sum']/total['count'])
 
     trace_avg = go.Scatter(
-        name='Average duration',
+        name=_('Average duration'),
         line=dict(shape='spline'),
         x=list(totals.values_list('date', flat=True)),
         y=[td.seconds/60 for td in averages],
@@ -40,7 +41,7 @@ def feeding_duration(instances):
         text=[_duration_string_ms(td) for td in averages]
     )
     trace_count = go.Scatter(
-        name='Total feedings',
+        name=_('Total feedings'),
         mode='markers',
         x=list(totals.values_list('date', flat=True)),
         y=list(totals.values_list('count', flat=True)),
@@ -49,12 +50,12 @@ def feeding_duration(instances):
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args['title'] = '<b>Average Feeding Durations</b>'
-    layout_args['xaxis']['title'] = 'Date'
+    layout_args['title'] = _('<b>Average Feeding Durations</b>')
+    layout_args['xaxis']['title'] = _('Date')
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
-    layout_args['yaxis']['title'] = 'Average duration (minutes)'
+    layout_args['yaxis']['title'] = _('Average duration (minutes)')
     layout_args['yaxis2'] = dict(layout_args['yaxis'])
-    layout_args['yaxis2']['title'] = 'Number of feedings'
+    layout_args['yaxis2']['title'] = _('Number of feedings')
     layout_args['yaxis2']['overlaying'] = 'y'
     layout_args['yaxis2']['side'] = 'right'
 

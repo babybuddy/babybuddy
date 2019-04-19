@@ -1,18 +1,18 @@
 {% extends 'babybuddy/page.html' %}
-{% load widget_tweaks %}
+{% load i18n widget_tweaks %}
 
-{% block title %}Delete a Weight Entry{% endblock %}
+{% block title %}{% trans "Delete a Weight Entry" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:weight-list' %}">Weight</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+    <li class="breadcrumb-item"><a href="{% url 'core:weight-list' %}">{% trans "Weight" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
 {% endblock %}
 
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
-        <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <a href="{% url 'core:weight-list' %}" class="btn btn-default">Cancel</a>
+        {% blocktrans %}<h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>{% endblocktrans %}
+        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
+        <a href="{% url 'core:weight-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}

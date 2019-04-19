@@ -1,8 +1,9 @@
 {% extends 'reports/report_base.html' %}
+{% load i18n %}
 
-{% block title %}Weight - {{ object }}{% endblock %}
+{% block title %}{% trans "Weight" %} - {{ object }}{% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
-    <li class="breadcrumb-item active" aria-current="page">Weight</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Weight" %}</li>
 {% endblock %}
