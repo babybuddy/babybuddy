@@ -7,6 +7,7 @@
 
 - [Contributions](#contributions)
   - [Pull request process](#pull-request-process)
+  - [Translation](#translation)
 - [Development](#development)
   - [Installation](#installation)
   - [Gulp Commands](#gulp-commands)
@@ -33,6 +34,33 @@ Gitter.
    
 New pull requests will be reviewed by project maintainers as soon as possible 
 and we will do our best to provide feedback and support potential contributors.
+
+### Translation
+
+Baby Buddy has support for translation/localization to any language. A general 
+translation process will look something like this:
+
+1. Set up a development environment (see [Development](#development) below).
+1. Run `gulp makemessages -l xx` where `xx` is a specific locale code (e.g. "fr"
+for French or "es" for Spanish). This create a new translation file at
+`locale/xx/LC_MESSAGES/django.po`, or update one if it exits.
+1. Open the created/updated `django.po` file and update the header template with
+license and contact info.
+1. Start translating! Each translatable string will have a `msgid` value with 
+the string in English and a corresponding (empty) `msgstr` value where a
+translated string can be filled in.
+1. Once all strings have been translated, run `gulp compilemessages -l xx` to
+compile an optimized translation file (`locale/xx/LC_MESSAGES/django.mo`).
+1. To expose the new translation as a user setting, add the locale code to the
+`LANGUAGES` array in the base settings file (`babybuddy/settings/base.py`).
+1. Run the development server, log in, and update the user language to test the
+newly translated strings.
+
+Once the translation is complete, commit the new files and changes to a fork and
+[create a pull request](#pull-request-process) for review.
+ 
+For more information on the Django translation process, see Django's 
+documentation section: [Translation](https://docs.djangoproject.com/en/dev/topics/i18n/translation/).
 
 ## Development
 
@@ -92,10 +120,12 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 - [`gulp build`](#build)
 - [`gulp clean`](#clean)
 - [`gulp collectstatic`](#collectstatic)
+- [`gulp compilemessages`](#compilemessages)
 - [`gulp coverage`](#coverage)
 - [`gulp extras`](#extras)
 - [`gulp fake`](#fake)
 - [`gulp lint`](#lint)
+- [`gulp makemessages`](#makemessages)
 - [`gulp makemigrations`](#makemigrations)
 - [`gulp migrate`](#migrate)
 - [`gulp reset`](#reset)
@@ -126,6 +156,11 @@ the `babybuddy/static` folder, so generally `gulp build` should be run before
 this command for production deployments. Gulp also passes along
 non-overlapping arguments for this command, e.g. `--no-input`.
 
+#### `compilemessages`
+
+Executes Django's `compilemessages` management task. See [django-admin compilemessages](https://docs.djangoproject.com/en/dev/ref/django-admin/#compilemessages)
+for more details about other options and functionality of this command.
+
 #### `coverage`
 
 Create a test coverage report. See [`.coveragerc`](.coveragerc) for default
@@ -146,6 +181,14 @@ children and seven days of data for each.
 #### `lint`
 
 Executes Python and SASS linting for all relevant source files.
+
+#### `makemessages`
+
+Executes Django's `makemessages` management task. See [django-admin makemessages](https://docs.djangoproject.com/en/dev/ref/django-admin/#makemessages)
+for more details about other options and functionality of this command. When
+working on a single translation, the `-l` flag is useful to make message for 
+only that language, e.g. `gulp makemessages -l fr` to make only a French
+language translation file.
 
 #### `makemigrations`
 
