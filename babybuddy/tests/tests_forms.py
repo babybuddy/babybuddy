@@ -25,6 +25,14 @@ class FormsTestCase(TestCase):
         cls.user = User.objects.create_user(
             is_superuser=True, **cls.credentials)
 
+        cls.settings_template = {
+            'first_name': 'User',
+            'last_name': 'Name',
+            'email': 'user@user.user',
+            'dashboard_refresh_rate': '',
+            'language': 'en'
+        }
+
     def test_change_password(self):
         self.c.login(**self.credentials)
 
@@ -85,18 +93,28 @@ class FormsTestCase(TestCase):
     def test_user_settings(self):
         self.c.login(**self.credentials)
 
-        params = {
-            'first_name': 'User',
-            'last_name': 'Name',
-            'email': 'user@user.user',
-            'dashboard_refresh_rate': ''
-        }
+        params = self.settings_template.copy()
+        params['first_name'] = 'New First Name'
 
-        page = self.c.post('/user/settings/', params)
-        self.assertEqual(page.status_code, 302)
+        page = self.c.post('/user/settings/', params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, 'New First Name')
 
-        params = {'email': 'Not an email address'}
+    def test_user_settings_invalid(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params['email'] = 'Not an email address'
+
         page = self.c.post('/user/settings/', params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'user_form', 'email',
                              'Enter a valid email address.')
+
+    def test_user_settings_language(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params['language'] = 'fr'
+        page = self.c.post('/user/settings/', data=params, follow=True)
+        self.assertContains(page, 'Paramètres Utilisateur')

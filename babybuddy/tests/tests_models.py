@@ -17,10 +17,13 @@ class SettingsTestCase(TestCase):
         }
         user = User.objects.create_user(is_superuser=True, **credentials)
         self.assertIsInstance(user.settings, Settings)
-        self.assertEqual(str(user.settings), 'Test\'s Settings')
         self.assertEqual(
             user.settings.dashboard_refresh_rate_milliseconds, 60000)
 
         user.settings.dashboard_refresh_rate = None
         user.save()
         self.assertIsNone(user.settings.dashboard_refresh_rate_milliseconds)
+
+        user.settings.language = 'fr'
+        user.save()
+        self.assertEqual(user.settings.language, 'fr')
