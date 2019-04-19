@@ -7,7 +7,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.timezone import timedelta
 from django.utils.text import format_lazy
-from django.utils.translation import activate, gettext_lazy as _, LANGUAGE_SESSION_KEY
+from django.utils import translation
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework.authtoken.models import Token
 
@@ -77,5 +78,5 @@ def save_user_settings(sender, instance, **kwargs):
 
 @receiver(user_logged_in)
 def user_logged_in_callback(sender, request, user, **kwargs):
-    activate(user.settings.language)
-    request.session[LANGUAGE_SESSION_KEY] = user.settings.language
+    translation.activate(user.settings.language)
+    request.session[translation.LANGUAGE_SESSION_KEY] = user.settings.language

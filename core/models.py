@@ -121,7 +121,11 @@ class DiaperChange(models.Model):
         related_name='diaper_change',
         verbose_name=_('Child')
     )
-    time = models.DateTimeField(blank=False, null=False, verbose_name=_('Time'))
+    time = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name=_('Time')
+    )
     wet = models.BooleanField(verbose_name=_('Wet'))
     solid = models.BooleanField(verbose_name=_('Solid'))
     color = models.CharField(
