@@ -37,6 +37,16 @@ and we will do our best to provide feedback and support potential contributors.
 
 ### Translation
 
+#### POEditor
+
+Baby Buddy is set up as a project on [POEditor](https://poeditor.com/). 
+Interested contibutors can 
+[join translation of Baby Buddy](https://poeditor.com/join/project/QwQqrpTIzn)
+for access to a simple, web-based frontend for adding/editing translation files
+to the project.
+
+#### Manual
+
 Baby Buddy has support for translation/localization to any language. A general 
 translation process will look something like this:
 
