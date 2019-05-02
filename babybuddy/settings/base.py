@@ -127,6 +127,7 @@ LOCALE_PATHS = [
 LANGUAGES = [
     ('en', _('English')),
     ('fr', _('French')),
+    ('sv', _('Swedish')),
 ]
 
 
