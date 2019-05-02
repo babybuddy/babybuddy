@@ -203,6 +203,7 @@ class Feeding(models.Model):
             ('bottle', _('Bottle')),
             ('left breast', _('Left breast')),
             ('right breast', _('Right breast')),
+            ('both breasts', _('Both breasts')),
         ],
         max_length=255,
         verbose_name=_('Method')

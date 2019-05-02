@@ -49,7 +49,7 @@ class DiaperChangeTestCase(TestCase):
             self.change.attributes(), ['wet', 'solid', 'black'])
 
 
-class FeedingChangeTestCase(TestCase):
+class FeedingTestCase(TestCase):
     def setUp(self):
         call_command('migrate', verbosity=0)
         self.child = models.Child.objects.create(
@@ -70,6 +70,18 @@ class FeedingChangeTestCase(TestCase):
         self.assertEqual(feeding, models.Feeding.objects.first())
         self.assertEqual(str(feeding), 'Feeding')
         self.assertEqual(feeding.duration, feeding.end - feeding.start)
+
+    def test_method_both_breasts(self):
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime(),
+            type='breast milk',
+            method='both breasts'
+        )
+        self.assertEqual(feeding, models.Feeding.objects.first())
+        self.assertEqual(str(feeding), 'Feeding')
+        self.assertEqual(feeding.method, 'both breasts')
 
 
 class NoteTestCase(TestCase):
