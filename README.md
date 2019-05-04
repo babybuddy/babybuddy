@@ -19,6 +19,7 @@ work.
   - [Heroku](#heroku)
   - [Manual](#manual)
 - [Configuration](#configuration)
+- [Languages](#languages)
 - [API](#api)
   - [Authentication](#authentication)
   - [`GET` Method](#get-method)
@@ -346,6 +347,17 @@ See also [Django's documentation on the SECRET_KEY setting](https://docs.djangop
 
 The time zone to use for the instance. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 for all possible values.
+
+## Languages
+
+Baby Buddy includes translation support as of v1.2.2. Language can be set on a per-user basis from the user settings page (`/user/settings/`). See [CONTRIBUTING.md](CONTRIBUTING.md#translation) for information about how to create/update translations.
+
+### Available languages
+:us: English (U.S.) *(base)*
+
+:fr: French
+
+:sweden: Swedish
 
 ## API
 
