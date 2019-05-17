@@ -376,6 +376,7 @@ Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 - `/api/feedings/`
 - `/api/notes/`
 - `/api/sleep/`
+- `/api/temperature/`
 - `/api/timers/`
 - `/api/tummy-times/`
 - `/api/weight/`
