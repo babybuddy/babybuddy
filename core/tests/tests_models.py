@@ -120,6 +120,26 @@ class SleepTestCase(TestCase):
         self.assertEqual(sleep.duration, sleep.end - sleep.start)
 
 
+class TemperatureTestCase(TestCase):
+    def setUp(self):
+        call_command('migrate', verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name='First',
+            last_name='Last',
+            birth_date=timezone.localdate()
+        )
+        self.temp = models.Temperature.objects.create(
+            child=self.child,
+            time=timezone.localtime() - timezone.timedelta(days=1),
+            temperature=98.6
+        )
+
+    def test_temperature_create(self):
+        self.assertEqual(self.temp, models.Temperature.objects.first())
+        self.assertEqual(str(self.temp), 'Temperature')
+        self.assertEqual(self.temp.temperature, 98.6)
+
+
 class TimerTestCase(TestCase):
     def setUp(self):
         call_command('migrate', verbosity=0)

@@ -97,6 +97,18 @@ class ViewsTestCase(TestCase):
         page = self.c.get('/sleep/{}/delete/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
 
+    def test_temperature_views(self):
+        page = self.c.get('/temperature/')
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get('/temperature/add/')
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.Temperature.objects.first()
+        page = self.c.get('/temperature/{}/'.format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get('/temperature/{}/delete/'.format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
     def test_timer_views(self):
         page = self.c.get('/timers/')
         self.assertEqual(page.status_code, 200)

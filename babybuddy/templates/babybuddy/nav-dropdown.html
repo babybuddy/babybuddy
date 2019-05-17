@@ -45,6 +45,12 @@
                             {% trans "Sleep" %}
                         </a>
                     {% endif %}
+                    {% if perms.core.add_temperature %}
+                        <a class="dropdown-item p-2" href="{% url 'core:temperature-add' %}">
+                            <i class="icon icon-temperature" aria-hidden="true"></i>
+                            {% trans "Temperature" %}
+                        </a>
+                    {% endif %}
                     {% if perms.core.add_tummytime %}
                         <a class="dropdown-item p-2" href="{% url 'core:tummytime-add' %}">
                             <i class="icon icon-tummytime" aria-hidden="true"></i>
@@ -113,6 +119,20 @@
                             <a class="dropdown-item pl-5{% if request.path == '/notes/add/' %} active{% endif %}"
                                href="{% url 'core:note-add' %}"><i class="icon icon-add" aria-hidden="true"></i>
                                 {% trans "Note" %}
+                            </a>
+                        {% endif %}
+
+                        {% if perms.core.view_temperature %}
+                            <a class="dropdown-item{% if request.path == '/temperature/' %} active{% endif %}"
+                               href="{% url 'core:temperature-list' %}">
+                                <i class="icon icon-temperature" aria-hidden="true"></i>
+                                {% trans "Temperature" %}
+                            </a>
+                        {% endif %}
+                        {% if perms.core.add_temperature %}
+                            <a class="dropdown-item pl-5{% if request.path == '/temperature/add/' %} active{% endif %}"
+                               href="{% url 'core:temperature-add' %}"><i class="icon icon-add" aria-hidden="true"></i>
+                                {% trans "Temperature reading" %}
                             </a>
                         {% endif %}
 

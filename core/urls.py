@@ -72,6 +72,27 @@ urlpatterns = [
         name='sleep-delete'
     ),
 
+    path(
+        'temperature/',
+        views.TemperatureList.as_view(),
+        name='temperature-list'
+    ),
+    path(
+        'temperature/add/',
+        views.TemperatureAdd.as_view(),
+        name='temperature-add'
+    ),
+    path(
+        'temperature/<int:pk>/',
+        views.TemperatureUpdate.as_view(),
+        name='temperature-update'
+    ),
+    path(
+        'temperature/<int:pk>/delete/',
+        views.TemperatureDelete.as_view(),
+        name='temperature-delete'
+    ),
+
     path('timers/', views.TimerList.as_view(), name='timer-list'),
     path('timer/add/', views.TimerAdd.as_view(), name='timer-add'),
     path(

@@ -66,9 +66,14 @@ class Command(BaseCommand):
         :returns:
         """
         self.time = self.child.birth_date
-        last_weight_entry_time = self.time
-        self.weight = uniform(2.0, 5.0)
+
+        self.temperature = round(uniform(95.0, 102.0), 2)
+        self._add_temperature_entry()
+
+        self.weight = round(uniform(8.0, 12.0), 2)
         self._add_weight_entry()
+        last_weight_entry_time = self.time
+
         self._add_note_entry()
         while self.time < self.time_now:
             self._add_sleep_entry()
@@ -81,6 +86,8 @@ class Command(BaseCommand):
             if choice([True, False]):
                 self._add_diaperchange_entry()
                 self._add_tummytime_entry()
+            if choice([True, False]):
+                self._add_temperature_entry()
             if (self.time - last_weight_entry_time).days > 6:
                 self._add_weight_entry()
                 last_weight_entry_time = self.time
@@ -166,6 +173,19 @@ class Command(BaseCommand):
         self.time = end
 
     @transaction.atomic
+    def _add_temperature_entry(self):
+        """
+        Add a Temperature entry. This assumes a weekly interval.
+        :returns:
+        """
+        self.temperature = round(uniform(95.0, 102.0), 2)
+        models.Temperature.objects.create(
+            child=self.child,
+            temperature=self.temperature,
+            time=self.time
+        ).save()
+
+    @transaction.atomic
     def _add_tummytime_entry(self):
         """
         Add a Tummy time entry and advance self.time.
@@ -197,6 +217,6 @@ class Command(BaseCommand):
         self.weight += uniform(0.1, 0.3)
         models.Weight.objects.create(
             child=self.child,
-            weight=self.weight,
+            weight=round(self.weight, 2),
             date=self.time.date()
         ).save()

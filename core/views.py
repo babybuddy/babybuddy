@@ -218,6 +218,36 @@ class SleepDelete(CoreDeleteView):
     success_url = reverse_lazy('core:sleep-list')
 
 
+class TemperatureList(PermissionRequired403Mixin, BabyBuddyFilterView):
+    model = models.Temperature
+    template_name = 'core/temperature_list.html'
+    permission_required = ('core.view_temperature',)
+    paginate_by = 10
+    filterset_fields = ('child',)
+
+
+class TemperatureAdd(CoreAddView):
+    model = models.Temperature
+    permission_required = ('core.add_temperature',)
+    form_class = forms.TemperatureForm
+    success_url = reverse_lazy('core:temperature-list')
+    success_message = _('%(model)s reading added!')
+
+
+class TemperatureUpdate(CoreUpdateView):
+    model = models.Temperature
+    permission_required = ('core.change_temperature',)
+    fields = ['child', 'temperature', 'time']
+    success_url = reverse_lazy('core:temperature-list')
+    success_message = _('%(model)s reading for %(child)s updated.')
+
+
+class TemperatureDelete(CoreDeleteView):
+    model = models.Temperature
+    permission_required = ('core.delete_temperature',)
+    success_url = reverse_lazy('core:temperature-list')
+
+
 class TimerList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.Timer
     template_name = 'core/timer_list.html'

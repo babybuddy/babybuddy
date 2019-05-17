@@ -45,6 +45,13 @@ class SleepAdmin(admin.ModelAdmin):
     search_fields = ('child__first_name', 'child__last_name',)
 
 
+@admin.register(models.Temperature)
+class TemperatureAdmin(admin.ModelAdmin):
+    list_display = ('child', 'temperature', 'time',)
+    list_filter = ('child',)
+    search_fields = ('child__first_name', 'child__last_name', 'temperature',)
+
+
 @admin.register(models.Timer)
 class TimerAdmin(admin.ModelAdmin):
     list_display = ('name', 'start', 'end', 'duration', 'active', 'user')

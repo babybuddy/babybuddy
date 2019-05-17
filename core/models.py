@@ -326,6 +326,40 @@ class Sleep(models.Model):
         validate_unique_period(Sleep.objects.filter(child=self.child), self)
 
 
+class Temperature(models.Model):
+    model_name = 'temperature'
+    child = models.ForeignKey(
+        'Child',
+        on_delete=models.CASCADE,
+        related_name='temperature',
+        verbose_name=_('Child')
+    )
+    temperature = models.FloatField(
+        blank=False,
+        null=False,
+        verbose_name=_('Temperature')
+    )
+    time = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name=_('Time')
+    )
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-time']
+        verbose_name = _('Temperature')
+        verbose_name_plural = _('Temperature')
+
+    def __str__(self):
+        return str(_('Temperature'))
+
+    def clean(self):
+        validate_time(self.time, 'time')
+
+
 class Timer(models.Model):
     model_name = 'timer'
     name = models.CharField(

@@ -174,6 +174,22 @@ class SleepForm(forms.ModelForm):
         return instance
 
 
+class TemperatureForm(forms.ModelForm):
+    class Meta:
+        model = models.Temperature
+        fields = ['child', 'temperature', 'time']
+        widgets = {
+            'time': forms.DateTimeInput(attrs={
+                'class': 'datetimepicker-input',
+                'data-target': '#datetimepicker_time',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        kwargs = set_default_child(kwargs)
+        super(TemperatureForm, self).__init__(*args, **kwargs)
+
+
 class TimerForm(forms.ModelForm):
     class Meta:
         model = models.Timer

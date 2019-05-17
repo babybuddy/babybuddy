@@ -121,6 +121,17 @@ class FormsTestCase(TestCase):
         page = self.c.post('/sleep/{}/'.format(entry.id), params)
         self.assertEqual(page.status_code, 302)
 
+    def test_temperature_forms(self):
+        params = {
+            'child': 1,
+            'temperature': '98.6',
+            'time': '2000-01-01 2:21'
+        }
+
+        entry = models.Temperature.objects.first()
+        page = self.c.post('/temperature/{}/'.format(entry.id), params)
+        self.assertEqual(page.status_code, 302)
+
     def test_timer_forms(self):
         start_time = timezone.localtime()
         timer = models.Timer.objects.create(user=self.user, start=start_time)

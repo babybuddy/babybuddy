@@ -96,6 +96,10 @@
     @extend .fa-stop;
 }
 
+.icon-temperature {
+    @extend .fa-thermometer-three-quarters;
+}
+
 .icon-timer {
     @extend .fa-clock-o;
 }
