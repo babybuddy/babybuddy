@@ -287,6 +287,16 @@
       "duration": "04:00:00"
     }
   },
+    {
+    "model": "core.temperature",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "temperature": 98.6,
+      "time": "2017-11-17T17:52:00Z"
+    }
+  },
   {
     "model": "core.timer",
     "pk": 1,

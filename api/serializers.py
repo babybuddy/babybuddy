@@ -58,6 +58,12 @@ class SleepSerializer(CoreModelSerializer):
         fields = ('id', 'child', 'start', 'end', 'duration')
 
 
+class TemperatureSerializer(CoreModelSerializer):
+    class Meta:
+        model = models.Temperature
+        fields = ('id', 'child', 'temperature', 'time')
+
+
 class TimerSerializer(CoreModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 

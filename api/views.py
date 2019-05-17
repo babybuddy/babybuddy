@@ -37,6 +37,12 @@ class SleepViewSet(viewsets.ModelViewSet):
     filterset_fields = ('child',)
 
 
+class TemperatureViewSet(viewsets.ModelViewSet):
+    queryset = models.Temperature.objects.all()
+    serializer_class = serializers.TemperatureSerializer
+    filterset_fields = ('child',)
+
+
 class TimerViewSet(viewsets.ModelViewSet):
     queryset = models.Timer.objects.all()
     serializer_class = serializers.TimerSerializer

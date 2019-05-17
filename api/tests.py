@@ -196,6 +196,41 @@ class SleepAPITestCase(APITestCase):
 
 
 @override_settings(TIME_ZONE='US/Eastern')
+class TemperatureAPITestCase(APITestCase):
+    fixtures = ['tests.json']
+    endpoint = reverse('api:temperature-list')
+
+    def setUp(self):
+        self.client.login(username='admin', password='admin')
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['results'][0], {
+            'id': 1,
+            'child': 1,
+            'temperature': 98.6,
+            'time': '2017-11-17T12:52:00-05:00'
+        })
+
+    def test_options(self):
+        response = self.client.options(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], 'Temperature List')
+
+    def test_post(self):
+        data = {
+            'child': 1,
+            'temperature': '100.1',
+            'time': '2017-11-20T22:52:00-05:00'
+        }
+        response = self.client.post(self.endpoint, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.Temperature.objects.get(pk=response.data['id'])
+        self.assertEqual(str(obj.temperature), data['temperature'])
+
+
+@override_settings(TIME_ZONE='US/Eastern')
 class TimerAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:timer-list')
