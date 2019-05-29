@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.db.models import Sum
-from django.db.models.functions import TruncDate
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
 import plotly.offline as plotly
@@ -15,17 +14,18 @@ def feeding_amounts(instances):
     :param instances: a QuerySet of Feeding instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    totals = instances.annotate(date=TruncDate('start')) \
-        .values('date') \
-        .annotate(sum=Sum('amount')) \
-        .order_by('-date')
+    totals = {}
+    for instance in instances:
+        end = timezone.localtime(instance.end)
+        date = end.date()
+        if date not in totals.keys():
+            totals[date] = 0
+        totals[date] += instance.amount or 0
 
-    dates = [value['date'] for value in totals.values('date')]
-    amounts = [value['amount'] or 0 for value in totals.values('amount')]
-
+    amounts = [round(amount, 2) for amount in totals.values()]
     trace = go.Bar(
         name=_('Total feeding amount'),
-        x=dates,
+        x=list(totals.keys()),
         y=amounts,
         hoverinfo='text',
         textposition='outside',
