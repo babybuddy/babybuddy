@@ -86,7 +86,7 @@ def split_graph_output(output):
     """
     try:
         html, js_graph, js_listener = output.split('<script')
-        js = js_graph + js_listener
+        js = js_graph + '<script' + js_listener
     except ValueError:
         html, js = output.split('<script')
     js = '<script' + js
