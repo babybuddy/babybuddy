@@ -17,6 +17,11 @@ urlpatterns = [
         name='report-diaperchange-types-child'
     ),
     path(
+        'children/<slug:slug>/reports/feeding/amounts/',
+        views.FeedingAmountsChildReport.as_view(),
+        name='report-feeding-amounts-child'
+    ),
+    path(
         'children/<slug:slug>/reports/feeding/duration/',
         views.FeedingDurationChildReport.as_view(),
         name='report-feeding-duration-child'

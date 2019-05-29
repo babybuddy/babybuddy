@@ -45,6 +45,29 @@ class DiaperChangeTypesChildReport(PermissionRequired403Mixin, DetailView):
         return context
 
 
+class FeedingAmountsChildReport(PermissionRequired403Mixin, DetailView):
+    """
+    Graph of daily feeding amounts over time.
+    """
+    model = models.Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/feeding_amounts.html'
+
+    def __init__(self):
+        super(FeedingAmountsChildReport, self).__init__()
+        self.html = ''
+        self.js = ''
+
+    def get_context_data(self, **kwargs):
+        context = super(FeedingAmountsChildReport, self).get_context_data(
+            **kwargs)
+        child = context['object']
+        instances = models.Feeding.objects.filter(child=child)
+        if instances:
+            context['html'], context['js'] = graphs.feeding_amounts(instances)
+        return context
+
+
 class FeedingDurationChildReport(PermissionRequired403Mixin, DetailView):
     """
     Graph of feeding durations over time.
@@ -56,7 +79,7 @@ class FeedingDurationChildReport(PermissionRequired403Mixin, DetailView):
     def __init__(self):
         super(FeedingDurationChildReport, self).__init__()
         self.html = ''
-        self.javascript = ''
+        self.js = ''
 
     def get_context_data(self, **kwargs):
         context = super(FeedingDurationChildReport, self).get_context_data(
@@ -79,7 +102,7 @@ class SleepPatternChildReport(PermissionRequired403Mixin, DetailView):
     def __init__(self):
         super(SleepPatternChildReport, self).__init__()
         self.html = ''
-        self.javascript = ''
+        self.js = ''
 
     def get_context_data(self, **kwargs):
         context = super(SleepPatternChildReport, self).get_context_data(
@@ -102,7 +125,7 @@ class SleepTotalsChildReport(PermissionRequired403Mixin, DetailView):
     def __init__(self):
         super(SleepTotalsChildReport, self).__init__()
         self.html = ''
-        self.javascript = ''
+        self.js = ''
 
     def get_context_data(self, **kwargs):
         context = super(SleepTotalsChildReport, self).get_context_data(
