@@ -194,7 +194,11 @@ class Feeding(models.Model):
         verbose_name=_('Duration')
     )
     type = models.CharField(
-        choices=[('breast milk', _('Breast milk')), ('formula', _('Formula'))],
+        choices=[
+            ('breast milk', _('Breast milk')),
+            ('formula', _('Formula')),
+            ('fortified breast milk', _('Fortified breast milk')),
+        ],
         max_length=255,
         verbose_name=_('Type')
     )
