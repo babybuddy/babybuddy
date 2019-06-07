@@ -357,6 +357,8 @@ Baby Buddy includes translation support as of v1.2.2. Language can be set on a p
 
 :fr: French
 
+:de: German
+
 :sweden: Swedish
 
 ## API
