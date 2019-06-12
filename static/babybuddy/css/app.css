@@ -9543,7 +9543,8 @@ a.text-error:hover, a.text-error:focus {
   content: ""; }
 
 .fa-thermometer-3:before,
-.fa-thermometer-three-quarters:before {
+.fa-thermometer-three-quarters:before,
+.icon-temperature:before {
   content: ""; }
 
 .fa-thermometer-2:before,
