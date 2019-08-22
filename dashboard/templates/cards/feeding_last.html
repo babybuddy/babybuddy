@@ -5,7 +5,7 @@
 
 {% block title %}
     {% if feeding %}
-        {% blocktrans with time=feeding.end|timesince %}{{ time }} ago{% endblocktrans %}
+        {% blocktrans with time=feeding.start|timesince %}{{ time }} ago{% endblocktrans %}
     {% else %}
         {% trans "Never" %}
     {% endif %}
