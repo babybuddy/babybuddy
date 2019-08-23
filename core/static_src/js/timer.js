@@ -11,6 +11,7 @@ BabyBuddy.Timer = function ($) {
     var timerId = null;
     var timerElement = null;
     var lastUpdate = moment();
+    var hidden = null;
 
     var Timer = {
         run: function(timer_id, element_id) {
@@ -34,11 +35,22 @@ BabyBuddy.Timer = function ($) {
             // If the page just came in to view, update the timer data with the
             // current actual duration. This will (potentially) help mobile
             // phones that lock with the timer page open.
-            Visibility.change(function (e, state) {
-                if (state == 'visible' && moment().diff(lastUpdate) > 2000) {
-                    Timer.update();
-                }
-            });
+            if (typeof document.hidden !== "undefined") {
+                hidden = "hidden";
+            }
+            else if (typeof document.msHidden !== "undefined") {
+                hidden = "msHidden";
+            }
+            else if (typeof document.webkitHidden !== "undefined") {
+                hidden = "webkitHidden";
+            }
+            window.addEventListener('focus', Timer.handleVisibilityChange, false);
+        },
+
+        handleVisibilityChange: function() {
+            if (!document[hidden] && moment().diff(lastUpdate) > 10000) {
+                Timer.update();
+            }
         },
 
         tick: function() {
