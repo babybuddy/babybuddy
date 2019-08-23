@@ -6,7 +6,7 @@ url = "https://pypi.python.org/simple"
 
 [packages]
 
-django = ">=2.2.3"
+django = ">=2.2.4"
 djangorestframework = "*"
 django-filter = "*"
 django-widget-tweaks = "*"
