@@ -21,7 +21,7 @@
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
-    "plotly.js": "^1.48.3",
+    "plotly.js": "^1.49.4",
     "popper.js": "^1.15.0",
     "pump": "^3.0.0",
     "tempusdominus-bootstrap-4": "^5.1.2",
