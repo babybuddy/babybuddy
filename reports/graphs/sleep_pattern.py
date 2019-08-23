@@ -110,7 +110,7 @@ def sleep_pattern(instances):
         traces.append(go.Bar(
             x=dates,
             y=row,
-            text=text_df.ix[index],
+            text=text_df.iloc[index],
             hoverinfo='text',
             marker={'color': color},
             showlegend=False,
