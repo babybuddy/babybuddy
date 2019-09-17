@@ -198,7 +198,10 @@ class Feeding(models.Model):
             ('breast milk', _('Breast milk')),
             ('formula', _('Formula')),
             ('fortified breast milk', _('Fortified breast milk')),
-        ],
+            ('vegetable food', _('Vegetable Food')),
+	    ('fruit', _('Fruit')),
+	    ('bread', _('Bread')),	
+	],
         max_length=255,
         verbose_name=_('Type')
     )
@@ -208,7 +211,9 @@ class Feeding(models.Model):
             ('left breast', _('Left breast')),
             ('right breast', _('Right breast')),
             ('both breasts', _('Both breasts')),
-        ],
+            ('spoon', _('Spoon')),
+	    ('other', _('other')),
+	],
         max_length=255,
         verbose_name=_('Method')
     )
