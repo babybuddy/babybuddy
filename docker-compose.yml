@@ -1,21 +1,25 @@
+---
 version: "2"
 
 services:
   db:
     image: postgres
     environment:
-       - PGDATA=/db-data
+      - PGDATA=/db-data
     volumes:
-       - db:/db-data
+      - db:/db-data:rw
   app:
     image: cdubzzz/babybuddy
-    env_file: 
+    env_file:
       - docker.env
     command: gunicorn -c /app/gunicorn.py babybuddy.wsgi
     ports:
       - "8000:8000"
     depends_on:
       - db
+    volumes:
+      - baby_data:/app:rw
 
 volumes:
-   db:
+  db: {}
+  baby_data: {}
