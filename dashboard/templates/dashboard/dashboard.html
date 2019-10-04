@@ -12,7 +12,7 @@
     {% for object in objects %}
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-2 mb-4">
             <div class="card">
-                <a href="{% url 'core:child' object.slug %}">
+                <a class="text-center" href="{% url 'core:child' object.slug %}">
                     {% if object.picture %}
                         {% thumbnail object.picture 300x300 upscale crop as thumb %}
                         <img src="{{ thumb.url }}" class="child-photo img-fluid" />
