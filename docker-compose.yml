@@ -18,8 +18,8 @@ services:
     depends_on:
       - db
     volumes:
-      - baby_data:/app:rw
+      - app_data:/app:rw
 
 volumes:
+  app_data: {}
   db: {}
-  baby_data: {}
