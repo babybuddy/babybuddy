@@ -7,7 +7,7 @@ services:
     environment:
       - PGDATA=/db-data
     volumes:
-      - db:/db-data:rw
+      - db_data:/db-data:rw
   app:
     image: cdubzzz/babybuddy
     env_file:
@@ -22,4 +22,4 @@ services:
 
 volumes:
   app_data: {}
-  db: {}
+  db_data: {}
