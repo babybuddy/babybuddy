@@ -162,7 +162,7 @@ msgstr "Schlafen"
 #: core/templates/core/tummytime_list.html:7
 #: core/templates/core/tummytime_list.html:11
 msgid "Tummy Time"
-msgstr "Spiel-Zeit"
+msgstr "Bauchzeit"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:57
 #: babybuddy/templates/babybuddy/nav-dropdown.html:123 core/models.py:478
@@ -242,7 +242,7 @@ msgstr "Schlaf-Eintrag"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:195
 msgid "Tummy Time entry"
-msgstr "Spiel-Zeit Eintrag"
+msgstr "Bauchzeit-Eintrag"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:218
 #: babybuddy/templates/babybuddy/user_list.html:17
@@ -932,21 +932,21 @@ msgstr "Keine"
 
 #: core/templates/core/tummytime_confirm_delete.html:4
 msgid "Delete a Tummy Time Entry"
-msgstr "Spiel-Zeit Eintrag löschen"
+msgstr "Bauchzeit-Eintrag löschen"
 
 #: core/templates/core/tummytime_form.html:6
 msgid "Update a Tummy Time Entry"
-msgstr "Spiel-Zeit Eintrag ändern"
+msgstr "Bauchzeit-Eintrag ändern"
 
 #: core/templates/core/tummytime_form.html:8
 #: core/templates/core/tummytime_form.html:25
 #: core/templates/core/tummytime_list.html:63
 msgid "Add a Tummy Time Entry"
-msgstr "Speil-Zeit Eintrag hinzufügen"
+msgstr "Bauchzeit-Eintrag hinzufügen"
 
 #: core/templates/core/tummytime_list.html:53
 msgid "No tummy time entries found."
-msgstr "Keine Spiel-Zeit Einträge gefunden."
+msgstr "Keine Bauchzeit-Einträge gefunden."
 
 #: core/templates/core/weight_confirm_delete.html:4
 msgid "Delete a Weight Entry"
@@ -985,11 +985,11 @@ msgstr "%(child)s ist aufgewacht."
 
 #: core/timeline.py:75
 msgid "%(child)s started tummy time!"
-msgstr "%(child)s hat begonnen zu spielen."
+msgstr "%(child)s liegt nun auf dem Bauch."
 
 #: core/timeline.py:83
 msgid "%(child)s finished tummy time."
-msgstr "%(child)s hat fertig gespielt."
+msgstr "%(child)s liegt nicht mehr auf dem Bauch."
 
 #: core/views.py:20
 msgid "%(model)s entry for %(child)s added!"
@@ -1111,7 +1111,7 @@ msgstr "Gestartet von %(instance.user)s um %(start)s"
 
 #: dashboard/templates/cards/tummytime_day.html:4
 msgid "Today's Tummy Time"
-msgstr "Heutige Spiel-Zeit"
+msgstr "Heutige Bauchzeit"
 
 #: dashboard/templates/cards/tummytime_day.html:20
 msgid "%(duration)s at %(end)s"
@@ -1119,7 +1119,7 @@ msgstr "%(duration)s um %(end)s"
 
 #: dashboard/templates/cards/tummytime_last.html:4
 msgid "Last Tummy Time"
-msgstr "Letzte Spiel-Zeit"
+msgstr "Letzte Bauchzeit"
 
 #: dashboard/templates/dashboard/child_button_group.html:3
 msgid "Child actions"
