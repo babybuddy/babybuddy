@@ -28,8 +28,8 @@
                 {% for feeding in object_list %}
                     <tr>
                         <th scope="row"><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></th>
-                        <td>{{ feeding.method }}</td>
-                        <td>{{ feeding.type }}</td>
+                        <td>{{ feeding.get_method_display }}</td>
+                        <td>{{ feeding.get_type_display }}</td>
                         <td>
                             {% if feeding.amount %}
                                 {{ feeding.amount }}

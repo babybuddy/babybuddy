@@ -28,7 +28,7 @@
                         <th scope="row"><a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a></th>
                         <td class="text-center">{{ change.wet|bool_icon }}</td>
                         <td class="text-center">{{ change.solid|bool_icon }}</td>
-                        <td>{{ change.color }}</td>
+                        <td>{{ change.get_color_display }}</td>
                         <td>{{ change.time|date:'n/j/y G:i' }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
