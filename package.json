@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "bootstrap": "4.3.1",
-    "del": "^5.0.0",
+    "del": "^5.1.0",
     "font-awesome": "^4.7.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
@@ -21,8 +21,8 @@
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
-    "plotly.js": "^1.49.4",
-    "popper.js": "^1.15.0",
+    "plotly.js": "^1.51.1",
+    "popper.js": "^1.16.0",
     "pump": "^3.0.0",
     "tempusdominus-bootstrap-4": "^5.1.2",
     "tempusdominus-core": "^5.0.3"
