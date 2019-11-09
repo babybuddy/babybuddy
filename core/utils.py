@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.utils import timezone
+from django.utils.translation import ngettext
 
 
 def duration_string(duration, precision='s'):
@@ -11,13 +12,21 @@ def duration_string(duration, precision='s'):
 
     duration = ''
     if h > 0:
-        duration = '{} hour{}'.format(h, 's' if h > 1 else '')
+        duration = ngettext('%(hours)s hour', '%(hours)s hours', h) % {
+            'hours': h
+        }
     if m > 0 and precision != 'h':
-        duration += '{}{} minute{}'.format(
-            '' if duration == '' else ', ', m, 's' if m > 1 else '')
+        if duration != '':
+            duration += ', '
+        duration += ngettext('%(minutes)s minute', '%(minutes)s minutes', m) % {
+            'minutes': m
+        }
     if s > 0 and precision != 'h' and precision != 'm':
-        duration += '{}{} second{}'.format(
-            '' if duration == '' else ', ', s, 's' if s > 1 else '')
+        if duration != '':
+            duration += ', '
+        duration += ngettext('%(seconds)s second', '%(seconds)s seconds', s) % {
+            'seconds': s
+        }
 
     return duration
 
