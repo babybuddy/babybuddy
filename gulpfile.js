@@ -6,7 +6,7 @@ var flatten = require('gulp-flatten');
 var pump = require('pump');
 var sass = require('gulp-sass');
 var sassGlob = require('gulp-sass-glob');
-var sassLint = require('gulp-sass-lint');
+var styleLint = require('gulp-stylelint');
 var spawn = require('child_process').spawn;
 
 var config = require('./gulpfile.config.js');
@@ -93,18 +93,30 @@ function lint(cb) {
 
     pump([
         gulp.src(config.watchConfig.stylesGlob),
-        sassLint({
-            rules: {
-                'declarations-before-nesting': 1,
-                'indentation': [ 1, { 'size': 4 } ],
-                'no-ids': 0,
-                'no-vendor-prefixes': 2,
-                'placeholder-in-extend': 0,
-                'property-sort-order': 0
-            }
-        }),
-        sassLint.format(),
-        sassLint.failOnError()
+        styleLint({
+            config: {
+                extends: 'stylelint-config-recommended-scss',
+                plugins: [
+                    'stylelint-order',
+                    'stylelint-scss'
+                ],
+                rules: {
+                    'at-rule-no-vendor-prefix': true,
+                    'indentation': 4,
+                    'media-feature-name-no-vendor-prefix': true,
+                    'order/order': [
+                        'declarations',
+                        'rules'
+                    ],
+                    'property-no-vendor-prefix': true,
+                    'selector-no-vendor-prefix': true,
+                    'value-no-vendor-prefix': true
+                }
+            },
+            reporters: [
+                { formatter: 'string', console: true }
+            ]
+        })
     ], cb);
 }
 gulp.task('lint', lint);
