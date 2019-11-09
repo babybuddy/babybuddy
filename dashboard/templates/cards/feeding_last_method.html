@@ -5,7 +5,7 @@
 
 {% block title %}
     {% if feeding %}
-        <div class="display-4 text-center">{{ feeding.method }}</div>
+        <div class="display-4 text-center">{{ feeding.get_method_display }}</div>
     {% else %}
         {% trans "None" %}
     {% endif %}

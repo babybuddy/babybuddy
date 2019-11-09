@@ -154,11 +154,11 @@ class DiaperChange(models.Model):
     def attributes(self):
         attributes = []
         if self.wet:
-            attributes.append(DiaperChange._meta.get_field('wet').name)
+            attributes.append(self._meta.get_field('wet').verbose_name)
         if self.solid:
-            attributes.append(DiaperChange._meta.get_field('solid').name)
+            attributes.append(self._meta.get_field('solid').verbose_name)
         if self.color:
-            attributes.append(self.color)
+            attributes.append(self.get_color_display())
         return attributes
 
     def clean(self):

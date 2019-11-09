@@ -13,7 +13,7 @@
 
 {% block content %}
     {% if feeding %}
-        {{ feeding.type }}, {{ feeding.method }}
+        {{ feeding.get_type_display }}, {{ feeding.get_method_display }}
         {% if feeding.amount %}
             ({{ feeding.amount }})
         {% endif %}
