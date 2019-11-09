@@ -40,8 +40,9 @@ class CoreDeleteView(PermissionRequired403Mixin, DeleteView):
     See: https://code.djangoproject.com/ticket/21936
     """
     def delete(self, request, *args, **kwargs):
-        success_message = '{} entry deleted.'.format(
-            self.model._meta.verbose_name.title())
+        success_message = _('%(model)s entry deleted.') % {
+            'model': self.model._meta.verbose_name.title()
+        }
         messages.success(request, success_message)
         return super(CoreDeleteView, self).delete(request, *args, **kwargs)
 
