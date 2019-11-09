@@ -46,7 +46,7 @@ class DiaperChangeTestCase(TestCase):
 
     def test_diaperchange_attributes(self):
         self.assertListEqual(
-            self.change.attributes(), ['wet', 'solid', 'black'])
+            self.change.attributes(), ['Wet', 'Solid', 'Black'])
 
 
 class FeedingTestCase(TestCase):
