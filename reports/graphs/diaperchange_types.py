@@ -2,6 +2,7 @@
 from django.db.models import Count, Case, When
 from django.db.models.functions import TruncDate
 from django.utils.translation import gettext as _
+from django.utils.translation import get_language
 
 import plotly.offline as plotly
 import plotly.graph_objs as go
@@ -51,5 +52,10 @@ def diaperchange_types(changes):
         'data': [solid_trace, wet_trace, total_trace],
         'layout': go.Layout(**layout_args)
     })
-    output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
+    output = plotly.plot(
+        fig,
+        output_type='div',
+        include_plotlyjs=False,
+        config={'locale': get_language()}
+    )
     return utils.split_graph_output(output)

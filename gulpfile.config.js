@@ -11,6 +11,14 @@ module.exports = {
             dest: basePath + 'img/',
             files: '**/static_src/img/**/*'
         },
+        plotlyLocales: {
+            dest: basePath + 'plotly-locales/',
+            files: [
+                'node_modules/plotly.js/dist/plotly-locale-de.js',
+                'node_modules/plotly.js/dist/plotly-locale-fr.js',
+                'node_modules/plotly.js/dist/plotly-locale-sv.js'
+            ]
+        },
         logo: {
             dest: basePath + 'logo/',
             files: 'babybuddy/static_src/logo/**/*'

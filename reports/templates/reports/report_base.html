@@ -1,5 +1,6 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% block title %}{% endblock %}
 
@@ -25,5 +26,14 @@
 
 {% block javascript %}
     <script src="{% static "babybuddy/js/graph.js" %}"></script>
+    {% language 'de' %}
+        <script src="{% static "babybuddy/plotly-locales/plotly-locale-de.js" %}"></script>
+    {% endlanguage %}
+    {% language 'fr' %}
+        <script src="{% static "babybuddy/plotly-locales/plotly-locale-fr.js" %}"></script>
+    {% endlanguage %}
+    {% language 'sv' %}
+        <script src="{% static "babybuddy/plotly-locales/plotly-locale-sv.js" %}"></script>
+    {% endlanguage %}
     {{ js|safe }}
 {% endblock %}
