@@ -18,15 +18,19 @@ def duration_string(duration, precision='s'):
     if m > 0 and precision != 'h':
         if duration != '':
             duration += ', '
-        duration += ngettext('%(minutes)s minute', '%(minutes)s minutes', m) % {
-            'minutes': m
-        }
+        duration += ngettext(
+            '%(minutes)s minute',
+            '%(minutes)s minutes',
+            m
+        ) % {'minutes': m}
     if s > 0 and precision != 'h' and precision != 'm':
         if duration != '':
             duration += ', '
-        duration += ngettext('%(seconds)s second', '%(seconds)s seconds', s) % {
-            'seconds': s
-        }
+        duration += ngettext(
+            '%(seconds)s second',
+            '%(seconds)s seconds',
+            s
+        ) % {'seconds': s}
 
     return duration
 
