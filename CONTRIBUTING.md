@@ -76,23 +76,23 @@ documentation section: [Translation](https://docs.djangoproject.com/en/dev/topic
 
 ### Requirements
 
-- Python 3.5+, pip, pipenv
-- NodeJS 8.x and NPM 5.x
+- Python 3.5+, pip3, pipenv
+- NodeJS 8.x+ and NPM 5.x+
 - Gulp
 
 ### Installation
 
 1. Install pipenv
 
-        pip install pipenv
+        pip3 install pipenv
 
 1. Install required Python packages, including dev packages
 
-        pipenv install --dev
+        pipenv install --three
 
 1. Install Gulp CLI
 
-        npm install -g gulp-cli
+        sudo npm install -g gulp-cli
 
 1. Install required Node packages
 
