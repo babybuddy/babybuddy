@@ -1454,5 +1454,5 @@ msgid "Reports"
 msgstr "Rapports"
 
 #: reports/templates/reports/report_base.html:20
-msgid "There is no enough data to generate this report."
+msgid "There is not enough data to generate this report."
 msgstr "Il n'y a pas assez de données pour générer ce rapport."
