@@ -1255,7 +1255,7 @@ msgid "Reports"
 msgstr "Reports"
 
 #: reports/templates/reports/report_base.html:19
-msgid "There is no enough data to generate this report."
+msgid "There is not enough data to generate this report."
 msgstr "Es gibt nicht genügend Daten um diesen Report zu generieren."
 
 #: core/models.py:206
