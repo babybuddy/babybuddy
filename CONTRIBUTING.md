@@ -76,7 +76,7 @@ documentation section: [Translation](https://docs.djangoproject.com/en/dev/topic
 
 ### Requirements
 
-- Python 3.5+, pip3, pipenv
+- Python 3.5.3+, pip, pipenv
 - NodeJS 8.x+ and NPM 5.x+
 - Gulp
 
