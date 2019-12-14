@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: babybuddy 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-09 23:15+0000\n"
+"POT-Creation-Date: 2019-12-14 13:12-0800\n"
 "PO-Revision-Date: 2019-05-02 17:20+0000\n"
 "Last-Translator: Christopher C. Wells <wells@chrxs.net>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -1132,14 +1132,14 @@ msgid_plural "%(hours)s hours"
 msgstr[0] "%(hours)s heure"
 msgstr[1] "%(hours)s heures"
 
-#: core/utils.py:21
+#: core/utils.py:22
 #, python-format
 msgid "%(minutes)s minute"
 msgid_plural "%(minutes)s minutes"
 msgstr[0] "%(minutes)s minute"
 msgstr[1] "%(minutes)s minutes"
 
-#: core/utils.py:27
+#: core/utils.py:30
 #, python-format
 msgid "%(seconds)s second"
 msgid_plural "%(seconds)s seconds"
