@@ -155,6 +155,10 @@ Python 3.5.3+, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Move in to the application folder
 
         cd /var/www/babybuddy/public
+        
+1. Set pipenv to install locally.
+
+        export PIPENV_VENV_IN_PROJECT=1
 
 1. Initiate and enter the Python environment
 
@@ -194,8 +198,8 @@ Python 3.5.3+, nginx, uwsgi and sqlite and should be sufficient for a few users
         project = babybuddy
         base_dir = /var/www/babybuddy
 
-        virtualenv = /path/to/venv
         chdir = %(base_dir)/public
+        virtualenv = %(chdir)/.venv
         module =  %(project).wsgi:application
         env = DJANGO_SETTINGS_MODULE=%(project).settings.production
         master = True
@@ -203,9 +207,6 @@ Python 3.5.3+, nginx, uwsgi and sqlite and should be sufficient for a few users
 
     See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
     for more advanced configuration details.
-
-    **Note: Find the location of the pipenv virtual environment for the
-    `virtualenv` parameter with the command `pipenv --venv`.**
 
 1. Symlink config and restart uWSGI:
 
