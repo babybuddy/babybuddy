@@ -122,7 +122,7 @@ requirements are Python, a web server, an application server, and a database.
 
 #### Requirements
 
-- Python 3.5.3+, pip, pipenv
+- Python 3.6+, pip, pipenv
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database ([sqlite](https://sqlite.org/), [Postgres](https://www.postgresql.org/), [MySQL](https://www.mysql.com/), etc.)
@@ -130,7 +130,7 @@ requirements are Python, a web server, an application server, and a database.
 #### Example deployment
 
 *This example assumes a 512MB VPS instance with Ubuntu 18.04.* It uses
-Python 3.5.3+, nginx, uwsgi and sqlite and should be sufficient for a few users
+Python 3.6+, nginx, uwsgi and sqlite and should be sufficient for a few users
 (e.g. two parents and 1+ child).
 
 1. Install system packages

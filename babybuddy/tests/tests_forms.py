@@ -55,7 +55,7 @@ class FormsTestCase(TestCase):
         page = self.c.post('/user/password/', params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(page, 'form', 'new_password2',
-                             "The two password fields didn't match.")
+                             "The two password fields didn’t match.")
 
         params['new_password2'] = 'mynewpassword'
         page = self.c.post('/user/password/', params)
