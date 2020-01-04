@@ -8,11 +8,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.text import format_lazy
-from django.utils.translation import gettext as _, gettext_lazy
+from django.utils.translation import activate, gettext as _, gettext_lazy
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.i18n import set_language
+from django.views.i18n import set_language, LANGUAGE_QUERY_PARAMETER
 
 from django_filters.views import FilterView
 
@@ -140,9 +140,9 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
-            set_language(request)
+            activate(request.POST.get(LANGUAGE_QUERY_PARAMETER))
             messages.success(request, _('Settings saved!'))
-            return redirect('babybuddy:user-settings')
+            return set_language(request)
         return render(request, self.template_name, {
             'user_form': form_user,
             'settings_form': form_settings

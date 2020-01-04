@@ -30,7 +30,8 @@ class FormsTestCase(TestCase):
             'last_name': 'Name',
             'email': 'user@user.user',
             'dashboard_refresh_rate': '',
-            'language': 'en'
+            'language': 'en',
+            'next': '/user/settings/'
         }
 
     def test_change_password(self):
