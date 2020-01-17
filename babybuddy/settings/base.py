@@ -130,6 +130,7 @@ LANGUAGES = [
     ('de', _('German')),
     ('es', _('Spanish')),
     ('sv', _('Swedish')),
+    ('tr', _('Turkish')),
 ]
 
 

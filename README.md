@@ -364,6 +364,8 @@ Baby Buddy includes translation support as of v1.2.2. Language can be set on a p
 
 :sweden: Swedish
 
+:tr: Turkish
+
 ## API
 
 Baby Buddy uses the [Django REST Framework](http://www.django-rest-framework.org/)

@@ -17,7 +17,8 @@ module.exports = {
                 'node_modules/plotly.js/dist/plotly-locale-de.js',
                 'node_modules/plotly.js/dist/plotly-locale-es.js',
                 'node_modules/plotly.js/dist/plotly-locale-fr.js',
-                'node_modules/plotly.js/dist/plotly-locale-sv.js'
+                'node_modules/plotly.js/dist/plotly-locale-sv.js',
+                'node_modules/plotly.js/dist/plotly-locale-tr.js'
             ]
         },
         logo: {
