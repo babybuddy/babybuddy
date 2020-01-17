@@ -15,6 +15,7 @@ module.exports = {
             dest: basePath + 'plotly-locales/',
             files: [
                 'node_modules/plotly.js/dist/plotly-locale-de.js',
+                'node_modules/plotly.js/dist/plotly-locale-es.js',
                 'node_modules/plotly.js/dist/plotly-locale-fr.js',
                 'node_modules/plotly.js/dist/plotly-locale-sv.js'
             ]

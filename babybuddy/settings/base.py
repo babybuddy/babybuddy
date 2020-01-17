@@ -128,6 +128,7 @@ LANGUAGES = [
     ('en', _('English')),
     ('fr', _('French')),
     ('de', _('German')),
+    ('es', _('Spanish')),
     ('sv', _('Swedish')),
 ]
 

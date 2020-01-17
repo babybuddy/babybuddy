@@ -360,6 +360,8 @@ Baby Buddy includes translation support as of v1.2.2. Language can be set on a p
 
 :de: German
 
+:mexico: :es: Spanish
+
 :sweden: Swedish
 
 ## API
