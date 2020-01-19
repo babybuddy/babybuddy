@@ -9,7 +9,7 @@ ALLOWED_HOSTS = ['']
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -19,6 +19,7 @@ DATABASES = {
 }
 
 
-# Static files
+# Media files
+# https://docs.djangoproject.com/en/3.0/topics/files/
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '../data/media')

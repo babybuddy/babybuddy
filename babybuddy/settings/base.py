@@ -25,7 +25,7 @@ DEBUG = os.environ.get('DEBUG', False)
 
 
 # Applications
-# https://docs.djangoproject.com/en/1.11/ref/applications/
+# https://docs.djangoproject.com/en/3.0/ref/applications/
 
 INSTALLED_APPS = [
     'api',
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 ]
 
 # Middleware
-# https://docs.djangoproject.com/en/1.11/ref/middleware/
+# https://docs.djangoproject.com/en/3.0/ref/middleware/
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,13 +66,13 @@ MIDDLEWARE = [
 
 
 # URL dispatcher
-# https://docs.djangoproject.com/en/1.11/topics/http/urls/
+# https://docs.djangoproject.com/en/3.0/topics/http/urls/
 
 ROOT_URLCONF = 'babybuddy.urls'
 
 
 # Templates
-# https://docs.djangoproject.com/en/1.11/ref/templates/upgrading/#the-templates-settings
+# https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-TEMPLATES
 
 TEMPLATES = [
     {
@@ -92,13 +92,13 @@ TEMPLATES = [
 
 
 # WGSI
-# https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
+# https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 
 WSGI_APPLICATION = 'babybuddy.wsgi.application'
 
 
 # Authentication
-# https://docs.djangoproject.com/en/1.11/topics/auth/default/
+# https://docs.djangoproject.com/en/3.0/topics/auth/default/
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -108,7 +108,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
+# https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en'
 
@@ -135,7 +135,8 @@ LANGUAGES = [
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# http://whitenoise.evans.io/en/stable/django.html
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -152,7 +153,7 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'babybuddy', 'root')
 
 
 # Media files (User uploaded content)
-# https://docs.djangoproject.com/en/2.0/topics/files/
+# https://docs.djangoproject.com/en/3.0/topics/files/
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -170,7 +171,7 @@ if AWS_STORAGE_BUCKET_NAME:
 
 
 # Django Rest Framework
-# http://www.django-rest-framework.org/#
+# https://www.django-rest-framework.org/
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

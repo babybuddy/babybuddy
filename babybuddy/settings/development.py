@@ -1,14 +1,14 @@
 from .base import *
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+# https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 SECRET_KEY = 'CHANGE ME'
 DEBUG = True
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -19,7 +19,7 @@ DATABASES = {
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
 #
 # Comment out STATICFILES_STORAGE and uncomment DEBUG = False to test with
 # production static files.
@@ -29,7 +29,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 
 # Django Rest Framework
-# http://www.django-rest-framework.org/#
+# https://www.django-rest-framework.org/
 
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
     'rest_framework.renderers.JSONRenderer',

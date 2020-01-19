@@ -13,11 +13,10 @@
   
 ## Contributions
 
-Contributions are accepted and encouraged via GitHub
-[Issues](https://github.com/cdubz/babybuddy/issues) and 
-[Pull Requests](https://github.com/cdubz/babybuddy/pulls). Maintainers and users
-may also be found at [babybuddy/Lobby](https://gitter.im/babybuddy/Lobby) on 
-Gitter.
+Contributions are accepted and encouraged via GitHub [Issues](https://github.com/cdubz/babybuddy/issues)
+and [Pull Requests](https://github.com/cdubz/babybuddy/pulls). Maintainers and
+users may also be found at [babybuddy/Lobby](https://gitter.im/babybuddy/Lobby)
+on Gitter.
 
 ### Pull request process
 
@@ -26,7 +25,7 @@ Gitter.
 1. Run `gulp lint` and `gulp test` (see [Gulp Commands](#gulp-commands)) and 
    ensure that all tests pass.
 1. If changes are made to assets: build, collect and commit the `/static` 
-   folder (see [Pre-commit Hook](#pre-commit-hook)).
+   folder (see [`gulp collectstatic`](#collectstatic)).
 1. Open a [new pull request](https://github.com/cdubz/babybuddy/compare) against
    the `master` branch.
    
@@ -38,37 +37,55 @@ and we will do our best to provide feedback and support potential contributors.
 #### POEditor
 
 Baby Buddy is set up as a project on [POEditor](https://poeditor.com/). 
-Interested contibutors can 
-[join translation of Baby Buddy](https://poeditor.com/join/project/QwQqrpTIzn)
+Interested contributors can [join translation of Baby Buddy](https://poeditor.com/join/project/QwQqrpTIzn)
 for access to a simple, web-based frontend for adding/editing translation files
 to the project.
 
 #### Manual
 
-Baby Buddy has support for translation/localization to any language. A general 
-translation process will look something like this:
+Baby Buddy has support for translation/localization. A manual translation
+process will look something like this:
 
 1. Set up a development environment (see [Development](#development) below).
-1. Run `gulp makemessages -l xx` where `xx` is a specific locale code (e.g. "fr"
-for French or "es" for Spanish). This create a new translation file at
-`locale/xx/LC_MESSAGES/django.po`, or update one if it exits.
-1. Open the created/updated `django.po` file and update the header template with
-license and contact info.
+
+1. Run `gulp makemessages -l xx` where `xx` is a specific locale code in the
+[ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g.
+"fr" for French or "es" for Spanish). This create a new translation file at
+`locale/xx/LC_MESSAGES/django.po`, or updates one if it exists.
+
+1. Open the created/updated `django.po` file and update the header template
+with license and contact info.
+
 1. Start translating! Each translatable string will have a `msgid` value with 
 the string in English and a corresponding (empty) `msgstr` value where a
 translated string can be filled in.
+
 1. Once all strings have been translated, run `gulp compilemessages -l xx` to
 compile an optimized translation file (`locale/xx/LC_MESSAGES/django.mo`).
+
 1. To expose the new translation as a user setting, add the locale code to the
 `LANGUAGES` array in the base settings file (`babybuddy/settings/base.py`).
+
+1. Check (in `node_modules/plotly.js/dist/`)if Plotly offers a translation for
+the language. If it does:
+
+    1. Add the Plotly translation file path to [`gulpfile.config.js`](gulpfile.config.js) in
+    `extrasConfig.plotlyLocales`.
+    
+    1. Add a `script` tag for the file in [`reports/templates/reports/report_base.html`](reports/templates/reports/report_base.html)
+    in the `javascript` block (this files will have many existing languages to
+    use as reference).
+       
+    1. Build, collect, and commit the `/static` folder.
+
 1. Run the development server, log in, and update the user language to test the
 newly translated strings.
 
-Once the translation is complete, commit the new files and changes to a fork and
-[create a pull request](#pull-request-process) for review.
+Once the translation is complete, commit the new files and changes to a fork
+and [create a pull request](#pull-request-process) for review.
  
 For more information on the Django translation process, see Django's 
-documentation section: [Translation](https://docs.djangoproject.com/en/dev/topics/i18n/translation/).
+documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/).
 
 ## Development
 
@@ -164,9 +181,18 @@ the `babybuddy/static` folder, so generally `gulp build` should be run before
 this command for production deployments. Gulp also passes along
 non-overlapping arguments for this command, e.g. `--no-input`.
 
+Before executing this command, ensure that
+
+- `DEBUG` is set to it's default (`False`).
+- `STATICFILES_STORAGE` is set to it's default.
+- `SECRET_KEY` is set to (anything).
+
+See the [`development.py` settings file](babybuddy/settings/development.py) for
+additional information.
+
 #### `compilemessages`
 
-Executes Django's `compilemessages` management task. See [django-admin compilemessages](https://docs.djangoproject.com/en/dev/ref/django-admin/#compilemessages)
+Executes Django's `compilemessages` management task. See [django-admin compilemessages](https://docs.djangoproject.com/en/3.0/ref/django-admin/#compilemessages)
 for more details about other options and functionality of this command.
 
 #### `coverage`
@@ -192,7 +218,7 @@ Executes Python and SASS linting for all relevant source files.
 
 #### `makemessages`
 
-Executes Django's `makemessages` management task. See [django-admin makemessages](https://docs.djangoproject.com/en/dev/ref/django-admin/#makemessages)
+Executes Django's `makemessages` management task. See [django-admin makemessages](https://docs.djangoproject.com/en/3.0/ref/django-admin/#makemessages)
 for more details about other options and functionality of this command. When
 working on a single translation, the `-l` flag is useful to make message for 
 only that language, e.g. `gulp makemessages -l fr` to make only a French
@@ -236,29 +262,3 @@ Executes Baby Buddy's suite of tests.
 Gulp also passes along non-overlapping arguments for this command, however
 individual tests cannot be run with this command. `python manage.py test` can be
 used for individual test execution.
-
-### Pre-commit Hook
-
-A [pre-commit hook](https://git-scm.com/docs/githooks#_pre_commit) is 
-recommended for all commits in order to make sure that static assets are 
-correctly committed. Here is an example working script for bash:
-
-```
-#!/bin/bash
-
-if [ $(git diff --cached --name-only | grep static_src -c) -ne 0 ]
-then
-    gulp clean && gulp build && gulp collectstatic
-    if [ $? -ne 0 ]; then exit $?; fi
-    git add ./static
-fi
-
-gulp lint && gulp test
-
-exit $?
-```
-
-This script will build and add static assets to the commit only if changes have
-been made to files in a `static_src` directory of the project. It will always
-run the `gulp lint` and `gulp test` commands. If any of these processes result
-in an error, the commit will be rejected.

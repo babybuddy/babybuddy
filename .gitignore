@@ -1,25 +1,25 @@
-# coverage
+# Coverage testing files.
 .coverage
 /htmlcov
 
-# database
+# SQLite database file.
 *.sqlite3
 
-# enviornment
+# Environment files.
 .env
 docker.env
 
-# ide
+# IDE configuration files.
 /.idea
 
-# npm folder
+# Node development dependencies.
 /node_modules
 
-# python
+# Python files.
 *.pyc
 
-# static build files
+# App static file folders.
 /*/static
 
-# media folder
+# Django media root folder.
 /media

@@ -7,7 +7,7 @@ BABY_BUDDY['ALLOW_UPLOADS'] = os.environ.get('ALLOW_UPLOADS', False)
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=500)
@@ -15,6 +15,8 @@ DATABASES = {
 
 
 # Email
+# https://docs.djangoproject.com/en/3.0/topics/email/
+# https://devcenter.heroku.com/articles/sendgrid#python
 
 SENDGRID_USERNAME = os.environ.get('SENDGRID_USERNAME', None)  # noqa: F405
 SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', None)  # noqa: F405

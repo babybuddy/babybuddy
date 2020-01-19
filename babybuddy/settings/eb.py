@@ -5,7 +5,7 @@ BABY_BUDDY['ALLOW_UPLOADS'] = os.environ.get('ALLOW_UPLOADS', False)
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
