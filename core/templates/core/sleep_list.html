@@ -27,8 +27,8 @@
                     <tr>
                         <th scope="row"><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></th>
                         <td>{{ sleep.duration|duration_string }}</td>
-                        <td>{{ sleep.start|date:'n/j/y G:i' }}</td>
-                        <td>{{ sleep.end|date:'n/j/y G:i' }}</td>
+                        <td>{{ sleep.start }}</td>
+                        <td>{{ sleep.end }}</td>
                         <td class="text-center">{{ sleep.nap|bool_icon }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
