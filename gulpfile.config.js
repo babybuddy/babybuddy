@@ -27,6 +27,11 @@ module.exports = {
             'node_modules/popper.js/dist/umd/popper.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
             'node_modules/moment/moment.js',
+            'node_modules/moment/locale/de.js',
+            'node_modules/moment/locale/es.js',
+            'node_modules/moment/locale/fr.js',
+            'node_modules/moment/locale/sv.js',
+            'node_modules/moment/locale/tr.js',
             'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
         ],
         graph: [

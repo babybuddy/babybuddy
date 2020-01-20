@@ -1,6 +1,5 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n static %}
-{% get_current_language as LANGUAGE_CODE %}
 
 {% block title %}{% endblock %}
 
@@ -26,8 +25,6 @@
 
 {% block javascript %}
     <script src="{% static "babybuddy/js/graph.js" %}"></script>
-    {% with get_current_language as language %}
-        <script>Plotly.setPlotConfig({locale: '{{ language }}'})</script>
-    {% endwith %}
+    <script>Plotly.setPlotConfig({locale: '{{ LOCALE }}'})</script>
     {{ js|safe }}
 {% endblock %}
