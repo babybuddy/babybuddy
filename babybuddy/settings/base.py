@@ -107,18 +107,19 @@ LOGIN_URL = '/login/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
+# Timezone
+# https://docs.djangoproject.com/en/3.0/topics/i18n/timezones/
 
-LANGUAGE_CODE = 'en'
+USE_TZ = True
 
 TIME_ZONE = os.environ.get('TIME_ZONE', 'Etc/UTC')
 
+# Internationalization
+# https://docs.djangoproject.com/en/3.0/topics/i18n/
+
 USE_I18N = True
 
-USE_L10N = True
-
-USE_TZ = True
+LANGUAGE_CODE = 'en'
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
@@ -132,6 +133,14 @@ LANGUAGES = [
     ('sv', _('Swedish')),
     ('tr', _('Turkish')),
 ]
+
+
+# Format localization
+# https://docs.djangoproject.com/en/3.0/topics/i18n/formatting/
+
+USE_L10N = True
+
+FORMAT_MODULE_PATH = ['babybuddy.formats']
 
 
 # Static files (CSS, JavaScript, Images)
