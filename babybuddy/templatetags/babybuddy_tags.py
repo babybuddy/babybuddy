@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.apps import apps
+from django.utils.translation import to_locale, get_language
 
 register = template.Library()
 
@@ -28,7 +29,17 @@ def version_string():
     """
     Get Baby Buddy's current version string.
 
-    :return: version string ('n.n.n (commit)')
+    :return: version string ('n.n.n (commit)').
     """
     config = apps.get_app_config('babybuddy')
     return config.version_string
+
+
+@register.simple_tag()
+def get_current_locale():
+    """
+    Get the current language's locale code.
+
+    :return: locale code (e.g. 'de', 'fr', etc.).
+    """
+    return to_locale(get_language())

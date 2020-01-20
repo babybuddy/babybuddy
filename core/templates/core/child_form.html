@@ -32,8 +32,9 @@
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker_birth_date').datetimepicker({
-                viewMode: 'years',
-                format: 'YYYY-MM-DD'
+                format: 'L',
+                locale: '{{ LOCALE }}',
+                viewMode: 'years'
             });
         });
     </script>

@@ -32,7 +32,8 @@
         $(function () {
             $('#datetimepicker_date').datetimepicker({
                 defaultDate: 'now',
-                format: 'YYYY-MM-DD'
+                format: 'L',
+                locale: '{{ LOCALE }}'
             });
         });
     </script>
