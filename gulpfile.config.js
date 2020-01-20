@@ -11,16 +11,6 @@ module.exports = {
             dest: basePath + 'img/',
             files: '**/static_src/img/**/*'
         },
-        plotlyLocales: {
-            dest: basePath + 'plotly-locales/',
-            files: [
-                'node_modules/plotly.js/dist/plotly-locale-de.js',
-                'node_modules/plotly.js/dist/plotly-locale-es.js',
-                'node_modules/plotly.js/dist/plotly-locale-fr.js',
-                'node_modules/plotly.js/dist/plotly-locale-sv.js',
-                'node_modules/plotly.js/dist/plotly-locale-tr.js'
-            ]
-        },
         logo: {
             dest: basePath + 'logo/',
             files: 'babybuddy/static_src/logo/**/*'
@@ -40,7 +30,12 @@ module.exports = {
             'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
         ],
         graph: [
-            'node_modules/plotly.js/dist/plotly-cartesian.js'
+            'node_modules/plotly.js/dist/plotly-cartesian.js',
+            'node_modules/plotly.js/dist/plotly-locale-de.js',
+            'node_modules/plotly.js/dist/plotly-locale-es.js',
+            'node_modules/plotly.js/dist/plotly-locale-fr.js',
+            'node_modules/plotly.js/dist/plotly-locale-sv.js',
+            'node_modules/plotly.js/dist/plotly-locale-tr.js'
         ],
         app: [
             'babybuddy/static_src/js/babybuddy.js',
