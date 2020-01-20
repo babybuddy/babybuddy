@@ -25,11 +25,6 @@ function extras(cb) {
     ], cb);
 
     pump([
-        gulp.src(config.extrasConfig.plotlyLocales.files),
-        gulp.dest(config.extrasConfig.plotlyLocales.dest)
-    ], cb);
-
-    pump([
         gulp.src(config.extrasConfig.logo.files),
         flatten({ subPath: 3 }),
         gulp.dest(config.extrasConfig.logo.dest)

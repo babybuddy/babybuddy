@@ -66,17 +66,14 @@ compile an optimized translation file (`locale/xx/LC_MESSAGES/django.mo`).
 1. To expose the new translation as a user setting, add the locale code to the
 `LANGUAGES` array in the base settings file (`babybuddy/settings/base.py`).
 
-1. Check (in `node_modules/plotly.js/dist/`)if Plotly offers a translation for
+1. Check (in `node_modules/plotly.js/dist/`) if Plotly offers a translation for
 the language. If it does:
 
     1. Add the Plotly translation file path to [`gulpfile.config.js`](gulpfile.config.js) in
-    `extrasConfig.plotlyLocales`.
-    
-    1. Add a `script` tag for the file in [`reports/templates/reports/report_base.html`](reports/templates/reports/report_base.html)
-    in the `javascript` block (this files will have many existing languages to
-    use as reference).
-       
-    1. Build, collect, and commit the `/static` folder.
+    `scriptsConfig.graph`.
+
+    1. Build, collect, and commit the `/static` folder (see 
+    [`gulp collectstatic`](#collectstatic)).
 
 1. Run the development server, log in, and update the user language to test the
 newly translated strings.
