@@ -94,11 +94,11 @@ msgstr "français"
 
 #: babybuddy/settings/base.py:131
 msgid "German"
-msgstr ""
+msgstr "Allemand"
 
 #: babybuddy/settings/base.py:132
 msgid "Spanish"
-msgstr ""
+msgstr "Espagnol"
 
 #: babybuddy/settings/base.py:133
 msgid "Swedish"
@@ -106,7 +106,7 @@ msgstr "suédoise"
 
 #: babybuddy/settings/base.py:134
 msgid "Turkish"
-msgstr ""
+msgstr "Turc"
 
 #: babybuddy/templates/403.html:4 babybuddy/templates/403.html:7
 msgid "Permission Denied"
@@ -192,7 +192,7 @@ msgstr "Sommeil"
 #: core/templates/core/temperature_list.html:11
 #: core/templates/core/temperature_list.html:18
 msgid "Temperature"
-msgstr ""
+msgstr "Temperature"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:57
 #: babybuddy/templates/babybuddy/nav-dropdown.html:209
@@ -255,7 +255,7 @@ msgstr "Annotations"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:135
 msgid "Temperature reading"
-msgstr ""
+msgstr "Lecture de la température"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:149
 msgid "Weight entry"
