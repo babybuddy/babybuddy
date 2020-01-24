@@ -20,7 +20,10 @@
             {% endfor %}
         {% elif form.errors %}
             <div class="alert alert-danger" role="alert">
-                {% blocktrans %}<strong>Error:</strong> Some fields have errors. See below for details. {% endblocktrans %}
+                {% blocktrans trimmed%}
+                    <strong>Error:</strong> Some fields have errors. See below
+                    for details.
+                {% endblocktrans %}
             </div>
         {% endif %}
     {% endif %}

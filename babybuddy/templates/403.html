@@ -9,7 +9,9 @@
 
 {% block content %}
     <div class="alert alert-danger" role="alert">
-        {% blocktrans %}You do not have permission to access this resource.
-        Contact a site administrator for assistance.{% endblocktrans %}
+        {% blocktrans trimmed %}
+            You do not have permission to access this resource. Contact a site
+            administrator for assistance.
+        {% endblocktrans %}
     </div>
 {% endblock %}

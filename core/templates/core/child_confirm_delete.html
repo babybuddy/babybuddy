@@ -12,7 +12,9 @@
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
-        {% blocktrans %}<h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>{% endblocktrans %}
+        {% blocktrans trimmed %}
+            <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
+        {% endblocktrans %}
         <div class="form-group">
             <label for="{{ form.confirm_name.id_for_label }}">
                 {% trans "To confirm this action. Type the full name of the child below." %}

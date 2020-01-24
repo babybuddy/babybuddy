@@ -16,12 +16,17 @@
             {% if form.non_field_errors %}
                 {% for error in form.non_field_errors %}
                     <div class="alert alert-danger" role="alert">
-                        {% blocktrans %}<strong>Error:</strong> {{ error }}{% endblocktrans %}
+                        {% blocktrans trimmed %}
+                            <strong>Error:</strong> {{ error }}
+                        {% endblocktrans %}
                     </div>
                 {% endfor %}
             {% elif form.errors %}
                 <div class="alert alert-danger" role="alert">
-                    {% blocktrans %}<strong>Error:</strong> Some fields have errors. See below for details.{% endblocktrans %}
+                    {% blocktrans trimmed %}
+                        <strong>Error:</strong> Some fields have errors. See
+                        below for details.
+                    {% endblocktrans %}
                 </div>
             {% endif %}
             <fieldset>

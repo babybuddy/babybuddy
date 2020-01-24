@@ -5,7 +5,9 @@
 
 {% block title %}
     {% if tummytime %}
-        {% blocktrans with time=tummytime.time|timesince %}{{ time }} ago{% endblocktrans %}
+        {% blocktrans trimmed with time=tummytime.time|timesince %}
+            {{ time }} ago
+        {% endblocktrans %}
     {% else %}
         {% trans "Never" %}
     {% endif %}

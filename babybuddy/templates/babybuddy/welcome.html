@@ -11,8 +11,10 @@
     <div class="jumbotron">
         <h1 class="display-3">{% trans "Welcome to Baby Buddy!" %}</h1>
         <p class="lead">
-            {% blocktrans %}Learn about and predict baby's needs without
-            (<em>as much</em>) guess work by using Baby Buddy to track &mdash;{% endblocktrans %}
+            {% blocktrans trimmed%}
+                Learn about and predict baby's needs without (<em>as much</em>)
+                guess work by using Baby Buddy to track &mdash;
+            {% endblocktrans %}
         </p>
         <hr class="my-4">
         <div class="card-deck">
@@ -51,12 +53,14 @@
         </div>
         <hr class="my-4">
         <p class="lead">
-            {% blocktrans %}As the amount of entries grows, Baby Buddy will help
-            parents and caregivers to identify small patterns in baby's habits
-            using the dashboard and graphs. Baby Buddy is mobile-friendly and
-            uses a dark theme to help weary moms and dads with 2AM feedings and
-            changings. To get started, just click the button below to add your
-            first (or second, third, etc.) child!{% endblocktrans %}
+            {% blocktrans trimmed %}
+                As the amount of entries grows, Baby Buddy will help parents
+                and caregivers to identify small patterns in baby's habits
+                using the dashboard and graphs. Baby Buddy is mobile-friendly
+                and uses a dark theme to help weary moms and dads with 2AM
+                feedings and changings. To get started, just click the button
+                below to add your first (or second, third, etc.) child!
+            {% endblocktrans %}
         </p>
         <p class="text-center">
             {% if perms.core.add_child %}

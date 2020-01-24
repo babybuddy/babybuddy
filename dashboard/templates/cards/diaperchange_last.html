@@ -5,7 +5,9 @@
 
 {% block title %}
     {% if change %}
-        {% blocktrans with time=change.time|timesince %}{{ time }} ago{% endblocktrans %}
+        {% blocktrans trimmed with time=change.time|timesince %}
+            {{ time }} ago
+        {% endblocktrans %}
     {% else %}
         {% trans "Never" %}
     {% endif %}

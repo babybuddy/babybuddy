@@ -11,7 +11,9 @@
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
-        {% blocktrans %}<h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>{% endblocktrans %}
+        {% blocktrans trimmed %}
+            <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
+        {% endblocktrans %}
         <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
         <a href="{% url 'core:weight-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>

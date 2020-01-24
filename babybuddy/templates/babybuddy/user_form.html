@@ -21,7 +21,9 @@
 
 {% block content %}
     {% if object %}
-        {% blocktrans %}<h1>Update <span class="text-info">{{ object }}</span></h1>{% endblocktrans %}
+        {% blocktrans trimmed %}
+            <h1>Update <span class="text-info">{{ object }}</span></h1>
+        {% endblocktrans %}
     {% else %}
         <h1>{% trans "Create User" %}</h1>
     {% endif %}

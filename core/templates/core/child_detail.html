@@ -55,7 +55,9 @@
                                 {{ object.event }}
                             </div>
                             <div class="card-footer text-muted">
-                                {% blocktrans with since=object.time|timesince time=object.time|time %}{{ since }} ago ({{ time }}){% endblocktrans %}
+                                {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
+                                    {{ since }} ago ({{ time }})
+                                {% endblocktrans %}
                             </div>
                         </div>
                     </li>

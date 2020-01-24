@@ -17,7 +17,9 @@
     <ul class="list-group list-group-flush text-muted small">
     {% for instance in instances %}
         <li class="list-group-item">
-            {% blocktrans with duration=instance.duration|duration_string end=instance.end|time %}{{ duration }} at {{ end }}{% endblocktrans %}
+            {% blocktrans trimmed with duration=instance.duration|duration_string end=instance.end|time %}
+                {{ duration }} at {{ end }}
+            {% endblocktrans %}
         </li>
     {% endfor %}
     </ul>

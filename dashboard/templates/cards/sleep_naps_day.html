@@ -5,7 +5,9 @@
 
 {% block title %}
     {% if count %}
-        {% blocktrans with plural=count|pluralize %}{{ count }} nap{{ plural }}{% endblocktrans %}
+        {% blocktrans trimmed with plural=count|pluralize %}
+            {{ count }} nap{{ plural }}
+        {% endblocktrans %}
     {% else %}
         <i class="icon icon-sad" aria-hidden="true"></i>
         {% trans "None yet today" %}
