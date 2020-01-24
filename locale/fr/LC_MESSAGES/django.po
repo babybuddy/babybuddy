@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: babybuddy 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-14 13:12-0800\n"
+"POT-Creation-Date: 2020-01-23 19:19-0800\n"
 "PO-Revision-Date: 2019-05-02 17:20+0000\n"
 "Last-Translator: Christopher C. Wells <wells@chrxs.net>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -90,21 +90,29 @@ msgstr "Langue"
 msgid "{user}'s Settings"
 msgstr "Paramètres d'utilisateur {user}"
 
-#: babybuddy/settings/base.py:128
+#: babybuddy/settings/base.py:129
 msgid "English"
 msgstr "Anglais"
 
-#: babybuddy/settings/base.py:129
+#: babybuddy/settings/base.py:130
 msgid "French"
 msgstr "français"
 
-#: babybuddy/settings/base.py:130
+#: babybuddy/settings/base.py:131
 msgid "German"
 msgstr ""
 
-#: babybuddy/settings/base.py:131
+#: babybuddy/settings/base.py:132
+msgid "Spanish"
+msgstr ""
+
+#: babybuddy/settings/base.py:133
 msgid "Swedish"
 msgstr "suédoise"
+
+#: babybuddy/settings/base.py:134
+msgid "Turkish"
+msgstr ""
 
 #: babybuddy/templates/403.html:4 babybuddy/templates/403.html:7
 msgid "Permission Denied"
@@ -118,7 +126,7 @@ msgstr ""
 "Vous n'êtes pas autorisé à accéder à cette ressource.\n"
 "        Contactez un administrateur de site pour obtenir de l'aide."
 
-#: babybuddy/templates/babybuddy/base.html:34
+#: babybuddy/templates/babybuddy/base.html:36
 msgid "Home"
 msgstr "Accueil"
 
@@ -135,7 +143,7 @@ msgid "Filters"
 msgstr "Les filtres"
 
 #: babybuddy/templates/babybuddy/form.html:11
-#: babybuddy/templates/babybuddy/user_settings_form.html:68
+#: babybuddy/templates/babybuddy/user_settings_form.html:69
 msgid "Submit"
 msgstr "Soumettre"
 
@@ -228,7 +236,7 @@ msgstr "Poids"
 #: core/templates/core/child_form.html:13 core/templates/core/child_list.html:4
 #: core/templates/core/child_list.html:7 core/templates/core/child_list.html:11
 #: dashboard/templates/dashboard/child.html:7
-#: reports/templates/reports/report_base.html:8
+#: reports/templates/reports/report_base.html:7
 msgid "Children"
 msgstr "Enfants"
 
@@ -868,12 +876,12 @@ msgstr ""
 "Tapez le nom complet de l'enfant ci-dessous pour confirmer cette action."
 
 #: core/templates/core/child_detail.html:23
-#: dashboard/templates/dashboard/dashboard.html:27
+#: dashboard/templates/dashboard/dashboard.html:32
 msgid "Born"
 msgstr "Né"
 
 #: core/templates/core/child_detail.html:24
-#: dashboard/templates/dashboard/dashboard.html:28
+#: dashboard/templates/dashboard/dashboard.html:33
 msgid "Age"
 msgstr "L'âge"
 
@@ -1024,8 +1032,8 @@ msgstr "Arrêté"
 
 #: core/templates/core/timer_detail.html:26
 #, python-format
-msgid "%(timer)s created by %(object.user)s"
-msgstr "%(timer)s a été créé par %(object.user)s"
+msgid "%(timer)s created by %(user)s"
+msgstr "%(timer)s a été créé par %(user)s"
 
 #: core/templates/core/timer_detail.html:53
 msgid "Timer actions"
@@ -1286,8 +1294,8 @@ msgstr "%(count)s chronomètre%(plural)s actif"
 
 #: dashboard/templates/cards/timer_list.html:19
 #, python-format
-msgid "Started by %(instance.user)s at %(start)s"
-msgstr "Lancé par %(instance.user)s à %(start)s"
+msgid "Started by %(user)s at %(start)s"
+msgstr "Lancé par %(user)s à %(start)s"
 
 #: dashboard/templates/cards/tummytime_day.html:4
 msgid "Today's Tummy Time"
@@ -1449,10 +1457,10 @@ msgstr "<b>Poids</b>"
 msgid "Average Feeding Durations"
 msgstr "Durée d'alimentation moyenne"
 
-#: reports/templates/reports/report_base.html:10
+#: reports/templates/reports/report_base.html:9
 msgid "Reports"
 msgstr "Rapports"
 
-#: reports/templates/reports/report_base.html:20
+#: reports/templates/reports/report_base.html:19
 msgid "There is not enough data to generate this report."
 msgstr "Il n'y a pas assez de données pour générer ce rapport."

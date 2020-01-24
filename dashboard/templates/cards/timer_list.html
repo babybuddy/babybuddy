@@ -16,7 +16,7 @@
            class="list-group-item list-group-item-action">
             <strong>{{ instance }}</strong>
             <p class="text-muted small m-0">
-                {% blocktrans with start=instance.start|time %}Started by {{ instance.user }} at {{ start }}{% endblocktrans %}
+                {% blocktrans with start=instance.start|time user=instance.user %}Started by {{ user }} at {{ start }}{% endblocktrans %}
             </p>
         </a>
     {% endfor %}

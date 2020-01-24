@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-14 13:12-0800\n"
+"POT-Creation-Date: 2020-01-23 19:19-0800\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,20 +81,28 @@ msgstr "Språk"
 msgid "{user}'s Settings"
 msgstr "{user}'s inställningar"
 
-#: babybuddy/settings/base.py:128
+#: babybuddy/settings/base.py:129
 msgid "English"
 msgstr "Engelska"
 
-#: babybuddy/settings/base.py:129
+#: babybuddy/settings/base.py:130
 msgid "French"
 msgstr "Franska"
 
-#: babybuddy/settings/base.py:130
+#: babybuddy/settings/base.py:131
 msgid "German"
 msgstr ""
 
-#: babybuddy/settings/base.py:131
+#: babybuddy/settings/base.py:132
+msgid "Spanish"
+msgstr ""
+
+#: babybuddy/settings/base.py:133
 msgid "Swedish"
+msgstr ""
+
+#: babybuddy/settings/base.py:134
+msgid "Turkish"
 msgstr ""
 
 #: babybuddy/templates/403.html:4 babybuddy/templates/403.html:7
@@ -109,7 +117,7 @@ msgstr ""
 "Du har inte behörighet att komma åt den här resursen. Kontakta "
 "webbplatsadministratören för hjälp."
 
-#: babybuddy/templates/babybuddy/base.html:34
+#: babybuddy/templates/babybuddy/base.html:36
 msgid "Home"
 msgstr "Hem"
 
@@ -126,7 +134,7 @@ msgid "Filters"
 msgstr "Filter"
 
 #: babybuddy/templates/babybuddy/form.html:11
-#: babybuddy/templates/babybuddy/user_settings_form.html:68
+#: babybuddy/templates/babybuddy/user_settings_form.html:69
 msgid "Submit"
 msgstr "Skicka"
 
@@ -218,7 +226,7 @@ msgstr "Vikt"
 #: core/templates/core/child_form.html:13 core/templates/core/child_list.html:4
 #: core/templates/core/child_list.html:7 core/templates/core/child_list.html:11
 #: dashboard/templates/dashboard/child.html:7
-#: reports/templates/reports/report_base.html:8
+#: reports/templates/reports/report_base.html:7
 msgid "Children"
 msgstr "Barn"
 
@@ -856,12 +864,12 @@ msgstr ""
 "För att bekräfta denna åtgärd. Skriv hela barnets fullständiga namn nedan."
 
 #: core/templates/core/child_detail.html:23
-#: dashboard/templates/dashboard/dashboard.html:27
+#: dashboard/templates/dashboard/dashboard.html:32
 msgid "Born"
 msgstr "Född"
 
 #: core/templates/core/child_detail.html:24
-#: dashboard/templates/dashboard/dashboard.html:28
+#: dashboard/templates/dashboard/dashboard.html:33
 msgid "Age"
 msgstr "Ålder"
 
@@ -1012,8 +1020,8 @@ msgstr "Stoppad"
 
 #: core/templates/core/timer_detail.html:26
 #, python-format
-msgid "%(timer)s created by %(object.user)s"
-msgstr " %(timer)s skapad av %(object.user)s"
+msgid "%(timer)s created by %(user)s"
+msgstr " %(timer)s skapad av %(user)s"
 
 #: core/templates/core/timer_detail.html:53
 msgid "Timer actions"
@@ -1274,8 +1282,8 @@ msgstr "%(count)s aktiv timer%(plural)s"
 
 #: dashboard/templates/cards/timer_list.html:19
 #, python-format
-msgid "Started by %(instance.user)s at %(start)s"
-msgstr "Startad av %(instance.user)s vid %(start)s"
+msgid "Started by %(user)s at %(start)s"
+msgstr "Startad av %(user)s vid %(start)s"
 
 #: dashboard/templates/cards/tummytime_day.html:4
 msgid "Today's Tummy Time"
@@ -1437,10 +1445,10 @@ msgstr "<b>Vikt</b>"
 msgid "Average Feeding Durations"
 msgstr "Genomsnittlig matningsvaraktighet"
 
-#: reports/templates/reports/report_base.html:10
+#: reports/templates/reports/report_base.html:9
 msgid "Reports"
 msgstr "Rapporter"
 
-#: reports/templates/reports/report_base.html:20
+#: reports/templates/reports/report_base.html:19
 msgid "There is not enough data to generate this report."
 msgstr "Det finns inte tillräckligt med data för att generera denna rapport."

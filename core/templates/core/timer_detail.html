@@ -23,7 +23,7 @@
             {% endif %}
         </p>
         <p class="text-muted">
-            {% blocktrans %}{{ timer }} created by {{ object.user }}{% endblocktrans %}
+            {% blocktrans with user=object.user %}{{ timer }} created by {{ user }}{% endblocktrans %}
         </p>
 
         {% if perms.core.add_feeding %}
