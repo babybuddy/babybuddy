@@ -18,15 +18,10 @@ jobs:
           - pyenv global 3.8.0
 env:
     - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
-addons:
-    apt:
-        packages:
-            - python3
-            - python3-pip
 install:
     - nvm use 10
     - npm install -g gulp-cli && npm install
-    - pip3 install pipenv && pipenv --three install --dev
+    - pip install pipenv && pipenv install --dev
 before_script:
     - gulp lint
 script:
