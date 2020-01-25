@@ -1,25 +1,31 @@
-sudo: false
-dist: xenial
-language: python
+language: generic
+dist: bionic
+jobs:
+  include:
+    - name: "Python 3.6"
+      before_install:
+        - pyenv global 3.6.9
+    - name: "Python 3.7"
+      before_install:
+        - pyenv global 3.7.5
+    - name: "Python 3.8"
+      before_install:
+        - pyenv global 3.8.0
 cache:
-    pip: true
-    directories:
-        - node_modules
-python:
-    - 3.6
-    - 3.7
-    - 3.8
+  directories:
+    - $HOME/.cache/pip
+    - node_modules
 env:
-    - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
+  - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
 install:
-    - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 8
-    - npm install -g gulp-cli && npm install
-    - pip install pipenv && pipenv install --dev
+  - nvm use 10
+  - npm install -g gulp-cli && npm install
+  - pip install pipenv && pipenv install --dev
 before_script:
-    - gulp lint
+  - gulp lint
 script:
-    - gulp coverage
+  - gulp coverage
 after_success:
-    - pipenv run coveralls
+  - pipenv run coveralls
 notifications:
-    email: false
+  email: false
