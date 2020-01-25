@@ -1,6 +1,6 @@
 sudo: false
 dist: xenial
-language: python
+language: generic
 cache:
     pip: true
     directories:
@@ -12,7 +12,6 @@ python:
 env:
     - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
 install:
-    - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 8
     - npm install -g gulp-cli && npm install
     - pip install pipenv && pipenv install --dev
 before_script:
