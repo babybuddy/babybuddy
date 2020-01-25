@@ -81,6 +81,7 @@ newly translated strings.
 Once the translation is complete, commit the new files and changes to a fork
 and [create a pull request](#pull-request-process) for review.
  
+ 
 For more information on the Django translation process, see Django's 
 documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/).
 
@@ -89,7 +90,7 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 ### Requirements
 
 - Python 3.6+, pip, pipenv
-- NodeJS 8.x+ and NPM 5.x+
+- NodeJS 10.x+ and NPM 6.x+
 - Gulp
 
 ### Installation
