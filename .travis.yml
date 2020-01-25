@@ -1,5 +1,5 @@
 sudo: false
-dist: xenial
+dist: bionic
 language: generic
 cache:
     pip: true
@@ -8,19 +8,11 @@ cache:
 jobs:
   include:
     - name: "Python 3.6"
-      before_install:
-        - pyenv install 3.6.9
-        - pyenv global 3.6.9
+      env: PYTHON=3.6.9
     - name: "Python 3.7"
-      python: 3.7
-      before_install:
-        - pyenv install 3.7.6
-        - pyenv global 3.7.6
+      env: PYTHON=3.7.5
     - name: "Python 3.8"
-      python: 3.8
-      before_install:
-        - pyenv install 3.8.1
-        - pyenv global 3.8.1
+      env: PYTHON=3.8.0
 env:
     - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
 install:
