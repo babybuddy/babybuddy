@@ -8,14 +8,23 @@ cache:
 jobs:
   include:
     - name: "Python 3.6"
-      python: 3.6
+      before_install:
+        - pyenv install 3.6.9
+        - pyenv global 3.6.9
     - name: "Python 3.7"
       python: 3.7
+      before_install:
+        - pyenv install 3.7.6
+        - pyenv global 3.7.6
     - name: "Python 3.8"
       python: 3.8
+      before_install:
+        - pyenv install 3.8.1
+        - pyenv global 3.8.1
 env:
     - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
 install:
+    - nvm use 10
     - npm install -g gulp-cli && npm install
     - pip install pipenv && pipenv install --dev
 before_script:
