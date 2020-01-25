@@ -1,32 +1,31 @@
-sudo: false
-dist: bionic
 language: generic
-cache:
-    directories:
-        - $HOME/.cache/pip
-        - node_modules
+dist: bionic
 jobs:
   include:
     - name: "Python 3.6"
       before_install:
-          - pyenv global 3.6.9
+        - pyenv global 3.6.9
     - name: "Python 3.7"
       before_install:
-          - pyenv global 3.7.5
+        - pyenv global 3.7.5
     - name: "Python 3.8"
       before_install:
-          - pyenv global 3.8.0
+        - pyenv global 3.8.0
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - node_modules
 env:
-    - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
+  - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
 install:
-    - nvm use 10
-    - npm install -g gulp-cli && npm install
-    - pip install pipenv && pipenv install --dev
+  - nvm use 10
+  - npm install -g gulp-cli && npm install
+  - pip install pipenv && pipenv install --dev
 before_script:
-    - gulp lint
+  - gulp lint
 script:
-    - gulp coverage
+  - gulp coverage
 after_success:
-    - pipenv run coveralls
+  - pipenv run coveralls
 notifications:
-    email: false
+  email: false
