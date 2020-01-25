@@ -18,7 +18,7 @@ env:
 install:
     - nvm use 10
     - npm install -g gulp-cli && npm install
-    - pip install pipenv && pipenv install --dev
+    - pip3 install pipenv && pipenv --three install --dev
 before_script:
     - gulp lint
 script:
