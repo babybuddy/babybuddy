@@ -2,22 +2,19 @@ sudo: false
 dist: bionic
 language: generic
 cache:
-    pip: true
     directories:
+        - $HOME/.cache/pip
         - node_modules
 jobs:
   include:
     - name: "Python 3.6"
       before_install:
-          - pyenv install 3.6.9
           - pyenv global 3.6.9
     - name: "Python 3.7"
       before_install:
-          - pyenv install 3.7.5
           - pyenv global 3.7.5
     - name: "Python 3.8"
       before_install:
-          - pyenv install 3.8.0
           - pyenv global 3.8.0
 env:
     - DJANGO_SETTINGS_MODULE="babybuddy.settings.travis"
