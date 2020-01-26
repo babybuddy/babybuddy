@@ -20,7 +20,8 @@
       "time": "2017-11-18T16:00:00Z",
       "wet": false,
       "solid": true,
-      "color": "green"
+      "color": "green",
+      "amount": null
     }
   },
   {
@@ -32,7 +33,8 @@
       "time": "2017-11-18T19:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": 2.25
     }
   },
   {
@@ -44,7 +46,8 @@
       "time": "2017-11-17T13:00:00Z",
       "wet": false,
       "solid": true,
-      "color": "green"
+      "color": "green",
+      "amount": 1.3
     }
   },
   {
@@ -56,7 +59,8 @@
       "time": "2017-11-17T16:00:00Z",
       "wet": false,
       "solid": true,
-      "color": "green"
+      "color": "green",
+      "amount": null
     }
   },
   {
@@ -68,7 +72,8 @@
       "time": "2017-11-16T15:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": null
     }
   },
   {
@@ -80,7 +85,8 @@
       "time": "2017-11-16T18:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": 5.4
     }
   },
   {
@@ -92,7 +98,8 @@
       "time": "2017-11-15T15:00:00Z",
       "wet": false,
       "solid": true,
-      "color": "brown"
+      "color": "brown",
+      "amount": 0.25
     }
   },
   {
@@ -104,7 +111,8 @@
       "time": "2017-11-15T13:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": 1.67
     }
   },
   {
@@ -116,7 +124,8 @@
       "time": "2017-11-15T16:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": 1.0
     }
   },
   {
@@ -128,7 +137,8 @@
       "time": "2017-11-15T21:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": null
     }
   },
   {
@@ -140,7 +150,8 @@
       "time": "2017-11-14T15:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": null
     }
   },
   {
@@ -152,7 +163,8 @@
       "time": "2017-11-13T14:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": 2.6
     }
   },
   {
@@ -164,7 +176,8 @@
       "time": "2017-11-13T18:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": null
     }
   },
   {
@@ -176,7 +189,8 @@
       "time": "2017-11-12T15:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": null
     }
   },
   {
@@ -188,7 +202,8 @@
       "time": "2017-11-11T15:00:00Z",
       "wet": true,
       "solid": false,
-      "color": ""
+      "color": "",
+      "amount": 0.75
     }
   },
   {

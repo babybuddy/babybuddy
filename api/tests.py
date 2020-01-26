@@ -61,7 +61,8 @@ class DiaperChangeAPITestCase(APITestCase):
             'time': '2017-11-18T14:00:00-05:00',
             'wet': True,
             'solid': False,
-            'color': ''
+            'color': '',
+            'amount': 2.25
         })
 
     def test_options(self):
@@ -75,12 +76,16 @@ class DiaperChangeAPITestCase(APITestCase):
             'time': '2017-11-18T12:00:00-05:00',
             'wet': True,
             'solid': True,
-            'color': 'brown'
+            'color': 'brown',
+            'amount': 1.25
         }
         response = self.client.post(self.endpoint, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.DiaperChange.objects.get(pk=response.data['id'])
+        self.assertTrue(obj.wet)
+        self.assertTrue(obj.solid)
         self.assertEqual(obj.color, data['color'])
+        self.assertEqual(obj.amount, data['amount'])
 
 
 @override_settings(TIME_ZONE='US/Eastern')

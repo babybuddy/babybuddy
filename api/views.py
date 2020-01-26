@@ -16,7 +16,7 @@ class ChildViewSet(viewsets.ModelViewSet):
 class DiaperChangeViewSet(viewsets.ModelViewSet):
     queryset = models.DiaperChange.objects.all()
     serializer_class = serializers.DiaperChangeSerializer
-    filterset_fields = ('child', 'wet', 'solid', 'color')
+    filterset_fields = ('child', 'wet', 'solid', 'color', 'amount')
 
 
 class FeedingViewSet(viewsets.ModelViewSet):
