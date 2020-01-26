@@ -60,12 +60,6 @@ gulp.task('scripts', scripts);
 
 function styles(cb) {
     pump([
-        gulp.src(config.stylesConfig.vendor),
-        concat('vendor.css'),
-        gulp.dest(config.stylesConfig.dest)
-    ], cb);
-
-    pump([
         gulp.src(config.stylesConfig.app),
         sassGlob({ignorePaths: config.stylesConfig.ignore}),
         sass().on('error', sass.logError),

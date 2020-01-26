@@ -51,9 +51,6 @@ module.exports = {
     },
     stylesConfig: {
         dest: basePath + 'css/',
-        vendor: [
-            'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css'
-        ],
         app: 'babybuddy/static_src/scss/babybuddy.scss',
         ignore: [
             'babybuddy.scss'
