@@ -58,7 +58,8 @@ class FormsTestCase(TestCase):
             'time': '2000-01-01 1:01',
             'wet': 1,
             'solid': 1,
-            'color': 'black'
+            'color': 'black',
+            'amount': 0.45
         }
 
         entry = models.DiaperChange.objects.first()

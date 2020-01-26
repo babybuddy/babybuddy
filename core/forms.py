@@ -90,7 +90,7 @@ class ChildDeleteForm(forms.ModelForm):
 class DiaperChangeForm(forms.ModelForm):
     class Meta:
         model = models.DiaperChange
-        fields = ['child', 'time', 'wet', 'solid', 'color']
+        fields = ['child', 'time', 'wet', 'solid', 'color', 'amount']
         widgets = {
             'time': forms.DateTimeInput(attrs={
                 'class': 'datetimepicker-input',

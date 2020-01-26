@@ -18,6 +18,7 @@
                     <th class="text-center">{% trans "Wet" %}</th>
                     <th class="text-center">{% trans "Solid" %}</th>
                     <th>{% trans "Color" %}</th>
+                    <th>{% trans "Amount" %}</th>
                     <th>{% trans "Time" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
@@ -29,6 +30,7 @@
                         <td class="text-center">{{ change.wet|bool_icon }}</td>
                         <td class="text-center">{{ change.solid|bool_icon }}</td>
                         <td>{{ change.get_color_display }}</td>
+                        <td>{{ change.amount|default_if_none:"" }}</td>
                         <td>{{ change.time }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">

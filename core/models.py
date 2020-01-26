@@ -139,6 +139,7 @@ class DiaperChange(models.Model):
         max_length=255,
         verbose_name=_('Color')
     )
+    amount = models.FloatField(blank=True, null=True, verbose_name=_('Amount'))
 
     objects = models.Manager()
 

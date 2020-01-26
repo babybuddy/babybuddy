@@ -37,12 +37,18 @@ class DiaperChangeTestCase(TestCase):
             time=timezone.localtime() - timezone.timedelta(days=1),
             wet=1,
             solid=1,
-            color='black'
+            color='black',
+            amount=1.25
         )
 
     def test_diaperchange_create(self):
         self.assertEqual(self.change, models.DiaperChange.objects.first())
         self.assertEqual(str(self.change), 'Diaper Change')
+        self.assertEqual(self.change.child, self.child)
+        self.assertTrue(self.change.wet)
+        self.assertTrue(self.change.solid)
+        self.assertEqual(self.change.color, 'black')
+        self.assertEqual(self.change.amount, 1.25)
 
     def test_diaperchange_attributes(self):
         self.assertListEqual(
