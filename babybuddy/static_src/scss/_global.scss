@@ -10,7 +10,7 @@
     @include button-size(.2rem, .12rem, .75rem, 1, .2rem);
 }
 
-// Temporary workaround. See: https://github.com/twbs/bootstrap/issues/23553
+// Right align main dropdown menu.
 .dropdown-menu-right {
     right: 0;
     left: auto; // Reset the default from `.dropdown-menu`
@@ -28,4 +28,9 @@
         background-color: inherit;
         border-color: inherit;
     }
+}
+
+// Set default text color for datetime picker.
+.bootstrap-datetimepicker-widget {
+    color: $gray-400;
 }
