@@ -7,6 +7,11 @@ app_name = 'reports'
 
 urlpatterns = [
     path(
+        'children/<slug:slug>/reports/changes/amounts/',
+        views.DiaperChangeAmounts.as_view(),
+        name='report-diaperchange-amounts-child'
+    ),
+    path(
         'children/<slug:slug>/reports/changes/lifetimes/',
         views.DiaperChangeLifetimesChildReport.as_view(),
         name='report-diaperchange-lifetimes-child'

@@ -7,6 +7,24 @@ from core import models
 from . import graphs
 
 
+class DiaperChangeAmounts(PermissionRequired403Mixin, DetailView):
+    """
+    Graph of diaper "amounts" - measurements of urine output.
+    """
+    model = models.Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/diaperchange_amounts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DiaperChangeAmounts, self).get_context_data(**kwargs)
+        child = context['object']
+        changes = models.DiaperChange.objects.filter(child=child, amount__gt=0)
+        if changes and changes.count() > 0:
+            context['html'], context['js'] = \
+                graphs.diaperchange_amounts(changes)
+        return context
+
+
 class DiaperChangeLifetimesChildReport(PermissionRequired403Mixin, DetailView):
     """
     Graph of diaper "lifetimes" - time between diaper changes.

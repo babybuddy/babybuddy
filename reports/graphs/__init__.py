@@ -1,3 +1,4 @@
+from .diaperchange_amounts import diaperchange_amounts  # NOQA
 from .diaperchange_lifetimes import diaperchange_lifetimes  # NOQA
 from .diaperchange_types import diaperchange_types  # NOQA
 from .feeding_amounts import feeding_amounts  # NOQA

@@ -16,6 +16,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"><i class="icon icon-graph" aria-hidden="true"></i></button>
         <div class="dropdown-menu" aria-labelledby="reports-dropdown">
+            <a class="dropdown-item" href="{% url 'reports:report-diaperchange-amounts-child' object.slug %}">{% trans "Diaper Change Amounts" %}</a>
             <a class="dropdown-item" href="{% url 'reports:report-diaperchange-types-child' object.slug %}">{% trans "Diaper Change Types" %}</a>
             <a class="dropdown-item" href="{% url 'reports:report-diaperchange-lifetimes-child' object.slug %}">{% trans "Diaper Lifetimes" %}</a>
             <a class="dropdown-item" href="{% url 'reports:report-feeding-amounts-child' object.slug %}">{% trans "Feeding Amounts" %}</a>
