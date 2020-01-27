@@ -23,7 +23,7 @@ BabyBuddy.DatetimePicker = function ($, moment) {
     return {
         init: function (element, options) {
             var defaultOptions = {
-                buttons: { showToday: true },
+                buttons: { showToday: true, showClose: true },
                 defaultDate: 'now',
                 format: 'L LT',
                 ignoreReadonly: true,
