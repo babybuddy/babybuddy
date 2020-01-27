@@ -32,13 +32,10 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker_birth_date').datetimepicker({
-                format: 'L',
-                locale: '{{ LOCALE }}',
-                viewMode: 'years',
-                extraFormats: ['YYYY-MM-DD']
-            });
+        BabyBuddy.DatetimePicker.init($('#datetimepicker_birth_date'), {
+            format: 'L',
+            viewMode: 'years',
+            extraFormats: ['YYYY-MM-DD']
         });
     </script>
 {% endblock %}

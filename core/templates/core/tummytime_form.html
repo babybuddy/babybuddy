@@ -31,17 +31,12 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker_start').datetimepicker({
-                format: 'L LTS',
-                locale: '{{ LOCALE }}',
-                useCurrent: false
-            });
-            $('#datetimepicker_end').datetimepicker({
-                defaultDate: 'now',
-                format: 'L LTS',
-                locale: '{{ LOCALE }}'
-            });
+        BabyBuddy.DatetimePicker.init($('#datetimepicker_start'), {
+            defaultDate: false,
+            format: 'L LTS'
+        });
+        BabyBuddy.DatetimePicker.init($('#datetimepicker_end'), {
+            format: 'L LTS'
         });
     </script>
 {% endblock %}
