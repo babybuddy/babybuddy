@@ -216,7 +216,30 @@ gulp.task('clean', clean);
 
 gulp.task('runserver', function(cb) {
     var command = ['run', 'python', 'manage.py', 'runserver'];
-    command = command.concat(process.argv.splice(3));
+
+    /**
+     * Process any parameters. Any arguments found here will be removed from
+     * the parameters list so other parameters continue to be passed to the
+     * command.
+     **/
+    var parameters = process.argv.splice(2);
+    for (var i = 0; i < parameters.length; i++) {
+        /* May be included because this is the default gulp command. */
+        if (parameters[i] === 'runserver') {
+            delete parameters[i];
+        }
+        /* "--ip" parameter to set the server IP address. */
+        else if (parameters[i] === '--ip') {
+            command.push(parameters[i+1]);
+            delete parameters[i];
+            delete parameters[i+1];
+            i++;
+        }
+    }
+
+    /* Add parameters to command, removing empty values. */
+    command = command.concat(parameters.filter(String));
+
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 

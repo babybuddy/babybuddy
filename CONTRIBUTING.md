@@ -160,6 +160,8 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 #### `gulp`
 
 Executes the `build` and `watch` commands and runs Django's development server.
+This command also accepts the special parameter `--ip` for setting the
+development server IP address. See [`gulp runserver`](#runserver) for details.
 
 #### `build`
 
@@ -240,8 +242,12 @@ fake data.
 
 #### `runserver`
 
-Executes Django's `runserver` management task. Gulp also passes along
-non-overlapping arguments for this command.
+Executes Django's `runserver` management task. Gulp passes non-overlapping
+arguments for this command.
+
+A special parameter, `--ip`, is also available to set the IP for the server.
+E.g execute `gulp runserver --ip 0.0.0.0:8000` to make the server available to
+other devices on your local network.
 
 #### `scripts`
 
