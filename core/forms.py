@@ -61,6 +61,7 @@ class ChildForm(forms.ModelForm):
             fields.append('picture')
         widgets = {
             'birth_date': forms.DateInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_date',
             }),
@@ -93,6 +94,7 @@ class DiaperChangeForm(forms.ModelForm):
         fields = ['child', 'time', 'wet', 'solid', 'color', 'amount']
         widgets = {
             'time': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_time',
             }),
@@ -109,10 +111,12 @@ class FeedingForm(forms.ModelForm):
         fields = ['child', 'start', 'end', 'type', 'method', 'amount']
         widgets = {
             'start': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_end',
             }),
@@ -150,10 +154,12 @@ class SleepForm(forms.ModelForm):
         fields = ['child', 'start', 'end']
         widgets = {
             'start': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_end',
             }),
@@ -180,6 +186,7 @@ class TemperatureForm(forms.ModelForm):
         fields = ['child', 'temperature', 'time']
         widgets = {
             'time': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_time',
             }),
@@ -196,6 +203,7 @@ class TimerForm(forms.ModelForm):
         fields = ['name', 'start']
         widgets = {
             'start': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_start',
             })
@@ -218,10 +226,12 @@ class TummyTimeForm(forms.ModelForm):
         fields = ['child', 'start', 'end', 'milestone']
         widgets = {
             'start': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_end',
             }),
@@ -248,6 +258,7 @@ class WeightForm(forms.ModelForm):
         fields = ['child', 'weight', 'date']
         widgets = {
             'date': forms.DateInput(attrs={
+                'readonly': 'readonly',
                 'class': 'datetimepicker-input',
                 'data-target': '#datetimepicker_date',
             }),
