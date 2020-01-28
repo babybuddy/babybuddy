@@ -35,9 +35,28 @@
     color: $gray-400;
 }
 
-.datetimepicker-input[readonly] {
-    background: none;
-    border: 0;
-    color: $white;
-    font-weight: bold;
+// Datetime picker input styles.
+.input-group {
+    &.datetimepicker {
+
+        // Make calendar icon large and use the primary theme color.
+        .input-group-text {
+            background: none;
+            border: 0;
+            color: theme-color('primary');
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        // Style readonly input to look less like an input element.
+        .datetimepicker-input {
+            &[readonly] {
+                background: none;
+                border: 0;
+                color: $white;
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+    }
 }

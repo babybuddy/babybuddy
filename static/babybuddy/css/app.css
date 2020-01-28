@@ -1,28 +1,4 @@
 @charset "UTF-8";
-.breadcrumb {
-  margin-bottom: 0; }
-
-.btn-xs {
-  padding: 0.2rem 0.12rem;
-  font-size: 0.75rem;
-  line-height: 1;
-  border-radius: 0.2rem; }
-
-.dropdown-menu-right {
-  right: 0;
-  left: auto; }
-
-.invalid-feedback {
-  display: block; }
-
-.btn-no-hover:hover {
-  color: inherit;
-  background-color: inherit;
-  border-color: inherit; }
-
-.bootstrap-datetimepicker-widget {
-  color: #ced4da; }
-
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -7625,6 +7601,20 @@ a.text-error:hover, a.text-error:focus {
 
 .bootstrap-datetimepicker-widget {
   color: #ced4da; }
+
+.input-group.datetimepicker .input-group-text {
+  background: none;
+  border: 0;
+  color: #226f97;
+  padding-left: 0;
+  padding-right: 0; }
+
+.input-group.datetimepicker .datetimepicker-input[readonly] {
+  background: none;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold; }
 
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
