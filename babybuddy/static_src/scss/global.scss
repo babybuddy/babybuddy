@@ -34,3 +34,10 @@
 .bootstrap-datetimepicker-widget {
     color: $gray-400;
 }
+
+.datetimepicker-input[readonly] {
+    background: none;
+    border: 0;
+    color: $white;
+    font-weight: bold;
+}
