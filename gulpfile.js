@@ -243,4 +243,6 @@ gulp.task('runserver', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
+gulp.task('updatestatic', gulp.series('lint', 'clean', 'build', 'collectstatic'));
+
 gulp.task('default', gulp.series('build', gulp.parallel(watch, 'runserver')));

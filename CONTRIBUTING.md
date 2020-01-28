@@ -9,7 +9,6 @@
 - [Development](#development)
   - [Installation](#installation)
   - [Gulp Commands](#gulp-commands)
-  - [Pre-commit Hook](#pre-commit-hook)
   
 ## Contributions
 
@@ -73,14 +72,13 @@ the language. If it does:
     `scriptsConfig.graph`.
 
     1. Build, collect, and commit the `/static` folder (see 
-    [`gulp collectstatic`](#collectstatic)).
+    [`gulp updatestatic`](#updatestatic)).
 
 1. Run the development server, log in, and update the user language to test the
 newly translated strings.
 
 Once the translation is complete, commit the new files and changes to a fork
 and [create a pull request](#pull-request-process) for review.
- 
  
 For more information on the Django translation process, see Django's 
 documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/).
@@ -156,6 +154,7 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 - [`gulp scripts`](#scripts)
 - [`gulp styles`](#styles)
 - [`gulp test`](#test)
+- [`gulp updatestatic`](#updatestatic)
 
 #### `gulp`
 
@@ -181,14 +180,7 @@ the `babybuddy/static` folder, so generally `gulp build` should be run before
 this command for production deployments. Gulp also passes along
 non-overlapping arguments for this command, e.g. `--no-input`.
 
-Before executing this command, ensure that
-
-- `DEBUG` is set to it's default (`False`).
-- `STATICFILES_STORAGE` is set to it's default.
-- `SECRET_KEY` is set to (anything).
-
-See the [`development.py` settings file](babybuddy/settings/development.py) for
-additional information.
+Note: a `SECRET_KEY` value must be set for this command to work.
 
 #### `compilemessages`
 
@@ -266,3 +258,16 @@ Executes Baby Buddy's suite of tests.
 Gulp also passes along non-overlapping arguments for this command, however
 individual tests cannot be run with this command. `python manage.py test` can be
 used for individual test execution.
+
+#### `updatestatic`
+
+Rebuilds Baby Buddy's `/static` folder by running the following commands in
+order:
+
+- [`lint`](#lint)
+- [`clean`](#clean)
+- [`build`](#build)
+- [`collectstatic`](#collectstatic)
+
+This command should be executed, and any changes committed, any time changes
+are made to Baby Buddy's frontend code (SASS, JS, etc.).
