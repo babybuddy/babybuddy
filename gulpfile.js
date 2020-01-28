@@ -11,7 +11,48 @@ var spawn = require('child_process').spawn;
 
 var config = require('./gulpfile.config.js');
 
+/**
+ * Support functions for Gulp tasks.
+ */
 
+/**
+ * Deletes local static files.
+ *
+ * @returns {*}
+ */
+function clean() {
+    return del([
+        '**/static',
+        'static'
+    ]);
+}
+
+/**
+ * Runs coverage operations.
+ *
+ * @param cb
+ */
+function coverage(cb) {
+    spawn(
+        'pipenv',
+        [
+            'run',
+            'coverage',
+            'run',
+            'manage.py',
+            'test'
+        ],
+        {
+            stdio: 'inherit'
+        }
+    ).on('exit', cb);
+}
+
+/**
+ * Builds and copies "extra" static files to configured paths.
+ *
+ * @param cb
+ */
 function extras(cb) {
     pump([
         gulp.src(config.extrasConfig.fonts.files),
@@ -35,48 +76,12 @@ function extras(cb) {
         gulp.dest(config.extrasConfig.root.dest)
     ], cb);
 }
-gulp.task('extras', extras);
 
-function scripts(cb) {
-    pump([
-        gulp.src(config.scriptsConfig.vendor),
-        concat('vendor.js'),
-        gulp.dest(config.scriptsConfig.dest)
-    ], cb);
-
-    pump([
-        gulp.src(config.scriptsConfig.graph),
-        concat('graph.js'),
-        gulp.dest(config.scriptsConfig.dest)
-    ], cb);
-
-    pump([
-        gulp.src(config.scriptsConfig.app),
-        concat('app.js'),
-        gulp.dest(config.scriptsConfig.dest)
-    ], cb);
-}
-gulp.task('scripts', scripts);
-
-function styles(cb) {
-    pump([
-        gulp.src(config.stylesConfig.app),
-        sassGlob({ignorePaths: config.stylesConfig.ignore}),
-        sass().on('error', sass.logError),
-        concat('app.css'),
-        gulp.dest(config.stylesConfig.dest)
-    ], cb);
-}
-gulp.task('styles', styles);
-
-gulp.task('build', gulp.parallel(extras, scripts, styles));
-
-function watch() {
-    gulp.watch(config.watchConfig.scriptsGlob, scripts);
-    gulp.watch(config.watchConfig.stylesGlob, styles);
-}
-gulp.task('watch', watch);
-
+/**
+ * Runs linting on Python and SASS code.
+ *
+ * @param cb
+ */
 function lint(cb) {
     var command = ['run', 'flake8', '--exclude=etc,migrations,manage.py,node_modules,settings'];
     command = command.concat(process.argv.splice(3));
@@ -113,31 +118,69 @@ function lint(cb) {
         })
     ], cb);
 }
-gulp.task('lint', lint);
 
+/**
+ * Builds and copies JavaScript static files to configured paths.
+ *
+ * @param cb
+ */
+function scripts(cb) {
+    pump([
+        gulp.src(config.scriptsConfig.vendor),
+        concat('vendor.js'),
+        gulp.dest(config.scriptsConfig.dest)
+    ], cb);
+
+    pump([
+        gulp.src(config.scriptsConfig.graph),
+        concat('graph.js'),
+        gulp.dest(config.scriptsConfig.dest)
+    ], cb);
+
+    pump([
+        gulp.src(config.scriptsConfig.app),
+        concat('app.js'),
+        gulp.dest(config.scriptsConfig.dest)
+    ], cb);
+}
+
+/**
+ * Builds and copies CSS static files to configured paths.
+ *
+ * @param cb
+ */
+function styles(cb) {
+    pump([
+        gulp.src(config.stylesConfig.app),
+        sassGlob({ignorePaths: config.stylesConfig.ignore}),
+        sass().on('error', sass.logError),
+        concat('app.css'),
+        gulp.dest(config.stylesConfig.dest)
+    ], cb);
+}
+
+/**
+ * Runs all tests.
+ *
+ * @param cb
+ */
 function test(cb) {
     var command = ['run', 'python', 'manage.py', 'test'];
     command = command.concat(process.argv.splice(3));
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 }
-gulp.task('test', test);
 
-function coverage(cb) {
-    spawn(
-        'pipenv',
-        [
-            'run',
-            'coverage',
-            'run',
-            'manage.py',
-            'test'
-        ],
-        {
-            stdio: 'inherit'
-        }
-    ).on('exit', cb);
+/**
+ * Watches for changes in configured files.
+ */
+function watch() {
+    gulp.watch(config.watchConfig.scriptsGlob, scripts);
+    gulp.watch(config.watchConfig.stylesGlob, styles);
 }
-gulp.task('coverage', coverage);
+
+/**
+ * Django management command passthroughs.
+ */
 
 gulp.task('collectstatic', function(cb) {
     var command = ['run', 'python', 'manage.py', 'collectstatic'];
@@ -159,6 +202,12 @@ gulp.task('collectstatic', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
+gulp.task('compilemessages', function(cb) {
+    var command = ['run', 'python', 'manage.py', 'compilemessages'];
+    command = command.concat(process.argv.splice(3));
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+});
+
 gulp.task('fake', function(cb) {
     var command = ['run', 'python', 'manage.py', 'fake'];
     command = command.concat(process.argv.splice(3));
@@ -171,24 +220,21 @@ gulp.task('migrate', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
-gulp.task('makemigrations', function(cb) {
-    var command = ['run', 'python', 'manage.py', 'makemigrations'];
-    command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
-});
-
 gulp.task('makemessages', function(cb) {
     var command = ['run', 'python', 'manage.py', 'makemessages'];
     command = command.concat(process.argv.splice(3));
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
-gulp.task('compilemessages', function(cb) {
-    var command = ['run', 'python', 'manage.py', 'compilemessages'];
+gulp.task('makemigrations', function(cb) {
+    var command = ['run', 'python', 'manage.py', 'makemigrations'];
     command = command.concat(process.argv.splice(3));
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
+/**
+ * Runs the custom "reset" command to start a fresh database with fake data.
+ */
 gulp.task('reset', function(cb) {
     spawn(
         'pipenv',
@@ -204,15 +250,6 @@ gulp.task('reset', function(cb) {
         }
     ).on('exit', cb);
 });
-
-function clean() {
-    return del([
-        '**/static',
-        'static'
-    ]);
-}
-
-gulp.task('clean', clean);
 
 gulp.task('runserver', function(cb) {
     var command = ['run', 'python', 'manage.py', 'runserver'];
@@ -243,6 +280,32 @@ gulp.task('runserver', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
+/**
+ * Gulp commands.
+ */
+
+gulp.task('clean', clean);
+
+gulp.task('coverage', coverage);
+
+gulp.task('extras', extras);
+
+gulp.task('lint', lint);
+
+gulp.task('scripts', scripts);
+
+gulp.task('styles', styles);
+
+gulp.task('test', test);
+
+gulp.task('watch', watch);
+
+/**
+ * Gulp compound commands.
+ */
+
+gulp.task('build', gulp.parallel('extras', 'scripts', 'styles'));
+
 gulp.task('updatestatic', gulp.series('lint', 'clean', 'build', 'collectstatic'));
 
-gulp.task('default', gulp.series('build', gulp.parallel(watch, 'runserver')));
+gulp.task('default', gulp.series('build', gulp.parallel('watch', 'runserver')));
