@@ -193,7 +193,7 @@ class TemperatureForm(forms.ModelForm):
 class TimerForm(forms.ModelForm):
     class Meta:
         model = models.Timer
-        fields = ['name', 'start']
+        fields = ['child', 'name', 'start']
         widgets = {
             'start': forms.DateTimeInput(attrs={
                 'readonly': 'readonly',
@@ -203,6 +203,7 @@ class TimerForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
+        kwargs = set_default_child(kwargs)
         super(TimerForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):

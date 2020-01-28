@@ -16,7 +16,7 @@
     {% for instance in instances %}
         <a href="{% url 'core:timer-detail' instance.id %}"
            class="list-group-item list-group-item-action">
-            <strong>{{ instance }}</strong>
+            <strong>{{ instance.title_with_child }}</strong>
             <p class="text-muted small m-0">
                 {% blocktrans trimmed with start=instance.start|time user=instance.user %}
                     Started by {{ user }} at {{ start }}

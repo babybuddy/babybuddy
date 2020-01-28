@@ -15,6 +15,7 @@
             <thead class="thead-inverse">
             <tr>
                 <th>{% trans "Name" %}</th>
+                <th>{% trans "Child" %}</th>
                 <th>{% trans "Start" %}</th>
                 <th>{% trans "Duration" %}</th>
                 <th>{% trans "End" %}</th>
@@ -26,6 +27,7 @@
             {% for timer in object_list %}
                 <tr>
                     <th scope="row"><a href="{% url 'core:timer-detail' timer.id %}">{{ timer }}</a></th>
+                    <td><a href="{% url 'core:child' timer.child.slug %}">{{ timer.child }}</a></td>
                     <td>{{ timer.start }}</td>
                     <td>{{ timer.duration|duration_string }}</td>
                     <td>{{ timer.end }}</td>

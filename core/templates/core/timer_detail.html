@@ -16,6 +16,13 @@
             <span class="timer-minutes">{{ object.duration|minutes }}</span>m
             <span class="timer-seconds">{{ object.duration|seconds }}</span>s
         </div>
+
+        {% if timer.child %}
+            <div class="h2">
+                {{ timer.child }}
+            </div>
+        {% endif %}
+
         <p class="lead text-secondary">
             {% trans "Started" %} {{ object.start }}
             {% if not object.active %}
