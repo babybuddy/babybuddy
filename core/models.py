@@ -367,6 +367,14 @@ class Temperature(models.Model):
 
 class Timer(models.Model):
     model_name = 'timer'
+    child = models.ForeignKey(
+        'Child',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='timers',
+        verbose_name=_('Child')
+    )
     name = models.CharField(
         blank=True,
         max_length=255,
@@ -411,6 +419,11 @@ class Timer(models.Model):
 
     def __str__(self):
         return self.name or str(format_lazy(_('Timer #{id}'), id=self.id))
+
+    @property
+    def title_with_child(self):
+        return format_lazy('{title} ({child})', title=str(self),
+                           child=self.child)
 
     @classmethod
     def from_db(cls, db, field_names, values):

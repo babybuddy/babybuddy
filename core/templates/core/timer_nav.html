@@ -26,7 +26,9 @@
         {% if timers %}
             <h6 class="dropdown-header">{% trans "Active Timers" %}</h6>
             {% for timer in timers %}
-                <a class="dropdown-item" href="{% url 'core:timer-detail' timer.id %}">{{ timer }} ({{ timer.user }})</a>
+                <a class="dropdown-item" href="{% url 'core:timer-detail' timer.id %}">
+                    {{ timer.title_with_child }}
+                </a>
             {% empty %}
                 <a class="dropdown-item disabled" href="#">{% trans "None" %}</a>
             {% endfor %}
