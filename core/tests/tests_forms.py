@@ -12,12 +12,13 @@ from core import models
 
 
 class FormsTestCaseBase(TestCase):
+    child = None
+
     @classmethod
     def setUpClass(cls):
         super(FormsTestCaseBase, cls).setUpClass()
         fake = Factory.create()
         call_command('migrate', verbosity=0)
-        call_command('fake', verbosity=0)
 
         cls.c = HttpClient()
 
@@ -28,8 +29,13 @@ class FormsTestCaseBase(TestCase):
         }
         cls.user = User.objects.create_user(
             is_superuser=True, **cls.credentials)
-
         cls.c.login(**cls.credentials)
+
+        cls.child = models.Child.objects.create(
+            first_name='Test',
+            last_name='Child',
+            birth_date=timezone.localdate()
+        )
 
     @staticmethod
     def localdate_string(datetime=None):
@@ -48,11 +54,11 @@ class FormValidationTestCase(FormsTestCaseBase):
     def test_validate_date(self):
         future = timezone.localtime() + timezone.timedelta(days=1)
         params = {
-            'child': 1,
+            'child': self.child,
             'weight': '8.5',
             'date': self.localdate_string(future)
         }
-        entry = models.Weight.objects.first()
+        entry = models.Weight.objects.create(**params)
 
         page = self.c.post('/weight/{}/'.format(entry.id), params, follow=True)
         self.assertEqual(page.status_code, 200)
@@ -60,11 +66,10 @@ class FormValidationTestCase(FormsTestCaseBase):
                              'Date can not be in the future.')
 
     def test_validate_duration(self):
-        child = models.Child.objects.first()
         end = timezone.localtime() - timezone.timedelta(minutes=10)
         start = end + timezone.timedelta(minutes=5)
         params = {
-            'child': child.id,
+            'child': self.child,
             'start': self.localtime_string(start),
             'end': self.localtime_string(end),
             'milestone': ''
@@ -82,10 +87,9 @@ class FormValidationTestCase(FormsTestCaseBase):
         self.assertFormError(page, 'form', None, 'Duration too long.')
 
     def test_validate_time(self):
-        child = models.Child.objects.first()
         future = timezone.localtime() + timezone.timedelta(hours=1)
         params = {
-            'child': child.id,
+            'child': self.child,
             'start': self.localtime_string(),
             'end': self.localtime_string(future),
             'milestone': ''
@@ -97,7 +101,12 @@ class FormValidationTestCase(FormsTestCaseBase):
                              'Date/time can not be in the future.')
 
     def test_validate_unique_period(self):
-        entry = models.TummyTime.objects.first()
+        entry = models.TummyTime.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=10),
+            end=timezone.localtime() - timezone.timedelta(minutes=5),
+        )
+
         start = entry.start - timezone.timedelta(minutes=2)
         end = entry.end + timezone.timedelta(minutes=2)
         params = {
@@ -164,7 +173,14 @@ class DiaperChangeFormsTestCaseBase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
         super(DiaperChangeFormsTestCaseBase, cls).setUpClass()
-        cls.change = models.DiaperChange.objects.first()
+        cls.change = models.DiaperChange.objects.create(
+            child=cls.child,
+            time=timezone.localtime(),
+            wet=True,
+            solid=True,
+            color='black',
+            amount=0.45
+        )
 
     def test_add(self):
         child = models.Child.objects.first()
@@ -217,14 +233,20 @@ class FeedingFormsTestCaseBase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
         super(FeedingFormsTestCaseBase, cls).setUpClass()
-        cls.feeding = models.Feeding.objects.first()
+        cls.feeding = models.Feeding.objects.create(
+            child=cls.child,
+            start=timezone.localtime() - timezone.timedelta(hours=2),
+            end=timezone.localtime() - timezone.timedelta(hours=1, minutes=30),
+            type='breast milk',
+            method='left breast',
+            amount=2.5
+        )
 
     def test_add(self):
-        child = models.Child.objects.first()
         end = timezone.localtime()
         start = end - timezone.timedelta(minutes=30)
         params = {
-            'child': child.id,
+            'child': self.child.id,
             'start': self.localtime_string(start),
             'end': self.localtime_string(end),
             'type': 'formula',
@@ -242,7 +264,7 @@ class FeedingFormsTestCaseBase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(
             page,
-            'Feeding entry for {} added'.format(str(child))
+            'Feeding entry for {} added'.format(str(self.child))
         )
 
     def test_edit(self):
@@ -277,14 +299,17 @@ class SleepFormsTestCaseBase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
         super(SleepFormsTestCaseBase, cls).setUpClass()
-        cls.sleep = models.Sleep.objects.first()
+        cls.sleep = models.Sleep.objects.create(
+            child=cls.child,
+            start=timezone.localtime() - timezone.timedelta(hours=6),
+            end=timezone.localtime() - timezone.timedelta(hours=4)
+        )
 
     def test_add(self):
-        child = models.Child.objects.first()
         end = timezone.localtime()
         start = end - timezone.timedelta(minutes=2)
         params = {
-            'child': child.id,
+            'child': self.child.id,
             'start': self.localtime_string(start),
             'end': self.localtime_string(end),
         }
@@ -293,7 +318,7 @@ class SleepFormsTestCaseBase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(
             page,
-            'Sleep entry for {} added'.format(str(child))
+            'Sleep entry for {} added'.format(str(self.child))
         )
 
     def test_edit(self):
@@ -328,12 +353,15 @@ class TemperatureFormsTestCaseBase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
         super(TemperatureFormsTestCaseBase, cls).setUpClass()
-        cls.temp = models.Temperature.objects.first()
+        cls.temp = models.Temperature.objects.create(
+            child=cls.child,
+            temperature=98.6,
+            time=timezone.localtime() - timezone.timedelta(days=1)
+        )
 
     def test_add(self):
-        child = models.Child.objects.first()
         params = {
-            'child': child.id,
+            'child': self.child.id,
             'temperature': '98.6',
             'time': self.localtime_string()
         }
@@ -342,7 +370,7 @@ class TemperatureFormsTestCaseBase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(
             page,
-            'Temperature entry for {} added'.format(str(child))
+            'Temperature entry for {} added'.format(str(self.child))
         )
 
     def test_edit(self):
@@ -372,14 +400,17 @@ class TummyTimeFormsTestCaseBase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
         super(TummyTimeFormsTestCaseBase, cls).setUpClass()
-        cls.tt = models.TummyTime.objects.first()
+        cls.tt = models.TummyTime.objects.create(
+            child=cls.child,
+            start=timezone.localtime() - timezone.timedelta(hours=2),
+            end=timezone.localtime() - timezone.timedelta(hours=1, minutes=50)
+        )
 
     def test_add(self):
-        child = models.Child.objects.first()
         end = timezone.localtime()
         start = end - timezone.timedelta(minutes=2)
         params = {
-            'child': child.id,
+            'child': self.child.id,
             'start': self.localtime_string(start),
             'end': self.localtime_string(end),
             'milestone': ''
@@ -389,7 +420,7 @@ class TummyTimeFormsTestCaseBase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(
             page,
-            'Tummy Time entry for {} added'.format(str(child))
+            'Tummy Time entry for {} added'.format(str(self.child))
         )
 
     def test_edit(self):
@@ -420,9 +451,8 @@ class TummyTimeFormsTestCaseBase(FormsTestCaseBase):
 
 class TimerFormsTestCaseBase(FormsTestCaseBase):
     def test_add(self):
-        child = models.Child.objects.first()
         params = {
-            'child': child.id,
+            'child': self.child.id,
             'name': 'Test Timer',
             'start': self.localtime_string()
         }
@@ -451,12 +481,15 @@ class WeightFormsTest(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
         super(WeightFormsTest, cls).setUpClass()
-        cls.weight = models.Weight.objects.first()
+        cls.weight = models.Weight.objects.create(
+            child=cls.child,
+            weight=8,
+            date=timezone.localdate() - timezone.timedelta(days=2)
+        )
 
     def test_add(self):
-        child = models.Child.objects.first()
         params = {
-            'child': child.id,
+            'child': self.child.id,
             'weight': 8.5,
             'date': self.localdate_string()
         }
@@ -465,7 +498,7 @@ class WeightFormsTest(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(
             page,
-            'Weight entry for {} added'.format(str(child))
+            'Weight entry for {} added'.format(str(self.child))
         )
 
     def test_edit(self):
