@@ -7,31 +7,51 @@ from django.utils.translation import gettext as _
 from core import models
 
 
-# Sets the default Child instance if only one exists in the database.
 def set_default_child(kwargs):
+    """
+    Sets the default Child for an instance based on the `child` parameter or
+    if only one Child instance exists.
+
+    :param kwargs: Form arguments.
+    :return: Form arguments with updated initial values.
+    """
     instance = kwargs.get('instance', None)
+    child_slug = kwargs.get('child', None)
     if not kwargs.get('initial'):
         kwargs.update(initial={})
-    if instance is None and models.Child.objects.count() == 1:
-        kwargs['initial'].update({'child': models.Child.objects.first()})
+
+    # Do not update initial values for an existing instance (edit operation).
+    if instance is None:
+        if child_slug:
+            kwargs['initial'].update({
+                'child': models.Child.objects.filter(slug=child_slug).first(),
+            })
+        elif models.Child.count() == 1:
+            kwargs['initial'].update({'child': models.Child.objects.first()})
+
+    try:
+        kwargs.pop('child')
+    except KeyError:
+        pass
     return kwargs
 
 
 # Sets default values (start/end date, child) from a timer.
 def set_defaults_from_timer(kwargs):
-    timer = kwargs.get('instance', None)
+    instance = kwargs.get('instance', None)
     timer_id = kwargs.get('timer', None)
     if not kwargs.get('initial'):
         kwargs.update(initial={})
-    if not timer and timer_id:
+
+    # Do not update initial values for an existing instance (edit operation).
+    if not instance and timer_id:
         timer = models.Timer.objects.get(id=timer_id)
         kwargs['initial'].update({
             'timer': timer,
             'start': timer.start,
             'end': timer.end or timezone.now()
         })
-        if timer.child:
-            kwargs['initial'].update({'child': timer.child})
+
     try:
         kwargs.pop('timer')
     except KeyError:

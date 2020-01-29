@@ -22,6 +22,22 @@ class CoreAddView(PermissionRequired403Mixin, SuccessMessageMixin, CreateView):
             self.success_message = _('%(model)s entry added!')
         return self.success_message % cleaned_data
 
+    def get_form_kwargs(self):
+        """
+        Check for and add "child" and "timer" from request query parameters.
+          - "child" may provide a slug for a Child instance.
+          - "timer" may provided an ID for a Timer instance.
+
+        These arguments are used in some add views to pre-fill initial data in
+        the form fields.
+
+        :return: Updated keyword arguments.
+        """
+        kwargs = super(CoreAddView, self).get_form_kwargs()
+        kwargs.update({'child': self.request.GET.get('child', None)})
+        kwargs.update({'timer': self.request.GET.get('timer', None)})
+        return kwargs
+
 
 class CoreUpdateView(PermissionRequired403Mixin, SuccessMessageMixin,
                      UpdateView):
@@ -137,12 +153,6 @@ class FeedingAdd(CoreAddView):
     form_class = forms.FeedingForm
     success_url = reverse_lazy('core:feeding-list')
 
-    def get_form_kwargs(self):
-        kwargs = super(FeedingAdd, self).get_form_kwargs()
-        # Add timer to be used by FeedingForm.__init__
-        kwargs.update({'timer': self.request.GET.get('timer', None)})
-        return kwargs
-
 
 class FeedingUpdate(CoreUpdateView):
     model = models.Feeding
@@ -198,12 +208,6 @@ class SleepAdd(CoreAddView):
     permission_required = ('core.add_sleep',)
     form_class = forms.SleepForm
     success_url = reverse_lazy('core:sleep-list')
-
-    def get_form_kwargs(self):
-        kwargs = super(SleepAdd, self).get_form_kwargs()
-        # Add timer to be used by SleepForm.__init__
-        kwargs.update({'timer': self.request.GET.get('timer', None)})
-        return kwargs
 
 
 class SleepUpdate(CoreUpdateView):
@@ -352,12 +356,6 @@ class TummyTimeAdd(CoreAddView):
     permission_required = ('core.add_tummytime',)
     form_class = forms.TummyTimeForm
     success_url = reverse_lazy('core:tummytime-list')
-
-    def get_form_kwargs(self):
-        kwargs = super(TummyTimeAdd, self).get_form_kwargs()
-        # Add timer to be used by TummyTimeForm.__init__
-        kwargs.update({'timer': self.request.GET.get('timer', None)})
-        return kwargs
 
 
 class TummyTimeUpdate(CoreUpdateView):
