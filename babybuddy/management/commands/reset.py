@@ -5,9 +5,11 @@ from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
 from django.core.management.commands.flush import Command as Flush
-from django.core.management.commands.migrate import Command as Migrate
+from django.core.management.commands.createcachetable \
+    import Command as CreateCacheTable
 
 from .fake import Command as Fake
+from .migrate import Command as Migrate
 
 
 class Command(BaseCommand):
@@ -25,7 +27,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         verbosity = options['verbosity']
-        database = options['database']
 
         flush = Flush()
         flush.handle(**options)
@@ -44,21 +45,18 @@ class Command(BaseCommand):
                     # Ignore apps without migrations.
                     pass
 
+        # Run migrations.
         migrate = Migrate()
         options['app_label'] = None
         options['migration_name'] = None
         migrate.handle(*args, **options)
 
-        self.UserModel._default_manager.db_manager(database).create_superuser(
-            **{
-                self.UserModel.USERNAME_FIELD: 'admin',
-                'email': 'admin@admin.admin',
-                'password': 'admin'
-            }
-        )
-        if verbosity > 0:
-            self.stdout.write('Superuser created successfully.')
+        # Create configured cache tables.
+        create_cache_table = CreateCacheTable()
+        options['dry_run'] = None
+        create_cache_table.handle(*args, **options)
 
+        # Populate database with fake data.
         fake = Fake()
         fake.handle(*args, **options)
 

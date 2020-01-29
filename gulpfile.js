@@ -208,6 +208,12 @@ gulp.task('compilemessages', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
+gulp.task('createcachetable', function(cb) {
+    var command = ['run', 'python', 'manage.py', 'createcachetable'];
+    command = command.concat(process.argv.splice(3));
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+});
+
 gulp.task('fake', function(cb) {
     var command = ['run', 'python', 'manage.py', 'fake'];
     command = command.concat(process.argv.splice(3));
