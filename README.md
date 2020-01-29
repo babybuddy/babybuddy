@@ -95,9 +95,13 @@ one for the database and one for the application.
 
         docker-compose up -d
 
-1. Initialize the database *(first run/after updates)*
+1. Initialize the database *(first run/after migrations updates)*
 
         docker-compose exec app python manage.py migrate
+        
+1. Initialize cache table *(first run/after cache configuration updates)*
+
+        docker-compose exec app python manage.py createcachetable
 
 The app should now be locally available at
 [http://127.0.0.1:8000](http://127.0.0.1:8000). See
@@ -183,6 +187,7 @@ Python 3.6+, nginx, uwsgi and sqlite and should be sufficient for a few users
 
         export DJANGO_SETTINGS_MODULE=babybuddy.settings.production
         python manage.py migrate
+        python manage.py createcachetable
 
 1. Set appropriate permissions on the database and data folder
 

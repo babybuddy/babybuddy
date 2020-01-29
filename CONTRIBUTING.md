@@ -120,6 +120,10 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 1. Migrate the database
 
         gulp migrate
+        
+1. Create cache table
+
+        gulp createcachetable
 
 1. Build assets and run the server
 
@@ -143,6 +147,7 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 - [`gulp collectstatic`](#collectstatic)
 - [`gulp compilemessages`](#compilemessages)
 - [`gulp coverage`](#coverage)
+- [`gulp createcachetable`](#createcachetable)
 - [`gulp extras`](#extras)
 - [`gulp fake`](#fake)
 - [`gulp lint`](#lint)
@@ -191,6 +196,11 @@ for more details about other options and functionality of this command.
 
 Create a test coverage report. See [`.coveragerc`](.coveragerc) for default
 settings information.
+
+#### `createcachetable`
+
+Executes Django's `createcachetable` management task. See [django-admin createcachetable](https://docs.djangoproject.com/en/3.0/ref/django-admin/#createcachetable)
+for more details about other options and functionality of this command.
 
 #### `extras`
 
