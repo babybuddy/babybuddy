@@ -42,12 +42,15 @@ def set_defaults_from_timer(kwargs):
 # Sets the default Feeding type to the one used in the most recent entry.
 def set_default_feeding_type(kwargs):
     instance = kwargs.get('instance', None)
+    initial = kwargs.get('initial', None)
     if not kwargs.get('initial'):
         kwargs.update(initial={})
-    if instance is None and models.Feeding.objects.count() > 0:
-        kwargs['initial'].update({
-            'type': models.Feeding.objects.latest('end').type
-        })
+    if instance is None and initial and 'child' in initial:
+        if models.Feeding.objects.filter(child=initial['child']).count() > 0:
+            kwargs['initial'].update({
+                'type': models.Feeding.objects.filter(
+                    child=initial['child']).latest('end').type
+            })
     return kwargs
 
 
