@@ -27,7 +27,13 @@
             {% for timer in object_list %}
                 <tr>
                     <th scope="row"><a href="{% url 'core:timer-detail' timer.id %}">{{ timer }}</a></th>
-                    <td><a href="{% url 'core:child' timer.child.slug %}">{{ timer.child }}</a></td>
+                    <td>
+                        {% if timer.child %}
+                            <a href="{% url 'core:child' timer.child.slug %}">{{ timer.child }}</a>
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                    </td>
                     <td>{{ timer.start }}</td>
                     <td>{{ timer.duration|duration_string }}</td>
                     <td>{{ timer.end }}</td>

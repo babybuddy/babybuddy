@@ -251,7 +251,7 @@ class Feeding(models.Model):
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
         # "Formula" Type may only be associated with "Bottle" Method.
-        if self.type == 'formula'and self.method != 'bottle':
+        if self.type == 'formula' and self.method != 'bottle':
             raise ValidationError(
                 {'method':
                  _('Only "Bottle" method is allowed with "Formula" type.')},
@@ -435,8 +435,13 @@ class Timer(models.Model):
 
     @property
     def title_with_child(self):
-        return format_lazy('{title} ({child})', title=str(self),
-                           child=self.child)
+        """ Get Timer title with child name in parenthesis. """
+        title = str(self)
+        # Only actually add the name if there is more than one Child instance.
+        if title and self.child and Child.count() > 1:
+            title = format_lazy('{title} ({child})', title=title,
+                                child=self.child)
+        return title
 
     @classmethod
     def from_db(cls, db, field_names, values):

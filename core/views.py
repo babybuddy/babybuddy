@@ -297,6 +297,9 @@ class TimerAddQuick(PermissionRequired403Mixin, RedirectView):
 
     def get(self, request, *args, **kwargs):
         instance = models.Timer.objects.create(user=request.user)
+        # Add child relationship if there is only Child instance.
+        if models.Child.count() == 1:
+            instance.child = models.Child.objects.first()
         instance.save()
         self.url = request.GET.get(
             'next', reverse('core:timer-detail', args={instance.id}))
