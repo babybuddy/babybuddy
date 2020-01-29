@@ -2,6 +2,7 @@
 from datetime import timedelta
 
 from django.conf import settings
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -93,6 +94,8 @@ class Child(models.Model):
 
     objects = models.Manager()
 
+    cache_key_count = 'core.child.count'
+
     class Meta:
         default_permissions = ('view', 'add', 'change', 'delete')
         ordering = ['last_name', 'first_name']
@@ -105,12 +108,22 @@ class Child(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self)
         super(Child, self).save(*args, **kwargs)
+        cache.set(self.cache_key_count, Child.objects.count(), None)
+
+    def delete(self, using=None, keep_parents=False):
+        super(Child, self).delete(using, keep_parents)
+        cache.set(self.cache_key_count, Child.objects.count(), None)
 
     def name(self, reverse=False):
         if reverse:
             return '{}, {}'.format(self.last_name, self.first_name)
 
         return '{} {}'.format(self.first_name, self.last_name)
+
+    @classmethod
+    def count(cls):
+        """ Get a (cached) count of total number of Child instances. """
+        return cache.get_or_set(cls.cache_key_count, Child.objects.count, None)
 
 
 class DiaperChange(models.Model):
