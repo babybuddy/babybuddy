@@ -17,19 +17,21 @@ def set_default_child(kwargs):
     return kwargs
 
 
-# Uses a timer to set the default start and end date and updates the timer.
-def set_default_duration(kwargs):
-    instance = kwargs.get('instance', None)
+# Sets default values (start/end date, child) from a timer.
+def set_defaults_from_timer(kwargs):
+    timer = kwargs.get('instance', None)
     timer_id = kwargs.get('timer', None)
     if not kwargs.get('initial'):
         kwargs.update(initial={})
-    if not instance and timer_id:
-        instance = models.Timer.objects.get(id=timer_id)
+    if not timer and timer_id:
+        timer = models.Timer.objects.get(id=timer_id)
         kwargs['initial'].update({
-            'timer': instance,
-            'start': instance.start,
-            'end': instance.end or timezone.now()
+            'timer': timer,
+            'start': timer.start,
+            'end': timer.end or timezone.now()
         })
+        if timer.child:
+            kwargs['initial'].update({'child': timer.child})
     try:
         kwargs.pop('timer')
     except KeyError:
@@ -120,9 +122,9 @@ class FeedingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
-        kwargs = set_default_feeding_type(kwargs)
         self.timer_id = kwargs.get('timer', None)
-        kwargs = set_default_duration(kwargs)
+        kwargs = set_defaults_from_timer(kwargs)
+        kwargs = set_default_feeding_type(kwargs)
         super(FeedingForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
@@ -162,7 +164,7 @@ class SleepForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
         self.timer_id = kwargs.get('timer', None)
-        kwargs = set_default_duration(kwargs)
+        kwargs = set_defaults_from_timer(kwargs)
         super(SleepForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
@@ -231,7 +233,7 @@ class TummyTimeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         kwargs = set_default_child(kwargs)
         self.timer_id = kwargs.get('timer', None)
-        kwargs = set_default_duration(kwargs)
+        kwargs = set_defaults_from_timer(kwargs)
         super(TummyTimeForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
