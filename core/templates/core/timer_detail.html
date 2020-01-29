@@ -37,7 +37,7 @@
 
         {% if perms.core.add_feeding %}
             <a class="btn btn-success btn-lg btn-block mb-3"
-               href="{% url 'core:feeding-add' %}?timer={{ timer.id }}"
+               href="{% instance_add_url 'core:feeding-add' %}"
                role="button"><i class="icon icon-feeding" aria-hidden="true"></i>
                 {% trans "Feeding" %}
             </a>
@@ -45,7 +45,7 @@
 
         {% if perms.core.add_sleep %}
             <a class="btn btn-success btn-lg btn-block mb-3"
-               href="{% url 'core:sleep-add' %}?timer={{ timer.id }}"
+               href="{% instance_add_url 'core:sleep-add' %}"
                role="button"><i class="icon icon-sleep" aria-hidden="true"></i>
                 {% trans "Sleep" %}
             </a>
@@ -53,7 +53,7 @@
 
         {% if perms.core.add_tummytime %}
             <a class="btn btn-success btn-lg btn-block mb-3"
-               href="{% url 'core:tummytime-add' %}?timer={{ timer.id }}"
+               href="{% instance_add_url 'core:tummytime-add' %}"
                role="button"><i class="icon icon-tummytime" aria-hidden="true"></i>
                 {% trans "Tummy Time" %}
             </a>
