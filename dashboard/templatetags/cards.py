@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import template
-from django.db.models import Avg, Count, Sum
+from django.db.models import Avg, Count, Q, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -324,12 +324,20 @@ def _weight_statistics(child):
 
 
 @register.inclusion_tag('cards/timer_list.html')
-def card_timer_list():
+def card_timer_list(child=None):
     """
-    Filters for currently active Timer instances.
+    Filters for currently active Timer instances, optionally by child.
+    :param child: an instance of the Child model.
     :returns: a dictionary with a list of active Timer instances.
     """
-    instances = models.Timer.objects.filter(active=True).order_by('-start')
+    if child:
+        # Get active instances for the selected child _or_ None (no child).
+        instances = models.Timer.objects.filter(
+            Q(active=True),
+            Q(child=child) | Q(child=None)
+        ).order_by('-start')
+    else:
+        instances = models.Timer.objects.filter(active=True).order_by('-start')
     return {'type': 'timer', 'instances': list(instances)}
 
 
