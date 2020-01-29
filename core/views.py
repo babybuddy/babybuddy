@@ -34,8 +34,10 @@ class CoreAddView(PermissionRequired403Mixin, SuccessMessageMixin, CreateView):
         :return: Updated keyword arguments.
         """
         kwargs = super(CoreAddView, self).get_form_kwargs()
-        kwargs.update({'child': self.request.GET.get('child', None)})
-        kwargs.update({'timer': self.request.GET.get('timer', None)})
+        for parameter in ['child', 'timer']:
+            value = self.request.GET.get(parameter, None)
+            if value:
+                kwargs.update({parameter: value})
         return kwargs
 
 
