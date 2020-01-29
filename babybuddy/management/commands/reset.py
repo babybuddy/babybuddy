@@ -3,6 +3,7 @@ from os import path
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core.management.base import BaseCommand, CommandError
 from django.core.management.commands.flush import Command as Flush
 
@@ -50,6 +51,11 @@ class Command(BaseCommand):
         options['app_label'] = None
         options['migration_name'] = None
         migrate.handle(*args, **options)
+
+        # Clear cache.
+        cache.clear()
+        if verbosity > 0:
+            self.stdout.write(self.style.SUCCESS('Cache cleared.'))
 
         # Populate database with fake data.
         fake = Fake()
