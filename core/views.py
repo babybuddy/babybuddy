@@ -112,6 +112,14 @@ class ChildDelete(CoreUpdateView):
     permission_required = ('core.delete_child',)
     success_url = reverse_lazy('core:child-list')
 
+    def get_success_message(self, cleaned_data):
+        """ This class cannot use `CoreDeleteView` because of the confirmation
+        step required so the success message must be overridden."""
+        success_message = _('%(model)s entry deleted.') % {
+            'model': self.model._meta.verbose_name.title()
+        }
+        return success_message % cleaned_data
+
 
 class DiaperChangeList(PermissionRequired403Mixin, BabyBuddyFilterView):
     model = models.DiaperChange
