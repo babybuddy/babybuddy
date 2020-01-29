@@ -91,6 +91,17 @@ TEMPLATES = [
 ]
 
 
+# Cache
+# https://docs.djangoproject.com/en/3.0/topics/cache/
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_default',
+    }
+}
+
+
 # WGSI
 # https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 
