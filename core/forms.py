@@ -7,44 +7,35 @@ from django.utils.translation import gettext as _
 from core import models
 
 
-def set_default_child(kwargs):
+def set_initial_values(kwargs, form_type):
     """
-    Sets the default Child for an instance based on the `child` parameter or
-    if only one Child instance exists.
+    Sets initial value for add forms based on provided kwargs.
 
-    :param kwargs: Form arguments.
-    :return: Form arguments with updated initial values.
+    :param kwargs: Keyword arguments.
+    :param form_type: Class of the type of form being initialized.
+    :return: Keyword arguments with updated "initial" values.
     """
-    instance = kwargs.get('instance', None)
+
+    # Never update initial values for existing instance (e.g. edit operation).
+    if kwargs.get('instance', None):
+        return kwargs
+
+    # Add the "initial" kwarg if it does not already exist.
+    if not kwargs.get('initial'):
+        kwargs.update(initial={})
+
+    # Set Child based on `child` kwarg or single Chile database.
     child_slug = kwargs.get('child', None)
-    if not kwargs.get('initial'):
-        kwargs.update(initial={})
+    if child_slug:
+        kwargs['initial'].update({
+            'child': models.Child.objects.filter(slug=child_slug).first(),
+        })
+    elif models.Child.count() == 1:
+        kwargs['initial'].update({'child': models.Child.objects.first()})
 
-    # Do not update initial values for an existing instance (edit operation).
-    if instance is None:
-        if child_slug:
-            kwargs['initial'].update({
-                'child': models.Child.objects.filter(slug=child_slug).first(),
-            })
-        elif models.Child.count() == 1:
-            kwargs['initial'].update({'child': models.Child.objects.first()})
-
-    try:
-        kwargs.pop('child')
-    except KeyError:
-        pass
-    return kwargs
-
-
-# Sets default values (start/end date, child) from a timer.
-def set_defaults_from_timer(kwargs):
-    instance = kwargs.get('instance', None)
+    # Set start and end time based on Timer from `timer` kwarg.
     timer_id = kwargs.get('timer', None)
-    if not kwargs.get('initial'):
-        kwargs.update(initial={})
-
-    # Do not update initial values for an existing instance (edit operation).
-    if not instance and timer_id:
+    if timer_id:
         timer = models.Timer.objects.get(id=timer_id)
         kwargs['initial'].update({
             'timer': timer,
@@ -52,26 +43,39 @@ def set_defaults_from_timer(kwargs):
             'end': timer.end or timezone.now()
         })
 
-    try:
-        kwargs.pop('timer')
-    except KeyError:
-        pass
+    # Set initial type value for Feeding instance based on last type used.
+    if form_type == FeedingForm and 'child' in kwargs['initial']:
+        last_feeding = models.Feeding.objects.filter(
+            child=kwargs['initial']['child']).latest('end')
+        if last_feeding:
+            kwargs['initial'].update({'type': last_feeding.type})
+
+    # Remove custom kwargs so they do not interfere with `super` calls.
+    for key in ['child', 'timer']:
+        try:
+            kwargs.pop(key)
+        except KeyError:
+            pass
+
     return kwargs
 
 
-# Sets the default Feeding type to the one used in the most recent entry.
-def set_default_feeding_type(kwargs):
-    instance = kwargs.get('instance', None)
-    initial = kwargs.get('initial', None)
-    if not kwargs.get('initial'):
-        kwargs.update(initial={})
-    if instance is None and initial and 'child' in initial:
-        if models.Feeding.objects.filter(child=initial['child']).count() > 0:
-            kwargs['initial'].update({
-                'type': models.Feeding.objects.filter(
-                    child=initial['child']).latest('end').type
-            })
-    return kwargs
+class CoreModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        # Set `timer_id` so the Timer can be stopped in the `save` method.
+        self.timer_id = kwargs.get('timer', None)
+        kwargs = set_initial_values(kwargs, type(self))
+        super(CoreModelForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        # If `timer_id` is present, stop the Timer.
+        instance = super(CoreModelForm, self).save(commit=False)
+        if self.timer_id:
+            timer = models.Timer.objects.get(id=self.timer_id)
+            timer.stop(instance.end)
+        if commit:
+            instance.save()
+        return instance
 
 
 class ChildForm(forms.ModelForm):
@@ -112,7 +116,7 @@ class ChildDeleteForm(forms.ModelForm):
         return instance
 
 
-class DiaperChangeForm(forms.ModelForm):
+class DiaperChangeForm(CoreModelForm):
     class Meta:
         model = models.DiaperChange
         fields = ['child', 'time', 'wet', 'solid', 'color', 'amount']
@@ -123,12 +127,8 @@ class DiaperChangeForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
-        kwargs = set_default_child(kwargs)
-        super(DiaperChangeForm, self).__init__(*args, **kwargs)
 
-
-class FeedingForm(forms.ModelForm):
+class FeedingForm(CoreModelForm):
     class Meta:
         model = models.Feeding
         fields = ['child', 'start', 'end', 'type', 'method', 'amount']
@@ -143,33 +143,14 @@ class FeedingForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
-        kwargs = set_default_child(kwargs)
-        self.timer_id = kwargs.get('timer', None)
-        kwargs = set_defaults_from_timer(kwargs)
-        kwargs = set_default_feeding_type(kwargs)
-        super(FeedingForm, self).__init__(*args, **kwargs)
 
-    def save(self, commit=True):
-        instance = super(FeedingForm, self).save(commit=False)
-        if self.timer_id:
-            timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop(instance.end)
-        instance.save()
-        return instance
-
-
-class NoteForm(forms.ModelForm):
+class NoteForm(CoreModelForm):
     class Meta:
         model = models.Note
         fields = ['child', 'note']
 
-    def __init__(self, *args, **kwargs):
-        kwargs = set_default_child(kwargs)
-        super(NoteForm, self).__init__(*args, **kwargs)
 
-
-class SleepForm(forms.ModelForm):
+class SleepForm(CoreModelForm):
     class Meta:
         model = models.Sleep
         fields = ['child', 'start', 'end']
@@ -184,22 +165,8 @@ class SleepForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
-        kwargs = set_default_child(kwargs)
-        self.timer_id = kwargs.get('timer', None)
-        kwargs = set_defaults_from_timer(kwargs)
-        super(SleepForm, self).__init__(*args, **kwargs)
 
-    def save(self, commit=True):
-        instance = super(SleepForm, self).save(commit=False)
-        if self.timer_id:
-            timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop(instance.end)
-        instance.save()
-        return instance
-
-
-class TemperatureForm(forms.ModelForm):
+class TemperatureForm(CoreModelForm):
     class Meta:
         model = models.Temperature
         fields = ['child', 'temperature', 'time']
@@ -210,12 +177,8 @@ class TemperatureForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
-        kwargs = set_default_child(kwargs)
-        super(TemperatureForm, self).__init__(*args, **kwargs)
 
-
-class TimerForm(forms.ModelForm):
+class TimerForm(CoreModelForm):
     class Meta:
         model = models.Timer
         fields = ['child', 'name', 'start']
@@ -228,7 +191,6 @@ class TimerForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
-        kwargs = set_default_child(kwargs)
         super(TimerForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
@@ -238,7 +200,7 @@ class TimerForm(forms.ModelForm):
         return instance
 
 
-class TummyTimeForm(forms.ModelForm):
+class TummyTimeForm(CoreModelForm):
     class Meta:
         model = models.TummyTime
         fields = ['child', 'start', 'end', 'milestone']
@@ -253,22 +215,8 @@ class TummyTimeForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
-        kwargs = set_default_child(kwargs)
-        self.timer_id = kwargs.get('timer', None)
-        kwargs = set_defaults_from_timer(kwargs)
-        super(TummyTimeForm, self).__init__(*args, **kwargs)
 
-    def save(self, commit=True):
-        instance = super(TummyTimeForm, self).save(commit=False)
-        if self.timer_id:
-            timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop(instance.end)
-        instance.save()
-        return instance
-
-
-class WeightForm(forms.ModelForm):
+class WeightForm(CoreModelForm):
     class Meta:
         model = models.Weight
         fields = ['child', 'weight', 'date']
@@ -278,7 +226,3 @@ class WeightForm(forms.ModelForm):
                 'data-target': '#datetimepicker_date',
             }),
         }
-
-    def __init__(self, *args, **kwargs):
-        kwargs = set_default_child(kwargs)
-        super(WeightForm, self).__init__(*args, **kwargs)
