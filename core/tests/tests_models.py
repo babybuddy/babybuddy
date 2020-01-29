@@ -23,6 +23,23 @@ class ChildTestCase(TestCase):
         self.assertEqual(child.name(), 'First Last')
         self.assertEqual(child.name(reverse=True), 'Last, First')
 
+    def test_child_count(self):
+        self.assertEqual(models.Child.count(), 0)
+        models.Child.objects.create(
+            first_name='First 1',
+            last_name='Last 1',
+            birth_date=timezone.localdate()
+        )
+        self.assertEqual(models.Child.count(), 1)
+        child = models.Child.objects.create(
+            first_name='First 2',
+            last_name='Last 2',
+            birth_date=timezone.localdate()
+        )
+        self.assertEqual(models.Child.count(), 2)
+        child.delete()
+        self.assertEqual(models.Child.count(), 1)
+
 
 class DiaperChangeTestCase(TestCase):
     def setUp(self):
@@ -149,10 +166,16 @@ class TemperatureTestCase(TestCase):
 class TimerTestCase(TestCase):
     def setUp(self):
         call_command('migrate', verbosity=0)
+        child = models.Child.objects.create(
+            first_name='First',
+            last_name='Last',
+            birth_date=timezone.localdate()
+        )
         self.named = models.Timer.objects.create(
             name='Named',
             end=timezone.localtime(),
-            user=User.objects.first()
+            user=User.objects.first(),
+            child=child
         )
         self.unnamed = models.Timer.objects.create(
             end=timezone.localtime(),
