@@ -5,8 +5,6 @@ from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
 from django.core.management.commands.flush import Command as Flush
-from django.core.management.commands.createcachetable \
-    import Command as CreateCacheTable
 
 from .fake import Command as Fake
 from .migrate import Command as Migrate
@@ -28,11 +26,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         verbosity = options['verbosity']
 
+        # Flush all existing database records.
         flush = Flush()
         flush.handle(**options)
         if verbosity > 0:
             self.stdout.write(self.style.SUCCESS('Database flushed.'))
 
+        # Run migrations for all Baby Buddy apps.
         for config in apps.app_configs.values():
             if path.split(path.split(config.path)[0])[1] == 'babybuddy':
                 migrate = Migrate()
@@ -45,16 +45,11 @@ class Command(BaseCommand):
                     # Ignore apps without migrations.
                     pass
 
-        # Run migrations.
+        # Run other migrations.
         migrate = Migrate()
         options['app_label'] = None
         options['migration_name'] = None
         migrate.handle(*args, **options)
-
-        # Create configured cache tables.
-        create_cache_table = CreateCacheTable()
-        options['dry_run'] = None
-        create_cache_table.handle(*args, **options)
 
         # Populate database with fake data.
         fake = Fake()
