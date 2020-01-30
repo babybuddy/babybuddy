@@ -463,6 +463,11 @@ class TummyTimeFormsTestCase(FormsTestCaseBase):
 
 
 class TimerFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(TimerFormsTestCase, cls).setUpClass()
+        cls.timer = models.Timer.objects.create(user=cls.user)
+
     def test_add(self):
         params = {
             'child': self.child.id,
@@ -475,19 +480,29 @@ class TimerFormsTestCase(FormsTestCaseBase):
         self.assertContains(page, params['child'])
 
     def test_edit(self):
-        timer = models.Timer.objects.create(user=self.user)
-
-        start_time = timer.start - timezone.timedelta(hours=1)
+        start_time = self.timer.start - timezone.timedelta(hours=1)
         params = {
             'name': 'New Timer Name',
             'start': self.localtime_string(start_time)
         }
-        page = self.c.post('/timer/{}/edit/'.format(timer.id), params,
+        page = self.c.post('/timer/{}/edit/'.format(self.timer.id), params,
                            follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, params['name'])
-        timer.refresh_from_db()
-        self.assertEqual(self.localtime_string(timer.start), params['start'])
+        self.timer.refresh_from_db()
+        self.assertEqual(
+            self.localtime_string(self.timer.start), params['start'])
+
+    def test_edit_stopped(self):
+        self.timer.stop()
+        params = {
+            'name': 'Edit stopped timer',
+            'start': self.localtime_string(self.timer.start),
+            'end': self.localtime_string(self.timer.end),
+        }
+        page = self.c.post('/timer/{}/edit/'.format(self.timer.id), params,
+                           follow=True)
+        self.assertEqual(page.status_code, 200)
 
 
 class ValidationsTestCase(FormsTestCaseBase):
