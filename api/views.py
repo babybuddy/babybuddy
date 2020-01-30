@@ -46,7 +46,7 @@ class TemperatureViewSet(viewsets.ModelViewSet):
 class TimerViewSet(viewsets.ModelViewSet):
     queryset = models.Timer.objects.all()
     serializer_class = serializers.TimerSerializer
-    filterset_fields = ('active', 'user')
+    filterset_fields = ('child', 'active', 'user')
 
 
 class TummyTimeViewSet(viewsets.ModelViewSet):
