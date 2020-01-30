@@ -189,6 +189,19 @@ class TimerTestCase(TestCase):
         self.assertEqual(
             str(self.unnamed), 'Timer #{}'.format(self.unnamed.id))
 
+    def test_timer_title_with_child(self):
+        self.assertEqual(self.named.title_with_child, str(self.named))
+
+        models.Child.objects.create(
+            first_name='Child',
+            last_name='Two',
+            birth_date=timezone.localdate()
+        )
+        self.assertEqual(
+            self.named.title_with_child,
+            '{} ({})'.format(str(self.named), str(self.named.child))
+        )
+
     def test_timer_restart(self):
         self.named.restart()
         self.assertIsNone(self.named.end)
