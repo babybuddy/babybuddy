@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils import timezone
 
-from core.templatetags import bootstrap, duration
+from core.models import Child, Timer
+from core.templatetags import bootstrap, duration, timers
 
 
 class TemplateTagsTestCase(TestCase):
@@ -44,3 +46,17 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(duration.seconds(delta), 20)
         self.assertEqual(duration.seconds(''), 0)
         self.assertRaises(TypeError, duration.seconds('not a delta'))
+
+    def test_instance_add_url(self):
+        child = Child.objects.create(first_name='Test', last_name='Child',
+                                     birth_date=timezone.localdate())
+        user = User.objects.create_user(username='timer')
+        timer = Timer.objects.create(user=user)
+
+        url = timers.instance_add_url({'timer': timer}, 'core:sleep-add')
+        self.assertEqual(url, '/sleep/add/?timer={}'.format(timer.id))
+
+        timer = Timer.objects.create(user=user, child=child)
+        url = timers.instance_add_url({'timer': timer}, 'core:sleep-add')
+        self.assertEqual(url, '/sleep/add/?timer={}&child={}'.format(
+            timer.id, child.slug))
