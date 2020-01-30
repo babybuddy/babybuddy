@@ -29,7 +29,8 @@ class UserSerializer(serializers.ModelSerializer):
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Child
-        fields = ('id', 'first_name', 'last_name', 'birth_date', 'slug')
+        fields = ('id', 'first_name', 'last_name', 'birth_date', 'slug',
+                  'picture')
         lookup_field = 'slug'
 
 
@@ -55,7 +56,7 @@ class NoteSerializer(CoreModelSerializer):
 class SleepSerializer(CoreModelSerializer):
     class Meta:
         model = models.Sleep
-        fields = ('id', 'child', 'start', 'end', 'duration')
+        fields = ('id', 'child', 'start', 'end', 'duration', 'nap')
 
 
 class TemperatureSerializer(CoreModelSerializer):
@@ -65,11 +66,15 @@ class TemperatureSerializer(CoreModelSerializer):
 
 
 class TimerSerializer(CoreModelSerializer):
+    child = serializers.PrimaryKeyRelatedField(
+        allow_null=True, allow_empty=True, queryset=models.Child.objects.all(),
+        required=False)
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = models.Timer
-        fields = ('id', 'name', 'start', 'end', 'duration', 'active', 'user')
+        fields = ('id', 'child', 'name', 'start', 'end', 'duration', 'active',
+                  'user')
 
 
 class TummyTimeSerializer(CoreModelSerializer):

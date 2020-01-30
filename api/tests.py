@@ -24,7 +24,8 @@ class ChildAPITestCase(APITestCase):
             'first_name': 'Fake',
             'last_name': 'Child',
             'birth_date': '2017-11-11',
-            'slug': 'fake-child'
+            'slug': 'fake-child',
+            'picture': None
         })
 
     def test_options(self):
@@ -180,7 +181,8 @@ class SleepAPITestCase(APITestCase):
             'child': 1,
             'start': '2017-11-18T19:00:00-05:00',
             'end': '2017-11-18T23:00:00-05:00',
-            'duration': '04:00:00'
+            'duration': '04:00:00',
+            'nap': False
         })
 
     def test_options(self):
@@ -248,6 +250,7 @@ class TimerAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['results'][0], {
             'id': 1,
+            'child': None,
             'name': 'Fake timer',
             'start': '2017-11-17T23:30:00-05:00',
             'end': '2017-11-18T00:30:00-05:00',
