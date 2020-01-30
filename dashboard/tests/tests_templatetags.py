@@ -115,10 +115,45 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(data['stats'], stats)
 
     def test_card_timer_list(self):
-        models.Timer(user=User.objects.first()).save()
+        user = User.objects.first()
+        child = models.Child.objects.first()
+        child_two = models.Child.objects.create(
+            first_name='Child',
+            last_name='Two',
+            birth_date=timezone.localdate()
+        )
+        timers = {
+            'no_child': models.Timer.objects.create(
+                user=user,
+                start=timezone.localtime() - timezone.timedelta(hours=3)
+            ),
+            'child': models.Timer.objects.create(
+                user=user,
+                child=child,
+                start=timezone.localtime() - timezone.timedelta(hours=2)
+            ),
+            'child_two': models.Timer.objects.create(
+                user=user,
+                child=child_two,
+                start=timezone.localtime() - timezone.timedelta(hours=1)
+            ),
+        }
+
         data = cards.card_timer_list()
         self.assertIsInstance(data['instances'][0], models.Timer)
-        self.assertEqual(data['instances'][0], models.Timer.objects.first())
+        self.assertEqual(len(data['instances']), 3)
+
+        data = cards.card_timer_list(child)
+        self.assertIsInstance(data['instances'][0], models.Timer)
+        self.assertTrue(timers['no_child'] in data['instances'])
+        self.assertTrue(timers['child'] in data['instances'])
+        self.assertFalse(timers['child_two'] in data['instances'])
+
+        data = cards.card_timer_list(child_two)
+        self.assertIsInstance(data['instances'][0], models.Timer)
+        self.assertTrue(timers['no_child'] in data['instances'])
+        self.assertTrue(timers['child_two'] in data['instances'])
+        self.assertFalse(timers['child'] in data['instances'])
 
     def test_card_tummytime_last(self):
         data = cards.card_tummytime_last(self.child)
