@@ -56,11 +56,6 @@ class InitialValuesTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
         super(InitialValuesTestCase, cls).setUpClass()
-        cls.child_two = models.Child.objects.create(
-            first_name='Child',
-            last_name='Two',
-            birth_date=timezone.localdate()
-        )
         cls.timer = models.Timer.objects.create(
             user=cls.user,
             start=timezone.localtime() - timezone.timedelta(minutes=30)
@@ -71,16 +66,27 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertEqual(page.context['form'].initial['child'], self.child)
 
     def test_child_with_parameter(self):
+        child_two = models.Child.objects.create(
+            first_name='Child',
+            last_name='Two',
+            birth_date=timezone.localdate()
+        )
+
         page = self.c.get('/sleep/add/')
         self.assertTrue('child' not in page.context['form'].initial)
 
         page = self.c.get('/sleep/add/?child={}'.format(self.child.slug))
         self.assertEqual(page.context['form'].initial['child'], self.child)
 
-        page = self.c.get('/sleep/add/?child={}'.format(self.child_two.slug))
-        self.assertEqual(page.context['form'].initial['child'], self.child_two)
+        page = self.c.get('/sleep/add/?child={}'.format(child_two.slug))
+        self.assertEqual(page.context['form'].initial['child'], child_two)
 
     def test_feeding_type(self):
+        child_two = models.Child.objects.create(
+            first_name='Child',
+            last_name='Two',
+            birth_date=timezone.localdate()
+        )
         f_one = models.Feeding.objects.create(
             child=self.child,
             start=timezone.localtime() - timezone.timedelta(hours=4),
@@ -89,7 +95,7 @@ class InitialValuesTestCase(FormsTestCaseBase):
             method='left breast'
         )
         f_two = models.Feeding.objects.create(
-            child=self.child_two,
+            child=child_two,
             start=timezone.localtime() - timezone.timedelta(hours=4),
             end=timezone.localtime() - timezone.timedelta(hours=3, minutes=30),
             type='formula',
@@ -102,8 +108,7 @@ class InitialValuesTestCase(FormsTestCaseBase):
         page = self.c.get('/feedings/add/?child={}'.format(self.child.slug))
         self.assertEqual(page.context['form'].initial['type'], f_one.type)
 
-        page = self.c.get('/feedings/add/?child={}'.format(
-            self.child_two.slug))
+        page = self.c.get('/feedings/add/?child={}'.format(child_two.slug))
         self.assertEqual(page.context['form'].initial['type'], f_two.type)
 
     def test_timer_set(self):
@@ -133,16 +138,16 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertEqual(self.localtime_string(self.timer.end), params['end'])
 
 
-class ChildFormsTestCaseBase(FormsTestCaseBase):
+class ChildFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(ChildFormsTestCaseBase, cls).setUpClass()
+        super(ChildFormsTestCase, cls).setUpClass()
         cls.child = models.Child.objects.first()
 
     def test_add(self):
         params = {
             'first_name': 'Child',
-            'last_name': 'One',
+            'last_name': 'Two',
             'birth_date': timezone.localdate()
         }
         page = self.c.post('/children/add/', params, follow=True)
@@ -177,10 +182,10 @@ class ChildFormsTestCaseBase(FormsTestCaseBase):
         self.assertContains(page, 'Child entry deleted')
 
 
-class DiaperChangeFormsTestCaseBase(FormsTestCaseBase):
+class DiaperChangeFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(DiaperChangeFormsTestCaseBase, cls).setUpClass()
+        super(DiaperChangeFormsTestCase, cls).setUpClass()
         cls.change = models.DiaperChange.objects.create(
             child=cls.child,
             time=timezone.localtime(),
@@ -237,10 +242,10 @@ class DiaperChangeFormsTestCaseBase(FormsTestCaseBase):
         self.assertContains(page, 'Diaper Change entry deleted')
 
 
-class FeedingFormsTestCaseBase(FormsTestCaseBase):
+class FeedingFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(FeedingFormsTestCaseBase, cls).setUpClass()
+        super(FeedingFormsTestCase, cls).setUpClass()
         cls.feeding = models.Feeding.objects.create(
             child=cls.child,
             start=timezone.localtime() - timezone.timedelta(hours=2),
@@ -303,10 +308,10 @@ class FeedingFormsTestCaseBase(FormsTestCaseBase):
         self.assertContains(page, 'Feeding entry deleted')
 
 
-class SleepFormsTestCaseBase(FormsTestCaseBase):
+class SleepFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(SleepFormsTestCaseBase, cls).setUpClass()
+        super(SleepFormsTestCase, cls).setUpClass()
         cls.sleep = models.Sleep.objects.create(
             child=cls.child,
             start=timezone.localtime() - timezone.timedelta(hours=6),
@@ -357,10 +362,10 @@ class SleepFormsTestCaseBase(FormsTestCaseBase):
         self.assertContains(page, 'Sleep entry deleted')
 
 
-class TemperatureFormsTestCaseBase(FormsTestCaseBase):
+class TemperatureFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(TemperatureFormsTestCaseBase, cls).setUpClass()
+        super(TemperatureFormsTestCase, cls).setUpClass()
         cls.temp = models.Temperature.objects.create(
             child=cls.child,
             temperature=98.6,
@@ -404,10 +409,10 @@ class TemperatureFormsTestCaseBase(FormsTestCaseBase):
         self.assertContains(page, 'Temperature entry deleted')
 
 
-class TummyTimeFormsTestCaseBase(FormsTestCaseBase):
+class TummyTimeFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(TummyTimeFormsTestCaseBase, cls).setUpClass()
+        super(TummyTimeFormsTestCase, cls).setUpClass()
         cls.tt = models.TummyTime.objects.create(
             child=cls.child,
             start=timezone.localtime() - timezone.timedelta(hours=2),
@@ -457,7 +462,7 @@ class TummyTimeFormsTestCaseBase(FormsTestCaseBase):
         self.assertContains(page, 'Tummy Time entry deleted')
 
 
-class TimerFormsTestCaseBase(FormsTestCaseBase):
+class TimerFormsTestCase(FormsTestCaseBase):
     def test_add(self):
         params = {
             'child': self.child.id,
