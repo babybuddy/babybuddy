@@ -12,7 +12,9 @@ from core import models
 
 
 class FormsTestCaseBase(TestCase):
+    c = None
     child = None
+    user = None
 
     @classmethod
     def setUpClass(cls):
@@ -23,17 +25,17 @@ class FormsTestCaseBase(TestCase):
         cls.c = HttpClient()
 
         fake_user = fake.simple_profile()
-        cls.credentials = {
+        credentials = {
             'username': fake_user['username'],
             'password': fake.password()
         }
         cls.user = User.objects.create_user(
-            is_superuser=True, **cls.credentials)
-        cls.c.login(**cls.credentials)
+            is_superuser=True, **credentials)
+        cls.c.login(**credentials)
 
         cls.child = models.Child.objects.create(
-            first_name='Test',
-            last_name='Child',
+            first_name='Child',
+            last_name='One',
             birth_date=timezone.localdate()
         )
 
@@ -50,79 +52,85 @@ class FormsTestCaseBase(TestCase):
         return timezone.localtime(datetime).strftime(datetime_format)
 
 
-class FormValidationTestCase(FormsTestCaseBase):
-    def test_validate_date(self):
-        future = timezone.localtime() + timezone.timedelta(days=1)
-        params = {
-            'child': self.child,
-            'weight': '8.5',
-            'date': self.localdate_string(future)
-        }
-        entry = models.Weight.objects.create(**params)
-
-        page = self.c.post('/weight/{}/'.format(entry.id), params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, 'form', 'date',
-                             'Date can not be in the future.')
-
-    def test_validate_duration(self):
-        end = timezone.localtime() - timezone.timedelta(minutes=10)
-        start = end + timezone.timedelta(minutes=5)
-        params = {
-            'child': self.child,
-            'start': self.localtime_string(start),
-            'end': self.localtime_string(end),
-            'milestone': ''
-        }
-
-        page = self.c.post('/tummy-time/add/', params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, 'form', None,
-                             'Start time must come before end time.')
-
-        start = end - timezone.timedelta(weeks=53)
-        params['start'] = self.localtime_string(start)
-        page = self.c.post('/tummy-time/add/', params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, 'form', None, 'Duration too long.')
-
-    def test_validate_time(self):
-        future = timezone.localtime() + timezone.timedelta(hours=1)
-        params = {
-            'child': self.child,
-            'start': self.localtime_string(),
-            'end': self.localtime_string(future),
-            'milestone': ''
-        }
-
-        page = self.c.post('/tummy-time/add/', params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, 'form', 'end',
-                             'Date/time can not be in the future.')
-
-    def test_validate_unique_period(self):
-        entry = models.TummyTime.objects.create(
-            child=self.child,
-            start=timezone.localtime() - timezone.timedelta(minutes=10),
-            end=timezone.localtime() - timezone.timedelta(minutes=5),
+class InitialValuesTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(InitialValuesTestCase, cls).setUpClass()
+        cls.child_two = models.Child.objects.create(
+            first_name='Child',
+            last_name='Two',
+            birth_date=timezone.localdate()
+        )
+        cls.timer = models.Timer.objects.create(
+            user=cls.user,
+            start=timezone.localtime() - timezone.timedelta(minutes=30)
         )
 
-        start = entry.start - timezone.timedelta(minutes=2)
-        end = entry.end + timezone.timedelta(minutes=2)
-        params = {
-            'child': entry.child.id,
-            'start': self.localtime_string(start),
-            'end': self.localtime_string(end),
-            'milestone': ''
-        }
+    def test_child_with_one_child(self):
+        page = self.c.get('/sleep/add/')
+        self.assertEqual(page.context['form'].initial['child'], self.child)
 
-        page = self.c.post('/tummy-time/add/', params, follow=True)
+    def test_child_with_parameter(self):
+        page = self.c.get('/sleep/add/')
+        self.assertTrue('child' not in page.context['form'].initial)
+
+        page = self.c.get('/sleep/add/?child={}'.format(self.child.slug))
+        self.assertEqual(page.context['form'].initial['child'], self.child)
+
+        page = self.c.get('/sleep/add/?child={}'.format(self.child_two.slug))
+        self.assertEqual(page.context['form'].initial['child'], self.child_two)
+
+    def test_feeding_type(self):
+        f_one = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(hours=4),
+            end=timezone.localtime() - timezone.timedelta(hours=3, minutes=30),
+            type='breast milk',
+            method='left breast'
+        )
+        f_two = models.Feeding.objects.create(
+            child=self.child_two,
+            start=timezone.localtime() - timezone.timedelta(hours=4),
+            end=timezone.localtime() - timezone.timedelta(hours=3, minutes=30),
+            type='formula',
+            method='bottle'
+        )
+
+        page = self.c.get('/feedings/add/')
+        self.assertTrue('type' not in page.context['form'].initial)
+
+        page = self.c.get('/feedings/add/?child={}'.format(self.child.slug))
+        self.assertEqual(page.context['form'].initial['type'], f_one.type)
+
+        page = self.c.get('/feedings/add/?child={}'.format(
+            self.child_two.slug))
+        self.assertEqual(page.context['form'].initial['type'], f_two.type)
+
+    def test_timer_set(self):
+        self.timer.stop()
+
+        page = self.c.get('/sleep/add/')
+        self.assertTrue('start' not in page.context['form'].initial)
+        self.assertTrue('end' not in page.context['form'].initial)
+
+        page = self.c.get('/sleep/add/?timer={}'.format(self.timer.id))
+        self.assertEqual(page.context['form'].initial['start'],
+                         self.timer.start)
+        self.assertEqual(page.context['form'].initial['end'], self.timer.end)
+
+    def test_timer_stop_on_save(self):
+        end = timezone.localtime()
+        params = {
+            'child': self.child.id,
+            'start': self.localtime_string(self.timer.start),
+            'end': self.localtime_string(end)
+        }
+        page = self.c.post('/sleep/add/?timer={}'.format(self.timer.id),
+                           params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertFormError(
-            page,
-            'form',
-            None,
-            'Another entry intersects the specified time period.')
+        self.timer.refresh_from_db()
+        self.assertFalse(self.timer.active)
+        self.assertEqual(self.localtime_string(self.timer.end), params['end'])
 
 
 class ChildFormsTestCaseBase(FormsTestCaseBase):
@@ -475,6 +483,81 @@ class TimerFormsTestCaseBase(FormsTestCaseBase):
         self.assertContains(page, params['name'])
         timer.refresh_from_db()
         self.assertEqual(self.localtime_string(timer.start), params['start'])
+
+
+class ValidationsTestCase(FormsTestCaseBase):
+    def test_validate_date(self):
+        future = timezone.localtime() + timezone.timedelta(days=1)
+        params = {
+            'child': self.child,
+            'weight': '8.5',
+            'date': self.localdate_string(future)
+        }
+        entry = models.Weight.objects.create(**params)
+
+        page = self.c.post('/weight/{}/'.format(entry.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', 'date',
+                             'Date can not be in the future.')
+
+    def test_validate_duration(self):
+        end = timezone.localtime() - timezone.timedelta(minutes=10)
+        start = end + timezone.timedelta(minutes=5)
+        params = {
+            'child': self.child,
+            'start': self.localtime_string(start),
+            'end': self.localtime_string(end),
+            'milestone': ''
+        }
+
+        page = self.c.post('/tummy-time/add/', params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', None,
+                             'Start time must come before end time.')
+
+        start = end - timezone.timedelta(weeks=53)
+        params['start'] = self.localtime_string(start)
+        page = self.c.post('/tummy-time/add/', params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', None, 'Duration too long.')
+
+    def test_validate_time(self):
+        future = timezone.localtime() + timezone.timedelta(hours=1)
+        params = {
+            'child': self.child,
+            'start': self.localtime_string(),
+            'end': self.localtime_string(future),
+            'milestone': ''
+        }
+
+        page = self.c.post('/tummy-time/add/', params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(page, 'form', 'end',
+                             'Date/time can not be in the future.')
+
+    def test_validate_unique_period(self):
+        entry = models.TummyTime.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=10),
+            end=timezone.localtime() - timezone.timedelta(minutes=5),
+        )
+
+        start = entry.start - timezone.timedelta(minutes=2)
+        end = entry.end + timezone.timedelta(minutes=2)
+        params = {
+            'child': entry.child.id,
+            'start': self.localtime_string(start),
+            'end': self.localtime_string(end),
+            'milestone': ''
+        }
+
+        page = self.c.post('/tummy-time/add/', params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(
+            page,
+            'form',
+            None,
+            'Another entry intersects the specified time period.')
 
 
 class WeightFormsTest(FormsTestCaseBase):
