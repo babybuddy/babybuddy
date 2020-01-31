@@ -61,7 +61,7 @@ for detailed information.
 
         cd babybuddy
 
-1. Change the `SECRET_KEY` value to something random in `.ebextensions/babybuddy.config`
+1. Set the `SECRET_KEY` and `TIME_ZONE` values in `.ebextensions/babybuddy.config`
 
 1. [Create an IAM user](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) in AWS with EB, EC2, RDS and S3 privileges.
 
