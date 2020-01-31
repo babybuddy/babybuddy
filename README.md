@@ -118,9 +118,15 @@ create the following settings before pushing:
     heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
     heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
     heroku config:set DISABLE_COLLECTSTATIC=1
+    heroku config:set TIME_ZONE=<YOUR DESIRED TIMEZONE>
 
 See [Configuration](#configuration) for other settings that can be controlled
 by `heroku config:set`.
+
+And after an initial push, execute the following commands:
+
+    heroku run python manage.py migrate
+    heroku run python manage.py createcachetable
 
 ### Manual
 
