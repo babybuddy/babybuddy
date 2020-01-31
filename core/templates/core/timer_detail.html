@@ -1,5 +1,6 @@
 {% extends 'babybuddy/page.html' %}
-{% load duration i18n timers %}
+{% load babybuddy_tags duration i18n timers %}
+{% get_child_count as CHILD_COUNT %}
 
 {% block title %}{{ object }}{% endblock %}
 
@@ -17,7 +18,7 @@
             <span class="timer-seconds">{{ object.duration|seconds }}</span>s
         </h1>
 
-        {% if timer.child %}
+        {% if timer.child and CHILD_COUNT > 1 %}
             <h2 class="text-muted">
                 {{ timer.child }}
             </h2>

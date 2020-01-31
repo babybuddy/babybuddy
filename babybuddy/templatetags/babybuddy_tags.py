@@ -3,6 +3,8 @@ from django import template
 from django.apps import apps
 from django.utils.translation import to_locale, get_language
 
+from core.models import Child
+
 register = template.Library()
 
 
@@ -43,3 +45,8 @@ def get_current_locale():
     :return: locale code (e.g. 'de', 'fr', etc.).
     """
     return to_locale(get_language())
+
+
+@register.simple_tag()
+def get_child_count():
+    return Child.count()
