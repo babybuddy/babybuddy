@@ -54,9 +54,10 @@ class TemperatureAdmin(admin.ModelAdmin):
 
 @admin.register(models.Timer)
 class TimerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'start', 'end', 'duration', 'active', 'user')
-    list_filter = ('active', 'user')
-    search_fields = ('name', 'user')
+    list_display = ('name', 'child', 'start', 'end', 'duration', 'active',
+                    'user')
+    list_filter = ('child', 'active', 'user')
+    search_fields = ('child__first_name', 'child__last_name', 'name', 'user')
 
 
 @admin.register(models.TummyTime)
