@@ -11,16 +11,16 @@
 {% block content %}
     <div class="jumbotron text-center">
 
-        <div class="h1{% if not object.active %} timer-stopped{% endif %}" id="timer-status">
+        <h1 {% if not object.active %}class="timer-stopped" {% endif %}id="timer-status">
             <span class="timer-hours">{{ object.duration|hours }}</span>h
             <span class="timer-minutes">{{ object.duration|minutes }}</span>m
             <span class="timer-seconds">{{ object.duration|seconds }}</span>s
-        </div>
+        </h1>
 
         {% if timer.child %}
-            <div class="h2">
+            <h2 class="text-muted">
                 {{ timer.child }}
-            </div>
+            </h2>
         {% endif %}
 
         <p class="lead text-secondary">
