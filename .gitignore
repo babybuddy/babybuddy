@@ -7,7 +7,10 @@
 
 # Environment files.
 .env
+
+# Docker deployment files.
 docker.env
+docker-compose.yml
 
 # IDE configuration files.
 /.idea

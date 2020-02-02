@@ -61,7 +61,10 @@ for detailed information.
 
         cd babybuddy
 
-1. Set the `SECRET_KEY` and `TIME_ZONE` values in `.ebextensions/babybuddy.config`
+1. Set (at least) the `SECRET_KEY` environment value in `.ebextensions/babybuddy.config`
+
+    *See [Configuration](#configuration) for other settings that can be
+    controlled by environment variables.
 
 1. [Create an IAM user](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) in AWS with EB, EC2, RDS and S3 privileges.
 
@@ -78,18 +81,25 @@ redeploy the app (e.g. if there are errors or settings are changed).
 
 ### Docker
 
-A Docker deployment requires [Docker](https://www.docker.com/) and
-[Docker Compose](https://docs.docker.com/compose/) to create two containers -
-one for the database and one for the application.
+A Docker deployment requires [Docker Engine](https://www.docker.com/) v18.06.0+
+and [Docker Compose](https://docs.docker.com/compose/) v1.22.0+ to create two
+containers: one for the database and one for the application. This process ues
+two files, `docker.env` and `docker-compose.yml` to set up the application from
+the [cdubzzz/babybuddy](https://hub.docker.com/r/cdubzzz/babybuddy) image on
+Docker Hub.
 
-1. Copy the `docker.env.example` to `docker.env` and set the `ALLOWED_HOSTS` and
-`SECRET_KEY` variables
+The example files provided in this repository (`docker.env.example` and 
+`docker-compose.example.yml`) are intended for production deployments. Those two
+files are all that is needed for a Docker deployment of Baby Buddy.
 
-        cp docker.env.example docker.env
-        editor docker.env
+1. Copy the contents of `docker.env.example` as `docker.env` and set the
+`ALLOWED_HOSTS` and `SECRET_KEY` variables (at least).
 
     *See [Configuration](#configuration) for other settings that can be
-    controlled by environment variables added to the `docker.env` file.*
+    controlled by environment variables.*
+
+1. Copy the contents of `docker-compose.example.yml` as `docker-compose.yml` in
+the same directory as the `docker.env` file from step 1.
 
 1. Build/run the application
 

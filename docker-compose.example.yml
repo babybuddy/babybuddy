@@ -1,6 +1,4 @@
----
 version: "3.7"
-
 services:
   db:
     image: postgres
@@ -17,9 +15,5 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    volumes:
-      - app:/app:rw
-
 volumes:
-  app: {}
   db: {}
