@@ -8,8 +8,13 @@ services:
       - db:/db-data:rw
   app:
     image: cdubzzz/babybuddy
-    env_file:
-      - docker.env
+    # See README.md#configuration for other environment configuration options.
+    environment:
+      - ALLOWED_HOSTS=
+      - DEBUG=False
+      - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
+      - SECRET_KEY=
+      - TIME_ZONE=
     command: gunicorn -c /app/gunicorn.py babybuddy.wsgi
     ports:
       - "8000:8000"
