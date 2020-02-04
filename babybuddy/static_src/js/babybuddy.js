@@ -9,15 +9,19 @@ if (typeof moment === 'undefined') {
  * Baby Buddy Namespace
  *
  * Default namespace for the Baby Buddy app.
+ *
+ * @type {{}}
  */
 var BabyBuddy = function () {
     return {};
 }();
 
 /**
- * Baby Buddy Datetime Picker
+ * Datetime Picker.
  *
  * Provides modifications and defaults for the base datetime picker widget.
+ *
+ * @type {{init: BabyBuddy.DatetimePicker.init}}
  */
 BabyBuddy.DatetimePicker = function ($, moment) {
     return {
@@ -35,3 +39,23 @@ BabyBuddy.DatetimePicker = function ($, moment) {
         }
     };
 }(jQuery, moment);
+
+/**
+ * Pull to refresh.
+ *
+ * @type {{init: BabyBuddy.PullToRefresh.init, onRefresh: BabyBuddy.PullToRefresh.onRefresh}}
+ */
+BabyBuddy.PullToRefresh = function(ptr) {
+    return {
+        init: function () {
+            ptr.init({
+                mainElement: 'body',
+                onRefresh: this.onRefresh
+            });
+        },
+
+        onRefresh: function() {
+            window.location.reload();
+        }
+    };
+}(PullToRefresh);

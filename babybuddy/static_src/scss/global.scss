@@ -60,3 +60,12 @@
         }
     }
 }
+
+// PullToRefresh elements.
+.ptr--ptr {
+    background: theme-color('dark');
+    .ptr--text, .ptr--icon {
+        // "!important" must be used to override inline styling from JS.
+        color: theme-color('light') !important;
+    }
+}

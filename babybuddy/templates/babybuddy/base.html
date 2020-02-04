@@ -43,6 +43,9 @@
     <script src="{% static "babybuddy/js/vendor.js" %}"></script>
     <script>moment.locale('{{ LOCALE }}');</script>
     <script src="{% static "babybuddy/js/app.js" %}"></script>
+    {% if user.is_authenticated %}
+        <script>BabyBuddy.PullToRefresh.init()</script>
+    {% endif %}
 
 {% block javascript %}{% endblock %}
 </body>
