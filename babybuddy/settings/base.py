@@ -20,8 +20,8 @@ load_dotenv(find_dotenv())
 # Required settings
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
-SECRET_KEY = os.environ.get('SECRET_KEY', None)
-DEBUG = os.environ.get('DEBUG', False)
+SECRET_KEY = os.environ.get('SECRET_KEY') or None
+DEBUG = os.environ.get('DEBUG') or False
 
 
 # Applications
@@ -123,7 +123,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 USE_TZ = True
 
-TIME_ZONE = os.environ.get('TIME_ZONE', 'Etc/UTC')
+TIME_ZONE = os.environ.get('TIME_ZONE') or 'Etc/UTC'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -179,11 +179,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', None)
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME') or None
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID') or None
 
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', None)
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY') or None
 
 if AWS_STORAGE_BUCKET_NAME:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -217,7 +217,7 @@ REST_FRAMEWORK = {
 # See README.md#configuration for details about these settings.
 
 BABY_BUDDY = {
-    'NAP_START_MIN': os.environ.get('NAP_START_MIN', '06:00'),
-    'NAP_START_MAX': os.environ.get('NAP_START_MAX', '18:00'),
-    'ALLOW_UPLOADS': os.environ.get('ALLOW_UPLOADS', True)
+    'NAP_START_MIN': os.environ.get('NAP_START_MIN') or '06:00',
+    'NAP_START_MAX': os.environ.get('NAP_START_MAX') or '18:00',
+    'ALLOW_UPLOADS': os.environ.get('ALLOW_UPLOADS') or True
 }

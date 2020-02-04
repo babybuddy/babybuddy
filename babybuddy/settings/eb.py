@@ -1,7 +1,10 @@
 from .base import *
 
+# Default to not allow uploads.
+# This requires extra setup in an Elastic Beanstalk environment so it should be
+# set explicitly.
 
-BABY_BUDDY['ALLOW_UPLOADS'] = os.environ.get('ALLOW_UPLOADS', False)
+BABY_BUDDY['ALLOW_UPLOADS'] = os.environ.get('ALLOW_UPLOADS') or False
 
 
 # Database
