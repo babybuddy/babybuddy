@@ -7,7 +7,7 @@ services:
     volumes:
       - db:/db-data:rw
   app:
-    image: cdubzzz/babybuddy
+    image: babybuddy/babybuddy
     # See README.md#configuration for other environment configuration options.
     environment:
       - ALLOWED_HOSTS=

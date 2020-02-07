@@ -87,8 +87,8 @@ containers: one for the database and one for the application.
 
 The example `docker-compose.example.yml` file provided in this repository is
 intended for production deployments. Baby Buddy is deployed to Docker Hub as
-[cdubzzz/babybuddy](https://hub.docker.com/r/cdubzzz/babybuddy) so this is the
-only file needed for a Docker deployment with Docker Compose.
+[babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) so this is
+the only file needed for a Docker deployment with Docker Compose.
 
 1. Copy the contents of `docker-compose.example.yml` as `docker-compose.yml`
 and set, at least, the `ALLOWED_HOSTS` and `SECRET_KEY` variables under
