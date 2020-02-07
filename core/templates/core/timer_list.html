@@ -8,7 +8,14 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans "Timers" %}</h1>
+    <h1>
+        {% trans "Timers" %}
+        {% if perms.core.add_timer %}
+            <a href="{% url 'core:timer-add' %}" class="btn btn-sm btn-success">
+                <i class="icon icon-timer" aria-hidden="true"></i> {% trans "Start Timer" %}
+            </a>
+        {% endif %}
+    </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
         <table class="table table-striped table-hover">

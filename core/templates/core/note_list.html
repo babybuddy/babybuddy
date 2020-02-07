@@ -8,7 +8,14 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans "Notes" %}</h1>
+    <h1>
+        {% trans "Notes" %}
+        {% if perms.core.add_note %}
+            <a href="{% url 'core:note-add' %}" class="btn btn-sm btn-success">
+                <i class="icon icon-note" aria-hidden="true"></i> {% trans "Add Note" %}
+            </a>
+        {% endif %}
+    </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
         <table class="table table-striped table-hover">
@@ -53,11 +60,4 @@
         </table>
     </div>
     {% include 'babybuddy/paginator.html' %}
-
-    {% if perms.core.add_note %}
-        <a href="{% url 'core:note-add' %}" class="btn btn-sm btn-success">
-            <i class="icon icon-note" aria-hidden="true"></i> {% trans "Add a Note" %}
-        </a>
-    {% endif %}
-
 {% endblock %}

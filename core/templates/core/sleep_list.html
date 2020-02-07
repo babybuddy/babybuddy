@@ -8,7 +8,14 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans "Sleep" %}</h1>
+    <h1>
+        {% trans "Sleep" %}
+        {% if perms.core.add_sleep %}
+            <a href="{% url 'core:sleep-add' %}" class="btn btn-sm btn-success">
+                <i class="icon icon-sleep" aria-hidden="true"></i> {% trans "Add Sleep" %}
+            </a>
+        {% endif %}
+    </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
         <table class="table table-striped table-hover">
@@ -57,11 +64,4 @@
         </table>
     </div>
     {% include 'babybuddy/paginator.html' %}
-
-    {% if perms.core.add_sleep %}
-        <a href="{% url 'core:sleep-add' %}" class="btn btn-sm btn-success">
-            <i class="icon icon-sleep" aria-hidden="true"></i> {% trans "Add a Sleep Entry" %}
-        </a>
-    {% endif %}
-
 {% endblock %}

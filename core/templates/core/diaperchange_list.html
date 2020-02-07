@@ -8,7 +8,14 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans "Diaper Changes" %}</h1>
+    <h1>
+        {% trans "Diaper Changes" %}
+        {% if perms.core.add_diaperchange %}
+            <a href="{% url 'core:diaperchange-add' %}" class="btn btn-sm btn-success">
+                <i class="icon icon-diaperchange" aria-hidden="true"></i> {% trans "Add Diaper Change" %}
+            </a>
+        {% endif %}
+    </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
         <table class="table table-striped table-hover">
@@ -59,11 +66,4 @@
         </table>
     </div>
     {% include 'babybuddy/paginator.html' %}
-
-    {% if perms.core.add_diaperchange %}
-        <a href="{% url 'core:diaperchange-add' %}" class="btn btn-sm btn-success">
-            <i class="icon icon-diaperchange" aria-hidden="true"></i> {% trans "Add a Change" %}
-        </a>
-    {% endif %}
-
 {% endblock %}
