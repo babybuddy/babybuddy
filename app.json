@@ -11,7 +11,7 @@
         "python",
         "self-host"
     ],
-    "repository": "https://github.com/cdubz/babybuddy",
+    "repository": "https://github.com/babybuddy/babybuddy",
     "website": "http://www.baby-buddy.net",
     "buildpacks": [
         {

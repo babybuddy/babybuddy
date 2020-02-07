@@ -1,7 +1,7 @@
 # Contributing
 
-[![Build Status](https://travis-ci.org/cdubz/babybuddy.svg?branch=master)](https://travis-ci.org/cdubz/babybuddy)
-[![Coverage Status](https://coveralls.io/repos/github/cdubz/babybuddy/badge.svg?branch=master)](https://coveralls.io/github/cdubz/babybuddy?branch=master)
+[![Build Status](https://travis-ci.org/babybuddy/babybuddy.svg?branch=master)](https://travis-ci.org/babybuddy/babybuddy)
+[![Coverage Status](https://coveralls.io/repos/github/babybuddy/babybuddy/badge.svg?branch=master)](https://coveralls.io/github/babybuddy/babybuddy?branch=master)
 
 - [Contributions](#contributions)
   - [Pull request process](#pull-request-process)
@@ -12,9 +12,9 @@
   
 ## Contributions
 
-Contributions are accepted and encouraged via GitHub [Issues](https://github.com/cdubz/babybuddy/issues)
-and [Pull Requests](https://github.com/cdubz/babybuddy/pulls). Maintainers and
-users may also be found at [babybuddy/Lobby](https://gitter.im/babybuddy/Lobby)
+Contributions are accepted and encouraged via GitHub [Issues](https://github.com/babybuddy/babybuddy/issues)
+and [Pull Requests](https://github.com/babybuddy/babybuddy/pulls). Maintainers
+and users may also be found at [babybuddy/Lobby](https://gitter.im/babybuddy/Lobby)
 on Gitter.
 
 ### Pull request process
@@ -25,7 +25,7 @@ on Gitter.
    ensure that all tests pass.
 1. If changes are made to assets: build, collect and commit the `/static` 
    folder (see [`gulp collectstatic`](#collectstatic)).
-1. Open a [new pull request](https://github.com/cdubz/babybuddy/compare) against
+1. Open a [new pull request](https://github.com/babybuddy/babybuddy/compare) against
    the `master` branch.
    
 New pull requests will be reviewed by project maintainers as soon as possible 

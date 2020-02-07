@@ -55,7 +55,7 @@ for detailed information.
 
 1. Clone/download the Baby Buddy repo
 
-        git clone https://github.com/cdubz/babybuddy.git
+        git clone https://github.com/babybuddy/babybuddy.git
 
 1. Enter the cloned/downloaded directory
 
@@ -169,7 +169,7 @@ Python 3.6+, nginx, uwsgi and sqlite and should be sufficient for a few users
         sudo mkdir /var/www/babybuddy
         sudo chown user:user /var/www/babybuddy
         mkdir -p /var/www/babybuddy/data/media
-        git clone https://github.com/cdubz/babybuddy.git /var/www/babybuddy/public
+        git clone https://github.com/babybuddy/babybuddy.git /var/www/babybuddy/public
 
 1. Move in to the application folder
 

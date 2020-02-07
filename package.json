@@ -4,7 +4,7 @@
   "license": "BSD-2-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cdubz/babybuddy.git"
+    "url": "https://github.com/babybuddy/babybuddy.git"
   },
   "devDependencies": {
     "bootstrap": "4.4.1",
