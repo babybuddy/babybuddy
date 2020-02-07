@@ -504,6 +504,17 @@ class TimerFormsTestCase(FormsTestCaseBase):
                            follow=True)
         self.assertEqual(page.status_code, 200)
 
+    def test_delete_inactive(self):
+        models.Timer.objects.create(user=self.user)
+        self.assertEqual(models.Timer.objects.count(), 2)
+        self.timer.stop()
+        page = self.c.post('/timers/delete-inactive/', follow=True)
+        self.assertEqual(page.status_code, 200)
+        messages = list(page.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'All inactive timers deleted.')
+        self.assertEqual(models.Timer.objects.count(), 1)
+
 
 class ValidationsTestCase(FormsTestCaseBase):
     def test_validate_date(self):

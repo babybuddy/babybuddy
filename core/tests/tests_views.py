@@ -115,8 +115,9 @@ class ViewsTestCase(TestCase):
         page = self.c.get('/timers/add/')
         self.assertEqual(page.status_code, 200)
 
-        page = self.c.get('/timers/add/quick/')
-        self.assertEqual(page.status_code, 302)
+        page = self.c.get('/timers/add/quick/', follow=True)
+        self.assertEqual(page.status_code, 200)
+
         entry = models.Timer.objects.first()
         page = self.c.get('/timers/{}/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
@@ -124,10 +125,22 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         page = self.c.get('/timers/{}/delete/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
-        page = self.c.get('/timers/{}/stop/'.format(entry.id))
-        self.assertEqual(page.status_code, 302)
-        page = self.c.get('/timers/{}/restart/'.format(entry.id))
-        self.assertEqual(page.status_code, 302)
+        page = self.c.get('/timers/{}/stop/'.format(entry.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get('/timers/{}/restart/'.format(entry.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+
+        page = self.c.get('/timers/delete-inactive/', follow=True)
+        self.assertEqual(page.status_code, 200)
+        messages = list(page.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'No inactive timers exist.')
+
+        entry = models.Timer.objects.first()
+        entry.stop()
+        page = self.c.get('/timers/delete-inactive/')
+        self.assertEqual(page.status_code, 200)
+        self.assertEqual(page.context['timer_count'], 1)
 
     def test_tummytime_views(self):
         page = self.c.get('/tummy-time/')
