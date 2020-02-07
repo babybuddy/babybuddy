@@ -1,0 +1,24 @@
+{% extends 'babybuddy/page.html' %}
+{% load humanize i18n widget_tweaks %}
+
+{% block title %}
+    {% blocktrans %}Delete All Inactive Timers{% endblocktrans %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">{% trans "Timers" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Delete Inactive" %}</li>
+{% endblock %}
+
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        <h1>
+            {% blocktrans trimmed with number=timer_count|apnumber|intcomma plural=timer_count|pluralize %}
+                Are you sure you want to delete {{ number }} inactive timer{{ plural }}?
+            {% endblocktrans %}
+        </h1>
+        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
+        <a href="/" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

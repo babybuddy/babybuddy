@@ -121,6 +121,11 @@ urlpatterns = [
         views.TimerRestart.as_view(),
         name='timer-restart'
     ),
+    path(
+        'timers/delete-inactive/',
+        views.TimerDeleteInactive.as_view(),
+        name='timer-delete-inactive'
+    ),
 
     path('tummy-time/', views.TummyTimeList.as_view(), name='tummytime-list'),
     path(

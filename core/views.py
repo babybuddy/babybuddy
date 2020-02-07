@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.forms import Form
+from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, \
+    FormView
 
 from babybuddy.mixins import PermissionRequired403Mixin
 from babybuddy.views import BabyBuddyFilterView
@@ -351,6 +354,35 @@ class TimerDelete(CoreDeleteView):
     model = models.Timer
     permission_required = ('core.delete_timer',)
     success_url = reverse_lazy('core:timer-list')
+
+
+class TimerDeleteInactive(PermissionRequired403Mixin, SuccessMessageMixin,
+                          FormView):
+    permission_required = ('core.delete_timer',)
+    form_class = Form
+    template_name = 'core/timer_confirm_delete_inactive.html'
+    success_url = reverse_lazy('core:timer-list')
+    success_message = _('All inactive timers deleted.')
+
+    def get_context_data(self, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        kwargs['timer_count'] = self.get_instances().count()
+        return kwargs
+
+    def get(self, request, *args, **kwargs):
+        # Redirect back to list if there are no inactive timers.
+        if self.get_instances().count() == 0:
+            messages.warning(request, _('No inactive timers exist.'))
+            return HttpResponseRedirect(self.success_url)
+        return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        self.get_instances().delete()
+        return super().form_valid(form)
+
+    @staticmethod
+    def get_instances():
+        return models.Timer.objects.filter(active=False)
 
 
 class TummyTimeList(PermissionRequired403Mixin, BabyBuddyFilterView):
