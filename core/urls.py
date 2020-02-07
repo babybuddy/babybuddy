@@ -94,26 +94,30 @@ urlpatterns = [
     ),
 
     path('timers/', views.TimerList.as_view(), name='timer-list'),
-    path('timer/add/', views.TimerAdd.as_view(), name='timer-add'),
+    path('timers/add/', views.TimerAdd.as_view(), name='timer-add'),
     path(
-        'timer/add/quick/',
+        'timers/add/quick/',
         views.TimerAddQuick.as_view(),
         name='timer-add-quick'
     ),
-    path('timer/<int:pk>/', views.TimerDetail.as_view(), name='timer-detail'),
+    path('timers/<int:pk>/', views.TimerDetail.as_view(), name='timer-detail'),
     path(
-        'timer/<int:pk>/edit/',
+        'timers/<int:pk>/edit/',
         views.TimerUpdate.as_view(),
         name='timer-update'
     ),
     path(
-        'timer/<int:pk>/delete/',
+        'timers/<int:pk>/delete/',
         views.TimerDelete.as_view(),
         name='timer-delete'
     ),
-    path('timer/<int:pk>/stop/', views.TimerStop.as_view(), name='timer-stop'),
     path(
-        'timer/<int:pk>/restart/',
+        'timers/<int:pk>/stop/',
+        views.TimerStop.as_view(),
+        name='timer-stop'
+    ),
+    path(
+        'timers/<int:pk>/restart/',
         views.TimerRestart.as_view(),
         name='timer-restart'
     ),

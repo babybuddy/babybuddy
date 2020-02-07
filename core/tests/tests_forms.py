@@ -474,7 +474,7 @@ class TimerFormsTestCase(FormsTestCaseBase):
             'name': 'Test Timer',
             'start': self.localtime_string()
         }
-        page = self.c.post('/timer/add/', params, follow=True)
+        page = self.c.post('/timers/add/', params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, params['name'])
         self.assertContains(page, params['child'])
@@ -485,7 +485,7 @@ class TimerFormsTestCase(FormsTestCaseBase):
             'name': 'New Timer Name',
             'start': self.localtime_string(start_time)
         }
-        page = self.c.post('/timer/{}/edit/'.format(self.timer.id), params,
+        page = self.c.post('/timers/{}/edit/'.format(self.timer.id), params,
                            follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, params['name'])
@@ -500,7 +500,7 @@ class TimerFormsTestCase(FormsTestCaseBase):
             'start': self.localtime_string(self.timer.start),
             'end': self.localtime_string(self.timer.end),
         }
-        page = self.c.post('/timer/{}/edit/'.format(self.timer.id), params,
+        page = self.c.post('/timers/{}/edit/'.format(self.timer.id), params,
                            follow=True)
         self.assertEqual(page.status_code, 200)
 
