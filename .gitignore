@@ -5,11 +5,13 @@
 # SQLite database file.
 *.sqlite3
 
-# Environment files.
+# Environment configuration file.
 .env
 
+# Virtual environment files (pipenv may use this convention).
+.venv
+
 # Docker deployment files.
-docker.env
 docker-compose.yml
 
 # IDE configuration files.
