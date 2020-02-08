@@ -46,7 +46,7 @@ def set_initial_values(kwargs, form_type):
     # Set initial type value for Feeding instance based on last type used.
     if form_type == FeedingForm and 'child' in kwargs['initial']:
         last_feeding = models.Feeding.objects.filter(
-            child=kwargs['initial']['child']).latest('end')
+            child=kwargs['initial']['child']).order_by('end').last()
         if last_feeding:
             kwargs['initial'].update({'type': last_feeding.type})
 
