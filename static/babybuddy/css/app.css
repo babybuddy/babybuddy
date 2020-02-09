@@ -7616,6 +7616,11 @@ a.text-error:hover, a.text-error:focus {
   cursor: pointer;
   font-weight: bold; }
 
+.ptr--ptr {
+  background: #343a40; }
+  .ptr--ptr .ptr--text, .ptr--ptr .ptr--icon {
+    color: #f8f9fa !important; }
+
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
