@@ -11,10 +11,11 @@ services:
     # See README.md#configuration for other environment configuration options.
     environment:
       - ALLOWED_HOSTS=
-      - DEBUG=False
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
       - SECRET_KEY=
       - TIME_ZONE=
+    volumes:
+      - media:/app/media:rw
     command: gunicorn -c /app/gunicorn.py babybuddy.wsgi
     ports:
       - "8000:8000"
@@ -22,3 +23,4 @@ services:
       - db
 volumes:
   db: {}
+  media: {}
