@@ -32,7 +32,7 @@
             "value": "1"
         },
         "TIME_ZONE": {
-            "description": "Sets the instance time zone.",
+            "description": "Sets the instance default time zone.",
             "value": "Etc/UTC"
         }
     },
