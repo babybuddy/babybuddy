@@ -1,5 +1,15 @@
 [
   {
+    "model": "babybuddy.settings",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "dashboard_refresh_rate": "00:01:00",
+      "language": "en",
+      "timezone": "US/Eastern"
+    }
+  },
+  {
     "model": "core.child",
     "pk": 1,
     "fields":
