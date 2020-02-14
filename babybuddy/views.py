@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import pytz
-
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -9,18 +7,18 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from django.utils import timezone, translation
 from django.utils.text import format_lazy
 from django.utils.translation import gettext as _, gettext_lazy
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.i18n import set_language, LANGUAGE_QUERY_PARAMETER
+from django.views.i18n import set_language
 
 from django_filters.views import FilterView
 
 from babybuddy import forms
 from babybuddy.mixins import PermissionRequired403Mixin, StaffOnlyMixin
+from babybuddy.models import user_logged_in_callback
 
 
 class RootRouter(LoginRequiredMixin, RedirectView):
@@ -143,8 +141,7 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
-            timezone.activate(pytz.timezone(user.settings.timezone))
-            translation.activate(request.POST.get(LANGUAGE_QUERY_PARAMETER))
+            user_logged_in_callback(UserSettings, request, user)
             messages.success(request, _('Settings saved!'))
             return set_language(request)
         return render(request, self.template_name, {
