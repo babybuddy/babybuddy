@@ -144,7 +144,7 @@ def card_sleep_naps_day(child, date=None):
     :returns: a dictionary of nap data statistics.
     """
     date = timezone.localtime(date).astimezone(timezone.utc)
-    instances = models.Sleep.naps.filter(child=child, start__date=date)
+    instances = models.Sleep.naps.filter(child=child, start__date=date.date())
     return {
         'type': 'sleep',
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
