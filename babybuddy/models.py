@@ -41,7 +41,7 @@ class Settings(models.Model):
         verbose_name=_('Language')
     )
     timezone = models.CharField(
-        choices=tuple(zip(pytz.all_timezones, pytz.all_timezones)),
+        choices=tuple(zip(pytz.common_timezones, pytz.common_timezones)),
         default=timezone.get_default_timezone_name(),
         max_length=100,
         verbose_name=_('Timezone')
