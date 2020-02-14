@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.core.management import call_command
-from django.test import TestCase
-from django.test import Client as HttpClient
+from django.test import TestCase, Client as HttpClient
+from django.utils import timezone
 
 from faker import Factory
 
@@ -31,6 +31,7 @@ class FormsTestCase(TestCase):
             'email': 'user@user.user',
             'dashboard_refresh_rate': '',
             'language': 'en',
+            'timezone': timezone.get_default_timezone_name(),
             'next': '/user/settings/'
         }
 
