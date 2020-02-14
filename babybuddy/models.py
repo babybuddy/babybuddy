@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+import pytz
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.utils.timezone import timedelta
+from django.utils import timezone, translation
 from django.utils.text import format_lazy
-from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.authtoken.models import Token
@@ -21,23 +22,29 @@ class Settings(models.Model):
                     'support refresh on focus.'),
         blank=True,
         null=True,
-        default=timedelta(minutes=1),
+        default=timezone.timedelta(minutes=1),
         choices=[
             (None, _('disabled')),
-            (timedelta(minutes=1), _('1 min.')),
-            (timedelta(minutes=2), _('2 min.')),
-            (timedelta(minutes=3), _('3 min.')),
-            (timedelta(minutes=4), _('4 min.')),
-            (timedelta(minutes=5), _('5 min.')),
-            (timedelta(minutes=10), _('10 min.')),
-            (timedelta(minutes=15), _('15 min.')),
-            (timedelta(minutes=30), _('30 min.')),
+            (timezone.timedelta(minutes=1), _('1 min.')),
+            (timezone.timedelta(minutes=2), _('2 min.')),
+            (timezone.timedelta(minutes=3), _('3 min.')),
+            (timezone.timedelta(minutes=4), _('4 min.')),
+            (timezone.timedelta(minutes=5), _('5 min.')),
+            (timezone.timedelta(minutes=10), _('10 min.')),
+            (timezone.timedelta(minutes=15), _('15 min.')),
+            (timezone.timedelta(minutes=30), _('30 min.')),
         ])
     language = models.CharField(
         choices=settings.LANGUAGES,
         default=settings.LANGUAGE_CODE,
         max_length=255,
         verbose_name=_('Language')
+    )
+    timezone = models.CharField(
+        choices=tuple(zip(pytz.all_timezones, pytz.all_timezones)),
+        default=timezone.get_default_timezone_name(),
+        max_length=100,
+        verbose_name=_('Timezone')
     )
 
     def __str__(self):
@@ -78,5 +85,9 @@ def save_user_settings(sender, instance, **kwargs):
 
 @receiver(user_logged_in)
 def user_logged_in_callback(sender, request, user, **kwargs):
-    translation.activate(user.settings.language)
-    request.session[translation.LANGUAGE_SESSION_KEY] = user.settings.language
+    if user.settings.language:
+        translation.activate(user.settings.language)
+        request.session[
+            translation.LANGUAGE_SESSION_KEY] = user.settings.language
+    if user.settings.timezone:
+        timezone.activate(user.settings.timezone)
