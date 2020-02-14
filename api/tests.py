@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.test import override_settings
 from django.urls import reverse
 
 from rest_framework import status
@@ -8,7 +7,6 @@ from rest_framework.test import APITestCase
 from core import models
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class ChildAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:child-list')
@@ -45,7 +43,6 @@ class ChildAPITestCase(APITestCase):
         self.assertEqual(obj.first_name, data['first_name'])
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class DiaperChangeAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:diaperchange-list')
@@ -89,7 +86,6 @@ class DiaperChangeAPITestCase(APITestCase):
         self.assertEqual(obj.amount, data['amount'])
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class FeedingAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:feeding-list')
@@ -130,7 +126,6 @@ class FeedingAPITestCase(APITestCase):
         self.assertEqual(obj.type, data['type'])
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class NoteAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:note-list')
@@ -165,7 +160,6 @@ class NoteAPITestCase(APITestCase):
         self.assertEqual(obj.note, data['note'])
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class SleepAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:sleep-list')
@@ -202,7 +196,6 @@ class SleepAPITestCase(APITestCase):
         self.assertEqual(str(obj.duration), '3:30:00')
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class TemperatureAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:temperature-list')
@@ -237,7 +230,6 @@ class TemperatureAPITestCase(APITestCase):
         self.assertEqual(str(obj.temperature), data['temperature'])
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class TimerAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:timer-list')
@@ -275,7 +267,6 @@ class TimerAPITestCase(APITestCase):
         self.assertEqual(obj.name, data['name'])
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class TummyTimeAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:tummytime-list')
@@ -313,7 +304,6 @@ class TummyTimeAPITestCase(APITestCase):
         self.assertEqual(str(obj.duration), '0:05:30')
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class WeightAPITestCase(APITestCase):
     fixtures = ['tests.json']
     endpoint = reverse('api:weight-list')

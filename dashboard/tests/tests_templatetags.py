@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
+import pytz
+
 from django.contrib.auth.models import User
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.utils import timezone
 
+from babybuddy.models import Settings
 from core import models
 from dashboard.templatetags import cards
 
 
-@override_settings(TIME_ZONE='US/Eastern')
 class TemplateTagsTestCase(TestCase):
     fixtures = ['tests.json']
 
@@ -15,6 +17,11 @@ class TemplateTagsTestCase(TestCase):
     def setUpClass(cls):
         super(TemplateTagsTestCase, cls).setUpClass()
         cls.child = models.Child.objects.first()
+
+        # Ensure timezone matches the one defined by fixtures.
+        user_timezone = Settings.objects.first().timezone
+        timezone.activate(pytz.timezone(user_timezone))
+
         # Test file data uses a basis date of 2017-11-18.
         date = timezone.localtime().strptime('2017-11-18', '%Y-%m-%d')
         cls.date = timezone.make_aware(date)
@@ -67,7 +74,6 @@ class TemplateTagsTestCase(TestCase):
 
     def test_card_sleep_naps_day(self):
         data = cards.card_sleep_naps_day(self.child, self.date)
-        cards.card_sleep_naps_day(self.child)
         self.assertEqual(data['type'], 'sleep')
         self.assertEqual(data['total'], timezone.timedelta(0, 9000))
         self.assertEqual(data['count'], 2)
