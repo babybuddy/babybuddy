@@ -33,6 +33,7 @@ module.exports = {
             'node_modules/moment/locale/fr.js',
             'node_modules/moment/locale/sv.js',
             'node_modules/moment/locale/tr.js',
+            'node_modules/moment-timezone/moment-timezone.js',
             'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
         ],
         graph: [

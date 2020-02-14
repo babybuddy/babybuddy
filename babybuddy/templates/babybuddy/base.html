@@ -1,6 +1,7 @@
 {% load babybuddy_tags i18n static %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_current_locale as LOCALE %}
+{% get_current_timezone as TIMEZONE %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +43,7 @@
 
     <script src="{% static "babybuddy/js/vendor.js" %}"></script>
     <script>moment.locale('{{ LOCALE }}');</script>
+    <script>moment.tz.setDefault('{{ TIMEZONE }}');</script>
     <script src="{% static "babybuddy/js/app.js" %}"></script>
     {% if user.is_authenticated %}
         <script>BabyBuddy.PullToRefresh.init()</script>

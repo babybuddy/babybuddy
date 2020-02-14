@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.apps import apps
+from django.utils import timezone
 from django.utils.translation import to_locale, get_language
 
 from core.models import Child
@@ -50,3 +51,8 @@ def get_current_locale():
 @register.simple_tag()
 def get_child_count():
     return Child.count()
+
+
+@register.simple_tag()
+def get_current_timezone():
+    return timezone.get_current_timezone_name()

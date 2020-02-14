@@ -21,6 +21,7 @@
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
     "plotly.js": "^1.52.2",
     "popper.js": "^1.16.1",
     "pulltorefreshjs": "^0.1.20",
