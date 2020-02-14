@@ -79,15 +79,9 @@ def rangeselector_date():
 def split_graph_output(output):
     """
     Split out of a Plotly graph in to html and javascript.
-    This function accounts for two output formats from different Plotly
-    versions: one with a single <script> tag and one with two <script> tags.
     :param output: a string of html and javascript comprising the graph.
     :returns: a tuple of the the graph's html and javascript.
     """
-    try:
-        html, js_graph, js_listener = output.split('<script')
-        js = js_graph + '<script' + js_listener
-    except ValueError:
-        html, js = output.split('<script')
+    html, js = output.split('<script')
     js = '<script' + js
     return html, js
