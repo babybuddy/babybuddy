@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.core.management import call_command
-from django.test import TestCase, Client as HttpClient
+from django.test import Client as HttpClient, override_settings, TestCase
 from django.utils import timezone
 
 from faker import Factory
@@ -120,3 +120,15 @@ class FormsTestCase(TestCase):
         params['language'] = 'fr'
         page = self.c.post('/user/settings/', data=params, follow=True)
         self.assertContains(page, 'Paramètres Utilisateur')
+
+    @override_settings(TIME_ZONE='US/Eastern')
+    def test_user_settings_timezone(self):
+        self.c.login(**self.credentials)
+
+        self.assertEqual(timezone.get_default_timezone_name(), 'US/Eastern')
+        params = self.settings_template.copy()
+        params['timezone'] = 'US/Pacific'
+        page = self.c.post('/user/settings/', data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertEqual(timezone.get_current_timezone_name(),
+                         params['timezone'])
