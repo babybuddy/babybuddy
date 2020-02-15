@@ -119,7 +119,7 @@ class ChildDeleteForm(forms.ModelForm):
 class DiaperChangeForm(CoreModelForm):
     class Meta:
         model = models.DiaperChange
-        fields = ['child', 'time', 'wet', 'solid', 'color', 'amount']
+        fields = ['child', 'time', 'wet', 'solid', 'color', 'amount', 'notes']
         widgets = {
             'time': forms.DateTimeInput(attrs={
                 'readonly': 'readonly',
@@ -131,7 +131,7 @@ class DiaperChangeForm(CoreModelForm):
 class FeedingForm(CoreModelForm):
     class Meta:
         model = models.Feeding
-        fields = ['child', 'start', 'end', 'type', 'method', 'amount']
+        fields = ['child', 'start', 'end', 'type', 'method', 'amount', 'notes']
         widgets = {
             'start': forms.DateTimeInput(attrs={
                 'readonly': 'readonly',
@@ -153,7 +153,7 @@ class NoteForm(CoreModelForm):
 class SleepForm(CoreModelForm):
     class Meta:
         model = models.Sleep
-        fields = ['child', 'start', 'end']
+        fields = ['child', 'start', 'end', 'notes']
         widgets = {
             'start': forms.DateTimeInput(attrs={
                 'readonly': 'readonly',
@@ -169,7 +169,7 @@ class SleepForm(CoreModelForm):
 class TemperatureForm(CoreModelForm):
     class Meta:
         model = models.Temperature
-        fields = ['child', 'temperature', 'time']
+        fields = ['child', 'temperature', 'time', 'notes']
         widgets = {
             'time': forms.DateTimeInput(attrs={
                 'readonly': 'readonly',
@@ -219,7 +219,7 @@ class TummyTimeForm(CoreModelForm):
 class WeightForm(CoreModelForm):
     class Meta:
         model = models.Weight
-        fields = ['child', 'weight', 'date']
+        fields = ['child', 'weight', 'date', 'notes']
         widgets = {
             'date': forms.DateInput(attrs={
                 'readonly': 'readonly',

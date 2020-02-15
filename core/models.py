@@ -153,6 +153,7 @@ class DiaperChange(models.Model):
         verbose_name=_('Color')
     )
     amount = models.FloatField(blank=True, null=True, verbose_name=_('Amount'))
+    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
 
     objects = models.Manager()
 
@@ -227,6 +228,7 @@ class Feeding(models.Model):
         verbose_name=_('Method')
     )
     amount = models.FloatField(blank=True, null=True, verbose_name=_('Amount'))
+    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
 
     objects = models.Manager()
 
@@ -310,6 +312,7 @@ class Sleep(models.Model):
         null=True,
         verbose_name=_('Duration')
     )
+    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
 
     objects = models.Manager()
     naps = NapsManager()
@@ -362,6 +365,7 @@ class Temperature(models.Model):
         null=False,
         verbose_name=_('Time')
     )
+    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
 
     objects = models.Manager()
 
@@ -552,6 +556,7 @@ class Weight(models.Model):
         null=False,
         verbose_name=_('Date')
     )
+    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
 
     objects = models.Manager()
 
