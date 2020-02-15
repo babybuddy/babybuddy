@@ -14,6 +14,14 @@
         .card-text {
             @extend .text-muted;
         }
+
+        // Offset horizontal padding in dashboard cards with a carousel.
+        .carousel {
+            margin-left: -$card-spacer-x;
+            margin-right: -$card-spacer-x;
+            padding-left: $card-spacer-x;
+            padding-right: $card-spacer-x;
+        }
     }
 }
 
