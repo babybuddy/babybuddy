@@ -10094,8 +10094,17 @@ a.text-error:hover, a.text-error:focus {
 .card-dashboard .card-header {
   margin-bottom: 0; }
 
+.card-dashboard .card-body .carousel {
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem; }
+
 .card-diaperchange .progress {
   height: 2rem; }
+
+.card-feeding .card-body .last-feeding-method {
+  font-size: 2em; }
 
 .card-statistics .card-body .container {
   padding: 0; }
