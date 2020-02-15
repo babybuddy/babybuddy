@@ -22,14 +22,16 @@
                 </div>
             {% endfor %}
             </div>
-            <a class="carousel-control-prev" href="#feeding-methods-carousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">{% trans "Previous" %}</span>
-            </a>
-            <a class="carousel-control-next" href="#feeding-methods-carousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">{% trans "Next" %}</span>
-            </a>
+            {% if feedings|length > 1 %}
+                <a class="carousel-control-prev" href="#feeding-methods-carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">{% trans "Previous" %}</span>
+                </a>
+                <a class="carousel-control-next" href="#feeding-methods-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">{% trans "Next" %}</span>
+                </a>
+            {% endif %}
         </div>
     {% else %}
         {% trans "None" %}
