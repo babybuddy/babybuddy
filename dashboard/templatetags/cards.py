@@ -38,6 +38,7 @@ def card_diaperchange_types(child, date=None):
         time = timezone.datetime.combine(date, timezone.localtime().min.time())
         time = timezone.make_aware(time)
     stats = {}
+    week_total = 0
     max_date = (time + timezone.timedelta(days=1)).replace(
         hour=0, minute=0, second=0)
     min_date = (max_date - timezone.timedelta(days=7)).replace(
@@ -57,11 +58,12 @@ def card_diaperchange_types(child, date=None):
 
     for key, info in stats.items():
         total = info['wet'] + info['solid']
+        week_total += total
         if total > 0:
             stats[key]['wet_pct'] = info['wet'] / total * 100
             stats[key]['solid_pct'] = info['solid'] / total * 100
 
-    return {'type': 'diaperchange', 'stats': stats}
+    return {'type': 'diaperchange', 'stats': stats, 'total': week_total}
 
 
 @register.inclusion_tag('cards/feeding_last.html')
