@@ -42,6 +42,11 @@
 
     .card-body {
         @extend .text-primary;
+
+        // Last feeding method header in card.
+        .last-feeding-method {
+            font-size: 2em;
+        }
     }
 }
 
