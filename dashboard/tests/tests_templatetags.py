@@ -53,11 +53,13 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(data['feeding'], models.Feeding.objects.first())
 
     def test_card_feeding_last_method(self):
-        data = cards.card_feeding_last(self.child)
+        data = cards.card_feeding_last_method(self.child)
         self.assertEqual(data['type'], 'feeding')
-        self.assertIsInstance(data['feeding'], models.Feeding)
+        self.assertEqual(len(data['feedings']), 3)
+        for feeding in data['feedings']:
+            self.assertIsInstance(feeding, models.Feeding)
         self.assertEqual(
-            data['feeding'].method,
+            data['feedings'][2].method,
             models.Feeding.objects.first().method)
 
     def test_card_sleep_last(self):

@@ -4,9 +4,35 @@
 {% block header %}{% trans "Last Feeding Method" %}{% endblock %}
 
 {% block title %}
-    {% if feeding %}
-        <div class="display-4 text-center">{{ feeding.get_method_display }}</div>
+    {% if feedings|length > 0 %}
+        <div id="feeding-methods-carousel" class="carousel slide" data-interval="false">
+            <div class="carousel-inner">
+            {% for feeding in feedings %}
+                <div class="carousel-item{% if forloop.counter == feedings|length %} active{% endif %}">
+                    <div class="display-4 text-center">{{ feeding.get_method_display }}</div>
+                    <div class="text-center small text-muted">
+                        {% if forloop.last %}
+                            {% trans "most recent" %}
+                        {% else %}
+                            {% blocktrans trimmed with n=forloop.revcounter0 plural=forloop.revcounter0|pluralize %}
+                                {{ n }} feeding{{ plural }} ago
+                            {% endblocktrans %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#feeding-methods-carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Previous" %}</span>
+            </a>
+            <a class="carousel-control-next" href="#feeding-methods-carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Next" %}</span>
+            </a>
+        </div>
     {% else %}
         {% trans "None" %}
     {% endif %}
+
 {% endblock %}

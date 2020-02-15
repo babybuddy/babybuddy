@@ -79,13 +79,14 @@ def card_feeding_last(child):
 @register.inclusion_tag('cards/feeding_last_method.html')
 def card_feeding_last_method(child):
     """
-    Information about the most recent feeding method.
+    Information about the three most recent feeding methods.
     :param child: an instance of the Child model.
-    :returns: a dictionary with the most recent Feeding instance.
+    :returns: a dictionary with the most recent Feeding instances.
     """
-    instance = models.Feeding.objects.filter(child=child) \
-        .order_by('-end').first()
-    return {'type': 'feeding', 'feeding': instance}
+    instances = models.Feeding.objects.filter(child=child) \
+        .order_by('-end')[:3]
+    # Results are reversed for carousel forward/back behavior.
+    return {'type': 'feeding', 'feedings': list(reversed(instances))}
 
 
 @register.inclusion_tag('cards/sleep_last.html')
