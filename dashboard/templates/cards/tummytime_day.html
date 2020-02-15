@@ -7,9 +7,7 @@
     {% if stats.count > 0 %}
         {{ stats.total|duration_string }}
     {% else %}
-        <i class="icon icon-sad" aria-hidden="true"></i>
-        {% trans "None yet today" %}
-        <i class="icon icon-sad" aria-hidden="true"></i>
+        {% trans "None" %}
     {% endif %}
 {% endblock %}
 

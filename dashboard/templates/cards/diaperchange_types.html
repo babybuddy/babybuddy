@@ -4,7 +4,11 @@
 {% block header %}{% trans "Diaper Changes" %}{% endblock %}
 
 {% block title %}
-    {% trans "Past Week" %}
+    {% if total == 0 %}
+        {% trans "None" %}
+    {% else %}
+        {% trans "Past Week" %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
