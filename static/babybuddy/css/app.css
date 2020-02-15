@@ -7621,6 +7621,20 @@ a.text-error:hover, a.text-error:focus {
   .ptr--ptr .ptr--text, .ptr--ptr .ptr--icon {
     color: #f8f9fa !important; }
 
+.table-instances tr td, .table-instances tr th {
+  vertical-align: middle; }
+
+.table-instances tr.odd {
+  background: rgba(34, 111, 151, 0.1); }
+
+.table-instances tr.even {
+  background: none; }
+
+.table-instances tr.row-details td {
+  color: #adb5bd;
+  padding-top: 0;
+  border-top: 0; }
+
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
