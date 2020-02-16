@@ -1,11 +1,8 @@
 [[source]]
-
 verify_ssl = true
 url = "https://pypi.python.org/simple"
 
-
 [packages]
-
 django = "*"
 djangorestframework = "*"
 django-filter = "*"
@@ -21,10 +18,9 @@ easy-thumbnails = "*"
 python-dotenv = "*"
 django-storages = "*"
 boto3 = "*"
-
+django-import-export = "*"
 
 [dev-packages]
-
 coveralls = "*"
 flake8 = "*"
 ipaddress = "*"

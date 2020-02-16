@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'easy_thumbnails',
     'storages',
+    'import_export',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -214,6 +215,12 @@ REST_FRAMEWORK = {
     ],
     'PAGE_SIZE': 100
 }
+
+# Import/Export configuration
+# See https://django-import-export.readthedocs.io/
+
+IMPORT_EXPORT_IMPORT_PERMISSION_CODE = 'add'
+IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'change'
 
 # Baby Buddy configuration
 # See README.md#configuration for details about these settings.
