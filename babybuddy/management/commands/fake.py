@@ -109,6 +109,10 @@ class Command(BaseCommand):
         amount = Decimal('%d.%d' % (randint(0, 6), randint(1, 9)))
         time = self.time + timedelta(minutes=randint(1, 60))
 
+        notes = ''
+        if choice([True, False, False, False]):
+            notes = ' '.join(self.faker.sentences(randint(1, 5)))
+
         if time < self.time_now:
             models.DiaperChange.objects.create(
                 child=self.child,
@@ -116,7 +120,8 @@ class Command(BaseCommand):
                 wet=wet,
                 solid=solid,
                 color=color,
-                amount=amount
+                amount=amount,
+                notes=notes
             ).save()
         self.time = time
 
@@ -133,6 +138,10 @@ class Command(BaseCommand):
         start = self.time + timedelta(minutes=randint(1, 60))
         end = start + timedelta(minutes=randint(5, 20))
 
+        notes = ''
+        if choice([True, False, False, False]):
+            notes = ' '.join(self.faker.sentences(randint(1, 5)))
+
         if end < self.time_now:
             models.Feeding.objects.create(
                 child=self.child,
@@ -140,7 +149,8 @@ class Command(BaseCommand):
                 end=end,
                 type=choice(models.Feeding._meta.get_field('type').choices)[0],
                 method=method,
-                amount=amount
+                amount=amount,
+                notes=notes
             ).save()
         self.time = end
 
@@ -166,11 +176,16 @@ class Command(BaseCommand):
             minutes = randint(30, 60 * 2)
         end = self.time + timedelta(minutes=minutes)
 
+        notes = ''
+        if choice([True, False, False, False]):
+            notes = ' '.join(self.faker.sentences(randint(1, 5)))
+
         if end < self.time_now:
             models.Sleep.objects.create(
                 child=self.child,
                 start=self.time,
-                end=end
+                end=end,
+                notes=notes
             ).save()
         self.time = end
 
@@ -181,10 +196,16 @@ class Command(BaseCommand):
         :returns:
         """
         self.temperature = round(uniform(95.0, 102.0), 2)
+
+        notes = ''
+        if choice([True, False, False, False]):
+            notes = ' '.join(self.faker.sentences(randint(1, 5)))
+
         models.Temperature.objects.create(
             child=self.child,
             temperature=self.temperature,
-            time=self.time
+            time=self.time,
+            notes=notes
         ).save()
 
     @transaction.atomic
@@ -217,8 +238,14 @@ class Command(BaseCommand):
         :returns:
         """
         self.weight += uniform(0.1, 0.3)
+
+        notes = ''
+        if choice([True, False, False, False]):
+            notes = ' '.join(self.faker.sentences(randint(1, 5)))
+
         models.Weight.objects.create(
             child=self.child,
             weight=round(self.weight, 2),
-            date=self.time.date()
+            date=self.time.date(),
+            notes=notes
         ).save()
