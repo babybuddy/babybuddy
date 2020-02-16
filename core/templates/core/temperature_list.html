@@ -18,7 +18,7 @@
     </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
                     <th>{% trans "Child" %}</th>
@@ -28,22 +28,23 @@
                 </tr>
             </thead>
             <tbody>
-                {% for object in object_list %}
-                    <tr>
-                        <th scope="row"><a href="{% url 'core:child' object.child.slug %}">{{ object.child }}</a></th>
-                        <td>{{ object.temperature }}</td>
-                        <td>{{ object.time }}</td>
+                {% for temperature in object_list %}
+                    {% cycle "odd" "even" as row_class silent %}
+                    <tr class="{{ row_class }}">
+                        <th scope="row"><a href="{% url 'core:child' temperature.child.slug %}">{{ temperature.child }}</a></th>
+                        <td>{{ temperature.temperature }}</td>
+                        <td>{{ temperature.time }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_temperature %}
-                                    <a href="{% url 'core:temperature-update' object.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:temperature-update' temperature.id %}" class="btn btn-primary">
                                         <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_temperature %}
-                                    <a href="{% url 'core:temperature-delete' object.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:temperature-delete' temperature.id %}" class="btn btn-danger">
                                         <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
@@ -51,6 +52,11 @@
                             </div>
                         </td>
                     </tr>
+                    {% if temperature.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="4"><i class="icon icon-note mr-2" aria-hidden="true"></i>{{ temperature.notes }}</td>
+                        </tr>
+                    {% endif %}
                 {% empty %}
                     <tr>
                         <th colspan="4">{% trans "No temperature entries found." %}</th>

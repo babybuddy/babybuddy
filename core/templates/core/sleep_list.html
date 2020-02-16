@@ -18,7 +18,7 @@
     </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
                     <th>{% trans "Child" %}</th>
@@ -31,7 +31,8 @@
             </thead>
             <tbody>
                 {% for sleep in object_list %}
-                    <tr>
+                    {% cycle "odd" "even" as row_class silent %}
+                    <tr class="{{ row_class }}">
                         <th scope="row"><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></th>
                         <td>{{ sleep.duration|duration_string }}</td>
                         <td>{{ sleep.start }}</td>
@@ -55,9 +56,14 @@
                             </div>
                         </td>
                     </tr>
+                    {% if sleep.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="6"><i class="icon icon-note mr-2" aria-hidden="true"></i>{{ sleep.notes }}</td>
+                        </tr>
+                    {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No sleep entries found." %}</th>
+                        <th colspan="6">{% trans "No sleep entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

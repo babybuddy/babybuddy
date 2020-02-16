@@ -18,7 +18,7 @@
     </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
                     <th>{% trans "Child" %}</th>
@@ -28,22 +28,23 @@
                 </tr>
             </thead>
             <tbody>
-                {% for object in object_list %}
-                    <tr>
-                        <th scope="row"><a href="{% url 'core:child' object.child.slug %}">{{ object.child }}</a></th>
-                        <td>{{ object.weight }}</td>
-                        <td>{{ object.date }}</td>
+                {% for weight in object_list %}
+                    {% cycle "odd" "even" as row_class silent %}
+                    <tr class="{{ row_class }}">
+                        <th scope="row"><a href="{% url 'core:child' weight.child.slug %}">{{ weight.child }}</a></th>
+                        <td>{{ weight.weight }}</td>
+                        <td>{{ weight.date }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_weight %}
-                                    <a href="{% url 'core:weight-update' object.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:weight-update' weight.id %}" class="btn btn-primary">
                                         <i class="icon icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_weight %}
-                                    <a href="{% url 'core:weight-delete' object.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:weight-delete' weight.id %}" class="btn btn-danger">
                                         <i class="icon icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
@@ -51,6 +52,11 @@
                             </div>
                         </td>
                     </tr>
+                    {% if weight.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="4"><i class="icon icon-note mr-2" aria-hidden="true"></i>{{ weight.notes }}</td>
+                        </tr>
+                    {% endif %}
                 {% empty %}
                     <tr>
                         <th colspan="4">{% trans "No weight entries found." %}</th>
