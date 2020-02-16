@@ -125,6 +125,7 @@ class DiaperChangeForm(CoreModelForm):
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_time',
             }),
+            'notes': forms.Textarea(attrs={'rows': 5}),
         }
 
 
@@ -141,6 +142,7 @@ class FeedingForm(CoreModelForm):
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_end',
             }),
+            'notes': forms.Textarea(attrs={'rows': 5}),
         }
 
 
@@ -163,6 +165,7 @@ class SleepForm(CoreModelForm):
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_end',
             }),
+            'notes': forms.Textarea(attrs={'rows': 5}),
         }
 
 
@@ -175,6 +178,7 @@ class TemperatureForm(CoreModelForm):
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_time',
             }),
+            'notes': forms.Textarea(attrs={'rows': 5}),
         }
 
 
@@ -225,4 +229,5 @@ class WeightForm(CoreModelForm):
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_date',
             }),
+            'notes': forms.Textarea(attrs={'rows': 5}),
         }
