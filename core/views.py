@@ -198,7 +198,7 @@ class NoteAdd(CoreAddView):
 class NoteUpdate(CoreUpdateView):
     model = models.Note
     permission_required = ('core.change_note',)
-    fields = ['child', 'note']
+    form_class = forms.NoteForm
     success_url = reverse_lazy('core:note-list')
 
 
@@ -255,7 +255,7 @@ class TemperatureAdd(CoreAddView):
 class TemperatureUpdate(CoreUpdateView):
     model = models.Temperature
     permission_required = ('core.change_temperature',)
-    fields = ['child', 'temperature', 'time']
+    form_class = forms.TemperatureForm
     success_url = reverse_lazy('core:temperature-list')
     success_message = _('%(model)s reading for %(child)s updated.')
 
@@ -431,7 +431,7 @@ class WeightAdd(CoreAddView):
 class WeightUpdate(CoreUpdateView):
     model = models.Weight
     permission_required = ('core.change_weight',)
-    fields = ['child', 'weight', 'date']
+    form_class = forms.WeightForm
     success_url = reverse_lazy('core:weight-list')
 
 
