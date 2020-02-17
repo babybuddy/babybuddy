@@ -15,7 +15,7 @@ class ImportExportResourceBase(resources.ModelResource):
         attribute='child__first_name', readonly=True)
     child_last_name = fields.Field(attribute='child__last_name', readonly=True)
 
-    
+
 class ChildImportExportResource(resources.ModelResource):
     class Meta:
         model = models.Child
@@ -39,7 +39,8 @@ class DiaperChangeImportExportResource(ImportExportResourceBase):
 
 
 @admin.register(models.DiaperChange)
-class DiaperChangeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+class DiaperChangeAdmin(ImportExportMixin, ExportActionMixin,
+                        admin.ModelAdmin):
     list_display = ('child', 'time', 'wet', 'solid', 'color')
     list_filter = ('child', 'wet', 'solid', 'color')
     search_fields = ('child__first_name', 'child__last_name',)
