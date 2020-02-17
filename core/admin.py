@@ -9,11 +9,15 @@ from core import models
 
 
 class ImportExportResourceBase(resources.ModelResource):
-    id = fields.Field(attribute='id', column_name='entry_id')
-    child = fields.Field(attribute='child__id', column_name='child_id')
+    id = fields.Field(attribute='id')
+    child = fields.Field(attribute='child_id', column_name='child_id')
     child_first_name = fields.Field(
         attribute='child__first_name', readonly=True)
     child_last_name = fields.Field(attribute='child__last_name', readonly=True)
+
+    class Meta:
+        clean_model_instances = True
+        exclude = ('duration',)
 
 
 class ChildImportExportResource(resources.ModelResource):
@@ -50,7 +54,6 @@ class DiaperChangeAdmin(ImportExportMixin, ExportActionMixin,
 class FeedingImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Feeding
-        exclude = ('duration',)
 
 
 @admin.register(models.Feeding)
@@ -79,7 +82,6 @@ class NoteAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
 class SleepImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Sleep
-        exclude = ('duration',)
 
 
 @admin.register(models.Sleep)
@@ -114,7 +116,6 @@ class TimerAdmin(admin.ModelAdmin):
 class TummyTimeImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.TummyTime
-        exclude = ('duration',)
 
 
 @admin.register(models.TummyTime)

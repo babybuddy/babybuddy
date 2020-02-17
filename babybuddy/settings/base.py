@@ -221,6 +221,7 @@ REST_FRAMEWORK = {
 
 IMPORT_EXPORT_IMPORT_PERMISSION_CODE = 'add'
 IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'change'
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 # Baby Buddy configuration
 # See README.md#configuration for details about these settings.
