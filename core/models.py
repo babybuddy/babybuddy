@@ -252,13 +252,6 @@ class Feeding(models.Model):
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
-        # "Formula" Type may only be associated with "Bottle" Method.
-        if self.type == 'formula' and self.method != 'bottle':
-            raise ValidationError(
-                {'method':
-                 _('Only "Bottle" method is allowed with "Formula" type.')},
-                code='bottle_formula_mismatch')
-
 
 class Note(models.Model):
     model_name = 'note'
