@@ -263,16 +263,9 @@ class FeedingFormsTestCase(FormsTestCaseBase):
             'start': self.localtime_string(start),
             'end': self.localtime_string(end),
             'type': 'formula',
-            'method': 'left breast',
+            'method': 'bottle',
             'amount': 0
         }
-        page = self.c.post('/feedings/add/', params)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(
-            page, 'form', 'method',
-            'Only "Bottle" method is allowed with "Formula" type.')
-
-        params.update({'method': 'bottle'})
         page = self.c.post('/feedings/add/', params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(
