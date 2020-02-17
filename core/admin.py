@@ -49,6 +49,7 @@ class DiaperChangeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
 class FeedingImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Feeding
+        exclude = ('duration',)
 
 
 @admin.register(models.Feeding)
@@ -112,6 +113,7 @@ class TimerAdmin(admin.ModelAdmin):
 class TummyTimeImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.TummyTime
+        exclude = ('duration',)
 
 
 @admin.register(models.TummyTime)
