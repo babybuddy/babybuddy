@@ -2,12 +2,20 @@
 from django.contrib import admin
 from django.conf import settings
 
-from import_export import resources
-from import_export.admin import ImportExportMixin
+from import_export import fields, resources
+from import_export.admin import ImportExportMixin, ExportActionMixin
 
 from core import models
 
 
+class ImportExportResourceBase(resources.ModelResource):
+    id = fields.Field(attribute='id', column_name='entry_id')
+    child = fields.Field(attribute='child__id', column_name='child_id')
+    child_first_name = fields.Field(
+        attribute='child__first_name', readonly=True)
+    child_last_name = fields.Field(attribute='child__last_name', readonly=True)
+
+    
 class ChildImportExportResource(resources.ModelResource):
     class Meta:
         model = models.Child
@@ -15,7 +23,7 @@ class ChildImportExportResource(resources.ModelResource):
 
 
 @admin.register(models.Child)
-class ChildAdmin(ImportExportMixin, admin.ModelAdmin):
+class ChildAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'birth_date', 'slug')
     list_filter = ('last_name',)
     search_fields = ('first_name', 'last_name', 'birth_date')
@@ -25,26 +33,26 @@ class ChildAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = ChildImportExportResource
 
 
-class DiaperChangeImportExportResource(resources.ModelResource):
+class DiaperChangeImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.DiaperChange
 
 
 @admin.register(models.DiaperChange)
-class DiaperChangeAdmin(ImportExportMixin, admin.ModelAdmin):
+class DiaperChangeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ('child', 'time', 'wet', 'solid', 'color')
     list_filter = ('child', 'wet', 'solid', 'color')
     search_fields = ('child__first_name', 'child__last_name',)
     resource_class = DiaperChangeImportExportResource
 
 
-class FeedingImportExportResource(resources.ModelResource):
+class FeedingImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Feeding
 
 
 @admin.register(models.Feeding)
-class FeedingAdmin(ImportExportMixin, admin.ModelAdmin):
+class FeedingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ('start', 'end', 'duration', 'child', 'type', 'method',
                     'amount')
     list_filter = ('child', 'type', 'method',)
@@ -53,40 +61,40 @@ class FeedingAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = FeedingImportExportResource
 
 
-class NoteImportExportResource(resources.ModelResource):
+class NoteImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Note
 
 
 @admin.register(models.Note)
-class NoteAdmin(ImportExportMixin, admin.ModelAdmin):
+class NoteAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ('time', 'child', 'note',)
     list_filter = ('child',)
     search_fields = ('child__last_name',)
     resource_class = NoteImportExportResource
 
 
-class SleepImportExportResource(resources.ModelResource):
+class SleepImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Sleep
         exclude = ('duration',)
 
 
 @admin.register(models.Sleep)
-class SleepAdmin(ImportExportMixin, admin.ModelAdmin):
+class SleepAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ('start', 'end', 'duration', 'child', 'nap')
     list_filter = ('child',)
     search_fields = ('child__first_name', 'child__last_name',)
     resource_class = SleepImportExportResource
 
 
-class TemperatureImportExportResource(resources.ModelResource):
+class TemperatureImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Temperature
 
 
 @admin.register(models.Temperature)
-class TemperatureAdmin(ImportExportMixin, admin.ModelAdmin):
+class TemperatureAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ('child', 'temperature', 'time',)
     list_filter = ('child',)
     search_fields = ('child__first_name', 'child__last_name', 'temperature',)
@@ -101,26 +109,26 @@ class TimerAdmin(admin.ModelAdmin):
     search_fields = ('child__first_name', 'child__last_name', 'name', 'user')
 
 
-class TummyTimeImportExportResource(resources.ModelResource):
+class TummyTimeImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.TummyTime
 
 
 @admin.register(models.TummyTime)
-class TummyTimeAdmin(ImportExportMixin, admin.ModelAdmin):
+class TummyTimeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ('start', 'end', 'duration', 'child', 'milestone',)
     list_filter = ('child',)
     search_fields = ('child__first_name', 'child__last_name', 'milestone',)
     resource_class = TummyTimeImportExportResource
 
 
-class WeightImportExportResource(resources.ModelResource):
+class WeightImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Weight
 
 
 @admin.register(models.Weight)
-class WeightAdmin(ImportExportMixin, admin.ModelAdmin):
+class WeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ('child', 'weight', 'date',)
     list_filter = ('child',)
     search_fields = ('child__first_name', 'child__last_name', 'weight',)
