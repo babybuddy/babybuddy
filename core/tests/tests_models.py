@@ -171,15 +171,16 @@ class TimerTestCase(TestCase):
             last_name='Last',
             birth_date=timezone.localdate()
         )
+        self.user = User.objects.first()
         self.named = models.Timer.objects.create(
             name='Named',
             end=timezone.localtime(),
-            user=User.objects.first(),
+            user=self.user,
             child=child
         )
         self.unnamed = models.Timer.objects.create(
             end=timezone.localtime(),
-            user=User.objects.first()
+            user=self.user
         )
 
     def test_timer_create(self):
@@ -201,6 +202,13 @@ class TimerTestCase(TestCase):
             self.named.title_with_child,
             '{} ({})'.format(str(self.named), str(self.named.child))
         )
+
+    def test_timer_user_username(self):
+        self.assertEqual(self.named.user_username, self.user.get_username())
+        self.user.first_name = 'User'
+        self.user.last_name = 'Name'
+        self.user.save()
+        self.assertEqual(self.named.user_username, self.user.get_full_name())
 
     def test_timer_restart(self):
         self.named.restart()
