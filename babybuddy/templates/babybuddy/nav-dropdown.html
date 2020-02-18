@@ -245,9 +245,7 @@
                                target="_blank">{% trans "API Browser" %}</a>
                             {% if request.user.is_staff %}
                                 <a href="{% url 'babybuddy:user-list' %}" class="dropdown-item">{% trans "Users" %}</a>
-                                <a href="{% url 'admin:index' %}"
-                                   class="dropdown-item"
-                                   target="_blank">{% trans "Backend Admin" %}</a>
+                                <a href="{% url 'admin:index' %}" class="dropdown-item">{% trans "Database Admin" %}</a>
                             {% endif %}
                             <h6 class="dropdown-header">{% trans "Support" %}</h6>
                             <a href="https://github.com/babybuddy/babybuddy"
