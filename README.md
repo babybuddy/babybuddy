@@ -23,7 +23,7 @@ guess work.
   - [Manual](#manual)
 - [Configuration](#configuration)
 - [Languages](#languages)
-- [Import/Export](#import-export)
+- [Import/Export](#importexport)
   - [Export](#export)
   - [Import](#import)
 - [API](#api)
