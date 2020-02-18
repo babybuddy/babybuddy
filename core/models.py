@@ -440,6 +440,13 @@ class Timer(models.Model):
                                 child=self.child)
         return title
 
+    @property
+    def user_username(self):
+        """ Get Timer user's name with a preference for the full name. """
+        if self.user.get_full_name():
+            return self.user.get_full_name()
+        return self.user.get_username()
+
     @classmethod
     def from_db(cls, db, field_names, values):
         instance = super(Timer, cls).from_db(db, field_names, values)

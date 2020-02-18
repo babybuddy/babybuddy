@@ -31,7 +31,7 @@
             {% endif %}
         </p>
         <p class="text-muted">
-            {% blocktrans trimmed with user=object.user %}
+            {% blocktrans trimmed with user=object.user_username %}
                 {{ timer }} created by {{ user }}
             {% endblocktrans %}
         </p>

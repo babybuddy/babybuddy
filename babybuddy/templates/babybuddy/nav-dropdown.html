@@ -232,7 +232,9 @@
                            href="#"
                            data-toggle="dropdown"
                            aria-haspopup="true"
-                           aria-expanded="false"><i class="icon icon-user" aria-hidden="true"></i> {{ request.user }}
+                           aria-expanded="false">
+                            <i class="icon icon-user" aria-hidden="true"></i>
+                            {% firstof user.get_full_name user.get_username %}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-user-menu-link">
                             <h6 class="dropdown-header">{% trans "User" %}</h6>
