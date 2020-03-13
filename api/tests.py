@@ -107,6 +107,26 @@ class DiaperChangeAPITestCase(APITestCase):
         self.assertEqual(obj.color, data['color'])
         self.assertEqual(obj.amount, data['amount'])
 
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 3)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['wet'] = False
+        entry['solid'] = True
+        response = self.client.patch(endpoint, {
+            'wet': entry['wet'],
+            'solid': entry['solid'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 3)
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 class FeedingAPITestCase(APITestCase):
     fixtures = ['tests.json']
@@ -147,6 +167,28 @@ class FeedingAPITestCase(APITestCase):
         obj = models.Feeding.objects.get(pk=response.data['id'])
         self.assertEqual(obj.type, data['type'])
 
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 3)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['type'] = 'breast milk'
+        entry['method'] = 'left breast'
+        entry['amount'] = 0
+        response = self.client.patch(endpoint, {
+            'type': entry['type'],
+            'method': entry['method'],
+            'amount': entry['amount'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 3)
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 class NoteAPITestCase(APITestCase):
     fixtures = ['tests.json']
@@ -180,6 +222,26 @@ class NoteAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Note.objects.get(pk=response.data['id'])
         self.assertEqual(obj.note, data['note'])
+
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 1)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['note'] = 'Updated note text.'
+        response = self.client.patch(endpoint, {
+            'note': entry['note'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # The time of entry will always update automatically, so only check the
+        # new value.
+        self.assertEqual(response.data['note'], entry['note'])
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 1)
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
 class SleepAPITestCase(APITestCase):
@@ -217,6 +279,26 @@ class SleepAPITestCase(APITestCase):
         obj = models.Sleep.objects.get(pk=response.data['id'])
         self.assertEqual(str(obj.duration), '3:30:00')
 
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 4)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['end'] = '2017-11-18T23:30:00-05:00'
+        response = self.client.patch(endpoint, {
+            'end': entry['end'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # The duration of entry will always update automatically, so only check
+        # the new value.
+        self.assertEqual(response.data['end'], entry['end'])
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 4)
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 class TemperatureAPITestCase(APITestCase):
     fixtures = ['tests.json']
@@ -250,6 +332,24 @@ class TemperatureAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Temperature.objects.get(pk=response.data['id'])
         self.assertEqual(str(obj.temperature), data['temperature'])
+
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 1)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['temperature'] = 99
+        response = self.client.patch(endpoint, {
+            'temperature': entry['temperature'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 1)
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
 class TimerAPITestCase(APITestCase):
@@ -288,6 +388,24 @@ class TimerAPITestCase(APITestCase):
         obj = models.Timer.objects.get(pk=response.data['id'])
         self.assertEqual(obj.name, data['name'])
 
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 1)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['name'] = 'New Timer Name'
+        response = self.client.patch(endpoint, {
+            'name': entry['name'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 1)
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 class TummyTimeAPITestCase(APITestCase):
     fixtures = ['tests.json']
@@ -325,6 +443,24 @@ class TummyTimeAPITestCase(APITestCase):
         obj = models.TummyTime.objects.get(pk=response.data['id'])
         self.assertEqual(str(obj.duration), '0:05:30')
 
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 3)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['milestone'] = 'Switched sides!'
+        response = self.client.patch(endpoint, {
+            'milestone': entry['milestone'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 3)
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 class WeightAPITestCase(APITestCase):
     fixtures = ['tests.json']
@@ -358,3 +494,21 @@ class WeightAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Weight.objects.get(pk=response.data['id'])
         self.assertEqual(str(obj.weight), data['weight'])
+
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 2)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['weight'] = 8.25
+        response = self.client.patch(endpoint, {
+            'weight': entry['weight'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 2)
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
