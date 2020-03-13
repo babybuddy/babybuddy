@@ -42,6 +42,28 @@ class ChildAPITestCase(APITestCase):
         obj = models.Child.objects.get(pk=response.data['id'])
         self.assertEqual(obj.first_name, data['first_name'])
 
+    def test_patch(self):
+        endpoint = '{}{}/'.format(self.endpoint, 'fake-child')
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry['first_name'] = 'New'
+        entry['last_name'] = 'Name'
+        response = self.client.patch(endpoint, {
+            'first_name': entry['first_name'],
+            'last_name': entry['last_name'],
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # The slug we be updated by the name change.
+        entry['slug'] = 'new-name'
+        self.assertEqual(response.data, entry)
+
+    def test_delete(self):
+        endpoint = '{}{}/'.format(self.endpoint, 'fake-child')
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 class DiaperChangeAPITestCase(APITestCase):
     fixtures = ['tests.json']
