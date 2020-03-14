@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from copy import deepcopy
 from rest_framework import serializers
 
 from django.contrib.auth.models import User
@@ -15,8 +16,15 @@ class CoreModelSerializer(serializers.HyperlinkedModelSerializer):
         queryset=models.Child.objects.all())
 
     def validate(self, attrs):
-        instance = self.Meta.model(**attrs)
-        instance.clean()
+        # Ensure that all instance data is available for partial updates to
+        # support clean methods that compare multiple fields.
+        if self.partial:
+            new_instance = deepcopy(self.instance)
+            for attr, value in attrs.items():
+                setattr(new_instance, attr, value)
+        else:
+            new_instance = self.Meta.model(**attrs)
+        new_instance.clean()
         return attrs
 
 
