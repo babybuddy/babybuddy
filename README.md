@@ -596,6 +596,24 @@ Regular sanity checks will be performed on relevant data. See the `OPTIONS`
 response for a particular endpoint for details on required fields and data
 formats.
 
+#### Timer Field
+
+The "timer" field is a special field available for `POST` operations to model
+endpoints supporting duration (Feeding, Sleep, Tummy Time). When the "timer"
+field is set in the request, the `start` and `end` fields will be filled in
+automatically using the `start` and `end` values *from the Timer* (the Timer
+will be stopped if it is currently running).
+
+Additionally, if the Timer has a Child relationship, the `child` field will be
+filled in automatically use the `child` value from the Timer.
+
+If the "timer" field is set, it's values will **always override** the relevant
+fields in the request. E.g. if a `POST` request is sent with both the `timer`
+and `end` fields, the value for the `end` field will be ignored and replaced by
+the Timer's `end` value. The same applies for `start` and `child`. These fields
+can all be left out of the request when the Timer is provided, otherwise they
+are required fields.
+
 #### Response
 
 Returns JSON data in the response body describing the added/updated instance or
