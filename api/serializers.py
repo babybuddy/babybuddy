@@ -59,7 +59,7 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
                 end = timer.end
             else:
                 end = timezone.now()
-            if 'child' not in attrs and timer.child:
+            if timer.child:
                 attrs['child'] = timer.child
 
             # Overwrites values provided directly!
