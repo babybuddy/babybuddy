@@ -7,12 +7,35 @@ from rest_framework.test import APITestCase
 from core import models
 
 
-class ChildAPITestCase(APITestCase):
-    fixtures = ['tests.json']
-    endpoint = reverse('api:child-list')
+class TestBase:
 
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    class BabyBuddyAPITestCaseBase(APITestCase):
+        fixtures = ['tests.json']
+        model = None
+        endpoint = None
+        delete_id = 1
+
+        def setUp(self):
+            self.client.login(username='admin', password='admin')
+
+        def test_options(self):
+            response = self.client.options(self.endpoint)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.data['name'], '{} List'.format(
+                self.model._meta.verbose_name))
+
+        def test_delete(self):
+            endpoint = '{}{}/'.format(self.endpoint, self.delete_id)
+            response = self.client.get(endpoint)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            response = self.client.delete(endpoint)
+            self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
+class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse('api:child-list')
+    model = models.Child
+    delete_id = 'fake-child'
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -25,11 +48,6 @@ class ChildAPITestCase(APITestCase):
             'slug': 'fake-child',
             'picture': None
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Child List')
 
     def test_post(self):
         data = {
@@ -57,20 +75,11 @@ class ChildAPITestCase(APITestCase):
         entry['slug'] = 'new-name'
         self.assertEqual(response.data, entry)
 
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 'fake-child')
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-
-class DiaperChangeAPITestCase(APITestCase):
-    fixtures = ['tests.json']
+class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:diaperchange-list')
-
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    model = models.DiaperChange
+    delete_id = 3
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -84,11 +93,6 @@ class DiaperChangeAPITestCase(APITestCase):
             'color': '',
             'amount': 2.25
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Diaper Change List')
 
     def test_post(self):
         data = {
@@ -120,20 +124,10 @@ class DiaperChangeAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
 
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 3)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-
-class FeedingAPITestCase(APITestCase):
-    fixtures = ['tests.json']
+class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:feeding-list')
-
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    model = models.Feeding
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -148,11 +142,6 @@ class FeedingAPITestCase(APITestCase):
             'method': 'bottle',
             'amount': 2.5
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Feeding List')
 
     def test_post(self):
         data = {
@@ -182,20 +171,10 @@ class FeedingAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
 
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 3)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-
-class NoteAPITestCase(APITestCase):
-    fixtures = ['tests.json']
+class NoteAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:note-list')
-
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    model = models.Note
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -206,11 +185,6 @@ class NoteAPITestCase(APITestCase):
             'note': 'Fake note.',
             'time': '2017-11-17T22:45:00-05:00'
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Note List')
 
     def test_post(self):
         data = {
@@ -236,20 +210,10 @@ class NoteAPITestCase(APITestCase):
         # new value.
         self.assertEqual(response.data['note'], entry['note'])
 
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 1)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-
-class SleepAPITestCase(APITestCase):
-    fixtures = ['tests.json']
+class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:sleep-list')
-
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    model = models.Sleep
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -262,11 +226,6 @@ class SleepAPITestCase(APITestCase):
             'duration': '04:00:00',
             'nap': False
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Sleep List')
 
     def test_post(self):
         data = {
@@ -292,20 +251,10 @@ class SleepAPITestCase(APITestCase):
         # the new value.
         self.assertEqual(response.data['end'], entry['end'])
 
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 4)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-
-class TemperatureAPITestCase(APITestCase):
-    fixtures = ['tests.json']
+class TemperatureAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:temperature-list')
-
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    model = models.Temperature
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -316,11 +265,6 @@ class TemperatureAPITestCase(APITestCase):
             'temperature': 98.6,
             'time': '2017-11-17T12:52:00-05:00'
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Temperature List')
 
     def test_post(self):
         data = {
@@ -344,20 +288,10 @@ class TemperatureAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
 
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 1)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-
-class TimerAPITestCase(APITestCase):
-    fixtures = ['tests.json']
+class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:timer-list')
-
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    model = models.Timer
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -372,11 +306,6 @@ class TimerAPITestCase(APITestCase):
             'active': False,
             'user': 1
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Timer List')
 
     def test_post(self):
         data = {
@@ -399,20 +328,10 @@ class TimerAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
 
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 1)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-
-class TummyTimeAPITestCase(APITestCase):
-    fixtures = ['tests.json']
+class TummyTimeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:tummytime-list')
-
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    model = models.TummyTime
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -425,11 +344,6 @@ class TummyTimeAPITestCase(APITestCase):
             'duration': '00:00:45',
             'milestone': ''
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Tummy Time List')
 
     def test_post(self):
         data = {
@@ -454,20 +368,10 @@ class TummyTimeAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
 
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 3)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-
-class WeightAPITestCase(APITestCase):
-    fixtures = ['tests.json']
+class WeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:weight-list')
-
-    def setUp(self):
-        self.client.login(username='admin', password='admin')
+    model = models.Weight
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -478,11 +382,6 @@ class WeightAPITestCase(APITestCase):
             'weight': 9.5,
             'date': '2017-11-18'
         })
-
-    def test_options(self):
-        response = self.client.options(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Weight List')
 
     def test_post(self):
         data = {
@@ -505,10 +404,3 @@ class WeightAPITestCase(APITestCase):
         })
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
-
-    def test_delete(self):
-        endpoint = '{}{}/'.format(self.endpoint, 2)
-        response = self.client.get(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
