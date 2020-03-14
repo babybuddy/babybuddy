@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.urls import reverse
+from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from babybuddy.models import User
 from core import models
 
 
@@ -14,6 +16,7 @@ class TestBase:
         model = None
         endpoint = None
         delete_id = 1
+        timer_test_data = {}
 
         def setUp(self):
             self.client.login(username='admin', password='admin')
@@ -30,6 +33,52 @@ class TestBase:
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             response = self.client.delete(endpoint)
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        def test_post_with_timer(self):
+            if not self.timer_test_data:
+                return
+            user = User.objects.first()
+            start = timezone.now() - timezone.timedelta(minutes=10)
+            timer = models.Timer.objects.create(user=user, start=start)
+            self.timer_test_data['timer'] = timer.id
+
+            if 'child' in self.timer_test_data:
+                del self.timer_test_data['child']
+            response = self.client.post(
+                self.endpoint, self.timer_test_data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            timer.refresh_from_db()
+            self.assertTrue(timer.active)
+            child = models.Child.objects.first()
+
+            self.timer_test_data['child'] = child.id
+            response = self.client.post(
+                self.endpoint, self.timer_test_data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            timer.refresh_from_db()
+            self.assertFalse(timer.active)
+            obj = self.model.objects.get(pk=response.data['id'])
+            self.assertEqual(obj.start, start)
+            self.assertEqual(obj.end, timer.end)
+
+        def test_post_with_timer_with_child(self):
+            if not self.timer_test_data:
+                return
+            user = User.objects.first()
+            child = models.Child.objects.first()
+            start = timezone.now() - timezone.timedelta(minutes=10)
+            timer = models.Timer.objects.create(
+                user=user, child=child, start=start)
+            self.timer_test_data['timer'] = timer.id
+            response = self.client.post(
+                self.endpoint, self.timer_test_data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            timer.refresh_from_db()
+            self.assertFalse(timer.active)
+            obj = self.model.objects.get(pk=response.data['id'])
+            self.assertEqual(obj.child, timer.child)
+            self.assertEqual(obj.start, start)
+            self.assertEqual(obj.end, timer.end)
 
 
 class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
@@ -128,6 +177,7 @@ class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
 class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:feeding-list')
     model = models.Feeding
+    timer_test_data = {'type': 'breast milk', 'method': 'left breast'}
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -214,6 +264,7 @@ class NoteAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
 class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:sleep-list')
     model = models.Sleep
+    timer_test_data = {'child': 1}
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -332,6 +383,7 @@ class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
 class TummyTimeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse('api:tummytime-list')
     model = models.TummyTime
+    timer_test_data = {'milestone': 'Timer test'}
 
     def test_get(self):
         response = self.client.get(self.endpoint)
