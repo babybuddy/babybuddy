@@ -11,7 +11,7 @@ jobs:
         - pyenv global 3.7.6
     - name: "Python 3.8"
       before_install:
-        - pyenv global 3.8.2
+        - pyenv global 3.8.1
 cache:
   directories:
     - $HOME/.cache/pip
