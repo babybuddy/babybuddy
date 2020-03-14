@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from copy import deepcopy
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from core import models
 
@@ -28,6 +30,62 @@ class CoreModelSerializer(serializers.HyperlinkedModelSerializer):
         return attrs
 
 
+class CoreModelWithDurationSerializer(CoreModelSerializer):
+    """
+    Specific serializer base for models with a "start" and "end" field.
+    """
+    child = serializers.PrimaryKeyRelatedField(
+        allow_null=True, allow_empty=True, queryset=models.Child.objects.all(),
+        required=False)
+
+    class Meta:
+        abstract = True
+        extra_kwargs = {
+            'start': {'required': False},
+            'end': {'required': False},
+        }
+
+    def validate(self, attrs):
+        # Check for a special "timer" data argument that can be used in place
+        # of "start" and "end" fields as well as "child" if it is set on the
+        # Timer entry.
+        timer = None
+        if 'timer' in self.initial_data:
+            try:
+                timer = models.Timer.objects.get(pk=self.initial_data['timer'])
+            except models.Timer.DoesNotExist:
+                raise ValidationError({'timer': ['Timer does not exist.']})
+            if timer.end:
+                end = timer.end
+            else:
+                end = timezone.now()
+            if 'child' not in attrs and timer.child:
+                attrs['child'] = timer.child
+
+            # Overwrites values provided directly!
+            attrs['start'] = timer.start
+            attrs['end'] = end
+
+        # The "child", "start", and "end" field should all be set at this
+        # point. If one is not, model validation will fail because they are
+        # required fields at the model level.
+        if not self.partial:
+            errors = {}
+            for field in ['child', 'start', 'end']:
+                if field not in attrs or not attrs[field]:
+                    errors[field] = 'This field is required.'
+            if len(errors) > 0:
+                raise ValidationError(errors)
+
+        attrs = super().validate(attrs)
+
+        # Only actually stop the timer if all validation passed.
+        if timer:
+            timer.stop(attrs['end'])
+
+        return attrs
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -48,8 +106,8 @@ class DiaperChangeSerializer(CoreModelSerializer):
         fields = ('id', 'child', 'time', 'wet', 'solid', 'color', 'amount')
 
 
-class FeedingSerializer(CoreModelSerializer):
-    class Meta:
+class FeedingSerializer(CoreModelWithDurationSerializer):
+    class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Feeding
         fields = ('id', 'child', 'start', 'end', 'duration', 'type', 'method',
                   'amount')
@@ -61,8 +119,8 @@ class NoteSerializer(CoreModelSerializer):
         fields = ('id', 'child', 'note', 'time')
 
 
-class SleepSerializer(CoreModelSerializer):
-    class Meta:
+class SleepSerializer(CoreModelWithDurationSerializer):
+    class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Sleep
         fields = ('id', 'child', 'start', 'end', 'duration', 'nap')
 
@@ -85,8 +143,8 @@ class TimerSerializer(CoreModelSerializer):
                   'user')
 
 
-class TummyTimeSerializer(CoreModelSerializer):
-    class Meta:
+class TummyTimeSerializer(CoreModelWithDurationSerializer):
+    class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.TummyTime
         fields = ('id', 'child', 'start', 'end', 'duration', 'milestone')
 
