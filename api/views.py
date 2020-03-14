@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from core import models
 
 from . import serializers
+from .mixins import TimerFieldSupportMixin
 
 
 class ChildViewSet(viewsets.ModelViewSet):
@@ -19,7 +20,7 @@ class DiaperChangeViewSet(viewsets.ModelViewSet):
     filterset_fields = ('child', 'wet', 'solid', 'color', 'amount')
 
 
-class FeedingViewSet(viewsets.ModelViewSet):
+class FeedingViewSet(TimerFieldSupportMixin, viewsets.ModelViewSet):
     queryset = models.Feeding.objects.all()
     serializer_class = serializers.FeedingSerializer
     filterset_fields = ('child', 'type', 'method')
@@ -31,7 +32,7 @@ class NoteViewSet(viewsets.ModelViewSet):
     filterset_fields = ('child',)
 
 
-class SleepViewSet(viewsets.ModelViewSet):
+class SleepViewSet(TimerFieldSupportMixin, viewsets.ModelViewSet):
     queryset = models.Sleep.objects.all()
     serializer_class = serializers.SleepSerializer
     filterset_fields = ('child',)
@@ -49,7 +50,7 @@ class TimerViewSet(viewsets.ModelViewSet):
     filterset_fields = ('child', 'active', 'user')
 
 
-class TummyTimeViewSet(viewsets.ModelViewSet):
+class TummyTimeViewSet(TimerFieldSupportMixin, viewsets.ModelViewSet):
     queryset = models.TummyTime.objects.all()
     serializer_class = serializers.TummyTimeSerializer
     filterset_fields = ('child',)
