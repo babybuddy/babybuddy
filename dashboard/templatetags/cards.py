@@ -240,15 +240,17 @@ def _feeding_statistics(child):
     """
     feedings = [
             {
-                'start': timezone.now()-timezone.timedelta(days=3), 
-                'title': _('Feeding frequency')+ " 3 "+_("days")
-            }, 
-            {
-                'start': timezone.now()-timezone.timedelta(weeks=2), 
-                'title': _('Feeding frequency') + " 2 "+_("weeks")
+                'start': timezone.now()-timezone.timedelta(days=3),
+                'title': _('Feeding frequency (past 3 days)')
             },
             {
-                'start': timezone.make_aware(datetime.combine(date.min, time(0,0)) + timezone.timedelta(days=1) ),
+                'start': timezone.now()-timezone.timedelta(weeks=2),
+                'title': _('Feeding frequency (past 2 weeks)')
+            },
+            {
+                'start': timezone.make_aware(
+                    datetime.combine(date.min, time(0, 0))
+                    + timezone.timedelta(days=1)),
                 'title': _('Feeding frequency')
             }
         ]
@@ -264,7 +266,8 @@ def _feeding_statistics(child):
         if last_instance:
             for timespan in feedings:
                 if last_instance.start > timespan['start']:
-                    timespan['btwn_total'] += instance.start - last_instance.end
+                    timespan['btwn_total'] += (instance.start
+                                               - last_instance.end)
                     timespan['btwn_count'] += 1
         last_instance = instance
 
