@@ -113,6 +113,7 @@ def sleep_pattern(instances):
             text=text_df.iloc[index],
             hoverinfo='text',
             marker={'color': color},
+            marker_line_width=0,
             showlegend=False,
         ))
         if color == 'rgba(255, 255, 255, 0)':
@@ -124,6 +125,7 @@ def sleep_pattern(instances):
     layout_args['margin']['b'] = 100
 
     layout_args['barmode'] = 'stack'
+    layout_args['bargap'] = 0
     layout_args['hovermode'] = 'closest'
     layout_args['title'] = _('<b>Sleep Pattern</b>')
     layout_args['height'] = 800
@@ -139,7 +141,7 @@ def sleep_pattern(instances):
         ticks[i] = (start + timezone.timedelta(minutes=i)).strftime('%I:%M %p')
 
     layout_args['yaxis']['title'] = _('Time of day')
-    layout_args['yaxis']['rangemode'] = 'tozero'
+    layout_args['yaxis']['range'] = [0, 24*60]
     layout_args['yaxis']['tickmode'] = 'array'
     layout_args['yaxis']['tickvals'] = list(ticks.keys())
     layout_args['yaxis']['ticktext'] = list(ticks.values())
