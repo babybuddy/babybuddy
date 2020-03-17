@@ -240,11 +240,11 @@ def _feeding_statistics(child):
     """
     feedings = [
             {
-                'start': timezone.now()-timezone.timedelta(days=3),
+                'start': timezone.now() - timezone.timedelta(days=3),
                 'title': _('Feeding frequency (past 3 days)')
             },
             {
-                'start': timezone.now()-timezone.timedelta(weeks=2),
+                'start': timezone.now() - timezone.timedelta(weeks=2),
                 'title': _('Feeding frequency (past 2 weeks)')
             },
             {

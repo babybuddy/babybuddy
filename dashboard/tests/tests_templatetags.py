@@ -88,10 +88,22 @@ class TemplateTagsTestCase(TestCase):
                 'stat': timezone.timedelta(0, 44228, 571429),
                 'type': 'duration'
             },
+            # Statistics date basis is not particularly strong to these feeding
+            # examples.
+            # TODO: Improve testing of feeding frequency statistics.
             {
-                'title': 'Feeding frequency',
+                'type': 'duration',
+                'stat': 0.0,
+                'title': 'Feeding frequency (past 3 days)'
+            },
+            {
+                'type': 'duration',
+                'stat': 0.0,
+                'title': 'Feeding frequency (past 2 weeks)'},
+            {
+                'type': 'duration',
                 'stat': timezone.timedelta(0, 7200),
-                'type': 'duration'
+                'title': 'Feeding frequency'
             },
             {
                 'title': 'Average nap duration',
