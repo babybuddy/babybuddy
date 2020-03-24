@@ -1,3 +1,4 @@
+{% if not hidden %}
 <div class="card card-dashboard card-{{ type }}">
     <div class="card-header">
         <i class="icon icon-{{ type }} pull-left" aria-hidden="true"></i>
@@ -9,3 +10,4 @@
     </div>
     {% block listgroup %}{% endblock %}
 </div>
+{% endif %}
