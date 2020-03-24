@@ -335,7 +335,7 @@ def _sleep_statistics(child):
     :returns: a dictionary of statistics.
     """
     instances = models.Sleep.objects.filter(child=child).order_by('start')
-    if len(instances)==0:
+    if len(instances) == 0:
         return None
     sleep = {
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
