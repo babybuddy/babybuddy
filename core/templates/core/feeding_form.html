@@ -35,5 +35,11 @@
             defaultDate: false
         });
         BabyBuddy.DatetimePicker.init($('#datetimepicker_end'));
+        $('#id_type').change(function() {
+            var feed_type=$('#id_type').val();
+            if (feed_type=='formula'||feed_type=='fortified breast milk') {
+                $('#id_method').val('bottle');
+            }
+        });
     </script>
 {% endblock %}
