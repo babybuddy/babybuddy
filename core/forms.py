@@ -50,7 +50,7 @@ def set_initial_values(kwargs, form_type):
         if last_feeding:
             last_type = last_feeding.type
             last_feed_args = {'type': last_feeding.type}
-            if last_type == 'formula':
+            if last_type in ['formula', 'fortified breast milk']:
                 last_feed_args['method'] = 'bottle'
             kwargs['initial'].update(last_feed_args)
 
