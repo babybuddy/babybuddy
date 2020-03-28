@@ -6,6 +6,7 @@
         {% trans "Statistics" %}
     </div>
     <div class="card-body text-center">
+        {% if stats|length > 0 %}
         <div id="statistics-carousel" class="carousel slide" data-interval="false">
             <div class="carousel-inner">
                 {% for stat in stats %}
@@ -36,5 +37,8 @@
                 <span class="sr-only">{% trans "Next" %}</span>
             </a>
         </div>
+        {% else %}
+        <span class="card-title"><strong>{% trans "No data yet" %}</strong></span>
+        {% endif %}
     </div>
 </div>
