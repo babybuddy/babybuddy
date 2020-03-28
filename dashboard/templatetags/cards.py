@@ -283,7 +283,7 @@ def _feeding_statistics(child):
 
     instances = models.Feeding.objects.filter(child=child).order_by('start')
     if len(instances) == 0:
-        return None
+        return []
 
     last_instance = None
 
