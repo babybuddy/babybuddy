@@ -93,7 +93,8 @@ class InitialValuesTestCase(FormsTestCaseBase):
             birth_date=timezone.localdate()
         )
         start_time = timezone.localtime() - timezone.timedelta(hours=4)
-        end_time = timezone.localtime() - timezone.timedelta(hours=3, minutes=30)
+        end_time = timezone.localtime() - timezone.timedelta(hours=3,
+                                                             minutes=30)
         f_one = models.Feeding.objects.create(
             child=self.child,
             start=start_time,
@@ -129,7 +130,8 @@ class InitialValuesTestCase(FormsTestCaseBase):
 
         page = self.c.get('/feedings/add/?child={}'.format(child_three.slug))
         self.assertEqual(page.context['form'].initial['type'], f_three.type)
-        self.assertEqual(page.context['form'].initial['method'], f_three.method)
+        self.assertEqual(page.context['form'].initial['method'],
+                         f_three.method)
 
     def test_timer_set(self):
         self.timer.stop()
