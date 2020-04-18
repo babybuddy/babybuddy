@@ -11,10 +11,10 @@ services:
     image: babybuddy/babybuddy
     # See README.md#configuration for other environment configuration options.
     environment:
-      - ALLOWED_HOSTS=*
+      - ALLOWED_HOSTS=
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
-      - SECRET_KEY=5
-      - TIME_ZONE=Europe/Berlin
+      - SECRET_KEY=
+      - TIME_ZONE=
       - POSTGRES_PASSWORD=postgres
       - DEBUG=False # Turn to False in production
     volumes:
