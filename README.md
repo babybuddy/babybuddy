@@ -106,14 +106,6 @@ and set, at least, the `ALLOWED_HOSTS` and `SECRET_KEY` variables under
 
         docker-compose up -d
 
-1. Initialize the database *(first run/after migrations updates)*
-
-        docker-compose exec app python manage.py migrate
-        
-1. Initialize cache table *(first run/after cache configuration updates)*
-
-        docker-compose exec app python manage.py createcachetable
-
 The app should now be locally available at
 [http://127.0.0.1:8000](http://127.0.0.1:8000). See
 [Docker's "Get Started" documentation](https://docs.docker.com/get-started/)
