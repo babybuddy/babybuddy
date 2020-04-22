@@ -1,9 +1,10 @@
 version: "3.7"
 services:
   db:
-    image: postgres
+    image: postgres:11 # pin postgres to a major version
     environment:
       - PGDATA=/db-data
+      - POSTGRES_PASSWORD=postgres # has to correspond with POSTGRES_PASSWORD in APP
     volumes:
       - db:/db-data:rw
   app:
@@ -14,9 +15,12 @@ services:
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
       - SECRET_KEY=
       - TIME_ZONE=
+      - POSTGRES_PASSWORD=postgres
+      - DEBUG=False # Turn to False in production
     volumes:
       - media:/app/media:rw
-    command: gunicorn -c /app/gunicorn.py babybuddy.wsgi
+    # Sleep 5 seconds to allow the db to to come up;
+    command: bash -c 'sleep 5 && python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
     ports:
       - "8000:8000"
     depends_on:
