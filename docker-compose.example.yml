@@ -20,7 +20,7 @@ services:
     volumes:
       - media:/app/media:rw
     # Sleep 5 seconds to allow the db to to come up;
-    command: bash -c 'sleep 5 && python manage.py migrate --noinput && python manage.py createcachetable  && python manage.py collectstatic --noinput && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
+    command: bash -c 'sleep 5 && python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
     ports:
       - "8000:8000"
     depends_on:
