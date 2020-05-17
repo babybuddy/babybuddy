@@ -23,6 +23,7 @@ class UserTimezoneMiddleware:
                 pass
         return self.get_response(request)
 
+
 class RollingSessionMiddleware:
     """
     Periodically resets the session expiry.
@@ -35,7 +36,7 @@ class RollingSessionMiddleware:
         if session_refresh:
             try:
                 delta = int(time.time()) - session_refresh
-            except:
+            except (ValueError, TypeError):
                 delta = settings.ROLLING_SESSION_REFRESH + 1
             if delta > settings.ROLLING_SESSION_REFRESH:
                 request.session['session_refresh'] = int(time.time())
