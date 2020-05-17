@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'babybuddy.middleware.RollingSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'babybuddy.middleware.UserTimezoneMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -222,6 +223,10 @@ REST_FRAMEWORK = {
 IMPORT_EXPORT_IMPORT_PERMISSION_CODE = 'add'
 IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'change'
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+# Rolling session refreshes
+# How often to refresh the session
+ROLLING_SESSION_REFRESH = 86400
 
 # Baby Buddy configuration
 # See README.md#configuration for details about these settings.
