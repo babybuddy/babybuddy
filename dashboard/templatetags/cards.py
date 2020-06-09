@@ -150,7 +150,13 @@ def card_sleep_naps_day(child, date=None):
     """
     if not date:
         date = timezone.localtime().date()
-    instances = models.Sleep.naps.filter(child=child, start__date=date)
+    instances = models.Sleep.naps.filter(child=child).filter(
+        start__year=date.year,
+        start__month=date.month,
+        start__day=date.day) | models.Sleep.naps.filter(child=child).filter(
+        end__year=date.year,
+        end__month=date.month,
+        end__day=date.day)
     return {
         'type': 'sleep',
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
