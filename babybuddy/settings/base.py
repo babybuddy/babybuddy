@@ -95,6 +95,17 @@ TEMPLATES = [
 ]
 
 
+# Database
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+
 # Cache
 # https://docs.djangoproject.com/en/3.0/topics/cache/
 
@@ -224,8 +235,10 @@ IMPORT_EXPORT_IMPORT_PERMISSION_CODE = 'add'
 IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'change'
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
-# Rolling session refreshes
-# How often to refresh the session
+# Session configuration
+# Used by RollingSessionMiddleware to determine how often to reset the session.
+# See https://docs.djangoproject.com/en/3.0/topics/http/sessions/
+
 ROLLING_SESSION_REFRESH = 86400
 
 # Baby Buddy configuration
