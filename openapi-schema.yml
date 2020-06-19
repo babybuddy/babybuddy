@@ -1,0 +1,3209 @@
+openapi: 3.0.2
+info:
+  title: Baby Buddy API
+  version: 1
+  description: API documentation for the Baby Buddy application
+paths:
+  /api/children/:
+    get:
+      operationId: listChilds
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: slug
+        required: false
+        in: query
+        description: slug
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        first_name:
+                          type: string
+                          maxLength: 255
+                        last_name:
+                          type: string
+                          maxLength: 255
+                        birth_date:
+                          type: string
+                          format: date
+                        slug:
+                          type: string
+                          readOnly: true
+                          pattern: ^[-a-zA-Z0-9_]+$
+                        picture:
+                          type: string
+                          format: binary
+                          nullable: true
+                      required:
+                      - first_name
+                      - last_name
+                      - birth_date
+          description: ''
+    post:
+      operationId: createChild
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id001
+              properties:
+                first_name:
+                  type: string
+                  maxLength: 255
+                last_name:
+                  type: string
+                  maxLength: 255
+                birth_date:
+                  type: string
+                  format: date
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - first_name
+              - last_name
+              - birth_date
+          application/x-www-form-urlencoded:
+            schema: *id001
+          multipart/form-data:
+            schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  first_name:
+                    type: string
+                    maxLength: 255
+                  last_name:
+                    type: string
+                    maxLength: 255
+                  birth_date:
+                    type: string
+                    format: date
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - first_name
+                - last_name
+                - birth_date
+          description: ''
+  /api/children/{slug}/:
+    get:
+      operationId: retrieveChild
+      description: ''
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: slug
+        required: false
+        in: query
+        description: slug
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  first_name:
+                    type: string
+                    maxLength: 255
+                  last_name:
+                    type: string
+                    maxLength: 255
+                  birth_date:
+                    type: string
+                    format: date
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - first_name
+                - last_name
+                - birth_date
+          description: ''
+    put:
+      operationId: updateChild
+      description: ''
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: slug
+        required: false
+        in: query
+        description: slug
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id002
+              properties:
+                first_name:
+                  type: string
+                  maxLength: 255
+                last_name:
+                  type: string
+                  maxLength: 255
+                birth_date:
+                  type: string
+                  format: date
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - first_name
+              - last_name
+              - birth_date
+          application/x-www-form-urlencoded:
+            schema: *id002
+          multipart/form-data:
+            schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  first_name:
+                    type: string
+                    maxLength: 255
+                  last_name:
+                    type: string
+                    maxLength: 255
+                  birth_date:
+                    type: string
+                    format: date
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - first_name
+                - last_name
+                - birth_date
+          description: ''
+    patch:
+      operationId: partial_updateChild
+      description: ''
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: slug
+        required: false
+        in: query
+        description: slug
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id003
+              properties:
+                first_name:
+                  type: string
+                  maxLength: 255
+                last_name:
+                  type: string
+                  maxLength: 255
+                birth_date:
+                  type: string
+                  format: date
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id003
+          multipart/form-data:
+            schema: *id003
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  first_name:
+                    type: string
+                    maxLength: 255
+                  last_name:
+                    type: string
+                    maxLength: 255
+                  birth_date:
+                    type: string
+                    format: date
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                required:
+                - first_name
+                - last_name
+                - birth_date
+          description: ''
+    delete:
+      operationId: destroyChild
+      description: ''
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: slug
+        required: false
+        in: query
+        description: slug
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/changes/:
+    get:
+      operationId: listDiaperChanges
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
+        schema:
+          type: string
+      - name: solid
+        required: false
+        in: query
+        description: solid
+        schema:
+          type: string
+      - name: color
+        required: false
+        in: query
+        description: color
+        schema:
+          type: string
+          enum:
+          - black
+          - brown
+          - green
+          - yellow
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        child:
+                          type: integer
+                        time:
+                          type: string
+                          format: date-time
+                        wet:
+                          type: boolean
+                        solid:
+                          type: boolean
+                        color:
+                          enum:
+                          - black
+                          - brown
+                          - green
+                          - yellow
+                        amount:
+                          type: number
+                          nullable: true
+                      required:
+                      - child
+                      - time
+                      - wet
+                      - solid
+          description: ''
+    post:
+      operationId: createDiaperChange
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id004
+              properties:
+                child:
+                  type: integer
+                time:
+                  type: string
+                  format: date-time
+                wet:
+                  type: boolean
+                solid:
+                  type: boolean
+                color:
+                  enum:
+                  - black
+                  - brown
+                  - green
+                  - yellow
+                amount:
+                  type: number
+                  nullable: true
+              required:
+              - child
+              - time
+              - wet
+              - solid
+          application/x-www-form-urlencoded:
+            schema: *id004
+          multipart/form-data:
+            schema: *id004
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  time:
+                    type: string
+                    format: date-time
+                  wet:
+                    type: boolean
+                  solid:
+                    type: boolean
+                  color:
+                    enum:
+                    - black
+                    - brown
+                    - green
+                    - yellow
+                  amount:
+                    type: number
+                    nullable: true
+                required:
+                - child
+                - time
+                - wet
+                - solid
+          description: ''
+  /api/changes/{id}/:
+    get:
+      operationId: retrieveDiaperChange
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Diaper Change.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
+        schema:
+          type: string
+      - name: solid
+        required: false
+        in: query
+        description: solid
+        schema:
+          type: string
+      - name: color
+        required: false
+        in: query
+        description: color
+        schema:
+          type: string
+          enum:
+          - black
+          - brown
+          - green
+          - yellow
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  time:
+                    type: string
+                    format: date-time
+                  wet:
+                    type: boolean
+                  solid:
+                    type: boolean
+                  color:
+                    enum:
+                    - black
+                    - brown
+                    - green
+                    - yellow
+                  amount:
+                    type: number
+                    nullable: true
+                required:
+                - child
+                - time
+                - wet
+                - solid
+          description: ''
+    put:
+      operationId: updateDiaperChange
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Diaper Change.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
+        schema:
+          type: string
+      - name: solid
+        required: false
+        in: query
+        description: solid
+        schema:
+          type: string
+      - name: color
+        required: false
+        in: query
+        description: color
+        schema:
+          type: string
+          enum:
+          - black
+          - brown
+          - green
+          - yellow
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id005
+              properties:
+                child:
+                  type: integer
+                time:
+                  type: string
+                  format: date-time
+                wet:
+                  type: boolean
+                solid:
+                  type: boolean
+                color:
+                  enum:
+                  - black
+                  - brown
+                  - green
+                  - yellow
+                amount:
+                  type: number
+                  nullable: true
+              required:
+              - child
+              - time
+              - wet
+              - solid
+          application/x-www-form-urlencoded:
+            schema: *id005
+          multipart/form-data:
+            schema: *id005
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  time:
+                    type: string
+                    format: date-time
+                  wet:
+                    type: boolean
+                  solid:
+                    type: boolean
+                  color:
+                    enum:
+                    - black
+                    - brown
+                    - green
+                    - yellow
+                  amount:
+                    type: number
+                    nullable: true
+                required:
+                - child
+                - time
+                - wet
+                - solid
+          description: ''
+    patch:
+      operationId: partial_updateDiaperChange
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Diaper Change.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
+        schema:
+          type: string
+      - name: solid
+        required: false
+        in: query
+        description: solid
+        schema:
+          type: string
+      - name: color
+        required: false
+        in: query
+        description: color
+        schema:
+          type: string
+          enum:
+          - black
+          - brown
+          - green
+          - yellow
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id006
+              properties:
+                child:
+                  type: integer
+                time:
+                  type: string
+                  format: date-time
+                wet:
+                  type: boolean
+                solid:
+                  type: boolean
+                color:
+                  enum:
+                  - black
+                  - brown
+                  - green
+                  - yellow
+                amount:
+                  type: number
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id006
+          multipart/form-data:
+            schema: *id006
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  time:
+                    type: string
+                    format: date-time
+                  wet:
+                    type: boolean
+                  solid:
+                    type: boolean
+                  color:
+                    enum:
+                    - black
+                    - brown
+                    - green
+                    - yellow
+                  amount:
+                    type: number
+                    nullable: true
+                required:
+                - child
+                - time
+                - wet
+                - solid
+          description: ''
+    delete:
+      operationId: destroyDiaperChange
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Diaper Change.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
+        schema:
+          type: string
+      - name: solid
+        required: false
+        in: query
+        description: solid
+        schema:
+          type: string
+      - name: color
+        required: false
+        in: query
+        description: color
+        schema:
+          type: string
+          enum:
+          - black
+          - brown
+          - green
+          - yellow
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/feedings/:
+    get:
+      operationId: listFeedings
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: type
+        required: false
+        in: query
+        description: type
+        schema:
+          type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+      - name: method
+        required: false
+        in: query
+        description: method
+        schema:
+          type: string
+          enum:
+          - bottle
+          - left breast
+          - right breast
+          - both breasts
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        child:
+                          type: integer
+                          nullable: true
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                        duration:
+                          type: string
+                          readOnly: true
+                        type:
+                          enum:
+                          - breast milk
+                          - formula
+                          - fortified breast milk
+                        method:
+                          enum:
+                          - bottle
+                          - left breast
+                          - right breast
+                          - both breasts
+                        amount:
+                          type: number
+                          nullable: true
+                      required:
+                      - type
+                      - method
+          description: ''
+    post:
+      operationId: createFeeding
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id007
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                type:
+                  enum:
+                  - breast milk
+                  - formula
+                  - fortified breast milk
+                method:
+                  enum:
+                  - bottle
+                  - left breast
+                  - right breast
+                  - both breasts
+                amount:
+                  type: number
+                  nullable: true
+              required:
+              - type
+              - method
+          application/x-www-form-urlencoded:
+            schema: *id007
+          multipart/form-data:
+            schema: *id007
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  type:
+                    enum:
+                    - breast milk
+                    - formula
+                    - fortified breast milk
+                  method:
+                    enum:
+                    - bottle
+                    - left breast
+                    - right breast
+                    - both breasts
+                  amount:
+                    type: number
+                    nullable: true
+                required:
+                - type
+                - method
+          description: ''
+  /api/feedings/{id}/:
+    get:
+      operationId: retrieveFeeding
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Feeding.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: type
+        required: false
+        in: query
+        description: type
+        schema:
+          type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+      - name: method
+        required: false
+        in: query
+        description: method
+        schema:
+          type: string
+          enum:
+          - bottle
+          - left breast
+          - right breast
+          - both breasts
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  type:
+                    enum:
+                    - breast milk
+                    - formula
+                    - fortified breast milk
+                  method:
+                    enum:
+                    - bottle
+                    - left breast
+                    - right breast
+                    - both breasts
+                  amount:
+                    type: number
+                    nullable: true
+                required:
+                - type
+                - method
+          description: ''
+    put:
+      operationId: updateFeeding
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Feeding.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: type
+        required: false
+        in: query
+        description: type
+        schema:
+          type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+      - name: method
+        required: false
+        in: query
+        description: method
+        schema:
+          type: string
+          enum:
+          - bottle
+          - left breast
+          - right breast
+          - both breasts
+      requestBody:
+        content:
+          application/json:
+            schema: &id008
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                type:
+                  enum:
+                  - breast milk
+                  - formula
+                  - fortified breast milk
+                method:
+                  enum:
+                  - bottle
+                  - left breast
+                  - right breast
+                  - both breasts
+                amount:
+                  type: number
+                  nullable: true
+              required:
+              - type
+              - method
+          application/x-www-form-urlencoded:
+            schema: *id008
+          multipart/form-data:
+            schema: *id008
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  type:
+                    enum:
+                    - breast milk
+                    - formula
+                    - fortified breast milk
+                  method:
+                    enum:
+                    - bottle
+                    - left breast
+                    - right breast
+                    - both breasts
+                  amount:
+                    type: number
+                    nullable: true
+                required:
+                - type
+                - method
+          description: ''
+    patch:
+      operationId: partial_updateFeeding
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Feeding.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: type
+        required: false
+        in: query
+        description: type
+        schema:
+          type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+      - name: method
+        required: false
+        in: query
+        description: method
+        schema:
+          type: string
+          enum:
+          - bottle
+          - left breast
+          - right breast
+          - both breasts
+      requestBody:
+        content:
+          application/json:
+            schema: &id009
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                type:
+                  enum:
+                  - breast milk
+                  - formula
+                  - fortified breast milk
+                method:
+                  enum:
+                  - bottle
+                  - left breast
+                  - right breast
+                  - both breasts
+                amount:
+                  type: number
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id009
+          multipart/form-data:
+            schema: *id009
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  type:
+                    enum:
+                    - breast milk
+                    - formula
+                    - fortified breast milk
+                  method:
+                    enum:
+                    - bottle
+                    - left breast
+                    - right breast
+                    - both breasts
+                  amount:
+                    type: number
+                    nullable: true
+                required:
+                - type
+                - method
+          description: ''
+    delete:
+      operationId: destroyFeeding
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Feeding.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: type
+        required: false
+        in: query
+        description: type
+        schema:
+          type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+      - name: method
+        required: false
+        in: query
+        description: method
+        schema:
+          type: string
+          enum:
+          - bottle
+          - left breast
+          - right breast
+          - both breasts
+      responses:
+        '204':
+          description: ''
+  /api/notes/:
+    get:
+      operationId: listNotes
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        child:
+                          type: integer
+                        note:
+                          type: string
+                        time:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                      required:
+                      - child
+                      - note
+          description: ''
+    post:
+      operationId: createNote
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id010
+              properties:
+                child:
+                  type: integer
+                note:
+                  type: string
+              required:
+              - child
+              - note
+          application/x-www-form-urlencoded:
+            schema: *id010
+          multipart/form-data:
+            schema: *id010
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  note:
+                    type: string
+                  time:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - child
+                - note
+          description: ''
+  /api/notes/{id}/:
+    get:
+      operationId: retrieveNote
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Note.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  note:
+                    type: string
+                  time:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - child
+                - note
+          description: ''
+    put:
+      operationId: updateNote
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Note.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id011
+              properties:
+                child:
+                  type: integer
+                note:
+                  type: string
+              required:
+              - child
+              - note
+          application/x-www-form-urlencoded:
+            schema: *id011
+          multipart/form-data:
+            schema: *id011
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  note:
+                    type: string
+                  time:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - child
+                - note
+          description: ''
+    patch:
+      operationId: partial_updateNote
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Note.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id012
+              properties:
+                child:
+                  type: integer
+                note:
+                  type: string
+          application/x-www-form-urlencoded:
+            schema: *id012
+          multipart/form-data:
+            schema: *id012
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  note:
+                    type: string
+                  time:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - child
+                - note
+          description: ''
+    delete:
+      operationId: destroyNote
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Note.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/sleep/:
+    get:
+      operationId: listSleeps
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        child:
+                          type: integer
+                          nullable: true
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                        duration:
+                          type: string
+                          readOnly: true
+                        nap:
+                          type: string
+                          readOnly: true
+          description: ''
+    post:
+      operationId: createSleep
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id013
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+          application/x-www-form-urlencoded:
+            schema: *id013
+          multipart/form-data:
+            schema: *id013
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  nap:
+                    type: string
+                    readOnly: true
+          description: ''
+  /api/sleep/{id}/:
+    get:
+      operationId: retrieveSleep
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Sleep.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  nap:
+                    type: string
+                    readOnly: true
+          description: ''
+    put:
+      operationId: updateSleep
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Sleep.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id014
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+          application/x-www-form-urlencoded:
+            schema: *id014
+          multipart/form-data:
+            schema: *id014
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  nap:
+                    type: string
+                    readOnly: true
+          description: ''
+    patch:
+      operationId: partial_updateSleep
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Sleep.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id015
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+          application/x-www-form-urlencoded:
+            schema: *id015
+          multipart/form-data:
+            schema: *id015
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  nap:
+                    type: string
+                    readOnly: true
+          description: ''
+    delete:
+      operationId: destroySleep
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Sleep.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/temperature/:
+    get:
+      operationId: listTemperatures
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        child:
+                          type: integer
+                        temperature:
+                          type: number
+                        time:
+                          type: string
+                          format: date-time
+                      required:
+                      - child
+                      - temperature
+                      - time
+          description: ''
+    post:
+      operationId: createTemperature
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id016
+              properties:
+                child:
+                  type: integer
+                temperature:
+                  type: number
+                time:
+                  type: string
+                  format: date-time
+              required:
+              - child
+              - temperature
+              - time
+          application/x-www-form-urlencoded:
+            schema: *id016
+          multipart/form-data:
+            schema: *id016
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  temperature:
+                    type: number
+                  time:
+                    type: string
+                    format: date-time
+                required:
+                - child
+                - temperature
+                - time
+          description: ''
+  /api/temperature/{id}/:
+    get:
+      operationId: retrieveTemperature
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Temperature.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  temperature:
+                    type: number
+                  time:
+                    type: string
+                    format: date-time
+                required:
+                - child
+                - temperature
+                - time
+          description: ''
+    put:
+      operationId: updateTemperature
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Temperature.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id017
+              properties:
+                child:
+                  type: integer
+                temperature:
+                  type: number
+                time:
+                  type: string
+                  format: date-time
+              required:
+              - child
+              - temperature
+              - time
+          application/x-www-form-urlencoded:
+            schema: *id017
+          multipart/form-data:
+            schema: *id017
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  temperature:
+                    type: number
+                  time:
+                    type: string
+                    format: date-time
+                required:
+                - child
+                - temperature
+                - time
+          description: ''
+    patch:
+      operationId: partial_updateTemperature
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Temperature.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id018
+              properties:
+                child:
+                  type: integer
+                temperature:
+                  type: number
+                time:
+                  type: string
+                  format: date-time
+          application/x-www-form-urlencoded:
+            schema: *id018
+          multipart/form-data:
+            schema: *id018
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  temperature:
+                    type: number
+                  time:
+                    type: string
+                    format: date-time
+                required:
+                - child
+                - temperature
+                - time
+          description: ''
+    delete:
+      operationId: destroyTemperature
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Temperature.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/timers/:
+    get:
+      operationId: listTimers
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        child:
+                          type: integer
+                          nullable: true
+                        name:
+                          type: string
+                          nullable: true
+                          maxLength: 255
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        duration:
+                          type: string
+                          readOnly: true
+                        active:
+                          type: boolean
+                          readOnly: true
+                        user:
+                          type: integer
+                          nullable: true
+          description: ''
+    post:
+      operationId: createTimer
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id019
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                name:
+                  type: string
+                  nullable: true
+                  maxLength: 255
+                start:
+                  type: string
+                  format: date-time
+                user:
+                  type: integer
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id019
+          multipart/form-data:
+            schema: *id019
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  name:
+                    type: string
+                    nullable: true
+                    maxLength: 255
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  duration:
+                    type: string
+                    readOnly: true
+                  active:
+                    type: boolean
+                    readOnly: true
+                  user:
+                    type: integer
+                    nullable: true
+          description: ''
+  /api/timers/{id}/:
+    get:
+      operationId: retrieveTimer
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Timer.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  name:
+                    type: string
+                    nullable: true
+                    maxLength: 255
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  duration:
+                    type: string
+                    readOnly: true
+                  active:
+                    type: boolean
+                    readOnly: true
+                  user:
+                    type: integer
+                    nullable: true
+          description: ''
+    put:
+      operationId: updateTimer
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Timer.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id020
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                name:
+                  type: string
+                  nullable: true
+                  maxLength: 255
+                start:
+                  type: string
+                  format: date-time
+                user:
+                  type: integer
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id020
+          multipart/form-data:
+            schema: *id020
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  name:
+                    type: string
+                    nullable: true
+                    maxLength: 255
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  duration:
+                    type: string
+                    readOnly: true
+                  active:
+                    type: boolean
+                    readOnly: true
+                  user:
+                    type: integer
+                    nullable: true
+          description: ''
+    patch:
+      operationId: partial_updateTimer
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Timer.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id021
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                name:
+                  type: string
+                  nullable: true
+                  maxLength: 255
+                start:
+                  type: string
+                  format: date-time
+                user:
+                  type: integer
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id021
+          multipart/form-data:
+            schema: *id021
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  name:
+                    type: string
+                    nullable: true
+                    maxLength: 255
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  duration:
+                    type: string
+                    readOnly: true
+                  active:
+                    type: boolean
+                    readOnly: true
+                  user:
+                    type: integer
+                    nullable: true
+          description: ''
+    delete:
+      operationId: destroyTimer
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Timer.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: active
+        required: false
+        in: query
+        description: active
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/tummy-times/:
+    get:
+      operationId: listTummyTimes
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        child:
+                          type: integer
+                          nullable: true
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                        duration:
+                          type: string
+                          readOnly: true
+                        milestone:
+                          type: string
+                          maxLength: 255
+          description: ''
+    post:
+      operationId: createTummyTime
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id022
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                milestone:
+                  type: string
+                  maxLength: 255
+          application/x-www-form-urlencoded:
+            schema: *id022
+          multipart/form-data:
+            schema: *id022
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  milestone:
+                    type: string
+                    maxLength: 255
+          description: ''
+  /api/tummy-times/{id}/:
+    get:
+      operationId: retrieveTummyTime
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Tummy Time.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  milestone:
+                    type: string
+                    maxLength: 255
+          description: ''
+    put:
+      operationId: updateTummyTime
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Tummy Time.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id023
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                milestone:
+                  type: string
+                  maxLength: 255
+          application/x-www-form-urlencoded:
+            schema: *id023
+          multipart/form-data:
+            schema: *id023
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  milestone:
+                    type: string
+                    maxLength: 255
+          description: ''
+    patch:
+      operationId: partial_updateTummyTime
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Tummy Time.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id024
+              properties:
+                child:
+                  type: integer
+                  nullable: true
+                start:
+                  type: string
+                  format: date-time
+                end:
+                  type: string
+                  format: date-time
+                milestone:
+                  type: string
+                  maxLength: 255
+          application/x-www-form-urlencoded:
+            schema: *id024
+          multipart/form-data:
+            schema: *id024
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                    nullable: true
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
+                    readOnly: true
+                  milestone:
+                    type: string
+                    maxLength: 255
+          description: ''
+    delete:
+      operationId: destroyTummyTime
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Tummy Time.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/weight/:
+    get:
+      operationId: listWeights
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        child:
+                          type: integer
+                        weight:
+                          type: number
+                        date:
+                          type: string
+                          format: date
+                      required:
+                      - child
+                      - weight
+                      - date
+          description: ''
+    post:
+      operationId: createWeight
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id025
+              properties:
+                child:
+                  type: integer
+                weight:
+                  type: number
+                date:
+                  type: string
+                  format: date
+              required:
+              - child
+              - weight
+              - date
+          application/x-www-form-urlencoded:
+            schema: *id025
+          multipart/form-data:
+            schema: *id025
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  weight:
+                    type: number
+                  date:
+                    type: string
+                    format: date
+                required:
+                - child
+                - weight
+                - date
+          description: ''
+  /api/weight/{id}/:
+    get:
+      operationId: retrieveWeight
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Weight.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  weight:
+                    type: number
+                  date:
+                    type: string
+                    format: date
+                required:
+                - child
+                - weight
+                - date
+          description: ''
+    put:
+      operationId: updateWeight
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Weight.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id026
+              properties:
+                child:
+                  type: integer
+                weight:
+                  type: number
+                date:
+                  type: string
+                  format: date
+              required:
+              - child
+              - weight
+              - date
+          application/x-www-form-urlencoded:
+            schema: *id026
+          multipart/form-data:
+            schema: *id026
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  weight:
+                    type: number
+                  date:
+                    type: string
+                    format: date
+                required:
+                - child
+                - weight
+                - date
+          description: ''
+    patch:
+      operationId: partial_updateWeight
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Weight.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id027
+              properties:
+                child:
+                  type: integer
+                weight:
+                  type: number
+                date:
+                  type: string
+                  format: date
+          application/x-www-form-urlencoded:
+            schema: *id027
+          multipart/form-data:
+            schema: *id027
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  child:
+                    type: integer
+                  weight:
+                    type: number
+                  date:
+                    type: string
+                    format: date
+                required:
+                - child
+                - weight
+                - date
+          description: ''
+    delete:
+      operationId: destroyWeight
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Weight.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
