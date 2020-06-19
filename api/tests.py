@@ -368,6 +368,13 @@ class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         obj = models.Timer.objects.get(pk=response.data['id'])
         self.assertEqual(obj.name, data['name'])
 
+    def test_post_default_user(self):
+        user = User.objects.first()
+        response = self.client.post(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.Timer.objects.get(pk=response.data['id'])
+        self.assertEqual(obj.user, user)
+
     def test_patch(self):
         endpoint = '{}{}/'.format(self.endpoint, 1)
         response = self.client.get(endpoint)

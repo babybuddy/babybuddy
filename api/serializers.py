@@ -135,12 +135,23 @@ class TimerSerializer(CoreModelSerializer):
     child = serializers.PrimaryKeyRelatedField(
         allow_null=True, allow_empty=True, queryset=models.Child.objects.all(),
         required=False)
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    user = serializers.PrimaryKeyRelatedField(
+        allow_null=True, allow_empty=True, queryset=User.objects.all(),
+        required=False)
 
     class Meta:
         model = models.Timer
         fields = ('id', 'child', 'name', 'start', 'end', 'duration', 'active',
                   'user')
+
+    def validate(self, attrs):
+        attrs = super(TimerSerializer, self).validate(attrs)
+
+        # Set user to current user if no value is provided.
+        if 'user' not in attrs or attrs['user'] is None:
+            attrs['user'] = self.context['request'].user
+
+        return attrs
 
 
 class TummyTimeSerializer(CoreModelWithDurationSerializer):
