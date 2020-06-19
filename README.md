@@ -474,6 +474,11 @@ header to `Token <user-key>`. E.g.
 If the `Authorization` header is not set or the key is not valid, the API will
 return `403 Forbidden` with additional details in the response body.
 
+### Schema
+
+A live version of the API schema in the [OpenAPI format](https://swagger.io/specification/)
+is available at the `/api/scehma` path of a running instance.
+
 ### `GET` Method
 
 #### Request
