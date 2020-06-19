@@ -19,6 +19,8 @@ python-dotenv = "*"
 django-storages = "*"
 boto3 = "*"
 django-import-export = "*"
+pyyaml = "*"
+uritemplate = "*"
 
 [dev-packages]
 coveralls = "*"
