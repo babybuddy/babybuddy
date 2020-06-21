@@ -2,9 +2,6 @@
 .coverage
 /htmlcov
 
-# SQLite database file.
-*.sqlite3
-
 # Environment configuration file.
 .env
 
@@ -23,8 +20,11 @@ docker-compose.yml
 # Python files.
 *.pyc
 
-# App static file folders.
+# App static file directories.
 /*/static
 
-# Django media root folder.
+# Django media root directory.
 /media
+
+# Default sqlite database parent directory.
+/data
