@@ -8,7 +8,6 @@ services:
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.base
       - SECRET_KEY=
       - TIME_ZONE=
-      - POSTGRES_PASSWORD=postgres
       - DEBUG=False # Turn to False in production
     volumes:
       - data:/app/data:rw
