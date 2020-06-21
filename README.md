@@ -111,6 +111,9 @@ The app should now be locally available at
 [Docker's "Get Started" documentation](https://docs.docker.com/get-started/)
 for detailed information about deployment methods with Docker.
 
+A secondary example file `docker-compose.example.sqlite.yml` is also available
+for a simpler SQLite-based deployment (the default example users PostgreSQL).
+
 ### Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
