@@ -24,9 +24,3 @@ REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
     'rest_framework.renderers.JSONRenderer',
     'rest_framework.renderers.BrowsableAPIRenderer',
 )
-
-# Session configuration
-# Used by RollingSessionMiddleware to determine how often to reset the session.
-# See https://docs.djangoproject.com/en/3.0/topics/http/sessions/
-
-ROLLING_SESSION_REFRESH = 1

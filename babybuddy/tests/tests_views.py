@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.test import Client as HttpClient
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -32,11 +32,11 @@ class ViewsTestCase(TestCase):
         page = self.c.get('/')
         self.assertEqual(page.url, '/dashboard/')
 
+    @override_settings(ROLLING_SESSION_REFRESH=1)
     def test_rolling_sessions(self):
         self.c.get('/')
         session1 = str(self.c.cookies['sessionid'])
-        # Sleep longer than ROLLING_SESSION_REFRESH in our
-        # settings module, to test we get a new session.
+        # Sleep longer than ROLLING_SESSION_REFRESH.
         time.sleep(2)
         self.c.get('/')
         session2 = str(self.c.cookies['sessionid'])
