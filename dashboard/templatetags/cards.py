@@ -68,6 +68,31 @@ def card_diaperchange_types(child, date=None):
     return {'type': 'diaperchange', 'stats': stats, 'total': week_total}
 
 
+@register.inclusion_tag('cards/feeding_day.html')
+def card_feeding_day(child, date=None):
+    """
+    Filters Feeding instances to get total amount for a specific date.
+    :param child: an instance of the Child model.
+    :param date: a Date object for the day to filter.
+    :returns: a dict with count and total amount for the Feeding instances.
+    """
+    if not date:
+        date = timezone.localtime().date()
+    instances = models.Feeding.objects.filter(child=child).filter(
+        start__year=date.year,
+        start__month=date.month,
+        start__day=date.day) \
+        | models.Feeding.objects.filter(child=child).filter(
+        end__year=date.year,
+        end__month=date.month,
+        end__day=date.day)
+
+    total = sum([instance.amount for instance in instances if instance.amount])
+    count = len(instances)
+
+    return {'type': 'feeding', 'total': total, 'count': count}
+
+
 @register.inclusion_tag('cards/feeding_last.html')
 def card_feeding_last(child):
     """
