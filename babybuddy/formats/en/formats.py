@@ -7,6 +7,7 @@ if settings.USE_24_HOUR_TIME_FORMAT:
     TIME_FORMAT = 'H:i:s'
     DATETIME_INPUT_FORMATS = [
         '%m/%d/%Y %H:%I:%S'     # '10/25/2006 14:30:59'
+        '%m/%d/%Y %H:%I'        # '10/25/2006 14:30'
     ]
 else:
     # These formats are added to support the locale style of Baby Buddy's
