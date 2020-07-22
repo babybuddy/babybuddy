@@ -173,7 +173,7 @@ USE_L10N = True
 # conditionals on this setting. See babybuddy/forms/en/formats.py for an example
 # implementation for the English locale.
 
-USE_24_HOUR_TIME_FORMAT = strtobool(os.environ.get('USE_24_HOUR_TIME_FORMAT'))
+USE_24_HOUR_TIME_FORMAT = strtobool(os.environ.get('USE_24_HOUR_TIME_FORMAT') or 'False')
 
 FORMAT_MODULE_PATH = ['babybuddy.formats']
 
