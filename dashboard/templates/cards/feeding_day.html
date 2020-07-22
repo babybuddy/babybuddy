@@ -1,0 +1,18 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+
+{% block header %}{% trans "Today's Feeding" %}{% endblock %}
+
+{% block title %}
+    {% if total %}
+        {{ total }}
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if count > 0 %}
+        {% blocktrans %}{{ count }} feeding entries{% endblocktrans %}
+    {% endif %}
+{% endblock %}

@@ -46,6 +46,12 @@ class TemplateTagsTestCase(TestCase):
         }
         self.assertEqual(data['stats'], stats)
 
+    def test_card_feeding_day(self):
+        data = cards.card_feeding_day(self.child, self.date)
+        self.assertEqual(data['type'], 'feeding')
+        self.assertEqual(data['total'], 2.5)
+        self.assertEqual(data['count'], 3)
+
     def test_card_feeding_last(self):
         data = cards.card_feeding_last(self.child)
         self.assertEqual(data['type'], 'feeding')
