@@ -4,11 +4,12 @@ from django.conf.locale.en import formats
 # Override the regular locale settings to support 24 hour time.
 if settings.USE_24_HOUR_TIME_FORMAT:
     DATETIME_FORMAT = 'N j, Y, H:i:s'
-    TIME_FORMAT = 'H:i:s'
     DATETIME_INPUT_FORMATS = [
         '%m/%d/%Y %H:%I:%S'     # '10/25/2006 14:30:59'
         '%m/%d/%Y %H:%I'        # '10/25/2006 14:30'
     ]
+    SHORT_DATETIME_FORMAT = 'm/d/Y G:i:s'
+    TIME_FORMAT = 'H:i:s'
 else:
     # These formats are added to support the locale style of Baby Buddy's
     # frontend library, which uses momentjs.
