@@ -17,8 +17,11 @@ class FormatsTestCase(TestCase):
         ]
 
         for example in supported_custom_examples:
-            result = field.to_python(example)
-            self.assertIsInstance(result, datetime.datetime)
+            try:
+                result = field.to_python(example)
+                self.assertIsInstance(result, datetime.datetime)
+            except ValidationError:
+                self.fail('Format of "{}" not recognized!'.format(example))
 
         with self.assertRaises(ValidationError):
             field.to_python('invalid date string!')
