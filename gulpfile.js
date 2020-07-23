@@ -40,7 +40,9 @@ function coverage(cb) {
             'coverage',
             'run',
             'manage.py',
-            'test'
+            'test',
+            '--exclude-tag',
+            'isolate'
         ],
         {
             stdio: 'inherit'
@@ -160,12 +162,19 @@ function styles(cb) {
 }
 
 /**
- * Runs all tests.
+ * Runs all tests _not_ tagged "isolate".
  *
  * @param cb
  */
 function test(cb) {
-    var command = ['run', 'python', 'manage.py', 'test'];
+    var command = [
+        'run',
+        'python',
+        'manage.py',
+        'test',
+        '--exclude-tag',
+        'isolate'
+    ];
     command = command.concat(process.argv.splice(3));
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 }

@@ -64,7 +64,8 @@ class TemplateTagsTestCase(TestCase):
     def test_datetimepicker_format(self):
         self.assertEqual(datetimepicker.datetimepicker_format(), 'L LT')
         self.assertEqual(datetimepicker.datetimepicker_format('L LT'), 'L LT')
-        self.assertEqual(datetimepicker.datetimepicker_format('L LTS'), 'L LTS')
+        self.assertEqual(
+            datetimepicker.datetimepicker_format('L LTS'), 'L LTS')
 
         with self.settings(USE_24_HOUR_TIME_FORMAT=True):
             self.assertEqual(datetimepicker.datetimepicker_format(), 'L HH:mm')
