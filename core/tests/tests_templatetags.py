@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from core.models import Child, Timer
-from core.templatetags import bootstrap, duration, timers
+from core.templatetags import bootstrap, datetimepicker, duration, timers
 
 
 class TemplateTagsTestCase(TestCase):
@@ -60,3 +60,15 @@ class TemplateTagsTestCase(TestCase):
         url = timers.instance_add_url({'timer': timer}, 'core:sleep-add')
         self.assertEqual(url, '/sleep/add/?timer={}&child={}'.format(
             timer.id, child.slug))
+
+    def test_datetimepicker_format(self):
+        self.assertEqual(datetimepicker.datetimepicker_format(), 'L LT')
+        self.assertEqual(datetimepicker.datetimepicker_format('L LT'), 'L LT')
+        self.assertEqual(datetimepicker.datetimepicker_format('L LTS'), 'L LTS')
+
+        with self.settings(USE_24_HOUR_TIME_FORMAT=True):
+            self.assertEqual(datetimepicker.datetimepicker_format(), 'L HH:mm')
+            self.assertEqual(
+                datetimepicker.datetimepicker_format('L LT'), 'L HH:mm')
+            self.assertEqual(
+                datetimepicker.datetimepicker_format('L LTS'), 'L HH:mm:ss')
