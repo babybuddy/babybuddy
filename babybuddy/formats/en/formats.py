@@ -5,8 +5,8 @@ from django.conf.locale.en import formats
 if settings.USE_24_HOUR_TIME_FORMAT:
     DATETIME_FORMAT = 'N j, Y, H:i:s'
     DATETIME_INPUT_FORMATS = [
-        '%m/%d/%Y %H:%I:%S'     # '10/25/2006 14:30:59'
-        '%m/%d/%Y %H:%I'        # '10/25/2006 14:30'
+        '%m/%d/%Y %H:%I:%S',    # '10/25/2006 14:30:59'
+        '%m/%d/%Y %H:%I',       # '10/25/2006 14:30'
     ]
     SHORT_DATETIME_FORMAT = 'm/d/Y G:i:s'
     TIME_FORMAT = 'H:i:s'
