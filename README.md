@@ -284,6 +284,7 @@ take precedence over the contents of an `.env` file.**
 - [`NAP_START_MIN`](#nap_start_min)
 - [`SECRET_KEY`](#secret_key)
 - [`TIME_ZONE`](#time_zone)
+- [`USE_24_HOUR_TIME_FORMAT`](#use_24_hour_time_format)
 
 ### `ALLOWED_HOSTS`
 
@@ -368,6 +369,21 @@ See also [Django's documentation on the SECRET_KEY setting](https://docs.djangop
 The default time zone to use for the instance. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 for all possible values. This value can be overridden per use from the user
 settings form.
+
+### `USE_24_HOUR_TIME_FORMAT`
+
+*Default: False*
+
+Whether to force 24-hour time format for locales that do not ordinarily use it
+(e.g. `en`). Support for this feature must implemented on a per-locale basis.
+See format files under [`babybuddy/formats`](babybuddy/formats) for supported
+locales.
+
+Note: This value for this setting is interpreted as a boolean from a string
+using Python's built-in [`strtobool`](https://docs.python.org/3/distutils/apiref.html#distutils.util.strtobool)
+tool. Only certain strings are supported (e.g. "True" for `True` and "False" for
+`False`), other unrecognized strings will cause a `ValueError` and prevent Baby
+Buddy from loading.
 
 ## Languages
 

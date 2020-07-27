@@ -3,7 +3,8 @@ import datetime
 
 from django.core.exceptions import ValidationError
 from django.forms.fields import DateTimeField
-from django.test import TestCase
+from django.test import TestCase, override_settings, tag
+from django.utils.formats import date_format, time_format
 
 
 class FormatsTestCase(TestCase):
@@ -17,8 +18,43 @@ class FormatsTestCase(TestCase):
         ]
 
         for example in supported_custom_examples:
-            result = field.to_python(example)
-            self.assertIsInstance(result, datetime.datetime)
+            try:
+                result = field.to_python(example)
+                self.assertIsInstance(result, datetime.datetime)
+            except ValidationError:
+                self.fail('Format of "{}" not recognized!'.format(example))
 
         with self.assertRaises(ValidationError):
             field.to_python('invalid date string!')
+
+    @tag('isolate')
+    @override_settings(LANGUAGE_CODE='en', USE_24_HOUR_TIME_FORMAT=True)
+    def test_use_24_hour_time_format_en(self):
+        field = DateTimeField()
+        supported_custom_examples = [
+            '10/25/2006 2:30:59',
+            '10/25/2006 2:30',
+            '10/25/2006 14:30:59',
+            '10/25/2006 14:30',
+        ]
+
+        for example in supported_custom_examples:
+            try:
+                result = field.to_python(example)
+                self.assertIsInstance(result, datetime.datetime)
+            except ValidationError:
+                self.fail('Format of "{}" not recognized!'.format(example))
+
+        with self.assertRaises(ValidationError):
+            field.to_python('invalid date string!')
+
+        dt = datetime.datetime.fromisoformat('2011-11-04 23:05:59')
+        self.assertEqual(
+            date_format(dt, 'DATETIME_FORMAT'), 'Nov. 4, 2011, 23:05:59')
+
+        dt = datetime.datetime.fromisoformat('2011-11-04 02:05:59')
+        self.assertEqual(
+            date_format(dt, 'SHORT_DATETIME_FORMAT'), '11/04/2011 2:05:59')
+
+        t = datetime.time.fromisoformat('16:02:25')
+        self.assertEqual(time_format(t), '16:02:25')
