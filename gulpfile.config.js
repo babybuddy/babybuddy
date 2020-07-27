@@ -58,6 +58,11 @@ module.exports = {
             'babybuddy.scss'
         ]
     },
+    testsConfig: {
+      isolated: [
+          'babybuddy.tests.tests_formats.FormatsTestCase.test_use_24_hour_time_format_en'
+      ],
+    },
     watchConfig: {
         scriptsGlob: [
             '*/static_src/js/**/*.js',
