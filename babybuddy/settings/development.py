@@ -3,15 +3,8 @@ from .base import *
 # Quick-start development settings - unsuitable for production
 # https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-SECRET_KEY = 'CHANGE ME LOL'
+SECRET_KEY = 'CHANGE ME'
 DEBUG = True
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../data/db.sqlite3'),
-    }
-}
 
 
 # Static files (CSS, JavaScript, Images)
