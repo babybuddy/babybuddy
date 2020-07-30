@@ -396,6 +396,8 @@ create/update translations.
 
 :us: English (U.S.) *(base)*
 
+:finland: Finnish
+
 :fr: French
 
 :de: German
