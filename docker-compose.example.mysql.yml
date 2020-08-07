@@ -12,7 +12,7 @@ services:
     volumes:
       - data:/app/data:rw
       - media:/app/media:rw
-      - /path/to/my.cnf:/app/my.cnf
+      - /path/to/my.cnf:/app/data/my.cnf
     command: bash -c 'python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
     ports:
       - "8000:8000"
