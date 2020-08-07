@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  app:
+    image: babybuddy/babybuddy
+    # See README.md#configuration for other environment configuration options.
+    environment:
+      - ALLOWED_HOSTS=
+      - DJANGO_SETTINGS_MODULE=babybuddy.settings.mysql
+      - SECRET_KEY=
+      - TIME_ZONE=
+      - DEBUG=False # Turn to False in production
+    volumes:
+      - data:/app/data:rw
+      - media:/app/media:rw
+      - /path/to/my.cnf:/app/my.cnf
+    command: bash -c 'python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
+    ports:
+      - "8000:8000"
+volumes:
+  data: {}
+  media: {}

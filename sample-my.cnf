@@ -1,0 +1,8 @@
+[client]
+database = babybuddy
+host = localhost
+user = babybuddy
+password = babybuddy
+default-character-set = utf8
+use_unicode = True
+init_command = 'SET default_storage_engine=INNODB'
