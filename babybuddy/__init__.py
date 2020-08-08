@@ -52,7 +52,3 @@ __license__ = 'BSD 2-Clause'
 VERSION = __version__
 
 default_app_config = 'babybuddy.apps.BabyBuddyConfig'
-
-import pymysql
-
-pymysql.install_as_MySQLdb()

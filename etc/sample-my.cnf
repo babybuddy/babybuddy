@@ -1,3 +1,6 @@
+# Modify this file with your connection settings.
+# Rename to my.cnf and then place it into the /app/data 
+# directory (volume) that you map in docker-compose.
 [client]
 database = babybuddy
 host = localhost
