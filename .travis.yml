@@ -5,13 +5,13 @@ jobs:
   include:
     - name: "Python 3.6"
       before_install:
-        - pyenv global 3.6.10
+        - pyenv global 3.6.11
     - name: "Python 3.7"
       before_install:
-        - pyenv global 3.7.6
+        - pyenv global 3.7.8
     - name: "Python 3.8"
       before_install:
-        - pyenv global 3.8.1
+        - pyenv global 3.8.3
 cache:
   directories:
     - $HOME/.cache/pip
