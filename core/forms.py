@@ -153,7 +153,13 @@ class FeedingForm(CoreModelForm):
 class NoteForm(CoreModelForm):
     class Meta:
         model = models.Note
-        fields = ['child', 'note']
+        fields = ['child', 'note', 'time']
+        widgets = {
+            'time': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
+                'data-target': '#datetimepicker_time',
+            }),
+        }
 
 
 class SleepForm(CoreModelForm):

@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n %}
+{% load datetimepicker i18n %}
 
 {% block title %}
     {% if request.resolver_match.url_name == 'note-update' %}
@@ -27,4 +27,12 @@
         <h1>{% trans "Add a Note" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        BabyBuddy.DatetimePicker.init($('#datetimepicker_time'), {
+            format: '{% datetimepicker_format %}'
+        });
+    </script>
 {% endblock %}

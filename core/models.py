@@ -262,7 +262,11 @@ class Note(models.Model):
         verbose_name=_('Child')
     )
     note = models.TextField(verbose_name=_('Note'))
-    time = models.DateTimeField(auto_now=True, verbose_name=_('Time'))
+    time = models.DateTimeField(
+        default=timezone.now,
+        blank=False,
+        verbose_name=_('Time')
+    )
 
     objects = models.Manager()
 
