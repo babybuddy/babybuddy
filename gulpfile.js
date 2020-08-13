@@ -42,6 +42,7 @@ function coverage(cb) {
             'run',
             'manage.py',
             'test',
+            '--parallel',
             '--exclude-tag',
             'isolate'
         ],
