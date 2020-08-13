@@ -25,6 +25,3 @@ docker-compose.yml
 
 # Django media root directory.
 /media
-
-# Default sqlite database parent directory.
-/data
