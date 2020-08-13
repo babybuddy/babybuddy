@@ -20,6 +20,9 @@ class Command(BaseCommand):
         self.username_field = self.UserModel._meta.get_field(
             self.UserModel.USERNAME_FIELD)
 
+        # Disable system checks for reset.
+        self.requires_system_checks = False
+
     def add_arguments(self, parser):
         Migrate().add_arguments(parser)
         Fake().add_arguments(parser)
