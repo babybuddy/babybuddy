@@ -182,6 +182,7 @@ function test(cb) {
         'python',
         'manage.py',
         'test',
+        '--parallel',
         '--exclude-tag',
         'isolate'
     ];
