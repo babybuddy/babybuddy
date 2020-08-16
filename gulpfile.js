@@ -34,6 +34,10 @@ function clean() {
  * @param cb
  */
 function coverage(cb) {
+    // Erase any previous coverage results.
+    es('pipenv run coverage erase', {stdio: 'inherit'});
+
+    // Run tests with coverage.
     spawn(
         'pipenv',
         [
@@ -50,13 +54,18 @@ function coverage(cb) {
             stdio: 'inherit'
         }
     ).on('exit', function() {
-        // Add coverage for isolated tests.
+        // Run isolated tests with coverage.
         config.testsConfig.isolated.forEach(function(test_name) {
             es(
-                'pipenv run coverage run -a manage.py test ' + test_name,
+                'pipenv run coverage run manage.py test ' + test_name,
                 {stdio: 'inherit'}
             );
         })
+
+        // Combine coverage results.
+        es('pipenv run coverage combine', {stdio: 'inherit'});
+
+        // Execute callback.
         cb();
     });
 }
