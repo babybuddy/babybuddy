@@ -684,7 +684,7 @@ msgstr "Datum darf nicht in der Zukunft liegen."
 
 #: core/models.py:37
 msgid "Start time must come before end time."
-msgstr "Startzeit muss vor End-Zeit sein."
+msgstr "Startzeit muss vor Endzeit sein."
 
 #: core/models.py:40
 msgid "Duration too long."
@@ -770,7 +770,7 @@ msgstr "Startzeit"
 
 #: core/models.py:204 core/models.py:301 core/models.py:403 core/models.py:504
 msgid "End time"
-msgstr "End-Zeit"
+msgstr "Endzeit"
 
 #: core/models.py:209 core/models.py:306 core/models.py:408 core/models.py:509
 #: core/templates/core/feeding_list.html:30
@@ -1498,7 +1498,7 @@ msgstr "Total Schlaf"
 
 #: reports/graphs/sleep_totals.py:50
 msgid "<b>Sleep Totals</b>"
-msgstr "<b>Totale Schlaf-Zeit</b>"
+msgstr "<b>Totale Schlafzeit</b>"
 
 #: reports/graphs/sleep_totals.py:53
 msgid "Hours of sleep"
