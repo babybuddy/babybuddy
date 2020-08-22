@@ -277,7 +277,7 @@ msgstr "Aktivitäten"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:170
 #: reports/graphs/diaperchange_lifetimes.py:27
 msgid "Changes"
-msgstr "Wechselt"
+msgstr "Wechsel"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:176
 msgid "Change"
@@ -311,7 +311,7 @@ msgstr "Benutzer"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:242
 msgid "Password"
-msgstr "Passowrt"
+msgstr "Passwort"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:243
 msgid "Logout"
@@ -539,8 +539,8 @@ msgid ""
 "Learn about and predict baby's needs without (<em>as much</em>) guess work "
 "by using Baby Buddy to track &mdash;"
 msgstr ""
-"Lerne und sehe die Bedürfnisse deines Babys voraus, ohne (<em>allzu viel</"
-"em>)Spekulation indem du Baby Buddy verwendest &mdash;"
+"Lerne und sieh die Bedürfnisse deines Babys voraus, ohne (<em>allzu viel</"
+"em>)Spekulation, indem du Baby Buddy verwendest &mdash;"
 
 #: babybuddy/templates/babybuddy/welcome.html:26 core/models.py:164
 #: core/templates/core/diaperchange_confirm_delete.html:7
@@ -550,7 +550,7 @@ msgstr ""
 #: core/templates/core/diaperchange_list.html:12
 #: dashboard/templates/cards/diaperchange_types.html:4
 msgid "Diaper Changes"
-msgstr "Windel-Wechsel"
+msgstr "Windelwechsel"
 
 #: babybuddy/templates/babybuddy/welcome.html:56
 msgid ""
@@ -676,7 +676,7 @@ msgstr "Einstellungen gespeichert!"
 
 #: core/forms.py:110
 msgid "Name does not match child name."
-msgstr "Name entspricht nicht dem Kinder-Namen."
+msgstr "Name entspricht nicht dem Kindernamen."
 
 #: core/models.py:23
 msgid "Date can not be in the future."
@@ -684,7 +684,7 @@ msgstr "Datum darf nicht in der Zukunft liegen."
 
 #: core/models.py:37
 msgid "Start time must come before end time."
-msgstr "Start-Zeit muss vor End-Zeit sein."
+msgstr "Startzeit muss vor End-Zeit sein."
 
 #: core/models.py:40
 msgid "Duration too long."
@@ -766,7 +766,7 @@ msgstr "Nass und/oder fest wird benötigt."
 
 #: core/models.py:199 core/models.py:296 core/models.py:397 core/models.py:499
 msgid "Start time"
-msgstr "Start-Zeit"
+msgstr "Startzeit"
 
 #: core/models.py:204 core/models.py:301 core/models.py:403 core/models.py:504
 msgid "End time"
@@ -863,7 +863,7 @@ msgstr ""
 #: core/templates/core/child_detail.html:23
 #: dashboard/templates/dashboard/dashboard.html:32
 msgid "Born"
-msgstr "Gebohren"
+msgstr "Geboren"
 
 #: core/templates/core/child_detail.html:24
 #: dashboard/templates/dashboard/dashboard.html:33
@@ -889,16 +889,16 @@ msgstr "Keine Kinder gefunden."
 
 #: core/templates/core/diaperchange_confirm_delete.html:4
 msgid "Delete a Diaper Change"
-msgstr "Windelwechsel löschen."
+msgstr "Windelwechsel löschen"
 
 #: core/templates/core/diaperchange_form.html:6
 msgid "Update a Diaper Change"
-msgstr "Windelwechsel ändern."
+msgstr "Windelwechsel ändern"
 
 #: core/templates/core/diaperchange_form.html:8
 #: core/templates/core/diaperchange_form.html:27
 msgid "Add a Diaper Change"
-msgstr "Windel-Wechsel hinzufügen"
+msgstr "Windelwechsel hinzufügen"
 
 #: core/templates/core/diaperchange_form.html:17
 #: core/templates/core/feeding_form.html:17
@@ -909,11 +909,11 @@ msgstr "Hinzufügen"
 
 #: core/templates/core/diaperchange_list.html:15
 msgid "Add Diaper Change"
-msgstr "Windel-Wechsel hinzufügen"
+msgstr "Windelwechsel hinzufügen"
 
 #: core/templates/core/diaperchange_list.html:68
 msgid "No diaper changes found."
-msgstr "Keine Windel-Wechsel gefunden."
+msgstr "Keine Windelwechsel gefunden."
 
 #: core/templates/core/feeding_confirm_delete.html:4
 msgid "Delete a Feeding"
@@ -1025,16 +1025,16 @@ msgstr "Lösche %(object)s"
 
 #: core/templates/core/timer_confirm_delete_inactive.html:5
 msgid "Delete All Inactive Timers"
-msgstr ""
+msgstr "Alle inaktiven Timer löschen"
 
 #: core/templates/core/timer_confirm_delete_inactive.html:10
 msgid "Delete Inactive"
-msgstr ""
+msgstr "Inaktive löschen"
 
 #: core/templates/core/timer_confirm_delete_inactive.html:17
 #, python-format
 msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
-msgstr ""
+msgstr "Bist Du sicher, dass du %(number)s löschen möchtest?"
 
 #: core/templates/core/timer_detail.html:28
 msgid "Started"
@@ -1064,7 +1064,7 @@ msgstr "Keine Timer-Einträge gefunden."
 
 #: core/templates/core/timer_list.html:62
 msgid "Delete Inactive Timers"
-msgstr ""
+msgstr "Inaktive Timer löschen"
 
 #: core/templates/core/timer_nav.html:15
 msgid "Quick Start Timer"
@@ -1106,7 +1106,7 @@ msgstr "Bauchzeit-Eintrag hinzufügen"
 
 #: core/templates/core/tummytime_list.html:15
 msgid "Add Tummy Time"
-msgstr ""
+msgstr "Bauchzeit hinzufügen"
 
 #: core/templates/core/tummytime_list.html:59
 msgid "No tummy time entries found."
@@ -1124,7 +1124,7 @@ msgstr "Gewichts-Eintrag hinzufügen"
 
 #: core/templates/core/weight_list.html:15
 msgid "Add Weight"
-msgstr ""
+msgstr "Gewicht hinzufügen"
 
 #: core/templates/core/weight_list.html:62
 msgid "No weight entries found."
@@ -1133,7 +1133,7 @@ msgstr "Keine Gewichts-Einträge gefunden."
 #: core/timeline.py:24
 #, python-format
 msgid "%(child)s had a diaper change."
-msgstr "%(child)s kriegte die Windel gewechselt."
+msgstr "%(child)s wurde die Windel gewechselt."
 
 #: core/timeline.py:35
 #, python-format
@@ -1241,7 +1241,7 @@ msgstr ""
 
 #: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
-msgstr "Letzer Windel-Wechsel"
+msgstr "Letzer Windelwechsel"
 
 #: dashboard/templates/cards/diaperchange_last.html:8
 #: dashboard/templates/cards/feeding_last.html:8
@@ -1362,7 +1362,7 @@ msgstr ""
 #: reports/templates/reports/diaperchange_types.html:4
 #: reports/templates/reports/diaperchange_types.html:8
 msgid "Diaper Change Types"
-msgstr "Windel-Wechsel Typen"
+msgstr "Windelwechsel Typen"
 
 #: dashboard/templates/dashboard/child_button_group.html:21
 #: reports/templates/reports/diaperchange_lifetimes.html:4
@@ -1394,7 +1394,7 @@ msgstr "Schlaf Total"
 
 #: dashboard/templatetags/cards.py:170
 msgid "Diaper change frequency"
-msgstr "Frequenz Windel-Wechsel"
+msgstr "Frequenz Windelwechsel"
 
 #: dashboard/templatetags/cards.py:176
 msgid "Feeding frequency"
@@ -1446,7 +1446,7 @@ msgstr "Total"
 
 #: reports/graphs/diaperchange_types.py:46
 msgid "<b>Diaper Change Types</b>"
-msgstr "<b>Windel-Wechsel Typen</b>"
+msgstr "<b>Windelwechsel Typen</b>"
 
 #: reports/graphs/diaperchange_types.py:49
 msgid "Number of changes"
