@@ -1034,7 +1034,7 @@ msgstr "Inaktive löschen"
 #: core/templates/core/timer_confirm_delete_inactive.html:17
 #, python-format
 msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
-msgstr "Bist Du sicher, dass du %(number)s löschen möchtest?"
+msgstr "Bist Du sicher, dass du %(number)s inaktiv timer%(plural)s löschen möchtest?"
 
 #: core/templates/core/timer_detail.html:28
 msgid "Started"
