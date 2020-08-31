@@ -1,6 +1,7 @@
 FROM python:3 as app
 ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pipenv gunicorn
+RUN pip install pymysql
 WORKDIR /app
 COPY Pipfile /app/
 COPY Pipfile.lock /app/

@@ -1,0 +1,11 @@
+# Modify this file with your connection settings.
+# Rename to my.cnf and then place it into the /app/data 
+# directory (volume) that you map in docker-compose.
+[client]
+database = babybuddy
+host = localhost
+user = babybuddy
+password = babybuddy
+default-character-set = utf8
+use_unicode = True
+init_command = 'SET default_storage_engine=INNODB'
