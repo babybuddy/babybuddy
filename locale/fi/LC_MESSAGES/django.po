@@ -222,11 +222,11 @@ msgstr "Aktiviteetit"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:170
 #: reports/graphs/diaperchange_lifetimes.py:27
 msgid "Changes"
-msgstr "Vaipanvaihdot"
+msgstr "Muutokset"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:176
 msgid "Change"
-msgstr "Vaipanvaihto"
+msgstr "Muutos"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:183
 #: babybuddy/templates/babybuddy/welcome.html:34 core/models.py:239
@@ -663,7 +663,7 @@ msgstr "Kiinteä"
 
 #: core/models.py:147
 msgid "Black"
-msgstr "Mista"
+msgstr "Musta"
 
 #: core/models.py:148
 msgid "Brown"
@@ -1059,11 +1059,11 @@ msgstr "Viime viikko"
 
 #: dashboard/templates/cards/diaperchange_types.html:22
 msgid "wet"
-msgstr "märkää"
+msgstr "märkä"
 
 #: dashboard/templates/cards/diaperchange_types.html:29
 msgid "solid"
-msgstr "kiinteää"
+msgstr "kiinteä"
 
 #: dashboard/templates/cards/diaperchange_types.html:34
 msgid "today"
