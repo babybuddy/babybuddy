@@ -1,6 +1,6 @@
 # Contributing
 
-[![Build Status](https://travis-ci.org/babybuddy/babybuddy.svg?branch=master)](https://travis-ci.org/babybuddy/babybuddy)
+[![Build Status](https://travis-ci.org/babybuddy/babybuddy.svg?branch=master)](https://travis-ci.com/babybuddy/babybuddy)
 [![Coverage Status](https://coveralls.io/repos/github/babybuddy/babybuddy/badge.svg?branch=master)](https://coveralls.io/github/babybuddy/babybuddy?branch=master)
 
 - [Contributions](#contributions)

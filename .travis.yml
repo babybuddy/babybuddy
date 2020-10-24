@@ -5,13 +5,15 @@ jobs:
   include:
     - name: "Python 3.6"
       before_install:
-        - pyenv global 3.6.10
+        - pyenv global `pyenv versions | tr -d "[:blank:]" | grep -Po "3\.6\.[\d]+" | tail -1`
+        - rm Pipfile.lock
     - name: "Python 3.7"
       before_install:
-        - pyenv global 3.7.6
+        - pyenv global `pyenv versions | tr -d "[:blank:]" | grep -Po "3\.7\.[\d]+" | tail -1`
+        - rm Pipfile.lock
     - name: "Python 3.8"
       before_install:
-        - pyenv global 3.8.1
+        - pyenv global `pyenv versions | tr -d "[:blank:]" | grep -Po "3\.8\.[\d]+" | tail -1`
 cache:
   directories:
     - $HOME/.cache/pip
@@ -23,7 +25,7 @@ install:
   - npm install -g gulp-cli
   - npm install
   - pip install pipenv
-  - pipenv install --dev
+  - pipenv --python `pyenv which python` install --dev
 before_script:
   - gulp lint
 script:
