@@ -11,7 +11,9 @@ jobs:
         - pyenv versions
         - pyenv install --list
         - pyenv install 3.6.10
+        - pyenv versions
         - pyenv global 3.6.10
+        - pyenv versions
     - name: "Python 3.7"
       before_install:
         - pyenv global 3.7.6
