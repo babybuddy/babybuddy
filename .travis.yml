@@ -5,6 +5,7 @@ jobs:
   include:
     - name: "Python 3.6"
       before_install:
+        - pyenv update
         - pyenv versions
         - pyenv install --list
         - pyenv global 3.6.10
