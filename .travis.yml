@@ -1,16 +1,10 @@
 os: linux
 language: generic
-dist: focal
+dist: bionic
 jobs:
   include:
     - name: "Python 3.6"
       before_install:
-        - unset PYENV_ROOT
-        - curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-        - export PATH="$HOME/.pyenv/bin:$PATH"
-        - pyenv versions
-        - pyenv install --list
-        - pyenv install 3.6.10
         - pyenv versions
         - pyenv global 3.6.10
         - pyenv versions
