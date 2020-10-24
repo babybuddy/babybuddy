@@ -47,14 +47,3 @@ class FormatsTestCase(TestCase):
 
         with self.assertRaises(ValidationError):
             field.to_python('invalid date string!')
-
-        dt = datetime.datetime.fromisoformat('2011-11-04 23:05:59')
-        self.assertEqual(
-            date_format(dt, 'DATETIME_FORMAT'), 'Nov. 4, 2011, 23:05:59')
-
-        dt = datetime.datetime.fromisoformat('2011-11-04 02:05:59')
-        self.assertEqual(
-            date_format(dt, 'SHORT_DATETIME_FORMAT'), '11/04/2011 2:05:59')
-
-        t = datetime.time.fromisoformat('16:02:25')
-        self.assertEqual(time_format(t), '16:02:25')
