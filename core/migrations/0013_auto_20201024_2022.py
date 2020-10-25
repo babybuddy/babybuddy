@@ -6,9 +6,9 @@ from django.db import migrations, models
 from django.utils import timezone
 
 
-def pre_alter_birth_date(apps, schema_editor):
+def pre_forwards(apps, schema_editor):
     """
-    Before migration, copy current birth date to a temporary field.
+    Copy current birth date to a temporary field (forwards).
 
     :param apps:
     :param schema_editor:
@@ -23,9 +23,23 @@ def pre_alter_birth_date(apps, schema_editor):
         child.save()
 
 
-def post_alter_birth_date(apps, schema_editor):
+def pre_backwards(apps, schema_editor):
     """
-    After migration, copy datetime value from temporary field to regular field.
+    Copy current birth date to a temporary field (backwards).
+
+    :param apps:
+    :param schema_editor:
+    :return:
+    """
+    Child = apps.get_model('core', 'Child')
+    for child in Child.objects.all():
+        child.birth_date_temp = child.birth_date.date()
+        child.save()
+
+
+def copy_temp_to_permanent(apps, schema_editor):
+    """
+    Copy datetime value from temporary field to regular field.
 
     :param apps:
     :param schema_editor:
@@ -49,12 +63,12 @@ class Migration(migrations.Migration):
             name='birth_date_temp',
             field=models.DateTimeField(null=True)
         ),
-        migrations.RunPython(pre_alter_birth_date),
+        migrations.RunPython(pre_forwards, pre_backwards),
         migrations.AlterField(
             model_name='child',
             name='birth_date',
             field=models.DateTimeField(verbose_name='Birth date'),
         ),
-        migrations.RunPython(post_alter_birth_date),
+        migrations.RunPython(copy_temp_to_permanent, copy_temp_to_permanent),
         migrations.RemoveField(model_name='child', name='birth_date_temp'),
     ]
