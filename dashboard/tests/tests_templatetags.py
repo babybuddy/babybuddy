@@ -146,7 +146,7 @@ class TemplateTagsTestCase(TestCase):
         child_two = models.Child.objects.create(
             first_name='Child',
             last_name='Two',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         timers = {
             'no_child': models.Timer.objects.create(

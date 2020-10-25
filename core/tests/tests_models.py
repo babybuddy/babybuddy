@@ -15,7 +15,7 @@ class ChildTestCase(TestCase):
         child = models.Child.objects.create(
             first_name='First',
             last_name='Last',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         self.assertEqual(child, models.Child.objects.get(first_name='First'))
         self.assertEqual(child.slug, 'first-last')
@@ -28,13 +28,13 @@ class ChildTestCase(TestCase):
         models.Child.objects.create(
             first_name='First 1',
             last_name='Last 1',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         self.assertEqual(models.Child.count(), 1)
         child = models.Child.objects.create(
             first_name='First 2',
             last_name='Last 2',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         self.assertEqual(models.Child.count(), 2)
         child.delete()
@@ -47,7 +47,7 @@ class DiaperChangeTestCase(TestCase):
         self.child = models.Child.objects.create(
             first_name='First',
             last_name='Last',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         self.change = models.DiaperChange.objects.create(
             child=self.child,
@@ -78,7 +78,7 @@ class FeedingTestCase(TestCase):
         self.child = models.Child.objects.create(
             first_name='First',
             last_name='Last',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
 
     def test_feeding_create(self):
@@ -113,7 +113,7 @@ class NoteTestCase(TestCase):
         self.child = models.Child.objects.create(
             first_name='First',
             last_name='Last',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
 
     def test_note_create(self):
@@ -129,7 +129,7 @@ class SleepTestCase(TestCase):
         self.child = models.Child.objects.create(
             first_name='First',
             last_name='Last',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
 
     def test_sleep_create(self):
@@ -149,7 +149,7 @@ class TemperatureTestCase(TestCase):
         self.child = models.Child.objects.create(
             first_name='First',
             last_name='Last',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         self.temp = models.Temperature.objects.create(
             child=self.child,
@@ -169,7 +169,7 @@ class TimerTestCase(TestCase):
         child = models.Child.objects.create(
             first_name='First',
             last_name='Last',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         self.user = User.objects.first()
         self.named = models.Timer.objects.create(
@@ -196,7 +196,7 @@ class TimerTestCase(TestCase):
         models.Child.objects.create(
             first_name='Child',
             last_name='Two',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         self.assertEqual(
             self.named.title_with_child,
@@ -247,7 +247,7 @@ class TummyTimeTestCase(TestCase):
         self.child = models.Child.objects.create(
             first_name='First',
             last_name='Last',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
 
     def test_tummytime_create(self):

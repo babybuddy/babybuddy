@@ -36,7 +36,7 @@ class FormsTestCaseBase(TestCase):
         cls.child = models.Child.objects.create(
             first_name='Child',
             last_name='One',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
 
     @staticmethod
@@ -69,7 +69,7 @@ class InitialValuesTestCase(FormsTestCaseBase):
         child_two = models.Child.objects.create(
             first_name='Child',
             last_name='Two',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
 
         page = self.c.get('/sleep/add/')
@@ -85,12 +85,12 @@ class InitialValuesTestCase(FormsTestCaseBase):
         child_two = models.Child.objects.create(
             first_name='Child',
             last_name='Two',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         child_three = models.Child.objects.create(
             first_name='Child',
             last_name='Three',
-            birth_date=timezone.localdate()
+            birth_date=timezone.localtime()
         )
         start_time = timezone.localtime() - timezone.timedelta(hours=4)
         end_time = timezone.localtime() - timezone.timedelta(hours=3,
@@ -170,7 +170,7 @@ class ChildFormsTestCase(FormsTestCaseBase):
         params = {
             'first_name': 'Child',
             'last_name': 'Two',
-            'birth_date': timezone.localdate()
+            'birth_date': timezone.localtime()
         }
         page = self.c.post('/children/add/', params, follow=True)
         self.assertEqual(page.status_code, 200)

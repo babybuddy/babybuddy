@@ -49,7 +49,7 @@ class TemplateTagsTestCase(TestCase):
 
     def test_instance_add_url(self):
         child = Child.objects.create(first_name='Test', last_name='Child',
-                                     birth_date=timezone.localdate())
+                                     birth_date=timezone.localtime())
         user = User.objects.create_user(username='timer')
         timer = Timer.objects.create(user=user)
 

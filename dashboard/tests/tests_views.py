@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.test import Client as HttpClient
 from django.contrib.auth.models import User
 from django.core.management import call_command
+from django.utils import timezone
 
 from faker import Factory
 
@@ -42,14 +43,14 @@ class ViewsTestCase(TestCase):
         self.assertEqual(
             page.url, '/children/{}/dashboard/'.format(child.slug))
         # Test the actual child dashboard (including cards).
-        # TODO: Test cards more granularly.
+        # TODO: Test cards more granularity.
         page = self.c.get('/children/{}/dashboard/'.format(child.slug))
         self.assertEqual(page.status_code, 200)
 
         Child.objects.create(
             first_name='Second',
             last_name='Child',
-            birth_date='2000-01-01'
+            birth_date='2000-01-01T00:00:00Z'
         )
         page = self.c.get('/dashboard/')
         self.assertEqual(page.status_code, 200)

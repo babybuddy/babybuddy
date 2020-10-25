@@ -16,7 +16,7 @@
     {
       "first_name": "Fake",
       "last_name": "Child",
-      "birth_date": "2017-11-11",
+      "birth_date": "2017-11-11T00:00:00Z",
       "slug": "fake-child",
       "picture": ""
     }

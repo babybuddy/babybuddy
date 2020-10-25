@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-import datetime
 import importlib
 import os
 import tablib
 
 from django.core.management import call_command
 from django.test import TestCase
+from django.utils import timezone
 
 from core import admin, models
 
@@ -18,7 +18,9 @@ class ImportTestCase(TestCase):
     def setUp(self):
         call_command('migrate', verbosity=0)
         # The data to be imported uses 2020-02-10 as a basis and Child ID 1.
-        birth_date = datetime.date(year=2020, month=2, day=10)
+        birth_date = timezone.datetime(year=2020, month=2, day=10, hour=0,
+                                       minute=0, second=0)
+        birth_date = timezone.make_aware(birth_date)
         models.Child.objects.create(
             first_name='Child', last_name='One', birth_date=birth_date).save()
 

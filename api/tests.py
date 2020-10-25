@@ -93,7 +93,7 @@ class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'id': 1,
             'first_name': 'Fake',
             'last_name': 'Child',
-            'birth_date': '2017-11-11',
+            'birth_date': '2017-11-10T19:00:00-05:00',
             'slug': 'fake-child',
             'picture': None
         })
@@ -102,7 +102,7 @@ class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         data = {
             'first_name': 'Test',
             'last_name': 'Child',
-            'birth_date': '2017-11-12'
+            'birth_date': '2017-11-12 00:00:00'
         }
         response = self.client.post(self.endpoint, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
