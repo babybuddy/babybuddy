@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n %}
+{% load datetimepicker i18n %}
 
 {% block title %}
     {% if object %}
@@ -33,9 +33,8 @@
 {% block javascript %}
     <script type="text/javascript">
         BabyBuddy.DatetimePicker.init($('#datetimepicker_birth_date'), {
-            format: 'L',
+            format: '{% datetimepicker_format %}',
             viewMode: 'years',
-            extraFormats: ['YYYY-MM-DD']
         });
     </script>
 {% endblock %}

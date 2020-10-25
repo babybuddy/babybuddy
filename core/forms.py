@@ -93,7 +93,7 @@ class ChildForm(forms.ModelForm):
         if settings.BABY_BUDDY['ALLOW_UPLOADS']:
             fields.append('picture')
         widgets = {
-            'birth_date': forms.DateInput(attrs={
+            'birth_date': forms.DateTimeInput(attrs={
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_date',
             }),

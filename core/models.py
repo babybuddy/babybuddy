@@ -74,7 +74,7 @@ class Child(models.Model):
     model_name = 'child'
     first_name = models.CharField(max_length=255, verbose_name=_('First name'))
     last_name = models.CharField(max_length=255, verbose_name=_('Last name'))
-    birth_date = models.DateField(
+    birth_date = models.DateTimeField(
         blank=False,
         null=False,
         verbose_name=_('Birth date')
