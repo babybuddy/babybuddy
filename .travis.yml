@@ -6,11 +6,9 @@ jobs:
     - name: "Python 3.6"
       before_install:
         - pyenv global `pyenv versions | tr -d "[:blank:]" | grep -Po "3\.6\.[\d]+" | tail -1`
-        - rm Pipfile.lock
     - name: "Python 3.7"
       before_install:
         - pyenv global `pyenv versions | tr -d "[:blank:]" | grep -Po "3\.7\.[\d]+" | tail -1`
-        - rm Pipfile.lock
     - name: "Python 3.8"
       before_install:
         - pyenv global `pyenv versions | tr -d "[:blank:]" | grep -Po "3\.8\.[\d]+" | tail -1`
