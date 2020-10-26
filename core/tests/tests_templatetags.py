@@ -16,6 +16,12 @@ class TemplateTagsTestCase(TestCase):
             bootstrap.bool_icon(False),
             '<i class="icon icon-false text-danger" aria-hidden="true"></i>')
 
+    def test_child_age_string(self):
+        date = timezone.localdate() - timezone.timedelta(days=0, hours=6)
+        self.assertEqual('0\xa0days', duration.child_age_string(date))
+        date = timezone.localdate() - timezone.timedelta(days=1, hours=6)
+        self.assertEqual('1\xa0day', duration.child_age_string(date))
+
     def test_duration_duration_string(self):
         delta = timezone.timedelta(hours=1, minutes=30, seconds=15)
         self.assertEqual(
