@@ -101,11 +101,11 @@ for a simpler SQLite-based deployment (the default example users PostgreSQL).
 1. Copy the raw content of either `docker-compose.example.yml` or `docker-compose.example.sqlite.yml` 
 into a new file named `docker-compose.yml` 
 
-        wget https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.yml
+        wget -O docker-compose.yml https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.yml
      
     *or*
         
-        wget https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.sqlite.yml
+        wget -O docker-compose.yml https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.sqlite.yml
 
 1. Within `docker-compose.yml`, at the very least, set the `ALLOWED_HOSTS` and `SECRET_KEY` variables under
 `services:app:environment`.
