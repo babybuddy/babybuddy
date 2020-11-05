@@ -95,12 +95,22 @@ intended for production deployments. Baby Buddy is deployed to Docker Hub as
 [babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) so this is
 the only file needed for a Docker deployment with Docker Compose.
 
-1. Copy the contents of `docker-compose.example.yml` as `docker-compose.yml`
-and set, at least, the `ALLOWED_HOSTS` and `SECRET_KEY` variables under
+A secondary example file `docker-compose.example.sqlite.yml` is also available
+for a simpler SQLite-based deployment (the default example users PostgreSQL).
+
+1. Copy the raw content of either `docker-compose.example.yml` or `docker-compose.example.sqlite.yml` 
+into a new file named `docker-compose.yml` 
+
+        wget https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.yml
+     
+    *or*
+        
+        wget https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.sqlite.yml
+
+1. Within `docker-compose.yml`, at the very least, set the `ALLOWED_HOSTS` and `SECRET_KEY` variables under
 `services:app:environment`.
 
-    *See [Configuration](#configuration) for other settings that can be
-    controlled by environment variables.*
+    *See [Configuration](#configuration) for other settings that can be controlled by environment variables.*
 
 1. Build/run the application
 
@@ -110,9 +120,6 @@ The app should now be locally available at
 [http://127.0.0.1:8000](http://127.0.0.1:8000). See
 [Docker's "Get Started" documentation](https://docs.docker.com/get-started/)
 for detailed information about deployment methods with Docker.
-
-A secondary example file `docker-compose.example.sqlite.yml` is also available
-for a simpler SQLite-based deployment (the default example users PostgreSQL).
 
 ### Heroku
 
