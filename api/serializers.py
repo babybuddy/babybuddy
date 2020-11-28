@@ -100,6 +100,11 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
         lookup_field = 'slug'
 
 
+class ChildDashboardSerializer(serializers.Serializer):
+    child = ChildSerializer()
+    feedings = serializers.DictField(read_only=True)
+
+
 class DiaperChangeSerializer(CoreModelSerializer):
     class Meta:
         model = models.DiaperChange

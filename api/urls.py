@@ -6,8 +6,8 @@ from rest_framework.schemas import get_schema_view
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'children', views.ChildViewSet)
 router.register(r'changes', views.DiaperChangeViewSet)
+router.register(r'children', views.ChildViewSet)
 router.register(r'feedings', views.FeedingViewSet)
 router.register(r'notes', views.NoteViewSet)
 router.register(r'sleep', views.SleepViewSet)
@@ -20,6 +20,8 @@ app_name = 'api'
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('api/dashboards/<slug:slug>', views.ChildDashboardAPIView.as_view(),
+         name='child-dashboard'),
     path('api/auth/', include(
         'rest_framework.urls',
         namespace='rest_framework'
