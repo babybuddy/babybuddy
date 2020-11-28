@@ -25,13 +25,44 @@ class ChildDashboardAPIView(views.APIView):
     def get(self, request, slug):
         child = models.Child.objects.get(slug=slug)
         date = timezone.localtime().date()
+        time = timezone.datetime.combine(date, timezone.localtime().min.time())
+        time = timezone.make_aware(time)
 
         data = {
             'child': child,
+            'diaper_changes': {'last': {}, 'past_week': []},
             'feedings': {'last': {}, 'methods': [], 'today': {}},
             'sleep': {'last': {}, 'today_sleep': {}, 'today_naps': {}},
             'tummy_times': {'today_stats': {}, 'today_times': [], 'last': {}},
         }
+
+        # Diaper changes.
+        changes = models.DiaperChange.objects.filter(child=child)
+        data['diaper_changes']['last'] = serializers.DiaperChangeSerializer(
+            changes.order_by('-time').first()).data
+        stats = {}
+        week_total = 0
+        max_date = (time + timezone.timedelta(days=1)).replace(
+            hour=0, minute=0, second=0)
+        min_date = (max_date - timezone.timedelta(days=7)).replace(
+            hour=0, minute=0, second=0)
+        for x in range(7):
+            stats[x] = {'wet': 0.0, 'solid': 0.0}
+        instances = changes.filter(time__gt=min_date).filter(
+            time__lt=max_date).order_by('-time')
+        for instance in instances:
+            key = (max_date - instance.time).days
+            if instance.wet:
+                stats[key]['wet'] += 1
+            if instance.solid:
+                stats[key]['solid'] += 1
+        for key, info in stats.items():
+            total = info['wet'] + info['solid']
+            week_total += total
+            if total > 0:
+                stats[key]['wet_pct'] = info['wet'] / total * 100
+                stats[key]['solid_pct'] = info['solid'] / total * 100
+        data['diaper_changes']['past_week'] = {'stats': stats, 'total': week_total}
 
         # Feedings.
         feedings = models.Feeding.objects.filter(child=child)

@@ -102,6 +102,7 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
 
 class ChildDashboardSerializer(serializers.Serializer):
     child = ChildSerializer(read_only=True)
+    diaper_changes = serializers.DictField(read_only=True)
     feedings = serializers.DictField(read_only=True)
     sleep = serializers.DictField(read_only=True)
     tummy_times = serializers.DictField(read_only=True)
