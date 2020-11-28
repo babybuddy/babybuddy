@@ -1,0 +1,39 @@
+{% extends 'reports/report_base.html' %}
+{% load duration i18n %}
+
+{% block title %}{% trans "Statistics" %} - {{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Statistics" %}</li>
+{% endblock %}
+
+{% block content %}
+    <div id="dashboard-child" class="card-columns">
+    {% for stat in stats %}
+        <div class="card card-dashboard card-statistics">
+            <div class="card-header">
+                <i class="icon icon-graph pull-left" aria-hidden="true"></i>
+                {{ stat.title }}
+            </div>
+            <div class="card-body text-center">
+                <span class="card-title">
+                    {% if stat.stat %}
+                    {% if stat.type == 'duration' %}
+                        {{ stat.stat|duration_string:'m' }}
+                    {% elif stat.type == 'float' %}
+                        {{ stat.stat|floatformat }}
+                    {% else %}
+                        {{ stat.stat }}
+                    {% endif %}
+                    {% else %}
+                        <em>{% trans "Not enough data" %}</em>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascript %}{% endblock %}
