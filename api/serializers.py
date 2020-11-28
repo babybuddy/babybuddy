@@ -101,8 +101,9 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ChildDashboardSerializer(serializers.Serializer):
-    child = ChildSerializer()
+    child = ChildSerializer(read_only=True)
     feedings = serializers.DictField(read_only=True)
+    sleep = serializers.DictField(read_only=True)
 
 
 class DiaperChangeSerializer(CoreModelSerializer):

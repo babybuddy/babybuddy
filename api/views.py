@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.db.models import Sum
 from django.utils import timezone
 
 from rest_framework import views, viewsets
@@ -28,6 +29,7 @@ class ChildDashboardAPIView(views.APIView):
         data = {
             'child': child,
             'feedings': {'last': {}, 'methods': [], 'today': {}},
+            'sleep': {'last': {}, 'today_sleep': {}, 'today_naps': {}}
         }
 
         # Feedings data.
@@ -46,9 +48,42 @@ class ChildDashboardAPIView(views.APIView):
             'total': sum([instance.amount for instance in feedings_today if instance.amount]),
             'count': len(feedings_today)}
 
-        results = serializers.ChildDashboardSerializer(instance=data).data
+        # Sleep data.
+        sleep = models.Sleep.objects.filter(child=child)
+        data['sleep']['last'] = serializers.SleepSerializer(
+            sleep.order_by('-end').first()).data
+        sleep_today = sleep.filter(
+            start__year=date.year,
+            start__month=date.month,
+            start__day=date.day) | sleep.filter(
+            end__year=date.year,
+            end__month=date.month,
+            end__day=date.day)
+        total = timezone.timedelta(seconds=0)
+        for instance in sleep_today:
+            start = timezone.localtime(instance.start)
+            end = timezone.localtime(instance.end)
+            # Account for dates crossing midnight.
+            if start.date() != date:
+                start = start.replace(year=end.year, month=end.month, day=end.day,
+                                      hour=0, minute=0, second=0)
+            total += end - start
+        count = len(sleep_today)
+        data['sleep']['today_sleep'] = {'total': total.total_seconds(),
+                                        'count': count}
+        naps = models.Sleep.naps.filter(child=child)
+        naps_today = naps.filter(
+            start__year=date.year,
+            start__month=date.month,
+            start__day=date.day) | naps.filter(child=child).filter(
+            end__year=date.year,
+            end__month=date.month,
+            end__day=date.day)
+        data['sleep']['today_naps'] = {
+            'total': naps_today.aggregate(Sum('duration'))['duration__sum'].total_seconds(),
+            'count': len(naps_today)}
 
-        print(results)
+        results = serializers.ChildDashboardSerializer(instance=data).data
 
         return Response(results)
 
