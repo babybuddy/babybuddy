@@ -29,10 +29,11 @@ class ChildDashboardAPIView(views.APIView):
         data = {
             'child': child,
             'feedings': {'last': {}, 'methods': [], 'today': {}},
-            'sleep': {'last': {}, 'today_sleep': {}, 'today_naps': {}}
+            'sleep': {'last': {}, 'today_sleep': {}, 'today_naps': {}},
+            'tummy_times': {'today_stats': {}, 'today_times': [], 'last': {}},
         }
 
-        # Feedings data.
+        # Feedings.
         feedings = models.Feeding.objects.filter(child=child)
         data['feedings']['last'] = serializers.FeedingSerializer(
             feedings.order_by('-end').first()).data
@@ -48,7 +49,7 @@ class ChildDashboardAPIView(views.APIView):
             'total': sum([instance.amount for instance in feedings_today if instance.amount]),
             'count': len(feedings_today)}
 
-        # Sleep data.
+        # Sleep.
         sleep = models.Sleep.objects.filter(child=child)
         data['sleep']['last'] = serializers.SleepSerializer(
             sleep.order_by('-end').first()).data
@@ -82,6 +83,22 @@ class ChildDashboardAPIView(views.APIView):
         data['sleep']['today_naps'] = {
             'total': naps_today.aggregate(Sum('duration'))['duration__sum'].total_seconds(),
             'count': len(naps_today)}
+
+        # Tummy times
+        tummy_time = models.TummyTime.objects.filter(
+            child=child, end__year=date.year, end__month=date.month,
+            end__day=date.day).order_by('-end')
+        stats = {
+            'total': timezone.timedelta(seconds=0),
+            'count': tummy_time.count()
+        }
+        for instance in tummy_time:
+            stats['total'] += timezone.timedelta(seconds=instance.duration.seconds)
+        stats['total'] = stats['total'].total_seconds()
+        data['tummy_times'] = {
+            'today_stats': stats,
+            'today_times': serializers.TummyTimeSerializer(tummy_time, many=True).data,
+            'last': serializers.TummyTimeSerializer(tummy_time.first()).data}
 
         results = serializers.ChildDashboardSerializer(instance=data).data
 
