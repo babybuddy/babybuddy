@@ -105,6 +105,7 @@ class ChildDashboardSerializer(serializers.Serializer):
     diaper_changes = serializers.DictField(read_only=True)
     feedings = serializers.DictField(read_only=True)
     sleep = serializers.DictField(read_only=True)
+    timers = serializers.ListField(read_only=True)
     tummy_times = serializers.DictField(read_only=True)
 
 

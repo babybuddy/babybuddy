@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.db.models import Sum
+from django.db.models import Q, Sum
 from django.utils import timezone
 
 from rest_framework import views, viewsets
@@ -33,6 +33,7 @@ class ChildDashboardAPIView(views.APIView):
             'diaper_changes': {'last': {}, 'past_week': []},
             'feedings': {'last': {}, 'methods': [], 'today': {}},
             'sleep': {'last': {}, 'today_sleep': {}, 'today_naps': {}},
+            'timers': [],
             'tummy_times': {'today_stats': {}, 'today_times': [], 'last': {}},
         }
 
@@ -114,6 +115,13 @@ class ChildDashboardAPIView(views.APIView):
         data['sleep']['today_naps'] = {
             'total': naps_today.aggregate(Sum('duration'))['duration__sum'].total_seconds(),
             'count': len(naps_today)}
+
+        # Timers
+        timers = models.Timer.objects.filter(
+            Q(active=True),
+            Q(child=child) | Q(child=None)
+        ).order_by('-start')
+        data['timers'] = serializers.TimerSerializer(timers, many=True).data
 
         # Tummy times
         tummy_time = models.TummyTime.objects.filter(
