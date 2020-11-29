@@ -112,8 +112,9 @@ class ChildDashboardAPIView(views.APIView):
             end__year=date.year,
             end__month=date.month,
             end__day=date.day)
+        naps_sum_time = naps_today.aggregate(Sum('duration'))['duration__sum']
         data['sleep']['today_naps'] = {
-            'total': naps_today.aggregate(Sum('duration'))['duration__sum'].total_seconds(),
+            'total': naps_sum_time.total_seconds() if naps_sum_time else 0,
             'count': len(naps_today)}
 
         # Timers
