@@ -86,60 +86,6 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(data['total'], timezone.timedelta(0, 9000))
         self.assertEqual(data['count'], 2)
 
-    def test_card_statistics(self):
-        data = cards.card_statistics(self.child)
-        stats = [
-            {
-                'title': 'Diaper change frequency',
-                'stat': timezone.timedelta(0, 44228, 571429),
-                'type': 'duration'
-            },
-            # Statistics date basis is not particularly strong to these feeding
-            # examples.
-            # TODO: Improve testing of feeding frequency statistics.
-            {
-                'type': 'duration',
-                'stat': 0.0,
-                'title': 'Feeding frequency (past 3 days)'
-            },
-            {
-                'type': 'duration',
-                'stat': 0.0,
-                'title': 'Feeding frequency (past 2 weeks)'},
-            {
-                'type': 'duration',
-                'stat': timezone.timedelta(0, 7200),
-                'title': 'Feeding frequency'
-            },
-            {
-                'title': 'Average nap duration',
-                'stat': timezone.timedelta(0, 4500),
-                'type': 'duration'
-            },
-            {
-                'title': 'Average naps per day',
-                'stat': 2.0,
-                'type': 'float'
-            },
-            {
-                'title': 'Average sleep duration',
-                'stat': timezone.timedelta(0, 6750),
-                'type': 'duration'
-            },
-            {
-                'title': 'Average awake duration',
-                'stat': timezone.timedelta(0, 19200),
-                'type': 'duration'
-            },
-            {
-                'title': 'Weight change per week',
-                'stat': 1.0, 'type':
-                'float'
-            }
-        ]
-
-        self.assertEqual(data['stats'], stats)
-
     def test_card_timer_list(self):
         user = User.objects.first()
         child = models.Child.objects.first()

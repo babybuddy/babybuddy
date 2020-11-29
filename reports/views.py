@@ -165,7 +165,6 @@ class StatisticsChildReport(PermissionRequired403Mixin, DetailView):
     """
     General statistics.
     TODO: Refactor template to be more appropriate for reports.
-    TODO: Move/refactor relevant tests.
     """
     model = models.Child
     permission_required = ('core.view_child',)
