@@ -19,7 +19,9 @@ def sleep_pattern(instances):
     :param instances: a QuerySet of Sleep instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    # TODO: Simplify this using the bar charts "base" property.
+    times = {}
+    labels = {}
+
     y_df = pd.DataFrame()
     text_df = pd.DataFrame()
     last_end_time = None
@@ -31,11 +33,19 @@ def sleep_pattern(instances):
         start_date = start_time.date().isoformat()
         duration = instance.duration
 
+        if start_date not in times:
+            times[start_date] = []
+        if start_date not in labels:
+            labels[start_date] = []
+
         # Check if the previous entry crossed midnight (see below).
         if adjustment:
             # Fake (0) entry to keep the color switching logic working.
             df_index = _add_sleep_entry(
                 y_df, text_df, 0, adjustment['column'], 0)
+            times[adjustment['column']].append(0)
+            labels[adjustment['column']].append(0)
+
             # Real adjustment entry.
             df_index = _add_sleep_entry(
                 y_df,
@@ -49,6 +59,13 @@ def sleep_pattern(instances):
                     adjustment['end_time'].strftime('%I:%M %p')
                 )
             )
+            times[adjustment['column']].append(
+                adjustment['duration'].seconds/60)
+            labels[adjustment['column']].append('Asleep {} ({} to {})'.format(
+                duration_string(adjustment['duration']),
+                adjustment['start_time'].strftime('%I:%M %p'),
+                adjustment['end_time'].strftime('%I:%M %p')))
+
             last_end_time = timezone.localtime(adjustment['end_time'])
             adjustment = None
 
@@ -70,6 +87,9 @@ def sleep_pattern(instances):
 
         if start_date not in y_df:
             last_end_time = start_time.replace(hour=0, minute=0, second=0)
+        # TODO: Fix this -- doesn't appear to work in the extra same way.
+        if start_date not in times:
+            last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
         # Awake time.
         df_index = _add_sleep_entry(
@@ -79,6 +99,8 @@ def sleep_pattern(instances):
             start_date,
             (start_time - last_end_time).seconds/60
         )
+        times[start_date].append((start_time - last_end_time).seconds/60)
+        labels[start_date].append(None)
 
         # Asleep time.
         df_index = _add_sleep_entry(
@@ -93,24 +115,46 @@ def sleep_pattern(instances):
                 end_time.strftime('%I:%M %p')
             )
         )
+        times[start_date].append(duration.seconds/60)
+        labels[start_date].append('Asleep {} ({} to {})'.format(
+            duration_string(duration),
+            start_time.strftime('%I:%M %p'),
+            end_time.strftime('%I:%M %p')))
 
         # Update the previous entry duration if an offset change occurred.
         # This can happen when an entry crosses a daylight savings time change.
-        if start_time.utcoffset() != end_time.utcoffset():
-            diff = start_time.utcoffset() - end_time.utcoffset()
-            duration -= timezone.timedelta(seconds=diff.seconds)
-            y_df.at[df_index - 1, start_date] = duration.seconds/60
+        # TODO: Reimplement this functionality.
+        # if start_time.utcoffset() != end_time.utcoffset():
+        #     diff = start_time.utcoffset() - end_time.utcoffset()
+        #     duration -= timezone.timedelta(seconds=diff.seconds)
+        #     y_df.at[df_index - 1, start_date] = duration.seconds/60
 
         last_end_time = end_time
 
-    dates = list(y_df)
+    dates = list(times.keys())
     traces = []
     color = 'rgba(255, 255, 255, 0)'
-    for index, row in y_df.iterrows():
+
+    # Set iterator and determine maximum iteration for dates.
+    i = 0
+    max_i = 0
+    for date_times in times.values():
+        max_i = max(len(date_times), max_i)
+    while i < max_i:
+        y = {}
+        text = {}
+        for date in times.keys():
+            try:
+                y[date] = times[date][i]
+                text[date] = labels[date][i]
+            except IndexError:
+                y[date] = None
+                text[date] = None
+        i += 1
         traces.append(go.Bar(
             x=dates,
-            y=row,
-            text=text_df.iloc[index],
+            y=list(y.values()),
+            text=list(text.values()),
             hoverinfo='text',
             marker={'color': color},
             marker_line_width=0,
