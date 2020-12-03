@@ -42,10 +42,10 @@ def sleep_pattern(instances):
             # Real adjustment entry.
             times[adjustment['column']].append(
                 adjustment['duration'].seconds/60)
-            labels[adjustment['column']].append('Asleep {} ({} to {})'.format(
-                duration_string(adjustment['duration']),
-                adjustment['start_time'].strftime('%I:%M %p'),
-                adjustment['end_time'].strftime('%I:%M %p')))
+            labels[adjustment['column']].append(_format_label(
+                adjustment['duration'],
+                adjustment['start_time'],
+                adjustment['end_time']))
 
             last_end_time = timezone.localtime(adjustment['end_time'])
             adjustment = None
@@ -75,10 +75,7 @@ def sleep_pattern(instances):
 
         # Asleep time.
         times[start_date].append(duration.seconds/60)
-        labels[start_date].append('Asleep {} ({} to {})'.format(
-            duration_string(duration),
-            start_time.strftime('%I:%M %p'),
-            end_time.strftime('%I:%M %p')))
+        labels[start_date].append(_format_label(duration, start_time, end_time))
 
         # Update the previous entry duration if an offset change occurred.
         # This can happen when an entry crosses a daylight savings time change.
@@ -86,10 +83,8 @@ def sleep_pattern(instances):
             diff = start_time.utcoffset() - end_time.utcoffset()
             duration -= timezone.timedelta(seconds=diff.seconds)
             times[len(times) - 1] = duration.seconds/60
-            labels[len(labels) - 1] = 'Asleep {} ({} to {})'.format(
-                duration_string(duration),
-                start_time.strftime('%I:%M %p'),
-                end_time.strftime('%I:%M %p'))
+            labels[len(labels) - 1] = _format_label(duration, start_time,
+                                                    end_time)
 
         last_end_time = end_time
 
@@ -159,3 +154,17 @@ def sleep_pattern(instances):
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
     return utils.split_graph_output(output)
+
+
+def _format_label(duration, start_time, end_time):
+    """
+    Formats a time block label.
+    :param duration: Duration.
+    :param start_time: Start time.
+    :param end_time: End time.
+    :return: Formatted string with duration, start, and end time.
+    """
+    return 'Asleep {} ({} to {})'.format(
+                duration_string(duration),
+                start_time.strftime('%I:%M %p'),
+                end_time.strftime('%I:%M %p'))
