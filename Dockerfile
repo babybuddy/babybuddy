@@ -1,8 +1,9 @@
-FROM python:3 as app
+FROM python:3.8-slim as app
 ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pipenv gunicorn
 WORKDIR /app
 COPY Pipfile /app/
+RUN pipenv lock
 RUN pipenv install --deploy --system
 ADD manage.py /app/
 ADD api /app/api
