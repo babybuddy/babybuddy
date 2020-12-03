@@ -6,4 +6,4 @@ set -euo pipefail
 
 # Prevent heroku-buildpack-python from using pipenv instead of pip and requirements.txt.
 # https://github.com/heroku/heroku-buildpack-python/issues/704
-rm Pipfile Pipfile.lock
+rm Pipfile

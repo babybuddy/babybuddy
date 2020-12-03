@@ -4,7 +4,6 @@ from collections import OrderedDict
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
-import pandas as pd
 import plotly.offline as plotly
 import plotly.graph_objs as go
 
@@ -19,36 +18,35 @@ def sleep_pattern(instances):
     :param instances: a QuerySet of Sleep instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    # TODO: Simplify this using the bar charts "base" property.
-    y_df = pd.DataFrame()
-    text_df = pd.DataFrame()
+    times = {}
+    labels = {}
     last_end_time = None
     adjustment = None
-    df_index = 0
     for instance in instances:
         start_time = timezone.localtime(instance.start)
         end_time = timezone.localtime(instance.end)
         start_date = start_time.date().isoformat()
         duration = instance.duration
 
+        if start_date not in times:
+            times[start_date] = []
+        if start_date not in labels:
+            labels[start_date] = []
+
         # Check if the previous entry crossed midnight (see below).
         if adjustment:
             # Fake (0) entry to keep the color switching logic working.
-            df_index = _add_sleep_entry(
-                y_df, text_df, 0, adjustment['column'], 0)
+            times[adjustment['column']].append(0)
+            labels[adjustment['column']].append(0)
+
             # Real adjustment entry.
-            df_index = _add_sleep_entry(
-                y_df,
-                text_df,
-                df_index,
-                adjustment['column'],
-                adjustment['duration'].seconds/60,
-                'Asleep {} ({} to {})'.format(
-                    duration_string(adjustment['duration']),
-                    adjustment['start_time'].strftime('%I:%M %p'),
-                    adjustment['end_time'].strftime('%I:%M %p')
-                )
-            )
+            times[adjustment['column']].append(
+                adjustment['duration'].seconds/60)
+            labels[adjustment['column']].append(_format_label(
+                adjustment['duration'],
+                adjustment['start_time'],
+                adjustment['end_time']))
+
             last_end_time = timezone.localtime(adjustment['end_time'])
             adjustment = None
 
@@ -68,49 +66,53 @@ def sleep_pattern(instances):
                 day=start_time.day, hour=23, minute=59, second=0)
             duration = end_time - start_time
 
-        if start_date not in y_df:
+        if not last_end_time:
             last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
         # Awake time.
-        df_index = _add_sleep_entry(
-            y_df,
-            text_df,
-            df_index,
-            start_date,
-            (start_time - last_end_time).seconds/60
-        )
+        times[start_date].append((start_time - last_end_time).seconds/60)
+        labels[start_date].append(None)
 
         # Asleep time.
-        df_index = _add_sleep_entry(
-            y_df,
-            text_df,
-            df_index,
-            start_date,
-            duration.seconds/60,
-            'Asleep {} ({} to {})'.format(
-                duration_string(duration),
-                start_time.strftime('%I:%M %p'),
-                end_time.strftime('%I:%M %p')
-            )
-        )
+        times[start_date].append(duration.seconds/60)
+        labels[start_date].append(_format_label(duration, start_time,
+                                                end_time))
 
         # Update the previous entry duration if an offset change occurred.
         # This can happen when an entry crosses a daylight savings time change.
         if start_time.utcoffset() != end_time.utcoffset():
             diff = start_time.utcoffset() - end_time.utcoffset()
             duration -= timezone.timedelta(seconds=diff.seconds)
-            y_df.at[df_index - 1, start_date] = duration.seconds/60
+            times[len(times) - 1] = duration.seconds/60
+            labels[len(labels) - 1] = _format_label(duration, start_time,
+                                                    end_time)
 
         last_end_time = end_time
 
-    dates = list(y_df)
+    dates = list(times.keys())
     traces = []
     color = 'rgba(255, 255, 255, 0)'
-    for index, row in y_df.iterrows():
+
+    # Set iterator and determine maximum iteration for dates.
+    i = 0
+    max_i = 0
+    for date_times in times.values():
+        max_i = max(len(date_times), max_i)
+    while i < max_i:
+        y = {}
+        text = {}
+        for date in times.keys():
+            try:
+                y[date] = times[date][i]
+                text[date] = labels[date][i]
+            except IndexError:
+                y[date] = None
+                text[date] = None
+        i += 1
         traces.append(go.Bar(
             x=dates,
-            y=row,
-            text=text_df.iloc[index],
+            y=list(y.values()),
+            text=list(text.values()),
             hoverinfo='text',
             marker={'color': color},
             marker_line_width=0,
@@ -155,23 +157,15 @@ def sleep_pattern(instances):
     return utils.split_graph_output(output)
 
 
-def _add_sleep_entry(y_df, text_df, index, column, duration, text=''):
+def _format_label(duration, start_time, end_time):
     """
-    Create a duration and text description entry in a DataFrame and return
-    the next index on success.
-    :param y_df: the y values DataFrame.
-    :param text_df: the text values DataFrame.
-    :param index: the index to target in both y_df and text_df.
-    :param column: the column (date) to make the entry in.
-    :param duration: the duration of the entry.
-    :param text: text to go with the entry (displays on graph hover).
-    :return: the next index of the DataFrames.
+    Formats a time block label.
+    :param duration: Duration.
+    :param start_time: Start time.
+    :param end_time: End time.
+    :return: Formatted string with duration, start, and end time.
     """
-    if column not in y_df:
-        y_df.assign(**{column: 0 in range(0, len(y_df.index))})
-        text_df.assign(**{column: 0 in range(0, len(text_df.index))})
-        index = 0
-
-    y_df.at[index, column] = duration
-    text_df.at[index, column] = text
-    return index + 1
+    return 'Asleep {} ({} to {})'.format(
+                duration_string(duration),
+                start_time.strftime('%I:%M %p'),
+                end_time.strftime('%I:%M %p'))
