@@ -82,11 +82,14 @@ def sleep_pattern(instances):
 
         # Update the previous entry duration if an offset change occurred.
         # This can happen when an entry crosses a daylight savings time change.
-        # TODO: Reimplement this functionality.
-        # if start_time.utcoffset() != end_time.utcoffset():
-        #     diff = start_time.utcoffset() - end_time.utcoffset()
-        #     duration -= timezone.timedelta(seconds=diff.seconds)
-        #     y_df.at[df_index - 1, start_date] = duration.seconds/60
+        if start_time.utcoffset() != end_time.utcoffset():
+            diff = start_time.utcoffset() - end_time.utcoffset()
+            duration -= timezone.timedelta(seconds=diff.seconds)
+            times[len(times) - 1] = duration.seconds/60
+            labels[len(labels) - 1] = 'Asleep {} ({} to {})'.format(
+                duration_string(duration),
+                start_time.strftime('%I:%M %p'),
+                end_time.strftime('%I:%M %p'))
 
         last_end_time = end_time
 
