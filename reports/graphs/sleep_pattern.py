@@ -75,7 +75,8 @@ def sleep_pattern(instances):
 
         # Asleep time.
         times[start_date].append(duration.seconds/60)
-        labels[start_date].append(_format_label(duration, start_time, end_time))
+        labels[start_date].append(_format_label(duration, start_time,
+                                                end_time))
 
         # Update the previous entry duration if an offset change occurred.
         # This can happen when an entry crosses a daylight savings time change.
