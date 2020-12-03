@@ -25,3 +25,9 @@ docker-compose.yml
 
 # Django media root directory.
 /media
+
+# Pipfile.lock.
+# Committing this file makes it difficult to support multiple Python versions as
+# requirements can different between versions, but the Pipfile only supports
+# locking to one version.
+Pipfile.lock

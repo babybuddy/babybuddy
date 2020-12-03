@@ -190,12 +190,6 @@ Python 3.6+, nginx, uwsgi and sqlite and should be sufficient for a few users
 
         pipenv install --three
         pipenv shell
-        
-    **Note:** Python dependencies are locked on x86-64 architecture. Installs 
-    on other architectures (like Raspberry Pi's ARM) may result in a 
-    ``THESE PACKAGES DO NOT MATCH THE HASHES FROM Pipfile.lock!`` error. Add 
-    the ``--skip-lock`` flag to the above command to suppress this error 
-    (i.e.: ``pipenv install --three --dev --skip-lock``).
 
 1. Create a production settings file and set the ``SECRET_KEY`` and ``ALLOWED_HOSTS`` values
 

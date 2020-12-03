@@ -3,7 +3,6 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pipenv gunicorn
 WORKDIR /app
 COPY Pipfile /app/
-COPY Pipfile.lock /app/
 RUN pipenv install --deploy --system
 ADD manage.py /app/
 ADD api /app/api
