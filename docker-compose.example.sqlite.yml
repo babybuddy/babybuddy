@@ -20,6 +20,7 @@ services:
       - "8000:8000"
     # For Portainer deployment, select an alternate port for babybuddy, such as port 7000
     # - "7000:8000"
+    restart: unless-stopped
 volumes:
   data: {}
   media: {}
