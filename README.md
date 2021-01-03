@@ -283,6 +283,11 @@ take precedence over the contents of an `.env` file.**
 - [`DEBUG`](#debug)
 - [`NAP_START_MAX`](#nap_start_max)
 - [`NAP_START_MIN`](#nap_start_min)
+- [`POSTGRES_DB`](#postgres_db)
+- [`POSTGRES_HOST`](#postgres_host)
+- [`POSTGRES_PASSWORD`](#postgres_password)
+- [`POSTGRES_PORT`](#postgres_port)
+- [`POSTGRES_USER`](#postgres_user)
 - [`SECRET_KEY`](#secret_key)
 - [`TIME_ZONE`](#time_zone)
 - [`USE_24_HOUR_TIME_FORMAT`](#use_24_hour_time_format)
@@ -353,6 +358,36 @@ entry is consider a nap. Expects the 24-hour format %H:%M.
 
 The minimum *start* time (in the instance's time zone) after which a sleep
 entry is considered a nap. Expects the 24-hour format %H:%M.
+
+### 'POSTGRES_DB'
+
+*Default: postgres*
+
+The name of the PostgreSQL table Baby Buddy will utilize.
+
+### 'POSTGRES_HOST'
+
+*Default: db*
+
+The name of the PostgreSQL host.
+
+### 'POSTGRES_PASSWORD'
+
+*No Default*
+
+The password for the PostgreSQL user used to connect to PostgreSQL. In the default example, this is the root PostgreSQL password.
+
+### 'POSTGRES_PORT'
+
+*Default: 5432*
+
+The port PostgreSQL listens on if not the default 5432.
+
+### 'POSTGRES_USER'
+
+*Default: postgres*
+
+The username Baby Buddy will use to connect to the PostgreSQL database.
 
 ### `SECRET_KEY`
 
