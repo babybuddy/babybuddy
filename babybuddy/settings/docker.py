@@ -7,11 +7,11 @@ from .base import *
 # Load settings from env file / variables with fallback defaults to support current psql deployment
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('POSTGRES_DB') if os.getenv('POSTGRES_DB') else 'postgres',
-        'USER': os.getenv('POSTGRES_USER') if os.getenv('POSTGRES_USER') else 'postgres',
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST') if os.getenv('POSTGRES_HOST') else 'db',
-        'PORT': os.getenv('POSTGRES_PORT') if os.getenv('POSTGRES_PORT') else 5432,
+        'ENGINE': os.getenv('DB_ENGINE') or 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DB_NAME') or 'postgres',
+        'USER': os.getenv('DB_USER') or 'postgres',
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST') or 'db',
+        'PORT': os.getenv('DB_PORT') or 5432,
     }
 }
