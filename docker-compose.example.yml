@@ -4,7 +4,7 @@ services:
     image: postgres:11 # pin postgres to a major version
     environment:
       - PGDATA=/db-data
-      - POSTGRES_PASSWORD=postgres # has to correspond with POSTGRES_PASSWORD in APP
+      - POSTGRES_PASSWORD=postgres # has to correspond with DB_PASSWORD in APP
     volumes:
       - db:/db-data:rw
   app:
@@ -12,10 +12,15 @@ services:
     # See README.md#configuration for other environment configuration options.
     environment:
       - ALLOWED_HOSTS=
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_HOST=db
+      - DB_NAME=postgres
+      - DB_PASSWORD=postgres # has to correspond with POSTGRES_PASSWORD in DB
+      - DB_PORT=5432
+      - DB_NAME=postgres
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
       - SECRET_KEY=
       - TIME_ZONE=
-      - POSTGRES_PASSWORD=postgres
       - DEBUG=False # Turn to False in production
     volumes:
       - media:/app/media:rw
