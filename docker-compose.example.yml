@@ -12,12 +12,7 @@ services:
     # See README.md#configuration for other environment configuration options.
     environment:
       - ALLOWED_HOSTS=
-      - DB_ENGINE=django.db.backends.postgresql_psycopg2
-      - DB_HOST=
-      - DB_NAME=
       - DB_PASSWORD=postgres # has to correspond with POSTGRES_PASSWORD in DB
-      - DB_PORT=
-      - DB_NAME=
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
       - SECRET_KEY=
       - TIME_ZONE=
