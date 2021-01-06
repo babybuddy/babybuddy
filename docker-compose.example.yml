@@ -19,10 +19,10 @@ services:
     # See README.md#configuration for other environment configuration options.
     environment:
       - ALLOWED_HOSTS=localhost    # comma separated list of IP addresses or hosts that can access the web UI
+      - DB_PASSWORD=postgres       # must correspond with POSTGRES_PASSWORD in DB
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
       - SECRET_KEY=                # Generate a random string here to secure the Django instance
       - TIME_ZONE=                 # In the tzdata format, IE, "America/Denver"
-      - POSTGRES_PASSWORD=postgres # has to correspond with DB_PASSWORD in DB
       - DEBUG=False                # Turn to False in production
     volumes:
       - media:/app/media:rw
