@@ -29,7 +29,7 @@ services:
     # Sleep 5 seconds to allow the db to to come up;
     command: bash -c 'sleep 5 && python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
     ports:
-      - "8000:8000" # For Portainer, select an alternate port for babybuddy, such as 7000, for example "7000:8000"
+      - "8000:8000"               # For Portainer, select another port for babybuddy such as 7000, for example "7000:8000"
     restart: unless-stopped
     depends_on:
       - db
