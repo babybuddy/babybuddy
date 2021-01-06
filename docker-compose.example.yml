@@ -1,21 +1,21 @@
 version: "2.4"
 services:
   db:
-    image: postgres:11 # pin postgres to a major version
-    # Container_name is an optional value for single-container deployments to set a friendly container name.
-    # Disable in swarm or other multi-container setups.
-    container_name: babybuddydb
+    image: postgres:11             # pin postgres to a major version
+    container_name: babybuddydb    # Container_name is an optional value for single-container
+                                   # deployments to set a friendly container name.
+                                   # Disable in swarm or other multi-container setups.
     environment:
       - PGDATA=/db-data
-      - POSTGRES_PASSWORD=postgres # has to correspond with DB_PASSWORD in APP
+      - POSTGRES_PASSWORD=postgres # must correspond with DB_PASSWORD in APP
     volumes:
       - db:/db-data:rw
     restart: unless-stopped
   app:
     image: babybuddy/babybuddy
-    # Container_name is an optional value for single-container deployments to set a friendly container name.
-    # Disable in swarm or other multi-container setups.
-    container_name: babybuddyapp
+    container_name: babybuddyapp   # Container_name is an optional value for single-container
+                                   # deployments to set a friendly container name.
+                                   # Disable in swarm or other multi-container setups.
     # See README.md#configuration for other environment configuration options.
     environment:
       - ALLOWED_HOSTS=localhost    # comma separated list of IP addresses or hosts that can access the web UI
