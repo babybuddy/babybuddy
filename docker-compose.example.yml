@@ -7,7 +7,7 @@ services:
     container_name: babybuddydb
     environment:
       - PGDATA=/db-data
-      - POSTGRES_PASSWORD=postgres # has to correspond with POSTGRES_PASSWORD in APP
+      - POSTGRES_PASSWORD=postgres # has to correspond with DB_PASSWORD in APP
     volumes:
       - db:/db-data:rw
     restart: unless-stopped
@@ -22,7 +22,7 @@ services:
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
       - SECRET_KEY=               # Generate a random string here to secure the Django instance
       - TIME_ZONE=                # In the tzdata format, IE, "America/Denver"
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=postgres # has to correspond with DB_PASSWORD in DB
       - DEBUG=False               # Turn to False in production
     volumes:
       - media:/app/media:rw
