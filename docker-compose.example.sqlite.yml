@@ -4,7 +4,7 @@ services:
     image: babybuddy/babybuddy
     # Container_name is an optional value for single-container deployments to set a friendly container name.
     # Disable in swarm or other multi-container setups.
-    container_name: babybuddy
+    container_name: babybuddyapp
     # See README.md#configuration for other environment configuration options.
     environment:
       - ALLOWED_HOSTS=localhost   # comma separated list of IP addresses or hosts that can access the web UI
@@ -17,9 +17,7 @@ services:
       - media:/app/media:rw
     command: bash -c 'python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
     ports:
-      - "8000:8000"
-    # For Portainer deployment, select an alternate port for babybuddy, such as port 7000
-    # - "7000:8000"
+      - "8000:8000" # For Portainer, select an alternate port for babybuddy, such as 7000, for example "7000:8000"
     restart: unless-stopped
 volumes:
   data: {}
