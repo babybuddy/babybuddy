@@ -1,0 +1,24 @@
+version: "2.4"
+services:
+  app:
+    image: babybuddy/babybuddy
+    container_name: babybuddyapp   # Container_name is an optional value for single-container
+                                   # deployments to set a friendly container name.
+                                   # Disable in swarm or other multi-container setups.
+    # See README.md#configuration for other environment configuration options.
+    environment:
+      - ALLOWED_HOSTS=localhost   # comma separated list of IP addresses or hosts that can access the web UI
+      - DJANGO_SETTINGS_MODULE=babybuddy.settings.base
+      - SECRET_KEY=               # Generate a random string here to secure the Django instance
+      - TIME_ZONE=                # In the tzdata format, IE, "America/Denver"
+      - DEBUG=False               # Turn to False in production
+    volumes:
+      - data:/app/data:rw
+      - media:/app/media:rw
+    command: bash -c 'python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
+    ports:
+      - "8000:8000"               # For Portainer, select another port for babybuddy such as 7000, for example "7000:8000"
+    restart: unless-stopped
+volumes:
+  data: {}
+  media: {}

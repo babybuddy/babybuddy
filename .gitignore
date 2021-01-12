@@ -2,9 +2,6 @@
 .coverage
 /htmlcov
 
-# SQLite database file.
-*.sqlite3
-
 # Environment configuration file.
 .env
 
@@ -23,8 +20,14 @@ docker-compose.yml
 # Python files.
 *.pyc
 
-# App static file folders.
+# App static file directories.
 /*/static
 
-# Django media root folder.
+# Django media root directory.
 /media
+
+# Pipfile.lock.
+# Committing this file makes it difficult to support multiple Python versions as
+# requirements can different between versions, but the Pipfile only supports
+# locking to one version.
+Pipfile.lock

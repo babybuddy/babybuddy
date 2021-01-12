@@ -43,12 +43,16 @@ def set_initial_values(kwargs, form_type):
             'end': timer.end or timezone.now()
         })
 
-    # Set initial type value for Feeding instance based on last type used.
+    # Set type and method values for Feeding instance based on last feed.
     if form_type == FeedingForm and 'child' in kwargs['initial']:
         last_feeding = models.Feeding.objects.filter(
             child=kwargs['initial']['child']).order_by('end').last()
         if last_feeding:
-            kwargs['initial'].update({'type': last_feeding.type})
+            last_type = last_feeding.type
+            last_feed_args = {'type': last_feeding.type}
+            if last_type in ['formula', 'fortified breast milk']:
+                last_feed_args['method'] = 'bottle'
+            kwargs['initial'].update(last_feed_args)
 
     # Remove custom kwargs so they do not interfere with `super` calls.
     for key in ['child', 'timer']:
@@ -149,7 +153,13 @@ class FeedingForm(CoreModelForm):
 class NoteForm(CoreModelForm):
     class Meta:
         model = models.Note
-        fields = ['child', 'note']
+        fields = ['child', 'note', 'time']
+        widgets = {
+            'time': forms.DateTimeInput(attrs={
+                'readonly': 'readonly',
+                'data-target': '#datetimepicker_time',
+            }),
+        }
 
 
 class SleepForm(CoreModelForm):

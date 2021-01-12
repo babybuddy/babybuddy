@@ -2,6 +2,7 @@ var gulp = require('gulp');
 
 var concat = require('gulp-concat');
 var del = require('del');
+var es = require('child_process').execSync;
 var flatten = require('gulp-flatten');
 var pump = require('pump');
 var sass = require('gulp-sass');
@@ -33,6 +34,10 @@ function clean() {
  * @param cb
  */
 function coverage(cb) {
+    // Erase any previous coverage results.
+    es('pipenv run coverage erase', {stdio: 'inherit'});
+
+    // Run tests with coverage.
     spawn(
         'pipenv',
         [
@@ -40,12 +45,29 @@ function coverage(cb) {
             'coverage',
             'run',
             'manage.py',
-            'test'
+            'test',
+            '--parallel',
+            '--exclude-tag',
+            'isolate'
         ],
         {
             stdio: 'inherit'
         }
-    ).on('exit', cb);
+    ).on('exit', function() {
+        // Run isolated tests with coverage.
+        config.testsConfig.isolated.forEach(function(test_name) {
+            es(
+                'pipenv run coverage run manage.py test ' + test_name,
+                {stdio: 'inherit'}
+            );
+        })
+
+        // Combine coverage results.
+        es('pipenv run coverage combine', {stdio: 'inherit'});
+
+        // Execute callback.
+        cb();
+    });
 }
 
 /**
@@ -160,14 +182,31 @@ function styles(cb) {
 }
 
 /**
- * Runs all tests.
+ * Runs all tests _not_ tagged "isolate".
  *
  * @param cb
  */
 function test(cb) {
-    var command = ['run', 'python', 'manage.py', 'test'];
+    var command = [
+        'run',
+        'python',
+        'manage.py',
+        'test',
+        '--parallel',
+        '--exclude-tag',
+        'isolate'
+    ];
     command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function() {
+        // Run isolated tests.
+        config.testsConfig.isolated.forEach(function(test_name) {
+            es(
+                'pipenv run python manage.py test ' + test_name,
+                {stdio: 'inherit'}
+            );
+        })
+        cb();
+    });
 }
 
 /**

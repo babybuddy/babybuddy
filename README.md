@@ -95,24 +95,26 @@ intended for production deployments. Baby Buddy is deployed to Docker Hub as
 [babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) so this is
 the only file needed for a Docker deployment with Docker Compose.
 
-1. Copy the contents of `docker-compose.example.yml` as `docker-compose.yml`
-and set, at least, the `ALLOWED_HOSTS` and `SECRET_KEY` variables under
+A secondary example file `docker-compose.example.sqlite.yml` is also available
+for a simpler SQLite-based deployment (the default example users PostgreSQL).
+
+1. Copy the raw content of either `docker-compose.example.yml` or `docker-compose.example.sqlite.yml` 
+into a new file named `docker-compose.yml` 
+
+        wget -O docker-compose.yml https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.yml
+     
+    *or*
+        
+        wget -O docker-compose.yml https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.sqlite.yml
+
+1. Within `docker-compose.yml`, at the very least, set the `ALLOWED_HOSTS` and `SECRET_KEY` variables under
 `services:app:environment`.
 
-    *See [Configuration](#configuration) for other settings that can be
-    controlled by environment variables.*
+    *See [Configuration](#configuration) for other settings that can be controlled by environment variables.*
 
 1. Build/run the application
 
         docker-compose up -d
-
-1. Initialize the database *(first run/after migrations updates)*
-
-        docker-compose exec app python manage.py migrate
-        
-1. Initialize cache table *(first run/after cache configuration updates)*
-
-        docker-compose exec app python manage.py createcachetable
 
 The app should now be locally available at
 [http://127.0.0.1:8000](http://127.0.0.1:8000). See
@@ -188,12 +190,6 @@ Python 3.6+, nginx, uwsgi and sqlite and should be sufficient for a few users
 
         pipenv install --three
         pipenv shell
-        
-    **Note:** Python dependencies are locked on x86-64 architecture. Installs 
-    on other architectures (like Raspberry Pi's ARM) may result in a 
-    ``THESE PACKAGES DO NOT MATCH THE HASHES FROM Pipfile.lock!`` error. Add 
-    the ``--skip-lock`` flag to the above command to suppress this error 
-    (i.e.: ``pipenv install --three --dev --skip-lock``).
 
 1. Create a production settings file and set the ``SECRET_KEY`` and ``ALLOWED_HOSTS`` values
 
@@ -287,8 +283,15 @@ take precedence over the contents of an `.env` file.**
 - [`DEBUG`](#debug)
 - [`NAP_START_MAX`](#nap_start_max)
 - [`NAP_START_MIN`](#nap_start_min)
+- [`DB_ENGINE`](#db_engine)
+- [`DB_HOST`](#db_host)
+- ['DB_NAME'](#db_name)
+- [`DB_PASSWORD`](#db_password)
+- [`DB_PORT`](#db_port)
+- [`DB_USER`](#db_user)
 - [`SECRET_KEY`](#secret_key)
 - [`TIME_ZONE`](#time_zone)
+- [`USE_24_HOUR_TIME_FORMAT`](#use_24_hour_time_format)
 
 ### `ALLOWED_HOSTS`
 
@@ -357,6 +360,44 @@ entry is consider a nap. Expects the 24-hour format %H:%M.
 The minimum *start* time (in the instance's time zone) after which a sleep
 entry is considered a nap. Expects the 24-hour format %H:%M.
 
+### 'DB_ENGINE'
+
+*Default: django.db.backends.postgresql*
+
+The database engine utilized for the deployment.
+
+See also [Django's documentation on the ENGINE setting](https://docs.djangoproject.com/en/3.0/ref/settings/#engine) .
+
+### 'DB_HOST'
+
+*Default: db*
+
+The name of the database host for the deployment.
+
+### 'DB_NAME'
+
+*Default: postgres*
+
+The name of the database table utilized for the deployment.
+
+### 'DB_PASSWORD'
+
+*No Default*
+
+The password for the database user for the deployment. In the default example, this is the root PostgreSQL password.
+
+### 'DB_PORT'
+
+*Default: 5432*
+
+The listening port for the database. The default port is 5432 for PostgreSQL.
+
+### 'DB_USER'
+
+*Default: postgres*
+
+The database username utilized for the deployment.
+
 ### `SECRET_KEY`
 
 *Default: None*
@@ -374,6 +415,21 @@ The default time zone to use for the instance. See [List of tz database time zon
 for all possible values. This value can be overridden per use from the user
 settings form.
 
+### `USE_24_HOUR_TIME_FORMAT`
+
+*Default: False*
+
+Whether to force 24-hour time format for locales that do not ordinarily use it
+(e.g. `en`). Support for this feature must implemented on a per-locale basis.
+See format files under [`babybuddy/formats`](babybuddy/formats) for supported
+locales.
+
+Note: This value for this setting is interpreted as a boolean from a string
+using Python's built-in [`strtobool`](https://docs.python.org/3/distutils/apiref.html#distutils.util.strtobool)
+tool. Only certain strings are supported (e.g. "True" for `True` and "False" for
+`False`), other unrecognized strings will cause a `ValueError` and prevent Baby
+Buddy from loading.
+
 ## Languages
 
 Baby Buddy includes translation support as of v1.2.2. Language can be set on a
@@ -384,6 +440,8 @@ create/update translations.
 ### Available languages
 
 :us: English (U.S.) *(base)*
+
+:finland: Finnish
 
 :fr: French
 
@@ -481,6 +539,12 @@ header to `Token <user-key>`. E.g.
 
 If the `Authorization` header is not set or the key is not valid, the API will
 return `403 Forbidden` with additional details in the response body.
+
+### Schema
+
+API schema information in the [OpenAPI format](https://swagger.io/specification/)
+can be found in the `openapi-schema.yml` file in the project root. A live
+version is also available at the `/api/scehma` path of a running instance.
 
 ### `GET` Method
 

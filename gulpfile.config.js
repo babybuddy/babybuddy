@@ -30,6 +30,7 @@ module.exports = {
             'node_modules/moment/moment.js',
             'node_modules/moment/locale/de.js',
             'node_modules/moment/locale/es.js',
+            'node_modules/moment/locale/fi.js',
             'node_modules/moment/locale/fr.js',
             'node_modules/moment/locale/sv.js',
             'node_modules/moment/locale/tr.js',
@@ -40,6 +41,7 @@ module.exports = {
             'node_modules/plotly.js/dist/plotly-cartesian.js',
             'node_modules/plotly.js/dist/plotly-locale-de.js',
             'node_modules/plotly.js/dist/plotly-locale-es.js',
+            'node_modules/plotly.js/dist/plotly-locale-fi.js',
             'node_modules/plotly.js/dist/plotly-locale-fr.js',
             'node_modules/plotly.js/dist/plotly-locale-sv.js',
             'node_modules/plotly.js/dist/plotly-locale-tr.js'
@@ -57,6 +59,11 @@ module.exports = {
         ignore: [
             'babybuddy.scss'
         ]
+    },
+    testsConfig: {
+      isolated: [
+          'babybuddy.tests.tests_formats.FormatsTestCase.test_use_24_hour_time_format_en'
+      ],
     },
     watchConfig: {
         scriptsGlob: [

@@ -1,13 +1,12 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Baby Buddy\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-19 05:29-0800\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
+"Project-Id-Version: Baby Buddy\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: babybuddy/admin.py:12 babybuddy/admin.py:13
 #: babybuddy/templates/babybuddy/nav-dropdown.html:241
@@ -21,6 +20,7 @@ msgstr "Einstellungen"
 #: dashboard/templates/dashboard/child.html:9
 #: dashboard/templates/dashboard/dashboard.html:4
 #: dashboard/templates/dashboard/dashboard.html:7
+#, fuzzy
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -29,12 +29,8 @@ msgid "Refresh rate"
 msgstr "Aktualisierungs-Intervall"
 
 #: babybuddy/models.py:21
-msgid ""
-"This setting will only be used when a browser does not support refresh on "
-"focus."
-msgstr ""
-"Diese Einstellung wird nur verwendet, wenn ein Browser \"refresh on focus\" "
-"nicht unterstützt."
+msgid "This setting will only be used when a browser does not support refresh on focus."
+msgstr "Diese Einstellung wird nur verwendet, wenn ein Browser \"refresh on focus\" nicht unterstützt."
 
 #: babybuddy/models.py:27
 msgid "disabled"
@@ -76,12 +72,7 @@ msgstr "30 min."
 msgid "Language"
 msgstr "Sprache"
 
-#: babybuddy/models.py:47
-msgid "Timezone"
-msgstr ""
-
 #: babybuddy/models.py:51
-#, python-brace-format
 msgid "{user}'s Settings"
 msgstr "{user} Einstellungen"
 
@@ -93,41 +84,17 @@ msgstr "Englisch"
 msgid "French"
 msgstr "Französisch"
 
-#: babybuddy/settings/base.py:145
-msgid "German"
-msgstr ""
-
-#: babybuddy/settings/base.py:146
-msgid "Spanish"
-msgstr ""
-
-#: babybuddy/settings/base.py:147
-msgid "Swedish"
-msgstr ""
-
-#: babybuddy/settings/base.py:148
-msgid "Turkish"
-msgstr ""
-
 #: babybuddy/templates/403.html:4 babybuddy/templates/403.html:7
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
 #: babybuddy/templates/403.html:12
-msgid ""
-"You do not have permission to access this resource. Contact a site "
-"administrator for assistance."
-msgstr ""
-"Du hast keine Berechtigung auf diese Ressource zuzugreifen. Für "
-"Unterstützung kontaktiere bitte den Administrator."
-
-#: babybuddy/templates/admin/base_site.html:4
-#: babybuddy/templates/admin/base_site.html:7
-#: babybuddy/templates/babybuddy/nav-dropdown.html:250
-msgid "Database Admin"
-msgstr ""
+msgid "You do not have permission to access this resource.\n"
+"        Contact a site administrator for assistance."
+msgstr "Du hast keine Berechtigung auf diese Ressource zuzugreifen. Für Unterstützung kontaktiere bitte den Administrator."
 
 #: babybuddy/templates/babybuddy/base.html:36
+#, fuzzy
 msgid "Home"
 msgstr "Home"
 
@@ -150,16 +117,12 @@ msgstr "Senden"
 
 #: babybuddy/templates/babybuddy/messages.html:18
 #: babybuddy/templates/babybuddy/user_settings_form.html:19
-#, python-format
 msgid "<strong>Error:</strong> %(error)s"
 msgstr "<strong>Fehler:</strong> %(error)s"
 
 #: babybuddy/templates/babybuddy/messages.html:23
-#: babybuddy/templates/babybuddy/user_settings_form.html:26
-msgid "<strong>Error:</strong> Some fields have errors. See below for details."
-msgstr ""
-"<strong>Fehler:</strong> Gewisse Felder sind fehlerhaft. Details sind unten "
-"ersichtlich"
+msgid "<strong>Error:</strong> Some fields have errors. See below for details. "
+msgstr "<strong>Fehler:</strong> Gewisse Felder sind fehlerhaft. Details sind unten ersichtlich."
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:27 core/models.py:163
 #: core/models.py:167
@@ -188,18 +151,6 @@ msgstr "Notiz"
 #: core/templates/core/timer_detail.html:51
 msgid "Sleep"
 msgstr "Schlafen"
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:51
-#: babybuddy/templates/babybuddy/nav-dropdown.html:129 core/models.py:354
-#: core/models.py:368 core/models.py:369 core/models.py:372
-#: core/templates/core/temperature_confirm_delete.html:7
-#: core/templates/core/temperature_form.html:13
-#: core/templates/core/temperature_list.html:4
-#: core/templates/core/temperature_list.html:7
-#: core/templates/core/temperature_list.html:12
-#: core/templates/core/temperature_list.html:25
-msgid "Temperature"
-msgstr ""
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:57
 #: babybuddy/templates/babybuddy/nav-dropdown.html:209
@@ -262,10 +213,6 @@ msgstr "Kind"
 msgid "Notes"
 msgstr "Notizen"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:135
-msgid "Temperature reading"
-msgstr ""
-
 #: babybuddy/templates/babybuddy/nav-dropdown.html:149
 msgid "Weight entry"
 msgstr "Gewichtseintrag"
@@ -277,7 +224,7 @@ msgstr "Aktivitäten"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:170
 #: reports/graphs/diaperchange_lifetimes.py:27
 msgid "Changes"
-msgstr "Wechselt"
+msgstr "Wechsel"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:176
 msgid "Change"
@@ -311,7 +258,7 @@ msgstr "Benutzer"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:242
 msgid "Password"
-msgstr "Passowrt"
+msgstr "Passwort"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:243
 msgid "Logout"
@@ -332,6 +279,10 @@ msgstr "API Browser"
 #: babybuddy/templates/babybuddy/user_list.html:7
 msgid "Users"
 msgstr "Benutzer"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:250
+msgid "Backend Admin"
+msgstr "Backend Admin"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:252
 msgid "Support"
@@ -398,13 +349,8 @@ msgstr "löschen"
 #: core/templates/core/timer_confirm_delete.html:17
 #: core/templates/core/tummytime_confirm_delete.html:14
 #: core/templates/core/weight_confirm_delete.html:14
-#, python-format
-msgid ""
-"<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
-"span>?</h1>"
-msgstr ""
-"<h1>Bist du sicher, dass du <span class=\"text-info\">%(object)s</span> "
-"löschen möchtest?</h1>"
+msgid "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</span>?</h1>"
+msgstr "<h1>Bist du sicher, dass du <span class=\"text-info\">%(object)s</span> löschen möchtest?</h1>"
 
 #: babybuddy/templates/babybuddy/user_confirm_delete.html:19
 #: core/templates/core/child_confirm_delete.html:32
@@ -448,7 +394,6 @@ msgstr "Aktualisieren"
 #: core/templates/core/timer_form.html:18
 #: core/templates/core/tummytime_form.html:23
 #: core/templates/core/weight_form.html:23
-#, python-format
 msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
 msgstr "<h1> <span class=\"text-info\">%(object)s</span> ändern</h1>"
 
@@ -509,9 +454,14 @@ msgstr "Passwort ändern"
 msgid "User Settings"
 msgstr "Benutzereinstellungen"
 
+#: babybuddy/templates/babybuddy/messages.html:23
+#: babybuddy/templates/babybuddy/user_settings_form.html:26
+msgid "<strong>Error:</strong> Some fields have errors. See below for details."
+msgstr "<strong>Fehler:</strong> Gewisse Felder sind fehlerhaft. Details sind unten ersichtlich"
+
 #: babybuddy/templates/babybuddy/user_settings_form.html:33
 msgid "User Profile"
-msgstr "Benutzer-Profil"
+msgstr "Benutzerprofil"
 
 #: babybuddy/templates/babybuddy/user_settings_form.html:69
 msgid "API"
@@ -535,12 +485,10 @@ msgid "Welcome to Baby Buddy!"
 msgstr "Willkommen bei Baby Buddy!"
 
 #: babybuddy/templates/babybuddy/welcome.html:14
-msgid ""
-"Learn about and predict baby's needs without (<em>as much</em>) guess work "
-"by using Baby Buddy to track &mdash;"
-msgstr ""
-"Lerne und sehe die Bedürfnisse deines Babys voraus, ohne (<em>allzu viel</"
-"em>)Spekulation indem du Baby Buddy verwendest &mdash;"
+msgid "Learn about and predict baby's needs without\n"
+"            (<em>as much</em>) guess work by using Baby Buddy to track &mdash;"
+msgstr "Lerne und sehe die Bedürfnisse deines Babys voraus, ohne \n"
+"            (<em>allzu viel</em>) Spekulation indem du Baby Buddy verwendest &mdash;"
 
 #: babybuddy/templates/babybuddy/welcome.html:26 core/models.py:164
 #: core/templates/core/diaperchange_confirm_delete.html:7
@@ -550,23 +498,16 @@ msgstr ""
 #: core/templates/core/diaperchange_list.html:12
 #: dashboard/templates/cards/diaperchange_types.html:4
 msgid "Diaper Changes"
-msgstr "Windel-Wechsel"
+msgstr "Windelwechsel"
 
-#: babybuddy/templates/babybuddy/welcome.html:56
-msgid ""
-"As the amount of entries grows, Baby Buddy will help parents and caregivers "
-"to identify small patterns in baby's habits using the dashboard and graphs. "
-"Baby Buddy is mobile-friendly and uses a dark theme to help weary moms and "
-"dads with 2AM feedings and changings. To get started, just click the button "
-"below to add your first (or second, third, etc.) child!"
-msgstr ""
-"Während die Anzahl Einträge wächst, hilft Baby Buddy Eltern und Pflegenden, "
-"mit Hilfe des Dashboards und Diagrammen, kleine Muster im Verhalten ihres "
-"Babys zu erkennen. Baby Buddy ist Mobiltelefon-Freundlich und benutzt ein "
-"dunkles Design, um erschöpften Müttern und Vätern beim Füttern und Windel-"
-"Wechseln um 2 Uhr Nachts zu unterstützen. Um loszulegen, klicke einfach auf "
-"den untenstehenden Button, um das erste (oder zweite, dritte, etc.) Kind "
-"hinzuzufügen!"
+#: babybuddy/templates/babybuddy/welcome.html:54
+msgid "As the amount of entries grows, Baby Buddy will help\n"
+"            parents and caregivers to identify small patterns in baby's habits\n"
+"            using the dashboard and graphs. Baby Buddy is mobile-friendly and\n"
+"            uses a dark theme to help weary moms and dads with 2AM feedings and\n"
+"            changings. To get started, just click the button below to add your\n"
+"            first (or second, third, etc.) child!"
+msgstr "Während die Anzahl Einträge wächst, hilft Baby Buddy Eltern und Pflegenden, mit Hilfe des Dashboards und Diagrammen, kleine Muster im Verhalten ihres Babys zu erkennen. Baby Buddy ist Mobiltelefon-Freundlich und benutzt ein dunkles Design, um erschöpften Müttern und Vätern beim Füttern und Windel-Wechseln um 2 Uhr Nachts zu unterstützen. Um loszulegen, klicke einfach auf den untenstehenden Button, um das erste (oder zweite, dritte, etc.) Kind hinzuzufügen!"
 
 #: babybuddy/templates/babybuddy/welcome.html:68
 #: core/templates/core/child_form.html:8 core/templates/core/child_form.html:18
@@ -588,8 +529,7 @@ msgstr "Passwort erfolgreich zurückgesetzt!"
 
 #: babybuddy/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set. You may go ahead and log in now."
-msgstr ""
-"Dein Passwort wurde gesetzt. Du kannst nun weiter gehen und dich einloggen."
+msgstr "Dein Passwort wurde gesetzt. Du kannst nun weiter gehen und dich einloggen."
 
 #: babybuddy/templates/registration/password_reset_complete.html:9
 msgid "Log in"
@@ -599,12 +539,10 @@ msgstr "Login"
 msgid "Password Reset"
 msgstr "Passwort zurücksetzen"
 
-#: babybuddy/templates/registration/password_reset_confirm.html:13
-msgid ""
-"<strong>Oh snap!</strong> The two passwords did not match. Please try again."
-msgstr ""
-"<strong>Oh nein!</strong> Die beiden Passwörter stimmen nicht überein. Bitte "
-"versuche es erneut."
+#: babybuddy/templates/registration/password_reset_confirm.html:12
+msgid "<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
+"                two passwords did not match. Please try again.</p>"
+msgstr "<p class=\"mb-0\"><strong>Oh nein!</strong> Die beiden Passwörter stimmen nicht überein. Bitte versuche es erneut.</p>"
 
 #: babybuddy/templates/registration/password_reset_confirm.html:22
 msgid "Enter your new password in each field below."
@@ -619,46 +557,35 @@ msgstr "Passwort zurücksetzen"
 msgid "Reset Email Sent"
 msgstr "Gesendete Email zurücksetzen"
 
-#: babybuddy/templates/registration/password_reset_done.html:9
-msgid ""
-"We've emailed you instructions for setting your password, if an account "
-"exists with the email you entered. You should receive them shortly."
-msgstr ""
-"Wenn ein Account mit dieser E-Mail-Adresse existiert, haben wir dir "
-"Anweisungen zum Zurücksetzen des Passworts an dieselbe Adresse gesendet."
-
-#: babybuddy/templates/registration/password_reset_done.html:15
-msgid ""
-"If you don't receive an email, please make sure you've entered the address "
-"you registered with, and check your spam folder."
-msgstr ""
-"Falls du die E-Mail nicht erhältst, überprüfe, dass du die registrierte "
-"Adresse eingegeben hast und überprüfe deinen Spam-Ordner."
+#: babybuddy/templates/registration/password_reset_done.html:8
+msgid "<p>We've emailed you instructions for setting your\n"
+"            password, if an account exists with the email you entered. You\n"
+"            should receive them shortly.</p>\n"
+"        <p class=\"mb-0\">If you don't receive an email, please make sure you've\n"
+"            entered the address you registered with, and check your spam\n"
+"            folder.</p>"
+msgstr "<p>Wenn einen Account mit dieser E-Mail-Adresse existiert, haben wir dir  Anweisungen zum Zurücksetzen des Passworts an dieselbe Adresse gesendet.</p>\n"
+"        <p class=\"mb-0\">Falls du die E-Mail nicht erhältst, überprüfe, dass du die registrierte Adresse eingegeben hast und überprüfe deinen Spam-Ordner.</p>"
 
 #: babybuddy/templates/registration/password_reset_form.html:4
 msgid "Forgot Password"
 msgstr "Passwort vergessen"
 
-#: babybuddy/templates/registration/password_reset_form.html:9
-msgid ""
-"Enter your account email address in the form below. If the address is valid, "
-"you will receive instructions for resetting your password."
-msgstr ""
-"Bitte gib deine Account E-Mail-Adresse ins folgende Formular ein. Wenn die "
-"Adresse gültig ist, erhältst du Anweisungen um das Passwort zurückzusetzen."
+#: babybuddy/templates/registration/password_reset_form.html:8
+msgid "<p class=\"mb-0\">Enter your account email address in the\n"
+"        form below. If the address is valid, you will receive instructions for\n"
+"        resetting your password.</p>"
+msgstr "p class=\"mb-0\">Bitte gib deine Account E-Mail-Adresse ins folgende Formular ein. Wenn die Adresse gültig ist, erhältst du Anweisungen um das Passwort zurückzusetzen.</p>"
 
 #: babybuddy/views.py:57
-#, python-format
 msgid "User %(username)s added!"
 msgstr "User %(username)s hinzugefügt!"
 
 #: babybuddy/views.py:67
-#, python-format
 msgid "User %(username)s updated."
 msgstr "User %(username)s geändert!"
 
 #: babybuddy/views.py:79
-#, python-brace-format
 msgid "User {user} deleted."
 msgstr "User {user} gelöscht."
 
@@ -676,7 +603,7 @@ msgstr "Einstellungen gespeichert!"
 
 #: core/forms.py:110
 msgid "Name does not match child name."
-msgstr "Name entspricht nicht dem Kinder-Namen."
+msgstr "Name entspricht nicht dem Kindernamen."
 
 #: core/models.py:23
 msgid "Date can not be in the future."
@@ -684,7 +611,7 @@ msgstr "Datum darf nicht in der Zukunft liegen."
 
 #: core/models.py:37
 msgid "Start time must come before end time."
-msgstr "Start-Zeit muss vor End-Zeit sein."
+msgstr "Startzeit muss vor Endzeit sein."
 
 #: core/models.py:40
 msgid "Duration too long."
@@ -755,22 +682,17 @@ msgstr "Gelb"
 msgid "Color"
 msgstr "Farbe"
 
-#: core/models.py:155 core/models.py:230
-#: core/templates/core/diaperchange_list.html:28
-msgid "Amount"
-msgstr "Menge"
-
 #: core/models.py:185
 msgid "Wet and/or solid is required."
 msgstr "Nass und/oder fest wird benötigt."
 
 #: core/models.py:199 core/models.py:296 core/models.py:397 core/models.py:499
 msgid "Start time"
-msgstr "Start-Zeit"
+msgstr "Startzeit"
 
 #: core/models.py:204 core/models.py:301 core/models.py:403 core/models.py:504
 msgid "End time"
-msgstr "End-Zeit"
+msgstr "Endzeit"
 
 #: core/models.py:209 core/models.py:306 core/models.py:408 core/models.py:509
 #: core/templates/core/feeding_list.html:30
@@ -788,10 +710,6 @@ msgstr "Brustmilch"
 msgid "Formula"
 msgstr "Formel"
 
-#: core/models.py:215
-msgid "Fortified breast milk"
-msgstr "Brustmilch"
-
 #: core/models.py:218 core/templates/core/feeding_list.html:26
 msgid "Type"
 msgstr "Typ"
@@ -808,13 +726,18 @@ msgstr "Linke Brust"
 msgid "Right breast"
 msgstr "Rechte Brust"
 
-#: core/models.py:225
-msgid "Both breasts"
-msgstr "Beide Brüste"
-
 #: core/models.py:228 core/templates/core/feeding_list.html:25
 msgid "Method"
 msgstr "Methode"
+
+#: core/models.py:155 core/models.py:230
+#: core/templates/core/diaperchange_list.html:28
+msgid "Amount"
+msgstr "Menge"
+
+#: core/models.py:243
+msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
+msgstr "Nur die Methode \"Fläschchen\" ist mit Typ \"Formulierung\" erlaubt."
 
 #: core/models.py:392 core/templates/core/timer_list.html:24
 msgid "Name"
@@ -834,7 +757,6 @@ msgid "Timers"
 msgstr "Timer"
 
 #: core/models.py:431
-#, python-brace-format
 msgid "Timer #{id}"
 msgstr "Timer #{id}"
 
@@ -857,13 +779,12 @@ msgstr "Lösche ein Kind"
 
 #: core/templates/core/child_confirm_delete.html:20
 msgid "To confirm this action. Type the full name of the child below."
-msgstr ""
-"Um diese Aktion zu bestätigen, gib unten den vollen Namen des Kindes ein. "
+msgstr "Um diese Aktion zu bestätigen, gib unten den vollen Namen des Kindes ein. "
 
 #: core/templates/core/child_detail.html:23
 #: dashboard/templates/dashboard/dashboard.html:32
 msgid "Born"
-msgstr "Gebohren"
+msgstr "Geboren"
 
 #: core/templates/core/child_detail.html:24
 #: dashboard/templates/dashboard/dashboard.html:33
@@ -871,13 +792,8 @@ msgid "Age"
 msgstr "Alter"
 
 #: core/templates/core/child_detail.html:58
-#, python-format
 msgid "%(since)s ago (%(time)s)"
 msgstr "Vor %(since)s : (%(time)s)"
-
-#: core/templates/core/child_list.html:15
-msgid "Add Child"
-msgstr "Kind hinzufügen"
 
 #: core/templates/core/child_list.html:27
 msgid "Birth Date"
@@ -889,16 +805,16 @@ msgstr "Keine Kinder gefunden."
 
 #: core/templates/core/diaperchange_confirm_delete.html:4
 msgid "Delete a Diaper Change"
-msgstr "Windelwechsel löschen."
+msgstr "Windelwechsel löschen"
 
 #: core/templates/core/diaperchange_form.html:6
 msgid "Update a Diaper Change"
-msgstr "Windelwechsel ändern."
+msgstr "Windelwechsel ändern"
 
 #: core/templates/core/diaperchange_form.html:8
 #: core/templates/core/diaperchange_form.html:27
 msgid "Add a Diaper Change"
-msgstr "Windel-Wechsel hinzufügen"
+msgstr "Windelwechsel hinzufügen"
 
 #: core/templates/core/diaperchange_form.html:17
 #: core/templates/core/feeding_form.html:17
@@ -907,13 +823,13 @@ msgstr "Windel-Wechsel hinzufügen"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: core/templates/core/diaperchange_list.html:15
-msgid "Add Diaper Change"
-msgstr "Windel-Wechsel hinzufügen"
-
 #: core/templates/core/diaperchange_list.html:68
 msgid "No diaper changes found."
-msgstr "Keine Windel-Wechsel gefunden."
+msgstr "Keine Windelwechsel gefunden."
+
+#: core/templates/core/diaperchange_list.html:63
+msgid "Add a Change"
+msgstr "Änderung hinzufügen"
 
 #: core/templates/core/feeding_confirm_delete.html:4
 msgid "Delete a Feeding"
@@ -926,10 +842,6 @@ msgstr "Mahlzeit ändern"
 #: core/templates/core/feeding_form.html:8
 #: core/templates/core/feeding_form.html:27
 msgid "Add a Feeding"
-msgstr "Mahlzeit hinzufügen"
-
-#: core/templates/core/feeding_list.html:15
-msgid "Add Feeding"
 msgstr "Mahlzeit hinzufügen"
 
 #: core/templates/core/feeding_list.html:29
@@ -952,10 +864,6 @@ msgstr "Eine Notiz ändern"
 msgid "Add a Note"
 msgstr "Notiz hinzufügen"
 
-#: core/templates/core/note_list.html:15
-msgid "Add Note"
-msgstr "Notiz hinzufügen"
-
 #: core/templates/core/note_list.html:56
 msgid "No notes found."
 msgstr "Keine Notizen gefunden."
@@ -971,10 +879,6 @@ msgstr "Einen Schlaf-Eintrag ändern"
 #: core/templates/core/sleep_form.html:8 core/templates/core/sleep_form.html:27
 msgid "Add a Sleep Entry"
 msgstr "Schlaf-Eintrag hinzufügen"
-
-#: core/templates/core/sleep_list.html:15
-msgid "Add Sleep"
-msgstr ""
 
 #: core/templates/core/sleep_list.html:26
 #: core/templates/core/timer_form.html:12
@@ -997,44 +901,9 @@ msgstr "Nickerchen"
 msgid "No sleep entries found."
 msgstr "Keine Schlaf-Einträge gefunden."
 
-#: core/templates/core/temperature_confirm_delete.html:4
-msgid "Delete a Temperature Reading"
-msgstr "Mahlzeit löschen"
-
-#: core/templates/core/temperature_form.html:8
-#: core/templates/core/temperature_form.html:17
-msgid "Add a Temperature Reading"
-msgstr "Mahlzeit hinzufügen"
-
-#: core/templates/core/temperature_form.html:27
-msgid "Add a Temperature Entry"
-msgstr "Schlaf-Eintrag hinzufügen"
-
-#: core/templates/core/temperature_list.html:15
-msgid "Add Temperature Reading"
-msgstr "Mahlzeit hinzufügen"
-
-#: core/templates/core/temperature_list.html:62
-msgid "No temperature entries found."
-msgstr "Keine Timer-Einträge gefunden."
-
 #: core/templates/core/timer_confirm_delete.html:5
-#, python-format
 msgid "Delete %(object)s"
 msgstr "Lösche %(object)s"
-
-#: core/templates/core/timer_confirm_delete_inactive.html:5
-msgid "Delete All Inactive Timers"
-msgstr ""
-
-#: core/templates/core/timer_confirm_delete_inactive.html:10
-msgid "Delete Inactive"
-msgstr ""
-
-#: core/templates/core/timer_confirm_delete_inactive.html:17
-#, python-format
-msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
-msgstr ""
 
 #: core/templates/core/timer_detail.html:28
 msgid "Started"
@@ -1044,10 +913,9 @@ msgstr "Gestartet"
 msgid "Stopped"
 msgstr "Gestoppt"
 
-#: core/templates/core/timer_detail.html:34
-#, python-format
-msgid "%(timer)s created by %(user)s"
-msgstr "%(timer)s von %(user)s erstellt"
+#: core/templates/core/timer_detail.html:26
+msgid "%(timer)s created by %(object.user)s"
+msgstr "%(timer)s von %(object.user)s erstellt"
 
 #: core/templates/core/timer_detail.html:63
 msgid "Timer actions"
@@ -1061,10 +929,6 @@ msgstr "Starte Timer"
 #: core/templates/core/timer_list.html:52
 msgid "No timer entries found."
 msgstr "Keine Timer-Einträge gefunden."
-
-#: core/templates/core/timer_list.html:62
-msgid "Delete Inactive Timers"
-msgstr ""
 
 #: core/templates/core/timer_nav.html:15
 msgid "Quick Start Timer"
@@ -1104,10 +968,6 @@ msgstr "Bauchzeit-Eintrag ändern"
 msgid "Add a Tummy Time Entry"
 msgstr "Bauchzeit-Eintrag hinzufügen"
 
-#: core/templates/core/tummytime_list.html:15
-msgid "Add Tummy Time"
-msgstr ""
-
 #: core/templates/core/tummytime_list.html:59
 msgid "No tummy time entries found."
 msgstr "Keine Bauchzeit-Einträge gefunden."
@@ -1122,134 +982,76 @@ msgstr "Gewichts-Eintrag löschen"
 msgid "Add a Weight Entry"
 msgstr "Gewichts-Eintrag hinzufügen"
 
-#: core/templates/core/weight_list.html:15
-msgid "Add Weight"
-msgstr ""
-
 #: core/templates/core/weight_list.html:62
 msgid "No weight entries found."
 msgstr "Keine Gewichts-Einträge gefunden."
 
 #: core/timeline.py:24
-#, python-format
 msgid "%(child)s had a diaper change."
 msgstr "%(child)s kriegte die Windel gewechselt."
 
 #: core/timeline.py:35
-#, python-format
 msgid "%(child)s started feeding."
 msgstr "%(child)s hat begonnen zu essen."
 
 #: core/timeline.py:43
-#, python-format
 msgid "%(child)s finished feeding."
 msgstr "%(child)s hat fertig gegessen."
 
 #: core/timeline.py:55
-#, python-format
 msgid "%(child)s fell asleep."
 msgstr "%(child)s ist eingeschlafen."
 
 #: core/timeline.py:63
-#, python-format
 msgid "%(child)s woke up."
 msgstr "%(child)s ist aufgewacht."
 
 #: core/timeline.py:75
-#, python-format
 msgid "%(child)s started tummy time!"
 msgstr "%(child)s liegt nun auf dem Bauch."
 
 #: core/timeline.py:83
-#, python-format
 msgid "%(child)s finished tummy time."
 msgstr "%(child)s liegt nicht mehr auf dem Bauch."
 
-#: core/utils.py:15
-#, python-format
-msgid "%(hours)s hour"
-msgid_plural "%(hours)s hours"
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/utils.py:22
-#, python-format
-msgid "%(minutes)s minute"
-msgid_plural "%(minutes)s minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/utils.py:30
-#, python-format
-msgid "%(seconds)s second"
-msgid_plural "%(seconds)s seconds"
-msgstr[0] ""
-msgstr[1] ""
-
 #: core/views.py:23
-#, python-format
 msgid "%(model)s entry for %(child)s added!"
 msgstr "%(model)s Eintrag für %(child)s hinzugefügt!"
 
 #: core/views.py:25
-#, python-format
 msgid "%(model)s entry added!"
 msgstr "%(model)s Eintrag hinzugefügt!"
 
 #: core/views.py:52
-#, python-format
 msgid "%(model)s entry for %(child)s updated."
 msgstr "%(model)s Eintrag für %(child)s geändert! "
 
 #: core/views.py:54
-#, python-format
 msgid "%(model)s entry updated."
 msgstr "%(model)s Eintrag geändert! "
 
-#: core/views.py:64 core/views.py:121
-#, python-format
-msgid "%(model)s entry deleted."
-msgstr "%(model)s Eintrag geändert! "
-
 #: core/views.py:84
-#, python-format
 msgid "%(first_name)s %(last_name)s added!"
 msgstr "%(first_name)s %(last_name)s added!"
 
-#: core/views.py:252
-#, python-format
-msgid "%(model)s reading added!"
-msgstr "%(model)s Eintrag hinzugefügt!"
-
-#: core/views.py:260
-#, python-format
-msgid "%(model)s reading for %(child)s updated."
-msgstr "%(model)s Eintrag für %(child)s geändert! "
-
 #: core/views.py:341
-#, python-format
 msgid "%(timer)s stopped."
 msgstr "%(timer)s gestoppt.."
 
-#: core/views.py:365
-msgid "All inactive timers deleted."
-msgstr ""
-
-#: core/views.py:375
-msgid "No inactive timers exist."
-msgstr ""
-
 #: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
-msgstr "Letzer Windel-Wechsel"
+msgstr "Letzer Windelwechsel"
 
 #: dashboard/templates/cards/diaperchange_last.html:8
 #: dashboard/templates/cards/feeding_last.html:8
 #: dashboard/templates/cards/sleep_last.html:8
 #: dashboard/templates/cards/tummytime_last.html:8
-#, python-format
 msgid "%(time)s ago"
 msgstr "vor %(time)s"
+
+#: dashboard/templates/cards/tummytime_last.html:12
+msgid "Never"
+msgstr "Nie"
 
 #: dashboard/templates/cards/diaperchange_types.html:10
 msgid "Past Week"
@@ -1272,38 +1074,33 @@ msgid "yesterday"
 msgstr "gestern"
 
 #: dashboard/templates/cards/diaperchange_types.html:38
-#, python-format
 msgid "%(key)s days ago"
 msgstr "Vor %(key)s Tagen"
 
 #: dashboard/templates/cards/feeding_last.html:4
 msgid "Last Feeding"
-msgstr "Letze Mahlzeit"
+msgstr "Letzte Mahlzeit"
 
 #: dashboard/templates/cards/feeding_last_method.html:4
 msgid "Last Feeding Method"
-msgstr "Letze Mahlzeit-Methode"
-
-#: dashboard/templates/cards/feeding_last_method.html:15
-msgid "most recent"
-msgstr ""
-
-#: dashboard/templates/cards/feeding_last_method.html:17
-#, python-format
-msgid "%(n)s feeding%(plural)s ago"
-msgstr ""
+msgstr "Letzte Mahlzeitart"
 
 #: dashboard/templates/cards/sleep_day.html:4
 msgid "Today's Sleep"
 msgstr "Schlaf heute"
 
+#: dashboard/templates/cards/sleep_day.html:11
+#: dashboard/templates/cards/sleep_naps_day.html:13
+#: dashboard/templates/cards/tummytime_day.html:11
+msgid "None yet today"
+msgstr "Noch keine heute"
+
 #: dashboard/templates/cards/sleep_day.html:16
-#, python-format
 msgid "%(count)s sleep entries"
 msgstr "%(count)s Schlaf-Einträge"
 
 #: dashboard/templates/cards/sleep_last.html:4
-msgid "Last Sleep"
+msgid "Last Slept"
 msgstr "Zuletzt geschlafen"
 
 #: dashboard/templates/cards/sleep_naps_day.html:4
@@ -1311,9 +1108,8 @@ msgid "Today's Naps"
 msgstr "Heutige Nickerchen"
 
 #: dashboard/templates/cards/sleep_naps_day.html:8
-#, python-format
 msgid "%(count)s nap%(plural)s"
-msgstr "%(count)s schläfchen%(plural)s."
+msgstr "%(count)s Nickerchen."
 
 #: dashboard/templates/cards/statistics.html:6
 msgid "Statistics"
@@ -1324,21 +1120,18 @@ msgid "Not enough data"
 msgstr "Nicht genügend Daten"
 
 #: dashboard/templates/cards/timer_list.html:8
-#, python-format
 msgid "%(count)s active timer%(plural)s"
-msgstr "%(count)s aktive timer%(plural)s"
+msgstr "%(count)s aktive Timer"
 
-#: dashboard/templates/cards/timer_list.html:21
-#, python-format
-msgid "Started by %(user)s at %(start)s"
-msgstr "Gestartet von %(user)s um %(start)s"
+#: dashboard/templates/cards/timer_list.html:19
+msgid "Started by %(instance.user)s at %(start)s"
+msgstr "Gestartet von %(instance.user)s um %(start)s"
 
 #: dashboard/templates/cards/tummytime_day.html:4
 msgid "Today's Tummy Time"
 msgstr "Heutige Bauchzeit"
 
 #: dashboard/templates/cards/tummytime_day.html:18
-#, python-format
 msgid "%(duration)s at %(end)s"
 msgstr "%(duration)s um %(end)s"
 
@@ -1346,35 +1139,21 @@ msgstr "%(duration)s um %(end)s"
 msgid "Last Tummy Time"
 msgstr "Letzte Bauchzeit"
 
-#: dashboard/templates/cards/tummytime_last.html:12
-msgid "Never"
-msgstr "Nie"
-
 #: dashboard/templates/dashboard/child_button_group.html:3
 msgid "Child actions"
 msgstr "Aktionen des Kindes"
-
-#: dashboard/templates/dashboard/child_button_group.html:19
-msgid "Diaper Change Amounts"
-msgstr ""
 
 #: dashboard/templates/dashboard/child_button_group.html:20
 #: reports/templates/reports/diaperchange_types.html:4
 #: reports/templates/reports/diaperchange_types.html:8
 msgid "Diaper Change Types"
-msgstr "Windel-Wechsel Typen"
+msgstr "Windewechsel Typen"
 
 #: dashboard/templates/dashboard/child_button_group.html:21
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:8
 msgid "Diaper Lifetimes"
 msgstr "Windel-Lebensdauer"
-
-#: dashboard/templates/dashboard/child_button_group.html:22
-#: reports/templates/reports/feeding_amounts.html:4
-#: reports/templates/reports/feeding_amounts.html:8
-msgid "Feeding Amounts"
-msgstr "Mahlzeiten"
 
 #: dashboard/templates/dashboard/child_button_group.html:23
 msgid "Feeding Durations (Average)"
@@ -1394,7 +1173,7 @@ msgstr "Schlaf Total"
 
 #: dashboard/templatetags/cards.py:170
 msgid "Diaper change frequency"
-msgstr "Frequenz Windel-Wechsel"
+msgstr "Frequenz Windelwechsel"
 
 #: dashboard/templatetags/cards.py:176
 msgid "Feeding frequency"
@@ -1414,23 +1193,11 @@ msgstr "Durchschnittliche Schlafdauer"
 
 #: dashboard/templatetags/cards.py:196
 msgid "Average awake duration"
-msgstr "Durschnittlich wach"
+msgstr "Durchschnittlich wach"
 
 #: dashboard/templatetags/cards.py:202
 msgid "Weight change per week"
 msgstr "Gewichtsänderung pro Woche"
-
-#: reports/graphs/diaperchange_amounts.py:27
-msgid "Diaper change amount"
-msgstr ""
-
-#: reports/graphs/diaperchange_amounts.py:36
-msgid "<b>Diaper Change Amounts</b>"
-msgstr ""
-
-#: reports/graphs/diaperchange_amounts.py:39
-msgid "Change amount"
-msgstr ""
 
 #: reports/graphs/diaperchange_lifetimes.py:35
 msgid "<b>Diaper Lifetimes</b>"
@@ -1438,7 +1205,7 @@ msgstr "<b>Windel-Lebensdauer</b>"
 
 #: reports/graphs/diaperchange_lifetimes.py:36
 msgid "Time between changes (hours)"
-msgstr "Zeit zwischen wechseln (Stunden)"
+msgstr "Zeit zwischen Wechseln (Stunden)"
 
 #: reports/graphs/diaperchange_types.py:39
 msgid "Total"
@@ -1446,23 +1213,11 @@ msgstr "Total"
 
 #: reports/graphs/diaperchange_types.py:46
 msgid "<b>Diaper Change Types</b>"
-msgstr "<b>Windel-Wechsel Typen</b>"
+msgstr "<b>Windelwechsel Typen</b>"
 
 #: reports/graphs/diaperchange_types.py:49
 msgid "Number of changes"
 msgstr "Anzahl Wechsel"
-
-#: reports/graphs/feeding_amounts.py:27
-msgid "Total feeding amount"
-msgstr "Total Mahlzeiten"
-
-#: reports/graphs/feeding_amounts.py:36
-msgid "<b>Total Feeding Amounts</b>"
-msgstr "<b>Durchschnittliche Mahlzeiten-Dauer</b>"
-
-#: reports/graphs/feeding_amounts.py:39
-msgid "Feeding amount"
-msgstr "Mahlzeit"
 
 #: reports/graphs/feeding_duration.py:36
 msgid "Average duration"
@@ -1498,30 +1253,270 @@ msgstr "Total Schlaf"
 
 #: reports/graphs/sleep_totals.py:50
 msgid "<b>Sleep Totals</b>"
-msgstr "<b>Totale Schlaf-Zeit</b>"
+msgstr "<b>Totale Schlafzeit</b>"
 
 #: reports/graphs/sleep_totals.py:53
 msgid "Hours of sleep"
-msgstr "Schlaf-Stunden"
+msgstr "Schlafstunden"
 
 #: reports/graphs/weight_weight.py:27
 msgid "<b>Weight</b>"
 msgstr "<b>Gewicht</b>"
 
-#: reports/templates/reports/diaperchange_amounts.html:4
-#: reports/templates/reports/diaperchange_amounts.html:8
-msgid "Diaper Amounts"
-msgstr ""
-
 #: reports/templates/reports/feeding_duration.html:4
 #: reports/templates/reports/feeding_duration.html:8
 msgid "Average Feeding Durations"
-msgstr "Durchschnittliche Mahlzeiten-Dauer"
+msgstr "Durchschnittliche Mahlzeitendauer"
 
 #: reports/templates/reports/report_base.html:9
 msgid "Reports"
 msgstr "Reports"
 
 #: reports/templates/reports/report_base.html:19
+msgid "There is no enough data to generate this report."
+msgstr "Es gibt nicht genügend Daten um diesen Report zu generieren."
+
+#: core/models.py:225
+msgid "Both breasts"
+msgstr "Beide Brüste"
+
+#: babybuddy/settings/base.py:145
+msgid "German"
+msgstr "Deutsch"
+
+#: babybuddy/settings/base.py:146
+msgid "Spanish"
+msgstr "Spanisch"
+
+#: babybuddy/settings/base.py:147
+msgid "Swedish"
+msgstr "Schwedisch"
+
+#: babybuddy/settings/base.py:148
+msgid "Turkish"
+msgstr "Türkisch"
+
+#: babybuddy/templates/403.html:12
+msgid "You do not have permission to access this resource. Contact a site administrator for assistance."
+msgstr "Du hast keine Berechtigung auf diese Ressource zuzugreifen. Für Unterstützung kontaktiere bitte den Administrator."
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:51
+#: babybuddy/templates/babybuddy/nav-dropdown.html:129 core/models.py:354
+#: core/models.py:368 core/models.py:369 core/models.py:372
+#: core/templates/core/temperature_confirm_delete.html:7
+#: core/templates/core/temperature_form.html:13
+#: core/templates/core/temperature_list.html:4
+#: core/templates/core/temperature_list.html:7
+#: core/templates/core/temperature_list.html:12
+#: core/templates/core/temperature_list.html:25
+msgid "Temperature"
+msgstr "Temperatur"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:135
+msgid "Temperature reading"
+msgstr "Temperatur Messung"
+
+#: babybuddy/templates/babybuddy/welcome.html:14
+msgid "Learn about and predict baby's needs without (<em>as much</em>) guess work by using Baby Buddy to track &mdash;"
+msgstr "Lerne und sehe die Bedürfnisse deines Babys voraus, ohne (<em>allzu viel</em>)Spekulation indem du Baby Buddy verwendest &mdash;"
+
+#: babybuddy/templates/babybuddy/welcome.html:56
+msgid "As the amount of entries grows, Baby Buddy will help parents and caregivers to identify small patterns in baby's habits using the dashboard and graphs. Baby Buddy is mobile-friendly and uses a dark theme to help weary moms and dads with 2AM feedings and changings. To get started, just click the button below to add your first (or second, third, etc.) child!"
+msgstr "Während die Anzahl Einträge wächst, hilft Baby Buddy Eltern und Pflegenden, mit Hilfe des Dashboards und Diagrammen, kleine Muster im Verhalten ihres Babys zu erkennen. Baby Buddy ist Mobiltelefon-Freundlich und benutzt ein dunkles Design, um erschöpften Müttern und Vätern beim Füttern und Windel-Wechseln um 2 Uhr Nachts zu unterstützen. Um loszulegen, klicke einfach auf den untenstehenden Button, um das erste (oder zweite, dritte, etc.) Kind hinzuzufügen!"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:13
+msgid "<strong>Oh snap!</strong> The two passwords did not match. Please try again."
+msgstr "<strong>Oh nein!</strong> Die beiden Passwörter stimmen nicht überein. Bitte versuche es erneut."
+
+#: babybuddy/templates/registration/password_reset_done.html:9
+msgid "We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
+msgstr "Wenn ein Account mit dieser E-Mail-Adresse existiert, haben wir dir Anweisungen zum Zurücksetzen des Passworts an dieselbe Adresse gesendet."
+
+#: babybuddy/templates/registration/password_reset_done.html:15
+msgid "If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."
+msgstr "Falls du die E-Mail nicht erhältst, überprüfe, dass du die registrierte Adresse eingegeben hast und überprüfe deinen Spam-Ordner."
+
+#: babybuddy/templates/registration/password_reset_form.html:9
+msgid "Enter your account email address in the form below. If the address is valid, you will receive instructions for resetting your password."
+msgstr "Bitte gib deine Account E-Mail-Adresse ins folgende Formular ein. Wenn die Adresse gültig ist, erhältst du Anweisungen um das Passwort zurückzusetzen."
+
+#: core/models.py:215
+msgid "Fortified breast milk"
+msgstr "Angereicherte Brustmilch"
+
+#: core/templates/core/temperature_confirm_delete.html:4
+msgid "Delete a Temperature Reading"
+msgstr "Temperaturmessung löschen"
+
+#: core/templates/core/temperature_form.html:8
+#: core/templates/core/temperature_form.html:17
+msgid "Add a Temperature Reading"
+msgstr "Temperaturmessung hinzufügen"
+
+#: core/templates/core/temperature_form.html:27
+msgid "Add a Temperature Entry"
+msgstr "Temperaturmessung hinzufügen"
+
+#: core/templates/core/temperature_list.html:62
+msgid "No temperature entries found."
+msgstr "Keine Temperaturmessungen gefunden."
+
+#: core/templates/core/timer_detail.html:34
+msgid "%(timer)s created by %(user)s"
+msgstr "%(timer)s von %(user)s erstellt"
+
+#: core/utils.py:15
+msgid "%(hours)s hour"
+msgid_plural "%(hours)s hours"
+msgstr[0] "%(hours) Stunde"
+msgstr[1] "%(hours) Stunden"
+
+#: core/utils.py:22
+msgid "%(minutes)s minute"
+msgid_plural "%(minutes)s minutes"
+msgstr[0] "%(minutes) Minute"
+msgstr[1] "%(minutes) Minuten"
+
+#: core/utils.py:30
+msgid "%(seconds)s second"
+msgid_plural "%(seconds)s seconds"
+msgstr[0] "%(minutes) Sekunde"
+msgstr[1] "%(minutes) Sekunden"
+
+#: core/views.py:64 core/views.py:121
+msgid "%(model)s entry deleted."
+msgstr "%(model)s Eintrag geändert! "
+
+#: core/views.py:252
+msgid "%(model)s reading added!"
+msgstr "%(model)s Eintrag hinzugefügt!"
+
+#: core/views.py:260
+msgid "%(model)s reading for %(child)s updated."
+msgstr "%(model)s Eintrag für %(child)s geändert! "
+
+#: dashboard/templates/cards/timer_list.html:21
+msgid "Started by %(user)s at %(start)s"
+msgstr "Gestartet von %(user)s um %(start)s"
+
+#: dashboard/templates/dashboard/child_button_group.html:22
+#: reports/templates/reports/feeding_amounts.html:4
+#: reports/templates/reports/feeding_amounts.html:8
+msgid "Feeding Amounts"
+msgstr "Mahlzeiten"
+
+#: reports/graphs/feeding_amounts.py:27
+msgid "Total feeding amount"
+msgstr "Total Mahlzeiten"
+
+#: reports/graphs/feeding_amounts.py:36
+msgid "<b>Total Feeding Amounts</b>"
+msgstr "<b>Durchschnittliche Mahlzeiten-Dauer</b>"
+
+#: reports/graphs/feeding_amounts.py:39
+msgid "Feeding amount"
+msgstr "Mahlzeit"
+
+#: reports/templates/reports/report_base.html:19
 msgid "There is not enough data to generate this report."
 msgstr "Es gibt nicht genügend Daten um diesen Report zu generieren."
+
+#: babybuddy/models.py:47
+msgid "Timezone"
+msgstr "Zeitzone"
+
+#: babybuddy/templates/admin/base_site.html:4
+#: babybuddy/templates/admin/base_site.html:7
+#: babybuddy/templates/babybuddy/nav-dropdown.html:250
+msgid "Database Admin"
+msgstr "Datenbankadministration"
+
+#: core/templates/core/child_list.html:15
+msgid "Add Child"
+msgstr "Kind hinzufügen"
+
+#: core/templates/core/diaperchange_list.html:15
+msgid "Add Diaper Change"
+msgstr "Windelwechsel hinzufügen"
+
+#: core/templates/core/feeding_list.html:15
+msgid "Add Feeding"
+msgstr "Mahlzeit hinzufügen"
+
+#: core/templates/core/note_list.html:15
+msgid "Add Note"
+msgstr "Notiz hinzufügen"
+
+#: core/templates/core/sleep_list.html:15
+msgid "Add Sleep"
+msgstr "Nickerchen hinzufügen"
+
+#: core/templates/core/temperature_list.html:15
+msgid "Add Temperature Reading"
+msgstr "Temperaturmessung hinzufügen"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:5
+msgid "Delete All Inactive Timers"
+msgstr "Alle inaktiven Timer löschen"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:10
+msgid "Delete Inactive"
+msgstr "Inaktive löschen"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:17
+msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
+msgstr "Bist du dicher, dass du %(number)s inaktive Timer löschen möchtest?"
+
+#: core/templates/core/timer_list.html:62
+msgid "Delete Inactive Timers"
+msgstr "Inaktive Timer löschen"
+
+#: core/templates/core/tummytime_list.html:15
+msgid "Add Tummy Time"
+msgstr "Bauchzeit hinzufügen"
+
+#: core/templates/core/weight_list.html:15
+msgid "Add Weight"
+msgstr "Gewicht hinzufügen"
+
+#: core/views.py:365
+msgid "All inactive timers deleted."
+msgstr "Alle inaktiven Timer gelöscht."
+
+#: core/views.py:375
+msgid "No inactive timers exist."
+msgstr "Keine inaktiven Timer vorhanden."
+
+#: dashboard/templates/cards/feeding_last_method.html:15
+msgid "most recent"
+msgstr "letzte"
+
+#: dashboard/templates/cards/feeding_last_method.html:17
+msgid "%(n)s feeding%(plural)s ago"
+msgstr "vor %(n) Mahlzeit%(plural)en"
+
+#: dashboard/templates/cards/sleep_last.html:4
+msgid "Last Sleep"
+msgstr "Letzter Schlaf"
+
+#: dashboard/templates/dashboard/child_button_group.html:19
+msgid "Diaper Change Amounts"
+msgstr "Anzahl Windelwechsel"
+
+#: reports/graphs/diaperchange_amounts.py:27
+msgid "Diaper change amount"
+msgstr "Anzahl Windelwechsel"
+
+#: reports/graphs/diaperchange_amounts.py:36
+msgid "<b>Diaper Change Amounts</b>"
+msgstr "<b>Anzahl Windelwechsel</b>"
+
+#: reports/graphs/diaperchange_amounts.py:39
+msgid "Change amount"
+msgstr "Anzahl Wechsel"
+
+#: reports/templates/reports/diaperchange_amounts.html:4
+#: reports/templates/reports/diaperchange_amounts.html:8
+msgid "Diaper Amounts"
+msgstr "Anzahl Windeln"
+

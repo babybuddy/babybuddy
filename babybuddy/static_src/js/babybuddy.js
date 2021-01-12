@@ -59,3 +59,10 @@ BabyBuddy.PullToRefresh = function(ptr) {
         }
     };
 }(PullToRefresh);
+
+/**
+ * Fix for duplicate form submission from double pressing submit
+ */
+$("form").on("submit", function() {
+    $(this).find("button[type='submit']").prop('disabled', true);
+});

@@ -1,5 +1,8 @@
+import time
+
 import pytz
 
+from django.conf import settings
 from django.utils import timezone
 
 
@@ -18,4 +21,26 @@ class UserTimezoneMiddleware:
                 timezone.activate(pytz.timezone(timezone_name))
             except pytz.UnknownTimeZoneError:
                 pass
+        return self.get_response(request)
+
+
+class RollingSessionMiddleware:
+    """
+    Periodically resets the session expiry.
+    """
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        session_refresh = request.session.get('session_refresh')
+        if session_refresh:
+            try:
+                delta = int(time.time()) - session_refresh
+            except (ValueError, TypeError):
+                delta = settings.ROLLING_SESSION_REFRESH + 1
+            if delta > settings.ROLLING_SESSION_REFRESH:
+                request.session['session_refresh'] = int(time.time())
+                request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+        else:
+            request.session['session_refresh'] = int(time.time())
         return self.get_response(request)

@@ -1,24 +1,36 @@
-version: "3.7"
+version: "2.4"
 services:
   db:
-    image: postgres
+    image: postgres:11             # pin postgres to a major version
+    container_name: babybuddydb    # Container_name is an optional value for single-container
+                                   # deployments to set a friendly container name.
+                                   # Disable in swarm or other multi-container setups.
     environment:
       - PGDATA=/db-data
+      - POSTGRES_PASSWORD=postgres # must correspond with DB_PASSWORD in APP
     volumes:
       - db:/db-data:rw
+    restart: unless-stopped
   app:
     image: babybuddy/babybuddy
+    container_name: babybuddyapp   # Container_name is an optional value for single-container
+                                   # deployments to set a friendly container name.
+                                   # Disable in swarm or other multi-container setups.
     # See README.md#configuration for other environment configuration options.
     environment:
-      - ALLOWED_HOSTS=
+      - ALLOWED_HOSTS=localhost    # comma separated list of IP addresses or hosts that can access the web UI
+      - DB_PASSWORD=postgres       # must correspond with POSTGRES_PASSWORD in DB
       - DJANGO_SETTINGS_MODULE=babybuddy.settings.docker
-      - SECRET_KEY=
-      - TIME_ZONE=
+      - SECRET_KEY=                # Generate a random string here to secure the Django instance
+      - TIME_ZONE=                 # In the tzdata format, IE, "America/Denver"
+      - DEBUG=False                # Turn to False in production
     volumes:
       - media:/app/media:rw
-    command: gunicorn -c /app/gunicorn.py babybuddy.wsgi
+    # Sleep 5 seconds to allow the db to to come up;
+    command: bash -c 'sleep 5 && python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
     ports:
-      - "8000:8000"
+      - "8000:8000"               # For Portainer, select another port for babybuddy such as 7000, for example "7000:8000"
+    restart: unless-stopped
     depends_on:
       - db
 volumes:

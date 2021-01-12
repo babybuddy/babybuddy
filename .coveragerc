@@ -10,6 +10,9 @@ source =
     core
     dashboard
     reports
+parallel = true
+concurrency = multiprocessing
+data_file = data/.coverage
 
 [html]
 directory = htmlcov

@@ -1,10 +1,25 @@
 # -*- coding: utf-8 -*-
 from django import template
 
-from core.utils import duration_parts, duration_string as d_string
+from core import utils
 
 
 register = template.Library()
+
+
+@register.filter
+def child_age_string(birth_date):
+    """
+    Format a Child's age with monkey-patched timesince.
+    :param birth_date: datetime instance
+    :return: a string representation of time since `birth_date`.
+    """
+    if not birth_date:
+        return ''
+    try:
+        return utils.child_age_string(birth_date)
+    except (ValueError, TypeError):
+        return ''
 
 
 @register.filter
@@ -19,7 +34,7 @@ def duration_string(duration, precision='s'):
     if not duration:
         return ''
     try:
-        return d_string(duration, precision)
+        return utils.duration_string(duration, precision)
     except (ValueError, TypeError):
         return ''
 
@@ -34,7 +49,7 @@ def hours(duration):
     if not duration:
         return 0
     try:
-        h, m, s = duration_parts(duration)
+        h, m, s = utils.duration_parts(duration)
         return h
     except (ValueError, TypeError):
         return 0
@@ -50,7 +65,7 @@ def minutes(duration):
     if not duration:
         return 0
     try:
-        h, m, s = duration_parts(duration)
+        h, m, s = utils.duration_parts(duration)
         return m
     except (ValueError, TypeError):
         return 0
@@ -66,7 +81,7 @@ def seconds(duration):
     if not duration:
         return 0
     try:
-        h, m, s = duration_parts(duration)
+        h, m, s = utils.duration_parts(duration)
         return s
     except (ValueError, TypeError):
         return 0

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.test import TestCase
+import time
+
+from django.test import TestCase, override_settings
 from django.test import Client as HttpClient
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -29,6 +31,19 @@ class ViewsTestCase(TestCase):
     def test_root_router(self):
         page = self.c.get('/')
         self.assertEqual(page.url, '/dashboard/')
+
+    @override_settings(ROLLING_SESSION_REFRESH=1)
+    def test_rolling_sessions(self):
+        self.c.get('/')
+        session1 = str(self.c.cookies['sessionid'])
+        # Sleep longer than ROLLING_SESSION_REFRESH.
+        time.sleep(2)
+        self.c.get('/')
+        session2 = str(self.c.cookies['sessionid'])
+        self.c.get('/')
+        session3 = str(self.c.cookies['sessionid'])
+        self.assertNotEqual(session1, session2)
+        self.assertEqual(session2, session3)
 
     def test_user_reset_api_key(self):
         api_key_before = User.objects.get(pk=self.user.id).settings.api_key()

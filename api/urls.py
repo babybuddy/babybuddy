@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework.schemas import get_schema_view
 
 from . import views
 
@@ -22,5 +23,10 @@ urlpatterns = [
     path('api/auth/', include(
         'rest_framework.urls',
         namespace='rest_framework'
-    ))
+    )),
+    path('api/schema', get_schema_view(
+        title='Baby Buddy API',
+        version=1,
+        description='API documentation for the Baby Buddy application'
+    ), name='openapi-schema'),
 ]
