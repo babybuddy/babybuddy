@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<label for="id_{{ field.name }}" class="col-sm-2 col-form-label">
+<label for="id_{{ field.name }}" class="col-sm-2 col-form-label{% if field|field_type == 'booleanfield' %} boolean-label{% endif %}">
     {% if field|field_type != "booleanfield" %}
         {{ field.label }}
     {% endif %}

@@ -66,7 +66,6 @@ BabyBuddy.PullToRefresh = function(ptr) {
 $("form").on("submit", function() {
     $(this).find("button[type='submit']").prop('disabled', true);
 });
-
 /* Baby Buddy Timer
  *
  * Uses a supplied ID to run a timer. The element using the ID must have

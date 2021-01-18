@@ -30,6 +30,10 @@
     }
 }
 
+.boolean-label {
+    pointer-events: none;
+}
+
 // Set default text color for datetime picker.
 .bootstrap-datetimepicker-widget {
     color: $gray-400;

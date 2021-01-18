@@ -71,11 +71,16 @@
 
 #nav-sidebar .module th {
     width: 100%;
+    overflow-wrap: anywhere;
 }
 
 #nav-sidebar .module th,
 #nav-sidebar .module caption {
     padding-left: 16px;
+}
+
+#nav-sidebar .module td {
+    white-space: nowrap;
 }
 
 [dir="rtl"] #nav-sidebar .module th,
@@ -94,8 +99,21 @@
     background: #ffc;
 }
 
+.main > #nav-sidebar + .content {
+    max-width: calc(100% - 23px);
+}
+
+.main.shifted > #nav-sidebar + .content {
+    max-width: calc(100% - 299px);
+}
+
 @media (max-width: 767px) {
     #nav-sidebar, #toggle-nav-sidebar {
         display: none;
+    }
+
+    .main > #nav-sidebar + .content,
+    .main.shifted > #nav-sidebar + .content {
+        max-width: 100%;
     }
 }

@@ -7617,6 +7617,9 @@ a.text-error:hover, a.text-error:focus {
   background-color: inherit;
   border-color: inherit; }
 
+.boolean-label {
+  pointer-events: none; }
+
 .bootstrap-datetimepicker-widget {
   color: #ced4da; }
 
