@@ -34,6 +34,11 @@ class Settings(models.Model):
             (timezone.timedelta(minutes=15), _('15 min.')),
             (timezone.timedelta(minutes=30), _('30 min.')),
         ])
+    dashboard_hide_empty = models.BooleanField(
+        verbose_name=_('Hide Empty Dashboard Cards'),
+        default=False,
+        editable=True
+    )
     language = models.CharField(
         choices=settings.LANGUAGES,
         default=settings.LANGUAGE_CODE,
