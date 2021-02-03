@@ -1,6 +1,6 @@
 {% load duration i18n %}
 
-{% if stats|length > 0 and not user.settings.dashboard_hide_empty %}
+{% if not empty and user.settings.dashboard_hide_empty %}
     <div class="card card-dashboard card-statistics">
         <div class="card-header">
             <i class="icon icon-graph pull-left" aria-hidden="true"></i>
