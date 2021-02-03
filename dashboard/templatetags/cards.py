@@ -8,7 +8,6 @@ from django.utils.translation import gettext as _
 from datetime import date, datetime, time
 
 from core import models
-from babybuddy.models import Settings
 
 register = template.Library()
 
@@ -22,9 +21,9 @@ def card_diaperchange_last(child):
     """
     instance = models.DiaperChange.objects.filter(
         child=child).order_by('-time').first()
+    if not instance:
+        return {'empty': True}
 
-    if not instance and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
     return {'type': 'diaperchange', 'change': instance}
 
 
@@ -54,8 +53,9 @@ def card_diaperchange_types(child, date=None):
 
     instances = models.DiaperChange.objects.filter(child=child) \
         .filter(time__gt=min_date).filter(time__lt=max_date).order_by('-time')
-    if len(instances) == 0 and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
+    if len(instances) == 0:
+        return {'empty': True}
+
     for instance in instances:
         key = (max_date - instance.time).days
         if instance.wet:
@@ -92,12 +92,12 @@ def card_feeding_day(child, date=None):
         end__year=date.year,
         end__month=date.month,
         end__day=date.day)
+    if len(instances) == 0:
+        return {'empty': True}
 
     total = sum([instance.amount for instance in instances if instance.amount])
     count = len(instances)
 
-    if count == 0 and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
     return {'type': 'feeding', 'total': total, 'count': count}
 
 
@@ -110,8 +110,9 @@ def card_feeding_last(child):
     """
     instance = models.Feeding.objects.filter(child=child) \
         .order_by('-end').first()
-    if not instance and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
+    if not instance:
+        return {'empty': True}
+
     return {'type': 'feeding', 'feeding': instance}
 
 
@@ -124,8 +125,9 @@ def card_feeding_last_method(child):
     """
     instances = models.Feeding.objects.filter(child=child) \
         .order_by('-end')[:3]
-    if len(instances) == 0 and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
+    if len(instances) == 0:
+        return {'empty': True}
+
     # Results are reversed for carousel forward/back behavior.
     return {'type': 'feeding', 'feedings': list(reversed(instances))}
 
@@ -139,8 +141,9 @@ def card_sleep_last(child):
     """
     instance = models.Sleep.objects.filter(child=child) \
         .order_by('-end').first()
-    if not instance and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
+    if not instance:
+        return {'empty': True}
+
     return {'type': 'sleep', 'sleep': instance}
 
 
@@ -161,6 +164,8 @@ def card_sleep_day(child, date=None):
         end__year=date.year,
         end__month=date.month,
         end__day=date.day)
+    if len(instances) == 0:
+        return {'empty': True}
 
     total = timezone.timedelta(seconds=0)
     for instance in instances:
@@ -174,9 +179,6 @@ def card_sleep_day(child, date=None):
         total += end - start
 
     count = len(instances)
-
-    if count == 0 and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
 
     return {'type': 'sleep', 'total': total, 'count': count}
 
@@ -199,8 +201,9 @@ def card_sleep_naps_day(child, date=None):
         end__year=date.year,
         end__month=date.month,
         end__day=date.day)
-    if len(instances) == 0 and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
+    if len(instances) == 0:
+        return {'empty': True}
+
     return {
         'type': 'sleep',
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
@@ -217,43 +220,51 @@ def card_statistics(child):
     stats = []
 
     changes = _diaperchange_statistics(child)
-    stats.append({
-        'type': 'duration',
-        'stat': changes['btwn_average'],
-        'title': _('Diaper change frequency')})
-
-    feedings = _feeding_statistics(child)
-    for item in feedings:
+    if changes:
         stats.append({
             'type': 'duration',
-            'stat': item['btwn_average'],
-            'title': item['title']})
+            'stat': changes['btwn_average'],
+            'title': _('Diaper change frequency')})
+
+    feedings = _feeding_statistics(child)
+    if feedings:
+        for item in feedings:
+            stats.append({
+                'type': 'duration',
+                'stat': item['btwn_average'],
+                'title': item['title']})
 
     naps = _nap_statistics(child)
-    stats.append({
-        'type': 'duration',
-        'stat': naps['average'],
-        'title': _('Average nap duration')})
-    stats.append({
-        'type': 'float',
-        'stat': naps['avg_per_day'],
-        'title': _('Average naps per day')})
+    if naps:
+        stats.append({
+            'type': 'duration',
+            'stat': naps['average'],
+            'title': _('Average nap duration')})
+        stats.append({
+            'type': 'float',
+            'stat': naps['avg_per_day'],
+            'title': _('Average naps per day')})
 
     sleep = _sleep_statistics(child)
-    stats.append({
-        'type': 'duration',
-        'stat': sleep['average'],
-        'title': _('Average sleep duration')})
-    stats.append({
-        'type': 'duration',
-        'stat': sleep['btwn_average'],
-        'title': _('Average awake duration')})
+    if sleep:
+        stats.append({
+            'type': 'duration',
+            'stat': sleep['average'],
+            'title': _('Average sleep duration')})
+        stats.append({
+            'type': 'duration',
+            'stat': sleep['btwn_average'],
+            'title': _('Average awake duration')})
 
     weight = _weight_statistics(child)
-    stats.append({
-        'type': 'float',
-        'stat': weight['change_weekly'],
-        'title': _('Weight change per week')})
+    if weight:
+        stats.append({
+            'type': 'float',
+            'stat': weight['change_weekly'],
+            'title': _('Weight change per week')})
+
+    if len(stats) == 0:
+        return {'empty': True}
 
     return {'stats': stats}
 
@@ -266,6 +277,8 @@ def _diaperchange_statistics(child):
     """
     instances = models.DiaperChange.objects.filter(child=child) \
         .order_by('time')
+    if len(instances) == 0:
+        return False
     changes = {
         'btwn_total': timezone.timedelta(0),
         'btwn_count': instances.count() - 1,
@@ -311,6 +324,8 @@ def _feeding_statistics(child):
         timespan['btwn_average'] = 0.0
 
     instances = models.Feeding.objects.filter(child=child).order_by('start')
+    if len(instances) == 0:
+        return False
     last_instance = None
 
     for instance in instances:
@@ -336,6 +351,8 @@ def _nap_statistics(child):
     :returns: a dictionary of statistics.
     """
     instances = models.Sleep.naps.filter(child=child).order_by('start')
+    if len(instances) == 0:
+        return False
     naps = {
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': instances.count(),
@@ -359,6 +376,9 @@ def _sleep_statistics(child):
     :returns: a dictionary of statistics.
     """
     instances = models.Sleep.objects.filter(child=child).order_by('start')
+    if len(instances) == 0:
+        return False
+
     sleep = {
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': instances.count(),
@@ -390,6 +410,9 @@ def _weight_statistics(child):
     weight = {'change_weekly': 0.0}
 
     instances = models.Weight.objects.filter(child=child).order_by('-date')
+    if len(instances) == 0:
+        return False
+
     newest = instances.first()
     oldest = instances.last()
 
@@ -416,8 +439,9 @@ def card_timer_list(child=None):
         ).order_by('-start')
     else:
         instances = models.Timer.objects.filter(active=True).order_by('-start')
-    if len(instances) == 0 and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
+    if len(instances) == 0:
+        return {'empty': True}
+
     return {'type': 'timer', 'instances': list(instances)}
 
 
@@ -430,8 +454,9 @@ def card_tummytime_last(child):
     """
     instance = models.TummyTime.objects.filter(child=child) \
         .order_by('-end').first()
-    if not instance and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
+    if not instance:
+        return {'empty': True}
+
     return {'type': 'tummytime', 'tummytime': instance}
 
 
@@ -448,8 +473,9 @@ def card_tummytime_day(child, date=None):
     instances = models.TummyTime.objects.filter(
         child=child, end__year=date.year, end__month=date.month,
         end__day=date.day).order_by('-end')
-    if len(instances) == 0 and getattr(Settings.objects.first(), 'dashboard_hide_empty'):
-        return {'hidden': True}
+    if len(instances) == 0:
+        return {'empty': True}
+
     stats = {
         'total': timezone.timedelta(seconds=0),
         'count': instances.count()
