@@ -103,14 +103,14 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
 class DiaperChangeSerializer(CoreModelSerializer):
     class Meta:
         model = models.DiaperChange
-        fields = ('id', 'child', 'time', 'wet', 'solid', 'color', 'amount')
+        fields = ('id', 'child', 'time', 'wet', 'solid', 'color', 'amount', 'notes')
 
 
 class FeedingSerializer(CoreModelWithDurationSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Feeding
         fields = ('id', 'child', 'start', 'end', 'duration', 'type', 'method',
-                  'amount')
+                  'amount', 'notes')
 
 
 class NoteSerializer(CoreModelSerializer):
@@ -122,13 +122,13 @@ class NoteSerializer(CoreModelSerializer):
 class SleepSerializer(CoreModelWithDurationSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Sleep
-        fields = ('id', 'child', 'start', 'end', 'duration', 'nap')
+        fields = ('id', 'child', 'start', 'end', 'duration', 'nap', 'notes')
 
 
 class TemperatureSerializer(CoreModelSerializer):
     class Meta:
         model = models.Temperature
-        fields = ('id', 'child', 'temperature', 'time')
+        fields = ('id', 'child', 'temperature', 'time', 'notes')
 
 
 class TimerSerializer(CoreModelSerializer):
@@ -163,4 +163,4 @@ class TummyTimeSerializer(CoreModelWithDurationSerializer):
 class WeightSerializer(CoreModelSerializer):
     class Meta:
         model = models.Weight
-        fields = ('id', 'child', 'weight', 'date')
+        fields = ('id', 'child', 'weight', 'date', 'notes')
