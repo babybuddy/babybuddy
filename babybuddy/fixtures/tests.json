@@ -44,7 +44,8 @@
       "wet": true,
       "solid": false,
       "color": "",
-      "amount": 2.25
+      "amount": 2.25,
+      "notes": "stinky"
     }
   },
   {
@@ -255,7 +256,8 @@
       "duration": "00:15:00",
       "type": "formula",
       "method": "bottle",
-      "amount": 2.5
+      "amount": 2.5,
+      "notes": "forgot vitamins :("
     }
   },
   {
@@ -309,7 +311,8 @@
       "child": 1,
       "start": "2017-11-19T00:00:00Z",
       "end": "2017-11-19T04:00:00Z",
-      "duration": "04:00:00"
+      "duration": "04:00:00",
+      "notes": "lots of squirming"
     }
   },
     {
@@ -319,7 +322,8 @@
     {
       "child": 1,
       "temperature": 98.6,
-      "time": "2017-11-17T17:52:00Z"
+      "time": "2017-11-17T17:52:00Z",
+      "notes": "tympanic"
     }
   },
   {
@@ -388,7 +392,8 @@
     {
       "child": 1,
       "weight": 9.5,
-      "date": "2017-11-18"
+      "date": "2017-11-18",
+      "notes": "before feed"
     }
   }
 ]

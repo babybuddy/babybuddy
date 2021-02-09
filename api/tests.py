@@ -140,7 +140,8 @@ class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'wet': True,
             'solid': False,
             'color': '',
-            'amount': 2.25
+            'amount': 2.25,
+            'notes': 'stinky'
         })
 
     def test_post(self):
@@ -150,7 +151,8 @@ class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'wet': True,
             'solid': True,
             'color': 'brown',
-            'amount': 1.25
+            'amount': 1.25,
+            'notes': 'seedy'
         }
         response = self.client.post(self.endpoint, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -159,6 +161,7 @@ class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertTrue(obj.solid)
         self.assertEqual(obj.color, data['color'])
         self.assertEqual(obj.amount, data['amount'])
+        self.assertEqual(obj.notes, data['notes'])
 
     def test_patch(self):
         endpoint = '{}{}/'.format(self.endpoint, 3)
@@ -190,7 +193,8 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'duration': '00:15:00',
             'type': 'formula',
             'method': 'bottle',
-            'amount': 2.5
+            'amount': 2.5,
+            'notes': 'forgot vitamins :('
         })
 
     def test_post(self):
@@ -199,12 +203,14 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'start': '2017-11-19T14:00:00-05:00',
             'end': '2017-11-19T14:15:00-05:00',
             'type': 'breast milk',
-            'method': 'left breast'
+            'method': 'left breast',
+            'notes': 'with vitamins'
         }
         response = self.client.post(self.endpoint, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Feeding.objects.get(pk=response.data['id'])
         self.assertEqual(obj.type, data['type'])
+        self.assertEqual(obj.notes, data['notes'])
 
     def test_patch(self):
         endpoint = '{}{}/'.format(self.endpoint, 3)
@@ -275,7 +281,8 @@ class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'start': '2017-11-18T19:00:00-05:00',
             'end': '2017-11-18T23:00:00-05:00',
             'duration': '04:00:00',
-            'nap': False
+            'nap': False,
+            'notes': 'lots of squirming'
         })
 
     def test_post(self):
@@ -283,11 +290,13 @@ class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'child': 1,
             'start': '2017-11-21T19:30:00-05:00',
             'end': '2017-11-21T23:00:00-05:00',
+            'notes': 'used new swaddle'
         }
         response = self.client.post(self.endpoint, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Sleep.objects.get(pk=response.data['id'])
         self.assertEqual(str(obj.duration), '3:30:00')
+        self.assertEqual(obj.notes, data['notes'])
 
     def test_patch(self):
         endpoint = '{}{}/'.format(self.endpoint, 4)
@@ -314,19 +323,22 @@ class TemperatureAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'id': 1,
             'child': 1,
             'temperature': 98.6,
-            'time': '2017-11-17T12:52:00-05:00'
+            'time': '2017-11-17T12:52:00-05:00',
+            'notes': 'tympanic'
         })
 
     def test_post(self):
         data = {
             'child': 1,
             'temperature': '100.1',
-            'time': '2017-11-20T22:52:00-05:00'
+            'time': '2017-11-20T22:52:00-05:00',
+            'notes': 'rectal'
         }
         response = self.client.post(self.endpoint, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Temperature.objects.get(pk=response.data['id'])
         self.assertEqual(str(obj.temperature), data['temperature'])
+        self.assertEqual(obj.notes, data['notes'])
 
     def test_patch(self):
         endpoint = '{}{}/'.format(self.endpoint, 1)
@@ -439,19 +451,22 @@ class WeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             'id': 2,
             'child': 1,
             'weight': 9.5,
-            'date': '2017-11-18'
+            'date': '2017-11-18',
+            'notes': 'before feed'
         })
 
     def test_post(self):
         data = {
             'child': 1,
             'weight': '9.75',
-            'date': '2017-11-20'
+            'date': '2017-11-20',
+            'notes': 'after feed'
         }
         response = self.client.post(self.endpoint, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Weight.objects.get(pk=response.data['id'])
         self.assertEqual(str(obj.weight), data['weight'])
+        self.assertEqual(str(obj.notes), data['notes'])
 
     def test_patch(self):
         endpoint = '{}{}/'.format(self.endpoint, 2)
