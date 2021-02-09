@@ -103,7 +103,16 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
 class DiaperChangeSerializer(CoreModelSerializer):
     class Meta:
         model = models.DiaperChange
-        fields = ('id', 'child', 'time', 'wet', 'solid', 'color', 'amount', 'notes')
+        fields = (
+                'id',
+                'child',
+                'time',
+                'wet',
+                'solid',
+                'color',
+                'amount',
+                'notes'
+            )
 
 
 class FeedingSerializer(CoreModelWithDurationSerializer):
