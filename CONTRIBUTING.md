@@ -104,23 +104,23 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 
 1. Install pipenv
 
-        pip3 install pipenv
+       pip3 install pipenv
 
 1. Install required Python packages, including dev packages
 
-        pipenv install --three
+       pipenv install --three
 
 1. Install Gulp CLI
 
-        sudo npm install -g gulp-cli
+       sudo npm install -g gulp-cli
 
 1. Install required Node packages
 
-        npm install
+       npm install
 
 1. Set, at least, the `DJANGO_SETTINGS_MODULE` environment variable
 
-        export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
+       export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
 
     This process will differ based on the host OS. The above example is for
     Linux-based systems. See [Configuration](#configuration) for other settings
@@ -128,15 +128,15 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 
 1. Migrate the database
 
-        gulp migrate
+       gulp migrate
         
 1. Create cache table
 
-        gulp createcachetable
+       gulp createcachetable
 
 1. Build assets and run the server
 
-        gulp
+       gulp
 
     This command will also watch for file system changes to rebuild assets and
     restart the server as needed.
