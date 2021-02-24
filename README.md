@@ -174,7 +174,7 @@ Python 3.6+, nginx, uwsgi and sqlite and should be sufficient for a few users
 1. Set up directories and files
 
         sudo mkdir /var/www/babybuddy
-        sudo chown user:user /var/www/babybuddy
+        sudo chown $USER:$(id -gn $USER) /var/www/babybuddy
         mkdir -p /var/www/babybuddy/data/media
         git clone https://github.com/babybuddy/babybuddy.git /var/www/babybuddy/public
 
