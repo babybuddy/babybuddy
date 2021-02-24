@@ -7,7 +7,7 @@
     "url": "https://github.com/babybuddy/babybuddy.git"
   },
   "devDependencies": {
-    "bootstrap": "4.5.3",
+    "bootstrap": "4.6.0",
     "del": "^6.0.0",
     "font-awesome": "^4.7.0",
     "gulp": "^4.0.2",
@@ -16,22 +16,21 @@
     "gulp-flatten": "^0.4.0",
     "gulp-sass": "^4.1.0",
     "gulp-sass-glob": "^1.1.0",
-    "gulp-spawn": "^0.4.5",
+    "gulp-spawn": "^1.0.0",
     "gulp-stylelint": "^13.0.0",
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
-    "moment-timezone": "^0.5.31",
-    "plotly.js": "^1.57.1",
+    "moment-timezone": "^0.5.33",
+    "plotly.js": "^1.58.4",
     "popper.js": "^1.16.1",
-    "pulltorefreshjs": "^0.1.20",
+    "pulltorefreshjs": "^0.1.21",
     "pump": "^3.0.0",
-    "stylelint": "^13.7.2",
+    "stylelint": "^13.11.0",
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.18.0",
-    "tempusdominus-bootstrap-4": "^5.1.2",
-    "tempusdominus-core": "^5.0.3"
-  },
-  "dependencies": {}
+    "stylelint-scss": "^3.19.0",
+    "tempusdominus-bootstrap-4": "^5.39.0",
+    "tempusdominus-core": "^5.19.0"
+  }
 }
