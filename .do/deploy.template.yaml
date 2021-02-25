@@ -1,0 +1,18 @@
+spec:
+  name: babybuddy
+  services:
+    - name: babybuddy-app
+      git:
+        branch: main
+        repo_clone_url: https://github.com/babybuddy/babybuddy.git
+      envs:
+        - key: DJANGO_SETTINGS_MODULE
+          value: "DB-password-testvalue"
+          type: SECRET
+        - key: SECRET_KEY
+          type: SECRET
+        - key: TIME_ZONE
+          value: "Etc/UTC"
+  databases:
+    - name: babybuddy-db
+      engine: PG

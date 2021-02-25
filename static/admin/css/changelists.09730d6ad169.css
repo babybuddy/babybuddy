@@ -89,7 +89,7 @@
     color: #333;
 }
 
-#searchbar {
+#toolbar #searchbar {
     height: 19px;
     border: 1px solid #ccc;
     padding: 2px 5px;
@@ -99,7 +99,7 @@
     max-width: 100%;
 }
 
-#searchbar:focus {
+#toolbar #searchbar:focus {
     border-color: #999;
 }
 
@@ -128,6 +128,7 @@
 /* FILTER COLUMN */
 
 #changelist-filter {
+    flex: 0 0 240px;
     order: 1;
     width: 240px;
     background: #f8f8f8;

@@ -441,6 +441,8 @@ create/update translations.
 
 :us: English (U.S.) *(base)*
 
+:netherlands: Dutch
+
 :finland: Finnish
 
 :fr: French
