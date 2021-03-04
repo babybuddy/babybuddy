@@ -449,6 +449,8 @@ create/update translations.
 
 :de: German
 
+:it: Italian
+
 :mexico: :es: Spanish
 
 :sweden: Swedish

@@ -158,6 +158,7 @@ LANGUAGES = [
     ('fr', _('French')),
     ('fi', _('Finnish')),
     ('de', _('German')),
+    ('it', _('Italian')),
     ('es', _('Spanish')),
     ('sv', _('Swedish')),
     ('tr', _('Turkish')),
