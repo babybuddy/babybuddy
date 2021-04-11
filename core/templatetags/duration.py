@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
+from django.utils import timesince, timezone
+from django.utils.translation import gettext as _
 
 from core import utils
 
@@ -10,14 +12,17 @@ register = template.Library()
 @register.filter
 def child_age_string(birth_date):
     """
-    Format a Child's age with monkey-patched timesince.
+    Format a Child's age with a timeunit depth of 1.
     :param birth_date: datetime instance
     :return: a string representation of time since `birth_date`.
     """
     if not birth_date:
         return ''
+    # Return "0 days" for anything under one day.
+    elif timezone.localdate() - birth_date < timezone.timedelta(days=1):
+        return _('0 days')
     try:
-        return utils.child_age_string(birth_date)
+        return timesince.timesince(birth_date, depth=1)
     except (ValueError, TypeError):
         return ''
 
