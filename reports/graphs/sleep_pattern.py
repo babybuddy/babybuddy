@@ -83,9 +83,11 @@ def sleep_pattern(instances):
         if start_time.utcoffset() != end_time.utcoffset():
             diff = start_time.utcoffset() - end_time.utcoffset()
             duration -= timezone.timedelta(seconds=diff.seconds)
-            times[len(times) - 1] = duration.seconds/60
-            labels[len(labels) - 1] = _format_label(duration, start_time,
-                                                    end_time)
+            yesterday = (end_time - timezone.timedelta(days=1))
+            yesterday = yesterday.date().isoformat()
+            times[yesterday][len(times[yesterday]) - 1] = duration.seconds/60
+            labels[yesterday][len(times[yesterday]) - 1] = _format_label(
+                duration, start_time, end_time)
 
         last_end_time = end_time
 
