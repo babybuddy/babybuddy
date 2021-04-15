@@ -253,6 +253,10 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 ROLLING_SESSION_REFRESH = 86400
 
+# Set default auto field for models.
+# See https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Baby Buddy configuration
 # See README.md#configuration for details about these settings.
 

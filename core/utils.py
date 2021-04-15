@@ -1,21 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.utils import timesince, timezone
+from django.utils import timezone
 from django.utils.translation import ngettext
-
-
-def child_age_string(duration):
-    """Monkey patch timesince function to day precision only.
-    """
-    default_timesine_chunks = timesince.TIMESINCE_CHUNKS
-    timesince.TIMESINCE_CHUNKS = (
-        (60 * 60 * 24 * 365, 'year'),
-        (60 * 60 * 24 * 30, 'month'),
-        (60 * 60 * 24 * 7, 'week'),
-        (60 * 60 * 24, 'day'),
-    )
-    ts = timesince.timesince(duration)
-    timesince.TIMESINCE_CHUNKS = default_timesine_chunks
-    return ts
 
 
 def duration_string(duration, precision='s'):
