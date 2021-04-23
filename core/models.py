@@ -80,6 +80,7 @@ class Child(models.Model):
         verbose_name=_('Birth date')
     )
     slug = models.SlugField(
+        blank=False,
         editable=False,
         max_length=100,
         unique=True,
