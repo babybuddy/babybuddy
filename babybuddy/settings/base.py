@@ -315,12 +315,13 @@ elif AUTHENTICATION_METHOD == "LDAP":
         'email': 'mail',
     }
 
-    # Give special meaning to the active, staff and superuser LDAP groups.
-    AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-        'is_active': 'cn=active,' + AUTH_LDAP_GROUP_SCOPE,
-        'is_staff': 'cn=staff,' + AUTH_LDAP_GROUP_SCOPE,
-        'is_superuser': 'cn=superuser,' + AUTH_LDAP_GROUP_SCOPE,
-    }
+    if AUTH_LDAP_GROUP_SCOPE && os.environ.get('AUTH_LDAP_USE_SPECIAL_GROUPS'):
+        # Give special meaning to the active, staff and superuser LDAP groups.
+        AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+            'is_active': 'cn=active,' + AUTH_LDAP_GROUP_SCOPE,
+            'is_staff': 'cn=staff,' + AUTH_LDAP_GROUP_SCOPE,
+            'is_superuser': 'cn=superuser,' + AUTH_LDAP_GROUP_SCOPE,
+        }
 
     # Use LDAP group membership to calculate group permissions.
     AUTH_LDAP_FIND_GROUP_PERMS = True
