@@ -265,3 +265,63 @@ BABY_BUDDY = {
     'NAP_START_MAX': os.environ.get('NAP_START_MAX') or '18:00',
     'ALLOW_UPLOADS': os.environ.get('ALLOW_UPLOADS') or True
 }
+
+AUTHENTICATION_METHOD = os.environ.get('AUTHENTICATION_METHOD') or None
+
+# Authentificate using the REMOTE_USER header.
+if AUTHENTICATION_METHOD == "HEADER":
+    MIDDLEWARE.append('django.contrib.auth.middleware.RemoteUserMiddleware')
+    AUTHENTICATION_BACKENDS = [
+        'django.contrib.auth.backends.RemoteUserBackend',
+        # Fallback to normal authentication.
+        'django.contrib.auth.backends.ModelBackend',
+    ]
+elif AUTHENTICATION_METHOD == "LDAP":
+    AUTHENTICATION_BACKENDS = [
+        'django_auth_ldap.backend.LDAPBackend',
+        # Fallback to normal authentication.
+        'django.contrib.auth.backends.ModelBackend',
+    ]
+    import ldap
+    from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+    # Baseline configuration.
+
+    # E.g. 'ldap://ldap.example.com'
+    AUTH_LDAP_SERVER_URI = os.environ.get('AUTH_LDAP_SERVER_URI') or None
+
+    # E.g. 'cn=django-agent,dc=example,dc=com'
+    AUTH_LDAP_BIND_DN = os.environ.get('AUTH_LDAP_BIND_DN') or None
+    AUTH_LDAP_BIND_PASSWORD = os.environ.get('AUTH_LDAP_BIND_PASSWORD') or None
+    # E.g. 'uid=%(user)s,ou=users,dc=example,dc=com'
+    AUTH_LDAP_USER_DN_TEMPLATE = os.environ.get('AUTH_LDAP_USER_DN_TEMPLATE') or None
+
+    # For AUTH_LDAP_GROUP_SCOPE, e.g. 'ou=django,ou=groups,dc=example,dc=com'
+    AUTH_LDAP_GROUP_SCOPE = os.environ.get('AUTH_LDAP_GROUP_SCOPE') or None
+    AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+        AUTH_LDAP_GROUP_SCOPE,
+        ldap.SCOPE_SUBTREE,
+        '(objectClass=groupOfNames)',
+    )
+    AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr='cn')
+
+    # Simple group restrictions.
+    # E.g. 'cn=enabled,ou=django,ou=groups,dc=example,dc=com'
+    AUTH_LDAP_REQUIRE_GROUP = os.environ.get('AUTH_LDAP_REQUIRE_GROUP') or None
+
+    # Populate the Django user from the LDAP directory.
+    AUTH_LDAP_USER_ATTR_MAP = {
+        'first_name': 'givenName',
+        'last_name': 'sn',
+        'email': 'mail',
+    }
+
+    # Give special meaning to the active, staff and superuser LDAP groups.
+    AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+        'is_active': 'cn=active,' + AUTH_LDAP_GROUP_SCOPE,
+        'is_staff': 'cn=staff,' + AUTH_LDAP_GROUP_SCOPE,
+        'is_superuser': 'cn=superuser,' + AUTH_LDAP_GROUP_SCOPE,
+    }
+
+    # Use LDAP group membership to calculate group permissions.
+    AUTH_LDAP_FIND_GROUP_PERMS = True
+
