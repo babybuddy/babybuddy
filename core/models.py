@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from django.utils import timezone
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
@@ -80,6 +80,7 @@ class Child(models.Model):
         verbose_name=_('Birth date')
     )
     slug = models.SlugField(
+        allow_unicode=True,
         blank=False,
         editable=False,
         max_length=100,
@@ -107,7 +108,7 @@ class Child(models.Model):
         return '{} {}'.format(self.first_name, self.last_name)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self)
+        self.slug = slugify(self, allow_unicode=True)
         super(Child, self).save(*args, **kwargs)
         cache.set(self.cache_key_count, Child.objects.count(), None)
 

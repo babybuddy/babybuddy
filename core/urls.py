@@ -8,14 +8,14 @@ app_name = 'core'
 urlpatterns = [
     path('children/', views.ChildList.as_view(), name='child-list'),
     path('children/add/', views.ChildAdd.as_view(), name='child-add'),
-    path('children/<slug:slug>/', views.ChildDetail.as_view(), name='child'),
+    path('children/<str:slug>/', views.ChildDetail.as_view(), name='child'),
     path(
-        'children/<slug:slug>/edit/',
+        'children/<str:slug>/edit/',
         views.ChildUpdate.as_view(),
         name='child-update'
     ),
     path(
-        'children/<slug:slug>/delete/',
+        'children/<str:slug>/delete/',
         views.ChildDelete.as_view(),
         name='child-delete'
     ),
