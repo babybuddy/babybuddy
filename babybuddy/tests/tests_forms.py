@@ -30,6 +30,7 @@ class FormsTestCase(TestCase):
             'last_name': 'Name',
             'email': 'user@user.user',
             'dashboard_refresh_rate': '',
+            'dashboard_hide_empty': False,
             'language': 'en',
             'timezone': timezone.get_default_timezone_name(),
             'next': '/user/settings/'
@@ -91,6 +92,12 @@ class FormsTestCase(TestCase):
         page = self.c.post('/users/{}/delete/'.format(new_user.id))
         self.assertEqual(page.status_code, 302)
         self.assertQuerysetEqual(User.objects.filter(username='username'), [])
+
+        params['dashboard_hide_empty'] = True
+        page = self.c.post('/users/{}/edit/'.format(new_user.id), params)
+        self.assertEqual(page.status_code, 302)
+        new_user.refresh_from_db()
+        self.assertEqual(new_user.dashboard_hide_empty, params['dashboard_hide_empty'])
 
     def test_user_settings(self):
         self.c.login(**self.credentials)
