@@ -564,7 +564,7 @@ msgid "<p>We've emailed you instructions for setting your\n"
 "        <p class=\"mb-0\">If you don't receive an email, please make sure you've\n"
 "            entered the address you registered with, and check your spam\n"
 "            folder.</p>"
-msgstr "<p>Wenn einen Account mit dieser E-Mail-Adresse existiert, haben wir dir  Anweisungen zum Zurücksetzen des Passworts an dieselbe Adresse gesendet.</p>\n"
+msgstr "<p>Wenn ein Account mit dieser E-Mail-Adresse existiert, haben wir dir  Anweisungen zum Zurücksetzen des Passworts an dieselbe Adresse gesendet.</p>\n"
 "        <p class=\"mb-0\">Falls du die E-Mail nicht erhältst, überprüfe, dass du die registrierte Adresse eingegeben hast und überprüfe deinen Spam-Ordner.</p>"
 
 #: babybuddy/templates/registration/password_reset_form.html:4
@@ -1368,20 +1368,20 @@ msgstr "%(timer)s von %(user)s erstellt"
 #: core/utils.py:15
 msgid "%(hours)s hour"
 msgid_plural "%(hours)s hours"
-msgstr[0] "%(hours) Stunde"
-msgstr[1] "%(hours) Stunden"
+msgstr[0] "%(hours)s Stunde"
+msgstr[1] "%(hours)s Stunden"
 
 #: core/utils.py:22
 msgid "%(minutes)s minute"
 msgid_plural "%(minutes)s minutes"
-msgstr[0] "%(minutes) Minute"
-msgstr[1] "%(minutes) Minuten"
+msgstr[0] "%(minutes)s Minute"
+msgstr[1] "%(minutes)s Minuten"
 
 #: core/utils.py:30
 msgid "%(seconds)s second"
 msgid_plural "%(seconds)s seconds"
-msgstr[0] "%(minutes) Sekunde"
-msgstr[1] "%(minutes) Sekunden"
+msgstr[0] "%(minutes)s Sekunde"
+msgstr[1] "%(minutes)s Sekunden"
 
 #: core/views.py:64 core/views.py:121
 msgid "%(model)s entry deleted."
@@ -1493,7 +1493,7 @@ msgstr "letzte"
 
 #: dashboard/templates/cards/feeding_last_method.html:17
 msgid "%(n)s feeding%(plural)s ago"
-msgstr "vor %(n) Mahlzeit%(plural)en"
+msgstr "vor %(n)s Mahlzeit%(plural)en"
 
 #: dashboard/templates/cards/sleep_last.html:4
 msgid "Last Sleep"
