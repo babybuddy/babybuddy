@@ -53,8 +53,7 @@ def card_diaperchange_types(child, date=None):
 
     instances = models.DiaperChange.objects.filter(child=child) \
         .filter(time__gt=min_date).filter(time__lt=max_date).order_by('-time')
-    if len(instances) == 0:
-        return {'empty': True}
+    empty = len(instances) == 0
 
     for instance in instances:
         key = (max_date - instance.time).days
@@ -70,7 +69,7 @@ def card_diaperchange_types(child, date=None):
             stats[key]['wet_pct'] = info['wet'] / total * 100
             stats[key]['solid_pct'] = info['solid'] / total * 100
 
-    return {'type': 'diaperchange', 'stats': stats, 'total': week_total}
+    return {'type': 'diaperchange', 'stats': stats, 'total': week_total, 'empty': empty}
 
 
 @register.inclusion_tag('cards/feeding_day.html')
@@ -92,13 +91,12 @@ def card_feeding_day(child, date=None):
         end__year=date.year,
         end__month=date.month,
         end__day=date.day)
-    if len(instances) == 0:
-        return {'empty': True}
 
     total = sum([instance.amount for instance in instances if instance.amount])
     count = len(instances)
+    empty = len(instances) == 0
 
-    return {'type': 'feeding', 'total': total, 'count': count}
+    return {'type': 'feeding', 'total': total, 'count': count, 'empty': empty}
 
 
 @register.inclusion_tag('cards/feeding_last.html')
@@ -110,10 +108,9 @@ def card_feeding_last(child):
     """
     instance = models.Feeding.objects.filter(child=child) \
         .order_by('-end').first()
-    if not instance:
-        return {'empty': True}
+    empty = not instance
 
-    return {'type': 'feeding', 'feeding': instance}
+    return {'type': 'feeding', 'feeding': instance, 'empty': empty}
 
 
 @register.inclusion_tag('cards/feeding_last_method.html')
@@ -125,11 +122,10 @@ def card_feeding_last_method(child):
     """
     instances = models.Feeding.objects.filter(child=child) \
         .order_by('-end')[:3]
-    if len(instances) == 0:
-        return {'empty': True}
+    empty = len(instances) == 0
 
     # Results are reversed for carousel forward/back behavior.
-    return {'type': 'feeding', 'feedings': list(reversed(instances))}
+    return {'type': 'feeding', 'feedings': list(reversed(instances)), 'empty': empty}
 
 
 @register.inclusion_tag('cards/sleep_last.html')
@@ -141,10 +137,9 @@ def card_sleep_last(child):
     """
     instance = models.Sleep.objects.filter(child=child) \
         .order_by('-end').first()
-    if not instance:
-        return {'empty': True}
+    empty = not instance
 
-    return {'type': 'sleep', 'sleep': instance}
+    return {'type': 'sleep', 'sleep': instance, 'empty': empty}
 
 
 @register.inclusion_tag('cards/sleep_day.html')
@@ -164,8 +159,7 @@ def card_sleep_day(child, date=None):
         end__year=date.year,
         end__month=date.month,
         end__day=date.day)
-    if len(instances) == 0:
-        return {'empty': True}
+    empty = len(instances) == 0
 
     total = timezone.timedelta(seconds=0)
     for instance in instances:
@@ -180,7 +174,7 @@ def card_sleep_day(child, date=None):
 
     count = len(instances)
 
-    return {'type': 'sleep', 'total': total, 'count': count}
+    return {'type': 'sleep', 'total': total, 'count': count, 'empty': empty}
 
 
 @register.inclusion_tag('cards/sleep_naps_day.html')
@@ -201,13 +195,13 @@ def card_sleep_naps_day(child, date=None):
         end__year=date.year,
         end__month=date.month,
         end__day=date.day)
-    if len(instances) == 0:
-        return {'empty': True}
+    empty = len(instances) == 0
 
     return {
         'type': 'sleep',
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
-        'count': len(instances)}
+        'count': len(instances),
+        'empty': empty}
 
 
 @register.inclusion_tag('cards/statistics.html')
@@ -263,10 +257,9 @@ def card_statistics(child):
             'stat': weight['change_weekly'],
             'title': _('Weight change per week')})
 
-    if len(stats) == 0:
-        return {'empty': True}
+    empty = len(stats) == 0
 
-    return {'stats': stats}
+    return {'stats': stats, 'empty': empty}
 
 
 def _diaperchange_statistics(child):
@@ -439,10 +432,9 @@ def card_timer_list(child=None):
         ).order_by('-start')
     else:
         instances = models.Timer.objects.filter(active=True).order_by('-start')
-    if len(instances) == 0:
-        return {'empty': True}
+    empty = len(instances) == 0
 
-    return {'type': 'timer', 'instances': list(instances)}
+    return {'type': 'timer', 'instances': list(instances), 'empty': empty}
 
 
 @register.inclusion_tag('cards/tummytime_last.html')
@@ -454,10 +446,9 @@ def card_tummytime_last(child):
     """
     instance = models.TummyTime.objects.filter(child=child) \
         .order_by('-end').first()
-    if not instance:
-        return {'empty': True}
+    empty = not instance
 
-    return {'type': 'tummytime', 'tummytime': instance}
+    return {'type': 'tummytime', 'tummytime': instance, 'empty': empty}
 
 
 @register.inclusion_tag('cards/tummytime_day.html')
@@ -473,8 +464,7 @@ def card_tummytime_day(child, date=None):
     instances = models.TummyTime.objects.filter(
         child=child, end__year=date.year, end__month=date.month,
         end__day=date.day).order_by('-end')
-    if len(instances) == 0:
-        return {'empty': True}
+    empty = len(instances) == 0
 
     stats = {
         'total': timezone.timedelta(seconds=0),
@@ -486,4 +476,5 @@ def card_tummytime_day(child, date=None):
         'type': 'tummytime',
         'stats': stats,
         'instances': instances,
-        'last': instances.first()}
+        'last': instances.first(),
+        'empty': empty}
