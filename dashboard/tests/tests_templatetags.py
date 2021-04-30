@@ -29,6 +29,7 @@ class TemplateTagsTestCase(TestCase):
     def test_card_diaperchange_last(self):
         data = cards.card_diaperchange_last(self.child)
         self.assertEqual(data['type'], 'diaperchange')
+        self.assertEqual(data['empty'], False)
         self.assertIsInstance(data['change'], models.DiaperChange)
         self.assertEqual(data['change'], models.DiaperChange.objects.first())
 
@@ -49,18 +50,21 @@ class TemplateTagsTestCase(TestCase):
     def test_card_feeding_day(self):
         data = cards.card_feeding_day(self.child, self.date)
         self.assertEqual(data['type'], 'feeding')
+        self.assertEqual(data['empty'], False)
         self.assertEqual(data['total'], 2.5)
         self.assertEqual(data['count'], 3)
 
     def test_card_feeding_last(self):
         data = cards.card_feeding_last(self.child)
         self.assertEqual(data['type'], 'feeding')
+        self.assertEqual(data['empty'], False)
         self.assertIsInstance(data['feeding'], models.Feeding)
         self.assertEqual(data['feeding'], models.Feeding.objects.first())
 
     def test_card_feeding_last_method(self):
         data = cards.card_feeding_last_method(self.child)
         self.assertEqual(data['type'], 'feeding')
+        self.assertEqual(data['empty'], False)
         self.assertEqual(len(data['feedings']), 3)
         for feeding in data['feedings']:
             self.assertIsInstance(feeding, models.Feeding)
@@ -71,18 +75,27 @@ class TemplateTagsTestCase(TestCase):
     def test_card_sleep_last(self):
         data = cards.card_sleep_last(self.child)
         self.assertEqual(data['type'], 'sleep')
+        self.assertEqual(data['empty'], False)
         self.assertIsInstance(data['sleep'], models.Sleep)
         self.assertEqual(data['sleep'], models.Sleep.objects.first())
+
+    def test_card_sleep_last_empty(self):
+        models.Sleep.objects.all().delete()
+        data = cards.card_sleep_last(self.child)
+        self.assertEqual(data['type'], 'sleep')
+        self.assertEqual(data['empty'], True)
 
     def test_card_sleep_day(self):
         data = cards.card_sleep_day(self.child, self.date)
         self.assertEqual(data['type'], 'sleep')
+        self.assertEqual(data['empty'], False)
         self.assertEqual(data['total'], timezone.timedelta(2, 7200))
         self.assertEqual(data['count'], 4)
 
     def test_card_sleep_naps_day(self):
         data = cards.card_sleep_naps_day(self.child, self.date)
         self.assertEqual(data['type'], 'sleep')
+        self.assertEqual(data['empty'], False)
         self.assertEqual(data['total'], timezone.timedelta(0, 9000))
         self.assertEqual(data['count'], 2)
 
@@ -139,6 +152,7 @@ class TemplateTagsTestCase(TestCase):
         ]
 
         self.assertEqual(data['stats'], stats)
+        self.assertEqual(data['empty'], False)
 
     def test_card_timer_list(self):
         user = User.objects.first()
@@ -184,12 +198,14 @@ class TemplateTagsTestCase(TestCase):
     def test_card_tummytime_last(self):
         data = cards.card_tummytime_last(self.child)
         self.assertEqual(data['type'], 'tummytime')
+        self.assertEqual(data['empty'], False)
         self.assertIsInstance(data['tummytime'], models.TummyTime)
         self.assertEqual(data['tummytime'], models.TummyTime.objects.first())
 
     def test_card_tummytime_day(self):
         data = cards.card_tummytime_day(self.child, self.date)
         self.assertEqual(data['type'], 'tummytime')
+        self.assertEqual(data['empty'], False)
         self.assertIsInstance(data['instances'].first(), models.TummyTime)
         self.assertIsInstance(data['last'], models.TummyTime)
         stats = {'count': 3, 'total': timezone.timedelta(0, 300)}
