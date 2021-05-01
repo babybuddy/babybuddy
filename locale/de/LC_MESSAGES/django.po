@@ -1493,7 +1493,7 @@ msgstr "letzte"
 
 #: dashboard/templates/cards/feeding_last_method.html:17
 msgid "%(n)s feeding%(plural)s ago"
-msgstr "vor %(n)s Mahlzeit%(plural)en"
+msgstr "vor %(n) Mahlzeit%(plural)en"
 
 #: dashboard/templates/cards/sleep_last.html:4
 msgid "Last Sleep"
