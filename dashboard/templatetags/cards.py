@@ -21,10 +21,9 @@ def card_diaperchange_last(child):
     """
     instance = models.DiaperChange.objects.filter(
         child=child).order_by('-time').first()
-    if not instance:
-        return {'empty': True}
+    empty = not instance
 
-    return {'type': 'diaperchange', 'change': instance}
+    return {'type': 'diaperchange', 'change': instance, 'empty': empty}
 
 
 @register.inclusion_tag('cards/diaperchange_types.html')
