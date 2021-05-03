@@ -988,7 +988,7 @@ msgstr "Keine Gewichts-Einträge gefunden."
 
 #: core/timeline.py:24
 msgid "%(child)s had a diaper change."
-msgstr "%(child)s kriegte die Windel gewechselt."
+msgstr "%(child)s bekam die Windel gewechselt."
 
 #: core/timeline.py:35
 msgid "%(child)s started feeding."
