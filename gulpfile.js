@@ -197,15 +197,20 @@ function test(cb) {
         'isolate'
     ];
     command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function() {
-        // Run isolated tests.
-        config.testsConfig.isolated.forEach(function(test_name) {
-            es(
-                'pipenv run python manage.py test ' + test_name,
-                {stdio: 'inherit'}
-            );
-        })
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function(code) {
+        if (code === 0) {
+            // Run isolated tests.
+            config.testsConfig.isolated.forEach(function(test_name) {
+                try {
+                    es('pipenv run python manage.py test ' + test_name, {stdio: 'inherit'});
+                } catch (error) {
+                    console.error(error);
+                    process.exit(1);
+                }
+            })
+        }
         cb();
+        process.exit(code);
     });
 }
 
