@@ -31,7 +31,7 @@ class FormsTestCase(TestCase):
             'email': 'user@user.user',
             'dashboard_refresh_rate': '',
             'language': 'en',
-            'timezone': timezone.get_default_timezone_name(),
+            'timezone': 'UTC',
             'next': '/user/settings/'
         }
 

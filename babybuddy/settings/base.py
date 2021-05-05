@@ -139,7 +139,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 USE_TZ = True
 
-TIME_ZONE = os.environ.get('TIME_ZONE') or 'Etc/UTC'
+TIME_ZONE = os.environ.get('TIME_ZONE') or 'UTC'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
