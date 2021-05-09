@@ -11,9 +11,11 @@ from core import models
 
 register = template.Library()
 
+def _user_wants_hide(context):
+    return context['request'].user.settings.dashboard_hide_empty
 
-@register.inclusion_tag('cards/diaperchange_last.html')
-def card_diaperchange_last(child):
+@register.inclusion_tag('cards/diaperchange_last.html', takes_context=True)
+def card_diaperchange_last(context, child):
     """
     Information about the most recent diaper change.
     :param child: an instance of the Child model.
@@ -23,11 +25,16 @@ def card_diaperchange_last(child):
         child=child).order_by('-time').first()
     empty = not instance
 
-    return {'type': 'diaperchange', 'change': instance, 'empty': empty}
+    return {
+        'type': 'diaperchange', 
+        'change': instance, 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/diaperchange_types.html')
-def card_diaperchange_types(child, date=None):
+@register.inclusion_tag('cards/diaperchange_types.html', takes_context=True)
+def card_diaperchange_types(context, child, date=None):
     """
     Creates a break down of wet and solid Diaper Change instances for the past
     seven days.
@@ -68,11 +75,17 @@ def card_diaperchange_types(child, date=None):
             stats[key]['wet_pct'] = info['wet'] / total * 100
             stats[key]['solid_pct'] = info['solid'] / total * 100
 
-    return {'type': 'diaperchange', 'stats': stats, 'total': week_total, 'empty': empty}
+    return {
+        'type': 'diaperchange', 
+        'stats': stats, 
+        'total': week_total, 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/feeding_day.html')
-def card_feeding_day(child, date=None):
+@register.inclusion_tag('cards/feeding_day.html', takes_context=True)
+def card_feeding_day(context, child, date=None):
     """
     Filters Feeding instances to get total amount for a specific date.
     :param child: an instance of the Child model.
@@ -95,11 +108,17 @@ def card_feeding_day(child, date=None):
     count = len(instances)
     empty = len(instances) == 0
 
-    return {'type': 'feeding', 'total': total, 'count': count, 'empty': empty}
+    return {
+        'type': 'feeding', 
+        'total': total, 
+        'count': count, 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/feeding_last.html')
-def card_feeding_last(child):
+@register.inclusion_tag('cards/feeding_last.html', takes_context=True)
+def card_feeding_last(context, child):
     """
     Information about the most recent feeding.
     :param child: an instance of the Child model.
@@ -109,11 +128,16 @@ def card_feeding_last(child):
         .order_by('-end').first()
     empty = not instance
 
-    return {'type': 'feeding', 'feeding': instance, 'empty': empty}
+    return {
+        'type': 'feeding', 
+        'feeding': instance, 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/feeding_last_method.html')
-def card_feeding_last_method(child):
+@register.inclusion_tag('cards/feeding_last_method.html', takes_context=True)
+def card_feeding_last_method(context, child):
     """
     Information about the three most recent feeding methods.
     :param child: an instance of the Child model.
@@ -124,11 +148,16 @@ def card_feeding_last_method(child):
     empty = len(instances) == 0
 
     # Results are reversed for carousel forward/back behavior.
-    return {'type': 'feeding', 'feedings': list(reversed(instances)), 'empty': empty}
+    return {
+        'type': 'feeding', 
+        'feedings': list(reversed(instances)), 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/sleep_last.html')
-def card_sleep_last(child):
+@register.inclusion_tag('cards/sleep_last.html', takes_context=True)
+def card_sleep_last(context, child):
     """
     Information about the most recent sleep entry.
     :param child: an instance of the Child model.
@@ -138,11 +167,16 @@ def card_sleep_last(child):
         .order_by('-end').first()
     empty = not instance
 
-    return {'type': 'sleep', 'sleep': instance, 'empty': empty}
+    return {
+        'type': 'sleep', 
+        'sleep': instance, 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/sleep_day.html')
-def card_sleep_day(child, date=None):
+@register.inclusion_tag('cards/sleep_day.html', takes_context=True)
+def card_sleep_day(context, child, date=None):
     """
     Filters Sleep instances to get count and total values for a specific date.
     :param child: an instance of the Child model.
@@ -173,11 +207,17 @@ def card_sleep_day(child, date=None):
 
     count = len(instances)
 
-    return {'type': 'sleep', 'total': total, 'count': count, 'empty': empty}
+    return {
+        'type': 'sleep', 
+        'total': total, 
+        'count': count, 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/sleep_naps_day.html')
-def card_sleep_naps_day(child, date=None):
+@register.inclusion_tag('cards/sleep_naps_day.html', takes_context=True)
+def card_sleep_naps_day(context, child, date=None):
     """
     Filters Sleep instances categorized as naps and generates statistics for a
     specific date.
@@ -200,11 +240,12 @@ def card_sleep_naps_day(child, date=None):
         'type': 'sleep',
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': len(instances),
-        'empty': empty}
+        'empty': empty, 'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/statistics.html')
-def card_statistics(child):
+@register.inclusion_tag('cards/statistics.html', takes_context=True)
+def card_statistics(context, child):
     """
     Statistics data for all models.
     :param child: an instance of the Child model.
@@ -258,7 +299,11 @@ def card_statistics(child):
 
     empty = len(stats) == 0
 
-    return {'stats': stats, 'empty': empty}
+    return {
+        'stats': stats, 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
 def _diaperchange_statistics(child):
@@ -416,8 +461,8 @@ def _weight_statistics(child):
     return weight
 
 
-@register.inclusion_tag('cards/timer_list.html')
-def card_timer_list(child=None):
+@register.inclusion_tag('cards/timer_list.html', takes_context=True)
+def card_timer_list(context, child=None):
     """
     Filters for currently active Timer instances, optionally by child.
     :param child: an instance of the Child model.
@@ -433,11 +478,16 @@ def card_timer_list(child=None):
         instances = models.Timer.objects.filter(active=True).order_by('-start')
     empty = len(instances) == 0
 
-    return {'type': 'timer', 'instances': list(instances), 'empty': empty}
+    return {
+        'type': 'timer', 
+        'instances': list(instances), 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/tummytime_last.html')
-def card_tummytime_last(child):
+@register.inclusion_tag('cards/tummytime_last.html', takes_context=True)
+def card_tummytime_last(context, child):
     """
     Filters the most recent tummy time.
     :param child: an instance of the Child model.
@@ -447,11 +497,16 @@ def card_tummytime_last(child):
         .order_by('-end').first()
     empty = not instance
 
-    return {'type': 'tummytime', 'tummytime': instance, 'empty': empty}
+    return {
+        'type': 'tummytime', 
+        'tummytime': instance, 
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
 
 
-@register.inclusion_tag('cards/tummytime_day.html')
-def card_tummytime_day(child, date=None):
+@register.inclusion_tag('cards/tummytime_day.html', takes_context=True)
+def card_tummytime_day(context, child, date=None):
     """
     Filters Tummy Time instances and generates statistics for a specific date.
     :param child: an instance of the Child model.
@@ -471,9 +526,12 @@ def card_tummytime_day(child, date=None):
     }
     for instance in instances:
         stats['total'] += timezone.timedelta(seconds=instance.duration.seconds)
+
     return {
         'type': 'tummytime',
         'stats': stats,
         'instances': instances,
         'last': instances.first(),
-        'empty': empty}
+        'empty': empty, 
+        'user_wants_hide': _user_wants_hide(context)
+    }
