@@ -1380,8 +1380,8 @@ msgstr[1] "%(minutes)s Minuten"
 #: core/utils.py:30
 msgid "%(seconds)s second"
 msgid_plural "%(seconds)s seconds"
-msgstr[0] "%(minutes)s Sekunde"
-msgstr[1] "%(minutes)s Sekunden"
+msgstr[0] "%(seconds)s Sekunde"
+msgstr[1] "%(seconds)s Sekunden"
 
 #: core/views.py:64 core/views.py:121
 msgid "%(model)s entry deleted."
