@@ -1380,8 +1380,8 @@ msgstr[1] "%(minutes)s Minuten"
 #: core/utils.py:30
 msgid "%(seconds)s second"
 msgid_plural "%(seconds)s seconds"
-msgstr[0] "%(minutes)s Sekunde"
-msgstr[1] "%(minutes)s Sekunden"
+msgstr[0] "%(seconds)s Sekunde"
+msgstr[1] "%(seconds)s Sekunden"
 
 #: core/views.py:64 core/views.py:121
 msgid "%(model)s entry deleted."
@@ -1493,7 +1493,7 @@ msgstr "letzte"
 
 #: dashboard/templates/cards/feeding_last_method.html:17
 msgid "%(n)s feeding%(plural)s ago"
-msgstr "vor %(n)s Mahlzeit%(plural)en"
+msgstr "vor %(n) Mahlzeit%(plural)en"
 
 #: dashboard/templates/cards/sleep_last.html:4
 msgid "Last Sleep"
