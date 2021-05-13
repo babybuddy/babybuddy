@@ -93,11 +93,6 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 302)
         self.assertQuerysetEqual(User.objects.filter(username='username'), [])
 
-        params['dashboard_hide_empty'] = True
-        page = self.c.post('/users/{}/edit/'.format(new_user.id), params)
-        self.assertEqual(page.status_code, 302)
-        new_user.refresh_from_db()
-        self.assertEqual(new_user.dashboard_hide_empty, params['dashboard_hide_empty'])
 
     def test_user_settings(self):
         self.c.login(**self.credentials)
@@ -108,6 +103,7 @@ class FormsTestCase(TestCase):
         page = self.c.post('/user/settings/', params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, 'New First Name')
+
 
     def test_user_settings_invalid(self):
         self.c.login(**self.credentials)
@@ -139,3 +135,14 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertEqual(timezone.get_current_timezone_name(),
                          params['timezone'])
+
+
+    def test_user_settings_dashboard_hide_emtpy_on(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params['dashboard_hide_empty'] = "on"
+
+        page = self.c.post('/user/settings/', params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, 'id="id_dashboard_hide_empty" checked')
