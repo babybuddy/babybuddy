@@ -22,7 +22,7 @@ class TemplateTagsTestCase(TestCase):
     def setUpClass(cls):
         super(TemplateTagsTestCase, cls).setUpClass()
         cls.child = models.Child.objects.first()
-        cls.context = {'request': MockUserRequest(User.objects.first()) }
+        cls.context = {'request': MockUserRequest(User.objects.first())}
 
         # Ensure timezone matches the one defined by fixtures.
         user_timezone = Settings.objects.first().timezone
@@ -35,7 +35,7 @@ class TemplateTagsTestCase(TestCase):
     def test_user_wants_hide(self):
         request = MockUserRequest(User.objects.first())
         request.user.settings.dashboard_hide_empty = True
-        context = { 'request': request }
+        context = {'request': request}
         user_wants_hide = cards._user_wants_hide(context)
         self.assertTrue(user_wants_hide)
 
@@ -48,7 +48,10 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(data['change'], models.DiaperChange.objects.first())
 
     def test_card_diaperchange_types(self):
-        data = cards.card_diaperchange_types(self.context, self.child, self.date)
+        data = cards.card_diaperchange_types(
+            self.context, 
+            self.child, 
+            self.date)
         self.assertEqual(data['type'], 'diaperchange')
         stats = {
             0: {'wet_pct': 50.0, 'solid_pct': 50.0, 'solid': 1, 'wet': 1},

@@ -93,7 +93,6 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 302)
         self.assertQuerysetEqual(User.objects.filter(username='username'), [])
 
-
     def test_user_settings(self):
         self.c.login(**self.credentials)
 
@@ -103,7 +102,6 @@ class FormsTestCase(TestCase):
         page = self.c.post('/user/settings/', params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, 'New First Name')
-
 
     def test_user_settings_invalid(self):
         self.c.login(**self.credentials)
@@ -136,7 +134,6 @@ class FormsTestCase(TestCase):
         self.assertEqual(timezone.get_current_timezone_name(),
                          params['timezone'])
 
-
     def test_user_settings_dashboard_hide_empty_on(self):
         self.c.login(**self.credentials)
 
@@ -146,4 +143,3 @@ class FormsTestCase(TestCase):
         page = self.c.post('/user/settings/', data=params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertTrue(self.user.settings.dashboard_hide_empty)
-
