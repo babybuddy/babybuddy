@@ -30,7 +30,6 @@ class FormsTestCase(TestCase):
             'last_name': 'Name',
             'email': 'user@user.user',
             'dashboard_refresh_rate': '',
-            'dashboard_hide_empty': 'off',
             'language': 'en',
             'timezone': 'UTC',
             'next': '/user/settings/'
@@ -138,8 +137,20 @@ class FormsTestCase(TestCase):
         self.c.login(**self.credentials)
 
         params = self.settings_template.copy()
-        params['dashboard_hide_empty'] = "on"
+        params['dashboard_hide_empty'] = 'on'
 
         page = self.c.post('/user/settings/', data=params, follow=True)
         self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
         self.assertTrue(self.user.settings.dashboard_hide_empty)
+
+    def test_user_settings_dashboard_refresh_rate(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params['dashboard_refresh_rate'] = '0:05:00'
+
+        page = self.c.post('/user/settings/', data=params, follow=False)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings.dashboard_refresh_rate, '0:05:00')
