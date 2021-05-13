@@ -11,8 +11,10 @@ from core import models
 
 register = template.Library()
 
+
 def _user_wants_hide(context):
     return context['request'].user.settings.dashboard_hide_empty
+
 
 @register.inclusion_tag('cards/diaperchange_last.html', takes_context=True)
 def card_diaperchange_last(context, child):
@@ -26,9 +28,9 @@ def card_diaperchange_last(context, child):
     empty = not instance
 
     return {
-        'type': 'diaperchange', 
-        'change': instance, 
-        'empty': empty, 
+        'type': 'diaperchange',
+        'change': instance,
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -76,10 +78,10 @@ def card_diaperchange_types(context, child, date=None):
             stats[key]['solid_pct'] = info['solid'] / total * 100
 
     return {
-        'type': 'diaperchange', 
-        'stats': stats, 
-        'total': week_total, 
-        'empty': empty, 
+        'type': 'diaperchange',
+        'stats': stats,
+        'total': week_total,
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -109,10 +111,10 @@ def card_feeding_day(context, child, date=None):
     empty = len(instances) == 0
 
     return {
-        'type': 'feeding', 
-        'total': total, 
-        'count': count, 
-        'empty': empty, 
+        'type': 'feeding',
+        'total': total,
+        'count': count,
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -129,9 +131,9 @@ def card_feeding_last(context, child):
     empty = not instance
 
     return {
-        'type': 'feeding', 
-        'feeding': instance, 
-        'empty': empty, 
+        'type': 'feeding',
+        'feeding': instance,
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -149,9 +151,9 @@ def card_feeding_last_method(context, child):
 
     # Results are reversed for carousel forward/back behavior.
     return {
-        'type': 'feeding', 
-        'feedings': list(reversed(instances)), 
-        'empty': empty, 
+        'type': 'feeding',
+        'feedings': list(reversed(instances)),
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -168,9 +170,9 @@ def card_sleep_last(context, child):
     empty = not instance
 
     return {
-        'type': 'sleep', 
-        'sleep': instance, 
-        'empty': empty, 
+        'type': 'sleep',
+        'sleep': instance,
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -208,10 +210,10 @@ def card_sleep_day(context, child, date=None):
     count = len(instances)
 
     return {
-        'type': 'sleep', 
-        'total': total, 
-        'count': count, 
-        'empty': empty, 
+        'type': 'sleep',
+        'total': total,
+        'count': count,
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -300,8 +302,8 @@ def card_statistics(context, child):
     empty = len(stats) == 0
 
     return {
-        'stats': stats, 
-        'empty': empty, 
+        'stats': stats,
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -479,9 +481,9 @@ def card_timer_list(context, child=None):
     empty = len(instances) == 0
 
     return {
-        'type': 'timer', 
-        'instances': list(instances), 
-        'empty': empty, 
+        'type': 'timer',
+        'instances': list(instances),
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -498,9 +500,9 @@ def card_tummytime_last(context, child):
     empty = not instance
 
     return {
-        'type': 'tummytime', 
-        'tummytime': instance, 
-        'empty': empty, 
+        'type': 'tummytime',
+        'tummytime': instance,
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
 
@@ -532,6 +534,6 @@ def card_tummytime_day(context, child, date=None):
         'stats': stats,
         'instances': instances,
         'last': instances.first(),
-        'empty': empty, 
+        'empty': empty,
         'user_wants_hide': _user_wants_hide(context)
     }
