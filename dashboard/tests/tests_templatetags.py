@@ -10,6 +10,11 @@ from core import models
 from dashboard.templatetags import cards
 
 
+class MockUserRequest:
+    def __init__(self, user):
+        self.user = user
+
+
 class TemplateTagsTestCase(TestCase):
     fixtures = ['tests.json']
 
@@ -17,7 +22,7 @@ class TemplateTagsTestCase(TestCase):
     def setUpClass(cls):
         super(TemplateTagsTestCase, cls).setUpClass()
         cls.child = models.Child.objects.first()
-        cls.context = {'request': {'user': User.objects.first()} }
+        cls.context = {'request': MockUserRequest(User.objects.first()) }
 
         # Ensure timezone matches the one defined by fixtures.
         user_timezone = Settings.objects.first().timezone
