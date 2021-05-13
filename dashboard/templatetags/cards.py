@@ -12,7 +12,7 @@ from core import models
 register = template.Library()
 
 
-def _user_wants_hide(context):
+def _hide_empty(context):
     return context['request'].user.settings.dashboard_hide_empty
 
 
@@ -31,7 +31,7 @@ def card_diaperchange_last(context, child):
         'type': 'diaperchange',
         'change': instance,
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -82,7 +82,7 @@ def card_diaperchange_types(context, child, date=None):
         'stats': stats,
         'total': week_total,
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -115,7 +115,7 @@ def card_feeding_day(context, child, date=None):
         'total': total,
         'count': count,
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -134,7 +134,7 @@ def card_feeding_last(context, child):
         'type': 'feeding',
         'feeding': instance,
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -154,7 +154,7 @@ def card_feeding_last_method(context, child):
         'type': 'feeding',
         'feedings': list(reversed(instances)),
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -173,7 +173,7 @@ def card_sleep_last(context, child):
         'type': 'sleep',
         'sleep': instance,
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -214,7 +214,7 @@ def card_sleep_day(context, child, date=None):
         'total': total,
         'count': count,
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -242,7 +242,7 @@ def card_sleep_naps_day(context, child, date=None):
         'type': 'sleep',
         'total': instances.aggregate(Sum('duration'))['duration__sum'],
         'count': len(instances),
-        'empty': empty, 'user_wants_hide': _user_wants_hide(context)
+        'empty': empty, 'hide_empty': _hide_empty(context)
     }
 
 
@@ -304,7 +304,7 @@ def card_statistics(context, child):
     return {
         'stats': stats,
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -484,7 +484,7 @@ def card_timer_list(context, child=None):
         'type': 'timer',
         'instances': list(instances),
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -503,7 +503,7 @@ def card_tummytime_last(context, child):
         'type': 'tummytime',
         'tummytime': instance,
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
 
 
@@ -535,5 +535,5 @@ def card_tummytime_day(context, child, date=None):
         'instances': instances,
         'last': instances.first(),
         'empty': empty,
-        'user_wants_hide': _user_wants_hide(context)
+        'hide_empty': _hide_empty(context)
     }
