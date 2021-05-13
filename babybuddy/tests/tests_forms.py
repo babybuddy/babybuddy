@@ -30,7 +30,7 @@ class FormsTestCase(TestCase):
             'last_name': 'Name',
             'email': 'user@user.user',
             'dashboard_refresh_rate': '',
-            'dashboard_hide_empty': False,
+            'dashboard_hide_empty': 'off',
             'language': 'en',
             'timezone': timezone.get_default_timezone_name(),
             'next': '/user/settings/'
@@ -137,12 +137,13 @@ class FormsTestCase(TestCase):
                          params['timezone'])
 
 
-    def test_user_settings_dashboard_hide_emtpy_on(self):
+    def test_user_settings_dashboard_hide_empty_on(self):
         self.c.login(**self.credentials)
 
         params = self.settings_template.copy()
         params['dashboard_hide_empty'] = "on"
 
-        page = self.c.post('/user/settings/', params, follow=True)
+        page = self.c.post('/user/settings/', data=params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertContains(page, 'id="id_dashboard_hide_empty" checked')
+        self.assertTrue(self.user.settings.dashboard_hide_empty)
+
