@@ -49,8 +49,8 @@ class TemplateTagsTestCase(TestCase):
 
     def test_card_diaperchange_types(self):
         data = cards.card_diaperchange_types(
-            self.context, 
-            self.child, 
+            self.context,
+            self.child,
             self.date)
         self.assertEqual(data['type'], 'diaperchange')
         stats = {
