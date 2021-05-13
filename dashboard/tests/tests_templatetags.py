@@ -32,6 +32,13 @@ class TemplateTagsTestCase(TestCase):
         date = timezone.localtime().strptime('2017-11-18', '%Y-%m-%d')
         cls.date = timezone.make_aware(date)
 
+    def test_user_wants_hide(self):
+        user = MockUserRequest(User.objects.first())
+        user.settings.dashboard_hide_empty = True
+        context = { 'request': user }
+        user_wants_hide = cards._user_wants_hide(context)
+        self.assertTrue(user_wants_hide)
+
     def test_card_diaperchange_last(self):
         data = cards.card_diaperchange_last(self.context, self.child)
         self.assertEqual(data['type'], 'diaperchange')
