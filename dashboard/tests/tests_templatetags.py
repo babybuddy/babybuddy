@@ -43,6 +43,7 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_diaperchange_last(self.context, self.child)
         self.assertEqual(data['type'], 'diaperchange')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertIsInstance(data['change'], models.DiaperChange)
         self.assertEqual(data['change'], models.DiaperChange.objects.first())
 
@@ -64,6 +65,7 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_feeding_day(self.context, self.child, self.date)
         self.assertEqual(data['type'], 'feeding')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertEqual(data['total'], 2.5)
         self.assertEqual(data['count'], 3)
 
@@ -71,6 +73,7 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_feeding_last(self.context, self.child)
         self.assertEqual(data['type'], 'feeding')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertIsInstance(data['feeding'], models.Feeding)
         self.assertEqual(data['feeding'], models.Feeding.objects.first())
 
@@ -78,6 +81,7 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_feeding_last_method(self.context, self.child)
         self.assertEqual(data['type'], 'feeding')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertEqual(len(data['feedings']), 3)
         for feeding in data['feedings']:
             self.assertIsInstance(feeding, models.Feeding)
@@ -89,6 +93,7 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_sleep_last(self.context, self.child)
         self.assertEqual(data['type'], 'sleep')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertIsInstance(data['sleep'], models.Sleep)
         self.assertEqual(data['sleep'], models.Sleep.objects.first())
 
@@ -96,12 +101,14 @@ class TemplateTagsTestCase(TestCase):
         models.Sleep.objects.all().delete()
         data = cards.card_sleep_last(self.context, self.child)
         self.assertEqual(data['type'], 'sleep')
-        self.assertEqual(data['empty'], True)
+        self.assertTrue(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
 
     def test_card_sleep_day(self):
         data = cards.card_sleep_day(self.context, self.child, self.date)
         self.assertEqual(data['type'], 'sleep')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertEqual(data['total'], timezone.timedelta(2, 7200))
         self.assertEqual(data['count'], 4)
 
@@ -109,6 +116,7 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_sleep_naps_day(self.context, self.child, self.date)
         self.assertEqual(data['type'], 'sleep')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertEqual(data['total'], timezone.timedelta(0, 9000))
         self.assertEqual(data['count'], 2)
 
@@ -166,6 +174,7 @@ class TemplateTagsTestCase(TestCase):
 
         self.assertEqual(data['stats'], stats)
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
 
     def test_card_timer_list(self):
         user = User.objects.first()
@@ -212,6 +221,7 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_tummytime_last(self.context, self.child)
         self.assertEqual(data['type'], 'tummytime')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertIsInstance(data['tummytime'], models.TummyTime)
         self.assertEqual(data['tummytime'], models.TummyTime.objects.first())
 
@@ -219,6 +229,7 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_tummytime_day(self.context, self.child, self.date)
         self.assertEqual(data['type'], 'tummytime')
         self.assertFalse(data['empty'])
+        self.assertFalse(data['user_wants_hide'])
         self.assertIsInstance(data['instances'].first(), models.TummyTime)
         self.assertIsInstance(data['last'], models.TummyTime)
         stats = {'count': 3, 'total': timezone.timedelta(0, 300)}
