@@ -32,7 +32,7 @@ class FormsTestCase(TestCase):
             'dashboard_refresh_rate': '',
             'dashboard_hide_empty': 'off',
             'language': 'en',
-            'timezone': timezone.get_default_timezone_name(),
+            'timezone': 'UTC',
             'next': '/user/settings/'
         }
 

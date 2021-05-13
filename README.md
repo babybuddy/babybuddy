@@ -409,7 +409,7 @@ See also [Django's documentation on the SECRET_KEY setting](https://docs.djangop
 
 ### `TIME_ZONE`
 
-*Default: Etc/UTC*
+*Default: UTC*
 
 The default time zone to use for the instance. See [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 for all possible values. This value can be overridden per use from the user

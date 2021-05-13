@@ -53,20 +53,28 @@ function coverage(cb) {
         {
             stdio: 'inherit'
         }
-    ).on('exit', function() {
+    ).on('exit', function(code) {
         // Run isolated tests with coverage.
-        config.testsConfig.isolated.forEach(function(test_name) {
-            es(
-                'pipenv run coverage run manage.py test ' + test_name,
-                {stdio: 'inherit'}
-            );
-        })
+        if (code === 0) {
+            try {
+                config.testsConfig.isolated.forEach(function (test_name) {
+                    es(
+                        'pipenv run coverage run manage.py test ' + test_name,
+                        {stdio: 'inherit'}
+                    );
+                })
+            } catch (error) {
+                console.error(error);
+                cb();
+                process.exit(1);
+            }
 
-        // Combine coverage results.
-        es('pipenv run coverage combine', {stdio: 'inherit'});
+            // Combine coverage results.
+            es('pipenv run coverage combine', {stdio: 'inherit'});
+        }
 
-        // Execute callback.
         cb();
+        process.exit(code)
     });
 }
 
@@ -197,15 +205,21 @@ function test(cb) {
         'isolate'
     ];
     command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function() {
-        // Run isolated tests.
-        config.testsConfig.isolated.forEach(function(test_name) {
-            es(
-                'pipenv run python manage.py test ' + test_name,
-                {stdio: 'inherit'}
-            );
-        })
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function(code) {
+        if (code === 0) {
+            // Run isolated tests.
+            config.testsConfig.isolated.forEach(function(test_name) {
+                try {
+                    es('pipenv run python manage.py test ' + test_name, {stdio: 'inherit'});
+                } catch (error) {
+                    console.error(error);
+                    cb();
+                    process.exit(1);
+                }
+            })
+        }
         cb();
+        process.exit(code);
     });
 }
 
