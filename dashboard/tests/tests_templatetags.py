@@ -17,6 +17,7 @@ class TemplateTagsTestCase(TestCase):
     def setUpClass(cls):
         super(TemplateTagsTestCase, cls).setUpClass()
         cls.child = models.Child.objects.first()
+        cls.context = {'request': {'user': User.objects.first()} }
 
         # Ensure timezone matches the one defined by fixtures.
         user_timezone = Settings.objects.first().timezone
@@ -27,7 +28,7 @@ class TemplateTagsTestCase(TestCase):
         cls.date = timezone.make_aware(date)
 
     def test_card_diaperchange_last(self):
-        data = cards.card_diaperchange_last(self.child)
+        data = cards.card_diaperchange_last(self.context, self.child)
         self.assertEqual(data['type'], 'diaperchange')
         self.assertEqual(data['empty'], False)
         self.assertIsInstance(data['change'], models.DiaperChange)
