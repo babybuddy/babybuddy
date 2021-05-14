@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import Client as HttpClient, override_settings, TestCase
@@ -132,3 +134,26 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertEqual(timezone.get_current_timezone_name(),
                          params['timezone'])
+
+    def test_user_settings_dashboard_hide_empty_on(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params['dashboard_hide_empty'] = 'on'
+
+        page = self.c.post('/user/settings/', data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.settings.dashboard_hide_empty)
+
+    def test_user_settings_dashboard_refresh_rate(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params['dashboard_refresh_rate'] = '0:05:00'
+
+        page = self.c.post('/user/settings/', data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings.dashboard_refresh_rate,
+                         datetime.timedelta(seconds=300))
