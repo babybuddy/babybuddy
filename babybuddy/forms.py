@@ -44,6 +44,7 @@ class UserSettingsForm(forms.ModelForm):
         fields = [
             'dashboard_refresh_rate',
             'dashboard_hide_empty',
+            'dashboard_hide_age',
             'language',
             'timezone'
         ]
