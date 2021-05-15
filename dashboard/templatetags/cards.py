@@ -16,6 +16,16 @@ def _hide_empty(context):
     return context['request'].user.settings.dashboard_hide_empty
 
 
+def _filter_data_start(context, keyword ="start"):
+    filter = {}
+    days = 3
+    if days:
+        now = timezone.localtime()
+        start_time = now - timezone.timedelta(days=days)
+        filter[keyword + "__range"] = (start_time, now)
+    return filter
+
+
 @register.inclusion_tag('cards/diaperchange_last.html', takes_context=True)
 def card_diaperchange_last(context, child):
     """
@@ -23,8 +33,9 @@ def card_diaperchange_last(context, child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Diaper Change instance.
     """
-    instance = models.DiaperChange.objects.filter(
-        child=child).order_by('-time').first()
+    instance = models.DiaperChange.objects.filter(child=child) \
+        .filter(**_filter_data_start(context, "time")) \
+        .order_by('-time').first()
     empty = not instance
 
     return {
@@ -127,6 +138,7 @@ def card_feeding_last(context, child):
     :returns: a dictionary with the most recent Feeding instance.
     """
     instance = models.Feeding.objects.filter(child=child) \
+        .filter(**_filter_data_start(context)) \
         .order_by('-end').first()
     empty = not instance
 
@@ -146,6 +158,7 @@ def card_feeding_last_method(context, child):
     :returns: a dictionary with the most recent Feeding instances.
     """
     instances = models.Feeding.objects.filter(child=child) \
+        .filter(**_filter_data_start(context)) \
         .order_by('-end')[:3]
     empty = len(instances) == 0
 
@@ -166,6 +179,7 @@ def card_sleep_last(context, child):
     :returns: a dictionary with the most recent Sleep instance.
     """
     instance = models.Sleep.objects.filter(child=child) \
+        .filter(**_filter_data_start(context)) \
         .order_by('-end').first()
     empty = not instance
 
@@ -496,6 +510,7 @@ def card_tummytime_last(context, child):
     :returns: a dictionary with the most recent Tummy Time instance.
     """
     instance = models.TummyTime.objects.filter(child=child) \
+        .filter(**_filter_data_start(context)) \
         .order_by('-end').first()
     empty = not instance
 
