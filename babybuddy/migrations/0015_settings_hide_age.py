@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='settings',
-            name='dashboard_hide_old',
+            name='dashboard_hide_age',
             field=models.DurationField(
                 choices=[
                     (None, 'show all data'),

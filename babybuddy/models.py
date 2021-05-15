@@ -39,7 +39,7 @@ class Settings(models.Model):
         default=False,
         editable=True
     )
-    dashboard_hide_old = models.DurationField(
+    dashboard_hide_age = models.DurationField(
         verbose_name=_('Hide data older than'),
         help_text=_('This setting controls which data will be shown'
                     'in the dashboard.'),
