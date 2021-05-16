@@ -53,13 +53,18 @@ class TemplateTagsTestCase(TestCase):
         request = MockUserRequest(User.objects.first())
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
         context = {'request': request}
-        mocked_timezone.localtime.return_value = timezone.localtime().strptime('2017-11-18', '%Y-%m-%d')
+        mocked_timezone.localtime.return_value = \
+            timezone.localtime().strptime('2017-11-18', '%Y-%m-%d')
 
         filter_data_age = cards._filter_data_age(context, keyword="time")
 
         self.assertIn("time__range", filter_data_age)
-        self.assertEqual(filter_data_age["time__range"][0], timezone.localtime().strptime('2017-11-17', '%Y-%m-%d'))
-        self.assertEqual(filter_data_age["time__range"][1], timezone.localtime().strptime('2017-11-18', '%Y-%m-%d'))
+        self.assertEqual(
+            filter_data_age["time__range"][0],
+            timezone.localtime().strptime('2017-11-17', '%Y-%m-%d'))
+        self.assertEqual(
+            filter_data_age["time__range"][1], 
+            timezone.localtime().strptime('2017-11-18', '%Y-%m-%d'))
 
     def test_card_diaperchange_last(self):
         data = cards.card_diaperchange_last(self.context, self.child)

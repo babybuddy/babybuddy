@@ -16,7 +16,7 @@ def _hide_empty(context):
     return context['request'].user.settings.dashboard_hide_empty
 
 
-def _filter_data_age(context, keyword ="end"):
+def _filter_data_age(context, keyword="end"):
     filter = {}
     if context['request'].user.settings.dashboard_hide_age:
         now = timezone.localtime()
