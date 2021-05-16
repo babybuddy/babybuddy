@@ -63,7 +63,7 @@ class TemplateTagsTestCase(TestCase):
             filter_data_age["time__range"][0],
             timezone.localtime().strptime('2017-11-17', '%Y-%m-%d'))
         self.assertEqual(
-            filter_data_age["time__range"][1], 
+            filter_data_age["time__range"][1],
             timezone.localtime().strptime('2017-11-18', '%Y-%m-%d'))
 
     def test_card_diaperchange_last(self):
