@@ -47,6 +47,14 @@ class TemplateTagsTestCase(TestCase):
         self.assertIsInstance(data['change'], models.DiaperChange)
         self.assertEqual(data['change'], models.DiaperChange.objects.first())
 
+    def test_card_diaperchange_last_filter_age(self):
+        date = timezone.localtime().strptime('2017-11-19', '%Y-%m-%d')
+        cls.date = timezone.make_aware(date)
+        request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
+
+        data = cards.card_diaperchange_last(self.context, self.child)
+        self.assertTrue(data['empty'])
+
     def test_card_diaperchange_types(self):
         data = cards.card_diaperchange_types(
             self.context,
