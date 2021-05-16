@@ -1,5 +1,5 @@
 from django.db import migrations, models
-import datetime
+from django.utils import timezone
 
 
 class Migration(migrations.Migration):
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                     (timezone.timedelta(days=2), '2 days'),
                     (timezone.timedelta(days=3), '3 days'),
                     (timezone.timedelta(weeks=1), '1 week'),
-                    (timezone.timedelta(months=1), '1 month')
+                    (timezone.timedelta(weeks=4), '4 weeks')
                 ],
                 default=None,
                 null=True,
