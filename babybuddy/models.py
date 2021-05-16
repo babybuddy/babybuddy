@@ -41,8 +41,9 @@ class Settings(models.Model):
     )
     dashboard_hide_age = models.DurationField(
         verbose_name=_('Hide data older than'),
-        help_text=_('This setting controls which data will be shown'
+        help_text=_('This setting controls which data will be shown '
                     'in the dashboard.'),
+        blank=True,
         null=True,
         default=None,
         choices=[
@@ -51,7 +52,7 @@ class Settings(models.Model):
             (timezone.timedelta(days=2), _('2 days')),
             (timezone.timedelta(days=3), _('3 days')),
             (timezone.timedelta(weeks=1), _('1 week')),
-            (timezone.timedelta(months=1), _('1 month')),
+            (timezone.timedelta(weeks=4), _('4 weeks')),
         ])
     language = models.CharField(
         choices=settings.LANGUAGES,
