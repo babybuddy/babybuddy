@@ -39,6 +39,21 @@ class TemplateTagsTestCase(TestCase):
         hide_empty = cards._hide_empty(context)
         self.assertTrue(hide_empty)
 
+    def test_filter_data_age_none(self):
+        request = MockUserRequest(User.objects.first())
+        request.user.settings.dashboard_hide_age = None
+        context = {'request': request}
+        filter_data_age = cards._filter_data_age(context)
+        self.assertFalse(len(filter_data_age))
+
+    def test_filter_data_age_one_day(self):
+        request = MockUserRequest(User.objects.first())
+        request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
+        context = {'request': request}
+        filter_data_age = cards._filter_data_age(context, keyword="time")
+        self.assertIn("time__range", filter_data_age)
+        self.assertEqual(filter_data_age["time__range"], timezone.localtime().strptime('2017-11-17', '%Y-%m-%d'))
+
     def test_card_diaperchange_last(self):
         data = cards.card_diaperchange_last(self.context, self.child)
         self.assertEqual(data['type'], 'diaperchange')
