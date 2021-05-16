@@ -9,6 +9,8 @@ from babybuddy.models import Settings
 from core import models
 from dashboard.templatetags import cards
 
+from unittest import mock
+
 
 class MockUserRequest:
     def __init__(self, user):
@@ -46,11 +48,15 @@ class TemplateTagsTestCase(TestCase):
         filter_data_age = cards._filter_data_age(context)
         self.assertFalse(len(filter_data_age))
 
-    def test_filter_data_age_one_day(self):
+    @mock.patch('cards.timezone')
+    def test_filter_data_age_one_day(self, mocked_timezone):
         request = MockUserRequest(User.objects.first())
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
         context = {'request': request}
+        mocked_timezone.localtime.return_value = timezone.localtime().strptime('2017-11-18', '%Y-%m-%d')
+
         filter_data_age = cards._filter_data_age(context, keyword="time")
+
         self.assertIn("time__range", filter_data_age)
         self.assertEqual(filter_data_age["time__range"], timezone.localtime().strptime('2017-11-17', '%Y-%m-%d'))
 
@@ -64,7 +70,7 @@ class TemplateTagsTestCase(TestCase):
 
     def test_card_diaperchange_last_filter_age(self):
         date = timezone.localtime().strptime('2017-11-19', '%Y-%m-%d')
-        cls.date = timezone.make_aware(date)
+        self.date = timezone.make_aware(date)
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
 
         data = cards.card_diaperchange_last(self.context, self.child)
