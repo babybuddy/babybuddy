@@ -16,12 +16,11 @@ def _hide_empty(context):
     return context['request'].user.settings.dashboard_hide_empty
 
 
-def _filter_data_start(context, keyword ="start"):
+def _filter_data_age(context, keyword ="end"):
     filter = {}
-    days = 3
-    if days:
+    if context['request'].user.settings.dashboard_hide_age:
         now = timezone.localtime()
-        start_time = now - timezone.timedelta(days=days)
+        start_time = now - context['request'].user.settings.dashboard_hide_age
         filter[keyword + "__range"] = (start_time, now)
     return filter
 
@@ -34,7 +33,7 @@ def card_diaperchange_last(context, child):
     :returns: a dictionary with the most recent Diaper Change instance.
     """
     instance = models.DiaperChange.objects.filter(child=child) \
-        .filter(**_filter_data_start(context, "time")) \
+        .filter(**_filter_data_age(context, "time")) \
         .order_by('-time').first()
     empty = not instance
 
@@ -138,7 +137,7 @@ def card_feeding_last(context, child):
     :returns: a dictionary with the most recent Feeding instance.
     """
     instance = models.Feeding.objects.filter(child=child) \
-        .filter(**_filter_data_start(context)) \
+        .filter(**_filter_data_age(context)) \
         .order_by('-end').first()
     empty = not instance
 
@@ -158,7 +157,7 @@ def card_feeding_last_method(context, child):
     :returns: a dictionary with the most recent Feeding instances.
     """
     instances = models.Feeding.objects.filter(child=child) \
-        .filter(**_filter_data_start(context)) \
+        .filter(**_filter_data_age(context)) \
         .order_by('-end')[:3]
     empty = len(instances) == 0
 
@@ -179,7 +178,7 @@ def card_sleep_last(context, child):
     :returns: a dictionary with the most recent Sleep instance.
     """
     instance = models.Sleep.objects.filter(child=child) \
-        .filter(**_filter_data_start(context)) \
+        .filter(**_filter_data_age(context)) \
         .order_by('-end').first()
     empty = not instance
 
@@ -510,7 +509,7 @@ def card_tummytime_last(context, child):
     :returns: a dictionary with the most recent Tummy Time instance.
     """
     instance = models.TummyTime.objects.filter(child=child) \
-        .filter(**_filter_data_start(context)) \
+        .filter(**_filter_data_age(context)) \
         .order_by('-end').first()
     empty = not instance
 
