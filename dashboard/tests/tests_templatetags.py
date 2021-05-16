@@ -48,7 +48,7 @@ class TemplateTagsTestCase(TestCase):
         filter_data_age = cards._filter_data_age(context)
         self.assertFalse(len(filter_data_age))
 
-    @mock.patch('cards.timezone')
+    @mock.patch('dashboard.templatetags.cards.timezone')
     def test_filter_data_age_one_day(self, mocked_timezone):
         request = MockUserRequest(User.objects.first())
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
@@ -58,7 +58,8 @@ class TemplateTagsTestCase(TestCase):
         filter_data_age = cards._filter_data_age(context, keyword="time")
 
         self.assertIn("time__range", filter_data_age)
-        self.assertEqual(filter_data_age["time__range"], timezone.localtime().strptime('2017-11-17', '%Y-%m-%d'))
+        self.assertEqual(filter_data_age["time__range"][0], timezone.localtime().strptime('2017-11-17', '%Y-%m-%d'))
+        self.assertEqual(filter_data_age["time__range"][1], timezone.localtime().strptime('2017-11-18', '%Y-%m-%d'))
 
     def test_card_diaperchange_last(self):
         data = cards.card_diaperchange_last(self.context, self.child)
@@ -68,12 +69,15 @@ class TemplateTagsTestCase(TestCase):
         self.assertIsInstance(data['change'], models.DiaperChange)
         self.assertEqual(data['change'], models.DiaperChange.objects.first())
 
-    def test_card_diaperchange_last_filter_age(self):
-        date = timezone.localtime().strptime('2017-11-19', '%Y-%m-%d')
-        self.date = timezone.make_aware(date)
+    @mock.patch('dashboard.templatetags.cards.timezone')
+    def test_card_diaperchange_last_filter_age(self, mocked_timezone):
+        request = MockUserRequest(User.objects.first())
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
+        context = {'request': request}
+        time = timezone.localtime().strptime('2017-11-10', '%Y-%m-%d')
+        mocked_timezone.localtime.return_value = timezone.make_aware(time)
 
-        data = cards.card_diaperchange_last(self.context, self.child)
+        data = cards.card_diaperchange_last(context, self.child)
         self.assertTrue(data['empty'])
 
     def test_card_diaperchange_types(self):
