@@ -1,5 +1,6 @@
 # Contributing
 
+[![CI Status](https://github.com/babybuddy/babybuddy/actions/workflows/ci.yml/badge.svg)](https://github.com/babybuddy/babybuddy/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/babybuddy/babybuddy/badge.svg?branch=master)](https://coveralls.io/github/babybuddy/babybuddy?branch=master)
 
 - [Contributions](#contributions)
