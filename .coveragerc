@@ -13,6 +13,7 @@ source =
 parallel = true
 concurrency = multiprocessing
 data_file = data/.coverage
+relative_files = True
 
 [html]
 directory = htmlcov
