@@ -1,9 +1,5 @@
 name: CI
-on:
-  push:
-    branches:
-      - main
-      - github-actions
+on: ["push", "pull_request"]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -41,4 +37,18 @@ jobs:
           pipenv install --deploy --dev
       - run: gulp lint
       - run: gulp coverage
-      - run: pipenv run coveralls
+      - name: Submit results to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          flag-name: run-${{ matrix.test_number }}
+          parallel: true
+  finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
