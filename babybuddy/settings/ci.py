@@ -1,6 +1,6 @@
 from .base import *
 
-SECRET_KEY = 'TRAVISCIWHYNOT'
+SECRET_KEY = 'CISECRETKEYIGUESS'
 
 
 # Static files (CSS, JavaScript, Images)
