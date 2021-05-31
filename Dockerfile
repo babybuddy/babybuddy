@@ -5,12 +5,12 @@ WORKDIR /app
 COPY Pipfile /app/
 RUN pipenv lock
 RUN pipenv install --deploy --system
-ADD manage.py /app/
-ADD api /app/api
-ADD babybuddy /app/babybuddy
-ADD core /app/core
-ADD dashboard /app/dashboard
-ADD locale /app/locale
-ADD reports /app/reports
-ADD static /app/static
-ADD etc/gunicorn.py /app/
+COPY manage.py /app/
+COPY api /app/api
+COPY babybuddy /app/babybuddy
+COPY core /app/core
+COPY dashboard /app/dashboard
+COPY locale /app/locale
+COPY reports /app/reports
+COPY static /app/static
+COPY etc/gunicorn.py /app/
