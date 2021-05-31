@@ -528,6 +528,8 @@ paths:
                 amount:
                   type: number
                   nullable: true
+                notes:
+                  type: string
               required:
               - child
               - time
@@ -1041,7 +1043,12 @@ paths:
                 amount:
                   type: number
                   nullable: true
+                notes:
+                  type: string
               required:
+              - child
+              - start
+              - end
               - type
               - method
           application/x-www-form-urlencoded:
@@ -1494,6 +1501,9 @@ paths:
                   type: integer
                 note:
                   type: string
+                time:
+                  type: string
+                  format: date-time
               required:
               - child
               - note
@@ -1762,6 +1772,12 @@ paths:
                 end:
                   type: string
                   format: date-time
+                notes:
+                  type: string
+              required:
+              - child
+              - start
+              - end
           application/x-www-form-urlencoded:
             schema: *id013
           multipart/form-data:
@@ -2044,6 +2060,8 @@ paths:
                 time:
                   type: string
                   format: date-time
+                notes:
+                  type: string
               required:
               - child
               - temperature
@@ -2341,9 +2359,14 @@ paths:
                 start:
                   type: string
                   format: date-time
+                end:
+                  type: string
+                  format: date-time
                 user:
                   type: integer
                   nullable: true
+              required:
+              - child
           application/x-www-form-urlencoded:
             schema: *id019
           multipart/form-data:
@@ -2723,6 +2746,10 @@ paths:
                 milestone:
                   type: string
                   maxLength: 255
+              required:
+              - child
+              - start
+              - end
           application/x-www-form-urlencoded:
             schema: *id022
           multipart/form-data:
@@ -3011,6 +3038,8 @@ paths:
                 date:
                   type: string
                   format: date
+                notes:
+                  type: string
               required:
               - child
               - weight
