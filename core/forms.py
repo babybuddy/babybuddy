@@ -48,10 +48,10 @@ def set_initial_values(kwargs, form_type):
         last_feeding = models.Feeding.objects.filter(
             child=kwargs['initial']['child']).order_by('end').last()
         if last_feeding:
-            last_type = last_feeding.type
+            last_method = last_feeding.method
             last_feed_args = {'type': last_feeding.type}
-            if last_type in ['formula', 'fortified breast milk']:
-                last_feed_args['method'] = 'bottle'
+            if last_method not in ['left breast', 'right breast']:
+                last_feed_args['method'] = last_method
             kwargs['initial'].update(last_feed_args)
 
     # Remove custom kwargs so they do not interfere with `super` calls.
