@@ -125,7 +125,7 @@ msgstr "<strong>Fout:</strong> Enkele velden zijn foutief. Zie hieronder voor de
 #: babybuddy/templates/babybuddy/nav-dropdown.html:27 core/models.py:163
 #: core/models.py:167
 msgid "Diaper Change"
-msgstr "Luier vervangen"
+msgstr "Luierverschoning"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:33
 #: babybuddy/templates/babybuddy/nav-dropdown.html:189 core/models.py:238
@@ -222,11 +222,11 @@ msgstr "Activiteiten"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:170
 #: reports/graphs/diaperchange_lifetimes.py:27
 msgid "Changes"
-msgstr "Aanpassingen"
+msgstr "Verschoningen"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:176
 msgid "Change"
-msgstr "Aanpassing"
+msgstr "Verschoning"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:183
 #: babybuddy/templates/babybuddy/welcome.html:34 core/models.py:239
@@ -459,7 +459,7 @@ msgstr "<strong>Fout:</strong> Sommige velden zijn fout. Kijk hieronder voor mee
 
 #: babybuddy/templates/babybuddy/user_settings_form.html:33
 msgid "User Profile"
-msgstr "Gebruikers profiel"
+msgstr "Gebruikersprofiel"
 
 #: babybuddy/templates/babybuddy/user_settings_form.html:69
 msgid "API"
@@ -495,7 +495,7 @@ msgstr "Leer over en voorspel de baby's behoeftes zonder (<em>al te veel</em>) t
 #: core/templates/core/diaperchange_list.html:12
 #: dashboard/templates/cards/diaperchange_types.html:4
 msgid "Diaper Changes"
-msgstr "Pamper vervangingen"
+msgstr "Luierverschoningen"
 
 #: babybuddy/templates/babybuddy/welcome.html:54
 msgid "As the amount of entries grows, Baby Buddy will help\n"
@@ -803,16 +803,16 @@ msgstr "Geen kinderen gevonden"
 
 #: core/templates/core/diaperchange_confirm_delete.html:4
 msgid "Delete a Diaper Change"
-msgstr "Verwijder een pamper vervanging"
+msgstr "Verwijder een luierverschoning"
 
 #: core/templates/core/diaperchange_form.html:6
 msgid "Update a Diaper Change"
-msgstr "Pas een pamper vervanging aan"
+msgstr "Pas een luierverschoning aan"
 
 #: core/templates/core/diaperchange_form.html:8
 #: core/templates/core/diaperchange_form.html:27
 msgid "Add a Diaper Change"
-msgstr "Voeg een pamper vervanging toe"
+msgstr "Voeg een luierverschoning toe"
 
 #: core/templates/core/diaperchange_form.html:17
 #: core/templates/core/feeding_form.html:17
@@ -823,11 +823,11 @@ msgstr "Toevoegen"
 
 #: core/templates/core/diaperchange_list.html:68
 msgid "No diaper changes found."
-msgstr "Geen pamper vervangingen gevonden."
+msgstr "Geen luierverschoning gevonden."
 
 #: core/templates/core/diaperchange_list.html:63
 msgid "Add a Change"
-msgstr "Voeg een verversing toe"
+msgstr "Voeg een verschoning toe"
 
 #: core/templates/core/feeding_confirm_delete.html:4
 msgid "Delete a Feeding"
@@ -986,7 +986,7 @@ msgstr "Geen gewicht gegevens gevonden."
 
 #: core/timeline.py:24
 msgid "%(child)s had a diaper change."
-msgstr "%(child)s had een pamper verversing"
+msgstr "%(child)s had een luierverschoning"
 
 #: core/timeline.py:35
 msgid "%(child)s started feeding."
@@ -1038,7 +1038,7 @@ msgstr "%(timer)s is gestopt."
 
 #: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
-msgstr "Laatste pamper verversing"
+msgstr "Laatste luierverschoning"
 
 #: dashboard/templates/cards/diaperchange_last.html:8
 #: dashboard/templates/cards/feeding_last.html:8
@@ -1145,7 +1145,7 @@ msgstr "Kind acties"
 #: reports/templates/reports/diaperchange_types.html:4
 #: reports/templates/reports/diaperchange_types.html:8
 msgid "Diaper Change Types"
-msgstr "Luierwissel type"
+msgstr "Luierverschoning type"
 
 #: dashboard/templates/dashboard/child_button_group.html:21
 #: reports/templates/reports/diaperchange_lifetimes.html:4
@@ -1171,7 +1171,7 @@ msgstr "Totaal slaapjes"
 
 #: dashboard/templatetags/cards.py:170
 msgid "Diaper change frequency"
-msgstr "luier verversing frequentie"
+msgstr "Luierverschoning frequentie"
 
 #: dashboard/templatetags/cards.py:176
 msgid "Feeding frequency"
@@ -1203,7 +1203,7 @@ msgstr "<b>Luier levensduur</b>"
 
 #: reports/graphs/diaperchange_lifetimes.py:36
 msgid "Time between changes (hours)"
-msgstr "Tijd tussen verversingen (uur)"
+msgstr "Tijd tussen verschoningen (uur)"
 
 #: reports/graphs/diaperchange_types.py:39
 msgid "Total"
@@ -1211,11 +1211,11 @@ msgstr "Totaal"
 
 #: reports/graphs/diaperchange_types.py:46
 msgid "<b>Diaper Change Types</b>"
-msgstr "<b>Pamper verversingen types</b>"
+msgstr "<b>Luierverschoning types</b>"
 
 #: reports/graphs/diaperchange_types.py:49
 msgid "Number of changes"
-msgstr "Aantal verversingen"
+msgstr "Aantal verschoningen"
 
 #: reports/graphs/feeding_duration.py:36
 msgid "Average duration"
@@ -1341,7 +1341,7 @@ msgstr "Geef het email adres in van je account hieronder. Als het email adres co
 
 #: core/models.py:215
 msgid "Fortified breast milk"
-msgstr "Verstarkte moedermelk"
+msgstr "Versterkte moedermelk"
 
 #: core/templates/core/temperature_confirm_delete.html:4
 msgid "Delete a Temperature Reading"
@@ -1350,7 +1350,7 @@ msgstr "Verwijder een temperatuur meting"
 #: core/templates/core/temperature_form.html:8
 #: core/templates/core/temperature_form.html:17
 msgid "Add a Temperature Reading"
-msgstr "Voeg een temperatuur meting toe"
+msgstr "Voeg een temperatuurmeting toe"
 
 #: core/templates/core/temperature_form.html:27
 msgid "Add a Temperature Entry"
@@ -1436,7 +1436,7 @@ msgstr "Voeg kind toe"
 
 #: core/templates/core/diaperchange_list.html:15
 msgid "Add Diaper Change"
-msgstr "Voeg pamper verversing toe"
+msgstr "Voeg luierverschoning toe"
 
 #: core/templates/core/feeding_list.html:15
 msgid "Add Feeding"
@@ -1500,22 +1500,21 @@ msgstr "Laatste slaap"
 
 #: dashboard/templates/dashboard/child_button_group.html:19
 msgid "Diaper Change Amounts"
-msgstr "Aantal luiers ververst"
+msgstr "Aantal luiers verschoond"
 
 #: reports/graphs/diaperchange_amounts.py:27
 msgid "Diaper change amount"
-msgstr "Hoeveel luiers ververst"
+msgstr "Aantal luiers verschoond"
 
 #: reports/graphs/diaperchange_amounts.py:36
 msgid "<b>Diaper Change Amounts</b>"
-msgstr "<b>Luier verversingen hoeveelheid"
+msgstr "<b>Aantal luierverschoningen"
 
 #: reports/graphs/diaperchange_amounts.py:39
 msgid "Change amount"
-msgstr "Verander aantal"
+msgstr "Aantal luiers"
 
 #: reports/templates/reports/diaperchange_amounts.html:4
 #: reports/templates/reports/diaperchange_amounts.html:8
 msgid "Diaper Amounts"
-msgstr "Luiers hoeveelheid"
-
+msgstr "Aantal luiers"
