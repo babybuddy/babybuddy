@@ -49,7 +49,7 @@ process will look something like this:
 
 1. Run `gulp makemessages -l xx` where `xx` is a specific locale code in the
 [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g.
-"fr" for French or "es" for Spanish). This create a new translation file at
+"fr" for French or "es" for Spanish). This creates a new translation file at
 `locale/xx/LC_MESSAGES/django.po`, or updates one if it exists.
 
 1. Open the created/updated `django.po` file and update the header template
