@@ -102,9 +102,7 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 
 ### Installation
 
-1. Install pipenv
-
-       pip3 install pipenv
+1. Install pipenv per [Installing pipenv](https://pipenv.pypa.io/en/latest/install/#installing-pipenv)
 
 1. Install required Python packages, including dev packages
 
