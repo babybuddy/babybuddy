@@ -94,6 +94,7 @@ class ChildForm(forms.ModelForm):
             fields.append('picture')
         widgets = {
             'birth_date': forms.DateInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_date',
             }),
@@ -126,6 +127,7 @@ class DiaperChangeForm(CoreModelForm):
         fields = ['child', 'time', 'wet', 'solid', 'color', 'amount', 'notes']
         widgets = {
             'time': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_time',
             }),
@@ -139,10 +141,12 @@ class FeedingForm(CoreModelForm):
         fields = ['child', 'start', 'end', 'type', 'method', 'amount', 'notes']
         widgets = {
             'start': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_end',
             }),
@@ -156,6 +160,7 @@ class NoteForm(CoreModelForm):
         fields = ['child', 'note', 'time']
         widgets = {
             'time': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_time',
             }),
@@ -168,10 +173,12 @@ class SleepForm(CoreModelForm):
         fields = ['child', 'start', 'end', 'notes']
         widgets = {
             'start': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_end',
             }),
@@ -185,6 +192,7 @@ class TemperatureForm(CoreModelForm):
         fields = ['child', 'temperature', 'time', 'notes']
         widgets = {
             'time': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_time',
             }),
@@ -198,6 +206,7 @@ class TimerForm(CoreModelForm):
         fields = ['child', 'name', 'start']
         widgets = {
             'start': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_start',
             })
@@ -220,10 +229,12 @@ class TummyTimeForm(CoreModelForm):
         fields = ['child', 'start', 'end', 'milestone']
         widgets = {
             'start': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_start',
             }),
             'end': forms.DateTimeInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_end',
             }),
@@ -236,6 +247,7 @@ class WeightForm(CoreModelForm):
         fields = ['child', 'weight', 'date', 'notes']
         widgets = {
             'date': forms.DateInput(attrs={
+                'autocomplete': 'off',
                 'readonly': 'readonly',
                 'data-target': '#datetimepicker_date',
             }),
