@@ -157,3 +157,15 @@ class FormsTestCase(TestCase):
         self.user.refresh_from_db()
         self.assertEqual(self.user.settings.dashboard_refresh_rate,
                          datetime.timedelta(seconds=300))
+
+    def test_user_settings_dashboard_hide_age(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params['dashboard_hide_age'] = '1 day, 0:00:00'
+
+        page = self.c.post('/user/settings/', data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings.dashboard_hide_age,
+                         datetime.timedelta(days=1))
