@@ -49,7 +49,7 @@ process will look something like this:
 
 1. Run `gulp makemessages -l xx` where `xx` is a specific locale code in the
 [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g.
-"fr" for French or "es" for Spanish). This create a new translation file at
+"fr" for French or "es" for Spanish). This creates a new translation file at
 `locale/xx/LC_MESSAGES/django.po`, or updates one if it exists.
 
 1. Open the created/updated `django.po` file and update the header template
@@ -97,14 +97,12 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 ### Requirements
 
 - Python 3.6+, pip, pipenv
-- NodeJS 10.x+ and NPM 6.x+
+- NodeJS 14.x and NPM 7.x
 - Gulp
 
 ### Installation
 
-1. Install pipenv
-
-       pip3 install pipenv
+1. Install pipenv per [Installing pipenv](https://pipenv.pypa.io/en/latest/install/#installing-pipenv)
 
 1. Install required Python packages, including dev packages
 
