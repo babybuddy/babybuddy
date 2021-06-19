@@ -5,7 +5,7 @@ from django.utils import timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('babybuddy', '0014_settings_hide_empty'),
+        ('babybuddy', '0016_alter_settings_timezone'),
     ]
 
     operations = [
