@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'dashboard',
     'reports',
 
+    'axes',
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 
@@ -126,6 +128,11 @@ WSGI_APPLICATION = 'babybuddy.wsgi.application'
 
 # Authentication
 # https://docs.djangoproject.com/en/3.0/topics/auth/default/
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -244,8 +251,17 @@ REST_FRAMEWORK = {
 # See https://django-import-export.readthedocs.io/
 
 IMPORT_EXPORT_IMPORT_PERMISSION_CODE = 'add'
+
 IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'change'
+
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+# Axes configuration
+# See https://django-axes.readthedocs.io/en/latest/4_configuration.html
+
+AXES_COOLOFF_TIME = 1
+
+AXES_FAILURE_LIMIT = 5
 
 # Session configuration
 # Used by RollingSessionMiddleware to determine how often to reset the session.
@@ -255,6 +271,7 @@ ROLLING_SESSION_REFRESH = 86400
 
 # Set default auto field for models.
 # See https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Baby Buddy configuration
