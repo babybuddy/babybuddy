@@ -46,6 +46,7 @@ function coverage(cb) {
             'run',
             'manage.py',
             'test',
+            '--settings=babybuddy.settings.test',
             '--parallel',
             '--exclude-tag',
             'isolate'
