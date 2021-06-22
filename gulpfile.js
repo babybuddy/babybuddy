@@ -200,6 +200,7 @@ function test(cb) {
         'python',
         'manage.py',
         'test',
+        '--settings=babybuddy.settings.test',
         '--parallel',
         '--exclude-tag',
         'isolate'
