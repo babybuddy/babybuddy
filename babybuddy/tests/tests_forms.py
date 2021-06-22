@@ -104,6 +104,21 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, 'New First Name')
 
+    def test_user_regenerate_api_key(self):
+        self.c.login(**self.credentials)
+
+        api_key_before = User.objects.get(pk=self.user.id).settings.api_key()
+
+        params = self.settings_template.copy()
+        params['api_key_regenerate'] = 'Regenerate'
+
+        page = self.c.post('/user/settings/', params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertNotEqual(
+            api_key_before,
+            User.objects.get(pk=self.user.id).settings.api_key()
+        )
+
     def test_user_settings_invalid(self):
         self.c.login(**self.credentials)
 

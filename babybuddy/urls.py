@@ -38,11 +38,6 @@ app_patterns = [
         name='user-password'
     ),
     path(
-        'user/reset-api-key/',
-        views.UserResetAPIKey.as_view(),
-        name='user-reset-api-key'
-    ),
-    path(
         'user/settings/',
         views.UserSettings.as_view(),
         name='user-settings'

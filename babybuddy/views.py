@@ -103,16 +103,6 @@ class UserPassword(LoginRequiredMixin, View):
         return render(request, self.template_name, {'form': form})
 
 
-class UserResetAPIKey(LoginRequiredMixin, View):
-    """
-    Resets the API key of the logged in user.
-    """
-    def get(self, request):
-        request.user.settings.api_key(reset=True)
-        messages.success(request, _('User API key regenerated.'))
-        return redirect('babybuddy:user-settings')
-
-
 class UserSettings(LoginRequiredMixin, View):
     """
     Handles both the User and Settings models.
@@ -130,6 +120,11 @@ class UserSettings(LoginRequiredMixin, View):
         })
 
     def post(self, request):
+        if request.POST.get('api_key_regenerate'):
+            request.user.settings.api_key(reset=True)
+            messages.success(request, _('User API key regenerated.'))
+            return redirect('babybuddy:user-settings')
+
         form_user = self.form_user_class(
             instance=request.user,
             data=request.POST)

@@ -45,15 +45,6 @@ class ViewsTestCase(TestCase):
         self.assertNotEqual(session1, session2)
         self.assertEqual(session2, session3)
 
-    def test_user_reset_api_key(self):
-        api_key_before = User.objects.get(pk=self.user.id).settings.api_key()
-        page = self.c.get('/user/reset-api-key/')
-        self.assertEqual(page.status_code, 302)
-        self.assertNotEqual(
-            api_key_before,
-            User.objects.get(pk=self.user.id).settings.api_key()
-        )
-
     def test_user_settings(self):
         page = self.c.get('/user/settings/')
         self.assertEqual(page.status_code, 200)
