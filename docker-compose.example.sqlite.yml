@@ -15,7 +15,12 @@ services:
     volumes:
       - data:/app/data:rw
       - media:/app/media:rw
-    command: bash -c 'python manage.py migrate --noinput && python manage.py createcachetable && gunicorn babybuddy.wsgi -b :8000 --log-level=info'
+    command: |-
+      bash -c 'python manage.py migrate --noinput &&
+        python manage.py createcachetable &&
+        gunicorn babybuddy.wsgi -b :8000 --log-level=info \
+          --worker-tmp-dir=/dev/shm --log-file=- \
+          --workers=2 --threads=4 --worker-class=gthread'
     ports:
       - "8000:8000"               # For Portainer, select another port for babybuddy such as 7000, for example "7000:8000"
     restart: unless-stopped
