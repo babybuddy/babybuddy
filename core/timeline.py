@@ -30,11 +30,17 @@ def get_objects(child, date):
     instances = Feeding.objects.filter(child=child).filter(
         start__range=(min_date, max_date)).order_by('-start')
     for instance in instances:
+        details = None
+        if instance.amount:
+            details = _('Amount: %(amount).0f') % {
+                'amount': instance.amount,
+            }
         events.append({
             'time': timezone.localtime(instance.start),
             'event': _('%(child)s started feeding.') % {
                 'child': instance.child.first_name
             },
+            'details': details,
             'model_name': instance.model_name,
             'type': 'start'
         })
@@ -43,6 +49,7 @@ def get_objects(child, date):
             'event': _('%(child)s finished feeding.') % {
                 'child': instance.child.first_name
             },
+            'details': details,
             'model_name': instance.model_name,
             'type': 'end'
         })
