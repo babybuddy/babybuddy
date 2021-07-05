@@ -30,7 +30,7 @@
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.19.0",
-    "tempusdominus-bootstrap-4": "^5.39.0",
-    "tempusdominus-core": "^5.19.0"
+    "tempusdominus-bootstrap-4": "5.1.2",
+    "tempusdominus-core": "5.0.3"
   }
 }
