@@ -99,6 +99,8 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 - Python 3.6+, pip, pipenv
 - NodeJS 14.x and NPM 7.x
 - Gulp
+- Possibly `libpq-dev`
+  - This is necessary if `psycopg2` can't find an appropriate prebuild binary.
 
 ### Installation
 
@@ -107,6 +109,8 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 1. Install required Python packages, including dev packages
 
        pipenv install --three
+
+   - If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
 
 1. Install Gulp CLI
 
