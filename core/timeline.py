@@ -19,10 +19,18 @@ def get_objects(child, date):
     instances = DiaperChange.objects.filter(child=child).filter(
         time__range=(min_date, max_date)).order_by('-time')
     for instance in instances:
+        contents = []
+        if instance.wet:
+            contents.append('💧wet')
+        if instance.solid:
+            contents.append('💩solid')
         events.append({
             'time': timezone.localtime(instance.time),
             'event': _('%(child)s had a diaper change.') % {
                 'child': child.first_name
+            },
+            'details': _('Contents: %(contents)s') % {
+                'contents': ', '.join(contents),
             },
             'model_name': instance.model_name,
         })
