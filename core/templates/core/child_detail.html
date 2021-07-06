@@ -44,28 +44,32 @@
                     </a>
                 {% endif %}
             </h3>
-            <ul class="timeline m-auto">
-                {% for object in timeline_objects %}
-                    <li{% cycle "" ' class="timeline-inverted"' %}>
-                        <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
-                            <i class="icon icon-{{ object.model_name }}"></i>
-                        </div>
-                        <div class="card text-right">
-                            <div class="card-body">
-                                {{ object.event }}<br />
-                                {% if object.details %}
-                                <small>{{ object.details }}</small>
-                                {% endif %}
+            {% if timeline_objects %}
+                <ul class="timeline m-auto">
+                    {% for object in timeline_objects %}
+                        <li{% cycle "" ' class="timeline-inverted"' %}>
+                            <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
+                                <i class="icon icon-{{ object.model_name }}"></i>
                             </div>
-                            <div class="card-footer text-muted">
-                                {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
-                                    {{ since }} ago ({{ time }})
-                                {% endblocktrans %}
+                            <div class="card text-right">
+                                <div class="card-body">
+                                    {{ object.event }}<br />
+                                    {% if object.details %}
+                                    <small>{{ object.details }}</small>
+                                    {% endif %}
+                                </div>
+                                <div class="card-footer text-muted">
+                                    {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
+                                        {{ since }} ago ({{ time }})
+                                    {% endblocktrans %}
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="text-center">No events</div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
