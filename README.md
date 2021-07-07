@@ -86,40 +86,30 @@ redeploy the app (e.g. if there are errors or settings are changed).
 
 ### Docker
 
-A Docker deployment requires [Docker Engine](https://www.docker.com/) v18.06.0+
-and [Docker Compose](https://docs.docker.com/compose/) v1.22.0+ to create two
-containers: one for the database and one for the application.
+Baby Buddy relies on the [LinuxServer.io](https://www.linuxserver.io/) community
+for a multi-architecture container with strong support. See
+[linuxserver/docker-babybuddy](https://github.com/linuxserver/docker-babybuddy)
+for detailed information about the container or use the following Docker Compose
+configuration as a template to get started quickly:
 
-The example `docker-compose.example.yml` file provided in this repository is
-intended for production deployments. Baby Buddy is deployed to Docker Hub as
-[babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) so this is
-the only file needed for a Docker deployment with Docker Compose.
+```yaml
+version: "2.1"
+services:
+  babybuddy:
+    image: ghcr.io/linuxserver/babybuddy
+    container_name: babybuddy
+    environment:
+      - TZ=UTC
+    volumes:
+      - /path/to/appdata:/config
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+```
 
-A secondary example file `docker-compose.example.sqlite.yml` is also available
-for a simpler SQLite-based deployment (the default example users PostgreSQL).
-
-1. Copy the raw content of either `docker-compose.example.yml` or `docker-compose.example.sqlite.yml` 
-into a new file named `docker-compose.yml` 
-
-        wget -O docker-compose.yml https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.yml
-     
-    *or*
-        
-        wget -O docker-compose.yml https://raw.githubusercontent.com/babybuddy/babybuddy/master/docker-compose.example.sqlite.yml
-
-1. Within `docker-compose.yml`, at the very least, set the `ALLOWED_HOSTS` and `SECRET_KEY` variables under
-`services:app:environment`.
-
-    *See [Configuration](#configuration) for other settings that can be controlled by environment variables.*
-
-1. Build/run the application
-
-        docker-compose up -d
-
-The app should now be locally available at
-[http://127.0.0.1:8000](http://127.0.0.1:8000). See
-[Docker's "Get Started" documentation](https://docs.docker.com/get-started/)
-for detailed information about deployment methods with Docker.
+:warning: Baby Buddy is deployed to Docker Hub as
+[babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) however this
+deployment will be stopped after version v1.7.0 in favor of the LSIO solution.
 
 ### Heroku
 
