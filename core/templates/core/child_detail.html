@@ -62,6 +62,11 @@
                                     {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
                                         {{ since }} ago ({{ time }})
                                     {% endblocktrans %}
+                                    {% if object.edit_link %}
+                                        <div>
+                                            <small><a href="{{ object.edit_link }}">Edit</a></small>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </li>
