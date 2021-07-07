@@ -17,7 +17,6 @@ guess work.
 
 - [Demo](#demo)
 - [Deployment](#deployment)
-  - [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
   - [Docker](#docker)
   - [Heroku](#heroku)
   - [Manual](#manual)
@@ -50,39 +49,6 @@ deployment, **log in and change the default admin password immediately**.
 
 Many of Baby Buddy's configuration settings can be controlled using environment
 variables - see [Configuration](#configuration) for detailed information.
-
-### AWS Elastic Beanstalk
-
-A basic [Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/)
-configuration is provided in `.ebextensions/babybuddy.config`.   The steps
-below are a rough guide to deployment. See [Working with Python](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-apps.html)
-for detailed information.
-
-1. Clone/download the Baby Buddy repo
-
-        git clone https://github.com/babybuddy/babybuddy.git
-
-1. Enter the cloned/downloaded directory
-
-        cd babybuddy
-
-1. Set (at least) the `SECRET_KEY` environment value in `.ebextensions/babybuddy.config`
-
-    *See [Configuration](#configuration) for other settings that can be
-    controlled by environment variables.
-
-1. [Create an IAM user](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) in AWS with EB, EC2, RDS and S3 privileges.
-
-1. Initialize the Elastic Bean application (using the IAM user from the previous step)
-
-        eb init -p python-3.6
-
-1. Create/deploy the environment! :rocket:
-
-        eb create -db -db.engine postgres
-
-The create command will also do an initial deployment. Run `eb deploy` to
-redeploy the app (e.g. if there are errors or settings are changed).
 
 ### Docker
 
