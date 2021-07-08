@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -32,13 +33,16 @@ def get_objects(child, date):
             'details': _('Contents: %(contents)s') % {
                 'contents': ', '.join(contents),
             },
-            'model_name': instance.model_name,
+            'edit_link': reverse('core:diaperchange-update',
+                                 args=[instance.id]),
+            'model_name': instance.model_name
         })
 
     instances = Feeding.objects.filter(child=child).filter(
         start__range=(min_date, max_date)).order_by('-start')
     for instance in instances:
         details = None
+        edit_link = reverse('core:feeding-update', args=[instance.id])
         if instance.amount:
             details = _('Amount: %(amount).0f') % {
                 'amount': instance.amount,
@@ -49,6 +53,7 @@ def get_objects(child, date):
                 'child': instance.child.first_name
             },
             'details': details,
+            'edit_link': edit_link,
             'model_name': instance.model_name,
             'type': 'start'
         })
@@ -58,6 +63,7 @@ def get_objects(child, date):
                 'child': instance.child.first_name
             },
             'details': details,
+            'edit_link': edit_link,
             'model_name': instance.model_name,
             'type': 'end'
         })
@@ -65,11 +71,13 @@ def get_objects(child, date):
     instances = Sleep.objects.filter(child=child).filter(
         start__range=(min_date, max_date)).order_by('-start')
     for instance in instances:
+        edit_link = reverse('core:sleep-update', args=[instance.id])
         events.append({
             'time': timezone.localtime(instance.start),
             'event': _('%(child)s fell asleep.') % {
                 'child': instance.child.first_name
             },
+            'edit_link': edit_link,
             'model_name': instance.model_name,
             'type': 'start'
         })
@@ -78,6 +86,7 @@ def get_objects(child, date):
             'event': _('%(child)s woke up.') % {
                 'child': instance.child.first_name
             },
+            'edit_link': edit_link,
             'model_name': instance.model_name,
             'type': 'end'
         })
@@ -85,11 +94,13 @@ def get_objects(child, date):
     instances = TummyTime.objects.filter(child=child).filter(
         start__range=(min_date, max_date)).order_by('-start')
     for instance in instances:
+        edit_link = reverse('core:tummytime-update', args=[instance.id])
         events.append({
             'time': timezone.localtime(instance.start),
             'event': _('%(child)s started tummy time!') % {
                 'child': instance.child.first_name
             },
+            'edit_link': edit_link,
             'model_name': instance.model_name,
             'type': 'start'
         })
@@ -98,6 +109,7 @@ def get_objects(child, date):
             'event': _('%(child)s finished tummy time.') % {
                 'child': instance.child.first_name
             },
+            'edit_link': edit_link,
             'model_name': instance.model_name,
             'type': 'end'
         })
