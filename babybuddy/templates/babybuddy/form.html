@@ -3,6 +3,7 @@
 <div class="container-fluid">
     <form role="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
         {% for field in form %}
             <div class="form-group row">
                 {% include 'babybuddy/form_field.html' %}
