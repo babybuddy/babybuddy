@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.urls import reverse
-from django.utils import timezone
+from django.utils import timezone, timesince
 from django.utils.translation import gettext as _
 
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
@@ -64,6 +64,7 @@ def get_objects(child, date):
             },
             'details': details,
             'edit_link': edit_link,
+            'duration': timesince.timesince(instance.start, now=instance.end),
             'model_name': instance.model_name,
             'type': 'end'
         })
@@ -87,6 +88,7 @@ def get_objects(child, date):
                 'child': instance.child.first_name
             },
             'edit_link': edit_link,
+            'duration': timesince.timesince(instance.start, now=instance.end),
             'model_name': instance.model_name,
             'type': 'end'
         })
@@ -110,6 +112,7 @@ def get_objects(child, date):
                 'child': instance.child.first_name
             },
             'edit_link': edit_link,
+            'duration': timesince.timesince(instance.start, now=instance.end),
             'model_name': instance.model_name,
             'type': 'end'
         })
