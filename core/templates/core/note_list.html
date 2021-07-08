@@ -21,18 +21,18 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
                 <tr>
+                    <th>{% trans "Time" %}</th>
                     <th>{% trans "Child" %}</th>
                     <th>{% trans "Note" %}</th>
-                    <th>{% trans "Time" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for note in object_list %}
                     <tr>
-                        <th scope="row"><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></th>
+                        <th scope="row">{{ note.time }}</th>
+                        <td><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></td>
                         <td>{{ note.note }}</td>
-                        <td>{{ note.time }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 

@@ -21,9 +21,9 @@
         <table class="table table-striped table-hover">
             <thead class="thead-inverse">
             <tr>
+                <th>{% trans "Start" %}</th>
                 <th>{% trans "Name" %}</th>
                 <th>{% trans "Child" %}</th>
-                <th>{% trans "Start" %}</th>
                 <th>{% trans "Duration" %}</th>
                 <th>{% trans "End" %}</th>
                 <th>{% trans "Active" %}</th>
@@ -33,7 +33,8 @@
             <tbody>
             {% for timer in object_list %}
                 <tr>
-                    <th scope="row"><a href="{% url 'core:timer-detail' timer.id %}">{{ timer }}</a></th>
+                    <th scope="row">{{ timer.start }}</th>
+                    <td><a href="{% url 'core:timer-detail' timer.id %}">{{ timer }}</a></td>
                     <td>
                         {% if timer.child %}
                             <a href="{% url 'core:child' timer.child.slug %}">{{ timer.child }}</a>
@@ -41,7 +42,6 @@
                             &nbsp;
                         {% endif %}
                     </td>
-                    <td>{{ timer.start }}</td>
                     <td>{{ timer.duration|duration_string }}</td>
                     <td>{{ timer.end }}</td>
                     <td>{{ timer.active|bool_icon }}</td>

@@ -21,13 +21,13 @@
         <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
+                    <th>{% trans "Date" %}</th>
                     <th>{% trans "Child" %}</th>
                     <th>{% trans "Method" %}</th>
                     <th>{% trans "Type" %}</th>
                     {% comment %}Abbreviation of "Amount"{% endcomment %}
                     <th>{% trans "Amt." %}</th>
                     <th>{% trans "Duration" %}</th>
-                    <th>{% trans "Date" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
@@ -35,7 +35,8 @@
                 {% for feeding in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row"><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></th>
+                        <th scope="row">{{ feeding.start }}</th>
+                        <td><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></td>
                         <td>{{ feeding.get_method_display }}</td>
                         <td>{{ feeding.get_type_display }}</td>
                         <td>
@@ -44,7 +45,6 @@
                             {% endif %}
                         </td>
                         <td>{{ feeding.duration|duration_string }}</td>
-                        <td>{{ feeding.start }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 

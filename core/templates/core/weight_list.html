@@ -21,9 +21,9 @@
         <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
+                    <th>{% trans "Date" %}</th>
                     <th>{% trans "Child" %}</th>
                     <th>{% trans "Weight" %}</th>
-                    <th>{% trans "Date" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
@@ -31,9 +31,9 @@
                 {% for weight in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row"><a href="{% url 'core:child' weight.child.slug %}">{{ weight.child }}</a></th>
+                        <th scope="row">{{ weight.date }}</th>
+                        <td><a href="{% url 'core:child' weight.child.slug %}">{{ weight.child }}</a></td>
                         <td>{{ weight.weight }}</td>
-                        <td>{{ weight.date }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
