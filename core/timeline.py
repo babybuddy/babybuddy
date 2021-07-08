@@ -35,7 +35,7 @@ def get_objects(child, date):
             },
             'edit_link': reverse('core:diaperchange-update',
                                  args=[instance.id]),
-            'model_name': instance.model_name,
+            'model_name': instance.model_name
         })
 
     instances = Feeding.objects.filter(child=child).filter(
