@@ -73,9 +73,9 @@ services:
     restart: unless-stopped
 ```
 
-:warning: Baby Buddy is deployed to Docker Hub as
-[babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) however this
-deployment will be stopped after version v1.7.0 in favor of the LSIO solution.
+:warning: Baby Buddy v1.7.0 was the final version deployed to
+[babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) on Docker Hub
+Future versions of Baby Buddy will use the LSIO container.
 
 ### Heroku
 

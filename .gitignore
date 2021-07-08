@@ -8,9 +8,6 @@
 # Virtual environment files (pipenv may use this convention).
 .venv
 
-# Docker deployment files.
-docker-compose.yml
-
 # IDE configuration files.
 /.idea
 
