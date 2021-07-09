@@ -12,15 +12,15 @@
 {% block content %}
     <div id="dashboard-child" class="card-columns">
         {% card_feeding_last object %}
+        {% card_diaperchange_last object %}
+        {% card_sleep_last object %}
         {% card_feeding_last_method object %}
         {% card_feeding_day object %}
         {% card_timer_list object %}
         {% card_statistics object %}
-        {% card_sleep_last object %}
         {% card_sleep_day object %}
         {% card_sleep_naps_day object %}
         {% card_tummytime_day object %}
-        {% card_diaperchange_last object %}
         {% card_diaperchange_types object %}
     </div>
 {% endblock %}
