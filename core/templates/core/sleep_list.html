@@ -21,10 +21,10 @@
         <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
-                    <th>{% trans "Child" %}</th>
-                    <th>{% trans "Duration" %}</th>
                     <th>{% trans "Start" %}</th>
                     <th>{% trans "End" %}</th>
+                    <th>{% trans "Child" %}</th>
+                    <th>{% trans "Duration" %}</th>
                     <th class="text-center">{% trans "Nap" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
@@ -33,10 +33,10 @@
                 {% for sleep in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row"><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></th>
-                        <td>{{ sleep.duration|duration_string }}</td>
-                        <td>{{ sleep.start }}</td>
+                        <th scope="row">{{ sleep.start }}</th>
                         <td>{{ sleep.end }}</td>
+                        <td><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></td>
+                        <td>{{ sleep.duration|duration_string }}</td>
                         <td class="text-center">{{ sleep.nap|bool_icon }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
