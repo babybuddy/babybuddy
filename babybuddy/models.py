@@ -18,8 +18,8 @@ class Settings(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dashboard_refresh_rate = models.DurationField(
         verbose_name=_('Refresh rate'),
-        help_text=_('This setting will only be used when a browser does not '
-                    'support refresh on focus.'),
+        help_text=_('If supported by browser, the dashboard will only refresh '
+                    'when visible, and also when receiving focus.'),
         blank=True,
         null=True,
         default=timezone.timedelta(minutes=1),
