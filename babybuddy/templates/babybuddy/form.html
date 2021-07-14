@@ -1,6 +1,6 @@
 {% load i18n widget_tweaks %}
 
-<div class="container-fluid">
+<div class="container-fluid pb-5">
     <form role="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -8,6 +8,6 @@
                 {% include 'babybuddy/form_field.html' %}
             </div>
         {% endfor %}
-        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        <button type="submit" class="btn btn-primary btn-block btn-lg p-3 fixed-bottom">{% trans "Submit" %}</button>
     </form>
 </div>
