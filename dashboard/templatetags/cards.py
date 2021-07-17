@@ -159,7 +159,8 @@ def card_feeding_last_method(context, child):
     instances = models.Feeding.objects.filter(child=child) \
         .filter(**_filter_data_age(context)) \
         .order_by('-end')[:3]
-    empty = len(instances) == 0
+    num_unique_methods = len({i.method for i in instances})
+    empty = num_unique_methods <= 1
 
     # Results are reversed for carousel forward/back behavior.
     return {
