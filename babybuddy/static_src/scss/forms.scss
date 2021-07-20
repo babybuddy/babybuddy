@@ -1,0 +1,74 @@
+// Baby Buddy form style customizations.
+
+// BB form fields do not follow typical BS4 style that enables this display.
+.invalid-feedback {
+    display: block;
+}
+
+// Disable hover effect on buttons (used for checkbox buttons).
+.btn-no-hover {
+    &:hover {
+        color: inherit;
+        background-color: inherit;
+        border-color: inherit;
+    }
+}
+
+.boolean-label {
+    pointer-events: none;
+}
+
+// Set default text color for datetime picker.
+.bootstrap-datetimepicker-widget {
+    color: $gray-400;
+}
+
+// Datetime picker input styles.
+.input-group {
+    &.datetimepicker {
+
+        // Make calendar icon large and use the primary theme color.
+        .input-group-text {
+            background: none;
+            border: 0;
+            color: theme-color('primary');
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        // Style readonly input to look less like an input element.
+        .datetimepicker-input {
+            &[readonly] {
+                background: none;
+                border: 0;
+                color: $white;
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+// Use a full width, fixed button on smaller screens.
+.submit-primary {
+    display: block;
+    border-radius: 0;
+    width: 100%;
+    padding: 1rem;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+@include media-breakpoint-up(md) {
+    // Restore regular inline button on larger screens.
+    .submit-primary {
+        display: inline-block;
+        border-radius: $btn-border-radius;
+        width: auto;
+        padding: 0.25rem 0.5rem;
+        position: relative;
+    }
+}

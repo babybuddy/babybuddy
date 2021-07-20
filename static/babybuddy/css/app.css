@@ -7679,19 +7679,6 @@ body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
 .input-group [data-toggle="datetimepicker"] {
   cursor: pointer; }
 
-.breadcrumb {
-  margin-bottom: 0; }
-
-.btn-xs {
-  padding: 0.2rem 0.12rem;
-  font-size: 0.75rem;
-  line-height: 1;
-  border-radius: 0.2rem; }
-
-.dropdown-menu-right {
-  right: 0;
-  left: auto; }
-
 .invalid-feedback {
   display: block; }
 
@@ -7719,6 +7706,38 @@ body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
   color: #fff;
   cursor: pointer;
   font-weight: bold; }
+
+.submit-primary {
+  display: block;
+  border-radius: 0;
+  width: 100%;
+  padding: 1rem;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030; }
+
+@media (min-width: 768px) {
+  .submit-primary {
+    display: inline-block;
+    border-radius: 0.25rem;
+    width: auto;
+    padding: 0.25rem 0.5rem;
+    position: relative; } }
+
+.breadcrumb {
+  margin-bottom: 0; }
+
+.btn-xs {
+  padding: 0.2rem 0.12rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  border-radius: 0.2rem; }
+
+.dropdown-menu-right {
+  right: 0;
+  left: auto; }
 
 .ptr--ptr {
   background: #343a40; }
