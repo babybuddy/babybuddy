@@ -34,6 +34,9 @@ BabyBuddy.Dashboard = function ($) {
             }
             else {
                 window.addEventListener('focus', Dashboard.handleVisibilityChange, false);
+                if (refresh_rate) {
+                    runIntervalId = setInterval(Dashboard.handleVisibilityChange, refresh_rate);
+                }
             }
         },
 
