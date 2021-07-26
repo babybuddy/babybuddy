@@ -129,6 +129,19 @@ def card_feeding_day(context, child, date=None):
     }
 
 
+@register.inclusion_tag('cards/music_last.html', takes_context=True)
+def card_music_last(context, child):
+    instance = models.Music.objects.filter(child=child) \
+        .filter(**_filter_data_age(context)) \
+        .order_by('-time').first()
+    empty = not instance
+    return {
+        'type': 'music',
+        'music': instance,
+        'empty': empty,
+        'hide_empty': _hide_empty(context)
+    }
+
 @register.inclusion_tag('cards/feeding_last.html', takes_context=True)
 def card_feeding_last(context, child):
     """

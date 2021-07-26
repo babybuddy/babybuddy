@@ -41,6 +41,15 @@ urlpatterns = [
         name='diaperchange-delete'
     ),
 
+    path('music/', views.MusicList.as_view(), name='music-list'),
+    path('music/add/', views.MusicAdd.as_view(), name='music-add'),
+    path('music/<int:pk>/', views.MusicUpdate.as_view(), name='music-update'),
+    path(
+        'music/<int:pk>/delete/',
+        views.MusicDelete.as_view(),
+        name='music-delete'
+    ),
+
     path('feedings/', views.FeedingList.as_view(), name='feeding-list'),
     path('feedings/add/', views.FeedingAdd.as_view(), name='feeding-add'),
     path(

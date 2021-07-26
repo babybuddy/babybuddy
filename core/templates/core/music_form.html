@@ -1,0 +1,47 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetimepicker i18n %}
+
+{% block title %}
+    {% if request.resolver_match.url_name == 'music-update' %}
+        {% trans "Update a Music" %}
+    {% else %}
+        {% trans "Add a Music" %}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:music-list' %}">{% trans "Musics" %}</a></li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add" %}</li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if object %}
+        {% blocktrans trimmed %}
+            <h1>Update <span class="text-info">{{ object }}</span></h1>
+        {% endblocktrans %}
+    {% else %}
+        <h1>{% trans "Add a Music" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        BabyBuddy.DatetimePicker.init($('#datetimepicker_start'), {
+            format: '{% datetimepicker_format %}'
+        });
+        BabyBuddy.DatetimePicker.init($('#datetimepicker_end'), {
+            format: '{% datetimepicker_format %}'
+        });
+        $('#id_type').change(function() {
+            var feed_type=$('#id_type').val();
+            if (feed_type === 'formula' || feed_type === 'fortified breast milk') {
+                $('#id_method').val('bottle');
+            }
+        });
+    </script>
+{% endblock %}

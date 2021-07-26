@@ -253,3 +253,16 @@ class WeightForm(CoreModelForm):
             }),
             'notes': forms.Textarea(attrs={'rows': 5}),
         }
+
+class MusicForm(CoreModelForm):
+    class Meta:
+        model = models.Music
+        fields = ['child', 'artist', 'song', 'time']
+        widgets = {
+            'date': forms.DateInput(attrs={
+                'autocomplete': 'off',
+                'readonly': 'readonly',
+                'data-target': '#datetimepicker_date',
+            }),
+        }
+

@@ -1,0 +1,77 @@
+{% extends 'babybuddy/page.html' %}
+{% load duration i18n widget_tweaks %}
+
+{% block title %}{% trans "Music" %}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Music" %}</li>
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {% trans "Music" %}
+        {% if perms.core.add_music %}
+            <a href="{% url 'core:music-add' %}" class="btn btn-sm btn-success">
+                <i class="icon icon-music" aria-hidden="true"></i> {% trans "Add Music" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "Child" %}</th>
+                    <th>{% trans "Artist" %}</th>
+                    <th>{% trans "Song" %}</th>
+                    <th class="text-center">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for music in object_list %}
+                    {% cycle "odd" "even" as row_class silent %}
+                    <tr class="{{ row_class }}">
+                        <th scope="row">{{ music.start }}</th>
+                        <td><a href="{% url 'core:child' music.child.slug %}">{{ music.child }}</a></td>
+                        <td>{{ music.get_method_display }}</td>
+                        <td>{{ music.get_type_display }}</td>
+                        <td>
+                            {% if music.artist %}
+                                {{ music.artist }}
+                            {% endif %}
+                        </td>
+                        <td>{{ music.duration|duration_string }}</td>
+                        <td class="text-center">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
+
+                                {% if perms.core.change_music %}
+                                    <a href="{% url 'core:music-update' music.id %}" class="btn btn-primary">
+                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.delete_music %}
+                                    <a href="{% url 'core:music-delete' music.id %}" class="btn btn-danger">
+                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                            </div>
+                        </td>
+                    </tr>
+                    {% if music.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="7"><i class="icon icon-note mr-2" aria-hidden="true"></i>{{ music.notes }}</td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="7">{% trans "No musics found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

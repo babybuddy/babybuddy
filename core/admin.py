@@ -137,3 +137,14 @@ class WeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_filter = ('child',)
     search_fields = ('child__first_name', 'child__last_name', 'weight',)
     resource_class = WeightImportExportResource
+
+class MusicImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.Music
+
+@admin.register(models.Music)
+class MusicAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ('child','artist','song',)
+    list_filter = ('child',)
+    search_fields = ('child__first_name', 'child__last_name', 'artist', 'song',)
+    resource_class = MusicImportExportResource

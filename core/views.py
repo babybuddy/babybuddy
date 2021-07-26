@@ -159,7 +159,6 @@ class FeedingList(PermissionRequired403Mixin, BabyBuddyFilterView):
     paginate_by = 10
     filterset_fields = ('child', 'type', 'method')
 
-
 class FeedingAdd(CoreAddView):
     model = models.Feeding
     permission_required = ('core.add_feeding',)
@@ -439,3 +438,28 @@ class WeightDelete(CoreDeleteView):
     model = models.Weight
     permission_required = ('core.delete_weight',)
     success_url = reverse_lazy('core:weight-list')
+
+class MusicList(PermissionRequired403Mixin, BabyBuddyFilterView):
+    model = models.Music
+    template_name = 'core/music_list.html'
+    permission_required = ('core.view_music',)
+    paginate_by = 10
+    filterset_fields = ('child', 'artist', 'song')
+
+class MusicAdd(CoreAddView):
+    model = models.Music
+    permission_required = ('core.add_music',)
+    form_class = forms.MusicForm
+    success_url = reverse_lazy('core:music-list')
+
+class MusicUpdate(CoreUpdateView):
+    model = models.Music
+    permission_required = ('core.change_music',)
+    form_class = forms.MusicForm
+    success_url = reverse_lazy('core:music-list')
+
+class MusicDelete(CoreDeleteView):
+    model = models.Music
+    permission_required = ('core.delete_music',)
+    success_url = reverse_lazy('core:music-list')
+

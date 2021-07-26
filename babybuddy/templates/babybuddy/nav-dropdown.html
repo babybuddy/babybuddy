@@ -62,6 +62,12 @@
                             <i class="icon icon-weight" aria-hidden="true"></i>
                             {% trans "Weight" %}
                         </a>
+		    {% endif %}
+                    {% if perms.core.add_music %}
+                        <a class="dropdown-item p-2" href="{% url 'core:music-add' %}">
+                            <i class="icon icon-music" aria-hidden="true"></i>
+                            {% trans "Music" %}
+                        </a>
                     {% endif %}
                 </div>
             </div>
@@ -215,8 +221,20 @@
                                 {% trans "Tummy Time entry" %}
                             </a>
                         {% endif %}
-
-                    </div>
+                    
+                        {% if perms.core.view_music %}
+                            <a class="dropdown-item{% if request.path == '/music/' %} active{% endif %}"
+                               href="{% url 'core:music-list' %}"><i class="icon icon-music" aria-hidden="true"></i>
+                                {% trans "Music" %}
+                            </a>
+                        {% endif %}
+                        {% if perms.core.add_music %}
+                            <a class="dropdown-item pl-5{% if request.path == '/music/add/' %} active{% endif %}"
+                               href="{% url 'core:music-add' %}"><i class="icon icon-add" aria-hidden="true"></i>
+                                {% trans "Music entry" %}
+                            </a>
+                        {% endif %}
+		    </div>
                 </li>
 
                 {% if perms.core.view_timer %}

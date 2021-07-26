@@ -16,6 +16,12 @@ DEBUG = True
 # DEBUG = False
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
+DATABASES = {
+        'default': {
+                    'ENGINE': 'django.db.backends.sqlite3',
+                    'NAME': os.path.join(BASE_DIR, 'data/db.dev.sqlite3'),
+                }
+}
 
 # Django Rest Framework
 # https://www.django-rest-framework.org/

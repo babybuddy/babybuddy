@@ -580,3 +580,49 @@ class Weight(models.Model):
 
     def clean(self):
         validate_date(self.date, 'date')
+
+class Music(models.Model):
+    model_name = 'music'
+    child = models.ForeignKey(
+        'Child',
+        on_delete=models.CASCADE,
+        related_name='music',
+        verbose_name=_('Child')
+    )
+    artist = models.CharField(
+        max_length=255,
+        blank=False,
+        null=False,
+        verbose_name=_('Artist')
+    )
+    song = models.CharField(
+        max_length=255,
+        blank=False,
+        null=False,
+        verbose_name=_('Song')
+    )
+    liked_song = models.BooleanField(
+        default=True,
+        editable=True,
+        verbose_name=_('Liked Song')
+    )
+    time = models.DateTimeField(
+        default = timezone.now,
+        blank=False,
+        null=False,
+        verbose_name=_('Date')
+    )
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-time']
+        verbose_name = _('Music')
+        verbose_name_plural = _('Music')
+
+    def __str__(self):
+        return str(_('Music'))
+
+    def clean(self):
+        validate_time(self.time, 'time')
+

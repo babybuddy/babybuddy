@@ -3,7 +3,7 @@ from .base import *
 # Production settings
 # See babybuddy.settings.base for additional settings information.
 
-SECRET_KEY = ''
+SECRET_KEY = 'rehab-badge-bend-cloak-sincere-enticing'
 
 ALLOWED_HOSTS = ['']
 
@@ -14,7 +14,7 @@ ALLOWED_HOSTS = ['']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../data/db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'data/db.sqlite3'),
     }
 }
 

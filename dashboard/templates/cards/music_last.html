@@ -1,0 +1,12 @@
+{% extends 'cards/base.html' %}
+{% load i18n %}
+
+{% block header %}{% trans "Last Song Listened to" %}{% endblock %}
+
+{% block title %}
+    {% if music %}
+    {{ music.artist }} - {{ music.song }}
+    {% endif %}
+{% endblock %}
+
+
