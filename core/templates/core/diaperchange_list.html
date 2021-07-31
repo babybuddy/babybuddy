@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load bootstrap i18n widget_tweaks %}
+{% load bootstrap datetime i18n widget_tweaks %}
 
 {% block title %}{% trans "Diaper Changes" %}{% endblock %}
 
@@ -34,7 +34,7 @@
                 {% for change in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row">{{ change.time }}</th>
+                        <th scope="row">{{ change.time|datetime_short }}</th>
                         <td><a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a></td>
                         <td class="text-center">{{ change.wet|bool_icon }}</td>
                         <td class="text-center">{{ change.solid|bool_icon }}</td>
