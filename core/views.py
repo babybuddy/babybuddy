@@ -324,6 +324,7 @@ class TimerAddQuick(PermissionRequired403Mixin, RedirectView):
 
 
 class TimerRestart(PermissionRequired403Mixin, RedirectView):
+    http_method_names = ['post']
     permission_required = ('core.change_timer',)
 
     def get(self, request, *args, **kwargs):
@@ -337,6 +338,7 @@ class TimerRestart(PermissionRequired403Mixin, RedirectView):
 
 
 class TimerStop(PermissionRequired403Mixin, SuccessMessageMixin, RedirectView):
+    http_method_names = ['post']
     permission_required = ('core.change_timer',)
     success_message = _('%(timer)s stopped.')
 

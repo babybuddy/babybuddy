@@ -60,30 +60,32 @@
             </a>
         {% endif %}
 
-        <div class="btn-group btn-group-lg center-block" role="group" aria-label="{% trans "Timer actions" %}">
-
+        <div class="center-block" role="group" aria-label="{% trans "Timer actions" %}">
             {% if perms.core.delete_timer %}
-                <a class="btn btn-danger"
+                <a class="btn btn-lg btn-danger"
                    href="{% url 'core:timer-delete' timer.id %}"
                    role="button"><i class="icon icon-delete" aria-hidden="true"></i></a>
             {% endif %}
 
             {% if perms.core.change_timer %}
-                <a class="btn btn-primary"
+                <a class="btn btn-lg btn-primary"
                    href="{% url 'core:timer-update' timer.id %}"
                    role="button"><i class="icon icon-update" aria-hidden="true"></i></a>
 
-                <a class="btn btn-secondary"
-                   href="{% url 'core:timer-restart' timer.id %}"
-                   role="button"><i class="icon icon-refresh" aria-hidden="true"></i></a>
+                <form action="{% url 'core:timer-restart' timer.id %}" role="form" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <label class="sr-only">{% trans "Restart timer" %}</label>
+                    <button type="submit" class="btn btn-lg btn-secondary"><i class="icon icon-refresh" aria-hidden="true"></i></button>
+                </form>
 
                 {% if object.active %}
-                    <a class="btn btn-warning"
-                       href="{% url 'core:timer-stop' timer.id %}"
-                       role="button"><i class="icon icon-stop" aria-hidden="true"></i></a>
+                    <form action="{% url 'core:timer-stop' timer.id %}" role="form" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <label class="sr-only">{% trans "Delete timer" %}</label>
+                        <button type="submit" class="btn btn-lg btn-warning"><i class="icon icon-stop" aria-hidden="true"></i></button>
+                    </form>
                 {% endif %}
             {% endif %}
-
         </div>
     </div>
 {% endblock %}

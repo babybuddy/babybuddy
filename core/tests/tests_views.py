@@ -125,9 +125,15 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         page = self.c.get('/timers/{}/delete/'.format(entry.id))
         self.assertEqual(page.status_code, 200)
-        page = self.c.get('/timers/{}/stop/'.format(entry.id), follow=True)
+
+        page = self.c.get('/timers/{}/stop/'.format(entry.id))
+        self.assertEqual(page.status_code, 405)
+        page = self.c.post('/timers/{}/stop/'.format(entry.id), follow=True)
         self.assertEqual(page.status_code, 200)
-        page = self.c.get('/timers/{}/restart/'.format(entry.id), follow=True)
+
+        page = self.c.get('/timers/{}/restart/'.format(entry.id))
+        self.assertEqual(page.status_code, 405)
+        page = self.c.post('/timers/{}/restart/'.format(entry.id), follow=True)
         self.assertEqual(page.status_code, 200)
 
         page = self.c.get('/timers/delete-inactive/', follow=True)
