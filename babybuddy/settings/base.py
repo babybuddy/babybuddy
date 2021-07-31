@@ -269,13 +269,6 @@ AXES_FAILURE_LIMIT = 5
 
 ROLLING_SESSION_REFRESH = 86400
 
-# Security
-# See https://docs.djangoproject.com/en/3.2/topics/http/sessions/#settings
-# See https://docs.djangoproject.com/en/3.2/ref/csrf/#settings
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
 # Set default auto field for models.
 # See https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
 
