@@ -18,6 +18,6 @@
             <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
         {% endblocktrans %}
         <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
-        <a href="/" class="btn btn-default">{% trans "Cancel" %}</a>
+        <a href="{% url 'core:timer-detail' object.id %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}
