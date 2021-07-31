@@ -327,7 +327,7 @@ class TimerRestart(PermissionRequired403Mixin, RedirectView):
     http_method_names = ['post']
     permission_required = ('core.change_timer',)
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         instance = models.Timer.objects.get(id=kwargs['pk'])
         instance.restart()
         messages.success(request, '{} restarted.'.format(instance))
@@ -342,7 +342,7 @@ class TimerStop(PermissionRequired403Mixin, SuccessMessageMixin, RedirectView):
     permission_required = ('core.change_timer',)
     success_message = _('%(timer)s stopped.')
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         instance = models.Timer.objects.get(id=kwargs['pk'])
         instance.stop()
         messages.success(request, '{} stopped.'.format(instance))
