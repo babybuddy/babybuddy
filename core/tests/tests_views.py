@@ -115,7 +115,9 @@ class ViewsTestCase(TestCase):
         page = self.c.get('/timers/add/')
         self.assertEqual(page.status_code, 200)
 
-        page = self.c.get('/timers/add/quick/', follow=True)
+        page = self.c.get('/timers/add/quick/')
+        self.assertEqual(page.status_code, 405)
+        page = self.c.post('/timers/add/quick/', follow=True)
         self.assertEqual(page.status_code, 200)
 
         entry = models.Timer.objects.first()

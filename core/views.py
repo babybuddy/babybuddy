@@ -310,9 +310,10 @@ class TimerUpdate(CoreUpdateView):
 
 
 class TimerAddQuick(PermissionRequired403Mixin, RedirectView):
+    http_method_names = ['post']
     permission_required = ('core.add_timer',)
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         instance = models.Timer.objects.create(user=request.user)
         # Add child relationship if there is only Child instance.
         if models.Child.count() == 1:

@@ -8,9 +8,15 @@
             <span class="text-primary">Baby</span> Buddy
         </a>
 
-        <div class="d-lg-none d-md-none ml-auto p-0 mr-2">
-            <a class="text-success mr-2" href="{% url 'core:timer-add-quick' %}"><i class="icon icon-2x icon-timer" aria-hidden="true"></i></a>
-            <div class="dropdown show d-inline">
+        <div class="d-lg-none d-md-none d-flex ml-auto p-0 mr-2">
+            <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="mr-2">
+                {% csrf_token %}
+                <label class="sr-only">{% trans "Quick Start Timer" %}</label>
+                <button class="btn m-0 p-0 text-success">
+                    <i class="icon icon-2x icon-timer" aria-hidden="true"></i>
+                </button>
+            </form>
+            <div class="dropdown show">
                 <a class="text-success"
                    href="#"
                    role="button"
