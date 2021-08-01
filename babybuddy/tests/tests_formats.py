@@ -60,3 +60,8 @@ class FormatsTestCase(TestCase):
 
         t = datetime.time(hour=16, minute=2, second=25)
         self.assertEqual(time_format(t), '16:02:25')
+
+    def test_short_month_day_format(self):
+        dt = datetime.datetime(year=2021, month=7, day=31, hour=5, minute=5,
+                               second=5)
+        self.assertEqual(date_format(dt, 'SHORT_MONTH_DAY_FORMAT'), 'Jul 31')
