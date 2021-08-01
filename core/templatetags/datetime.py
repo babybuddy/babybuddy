@@ -36,7 +36,8 @@ def datetime_short(date):
         date_string = _('Today')
         time_string = formats.date_format(date, format='TIME_FORMAT')
     elif now.year == date.year:
-        date_string = formats.date_format(date, format='SHORT_MONTH_DAY_FORMAT')
+        date_string = formats.date_format(date,
+                                          format='SHORT_MONTH_DAY_FORMAT')
         time_string = formats.date_format(date, format='TIME_FORMAT')
     else:
         date_string = formats.date_format(date, format='SHORT_DATETIME_FORMAT')
