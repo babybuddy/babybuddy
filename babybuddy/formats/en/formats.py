@@ -18,5 +18,7 @@ else:
         '%m/%d/%Y %I:%M %p',     # '10/25/2006 2:30 PM'
     ]
 
+SHORT_MONTH_DAY_FORMAT = 'M j'
+
 # Append all other input formats from the base locale.
 DATETIME_INPUT_FORMATS = CUSTOM_INPUT_FORMATS + formats.DATETIME_INPUT_FORMATS

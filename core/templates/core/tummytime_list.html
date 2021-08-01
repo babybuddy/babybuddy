@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load duration i18n widget_tweaks %}
+{% load datetime duration i18n widget_tweaks %}
 
 {% block title %}{% trans "Tummy Time" %}{% endblock %}
 
@@ -31,8 +31,8 @@
             <tbody>
                 {% for tummytime in object_list %}
                     <tr>
-                        <th scope="row">{{ tummytime.start }}</th>
-                        <td>{{ tummytime.end }}</td>
+                        <th scope="row">{{ tummytime.start|datetime_short }}</th>
+                        <td>{{ tummytime.end|datetime_short }}</td>
                         <td><a href="{% url 'core:child' tummytime.child.slug %}">{{ tummytime.child }}</a></td>
                         <td>{{ tummytime.duration|duration_string }}</td>
                         <td>{{ tummytime.milestone }}</td>

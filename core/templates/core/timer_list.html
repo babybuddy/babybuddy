@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load bootstrap duration i18n widget_tweaks %}
+{% load bootstrap datetime duration i18n widget_tweaks %}
 
 {% block title %}{% trans "Timers" %}{% endblock %}
 
@@ -33,17 +33,19 @@
             <tbody>
             {% for timer in object_list %}
                 <tr>
-                    <th scope="row">{{ timer.start }}</th>
+                    <th scope="row">{{ timer.start|datetime_short }}</th>
                     <td><a href="{% url 'core:timer-detail' timer.id %}">{{ timer }}</a></td>
                     <td>
                         {% if timer.child %}
                             <a href="{% url 'core:child' timer.child.slug %}">{{ timer.child }}</a>
-                        {% else %}
-                            &nbsp;
                         {% endif %}
                     </td>
                     <td>{{ timer.duration|duration_string }}</td>
-                    <td>{{ timer.end }}</td>
+                    <td>
+                        {% if timer.end %}
+                            {{ timer.end|datetime_short }}
+                        {% endif %}
+                    </td>
                     <td>{{ timer.active|bool_icon }}</td>
                     <td>{{ timer.user_username }}</td>
                 </tr>
