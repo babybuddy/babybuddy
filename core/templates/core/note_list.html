@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n widget_tweaks %}
+{% load datetime i18n widget_tweaks %}
 
 {% block title %}{% trans "Notes" %}{% endblock %}
 
@@ -30,7 +30,7 @@
             <tbody>
                 {% for note in object_list %}
                     <tr>
-                        <th scope="row">{{ note.time }}</th>
+                        <th scope="row">{{ note.time|datetime_short }}</th>
                         <td><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></td>
                         <td>{{ note.note }}</td>
                         <td class="text-center">

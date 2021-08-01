@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load duration i18n widget_tweaks %}
+{% load datetime duration i18n widget_tweaks %}
 
 {% block title %}{% trans "Feedings" %}{% endblock %}
 
@@ -35,7 +35,7 @@
                 {% for feeding in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row">{{ feeding.start }}</th>
+                        <th scope="row">{{ feeding.start|datetime_short }}</th>
                         <td><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></td>
                         <td>{{ feeding.get_method_display }}</td>
                         <td>{{ feeding.get_type_display }}</td>
