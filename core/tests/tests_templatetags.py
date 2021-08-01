@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.test import TestCase
-from django.utils import timezone
+from django.utils import timezone, formats
 
 from core.models import Child, Timer
 from core.templatetags import bootstrap, datetime, duration, timers
@@ -83,3 +83,17 @@ class TemplateTagsTestCase(TestCase):
                 datetime.datetimepicker_format('L LT'), 'L HH:mm')
             self.assertEqual(
                 datetime.datetimepicker_format('L LTS'), 'L HH:mm:ss')
+
+    def test_datetime_short(self):
+        date = timezone.localtime()
+        self.assertEqual(datetime.datetime_short(date), "Today, {}".format(
+            formats.date_format(date, format='TIME_FORMAT')))
+
+        date = timezone.localtime() - timezone.timedelta(days=1, hours=6)
+        self.assertEqual(datetime.datetime_short(date), "{}, {}".format(
+            formats.date_format(date, format='SHORT_MONTH_DAY_FORMAT'),
+            formats.date_format(date, format='TIME_FORMAT')))
+
+        date = timezone.localtime() - timezone.timedelta(days=500)
+        self.assertEqual(datetime.datetime_short(date), formats.date_format(
+            date, format='SHORT_DATETIME_FORMAT'))
