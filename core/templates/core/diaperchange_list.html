@@ -22,7 +22,9 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>{% trans "Time" %}</th>
-                    <th>{% trans "Child" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
                     <th class="text-center">{% trans "Contents" %}</th>
                     <th>{% trans "Color" %}</th>
                     <th>{% trans "Amount" %}</th>
@@ -34,7 +36,9 @@
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
                         <th scope="row">{{ change.time|datetime_short }}</th>
-                        <td><a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a></td>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a></td>
+                        {% endif %}
                         <td class="text-center">
                             {% if change.wet %}<span title="{% trans "Wet" %}">💦</span>{% endif %}
                             {% if change.solid %}<span title="{% trans "Solid" %}">💩</span>{% endif %}

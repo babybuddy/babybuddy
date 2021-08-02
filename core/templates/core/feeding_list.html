@@ -22,7 +22,9 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>{% trans "Date" %}</th>
-                    <th>{% trans "Child" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
                     <th>{% trans "Method" %}</th>
                     <th>{% trans "Type" %}</th>
                     {% comment %}Abbreviation of "Amount"{% endcomment %}
@@ -36,7 +38,9 @@
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
                         <th scope="row">{{ feeding.start|datetime_short }}</th>
-                        <td><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></td>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></td>
+                        {% endif %}
                         <td>{{ feeding.get_method_display }}</td>
                         <td>{{ feeding.get_type_display }}</td>
                         <td>

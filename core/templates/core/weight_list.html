@@ -22,7 +22,9 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>{% trans "Date" %}</th>
-                    <th>{% trans "Child" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
                     <th>{% trans "Weight" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
@@ -32,7 +34,9 @@
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
                         <th scope="row">{{ weight.date }}</th>
-                        <td><a href="{% url 'core:child' weight.child.slug %}">{{ weight.child }}</a></td>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' weight.child.slug %}">{{ weight.child }}</a></td>
+                        {% endif %}
                         <td>{{ weight.weight }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
