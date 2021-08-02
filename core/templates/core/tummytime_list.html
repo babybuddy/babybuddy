@@ -22,7 +22,9 @@
                 <tr>
                     <th>{% trans "Start" %}</th>
                     <th>{% trans "End" %}</th>
-                    <th>{% trans "Child" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
                     <th>{% trans "Duration" %}</th>
                     <th>{% trans "Milestone" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
@@ -33,7 +35,9 @@
                     <tr>
                         <th scope="row">{{ tummytime.start|datetime_short }}</th>
                         <td>{{ tummytime.end|datetime_short }}</td>
-                        <td><a href="{% url 'core:child' tummytime.child.slug %}">{{ tummytime.child }}</a></td>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' tummytime.child.slug %}">{{ tummytime.child }}</a></td>
+                        {% endif %}
                         <td>{{ tummytime.duration|duration_string }}</td>
                         <td>{{ tummytime.milestone }}</td>
                         <td class="text-center">

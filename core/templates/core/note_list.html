@@ -22,7 +22,9 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>{% trans "Time" %}</th>
-                    <th>{% trans "Child" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
                     <th>{% trans "Note" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
@@ -31,7 +33,9 @@
                 {% for note in object_list %}
                     <tr>
                         <th scope="row">{{ note.time|datetime_short }}</th>
-                        <td><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></td>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></td>
+                        {% endif %}
                         <td>{{ note.note }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">

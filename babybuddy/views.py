@@ -38,6 +38,15 @@ class BabyBuddyFilterView(FilterView):
     # TODO Figure out the correct way to use this.
     strict = False
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        children = {
+            o.child for o in context['object_list'] if hasattr(o, "child")
+        }
+        if len(children) == 1:
+            context['unique_child'] = True
+        return context
+
 
 class UserList(StaffOnlyMixin, BabyBuddyFilterView):
     model = User

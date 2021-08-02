@@ -23,7 +23,9 @@
                 <tr>
                     <th>{% trans "Start" %}</th>
                     <th>{% trans "End" %}</th>
-                    <th>{% trans "Child" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
                     <th>{% trans "Duration" %}</th>
                     <th class="text-center">{% trans "Nap" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
@@ -35,7 +37,9 @@
                     <tr class="{{ row_class }}">
                         <th scope="row">{{ sleep.start|datetime_short }}</th>
                         <td>{{ sleep.end|datetime_short }}</td>
-                        <td><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></td>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></td>
+                        {% endif %}
                         <td>{{ sleep.duration|duration_string }}</td>
                         <td class="text-center">{{ sleep.nap|bool_icon }}</td>
                         <td class="text-center">
