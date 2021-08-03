@@ -23,8 +23,7 @@
                 <tr>
                     <th>{% trans "Time" %}</th>
                     <th>{% trans "Child" %}</th>
-                    <th class="text-center">{% trans "Wet" %}</th>
-                    <th class="text-center">{% trans "Solid" %}</th>
+                    <th class="text-center">{% trans "Contents" %}</th>
                     <th>{% trans "Color" %}</th>
                     <th>{% trans "Amount" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
@@ -36,8 +35,10 @@
                     <tr class="{{ row_class }}">
                         <th scope="row">{{ change.time|datetime_short }}</th>
                         <td><a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a></td>
-                        <td class="text-center">{{ change.wet|bool_icon }}</td>
-                        <td class="text-center">{{ change.solid|bool_icon }}</td>
+                        <td class="text-center">
+                            {% if change.wet %}<span title="{% trans "Wet" %}">💦</span>{% endif %}
+                            {% if change.solid %}<span title="{% trans "Solid" %}">💩</span>{% endif %}
+                        </td>
                         <td>{{ change.get_color_display }}</td>
                         <td>{{ change.amount|default_if_none:"" }}</td>
                         <td class="text-center">
