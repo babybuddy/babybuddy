@@ -21,6 +21,7 @@
         <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
+                    <th>{% trans "Actions" %}</th>
                     <th>{% trans "Time" %}</th>
                     {% if not unique_child %}
                         <th>{% trans "Child" %}</th>
@@ -28,24 +29,13 @@
                     <th class="text-center">{% trans "Contents" %}</th>
                     <th>{% trans "Color" %}</th>
                     <th>{% trans "Amount" %}</th>
-                    <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for change in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row">{{ change.time|datetime_short }}</th>
-                        {% if not unique_child %}
-                            <td><a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a></td>
-                        {% endif %}
-                        <td class="text-center">
-                            {% if change.wet %}<span title="{% trans "Wet" %}">💦</span>{% endif %}
-                            {% if change.solid %}<span title="{% trans "Solid" %}">💩</span>{% endif %}
-                        </td>
-                        <td>{{ change.get_color_display }}</td>
-                        <td>{{ change.amount|default_if_none:"" }}</td>
-                        <td class="text-center">
+                        <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_diaperchange %}
@@ -62,6 +52,16 @@
 
                             </div>
                         </td>
+                        <th scope="row">{{ change.time|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a></td>
+                        {% endif %}
+                        <td class="text-center">
+                            {% if change.wet %}<span title="{% trans "Wet" %}">💦</span>{% endif %}
+                            {% if change.solid %}<span title="{% trans "Solid" %}">💩</span>{% endif %}
+                        </td>
+                        <td>{{ change.get_color_display }}</td>
+                        <td>{{ change.amount|default_if_none:"" }}</td>
                     </tr>
                     {% if change.notes %}
                         <tr class="{{ row_class }} row-details">

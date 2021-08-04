@@ -21,6 +21,7 @@
         <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
+                    <th>{% trans "Actions" %}</th>
                     <th>{% trans "Start" %}</th>
                     <th>{% trans "End" %}</th>
                     {% if not unique_child %}
@@ -28,21 +29,13 @@
                     {% endif %}
                     <th>{% trans "Duration" %}</th>
                     <th class="text-center">{% trans "Nap" %}</th>
-                    <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for sleep in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row">{{ sleep.start|datetime_short }}</th>
-                        <td>{{ sleep.end|datetime_short }}</td>
-                        {% if not unique_child %}
-                            <td><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></td>
-                        {% endif %}
-                        <td>{{ sleep.duration|duration_string }}</td>
-                        <td class="text-center">{{ sleep.nap|bool_icon }}</td>
-                        <td class="text-center">
+                        <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_sleep %}
@@ -59,6 +52,13 @@
 
                             </div>
                         </td>
+                        <th scope="row">{{ sleep.start|datetime_short }}</th>
+                        <td>{{ sleep.end|datetime_short }}</td>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a></td>
+                        {% endif %}
+                        <td>{{ sleep.duration|duration_string }}</td>
+                        <td class="text-center">{{ sleep.nap|bool_icon }}</td>
                     </tr>
                     {% if sleep.notes %}
                         <tr class="{{ row_class }} row-details">

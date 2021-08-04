@@ -21,6 +21,7 @@
         <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
+                    <th>{% trans "Actions" %}</th>
                     <th>{% trans "Date" %}</th>
                     {% if not unique_child %}
                         <th>{% trans "Child" %}</th>
@@ -30,26 +31,13 @@
                     {% comment %}Abbreviation of "Amount"{% endcomment %}
                     <th>{% trans "Amt." %}</th>
                     <th>{% trans "Duration" %}</th>
-                    <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for feeding in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row">{{ feeding.start|datetime_short }}</th>
-                        {% if not unique_child %}
-                            <td><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></td>
-                        {% endif %}
-                        <td>{{ feeding.get_method_display }}</td>
-                        <td>{{ feeding.get_type_display }}</td>
                         <td>
-                            {% if feeding.amount %}
-                                {{ feeding.amount }}
-                            {% endif %}
-                        </td>
-                        <td>{{ feeding.duration|duration_string }}</td>
-                        <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_feeding %}
@@ -66,6 +54,18 @@
 
                             </div>
                         </td>
+                        <th scope="row">{{ feeding.start|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></td>
+                        {% endif %}
+                        <td>{{ feeding.get_method_display }}</td>
+                        <td>{{ feeding.get_type_display }}</td>
+                        <td>
+                            {% if feeding.amount %}
+                                {{ feeding.amount }}
+                            {% endif %}
+                        </td>
+                        <td>{{ feeding.duration|duration_string }}</td>
                     </tr>
                     {% if feeding.notes %}
                         <tr class="{{ row_class }} row-details">
