@@ -28,7 +28,7 @@
 .card-diaperchange {
     @extend .border-danger;
 
-    .card-header {
+    .card-header, .card-header a {
         @extend .text-white, .bg-danger;
     }
 
@@ -44,7 +44,7 @@
 .card-feeding {
     @extend .border-primary;
 
-    .card-header {
+    .card-header, .card-header a {
         @extend .text-white, .bg-primary;
     }
 
@@ -61,7 +61,7 @@
 .card-sleep {
     @extend .border-secondary;
 
-    .card-header {
+    .card-header, .card-header a {
         @extend .text-white, .bg-secondary;
     }
 }
@@ -85,7 +85,7 @@
 .card-timer {
     @extend .border-light;
 
-    .card-header {
+    .card-header, .card-header a {
         @extend .text-dark, .bg-light;
     }
 
@@ -97,7 +97,7 @@
 .card-tummytime {
     @extend .border-success;
 
-    .card-header {
+    .card-header, .card-header a {
         @extend .text-white, .bg-success;
     }
 

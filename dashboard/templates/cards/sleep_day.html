@@ -1,7 +1,11 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
 
-{% block header %}{% trans "Today's Sleep" %}{% endblock %}
+{% block header %}
+    <a href="{% url "core:sleep-list" %}">
+        {% trans "Today's Sleep" %}
+    </a>
+{% endblock %}
 
 {% block title %}
     {% if total %}
