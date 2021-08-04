@@ -1,7 +1,12 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
 
-{% block header %}{% trans "Last Tummy Time" %}{% endblock %}
+{% block header %}
+    <a href="{% url "core:tummytime-list" %}">
+        {% trans "Last Tummy Time" %}
+    </a>
+{% endblock %}
+
 
 {% block title %}
     {% if tummytime %}

@@ -1,7 +1,11 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
 
-{% block header %}{% trans "Today's Feeding" %}{% endblock %}
+{% block header %}
+    <a href="{% url "core:feeding-list" %}">
+        {% trans "Today's Feeding" %}
+    </a>
+{% endblock %}
 
 {% block title %}
     {% if total %}
