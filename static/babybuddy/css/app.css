@@ -6264,11 +6264,11 @@ a.close.disabled {
   vertical-align: text-top !important;
 }
 
-.bg-primary, .card-feeding .card-header {
+.bg-primary, .card-feeding .card-header, .card-feeding .card-header a {
   background-color: #37abe9 !important;
 }
 
-a.bg-primary:hover, .card-feeding a.card-header:hover, a.bg-primary:focus, .card-feeding a.card-header:focus,
+a.bg-primary:hover, .card-feeding a.card-header:hover, .card-feeding .card-header a:hover, a.bg-primary:focus, .card-feeding a.card-header:focus, .card-feeding .card-header a:focus,
 button.bg-primary:hover,
 .card-feeding button.card-header:hover,
 button.bg-primary:focus,
@@ -6276,11 +6276,11 @@ button.bg-primary:focus,
   background-color: #1793d6 !important;
 }
 
-.bg-secondary, .card-sleep .card-header {
+.bg-secondary, .card-sleep .card-header, .card-sleep .card-header a {
   background-color: #ff8f00 !important;
 }
 
-a.bg-secondary:hover, .card-sleep a.card-header:hover, a.bg-secondary:focus, .card-sleep a.card-header:focus,
+a.bg-secondary:hover, .card-sleep a.card-header:hover, .card-sleep .card-header a:hover, a.bg-secondary:focus, .card-sleep a.card-header:focus, .card-sleep .card-header a:focus,
 button.bg-secondary:hover,
 .card-sleep button.card-header:hover,
 button.bg-secondary:focus,
@@ -6288,11 +6288,11 @@ button.bg-secondary:focus,
   background-color: #cc7200 !important;
 }
 
-.bg-success, .card-tummytime .card-header {
+.bg-success, .card-tummytime .card-header, .card-tummytime .card-header a {
   background-color: #239556 !important;
 }
 
-a.bg-success:hover, .card-tummytime a.card-header:hover, a.bg-success:focus, .card-tummytime a.card-header:focus,
+a.bg-success:hover, .card-tummytime a.card-header:hover, .card-tummytime .card-header a:hover, a.bg-success:focus, .card-tummytime a.card-header:focus, .card-tummytime .card-header a:focus,
 button.bg-success:hover,
 .card-tummytime button.card-header:hover,
 button.bg-success:focus,
@@ -6320,11 +6320,11 @@ button.bg-warning:focus {
   background-color: #ffac0f !important;
 }
 
-.bg-danger, .card-diaperchange .card-header {
+.bg-danger, .card-diaperchange .card-header, .card-diaperchange .card-header a {
   background-color: #a72431 !important;
 }
 
-a.bg-danger:hover, .card-diaperchange a.card-header:hover, a.bg-danger:focus, .card-diaperchange a.card-header:focus,
+a.bg-danger:hover, .card-diaperchange a.card-header:hover, .card-diaperchange .card-header a:hover, a.bg-danger:focus, .card-diaperchange a.card-header:focus, .card-diaperchange .card-header a:focus,
 button.bg-danger:hover,
 .card-diaperchange button.card-header:hover,
 button.bg-danger:focus,
@@ -6332,11 +6332,11 @@ button.bg-danger:focus,
   background-color: #7d1b25 !important;
 }
 
-.bg-light, .card-timer .card-header, .card-statistics .card-header {
+.bg-light, .card-timer .card-header, .card-timer .card-header a, .card-statistics .card-header {
   background-color: #f8f9fa !important;
 }
 
-a.bg-light:hover, .card-timer a.card-header:hover, .card-statistics a.card-header:hover, a.bg-light:focus, .card-timer a.card-header:focus, .card-statistics a.card-header:focus,
+a.bg-light:hover, .card-timer a.card-header:hover, .card-timer .card-header a:hover, .card-statistics a.card-header:hover, a.bg-light:focus, .card-timer a.card-header:focus, .card-timer .card-header a:focus, .card-statistics a.card-header:focus,
 button.bg-light:hover,
 .card-timer button.card-header:hover,
 .card-statistics button.card-header:hover,
@@ -10007,7 +10007,7 @@ button.bg-error:focus {
   font-style: italic !important;
 }
 
-.text-white, .card-tummytime .card-header, .card-sleep .card-header, .card-feeding .card-header, .card-diaperchange .card-header {
+.text-white, .card-tummytime .card-header, .card-tummytime .card-header a, .card-sleep .card-header, .card-sleep .card-header a, .card-feeding .card-header, .card-feeding .card-header a, .card-diaperchange .card-header, .card-diaperchange .card-header a {
   color: #fff !important;
 }
 
@@ -10067,11 +10067,11 @@ a.text-light:hover, .card-timer a.card-body:hover, .card-statistics a.card-body:
   color: #cbd3da !important;
 }
 
-.text-dark, .card-timer .card-header, .card-statistics .card-header {
+.text-dark, .card-timer .card-header, .card-timer .card-header a, .card-statistics .card-header {
   color: #343a40 !important;
 }
 
-a.text-dark:hover, .card-timer a.card-header:hover, .card-statistics a.card-header:hover, a.text-dark:focus, .card-timer a.card-header:focus, .card-statistics a.card-header:focus {
+a.text-dark:hover, .card-timer a.card-header:hover, .card-timer .card-header a:hover, .card-statistics a.card-header:hover, a.text-dark:focus, .card-timer a.card-header:focus, .card-timer .card-header a:focus, .card-statistics a.card-header:focus {
   color: #121416 !important;
 }
 
