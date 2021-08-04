@@ -21,24 +21,19 @@
         <table class="table table-instances">
             <thead class="thead-inverse">
                 <tr>
+                    <th>{% trans "Actions" %}</th>
                     <th>{% trans "Time" %}</th>
                     {% if not unique_child %}
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th>{% trans "Temperature" %}</th>
-                    <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for temperature in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
-                        <th scope="row">{{ temperature.time|datetime_short }}</th>
-                        {% if not unique_child %}
-                            <td><a href="{% url 'core:child' temperature.child.slug %}">{{ temperature.child }}</a></td>
-                        {% endif %}
-                        <td>{{ temperature.temperature }}</td>
-                        <td class="text-center">
+                        <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
                                 {% if perms.core.change_temperature %}
@@ -55,6 +50,11 @@
 
                             </div>
                         </td>
+                        <th scope="row">{{ temperature.time|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' temperature.child.slug %}">{{ temperature.child }}</a></td>
+                        {% endif %}
+                        <td>{{ temperature.temperature }}</td>
                     </tr>
                     {% if temperature.notes %}
                         <tr class="{{ row_class }} row-details">
