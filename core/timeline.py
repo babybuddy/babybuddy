@@ -4,6 +4,7 @@ from django.utils import timezone, timesince
 from django.utils.translation import gettext as _
 
 from core.models import DiaperChange, Feeding, Sleep, TummyTime
+from datetime import timedelta
 
 
 def get_objects(child, date):
@@ -80,9 +81,19 @@ def _add_sleeps(child, min_date, max_date, events):
 
 
 def _add_feedings(child, min_date, max_date, events):
+    yesterday = min_date - timedelta(days=1)  # So first feeding has a previous
+    prev_start = None
+
     instances = Feeding.objects.filter(child=child).filter(
-        start__range=(min_date, max_date)).order_by('-start')
+        start__range=(yesterday, max_date)).order_by('start')
     for instance in instances:
+        time_since_prev = None
+        if prev_start:
+            time_since_prev = \
+                timesince.timesince(prev_start, now=instance.start)
+        prev_start = instance.start
+        if instance.start < min_date:
+            continue
         details = None
         edit_link = reverse('core:feeding-update', args=[instance.id])
         if instance.amount:
@@ -96,6 +107,7 @@ def _add_feedings(child, min_date, max_date, events):
             },
             'details': details,
             'edit_link': edit_link,
+            'time_since_prev': time_since_prev,
             'model_name': instance.model_name,
             'type': 'start'
         })

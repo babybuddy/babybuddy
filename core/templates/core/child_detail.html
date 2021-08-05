@@ -67,6 +67,11 @@
                                             <small>Duration: {{ object.duration }}</small>
                                         </div>
                                     {% endif %}
+                                    {% if object.time_since_prev %}
+                                        <div>
+                                            <small>{{ object.time_since_prev }} since previous</small>
+                                        </div>
+                                    {% endif %}
                                     {% if object.edit_link %}
                                         <div>
                                             <small><a href="{{ object.edit_link }}">Edit</a></small>
