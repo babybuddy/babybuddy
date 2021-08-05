@@ -26,21 +26,22 @@ class UserTimezoneMiddleware:
 
 class RollingSessionMiddleware:
     """
-    Periodically resets the session expiry.
+    Periodically resets the session expiry for existing sessions.
     """
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        session_refresh = request.session.get('session_refresh')
-        if session_refresh:
-            try:
-                delta = int(time.time()) - session_refresh
-            except (ValueError, TypeError):
-                delta = settings.ROLLING_SESSION_REFRESH + 1
-            if delta > settings.ROLLING_SESSION_REFRESH:
+        if request.session.keys():
+            session_refresh = request.session.get('session_refresh')
+            if session_refresh:
+                try:
+                    delta = int(time.time()) - session_refresh
+                except (ValueError, TypeError):
+                    delta = settings.ROLLING_SESSION_REFRESH + 1
+                if delta > settings.ROLLING_SESSION_REFRESH:
+                    request.session['session_refresh'] = int(time.time())
+                    request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+            else:
                 request.session['session_refresh'] = int(time.time())
-                request.session.set_expiry(settings.SESSION_COOKIE_AGE)
-        else:
-            request.session['session_refresh'] = int(time.time())
         return self.get_response(request)
