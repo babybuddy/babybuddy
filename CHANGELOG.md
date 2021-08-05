@@ -1,13 +1,54 @@
 # Changelog
 
+## [v1.8.0](https://github.com/babybuddy/babybuddy/tree/v1.8.0) (2021-08-05)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.7.0...v1.8.0)
+
+**Implemented enhancements:**
+
+- Use shorter timestamp formats in list view [\#237](https://github.com/babybuddy/babybuddy/issues/237)
+- Move Color and Amount columns to far right in list view [\#236](https://github.com/babybuddy/babybuddy/issues/236)
+- Unify "wet" and "solid" columns to a quad-state in list view [\#235](https://github.com/babybuddy/babybuddy/issues/235)
+- Links from dashboard [\#234](https://github.com/babybuddy/babybuddy/issues/234)
+- Hide Child column if only one child is shown [\#233](https://github.com/babybuddy/babybuddy/issues/233)
+- Move Time column to be first in list view [\#232](https://github.com/babybuddy/babybuddy/issues/232)
+- Don't hide Submit button below optional fields [\#231](https://github.com/babybuddy/babybuddy/issues/231)
+- Dashboard: Move "Last Diaper Change" to near-top [\#230](https://github.com/babybuddy/babybuddy/issues/230)
+- Dashboard: Auto-refresh even if focus is supported [\#255](https://github.com/babybuddy/babybuddy/pull/255) ([lutzky](https://github.com/lutzky))
+- Make form submit full width fixed [\#254](https://github.com/babybuddy/babybuddy/pull/254) ([cdubz](https://github.com/cdubz))
+- Brighten blue and cyan colors [\#251](https://github.com/babybuddy/babybuddy/pull/251) ([lutzky](https://github.com/lutzky))
+
+**Fixed bugs:**
+
+- Heroku approaching row limit [\#219](https://github.com/babybuddy/babybuddy/issues/219)
+
+**Closed issues:**
+
+- Force periodic refresh for always-on-devices [\#253](https://github.com/babybuddy/babybuddy/issues/253)
+- Upgrade from 1.41 [\#252](https://github.com/babybuddy/babybuddy/issues/252)
+
+**Merged pull requests:**
+
+- Ignore files in static for repository language [\#269](https://github.com/babybuddy/babybuddy/pull/269) ([lutzky](https://github.com/lutzky))
+- Add links from dashboard [\#268](https://github.com/babybuddy/babybuddy/pull/268) ([lutzky](https://github.com/lutzky))
+- Move Actions column to the far left [\#267](https://github.com/babybuddy/babybuddy/pull/267) ([lutzky](https://github.com/lutzky))
+- Unify "wet" and "solid" columns [\#264](https://github.com/babybuddy/babybuddy/pull/264) ([lutzky](https://github.com/lutzky))
+- Hide child column if only one child is shown [\#262](https://github.com/babybuddy/babybuddy/pull/262) ([lutzky](https://github.com/lutzky))
+- Consider last-feeding-method as empty if never-changing [\#261](https://github.com/babybuddy/babybuddy/pull/261) ([lutzky](https://github.com/lutzky))
+- Use short datetime string for lists [\#260](https://github.com/babybuddy/babybuddy/pull/260) ([cdubz](https://github.com/cdubz))
+- Provide example config for secure cookies [\#259](https://github.com/babybuddy/babybuddy/pull/259) ([cdubz](https://github.com/cdubz))
+- Move Time column to be first in list view [\#250](https://github.com/babybuddy/babybuddy/pull/250) ([lutzky](https://github.com/lutzky))
+- Dashboard: Move all "last" cards to top [\#248](https://github.com/babybuddy/babybuddy/pull/248) ([lutzky](https://github.com/lutzky))
+- Show duration in timeline [\#247](https://github.com/babybuddy/babybuddy/pull/247) ([lutzky](https://github.com/lutzky))
+
 ## [v1.7.0](https://github.com/babybuddy/babybuddy/tree/v1.7.0) (2021-07-08)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.6.0...v1.7.0)
 
 **Implemented enhancements:**
 
-- Potential security issue  [\#226](https://github.com/babybuddy/babybuddy/issues/226)
 - Feature/UI Request: Only require a single time for feedings [\#192](https://github.com/babybuddy/babybuddy/issues/192)
+- Potential security issue  [\#226](https://github.com/babybuddy/babybuddy/issues/226)
 
 **Fixed bugs:**
 
@@ -16,29 +57,28 @@
 
 **Closed issues:**
 
-- `WORKER TIMEOUT` on Docker 20.x [\#227](https://github.com/babybuddy/babybuddy/issues/227)
 - iOS Shortcut: "Authentication credentials were not provided" [\#222](https://github.com/babybuddy/babybuddy/issues/222)
-- Heroku approaching row limit [\#219](https://github.com/babybuddy/babybuddy/issues/219)
 - Move from Travis CI to GitHub Actions or something else [\#214](https://github.com/babybuddy/babybuddy/issues/214)
 - Child slug may become empty [\#205](https://github.com/babybuddy/babybuddy/issues/205)
 - Unable to run on docker ARM64 [\#199](https://github.com/babybuddy/babybuddy/issues/199)
+- `WORKER TIMEOUT` on Docker 20.x [\#227](https://github.com/babybuddy/babybuddy/issues/227)
 
 **Merged pull requests:**
 
+- Add `libpq-dev` to instructions [\#242](https://github.com/babybuddy/babybuddy/pull/242) ([lutzky](https://github.com/lutzky))
+- Make docker-compose examples unicorn-appropriate [\#228](https://github.com/babybuddy/babybuddy/pull/228) ([lutzky](https://github.com/lutzky))
+- Replace Travis with GitHub Actions [\#216](https://github.com/babybuddy/babybuddy/pull/216) ([cdubz](https://github.com/cdubz))
 - Timeline: Add edit links [\#246](https://github.com/babybuddy/babybuddy/pull/246) ([lutzky](https://github.com/lutzky))
 - Update deployment documentation [\#245](https://github.com/babybuddy/babybuddy/pull/245) ([cdubz](https://github.com/cdubz))
 - Clarify "no events" on timeline [\#244](https://github.com/babybuddy/babybuddy/pull/244) ([lutzky](https://github.com/lutzky))
 - Timeline: Show diaper change details [\#243](https://github.com/babybuddy/babybuddy/pull/243) ([lutzky](https://github.com/lutzky))
-- Add `libpq-dev` to instructions [\#242](https://github.com/babybuddy/babybuddy/pull/242) ([lutzky](https://github.com/lutzky))
 - Reverted tempus dominus to the previous version to fix an issue with marking fields as read only [\#241](https://github.com/babybuddy/babybuddy/pull/241) ([ntrecina](https://github.com/ntrecina))
 - Show feeding amount on timeline [\#240](https://github.com/babybuddy/babybuddy/pull/240) ([lutzky](https://github.com/lutzky))
 - Show absolute last times in dashboard [\#239](https://github.com/babybuddy/babybuddy/pull/239) ([lutzky](https://github.com/lutzky))
-- Make docker-compose examples unicorn-appropriate [\#228](https://github.com/babybuddy/babybuddy/pull/228) ([lutzky](https://github.com/lutzky))
 - Update dutch translation [\#225](https://github.com/babybuddy/babybuddy/pull/225) ([svenvdmeer](https://github.com/svenvdmeer))
 - Feedings [\#223](https://github.com/babybuddy/babybuddy/pull/223) ([jcgoette](https://github.com/jcgoette))
 - update post: sections [\#221](https://github.com/babybuddy/babybuddy/pull/221) ([jcgoette](https://github.com/jcgoette))
 - change ADD to COPY [\#220](https://github.com/babybuddy/babybuddy/pull/220) ([jcgoette](https://github.com/jcgoette))
-- Replace Travis with GitHub Actions [\#216](https://github.com/babybuddy/babybuddy/pull/216) ([cdubz](https://github.com/cdubz))
 - Dashboard: Hide old data [\#215](https://github.com/babybuddy/babybuddy/pull/215) ([BenjaminHae](https://github.com/BenjaminHae))
 
 ## [v1.6.0](https://github.com/babybuddy/babybuddy/tree/v1.6.0) (2021-05-14)
