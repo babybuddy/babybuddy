@@ -9,6 +9,14 @@
         </a>
 
         <div class="d-lg-none d-md-none d-flex ml-auto p-0 mr-2">
+            <div>
+                <!-- TODO: Actually link to the timeline... but for which child? -->
+                <a class="text-success"
+                    href="#"
+                    aria-expanded="false"><i class="icon icon-2x icon-timeline" aria-hidden="true"></i>
+                </a>
+                &nbsp;
+            </div>
             <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="mr-2">
                 {% csrf_token %}
                 <label class="sr-only">{% trans "Quick Start Timer" %}</label>
@@ -86,6 +94,14 @@
                     <a class="nav-link" href="{% url 'dashboard:dashboard' %}">
                         <i class="icon icon-dashboard" aria-hidden="true"></i>
                         {% trans "Dashboard" %}
+                    </a>
+                </li>
+
+                <li class="nav-item{% if request.path == '/' %} active{% endif %}">
+                    <!-- TODO: Actually link to the timeline... but for which child? -->
+                    <a class="nav-link" href="{% url 'dashboard:dashboard' %}">
+                        <i class="icon icon-timeline" aria-hidden="true"></i>
+                        {% trans "Timeline" %}
                     </a>
                 </li>
 
