@@ -31,19 +31,24 @@ def datetime_short(date):
     :return: a string representation of `date`.
     """
     now = timezone.now()
+    date_string = None
     time_string = None
     if now.date() == date.date():
         date_string = _('Today')
         time_string = formats.date_format(date, format='TIME_FORMAT')
-    elif now.year == date.year:
+    elif now.year == date.year and formats.get_format(
+            'SHORT_MONTH_DAY_FORMAT') != 'SHORT_MONTH_DAY_FORMAT':
+        # Use the custom `SHORT_MONTH_DAY_FORMAT` format if available for the
+        # current locale.
         date_string = formats.date_format(date,
                                           format='SHORT_MONTH_DAY_FORMAT')
         time_string = formats.date_format(date, format='TIME_FORMAT')
-    else:
+
+    if not date_string:
         date_string = formats.date_format(date, format='SHORT_DATETIME_FORMAT')
 
     if date_string and time_string:
-        datetime_string = '{}, {}'.format(date_string, time_string)
+        datetime_string = _('{}, {}').format(date_string, time_string)
     else:
         datetime_string = date_string
 

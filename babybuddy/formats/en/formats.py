@@ -18,7 +18,8 @@ else:
         '%m/%d/%Y %I:%M %p',     # '10/25/2006 2:30 PM'
     ]
 
-# Add custom "short" version of `MONTH_DAY_FORMAT`.
+# Add custom "short" version of `MONTH_DAY_FORMAT`. This customization will
+# only work with the locale format locale specified by this file.
 SHORT_MONTH_DAY_FORMAT = 'M j'
 
 # Append all other input formats from the base locale.
