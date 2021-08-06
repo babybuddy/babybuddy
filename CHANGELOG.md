@@ -1,19 +1,30 @@
 # Changelog
 
+## [v1.8.1](https://github.com/babybuddy/babybuddy/tree/v1.8.1) (2021-08-06)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.0...v1.8.1)
+
+**Fixed bugs:**
+
+- List time stamps localization bug [\#276](https://github.com/babybuddy/babybuddy/issues/276)
+- v1.8 shorter timestamps using UTC time [\#274](https://github.com/babybuddy/babybuddy/issues/274)
+- docker configured with postgres uses sqlite3 [\#273](https://github.com/babybuddy/babybuddy/issues/273)
+
 ## [v1.8.0](https://github.com/babybuddy/babybuddy/tree/v1.8.0) (2021-08-05)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.7.0...v1.8.0)
 
 **Implemented enhancements:**
 
+- Move Time column to be first in list view [\#232](https://github.com/babybuddy/babybuddy/issues/232)
+- Don't hide Submit button below optional fields [\#231](https://github.com/babybuddy/babybuddy/issues/231)
+- Dashboard: Move "Last Diaper Change" to near-top [\#230](https://github.com/babybuddy/babybuddy/issues/230)
 - Use shorter timestamp formats in list view [\#237](https://github.com/babybuddy/babybuddy/issues/237)
 - Move Color and Amount columns to far right in list view [\#236](https://github.com/babybuddy/babybuddy/issues/236)
 - Unify "wet" and "solid" columns to a quad-state in list view [\#235](https://github.com/babybuddy/babybuddy/issues/235)
 - Links from dashboard [\#234](https://github.com/babybuddy/babybuddy/issues/234)
 - Hide Child column if only one child is shown [\#233](https://github.com/babybuddy/babybuddy/issues/233)
-- Move Time column to be first in list view [\#232](https://github.com/babybuddy/babybuddy/issues/232)
-- Don't hide Submit button below optional fields [\#231](https://github.com/babybuddy/babybuddy/issues/231)
-- Dashboard: Move "Last Diaper Change" to near-top [\#230](https://github.com/babybuddy/babybuddy/issues/230)
+- Feature/UI Request: Only require a single time for feedings [\#192](https://github.com/babybuddy/babybuddy/issues/192)
 - Dashboard: Auto-refresh even if focus is supported [\#255](https://github.com/babybuddy/babybuddy/pull/255) ([lutzky](https://github.com/lutzky))
 - Make form submit full width fixed [\#254](https://github.com/babybuddy/babybuddy/pull/254) ([cdubz](https://github.com/cdubz))
 - Brighten blue and cyan colors [\#251](https://github.com/babybuddy/babybuddy/pull/251) ([lutzky](https://github.com/lutzky))
@@ -47,7 +58,6 @@
 
 **Implemented enhancements:**
 
-- Feature/UI Request: Only require a single time for feedings [\#192](https://github.com/babybuddy/babybuddy/issues/192)
 - Potential security issue  [\#226](https://github.com/babybuddy/babybuddy/issues/226)
 
 **Fixed bugs:**
