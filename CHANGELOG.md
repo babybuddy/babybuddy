@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.8.2](https://github.com/babybuddy/babybuddy/tree/v1.8.2)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.1...v1.8.2)
+
+**Fixed bugs:**
+
+- Default SQLite DB behavior broken in v1.8.1 [\#279](https://github.com/babybuddy/babybuddy/issues/279)
+
 ## [v1.8.1](https://github.com/babybuddy/babybuddy/tree/v1.8.1) (2021-08-06)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.0...v1.8.1)
