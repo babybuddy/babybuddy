@@ -82,6 +82,18 @@
     }
 }
 
+.card-timeline {
+    @extend .border-success;
+
+    .card-header, .card-header a {
+        @extend .text-white, .bg-success;
+    }
+
+    .card-body {
+        @extend .text-success;
+    }
+}
+
 .card-timer {
     @extend .border-light;
 

@@ -100,6 +100,10 @@
     @extend .fa-thermometer-three-quarters;
 }
 
+.icon-timeline {
+    @extend .fa-history;
+}
+
 .icon-timer {
     @extend .fa-clock-o;
 }

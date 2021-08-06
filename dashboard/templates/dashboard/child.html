@@ -11,6 +11,16 @@
 
 {% block content %}
     <div id="dashboard-child" class="card-columns">
+        <div class="card card-dashboard card-timeline">
+            <div class="card-header">
+                <i class="icon icon-timeline pull-left" aria-hidden="true"></i>
+                
+                <a href="{% url 'core:child' object.slug %}">
+                    Timeline
+                </a>
+            </div>
+        </div>
+
         {% card_feeding_last object %}
         {% card_diaperchange_last object %}
         {% card_sleep_last object %}
