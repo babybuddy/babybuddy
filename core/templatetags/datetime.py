@@ -30,9 +30,14 @@ def datetime_short(date):
     :param date: datetime instance
     :return: a string representation of `date`.
     """
-    now = timezone.now()
     date_string = None
     time_string = None
+
+    # The value received from templates will be UTC so it must be converted to
+    # localtime here.
+    date = timezone.localtime(date)
+
+    now = timezone.localtime()
     if now.date() == date.date():
         date_string = _('Today')
         time_string = formats.date_format(date, format='TIME_FORMAT')
