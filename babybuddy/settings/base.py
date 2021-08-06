@@ -101,9 +101,10 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-config = {'ENGINE': os.getenv('DB_ENGINE') or 'django.db.backends.sqlite3'}
-if os.getenv('DB_NAME'):
-    config['NAME'] = os.getenv('DB_NAME')
+config = {
+    'ENGINE': os.getenv('DB_ENGINE') or 'django.db.backends.sqlite3',
+    'NAME': os.getenv('DB_NAME') or os.path.join(BASE_DIR, 'data/db.sqlite3')
+}
 if os.getenv('DB_USER'):
     config['USER'] = os.getenv('DB_USER')
 if os.environ.get('DB_PASSWORD') or os.environ.get('POSTGRES_PASSWORD'):
