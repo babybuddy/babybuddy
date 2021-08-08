@@ -6288,15 +6288,17 @@ button.bg-secondary:focus,
   background-color: #cc7200 !important;
 }
 
-.bg-success, .card-tummytime .card-header, .card-tummytime .card-header a {
+.bg-success, .card-tummytime .card-header, .card-tummytime .card-header a, .card-timeline .card-header, .card-timeline .card-header a {
   background-color: #239556 !important;
 }
 
-a.bg-success:hover, .card-tummytime a.card-header:hover, .card-tummytime .card-header a:hover, a.bg-success:focus, .card-tummytime a.card-header:focus, .card-tummytime .card-header a:focus,
+a.bg-success:hover, .card-tummytime a.card-header:hover, .card-tummytime .card-header a:hover, .card-timeline a.card-header:hover, .card-timeline .card-header a:hover, a.bg-success:focus, .card-tummytime a.card-header:focus, .card-tummytime .card-header a:focus, .card-timeline a.card-header:focus, .card-timeline .card-header a:focus,
 button.bg-success:hover,
 .card-tummytime button.card-header:hover,
+.card-timeline button.card-header:hover,
 button.bg-success:focus,
-.card-tummytime button.card-header:focus {
+.card-tummytime button.card-header:focus,
+.card-timeline button.card-header:focus {
   background-color: #196c3e !important;
 }
 
@@ -6432,7 +6434,7 @@ button.bg-error:focus {
   border-color: #ff8f00 !important;
 }
 
-.border-success, .card-tummytime {
+.border-success, .card-tummytime, .card-timeline {
   border-color: #239556 !important;
 }
 
@@ -10007,7 +10009,7 @@ button.bg-error:focus {
   font-style: italic !important;
 }
 
-.text-white, .card-tummytime .card-header, .card-tummytime .card-header a, .card-sleep .card-header, .card-sleep .card-header a, .card-feeding .card-header, .card-feeding .card-header a, .card-diaperchange .card-header, .card-diaperchange .card-header a {
+.text-white, .card-tummytime .card-header, .card-tummytime .card-header a, .card-timeline .card-header, .card-timeline .card-header a, .card-sleep .card-header, .card-sleep .card-header a, .card-feeding .card-header, .card-feeding .card-header a, .card-diaperchange .card-header, .card-diaperchange .card-header a {
   color: #fff !important;
 }
 
@@ -10027,11 +10029,11 @@ a.text-secondary:hover, a.text-secondary:focus {
   color: #b36400 !important;
 }
 
-.text-success, .card-tummytime .card-body {
+.text-success, .card-tummytime .card-body, .card-timeline .card-body {
   color: #239556 !important;
 }
 
-a.text-success:hover, .card-tummytime a.card-body:hover, a.text-success:focus, .card-tummytime a.card-body:focus {
+a.text-success:hover, .card-tummytime a.card-body:hover, .card-timeline a.card-body:hover, a.text-success:focus, .card-tummytime a.card-body:focus, .card-timeline a.card-body:focus {
   color: #145732 !important;
 }
 
@@ -12581,7 +12583,7 @@ h3 {
   content: "";
 }
 
-.fa-history:before {
+.fa-history:before, .icon-timeline:before {
   content: "";
 }
 
