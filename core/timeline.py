@@ -32,12 +32,16 @@ def _add_tummy_times(child, min_date, max_date, events):
     instances = TummyTime.objects.filter(child=child).filter(
         start__range=(min_date, max_date)).order_by('-start')
     for instance in instances:
+        details = []
+        if instance.milestone:
+            details.append(instance.milestone)
         edit_link = reverse('core:tummytime-update', args=[instance.id])
         events.append({
             'time': timezone.localtime(instance.start),
             'event': _('%(child)s started tummy time!') % {
                 'child': instance.child.first_name
             },
+            'details': details,
             'edit_link': edit_link,
             'model_name': instance.model_name,
             'type': 'start'
@@ -47,6 +51,7 @@ def _add_tummy_times(child, min_date, max_date, events):
             'event': _('%(child)s finished tummy time.') % {
                 'child': instance.child.first_name
             },
+            'details': details,
             'edit_link': edit_link,
             'duration': timesince.timesince(instance.start, now=instance.end),
             'model_name': instance.model_name,
@@ -58,12 +63,16 @@ def _add_sleeps(child, min_date, max_date, events):
     instances = Sleep.objects.filter(child=child).filter(
         start__range=(min_date, max_date)).order_by('-start')
     for instance in instances:
+        details = []
+        if instance.notes:
+            details.append(instance.notes)
         edit_link = reverse('core:sleep-update', args=[instance.id])
         events.append({
             'time': timezone.localtime(instance.start),
             'event': _('%(child)s fell asleep.') % {
                 'child': instance.child.first_name
             },
+            'details': details,
             'edit_link': edit_link,
             'model_name': instance.model_name,
             'type': 'start'
@@ -73,6 +82,7 @@ def _add_sleeps(child, min_date, max_date, events):
             'event': _('%(child)s woke up.') % {
                 'child': instance.child.first_name
             },
+            'details': details,
             'edit_link': edit_link,
             'duration': timesince.timesince(instance.start, now=instance.end),
             'model_name': instance.model_name,
@@ -87,6 +97,9 @@ def _add_feedings(child, min_date, max_date, events):
     instances = Feeding.objects.filter(child=child).filter(
         start__range=(yesterday, max_date)).order_by('start')
     for instance in instances:
+        details = []
+        if instance.notes:
+            details.append(instance.notes)
         time_since_prev = None
         if prev_start:
             time_since_prev = \
@@ -94,12 +107,11 @@ def _add_feedings(child, min_date, max_date, events):
         prev_start = instance.start
         if instance.start < min_date:
             continue
-        details = None
         edit_link = reverse('core:feeding-update', args=[instance.id])
         if instance.amount:
-            details = _('Amount: %(amount).0f') % {
+            details.append(_('Amount: %(amount).0f') % {
                 'amount': instance.amount,
-            }
+            })
         events.append({
             'time': timezone.localtime(instance.start),
             'event': _('%(child)s started feeding.') % {
@@ -133,14 +145,17 @@ def _add_diaper_changes(child, min_date, max_date, events):
             contents.append('💧wet')
         if instance.solid:
             contents.append('💩solid')
+        details = [_('Contents: %(contents)s') % {
+            'contents': ', '.join(contents),
+        }]
+        if instance.notes:
+            details.append(instance.notes)
         events.append({
             'time': timezone.localtime(instance.time),
             'event': _('%(child)s had a diaper change.') % {
                 'child': child.first_name
             },
-            'details': _('Contents: %(contents)s') % {
-                'contents': ', '.join(contents),
-            },
+            'details': details,
             'edit_link': reverse('core:diaperchange-update',
                                  args=[instance.id]),
             'model_name': instance.model_name

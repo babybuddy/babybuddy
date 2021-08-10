@@ -53,10 +53,10 @@
                             </div>
                             <div class="card text-right">
                                 <div class="card-body">
-                                    {{ object.event }}<br />
-                                    {% if object.details %}
-                                    <small>{{ object.details }}</small>
-                                    {% endif %}
+                                    {{ object.event }}
+                                    {% for detail in object.details %}
+                                        <div><small>{{ detail }}</small></div>
+                                    {% endfor %}
                                 </div>
                                 <div class="card-footer text-muted">
                                     {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
