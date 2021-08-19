@@ -77,6 +77,15 @@ services:
 [babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) on Docker Hub
 Future versions of Baby Buddy will use the LSIO container.
 
+For doing administrative work within the LSIO container, setting an environment variable may be necessary.
+For example:
+
+```
+docker exec -it babybuddy /bin/bash
+export DJANGO_SETTINGS_MODULE="babybuddy.settings.base"
+python3 /app/babybuddy/manage.py clearsessions
+```
+
 ### Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
