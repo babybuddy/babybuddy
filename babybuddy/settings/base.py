@@ -290,3 +290,9 @@ BABY_BUDDY = {
     'NAP_START_MAX': os.environ.get('NAP_START_MAX') or '18:00',
     'ALLOW_UPLOADS': os.environ.get('ALLOW_UPLOADS') or True
 }
+
+# Set SECURE_PROXY_SSL_HEADER
+# See https://docs.djangoproject.com/en/3.2/ref/settings/#secure-proxy-ssl-header for why and when to set this
+
+if os.environ.get('SECURE_PROXY_SSL_HEADER'):
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
