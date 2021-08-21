@@ -255,6 +255,7 @@ take precedence over the contents of an `.env` file.**
 - [`DB_PORT`](#db_port)
 - [`DB_USER`](#db_user)
 - [`SECRET_KEY`](#secret_key)
+- [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header)
 - [`TIME_ZONE`](#time_zone)
 - [`USE_24_HOUR_TIME_FORMAT`](#use_24_hour_time_format)
 
@@ -371,6 +372,16 @@ A random, unique string must be set as the "secret key" before Baby Buddy can
 be deployed and run.
 
 See also [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/3.0/ref/settings/#secret-key).
+
+### `SECURE_PROXY_SSL_HEADER`
+
+*Default: None*
+
+If Baby Buddy is behind a proxy, you may need to set this to True. This tells Baby Buddy to trust the X-Forwarded-Proto header that comes from your proxy, and any time its value is 'https', then the request is guaranteed to be secure (i.e., it originally came in via HTTPS).
+
+:warning: Modifying this setting can compromise Baby Buddy’s security. Ensure you fully understand your setup before changing it.
+
+See also [Django's documentation on the SECURE_PROXY_SSL_HEADER setting](https://docs.djangoproject.com/en/3.0/ref/settings/#secure-proxy-ssl-header).
 
 ### `TIME_ZONE`
 
