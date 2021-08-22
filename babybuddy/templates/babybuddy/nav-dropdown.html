@@ -10,9 +10,8 @@
 
         <div class="d-lg-none d-md-none d-flex ml-auto p-0 mr-2">
             <div>
-                <!-- TODO: Actually link to the timeline... but for which child? -->
                 <a class="text-success"
-                    href="#"
+                    href="{% url 'core:timeline' %}"
                     aria-expanded="false"><i class="icon icon-2x icon-timeline" aria-hidden="true"></i>
                 </a>
                 &nbsp;
@@ -97,9 +96,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item{% if request.path == '/' %} active{% endif %}">
-                    <!-- TODO: Actually link to the timeline... but for which child? -->
-                    <a class="nav-link" href="{% url 'dashboard:dashboard' %}">
+                <li class="nav-item{% if request.path == '/timeline' %} active{% endif %}">
+                    <a class="nav-link" href="{% url 'core:timeline' %}">
                         <i class="icon icon-timeline" aria-hidden="true"></i>
                         {% trans "Timeline" %}
                     </a>
