@@ -20,6 +20,8 @@ urlpatterns = [
         name='child-delete'
     ),
 
+    path('timeline/', views.Timeline.as_view(), name='timeline'),
+
     path(
         'changes/',
         views.DiaperChangeList.as_view(),

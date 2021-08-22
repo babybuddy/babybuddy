@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import Form
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from django.views.generic.base import RedirectView
+from django.views.generic.base import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, \
     FormView
@@ -264,6 +265,28 @@ class TemperatureDelete(CoreDeleteView):
     model = models.Temperature
     permission_required = ('core.delete_temperature',)
     success_url = reverse_lazy('core:temperature-list')
+
+
+class Timeline(LoginRequiredMixin, TemplateView):
+    template_name = 'timeline/timeline.html'
+
+    # Show the overall timeline or a child timeline if one Child instance.
+    def get(self, request, *args, **kwargs):
+        children = models.Child.objects.count()
+        if children == 1:
+            return HttpResponseRedirect(
+                reverse(
+                    'core:child',
+                    args={models.Child.objects.first().slug}
+                )
+            )
+        return super(Timeline, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(Timeline, self).get_context_data(**kwargs)
+        # TODO: Get relevant data for a given day.
+        context['objects'] = models.Child.objects.all()
+        return context
 
 
 class TimerList(PermissionRequired403Mixin, BabyBuddyFilterView):
