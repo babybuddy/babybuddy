@@ -119,10 +119,12 @@ def sleep_pattern(instances):
         traces.append(go.Bar(
             x=dates,
             y=list(y.values()),
-            text=list(text.values()),
+            hovertext=list(text.values()),
+            # `hoverinfo` is deprecated but if we use the new `hovertemplate`
+            # the "filler" areas for awake time get a hover that says "null" and
+            # there is no way to prevent this currently with Plotly.
             hoverinfo='text',
             marker={'color': color},
-            marker_line_width=0,
             showlegend=False,
         ))
         if color == 'rgba(255, 255, 255, 0)':
