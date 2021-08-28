@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
 
-from django.utils import timezone
+from django.utils import timezone, formats
 from django.utils.translation import gettext as _
 
 import plotly.offline as plotly
@@ -121,8 +121,8 @@ def sleep_pattern(instances):
             y=list(y.values()),
             hovertext=list(text.values()),
             # `hoverinfo` is deprecated but if we use the new `hovertemplate`
-            # the "filler" areas for awake time get a hover that says "null" and
-            # there is no way to prevent this currently with Plotly.
+            # the "filler" areas for awake time get a hover that says "null"
+            # and there is no way to prevent this currently with Plotly.
             hoverinfo='text',
             marker={'color': color},
             showlegend=False,
@@ -150,8 +150,9 @@ def sleep_pattern(instances):
     start = timezone.localtime().strptime('12:00 AM', '%I:%M %p')
     ticks = OrderedDict()
     ticks[0] = start.strftime('%I:%M %p')
-    for i in range(30, 60*24, 30):
-        ticks[i] = (start + timezone.timedelta(minutes=i)).strftime('%I:%M %p')
+    for i in range(0, 60*24, 30):
+        ticks[i] = formats.time_format(start + timezone.timedelta(minutes=i),
+                                       'TIME_FORMAT')
 
     layout_args['yaxis']['title'] = _('Time of day')
     layout_args['yaxis']['range'] = [0, 24*60]
@@ -198,5 +199,5 @@ def _format_label(duration, start_time, end_time):
     """
     return 'Asleep {} ({} to {})'.format(
                 duration_string(duration),
-                start_time.strftime('%I:%M %p'),
-                end_time.strftime('%I:%M %p'))
+                formats.time_format(start_time, 'TIME_FORMAT'),
+                formats.time_format(end_time, 'TIME_FORMAT'))
