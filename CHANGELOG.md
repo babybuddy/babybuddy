@@ -1,6 +1,32 @@
 # Changelog
 
-## [v1.8.2](https://github.com/babybuddy/babybuddy/tree/v1.8.2)
+## [v1.8.3](https://github.com/babybuddy/babybuddy/tree/v1.8.3) (2021-08-27)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.2...v1.8.3)
+
+**Implemented enhancements:**
+
+- Timeline view: Activities should include their notes \(or at least mark activities that have notes\) [\#272](https://github.com/babybuddy/babybuddy/issues/272)
+- Improve cross-midnight timeline view [\#270](https://github.com/babybuddy/babybuddy/issues/270)
+- Timeline: For feedings, show time-since-feeding-before [\#266](https://github.com/babybuddy/babybuddy/issues/266)
+- Start / finish times are treated as inclusive-at-both-ends ranges rather than standard half-open ranges [\#263](https://github.com/babybuddy/babybuddy/issues/263)
+- add SECURE\_PROXY\_SSL\_HEADER env arg option [\#285](https://github.com/babybuddy/babybuddy/pull/285) ([jcgoette](https://github.com/jcgoette))
+
+**Fixed bugs:**
+
+- KeyError when generating graph for sleep pattern [\#293](https://github.com/babybuddy/babybuddy/issues/293)
+- Graph x-axis date labels should not show times, only dates. [\#288](https://github.com/babybuddy/babybuddy/issues/288)
+- Sleep graph uses 12h format when 24h is enabled. [\#287](https://github.com/babybuddy/babybuddy/issues/287)
+- Mobile submit button prevents date selection in some circumstances [\#265](https://github.com/babybuddy/babybuddy/issues/265)
+
+**Merged pull requests:**
+
+- add Docker admin activity example [\#282](https://github.com/babybuddy/babybuddy/pull/282) ([jcgoette](https://github.com/jcgoette))
+- Add date-nav to bottom [\#281](https://github.com/babybuddy/babybuddy/pull/281) ([lutzky](https://github.com/lutzky))
+- Show notes in timeline [\#280](https://github.com/babybuddy/babybuddy/pull/280) ([lutzky](https://github.com/lutzky))
+- Add "time since previous feeding" [\#275](https://github.com/babybuddy/babybuddy/pull/275) ([lutzky](https://github.com/lutzky))
+
+## [v1.8.2](https://github.com/babybuddy/babybuddy/tree/v1.8.2) (2021-08-06)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.1...v1.8.2)
 
