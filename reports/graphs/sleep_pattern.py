@@ -91,7 +91,12 @@ def sleep_pattern(instances):
     if adjustment:
         _add_adjustment(adjustment, times, labels)
 
-    dates = list(times.keys())
+    # Create dates for x-axis using a 12:00:00 time to ensure correct
+    # positioning of bars (covering entire day).
+    dates = []
+    for time in list(times.keys()):
+        dates.append('{} 12:00:00'.format(time))
+
     traces = []
     color = 'rgba(255, 255, 255, 0)'
 
@@ -136,6 +141,8 @@ def sleep_pattern(instances):
 
     layout_args['xaxis']['title'] = _('Date')
     layout_args['xaxis']['tickangle'] = -65
+    layout_args['xaxis']['tickformat'] = '%b %e\n%Y'
+    layout_args['xaxis']['ticklabelmode'] = 'period'
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
 
     start = timezone.localtime().strptime('12:00 AM', '%I:%M %p')
