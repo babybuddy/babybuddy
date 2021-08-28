@@ -10496,6 +10496,7 @@ h3 {
 
 .bootstrap-datetimepicker-widget {
   color: #ced4da;
+  z-index: 1050;
 }
 
 .input-group.datetimepicker .input-group-text {

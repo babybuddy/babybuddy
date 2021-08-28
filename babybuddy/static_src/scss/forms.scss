@@ -18,9 +18,12 @@
     pointer-events: none;
 }
 
-// Set default text color for datetime picker.
 .bootstrap-datetimepicker-widget {
+    // Set default text color for datetime picker.
     color: $gray-400;
+
+    // Ensure widget appears above other elements (e.g. .submit-primary).
+    z-index: 1050;
 }
 
 // Datetime picker input styles.
