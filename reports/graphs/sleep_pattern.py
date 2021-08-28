@@ -26,27 +26,23 @@ def sleep_pattern(instances):
         start_time = timezone.localtime(instance.start)
         end_time = timezone.localtime(instance.end)
         start_date = start_time.date().isoformat()
+        end_date = end_time.date().isoformat()
         duration = instance.duration
 
+        # Ensure that lists are initialized for the start and end date (as they
+        # may be different dates).
         if start_date not in times:
             times[start_date] = []
         if start_date not in labels:
             labels[start_date] = []
+        if end_date not in times:
+            times[end_date] = []
+        if end_date not in labels:
+            labels[end_date] = []
 
         # Check if the previous entry crossed midnight (see below).
         if adjustment:
-            # Fake (0) entry to keep the color switching logic working.
-            times[adjustment['column']].append(0)
-            labels[adjustment['column']].append(0)
-
-            # Real adjustment entry.
-            times[adjustment['column']].append(
-                adjustment['duration'].seconds/60)
-            labels[adjustment['column']].append(_format_label(
-                adjustment['duration'],
-                adjustment['start_time'],
-                adjustment['end_time']))
-
+            _add_adjustment(adjustment, times, labels)
             last_end_time = timezone.localtime(adjustment['end_time'])
             adjustment = None
 
@@ -90,6 +86,10 @@ def sleep_pattern(instances):
                 duration, start_time, end_time)
 
         last_end_time = end_time
+
+    # Handle any left over adjustment (if the last entry crossed midnight).
+    if adjustment:
+        _add_adjustment(adjustment, times, labels)
 
     dates = list(times.keys())
     traces = []
@@ -157,6 +157,26 @@ def sleep_pattern(instances):
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
     return utils.split_graph_output(output)
+
+
+def _add_adjustment(adjustment, times, labels):
+    """
+    Adds "adjustment" data for entries that cross midnight.
+    :param adjustment: Column, start time, end time, and duration of entry.
+    :param times: Graph times data.
+    :param labels: Graph labels data.
+    """
+    # Fake (0) entry to keep the color switching logic working.
+    times[adjustment['column']].append(0)
+    labels[adjustment['column']].append(0)
+
+    # Real adjustment entry.
+    times[adjustment['column']].append(
+        adjustment['duration'].seconds / 60)
+    labels[adjustment['column']].append(_format_label(
+        adjustment['duration'],
+        adjustment['start_time'],
+        adjustment['end_time']))
 
 
 def _format_label(duration, start_time, end_time):
