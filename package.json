@@ -9,7 +9,6 @@
   "devDependencies": {
     "bootstrap": "4.6.0",
     "del": "^6.0.0",
-    "font-awesome": "^4.7.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^4.0.1",
