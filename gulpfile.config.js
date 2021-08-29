@@ -4,8 +4,8 @@ module.exports = {
     basePath: basePath,
     extrasConfig: {
         fonts: {
-            dest: basePath + 'fonts/',
-            files: 'node_modules/font-awesome/fonts/*'
+            dest: basePath + 'font/',
+            files: 'babybuddy/static_src/fontello/font/*'
         },
         images: {
             dest: basePath + 'img/',
