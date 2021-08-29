@@ -29,77 +29,7 @@
     </div>
     <div class="row">
         <div class="col-lg-8 offset-lg-4 col-md-6 offset-md-6">
-            <h3 class="text-center">
-                {% if date_previous %}
-                    <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
-                        <i class="icon icon-chevron-left" aria-hidden="true"></i>
-                        <span class="sr-only">{% trans "Previous" %}</span>
-                    </a>
-                {% endif %}
-                {{ date|date }}
-                {% if date_next %}
-                    <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
-                        <i class="icon icon-chevron-right" aria-hidden="true"></i>
-                        <span class="sr-only">{% trans "Next" %}</span>
-                    </a>
-                {% endif %}
-            </h3>
-            {% if timeline_objects %}
-                <ul class="timeline m-auto">
-                    {% for object in timeline_objects %}
-                        <li{% cycle "" ' class="timeline-inverted"' %}>
-                            <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
-                                <i class="icon icon-{{ object.model_name }}"></i>
-                            </div>
-                            <div class="card text-right">
-                                <div class="card-body">
-                                    {{ object.event }}
-                                    {% for detail in object.details %}
-                                        <div><small>{{ detail }}</small></div>
-                                    {% endfor %}
-                                </div>
-                                <div class="card-footer text-muted">
-                                    {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
-                                        {{ since }} ago ({{ time }})
-                                    {% endblocktrans %}
-                                    {% if object.duration %}
-                                        <div>
-                                            <small>Duration: {{ object.duration }}</small>
-                                        </div>
-                                    {% endif %}
-                                    {% if object.time_since_prev %}
-                                        <div>
-                                            <small>{{ object.time_since_prev }} since previous</small>
-                                        </div>
-                                    {% endif %}
-                                    {% if object.edit_link %}
-                                        <div>
-                                            <small><a href="{{ object.edit_link }}">Edit</a></small>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <h3 class="text-center">
-                    {% if date_previous %}
-                        <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
-                            <i class="icon icon-chevron-left" aria-hidden="true"></i>
-                            <span class="sr-only">{% trans "Previous" %}</span>
-                        </a>
-                    {% endif %}
-                    {{ date|date }}
-                    {% if date_next %}
-                        <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
-                            <i class="icon icon-chevron-right" aria-hidden="true"></i>
-                            <span class="sr-only">{% trans "Next" %}</span>
-                        </a>
-                    {% endif %}
-                </h3>
-            {% else %}
-                <div class="text-center">No events</div>
-            {% endif %}
+            {% include 'timeline/_timeline.html' %}
         </div>
     </div>
 {% endblock %}

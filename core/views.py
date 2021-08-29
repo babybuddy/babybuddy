@@ -17,6 +17,17 @@ from babybuddy.views import BabyBuddyFilterView
 from core import forms, models, timeline
 
 
+def _prepare_timeline_context_data(context, date, child=None):
+    date = timezone.datetime.strptime(date, '%Y-%m-%d')
+    date = timezone.localtime(timezone.make_aware(date))
+    context['timeline_objects'] = timeline.get_objects(date, child)
+    context['date'] = date
+    context['date_previous'] = date - timezone.timedelta(days=1)
+    if date.date() < timezone.localdate():
+        context['date_next'] = date + timezone.timedelta(days=1)
+    pass
+
+
 class CoreAddView(PermissionRequired403Mixin, SuccessMessageMixin, CreateView):
     def get_success_message(self, cleaned_data):
         cleaned_data['model'] = self.model._meta.verbose_name.title()
@@ -92,13 +103,7 @@ class ChildDetail(PermissionRequired403Mixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(ChildDetail, self).get_context_data(**kwargs)
         date = self.request.GET.get('date', str(timezone.localdate()))
-        date = timezone.datetime.strptime(date, '%Y-%m-%d')
-        date = timezone.localtime(timezone.make_aware(date))
-        context['timeline_objects'] = timeline.get_objects(self.object, date)
-        context['date'] = date
-        context['date_previous'] = date - timezone.timedelta(days=1)
-        if date.date() < timezone.localdate():
-            context['date_next'] = date + timezone.timedelta(days=1)
+        _prepare_timeline_context_data(context, date, self.object)
         return context
 
 
@@ -284,8 +289,8 @@ class Timeline(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Timeline, self).get_context_data(**kwargs)
-        # TODO: Get relevant data for a given day.
-        context['objects'] = models.Child.objects.all()
+        date = self.request.GET.get('date', str(timezone.localdate()))
+        _prepare_timeline_context_data(context, date)
         return context
 
 
