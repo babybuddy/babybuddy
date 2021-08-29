@@ -1,16 +1,20 @@
 {% load i18n %}
 
-<div class="child-actions btn-group btn-group-md center-block" role="group" aria-label="{% trans "Child actions" %}">
+<div class="child-actions btn-group btn-group-lg border rounded border-light bg-dark center-block" role="group" aria-label="{% trans "Child actions" %}">
 
     {% if perms.core.view_child %}
-        <a href="{% url 'dashboard:dashboard-child' object.slug %}" class="btn btn-success">
+        <a href="{% url 'dashboard:dashboard-child' object.slug %}" class="btn" title="{% trans "Dashboard" %}">
             <i class="icon icon-dashboard" aria-hidden="true"></i>
+        </a>
+        <a href="{% url 'core:child' object.slug %}" class="btn" title="{% trans "Timeline" %}">
+            <i class="icon icon-timeline" aria-hidden="true"></i>
         </a>
     {% endif %}
 
     <div class="btn-group" role="group">
         <button id="reports-dropdown"
-                class="btn btn-primary dropdown-toggle"
+                class="btn dropdown-toggle"
+                title="{% trans "Reports" %}"
                 type="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -28,14 +32,16 @@
     </div>
 
     {% if perms.core.change_child %}
-        <a class="btn btn-warning"
+        <a class="btn"
            href="{% url 'core:child-update' object.slug %}"
+           title="{% trans "Edit" %}"
            role="button"><i class="icon icon-update" aria-hidden="true"></i></a>
     {% endif %}
 
     {% if perms.core.delete_child %}
-        <a class="btn btn-danger"
+        <a class="btn"
            href="{% url 'core:child-delete' object.slug %}"
+           title="{% trans "Delete" %}"
            role="button"><i class="icon icon-delete" aria-hidden="true"></i></a>
     {% endif %}
 
