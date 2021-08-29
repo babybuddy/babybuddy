@@ -1,3 +1,7 @@
+.child-actions {
+    flex-wrap: wrap;
+}
+
 @include media-breakpoint-between(sm, md) {
     #dashboard-child {
         &.card-columns {
