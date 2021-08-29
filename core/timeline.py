@@ -7,30 +7,32 @@ from core.models import DiaperChange, Feeding, Sleep, TummyTime
 from datetime import timedelta
 
 
-def get_objects(child, date):
+def get_objects(date, child=None):
     """
     Create a time-sorted dictionary of all events for a child.
-    :param child: an instance of a Child.
     :param date: a DateTime instance for the day to be summarized.
+    :param child: Child instance to filter results for (no filter if `None`).
     :returns: a list of the day's events.
     """
     min_date = date
     max_date = date.replace(hour=23, minute=59, second=59)
     events = []
 
-    _add_diaper_changes(child, min_date, max_date, events)
-    _add_feedings(child, min_date, max_date, events)
-    _add_sleeps(child, min_date, max_date, events)
-    _add_tummy_times(child, min_date, max_date, events)
+    _add_diaper_changes(min_date, max_date, events, child)
+    _add_feedings(min_date, max_date, events, child)
+    _add_sleeps(min_date, max_date, events, child)
+    _add_tummy_times(min_date, max_date, events, child)
 
     events.sort(key=lambda x: x['time'], reverse=True)
 
     return events
 
 
-def _add_tummy_times(child, min_date, max_date, events):
-    instances = TummyTime.objects.filter(child=child).filter(
+def _add_tummy_times(min_date, max_date, events, child=None):
+    instances = TummyTime.objects.filter(
         start__range=(min_date, max_date)).order_by('-start')
+    if child:
+        instances = instances.filter(child=child)
     for instance in instances:
         details = []
         if instance.milestone:
@@ -59,9 +61,11 @@ def _add_tummy_times(child, min_date, max_date, events):
         })
 
 
-def _add_sleeps(child, min_date, max_date, events):
-    instances = Sleep.objects.filter(child=child).filter(
+def _add_sleeps(min_date, max_date, events, child=None):
+    instances = Sleep.objects.filter(
         start__range=(min_date, max_date)).order_by('-start')
+    if child:
+        instances = instances.filter(child=child)
     for instance in instances:
         details = []
         if instance.notes:
@@ -90,12 +94,15 @@ def _add_sleeps(child, min_date, max_date, events):
         })
 
 
-def _add_feedings(child, min_date, max_date, events):
-    yesterday = min_date - timedelta(days=1)  # So first feeding has a previous
+def _add_feedings(min_date, max_date, events, child=None):
+    # Ensure first feeding has a previous.
+    yesterday = min_date - timedelta(days=1)
     prev_start = None
 
-    instances = Feeding.objects.filter(child=child).filter(
+    instances = Feeding.objects.filter(
         start__range=(yesterday, max_date)).order_by('start')
+    if child:
+        instances = instances.filter(child=child)
     for instance in instances:
         details = []
         if instance.notes:
@@ -136,9 +143,11 @@ def _add_feedings(child, min_date, max_date, events):
         })
 
 
-def _add_diaper_changes(child, min_date, max_date, events):
-    instances = DiaperChange.objects.filter(child=child).filter(
+def _add_diaper_changes(min_date, max_date, events, child):
+    instances = DiaperChange.objects.filter(
         time__range=(min_date, max_date)).order_by('-time')
+    if child:
+        instances = instances.filter(child=child)
     for instance in instances:
         contents = []
         if instance.wet:
@@ -153,7 +162,7 @@ def _add_diaper_changes(child, min_date, max_date, events):
         events.append({
             'time': timezone.localtime(instance.time),
             'event': _('%(child)s had a diaper change.') % {
-                'child': child.first_name
+                'child': instance.child.first_name
             },
             'details': details,
             'edit_link': reverse('core:diaperchange-update',
