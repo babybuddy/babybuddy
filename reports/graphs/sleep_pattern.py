@@ -155,8 +155,7 @@ def sleep_pattern(instances):
                                        'TIME_FORMAT')
 
     layout_args['yaxis']['title'] = _('Time of day')
-    layout_args['yaxis']['range'] = [0, 24*60]
-    layout_args['yaxis']['autorange'] = 'reversed'
+    layout_args['yaxis']['range'] = [24*60, 0]
     layout_args['yaxis']['tickmode'] = 'array'
     layout_args['yaxis']['tickvals'] = list(ticks.keys())
     layout_args['yaxis']['ticktext'] = list(ticks.values())
