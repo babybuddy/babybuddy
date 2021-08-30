@@ -16,5 +16,5 @@ def bool_icon(value):
         classes = 'icon-true text-success'
     else:
         classes = 'icon-false text-danger'
-    icon_html = '<i class="icon {}" aria-hidden="true"></i>'.format(classes)
+    icon_html = '<i class="{}" aria-hidden="true"></i>'.format(classes)
     return mark_safe(icon_html)
