@@ -9,6 +9,7 @@
 - [Development](#development)
   - [Installation](#installation)
   - [Gulp Commands](#gulp-commands)
+  - [Icon Font](#icon-font)
   
 ## Contributions
 
@@ -292,3 +293,10 @@ order:
 
 This command should be executed, and any changes committed, any time changes
 are made to Baby Buddy's frontend code (SASS, JS, etc.).
+
+### Icon Font
+
+Baby Buddy uses [Fontello](https://fontello.com/) to build a custom icon font
+for icons used throughout the application. See [`babybuddy/static_src/fontello`](babybuddy/static_src/fontello)
+for further documentation about using the config file with Fontello and license
+information for fonts used by this application.
