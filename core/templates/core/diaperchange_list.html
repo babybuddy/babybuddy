@@ -12,7 +12,7 @@
         {% trans "Diaper Changes" %}
         {% if perms.core.add_diaperchange %}
             <a href="{% url 'core:diaperchange-add' %}" class="btn btn-sm btn-success">
-                <i class="icon icon-diaperchange" aria-hidden="true"></i> {% trans "Add Diaper Change" %}
+                <i class="icon-diaperchange" aria-hidden="true"></i> {% trans "Add Diaper Change" %}
             </a>
         {% endif %}
     </h1>
@@ -40,13 +40,13 @@
 
                                 {% if perms.core.change_diaperchange %}
                                     <a href="{% url 'core:diaperchange-update' change.id %}" class="btn btn-primary">
-                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                        <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_diaperchange %}
                                     <a href="{% url 'core:diaperchange-delete' change.id %}" class="btn btn-danger">
-                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                        <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -65,7 +65,7 @@
                     </tr>
                     {% if change.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="7"><i class="icon icon-note mr-2" aria-hidden="true"></i>{{ change.notes }}</td>
+                            <td colspan="7"><i class="icon-note mr-2" aria-hidden="true"></i>{{ change.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}

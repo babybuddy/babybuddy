@@ -12,7 +12,7 @@
         {% trans "Timers" %}
         {% if perms.core.add_timer %}
             <a href="{% url 'core:timer-add' %}" class="btn btn-sm btn-success">
-                <i class="icon icon-timer" aria-hidden="true"></i> {% trans "Start Timer" %}
+                <i class="icon-timer" aria-hidden="true"></i> {% trans "Start Timer" %}
             </a>
         {% endif %}
     </h1>
@@ -65,7 +65,7 @@
 
     {% if perms.core.delete_timer %}
         <a href="{% url 'core:timer-delete-inactive' %}" class="btn btn-sm btn-danger">
-            <i class="icon icon-delete" aria-hidden="true"></i> {% trans "Delete Inactive Timers" %}
+            <i class="icon-delete" aria-hidden="true"></i> {% trans "Delete Inactive Timers" %}
         </a>
     {% endif %}
 

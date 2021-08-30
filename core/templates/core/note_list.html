@@ -12,7 +12,7 @@
         {% trans "Notes" %}
         {% if perms.core.add_note %}
             <a href="{% url 'core:note-add' %}" class="btn btn-sm btn-success">
-                <i class="icon icon-note" aria-hidden="true"></i> {% trans "Add Note" %}
+                <i class="icon-note" aria-hidden="true"></i> {% trans "Add Note" %}
             </a>
         {% endif %}
     </h1>
@@ -37,13 +37,13 @@
 
                                 {% if perms.core.change_note %}
                                     <a href="{% url 'core:note-update' note.id %}" class="btn btn-primary">
-                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                        <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_note %}
                                     <a href="{% url 'core:note-delete' note.id %}" class="btn btn-danger">
-                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                        <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 

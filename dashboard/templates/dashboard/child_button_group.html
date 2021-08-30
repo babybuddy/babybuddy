@@ -4,10 +4,10 @@
 
     {% if perms.core.view_child %}
         <a href="{% url 'dashboard:dashboard-child' object.slug %}" class="btn" title="{% trans "Dashboard" %}">
-            <i class="icon icon-dashboard" aria-hidden="true"></i>
+            <i class="icon-dashboard" aria-hidden="true"></i>
         </a>
         <a href="{% url 'core:child' object.slug %}" class="btn" title="{% trans "Timeline" %}">
-            <i class="icon icon-timeline" aria-hidden="true"></i>
+            <i class="icon-timeline" aria-hidden="true"></i>
         </a>
     {% endif %}
 
@@ -18,7 +18,7 @@
                 type="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
-                aria-expanded="false"><i class="icon icon-graph" aria-hidden="true"></i></button>
+                aria-expanded="false"><i class="icon-graph" aria-hidden="true"></i></button>
         <div class="dropdown-menu" aria-labelledby="reports-dropdown">
             <a class="dropdown-item" href="{% url 'reports:report-diaperchange-amounts-child' object.slug %}">{% trans "Diaper Change Amounts" %}</a>
             <a class="dropdown-item" href="{% url 'reports:report-diaperchange-types-child' object.slug %}">{% trans "Diaper Change Types" %}</a>
@@ -35,14 +35,14 @@
         <a class="btn"
            href="{% url 'core:child-update' object.slug %}"
            title="{% trans "Edit" %}"
-           role="button"><i class="icon icon-update" aria-hidden="true"></i></a>
+           role="button"><i class="icon-update" aria-hidden="true"></i></a>
     {% endif %}
 
     {% if perms.core.delete_child %}
         <a class="btn"
            href="{% url 'core:child-delete' object.slug %}"
            title="{% trans "Delete" %}"
-           role="button"><i class="icon icon-delete" aria-hidden="true"></i></a>
+           role="button"><i class="icon-delete" aria-hidden="true"></i></a>
     {% endif %}
 
 </div>
