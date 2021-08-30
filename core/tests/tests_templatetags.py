@@ -11,10 +11,10 @@ class TemplateTagsTestCase(TestCase):
     def test_bootstrap_bool_icon(self):
         self.assertEqual(
             bootstrap.bool_icon(True),
-            '<i class="icon icon-true text-success" aria-hidden="true"></i>')
+            '<i class="icon-true text-success" aria-hidden="true"></i>')
         self.assertEqual(
             bootstrap.bool_icon(False),
-            '<i class="icon icon-false text-danger" aria-hidden="true"></i>')
+            '<i class="icon-false text-danger" aria-hidden="true"></i>')
 
     def test_child_age_string(self):
         date = timezone.localdate() - timezone.timedelta(days=0, hours=6)

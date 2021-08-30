@@ -12,7 +12,7 @@
         {% trans "Sleep" %}
         {% if perms.core.add_sleep %}
             <a href="{% url 'core:sleep-add' %}" class="btn btn-sm btn-success">
-                <i class="icon icon-sleep" aria-hidden="true"></i> {% trans "Add Sleep" %}
+                <i class="icon-sleep" aria-hidden="true"></i> {% trans "Add Sleep" %}
             </a>
         {% endif %}
     </h1>
@@ -40,13 +40,13 @@
 
                                 {% if perms.core.change_sleep %}
                                     <a href="{% url 'core:sleep-update' sleep.id %}" class="btn btn-primary">
-                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                        <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_sleep %}
                                     <a href="{% url 'core:sleep-delete' sleep.id %}" class="btn btn-danger">
-                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                        <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -62,7 +62,7 @@
                     </tr>
                     {% if sleep.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="6"><i class="icon icon-note mr-2" aria-hidden="true"></i>{{ sleep.notes }}</td>
+                            <td colspan="6"><i class="icon-note mr-2" aria-hidden="true"></i>{{ sleep.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}

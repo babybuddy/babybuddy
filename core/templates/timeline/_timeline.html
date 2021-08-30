@@ -3,14 +3,14 @@
 <h3 class="text-center">
     {% if date_previous %}
         <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
-            <i class="icon icon-chevron-left" aria-hidden="true"></i>
+            <i class="icon-chevron-left" aria-hidden="true"></i>
             <span class="sr-only">{% trans "Previous" %}</span>
         </a>
     {% endif %}
     {{ date|date }}
     {% if date_next %}
         <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
-            <i class="icon icon-chevron-right" aria-hidden="true"></i>
+            <i class="icon-chevron-right" aria-hidden="true"></i>
             <span class="sr-only">{% trans "Next" %}</span>
         </a>
     {% endif %}
@@ -20,7 +20,7 @@
         {% for object in timeline_objects %}
             <li{% cycle "" ' class="timeline-inverted"' %}>
                 <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
-                    <i class="icon icon-{{ object.model_name }}"></i>
+                    <i class="icon-{{ object.model_name }}"></i>
                 </div>
                 <div class="card text-right">
                     <div class="card-body">
@@ -56,14 +56,14 @@
     <h3 class="text-center">
         {% if date_previous %}
             <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
-                <i class="icon icon-chevron-left" aria-hidden="true"></i>
+                <i class="icon-chevron-left" aria-hidden="true"></i>
                 <span class="sr-only">{% trans "Previous" %}</span>
             </a>
         {% endif %}
         {{ date|date }}
         {% if date_next %}
             <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
-                <i class="icon icon-chevron-right" aria-hidden="true"></i>
+                <i class="icon-chevron-right" aria-hidden="true"></i>
                 <span class="sr-only">{% trans "Next" %}</span>
             </a>
         {% endif %}

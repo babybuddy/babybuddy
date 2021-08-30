@@ -12,7 +12,7 @@
         {% trans "Temperature" %}
         {% if perms.core.add_temperature %}
             <a href="{% url 'core:temperature-add' %}" class="btn btn-sm btn-success">
-                <i class="icon icon-temperature" aria-hidden="true"></i> {% trans "Add Temperature Reading" %}
+                <i class="icon-temperature" aria-hidden="true"></i> {% trans "Add Temperature Reading" %}
             </a>
         {% endif %}
     </h1>
@@ -38,13 +38,13 @@
 
                                 {% if perms.core.change_temperature %}
                                     <a href="{% url 'core:temperature-update' temperature.id %}" class="btn btn-primary">
-                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                        <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_temperature %}
                                     <a href="{% url 'core:temperature-delete' temperature.id %}" class="btn btn-danger">
-                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                        <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -58,7 +58,7 @@
                     </tr>
                     {% if temperature.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="4"><i class="icon icon-note mr-2" aria-hidden="true"></i>{{ temperature.notes }}</td>
+                            <td colspan="4"><i class="icon-note mr-2" aria-hidden="true"></i>{{ temperature.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}

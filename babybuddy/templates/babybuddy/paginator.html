@@ -7,7 +7,7 @@
             {% if page_obj.has_previous %}
                 <li class="page-item">
                     <a class="page-link" href="{% relative_url 'page' page_obj.previous_page_number %}" aria-label="Previous">
-                        <i class="icon icon-chevron-left" aria-hidden="true"></i>
+                        <i class="icon-chevron-left" aria-hidden="true"></i>
                         <span class="sr-only">{% trans "Previous" %}</span>
                     </a>
                 </li>
@@ -24,7 +24,7 @@
             {% if page_obj.has_next %}
                 <li class="page-item">
                     <a class="page-link" href="{% relative_url 'page' page_obj.next_page_number %}" aria-label="Next">
-                        <i class="icon icon-chevron-right" aria-hidden="true"></i>
+                        <i class="icon-chevron-right" aria-hidden="true"></i>
                         <span class="sr-only">{% trans "Next" %}</span>
                     </a>
                 </li>

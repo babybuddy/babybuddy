@@ -12,7 +12,7 @@
         {% trans "Feedings" %}
         {% if perms.core.add_feeding %}
             <a href="{% url 'core:feeding-add' %}" class="btn btn-sm btn-success">
-                <i class="icon icon-feeding" aria-hidden="true"></i> {% trans "Add Feeding" %}
+                <i class="icon-feeding" aria-hidden="true"></i> {% trans "Add Feeding" %}
             </a>
         {% endif %}
     </h1>
@@ -42,13 +42,13 @@
 
                                 {% if perms.core.change_feeding %}
                                     <a href="{% url 'core:feeding-update' feeding.id %}" class="btn btn-primary">
-                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                        <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.core.delete_feeding %}
                                     <a href="{% url 'core:feeding-delete' feeding.id %}" class="btn btn-danger">
-                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                        <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -69,7 +69,7 @@
                     </tr>
                     {% if feeding.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="7"><i class="icon icon-note mr-2" aria-hidden="true"></i>{{ feeding.notes }}</td>
+                            <td colspan="7"><i class="icon-note mr-2" aria-hidden="true"></i>{{ feeding.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}

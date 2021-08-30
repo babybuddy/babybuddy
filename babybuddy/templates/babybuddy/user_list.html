@@ -37,13 +37,13 @@
 
                                 {% if perms.admin.change_user %}
                                     <a href="{% url 'babybuddy:user-update' object.id %}" class="btn btn-warning">
-                                        <i class="icon icon-update" aria-hidden="true"></i>
+                                        <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                                 {% if perms.admin.delete_user %}
                                     <a href="{% url 'babybuddy:user-delete' object.id %}" class="btn btn-danger">
-                                        <i class="icon icon-delete" aria-hidden="true"></i>
+                                        <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
@@ -62,7 +62,7 @@
 
     {% if perms.admin.add_user %}
         <a href="{% url 'babybuddy:user-add' %}" class="btn btn-sm btn-success">
-            <i class="icon icon-add" aria-hidden="true"></i> {% trans "Create User" %}
+            <i class="icon-add" aria-hidden="true"></i> {% trans "Create User" %}
         </a>
     {% endif %}
 

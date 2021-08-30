@@ -6,7 +6,7 @@
        href="#"
        data-toggle="dropdown"
        aria-haspopup="true"
-       aria-expanded="false"><i class="icon icon-timer" aria-hidden="true"></i>
+       aria-expanded="false"><i class="icon-timer" aria-hidden="true"></i>
         {% trans "Timers" %}
     </a>
     <div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
@@ -15,17 +15,17 @@
                 <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="d-inline">
                     {% csrf_token %}
                     <button class="btn text-left p-0">
-                        <i class="icon icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
+                        <i class="icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
                     </button>
                 </form>
             </div>
             <a class="dropdown-item" href="{% url 'core:timer-add' %}">
-                <i class="icon icon-add" aria-hidden="true"></i> {% trans "Start Timer" %}
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Start Timer" %}
             </a>
         {% endif %}
         {% if perms.core.view_timer %}
             <a class="dropdown-item" href="{% url 'core:timer-list' %}">
-                <i class="icon icon-list" aria-hidden="true"></i> {% trans "View Timers" %}
+                <i class="icon-list" aria-hidden="true"></i> {% trans "View Timers" %}
             </a>
         {% endif %}
         {% if timers %}
