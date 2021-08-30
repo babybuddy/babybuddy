@@ -10574,7 +10574,7 @@ h3 {
 }
 
 .icon-2x {
-  font-size: 2em;
+  font-size: 1.65em;
 }
 
 #view-core\:child .child-photo {
@@ -10771,8 +10771,8 @@ h3 {
 }
 @font-face {
   font-family: "babybuddy";
-  src: url("../font/babybuddy.eot?96007206");
-  src: url("../font/babybuddy.eot?96007206#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?96007206") format("woff2"), url("../font/babybuddy.woff?96007206") format("woff"), url("../font/babybuddy.ttf?96007206") format("truetype"), url("../font/babybuddy.svg?96007206#babybuddy") format("svg");
+  src: url("../font/babybuddy.eot?50987853");
+  src: url("../font/babybuddy.eot?50987853#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?50987853") format("woff2"), url("../font/babybuddy.woff?50987853") format("woff"), url("../font/babybuddy.ttf?50987853") format("truetype"), url("../font/babybuddy.svg?50987853#babybuddy") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -10782,7 +10782,7 @@ h3 {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'babybuddy';
-    src: url('../font/babybuddy.svg?96007206#babybuddy') format('svg');
+    src: url('../font/babybuddy.svg?50987853#babybuddy') format('svg');
   }
 }
 */
@@ -10929,7 +10929,7 @@ h3 {
 }
 
 /* '' */
-.icon-activites:before {
+.icon-activities:before {
   content: "";
 }
 
