@@ -3,21 +3,30 @@
 
 {% block nav %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand mr-2" href="/">
             <img src="{% static "babybuddy/logo/icon-brand.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
             <span class="d-none d-lg-inline-block">
                 <span class="text-primary">Baby</span> Buddy
             </span>
         </a>
-
-        <div class="d-lg-none d-md-none d-flex ml-auto p-0 mr-2">
+        <div class="d-lg-none d-md-none d-flex mr-auto p-0 ml-2">
             <div>
-                <a class="text-success"
+                <a class="text-muted"
+                    href="{% url 'dashboard:dashboard' %}"
+                    aria-expanded="false"><i class="icon-2x icon-dashboard" aria-hidden="true"></i>
+                </a>
+                &nbsp;
+            </div>
+            <div>
+                <a class="text-muted"
                     href="{% url 'core:timeline' %}"
                     aria-expanded="false"><i class="icon-2x icon-timeline" aria-hidden="true"></i>
                 </a>
                 &nbsp;
             </div>
+        </div>
+
+        <div class="d-lg-none d-md-none d-flex ml-auto p-0 mr-2">
             <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="mr-2">
                 {% csrf_token %}
                 <label class="sr-only">{% trans "Quick Start Timer" %}</label>
