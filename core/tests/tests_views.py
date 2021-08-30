@@ -150,6 +150,19 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertEqual(page.context['timer_count'], 1)
 
+    def test_timeline_views(self):
+        child = models.Child.objects.first()
+        response = self.c.get('/timeline/')
+        self.assertRedirects(response, '/children/{}/'.format(child.slug))
+
+        models.Child.objects.create(
+            first_name='Second',
+            last_name='Child',
+            birth_date='2000-01-01'
+        )
+        response = self.c.get('/timeline/')
+        self.assertEqual(response.status_code, 200)
+
     def test_tummytime_views(self):
         page = self.c.get('/tummy-time/')
         self.assertEqual(page.status_code, 200)
