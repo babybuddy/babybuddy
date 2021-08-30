@@ -3,14 +3,14 @@
 <h3 class="text-center">
     {% if date_previous %}
         <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
-            <i class="icon-chevron-left" aria-hidden="true"></i>
+            <i class="icon-2x icon-angle-circled-left" aria-hidden="true"></i>
             <span class="sr-only">{% trans "Previous" %}</span>
         </a>
     {% endif %}
     {{ date|date }}
     {% if date_next %}
         <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
-            <i class="icon-chevron-right" aria-hidden="true"></i>
+            <i class="icon-2x icon-angle-circled-right" aria-hidden="true"></i>
             <span class="sr-only">{% trans "Next" %}</span>
         </a>
     {% endif %}
@@ -56,14 +56,14 @@
     <h3 class="text-center">
         {% if date_previous %}
             <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
-                <i class="icon-chevron-left" aria-hidden="true"></i>
+                <i class="icon-2x icon-angle-circled-left" aria-hidden="true"></i>
                 <span class="sr-only">{% trans "Previous" %}</span>
             </a>
         {% endif %}
         {{ date|date }}
         {% if date_next %}
             <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
-                <i class="icon-chevron-right" aria-hidden="true"></i>
+                <i class="icon-2x icon-angle-circled-right" aria-hidden="true"></i>
                 <span class="sr-only">{% trans "Next" %}</span>
             </a>
         {% endif %}
