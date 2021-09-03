@@ -1,0 +1,13 @@
+tasks:
+  - init: >
+      pipenv install --three &&
+      npm install -g gulp-cli &&
+      npm install &&
+      gulp migrate &&
+      gulp createcachetable
+    env:
+      DJANGO_SETTINGS_MODULE: babybuddy.settings.development
+    command: gulp
+
+ports:
+  - port: 8000
