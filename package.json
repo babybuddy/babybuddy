@@ -13,6 +13,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^4.0.1",
     "gulp-flatten": "^0.4.0",
+    "gulp-fontello": "^0.5.2",
     "gulp-sass": "^5.0.0",
     "gulp-sass-glob": "^1.1.0",
     "gulp-spawn": "^1.0.0",

@@ -4,6 +4,7 @@ var concat = require('gulp-concat');
 var del = require('del');
 var es = require('child_process').execSync;
 var flatten = require('gulp-flatten');
+var fontello = require('gulp-fontello');
 var pump = require('pump');
 var sass = require('gulp-sass')(require('sass'));
 var sassGlob = require('gulp-sass-glob');
@@ -226,6 +227,17 @@ function test(cb) {
 }
 
 /**
+ * Updates glyphs font data from Fontello.
+ */
+function updateglyphs(cb) {
+    pump([
+        gulp.src(config.glyphFontCOnfig.configFile),
+        fontello({ assetsOnly: false }),
+        gulp.dest(config.glyphFontCOnfig.dest)
+    ], cb);
+}
+
+/**
  * Watches for changes in configured files.
  */
 function watch() {
@@ -358,6 +370,8 @@ gulp.task('scripts', scripts);
 gulp.task('styles', styles);
 
 gulp.task('test', test);
+
+gulp.task('updateglyphs', updateglyphs);
 
 gulp.task('watch', watch);
 

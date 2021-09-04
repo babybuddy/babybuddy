@@ -20,6 +20,10 @@ module.exports = {
             files: 'babybuddy/static_src/root/*'
         }
     },
+    glyphFontCOnfig: {
+        configFile: 'babybuddy/static_src/fontello/config.json',
+        dest: 'babybuddy/static_src/fontello'
+    },
     scriptsConfig: {
         dest: basePath + 'js/',
         vendor: [

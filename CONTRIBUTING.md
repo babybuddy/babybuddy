@@ -278,6 +278,12 @@ Gulp also passes along non-overlapping arguments for this command, however
 individual tests cannot be run with this command. `python manage.py test` can be
 used for individual test execution.
 
+#### `updateglyphs`
+
+Downloads generated glyph font files data from [Fonttello](https://fontello.com/)
+based on [`config.json` file](babybuddy/static_src/fontello/config.json). This
+only needs to be run after making changes to the config file.
+
 #### `updatestatic`
 
 Rebuilds Baby Buddy's `/static` folder by running the following commands in
