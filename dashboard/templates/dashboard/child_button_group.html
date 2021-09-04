@@ -32,14 +32,14 @@
     </div>
 
     {% if perms.core.change_child %}
-        <a class="btn"
+        <a class="btn d-none d-md-inline-block"
            href="{% url 'core:child-update' object.slug %}"
            title="{% trans "Edit" %}"
            role="button"><i class="icon-update" aria-hidden="true"></i></a>
     {% endif %}
 
     {% if perms.core.delete_child %}
-        <a class="btn"
+        <a class="btn d-none d-md-inline-block"
            href="{% url 'core:child-delete' object.slug %}"
            title="{% trans "Delete" %}"
            role="button"><i class="icon-delete" aria-hidden="true"></i></a>
