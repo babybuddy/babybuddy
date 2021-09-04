@@ -33,7 +33,18 @@ BabyBuddy.DatetimePicker = function ($, moment) {
                 format: 'L LT',
                 ignoreReadonly: true,
                 locale: moment.locale(),
-                useCurrent: false
+                useCurrent: false,
+                icons: {
+                    time: 'icon-clock',
+                    date: 'icon-calendar',
+                    up: 'icon-arrow-up',
+                    down: 'icon-arrow-down',
+                    previous: 'icon-angle-circled-left',
+                    next: 'icon-angle-circled-right',
+                    today: 'icon-today',
+                    clear: 'icon-delete',
+                    close: 'icon-cancel'
+                },
             };
             element.datetimepicker($.extend(defaultOptions, options));
         }

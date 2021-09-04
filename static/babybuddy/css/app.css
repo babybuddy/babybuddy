@@ -10771,8 +10771,8 @@ h3 {
 }
 @font-face {
   font-family: "babybuddy";
-  src: url("../font/babybuddy.eot?22684922");
-  src: url("../font/babybuddy.eot?22684922#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?22684922") format("woff2"), url("../font/babybuddy.woff?22684922") format("woff"), url("../font/babybuddy.ttf?22684922") format("truetype"), url("../font/babybuddy.svg?22684922#babybuddy") format("svg");
+  src: url("../font/babybuddy.eot?72731680");
+  src: url("../font/babybuddy.eot?72731680#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?72731680") format("woff2"), url("../font/babybuddy.woff?72731680") format("woff"), url("../font/babybuddy.ttf?72731680") format("truetype"), url("../font/babybuddy.svg?72731680#babybuddy") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -10782,7 +10782,7 @@ h3 {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'babybuddy';
-    src: url('../font/babybuddy.svg?22684922#babybuddy') format('svg');
+    src: url('../font/babybuddy.svg?72731680#babybuddy') format('svg');
   }
 }
 */
@@ -10889,6 +10889,31 @@ h3 {
 }
 
 /* '' */
+.icon-clock:before {
+  content: "";
+}
+
+/* '' */
+.icon-calendar:before {
+  content: "";
+}
+
+/* '' */
+.icon-arrow-up:before {
+  content: "";
+}
+
+/* '' */
+.icon-arrow-down:before {
+  content: "";
+}
+
+/* '' */
+.icon-cancel:before {
+  content: "";
+}
+
+/* '' */
 .icon-dashboard:before {
   content: "";
 }
@@ -10959,6 +10984,11 @@ h3 {
 }
 
 /* '' */
+.icon-today:before {
+  content: "";
+}
+
+/* '' */
 .icon-temperature:before {
   content: "";
 }

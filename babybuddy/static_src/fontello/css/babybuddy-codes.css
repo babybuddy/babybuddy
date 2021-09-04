@@ -14,6 +14,11 @@
 .icon-true:before { content: '\e80c'; } /* '' */
 .icon-update:before { content: '\e80d'; } /* '' */
 .icon-user:before { content: '\e80e'; } /* '' */
+.icon-clock:before { content: '\e80f'; } /* '' */
+.icon-calendar:before { content: '\e810'; } /* '' */
+.icon-arrow-up:before { content: '\e811'; } /* '' */
+.icon-arrow-down:before { content: '\e812'; } /* '' */
+.icon-cancel:before { content: '\e813'; } /* '' */
 .icon-dashboard:before { content: '\f0e4'; } /* '' */
 .icon-tummytime:before { content: '\f118'; } /* '' */
 .icon-sad:before { content: '\f119'; } /* '' */
@@ -28,4 +33,5 @@
 .icon-sleep:before { content: '\f236'; } /* '' */
 .icon-note:before { content: '\f249'; } /* '' */
 .icon-weight:before { content: '\f24e'; } /* '' */
+.icon-today:before { content: '\f274'; } /* '' */
 .icon-temperature:before { content: '\f2c8'; } /* '' */

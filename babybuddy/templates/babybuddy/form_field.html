@@ -20,7 +20,7 @@
     {% elif field|field_type == "datetimefield" or field|field_type == "datefield" %}
         <div class="input-group input-group-lg datetimepicker" id="datetimepicker_{{ field.name }}" data-target-input="nearest">
             <div class="input-group-prepend" data-target="#datetimepicker_{{ field.name }}" data-toggle="datetimepicker">
-                <span class="input-group-text"><i class="fa fa-lg fa-calendar"></i></span>
+                <span class="input-group-text"><i class="icon-calendar"></i></span>
             </div>
             {% if field.errors %}
                 {{ field|add_class:"datetimepicker-input form-control form-control-lg is-invalid" }}
