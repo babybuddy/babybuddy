@@ -45,6 +45,7 @@ BabyBuddy.DatetimePicker = function ($, moment) {
                     clear: 'icon-delete',
                     close: 'icon-cancel'
                 },
+                viewMode: 'times',
             };
             element.datetimepicker($.extend(defaultOptions, options));
         }
