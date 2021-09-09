@@ -43,11 +43,5 @@
                 $('#id_method').val('bottle');
             }
         });
-        $('#id_method').change(function() {
-            var method = $('#id_method').val();
-            if (['left breast', 'right breast', 'both breasts'].includes(method)) {
-                $('#id_type').val('breast milk');
-            }
-        });
     </script>
 {% endblock %}
