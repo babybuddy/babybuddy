@@ -1,4 +1,7 @@
+var fs = require('fs');  
 var basePath = 'babybuddy/static/babybuddy/';
+
+var themes = fs.readdirSync("babybuddy/static_src/scss/themes/")
 
 module.exports = {
     basePath: basePath,
@@ -61,13 +64,20 @@ module.exports = {
             'dashboard/static_src/js/*.js'
         ]
     },
-    stylesConfig: {
-        dest: basePath + 'css/',
-        app: 'babybuddy/static_src/scss/babybuddy.scss',
-        ignore: [
-            'babybuddy.scss'
-        ]
-    },
+    stylesConfig: themes.map((theme) => {
+            return {
+                name: theme,
+                dest: basePath + 'css/',
+                app: `babybuddy/static_src/scss/babybuddy.scss`,
+                ignore: [
+                    'babybuddy.scss'
+                ],
+                include: [
+                    `babybuddy/static_src/scss/themes/${theme}`
+                ]
+            }
+        }
+    ),
     testsConfig: {
       isolated: [
           'babybuddy.tests.tests_formats.FormatsTestCase.test_use_24_hour_time_format_en'

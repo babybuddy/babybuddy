@@ -181,6 +181,14 @@ LANGUAGES = [
 ]
 
 
+THEMES = [
+    ('light', _("Light")),
+    ('dark', _("Dark"))
+]
+
+DEFAULT_THEME = 'dark'
+
+
 # Format localization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/formatting/
 

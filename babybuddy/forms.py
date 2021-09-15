@@ -46,5 +46,6 @@ class UserSettingsForm(forms.ModelForm):
             'dashboard_hide_empty',
             'dashboard_hide_age',
             'language',
-            'timezone'
+            'timezone',
+            'theme'
         ]

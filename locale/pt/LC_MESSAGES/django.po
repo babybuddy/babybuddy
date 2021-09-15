@@ -568,7 +568,7 @@ msgstr "Mudar Password"
 #: babybuddy/templates/babybuddy/user_settings_form.html:4
 #: babybuddy/templates/babybuddy/user_settings_form.html:12
 msgid "User Settings"
-msgstr "Preferências de Utilizadoe"
+msgstr "Preferências de Utilizador"
 
 #: babybuddy/templates/babybuddy/user_settings_form.html:33
 msgid "User Profile"

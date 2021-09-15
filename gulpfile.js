@@ -182,13 +182,19 @@ function scripts(cb) {
  * @param cb
  */
 function styles(cb) {
-    pump([
-        gulp.src(config.stylesConfig.app),
-        sassGlob({ignorePaths: config.stylesConfig.ignore}),
-        sass().on('error', sass.logError),
-        concat('app.css'),
-        gulp.dest(config.stylesConfig.dest)
-    ], cb);
+    config.stylesConfig.forEach((theme, index) => {
+        pump([
+            gulp.src(config.stylesConfig[index].app),
+            sassGlob({
+                ignorePaths: config.stylesConfig[index].ignore
+            }),
+            sass({
+                includePaths: config.stylesConfig[index].include
+            }).on('error', sass.logError),
+            concat(`${theme.name}.css`),
+            gulp.dest(config.stylesConfig[index].dest)
+        ], cb);
+    })
 }
 
 /**

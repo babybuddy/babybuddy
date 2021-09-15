@@ -17,7 +17,8 @@ class SettingsInline(admin.StackedInline):
             'fields': (
                 'dashboard_refresh_rate',
                 'dashboard_hide_empty',
-                'dashboard_hide_age')
+                'dashboard_hide_age',
+                'theme')
         }),
     )
 

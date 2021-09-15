@@ -150,6 +150,7 @@ Baby Buddy's Gulp commands are defined and configured by files in the
 [`gulpfile.js`](gulpfile.js) folder. Django's management commands are defined
 in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 
+
 - [`gulp`](#gulp)
 - [`gulp build`](#build)
 - [`gulp clean`](#clean)
@@ -169,7 +170,6 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 - [`gulp styles`](#styles)
 - [`gulp test`](#test)
 - [`gulp updatestatic`](#updatestatic)
-
 #### `gulp`
 
 Executes the `build` and `watch` commands and runs Django's development server.
@@ -303,3 +303,11 @@ Baby Buddy uses [Fontello](https://fontello.com/) to build a custom icon font
 for icons used throughout the application. See [`babybuddy/static_src/fontello`](babybuddy/static_src/fontello)
 for further documentation about using the config file with Fontello and license
 information for fonts used by this application.
+
+
+### Themes
+Baby Buddy has support for themes. To add a theme:
+
+1. Create a folder with your theme name in ```static_src/scsss/themes```
+2. Create a file named ```_theme.scss``` and add your new styles
+3. Register your new theme adding a new tuple in ```babybuddy/settings/base.py```

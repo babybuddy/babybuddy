@@ -66,6 +66,12 @@ class Settings(models.Model):
         max_length=100,
         verbose_name=_('Timezone')
     )
+    theme = models.CharField(
+        choices=settings.THEMES,
+        default=settings.DEFAULT_THEME,
+        max_length=255,
+        verbose_name=_('Theme')
+    )
 
     def __str__(self):
         return str(format_lazy(_('{user}\'s Settings'), user=self.user))

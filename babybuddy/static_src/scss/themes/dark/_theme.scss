@@ -29,6 +29,14 @@ $theme-colors: (
 );
 
 
+.button-outline {
+    @extend .btn-outline-light;
+}
+
+nav {
+    @extend .bg-dark;
+}
+
 // Body
 //
 // Settings for the `<body>` element.
