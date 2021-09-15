@@ -177,6 +177,7 @@ LANGUAGES = [
     ('es', _('Spanish')),
     ('sv', _('Swedish')),
     ('tr', _('Turkish')),
+    ('pt', _('Portuguese'))
 ]
 
 
