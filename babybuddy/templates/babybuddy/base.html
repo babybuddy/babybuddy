@@ -11,7 +11,15 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %} | Baby Buddy</title>
 
-    <link rel="stylesheet" href="{% static 'babybuddy/css/'|add:user.settings.theme|add:'.css' %}" />
+    {% if user.is_authenticated %}
+        {% with stylesheet='babybuddy/css/'|add:user.settings.theme|default:'dark'|add:'.css' %}
+            <link rel="stylesheet" href="{% static stylesheet %}" />
+        {% endwith %}
+    {% else %}
+        {% with stylesheet='babybuddy/css/dark.css' %}
+            <link rel="stylesheet" href="{% static stylesheet %}" />
+        {% endwith %}
+    {% endif %}
 
     <link rel="apple-touch-icon" sizes="180x180" href="{% static "babybuddy/root/apple-touch-icon.png" %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static "babybuddy/root/favicon-32x32.png" %}">
