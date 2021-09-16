@@ -34,6 +34,7 @@ class FormsTestCase(TestCase):
             'dashboard_refresh_rate': '',
             'language': 'en',
             'timezone': 'UTC',
+            'theme': 'dark',
             'next': '/user/settings/'
         }
 
