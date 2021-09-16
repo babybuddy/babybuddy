@@ -2912,28 +2912,28 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(167, 36, 49, 0.5);
 }
 
-.btn-outline-light {
+.btn-outline-light, .button-outline {
   color: #f8f9fa;
   border-color: #f8f9fa;
 }
-.btn-outline-light:hover {
+.btn-outline-light:hover, .button-outline:hover {
   color: #212529;
   background-color: #f8f9fa;
   border-color: #f8f9fa;
 }
-.btn-outline-light:focus, .btn-outline-light.focus {
+.btn-outline-light:focus, .button-outline:focus, .btn-outline-light.focus, .focus.button-outline {
   box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
 }
-.btn-outline-light.disabled, .btn-outline-light:disabled {
+.btn-outline-light.disabled, .disabled.button-outline, .btn-outline-light:disabled, .button-outline:disabled {
   color: #f8f9fa;
   background-color: transparent;
 }
-.btn-outline-light:not(:disabled):not(.disabled):active, .btn-outline-light:not(:disabled):not(.disabled).active, .show > .btn-outline-light.dropdown-toggle {
+.btn-outline-light:not(:disabled):not(.disabled):active, .button-outline:not(:disabled):not(.disabled):active, .btn-outline-light:not(:disabled):not(.disabled).active, .button-outline:not(:disabled):not(.disabled).active, .show > .btn-outline-light.dropdown-toggle, .show > .dropdown-toggle.button-outline {
   color: #212529;
   background-color: #f8f9fa;
   border-color: #f8f9fa;
 }
-.btn-outline-light:not(:disabled):not(.disabled):active:focus, .btn-outline-light:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-light.dropdown-toggle:focus {
+.btn-outline-light:not(:disabled):not(.disabled):active:focus, .button-outline:not(:disabled):not(.disabled):active:focus, .btn-outline-light:not(:disabled):not(.disabled).active:focus, .button-outline:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-light.dropdown-toggle:focus, .show > .dropdown-toggle.button-outline:focus {
   box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
 }
 
@@ -6346,7 +6346,7 @@ button.bg-light:focus,
   background-color: #dae0e5 !important;
 }
 
-.bg-dark {
+.bg-dark, nav {
   background-color: #343a40 !important;
 }
 
