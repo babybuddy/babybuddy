@@ -240,9 +240,11 @@ if os.environ.get('SECURE_PROXY_SSL_HEADER'):
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # https://docs.djangoproject.com/en/3.2/topics/http/sessions/#settings
+SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = True
 
 # https://docs.djangoproject.com/en/3.2/ref/csrf/#settings
+CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SECURE = True
 
 # https://docs.djangoproject.com/en/3.2/topics/auth/passwords/
