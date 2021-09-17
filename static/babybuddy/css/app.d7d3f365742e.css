@@ -10526,6 +10526,12 @@ h3 {
   z-index: 1030;
 }
 
+.help-block ul {
+  padding-left: 1rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
 @media (min-width: 768px) {
   .submit-primary {
     display: inline-block;

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.detail import DetailView
 
-from babybuddy.mixins import PermissionRequired403Mixin
+from babybuddy.mixins import PermissionRequiredMixin
 from core import models
 
 from . import graphs
 
 
-class DiaperChangeAmounts(PermissionRequired403Mixin, DetailView):
+class DiaperChangeAmounts(PermissionRequiredMixin, DetailView):
     """
     Graph of diaper "amounts" - measurements of urine output.
     """
@@ -25,7 +25,7 @@ class DiaperChangeAmounts(PermissionRequired403Mixin, DetailView):
         return context
 
 
-class DiaperChangeLifetimesChildReport(PermissionRequired403Mixin, DetailView):
+class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of diaper "lifetimes" - time between diaper changes.
     """
@@ -44,7 +44,7 @@ class DiaperChangeLifetimesChildReport(PermissionRequired403Mixin, DetailView):
         return context
 
 
-class DiaperChangeTypesChildReport(PermissionRequired403Mixin, DetailView):
+class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of diaper changes by day and type.
     """
@@ -63,7 +63,7 @@ class DiaperChangeTypesChildReport(PermissionRequired403Mixin, DetailView):
         return context
 
 
-class FeedingAmountsChildReport(PermissionRequired403Mixin, DetailView):
+class FeedingAmountsChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of daily feeding amounts over time.
     """
@@ -86,7 +86,7 @@ class FeedingAmountsChildReport(PermissionRequired403Mixin, DetailView):
         return context
 
 
-class FeedingDurationChildReport(PermissionRequired403Mixin, DetailView):
+class FeedingDurationChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of feeding durations over time.
     """
@@ -109,7 +109,7 @@ class FeedingDurationChildReport(PermissionRequired403Mixin, DetailView):
         return context
 
 
-class SleepPatternChildReport(PermissionRequired403Mixin, DetailView):
+class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of sleep pattern comparing sleep to wake times by day.
     """
@@ -132,7 +132,7 @@ class SleepPatternChildReport(PermissionRequired403Mixin, DetailView):
         return context
 
 
-class SleepTotalsChildReport(PermissionRequired403Mixin, DetailView):
+class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of total sleep by day.
     """
@@ -155,7 +155,7 @@ class SleepTotalsChildReport(PermissionRequired403Mixin, DetailView):
         return context
 
 
-class WeightWeightChildReport(PermissionRequired403Mixin, DetailView):
+class WeightWeightChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of weight change over time.
     """
