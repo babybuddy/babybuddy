@@ -75,8 +75,8 @@ class FormsTestCase(TestCase):
             'first_name': 'User',
             'last_name': 'Name',
             'email': 'user@user.user',
-            'password1': 'password',
-            'password2': 'password'
+            'password1': 'd47o8dD&#hu3ulu3',
+            'password2': 'd47o8dD&#hu3ulu3'
         }
 
         page = self.c.post('/users/add/', params)

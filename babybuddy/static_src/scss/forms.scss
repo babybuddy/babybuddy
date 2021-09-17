@@ -65,6 +65,15 @@
     z-index: 1030;
 }
 
+// Tweak padding on form field help blocks.
+.help-block {
+    ul {
+        padding-left: 1rem;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
 @include media-breakpoint-up(md) {
     // Restore regular inline button on larger screens.
     .submit-primary {

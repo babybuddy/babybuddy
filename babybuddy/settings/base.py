@@ -234,16 +234,35 @@ if AWS_STORAGE_BUCKET_NAME:
 
 
 # Security
-# https://docs.djangoproject.com/en/3.2/topics/http/sessions/#settings
-# https://docs.djangoproject.com/en/3.2/ref/csrf/#settings
 
-# See https://docs.djangoproject.com/en/3.2/ref/settings/#secure-proxy-ssl-header for why and when to set this
+# https://docs.djangoproject.com/en/3.2/ref/settings/#secure-proxy-ssl-header
 if os.environ.get('SECURE_PROXY_SSL_HEADER'):
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+# https://docs.djangoproject.com/en/3.2/topics/http/sessions/#settings
 SESSION_COOKIE_SECURE = True
+
+# https://docs.djangoproject.com/en/3.2/ref/csrf/#settings
 CSRF_COOKIE_SECURE = True
 
+# https://docs.djangoproject.com/en/3.2/topics/auth/passwords/
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
 # Django Rest Framework
 # https://www.django-rest-framework.org/
