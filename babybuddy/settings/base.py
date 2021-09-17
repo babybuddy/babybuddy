@@ -233,6 +233,18 @@ if AWS_STORAGE_BUCKET_NAME:
     THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
+# Security
+# https://docs.djangoproject.com/en/3.2/topics/http/sessions/#settings
+# https://docs.djangoproject.com/en/3.2/ref/csrf/#settings
+
+# See https://docs.djangoproject.com/en/3.2/ref/settings/#secure-proxy-ssl-header for why and when to set this
+if os.environ.get('SECURE_PROXY_SSL_HEADER'):
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+
 # Django Rest Framework
 # https://www.django-rest-framework.org/
 
@@ -291,9 +303,3 @@ BABY_BUDDY = {
     'NAP_START_MAX': os.environ.get('NAP_START_MAX') or '18:00',
     'ALLOW_UPLOADS': os.environ.get('ALLOW_UPLOADS') or True
 }
-
-# Set SECURE_PROXY_SSL_HEADER
-# See https://docs.djangoproject.com/en/3.2/ref/settings/#secure-proxy-ssl-header for why and when to set this
-
-if os.environ.get('SECURE_PROXY_SSL_HEADER'):
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
