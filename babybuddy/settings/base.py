@@ -174,10 +174,10 @@ LANGUAGES = [
     ('fi', _('Finnish')),
     ('de', _('German')),
     ('it', _('Italian')),
+    ('pt', _('Portuguese')),
     ('es', _('Spanish')),
     ('sv', _('Swedish')),
-    ('tr', _('Turkish')),
-    ('pt', _('Portuguese'))
+    ('tr', _('Turkish'))
 ]
 
 
