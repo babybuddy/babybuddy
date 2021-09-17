@@ -2,7 +2,6 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
@@ -17,7 +16,8 @@ from django.views.i18n import set_language
 from django_filters.views import FilterView
 
 from babybuddy import forms
-from babybuddy.mixins import PermissionRequired403Mixin, StaffOnlyMixin
+from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin, \
+    StaffOnlyMixin
 from babybuddy.models import user_logged_in_callback
 
 
@@ -56,7 +56,7 @@ class UserList(StaffOnlyMixin, BabyBuddyFilterView):
     filterset_fields = ('username', 'first_name', 'last_name', 'email')
 
 
-class UserAdd(StaffOnlyMixin, PermissionRequired403Mixin, SuccessMessageMixin,
+class UserAdd(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin,
               CreateView):
     model = User
     template_name = 'babybuddy/user_form.html'
@@ -66,7 +66,7 @@ class UserAdd(StaffOnlyMixin, PermissionRequired403Mixin, SuccessMessageMixin,
     success_message = gettext_lazy('User %(username)s added!')
 
 
-class UserUpdate(StaffOnlyMixin, PermissionRequired403Mixin,
+class UserUpdate(StaffOnlyMixin, PermissionRequiredMixin,
                  SuccessMessageMixin, UpdateView):
     model = User
     template_name = 'babybuddy/user_form.html'
@@ -76,7 +76,7 @@ class UserUpdate(StaffOnlyMixin, PermissionRequired403Mixin,
     success_message = gettext_lazy('User %(username)s updated.')
 
 
-class UserDelete(StaffOnlyMixin, PermissionRequired403Mixin,
+class UserDelete(StaffOnlyMixin, PermissionRequiredMixin,
                  DeleteView):
     model = User
     template_name = 'babybuddy/user_confirm_delete.html'
