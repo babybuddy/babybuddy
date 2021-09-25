@@ -271,21 +271,15 @@
                                 <a href="{% url 'babybuddy:user-password' %}" class="dropdown-item">{% trans "Password" %}</a>
                                 <a href="{% url 'babybuddy:logout' %}" class="dropdown-item">{% trans "Logout" %}</a>
                                 <h6 class="dropdown-header">{% trans "Site" %}</h6>
-                                <a href="{% url 'api:api-root' %}"
-                                   class="dropdown-item"
-                                   target="_blank">{% trans "API Browser" %}</a>
+                                <a href="{% url 'api:api-root' %}" class="dropdown-item">{% trans "API Browser" %}</a>
                                 {% if request.user.is_staff %}
                                     <a href="{% url 'babybuddy:user-list' %}" class="dropdown-item">{% trans "Users" %}</a>
                                     <a href="{% url 'admin:index' %}" class="dropdown-item">{% trans "Database Admin" %}</a>
                                 {% endif %}
                                 <h6 class="dropdown-header">{% trans "Support" %}</h6>
-                                <a href="https://github.com/babybuddy/babybuddy"
-                                   class="dropdown-item"
-                                   target="_blank">
+                                <a href="https://github.com/babybuddy/babybuddy" class="dropdown-item">
                                     <i class="icon-source" aria-hidden="true"></i> {% trans "Source Code" %}</a>
-                                <a href="https://gitter.im/babybuddy/Lobby"
-                                   class="dropdown-item"
-                                   target="_blank">
+                                <a href="https://gitter.im/babybuddy/Lobby" class="dropdown-item">
                                     <i class="icon-chat" aria-hidden="true"></i> {% trans "Chat / Support" %}</a>
                                 <h6 class="dropdown-header">v{% version_string %}</h6>
                             </div>
