@@ -1,22 +1,58 @@
 # Changelog
 
-## [v1.8.3](https://github.com/babybuddy/babybuddy/tree/v1.8.3) (2021-08-27)
+## [v1.9.0](https://github.com/babybuddy/babybuddy/tree/v1.9.0) (2021-09-25)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.3...v1.9.0)
+
+**Implemented enhancements:**
+
+- Favicon is hard to see on dark backgrounds [\#297](https://github.com/babybuddy/babybuddy/issues/297)
+- Sleep graph y-axis should go "down" from midnight at the top. [\#289](https://github.com/babybuddy/babybuddy/issues/289)
+- Allow manual editting of datetime values [\#284](https://github.com/babybuddy/babybuddy/issues/284)
+- Add prominent link to timeline view from dashboard [\#271](https://github.com/babybuddy/babybuddy/issues/271)
+- Mobile UI Tweaks [\#229](https://github.com/babybuddy/babybuddy/issues/229)
+- Adding Portuguese Translation [\#308](https://github.com/babybuddy/babybuddy/pull/308) ([signorecello](https://github.com/signorecello))
+- Date picker changes [\#304](https://github.com/babybuddy/babybuddy/pull/304) ([ntrecina](https://github.com/ntrecina))
+- reversing y-axis of sleep plot \(top to down\) [\#295](https://github.com/babybuddy/babybuddy/pull/295) ([fodi666](https://github.com/fodi666))
+
+**Fixed bugs:**
+
+- Buttons icon glyphs missing in time selector [\#302](https://github.com/babybuddy/babybuddy/issues/302)
+- If there is only one sleep entry and it starts one day and ends the next day the sleep graph excepts. [\#290](https://github.com/babybuddy/babybuddy/issues/290)
+- Sleep graph uses 12h format when 24h is enabled. [\#287](https://github.com/babybuddy/babybuddy/issues/287)
+
+**Closed issues:**
+
+- All users lost [\#305](https://github.com/babybuddy/babybuddy/issues/305)
+- iOS Shortcuts [\#299](https://github.com/babybuddy/babybuddy/issues/299)
+- Button group flex spacing is weird on smaller screens [\#298](https://github.com/babybuddy/babybuddy/issues/298)
+- Add a gulp commend for font updates [\#296](https://github.com/babybuddy/babybuddy/issues/296)
+- Last Feed Time vs Last Time First Fed [\#162](https://github.com/babybuddy/babybuddy/issues/162)
+
+**Merged pull requests:**
+
+- Add CodeQL workflow config [\#314](https://github.com/babybuddy/babybuddy/pull/314) ([cdubz](https://github.com/cdubz))
+- Improve logo/favicon styling [\#312](https://github.com/babybuddy/babybuddy/pull/312) ([cdubz](https://github.com/cdubz))
+- Feeding form type breast autoselect [\#307](https://github.com/babybuddy/babybuddy/pull/307) ([ntrecina](https://github.com/ntrecina))
+- Gitpod config [\#303](https://github.com/babybuddy/babybuddy/pull/303) ([lutzky](https://github.com/lutzky))
+- Nav items linking to timeline from dashboard [\#278](https://github.com/babybuddy/babybuddy/pull/278) ([lutzky](https://github.com/lutzky))
+
+## [v1.8.3](https://github.com/babybuddy/babybuddy/tree/v1.8.3) (2021-08-28)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.2...v1.8.3)
 
 **Implemented enhancements:**
 
+- Start / finish times are treated as inclusive-at-both-ends ranges rather than standard half-open ranges [\#263](https://github.com/babybuddy/babybuddy/issues/263)
 - Timeline view: Activities should include their notes \(or at least mark activities that have notes\) [\#272](https://github.com/babybuddy/babybuddy/issues/272)
 - Improve cross-midnight timeline view [\#270](https://github.com/babybuddy/babybuddy/issues/270)
 - Timeline: For feedings, show time-since-feeding-before [\#266](https://github.com/babybuddy/babybuddy/issues/266)
-- Start / finish times are treated as inclusive-at-both-ends ranges rather than standard half-open ranges [\#263](https://github.com/babybuddy/babybuddy/issues/263)
 - add SECURE\_PROXY\_SSL\_HEADER env arg option [\#285](https://github.com/babybuddy/babybuddy/pull/285) ([jcgoette](https://github.com/jcgoette))
 
 **Fixed bugs:**
 
 - KeyError when generating graph for sleep pattern [\#293](https://github.com/babybuddy/babybuddy/issues/293)
 - Graph x-axis date labels should not show times, only dates. [\#288](https://github.com/babybuddy/babybuddy/issues/288)
-- Sleep graph uses 12h format when 24h is enabled. [\#287](https://github.com/babybuddy/babybuddy/issues/287)
 - Mobile submit button prevents date selection in some circumstances [\#265](https://github.com/babybuddy/babybuddy/issues/265)
 
 **Merged pull requests:**
@@ -46,13 +82,12 @@
 
 ## [v1.8.0](https://github.com/babybuddy/babybuddy/tree/v1.8.0) (2021-08-05)
 
-[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.7.0...v1.8.0)
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.0-beta...v1.8.0)
 
 **Implemented enhancements:**
 
 - Move Time column to be first in list view [\#232](https://github.com/babybuddy/babybuddy/issues/232)
 - Don't hide Submit button below optional fields [\#231](https://github.com/babybuddy/babybuddy/issues/231)
-- Dashboard: Move "Last Diaper Change" to near-top [\#230](https://github.com/babybuddy/babybuddy/issues/230)
 - Use shorter timestamp formats in list view [\#237](https://github.com/babybuddy/babybuddy/issues/237)
 - Move Color and Amount columns to far right in list view [\#236](https://github.com/babybuddy/babybuddy/issues/236)
 - Unify "wet" and "solid" columns to a quad-state in list view [\#235](https://github.com/babybuddy/babybuddy/issues/235)
@@ -82,6 +117,17 @@
 - Consider last-feeding-method as empty if never-changing [\#261](https://github.com/babybuddy/babybuddy/pull/261) ([lutzky](https://github.com/lutzky))
 - Use short datetime string for lists [\#260](https://github.com/babybuddy/babybuddy/pull/260) ([cdubz](https://github.com/cdubz))
 - Provide example config for secure cookies [\#259](https://github.com/babybuddy/babybuddy/pull/259) ([cdubz](https://github.com/cdubz))
+
+## [v1.8.0-beta](https://github.com/babybuddy/babybuddy/tree/v1.8.0-beta) (2021-07-10)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.7.0...v1.8.0-beta)
+
+**Implemented enhancements:**
+
+- Dashboard: Move "Last Diaper Change" to near-top [\#230](https://github.com/babybuddy/babybuddy/issues/230)
+
+**Merged pull requests:**
+
 - Move Time column to be first in list view [\#250](https://github.com/babybuddy/babybuddy/pull/250) ([lutzky](https://github.com/lutzky))
 - Dashboard: Move all "last" cards to top [\#248](https://github.com/babybuddy/babybuddy/pull/248) ([lutzky](https://github.com/lutzky))
 - Show duration in timeline [\#247](https://github.com/babybuddy/babybuddy/pull/247) ([lutzky](https://github.com/lutzky))
