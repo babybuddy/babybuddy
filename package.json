@@ -22,15 +22,15 @@
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
-    "plotly.js": "^2.2.1",
+    "plotly.js": "^2.5.1",
     "popper.js": "^1.16.1",
     "pulltorefreshjs": "^0.1.22",
     "pump": "^3.0.0",
-    "sass": "^1.35.2",
+    "sass": "^1.42.1",
     "stylelint": "^13.13.1",
     "stylelint-config-recommended-scss": "^4.3.0",
     "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.20.1",
+    "stylelint-scss": "^3.21.0",
     "tempusdominus-bootstrap-4": "5.1.2",
     "tempusdominus-core": "5.0.3"
   }
