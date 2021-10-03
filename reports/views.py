@@ -109,6 +109,30 @@ class FeedingDurationChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
+class TummyTimeDurationChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of tummy time durations over time.
+    """
+    model = models.Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/tummytime_duration.html'
+
+    def __init__(self):
+        super(TummyTimeDurationChildReport, self).__init__()
+        self.html = ''
+        self.js = ''
+
+    def get_context_data(self, **kwargs):
+        context = super(TummyTimeDurationChildReport, self).get_context_data(
+            **kwargs)
+        child = context['object']
+        instances = models.TummyTime.objects.filter(child=child)
+        if instances:
+            context['html'], context['js'] = \
+                graphs.tummytime_duration(instances)
+        return context
+
+
 class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of sleep pattern comparing sleep to wake times by day.

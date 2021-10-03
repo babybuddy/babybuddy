@@ -42,6 +42,11 @@ urlpatterns = [
         name='report-sleep-totals-child'
     ),
     path(
+        'children/<str:slug>/reports/tummytime/duration/',
+        views.TummyTimeDurationChildReport.as_view(),
+        name='report-tummytime-duration-child'
+    ),
+    path(
         'children/<str:slug>/reports/weight/weight/',
         views.WeightWeightChildReport.as_view(),
         name='report-weight-weight-child'

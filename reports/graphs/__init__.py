@@ -5,4 +5,5 @@ from .feeding_amounts import feeding_amounts  # NOQA
 from .feeding_duration import feeding_duration  # NOQA
 from .sleep_pattern import sleep_pattern  # NOQA
 from .sleep_totals import sleep_totals  # NOQA
+from .tummytime_duration import tummytime_duration # NOQA
 from .weight_weight import weight_weight  # NOQA
