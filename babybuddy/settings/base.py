@@ -174,6 +174,7 @@ LANGUAGES = [
     ('fi', _('Finnish')),
     ('de', _('German')),
     ('it', _('Italian')),
+    ('pl', _('Polish')),
     ('pt', _('Portuguese')),
     ('es', _('Spanish')),
     ('sv', _('Swedish')),

@@ -430,6 +430,8 @@ create/update translations.
 
 :it: Italian
 
+:poland: Polish
+
 :portugal: :brazil: Portuguese
 
 :mexico: :es: Spanish

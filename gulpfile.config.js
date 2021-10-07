@@ -38,6 +38,8 @@ module.exports = {
             'node_modules/moment/locale/fr.js',
             'node_modules/moment/locale/it.js',
             'node_modules/moment/locale/nl.js',
+            'node_modules/moment/locale/pl.js',
+            'node_modules/moment/locale/pt.js',
             'node_modules/moment/locale/sv.js',
             'node_modules/moment/locale/tr.js',
             'node_modules/moment-timezone/builds/moment-timezone-with-data-10-year-range.js',
@@ -51,6 +53,9 @@ module.exports = {
             'node_modules/plotly.js/dist/plotly-locale-fr.js',
             'node_modules/plotly.js/dist/plotly-locale-it.js',
             'node_modules/plotly.js/dist/plotly-locale-nl.js',
+            'node_modules/plotly.js/dist/plotly-locale-pl.js',
+            'node_modules/plotly.js/dist/plotly-locale-pt-br.js',
+            'node_modules/plotly.js/dist/plotly-locale-pt-pt.js',
             'node_modules/plotly.js/dist/plotly-locale-sv.js',
             'node_modules/plotly.js/dist/plotly-locale-tr.js'
         ],
