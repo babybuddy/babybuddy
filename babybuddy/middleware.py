@@ -17,9 +17,10 @@ class UserTimezoneMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if hasattr(request.user, 'settings') and request.user.settings.timezone:
+        user = request.user
+        if hasattr(user, 'settings') and user.settings.timezone:
             try:
-                timezone.activate(pytz.timezone(request.user.settings.timezone))
+                timezone.activate(pytz.timezone(user.settings.timezone))
             except pytz.UnknownTimeZoneError:
                 pass
         return self.get_response(request)
