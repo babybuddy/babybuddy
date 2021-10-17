@@ -28,7 +28,7 @@ class FormatsTestCase(TestCase):
             field.to_python('invalid date string!')
 
     @tag('isolate')
-    @override_settings(LANGUAGE_CODE='en', USE_24_HOUR_TIME_FORMAT=True)
+    @override_settings(LANGUAGE_CODE='en-US', USE_24_HOUR_TIME_FORMAT=True)
     def test_use_24_hour_time_format_en(self):
         field = DateTimeField()
         supported_custom_examples = [
