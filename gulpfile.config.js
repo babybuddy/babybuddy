@@ -58,7 +58,8 @@ module.exports = {
             'node_modules/plotly.js/dist/plotly-locale-pt-br.js',
             'node_modules/plotly.js/dist/plotly-locale-pt-pt.js',
             'node_modules/plotly.js/dist/plotly-locale-sv.js',
-            'node_modules/plotly.js/dist/plotly-locale-tr.js'
+            'node_modules/plotly.js/dist/plotly-locale-tr.js',
+            'node_modules/plotly.js/dist/plotly-locale-uk.js'
         ],
         app: [
             'babybuddy/static_src/js/babybuddy.js',
