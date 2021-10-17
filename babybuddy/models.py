@@ -3,11 +3,10 @@ import pytz
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.auth.signals import user_logged_in
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.utils import timezone, translation
+from django.utils import timezone
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -101,15 +100,3 @@ def create_user_settings(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_settings(sender, instance, **kwargs):
     instance.settings.save()
-
-
-@receiver(user_logged_in)
-def user_logged_in_callback(sender, request, user, **kwargs):
-    if user.settings.language:
-        translation.activate(user.settings.language)
-        # TODO: Change this behavior as session-based language is deprecated.
-        request.session[
-            translation.LANGUAGE_SESSION_KEY] = user.settings.language
-    if user.settings.timezone:
-        timezone.activate(user.settings.timezone)
-        request.session['user_timezone'] = user.settings.timezone

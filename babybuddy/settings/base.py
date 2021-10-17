@@ -61,11 +61,11 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'babybuddy.middleware.RollingSessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'babybuddy.middleware.UserTimezoneMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'axes.middleware.AxesMiddleware',
@@ -161,14 +161,14 @@ TIME_ZONE = os.environ.get('TIME_ZONE') or 'UTC'
 
 USE_I18N = True
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'en-US'
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
 ]
 
 LANGUAGES = [
-    ('en', _('English (US)')),
+    ('en-US', _('English (US)')),
     ('en-GB', _('English (UK)')),
     ('nl', _('Dutch')),
     ('fr', _('French')),

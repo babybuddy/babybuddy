@@ -18,7 +18,6 @@ from django_filters.views import FilterView
 from babybuddy import forms
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin, \
     StaffOnlyMixin
-from babybuddy.models import user_logged_in_callback
 
 
 class RootRouter(LoginRequiredMixin, RedirectView):
@@ -145,7 +144,6 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
-            user_logged_in_callback(UserSettings, request, user)
             messages.success(request, _('Settings saved!'))
             return set_language(request)
         return render(request, self.template_name, {
