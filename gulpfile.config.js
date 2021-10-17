@@ -33,6 +33,7 @@ module.exports = {
             'node_modules/bootstrap/dist/js/bootstrap.js',
             'node_modules/moment/moment.js',
             'node_modules/moment/locale/de.js',
+            'node_modules/moment/locale/en-gb.js',
             'node_modules/moment/locale/es.js',
             'node_modules/moment/locale/fi.js',
             'node_modules/moment/locale/fr.js',
