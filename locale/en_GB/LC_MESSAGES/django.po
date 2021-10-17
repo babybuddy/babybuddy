@@ -13,7 +13,7 @@ msgstr ""
 #: babybuddy/templates/babybuddy/nav-dropdown.html:270
 #: babybuddy/templates/babybuddy/user_settings_form.html:8
 msgid "Settings"
-msgstr "Settings"
+msgstr ""
 
 #: babybuddy/admin.py:16 babybuddy/templates/babybuddy/nav-dropdown.html:104
 #: babybuddy/templates/babybuddy/user_settings_form.html:61
