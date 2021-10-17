@@ -9,16 +9,17 @@ from django.utils import timezone
 class UserTimezoneMiddleware:
     """
     Sets the timezone based on a user specific setting that falls back on
-    `settings.TIME_ZONE`.
+    `settings.TIME_ZONE`. This middleware must run after
+    `django.contrib.auth.middleware.AuthenticationMiddleware` because it uses
+    the request.user object.
     """
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        timezone_name = request.session.get('user_timezone')
-        if timezone_name:
+        if hasattr(request.user, 'settings') and request.user.settings.timezone:
             try:
-                timezone.activate(pytz.timezone(timezone_name))
+                timezone.activate(pytz.timezone(request.user.settings.timezone))
             except pytz.UnknownTimeZoneError:
                 pass
         return self.get_response(request)
