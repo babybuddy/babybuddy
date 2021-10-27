@@ -299,6 +299,11 @@ class Sleep(models.Model):
         related_name='sleep',
         verbose_name=_('Child')
     )
+    napping = models.BooleanField(
+        editable=False,
+        null=True,
+        verbose_name=_('Napping')
+    )
     start = models.DateTimeField(
         blank=False,
         null=False,
@@ -340,6 +345,7 @@ class Sleep(models.Model):
     def save(self, *args, **kwargs):
         if self.start and self.end:
             self.duration = self.end - self.start
+        self.napping = self.nap
         super(Sleep, self).save(*args, **kwargs)
 
     def clean(self):
