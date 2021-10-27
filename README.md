@@ -418,9 +418,11 @@ create/update translations.
 
 ### Available languages
 
-:us: English (U.S.) *(base)*
-
 :netherlands: Dutch
+
+:uk: English (U.K.)
+
+:us: English (U.S.) *(base)*
 
 :finland: Finnish
 
