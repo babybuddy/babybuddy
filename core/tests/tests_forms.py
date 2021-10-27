@@ -334,6 +334,9 @@ class SleepFormsTestCase(FormsTestCaseBase):
         )
 
     def test_add(self):
+        # Prevent potential sleep entry intersection errors.
+        models.Sleep.objects.all().delete()
+
         end = timezone.localtime()
         start = end - timezone.timedelta(minutes=2)
         params = {
