@@ -21,8 +21,7 @@ def sleep_pattern(sleeps):
     :param sleeps: a QuerySet of Sleep instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    times = {}
-    labels = {}
+    days = {}
     last_end_time = None
     adjustment = None
     for sleep in sleeps:
@@ -34,18 +33,14 @@ def sleep_pattern(sleeps):
 
         # Ensure that lists are initialized for the start and end date (as they
         # may be different dates).
-        if start_date not in times:
-            times[start_date] = []
-        if start_date not in labels:
-            labels[start_date] = []
-        if end_date not in times:
-            times[end_date] = []
-        if end_date not in labels:
-            labels[end_date] = []
+        if start_date not in days:
+            days[start_date] = []
+        if end_date not in days:
+            days[end_date] = []
 
         # Check if the previous entry crossed midnight (see below).
         if adjustment:
-            _add_adjustment(adjustment, times, labels)
+            _add_adjustment(adjustment, days)
             last_end_time = timezone.localtime(adjustment['end_time'])
             adjustment = None
 
@@ -69,13 +64,16 @@ def sleep_pattern(sleeps):
             last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
         # Awake time.
-        times[start_date].append((start_time - last_end_time).seconds/60)
-        labels[start_date].append(None)
+        days[start_date].append({
+            'time': (start_time - last_end_time).seconds / 60,
+            'label': None
+        })
 
         # Asleep time.
-        times[start_date].append(duration.seconds/60)
-        labels[start_date].append(_format_label(duration, start_time,
-                                                end_time))
+        days[start_date].append({
+            'time': duration.seconds / 60,
+            'label': _format_label(duration, start_time, end_time)}
+        )
 
         # Update the previous entry duration if an offset change occurred.
         # This can happen when an entry crosses a daylight savings time change.
@@ -84,20 +82,21 @@ def sleep_pattern(sleeps):
             duration -= timezone.timedelta(seconds=diff.seconds)
             yesterday = (end_time - timezone.timedelta(days=1))
             yesterday = yesterday.date().isoformat()
-            times[yesterday][len(times[yesterday]) - 1] = duration.seconds/60
-            labels[yesterday][len(times[yesterday]) - 1] = _format_label(
-                duration, start_time, end_time)
+            days[yesterday][len(days[yesterday]) - 1] = {
+                'time': duration.seconds / 60,
+                'label': _format_label(duration, start_time, end_time)
+            }
 
         last_end_time = end_time
 
     # Handle any left over adjustment (if the last entry crossed midnight).
     if adjustment:
-        _add_adjustment(adjustment, times, labels)
+        _add_adjustment(adjustment, days)
 
     # Create dates for x-axis using a 12:00:00 time to ensure correct
     # positioning of bars (covering entire day).
     dates = []
-    for time in list(times.keys()):
+    for time in list(days.keys()):
         dates.append('{} 12:00:00'.format(time))
 
     traces = []
@@ -106,15 +105,15 @@ def sleep_pattern(sleeps):
     # Set iterator and determine maximum iteration for dates.
     i = 0
     max_i = 0
-    for date_times in times.values():
+    for date_times in days.values():
         max_i = max(len(date_times), max_i)
     while i < max_i:
         y = {}
         text = {}
-        for date in times.keys():
+        for date in days.keys():
             try:
-                y[date] = times[date][i]
-                text[date] = labels[date][i]
+                y[date] = days[date][i].time
+                text[date] = days[date][i].label
             except IndexError:
                 y[date] = None
                 text[date] = None
@@ -172,24 +171,21 @@ def sleep_pattern(sleeps):
     return utils.split_graph_output(output)
 
 
-def _add_adjustment(adjustment, times, labels):
+def _add_adjustment(adjustment, days):
     """
     Adds "adjustment" data for entries that cross midnight.
     :param adjustment: Column, start time, end time, and duration of entry.
-    :param times: Graph times data.
-    :param labels: Graph labels data.
+    :param blocks: List of days
     """
+    column = adjustment.pop('column')
     # Fake (0) entry to keep the color switching logic working.
-    times[adjustment['column']].append(0)
-    labels[adjustment['column']].append(0)
+    days[column].append({'time': 0, 'label': 0})
 
     # Real adjustment entry.
-    times[adjustment['column']].append(
-        adjustment['duration'].seconds / 60)
-    labels[adjustment['column']].append(_format_label(
-        adjustment['duration'],
-        adjustment['start_time'],
-        adjustment['end_time']))
+    days[column].append({
+        'time': adjustment['duration'].seconds / 60,
+        'label': _format_label(**adjustment)
+    })
 
 
 def _format_label(duration, start_time, end_time):
