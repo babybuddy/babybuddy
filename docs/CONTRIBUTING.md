@@ -1,21 +1,12 @@
 # Contributing
-
-- [Contributions](#contributions)
-  - [Pull request process](#pull-request-process)
-  - [Translation](#translation)
-- [Development](#development)
-  - [Installation](#installation)
-  - [Gulp Commands](#gulp-commands)
-  - [Icon Font](#icon-font)
-  
-## Contributions
+[Back to Table of Contents](/docs/TOC.md)
 
 Contributions are accepted and encouraged via GitHub [Issues](https://github.com/babybuddy/babybuddy/issues)
 and [Pull Requests](https://github.com/babybuddy/babybuddy/pulls). Maintainers
 and users may also be found at [babybuddy/Lobby](https://gitter.im/babybuddy/Lobby)
 on Gitter.
 
-### Pull request process
+## Pull request process
 
 1. Fork this repository and commit your changes.
 1. Make and commit tests for any new features or major functionality changes.
@@ -29,16 +20,16 @@ on Gitter.
 New pull requests will be reviewed by project maintainers as soon as possible 
 and we will do our best to provide feedback and support potential contributors.
 
-### Translation
+## Translation
 
-#### POEditor
+### POEditor
 
 Baby Buddy is set up as a project on [POEditor](https://poeditor.com/). 
 Interested contributors can [join translation of Baby Buddy](https://poeditor.com/join/project/QwQqrpTIzn)
 for access to a simple, web-based frontend for adding/editing translation files
 to the project.
 
-#### Manual
+### Manual
 
 Baby Buddy has support for translation/localization. A manual translation
 process will look something like this:
@@ -98,7 +89,7 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 - NodeJS 14.x and NPM 7.x
 - Gulp
 - Possibly `libpq-dev`
-  - This is necessary if `psycopg2` can't find an appropriate prebuild binary.
+  - This is necessary if `psycopg2` can't find an appropriate prebuilt binary.
 
 ### Installation
 
@@ -203,7 +194,7 @@ for more details about other options and functionality of this command.
 
 #### `coverage`
 
-Create a test coverage report. See [`.coveragerc`](.coveragerc) for default
+Create a test coverage report. See [`.coveragerc`](/.coveragerc) for default
 settings information.
 
 #### `createcachetable`
@@ -281,7 +272,7 @@ used for individual test execution.
 #### `updateglyphs`
 
 Downloads generated glyph font files data from [Fonttello](https://fontello.com/)
-based on [`config.json` file](babybuddy/static_src/fontello/config.json). This
+based on [`config.json` file](/babybuddy/static_src/fontello/config.json). This
 only needs to be run after making changes to the config file.
 
 #### `updatestatic`
@@ -300,6 +291,6 @@ are made to Baby Buddy's frontend code (SASS, JS, etc.).
 ### Icon Font
 
 Baby Buddy uses [Fontello](https://fontello.com/) to build a custom icon font
-for icons used throughout the application. See [`babybuddy/static_src/fontello`](babybuddy/static_src/fontello)
+for icons used throughout the application. See [`babybuddy/static_src/fontello`](/babybuddy/static_src/fontello)
 for further documentation about using the config file with Fontello and license
 information for fonts used by this application.
