@@ -2,9 +2,9 @@ from django.db import migrations, models
 
 
 def set_napping(apps, schema_editor):
-    Sleeps = apps.get_model('core', 'Sleep')
-    for sleep in Sleeps.objects.all():
-        sleep.napping = sleep.nap
+    # The model must be imported to ensure its overridden `save` method is run.
+    from core import models
+    for sleep in models.Sleep.objects.all():
         sleep.save()
 
 
