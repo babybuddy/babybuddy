@@ -7,7 +7,7 @@
     "url": "https://github.com/babybuddy/babybuddy.git"
   },
   "devDependencies": {
-    "bootstrap": "4.6.0",
+    "bootstrap": "4.6.1",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
@@ -22,7 +22,7 @@
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
-    "plotly.js": "^2.5.1",
+    "plotly.js": "^2.6.0",
     "popper.js": "^1.16.1",
     "pulltorefreshjs": "^0.1.22",
     "pump": "^3.0.0",
