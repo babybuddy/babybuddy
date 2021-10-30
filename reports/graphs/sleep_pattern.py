@@ -11,23 +11,26 @@ from core.utils import duration_string
 
 from reports import utils
 
+ASLEEP_COLOR = 'rgb(35, 110, 150)'
+AWAKE_COLOR = 'rgba(255, 255, 255, 0)'
 
-def sleep_pattern(instances):
+
+def sleep_pattern(sleeps):
     """
     Create a graph showing blocked out periods of sleep during each day.
-    :param instances: a QuerySet of Sleep instances.
+    :param sleeps: a QuerySet of Sleep instances.
     :returns: a tuple of the the graph's html and javascript.
     """
     times = {}
     labels = {}
     last_end_time = None
     adjustment = None
-    for instance in instances:
-        start_time = timezone.localtime(instance.start)
-        end_time = timezone.localtime(instance.end)
+    for sleep in sleeps:
+        start_time = timezone.localtime(sleep.start)
+        end_time = timezone.localtime(sleep.end)
         start_date = start_time.date().isoformat()
         end_date = end_time.date().isoformat()
-        duration = instance.duration
+        duration = sleep.duration
 
         # Ensure that lists are initialized for the start and end date (as they
         # may be different dates).
@@ -50,7 +53,7 @@ def sleep_pattern(instances):
         if end_time.date() != start_time.date():
             adj_start_time = end_time.replace(hour=0, minute=0, second=0)
             adjustment = {
-                'column': end_time.date().isoformat(),
+                'column': end_date,
                 'start_time': adj_start_time,
                 'end_time': end_time,
                 'duration': end_time - adj_start_time
@@ -98,7 +101,7 @@ def sleep_pattern(instances):
         dates.append('{} 12:00:00'.format(time))
 
     traces = []
-    color = 'rgba(255, 255, 255, 0)'
+    color = AWAKE_COLOR
 
     # Set iterator and determine maximum iteration for dates.
     i = 0
@@ -127,10 +130,10 @@ def sleep_pattern(instances):
             marker={'color': color},
             showlegend=False,
         ))
-        if color == 'rgba(255, 255, 255, 0)':
-            color = 'rgb(35, 110, 150)'
+        if color == AWAKE_COLOR:
+            color = ASLEEP_COLOR
         else:
-            color = 'rgba(255, 255, 255, 0)'
+            color = AWAKE_COLOR
 
     layout_args = utils.default_graph_layout_options()
     layout_args['margin']['b'] = 100
