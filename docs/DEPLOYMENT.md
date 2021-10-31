@@ -1,8 +1,8 @@
 # Deployment
 [Back to Table of Contents](/docs/TOC.md)
 
-The default user name and password for Baby Buddy is `admin`/`admin`. For any
-deployment, **log in and change the default admin password immediately**.
+The default username and password for Baby Buddy is `admin`/`admin`. For any
+deployment, **log in and change the default password immediately**.
 
 Many of Baby Buddy's configuration settings can be controlled using environment
 variables - see [Configuration](/docs/CONFIGURATION.md) for detailed information.
@@ -47,7 +47,7 @@ python3 /app/babybuddy/manage.py clearsessions
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-For manual deployments to Heroku without using the deploy button, make sure to
+For manual deployments to Heroku without using the "deploy" button, make sure to
 create the following settings before pushing:
 
     heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
@@ -58,7 +58,7 @@ create the following settings before pushing:
 See [Configuration](/docs/CONFIGURATION.md) for other settings that can be controlled
 by `heroku config:set`.
 
-And after an initial push, execute the following commands:
+After an initial push, execute the following commands:
 
     heroku run python manage.py migrate
     heroku run python manage.py createcachetable
@@ -77,9 +77,9 @@ requirements are Python, a web server, an application server, and a database.
 
 ### Example deployment
 
-*This example assumes a 512MB VPS instance with Ubuntu 18.04.* It uses
-Python 3.6+, nginx, uwsgi and sqlite and should be sufficient for a few users
-(e.g. two parents and 1+ child).
+*This example assumes a 512 MB VPS instance with Ubuntu 18.04.* It uses Python 3.6+,
+nginx, uwsgi and sqlite. It should be sufficient for a few users(e.g., two parents
+and 1+ child).
 
 1. Install system packages
 

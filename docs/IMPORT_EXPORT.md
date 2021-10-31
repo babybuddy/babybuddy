@@ -36,9 +36,9 @@ be present for an import. Multiple file types -- including csv, xlsx, etc. --
 are supported for the import.
 
 The import pages do not provide *detailed* information about the required data
-and formats. When an import is attempted, all rows will be checked for errors
-and any issues will be reported on screen and will need to be resolved before
-the import can be performed.
+and formats. All rows will be checked for errors on import and any issues will
+be reported on screen and will need to be resolved before the import can be
+performed.
 
 See the [example import files](/core/tests/import) used for tests to get an idea
 of the expected data format.

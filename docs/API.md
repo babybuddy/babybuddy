@@ -4,9 +4,10 @@
 Baby Buddy uses the [Django REST Framework](https://www.django-rest-framework.org/)
 (DRF) to provide a REST API.
 
-The only requirement for (most) requests is that the `Authorization` header is
-set as described in the [Authentication](#authentication) section. The one
-exception is the `/api` endpoint, which lists all available endpoints.
+The only requirement for (most) requests is to set the `Authorization` header as
+described in the [Authentication](#authentication) section. The one exception is
+the `/api` endpoint, which lists all available endpoints and does not require
+authorization.
 
 Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 `POST` requests:
@@ -23,29 +24,28 @@ Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 
 ## Authentication
 
-By default, the [TokenAuthentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
+The [TokenAuthentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
 and [SessionAuthentication](https://www.django-rest-framework.org/api-guide/authentication/#sessionauthentication)
-classes are enabled. Session authentication covers local API requests made by
+are enabled by default. Session authentication covers local API requests made by
 the application itself. Token authentication allows external requests to be
 made.
 
 :exclamation: **In a production environment, token authentication should only
 be used for API calls to an `https` endpoint.** :exclamation:
 
-Each user is automatically assigned an API key that can be used for token
-authentication. This key can be found on the User Settings page for the logged
-in the user. To use a key for an API request, set the request `Authorization`
-header to `Token <user-key>`. E.g.
+Each user has an API key that can be used for token authentication. This key can
+be found on the User Settings page for the logged in the user. To use a key for
+an API request, set the request `Authorization` header to `Token <user-key>`. E.g.
 
     Authorization: Token 2h23807gd72h7hop382p98hd823dw3g665g56
 
-If the `Authorization` header is not set or the key is not valid, the API will
-return `403 Forbidden` with additional details in the response body.
+If no `Authorization` header set, or the key is not valid the API will return
+`403 Forbidden` with additional details in the response body.
 
 ## Schema
 
-API schema information in the [OpenAPI format](https://swagger.io/specification/)
-can be found in the [`openapi-schema.yml`](/openapi-schema.yml) file in the project
+The API schema in [OpenAPI format](https://swagger.io/specification/) can be
+found in the [`openapi-schema.yml`](/openapi-schema.yml) file in the project
 root. A live version is also available at the `/api/schema` path of a running
 instance.
 
@@ -166,27 +166,25 @@ formats.
 ### Timer Field
 
 The "timer" field is a special field available for `POST` operations to model
-endpoints supporting duration (Feeding, Sleep, Tummy Time). When the "timer"
-field is set in the request, the `start` and `end` fields will be filled in
-automatically using the `start` and `end` values *from the Timer* (the Timer
-will be stopped if it is currently running).
+endpoints supporting duration (Feeding, Sleep, Tummy Time). Se the "timer"
+in a request to fill in the `start` and `end` fields automatically using the
+`start` and `end` values *from the Timer* (the Timer will be stopped if it is
+currently running).
 
 Additionally, if the Timer has a Child relationship, the `child` field will be
 filled in automatically use the `child` value from the Timer.
 
-If the "timer" field is set, it's values will **always override** the relevant
-fields in the request. E.g. if a `POST` request is sent with both the `timer`
-and `end` fields, the value for the `end` field will be ignored and replaced by
-the Timer's `end` value. The same applies for `start` and `child`. These fields
-can all be left out of the request when the Timer is provided, otherwise they
-are required fields.
+The "timer" field will **always override** the relevant fields (`child`, `start`,
+and `end`) on the request. E.g., a `POST` request with both the `timer` and `end`
+fields will ignore the `end` field value and replace it with the Timer's `end`
+value. The same applies for `start` and `child`. These fields are all **required**
+if the `timer` field is *not* set.
 
 ### Response
 
 Returns JSON data in the response body describing the added/updated instance or
-error details if errors exist. Errors are keyed by either the field in error or
-the general string `non_field_errors` (usually when validation involves
-multiple fields).
+error details keyed by either the field in error or the general string `non_field_errors`
+(e.g., when validation involves multiple fields).
 
 ## `PATCH` Method
 
@@ -210,9 +208,8 @@ formats.
 ### Response
 
 Returns JSON data in the response body describing the added/updated instance or
-error details if errors exist. Errors are keyed by either the field in error or
-the general string `non_field_errors` (usually when validation involves
-multiple fields).
+error details keyed by either the field in error or the general string `non_field_errors`
+(e.g., when validation involves multiple fields).
 
 ## `DELETE` Method
 
