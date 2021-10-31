@@ -69,6 +69,20 @@ for information about how to create/update translations.
 
 :tr: Turkish
 
+## Cool Projects Using Baby Buddy
+
+This is a non-exhaustive list of neat projects and blog posts that either extend
+or use Baby Buddy in fun ways. If you have a project to share please open a PR
+adding it here or reach out via GitHub Issues or Discussions or on Gitter!
+
+- [Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant)
+- [Baby Buddy and Home Assistant](https://martinnoah.com/babybuddy-and-home-assistant.html) (how-to guide)
+- [Bottle Scale for BabyBuddy and Home Assistant with ESPHome](https://github.com/sfgabe/OITProjects/tree/master/BabyBuddy_ESP_HASS)
+- [Alexa skill](https://github.com/babybuddy/babybuddy-alexa-skill)
+- [Sandstorm app](https://github.com/babybuddy/babybuddy-sandstorm)
+- [iOS shortcuts](https://github.com/babybuddy/babybuddy/discussions/300)
+- Newborn parenting software - [part 1](https://lutzky.net/2021/10/03/software-parenting-1/), [part 2](https://lutzky.net/2021/10/05/software-parenting-2/), [part 3](https://lutzky.net/2021/10/10/software-parenting-3/) (API, buttons, LCD information screen!)
+
 ## Reporting Vulnerabilities
 
 See [SECURITY.md](SECURITY.md) for information about where and how to report

@@ -45,8 +45,9 @@ return `403 Forbidden` with additional details in the response body.
 ## Schema
 
 API schema information in the [OpenAPI format](https://swagger.io/specification/)
-can be found in the `openapi-schema.yml` file in the project root. A live
-version is also available at the `/api/schema` path of a running instance.
+can be found in the [`openapi-schema.yml`](/openapi-schema.yml) file in the project
+root. A live version is also available at the `/api/schema` path of a running
+instance.
 
 ## `GET` Method
 
