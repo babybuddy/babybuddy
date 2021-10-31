@@ -1,7 +1,7 @@
 # Contributing
 [Back to Table of Contents](/docs/TOC.md)
 
-Contributions are accepted and encouraged via GitHub [Issues](https://github.com/babybuddy/babybuddy/issues)
+Baby Buddy's maintainers accept and encourage contributions via GitHub [Issues](https://github.com/babybuddy/babybuddy/issues)
 and [Pull Requests](https://github.com/babybuddy/babybuddy/pulls). Maintainers
 and users may also be found at [babybuddy/Lobby](https://gitter.im/babybuddy/Lobby)
 on Gitter.
@@ -12,19 +12,18 @@ on Gitter.
 1. Make and commit tests for any new features or major functionality changes.
 1. Run `gulp lint` and `gulp test` (see [Gulp Commands](#gulp-commands)) and 
    ensure that all tests pass.
-1. If changes are made to assets: build, collect and commit the `/static` 
-   folder (see [`gulp collectstatic`](#collectstatic)).
+1. Updated static assets if necessary and commit the `/static` folder (see [`gulp updatestatic`](#updatestatic)).
 1. Open a [new pull request](https://github.com/babybuddy/babybuddy/compare) against
    the `master` branch.
    
-New pull requests will be reviewed by project maintainers as soon as possible 
-and we will do our best to provide feedback and support potential contributors.
+Maintainers will review new pull requests will as soon as possible, and we will
+do our best to provide feedback and support potential contributors.
 
 ## Translation
 
 ### POEditor
 
-Baby Buddy is set up as a project on [POEditor](https://poeditor.com/). 
+Baby Buddy uses [POEditor](https://poeditor.com/) for translation contributions. 
 Interested contributors can [join translation of Baby Buddy](https://poeditor.com/join/project/QwQqrpTIzn)
 for access to a simple, web-based frontend for adding/editing translation files
 to the project.
@@ -37,8 +36,8 @@ process will look something like this:
 1. Set up a development environment (see [Development](#development) below).
 
 1. Run `gulp makemessages -l xx` where `xx` is a specific locale code in the
-[ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g.
-"fr" for French or "es" for Spanish). This creates a new translation file at
+[ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g.,
+"il" for Italian or "es" for Spanish). This creates a new translation file at
 `locale/xx/LC_MESSAGES/django.po`, or updates one if it exists.
 
 1. Open the created/updated `django.po` file and update the header template
@@ -114,8 +113,8 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
        export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
 
     This process will differ based on the host OS. The above example is for
-    Linux-based systems. See [Configuration](#configuration) for other settings
-    and methods for defining them.
+    Linux-based systems. See [Configuration](/docs/CONFIGURATION.md) for other
+    settings and methods for defining them.
 
 1. Migrate the database
 
@@ -133,13 +132,14 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
     restart the server as needed.
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
-user name and password (`admin`/`admin`).
+username and password (`admin`/`admin`).
 
 ### Gulp commands
 
-Baby Buddy's Gulp commands are defined and configured by files in the
-[`gulpfile.js`](gulpfile.js) folder. Django's management commands are defined
-in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
+[`gulpfile.js`](gulpfile.js) defines Baby Buddy's Gulp commands.
+
+[`babybuddy/management/commands`](babybuddy/management/commands) defines Baby Buddy's
+management commands.
 
 - [`gulp`](#gulp)
 - [`gulp build`](#build)
@@ -165,7 +165,7 @@ in the [`babybuddy/management/commands`](babybuddy/management/commands) folder.
 
 Executes the `build` and `watch` commands and runs Django's development server.
 This command also accepts the special parameter `--ip` for setting the
-development server IP address. See [`gulp runserver`](#runserver) for details.
+server IP address. See [`gulp runserver`](#runserver) for details.
 
 #### `build`
 
@@ -248,7 +248,7 @@ Executes Django's `runserver` management task. Gulp passes non-overlapping
 arguments for this command.
 
 A special parameter, `--ip`, is also available to set the IP for the server.
-E.g execute `gulp runserver --ip 0.0.0.0:8000` to make the server available to
+E.g., execute `gulp runserver --ip 0.0.0.0:8000` to make the server available to
 other devices on your local network.
 
 #### `scripts`
@@ -285,8 +285,8 @@ order:
 - [`build`](#build)
 - [`collectstatic`](#collectstatic)
 
-This command should be executed, and any changes committed, any time changes
-are made to Baby Buddy's frontend code (SASS, JS, etc.).
+Execute and commit changes made by this command whenever changing Baby Buddy's
+frontend code (SASS, JS, etc.).
 
 ### Icon Font
 

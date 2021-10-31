@@ -29,9 +29,8 @@ take precedence over the contents of an `.env` file.**
 
 *Default: * (any)*
 
-This option may be set to a single host or comma-separated list of hosts
-(without spaces). This should *always* be set to a specific host or hosts in
-production deployments.
+Set this variable to a single host or comma-separated list of hosts without spaces.
+This should *always* be set to a specific host or hosts in production deployments.
 
 See also: [Django's documentation on the ALLOWED_HOSTS setting](https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts)
 
@@ -39,9 +38,8 @@ See also: [Django's documentation on the ALLOWED_HOSTS setting](https://docs.dja
 
 *Default: True*
 
-Whether or not to allow uploads (e.g. of Child photos). For some deployments
-(AWS, Heroku) this setting will default to False due to the lack of available
-persistent storage.
+Whether to allow uploads (e.g., of Child photos). For some deployments (Heroku)
+this setting will default to False due to the lack of available persistent storage.
 
 ## `AWS_ACCESS_KEY_ID`
 
@@ -66,7 +64,7 @@ See also: [`AWS_STORAGE_BUCKET_NAME`](#aws_storage_bucket_name)
 *Default: None*
 
 If you would like to use AWS S3 for storage on ephemeral storage platforms like
-Heroku you will need to create a bucket and add it's name. See django-storages'
+Heroku you will need to create a bucket and add its name. See django-storages'
 [Amazon S3 documentation](https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html).
 
 ## `DEBUG`
@@ -82,15 +80,15 @@ See also [Django's documentation on the DEBUG setting](https://docs.djangoprojec
 
 *Default: 18:00*
 
-The maximum *start* time (in the instance's time zone) before which a sleep
-entry is consider a nap. Expects the 24-hour format %H:%M.
+The maximum nap *start* time (in the instance's time zone). Expects the 24-hour
+format %H:%M.
 
 ## `NAP_START_MIN`
 
 *Default: 06:00*
 
-The minimum *start* time (in the instance's time zone) after which a sleep
-entry is considered a nap. Expects the 24-hour format %H:%M.
+The minimum nap *start* time (in the instance's time zone). Expects the 24-hour
+format %H:%M.
 
 ## `DB_ENGINE`
 
@@ -98,7 +96,7 @@ entry is considered a nap. Expects the 24-hour format %H:%M.
 
 The database engine utilized for the deployment.
 
-See also [Django's documentation on the ENGINE setting](https://docs.djangoproject.com/en/3.0/ref/settings/#engine) .
+See also [Django's documentation on the ENGINE setting](https://docs.djangoproject.com/en/3.0/ref/settings/#engine).
 
 ## `DB_HOST`
 
@@ -116,7 +114,8 @@ The name of the database table utilized for the deployment.
 
 *No Default*
 
-The password for the database user for the deployment. In the default example, this is the root PostgreSQL password.
+The password for the database user for the deployment. In the default example,
+this is the root PostgreSQL password.
 
 ## `DB_PORT`
 
@@ -143,9 +142,13 @@ See also [Django's documentation on the SECRET_KEY setting](https://docs.djangop
 
 *Default: None*
 
-If Baby Buddy is behind a proxy, you may need to set this to True. This tells Baby Buddy to trust the X-Forwarded-Proto header that comes from your proxy, and any time its value is 'https', then the request is guaranteed to be secure (i.e., it originally came in via HTTPS).
+If Baby Buddy is behind a proxy, you may need to set this to `True` in order to
+trust the `X-Forwarded-Proto` header that comes from your proxy, and any time
+its value is "https". This guarantees the request is secure (i.e., it originally
+came in via HTTPS).
 
-:warning: Modifying this setting can compromise Baby Buddy’s security. Ensure you fully understand your setup before changing it.
+:warning: Modifying this setting can compromise Baby Buddy’s security. Ensure
+you fully understand your setup before changing it.
 
 See also [Django's documentation on the SECURE_PROXY_SSL_HEADER setting](https://docs.djangoproject.com/en/3.0/ref/settings/#secure-proxy-ssl-header).
 
@@ -162,12 +165,12 @@ settings form.
 *Default: False*
 
 Whether to force 24-hour time format for locales that do not ordinarily use it
-(e.g. `en`). Support for this feature must implemented on a per-locale basis.
+(e.g. `en`). Support for this feature must be implemented on a per-locale basis.
 See format files under [`babybuddy/formats`](/babybuddy/formats) for supported
 locales.
 
-Note: This value for this setting is interpreted as a boolean from a string
+Note: Baby Buddy interprets this value as a boolean from a string
 using Python's built-in [`strtobool`](https://docs.python.org/3/distutils/apiref.html#distutils.util.strtobool)
-tool. Only certain strings are supported (e.g. "True" for `True` and "False" for
+tool. Only certain strings will work (e.g., "True" for `True` and "False" for
 `False`), other unrecognized strings will cause a `ValueError` and prevent Baby
 Buddy from loading.
