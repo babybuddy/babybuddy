@@ -112,8 +112,8 @@ def sleep_pattern(sleeps):
         text = {}
         for date in days.keys():
             try:
-                y[date] = days[date][i].time
-                text[date] = days[date][i].label
+                y[date] = days[date][i]['time']
+                text[date] = days[date][i]['label']
             except IndexError:
                 y[date] = None
                 text[date] = None
