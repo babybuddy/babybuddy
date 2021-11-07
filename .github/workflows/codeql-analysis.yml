@@ -32,7 +32,7 @@ jobs:
       run: |
         export PATH="$HOME/.local/bin:$PATH"
         python3 -m pip install --upgrade pipenv wheel
-        pipenv install --dev
+        pipenv install
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
