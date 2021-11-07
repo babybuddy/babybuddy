@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
-          pipenv install --dev --verbose
+          pipenv install --dev
       - run: gulp lint
       - run: gulp coverage
       - name: Submit results to Coveralls
