@@ -1,5 +1,4 @@
 name: "CodeQL"
-
 on:
   push:
     branches: [ master ]
@@ -7,7 +6,6 @@ on:
     branches: [ master ]
   schedule:
     - cron: '33 0 * * 3'
-
 jobs:
   analyze:
     name: Analyze
@@ -18,28 +16,27 @@ jobs:
       actions: read
       contents: read
       security-events: write
-
     strategy:
       fail-fast: false
       matrix:
         language: [ 'javascript', 'python' ]
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
     - name: Install dependencies
       run: |
         export PATH="$HOME/.local/bin:$PATH"
         python3 -m pip install --upgrade pipenv wheel
         pipenv install
-
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       with:
         config-file: ./.github/codeql/codeql-config.yml
         languages: ${{ matrix.language }}
         setup-python-dependencies: false
-
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
