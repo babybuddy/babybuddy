@@ -115,7 +115,7 @@ function extras(cb) {
  * @param cb
  */
 function lint(cb) {
-    var command = ['run', 'flake8', '--exclude=etc,migrations,manage.py,node_modules,settings'];
+    var command = ['run', 'flake8', '--exclude=.venv,etc,migrations,manage.py,node_modules,settings'];
     command = command.concat(process.argv.splice(3));
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function (code) {
         if (code) process.exit(code);
