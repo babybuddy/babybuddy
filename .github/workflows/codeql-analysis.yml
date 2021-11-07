@@ -12,6 +12,8 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    env:
+      PIPENV_VENV_IN_PROJECT: enabled
     permissions:
       actions: read
       contents: read
@@ -30,7 +32,7 @@ jobs:
       run: |
         export PATH="$HOME/.local/bin:$PATH"
         python3 -m pip install --upgrade pipenv wheel
-        pipenv install --deploy --dev
+        pipenv install --dev
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
