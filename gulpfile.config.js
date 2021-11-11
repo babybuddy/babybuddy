@@ -77,7 +77,7 @@ module.exports = {
     },
     testsConfig: {
       isolated: [
-          'babybuddy.tests.tests_formats.FormatsTestCase.test_use_24_hour_time_format_en'
+          'babybuddy.tests.formats.tests_en_us.FormatsTestCase.test_use_24_hour_time_format'
       ],
     },
     watchConfig: {
