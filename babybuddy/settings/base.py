@@ -64,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'babybuddy.middleware.UserTimezoneMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'babybuddy.middleware.UserLanguageMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -195,8 +196,6 @@ USE_L10N = True
 # implementation for the English locale.
 
 USE_24_HOUR_TIME_FORMAT = strtobool(os.environ.get('USE_24_HOUR_TIME_FORMAT') or 'False')
-
-FORMAT_MODULE_PATH = ['babybuddy.formats']
 
 
 # Static files (CSS, JavaScript, Images)
