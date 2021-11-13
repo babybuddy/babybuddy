@@ -1,5 +1,38 @@
 # Changelog
 
+## [v1.9.1](https://github.com/babybuddy/babybuddy/tree/v1.9.1)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.9.0...v1.9.1)
+
+**Implemented enhancements:**
+
+- Help with API - Only Receive Todays Results [\#328](https://github.com/babybuddy/babybuddy/issues/328)
+- Add date filters to API [\#330](https://github.com/babybuddy/babybuddy/pull/330) ([cdubz](https://github.com/cdubz))
+- feat\(sleep\): \#323 Add napping field to the sleep model [\#325](https://github.com/babybuddy/babybuddy/pull/325) ([codisart](https://github.com/codisart))
+- add en-GB 'translations' [\#321](https://github.com/babybuddy/babybuddy/pull/321) ([Amith211](https://github.com/Amith211))
+- Added pl translations [\#317](https://github.com/babybuddy/babybuddy/pull/317) ([KaminskiDaniell](https://github.com/KaminskiDaniell))
+- Add tummy time duration report [\#316](https://github.com/babybuddy/babybuddy/pull/316) ([lutzky](https://github.com/lutzky))
+
+**Fixed bugs:**
+
+- Custom `en` date formats interfere with `en-GB` language [\#324](https://github.com/babybuddy/babybuddy/issues/324)
+- `gulp migrate` failing in Gitpod [\#320](https://github.com/babybuddy/babybuddy/issues/320)
+- Selection not working on Firefox Android  [\#258](https://github.com/babybuddy/babybuddy/issues/258)
+- Update format customizations handling [\#332](https://github.com/babybuddy/babybuddy/pull/332) ([cdubz](https://github.com/cdubz))
+
+**Closed issues:**
+
+- OPTIONS API returns results instead of parameters [\#329](https://github.com/babybuddy/babybuddy/issues/329)
+- Enhancement: premature birth [\#313](https://github.com/babybuddy/babybuddy/issues/313)
+- SSL/TLS setup instructions [\#166](https://github.com/babybuddy/babybuddy/issues/166)
+
+**Merged pull requests:**
+
+- Reorganize documentation [\#331](https://github.com/babybuddy/babybuddy/pull/331) ([cdubz](https://github.com/cdubz))
+- refacto\(sleep-reports\): \#283 Replace times and labels lists by a single days list [\#327](https://github.com/babybuddy/babybuddy/pull/327) ([codisart](https://github.com/codisart))
+- refacto\(sleep-reports\): \#283 Rename some variables and add constants for magic strings [\#326](https://github.com/babybuddy/babybuddy/pull/326) ([codisart](https://github.com/codisart))
+- Fix typo in README [\#322](https://github.com/babybuddy/babybuddy/pull/322) ([kejadlen](https://github.com/kejadlen))
+
 ## [v1.9.0](https://github.com/babybuddy/babybuddy/tree/v1.9.0) (2021-09-25)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.8.3...v1.9.0)
@@ -7,35 +40,35 @@
 **Implemented enhancements:**
 
 - Favicon is hard to see on dark backgrounds [\#297](https://github.com/babybuddy/babybuddy/issues/297)
+- Mobile UI Tweaks [\#229](https://github.com/babybuddy/babybuddy/issues/229)
 - Sleep graph y-axis should go "down" from midnight at the top. [\#289](https://github.com/babybuddy/babybuddy/issues/289)
 - Allow manual editting of datetime values [\#284](https://github.com/babybuddy/babybuddy/issues/284)
 - Add prominent link to timeline view from dashboard [\#271](https://github.com/babybuddy/babybuddy/issues/271)
-- Mobile UI Tweaks [\#229](https://github.com/babybuddy/babybuddy/issues/229)
+- Nav items linking to timeline from dashboard [\#278](https://github.com/babybuddy/babybuddy/pull/278) ([lutzky](https://github.com/lutzky))
 - Adding Portuguese Translation [\#308](https://github.com/babybuddy/babybuddy/pull/308) ([signorecello](https://github.com/signorecello))
+- Feeding form type breast autoselect [\#307](https://github.com/babybuddy/babybuddy/pull/307) ([ntrecina](https://github.com/ntrecina))
 - Date picker changes [\#304](https://github.com/babybuddy/babybuddy/pull/304) ([ntrecina](https://github.com/ntrecina))
+- Gitpod config [\#303](https://github.com/babybuddy/babybuddy/pull/303) ([lutzky](https://github.com/lutzky))
 - reversing y-axis of sleep plot \(top to down\) [\#295](https://github.com/babybuddy/babybuddy/pull/295) ([fodi666](https://github.com/fodi666))
 
 **Fixed bugs:**
 
-- Buttons icon glyphs missing in time selector [\#302](https://github.com/babybuddy/babybuddy/issues/302)
 - If there is only one sleep entry and it starts one day and ends the next day the sleep graph excepts. [\#290](https://github.com/babybuddy/babybuddy/issues/290)
+- Buttons icon glyphs missing in time selector [\#302](https://github.com/babybuddy/babybuddy/issues/302)
 - Sleep graph uses 12h format when 24h is enabled. [\#287](https://github.com/babybuddy/babybuddy/issues/287)
 
 **Closed issues:**
 
 - All users lost [\#305](https://github.com/babybuddy/babybuddy/issues/305)
 - iOS Shortcuts [\#299](https://github.com/babybuddy/babybuddy/issues/299)
+- Last Feed Time vs Last Time First Fed [\#162](https://github.com/babybuddy/babybuddy/issues/162)
 - Button group flex spacing is weird on smaller screens [\#298](https://github.com/babybuddy/babybuddy/issues/298)
 - Add a gulp commend for font updates [\#296](https://github.com/babybuddy/babybuddy/issues/296)
-- Last Feed Time vs Last Time First Fed [\#162](https://github.com/babybuddy/babybuddy/issues/162)
 
 **Merged pull requests:**
 
 - Add CodeQL workflow config [\#314](https://github.com/babybuddy/babybuddy/pull/314) ([cdubz](https://github.com/cdubz))
 - Improve logo/favicon styling [\#312](https://github.com/babybuddy/babybuddy/pull/312) ([cdubz](https://github.com/cdubz))
-- Feeding form type breast autoselect [\#307](https://github.com/babybuddy/babybuddy/pull/307) ([ntrecina](https://github.com/ntrecina))
-- Gitpod config [\#303](https://github.com/babybuddy/babybuddy/pull/303) ([lutzky](https://github.com/lutzky))
-- Nav items linking to timeline from dashboard [\#278](https://github.com/babybuddy/babybuddy/pull/278) ([lutzky](https://github.com/lutzky))
 
 ## [v1.8.3](https://github.com/babybuddy/babybuddy/tree/v1.8.3) (2021-08-28)
 
@@ -47,6 +80,10 @@
 - Timeline view: Activities should include their notes \(or at least mark activities that have notes\) [\#272](https://github.com/babybuddy/babybuddy/issues/272)
 - Improve cross-midnight timeline view [\#270](https://github.com/babybuddy/babybuddy/issues/270)
 - Timeline: For feedings, show time-since-feeding-before [\#266](https://github.com/babybuddy/babybuddy/issues/266)
+- add Docker admin activity example [\#282](https://github.com/babybuddy/babybuddy/pull/282) ([jcgoette](https://github.com/jcgoette))
+- Add date-nav to bottom [\#281](https://github.com/babybuddy/babybuddy/pull/281) ([lutzky](https://github.com/lutzky))
+- Show notes in timeline [\#280](https://github.com/babybuddy/babybuddy/pull/280) ([lutzky](https://github.com/lutzky))
+- Add "time since previous feeding" [\#275](https://github.com/babybuddy/babybuddy/pull/275) ([lutzky](https://github.com/lutzky))
 - add SECURE\_PROXY\_SSL\_HEADER env arg option [\#285](https://github.com/babybuddy/babybuddy/pull/285) ([jcgoette](https://github.com/jcgoette))
 
 **Fixed bugs:**
@@ -54,13 +91,6 @@
 - KeyError when generating graph for sleep pattern [\#293](https://github.com/babybuddy/babybuddy/issues/293)
 - Graph x-axis date labels should not show times, only dates. [\#288](https://github.com/babybuddy/babybuddy/issues/288)
 - Mobile submit button prevents date selection in some circumstances [\#265](https://github.com/babybuddy/babybuddy/issues/265)
-
-**Merged pull requests:**
-
-- add Docker admin activity example [\#282](https://github.com/babybuddy/babybuddy/pull/282) ([jcgoette](https://github.com/jcgoette))
-- Add date-nav to bottom [\#281](https://github.com/babybuddy/babybuddy/pull/281) ([lutzky](https://github.com/lutzky))
-- Show notes in timeline [\#280](https://github.com/babybuddy/babybuddy/pull/280) ([lutzky](https://github.com/lutzky))
-- Add "time since previous feeding" [\#275](https://github.com/babybuddy/babybuddy/pull/275) ([lutzky](https://github.com/lutzky))
 
 ## [v1.8.2](https://github.com/babybuddy/babybuddy/tree/v1.8.2) (2021-08-06)
 
@@ -94,6 +124,7 @@
 - Links from dashboard [\#234](https://github.com/babybuddy/babybuddy/issues/234)
 - Hide Child column if only one child is shown [\#233](https://github.com/babybuddy/babybuddy/issues/233)
 - Feature/UI Request: Only require a single time for feedings [\#192](https://github.com/babybuddy/babybuddy/issues/192)
+- Add links from dashboard [\#268](https://github.com/babybuddy/babybuddy/pull/268) ([lutzky](https://github.com/lutzky))
 - Dashboard: Auto-refresh even if focus is supported [\#255](https://github.com/babybuddy/babybuddy/pull/255) ([lutzky](https://github.com/lutzky))
 - Make form submit full width fixed [\#254](https://github.com/babybuddy/babybuddy/pull/254) ([cdubz](https://github.com/cdubz))
 - Brighten blue and cyan colors [\#251](https://github.com/babybuddy/babybuddy/pull/251) ([lutzky](https://github.com/lutzky))
@@ -110,7 +141,6 @@
 **Merged pull requests:**
 
 - Ignore files in static for repository language [\#269](https://github.com/babybuddy/babybuddy/pull/269) ([lutzky](https://github.com/lutzky))
-- Add links from dashboard [\#268](https://github.com/babybuddy/babybuddy/pull/268) ([lutzky](https://github.com/lutzky))
 - Move Actions column to the far left [\#267](https://github.com/babybuddy/babybuddy/pull/267) ([lutzky](https://github.com/lutzky))
 - Unify "wet" and "solid" columns [\#264](https://github.com/babybuddy/babybuddy/pull/264) ([lutzky](https://github.com/lutzky))
 - Hide child column if only one child is shown [\#262](https://github.com/babybuddy/babybuddy/pull/262) ([lutzky](https://github.com/lutzky))
