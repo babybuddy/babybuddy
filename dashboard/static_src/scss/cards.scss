@@ -1,18 +1,24 @@
+%card-header-text {
+    font-size: $h4-font-size;
+    font-weight: $headings-font-weight;
+    line-height: $headings-line-height;
+}
+
 .card-dashboard {
-    @extend .mb-3;
+    margin-bottom: $spacer;
 
     .card-header {
-        @extend .h4;
+        @extend %card-header-text;
         margin-bottom: 0;
     }
 
     .card-body {
         .card-title {
-            @extend .h4;
+            @extend %card-header-text;
         }
 
         .card-text {
-            @extend .text-muted;
+            color: $text-muted;
         }
 
         // Offset horizontal padding in dashboard cards with a carousel.
@@ -26,14 +32,15 @@
 }
 
 .card-diaperchange {
-    @extend .border-danger;
+    border-color: theme-color('danger');
 
     .card-header, .card-header a {
-        @extend .text-white, .bg-danger;
+        background-color: theme-color('danger');
+        color: theme-color('light');
     }
 
     .card-body {
-        @extend .text-danger;
+        color: theme-color('danger');
     }
 
     .progress {
@@ -42,14 +49,15 @@
 }
 
 .card-feeding {
-    @extend .border-primary;
+    border-color: theme-color('primary');
 
     .card-header, .card-header a {
-        @extend .text-white, .bg-primary;
+        background-color: theme-color('primary');
+        color: theme-color('light');
     }
 
     .card-body {
-        @extend .text-primary;
+        color: theme-color('primary');
 
         // Last feeding method header in card.
         .last-feeding-method {
@@ -59,22 +67,28 @@
 }
 
 .card-sleep {
-    @extend .border-secondary;
+    border-color: theme-color('secondary');
 
     .card-header, .card-header a {
-        @extend .text-white, .bg-secondary;
+        background-color: theme-color('secondary');
+        color: theme-color('light');
     }
 }
 
-.card-statistics {
-    @extend .border-light;
+.card-statistics, .card-timer {
+    border-color: theme-color('light');
 
     .card-header {
-        @extend .text-dark, .bg-light;
+        background-color: theme-color('light');
+        color: theme-color('dark');
+
+        a {
+            color: theme-color('dark');
+        }
     }
 
     .card-body {
-        @extend .text-light;
+        color: theme-color('light');
 
         .container {
             padding: 0;
@@ -82,26 +96,15 @@
     }
 }
 
-.card-timer {
-    @extend .border-light;
-
-    .card-header, .card-header a {
-        @extend .text-dark, .bg-light;
-    }
-
-    .card-body {
-        @extend .text-light;
-    }
-}
-
 .card-tummytime {
-    @extend .border-success;
+    border-color: theme-color('success');
 
     .card-header, .card-header a {
-        @extend .text-white, .bg-success;
+        background-color: theme-color('success');
+        color: theme-color('light');
     }
 
     .card-body {
-        @extend .text-success;
+        color: theme-color('success');
     }
 }

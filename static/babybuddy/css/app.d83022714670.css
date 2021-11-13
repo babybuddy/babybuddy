@@ -353,7 +353,7 @@ template {
 }
 
 h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .card-dashboard .card-body .card-title, .card-dashboard .card-header, .h5, .h6 {
+.h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
@@ -371,7 +371,7 @@ h3, .h3 {
   font-size: 1.75rem;
 }
 
-h4, .h4, .card-dashboard .card-body .card-title, .card-dashboard .card-header {
+h4, .h4 {
   font-size: 1.5rem;
 }
 
@@ -6283,39 +6283,33 @@ a.close.disabled {
   vertical-align: text-top !important;
 }
 
-.bg-primary, .card-feeding .card-header, .card-feeding .card-header a {
+.bg-primary {
   background-color: #37abe9 !important;
 }
 
-a.bg-primary:hover, .card-feeding a.card-header:hover, .card-feeding .card-header a:hover, a.bg-primary:focus, .card-feeding a.card-header:focus, .card-feeding .card-header a:focus,
+a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
-.card-feeding button.card-header:hover,
-button.bg-primary:focus,
-.card-feeding button.card-header:focus {
+button.bg-primary:focus {
   background-color: #1793d6 !important;
 }
 
-.bg-secondary, .card-sleep .card-header, .card-sleep .card-header a {
+.bg-secondary {
   background-color: #ff8f00 !important;
 }
 
-a.bg-secondary:hover, .card-sleep a.card-header:hover, .card-sleep .card-header a:hover, a.bg-secondary:focus, .card-sleep a.card-header:focus, .card-sleep .card-header a:focus,
+a.bg-secondary:hover, a.bg-secondary:focus,
 button.bg-secondary:hover,
-.card-sleep button.card-header:hover,
-button.bg-secondary:focus,
-.card-sleep button.card-header:focus {
+button.bg-secondary:focus {
   background-color: #cc7200 !important;
 }
 
-.bg-success, .card-tummytime .card-header, .card-tummytime .card-header a {
+.bg-success {
   background-color: #239556 !important;
 }
 
-a.bg-success:hover, .card-tummytime a.card-header:hover, .card-tummytime .card-header a:hover, a.bg-success:focus, .card-tummytime a.card-header:focus, .card-tummytime .card-header a:focus,
+a.bg-success:hover, a.bg-success:focus,
 button.bg-success:hover,
-.card-tummytime button.card-header:hover,
-button.bg-success:focus,
-.card-tummytime button.card-header:focus {
+button.bg-success:focus {
   background-color: #196c3e !important;
 }
 
@@ -6339,29 +6333,23 @@ button.bg-warning:focus {
   background-color: #ffac0f !important;
 }
 
-.bg-danger, .card-diaperchange .card-header, .card-diaperchange .card-header a {
+.bg-danger {
   background-color: #a72431 !important;
 }
 
-a.bg-danger:hover, .card-diaperchange a.card-header:hover, .card-diaperchange .card-header a:hover, a.bg-danger:focus, .card-diaperchange a.card-header:focus, .card-diaperchange .card-header a:focus,
+a.bg-danger:hover, a.bg-danger:focus,
 button.bg-danger:hover,
-.card-diaperchange button.card-header:hover,
-button.bg-danger:focus,
-.card-diaperchange button.card-header:focus {
+button.bg-danger:focus {
   background-color: #7d1b25 !important;
 }
 
-.bg-light, .card-timer .card-header, .card-timer .card-header a, .card-statistics .card-header {
+.bg-light {
   background-color: #f8f9fa !important;
 }
 
-a.bg-light:hover, .card-timer a.card-header:hover, .card-timer .card-header a:hover, .card-statistics a.card-header:hover, a.bg-light:focus, .card-timer a.card-header:focus, .card-timer .card-header a:focus, .card-statistics a.card-header:focus,
+a.bg-light:hover, a.bg-light:focus,
 button.bg-light:hover,
-.card-timer button.card-header:hover,
-.card-statistics button.card-header:hover,
-button.bg-light:focus,
-.card-timer button.card-header:focus,
-.card-statistics button.card-header:focus {
+button.bg-light:focus {
   background-color: #dae0e5 !important;
 }
 
@@ -6443,15 +6431,15 @@ button.bg-error:focus {
   border-left: 0 !important;
 }
 
-.border-primary, .card-feeding {
+.border-primary {
   border-color: #37abe9 !important;
 }
 
-.border-secondary, .card-sleep {
+.border-secondary {
   border-color: #ff8f00 !important;
 }
 
-.border-success, .card-tummytime {
+.border-success {
   border-color: #239556 !important;
 }
 
@@ -6463,11 +6451,11 @@ button.bg-error:focus {
   border-color: #ffbe42 !important;
 }
 
-.border-danger, .card-diaperchange {
+.border-danger {
   border-color: #a72431 !important;
 }
 
-.border-light, .card-timer, .card-statistics {
+.border-light {
   border-color: #f8f9fa !important;
 }
 
@@ -7814,7 +7802,7 @@ button.bg-error:focus {
   margin-right: 1rem !important;
 }
 
-.mb-3, .card-dashboard,
+.mb-3,
 .my-3 {
   margin-bottom: 1rem !important;
 }
@@ -10026,15 +10014,15 @@ button.bg-error:focus {
   font-style: italic !important;
 }
 
-.text-white, .card-tummytime .card-header, .card-tummytime .card-header a, .card-sleep .card-header, .card-sleep .card-header a, .card-feeding .card-header, .card-feeding .card-header a, .card-diaperchange .card-header, .card-diaperchange .card-header a {
+.text-white {
   color: #fff !important;
 }
 
-.text-primary, .card-feeding .card-body {
+.text-primary {
   color: #37abe9 !important;
 }
 
-a.text-primary:hover, .card-feeding a.card-body:hover, a.text-primary:focus, .card-feeding a.card-body:focus {
+a.text-primary:hover, a.text-primary:focus {
   color: #1583bf !important;
 }
 
@@ -10046,11 +10034,11 @@ a.text-secondary:hover, a.text-secondary:focus {
   color: #b36400 !important;
 }
 
-.text-success, .card-tummytime .card-body {
+.text-success {
   color: #239556 !important;
 }
 
-a.text-success:hover, .card-tummytime a.card-body:hover, a.text-success:focus, .card-tummytime a.card-body:focus {
+a.text-success:hover, a.text-success:focus {
   color: #145732 !important;
 }
 
@@ -10070,27 +10058,27 @@ a.text-warning:hover, a.text-warning:focus {
   color: #f5a000 !important;
 }
 
-.text-danger, .card-diaperchange .card-body {
+.text-danger {
   color: #a72431 !important;
 }
 
-a.text-danger:hover, .card-diaperchange a.card-body:hover, a.text-danger:focus, .card-diaperchange a.card-body:focus {
+a.text-danger:hover, a.text-danger:focus {
   color: #68161f !important;
 }
 
-.text-light, .card-timer .card-body, .card-statistics .card-body {
+.text-light {
   color: #f8f9fa !important;
 }
 
-a.text-light:hover, .card-timer a.card-body:hover, .card-statistics a.card-body:hover, a.text-light:focus, .card-timer a.card-body:focus, .card-statistics a.card-body:focus {
+a.text-light:hover, a.text-light:focus {
   color: #cbd3da !important;
 }
 
-.text-dark, .card-timer .card-header, .card-timer .card-header a, .card-statistics .card-header {
+.text-dark {
   color: #343a40 !important;
 }
 
-a.text-dark:hover, .card-timer a.card-header:hover, .card-timer .card-header a:hover, .card-statistics a.card-header:hover, a.text-dark:focus, .card-timer a.card-header:focus, .card-timer .card-header a:focus, .card-statistics a.card-header:focus {
+a.text-dark:hover, a.text-dark:focus {
   color: #121416 !important;
 }
 
@@ -10114,7 +10102,7 @@ a.text-error:hover, a.text-error:focus {
   color: #ced4da !important;
 }
 
-.text-muted, .card-dashboard .card-body .card-text {
+.text-muted {
   color: #6c757d !important;
 }
 
@@ -10759,8 +10747,20 @@ h3 {
     font-size: 6rem;
   }
 }
+.card-dashboard .card-body .card-title, .card-dashboard .card-header {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.card-dashboard {
+  margin-bottom: 1rem;
+}
 .card-dashboard .card-header {
   margin-bottom: 0;
+}
+.card-dashboard .card-body .card-text {
+  color: #6c757d;
 }
 .card-dashboard .card-body .carousel {
   margin-left: -1.25rem;
@@ -10769,16 +10769,68 @@ h3 {
   padding-right: 1.25rem;
 }
 
+.card-diaperchange {
+  border-color: #a72431;
+}
+.card-diaperchange .card-header, .card-diaperchange .card-header a {
+  background-color: #a72431;
+  color: #f8f9fa;
+}
+.card-diaperchange .card-body {
+  color: #a72431;
+}
 .card-diaperchange .progress {
   height: 2rem;
 }
 
+.card-feeding {
+  border-color: #37abe9;
+}
+.card-feeding .card-header, .card-feeding .card-header a {
+  background-color: #37abe9;
+  color: #f8f9fa;
+}
+.card-feeding .card-body {
+  color: #37abe9;
+}
 .card-feeding .card-body .last-feeding-method {
   font-size: 2em;
 }
 
-.card-statistics .card-body .container {
+.card-sleep {
+  border-color: #ff8f00;
+}
+.card-sleep .card-header, .card-sleep .card-header a {
+  background-color: #ff8f00;
+  color: #f8f9fa;
+}
+
+.card-statistics, .card-timer {
+  border-color: #f8f9fa;
+}
+.card-statistics .card-header, .card-timer .card-header {
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+.card-statistics .card-header a, .card-timer .card-header a {
+  color: #343a40;
+}
+.card-statistics .card-body, .card-timer .card-body {
+  color: #f8f9fa;
+}
+.card-statistics .card-body .container, .card-timer .card-body .container {
   padding: 0;
+}
+
+.card-tummytime {
+  border-color: #239556;
+}
+.card-tummytime .card-header, .card-tummytime .card-header a {
+  background-color: #239556;
+  color: #f8f9fa;
+}
+.card-tummytime .card-body {
+  color: #239556;
 }
 
 .child-actions {
