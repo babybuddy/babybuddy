@@ -3,7 +3,7 @@ import datetime
 
 from django.core.exceptions import ValidationError
 from django.forms.fields import DateTimeField
-from django.test import TestCase, override_settings, tag
+from django.test import TestCase, override_settings  # , tag
 from django.utils.formats import date_format, time_format
 
 from babybuddy.middleware import update_en_gb_date_formats
@@ -32,7 +32,7 @@ class GbFormatsTestCase(TestCase):
         with self.assertRaises(ValidationError):
             field.to_python('invalid date string!')
 
-    @tag('isolate')
+    # @tag('isolate')
     @override_settings(LANGUAGE_CODE='en-GB', USE_24_HOUR_TIME_FORMAT=True)
     def test_use_24_hour_time_format(self):
         update_en_gb_date_formats()
@@ -62,10 +62,10 @@ class GbFormatsTestCase(TestCase):
         dt = datetime.datetime(year=2011, month=11, day=4, hour=2, minute=5,
                                second=59)
         self.assertEqual(
-            date_format(dt, 'SHORT_DATETIME_FORMAT'), '04/11//2011 2:05:59')
+            date_format(dt, 'SHORT_DATETIME_FORMAT'), '04/11/2011 02:05')
 
         t = datetime.time(hour=16, minute=2, second=25)
-        self.assertEqual(time_format(t), '16:02:25')
+        self.assertEqual(time_format(t), '16:02')
 
     # def test_short_month_day_format(self):
     #     update_en_gb_date_formats()
