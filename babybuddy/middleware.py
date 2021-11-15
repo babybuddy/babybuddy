@@ -41,6 +41,7 @@ def update_en_us_date_formats():
 
 def update_en_gb_date_formats():
     if settings.USE_24_HOUR_TIME_FORMAT:
+        # 25 October 2006 14:30:00
         formats_en_gb.DATETIME_FORMAT = 'j F Y H:i:s'
         custom_input_formats = [
             '%d/%m/%Y %H:%M:%S',  # '25/10/2006 14:30:59'
@@ -49,6 +50,7 @@ def update_en_gb_date_formats():
         formats_en_gb.SHORT_DATETIME_FORMAT = 'd/m/Y H:i'
         formats_en_gb.TIME_FORMAT = 'H:i'
     else:
+        formats_en_gb.DATETIME_FORMAT = 'j F Y f a'  # 25 October 2006 2:30 p.m
         # These formats are added to support the locale style of Baby Buddy's
         # frontend library, which uses momentjs.
         custom_input_formats = [
