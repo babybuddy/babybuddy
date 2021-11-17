@@ -11,6 +11,8 @@ from core.utils import duration_string
 
 from reports import utils
 
+from datetime import timedelta
+
 ASLEEP_COLOR = 'rgb(35, 110, 150)'
 AWAKE_COLOR = 'rgba(255, 255, 255, 0)'
 
@@ -21,22 +23,17 @@ def sleep_pattern(sleeps):
     :param sleeps: a QuerySet of Sleep instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    days = {}
     last_end_time = None
     adjustment = None
+
+    days = _init_days(sleeps.first().start, sleeps.last().end)
+
     for sleep in sleeps:
         start_time = timezone.localtime(sleep.start)
         end_time = timezone.localtime(sleep.end)
         start_date = start_time.date().isoformat()
         end_date = end_time.date().isoformat()
         duration = sleep.duration
-
-        # Ensure that lists are initialized for the start and end date (as they
-        # may be different dates).
-        if start_date not in days:
-            days[start_date] = []
-        if end_date not in days:
-            days[end_date] = []
 
         # Check if the previous entry crossed midnight (see below).
         if adjustment:
@@ -169,6 +166,12 @@ def sleep_pattern(sleeps):
     })
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
     return utils.split_graph_output(output)
+
+
+def _init_days(first_day, last_day):
+    period = (last_day - first_day).days + 1
+    def new_day(d): return (first_day + timedelta(days=d)).date().isoformat()
+    return {new_day(day): [] for day in range(period)}
 
 
 def _add_adjustment(adjustment, days):
