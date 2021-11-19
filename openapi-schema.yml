@@ -250,22 +250,16 @@ paths:
         description: The initial index from which to return the results.
         schema:
           type: integer
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
       - name: child
         required: false
         in: query
         description: child
-        schema:
-          type: string
-      - name: wet
-        required: false
-        in: query
-        description: wet
-        schema:
-          type: string
-      - name: solid
-        required: false
-        in: query
-        description: solid
         schema:
           type: string
       - name: color
@@ -279,16 +273,16 @@ paths:
           - brown
           - green
           - yellow
-      - name: amount
-        required: false
-        in: query
-        description: amount
-        schema:
-          type: string
       - name: date
         required: false
         in: query
         description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
         schema:
           type: string
       - name: date_min
@@ -297,10 +291,16 @@ paths:
         description: Min. Date
         schema:
           type: string
-      - name: date_max
+      - name: solid
         required: false
         in: query
-        description: Max. Date
+        description: solid
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
         schema:
           type: string
       responses:
@@ -365,22 +365,16 @@ paths:
         description: A unique integer value identifying this Diaper Change.
         schema:
           type: string
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
       - name: child
         required: false
         in: query
         description: child
-        schema:
-          type: string
-      - name: wet
-        required: false
-        in: query
-        description: wet
-        schema:
-          type: string
-      - name: solid
-        required: false
-        in: query
-        description: solid
         schema:
           type: string
       - name: color
@@ -394,16 +388,16 @@ paths:
           - brown
           - green
           - yellow
-      - name: amount
-        required: false
-        in: query
-        description: amount
-        schema:
-          type: string
       - name: date
         required: false
         in: query
         description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
         schema:
           type: string
       - name: date_min
@@ -412,10 +406,16 @@ paths:
         description: Min. Date
         schema:
           type: string
-      - name: date_max
+      - name: solid
         required: false
         in: query
-        description: Max. Date
+        description: solid
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
         schema:
           type: string
       responses:
@@ -437,22 +437,16 @@ paths:
         description: A unique integer value identifying this Diaper Change.
         schema:
           type: string
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
       - name: child
         required: false
         in: query
         description: child
-        schema:
-          type: string
-      - name: wet
-        required: false
-        in: query
-        description: wet
-        schema:
-          type: string
-      - name: solid
-        required: false
-        in: query
-        description: solid
         schema:
           type: string
       - name: color
@@ -466,16 +460,16 @@ paths:
           - brown
           - green
           - yellow
-      - name: amount
-        required: false
-        in: query
-        description: amount
-        schema:
-          type: string
       - name: date
         required: false
         in: query
         description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
         schema:
           type: string
       - name: date_min
@@ -484,10 +478,16 @@ paths:
         description: Min. Date
         schema:
           type: string
-      - name: date_max
+      - name: solid
         required: false
         in: query
-        description: Max. Date
+        description: solid
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
         schema:
           type: string
       requestBody:
@@ -520,22 +520,16 @@ paths:
         description: A unique integer value identifying this Diaper Change.
         schema:
           type: string
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
       - name: child
         required: false
         in: query
         description: child
-        schema:
-          type: string
-      - name: wet
-        required: false
-        in: query
-        description: wet
-        schema:
-          type: string
-      - name: solid
-        required: false
-        in: query
-        description: solid
         schema:
           type: string
       - name: color
@@ -549,16 +543,16 @@ paths:
           - brown
           - green
           - yellow
-      - name: amount
-        required: false
-        in: query
-        description: amount
-        schema:
-          type: string
       - name: date
         required: false
         in: query
         description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
         schema:
           type: string
       - name: date_min
@@ -567,10 +561,16 @@ paths:
         description: Min. Date
         schema:
           type: string
-      - name: date_max
+      - name: solid
         required: false
         in: query
-        description: Max. Date
+        description: solid
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
         schema:
           type: string
       responses:
@@ -601,17 +601,24 @@ paths:
         description: child
         schema:
           type: string
-      - name: type
+      - name: end
         required: false
         in: query
-        description: type
+        description: End Date
         schema:
           type: string
-          enum:
-          - breast milk
-          - formula
-          - fortified breast milk
-          - solid food
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
+        schema:
+          type: string
       - name: method
         required: false
         in: query
@@ -625,28 +632,16 @@ paths:
           - both breasts
           - parent fed
           - self fed
-      - name: end
-        required: false
-        in: query
-        description: End Date
-        schema:
-          type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
-      - name: end_max
-        required: false
-        in: query
-        description: Max. End Date
-        schema:
-          type: string
       - name: start
         required: false
         in: query
         description: Start Date
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
         schema:
           type: string
       - name: start_min
@@ -655,12 +650,17 @@ paths:
         description: Min. Start Date
         schema:
           type: string
-      - name: start_end
+      - name: type
         required: false
         in: query
-        description: Max. End Date
+        description: type
         schema:
           type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+          - solid food
       responses:
         '200':
           content:
@@ -729,17 +729,24 @@ paths:
         description: child
         schema:
           type: string
-      - name: type
+      - name: end
         required: false
         in: query
-        description: type
+        description: End Date
         schema:
           type: string
-          enum:
-          - breast milk
-          - formula
-          - fortified breast milk
-          - solid food
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
+        schema:
+          type: string
       - name: method
         required: false
         in: query
@@ -753,28 +760,16 @@ paths:
           - both breasts
           - parent fed
           - self fed
-      - name: end
-        required: false
-        in: query
-        description: End Date
-        schema:
-          type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
-      - name: end_max
-        required: false
-        in: query
-        description: Max. End Date
-        schema:
-          type: string
       - name: start
         required: false
         in: query
         description: Start Date
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
         schema:
           type: string
       - name: start_min
@@ -783,12 +778,17 @@ paths:
         description: Min. Start Date
         schema:
           type: string
-      - name: start_end
+      - name: type
         required: false
         in: query
-        description: Max. End Date
+        description: type
         schema:
           type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+          - solid food
       responses:
         '200':
           content:
@@ -814,17 +814,24 @@ paths:
         description: child
         schema:
           type: string
-      - name: type
+      - name: end
         required: false
         in: query
-        description: type
+        description: End Date
         schema:
           type: string
-          enum:
-          - breast milk
-          - formula
-          - fortified breast milk
-          - solid food
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
+        schema:
+          type: string
       - name: method
         required: false
         in: query
@@ -838,28 +845,16 @@ paths:
           - both breasts
           - parent fed
           - self fed
-      - name: end
-        required: false
-        in: query
-        description: End Date
-        schema:
-          type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
-      - name: end_max
-        required: false
-        in: query
-        description: Max. End Date
-        schema:
-          type: string
       - name: start
         required: false
         in: query
         description: Start Date
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
         schema:
           type: string
       - name: start_min
@@ -868,12 +863,17 @@ paths:
         description: Min. Start Date
         schema:
           type: string
-      - name: start_end
+      - name: type
         required: false
         in: query
-        description: Max. End Date
+        description: type
         schema:
           type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+          - solid food
       requestBody:
         content:
           application/json:
@@ -910,17 +910,24 @@ paths:
         description: child
         schema:
           type: string
-      - name: type
+      - name: end
         required: false
         in: query
-        description: type
+        description: End Date
         schema:
           type: string
-          enum:
-          - breast milk
-          - formula
-          - fortified breast milk
-          - solid food
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
+        schema:
+          type: string
       - name: method
         required: false
         in: query
@@ -934,28 +941,16 @@ paths:
           - both breasts
           - parent fed
           - self fed
-      - name: end
-        required: false
-        in: query
-        description: End Date
-        schema:
-          type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
-      - name: end_max
-        required: false
-        in: query
-        description: Max. End Date
-        schema:
-          type: string
       - name: start
         required: false
         in: query
         description: Start Date
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
         schema:
           type: string
       - name: start_min
@@ -964,12 +959,17 @@ paths:
         description: Min. Start Date
         schema:
           type: string
-      - name: start_end
+      - name: type
         required: false
         in: query
-        description: Max. End Date
+        description: type
         schema:
           type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+          - solid food
       responses:
         '204':
           description: ''
@@ -1004,16 +1004,16 @@ paths:
         description: Date
         schema:
           type: string
-      - name: date_min
-        required: false
-        in: query
-        description: Min. Date
-        schema:
-          type: string
       - name: date_max
         required: false
         in: query
         description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
         schema:
           type: string
       responses:
@@ -1090,16 +1090,16 @@ paths:
         description: Date
         schema:
           type: string
-      - name: date_min
-        required: false
-        in: query
-        description: Min. Date
-        schema:
-          type: string
       - name: date_max
         required: false
         in: query
         description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
         schema:
           type: string
       responses:
@@ -1133,16 +1133,16 @@ paths:
         description: Date
         schema:
           type: string
-      - name: date_min
-        required: false
-        in: query
-        description: Min. Date
-        schema:
-          type: string
       - name: date_max
         required: false
         in: query
         description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
         schema:
           type: string
       requestBody:
@@ -1187,16 +1187,16 @@ paths:
         description: Date
         schema:
           type: string
-      - name: date_min
-        required: false
-        in: query
-        description: Min. Date
-        schema:
-          type: string
       - name: date_max
         required: false
         in: query
         description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
         schema:
           type: string
       responses:
@@ -1233,16 +1233,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -1251,16 +1251,16 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
-        schema:
-          type: string
-      - name: start_end
-        required: false
-        in: query
-        description: Max. End Date
         schema:
           type: string
       responses:
@@ -1337,16 +1337,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -1355,16 +1355,16 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
-        schema:
-          type: string
-      - name: start_end
-        required: false
-        in: query
-        description: Max. End Date
         schema:
           type: string
       responses:
@@ -1398,16 +1398,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -1416,16 +1416,16 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
-        schema:
-          type: string
-      - name: start_end
-        required: false
-        in: query
-        description: Max. End Date
         schema:
           type: string
       requestBody:
@@ -1470,16 +1470,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -1488,16 +1488,16 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
-        schema:
-          type: string
-      - name: start_end
-        required: false
-        in: query
-        description: Max. End Date
         schema:
           type: string
       responses:
@@ -1534,16 +1534,16 @@ paths:
         description: Date
         schema:
           type: string
-      - name: date_min
-        required: false
-        in: query
-        description: Min. Date
-        schema:
-          type: string
       - name: date_max
         required: false
         in: query
         description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
         schema:
           type: string
       responses:
@@ -1620,16 +1620,16 @@ paths:
         description: Date
         schema:
           type: string
-      - name: date_min
-        required: false
-        in: query
-        description: Min. Date
-        schema:
-          type: string
       - name: date_max
         required: false
         in: query
         description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
         schema:
           type: string
       responses:
@@ -1663,16 +1663,16 @@ paths:
         description: Date
         schema:
           type: string
-      - name: date_min
-        required: false
-        in: query
-        description: Min. Date
-        schema:
-          type: string
       - name: date_max
         required: false
         in: query
         description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
         schema:
           type: string
       requestBody:
@@ -1717,16 +1717,16 @@ paths:
         description: Date
         schema:
           type: string
-      - name: date_min
-        required: false
-        in: query
-        description: Min. Date
-        schema:
-          type: string
       - name: date_max
         required: false
         in: query
         description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
         schema:
           type: string
       responses:
@@ -1751,22 +1751,16 @@ paths:
         description: The initial index from which to return the results.
         schema:
           type: integer
-      - name: child
-        required: false
-        in: query
-        description: child
-        schema:
-          type: string
       - name: active
         required: false
         in: query
         description: active
         schema:
           type: string
-      - name: user
+      - name: child
         required: false
         in: query
-        description: user
+        description: child
         schema:
           type: string
       - name: end
@@ -1775,16 +1769,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -1793,16 +1787,22 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
         schema:
           type: string
-      - name: start_end
+      - name: user
         required: false
         in: query
-        description: Max. End Date
+        description: user
         schema:
           type: string
       responses:
@@ -1867,22 +1867,16 @@ paths:
         description: A unique integer value identifying this Timer.
         schema:
           type: string
-      - name: child
-        required: false
-        in: query
-        description: child
-        schema:
-          type: string
       - name: active
         required: false
         in: query
         description: active
         schema:
           type: string
-      - name: user
+      - name: child
         required: false
         in: query
-        description: user
+        description: child
         schema:
           type: string
       - name: end
@@ -1891,16 +1885,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -1909,16 +1903,22 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
         schema:
           type: string
-      - name: start_end
+      - name: user
         required: false
         in: query
-        description: Max. End Date
+        description: user
         schema:
           type: string
       responses:
@@ -1940,22 +1940,16 @@ paths:
         description: A unique integer value identifying this Timer.
         schema:
           type: string
-      - name: child
-        required: false
-        in: query
-        description: child
-        schema:
-          type: string
       - name: active
         required: false
         in: query
         description: active
         schema:
           type: string
-      - name: user
+      - name: child
         required: false
         in: query
-        description: user
+        description: child
         schema:
           type: string
       - name: end
@@ -1964,16 +1958,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -1982,16 +1976,22 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
         schema:
           type: string
-      - name: start_end
+      - name: user
         required: false
         in: query
-        description: Max. End Date
+        description: user
         schema:
           type: string
       requestBody:
@@ -2024,22 +2024,16 @@ paths:
         description: A unique integer value identifying this Timer.
         schema:
           type: string
-      - name: child
-        required: false
-        in: query
-        description: child
-        schema:
-          type: string
       - name: active
         required: false
         in: query
         description: active
         schema:
           type: string
-      - name: user
+      - name: child
         required: false
         in: query
-        description: user
+        description: child
         schema:
           type: string
       - name: end
@@ -2048,16 +2042,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -2066,16 +2060,22 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
         schema:
           type: string
-      - name: start_end
+      - name: user
         required: false
         in: query
-        description: Max. End Date
+        description: user
         schema:
           type: string
       responses:
@@ -2112,16 +2112,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -2130,16 +2130,16 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
-        schema:
-          type: string
-      - name: start_end
-        required: false
-        in: query
-        description: Max. End Date
         schema:
           type: string
       responses:
@@ -2216,16 +2216,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -2234,16 +2234,16 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
-        schema:
-          type: string
-      - name: start_end
-        required: false
-        in: query
-        description: Max. End Date
         schema:
           type: string
       responses:
@@ -2277,16 +2277,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -2295,16 +2295,16 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
-        schema:
-          type: string
-      - name: start_end
-        required: false
-        in: query
-        description: Max. End Date
         schema:
           type: string
       requestBody:
@@ -2349,16 +2349,16 @@ paths:
         description: End Date
         schema:
           type: string
-      - name: end_min
-        required: false
-        in: query
-        description: Min. End Date
-        schema:
-          type: string
       - name: end_max
         required: false
         in: query
         description: Max. End Date
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End Date
         schema:
           type: string
       - name: start
@@ -2367,16 +2367,16 @@ paths:
         description: Start Date
         schema:
           type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End Date
+        schema:
+          type: string
       - name: start_min
         required: false
         in: query
         description: Min. Start Date
-        schema:
-          type: string
-      - name: start_end
-        required: false
-        in: query
-        description: Max. End Date
         schema:
           type: string
       responses:
