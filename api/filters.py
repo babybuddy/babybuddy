@@ -4,7 +4,7 @@ from core import models
 
 
 class TimeFieldFilter(filters.FilterSet):
-    date = filters.DateFilter(field_name='date', label='Date')
+    date = filters.DateFilter(field_name='time__date', label='Date')
     date_min = filters.DateFilter(field_name='time__date', label='Min. Date',
                                   lookup_expr='gte')
     date_max = filters.DateFilter(field_name='time__date', label='Max. Date',
