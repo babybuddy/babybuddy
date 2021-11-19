@@ -85,7 +85,7 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 ### Requirements
 
 - Python 3.6+, pip, pipenv
-- NodeJS 14.x and NPM 7.x
+- NVM (NodeJS 14.x and NPM 7.x)
 - Gulp
 - Possibly `libpq-dev`
   - This is necessary if `psycopg2` can't find an appropriate prebuilt binary.
@@ -96,13 +96,21 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
 
 1. Install required Python packages, including dev packages
 
-       pipenv install --three
+       pipenv install --three --dev
 
    - If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
+    
+1. Installed Node 14.x (if necessary)
+
+        nvm install 14
+
+1. Activate Node 14.x
+
+        nvm use
 
 1. Install Gulp CLI
 
-       sudo npm install -g gulp-cli
+       npm install -g gulp-cli
 
 1. Install required Node packages
 
