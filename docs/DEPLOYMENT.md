@@ -45,7 +45,7 @@ python3 /app/babybuddy/manage.py clearsessions
 
 ## Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fbabybuddy%2Fbabybuddy&template=https%3A%2F%2Fgithub.com%2Fbabybuddy%2Fbabybuddy)
 
 For manual deployments to Heroku without using the "deploy" button, make sure to
 create the following settings before pushing:
