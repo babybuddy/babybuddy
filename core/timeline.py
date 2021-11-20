@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils import timezone, timesince
 from django.utils.translation import gettext as _
 
-from core.models import DiaperChange, Feeding, Sleep, TummyTime
+from core.models import DiaperChange, Feeding, Note, Sleep, TummyTime
 from datetime import timedelta
 
 
@@ -22,6 +22,7 @@ def get_objects(date, child=None):
     _add_feedings(min_date, max_date, events, child)
     _add_sleeps(min_date, max_date, events, child)
     _add_tummy_times(min_date, max_date, events, child)
+    _add_notes(min_date, max_date, events, child)
 
     events.sort(key=lambda x: x['time'], reverse=True)
 
@@ -166,6 +167,21 @@ def _add_diaper_changes(min_date, max_date, events, child):
             },
             'details': details,
             'edit_link': reverse('core:diaperchange-update',
+                                 args=[instance.id]),
+            'model_name': instance.model_name
+        })
+
+
+def _add_notes(min_date, max_date, events, child):
+    instances = Note.objects.filter(
+        time__range=(min_date, max_date)).order_by('-time')
+    if child:
+        instances = instances.filter(child=child)
+    for instance in instances:
+        events.append({
+            'time': timezone.localtime(instance.time),
+            'details': [instance.note],
+            'edit_link': reverse('core:note-update',
                                  args=[instance.id]),
             'model_name': instance.model_name
         })
