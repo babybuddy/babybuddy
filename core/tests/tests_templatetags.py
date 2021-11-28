@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import timezone, formats
 
 from core.models import Child, Timer
 from core.templatetags import bootstrap, datetime, duration, timers
+
+
+class MockUserRequest:
+    def __init__(self, user):
+        self.user = user
 
 
 class TemplateTagsTestCase(TestCase):
@@ -72,17 +77,41 @@ class TemplateTagsTestCase(TestCase):
             timer.id, child.slug))
 
     def test_datetimepicker_format(self):
-        self.assertEqual(datetime.datetimepicker_format(), 'L LT')
-        self.assertEqual(datetime.datetimepicker_format('L LT'), 'L LT')
-        self.assertEqual(
-            datetime.datetimepicker_format('L LTS'), 'L LTS')
+        request = MockUserRequest(User.objects.first())
+        request.user.settings.dashboard_hide_empty = True
+        context = {'request': request}
+
+        with self.settings(USE_24_HOUR_TIME_FORMAT=False):
+            self.assertEqual(datetime.datetimepicker_format(context), 'L LT')
+            self.assertEqual(
+                datetime.datetimepicker_format(context, 'L LT'), 'L LT')
+            self.assertEqual(
+                datetime.datetimepicker_format(context, 'L LTS'), 'L LTS')
 
         with self.settings(USE_24_HOUR_TIME_FORMAT=True):
-            self.assertEqual(datetime.datetimepicker_format(), 'L HH:mm')
             self.assertEqual(
-                datetime.datetimepicker_format('L LT'), 'L HH:mm')
+                datetime.datetimepicker_format(context), 'L HH:mm')
             self.assertEqual(
-                datetime.datetimepicker_format('L LTS'), 'L HH:mm:ss')
+                datetime.datetimepicker_format(context, 'L LT'), 'L HH:mm')
+            self.assertEqual(
+                datetime.datetimepicker_format(context, 'L LTS'), 'L HH:mm:ss')
+
+    @override_settings(USE_24_HOUR_TIME_FORMAT=False)
+    def test_datetimepicker_format_en_gb(self):
+        user = User.objects.first()
+        user.settings.language = 'en-GB'
+        user.save()
+
+        request = MockUserRequest(user)
+        request.user.settings.dashboard_hide_empty = True
+        context = {'request': request}
+
+        self.assertEqual(
+            datetime.datetimepicker_format(context), 'L h:mm a')
+        self.assertEqual(
+            datetime.datetimepicker_format(context, 'L LT'), 'L h:mm a')
+        self.assertEqual(
+            datetime.datetimepicker_format(context, 'L LTS'), 'L h:mm:ss a')
 
     def test_datetime_short(self):
         date = timezone.localtime()
