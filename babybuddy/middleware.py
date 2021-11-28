@@ -3,7 +3,7 @@ import time
 import pytz
 
 from django.conf import settings
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.conf.locale.en import formats as formats_en_us
 from django.conf.locale.en_GB import formats as formats_en_gb
 
@@ -58,10 +58,6 @@ def update_en_gb_date_formats():
             '%d/%m/%Y %I:%M %p',  # '25/10/2006 2:30 PM'
         ]
 
-    # Not setting this makes pages display using the the 25/10/2006 as desired
-    # Add custom "short" version of `MONTH_DAY_FORMAT`.
-    # formats_en_gb.SHORT_MONTH_DAY_FORMAT = 'j M'
-
     # Append all other input formats from the base locale.
     formats_en_gb.DATETIME_INPUT_FORMATS = \
         custom_input_formats + formats_en_gb.DATETIME_INPUT_FORMATS
@@ -76,11 +72,29 @@ class UserLanguageMiddleware:
 
     def __call__(self, request):
         user = request.user
-        if hasattr(user, 'settings') and user.settings.language == 'en-US':
-            update_en_us_date_formats()
-        elif hasattr(user, 'settings') and user.settings.language == 'en-GB':
-            update_en_gb_date_formats()
-        return self.get_response(request)
+        if hasattr(user, 'settings') and user.settings.language:
+            language = user.settings.language
+        elif request.LANGUAGE_CODE:
+            language = request.LANGUAGE_CODE
+        else:
+            language = settings.LANGUAGE_CODE
+
+        if language:
+            if language == 'en-US':
+                update_en_us_date_formats()
+            elif language == 'en-GB':
+                update_en_gb_date_formats()
+
+            # Set the language before generating the response.
+            translation.activate(language)
+
+        response = self.get_response(request)
+
+        # Deactivate the translation before the response is sent so it not
+        # reused in other threads.
+        translation.deactivate()
+
+        return response
 
 
 class UserTimezoneMiddleware:

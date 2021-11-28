@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
+from django.utils import translation
 from django.utils.text import format_lazy
 from django.utils.translation import gettext as _, gettext_lazy
 from django.views.generic import View
@@ -144,7 +145,9 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
+            translation.activate(user.settings.language)
             messages.success(request, _('Settings saved!'))
+            translation.deactivate()
             return set_language(request)
         return render(request, self.template_name, {
             'user_form': form_user,
