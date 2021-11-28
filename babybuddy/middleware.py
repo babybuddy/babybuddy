@@ -3,7 +3,7 @@ import time
 import pytz
 
 from django.conf import settings
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.conf.locale.en import formats as formats_en_us
 
 
@@ -47,10 +47,20 @@ class UserLanguageMiddleware:
 
     def __call__(self, request):
         user = request.user
-        if hasattr(user, 'settings') and user.settings.language == 'en-US':
-            update_en_us_date_formats()
+        if hasattr(user, 'settings'):
+            # Set the custom user language before generating the response.
+            translation.activate(user.settings.language)
 
-        return self.get_response(request)
+            if user.settings.language == 'en-US':
+                update_en_us_date_formats()
+
+        response = self.get_response(request)
+
+        # Deactivate the translation before the response is sent so it not
+        # reused in other threads.
+        translation.deactivate()
+
+        return response
 
 
 class UserTimezoneMiddleware:
