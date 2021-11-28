@@ -47,12 +47,19 @@ class UserLanguageMiddleware:
 
     def __call__(self, request):
         user = request.user
-        if hasattr(user, 'settings'):
-            # Set the custom user language before generating the response.
-            translation.activate(user.settings.language)
+        if hasattr(user, 'settings') and user.settings.language:
+            language = user.settings.language
+        elif request.LANGUAGE_CODE:
+            language = request.LANGUAGE_CODE
+        else:
+            language = settings.LANGUAGE_CODE
 
-            if user.settings.language == 'en-US':
+        if language:
+            if language == 'en-US':
                 update_en_us_date_formats()
+
+            # Set the language before generating the response.
+            translation.activate(language)
 
         response = self.get_response(request)
 
