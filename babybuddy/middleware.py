@@ -5,6 +5,7 @@ import pytz
 from django.conf import settings
 from django.utils import timezone, translation
 from django.conf.locale.en import formats as formats_en_us
+from django.conf.locale.en_GB import formats as formats_en_gb
 
 
 def update_en_us_date_formats():
@@ -38,6 +39,30 @@ def update_en_us_date_formats():
         custom_input_formats + formats_en_us.DATETIME_INPUT_FORMATS
 
 
+def update_en_gb_date_formats():
+    if settings.USE_24_HOUR_TIME_FORMAT:
+        # 25 October 2006 14:30:00
+        formats_en_gb.DATETIME_FORMAT = 'j F Y H:i:s'
+        custom_input_formats = [
+            '%d/%m/%Y %H:%M:%S',  # '25/10/2006 14:30:59'
+            '%d/%m/%Y %H:%M',  # '25/10/2006 14:30'
+        ]
+        formats_en_gb.SHORT_DATETIME_FORMAT = 'd/m/Y H:i'
+        formats_en_gb.TIME_FORMAT = 'H:i'
+    else:
+        formats_en_gb.DATETIME_FORMAT = 'j F Y f a'  # 25 October 2006 2:30 p.m
+        # These formats are added to support the locale style of Baby Buddy's
+        # frontend library, which uses momentjs.
+        custom_input_formats = [
+            '%d/%m/%Y %I:%M:%S %p',  # '25/10/2006 2:30:59 PM'
+            '%d/%m/%Y %I:%M %p',  # '25/10/2006 2:30 PM'
+        ]
+
+    # Append all other input formats from the base locale.
+    formats_en_gb.DATETIME_INPUT_FORMATS = \
+        custom_input_formats + formats_en_gb.DATETIME_INPUT_FORMATS
+
+
 class UserLanguageMiddleware:
     """
     Customizes settings based on user language setting.
@@ -57,6 +82,8 @@ class UserLanguageMiddleware:
         if language:
             if language == 'en-US':
                 update_en_us_date_formats()
+            elif language == 'en-GB':
+                update_en_gb_date_formats()
 
             # Set the language before generating the response.
             translation.activate(language)
