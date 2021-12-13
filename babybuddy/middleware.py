@@ -80,7 +80,7 @@ class UserLanguageMiddleware:
             language = settings.LANGUAGE_CODE
 
         if language:
-            if language == 'en-US':
+            if language == 'en' or language == 'en-US':
                 update_en_us_date_formats()
             elif language == 'en-GB':
                 update_en_gb_date_formats()
