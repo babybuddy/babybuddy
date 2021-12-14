@@ -5,7 +5,7 @@ from .base import *
 # Default to not allow uploads.
 # Heroku does not support file storage for this functionality.
 
-BABY_BUDDY['ALLOW_UPLOADS'] = os.environ.get('ALLOW_UPLOADS') or False
+BABY_BUDDY['ALLOW_UPLOADS'] = bool(strtobool(os.environ.get('ALLOW_UPLOADS') or 'False'))
 
 
 # Database
