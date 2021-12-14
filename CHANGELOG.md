@@ -1,13 +1,25 @@
 # Changelog
 
+## [v1.9.3](https://github.com/babybuddy/babybuddy/tree/v1.9.3) (2021-12-14)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.9.2...v1.9.3)
+
+**Implemented enhancements:**
+
+- add en-gb datetime overrides [\#335](https://github.com/babybuddy/babybuddy/pull/335) ([Amith211](https://github.com/Amith211))
+
+**Fixed bugs:**
+
+- ERROR: Enter a valid date/time [\#337](https://github.com/babybuddy/babybuddy/issues/337)
+
 ## [v1.9.2](https://github.com/babybuddy/babybuddy/tree/v1.9.2) (2021-12-04)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.9.1...v1.9.2)
 
 **Implemented enhancements:**
 
-- Wrong language after logging in [\#346](https://github.com/babybuddy/babybuddy/issues/346)
 - Notes on child timeline [\#343](https://github.com/babybuddy/babybuddy/issues/343)
+- Wrong language after logging in [\#346](https://github.com/babybuddy/babybuddy/issues/346)
 - Add notes to child timeline [\#344](https://github.com/babybuddy/babybuddy/pull/344) ([Alberdi](https://github.com/Alberdi))
 - Complete Spanish translations plus some fixes [\#338](https://github.com/babybuddy/babybuddy/pull/338) ([Alberdi](https://github.com/Alberdi))
 
@@ -23,6 +35,7 @@
 - Connection to Home Assistant [\#345](https://github.com/babybuddy/babybuddy/issues/345)
 - Do not attempt to deploy demo on PRs in CI [\#339](https://github.com/babybuddy/babybuddy/issues/339)
 - Crashes on startup: `ImportError: cannot import name 'etree' from 'lxml'` [\#336](https://github.com/babybuddy/babybuddy/issues/336)
+- en\_GB Time Format \(24 Hour\) [\#333](https://github.com/babybuddy/babybuddy/issues/333)
 
 ## [v1.9.1](https://github.com/babybuddy/babybuddy/tree/v1.9.1) (2021-11-13)
 
