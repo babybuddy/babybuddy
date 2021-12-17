@@ -20,7 +20,7 @@
 {% block breadcrumb_nav %}
     <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">{% trans "Home" %}</a></li>
+            <li class="breadcrumb-item"><a href={% url "babybuddy:root-router" %}>{% trans "Home" %}</a></li>
             {% block breadcrumbs %}{% endblock %}
         </ol>
     </nav>

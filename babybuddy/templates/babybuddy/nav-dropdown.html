@@ -3,7 +3,7 @@
 
 {% block nav %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand mr-2" href="/">
+        <a class="navbar-brand mr-2" href={% url "babybuddy:root-router" %}>
             <img src="{% static "babybuddy/logo/icon-brand.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
             <span class="d-none d-lg-inline-block">
                 <span class="text-primary">Baby</span> Buddy
