@@ -19,6 +19,6 @@
             {% endblocktrans %}
         </h1>
         <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
-        <a href="/" class="btn btn-default">{% trans "Cancel" %}</a>
+        <a href={% url "babybuddy:root-router" %} class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}
