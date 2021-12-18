@@ -269,7 +269,12 @@
                                 <h6 class="dropdown-header">{% trans "User" %}</h6>
                                 <a href="{% url 'babybuddy:user-settings' %}" class="dropdown-item">{% trans "Settings" %}</a>
                                 <a href="{% url 'babybuddy:user-password' %}" class="dropdown-item">{% trans "Password" %}</a>
-                                <a href="{% url 'babybuddy:logout' %}" class="dropdown-item">{% trans "Logout" %}</a>
+                                <form action="{% url 'babybuddy:logout' %}" role="form" method="post">
+                                    {% csrf_token %}
+                                    <button class="dropdown-item">
+                                        {% trans "Logout" %}
+                                    </button>
+                                </form>
                                 <h6 class="dropdown-header">{% trans "Site" %}</h6>
                                 <a href="{% url 'api:api-root' %}" class="dropdown-item">{% trans "API Browser" %}</a>
                                 {% if request.user.is_staff %}

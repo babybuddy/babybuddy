@@ -70,3 +70,7 @@ class ViewsTestCase(TestCase):
     def test_welcome(self):
         page = self.c.get('/welcome/')
         self.assertEqual(page.status_code, 200)
+
+    def test_logout_get_fails(self):
+        page = self.c.get('/logout/')
+        self.assertEqual(page.status_code, 405)
