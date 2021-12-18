@@ -152,20 +152,15 @@ def _add_diaper_changes(min_date, max_date, events, child):
     for instance in instances:
         contents = []
         if instance.wet:
-            contents.append('💧wet')
+            contents.append('💧')
         if instance.solid:
-            contents.append('💩solid')
-        details = [_('Contents: %(contents)s') % {
-            'contents': ', '.join(contents),
-        }]
-        if instance.notes:
-            details.append(instance.notes)
+            contents.append('💩')
         events.append({
             'time': timezone.localtime(instance.time),
-            'event': _('%(child)s had a diaper change.') % {
-                'child': instance.child.first_name
+            'event': _('%(child)s had a %(type)s diaper change.') % {
+                'child': instance.child.first_name,
+                'type': ''.join(contents),
             },
-            'details': details,
             'edit_link': reverse('core:diaperchange-update',
                                  args=[instance.id]),
             'model_name': instance.model_name
