@@ -125,25 +125,6 @@ function lint(cb) {
     pump([
         gulp.src(config.watchConfig.stylesGlob),
         styleLint({
-            config: {
-                extends: 'stylelint-config-recommended-scss',
-                plugins: [
-                    'stylelint-order',
-                    'stylelint-scss'
-                ],
-                rules: {
-                    'at-rule-no-vendor-prefix': true,
-                    'indentation': 4,
-                    'media-feature-name-no-vendor-prefix': true,
-                    'order/order': [
-                        'declarations',
-                        'rules'
-                    ],
-                    'property-no-vendor-prefix': true,
-                    'selector-no-vendor-prefix': true,
-                    'value-no-vendor-prefix': true
-                }
-            },
             reporters: [
                 { formatter: 'string', console: true }
             ]
