@@ -5,7 +5,7 @@ url = "https://pypi.python.org/simple"
 [packages]
 boto3 = "*"
 dj-database-url = "*"
-django = "*"
+django = "==3.*"
 django-axes = "*"
 django-filter = "*"
 django-import-export = "*"
