@@ -1,5 +1,4 @@
 # Contributing
-[Back to Table of Contents](/docs/TOC.md)
 
 Baby Buddy's maintainers accept and encourage contributions via GitHub [Issues](https://github.com/babybuddy/babybuddy/issues)
 and [Pull Requests](https://github.com/babybuddy/babybuddy/pulls). Maintainers
@@ -56,7 +55,7 @@ compile an optimized translation file (`locale/xx/LC_MESSAGES/django.mo`).
 1. Check if Plotly offers a translation (in `node_modules/plotly.js/dist/`) for
 the language. If it does:
 
-    1. Add the Plotly translation file path to [`gulpfile.config.js`](gulpfile.config.js) in
+    1. Add the Plotly translation file path to [`gulpfile.config.js`](/gulpfile.config.js) in
     `scriptsConfig.graph`.
 
     1. Build, collect, and commit the `/static` folder (see 
@@ -65,7 +64,7 @@ the language. If it does:
 1. Check if Moment offers a translation (in `node_modules/moment/locale/`) for
 the language. If it does:
 
-    1. Add the Moment translation file path to [`gulpfile.config.js`](gulpfile.config.js) in
+    1. Add the Moment translation file path to [`gulpfile.config.js`](/gulpfile.config.js) in
     `scriptsConfig.vendor`.
 
     1. Build, collect, and commit the `/static` folder (see 
@@ -121,7 +120,7 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
        export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
 
     This process will differ based on the host OS. The above example is for
-    Linux-based systems. See [Configuration](/docs/CONFIGURATION.md) for other
+    Linux-based systems. See [Configuration](/docs/configuration.md) for other
     settings and methods for defining them.
 
 1. Migrate the database
@@ -144,9 +143,9 @@ username and password (`admin`/`admin`).
 
 ### Gulp commands
 
-[`gulpfile.js`](gulpfile.js) defines Baby Buddy's Gulp commands.
+[`gulpfile.js`](/gulpfile.js) defines Baby Buddy's Gulp commands.
 
-[`babybuddy/management/commands`](babybuddy/management/commands) defines Baby Buddy's
+[`babybuddy/management/commands`](/babybuddy/management/commands) defines Baby Buddy's
 management commands.
 
 - [`gulp`](#gulp)

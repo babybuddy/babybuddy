@@ -1,5 +1,4 @@
 # API
-[Back to Table of Contents](/docs/TOC.md)
 
 Baby Buddy uses the [Django REST Framework](https://www.django-rest-framework.org/)
 (DRF) to provide a REST API.

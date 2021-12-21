@@ -1,5 +1,4 @@
 # Configuration
-[Back to Table of Contents](/docs/TOC.md)
 
 Environment variables can be used to define a number of configuration settings.
 Baby Buddy will check the application directory structure for an `.env` file or

@@ -1,10 +1,9 @@
-## Import/Export
-[Back to Table of Contents](/docs/TOC.md)
+# Import/Export
 
 Baby Buddy uses the [django-import-export application](https://django-import-export.readthedocs.io/)
 to provide import and export functionality.
 
-### Export
+## Export
 
 Export actions are accessible from Baby Buddy's "Database Admin" area (the
 Django admin interface). For example, to export all diaper change entries from
@@ -26,7 +25,7 @@ on the Diaper Change list screen (step 3 above), it is possible to select one
 or many individual records and select "Export selected Diaper Changes" from the
 "Actions" list.
 
-### Import
+## Import
 
 Import actions are accessible from Baby Buddy's "Database Admin" area (the
 Django admin interface). From the list of entry types in the Database Admin,
