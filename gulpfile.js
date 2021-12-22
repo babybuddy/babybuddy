@@ -17,6 +17,15 @@ var config = require('./gulpfile.config.js');
  * Support functions for Gulp tasks.
  */
 
+function _runInPipenv(command, cb) {
+    command.unshift('run');
+    command = command.concat(process.argv.splice(3));
+    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function (code) {
+        if (code) process.exit(code);
+        cb();
+    });
+}
+
 /**
  * Deletes local static files.
  *
@@ -115,12 +124,7 @@ function extras(cb) {
  * @param cb
  */
 function lint(cb) {
-    var command = ['run', 'flake8', '--exclude=.venv,etc,migrations,manage.py,node_modules,settings'];
-    command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function (code) {
-        if (code) process.exit(code);
-        cb();
-    });
+    _runInPipenv(['flake8', '--exclude=.venv,etc,migrations,manage.py,node_modules,settings'], cb);
 
     pump([
         gulp.src(config.watchConfig.stylesGlob),
@@ -212,9 +216,9 @@ function test(cb) {
  */
 function updateglyphs(cb) {
     pump([
-        gulp.src(config.glyphFontCOnfig.configFile),
+        gulp.src(config.glyphFontConfig.configFile),
         fontello({ assetsOnly: false }),
-        gulp.dest(config.glyphFontCOnfig.dest)
+        gulp.dest(config.glyphFontConfig.dest)
     ], cb);
 }
 
@@ -251,58 +255,34 @@ gulp.task('collectstatic', function(cb) {
 });
 
 gulp.task('compilemessages', function(cb) {
-    var command = ['run', 'python', 'manage.py', 'compilemessages'];
-    command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+    _runInPipenv(['python', 'manage.py', 'compilemessages'], cb);
 });
 
 gulp.task('createcachetable', function(cb) {
-    var command = ['run', 'python', 'manage.py', 'createcachetable'];
-    command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+    _runInPipenv(['python', 'manage.py', 'createcachetable'], cb);
 });
 
 gulp.task('fake', function(cb) {
-    var command = ['run', 'python', 'manage.py', 'fake'];
-    command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+    _runInPipenv(['python', 'manage.py', 'fake'], cb);
 });
 
 gulp.task('migrate', function(cb) {
-    var command = ['run', 'python', 'manage.py', 'migrate'];
-    command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+    _runInPipenv(['python', 'manage.py', 'migrate'], cb);
 });
 
 gulp.task('makemessages', function(cb) {
-    var command = ['run', 'python', 'manage.py', 'makemessages'];
-    command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+    _runInPipenv(['python', 'manage.py', 'makemessages'], cb);
 });
 
 gulp.task('makemigrations', function(cb) {
-    var command = ['run', 'python', 'manage.py', 'makemigrations'];
-    command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+    _runInPipenv(['python', 'manage.py', 'makemigrations'], cb);
 });
 
 /**
  * Runs the custom "reset" command to start a fresh database with fake data.
  */
 gulp.task('reset', function(cb) {
-    spawn(
-        'pipenv',
-        [
-            'run',
-            'python',
-            'manage.py',
-            'reset',
-            '--no-input'
-        ],
-        {
-            stdio: 'inherit'
-        }
-    ).on('exit', cb);
+    _runInPipenv(['python', 'manage.py', 'reset', '--no-input'], cb);
 });
 
 gulp.task('runserver', function(cb) {
