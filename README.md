@@ -26,20 +26,19 @@ The demo instance resets every hour. Login credentials are:
 
 ## Documentation
 
-- [Deployment](/docs/deployment.md)
-- [Configuration](/docs/configuration.md)
-- [Import/Export](/docs/import_export.md)
-- [API](/docs/api.md)
-- [Contributing](/docs/contributing.md)
+Visit [https://docs.baby-buddy.net](https://docs.baby-buddy.net) for full documentation.
+
+### Additional documentation
+
 - [Changelog](/CHANGELOG.md)
 - [Security](/SECURITY.md)
-- [LICENSE](/LICENSE) (BSD-2 Clause)
+- [License](/LICENSE) (BSD-2 Clause)
 
 ## Languages
 
 Baby Buddy is available in a variety of languages thanks to the efforts of numerous
 translators. Language can be set on a per-user basis from the user settings page
-(`/user/settings/`). See [CONTRIBUTING.md](/docs/contributing.md#translation)
+(`/user/settings/`). See [Contributing](https://docs.baby-buddy.net/contributing/#translation)
 for information about how to create/update translations.
 
 ### Available languages

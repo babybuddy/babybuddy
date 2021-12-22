@@ -1,4 +1,17 @@
-site_name: Baby Buddy
+extra_css:
+  - css/extras.css
+theme:
+  name: material
+  favicon: assets/favicon.svg
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - search.share
+    - search.suggest
+  logo: assets/logo.svg
+  palette:
+    scheme: slate
+repo_name: babybuddy/babybuddy
+repo_url: https://github.com/babybuddy/babybuddy
+site_name: Baby Buddy Documentation
 site_url: https://docs.baby-buddy.net
-
-theme: readthedocs
