@@ -155,6 +155,9 @@ management commands.
 - [`gulp compilemessages`](#compilemessages)
 - [`gulp coverage`](#coverage)
 - [`gulp createcachetable`](#createcachetable)
+- [`gulp docs:build`](#docsbuild)
+- [`gulp docs:deploy`](#docsdeploy)
+- [`gulp docs:watch`](#docswatch)
 - [`gulp extras`](#extras)
 - [`gulp fake`](#fake)
 - [`gulp lint`](#lint)
@@ -178,6 +181,19 @@ server IP address. See [`gulp runserver`](#runserver) for details.
 
 Creates all script, style and "extra" assets and places them in the
 `babybuddy/static` folder.
+
+#### `docs:build`
+
+Builds the documentation site in a local directory (`site` by default).
+
+#### `docs:deploy`
+
+Deploys the documentation site to GitHub Pages.
+
+#### `docs:watch`
+
+Runs a local server for the documentation site reloading whenever documentation
+sites files (in the `docs` directory) as modified.
 
 #### `clean`
 

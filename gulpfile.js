@@ -90,6 +90,33 @@ function coverage(cb) {
 }
 
 /**
+ * Builds the documentation site locally.
+ *
+ * @param cb
+ */
+function docsBuild(cb) {
+    _runInPipenv(['mkdocs', 'build'], cb);
+}
+
+/**
+ * Deploys the documentation site to GitHub Pages.
+ *
+ * @param cb
+ */
+function docsDeploy(cb) {
+    _runInPipenv(['mkdocs', 'gh-deploy'], cb);
+}
+
+/**
+ * Serves the documentation site, watching for changes.
+ *
+ * @param cb
+ */
+function docsWatch(cb) {
+    _runInPipenv(['mkdocs', 'serve'], cb);
+}
+
+/**
  * Builds and copies "extra" static files to configured paths.
  *
  * @param cb
@@ -321,6 +348,12 @@ gulp.task('runserver', function(cb) {
 gulp.task('clean', clean);
 
 gulp.task('coverage', coverage);
+
+gulp.task('docs:build', docsBuild);
+
+gulp.task('docs:deploy', docsDeploy);
+
+gulp.task('docs:watch', docsWatch);
 
 gulp.task('extras', extras);
 
