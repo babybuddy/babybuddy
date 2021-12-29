@@ -1,0 +1,9 @@
+{% extends 'reports/report_base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "BMI" %} - {{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "BMI" %}</li>
+{% endblock %}

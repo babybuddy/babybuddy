@@ -150,6 +150,20 @@
                                     {% trans "Note" %}
                                 </a>
                             {% endif %}
+                             
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="nav-measurements-menu-link"
+                           class="nav-link dropdown-toggle"
+                           href="#"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false"><i class="icon-measurements" aria-hidden="true"></i>
+                            {% trans "Measurements" %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="nav-measurements-menu-link">
 
                             {% if perms.core.view_temperature %}
                                 <a class="dropdown-item{% if request.path == '/temperature/' %} active{% endif %}"
@@ -176,6 +190,48 @@
                                 <a class="dropdown-item pl-5{% if request.path == '/weight/add/' %} active{% endif %}"
                                    href="{% url 'core:weight-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Weight entry" %}
+                                </a>
+                            {% endif %}
+
+                            {% if perms.core.view_height %}
+                                <a class="dropdown-item{% if request.path == '/height/' %} active{% endif %}"
+                                   href="{% url 'core:height-list' %}">
+                                    <i class="icon-height" aria-hidden="true"></i>
+                                    {% trans "Height" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_height %}
+                                <a class="dropdown-item pl-5{% if request.path == '/height/add/' %} active{% endif %}"
+                                   href="{% url 'core:height-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Height entry" %}
+                                </a>
+                            {% endif %}
+
+                            {% if perms.core.view_head_circumference %}
+                                <a class="dropdown-item{% if request.path == '/head-circumference/' %} active{% endif %}"
+                                   href="{% url 'core:head-circumference-list' %}">
+                                    <i class="icon-head-circumference aria-hidden="true"></i>
+                                    {% trans "Head Circumference" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_head_circumference %}
+                                <a class="dropdown-item pl-5{% if request.path == '/head-circumference/add/' %} active{% endif %}"
+                                   href="{% url 'core:head-circumference-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Head Circumference entry" %}
+                                </a>
+                            {% endif %}
+
+                            {% if perms.core.view_bmi %}
+                                <a class="dropdown-item{% if request.path == '/bmi/' %} active{% endif %}"
+                                   href="{% url 'core:bmi-list' %}">
+                                    <i class="icon-bmi" aria-hidden="true"></i>
+                                    {% trans "BMI" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_bmi %}
+                                <a class="dropdown-item pl-5{% if request.path == '/bmi/add/' %} active{% endif %}"
+                                   href="{% url 'core:bmi-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "BMI entry" %}
                                 </a>
                             {% endif %}
 

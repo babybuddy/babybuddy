@@ -19,6 +19,9 @@
 .icon-arrow-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe811;&nbsp;'); }
 .icon-arrow-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe812;&nbsp;'); }
 .icon-cancel { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe813;&nbsp;'); }
+.icon-head-circumference { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe814;&nbsp;'); }
+.icon-measurements { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe815;&nbsp;'); }
+.icon-height { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf044;&nbsp;'); }
 .icon-dashboard { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e4;&nbsp;'); }
 .icon-tummytime { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf118;&nbsp;'); }
 .icon-sad { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf119;&nbsp;'); }
@@ -34,4 +37,5 @@
 .icon-note { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf249;&nbsp;'); }
 .icon-weight { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf24e;&nbsp;'); }
 .icon-today { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf274;&nbsp;'); }
+.icon-bmi { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf295;&nbsp;'); }
 .icon-temperature { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2c8;&nbsp;'); }

@@ -312,6 +312,27 @@ def card_statistics(context, child):
             'type': 'float',
             'stat': weight['change_weekly'],
             'title': _('Weight change per week')})
+    
+    height = _height_statistics(child)
+    if height:
+        stats.append({
+            'type': 'float',
+            'stat': height['change_weekly'],
+            'title': _('Height change per week')})
+
+    head_circumference = _head_circumference_statistics(child)
+    if head_circumference:
+        stats.append({
+            'type': 'float',
+            'stat': head_circumference['change_weekly'],
+            'title': _('Head circumference change per week')})
+
+    bmi = _bmi_statistics(child)
+    if bmi:
+        stats.append({
+            'type': 'float',
+            'stat': bmi['change_weekly'],
+            'title': _('BMI change per week')})
 
     empty = len(stats) == 0
 
@@ -476,6 +497,71 @@ def _weight_statistics(child):
 
     return weight
 
+def _height_statistics(child):
+    """
+    Statistical height data.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of statistics.
+    """
+    height = {'change_weekly': 0.0}
+
+    instances = models.Height.objects.filter(child=child).order_by('-date')
+    if len(instances) == 0:
+        return False
+
+    newest = instances.first()
+    oldest = instances.last()
+
+    if newest != oldest:
+        height_change = newest.height - oldest.height
+        weeks = (newest.date - oldest.date).days/7
+        height['change_weekly'] = height_change/weeks
+
+    return height
+
+def _head_circumference_statistics(child):
+    """
+    Statistical head circumference data.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of statistics.
+    """
+    head_circumference = {'change_weekly': 0.0}
+
+    instances = models.HeadCircumference.objects.filter(child=child).order_by('-date')
+    if len(instances) == 0:
+        return False
+
+    newest = instances.first()
+    oldest = instances.last()
+
+    if newest != oldest:
+        head_circumference_change = newest.head_circumference - oldest.head_circumference
+        weeks = (newest.date - oldest.date).days/7
+        head_circumference['change_weekly'] = head_circumference_change/weeks
+
+    return head_circumference
+
+def _bmi_statistics(child):
+    """
+    Statistical BMI data.
+    :param child: an instance of the Child model.
+    :returns: a dictionary of statistics.
+    """
+    bmi = {'change_weekly': 0.0}
+
+    instances = models.BMI.objects.filter(child=child).order_by('-date')
+    if len(instances) == 0:
+        return False
+
+    newest = instances.first()
+    oldest = instances.last()
+
+    if newest != oldest:
+        bmi_change = newest.bmi - oldest.bmi
+        weeks = (newest.date - oldest.date).days/7
+        bmi['change_weekly'] = bmi_change/weeks
+
+    return bmi
 
 @register.inclusion_tag('cards/timer_list.html', takes_context=True)
 def card_timer_list(context, child=None):

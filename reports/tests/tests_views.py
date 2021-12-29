@@ -52,3 +52,12 @@ class ViewsTestCase(TestCase):
 
         page = self.c.get('{}/weight/weight/'.format(base_url))
         self.assertEqual(page.status_code, 200)
+
+        page = self.c.get('{}/height/height/'.format(base_url))
+        self.assertEqual(page.status_code, 200)
+
+        page = self.c.get('{}/head-circumference/head-circumference/'.format(base_url))
+        self.assertEqual(page.status_code, 200)
+
+        page = self.c.get('{}/bmi/bmi/'.format(base_url))
+        self.assertEqual(page.status_code, 200)

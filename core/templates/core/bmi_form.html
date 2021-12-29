@@ -1,0 +1,39 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% if object %}
+        {{ object }}
+    {% else %}
+        {% trans "Add a BMI Entry" %}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:bmi-list' %}">{% trans "BMI" %}</a></li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add a BMI Entry" %}</li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if object %}
+        {% blocktrans trimmed %}
+            <h1>Update <span class="text-info">{{ object }}</span></h1>
+        {% endblocktrans %}
+    {% else %}
+        <h1>{% trans "Add a BMI Entry" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        BabyBuddy.DatetimePicker.init($('#datetimepicker_date'), {
+            format: 'L',
+            extraFormats: ['YYYY-MM-DD']
+        });
+    </script>
+{% endblock %}
