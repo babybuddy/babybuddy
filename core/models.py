@@ -73,7 +73,11 @@ def validate_time(time, field_name):
 class Child(models.Model):
     model_name = 'child'
     first_name = models.CharField(max_length=255, verbose_name=_('First name'))
-    last_name = models.CharField(max_length=255, verbose_name=_('Last name'))
+    last_name = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Last name')
+    )
     birth_date = models.DateField(
         blank=False,
         null=False,
@@ -105,7 +109,7 @@ class Child(models.Model):
         verbose_name_plural = _('Children')
 
     def __str__(self):
-        return '{} {}'.format(self.first_name, self.last_name)
+        return self.name()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self, allow_unicode=True)
@@ -117,9 +121,10 @@ class Child(models.Model):
         cache.set(self.cache_key_count, Child.objects.count(), None)
 
     def name(self, reverse=False):
+        if not self.last_name:
+            return self.first_name
         if reverse:
             return '{}, {}'.format(self.last_name, self.first_name)
-
         return '{} {}'.format(self.first_name, self.last_name)
 
     @classmethod
