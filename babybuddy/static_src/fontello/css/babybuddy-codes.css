@@ -19,6 +19,9 @@
 .icon-arrow-up:before { content: '\e811'; } /* '' */
 .icon-arrow-down:before { content: '\e812'; } /* '' */
 .icon-cancel:before { content: '\e813'; } /* '' */
+.icon-head-circumference:before { content: '\e814'; } /* '' */
+.icon-measurements:before { content: '\e815'; } /* '' */
+.icon-height:before { content: '\f044'; } /* '' */
 .icon-dashboard:before { content: '\f0e4'; } /* '' */
 .icon-tummytime:before { content: '\f118'; } /* '' */
 .icon-sad:before { content: '\f119'; } /* '' */
@@ -34,4 +37,5 @@
 .icon-note:before { content: '\f249'; } /* '' */
 .icon-weight:before { content: '\f24e'; } /* '' */
 .icon-today:before { content: '\f274'; } /* '' */
+.icon-bmi:before { content: '\f295'; } /* '' */
 .icon-temperature:before { content: '\f2c8'; } /* '' */

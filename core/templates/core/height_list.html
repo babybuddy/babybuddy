@@ -1,0 +1,73 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks %}
+
+{% block title %}{% trans "Height" %}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Height" %}</li>
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {% trans "Height" %}
+        {% if perms.core.add_height %}
+            <a href="{% url 'core:height-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-height" aria-hidden="true"></i> {% trans "Add Height" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Date" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Height" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for height in object_list %}
+                    {% cycle "odd" "even" as row_class silent %}
+                    <tr class="{{ row_class }}">
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
+
+                                {% if perms.core.change_height %}
+                                    <a href="{% url 'core:height-update' height.id %}" class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.delete_height %}
+                                    <a href="{% url 'core:height-delete' height.id %}" class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                            </div>
+                        </td>
+                        <th scope="row">{{ height.date }}</th>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' height.child.slug %}">{{ height.child }}</a></td>
+                        {% endif %}
+                        <td>{{ height.height }}</td>
+                    </tr>
+                    {% if height.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="4"><i class="icon-note mr-2" aria-hidden="true"></i>{{ height.notes }}</td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="4">{% trans "No height entries found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

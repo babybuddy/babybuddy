@@ -469,3 +469,87 @@ class WeightDelete(CoreDeleteView):
     model = models.Weight
     permission_required = ('core.delete_weight',)
     success_url = reverse_lazy('core:weight-list')
+
+class HeightList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.Height
+    template_name = 'core/height_list.html'
+    permission_required = ('core.view_height',)
+    paginate_by = 10
+    filterset_fields = ('child',)
+
+
+class HeightAdd(CoreAddView):
+    model = models.Height
+    permission_required = ('core.add_height',)
+    form_class = forms.HeightForm
+    success_url = reverse_lazy('core:height-list')
+
+
+class HeightUpdate(CoreUpdateView):
+    model = models.Height
+    permission_required = ('core.change_height',)
+    form_class = forms.HeightForm
+    success_url = reverse_lazy('core:height-list')
+
+
+class HeightDelete(CoreDeleteView):
+    model = models.Height
+    permission_required = ('core.delete_height',)
+    success_url = reverse_lazy('core:height-list')
+
+class HeadCircumferenceList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.HeadCircumference
+    template_name = 'core/head_circumference_list.html'
+    permission_required = ('core.view_head_circumference',)
+    paginate_by = 10
+    filterset_fields = ('child',)
+
+
+class HeadCircumferenceAdd(CoreAddView):
+    model = models.HeadCircumference
+    template_name = 'core/head_circumference_form.html'
+    permission_required = ('core.add_head_circumference',)
+    form_class = forms.HeadCircumferenceForm
+    success_url = reverse_lazy('core:head-circumference-list')
+
+
+class HeadCircumferenceUpdate(CoreUpdateView):
+    model = models.HeadCircumference
+    template_name = 'core/head_circumference_form.html'
+    permission_required = ('core.change_head_circumference',)
+    form_class = forms.HeadCircumferenceForm
+    success_url = reverse_lazy('core:head-circumference-list')
+
+
+class HeadCircumferenceDelete(CoreDeleteView):
+    model = models.HeadCircumference
+    template_name = 'core/head_circumference_delete.html'
+    permission_required = ('core.delete_head_circumference',)
+    success_url = reverse_lazy('core:head-circumference-list')
+
+class BMIList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.BMI
+    template_name = 'core/bmi_list.html'
+    permission_required = ('core.view_bmi',)
+    paginate_by = 10
+    filterset_fields = ('child',)
+
+
+class BMIAdd(CoreAddView):
+    model = models.BMI
+    permission_required = ('core.add_bmi',)
+    form_class = forms.BMIForm
+    success_url = reverse_lazy('core:bmi-list')
+
+
+class BMIUpdate(CoreUpdateView):
+    model = models.BMI
+    permission_required = ('core.change_bmi',)
+    form_class = forms.BMIForm
+    success_url = reverse_lazy('core:bmi-list')
+
+
+class BMIDelete(CoreDeleteView):
+    model = models.BMI
+    permission_required = ('core.delete_bmi',)
+    success_url = reverse_lazy('core:bmi-list')

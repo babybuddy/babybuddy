@@ -249,3 +249,60 @@ class Command(BaseCommand):
             date=self.time.date(),
             notes=notes
         ).save()
+
+    @transaction.atomic
+    def _add_height_entry(self):
+        """
+        Add a height entry. This assumes a weekly interval.
+        :returns:
+        """
+        self.height += uniform(0.1, 0.3)
+
+        notes = ''
+        if choice([True, False, False, False]):
+            notes = ' '.join(self.faker.sentences(randint(1, 5)))
+
+        models.Height.objects.create(
+            child=self.child,
+            height=round(self.height, 2),
+            date=self.time.date(),
+            notes=notes
+        ).save()
+    
+    @transaction.atomic
+    def _add_head_circumference_entry(self):
+        """
+        Add a head circumference entry. This assumes a weekly interval.
+        :returns:
+        """
+        self.head_circumference += uniform(0.1, 0.3)
+
+        notes = ''
+        if choice([True, False, False, False]):
+            notes = ' '.join(self.faker.sentences(randint(1, 5)))
+
+        models.HeadCircumference.objects.create(
+            child=self.child,
+            head_circumference=round(self.head_circumference, 2),
+            date=self.time.date(),
+            notes=notes
+        ).save()
+
+    @transaction.atomic
+    def _add_bmi_entry(self):
+        """
+        Add a BMI entry. This assumes a weekly interval.
+        :returns:
+        """
+        self.bmi += uniform(0.1, 0.3)
+
+        notes = ''
+        if choice([True, False, False, False]):
+            notes = ' '.join(self.faker.sentences(randint(1, 5)))
+
+        models.bmi.objects.create(
+            child=self.child,
+            bmi=round(self.bmi, 2),
+            date=self.time.date(),
+            notes=notes
+        ).save()

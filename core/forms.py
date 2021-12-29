@@ -241,3 +241,39 @@ class WeightForm(CoreModelForm):
             }),
             'notes': forms.Textarea(attrs={'rows': 5}),
         }
+
+class HeightForm(CoreModelForm):
+    class Meta:
+        model = models.Height
+        fields = ['child', 'height', 'date', 'notes']
+        widgets = {
+            'date': forms.DateInput(attrs={
+                'autocomplete': 'off',
+                'data-target': '#datetimepicker_date',
+            }),
+            'notes': forms.Textarea(attrs={'rows': 5}),
+        }
+
+class HeadCircumferenceForm(CoreModelForm):
+    class Meta:
+        model = models.HeadCircumference
+        fields = ['child', 'head_circumference', 'date', 'notes']
+        widgets = {
+            'date': forms.DateInput(attrs={
+                'autocomplete': 'off',
+                'data-target': '#datetimepicker_date',
+            }),
+            'notes': forms.Textarea(attrs={'rows': 5}),
+        }
+
+class BMIForm(CoreModelForm):
+    class Meta:
+        model = models.BMI
+        fields = ['child', 'bmi', 'date', 'notes']
+        widgets = {
+            'date': forms.DateInput(attrs={
+                'autocomplete': 'off',
+                'data-target': '#datetimepicker_date',
+            }),
+            'notes': forms.Textarea(attrs={'rows': 5}),
+        }

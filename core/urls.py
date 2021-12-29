@@ -158,4 +158,43 @@ urlpatterns = [
         views.WeightDelete.as_view(),
         name='weight-delete'
     ),
+
+    path('height/', views.HeightList.as_view(), name='height-list'),
+    path('height/add/', views.HeightAdd.as_view(), name='height-add'),
+    path(
+        'height/<int:pk>/',
+        views.HeightUpdate.as_view(),
+        name='height-update'
+    ),
+    path(
+        'height/<int:pk>/delete/',
+        views.HeightDelete.as_view(),
+        name='height-delete'
+    ),
+
+    path('head-circumference/', views.HeadCircumferenceList.as_view(), name='head-circumference-list'),
+    path('head-circumference/add/', views.HeadCircumferenceAdd.as_view(), name='head-circumference-add'),
+    path(
+        'head-circumference/<int:pk>/',
+        views.HeadCircumferenceUpdate.as_view(),
+        name='head-circumference-update'
+    ),
+    path(
+        'head-circumference/<int:pk>/delete/',
+        views.HeadCircumferenceDelete.as_view(),
+        name='head-circumference-delete'
+    ),
+
+    path('bmi/', views.BMIList.as_view(), name='bmi-list'),
+    path('bmi/add/', views.BMIAdd.as_view(), name='bmi-add'),
+    path(
+        'bmi/<int:pk>/',
+        views.BMIUpdate.as_view(),
+        name='bmi-update'
+    ),
+    path(
+        'bmi/<int:pk>/delete/',
+        views.BMIDelete.as_view(),
+        name='bmi-delete'
+    ),
 ]

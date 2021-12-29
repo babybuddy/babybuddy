@@ -15,6 +15,9 @@ router.register(r'temperature', views.TemperatureViewSet)
 router.register(r'timers', views.TimerViewSet)
 router.register(r'tummy-times', views.TummyTimeViewSet)
 router.register(r'weight', views.WeightViewSet)
+router.register(r'height', views.HeightViewSet)
+router.register(r'head-circumference', views.HeadCircumferenceViewSet)
+router.register(r'bmi', views.BMIViewSet)
 
 app_name = 'api'
 

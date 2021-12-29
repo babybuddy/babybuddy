@@ -591,3 +591,105 @@ class Weight(models.Model):
 
     def clean(self):
         validate_date(self.date, 'date')
+
+class Height(models.Model):
+    model_name = 'height'
+    child = models.ForeignKey(
+        'Child',
+        on_delete=models.CASCADE,
+        related_name='height',
+        verbose_name=_('Child')
+    )
+    height = models.FloatField(
+        blank=False,
+        null=False,
+        verbose_name=_('Height')
+    )
+    date = models.DateField(
+        blank=False,
+        null=False,
+        verbose_name=_('Date')
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-date']
+        verbose_name = _('Height')
+        verbose_name_plural = _('Height')
+
+    def __str__(self):
+        return str(_('Height'))
+
+    def clean(self):
+        validate_date(self.date, 'date')
+
+class HeadCircumference(models.Model):
+    model_name = 'head_circumference'
+    child = models.ForeignKey(
+        'Child',
+        on_delete=models.CASCADE,
+        related_name='head_circumference',
+        verbose_name=_('Child')
+    )
+    head_circumference = models.FloatField(
+        blank=False,
+        null=False,
+        verbose_name=_('Head Circumference')
+    )
+    date = models.DateField(
+        blank=False,
+        null=False,
+        verbose_name=_('Date')
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-date']
+        verbose_name = _('Head Circumference')
+        verbose_name_plural = _('Head Circumference')
+
+    def __str__(self):
+        return str(_('Head Circumference'))
+
+    def clean(self):
+        validate_date(self.date, 'date')
+
+class BMI(models.Model):
+    model_name = 'bmi'
+    child = models.ForeignKey(
+        'Child',
+        on_delete=models.CASCADE,
+        related_name='bmi',
+        verbose_name=_('Child')
+    )
+    bmi = models.FloatField(
+        blank=False,
+        null=False,
+        verbose_name=_('BMI')
+    )
+    date = models.DateField(
+        blank=False,
+        null=False,
+        verbose_name=_('Date')
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ('view', 'add', 'change', 'delete')
+        ordering = ['-date']
+        verbose_name = _('BMI')
+        verbose_name_plural = _('BMI')
+
+    def __str__(self):
+        return str(_('BMI'))
+
+    def clean(self):
+        validate_date(self.date, 'date')
