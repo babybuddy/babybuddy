@@ -470,6 +470,7 @@ class WeightDelete(CoreDeleteView):
     permission_required = ('core.delete_weight',)
     success_url = reverse_lazy('core:weight-list')
 
+
 class HeightList(PermissionRequiredMixin, BabyBuddyFilterView):
     model = models.Height
     template_name = 'core/height_list.html'
@@ -496,6 +497,7 @@ class HeightDelete(CoreDeleteView):
     model = models.Height
     permission_required = ('core.delete_height',)
     success_url = reverse_lazy('core:height-list')
+
 
 class HeadCircumferenceList(PermissionRequiredMixin, BabyBuddyFilterView):
     model = models.HeadCircumference
@@ -526,6 +528,7 @@ class HeadCircumferenceDelete(CoreDeleteView):
     template_name = 'core/head_circumference_delete.html'
     permission_required = ('core.delete_head_circumference',)
     success_url = reverse_lazy('core:head-circumference-list')
+
 
 class BMIList(PermissionRequiredMixin, BabyBuddyFilterView):
     model = models.BMI

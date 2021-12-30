@@ -172,8 +172,16 @@ urlpatterns = [
         name='height-delete'
     ),
 
-    path('head-circumference/', views.HeadCircumferenceList.as_view(), name='head-circumference-list'),
-    path('head-circumference/add/', views.HeadCircumferenceAdd.as_view(), name='head-circumference-add'),
+    path(
+        'head-circumference/',
+        views.HeadCircumferenceList.as_view(),
+        name='head-circumference-list'
+    ),
+    path(
+        'head-circumference/add/',
+        views.HeadCircumferenceAdd.as_view(),
+        name='head-circumference-add'
+    ),
     path(
         'head-circumference/<int:pk>/',
         views.HeadCircumferenceUpdate.as_view(),

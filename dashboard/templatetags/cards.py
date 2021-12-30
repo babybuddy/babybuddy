@@ -312,7 +312,7 @@ def card_statistics(context, child):
             'type': 'float',
             'stat': weight['change_weekly'],
             'title': _('Weight change per week')})
-    
+
     height = _height_statistics(child)
     if height:
         stats.append({
@@ -497,6 +497,7 @@ def _weight_statistics(child):
 
     return weight
 
+
 def _height_statistics(child):
     """
     Statistical height data.
@@ -519,6 +520,7 @@ def _height_statistics(child):
 
     return height
 
+
 def _head_circumference_statistics(child):
     """
     Statistical head circumference data.
@@ -527,7 +529,9 @@ def _head_circumference_statistics(child):
     """
     head_circumference = {'change_weekly': 0.0}
 
-    instances = models.HeadCircumference.objects.filter(child=child).order_by('-date')
+    instances = models.HeadCircumference.objects.filter(
+        child=child
+        ).order_by('-date')
     if len(instances) == 0:
         return False
 
@@ -535,11 +539,12 @@ def _head_circumference_statistics(child):
     oldest = instances.last()
 
     if newest != oldest:
-        head_circumference_change = newest.head_circumference - oldest.head_circumference
+        hc_change = newest.head_circumference - oldest.head_circumference
         weeks = (newest.date - oldest.date).days/7
-        head_circumference['change_weekly'] = head_circumference_change/weeks
+        head_circumference['change_weekly'] = hc_change/weeks
 
     return head_circumference
+
 
 def _bmi_statistics(child):
     """
@@ -562,6 +567,7 @@ def _bmi_statistics(child):
         bmi['change_weekly'] = bmi_change/weeks
 
     return bmi
+
 
 @register.inclusion_tag('cards/timer_list.html', takes_context=True)
 def card_timer_list(context, child=None):
