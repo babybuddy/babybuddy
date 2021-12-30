@@ -74,6 +74,18 @@ class Command(BaseCommand):
         self._add_weight_entry()
         last_weight_entry_time = self.time
 
+        self.height = round(uniform(8.0, 12.0), 2)
+        self._add_height_entry()
+        last_height_entry_time = self.time
+
+        self.head_circumference = round(uniform(8.0, 12.0), 2)
+        self._add_head_circumference_entry()
+        last_head_circumference_entry_time = self.time
+
+        self.bmi = round(uniform(8.0, 12.0), 2)
+        self._add_bmi_entry()
+        last_bmi_entry_time = self.time
+
         self._add_note_entry()
         while self.time < self.time_now:
             self._add_sleep_entry()
@@ -91,6 +103,15 @@ class Command(BaseCommand):
             if (self.time - last_weight_entry_time).days > 6:
                 self._add_weight_entry()
                 last_weight_entry_time = self.time
+            if (self.time - last_height_entry_time).days > 6:
+                self._add_height_entry()
+                last_height_entry_time = self.time
+            if (self.time - last_head_circumference_entry_time).days > 6:
+                self._add_head_circumference_entry()
+                last_head_circumference_entry_time = self.time
+            if (self.time - last_bmi_entry_time).days > 6:
+                self._add_bmi_entry()
+                last_bmi_entry_time = self.time
 
     @transaction.atomic
     def _add_diaperchange_entry(self):
@@ -268,7 +289,7 @@ class Command(BaseCommand):
             date=self.time.date(),
             notes=notes
         ).save()
-    
+
     @transaction.atomic
     def _add_head_circumference_entry(self):
         """
@@ -300,7 +321,7 @@ class Command(BaseCommand):
         if choice([True, False, False, False]):
             notes = ' '.join(self.faker.sentences(randint(1, 5)))
 
-        models.bmi.objects.create(
+        models.BMI.objects.create(
             child=self.child,
             bmi=round(self.bmi, 2),
             date=self.time.date(),

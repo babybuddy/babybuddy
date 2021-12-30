@@ -61,15 +61,18 @@ class WeightViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.WeightSerializer
     filterset_fields = ('child', 'date')
 
+
 class HeightViewSet(viewsets.ModelViewSet):
     queryset = models.Height.objects.all()
     serializer_class = serializers.HeightSerializer
     filterset_fields = ('child', 'date')
 
+
 class HeadCircumferenceViewSet(viewsets.ModelViewSet):
     queryset = models.HeadCircumference.objects.all()
     serializer_class = serializers.HeadCircumferenceSerializer
     filterset_fields = ('child', 'date')
+
 
 class BMIViewSet(viewsets.ModelViewSet):
     queryset = models.BMI.objects.all()

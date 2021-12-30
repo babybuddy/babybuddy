@@ -196,6 +196,7 @@ class WeightWeightChildReport(PermissionRequiredMixin, DetailView):
             context['html'], context['js'] = graphs.weight_weight(objects)
         return context
 
+
 class HeightHeightChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of height change over time.
@@ -213,7 +214,10 @@ class HeightHeightChildReport(PermissionRequiredMixin, DetailView):
             context['html'], context['js'] = graphs.height_height(objects)
         return context
 
-class HeadCircumferenceHeadCircumferenceChildReport(PermissionRequiredMixin, DetailView):
+
+class HeadCircumferenceHeadCircumferenceChildReport(
+    PermissionRequiredMixin, DetailView
+):
     """
     Graph of head circumference change over time.
     """
@@ -222,13 +226,18 @@ class HeadCircumferenceHeadCircumferenceChildReport(PermissionRequiredMixin, Det
     template_name = 'reports/head_circumference_change.html'
 
     def get_context_data(self, **kwargs):
-        context = super(HeadCircumferenceHeadCircumferenceChildReport, self).get_context_data(
-            **kwargs)
+        context = super(
+            HeadCircumferenceHeadCircumferenceChildReport,
+            self
+        ).get_context_data(**kwargs)
         child = context['object']
         objects = models.HeadCircumference.objects.filter(child=child)
         if objects:
-            context['html'], context['js'] = graphs.head_circumference_head_circumference(objects)
+            context['html'], context['js'] = (
+                graphs.head_circumference_head_circumference(objects)
+            )
         return context
+
 
 class BMIBMIChildReport(PermissionRequiredMixin, DetailView):
     """

@@ -592,6 +592,7 @@ class Weight(models.Model):
     def clean(self):
         validate_date(self.date, 'date')
 
+
 class Height(models.Model):
     model_name = 'height'
     child = models.ForeignKey(
@@ -626,6 +627,7 @@ class Height(models.Model):
     def clean(self):
         validate_date(self.date, 'date')
 
+
 class HeadCircumference(models.Model):
     model_name = 'head_circumference'
     child = models.ForeignKey(
@@ -659,6 +661,7 @@ class HeadCircumference(models.Model):
 
     def clean(self):
         validate_date(self.date, 'date')
+
 
 class BMI(models.Model):
     model_name = 'bmi'

@@ -242,6 +242,7 @@ class WeightForm(CoreModelForm):
             'notes': forms.Textarea(attrs={'rows': 5}),
         }
 
+
 class HeightForm(CoreModelForm):
     class Meta:
         model = models.Height
@@ -254,6 +255,7 @@ class HeightForm(CoreModelForm):
             'notes': forms.Textarea(attrs={'rows': 5}),
         }
 
+
 class HeadCircumferenceForm(CoreModelForm):
     class Meta:
         model = models.HeadCircumference
@@ -265,6 +267,7 @@ class HeadCircumferenceForm(CoreModelForm):
             }),
             'notes': forms.Textarea(attrs={'rows': 5}),
         }
+
 
 class BMIForm(CoreModelForm):
     class Meta:
