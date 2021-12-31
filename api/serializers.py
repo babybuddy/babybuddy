@@ -173,3 +173,21 @@ class WeightSerializer(CoreModelSerializer):
     class Meta:
         model = models.Weight
         fields = ('id', 'child', 'weight', 'date', 'notes')
+
+
+class HeightSerializer(CoreModelSerializer):
+    class Meta:
+        model = models.Height
+        fields = ('id', 'child', 'height', 'date', 'notes')
+
+
+class HeadCircumferenceSerializer(CoreModelSerializer):
+    class Meta:
+        model = models.HeadCircumference
+        fields = ('id', 'child', 'head_circumference', 'date', 'notes')
+
+
+class BMISerializer(CoreModelSerializer):
+    class Meta:
+        model = models.BMI
+        fields = ('id', 'child', 'bmi', 'date', 'notes')

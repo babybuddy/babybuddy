@@ -3,11 +3,17 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LogoutView as LogoutViewBase
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
+from django.utils import translation
+from django.utils.decorators import method_decorator
 from django.utils.text import format_lazy
 from django.utils.translation import gettext as _, gettext_lazy
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_POST
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -45,6 +51,13 @@ class BabyBuddyFilterView(FilterView):
         if len(children) == 1:
             context['unique_child'] = True
         return context
+
+
+@method_decorator(csrf_protect, name='dispatch')
+@method_decorator(never_cache, name='dispatch')
+@method_decorator(require_POST, name='dispatch')
+class LogoutView(LogoutViewBase):
+    pass
 
 
 class UserList(StaffOnlyMixin, BabyBuddyFilterView):
@@ -144,7 +157,9 @@ class UserSettings(LoginRequiredMixin, View):
             user_settings = form_settings.save(commit=False)
             user.settings = user_settings
             user.save()
+            translation.activate(user.settings.language)
             messages.success(request, _('Settings saved!'))
+            translation.deactivate()
             return set_language(request)
         return render(request, self.template_name, {
             'user_form': form_user,

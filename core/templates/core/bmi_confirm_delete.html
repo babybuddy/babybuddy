@@ -1,0 +1,20 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks %}
+
+{% block title %}{% trans "Delete a BMI Entry" %}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:bmi-list' %}">{% trans "BMI" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
+{% endblock %}
+
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% blocktrans trimmed %}
+            <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
+        {% endblocktrans %}
+        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
+        <a href="{% url 'core:bmi-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

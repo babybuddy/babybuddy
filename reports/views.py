@@ -195,3 +195,63 @@ class WeightWeightChildReport(PermissionRequiredMixin, DetailView):
         if objects:
             context['html'], context['js'] = graphs.weight_weight(objects)
         return context
+
+
+class HeightHeightChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of height change over time.
+    """
+    model = models.Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/height_change.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HeightHeightChildReport, self).get_context_data(
+            **kwargs)
+        child = context['object']
+        objects = models.Height.objects.filter(child=child)
+        if objects:
+            context['html'], context['js'] = graphs.height_height(objects)
+        return context
+
+
+class HeadCircumferenceHeadCircumferenceChildReport(
+    PermissionRequiredMixin, DetailView
+):
+    """
+    Graph of head circumference change over time.
+    """
+    model = models.Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/head_circumference_change.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(
+            HeadCircumferenceHeadCircumferenceChildReport,
+            self
+        ).get_context_data(**kwargs)
+        child = context['object']
+        objects = models.HeadCircumference.objects.filter(child=child)
+        if objects:
+            context['html'], context['js'] = (
+                graphs.head_circumference_head_circumference(objects)
+            )
+        return context
+
+
+class BMIBMIChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of BMI change over time.
+    """
+    model = models.Child
+    permission_required = ('core.view_child',)
+    template_name = 'reports/bmi_change.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(BMIBMIChildReport, self).get_context_data(
+            **kwargs)
+        child = context['object']
+        objects = models.BMI.objects.filter(child=child)
+        if objects:
+            context['html'], context['js'] = graphs.bmi_bmi(objects)
+        return context

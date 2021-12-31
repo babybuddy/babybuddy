@@ -22,7 +22,7 @@ load_dotenv(find_dotenv())
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 SECRET_KEY = os.environ.get('SECRET_KEY') or None
-DEBUG = os.environ.get('DEBUG') or False
+DEBUG = bool(strtobool(os.environ.get('DEBUG') or 'False'))
 
 
 # Applications
@@ -143,11 +143,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'babybuddy:root-router'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = 'babybuddy:login'
 
-LOGOUT_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = 'babybuddy:login'
 
 
 # Timezone
@@ -195,7 +195,7 @@ USE_L10N = True
 # conditionals on this setting. See babybuddy/forms/en/formats.py for an example
 # implementation for the English locale.
 
-USE_24_HOUR_TIME_FORMAT = strtobool(os.environ.get('USE_24_HOUR_TIME_FORMAT') or 'False')
+USE_24_HOUR_TIME_FORMAT = bool(strtobool(os.environ.get('USE_24_HOUR_TIME_FORMAT') or 'False'))
 
 
 # Static files (CSS, JavaScript, Images)
@@ -209,7 +209,7 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -221,7 +221,7 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'babybuddy', 'root')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME') or None
 
@@ -323,5 +323,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 BABY_BUDDY = {
     'NAP_START_MIN': os.environ.get('NAP_START_MIN') or '06:00',
     'NAP_START_MAX': os.environ.get('NAP_START_MAX') or '18:00',
-    'ALLOW_UPLOADS': os.environ.get('ALLOW_UPLOADS') or True
+    'ALLOW_UPLOADS': bool(strtobool(os.environ.get('ALLOW_UPLOADS') or 'True'))
 }

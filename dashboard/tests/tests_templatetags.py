@@ -210,6 +210,21 @@ class TemplateTagsTestCase(TestCase):
                 'title': 'Weight change per week',
                 'stat': 1.0, 'type':
                 'float'
+            },
+            {
+                'title': 'Height change per week',
+                'stat': 1.0, 'type':
+                'float'
+            },
+            {
+                'title': 'Head circumference change per week',
+                'stat': 1.0, 'type':
+                'float'
+            },
+            {
+                'title': 'BMI change per week',
+                'stat': 1.0, 'type':
+                'float'
             }
         ]
 

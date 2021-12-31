@@ -399,5 +399,68 @@
       "date": "2017-11-18",
       "notes": "before feed"
     }
+  },
+  {
+    "model": "core.height",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "height": 9.5,
+      "date": "2017-11-11"
+    }
+  },
+  {
+    "model": "core.height",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "height": 10.5,
+      "date": "2017-11-18",
+      "notes": "before feed"
+    }
+  },
+  {
+    "model": "core.headcircumference",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "head_circumference": 5.5,
+      "date": "2017-11-11"
+    }
+  },
+  {
+    "model": "core.headcircumference",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "head_circumference": 6.5,
+      "date": "2017-11-18",
+      "notes": "before feed"
+    }
+  },
+  {
+    "model": "core.bmi",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "bmi": 25.5,
+      "date": "2017-11-11"
+    }
+  },
+  {
+    "model": "core.bmi",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "bmi": 26.5,
+      "date": "2017-11-18",
+      "notes": "before feed"
+    }
   }
 ]

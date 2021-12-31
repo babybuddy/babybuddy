@@ -1,0 +1,73 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks %}
+
+{% block title %}{% trans "Head Circumference" %}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Head Circumference" %}</li>
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {% trans "Head Circumference" %}
+        {% if perms.core.add_head_circumference %}
+            <a href="{% url 'core:head-circumference-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-head-circumference" aria-hidden="true"></i> {% trans "Add Head Circumference" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Date" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Head Circumference" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for head_circumference in object_list %}
+                    {% cycle "odd" "even" as row_class silent %}
+                    <tr class="{{ row_class }}">
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
+
+                                {% if perms.core.change_head_circumference %}
+                                    <a href="{% url 'core:head-circumference-update' head_circumference.id %}" class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if perms.core.delete_head_circumference %}
+                                    <a href="{% url 'core:head-circumference-delete' head_circumference.id %}" class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                            </div>
+                        </td>
+                        <th scope="row">{{ head_circumference.date }}</th>
+                        {% if not unique_child %}
+                            <td><a href="{% url 'core:child' head_circumference.child.slug %}">{{ head_circumference.child }}</a></td>
+                        {% endif %}
+                        <td>{{ head_circumference.head_circumference }}</td>
+                    </tr>
+                    {% if head_circumference.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="4"><i class="icon-note mr-2" aria-hidden="true"></i>{{ head_circumference.notes }}</td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="4">{% trans "No head circumference entries found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

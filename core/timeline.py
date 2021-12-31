@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils import timezone, timesince
 from django.utils.translation import gettext as _
 
-from core.models import DiaperChange, Feeding, Sleep, TummyTime
+from core.models import DiaperChange, Feeding, Note, Sleep, TummyTime
 from datetime import timedelta
 
 
@@ -22,6 +22,7 @@ def get_objects(date, child=None):
     _add_feedings(min_date, max_date, events, child)
     _add_sleeps(min_date, max_date, events, child)
     _add_tummy_times(min_date, max_date, events, child)
+    _add_notes(min_date, max_date, events, child)
 
     events.sort(key=lambda x: x['time'], reverse=True)
 
@@ -151,21 +152,31 @@ def _add_diaper_changes(min_date, max_date, events, child):
     for instance in instances:
         contents = []
         if instance.wet:
-            contents.append('💧wet')
+            contents.append('💧')
         if instance.solid:
-            contents.append('💩solid')
-        details = [_('Contents: %(contents)s') % {
-            'contents': ', '.join(contents),
-        }]
-        if instance.notes:
-            details.append(instance.notes)
+            contents.append('💩')
         events.append({
             'time': timezone.localtime(instance.time),
-            'event': _('%(child)s had a diaper change.') % {
-                'child': instance.child.first_name
+            'event': _('%(child)s had a %(type)s diaper change.') % {
+                'child': instance.child.first_name,
+                'type': ''.join(contents),
             },
-            'details': details,
             'edit_link': reverse('core:diaperchange-update',
+                                 args=[instance.id]),
+            'model_name': instance.model_name
+        })
+
+
+def _add_notes(min_date, max_date, events, child):
+    instances = Note.objects.filter(
+        time__range=(min_date, max_date)).order_by('-time')
+    if child:
+        instances = instances.filter(child=child)
+    for instance in instances:
+        events.append({
+            'time': timezone.localtime(instance.time),
+            'details': [instance.note],
+            'edit_link': reverse('core:note-update',
                                  args=[instance.id]),
             'model_name': instance.model_name
         })

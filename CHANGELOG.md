@@ -1,6 +1,43 @@
 # Changelog
 
-## [v1.9.1](https://github.com/babybuddy/babybuddy/tree/v1.9.1)
+## [v1.9.3](https://github.com/babybuddy/babybuddy/tree/v1.9.3) (2021-12-14)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.9.2...v1.9.3)
+
+**Implemented enhancements:**
+
+- add en-gb datetime overrides [\#335](https://github.com/babybuddy/babybuddy/pull/335) ([Amith211](https://github.com/Amith211))
+
+**Fixed bugs:**
+
+- ERROR: Enter a valid date/time [\#337](https://github.com/babybuddy/babybuddy/issues/337)
+
+## [v1.9.2](https://github.com/babybuddy/babybuddy/tree/v1.9.2) (2021-12-04)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.9.1...v1.9.2)
+
+**Implemented enhancements:**
+
+- Notes on child timeline [\#343](https://github.com/babybuddy/babybuddy/issues/343)
+- Wrong language after logging in [\#346](https://github.com/babybuddy/babybuddy/issues/346)
+- Add notes to child timeline [\#344](https://github.com/babybuddy/babybuddy/pull/344) ([Alberdi](https://github.com/Alberdi))
+- Complete Spanish translations plus some fixes [\#338](https://github.com/babybuddy/babybuddy/pull/338) ([Alberdi](https://github.com/Alberdi))
+
+**Fixed bugs:**
+
+- New filters on date for changes [\#342](https://github.com/babybuddy/babybuddy/issues/342)
+- "Deploy to Heroku" button broken now README is separated. [\#340](https://github.com/babybuddy/babybuddy/issues/340)
+
+**Closed issues:**
+
+- column core\_sleep.napping does not exist [\#348](https://github.com/babybuddy/babybuddy/issues/348)
+- Sleep pattern returns server error \(500\) [\#347](https://github.com/babybuddy/babybuddy/issues/347)
+- Connection to Home Assistant [\#345](https://github.com/babybuddy/babybuddy/issues/345)
+- Do not attempt to deploy demo on PRs in CI [\#339](https://github.com/babybuddy/babybuddy/issues/339)
+- Crashes on startup: `ImportError: cannot import name 'etree' from 'lxml'` [\#336](https://github.com/babybuddy/babybuddy/issues/336)
+- en\_GB Time Format \(24 Hour\) [\#333](https://github.com/babybuddy/babybuddy/issues/333)
+
+## [v1.9.1](https://github.com/babybuddy/babybuddy/tree/v1.9.1) (2021-11-13)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.9.0...v1.9.1)
 
@@ -28,10 +65,10 @@
 
 **Merged pull requests:**
 
+- Fix typo in README [\#322](https://github.com/babybuddy/babybuddy/pull/322) ([kejadlen](https://github.com/kejadlen))
 - Reorganize documentation [\#331](https://github.com/babybuddy/babybuddy/pull/331) ([cdubz](https://github.com/cdubz))
 - refacto\(sleep-reports\): \#283 Replace times and labels lists by a single days list [\#327](https://github.com/babybuddy/babybuddy/pull/327) ([codisart](https://github.com/codisart))
 - refacto\(sleep-reports\): \#283 Rename some variables and add constants for magic strings [\#326](https://github.com/babybuddy/babybuddy/pull/326) ([codisart](https://github.com/codisart))
-- Fix typo in README [\#322](https://github.com/babybuddy/babybuddy/pull/322) ([kejadlen](https://github.com/kejadlen))
 
 ## [v1.9.0](https://github.com/babybuddy/babybuddy/tree/v1.9.0) (2021-09-25)
 

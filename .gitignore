@@ -28,3 +28,6 @@
 # requirements can different between versions, but the Pipfile only supports
 # locking to one version.
 Pipfile.lock
+
+# Documentation
+/site

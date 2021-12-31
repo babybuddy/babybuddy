@@ -11,4 +11,6 @@ class APIMetadata(metadata.SimpleMetadata):
         data.pop('description')
         if hasattr(view, 'filterset_fields'):
             data.update({'filters': view.filterset_fields})
+        elif hasattr(view, 'filterset_class'):
+            data.update({'filters': view.filterset_class.Meta.fields})
         return data

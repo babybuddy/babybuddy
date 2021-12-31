@@ -221,6 +221,30 @@
       "css": "cancel",
       "code": 59411,
       "src": "fontawesome"
+    },
+    {
+      "uid": "6a96c51e961a2e48dfcbe2c47fd1204e",
+      "css": "height",
+      "code": 61508,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "bb46b15cb78cc4cc05d3d715d522ac4d",
+      "css": "head-circumference",
+      "code": 59412,
+      "src": "entypo"
+    },
+    {
+      "uid": "2c452255d4fed51ef0a6ef86436a7d08",
+      "css": "bmi",
+      "code": 62101,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b95cfc96d48a72dd665e0ab109880b5e",
+      "css": "measurements",
+      "code": 59413,
+      "src": "entypo"
     }
   ]
 }
