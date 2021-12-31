@@ -10844,8 +10844,8 @@ h3 {
 }
 @font-face {
   font-family: "babybuddy";
-  src: url("../font/babybuddy.eot?72731680");
-  src: url("../font/babybuddy.eot?72731680#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?72731680") format("woff2"), url("../font/babybuddy.woff?72731680") format("woff"), url("../font/babybuddy.ttf?72731680") format("truetype"), url("../font/babybuddy.svg?72731680#babybuddy") format("svg");
+  src: url("../font/babybuddy.eot?3615871");
+  src: url("../font/babybuddy.eot?3615871#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?3615871") format("woff2"), url("../font/babybuddy.woff?3615871") format("woff"), url("../font/babybuddy.ttf?3615871") format("truetype"), url("../font/babybuddy.svg?3615871#babybuddy") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -10855,7 +10855,7 @@ h3 {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'babybuddy';
-    src: url('../font/babybuddy.svg?72731680#babybuddy') format('svg');
+    src: url('../font/babybuddy.svg?3615871#babybuddy') format('svg');
   }
 }
 */
@@ -10987,6 +10987,21 @@ h3 {
 }
 
 /* '' */
+.icon-head-circumference:before {
+  content: "\e814";
+}
+
+/* '' */
+.icon-measurements:before {
+  content: "\e815";
+}
+
+/* '' */
+.icon-height:before {
+  content: "\f044";
+}
+
+/* '' */
 .icon-dashboard:before {
   content: "\f0e4";
 }
@@ -11062,6 +11077,11 @@ h3 {
 }
 
 /* '' */
+.icon-bmi:before {
+  content: "\f295";
+}
+
+/* '' */
 .icon-temperature:before {
   content: "\f2c8";
 }
