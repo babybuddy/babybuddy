@@ -169,7 +169,7 @@ def sleep_pattern(sleeps):
 
 
 def _init_days(first_day, last_day):
-    period = (last_day - first_day).days + 1
+    period = (last_day.date() - first_day.date()).days + 1
     def new_day(d): return (first_day + timedelta(days=d)).date().isoformat()
     return {new_day(day): [] for day in range(period)}
 
