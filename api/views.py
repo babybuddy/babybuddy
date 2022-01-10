@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from core import models
 
@@ -48,6 +50,40 @@ class TimerViewSet(viewsets.ModelViewSet):
     queryset = models.Timer.objects.all()
     serializer_class = serializers.TimerSerializer
     filterset_class = filters.TimerFilter
+
+    def __timer_operation(self, pk, func):
+        try:
+            timer = models.Timer.objects.get(pk=pk)
+            return func(timer)
+        except models.Timer.DoesNotExist:
+            return Response(
+                {"detail": "timer does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+    @action(detail=True, methods=['post'])
+    def stop(self, request, pk=None):
+        def do_stop(timer):
+            if not timer.active:
+                return Response(
+                    {"detail": "timer already stopped"},
+                    status=status.HTTP_412_PRECONDITION_FAILED
+                )
+            timer.stop()
+            return Response({"detail": "timer stopped"})
+        return self.__timer_operation(pk, do_stop)
+
+    @action(detail=True, methods=['post'])
+    def restart(self, request, pk=None):
+        def do_restart(timer):
+            if timer.active:
+                return Response(
+                    {"detail": "timer already active"},
+                    status=status.HTTP_412_PRECONDITION_FAILED
+                )
+            timer.restart()
+            return Response({"detail": "timer restarted"})
+        return self.__timer_operation(pk, do_restart)
 
 
 class TummyTimeViewSet(TimerFieldSupportMixin, viewsets.ModelViewSet):
