@@ -404,7 +404,7 @@ class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(response.data["active"])
         
-        response = self.client.post(f"{endpoint}restart/")
+        response = self.client.patch(f"{endpoint}restart/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.get(endpoint)
@@ -412,10 +412,10 @@ class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertTrue(response.data["active"])
 
         # Restart twice fails
-        response = self.client.post(f"{endpoint}restart/")
+        response = self.client.patch(f"{endpoint}restart/")
         self.assertEqual(response.status_code, status.HTTP_412_PRECONDITION_FAILED)
         
-        response = self.client.post(f"{endpoint}stop/")
+        response = self.client.patch(f"{endpoint}stop/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
         response = self.client.get(endpoint)
@@ -423,7 +423,7 @@ class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertFalse(response.data["active"])
 
         # Stopping twice fails
-        response = self.client.post(f"{endpoint}stop/")
+        response = self.client.patch(f"{endpoint}stop/")
         self.assertEqual(response.status_code, status.HTTP_412_PRECONDITION_FAILED)
 
 

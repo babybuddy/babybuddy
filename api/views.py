@@ -61,7 +61,7 @@ class TimerViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['patch'])
     def stop(self, request, pk=None):
         def do_stop(timer):
             if not timer.active:
@@ -73,7 +73,7 @@ class TimerViewSet(viewsets.ModelViewSet):
             return Response({"detail": "timer stopped"})
         return self.__timer_operation(pk, do_stop)
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['patch'])
     def restart(self, request, pk=None):
         def do_restart(timer):
             if timer.active:
