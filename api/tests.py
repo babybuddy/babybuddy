@@ -406,29 +406,21 @@ class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
 
         response = self.client.patch(f"{endpoint}restart/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data["active"])
 
-        response = self.client.get(endpoint)
+        # Restart twice is allowed
+        response = self.client.patch(f"{endpoint}restart/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data["active"])
 
-        # Restart twice fails
-        response = self.client.patch(f"{endpoint}restart/")
-        self.assertEqual(
-            response.status_code, status.HTTP_412_PRECONDITION_FAILED
-        )
-
         response = self.client.patch(f"{endpoint}stop/")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        response = self.client.get(endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(response.data["active"])
 
-        # Stopping twice fails
+        # Stopping twice is allowed, too
         response = self.client.patch(f"{endpoint}stop/")
-        self.assertEqual(
-            response.status_code, status.HTTP_412_PRECONDITION_FAILED
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data["active"])
 
 
 class TummyTimeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
