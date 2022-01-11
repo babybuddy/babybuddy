@@ -1519,7 +1519,7 @@ msgstr "Reports"
 
 #: dashboard/templates/dashboard/child_button_group.html:23
 msgid "Diaper Change Amounts"
-msgstr "Anzahl Windelwechsel"
+msgstr "Windelwechsel Mengen"
 
 #: dashboard/templates/dashboard/child_button_group.html:24
 #: reports/templates/reports/diaperchange_types.html:4
@@ -1597,15 +1597,15 @@ msgstr "Freuqenz Mahlzeiten"
 
 #: reports/graphs/diaperchange_amounts.py:27
 msgid "Diaper change amount"
-msgstr "Anzahl Windelwechsel"
+msgstr "Windelwechsel Mengen"
 
 #: reports/graphs/diaperchange_amounts.py:36
 msgid "<b>Diaper Change Amounts</b>"
-msgstr "<b>Anzahl Windelwechsel</b>"
+msgstr "<b>Windelwechsel Mengen</b>"
 
 #: reports/graphs/diaperchange_amounts.py:39
 msgid "Change amount"
-msgstr "Anzahl Wechsel"
+msgstr "Windel Menge"
 
 #: reports/graphs/diaperchange_lifetimes.py:35
 msgid "<b>Diaper Lifetimes</b>"
@@ -1703,7 +1703,7 @@ msgstr "<b>Gewicht</b>"
 #: reports/templates/reports/diaperchange_amounts.html:4
 #: reports/templates/reports/diaperchange_amounts.html:8
 msgid "Diaper Amounts"
-msgstr "Anzahl Windeln"
+msgstr "Windel Mengen"
 
 #: reports/templates/reports/feeding_duration.html:4
 #: reports/templates/reports/feeding_duration.html:8
