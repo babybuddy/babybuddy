@@ -17,48 +17,52 @@
 </h3>
 {% if timeline_objects %}
     <ul class="timeline m-auto">
-        {% for object in timeline_objects %}
-            <li{% cycle "" ' class="timeline-inverted"' %}>
-                <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
-                    <i class="icon-{{ object.model_name }}"></i>
-                </div>
-                <div class="card text-right">
-                    <div class="card-body">
-                        {{ object.event }}
-                        {% for detail in object.details %}
-                            <div><small>{{ detail }}</small></div>
-                        {% endfor %}
+        {% regroup timeline_objects by time as timeline_moments %}
+        
+        {% for moment_objects in timeline_moments %}
+            {% for object in moment_objects.list|dictsort:"type" %}
+                <li{% cycle "" ' class="timeline-inverted"' %}>
+                    <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
+                        <i class="icon-{{ object.model_name }}"></i>
                     </div>
-                    <div class="card-footer text-muted">
-                        {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
-                            {{ since }} ago ({{ time }})
-                        {% endblocktrans %}
-                        {% if object.duration %}
-                            <div>
-                                <small>
-                                    {% blocktrans trimmed with duration=object.duration %}
-                                        Duration: {{ duration }}
-                                    {% endblocktrans %}
-                                </small>
-                            </div>
-                        {% endif %}
-                        {% if object.time_since_prev %}
-                            <div>
-                                <small>
-                                    {% blocktrans trimmed with since=object.time_since_prev %}
-                                        {{ since }} since previous
-                                    {% endblocktrans %}
-                                </small>
-                            </div>
-                        {% endif %}
-                        {% if object.edit_link %}
-                            <div>
-                                <small><a href="{{ object.edit_link }}">{% trans "Edit" %}</a></small>
-                            </div>
-                        {% endif %}
+                    <div class="card text-right">
+                        <div class="card-body">
+                            {{ object.event }}
+                            {% for detail in object.details %}
+                                <div><small>{{ detail }}</small></div>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer text-muted">
+                            {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
+                                {{ since }} ago ({{ time }})
+                            {% endblocktrans %}
+                            {% if object.duration %}
+                                <div>
+                                    <small>
+                                        {% blocktrans trimmed with duration=object.duration %}
+                                            Duration: {{ duration }}
+                                        {% endblocktrans %}
+                                    </small>
+                                </div>
+                            {% endif %}
+                            {% if object.time_since_prev %}
+                                <div>
+                                    <small>
+                                        {% blocktrans trimmed with since=object.time_since_prev %}
+                                            {{ since }} since previous
+                                        {% endblocktrans %}
+                                    </small>
+                                </div>
+                            {% endif %}
+                            {% if object.edit_link %}
+                                <div>
+                                    <small><a href="{{ object.edit_link }}">{% trans "Edit" %}</a></small>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            {% endfor %}
         {% endfor %}
     </ul>
     <h3 class="text-center">
