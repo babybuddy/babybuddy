@@ -3844,6 +3844,68 @@ paths:
           description: ''
       tags:
       - api
+  /api/timers/{id}/restart/:
+    patch:
+      operationId: restartTimer
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Timer.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Timer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Timer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Timer'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Timer'
+          description: ''
+      tags:
+      - api
+  /api/timers/{id}/stop/:
+    patch:
+      operationId: stopTimer
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Timer.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Timer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Timer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Timer'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Timer'
+          description: ''
+      tags:
+      - api
 components:
   schemas:
     Child:
@@ -3871,7 +3933,6 @@ components:
           nullable: true
       required:
       - first_name
-      - last_name
       - birth_date
     DiaperChange:
       type: object
