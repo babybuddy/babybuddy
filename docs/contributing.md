@@ -160,6 +160,7 @@ management commands.
 - [`gulp docs:watch`](#docswatch)
 - [`gulp extras`](#extras)
 - [`gulp fake`](#fake)
+- [`gulp generatescheme`](#generatescheme)
 - [`gulp lint`](#lint)
 - [`gulp makemessages`](#makemessages)
 - [`gulp makemigrations`](#makemigrations)
@@ -236,6 +237,11 @@ Adds some fake data to the database. By default, ``fake`` creates one child and
 31 days of random data. Use the  `--children` and `--days` flags to change the
 default values, e.g. `gulp fake --children 5 --days 7` to generate five fake
 children and seven days of data for each.
+
+#### `generateschema`
+
+Updates the [`openapi-schema.yml`](/openapi-schema.yml) file in the project root
+based on current API functionality.
 
 #### `lint`
 

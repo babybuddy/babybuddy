@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: ''
+  title: Baby Buddy API
   version: ''
 paths:
   /api/children/:

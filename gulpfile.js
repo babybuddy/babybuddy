@@ -305,9 +305,6 @@ gulp.task('makemigrations', function(cb) {
     _runInPipenv(['python', 'manage.py', 'makemigrations'], cb);
 });
 
-/**
- * Runs the custom "reset" command to start a fresh database with fake data.
- */
 gulp.task('reset', function(cb) {
     _runInPipenv(['python', 'manage.py', 'reset', '--no-input'], cb);
 });
@@ -339,6 +336,18 @@ gulp.task('runserver', function(cb) {
     command = command.concat(parameters.filter(String));
 
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
+});
+
+gulp.task('generateschema', function(cb) {
+    _runInPipenv([
+        'python',
+        'manage.py',
+        'generateschema',
+        '--title',
+        'Baby Buddy API',
+        '--file',
+        'openapi-schema.yml'
+    ], cb);
 });
 
 /**
