@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n static thumbnail widget_tweaks %}
+{% load i18n imagekit static widget_tweaks %}
 
 {% block title %}{% trans "Children" %}{% endblock %}
 
@@ -33,7 +33,7 @@
                     <tr>
                         <td class="picture-column">
                             {% if child.picture %}
-                                {% thumbnail child.picture 40x40 upscale crop as thumb %}
+                                {% thumbnail '40x40' child.picture as thumb %}
                                 <img src="{{ thumb.url }}" class="img-fluid rounded-circle" />
                             {% else %}
                                 <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" width="40" height="40" class="img-fluid rounded-circle" />
