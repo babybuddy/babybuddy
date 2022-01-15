@@ -120,7 +120,7 @@ documentation section: [Translation](https://docs.djangoproject.com/en/3.0/topic
        export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
 
     This process will differ based on the host OS. The above example is for
-    Linux-based systems. See [Configuration](/configuration) for other
+    Linux-based systems. See [Configuration](/docs/setup/configuration.md) for other
     settings and methods for defining them.
 
 1. Migrate the database

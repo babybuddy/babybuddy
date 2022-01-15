@@ -1,14 +1,27 @@
 extra_css:
   - css/extras.css
+nav:
+  - 'index.md'
+  - 'Setup':
+      - 'setup/deployment.md'
+      - 'setup/configuration.md'
+  - 'User Guide':
+    - 'user-guide/navigating.md'
+    - 'user-guide/adding-entries.md'
+    - 'user-guide/using-timers.md'
+  - 'import-export.md'
+  - 'api.md'
+  - 'contributing.md'
 theme:
   name: material
-  favicon: assets/favicon.svg
+  favicon: assets/images/favicon.svg
   features:
+    - navigation.expand
     - navigation.instant
     - navigation.tracking
     - search.share
     - search.suggest
-  logo: assets/logo.svg
+  logo: assets/images/logo.svg
   palette:
     scheme: slate
 repo_name: babybuddy/babybuddy
