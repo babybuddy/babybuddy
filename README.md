@@ -74,6 +74,7 @@ or use Baby Buddy in fun ways. If you have a project to share please open a PR
 adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 
 - [Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant)
+- [Home Assistant Addon (host Baby Buddy on your Home Assistant)](https://github.com/OttPeterR/addon-babybuddy)
 - [Baby Buddy and Home Assistant](https://martinnoah.com/babybuddy-and-home-assistant.html) (how-to guide)
 - [Bottle Scale for BabyBuddy and Home Assistant with ESPHome](https://github.com/sfgabe/OITProjects/tree/master/BabyBuddy_ESP_HASS)
 - [Alexa skill](https://github.com/babybuddy/babybuddy-alexa-skill)
