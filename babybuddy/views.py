@@ -89,18 +89,16 @@ class UserUpdate(StaffOnlyMixin, PermissionRequiredMixin,
 
 
 class UserDelete(StaffOnlyMixin, PermissionRequiredMixin,
-                 DeleteView):
+                 DeleteView, SuccessMessageMixin):
     model = User
     template_name = 'babybuddy/user_confirm_delete.html'
     permission_required = ('admin.delete_user',)
     success_url = reverse_lazy('babybuddy:user-list')
 
-    def delete(self, request, *args, **kwargs):
-        success_message = format_lazy(gettext_lazy(
+    def get_success_message(self, cleaned_data):
+        return format_lazy(gettext_lazy(
             'User {user} deleted.'), user=self.get_object()
         )
-        messages.success(request, success_message)
-        return super(UserDelete, self).delete(request, *args, **kwargs)
 
 
 class UserPassword(LoginRequiredMixin, View):

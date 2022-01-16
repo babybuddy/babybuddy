@@ -66,17 +66,11 @@ class CoreUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
         return self.success_message % cleaned_data
 
 
-class CoreDeleteView(PermissionRequiredMixin, DeleteView):
-    """
-    SuccessMessageMixin is not compatible DeleteView.
-    See: https://code.djangoproject.com/ticket/21936
-    """
-    def delete(self, request, *args, **kwargs):
-        success_message = _('%(model)s entry deleted.') % {
+class CoreDeleteView(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
+    def get_success_message(self, cleaned_data):
+        return _('%(model)s entry deleted.') % {
             'model': self.model._meta.verbose_name.title()
         }
-        messages.success(request, success_message)
-        return super(CoreDeleteView, self).delete(request, *args, **kwargs)
 
 
 class ChildList(PermissionRequiredMixin, BabyBuddyFilterView):
