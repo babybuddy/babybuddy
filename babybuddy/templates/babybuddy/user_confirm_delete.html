@@ -15,7 +15,7 @@
         {% blocktrans trimmed %}
             <h1>Are you sure you want to delete <span class="text-info">{{ object }}</span>?</h1>
         {% endblocktrans %}
-        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
         <a href="{% url 'babybuddy:user-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}
