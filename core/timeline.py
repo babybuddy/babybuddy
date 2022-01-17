@@ -26,7 +26,10 @@ def get_objects(date, child=None):
 
     explicit_type_ordering = {'start': 0, 'end': 1}
     events.sort(
-        key=lambda x: (x['time'], explicit_type_ordering.get(x.get('type'), -1)), 
+        key=lambda x: (
+            x['time'],
+            explicit_type_ordering.get(x.get('type'), -1),
+        ),
         reverse=True,
     )
 
