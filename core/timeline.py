@@ -24,7 +24,11 @@ def get_objects(date, child=None):
     _add_tummy_times(min_date, max_date, events, child)
     _add_notes(min_date, max_date, events, child)
 
-    events.sort(key=lambda x: x['time'], reverse=True)
+    explicit_type_ordering = {'start': 0, 'end': 1}
+    events.sort(
+        key=lambda x: (x['time'], explicit_type_ordering.get(x.get('type'), -1)), 
+        reverse=True,
+    )
 
     return events
 
