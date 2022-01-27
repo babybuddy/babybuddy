@@ -1,4 +1,10 @@
-# Navigating
+# Getting Started
+
+## First Login
+
+<video style="width: 100%;" autoplay controls loop muted playsinline>
+  <source src="../../assets/videos/first_login.mp4" type="video/mp4">
+</video>
 
 ## Dashboard
 
