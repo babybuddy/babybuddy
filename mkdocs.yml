@@ -7,6 +7,7 @@ nav:
       - 'setup/configuration.md'
   - 'User Guide':
     - 'user-guide/getting-started.md'
+    - 'user-guide/managing-users.md'
     - 'user-guide/adding-entries.md'
     - 'user-guide/using-timers.md'
   - 'import-export.md'
