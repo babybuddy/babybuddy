@@ -62,7 +62,8 @@ def feeding_amounts(instances):
         y=zeros,
         hoverinfo='text',
         textposition='outside',
-        text=amounts_array[total_idx-1]
+        text=amounts_array[total_idx-1],
+        showlegend=False
     ))
 
     layout_args = utils.default_graph_layout_options()
@@ -76,7 +77,5 @@ def feeding_amounts(instances):
         'layout': go.Layout(**layout_args)
     })
     fig.update_layout(barmode='stack')
-    fig.update_yaxes(automargin=True)
-    fig.update_xaxes(automargin=True)
     output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
     return utils.split_graph_output(output)
