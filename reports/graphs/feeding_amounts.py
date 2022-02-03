@@ -6,6 +6,7 @@ import plotly.offline as plotly
 import plotly.graph_objs as go
 
 from reports import utils
+from core import models
 
 
 def feeding_amounts(instances):
@@ -14,18 +15,8 @@ def feeding_amounts(instances):
     :param instances: a QuerySet of Feeding instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    feeding_types = [
-            'breast milk',
-            'formula',
-            'fortified breast milk',
-            'solid food',
-        ]
-    feeding_types_desc = [
-            'Breast milk',
-            'Formula',
-            'Fortified breast milk',
-            'Solid food',
-        ]
+    feeding_types, feeding_types_desc = \
+        map(list, zip(*models.Feeding._meta.get_field('type').choices))
     total_idx = len(feeding_types) + 1  # +1 for aggregate total
     totals_list = list()
     for i in range(total_idx):
@@ -48,13 +39,16 @@ def feeding_amounts(instances):
 
     traces = []
     for i in range(total_idx-1):
-        traces.append(go.Bar(
-            name=feeding_types_desc[i],
-            x=list(totals_list[total_idx-1].keys()),
-            y=amounts_array[i],
-            text=amounts_array[i]
-
-        ))
+        for x in amounts_array[i]:
+            if x != 0:  # Only include if it has non zero values
+                traces.append(go.Bar(
+                    name=str(feeding_types_desc[i]),
+                    x=list(totals_list[total_idx-1].keys()),
+                    y=amounts_array[i],
+                    text=amounts_array[i],
+                    hovertemplate=str(feeding_types_desc[i])
+                ))
+                break
 
     traces.append(go.Bar(
         name=_('Total'),
@@ -67,7 +61,7 @@ def feeding_amounts(instances):
     ))
 
     layout_args = utils.default_graph_layout_options()
-    layout_args['title'] = _('<b>Total Feeding Amounts</b>')
+    layout_args['title'] = _('<b>Total Feeding Amount by Type</b>')
     layout_args['xaxis']['title'] = _('Date')
     layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
     layout_args['yaxis']['title'] = _('Feeding amount')
