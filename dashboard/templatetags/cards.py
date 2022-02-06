@@ -118,7 +118,7 @@ def card_feeding_day(context, child, date=None):
 
     total = sum([instance.amount for instance in instances if instance.amount])
     count = len(instances)
-    empty = len(instances) == 0
+    empty = len(instances) == 0 or total == 0
 
     return {
         'type': 'feeding',
