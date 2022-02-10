@@ -25,7 +25,6 @@ whitenoise = "*"
 
 [dev-packages]
 coveralls = "*"
-flake8 = "*"
 ipaddress = "*"
 mkdocs = "*"
 mkdocs-material = "*"

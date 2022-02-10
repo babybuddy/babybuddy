@@ -146,12 +146,21 @@ function extras(cb) {
 }
 
 /**
+ * Runs Black formatting on Python code.
+ *
+ * @param cb
+ */
+function format(cb) {
+    _runInPipenv(['black', '.'], cb);
+}
+
+/**
  * Runs linting on Python and SASS code.
  *
  * @param cb
  */
 function lint(cb) {
-    _runInPipenv(['flake8', '--exclude=.venv,etc,migrations,manage.py,node_modules,settings'], cb);
+    _runInPipenv(['black', '.', '--check', '--diff', '--color'], cb);
 
     pump([
         gulp.src(config.watchConfig.stylesGlob),
@@ -365,6 +374,8 @@ gulp.task('docs:deploy', docsDeploy);
 gulp.task('docs:watch', docsWatch);
 
 gulp.task('extras', extras);
+
+gulp.task('format', format);
 
 gulp.task('lint', lint);
 
