@@ -7,13 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0009_diaperchange_amount'),
+        ("core", "0009_diaperchange_amount"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='timer',
-            name='child',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='timers', to='core.Child', verbose_name='Child'),
+            model_name="timer",
+            name="child",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="timers",
+                to="core.Child",
+                verbose_name="Child",
+            ),
         ),
     ]

@@ -12,8 +12,8 @@ from .mixins import TimerFieldSupportMixin
 class ChildViewSet(viewsets.ModelViewSet):
     queryset = models.Child.objects.all()
     serializer_class = serializers.ChildSerializer
-    lookup_field = 'slug'
-    filterset_fields = ('first_name', 'last_name', 'slug', 'birth_date')
+    lookup_field = "slug"
+    filterset_fields = ("first_name", "last_name", "slug", "birth_date")
 
 
 class DiaperChangeViewSet(viewsets.ModelViewSet):
@@ -51,13 +51,13 @@ class TimerViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.TimerSerializer
     filterset_class = filters.TimerFilter
 
-    @action(detail=True, methods=['patch'])
+    @action(detail=True, methods=["patch"])
     def stop(self, request, pk=None):
         timer = self.get_object()
         timer.stop()
         return Response(self.serializer_class(timer).data)
 
-    @action(detail=True, methods=['patch'])
+    @action(detail=True, methods=["patch"])
     def restart(self, request, pk=None):
         timer = self.get_object()
         timer.restart()
@@ -73,22 +73,22 @@ class TummyTimeViewSet(TimerFieldSupportMixin, viewsets.ModelViewSet):
 class WeightViewSet(viewsets.ModelViewSet):
     queryset = models.Weight.objects.all()
     serializer_class = serializers.WeightSerializer
-    filterset_fields = ('child', 'date')
+    filterset_fields = ("child", "date")
 
 
 class HeightViewSet(viewsets.ModelViewSet):
     queryset = models.Height.objects.all()
     serializer_class = serializers.HeightSerializer
-    filterset_fields = ('child', 'date')
+    filterset_fields = ("child", "date")
 
 
 class HeadCircumferenceViewSet(viewsets.ModelViewSet):
     queryset = models.HeadCircumference.objects.all()
     serializer_class = serializers.HeadCircumferenceSerializer
-    filterset_fields = ('child', 'date')
+    filterset_fields = ("child", "date")
 
 
 class BMIViewSet(viewsets.ModelViewSet):
     queryset = models.BMI.objects.all()
     serializer_class = serializers.BMISerializer
-    filterset_fields = ('child', 'date')
+    filterset_fields = ("child", "date")

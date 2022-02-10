@@ -18,47 +18,48 @@ def tummytime_duration(instances):
     :param instances: a QuerySet of TummyTime instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    totals = instances.annotate(date=TruncDate('start')) \
-        .values('date') \
-        .annotate(count=Count('id')) \
-        .annotate(sum=Sum('duration')) \
-        .order_by('-date')
+    totals = (
+        instances.annotate(date=TruncDate("start"))
+        .values("date")
+        .annotate(count=Count("id"))
+        .annotate(sum=Sum("duration"))
+        .order_by("-date")
+    )
 
     sums = []
     for total in totals:
-        sums.append(total['sum'])
+        sums.append(total["sum"])
 
     trace_avg = go.Bar(
-        name=_('Total duration'),
-        x=list(totals.values_list('date', flat=True)),
-        y=[td.seconds/60 for td in sums],
-        hoverinfo='text',
-        text=[_duration_string_ms(td) for td in sums]
+        name=_("Total duration"),
+        x=list(totals.values_list("date", flat=True)),
+        y=[td.seconds / 60 for td in sums],
+        hoverinfo="text",
+        text=[_duration_string_ms(td) for td in sums],
     )
     trace_count = go.Scatter(
-        name=_('Number of sessions'),
-        mode='markers',
-        x=list(totals.values_list('date', flat=True)),
-        y=list(totals.values_list('count', flat=True)),
-        yaxis='y2',
-        hoverinfo='y'
+        name=_("Number of sessions"),
+        mode="markers",
+        x=list(totals.values_list("date", flat=True)),
+        y=list(totals.values_list("count", flat=True)),
+        yaxis="y2",
+        hoverinfo="y",
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args['title'] = _('<b>Total Tummy Time Durations</b>')
-    layout_args['xaxis']['title'] = _('Date')
-    layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
-    layout_args['yaxis']['title'] = _('Total duration (minutes)')
-    layout_args['yaxis2'] = dict(layout_args['yaxis'])
-    layout_args['yaxis2']['title'] = _('Number of sessions')
-    layout_args['yaxis2']['overlaying'] = 'y'
-    layout_args['yaxis2']['side'] = 'right'
+    layout_args["title"] = _("<b>Total Tummy Time Durations</b>")
+    layout_args["xaxis"]["title"] = _("Date")
+    layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
+    layout_args["yaxis"]["title"] = _("Total duration (minutes)")
+    layout_args["yaxis2"] = dict(layout_args["yaxis"])
+    layout_args["yaxis2"]["title"] = _("Number of sessions")
+    layout_args["yaxis2"]["overlaying"] = "y"
+    layout_args["yaxis2"]["side"] = "right"
 
-    fig = go.Figure({
-        'data': [trace_avg, trace_count],
-        'layout': go.Layout(**layout_args)
-    })
-    output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
+    fig = go.Figure(
+        {"data": [trace_avg, trace_count], "layout": go.Layout(**layout_args)}
+    )
+    output = plotly.plot(fig, output_type="div", include_plotlyjs=False)
     return utils.split_graph_output(output)
 
 
@@ -69,4 +70,4 @@ def _duration_string_ms(duration):
     :returns: a string of the form Xm.
     """
     h, m, s = duration_parts(duration)
-    return '{}m{}s'.format(m, s)
+    return "{}m{}s".format(m, s)

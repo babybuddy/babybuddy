@@ -6,13 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('babybuddy', '0007_auto_20190607_1422'),
+        ("babybuddy", "0007_auto_20190607_1422"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='settings',
-            name='language',
-            field=models.CharField(choices=[('en', 'English'), ('fr', 'French'), ('de', 'German'), ('es', 'Spanish'), ('sv', 'Swedish'), ('tr', 'Turkish')], default='en', max_length=255, verbose_name='Language'),
+            model_name="settings",
+            name="language",
+            field=models.CharField(
+                choices=[
+                    ("en", "English"),
+                    ("fr", "French"),
+                    ("de", "German"),
+                    ("es", "Spanish"),
+                    ("sv", "Swedish"),
+                    ("tr", "Turkish"),
+                ],
+                default="en",
+                max_length=255,
+                verbose_name="Language",
+            ),
         ),
     ]

@@ -7,12 +7,12 @@ from babybuddy import VERSION
 
 
 class BabyBuddyConfig(AppConfig):
-    name = 'babybuddy'
-    verbose_name = 'Baby Buddy'
+    name = "babybuddy"
+    verbose_name = "Baby Buddy"
     version = VERSION
     version_string = VERSION
 
     def ready(self):
-        if os.path.isfile('.git/refs/heads/master'):
-            commit = open('.git/refs/heads/master').read()
-            self.version_string += ' ({})'.format(commit[0:7])
+        if os.path.isfile(".git/refs/heads/master"):
+            commit = open(".git/refs/heads/master").read()
+            self.version_string += " ({})".format(commit[0:7])

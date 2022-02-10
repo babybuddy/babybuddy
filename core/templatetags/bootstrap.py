@@ -13,8 +13,8 @@ def bool_icon(value):
     :returns: a string of html for an icon representing the boolean.
     """
     if value:
-        classes = 'icon-true text-success'
+        classes = "icon-true text-success"
     else:
-        classes = 'icon-false text-danger'
+        classes = "icon-false text-danger"
     icon_html = '<i class="{}" aria-hidden="true"></i>'.format(classes)
     return mark_safe(icon_html)

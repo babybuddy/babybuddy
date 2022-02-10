@@ -9,8 +9,14 @@ from .models import Settings
 class UserAddForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email',
-                  'is_staff', 'is_active']
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "is_staff",
+            "is_active",
+        ]
 
     def save(self, commit=True):
         user = super(UserAddForm, self).save(commit=False)
@@ -23,28 +29,34 @@ class UserAddForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email',
-                  'is_staff', 'is_active']
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "is_staff",
+            "is_active",
+        ]
 
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ["first_name", "last_name", "email"]
 
 
 class UserPasswordForm(PasswordChangeForm):
     class Meta:
-        fields = ['old_password', 'new_password1', 'new_password2']
+        fields = ["old_password", "new_password1", "new_password2"]
 
 
 class UserSettingsForm(forms.ModelForm):
     class Meta:
         model = Settings
         fields = [
-            'dashboard_refresh_rate',
-            'dashboard_hide_empty',
-            'dashboard_hide_age',
-            'language',
-            'timezone'
+            "dashboard_refresh_rate",
+            "dashboard_hide_empty",
+            "dashboard_hide_age",
+            "language",
+            "timezone",
         ]

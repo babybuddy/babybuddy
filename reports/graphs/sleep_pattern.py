@@ -13,8 +13,8 @@ from reports import utils
 
 from datetime import timedelta
 
-ASLEEP_COLOR = 'rgb(35, 110, 150)'
-AWAKE_COLOR = 'rgba(255, 255, 255, 0)'
+ASLEEP_COLOR = "rgb(35, 110, 150)"
+AWAKE_COLOR = "rgba(255, 255, 255, 0)"
 
 
 def sleep_pattern(sleeps):
@@ -38,38 +38,44 @@ def sleep_pattern(sleeps):
         # Check if the previous entry crossed midnight (see below).
         if adjustment:
             _add_adjustment(adjustment, days)
-            last_end_time = timezone.localtime(adjustment['end_time'])
+            last_end_time = timezone.localtime(adjustment["end_time"])
             adjustment = None
 
         # If the dates do not match, set up an adjustment for the next day.
         if end_time.date() != start_time.date():
             adj_start_time = end_time.replace(hour=0, minute=0, second=0)
             adjustment = {
-                'column': end_date,
-                'start_time': adj_start_time,
-                'end_time': end_time,
-                'duration': end_time - adj_start_time
+                "column": end_date,
+                "start_time": adj_start_time,
+                "end_time": end_time,
+                "duration": end_time - adj_start_time,
             }
 
             # Adjust end_time for the current entry.
             end_time = end_time.replace(
-                year=start_time.year, month=start_time.month,
-                day=start_time.day, hour=23, minute=59, second=0)
+                year=start_time.year,
+                month=start_time.month,
+                day=start_time.day,
+                hour=23,
+                minute=59,
+                second=0,
+            )
             duration = end_time - start_time
 
         if not last_end_time:
             last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
         # Awake time.
-        days[start_date].append({
-            'time': (start_time - last_end_time).seconds / 60,
-            'label': None
-        })
+        days[start_date].append(
+            {"time": (start_time - last_end_time).seconds / 60, "label": None}
+        )
 
         # Asleep time.
-        days[start_date].append({
-            'time': duration.seconds / 60,
-            'label': _format_label(duration, start_time, end_time)}
+        days[start_date].append(
+            {
+                "time": duration.seconds / 60,
+                "label": _format_label(duration, start_time, end_time),
+            }
         )
 
         # Update the previous entry duration if an offset change occurred.
@@ -77,11 +83,11 @@ def sleep_pattern(sleeps):
         if start_time.utcoffset() != end_time.utcoffset():
             diff = start_time.utcoffset() - end_time.utcoffset()
             duration -= timezone.timedelta(seconds=diff.seconds)
-            yesterday = (end_time - timezone.timedelta(days=1))
+            yesterday = end_time - timezone.timedelta(days=1)
             yesterday = yesterday.date().isoformat()
             days[yesterday][len(days[yesterday]) - 1] = {
-                'time': duration.seconds / 60,
-                'label': _format_label(duration, start_time, end_time)
+                "time": duration.seconds / 60,
+                "label": _format_label(duration, start_time, end_time),
             }
 
         last_end_time = end_time
@@ -94,7 +100,7 @@ def sleep_pattern(sleeps):
     # positioning of bars (covering entire day).
     dates = []
     for time in list(days.keys()):
-        dates.append('{} 12:00:00'.format(time))
+        dates.append("{} 12:00:00".format(time))
 
     traces = []
     color = AWAKE_COLOR
@@ -109,68 +115,71 @@ def sleep_pattern(sleeps):
         text = {}
         for date in days.keys():
             try:
-                y[date] = days[date][i]['time']
-                text[date] = days[date][i]['label']
+                y[date] = days[date][i]["time"]
+                text[date] = days[date][i]["label"]
             except IndexError:
                 y[date] = None
                 text[date] = None
         i += 1
-        traces.append(go.Bar(
-            x=dates,
-            y=list(y.values()),
-            hovertext=list(text.values()),
-            # `hoverinfo` is deprecated but if we use the new `hovertemplate`
-            # the "filler" areas for awake time get a hover that says "null"
-            # and there is no way to prevent this currently with Plotly.
-            hoverinfo='text',
-            marker={'color': color},
-            showlegend=False,
-        ))
+        traces.append(
+            go.Bar(
+                x=dates,
+                y=list(y.values()),
+                hovertext=list(text.values()),
+                # `hoverinfo` is deprecated but if we use the new `hovertemplate`
+                # the "filler" areas for awake time get a hover that says "null"
+                # and there is no way to prevent this currently with Plotly.
+                hoverinfo="text",
+                marker={"color": color},
+                showlegend=False,
+            )
+        )
         if color == AWAKE_COLOR:
             color = ASLEEP_COLOR
         else:
             color = AWAKE_COLOR
 
     layout_args = utils.default_graph_layout_options()
-    layout_args['margin']['b'] = 100
+    layout_args["margin"]["b"] = 100
 
-    layout_args['barmode'] = 'stack'
-    layout_args['bargap'] = 0
-    layout_args['hovermode'] = 'closest'
-    layout_args['title'] = _('<b>Sleep Pattern</b>')
-    layout_args['height'] = 800
+    layout_args["barmode"] = "stack"
+    layout_args["bargap"] = 0
+    layout_args["hovermode"] = "closest"
+    layout_args["title"] = _("<b>Sleep Pattern</b>")
+    layout_args["height"] = 800
 
-    layout_args['xaxis']['title'] = _('Date')
-    layout_args['xaxis']['tickangle'] = -65
-    layout_args['xaxis']['tickformat'] = '%b %e\n%Y'
-    layout_args['xaxis']['ticklabelmode'] = 'period'
-    layout_args['xaxis']['rangeselector'] = utils.rangeselector_date()
+    layout_args["xaxis"]["title"] = _("Date")
+    layout_args["xaxis"]["tickangle"] = -65
+    layout_args["xaxis"]["tickformat"] = "%b %e\n%Y"
+    layout_args["xaxis"]["ticklabelmode"] = "period"
+    layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
 
-    start = timezone.localtime().strptime('12:00 AM', '%I:%M %p')
+    start = timezone.localtime().strptime("12:00 AM", "%I:%M %p")
     ticks = OrderedDict()
-    ticks[0] = start.strftime('%I:%M %p')
-    for i in range(0, 60*24, 30):
-        ticks[i] = formats.time_format(start + timezone.timedelta(minutes=i),
-                                       'TIME_FORMAT')
+    ticks[0] = start.strftime("%I:%M %p")
+    for i in range(0, 60 * 24, 30):
+        ticks[i] = formats.time_format(
+            start + timezone.timedelta(minutes=i), "TIME_FORMAT"
+        )
 
-    layout_args['yaxis']['title'] = _('Time of day')
-    layout_args['yaxis']['range'] = [24*60, 0]
-    layout_args['yaxis']['tickmode'] = 'array'
-    layout_args['yaxis']['tickvals'] = list(ticks.keys())
-    layout_args['yaxis']['ticktext'] = list(ticks.values())
-    layout_args['yaxis']['tickfont'] = {'size': 10}
+    layout_args["yaxis"]["title"] = _("Time of day")
+    layout_args["yaxis"]["range"] = [24 * 60, 0]
+    layout_args["yaxis"]["tickmode"] = "array"
+    layout_args["yaxis"]["tickvals"] = list(ticks.keys())
+    layout_args["yaxis"]["ticktext"] = list(ticks.values())
+    layout_args["yaxis"]["tickfont"] = {"size": 10}
 
-    fig = go.Figure({
-        'data': traces,
-        'layout': go.Layout(**layout_args)
-    })
-    output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
+    fig = go.Figure({"data": traces, "layout": go.Layout(**layout_args)})
+    output = plotly.plot(fig, output_type="div", include_plotlyjs=False)
     return utils.split_graph_output(output)
 
 
 def _init_days(first_day, last_day):
     period = (last_day.date() - first_day.date()).days + 1
-    def new_day(d): return (first_day + timedelta(days=d)).date().isoformat()
+
+    def new_day(d):
+        return (first_day + timedelta(days=d)).date().isoformat()
+
     return {new_day(day): [] for day in range(period)}
 
 
@@ -180,15 +189,17 @@ def _add_adjustment(adjustment, days):
     :param adjustment: Column, start time, end time, and duration of entry.
     :param blocks: List of days
     """
-    column = adjustment.pop('column')
+    column = adjustment.pop("column")
     # Fake (0) entry to keep the color switching logic working.
-    days[column].append({'time': 0, 'label': 0})
+    days[column].append({"time": 0, "label": 0})
 
     # Real adjustment entry.
-    days[column].append({
-        'time': adjustment['duration'].seconds / 60,
-        'label': _format_label(**adjustment)
-    })
+    days[column].append(
+        {
+            "time": adjustment["duration"].seconds / 60,
+            "label": _format_label(**adjustment),
+        }
+    )
 
 
 def _format_label(duration, start_time, end_time):
@@ -199,7 +210,8 @@ def _format_label(duration, start_time, end_time):
     :param end_time: End time.
     :return: Formatted string with duration, start, and end time.
     """
-    return 'Asleep {} ({} to {})'.format(
-                duration_string(duration),
-                formats.time_format(start_time, 'TIME_FORMAT'),
-                formats.time_format(end_time, 'TIME_FORMAT'))
+    return "Asleep {} ({} to {})".format(
+        duration_string(duration),
+        formats.time_format(start_time, "TIME_FORMAT"),
+        formats.time_format(end_time, "TIME_FORMAT"),
+    )

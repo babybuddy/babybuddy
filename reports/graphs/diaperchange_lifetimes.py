@@ -13,7 +13,7 @@ def diaperchange_lifetimes(changes):
     :param changes: a QuerySet of Diaper Change instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    changes = changes.order_by('time')
+    changes = changes.order_by("time")
     durations = []
     last_change = changes.first()
     for change in changes[1:]:
@@ -23,23 +23,20 @@ def diaperchange_lifetimes(changes):
         last_change = change
 
     trace = go.Box(
-        y=[round(d.seconds/3600, 2) for d in durations],
-        name=_('Changes'),
+        y=[round(d.seconds / 3600, 2) for d in durations],
+        name=_("Changes"),
         jitter=0.3,
         pointpos=-1.8,
-        boxpoints='all'
+        boxpoints="all",
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args['height'] = 800
-    layout_args['title'] = _('<b>Diaper Lifetimes</b>')
-    layout_args['yaxis']['title'] = _('Time between changes (hours)')
-    layout_args['yaxis']['zeroline'] = False
-    layout_args['yaxis']['dtick'] = 1
+    layout_args["height"] = 800
+    layout_args["title"] = _("<b>Diaper Lifetimes</b>")
+    layout_args["yaxis"]["title"] = _("Time between changes (hours)")
+    layout_args["yaxis"]["zeroline"] = False
+    layout_args["yaxis"]["dtick"] = 1
 
-    fig = go.Figure({
-        'data': [trace],
-        'layout': go.Layout(**layout_args)
-    })
-    output = plotly.plot(fig, output_type='div', include_plotlyjs=False)
+    fig = go.Figure({"data": [trace], "layout": go.Layout(**layout_args)})
+    output = plotly.plot(fig, output_type="div", include_plotlyjs=False)
     return utils.split_graph_output(output)

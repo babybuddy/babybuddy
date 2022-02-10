@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0008_auto_20190607_1422'),
+        ("core", "0008_auto_20190607_1422"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='diaperchange',
-            name='amount',
-            field=models.FloatField(blank=True, null=True, verbose_name='Amount'),
+            model_name="diaperchange",
+            name="amount",
+            field=models.FloatField(blank=True, null=True, verbose_name="Amount"),
         ),
     ]

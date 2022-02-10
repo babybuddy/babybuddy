@@ -17,45 +17,48 @@ def set_initial_values(kwargs, form_type):
     """
 
     # Never update initial values for existing instance (e.g. edit operation).
-    if kwargs.get('instance', None):
+    if kwargs.get("instance", None):
         return kwargs
 
     # Add the "initial" kwarg if it does not already exist.
-    if not kwargs.get('initial'):
+    if not kwargs.get("initial"):
         kwargs.update(initial={})
 
     # Set Child based on `child` kwarg or single Chile database.
-    child_slug = kwargs.get('child', None)
+    child_slug = kwargs.get("child", None)
     if child_slug:
-        kwargs['initial'].update({
-            'child': models.Child.objects.filter(slug=child_slug).first(),
-        })
+        kwargs["initial"].update(
+            {
+                "child": models.Child.objects.filter(slug=child_slug).first(),
+            }
+        )
     elif models.Child.count() == 1:
-        kwargs['initial'].update({'child': models.Child.objects.first()})
+        kwargs["initial"].update({"child": models.Child.objects.first()})
 
     # Set start and end time based on Timer from `timer` kwarg.
-    timer_id = kwargs.get('timer', None)
+    timer_id = kwargs.get("timer", None)
     if timer_id:
         timer = models.Timer.objects.get(id=timer_id)
-        kwargs['initial'].update({
-            'timer': timer,
-            'start': timer.start,
-            'end': timer.end or timezone.now()
-        })
+        kwargs["initial"].update(
+            {"timer": timer, "start": timer.start, "end": timer.end or timezone.now()}
+        )
 
     # Set type and method values for Feeding instance based on last feed.
-    if form_type == FeedingForm and 'child' in kwargs['initial']:
-        last_feeding = models.Feeding.objects.filter(
-            child=kwargs['initial']['child']).order_by('end').last()
+    if form_type == FeedingForm and "child" in kwargs["initial"]:
+        last_feeding = (
+            models.Feeding.objects.filter(child=kwargs["initial"]["child"])
+            .order_by("end")
+            .last()
+        )
         if last_feeding:
             last_method = last_feeding.method
-            last_feed_args = {'type': last_feeding.type}
-            if last_method not in ['left breast', 'right breast']:
-                last_feed_args['method'] = last_method
-            kwargs['initial'].update(last_feed_args)
+            last_feed_args = {"type": last_feeding.type}
+            if last_method not in ["left breast", "right breast"]:
+                last_feed_args["method"] = last_method
+            kwargs["initial"].update(last_feed_args)
 
     # Remove custom kwargs so they do not interfere with `super` calls.
-    for key in ['child', 'timer']:
+    for key in ["child", "timer"]:
         try:
             kwargs.pop(key)
         except KeyError:
@@ -67,7 +70,7 @@ def set_initial_values(kwargs, form_type):
 class CoreModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         # Set `timer_id` so the Timer can be stopped in the `save` method.
-        self.timer_id = kwargs.get('timer', None)
+        self.timer_id = kwargs.get("timer", None)
         kwargs = set_initial_values(kwargs, type(self))
         super(CoreModelForm, self).__init__(*args, **kwargs)
 
@@ -85,18 +88,16 @@ class CoreModelForm(forms.ModelForm):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = models.Child
-        fields = [
-            'first_name',
-            'last_name',
-            'birth_date'
-        ]
-        if settings.BABY_BUDDY['ALLOW_UPLOADS']:
-            fields.append('picture')
+        fields = ["first_name", "last_name", "birth_date"]
+        if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
+            fields.append("picture")
         widgets = {
-            'birth_date': forms.DateInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_date',
-            }),
+            "birth_date": forms.DateInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_date",
+                }
+            ),
         }
 
 
@@ -108,10 +109,11 @@ class ChildDeleteForm(forms.ModelForm):
         fields = []
 
     def clean_confirm_name(self):
-        confirm_name = self.cleaned_data['confirm_name']
+        confirm_name = self.cleaned_data["confirm_name"]
         if confirm_name != str(self.instance):
             raise forms.ValidationError(
-                _('Name does not match child name.'), code='confirm_mismatch')
+                _("Name does not match child name."), code="confirm_mismatch"
+            )
         return confirm_name
 
     def save(self, commit=True):
@@ -123,88 +125,104 @@ class ChildDeleteForm(forms.ModelForm):
 class DiaperChangeForm(CoreModelForm):
     class Meta:
         model = models.DiaperChange
-        fields = ['child', 'time', 'wet', 'solid', 'color', 'amount', 'notes']
+        fields = ["child", "time", "wet", "solid", "color", "amount", "notes"]
         widgets = {
-            'time': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_time',
-            }),
-            'notes': forms.Textarea(attrs={'rows': 5}),
+            "time": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_time",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
 class FeedingForm(CoreModelForm):
     class Meta:
         model = models.Feeding
-        fields = ['child', 'start', 'end', 'type', 'method', 'amount', 'notes']
+        fields = ["child", "start", "end", "type", "method", "amount", "notes"]
         widgets = {
-            'start': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_start',
-            }),
-            'end': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_end',
-            }),
-            'notes': forms.Textarea(attrs={'rows': 5}),
+            "start": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_start",
+                }
+            ),
+            "end": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_end",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
 class NoteForm(CoreModelForm):
     class Meta:
         model = models.Note
-        fields = ['child', 'note', 'time']
+        fields = ["child", "note", "time"]
         widgets = {
-            'time': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_time',
-            }),
+            "time": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_time",
+                }
+            ),
         }
 
 
 class SleepForm(CoreModelForm):
     class Meta:
         model = models.Sleep
-        fields = ['child', 'start', 'end', 'notes']
+        fields = ["child", "start", "end", "notes"]
         widgets = {
-            'start': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_start',
-            }),
-            'end': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_end',
-            }),
-            'notes': forms.Textarea(attrs={'rows': 5}),
+            "start": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_start",
+                }
+            ),
+            "end": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_end",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
 class TemperatureForm(CoreModelForm):
     class Meta:
         model = models.Temperature
-        fields = ['child', 'temperature', 'time', 'notes']
+        fields = ["child", "temperature", "time", "notes"]
         widgets = {
-            'time': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_time',
-            }),
-            'notes': forms.Textarea(attrs={'rows': 5}),
+            "time": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_time",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
 class TimerForm(CoreModelForm):
     class Meta:
         model = models.Timer
-        fields = ['child', 'name', 'start']
+        fields = ["child", "name", "start"]
         widgets = {
-            'start': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_start',
-            })
+            "start": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_start",
+                }
+            )
         }
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
+        self.user = kwargs.pop("user")
         super(TimerForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
@@ -217,66 +235,78 @@ class TimerForm(CoreModelForm):
 class TummyTimeForm(CoreModelForm):
     class Meta:
         model = models.TummyTime
-        fields = ['child', 'start', 'end', 'milestone']
+        fields = ["child", "start", "end", "milestone"]
         widgets = {
-            'start': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_start',
-            }),
-            'end': forms.DateTimeInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_end',
-            }),
+            "start": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_start",
+                }
+            ),
+            "end": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_end",
+                }
+            ),
         }
 
 
 class WeightForm(CoreModelForm):
     class Meta:
         model = models.Weight
-        fields = ['child', 'weight', 'date', 'notes']
+        fields = ["child", "weight", "date", "notes"]
         widgets = {
-            'date': forms.DateInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_date',
-            }),
-            'notes': forms.Textarea(attrs={'rows': 5}),
+            "date": forms.DateInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_date",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
 class HeightForm(CoreModelForm):
     class Meta:
         model = models.Height
-        fields = ['child', 'height', 'date', 'notes']
+        fields = ["child", "height", "date", "notes"]
         widgets = {
-            'date': forms.DateInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_date',
-            }),
-            'notes': forms.Textarea(attrs={'rows': 5}),
+            "date": forms.DateInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_date",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
 class HeadCircumferenceForm(CoreModelForm):
     class Meta:
         model = models.HeadCircumference
-        fields = ['child', 'head_circumference', 'date', 'notes']
+        fields = ["child", "head_circumference", "date", "notes"]
         widgets = {
-            'date': forms.DateInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_date',
-            }),
-            'notes': forms.Textarea(attrs={'rows': 5}),
+            "date": forms.DateInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_date",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
 class BMIForm(CoreModelForm):
     class Meta:
         model = models.BMI
-        fields = ['child', 'bmi', 'date', 'notes']
+        fields = ["child", "bmi", "date", "notes"]
         widgets = {
-            'date': forms.DateInput(attrs={
-                'autocomplete': 'off',
-                'data-target': '#datetimepicker_date',
-            }),
-            'notes': forms.Textarea(attrs={'rows': 5}),
+            "date": forms.DateInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_date",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }

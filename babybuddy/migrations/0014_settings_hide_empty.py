@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('babybuddy', '0013_auto_20210411_1241'),
+        ("babybuddy", "0013_auto_20210411_1241"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='settings',
-            name='dashboard_hide_empty',
-            field=models.BooleanField(default=False, verbose_name='Hide Empty Dashboard Cards'),
+            model_name="settings",
+            name="dashboard_hide_empty",
+            field=models.BooleanField(
+                default=False, verbose_name="Hide Empty Dashboard Cards"
+            ),
         ),
     ]

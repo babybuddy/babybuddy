@@ -6,13 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0007_temperature'),
+        ("core", "0007_temperature"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='feeding',
-            name='type',
-            field=models.CharField(choices=[('breast milk', 'Breast milk'), ('formula', 'Formula'), ('fortified breast milk', 'Fortified breast milk')], max_length=255, verbose_name='Type'),
+            model_name="feeding",
+            name="type",
+            field=models.CharField(
+                choices=[
+                    ("breast milk", "Breast milk"),
+                    ("formula", "Formula"),
+                    ("fortified breast milk", "Fortified breast milk"),
+                ],
+                max_length=255,
+                verbose_name="Type",
+            ),
         ),
     ]

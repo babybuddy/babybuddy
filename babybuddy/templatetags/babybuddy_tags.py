@@ -19,12 +19,11 @@ def relative_url(context, field_name, value):
     :param value: the new value for field_name.
     :return: encoded relative url with updated query string.
     """
-    url = '?{}={}'.format(field_name, value)
-    querystring = context['request'].GET.urlencode().split('&')
-    filtered_querystring = filter(
-        lambda p: p.split('=')[0] != field_name, querystring)
-    encoded_querystring = '&'.join(filtered_querystring)
-    return '{}&{}'.format(url, encoded_querystring)
+    url = "?{}={}".format(field_name, value)
+    querystring = context["request"].GET.urlencode().split("&")
+    filtered_querystring = filter(lambda p: p.split("=")[0] != field_name, querystring)
+    encoded_querystring = "&".join(filtered_querystring)
+    return "{}&{}".format(url, encoded_querystring)
 
 
 @register.simple_tag()
@@ -34,7 +33,7 @@ def version_string():
 
     :return: version string ('n.n.n (commit)').
     """
-    config = apps.get_app_config('babybuddy')
+    config = apps.get_app_config("babybuddy")
     return config.version_string
 
 

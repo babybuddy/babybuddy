@@ -16,11 +16,44 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Settings',
+            name="Settings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('dashboard_refresh_rate', models.DurationField(blank=True, choices=[(None, 'disabled'), (datetime.timedelta(0, 60), '1 min.'), (datetime.timedelta(0, 120), '2 min.'), (datetime.timedelta(0, 180), '3 min.'), (datetime.timedelta(0, 240), '4 min.'), (datetime.timedelta(0, 300), '5 min.'), (datetime.timedelta(0, 600), '10 min.'), (datetime.timedelta(0, 900), '15 min.'), (datetime.timedelta(0, 1800), '30 min.')], default=datetime.timedelta(0, 60), null=True, verbose_name='Refresh rate')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "dashboard_refresh_rate",
+                    models.DurationField(
+                        blank=True,
+                        choices=[
+                            (None, "disabled"),
+                            (datetime.timedelta(0, 60), "1 min."),
+                            (datetime.timedelta(0, 120), "2 min."),
+                            (datetime.timedelta(0, 180), "3 min."),
+                            (datetime.timedelta(0, 240), "4 min."),
+                            (datetime.timedelta(0, 300), "5 min."),
+                            (datetime.timedelta(0, 600), "10 min."),
+                            (datetime.timedelta(0, 900), "15 min."),
+                            (datetime.timedelta(0, 1800), "30 min."),
+                        ],
+                        default=datetime.timedelta(0, 60),
+                        null=True,
+                        verbose_name="Refresh rate",
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

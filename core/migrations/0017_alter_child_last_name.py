@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0016_alter_sleep_napping'),
+        ("core", "0016_alter_sleep_napping"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='child',
-            name='last_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Last name'),
+            model_name="child",
+            name="last_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Last name"
+            ),
         ),
     ]

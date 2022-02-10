@@ -6,18 +6,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0012_auto_20200813_0238'),
+        ("core", "0012_auto_20200813_0238"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='feeding',
-            name='method',
-            field=models.CharField(choices=[('bottle', 'Bottle'), ('left breast', 'Left breast'), ('right breast', 'Right breast'), ('both breasts', 'Both breasts'), ('parent fed', 'Parent fed'), ('self fed', 'Self fed')], max_length=255, verbose_name='Method'),
+            model_name="feeding",
+            name="method",
+            field=models.CharField(
+                choices=[
+                    ("bottle", "Bottle"),
+                    ("left breast", "Left breast"),
+                    ("right breast", "Right breast"),
+                    ("both breasts", "Both breasts"),
+                    ("parent fed", "Parent fed"),
+                    ("self fed", "Self fed"),
+                ],
+                max_length=255,
+                verbose_name="Method",
+            ),
         ),
         migrations.AlterField(
-            model_name='feeding',
-            name='type',
-            field=models.CharField(choices=[('breast milk', 'Breast milk'), ('formula', 'Formula'), ('fortified breast milk', 'Fortified breast milk'), ('solid food', 'Solid food')], max_length=255, verbose_name='Type'),
+            model_name="feeding",
+            name="type",
+            field=models.CharField(
+                choices=[
+                    ("breast milk", "Breast milk"),
+                    ("formula", "Formula"),
+                    ("fortified breast milk", "Fortified breast milk"),
+                    ("solid food", "Solid food"),
+                ],
+                max_length=255,
+                verbose_name="Type",
+            ),
         ),
     ]

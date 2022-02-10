@@ -20,8 +20,8 @@ def validate_date(date, field_name):
     """
     if date and date > timezone.localdate():
         raise ValidationError(
-            {field_name: _('Date can not be in the future.')},
-            code='date_invalid')
+            {field_name: _("Date can not be in the future.")}, code="date_invalid"
+        )
 
 
 def validate_duration(model, max_duration=timedelta(hours=24)):
@@ -34,10 +34,10 @@ def validate_duration(model, max_duration=timedelta(hours=24)):
     if model.start and model.end:
         if model.start > model.end:
             raise ValidationError(
-                _('Start time must come before end time.'),
-                code='end_before_start')
+                _("Start time must come before end time."), code="end_before_start"
+            )
         if model.end - model.start > max_duration:
-            raise ValidationError(_('Duration too long.'), code='max_duration')
+            raise ValidationError(_("Duration too long."), code="max_duration")
 
 
 def validate_unique_period(queryset, model):
@@ -53,8 +53,9 @@ def validate_unique_period(queryset, model):
     if model.start and model.end:
         if queryset.filter(start__lt=model.end, end__gt=model.start):
             raise ValidationError(
-                _('Another entry intersects the specified time period.'),
-                code='period_intersection')
+                _("Another entry intersects the specified time period."),
+                code="period_intersection",
+            )
 
 
 def validate_time(time, field_name):
@@ -66,47 +67,38 @@ def validate_time(time, field_name):
     """
     if time and time > timezone.localtime():
         raise ValidationError(
-            {field_name: _('Date/time can not be in the future.')},
-            code='time_invalid')
+            {field_name: _("Date/time can not be in the future.")}, code="time_invalid"
+        )
 
 
 class Child(models.Model):
-    model_name = 'child'
-    first_name = models.CharField(max_length=255, verbose_name=_('First name'))
+    model_name = "child"
+    first_name = models.CharField(max_length=255, verbose_name=_("First name"))
     last_name = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('Last name')
+        blank=True, max_length=255, verbose_name=_("Last name")
     )
-    birth_date = models.DateField(
-        blank=False,
-        null=False,
-        verbose_name=_('Birth date')
-    )
+    birth_date = models.DateField(blank=False, null=False, verbose_name=_("Birth date"))
     slug = models.SlugField(
         allow_unicode=True,
         blank=False,
         editable=False,
         max_length=100,
         unique=True,
-        verbose_name=_('Slug')
+        verbose_name=_("Slug"),
     )
     picture = models.ImageField(
-        blank=True,
-        null=True,
-        upload_to='child/picture/',
-        verbose_name=_('Picture')
+        blank=True, null=True, upload_to="child/picture/", verbose_name=_("Picture")
     )
 
     objects = models.Manager()
 
-    cache_key_count = 'core.child.count'
+    cache_key_count = "core.child.count"
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['last_name', 'first_name']
-        verbose_name = _('Child')
-        verbose_name_plural = _('Children')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["last_name", "first_name"]
+        verbose_name = _("Child")
+        verbose_name_plural = _("Children")
 
     def __str__(self):
         return self.name()
@@ -124,132 +116,119 @@ class Child(models.Model):
         if not self.last_name:
             return self.first_name
         if reverse:
-            return '{}, {}'.format(self.last_name, self.first_name)
-        return '{} {}'.format(self.first_name, self.last_name)
+            return "{}, {}".format(self.last_name, self.first_name)
+        return "{} {}".format(self.first_name, self.last_name)
 
     @classmethod
     def count(cls):
-        """ Get a (cached) count of total number of Child instances. """
+        """Get a (cached) count of total number of Child instances."""
         return cache.get_or_set(cls.cache_key_count, Child.objects.count, None)
 
 
 class DiaperChange(models.Model):
-    model_name = 'diaperchange'
+    model_name = "diaperchange"
     child = models.ForeignKey(
-        'Child',
+        "Child",
         on_delete=models.CASCADE,
-        related_name='diaper_change',
-        verbose_name=_('Child')
+        related_name="diaper_change",
+        verbose_name=_("Child"),
     )
-    time = models.DateTimeField(
-        blank=False,
-        null=False,
-        verbose_name=_('Time')
-    )
-    wet = models.BooleanField(verbose_name=_('Wet'))
-    solid = models.BooleanField(verbose_name=_('Solid'))
+    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    wet = models.BooleanField(verbose_name=_("Wet"))
+    solid = models.BooleanField(verbose_name=_("Solid"))
     color = models.CharField(
         blank=True,
         choices=[
-            ('black', _('Black')),
-            ('brown', _('Brown')),
-            ('green', _('Green')),
-            ('yellow', _('Yellow')),
+            ("black", _("Black")),
+            ("brown", _("Brown")),
+            ("green", _("Green")),
+            ("yellow", _("Yellow")),
         ],
         max_length=255,
-        verbose_name=_('Color')
+        verbose_name=_("Color"),
     )
-    amount = models.FloatField(blank=True, null=True, verbose_name=_('Amount'))
-    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+    amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-time']
-        verbose_name = _('Diaper Change')
-        verbose_name_plural = _('Diaper Changes')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-time"]
+        verbose_name = _("Diaper Change")
+        verbose_name_plural = _("Diaper Changes")
 
     def __str__(self):
-        return str(_('Diaper Change'))
+        return str(_("Diaper Change"))
 
     def attributes(self):
         attributes = []
         if self.wet:
-            attributes.append(self._meta.get_field('wet').verbose_name)
+            attributes.append(self._meta.get_field("wet").verbose_name)
         if self.solid:
-            attributes.append(self._meta.get_field('solid').verbose_name)
+            attributes.append(self._meta.get_field("solid").verbose_name)
         if self.color:
             attributes.append(self.get_color_display())
         return attributes
 
     def clean(self):
-        validate_time(self.time, 'time')
+        validate_time(self.time, "time")
 
         # One or both of Wet and Solid is required.
         if not self.wet and not self.solid:
             raise ValidationError(
-                _('Wet and/or solid is required.'), code='wet_or_solid')
+                _("Wet and/or solid is required."), code="wet_or_solid"
+            )
 
 
 class Feeding(models.Model):
-    model_name = 'feeding'
+    model_name = "feeding"
     child = models.ForeignKey(
-        'Child',
+        "Child",
         on_delete=models.CASCADE,
-        related_name='feeding',
-        verbose_name=_('Child')
+        related_name="feeding",
+        verbose_name=_("Child"),
     )
-    start = models.DateTimeField(
-        blank=False,
-        null=False,
-        verbose_name=_('Start time')
-    )
-    end = models.DateTimeField(
-        blank=False,
-        null=False,
-        verbose_name=_('End time')
-    )
+    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
+    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
     duration = models.DurationField(
-        editable=False,
-        null=True,
-        verbose_name=_('Duration')
+        editable=False, null=True, verbose_name=_("Duration")
     )
     type = models.CharField(
         choices=[
-            ('breast milk', _('Breast milk')),
-            ('formula', _('Formula')),
-            ('fortified breast milk', _('Fortified breast milk')),
-            ('solid food', _('Solid food')),
+            ("breast milk", _("Breast milk")),
+            ("formula", _("Formula")),
+            ("fortified breast milk", _("Fortified breast milk")),
+            ("solid food", _("Solid food")),
         ],
         max_length=255,
-        verbose_name=_('Type')
+        verbose_name=_("Type"),
     )
     method = models.CharField(
         choices=[
-            ('bottle', _('Bottle')),
-            ('left breast', _('Left breast')),
-            ('right breast', _('Right breast')),
-            ('both breasts', _('Both breasts')),
-            ('parent fed', _('Parent fed')),
-            ('self fed', _('Self fed')),
+            ("bottle", _("Bottle")),
+            ("left breast", _("Left breast")),
+            ("right breast", _("Right breast")),
+            ("both breasts", _("Both breasts")),
+            ("parent fed", _("Parent fed")),
+            ("self fed", _("Self fed")),
         ],
         max_length=255,
-        verbose_name=_('Method')
+        verbose_name=_("Method"),
     )
-    amount = models.FloatField(blank=True, null=True, verbose_name=_('Amount'))
-    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+    amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-start']
-        verbose_name = _('Feeding')
-        verbose_name_plural = _('Feedings')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-start"]
+        verbose_name = _("Feeding")
+        verbose_name_plural = _("Feedings")
 
     def __str__(self):
-        return str(_('Feeding'))
+        return str(_("Feeding"))
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
@@ -257,37 +236,32 @@ class Feeding(models.Model):
         super(Feeding, self).save(*args, **kwargs)
 
     def clean(self):
-        validate_time(self.start, 'start')
-        validate_time(self.end, 'end')
+        validate_time(self.start, "start")
+        validate_time(self.end, "end")
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
 
 class Note(models.Model):
-    model_name = 'note'
+    model_name = "note"
     child = models.ForeignKey(
-        'Child',
-        on_delete=models.CASCADE,
-        related_name='note',
-        verbose_name=_('Child')
+        "Child", on_delete=models.CASCADE, related_name="note", verbose_name=_("Child")
     )
-    note = models.TextField(verbose_name=_('Note'))
+    note = models.TextField(verbose_name=_("Note"))
     time = models.DateTimeField(
-        default=timezone.now,
-        blank=False,
-        verbose_name=_('Time')
+        default=timezone.now, blank=False, verbose_name=_("Time")
     )
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-time']
-        verbose_name = _('Note')
-        verbose_name_plural = _('Notes')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-time"]
+        verbose_name = _("Note")
+        verbose_name_plural = _("Notes")
 
     def __str__(self):
-        return str(_('Note'))
+        return str(_("Note"))
 
 
 class NapsManager(models.Manager):
@@ -297,53 +271,38 @@ class NapsManager(models.Manager):
 
 
 class Sleep(models.Model):
-    model_name = 'sleep'
+    model_name = "sleep"
     child = models.ForeignKey(
-        'Child',
-        on_delete=models.CASCADE,
-        related_name='sleep',
-        verbose_name=_('Child')
+        "Child", on_delete=models.CASCADE, related_name="sleep", verbose_name=_("Child")
     )
-    napping = models.BooleanField(
-        editable=False,
-        null=True,
-        verbose_name=_('Napping')
-    )
-    start = models.DateTimeField(
-        blank=False,
-        null=False,
-        verbose_name=_('Start time')
-    )
-    end = models.DateTimeField(
-        blank=False,
-        null=False,
-        verbose_name=_('End time')
-    )
+    napping = models.BooleanField(editable=False, null=True, verbose_name=_("Napping"))
+    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
+    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
     duration = models.DurationField(
-        editable=False,
-        null=True,
-        verbose_name=_('Duration')
+        editable=False, null=True, verbose_name=_("Duration")
     )
-    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
     naps = NapsManager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-start']
-        verbose_name = _('Sleep')
-        verbose_name_plural = _('Sleep')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-start"]
+        verbose_name = _("Sleep")
+        verbose_name_plural = _("Sleep")
 
     def __str__(self):
-        return str(_('Sleep'))
+        return str(_("Sleep"))
 
     @property
     def nap(self):
         nap_start_min = timezone.datetime.strptime(
-            settings.BABY_BUDDY['NAP_START_MIN'], '%H:%M').time()
+            settings.BABY_BUDDY["NAP_START_MIN"], "%H:%M"
+        ).time()
         nap_start_max = timezone.datetime.strptime(
-            settings.BABY_BUDDY['NAP_START_MAX'], '%H:%M').time()
+            settings.BABY_BUDDY["NAP_START_MAX"], "%H:%M"
+        ).time()
         local_start_time = timezone.localtime(self.start).time()
         return nap_start_min <= local_start_time <= nap_start_max
 
@@ -354,115 +313,94 @@ class Sleep(models.Model):
         super(Sleep, self).save(*args, **kwargs)
 
     def clean(self):
-        validate_time(self.start, 'start')
-        validate_time(self.end, 'end')
+        validate_time(self.start, "start")
+        validate_time(self.end, "end")
         validate_duration(self)
         validate_unique_period(Sleep.objects.filter(child=self.child), self)
 
 
 class Temperature(models.Model):
-    model_name = 'temperature'
+    model_name = "temperature"
     child = models.ForeignKey(
-        'Child',
+        "Child",
         on_delete=models.CASCADE,
-        related_name='temperature',
-        verbose_name=_('Child')
+        related_name="temperature",
+        verbose_name=_("Child"),
     )
     temperature = models.FloatField(
-        blank=False,
-        null=False,
-        verbose_name=_('Temperature')
+        blank=False, null=False, verbose_name=_("Temperature")
     )
-    time = models.DateTimeField(
-        blank=False,
-        null=False,
-        verbose_name=_('Time')
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-time']
-        verbose_name = _('Temperature')
-        verbose_name_plural = _('Temperature')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-time"]
+        verbose_name = _("Temperature")
+        verbose_name_plural = _("Temperature")
 
     def __str__(self):
-        return str(_('Temperature'))
+        return str(_("Temperature"))
 
     def clean(self):
-        validate_time(self.time, 'time')
+        validate_time(self.time, "time")
 
 
 class Timer(models.Model):
-    model_name = 'timer'
+    model_name = "timer"
     child = models.ForeignKey(
-        'Child',
+        "Child",
         blank=True,
         null=True,
         on_delete=models.CASCADE,
-        related_name='timers',
-        verbose_name=_('Child')
+        related_name="timers",
+        verbose_name=_("Child"),
     )
     name = models.CharField(
-        blank=True,
-        max_length=255,
-        null=True,
-        verbose_name=_('Name')
+        blank=True, max_length=255, null=True, verbose_name=_("Name")
     )
     start = models.DateTimeField(
-        default=timezone.now,
-        blank=False,
-        verbose_name=_('Start time')
+        default=timezone.now, blank=False, verbose_name=_("Start time")
     )
     end = models.DateTimeField(
-        blank=True,
-        editable=False,
-        null=True,
-        verbose_name=_('End time')
+        blank=True, editable=False, null=True, verbose_name=_("End time")
     )
     duration = models.DurationField(
-        editable=False,
-        null=True,
-        verbose_name=_('Duration')
+        editable=False, null=True, verbose_name=_("Duration")
     )
-    active = models.BooleanField(
-        default=True,
-        editable=False,
-        verbose_name=_('Active')
-    )
+    active = models.BooleanField(default=True, editable=False, verbose_name=_("Active"))
     user = models.ForeignKey(
-        'auth.User',
+        "auth.User",
         on_delete=models.CASCADE,
-        related_name='timers',
-        verbose_name=_('User')
+        related_name="timers",
+        verbose_name=_("User"),
     )
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-active', '-start', '-end']
-        verbose_name = _('Timer')
-        verbose_name_plural = _('Timers')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-active", "-start", "-end"]
+        verbose_name = _("Timer")
+        verbose_name_plural = _("Timers")
 
     def __str__(self):
-        return self.name or str(format_lazy(_('Timer #{id}'), id=self.id))
+        return self.name or str(format_lazy(_("Timer #{id}"), id=self.id))
 
     @property
     def title_with_child(self):
-        """ Get Timer title with child name in parenthesis. """
+        """Get Timer title with child name in parenthesis."""
         title = str(self)
         # Only actually add the name if there is more than one Child instance.
         if title and self.child and Child.count() > 1:
-            title = format_lazy('{title} ({child})', title=title,
-                                child=self.child)
+            title = format_lazy("{title} ({child})", title=title, child=self.child)
         return title
 
     @property
     def user_username(self):
-        """ Get Timer user's name with a preference for the full name. """
+        """Get Timer user's name with a preference for the full name."""
         if self.user.get_full_name():
             return self.user.get_full_name()
         return self.user.get_username()
@@ -499,51 +437,39 @@ class Timer(models.Model):
         super(Timer, self).save(*args, **kwargs)
 
     def clean(self):
-        validate_time(self.start, 'start')
+        validate_time(self.start, "start")
         if self.end:
-            validate_time(self.end, 'end')
+            validate_time(self.end, "end")
         validate_duration(self)
 
 
 class TummyTime(models.Model):
-    model_name = 'tummytime'
+    model_name = "tummytime"
     child = models.ForeignKey(
-        'Child',
+        "Child",
         on_delete=models.CASCADE,
-        related_name='tummy_time',
-        verbose_name=_('Child')
+        related_name="tummy_time",
+        verbose_name=_("Child"),
     )
-    start = models.DateTimeField(
-        blank=False,
-        null=False,
-        verbose_name=_('Start time')
-    )
-    end = models.DateTimeField(
-        blank=False,
-        null=False,
-        verbose_name=_('End time')
-    )
+    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
+    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
     duration = models.DurationField(
-        editable=False,
-        null=True,
-        verbose_name=_('Duration')
+        editable=False, null=True, verbose_name=_("Duration")
     )
     milestone = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('Milestone')
+        blank=True, max_length=255, verbose_name=_("Milestone")
     )
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-start']
-        verbose_name = _('Tummy Time')
-        verbose_name_plural = _('Tummy Time')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-start"]
+        verbose_name = _("Tummy Time")
+        verbose_name_plural = _("Tummy Time")
 
     def __str__(self):
-        return str(_('Tummy Time'))
+        return str(_("Tummy Time"))
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
@@ -551,148 +477,114 @@ class TummyTime(models.Model):
         super(TummyTime, self).save(*args, **kwargs)
 
     def clean(self):
-        validate_time(self.start, 'start')
-        validate_time(self.end, 'end')
+        validate_time(self.start, "start")
+        validate_time(self.end, "end")
         validate_duration(self)
-        validate_unique_period(
-            TummyTime.objects.filter(child=self.child), self)
+        validate_unique_period(TummyTime.objects.filter(child=self.child), self)
 
 
 class Weight(models.Model):
-    model_name = 'weight'
+    model_name = "weight"
     child = models.ForeignKey(
-        'Child',
+        "Child",
         on_delete=models.CASCADE,
-        related_name='weight',
-        verbose_name=_('Child')
+        related_name="weight",
+        verbose_name=_("Child"),
     )
-    weight = models.FloatField(
-        blank=False,
-        null=False,
-        verbose_name=_('Weight')
-    )
-    date = models.DateField(
-        blank=False,
-        null=False,
-        verbose_name=_('Date')
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+    weight = models.FloatField(blank=False, null=False, verbose_name=_("Weight"))
+    date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-date']
-        verbose_name = _('Weight')
-        verbose_name_plural = _('Weight')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-date"]
+        verbose_name = _("Weight")
+        verbose_name_plural = _("Weight")
 
     def __str__(self):
-        return str(_('Weight'))
+        return str(_("Weight"))
 
     def clean(self):
-        validate_date(self.date, 'date')
+        validate_date(self.date, "date")
 
 
 class Height(models.Model):
-    model_name = 'height'
+    model_name = "height"
     child = models.ForeignKey(
-        'Child',
+        "Child",
         on_delete=models.CASCADE,
-        related_name='height',
-        verbose_name=_('Child')
+        related_name="height",
+        verbose_name=_("Child"),
     )
-    height = models.FloatField(
-        blank=False,
-        null=False,
-        verbose_name=_('Height')
-    )
-    date = models.DateField(
-        blank=False,
-        null=False,
-        verbose_name=_('Date')
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+    height = models.FloatField(blank=False, null=False, verbose_name=_("Height"))
+    date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-date']
-        verbose_name = _('Height')
-        verbose_name_plural = _('Height')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-date"]
+        verbose_name = _("Height")
+        verbose_name_plural = _("Height")
 
     def __str__(self):
-        return str(_('Height'))
+        return str(_("Height"))
 
     def clean(self):
-        validate_date(self.date, 'date')
+        validate_date(self.date, "date")
 
 
 class HeadCircumference(models.Model):
-    model_name = 'head_circumference'
+    model_name = "head_circumference"
     child = models.ForeignKey(
-        'Child',
+        "Child",
         on_delete=models.CASCADE,
-        related_name='head_circumference',
-        verbose_name=_('Child')
+        related_name="head_circumference",
+        verbose_name=_("Child"),
     )
     head_circumference = models.FloatField(
-        blank=False,
-        null=False,
-        verbose_name=_('Head Circumference')
+        blank=False, null=False, verbose_name=_("Head Circumference")
     )
-    date = models.DateField(
-        blank=False,
-        null=False,
-        verbose_name=_('Date')
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+    date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-date']
-        verbose_name = _('Head Circumference')
-        verbose_name_plural = _('Head Circumference')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-date"]
+        verbose_name = _("Head Circumference")
+        verbose_name_plural = _("Head Circumference")
 
     def __str__(self):
-        return str(_('Head Circumference'))
+        return str(_("Head Circumference"))
 
     def clean(self):
-        validate_date(self.date, 'date')
+        validate_date(self.date, "date")
 
 
 class BMI(models.Model):
-    model_name = 'bmi'
+    model_name = "bmi"
     child = models.ForeignKey(
-        'Child',
-        on_delete=models.CASCADE,
-        related_name='bmi',
-        verbose_name=_('Child')
+        "Child", on_delete=models.CASCADE, related_name="bmi", verbose_name=_("Child")
     )
-    bmi = models.FloatField(
-        blank=False,
-        null=False,
-        verbose_name=_('BMI')
-    )
-    date = models.DateField(
-        blank=False,
-        null=False,
-        verbose_name=_('Date')
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_('Notes'))
+    bmi = models.FloatField(blank=False, null=False, verbose_name=_("BMI"))
+    date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
 
     class Meta:
-        default_permissions = ('view', 'add', 'change', 'delete')
-        ordering = ['-date']
-        verbose_name = _('BMI')
-        verbose_name_plural = _('BMI')
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-date"]
+        verbose_name = _("BMI")
+        verbose_name_plural = _("BMI")
 
     def __str__(self):
-        return str(_('BMI'))
+        return str(_("BMI"))
 
     def clean(self):
-        validate_date(self.date, 'date')
+        validate_date(self.date, "date")

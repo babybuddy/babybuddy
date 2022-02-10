@@ -1,5 +1,5 @@
 # Server mechanics
-bind = '0.0.0.0:8000'
+bind = "0.0.0.0:8000"
 backlog = 2048
 daemon = False
 pidfile = None
@@ -10,9 +10,9 @@ tmp_upload_dir = None
 proc_name = None
 
 # Logging
-errorlog = '-'
-loglevel = 'info'
-accesslog = '-'
+errorlog = "-"
+loglevel = "info"
+accesslog = "-"
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
 
 #
@@ -65,7 +65,7 @@ access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
 #
 
 workers = 1
-worker_class = 'sync'
+worker_class = "sync"
 worker_connections = 1000
 timeout = 30
 keepalive = 2
@@ -112,14 +112,13 @@ def worker_int(worker):
 
     # get traceback info
     import threading, sys, traceback
+
     id2name = dict([(th.ident, th.name) for th in threading.enumerate()])
     code = []
     for threadId, stack in sys._current_frames().items():
-        code.append("\n# Thread: %s(%d)" % (id2name.get(threadId,""),
-            threadId))
+        code.append("\n# Thread: %s(%d)" % (id2name.get(threadId, ""), threadId))
         for filename, lineno, name, line in traceback.extract_stack(stack):
-            code.append('File: "%s", line %d, in %s' % (filename,
-                lineno, name))
+            code.append('File: "%s", line %d, in %s' % (filename, lineno, name))
             if line:
                 code.append("  %s" % (line.strip()))
     worker.log.debug("\n".join(code))

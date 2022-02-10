@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0003_weight'),
+        ("core", "0003_weight"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='child',
-            name='picture',
-            field=models.ImageField(blank=True, null=True, upload_to='child/picture/'),
+            model_name="child",
+            name="picture",
+            field=models.ImageField(blank=True, null=True, upload_to="child/picture/"),
         ),
     ]

@@ -45,10 +45,10 @@
   '----------------' '----------------' '----------------' '----------------'
 """  # noqa
 
-__title__ = 'Baby Buddy'
-__version__ = '1.9.3'
-__license__ = 'BSD 2-Clause'
+__title__ = "Baby Buddy"
+__version__ = "1.9.3"
+__license__ = "BSD 2-Clause"
 
 VERSION = __version__
 
-default_app_config = 'babybuddy.apps.BabyBuddyConfig'
+default_app_config = "babybuddy.apps.BabyBuddyConfig"

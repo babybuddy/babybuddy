@@ -4,27 +4,29 @@ from django.db import migrations
 
 
 def update_language_en_to_en_us(apps, schema_editor):
-    Settings = apps.get_model('babybuddy', 'Settings')
+    Settings = apps.get_model("babybuddy", "Settings")
     for settings in Settings.objects.all():
-        if settings.language == 'en':
-            settings.language = 'en-US'
+        if settings.language == "en":
+            settings.language = "en-US"
             settings.save()
 
 
 def update_language_en_us_to_en(apps, schema_editor):
-    Settings = apps.get_model('babybuddy', 'Settings')
+    Settings = apps.get_model("babybuddy", "Settings")
     for settings in Settings.objects.all():
-        if settings.language == 'en-US':
-            settings.language = 'en'
+        if settings.language == "en-US":
+            settings.language = "en"
             settings.save()
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('babybuddy', '0019_alter_settings_timezone'),
+        ("babybuddy", "0019_alter_settings_timezone"),
     ]
 
     operations = [
-        migrations.RunPython(update_language_en_to_en_us, reverse_code=update_language_en_us_to_en),
+        migrations.RunPython(
+            update_language_en_to_en_us, reverse_code=update_language_en_us_to_en
+        ),
     ]

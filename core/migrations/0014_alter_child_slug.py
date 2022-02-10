@@ -6,13 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0013_auto_20210415_0528'),
+        ("core", "0013_auto_20210415_0528"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='child',
-            name='slug',
-            field=models.SlugField(allow_unicode=True, editable=False, max_length=100, unique=True, verbose_name='Slug'),
+            model_name="child",
+            name="slug",
+            field=models.SlugField(
+                allow_unicode=True,
+                editable=False,
+                max_length=100,
+                unique=True,
+                verbose_name="Slug",
+            ),
         ),
     ]

@@ -14,8 +14,8 @@ class CoreModelSerializer(serializers.HyperlinkedModelSerializer):
     Provide the child link (used by most core models) and run model clean()
     methods during POST operations.
     """
-    child = serializers.PrimaryKeyRelatedField(
-        queryset=models.Child.objects.all())
+
+    child = serializers.PrimaryKeyRelatedField(queryset=models.Child.objects.all())
 
     def validate(self, attrs):
         # Ensure that all instance data is available for partial updates to
@@ -34,15 +34,19 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
     """
     Specific serializer base for models with a "start" and "end" field.
     """
+
     child = serializers.PrimaryKeyRelatedField(
-        allow_null=True, allow_empty=True, queryset=models.Child.objects.all(),
-        required=False)
+        allow_null=True,
+        allow_empty=True,
+        queryset=models.Child.objects.all(),
+        required=False,
+    )
 
     class Meta:
         abstract = True
         extra_kwargs = {
-            'start': {'required': False},
-            'end': {'required': False},
+            "start": {"required": False},
+            "end": {"required": False},
         }
 
     def validate(self, attrs):
@@ -50,30 +54,30 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
         # of "start" and "end" fields as well as "child" if it is set on the
         # Timer entry.
         timer = None
-        if 'timer' in self.initial_data:
+        if "timer" in self.initial_data:
             try:
-                timer = models.Timer.objects.get(pk=self.initial_data['timer'])
+                timer = models.Timer.objects.get(pk=self.initial_data["timer"])
             except models.Timer.DoesNotExist:
-                raise ValidationError({'timer': ['Timer does not exist.']})
+                raise ValidationError({"timer": ["Timer does not exist."]})
             if timer.end:
                 end = timer.end
             else:
                 end = timezone.now()
             if timer.child:
-                attrs['child'] = timer.child
+                attrs["child"] = timer.child
 
             # Overwrites values provided directly!
-            attrs['start'] = timer.start
-            attrs['end'] = end
+            attrs["start"] = timer.start
+            attrs["end"] = end
 
         # The "child", "start", and "end" field should all be set at this
         # point. If one is not, model validation will fail because they are
         # required fields at the model level.
         if not self.partial:
             errors = {}
-            for field in ['child', 'start', 'end']:
+            for field in ["child", "start", "end"]:
                 if field not in attrs or not attrs[field]:
-                    errors[field] = 'This field is required.'
+                    errors[field] = "This field is required."
             if len(errors) > 0:
                 raise ValidationError(errors)
 
@@ -81,7 +85,7 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
 
         # Only actually stop the timer if all validation passed.
         if timer:
-            timer.stop(attrs['end'])
+            timer.stop(attrs["end"])
 
         return attrs
 
@@ -89,76 +93,77 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ("id", "username")
 
 
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Child
-        fields = ('id', 'first_name', 'last_name', 'birth_date', 'slug',
-                  'picture')
-        lookup_field = 'slug'
+        fields = ("id", "first_name", "last_name", "birth_date", "slug", "picture")
+        lookup_field = "slug"
 
 
 class DiaperChangeSerializer(CoreModelSerializer):
     class Meta:
         model = models.DiaperChange
-        fields = (
-                'id',
-                'child',
-                'time',
-                'wet',
-                'solid',
-                'color',
-                'amount',
-                'notes'
-            )
+        fields = ("id", "child", "time", "wet", "solid", "color", "amount", "notes")
 
 
 class FeedingSerializer(CoreModelWithDurationSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Feeding
-        fields = ('id', 'child', 'start', 'end', 'duration', 'type', 'method',
-                  'amount', 'notes')
+        fields = (
+            "id",
+            "child",
+            "start",
+            "end",
+            "duration",
+            "type",
+            "method",
+            "amount",
+            "notes",
+        )
 
 
 class NoteSerializer(CoreModelSerializer):
     class Meta:
         model = models.Note
-        fields = ('id', 'child', 'note', 'time')
+        fields = ("id", "child", "note", "time")
 
 
 class SleepSerializer(CoreModelWithDurationSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Sleep
-        fields = ('id', 'child', 'start', 'end', 'duration', 'nap', 'notes')
+        fields = ("id", "child", "start", "end", "duration", "nap", "notes")
 
 
 class TemperatureSerializer(CoreModelSerializer):
     class Meta:
         model = models.Temperature
-        fields = ('id', 'child', 'temperature', 'time', 'notes')
+        fields = ("id", "child", "temperature", "time", "notes")
 
 
 class TimerSerializer(CoreModelSerializer):
     child = serializers.PrimaryKeyRelatedField(
-        allow_null=True, allow_empty=True, queryset=models.Child.objects.all(),
-        required=False)
+        allow_null=True,
+        allow_empty=True,
+        queryset=models.Child.objects.all(),
+        required=False,
+    )
     user = serializers.PrimaryKeyRelatedField(
-        allow_null=True, allow_empty=True, queryset=User.objects.all(),
-        required=False)
+        allow_null=True, allow_empty=True, queryset=User.objects.all(), required=False
+    )
 
     class Meta:
         model = models.Timer
-        fields = ('id', 'child', 'name', 'start', 'end', 'duration', 'active',
-                  'user')
+        fields = ("id", "child", "name", "start", "end", "duration", "active", "user")
 
     def validate(self, attrs):
         attrs = super(TimerSerializer, self).validate(attrs)
 
         # Set user to current user if no value is provided.
-        if 'user' not in attrs or attrs['user'] is None:
-            attrs['user'] = self.context['request'].user
+        if "user" not in attrs or attrs["user"] is None:
+            attrs["user"] = self.context["request"].user
 
         return attrs
 
@@ -166,28 +171,28 @@ class TimerSerializer(CoreModelSerializer):
 class TummyTimeSerializer(CoreModelWithDurationSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.TummyTime
-        fields = ('id', 'child', 'start', 'end', 'duration', 'milestone')
+        fields = ("id", "child", "start", "end", "duration", "milestone")
 
 
 class WeightSerializer(CoreModelSerializer):
     class Meta:
         model = models.Weight
-        fields = ('id', 'child', 'weight', 'date', 'notes')
+        fields = ("id", "child", "weight", "date", "notes")
 
 
 class HeightSerializer(CoreModelSerializer):
     class Meta:
         model = models.Height
-        fields = ('id', 'child', 'height', 'date', 'notes')
+        fields = ("id", "child", "height", "date", "notes")
 
 
 class HeadCircumferenceSerializer(CoreModelSerializer):
     class Meta:
         model = models.HeadCircumference
-        fields = ('id', 'child', 'head_circumference', 'date', 'notes')
+        fields = ("id", "child", "head_circumference", "date", "notes")
 
 
 class BMISerializer(CoreModelSerializer):
     class Meta:
         model = models.BMI
-        fields = ('id', 'child', 'bmi', 'date', 'notes')
+        fields = ("id", "child", "bmi", "date", "notes")

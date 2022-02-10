@@ -17,18 +17,18 @@ def child_age_string(birth_date):
     :return: a string representation of time since `birth_date`.
     """
     if not birth_date:
-        return ''
+        return ""
     # Return "0 days" for anything under one day.
     elif timezone.localdate() - birth_date < timezone.timedelta(days=1):
-        return _('0 days')
+        return _("0 days")
     try:
         return timesince.timesince(birth_date, depth=1)
     except (ValueError, TypeError):
-        return ''
+        return ""
 
 
 @register.filter
-def duration_string(duration, precision='s'):
+def duration_string(duration, precision="s"):
     """
     Format a duration (e.g. "2 hours, 3 minutes, 35 seconds").
     :param duration: a timedetla instance.
@@ -37,11 +37,11 @@ def duration_string(duration, precision='s'):
     :returns: a string representation of the duration.
     """
     if not duration:
-        return ''
+        return ""
     try:
         return utils.duration_string(duration, precision)
     except (ValueError, TypeError):
-        return ''
+        return ""
 
 
 @register.filter
