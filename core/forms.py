@@ -82,6 +82,7 @@ class CoreModelForm(forms.ModelForm):
             timer.stop(instance.end)
         if commit:
             instance.save()
+            self.save_m2m()
         return instance
 
 
@@ -169,7 +170,7 @@ class NoteForm(CoreModelForm):
                     "data-target": "#datetimepicker_time",
                 }
             ),
-            #"tags": TagsEditor()
+            "tags": TagsEditor()
         }
 
 

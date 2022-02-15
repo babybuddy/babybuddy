@@ -10,7 +10,6 @@ class TagsEditor(Widget):
         return {'name': tag.name, 'color': tag.color}
 
     def format_value(self, value: Any) -> Optional[str]:
-        print("FORMAT", value)
         if value is not None and not isinstance(value, str):
             value = [self.__unpack_tag(tag) for tag in value]
         return value

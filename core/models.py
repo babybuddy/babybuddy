@@ -94,10 +94,6 @@ class BabyBuddyTag(TagBase):
         blank=False,
     )
 
-    def save(self, *args, **kwargs):
-        print("BBT SAVE")
-        return super().save(*args, **kwargs)
-
 
 class BabyBuddyTagged(GenericTaggedItemBase):
     tag = models.ForeignKey(
@@ -105,10 +101,6 @@ class BabyBuddyTagged(GenericTaggedItemBase):
         on_delete=models.CASCADE,
         related_name="%(app_label)s_%(class)s_items",
     )
-
-    def save(self, *args, **kwargs) -> None:
-        print("BabyBuddyTagged", args, kwargs)
-        return super().save(*args, **kwargs)
 
 class Child(models.Model):
     model_name = "child"
@@ -280,15 +272,6 @@ class Feeding(models.Model):
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
-from taggit.managers import _TaggableManager
-class TTT(_TaggableManager):
-    def set(self, tags, *, through_defaults=None, **kwargs):
-        return super().set(tags, through_defaults=through_defaults, **kwargs)
-
-class TT(TaggableManager):
-    def save_form_data(self, instance, value):
-        return super().save_form_data(instance, value)
-
 class Note(models.Model):
     model_name = "note"
     child = models.ForeignKey(
@@ -298,7 +281,7 @@ class Note(models.Model):
     time = models.DateTimeField(
         default=timezone.now, blank=False, verbose_name=_("Time")
     )
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True,  through=BabyBuddyTagged)
 
     objects = models.Manager()
 
