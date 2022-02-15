@@ -202,3 +202,13 @@ class BMISerializer(CoreModelSerializer):
     class Meta:
         model = models.BMI
         fields = ("id", "child", "bmi", "date", "notes")
+
+class TagsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.BabyBuddyTag
+        fields = ("slug", "name", "color", "last_used")
+        extra_kwargs = {
+            "slug": {"required": False, "read_only": True},
+            "color": {"required": False},
+            "last_used": {"required": False, "read_only": True},
+        }

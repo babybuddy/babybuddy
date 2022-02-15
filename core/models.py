@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import time
 from datetime import timedelta
 
 from django.conf import settings
@@ -11,9 +12,14 @@ from django.utils import timezone
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
+from django.core.validators import RegexValidator
+
+import random
 
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, GenericTaggedItemBase, TaggedItemBase
+
+random.seed(time.time())
 
 def validate_date(date, field_name):
     """
@@ -74,8 +80,14 @@ def validate_time(time, field_name):
             {field_name: _("Date/time can not be in the future.")}, code="time_invalid"
         )
 
-def validate_html_color(s: str):
-    return re.match(r"^#[0-9A-F]{6}$", s) is not None 
+TAG_COLORS = [
+    "#FF0000", "#00FF00", "#0000FF", "#FF00FF", "#FFFF00", "#00FFFF",
+    "#FF7F7F", "#7FFF7F", "#7F7FFF", "#FF7FFF", "#FFFF7F", "#7FFFFF",
+    "#7F0000", "#007F00", "#00007F", "#7F007F", "#7F7F00", "#007F7F",
+]
+
+def random_color():
+    return TAG_COLORS[random.randrange(0, len(TAG_COLORS))]
 
 class BabyBuddyTag(TagBase):
     class Meta:
@@ -85,8 +97,8 @@ class BabyBuddyTag(TagBase):
     color = models.CharField(
         "Color",
         max_length=32,
-        default="#7F7F7F",
-        validators=[validate_html_color]
+        default=random_color,
+        validators=[RegexValidator(r"^#[0-9A-F]{6}$")]
     )
 
     last_used = models.DateTimeField(

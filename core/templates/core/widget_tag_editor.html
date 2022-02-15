@@ -22,13 +22,17 @@
         <span>Suggestions:</span>
         {% for t in widget.tag_suggestions.quick %}
         <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer" style="background-color: {{ t.color }};">
-            {% if not forloop.first %},{% endif %}
             {{ t.name }}
             <span class="add-remove-icon pl-1 pr-1">+</span>
         </span>
         {% endfor %}
     </div>
-    <script>
+    <input 
+        type="hidden"
+        name="tags"
+        value="{% for t in widget.value %}&quot;{{ t.name }}&quot;{% if not forloop.last %},{% endif %}{% endfor %}"
+    >
+<script>
         window.addEventListener('load', () => {
             const widget = document.getElementById('{{ widget.attrs.id }}');
             
@@ -38,12 +42,39 @@
 
             const inputElement = widget.querySelector('input');
 
+            function hexParse(x) {
+                return parseInt(x, 16);
+            }
+
+            function computeComplementaryColor(colorStr) {
+                let avgColor = 0.0;
+                avgColor += hexParse(colorStr.substring(1, 3)) * -0.5;
+                avgColor += hexParse(colorStr.substring(3, 5)) * 1.5;
+                avgColor += hexParse(colorStr.substring(5, 7)) * 1.0;
+
+                console.log(`C ${colorStr} -> ${avgColor}`);
+
+                if (avgColor > 200) {
+                    return "#101010";
+                } else {
+                    return "#E0E0E0";
+                }
+            }
+
             function updateTag(tag, name, color, actionSymbol) {
+                const actionTextNode = tag.querySelector('.add-remove-icon').childNodes[0];
+
+                name = name || tag.getAttribute("data-value");
+                color = color || tag.getAttribute("data-color");
+                actionSymbol = actionSymbol || actionTextNode.textContent;
+
                 tag.childNodes[0].textContent = name;
                 tag.setAttribute("data-value", name);
                 tag.setAttribute("data-color", color);
-                tag.setAttribute('style', `background-color: ${color};`);
-                tag.querySelector('.add-remove-icon').childNodes[0].textContent = actionSymbol;
+
+                const textColor = computeComplementaryColor(color);
+                tag.setAttribute('style', `background-color: ${color}; color: ${textColor};`);
+                actionTextNode.textContent = actionSymbol;
             }
 
             function createNewTag(name, color, actionSymbol) {
@@ -52,28 +83,12 @@
                 return tag;
             }
 
-            function addTagCallback(event) {
-                const tag = event.target;
-                newTags.removeChild(tag);
-                updateTag(
-                    tag,
-                    tag.getAttribute("data-value"),
-                    tag.getAttribute("data-color"),
-                    "-"
-                )
-                currentTags.appendChild(tag);
-
-                tag.removeEventListener('click', addTagCallback);
-                tag.addEventListener('click', removeTagCallback);
-            }
-
             function registerNewCallback(tag, newParent, newSymbol, onClicked) {
-                console.log(tag);
                 function callback(event) {
                     tag.parentNode.removeChild(tag);
                     updateTag(
                         tag,
-                        tag.getAttribute("data-value"),
+                        null,
                         tag.getAttribute("data-color"),
                         newSymbol
                     );
@@ -88,7 +103,8 @@
             function updateInputList() {
                 const names = [];
                 for (const tag of currentTags.querySelectorAll(".tag")) {
-                     names.push(tag.getAttribute("data-value"));
+                    const name = tag.getAttribute("data-value");
+                    names.push(`"${name}"`);
                 }
                 inputElement.value = names.join(",");
             }
@@ -104,16 +120,13 @@
             }
 
             for (const tag of newTags.querySelectorAll(".tag")) {
+                updateTag(tag);
                 addTagCallback(tag);
             }
             for (const tag of currentTags.querySelectorAll(".tag")) {
+                updateTag(tag);
                 removeTagCallback(tag);
             }
         });
     </script>
-    <input 
-        type="hidden"
-        name="tags"
-        value="{% for t in widget.value %}{{ t.name }}{% endfor %}"
-    >
 </div>

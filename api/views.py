@@ -91,3 +91,10 @@ class BMIViewSet(viewsets.ModelViewSet):
     queryset = models.BMI.objects.all()
     serializer_class = serializers.BMISerializer
     filterset_fields = ("child", "date")
+
+class TagsViewSet(viewsets.ModelViewSet):
+    queryset = models.BabyBuddyTag.objects.all()
+    serializer_class = serializers.TagsSerializer
+    lookup_field = "slug"
+    filterset_fields = ("last_used",)
+
