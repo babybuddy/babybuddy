@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 from datetime import timedelta
 
 from django.conf import settings
@@ -9,7 +10,10 @@ from django.utils.text import slugify
 from django.utils import timezone
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
 
+from taggit.managers import TaggableManager
+from taggit.models import TagBase, GenericTaggedItemBase, TaggedItemBase
 
 def validate_date(date, field_name):
     """
@@ -70,6 +74,41 @@ def validate_time(time, field_name):
             {field_name: _("Date/time can not be in the future.")}, code="time_invalid"
         )
 
+def validate_html_color(s: str):
+    return re.match(r"^#[0-9A-F]{6}$", s) is not None 
+
+class BabyBuddyTag(TagBase):
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+    
+    color = models.CharField(
+        "Color",
+        max_length=32,
+        default="#7F7F7F",
+        validators=[validate_html_color]
+    )
+
+    last_used = models.DateTimeField(
+        default=now,
+        blank=False,
+    )
+
+    def save(self, *args, **kwargs):
+        print("BBT SAVE")
+        return super().save(*args, **kwargs)
+
+
+class BabyBuddyTagged(GenericTaggedItemBase):
+    tag = models.ForeignKey(
+        BabyBuddyTag,
+        on_delete=models.CASCADE,
+        related_name="%(app_label)s_%(class)s_items",
+    )
+
+    def save(self, *args, **kwargs) -> None:
+        print("BabyBuddyTagged", args, kwargs)
+        return super().save(*args, **kwargs)
 
 class Child(models.Model):
     model_name = "child"
@@ -241,6 +280,14 @@ class Feeding(models.Model):
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
+from taggit.managers import _TaggableManager
+class TTT(_TaggableManager):
+    def set(self, tags, *, through_defaults=None, **kwargs):
+        return super().set(tags, through_defaults=through_defaults, **kwargs)
+
+class TT(TaggableManager):
+    def save_form_data(self, instance, value):
+        return super().save_form_data(instance, value)
 
 class Note(models.Model):
     model_name = "note"
@@ -251,6 +298,7 @@ class Note(models.Model):
     time = models.DateTimeField(
         default=timezone.now, blank=False, verbose_name=_("Time")
     )
+    tags = TaggableManager()
 
     objects = models.Manager()
 

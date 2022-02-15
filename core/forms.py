@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from core import models
-
+from core.widgets import TagsEditor
 
 def set_initial_values(kwargs, form_type):
     """
@@ -161,7 +161,7 @@ class FeedingForm(CoreModelForm):
 class NoteForm(CoreModelForm):
     class Meta:
         model = models.Note
-        fields = ["child", "note", "time"]
+        fields = ["child", "note", "time", "tags"]
         widgets = {
             "time": forms.DateTimeInput(
                 attrs={
@@ -169,6 +169,7 @@ class NoteForm(CoreModelForm):
                     "data-target": "#datetimepicker_time",
                 }
             ),
+            #"tags": TagsEditor()
         }
 
 

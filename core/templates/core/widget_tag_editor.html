@@ -1,0 +1,119 @@
+<div>
+{{ widget }}
+</div>
+
+<div class="form_control" 
+    {% for k, v in widget.attrs.items %}
+        {{ k }}={{ v }}
+    {% endfor %}>
+    <span class="prototype-tag btn badge badge-pill cursor-pointer" style="display: none;">
+        PROTOTYPE
+        <span class="add-remove-icon pl-1 pr-1">+ or -</span>
+    </span>
+    <div class="current_tags" style="min-height: 2em;">
+        {% for t in widget.value %}
+        <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer" style="background-color: {{ t.color }};">
+            {{ t.name }}
+            <span class="add-remove-icon pl-1 pr-1">-</span>
+        </span>
+        {% endfor %}
+    </div>
+    <div class="new-tags">
+        <span>Suggestions:</span>
+        {% for t in widget.tag_suggestions.quick %}
+        <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer" style="background-color: {{ t.color }};">
+            {% if not forloop.first %},{% endif %}
+            {{ t.name }}
+            <span class="add-remove-icon pl-1 pr-1">+</span>
+        </span>
+        {% endfor %}
+    </div>
+    <script>
+        window.addEventListener('load', () => {
+            const widget = document.getElementById('{{ widget.attrs.id }}');
+            
+            const prototype = widget.querySelector('.prototype-tag');
+            const currentTags = widget.querySelector('.current_tags');
+            const newTags = widget.querySelector('.new-tags');
+
+            const inputElement = widget.querySelector('input');
+
+            function updateTag(tag, name, color, actionSymbol) {
+                tag.childNodes[0].textContent = name;
+                tag.setAttribute("data-value", name);
+                tag.setAttribute("data-color", color);
+                tag.setAttribute('style', `background-color: ${color};`);
+                tag.querySelector('.add-remove-icon').childNodes[0].textContent = actionSymbol;
+            }
+
+            function createNewTag(name, color, actionSymbol) {
+                const tag = prototype.cloneNode(true);
+                updateTag(tag, name, color, actionSymbol);
+                return tag;
+            }
+
+            function addTagCallback(event) {
+                const tag = event.target;
+                newTags.removeChild(tag);
+                updateTag(
+                    tag,
+                    tag.getAttribute("data-value"),
+                    tag.getAttribute("data-color"),
+                    "-"
+                )
+                currentTags.appendChild(tag);
+
+                tag.removeEventListener('click', addTagCallback);
+                tag.addEventListener('click', removeTagCallback);
+            }
+
+            function registerNewCallback(tag, newParent, newSymbol, onClicked) {
+                console.log(tag);
+                function callback(event) {
+                    tag.parentNode.removeChild(tag);
+                    updateTag(
+                        tag,
+                        tag.getAttribute("data-value"),
+                        tag.getAttribute("data-color"),
+                        newSymbol
+                    );
+                    newParent.appendChild(tag);
+
+                    tag.removeEventListener('click', callback);
+                    onClicked(tag);
+                }
+                tag.addEventListener('click', callback);
+            }
+
+            function updateInputList() {
+                const names = [];
+                for (const tag of currentTags.querySelectorAll(".tag")) {
+                     names.push(tag.getAttribute("data-value"));
+                }
+                inputElement.value = names.join(",");
+            }
+
+            function addTagCallback(tag) {
+                registerNewCallback(tag, currentTags, "-", removeTagCallback);
+                updateInputList();
+            }
+
+            function removeTagCallback(tag) {
+                registerNewCallback(tag, newTags, "+", addTagCallback);
+                updateInputList();
+            }
+
+            for (const tag of newTags.querySelectorAll(".tag")) {
+                addTagCallback(tag);
+            }
+            for (const tag of currentTags.querySelectorAll(".tag")) {
+                removeTagCallback(tag);
+            }
+        });
+    </script>
+    <input 
+        type="hidden"
+        name="tags"
+        value="{% for t in widget.value %}{{ t.name }}{% endfor %}"
+    >
+</div>

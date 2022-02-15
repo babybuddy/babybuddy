@@ -177,3 +177,14 @@ class WeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "weight",
     )
     resource_class = WeightImportExportResource
+
+class BabyBuddyTaggedItemInline(admin.StackedInline):
+    model = models.BabyBuddyTagged
+
+@admin.register(models.BabyBuddyTag)
+class BabyBuddyTagAdmin(admin.ModelAdmin):
+    inlines = [BabyBuddyTaggedItemInline]
+    list_display = ["name", "slug", "color", "last_used"]
+    ordering = ["name", "slug"]
+    search_fields = ["name"]
+    prepopulated_fields = {"slug": ["name"]}
