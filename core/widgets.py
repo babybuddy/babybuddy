@@ -26,7 +26,7 @@ class TagsEditor(Widget):
 
         result = super().get_context(name, value, attrs)
 
-        tag_names = set(x['name'] for x in result['widget']['value'])
+        tag_names = set(x['name'] for x in (result.get('widget', {}).get('value', None) or []))
         quick_suggestion_tags = [
             t for t in quick_suggestion_tags
             if t.name not in tag_names

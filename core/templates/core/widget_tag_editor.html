@@ -2,17 +2,18 @@
 {{ widget }}
 </div>
 
-<div class="form_control" 
+<div class="form_control" data-tags-url="{% url 'api:api-root' %}tags/"
     {% for k, v in widget.attrs.items %}
         {{ k }}={{ v }}
     {% endfor %}>
-    <span class="prototype-tag btn badge badge-pill cursor-pointer" style="display: none;">
+    {% csrf_token %}
+    <span class="prototype-tag btn badge badge-pill cursor-pointer mr-1" style="display: none;">
         PROTOTYPE
         <span class="add-remove-icon pl-1 pr-1">+ or -</span>
     </span>
     <div class="current_tags" style="min-height: 2em;">
         {% for t in widget.value %}
-        <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer" style="background-color: {{ t.color }};">
+        <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer mr-1" style="background-color: {{ t.color }};">
             {{ t.name }}
             <span class="add-remove-icon pl-1 pr-1">-</span>
         </span>
@@ -21,11 +22,20 @@
     <div class="new-tags">
         <span>Suggestions:</span>
         {% for t in widget.tag_suggestions.quick %}
-        <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer" style="background-color: {{ t.color }};">
+        <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer mr-1" style="background-color: {{ t.color }};">
             {{ t.name }}
             <span class="add-remove-icon pl-1 pr-1">+</span>
         </span>
         {% endfor %}
+        <div class="createtag btn badge badge-pill cursor-pointer border">
+            <span class="plus">+</span>
+            <div class="create-tag-inputs input-group ml-3 mr-3 d-none">
+                <input class="form-control" type="text" name="" placeholder="Tag name">
+                <div class=="input-group-append">
+                    <button class="btn btn-outline-primary btn-add-new-tag" type="button">Add</button>
+                </div>
+            </div>
+        </div>
     </div>
     <input 
         type="hidden"
@@ -35,12 +45,102 @@
 <script>
         window.addEventListener('load', () => {
             const widget = document.getElementById('{{ widget.attrs.id }}');
+            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
             
             const prototype = widget.querySelector('.prototype-tag');
             const currentTags = widget.querySelector('.current_tags');
             const newTags = widget.querySelector('.new-tags');
 
-            const inputElement = widget.querySelector('input');
+            const inputElement = widget.querySelector('input[type="hidden"]');
+
+            const apiTagsUrl = widget.getAttribute('data-tags-url');
+            const createTagButton = widget.querySelector('.createtag');
+            const addTagInput = createTagButton.querySelector('input[type="text"]');
+            const addTagButton = createTagButton.querySelector('.btn-add-new-tag');
+
+            function showCreateTag() {
+                createTagButton.removeEventListener('click', showCreateTag);
+                createTagButton.classList.remove('btn');
+                createTagButton.querySelector(".plus").classList.add("d-none");
+                createTagButton.querySelector(".create-tag-inputs").classList.remove("d-none");
+                addTagInput.value = "";
+            }
+            createTagButton.addEventListener('click', showCreateTag);
+
+            function doReq(method, uri, data, success, fail) {
+                const req = new XMLHttpRequest();
+                req.addEventListener('load', () => {
+                    if ((req.status >= 200) && (req.status < 300)) {
+                        success(req.responseText, req);
+                    } else {
+                        fail(req.responseText, req);
+                    }
+                });
+                for (const name of ["error", "timeout", "abort"]) {
+                    req.addEventListener(name, () => {
+                        fail(req.responseText, req);
+                    });
+                }
+                req.timeout = 20000;
+
+                req.open(method, uri);
+                req.setRequestHeader("Content-Type", "application/json");
+                req.setRequestHeader("Accept", "application/json");
+                req.setRequestHeader("X-CSRFTOKEN", csrfToken);
+                req.send(data);
+            }
+
+            function createTag() {
+                const tagName = addTagInput.value.trim();
+                const uriTagName = encodeURIComponent(tagName);
+
+                const data = JSON.stringify({
+                    'name': addTagInput.value
+                });
+
+                function close() {
+                    createTagButton.addEventListener('click', showCreateTag);
+                    createTagButton.classList.add('btn');
+                    createTagButton.querySelector(".plus").classList.remove("d-none");
+                    createTagButton.querySelector(".create-tag-inputs").classList.add("d-none");
+                }
+
+                function fail() {
+                    close();
+                    alert("Error creating tag");
+                }
+
+                function addTag(name, color) {
+                    const foundTag = widget.querySelector(`span[data-value="${name}"]`);
+                    if (foundTag) {
+                        foundTag.parentNode.removeChild(foundTag);
+                    }
+
+                    const tag = createNewTag(name, color, "-");                    
+                    insertTag(currentTags, tag);
+                    removeTagCallback(tag);
+
+                    close();
+                }
+
+                doReq("GET", `${apiTagsUrl}?name=${uriTagName}`, null,
+                    (text) => {
+                        const json = JSON.parse(text);
+                        if (json.count) {
+                            const tagJson = json.results[0];
+                            addTag(tagJson.name, tagJson.color);
+                        } else {
+                            doReq("POST", apiTagsUrl, data, 
+                                (text) => {
+                                    const tagJson = JSON.parse(text);
+                                    addTag(tagJson.name, tagJson.color);
+                                }, fail
+                            );
+                        }
+                    }, fail
+                );
+            }
+            addTagButton.addEventListener('click', createTag);
 
             function hexParse(x) {
                 return parseInt(x, 16);
@@ -51,8 +151,6 @@
                 avgColor += hexParse(colorStr.substring(1, 3)) * -0.5;
                 avgColor += hexParse(colorStr.substring(3, 5)) * 1.5;
                 avgColor += hexParse(colorStr.substring(5, 7)) * 1.0;
-
-                console.log(`C ${colorStr} -> ${avgColor}`);
 
                 if (avgColor > 200) {
                     return "#101010";
@@ -79,8 +177,20 @@
 
             function createNewTag(name, color, actionSymbol) {
                 const tag = prototype.cloneNode(true);
+                tag.classList.remove("prototype-tag");
+                tag.classList.add("tag");
                 updateTag(tag, name, color, actionSymbol);
                 return tag;
+            }
+
+            function insertTag(list, tag) {
+                const createTag = list.querySelector(".createtag");
+                if (createTag) {
+                    list.insertBefore(tag, createTag);
+                } else {
+                    list.appendChild(tag);
+                }
+                updateInputList();
             }
 
             function registerNewCallback(tag, newParent, newSymbol, onClicked) {
@@ -92,7 +202,8 @@
                         tag.getAttribute("data-color"),
                         newSymbol
                     );
-                    newParent.appendChild(tag);
+
+                    insertTag(newParent, tag);
 
                     tag.removeEventListener('click', callback);
                     onClicked(tag);
