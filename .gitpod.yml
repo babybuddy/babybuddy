@@ -6,7 +6,7 @@ tasks:
       gulp migrate &&
       gulp createcachetable
     env:
-      DJANGO_SETTINGS_MODULE: babybuddy.settings.development
+      DJANGO_SETTINGS_MODULE: babybuddy.settings.gitpod
     command: gulp
 
 ports:
