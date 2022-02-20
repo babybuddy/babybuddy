@@ -2,6 +2,7 @@
 import re
 import time
 from datetime import timedelta
+from typing import Iterable, Optional
 
 from django.conf import settings
 from django.core.cache import cache
@@ -113,6 +114,12 @@ class BabyBuddyTagged(GenericTaggedItemBase):
         on_delete=models.CASCADE,
         related_name="%(app_label)s_%(class)s_items",
     )
+
+    def save_base(self, *args, **kwargs):
+        self.tag.last_used = now()
+        self.tag.save()
+        return super().save_base(*args, **kwargs)
+
 
 class Child(models.Model):
     model_name = "child"
