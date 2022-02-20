@@ -1,7 +1,3 @@
-<div>
-{{ widget }}
-</div>
-
 <div class="form_control" data-tags-url="{% url 'api:api-root' %}tags/"
     {% for k, v in widget.attrs.items %}
         {{ k }}={{ v }}
@@ -20,22 +16,19 @@
         {% endfor %}
     </div>
     <div class="new-tags">
-        <span>Suggestions:</span>
+        <div class="create-tag-inputs input-group">
+            <input class="form-control" type="text" name="" placeholder="Tag name">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary bg-dark btn-add-new-tag" type="button">Add</button>
+            </div>
+        </div>
+        <span>Recently used:</span>
         {% for t in widget.tag_suggestions.quick %}
         <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer mr-1" style="background-color: {{ t.color }};">
             {{ t.name }}
             <span class="add-remove-icon pl-1 pr-1">+</span>
         </span>
         {% endfor %}
-        <div class="createtag btn badge badge-pill cursor-pointer border">
-            <span class="plus">+</span>
-            <div class="create-tag-inputs input-group ml-3 mr-3 d-none">
-                <input class="form-control" type="text" name="" placeholder="Tag name">
-                <div class=="input-group-append">
-                    <button class="btn btn-outline-primary btn-add-new-tag" type="button">Add</button>
-                </div>
-            </div>
-        </div>
     </div>
     <input 
         type="hidden"
@@ -54,18 +47,9 @@
             const inputElement = widget.querySelector('input[type="hidden"]');
 
             const apiTagsUrl = widget.getAttribute('data-tags-url');
-            const createTagButton = widget.querySelector('.createtag');
-            const addTagInput = createTagButton.querySelector('input[type="text"]');
-            const addTagButton = createTagButton.querySelector('.btn-add-new-tag');
-
-            function showCreateTag() {
-                createTagButton.removeEventListener('click', showCreateTag);
-                createTagButton.classList.remove('btn');
-                createTagButton.querySelector(".plus").classList.add("d-none");
-                createTagButton.querySelector(".create-tag-inputs").classList.remove("d-none");
-                addTagInput.value = "";
-            }
-            createTagButton.addEventListener('click', showCreateTag);
+            const createTagInputs = widget.querySelector('.create-tag-inputs');
+            const addTagInput = createTagInputs.querySelector('input[type="text"]');
+            const addTagButton = createTagInputs.querySelector('.btn-add-new-tag');
 
             function doReq(method, uri, data, success, fail) {
                 const req = new XMLHttpRequest();
@@ -90,25 +74,30 @@
                 req.send(data);
             }
 
-            function createTag() {
+            function createTagClicked() {
                 const tagName = addTagInput.value.trim();
                 const uriTagName = encodeURIComponent(tagName);
+
+                function success() {
+                    addTagInput.value = "";
+                }
+
+                function fail(msg) {
+                    msg = msg || "Error creating tag";
+
+                    addTagInput.select()
+                    alert(msg);
+                }
+
+                if (!tagName) {
+                    fail('Not a valid tag name');
+                    return;
+                }
 
                 const data = JSON.stringify({
                     'name': addTagInput.value
                 });
 
-                function close() {
-                    createTagButton.addEventListener('click', showCreateTag);
-                    createTagButton.classList.add('btn');
-                    createTagButton.querySelector(".plus").classList.remove("d-none");
-                    createTagButton.querySelector(".create-tag-inputs").classList.add("d-none");
-                }
-
-                function fail() {
-                    close();
-                    alert("Error creating tag");
-                }
 
                 function addTag(name, color) {
                     const foundTag = widget.querySelector(`span[data-value="${name}"]`);
@@ -119,8 +108,7 @@
                     const tag = createNewTag(name, color, "-");                    
                     insertTag(currentTags, tag);
                     removeTagCallback(tag);
-
-                    close();
+                    success();
                 }
 
                 doReq("GET", `${apiTagsUrl}?name=${uriTagName}`, null,
@@ -140,7 +128,14 @@
                     }, fail
                 );
             }
-            addTagButton.addEventListener('click', createTag);
+            addTagButton.addEventListener('click', createTagClicked);
+            addTagInput.addEventListener('keydown', (e) => {
+                const key = e.key.toLowerCase();
+                if (key === "enter") {
+                    e.preventDefault();
+                    createTagClicked();
+                }
+            });
 
             function hexParse(x) {
                 return parseInt(x, 16);
@@ -184,12 +179,7 @@
             }
 
             function insertTag(list, tag) {
-                const createTag = list.querySelector(".createtag");
-                if (createTag) {
-                    list.insertBefore(tag, createTag);
-                } else {
-                    list.appendChild(tag);
-                }
+                list.appendChild(tag);
                 updateInputList();
             }
 
