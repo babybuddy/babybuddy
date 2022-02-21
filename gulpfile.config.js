@@ -43,6 +43,7 @@ module.exports = {
             'node_modules/moment/locale/pt.js',
             'node_modules/moment/locale/sv.js',
             'node_modules/moment/locale/tr.js',
+            'node_modules/moment/locale/zh-cn.js',
             'node_modules/moment-timezone/builds/moment-timezone-with-data-10-year-range.js',
             'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
         ],
@@ -59,7 +60,8 @@ module.exports = {
             'node_modules/plotly.js/dist/plotly-locale-pt-pt.js',
             'node_modules/plotly.js/dist/plotly-locale-sv.js',
             'node_modules/plotly.js/dist/plotly-locale-tr.js',
-            'node_modules/plotly.js/dist/plotly-locale-uk.js'
+            'node_modules/plotly.js/dist/plotly-locale-uk.js',
+            'node_modules/plotly.js/dist/plotly-locale-zh-cn.js',
         ],
         app: [
             'babybuddy/static_src/js/babybuddy.js',
