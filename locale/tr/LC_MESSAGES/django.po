@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-21 16:58+0000\n"
+"POT-Creation-Date: 2022-02-21 17:06+0000\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +35,8 @@ msgid ""
 "If supported by browser, the dashboard will only refresh when visible, and "
 "also when receiving focus."
 msgstr ""
+"Tarayıcı tarafından destekleniyorsa kontrol paneli sadece görünür olduğunda "
+"ve ayrıca odaklandığında görünür"
 
 #: babybuddy/models.py:28
 msgid "disabled"
@@ -74,39 +76,40 @@ msgstr "30 dk."
 
 #: babybuddy/models.py:40
 msgid "Hide Empty Dashboard Cards"
-msgstr ""
+msgstr "Boş Kontrol Paneli Kartlarını Gizle"
 
 #: babybuddy/models.py:43
 msgid "Hide data older than"
-msgstr ""
+msgstr "Daha eski verileri gizle"
 
 #: babybuddy/models.py:45
 msgid "This setting controls which data will be shown in the dashboard."
 msgstr ""
+"Bu ayar, kontrol panelinde hangi verilerin gösterileceğini kontrol eder."
 
 #: babybuddy/models.py:51
 msgid "show all data"
-msgstr ""
+msgstr "tüm veriyi göster"
 
 #: babybuddy/models.py:52
 msgid "1 day"
-msgstr ""
+msgstr "1 gün"
 
 #: babybuddy/models.py:53
 msgid "2 days"
-msgstr ""
+msgstr "2 gün"
 
 #: babybuddy/models.py:54
 msgid "3 days"
-msgstr ""
+msgstr "3 gün"
 
 #: babybuddy/models.py:55
 msgid "1 week"
-msgstr ""
+msgstr "1 hafta"
 
 #: babybuddy/models.py:56
 msgid "4 weeks"
-msgstr ""
+msgstr "4 hafta"
 
 #: babybuddy/models.py:63
 msgid "Language"
@@ -135,7 +138,7 @@ msgstr "İngilizce"
 
 #: babybuddy/settings/base.py:168
 msgid "Dutch"
-msgstr ""
+msgstr "Flemenkçe"
 
 #: babybuddy/settings/base.py:169
 msgid "French"
@@ -143,7 +146,7 @@ msgstr "Fransızca"
 
 #: babybuddy/settings/base.py:170
 msgid "Finnish"
-msgstr ""
+msgstr "Fince"
 
 #: babybuddy/settings/base.py:171
 msgid "German"
@@ -151,15 +154,15 @@ msgstr "Almanca"
 
 #: babybuddy/settings/base.py:172
 msgid "Italian"
-msgstr ""
+msgstr "İtalyanca"
 
 #: babybuddy/settings/base.py:173
 msgid "Polish"
-msgstr ""
+msgstr "Lehçe"
 
 #: babybuddy/settings/base.py:174
 msgid "Portuguese"
-msgstr ""
+msgstr "Portekizce"
 
 #: babybuddy/settings/base.py:175
 msgid "Spanish"
@@ -304,7 +307,7 @@ msgstr "Ağırlık"
 #: core/templates/timeline/timeline.html:7
 #: dashboard/templates/dashboard/child_button_group.html:9
 msgid "Timeline"
-msgstr ""
+msgstr "Zaman çizelgesi"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:122
 #: babybuddy/templates/babybuddy/nav-dropdown.html:130 core/models.py:101
@@ -965,7 +968,7 @@ msgstr "Anne sütü"
 
 #: core/models.py:202
 msgid "Solid food"
-msgstr ""
+msgstr "Katı yiyecek"
 
 #: core/models.py:205 core/templates/core/feeding_list.html:30
 msgid "Type"
@@ -989,11 +992,11 @@ msgstr "Her iki göğüs"
 
 #: core/models.py:213
 msgid "Parent fed"
-msgstr ""
+msgstr "Ebeveyn beslenme"
 
 #: core/models.py:214
 msgid "Self fed"
-msgstr ""
+msgstr "Kendi beslenme"
 
 #: core/models.py:217 core/templates/core/feeding_list.html:29
 msgid "Method"
@@ -1124,7 +1127,7 @@ msgstr "Bez Değişim Ekle"
 
 #: core/templates/core/diaperchange_list.html:29
 msgid "Contents"
-msgstr ""
+msgstr "İçerikler"
 
 #: core/templates/core/diaperchange_list.html:73
 msgid "No diaper changes found."
@@ -1297,9 +1300,10 @@ msgid "Delete Inactive"
 msgstr "Pasif Sil"
 
 #: core/templates/core/timer_confirm_delete_inactive.html:17
-#, python-format
+#, fuzzy, python-format
+#| msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
 msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
-msgstr ""
+msgstr "%(number)s pasif zamanlıyıcıları silmek istediğinize emin misiniz?"
 
 #: core/templates/core/timer_detail.html:28
 msgid "Started"
@@ -1320,11 +1324,11 @@ msgstr "Zamanlayıcı eylemleri"
 
 #: core/templates/core/timer_detail.html:77
 msgid "Restart timer"
-msgstr ""
+msgstr "Yeniden başlatma zamanlayıcısı"
 
 #: core/templates/core/timer_detail.html:84
 msgid "Delete timer"
-msgstr ""
+msgstr "Silme zamanlayıcısı"
 
 #: core/templates/core/timer_form.html:22
 #: core/templates/core/timer_list.html:15 core/templates/core/timer_nav.html:23
@@ -1419,7 +1423,7 @@ msgstr ""
 #: core/templates/timeline/_timeline.html:56
 #: dashboard/templates/dashboard/child_button_group.html:41
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: core/templates/timeline/_timeline.html:80
 msgid "No events"
@@ -1431,11 +1435,11 @@ msgstr "bugün"
 
 #: core/templatetags/datetime.py:75
 msgid "{}, {}"
-msgstr ""
+msgstr "{}, {}"
 
 #: core/templatetags/duration.py:23
 msgid "0 days"
-msgstr ""
+msgstr "0 gün"
 
 #: core/timeline.py:53
 #, python-format
@@ -1458,9 +1462,10 @@ msgid "%(child)s woke up."
 msgstr "%(child)s uyandı"
 
 #: core/timeline.py:133
-#, python-format
+#, fuzzy, python-format
+#| msgid "Amount: %(amount).0f"
 msgid "Amount: %(amount).0f"
-msgstr ""
+msgstr "Miktar: %(amount)"
 
 #: core/timeline.py:141
 #, python-format
@@ -1562,7 +1567,7 @@ msgstr "En Son Bez Değişikliği"
 #: dashboard/templates/cards/tummytime_last.html:13
 #, python-format
 msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
-msgstr ""
+msgstr "<div>%(since)s önce</div> <small>%(time)s</small>"
 
 #: dashboard/templates/cards/diaperchange_types.html:14
 msgid "Past Week"
@@ -1591,12 +1596,13 @@ msgstr "%(key)s gün önce"
 
 #: dashboard/templates/cards/feeding_day.html:6
 msgid "Today's Feeding"
-msgstr ""
+msgstr "Bugünkü beslenme"
 
 #: dashboard/templates/cards/feeding_day.html:20
-#, python-format
+#, fuzzy, python-format
+#| msgid "%(count)s feeding entries"
 msgid "%(count)s feeding entries"
-msgstr ""
+msgstr "%(count) beslenme girdileri"
 
 #: dashboard/templates/cards/feeding_last.html:6
 msgid "Last Feeding"
@@ -1611,9 +1617,10 @@ msgid "most recent"
 msgstr "en son"
 
 #: dashboard/templates/cards/feeding_last_method.html:21
-#, python-format
+#, fuzzy, python-format
+#| msgid "%(n)s feeding%(plural)s ago"
 msgid "%(n)s feeding%(plural)s ago"
-msgstr ""
+msgstr "%(n) beslenmeler önce"
 
 #: dashboard/templates/cards/sleep_day.html:6
 msgid "Today's Sleep"
@@ -1647,7 +1654,7 @@ msgstr "Yeterli veri yok"
 
 #: dashboard/templates/cards/statistics.html:42
 msgid "No data yet"
-msgstr ""
+msgstr "Henüz veri yok"
 
 #: dashboard/templates/cards/timer_list.html:12
 #, python-format
@@ -1725,7 +1732,7 @@ msgstr "Toplam Uyku"
 
 #: dashboard/templates/dashboard/child_button_group.html:30
 msgid "Tummy Time Durations (Sum)"
-msgstr ""
+msgstr "Karın üstü süresi (Sum)"
 
 #: dashboard/templatetags/cards.py:288
 msgid "Diaper change frequency"
@@ -1771,11 +1778,11 @@ msgstr "Haftalık ağırlık değişimi"
 
 #: dashboard/templatetags/cards.py:418
 msgid "Feeding frequency (past 3 days)"
-msgstr ""
+msgstr "Beslenme sıklığı (son 3 gün)"
 
 #: dashboard/templatetags/cards.py:422
 msgid "Feeding frequency (past 2 weeks)"
-msgstr ""
+msgstr "Beslenme sıklığı (son 2 hafta)"
 
 #: dashboard/templatetags/cards.py:428
 msgid "Feeding frequency"
@@ -1881,20 +1888,20 @@ msgstr "Uyku Saatleri"
 
 #: reports/graphs/tummytime_duration.py:34
 msgid "Total duration"
-msgstr ""
+msgstr "Toplam düre"
 
 #: reports/graphs/tummytime_duration.py:41
 #: reports/graphs/tummytime_duration.py:55
 msgid "Number of sessions"
-msgstr ""
+msgstr "Session sayısı"
 
 #: reports/graphs/tummytime_duration.py:50
 msgid "<b>Total Tummy Time Durations</b>"
-msgstr ""
+msgstr "<b>Toplam Karın Üstü Süresi</b>"
 
 #: reports/graphs/tummytime_duration.py:53
 msgid "Total duration (minutes)"
-msgstr ""
+msgstr "Toplam süre (dakika)"
 
 #: reports/graphs/weight_weight.py:27
 msgid "<b>Weight</b>"
@@ -1917,7 +1924,4 @@ msgstr "Raporu oluşturmak için yeterli veri yok."
 #: reports/templates/reports/tummytime_duration.html:4
 #: reports/templates/reports/tummytime_duration.html:8
 msgid "Total Tummy Time Durations"
-msgstr ""
-
-#~ msgid "Total feeding amount"
-#~ msgstr "Toplam beslenmeler"
+msgstr "Toplam Karın Üstü Süresi"
