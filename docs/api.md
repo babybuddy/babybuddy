@@ -44,9 +44,9 @@ If no `Authorization` header set, or the key is not valid the API will return
 ## Schema
 
 The API schema in [OpenAPI format](https://swagger.io/specification/) can be
-found in the [`openapi-schema.yml`](/openapi-schema.yml) file in the project
-root. A live version is also available at the `/api/schema` path of a running
-instance.
+found in the [`openapi-schema.yml`](https://github.com/babybuddy/babybuddy/tree/master/openapi-schema.yml)
+file in the project root. A live version is also available at the `/api/schema` path of
+a running instance.
 
 ## `GET` Method
 

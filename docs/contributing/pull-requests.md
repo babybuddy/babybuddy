@@ -36,8 +36,8 @@ for more information on how to update the static files.
 
 ### Translations
 
-Modifying [locale files](/locale) requires some extra steps. See [Translation](translation.md)
-for details.
+Modifying [locale files](https://github.com/babybuddy/babybuddy/tree/master/locale)
+requires some extra steps. See [Translation](translation.md) for details.
 
 ## Pull request process
 

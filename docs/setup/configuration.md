@@ -165,8 +165,8 @@ settings form.
 
 Whether to force 24-hour time format for locales that do not ordinarily use it
 (e.g. `en`). Support for this feature must be implemented on a per-locale basis.
-See format files under [`babybuddy/formats`](/babybuddy/formats) for supported
-locales.
+See format files under [`babybuddy/formats`](https://github.com/babybuddy/babybuddy/tree/master/babybuddy/formats)
+for supported locales.
 
 Note: Baby Buddy interprets this value as a boolean from a string
 using Python's built-in [`strtobool`](https://docs.python.org/3/distutils/apiref.html#distutils.util.strtobool)

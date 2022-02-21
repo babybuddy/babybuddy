@@ -2,9 +2,9 @@
 
 ## Definitions
 
-Baby Buddy's Gulp commands are defined in [`gulpfile.js`](/gulpfile.js). 
+Baby Buddy's Gulp commands are defined in [`gulpfile.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.js). 
 
-Baby Buddy's management commands are defined in [`babybuddy/management/commands`](/babybuddy/management/commands).
+Baby Buddy's management commands are defined in [`babybuddy/management/commands`](https://github.com/babybuddy/babybuddy/tree/master/babybuddy/management/commands).
 
 ## Commands
 
@@ -54,8 +54,8 @@ for more details about other options and functionality of this command.
 
 ### `coverage`
 
-Create a test coverage report. See [`.coveragerc`](/.coveragerc) for default
-settings information.
+Create a test coverage report. See [`.coveragerc`](https://github.com/babybuddy/babybuddy/tree/master/.coveragerc)
+for default settings information.
 
 ### `createcachetable`
 
@@ -81,8 +81,8 @@ before commits to ensure linting will pass!
 
 ### `generateschema`
 
-Updates the [`openapi-schema.yml`](/openapi-schema.yml) file in the project root
-based on current API functionality.
+Updates the [`openapi-schema.yml`](https://github.com/babybuddy/babybuddy/tree/master/openapi-schema.yml)
+file in the project root based on current API functionality.
 
 ### `lint`
 
@@ -142,7 +142,7 @@ used for individual test execution.
 ### `updateglyphs`
 
 Downloads generated glyph font files data from [Fonttello](https://fontello.com/)
-based on [`config.json` file](/babybuddy/static_src/fontello/config.json). This
+based on [`config.json` file](https://github.com/babybuddy/babybuddy/tree/master/babybuddy/static_src/fontello/config.json). This
 only needs to be run after making changes to the config file.
 
 ### `updatestatic`

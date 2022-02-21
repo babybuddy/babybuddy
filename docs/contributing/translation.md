@@ -35,19 +35,18 @@ compile an optimized translation file (`locale/xx/LC_MESSAGES/django.mo`).
 1. Check if Plotly offers a translation (in `node_modules/plotly.js/dist/`) for
 the language. If it does:
 
-    1. Add the Plotly translation file path to [`gulpfile.config.js`](/gulpfile.config.js) in
-    `scriptsConfig.graph`.
+    1. Add the Plotly translation file path to [`gulpfile.config.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.config.js)
+       in `scriptsConfig.graph`.
 
-    1. Build, collect, and commit the `/static` folder (see 
-    [`gulp updatestatic`](gulp-command-reference.md#updatestatic)).
+    2. Build, collect, and commit the `/static` folder (see [`gulp updatestatic`](gulp-command-reference.md#updatestatic)).
 
 1. Check if Moment offers a translation (in `node_modules/moment/locale/`) for
 the language. If it does:
 
-    1. Add the Moment translation file path to [`gulpfile.config.js`](/gulpfile.config.js) in
-    `scriptsConfig.vendor`.
+    1. Add the Moment translation file path to [`gulpfile.config.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.config.js)
+       in `scriptsConfig.vendor`.
 
-    1. Build, collect, and commit the `/static` folder (see 
+    2. Build, collect, and commit the `/static` folder (see 
     [`gulp updatestatic`](gulp-command-reference.md#updatestatic)).
 
 1. Run the development server, log in, and update the user language to test the

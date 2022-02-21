@@ -4,7 +4,7 @@ The default username and password for Baby Buddy is `admin`/`admin`. For any
 deployment, **log in and change the default password immediately**.
 
 Many of Baby Buddy's configuration settings can be controlled using environment
-variables - see [Configuration](/docs/setup/configuration.md) for detailed information.
+variables - see [Configuration](configuration.md) for detailed information.
 
 ## Docker
 
@@ -54,7 +54,7 @@ create the following settings before pushing:
     heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
     heroku config:set TIME_ZONE=<DESIRED DEFAULT TIMEZONE>
 
-See [Configuration](/docs/setup/configuration.md) for other settings that can be controlled
+See [Configuration](configuration.md) for other settings that can be controlled
 by `heroku config:set`.
 
 After an initial push, execute the following commands:
