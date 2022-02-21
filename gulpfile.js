@@ -6,6 +6,7 @@ var es = require('child_process').execSync;
 var flatten = require('gulp-flatten');
 var fontello = require('gulp-fontello');
 var pump = require('pump');
+var removeSourcemaps = require('gulp-remove-sourcemaps');
 var sass = require('gulp-sass')(require('sass'));
 var sassGlob = require('gulp-sass-glob');
 var styleLint = require('gulp-stylelint');
@@ -180,18 +181,21 @@ function lint(cb) {
 function scripts(cb) {
     pump([
         gulp.src(config.scriptsConfig.vendor),
+        removeSourcemaps(),
         concat('vendor.js'),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
 
     pump([
         gulp.src(config.scriptsConfig.graph),
+        removeSourcemaps(),
         concat('graph.js'),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
 
     pump([
         gulp.src(config.scriptsConfig.app),
+        removeSourcemaps(),
         concat('app.js'),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
