@@ -10,9 +10,13 @@ nav:
     - 'user-guide/managing-users.md'
     - 'user-guide/adding-entries.md'
     - 'user-guide/using-timers.md'
+  - 'Contributing':
+      - 'contributing/development-environment.md'
+      - 'contributing/translation.md'
+      - 'contributing/pull-requests.md'
+      - 'contributing/gulp-command-reference.md'
   - 'import-export.md'
   - 'api.md'
-  - 'contributing.md'
 theme:
   name: material
   favicon: assets/images/favicon.svg
