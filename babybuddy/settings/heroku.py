@@ -11,13 +11,13 @@ BABY_BUDDY["ALLOW_UPLOADS"] = bool(
 
 
 # Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {"default": dj_database_url.config(conn_max_age=500)}
 
 
 # Email
-# https://docs.djangoproject.com/en/3.0/topics/email/
+# https://docs.djangoproject.com/en/4.0/topics/email/
 # https://devcenter.heroku.com/articles/sendgrid#python
 
 SENDGRID_USERNAME = os.environ.get("SENDGRID_USERNAME", None)  # noqa: F405

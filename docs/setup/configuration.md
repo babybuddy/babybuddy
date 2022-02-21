@@ -5,25 +5,6 @@ Baby Buddy will check the application directory structure for an `.env` file or
 take these variables from the system environment. **System environment variables
 take precedence over the contents of an `.env` file.**
 
-- [`ALLOWED_HOSTS`](#allowed_hosts)
-- [`ALLOW_UPLOADS`](#allow_uploads)
-- [`AWS_ACCESS_KEY_ID`](#aws_access_key_id)
-- [`AWS_SECRET_ACCESS_KEY`](#aws_secret_access_key)
-- [`AWS_STORAGE_BUCKET_NAME`](#aws_storage_bucket_name)
-- [`DEBUG`](#debug)
-- [`NAP_START_MAX`](#nap_start_max)
-- [`NAP_START_MIN`](#nap_start_min)
-- [`DB_ENGINE`](#db_engine)
-- [`DB_HOST`](#db_host)
-- [`DB_NAME`](#db_name)
-- [`DB_PASSWORD`](#db_password)
-- [`DB_PORT`](#db_port)
-- [`DB_USER`](#db_user)
-- [`SECRET_KEY`](#secret_key)
-- [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header)
-- [`TIME_ZONE`](#time_zone)
-- [`USE_24_HOUR_TIME_FORMAT`](#use_24_hour_time_format)
-
 ## `ALLOWED_HOSTS`
 
 *Default: * (any)*
@@ -31,7 +12,7 @@ take precedence over the contents of an `.env` file.**
 Set this variable to a single host or comma-separated list of hosts without spaces.
 This should *always* be set to a specific host or hosts in production deployments.
 
-See also: [Django's documentation on the ALLOWED_HOSTS setting](https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts)
+See also: [Django's documentation on the ALLOWED_HOSTS setting](https://docs.djangoproject.com/en/4.0/ref/settings/#allowed-hosts)
 
 ## `ALLOW_UPLOADS`
 
@@ -83,7 +64,7 @@ and the [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header) environment variab
 
 The database engine utilized for the deployment.
 
-See also [Django's documentation on the ENGINE setting](https://docs.djangoproject.com/en/3.0/ref/settings/#engine).
+See also [Django's documentation on the ENGINE setting](https://docs.djangoproject.com/en/4.0/ref/settings/#engine).
 
 ## `DB_HOST`
 
@@ -116,6 +97,29 @@ The listening port for the database. The default port is 5432 for PostgreSQL.
 
 The database username utilized for the deployment.
 
+## `DEBUG`
+
+*Default: False*
+
+When in debug mode, Baby Buddy will print much more detailed error information
+for exceptions. This setting should be *False* in production deployments.
+
+See also [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/4.0/ref/settings/#debug).
+
+## `NAP_START_MAX`
+
+*Default: 18:00*
+
+The maximum nap *start* time (in the instance's time zone). Expects the 24-hour
+format %H:%M.
+
+## `NAP_START_MIN`
+
+*Default: 06:00*
+
+The minimum nap *start* time (in the instance's time zone). Expects the 24-hour
+format %H:%M.
+
 ## `SECRET_KEY`
 
 *Default: None*
@@ -123,7 +127,7 @@ The database username utilized for the deployment.
 A random, unique string must be set as the "secret key" before Baby Buddy can
 be deployed and run.
 
-See also [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/3.0/ref/settings/#secret-key).
+See also [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key).
 
 ## `SECURE_PROXY_SSL_HEADER`
 
@@ -137,7 +141,7 @@ came in via HTTPS).
 :warning: Modifying this setting can compromise Baby Buddy’s security. Ensure
 you fully understand your setup before changing it.
 
-See also [Django's documentation on the SECURE_PROXY_SSL_HEADER setting](https://docs.djangoproject.com/en/3.0/ref/settings/#secure-proxy-ssl-header).
+See also [Django's documentation on the SECURE_PROXY_SSL_HEADER setting](https://docs.djangoproject.com/en/4.0/ref/settings/#secure-proxy-ssl-header).
 
 ## `TIME_ZONE`
 
