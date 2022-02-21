@@ -66,28 +66,16 @@ If you would like to use AWS S3 for storage on ephemeral storage platforms like
 Heroku you will need to create a bucket and add its name. See django-storages'
 [Amazon S3 documentation](https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html).
 
-## `DEBUG`
+## `CSRF_TRUSTED_ORIGINS`
 
-*Default: False*
+*Default: None*
 
-When in debug mode, Baby Buddy will print much more detailed error information
-for exceptions. This setting should be *False* in production deployments.
+If Baby Buddy is behind a proxy, you may need add the domain to this setting for form
+submission to work correctly.
 
-See also [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/3.0/ref/settings/#debug).
+See also [Django's documentation on the `CSRF_TRUSTED_ORIGINS` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-CSRF_TRUSTED_ORIGINS)
+and the [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header) environment variable.
 
-## `NAP_START_MAX`
-
-*Default: 18:00*
-
-The maximum nap *start* time (in the instance's time zone). Expects the 24-hour
-format %H:%M.
-
-## `NAP_START_MIN`
-
-*Default: 06:00*
-
-The minimum nap *start* time (in the instance's time zone). Expects the 24-hour
-format %H:%M.
 
 ## `DB_ENGINE`
 

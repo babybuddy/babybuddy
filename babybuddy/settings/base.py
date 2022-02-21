@@ -243,6 +243,7 @@ SESSION_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/3.2/ref/csrf/#settings
 CSRF_COOKIE_HTTPONLY = True
 # CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", []).split(",")
 
 # https://docs.djangoproject.com/en/3.2/topics/auth/passwords/
 AUTH_PASSWORD_VALIDATORS = [
