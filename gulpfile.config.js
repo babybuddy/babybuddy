@@ -1,4 +1,4 @@
-var basePath = 'babybuddy/static/babybuddy/';
+const basePath = 'babybuddy/static/babybuddy/';
 
 module.exports = {
     basePath: basePath,
