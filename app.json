@@ -19,13 +19,13 @@
         }
     ],
     "env": {
-        "DJANGO_SETTINGS_MODULE": {
-            "description": "A prebuilt configuration for Heroku.",
-            "value": "babybuddy.settings.heroku"
-        },
         "DISABLE_COLLECTSTATIC": {
             "description": "Prevent static asset collection.",
             "generator": "secret"
+        },
+        "DJANGO_SETTINGS_MODULE": {
+            "description": "A prebuilt configuration for Heroku.",
+            "value": "babybuddy.settings.heroku"
         },
         "SECRET_KEY": {
             "description": "Used for the auth system.",
