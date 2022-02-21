@@ -250,7 +250,7 @@ msgid "Note"
 msgstr "Notitie"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:69
-#: babybuddy/templates/babybuddy/nav-dropdown.html:225
+#: babybuddy/templates/babybuddy/nav-dropdown.html:281
 #: babybuddy/templates/babybuddy/welcome.html:42 core/models.py:330
 #: core/models.py:331 core/models.py:334
 #: core/templates/core/sleep_confirm_delete.html:7
@@ -273,7 +273,7 @@ msgid "Temperature"
 msgstr "Temperatuur"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:81
-#: babybuddy/templates/babybuddy/nav-dropdown.html:238
+#: babybuddy/templates/babybuddy/nav-dropdown.html:294
 #: babybuddy/templates/babybuddy/welcome.html:50 core/models.py:537
 #: core/models.py:538 core/models.py:541
 #: core/templates/core/timer_detail.html:59
@@ -286,7 +286,7 @@ msgid "Tummy Time"
 msgstr "Buikliggen"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:87
-#: babybuddy/templates/babybuddy/nav-dropdown.html:172 core/models.py:567
+#: babybuddy/templates/babybuddy/nav-dropdown.html:186 core/models.py:567
 #: core/models.py:581 core/models.py:582 core/models.py:585
 #: core/templates/core/weight_confirm_delete.html:7
 #: core/templates/core/weight_form.html:13
@@ -344,17 +344,9 @@ msgstr "Notities"
 msgid "Measurements"
 msgstr "Metingen"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:164
-msgid "Temperature"
-msgstr "Temperatuur"
-
 #: babybuddy/templates/babybuddy/nav-dropdown.html:178
 msgid "Temperature reading"
 msgstr "Temperatuur meting"
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:186
-msgid "Weight"
-msgstr "Gewicht"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:192
 msgid "Weight entry"
@@ -407,17 +399,9 @@ msgstr "Verschoning"
 msgid "Feedings"
 msgstr "Voedingen"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:281
-msgid "Sleep"
-msgstr "Slaap"
-
 #: babybuddy/templates/babybuddy/nav-dropdown.html:287
 msgid "Sleep entry"
 msgstr "Slaap ingave"
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:294
-msgid "Tummy Time"
-msgstr "Buikliggen"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:300
 msgid "Tummy Time entry"
