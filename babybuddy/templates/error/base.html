@@ -1,0 +1,14 @@
+{% extends 'babybuddy/base.html' %}
+{% load i18n widget_tweaks %}
+
+{% block breadcrumb_nav %}{% endblock %}
+
+{% block page %}
+    <div class="container mt-2 mt-lg-5">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-12 mb-4">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
