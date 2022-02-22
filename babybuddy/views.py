@@ -41,14 +41,14 @@ def csrf_failure(request, reason=""):
         "HTTP_ORIGIN" in request.META
         and reason == REASON_BAD_ORIGIN % request.META["HTTP_ORIGIN"]
     ):
-        ccontext = {
+        context = {
             "title": _("Forbidden"),
             "main": _("CSRF verification failed. Request aborted."),
             "reason": reason,
             "origin": request.META["HTTP_ORIGIN"],
         }
         template = loader.get_template("error/403_csrf_bad_origin.html")
-        return HttpResponseForbidden(template.render(ccontext), content_type="text/html")
+        return HttpResponseForbidden(template.render(context), content_type="text/html")
 
     return csrf.csrf_failure(request, reason, "403_csrf.html")
 
