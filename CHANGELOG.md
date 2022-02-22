@@ -1,13 +1,34 @@
 # Changelog
 
-## [v1.10.0](https://github.com/babybuddy/babybuddy/tree/v1.10.0) (2022-02-16)
+## [v1.10.0](https://github.com/babybuddy/babybuddy/tree/v1.10.0) (2022-02-21)
 
-[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.10.0...HEAD)
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.10.0...v1.10.1)
 
 **Implemented enhancements:**
 
-- Hardcoded English strings on timeline [\#352](https://github.com/babybuddy/babybuddy/issues/352)
+- Add Chinese \(simplified\) translations [\#399](https://github.com/babybuddy/babybuddy/pull/399) ([cdubz](https://github.com/cdubz))
+- Use "secret" generator for `DISABLE_COLLECTSTATIC` in Heroku [\#398](https://github.com/babybuddy/babybuddy/pull/398) ([cdubz](https://github.com/cdubz))
+
+**Fixed bugs:**
+
+- CSRF Error \(403\) When Adding Entry \(v1.10.0\) [\#393](https://github.com/babybuddy/babybuddy/issues/393)
+
+**Closed issues:**
+
+- Heroku Server Error \(500\) [\#395](https://github.com/babybuddy/babybuddy/issues/395)
+
+**Merged pull requests:**
+
+- Additional Dutch translations [\#397](https://github.com/babybuddy/babybuddy/pull/397) ([Gitoffomalawn](https://github.com/Gitoffomalawn))
+
+## [v1.10.0](https://github.com/babybuddy/babybuddy/tree/v1.10.0) (2022-02-16)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.9.3...v1.10.0)
+
+**Implemented enhancements:**
+
 - Feature Request:  Track baby height [\#191](https://github.com/babybuddy/babybuddy/issues/191)
+- Hardcoded English strings on timeline [\#352](https://github.com/babybuddy/babybuddy/issues/352)
 - breakout feeding types [\#384](https://github.com/babybuddy/babybuddy/pull/384) ([alzyee](https://github.com/alzyee))
 - Rearrange dashboard cards to set timer card first [\#382](https://github.com/babybuddy/babybuddy/pull/382) ([adamaze](https://github.com/adamaze))
 - Update to Django 4.x [\#378](https://github.com/babybuddy/babybuddy/pull/378) ([cdubz](https://github.com/cdubz))
