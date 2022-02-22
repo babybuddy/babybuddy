@@ -3,8 +3,8 @@ from .base import *
 # Quick-start development settings - unsuitable for production
 # https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-SECRET_KEY = "CHANGE ME"
-DEBUG = True
+SECRET_KEY = os.environ.get("SECRET_KEY") or "DEVELOPMENT!!"
+DEBUG = bool(strtobool(os.environ.get("DEBUG") or "True"))
 
 
 # Static files (CSS, JavaScript, Images)
