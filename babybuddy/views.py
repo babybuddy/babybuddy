@@ -5,12 +5,16 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView as LogoutViewBase
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseForbidden
+from django.middleware.csrf import REASON_BAD_ORIGIN
 from django.shortcuts import redirect, render
+from django.template import loader, TemplateDoesNotExist
 from django.urls import reverse, reverse_lazy
 from django.utils import translation
 from django.utils.decorators import method_decorator
 from django.utils.text import format_lazy
 from django.utils.translation import gettext as _, gettext_lazy
+from django.views import csrf
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
@@ -23,6 +27,30 @@ from django_filters.views import FilterView
 
 from babybuddy import forms
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin, StaffOnlyMixin
+
+
+def csrf_failure(request, reason=""):
+    """
+    Overrides the 403 CSRF failure template for bad origins in order to provide more
+    userful information about how to resolve the issue.
+    """
+    if (
+        "HTTP_ORIGIN" in request.META
+        and reason == REASON_BAD_ORIGIN % request.META["HTTP_ORIGIN"]
+    ):
+        c = {
+            "title": _("Forbidden"),
+            "main": _("CSRF verification failed. Request aborted."),
+            "reason": reason,
+            "origin": request.META["HTTP_ORIGIN"],
+        }
+        try:
+            t = loader.get_template("error/403_csrf_bad_origin.html")
+            return HttpResponseForbidden(t.render(c), content_type="text/html")
+        except TemplateDoesNotExist:
+            pass
+
+    return csrf.csrf_failure(request, reason, "403_csrf.html")
 
 
 class RootRouter(LoginRequiredMixin, RedirectView):

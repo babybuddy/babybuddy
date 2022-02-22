@@ -243,6 +243,7 @@ SESSION_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/4.0/ref/csrf/#settings
 CSRF_COOKIE_HTTPONLY = True
 # CSRF_COOKIE_SECURE = True
+CSRF_FAILURE_VIEW = "babybuddy.views.csrf_failure"
 CSRF_TRUSTED_ORIGINS = list(
     filter(None, os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(","))
 )
