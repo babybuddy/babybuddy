@@ -1,13 +1,10 @@
-{% extends 'babybuddy/page.html' %}
-{% load i18n widget_tweaks %}
+{% extends 'error/base.html' %}
+{% load i18n %}
 
 {% block title %}403 {% trans "Permission Denied" %}{% endblock %}
 
-{% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Permission Denied" %}</li>
-{% endblock %}
-
 {% block content %}
+    <h1>403 {% trans "Permission Denied" %}</h1>
     <div class="alert alert-danger" role="alert">
         {% blocktrans trimmed %}
             You do not have permission to access this resource. Contact a site

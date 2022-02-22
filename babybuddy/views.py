@@ -8,7 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseForbidden
 from django.middleware.csrf import REASON_BAD_ORIGIN
 from django.shortcuts import redirect, render
-from django.template import loader, TemplateDoesNotExist
+from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.utils import translation
 from django.utils.decorators import method_decorator
@@ -34,21 +34,21 @@ def csrf_failure(request, reason=""):
     Overrides the 403 CSRF failure template for bad origins in order to provide more
     userful information about how to resolve the issue.
     """
+
+    print(reason == REASON_BAD_ORIGIN % request.META["HTTP_ORIGIN"])
+
     if (
         "HTTP_ORIGIN" in request.META
         and reason == REASON_BAD_ORIGIN % request.META["HTTP_ORIGIN"]
     ):
-        c = {
+        ccontext = {
             "title": _("Forbidden"),
             "main": _("CSRF verification failed. Request aborted."),
             "reason": reason,
             "origin": request.META["HTTP_ORIGIN"],
         }
-        try:
-            t = loader.get_template("error/403_csrf_bad_origin.html")
-            return HttpResponseForbidden(t.render(c), content_type="text/html")
-        except TemplateDoesNotExist:
-            pass
+        template = loader.get_template("error/403_csrf_bad_origin.html")
+        return HttpResponseForbidden(template.render(ccontext), content_type="text/html")
 
     return csrf.csrf_failure(request, reason, "403_csrf.html")
 
