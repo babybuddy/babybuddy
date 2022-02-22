@@ -1,7 +1,11 @@
+from django.forms import Media
 from typing import Any, Dict, Optional
 from django.forms import Widget
 
 class TagsEditor(Widget):
+    class Media:
+        js = ("babybuddy/js/tags_editor.js",)
+
     input_type = 'hidden'
     template_name = 'core/widget_tag_editor.html'
 
@@ -14,21 +18,23 @@ class TagsEditor(Widget):
             value = [self.__unpack_tag(tag) for tag in value]
         return value
     
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+        attrs['class'] = attrs.get('class', '') + ' babybuddy-tags-editor'
+        return attrs
+    
     def get_context(self, name: str, value: Any, attrs) -> Dict[str, Any]:
         from . import models
 
         most_tags = models.BabyBuddyTag.objects.order_by(
             '-last_used'
         ).all()[:256]
-        quick_suggestion_tags = models.BabyBuddyTag.objects.order_by(
-            '-last_used'
-        ).all()
 
         result = super().get_context(name, value, attrs)
 
         tag_names = set(x['name'] for x in (result.get('widget', {}).get('value', None) or []))
         quick_suggestion_tags = [
-            t for t in quick_suggestion_tags
+            t for t in most_tags
             if t.name not in tag_names
         ][:5]
 
