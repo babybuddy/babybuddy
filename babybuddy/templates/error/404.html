@@ -7,7 +7,7 @@
     <h1>404 {% trans "Page Not Found" %}</h1>
     <div>
         {% blocktrans trimmed with request_path=request_path %}
-            The path <samp>{{ request_path }}</samp> does not exist.
+            The path <code>{{ request_path }}</code> does not exist.
         {% endblocktrans %}
     </div>
 {% endblock %}
