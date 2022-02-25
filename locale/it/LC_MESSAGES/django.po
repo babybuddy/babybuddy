@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-21 16:58+0000\n"
+"POT-Creation-Date: 2022-02-25 05:14+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -126,68 +126,60 @@ msgid "{user}'s Settings"
 msgstr "Impostazioni {user}"
 
 #: babybuddy/settings/base.py:166
+msgid "Chinese (simplified)"
+msgstr ""
+
+#: babybuddy/settings/base.py:167
+msgid "Dutch"
+msgstr "Olandese"
+
+#: babybuddy/settings/base.py:168
 #, fuzzy
 #| msgid "English"
 msgid "English (US)"
 msgstr "Inglese"
 
-#: babybuddy/settings/base.py:167
+#: babybuddy/settings/base.py:169
 #, fuzzy
 #| msgid "English"
 msgid "English (UK)"
 msgstr "Inglese"
 
-#: babybuddy/settings/base.py:168
-msgid "Dutch"
-msgstr "Olandese"
-
-#: babybuddy/settings/base.py:169
+#: babybuddy/settings/base.py:170
 msgid "French"
 msgstr "Francese"
 
-#: babybuddy/settings/base.py:170
+#: babybuddy/settings/base.py:171
 msgid "Finnish"
 msgstr "Finlandese"
 
-#: babybuddy/settings/base.py:171
+#: babybuddy/settings/base.py:172
 msgid "German"
 msgstr "Tedesco"
 
-#: babybuddy/settings/base.py:172
+#: babybuddy/settings/base.py:173
 msgid "Italian"
 msgstr "Italiano"
 
-#: babybuddy/settings/base.py:173
+#: babybuddy/settings/base.py:174
 msgid "Polish"
 msgstr "Polacco"
 
-#: babybuddy/settings/base.py:174
+#: babybuddy/settings/base.py:175
 msgid "Portuguese"
 msgstr "Portoghese"
 
-#: babybuddy/settings/base.py:175
+#: babybuddy/settings/base.py:176
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: babybuddy/settings/base.py:176
+#: babybuddy/settings/base.py:177
 msgid "Swedish"
 msgstr "Svedese"
 
-#: babybuddy/settings/base.py:177
+#: babybuddy/settings/base.py:178
 msgid "Turkish"
 msgstr "Turco"
-
-#: babybuddy/templates/403.html:4 babybuddy/templates/403.html:7
-msgid "Permission Denied"
-msgstr "Permesso Negato"
-
-#: babybuddy/templates/403.html:12
-msgid ""
-"You do not have permission to access this resource. Contact a site "
-"administrator for assistance."
-msgstr ""
-"Non hai il permesso di accedere a questa risorsa. Contatta l'amministratore "
-"del sito per assistenza."
 
 #: babybuddy/templates/admin/base_site.html:4
 #: babybuddy/templates/admin/base_site.html:7
@@ -751,6 +743,52 @@ msgstr ""
 msgid "Add a Child"
 msgstr "Aggiungi Figlio"
 
+#: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
+msgid "Bad Request"
+msgstr ""
+
+#: babybuddy/templates/error/403.html:4 babybuddy/templates/error/403.html:7
+msgid "Permission Denied"
+msgstr "Permesso Negato"
+
+#: babybuddy/templates/error/403.html:9
+msgid ""
+"You do not have permission to access this resource. Contact a site "
+"administrator for assistance."
+msgstr ""
+"Non hai il permesso di accedere a questa risorsa. Contatta l'amministratore "
+"del sito per assistenza."
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:14
+msgid "How to Fix"
+msgstr ""
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:15
+#, python-format
+msgid ""
+"Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
+"environment variable. If multiple origins are required separate with commas."
+msgstr ""
+
+#: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
+msgid "Page Not Found"
+msgstr ""
+
+#: babybuddy/templates/error/404.html:9
+#, python-format
+msgid "The path <code>%(request_path)s</code> does not exist."
+msgstr ""
+
+#: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
+msgid "Server Error"
+msgstr ""
+
+#: babybuddy/templates/error/base.html:14
+#, fuzzy
+#| msgid "Welcome to Baby Buddy!"
+msgid "Return to Baby Buddy"
+msgstr "Benvenuto in Baby Buddy!"
+
 #: babybuddy/templates/registration/login.html:32
 msgid "Login"
 msgstr "Login"
@@ -821,30 +859,38 @@ msgstr ""
 "Inserisci il tuo indirizzo email nel form sottostante. Se l'indirizzo email "
 "è corretto, riceverai le istruzioni per resettare la password."
 
-#: babybuddy/views.py:76
+#: babybuddy/views.py:43
+msgid "Forbidden"
+msgstr ""
+
+#: babybuddy/views.py:44
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: babybuddy/views.py:102
 #, python-format
 msgid "User %(username)s added!"
 msgstr "Utente %(username)s aggiunto!"
 
-#: babybuddy/views.py:87
+#: babybuddy/views.py:113
 #, python-format
 msgid "User %(username)s updated."
 msgstr "Utente %(username)s modificato"
 
-#: babybuddy/views.py:99
+#: babybuddy/views.py:125
 #, python-brace-format
 msgid "User {user} deleted."
 msgstr "Utente {user} eliminato."
 
-#: babybuddy/views.py:120
+#: babybuddy/views.py:146
 msgid "Password updated."
 msgstr "Password aggiornata."
 
-#: babybuddy/views.py:149
+#: babybuddy/views.py:175
 msgid "User API key regenerated."
 msgstr "API key utente rigenerata."
 
-#: babybuddy/views.py:162
+#: babybuddy/views.py:188
 msgid "Settings saved!"
 msgstr "Impostazioni salvate!"
 
