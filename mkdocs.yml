@@ -5,6 +5,7 @@ nav:
   - 'Setup':
       - 'setup/deployment.md'
       - 'setup/configuration.md'
+      - 'setup/proxy.md'
   - 'User Guide':
     - 'user-guide/getting-started.md'
     - 'user-guide/managing-users.md'
