@@ -35,8 +35,6 @@ def csrf_failure(request, reason=""):
     userful information about how to resolve the issue.
     """
 
-    print(reason == REASON_BAD_ORIGIN % request.META["HTTP_ORIGIN"])
-
     if (
         "HTTP_ORIGIN" in request.META
         and reason == REASON_BAD_ORIGIN % request.META["HTTP_ORIGIN"]
