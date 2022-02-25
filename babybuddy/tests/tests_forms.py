@@ -186,3 +186,21 @@ class FormsTestCase(TestCase):
         self.assertEqual(
             self.user.settings.dashboard_hide_age, datetime.timedelta(days=1)
         )
+
+    def test_csrf_error_handling(self):
+        c = HttpClient(enforce_csrf_checks=True)
+        c.login(**self.credentials)
+
+        # Add a CSRF cookie to the client by making a request with the logout form.
+        c.get("/", follow=True)
+
+        # Send POST request with an invalid Origin.
+        headers = {"HTTP_ORIGIN": "https://www.example.com"}
+        data = {"csrfmiddlewaretoken": c.cookies["csrftoken"].value}
+        response = c.post("/logout/", data=data, follow=True, **headers)
+
+        # Assert response contains Baby Buddy's custom 403 handler text.
+        self.assertContains(response, "How to Fix", status_code=403)
+
+        response = c.post("/logout/", data=data, follow=True)
+        self.assertEqual(response.status_code, 200)
