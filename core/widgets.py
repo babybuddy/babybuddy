@@ -20,7 +20,9 @@ class TagsEditor(Widget):
     
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs['class'] = attrs.get('class', '') + ' babybuddy-tags-editor'
+        class_string = attrs.get('class', '')
+        class_string = class_string.replace("form-control", "")
+        attrs['class'] = class_string + ' babybuddy-tags-editor'
         return attrs
     
     def get_context(self, name: str, value: Any, attrs) -> Dict[str, Any]:
