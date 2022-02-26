@@ -162,6 +162,17 @@ came in via HTTPS).
 - [`ALLOWED_HOSTS`](#allowed_hosts)
 - [`CSRF_TRUSTED_ORIGINS`](#csrf_trusted_origins)
 
+## `SUB_PATH`
+
+*Default:* `None`
+
+If Baby Buddy is hosted in a subdirectory of another server (e.g., `http://www.example.com/babybuddy`)
+this must be set to the subdirectory path (e.g., `/babybuddy`) for correct handling of
+application configuration.
+
+Additional steps are required! See [Subdirectory configuration](subdirectory.md) for
+details.
+
 ## `TIME_ZONE`
 
 *Default:* `UTC`

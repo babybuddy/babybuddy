@@ -206,7 +206,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATIC_URL = "static/"
+STATIC_URL = os.path.join(os.environ.get("SUB_PATH") or "", "static/")
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 

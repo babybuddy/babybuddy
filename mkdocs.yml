@@ -1,10 +1,16 @@
 extra_css:
   - css/extras.css
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 nav:
   - 'index.md'
   - 'Setup':
       - 'setup/deployment.md'
       - 'setup/configuration.md'
+      - 'setup/subdirectory.md'
       - 'setup/proxy.md'
   - 'User Guide':
     - 'user-guide/getting-started.md'
