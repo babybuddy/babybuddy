@@ -9,31 +9,10 @@
         <a href="{% url 'core:child' object.slug %}" class="btn" title="{% trans "Timeline" %}">
             <i class="icon-timeline" aria-hidden="true"></i>
         </a>
+        <a href="{% url 'reports:report-list' object.slug %}" class="btn" title="{% trans "Reports" %}">
+            <i class="icon-graph" aria-hidden="true"></i>
+        </a>
     {% endif %}
-
-    <div class="btn-group" role="group">
-        <button id="reports-dropdown"
-                class="btn dropdown-toggle"
-                title="{% trans "Reports" %}"
-                type="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"><i class="icon-graph" aria-hidden="true"></i></button>
-        <div class="dropdown-menu" aria-labelledby="reports-dropdown">
-            <a class="dropdown-item" href="{% url 'reports:report-diaperchange-amounts-child' object.slug %}">{% trans "Diaper Change Amounts" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-diaperchange-types-child' object.slug %}">{% trans "Diaper Change Types" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-diaperchange-lifetimes-child' object.slug %}">{% trans "Diaper Lifetimes" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-feeding-amounts-child' object.slug %}">{% trans "Feeding Amounts" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-feeding-duration-child' object.slug %}">{% trans "Feeding Durations (Average)" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-sleep-pattern-child' object.slug %}">{% trans "Sleep Pattern" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-sleep-totals-child' object.slug %}">{% trans "Sleep Totals" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-tummytime-duration-child' object.slug %}">{% trans "Tummy Time Durations (Sum)" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-weight-weight-child' object.slug %}">{% trans "Weight" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-height-height-child' object.slug %}">{% trans "Height" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-head-circumference-head-circumference-child' object.slug %}">{% trans "Head Circumference" %}</a>
-            <a class="dropdown-item" href="{% url 'reports:report-bmi-bmi-child' object.slug %}">{% trans "BMI" %}</a>
-        </div>
-    </div>
 
     {% if perms.core.change_child %}
         <a class="btn d-none d-md-inline-block"
