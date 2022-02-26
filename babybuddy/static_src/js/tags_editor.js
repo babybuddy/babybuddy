@@ -82,17 +82,22 @@
             const tag = this.prototype.cloneNode(true);
             tag.classList.remove("prototype-tag");
             tag.classList.add("tag");
-            updateTag(tag, name, color, actionSymbol);
+            this.updateTag(tag, name, color, actionSymbol);
             return tag;
         }
 
         insertTag(list, tag) {
             list.appendChild(tag);
+            this.callTagListUpdatedListeners();
         }
     };
 
+    /**
+     * Handler for the edit field allowing to dynamically create new tags.
+     */
     class AddNewTagControl {
-        constructor(widget, taggingBase) {
+        constructor(widget, taggingBase, onInsertNewTag) {
+            this.widget = widget;
             this.taggingBase = taggingBase;
 
             this.apiTagsUrl = widget.getAttribute('data-tags-url');
@@ -101,13 +106,15 @@
             this.addTagButton = this.createTagInputs.querySelector('.btn-add-new-tag');
 
             this.addTagInput.value = "";
+            
+            this.onInsertNewTag = onInsertNewTag;
 
-            this.addTagButton.addEventListener('click', () => this.createTagClicked);
+            this.addTagButton.addEventListener('click', () => this.onCreateTagClicked());
             this.addTagInput.addEventListener('keydown', (e) => {
                 const key = e.key.toLowerCase();
                 if (key === "enter") {
                     e.preventDefault();
-                    this.createTagClicked();
+                    this.onCreateTagClicked();
                 }
             });
         }
@@ -122,47 +129,38 @@
             const tagName = this.addTagInput.value.trim();
             const uriTagName = encodeURIComponent(tagName);
 
-            function success() {
-                addTagInput.value = "";
-            }
-
-            function fail(msg) {
+            const fail = (msg) => {
                 msg = msg || "Error creating tag";
 
-                addTagInput.select()
+                this.addTagInput.select();
+
+                // TODO: Replace with modal
                 alert(msg);
-            }
+            };
 
             if (!tagName) {
                 fail('Not a valid tag name');
                 return;
             }
 
+            const addTag = (name, color) => {
+                const tag = this.taggingBase.createNewTag(name, color, "-");                    
+                this.addTagInput.value = "";
+                this.onInsertNewTag(tag);
+            };
+
             const data = JSON.stringify({
-                'name': addTagInput.value
+                'name': this.addTagInput.value
             });
 
-
-            function addTag(name, color) {
-                const foundTag = widget.querySelector(`span[data-value="${name}"]`);
-                if (foundTag) {
-                    foundTag.parentNode.removeChild(foundTag);
-                }
-
-                const tag = this.taggingBase.createNewTag(name, color, "-");                    
-                this.taggingBase.insertTag(currentTags, tag);
-                removeTagCallback(tag);
-                success();
-            }
-
-            doReq("GET", `${apiTagsUrl}?name=${uriTagName}`, null,
+            doReq("GET", `${this.apiTagsUrl}?name=${uriTagName}`, null,
                 (text) => {
                     const json = JSON.parse(text);
                     if (json.count) {
                         const tagJson = json.results[0];
                         addTag(tagJson.name, tagJson.color);
                     } else {
-                        doReq("POST", apiTagsUrl, data, 
+                        doReq("POST", this.apiTagsUrl, data, 
                             (text) => {
                                 const tagJson = JSON.parse(text);
                                 addTag(tagJson.name, tagJson.color);
@@ -179,7 +177,7 @@
             this.widget = tagEditorRoot;
             this.taggingBase = new TaggingBase(this.widget);
             this.addTagControl = new AddNewTagControl(
-                this.widget, this.taggingBase
+                this.widget, this.taggingBase, (t) => this.insertNewTag(t)
             );
         
             this.currentTags = this.widget.querySelector('.current_tags');
@@ -192,6 +190,23 @@
             for (const tag of this.currentTags.querySelectorAll(".tag")) {
                 this.configureRemoveTag(tag);
             }
+
+            this.updateInputList();
+            this.taggingBase.addTagListUpdatedListener(
+                () => this.updateInputList()
+            );
+        }
+
+        insertNewTag(tag) {
+            const name = tag.getAttribute("data-value");
+
+            const oldTag = this.widget.querySelector(`span[data-value="${name}"]`);
+            if (oldTag) {
+                oldTag.parentNode.removeChild(oldTag);
+            }
+
+            this.taggingBase.insertTag(this.currentTags, tag);
+            this.configureRemoveTag(tag);
         }
 
         registerNewCallback(tag, newParent, onClicked) {
