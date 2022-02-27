@@ -22,6 +22,7 @@ from taggit.models import TagBase, GenericTaggedItemBase, TaggedItemBase
 
 random.seed(time.time())
 
+
 def validate_date(date, field_name):
     """
     Confirm that a date is not in the future.
@@ -81,25 +82,41 @@ def validate_time(time, field_name):
             {field_name: _("Date/time can not be in the future.")}, code="time_invalid"
         )
 
-TAG_COLORS = [
-    "#FF0000", "#00FF00", "#0000FF", "#FF00FF", "#FFFF00", "#00FFFF",
-    "#FF7F7F", "#7FFF7F", "#7F7FFF", "#FF7FFF", "#FFFF7F", "#7FFFFF",
-    "#7F0000", "#007F00", "#00007F", "#7F007F", "#7F7F00", "#007F7F",
-]
 
 def random_color():
+    TAG_COLORS = [
+        "#FF0000",
+        "#00FF00",
+        "#0000FF",
+        "#FF00FF",
+        "#FFFF00",
+        "#00FFFF",
+        "#FF7F7F",
+        "#7FFF7F",
+        "#7F7FFF",
+        "#FF7FFF",
+        "#FFFF7F",
+        "#7FFFFF",
+        "#7F0000",
+        "#007F00",
+        "#00007F",
+        "#7F007F",
+        "#7F7F00",
+        "#007F7F",
+    ]
     return TAG_COLORS[random.randrange(0, len(TAG_COLORS))]
+
 
 class BabyBuddyTag(TagBase):
     class Meta:
         verbose_name = _("Tag")
         verbose_name_plural = _("Tags")
-    
+
     color = models.CharField(
         "Color",
         max_length=32,
         default=random_color,
-        validators=[RegexValidator(r"^#[0-9A-F]{6}$")]
+        validators=[RegexValidator(r"^#[0-9A-F]{6}$")],
     )
 
     last_used = models.DateTimeField(
@@ -125,9 +142,11 @@ class BabyBuddyTaggableManager(TaggableManager):
     """
     Remove default help_text - only reason for this to exist.
     """
-    def __init__(self, *args,  **kwargs):
+
+    def __init__(self, *args, **kwargs):
         kwargs["help_text"] = kwargs.get("help_text")
         super().__init__(*args, **kwargs)
+
 
 class Child(models.Model):
     model_name = "child"
@@ -299,6 +318,7 @@ class Feeding(models.Model):
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
+
 class Note(models.Model):
     model_name = "note"
     child = models.ForeignKey(
@@ -308,7 +328,7 @@ class Note(models.Model):
     time = models.DateTimeField(
         default=timezone.now, blank=False, verbose_name=_("Time")
     )
-    tags = BabyBuddyTaggableManager(blank=True,  through=BabyBuddyTagged)
+    tags = BabyBuddyTaggableManager(blank=True, through=BabyBuddyTagged)
 
     objects = models.Manager()
 

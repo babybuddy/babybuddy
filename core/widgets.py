@@ -2,9 +2,11 @@ from django.forms import Media
 from typing import Any, Dict, Optional
 from django.forms import Widget
 
+
 class TagsEditor(Widget):
     class Media:
         js = ("babybuddy/js/tags_editor.js",)
+    
 
     input_type = 'hidden'
     template_name = 'core/widget_tag_editor.html'

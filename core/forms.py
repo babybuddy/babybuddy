@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 from core import models
 from core.widgets import TagsEditor
 
+
 def set_initial_values(kwargs, form_type):
     """
     Sets initial value for add forms based on provided kwargs.
@@ -170,7 +171,7 @@ class NoteForm(CoreModelForm):
                     "data-target": "#datetimepicker_time",
                 }
             ),
-            "tags": TagsEditor()
+            "tags": TagsEditor(),
         }
 
 
