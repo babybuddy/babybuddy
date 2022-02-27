@@ -1,10 +1,12 @@
+{% load i18n %}
+
 <div data-tags-url="{% url 'api:api-root' %}tags/"
     {% for k, v in widget.attrs.items %}
         {{ k }}="{{ v }}"
     {% endfor %}>
     {% csrf_token %}
     <span class="prototype-tag btn badge badge-pill cursor-pointer mr-1" style="display: none;">
-        PROTOTYPE
+        UNINITIALIZED PROTOTYPE
         <span class="add-remove-icon pl-1 pr-1">+ or -</span>
     </span>
     <div class="current_tags" style="min-height: 2em;">
@@ -17,12 +19,12 @@
     </div>
     <div class="new-tags">
         <div class="create-tag-inputs input-group">
-            <input class="form-control" type="text" name="" placeholder="Tag name">
+            <input class="form-control" type="text" name="" placeholder="{% trans "Tag name" %}">
             <div class="input-group-append">
-                <button class="btn btn-outline-primary bg-dark btn-add-new-tag" type="button">Add</button>
+                <button class="btn btn-outline-primary bg-dark btn-add-new-tag" type="button">{% trans "Add" %}</button>
             </div>
         </div>
-        <span>Recently used:</span>
+        <span>{% trans "Recently used:" %}</span>
         {% for t in widget.tag_suggestions.quick %}
         <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer mr-1" style="background-color: {{ t.color }};">
             {{ t.name }}
@@ -32,7 +34,7 @@
     </div>
     <input 
         type="hidden"
-        name="tags"
+        name="{{ widget.name }}"
         value="{% for t in widget.value %}&quot;{{ t.name }}&quot;{% if not forloop.last %},{% endif %}{% endfor %}"
     >
 
@@ -40,20 +42,21 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Error</h4>
+                    <h4 class="modal-title">{% trans "Error" context "Error modal" %}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
             
                 <div class="modal-body">
-                    <span data-message="generic">An error ocurred</span>
-                    <span data-message="error-creating-tag">Error creating tag.</span>
-                    <span data-message="invalid-tag-name">Invalid tag name.</span>
-                    <span data-message="tag-creation-failed">Failed to create tag.</span>
-                    <span data-message="tag-checking-failed">Failed to obtain tag data.</span>
+                    <span data-message="generic">{% trans "An error ocurred." context "Error modal" %}</span>
+                    <span data-message="invalid-tag-name">{% trans "Invalid tag name." context "Error modal" %}</span>
+                    <span data-message="tag-creation-failed">{% trans "Failed to create tag." context "Error modal" %}</span>
+                    <span data-message="tag-checking-failed">{% trans "Failed to obtain tag data." context "Error modal" %}</span>
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        {% trans "Close" context "Error modal" %}
+                    </button>
                 </div>
             </div>
         </div>

@@ -6,6 +6,12 @@
         return parseInt(x, 16);
     }
 
+    /**
+     * Attempt to compute a high-contrast color from a background color.
+     * 
+     * (This probably should be researched better because this was 
+     * hand-crafted ad-hoc.)
+     */
     function computeComplementaryColor(colorStr) {
         let avgColor = 0.0;
         avgColor += hexParse(colorStr.substring(1, 3)) * -0.5;
@@ -19,6 +25,8 @@
         }
     }
 
+    // CSRF token should always be present because it is auto-included with
+    // every tag-editor widget
     const CSRF_TOKEN = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
     function doReq(method, uri, data, success, fail) {
@@ -46,6 +54,13 @@
         req.send(data);
     }
 
+    /**
+     * Base class allowing generic operations on the tag lists, like:
+     * 
+     * - Adding tags to a tag list
+     * - Updating or creating new tags with a set name and color
+     * - Controlling the error modal
+     */
     class TaggingBase {
         constructor(widget) {
             this.prototype = widget.querySelector('.prototype-tag');
@@ -118,8 +133,23 @@
 
     /**
      * Handler for the edit field allowing to dynamically create new tags.
+     * 
+     * Handles user inputs for the editor. Calls the 'onInsertNewTag' callback
+     * when the craetion of a new tag has been requested. All backend handling
+     * like guareteening that the requested tag exists is handled by this class,
+     * the only task left is to add the new tag to the tags-list when
+     * 'onInsertNewTag' is called.
      */
     class AddNewTagControl {
+        /**
+         * @param widget
+         *     The root DOM element of the widget
+         * @param taggingBase
+         *     Reference to a common TaggingBase class to be used by this widget
+         * @param onInsertNewTag
+         *     Callback that is called when a new tag should be added to the
+         *     tags widget.
+         */
         constructor(widget, taggingBase, onInsertNewTag) {
             this.widget = widget;
             this.taggingBase = taggingBase;
@@ -155,7 +185,7 @@
 
             const fail = (msg) => {
                 this.addTagInput.select();
-                this.taggingBase.showModal(msg || "error-creating-tag");
+                this.taggingBase.showModal(msg || "generic");
             };
 
             if (!tagName) {
@@ -192,7 +222,19 @@
         }
     };
 
+    /**
+     * JavaScript implementation for the tags editor.
+     * 
+     * This class uses TaggingBase and AddNewTagControl to provide the custom
+     * tag editor controls. This mainly consists of updating the hidden
+     * input values with the current list of tags and adding/removing
+     * tags from the current-tags- or recently-used-lists.
+     */
     class TagsEditor {
+        /**
+         * @param tagEditorRoot
+         *     The root DOM element of the widget.
+         */
         constructor(tagEditorRoot) {
             this.widget = tagEditorRoot;
             this.taggingBase = new TaggingBase(this.widget);
@@ -217,6 +259,13 @@
             );
         }
 
+        /**
+         * Insert a new tag into the "current tag" list.
+         * 
+         * Makes sure that no duplicates are present in the widget before adding
+         * the new tag. If a duplicate is found, the old tag is removed before
+         * the new one is added.
+         */
         insertNewTag(tag) {
             const name = tag.getAttribute("data-value");
 
@@ -229,6 +278,12 @@
             this.configureRemoveTag(tag);
         }
 
+        /**
+         * Registeres a click-callback for a given node.
+         * 
+         * The callback chain-calls another callback "onClicked" after
+         * moving the clicked tag from the old tag-list to a new tag list.
+         */
         registerNewCallback(tag, newParent, onClicked) {
             function callback(event) {
                 tag.parentNode.removeChild(tag);
@@ -240,6 +295,12 @@
             tag.addEventListener('click', callback.bind(this));
         }
 
+        /**
+         * Updates the value of the hidden input element.
+         * 
+         * Sets the value from the list of tags added to the currentTags
+         * DOM element.
+         */
         updateInputList() {
             const names = [];
             for (const tag of this.currentTags.querySelectorAll(".tag")) {
@@ -249,13 +310,19 @@
             this.inputElement.value = names.join(",");
         }
 
+        /**
+         * Configure a tag-DOM element as a "add tag" button.
+         */
         configureAddTag(tag) {
             this.taggingBase.updateTag(tag, null, null, "+");
             this.registerNewCallback(tag, this.currentTags, () => this.configureRemoveTag(tag));
             this.updateInputList();
         }
 
-        configureRemoveTag(tag) {
+        /**
+         * Configure a tag-DOM element as a "remove tag" button.
+         */
+         configureRemoveTag(tag) {
             this.taggingBase.updateTag(tag, null, null, "-");
             this.registerNewCallback(tag, this.newTags, () => this.configureAddTag(tag));
             this.updateInputList();
