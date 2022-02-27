@@ -178,8 +178,10 @@ class WeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     )
     resource_class = WeightImportExportResource
 
+
 class BabyBuddyTaggedItemInline(admin.StackedInline):
     model = models.BabyBuddyTagged
+
 
 @admin.register(models.BabyBuddyTag)
 class BabyBuddyTagAdmin(admin.ModelAdmin):

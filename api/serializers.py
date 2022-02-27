@@ -6,9 +6,7 @@ from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from taggit.serializers import (
-    TagListSerializerField, TaggitSerializer
-)
+from taggit.serializers import TagListSerializerField, TaggitSerializer
 
 from core import models
 
@@ -202,6 +200,7 @@ class BMISerializer(CoreModelSerializer):
     class Meta:
         model = models.BMI
         fields = ("id", "child", "bmi", "date", "notes")
+
 
 class TagsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
