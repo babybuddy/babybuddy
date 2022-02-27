@@ -1404,10 +1404,8 @@ msgid "No weight entries found."
 msgstr "Keine Gewichts-Einträge gefunden."
 
 #: core/templates/core/widget_tag_editor.html:22
-#, fuzzy
-#| msgid "Last name"
 msgid "Tag name"
-msgstr "Tag Name"
+msgstr "Tag-Name"
 
 #: core/templates/core/widget_tag_editor.html:27
 msgid "Recently used:"
