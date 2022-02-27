@@ -121,6 +121,14 @@ class BabyBuddyTagged(GenericTaggedItemBase):
         return super().save_base(*args, **kwargs)
 
 
+class BabyBuddyTaggableManager(TaggableManager):
+    """
+    Remove default help_text - only reason for this to exist.
+    """
+    def __init__(self, *args,  **kwargs):
+        kwargs["help_text"] = kwargs.get("help_text")
+        super().__init__(*args, **kwargs)
+
 class Child(models.Model):
     model_name = "child"
     first_name = models.CharField(max_length=255, verbose_name=_("First name"))
@@ -300,7 +308,7 @@ class Note(models.Model):
     time = models.DateTimeField(
         default=timezone.now, blank=False, verbose_name=_("Time")
     )
-    tags = TaggableManager(blank=True,  through=BabyBuddyTagged)
+    tags = BabyBuddyTaggableManager(blank=True,  through=BabyBuddyTagged)
 
     objects = models.Manager()
 
