@@ -50,6 +50,30 @@
         constructor(widget) {
             this.prototype = widget.querySelector('.prototype-tag');
             this.listeners = [];
+
+            this.modalElement = widget.querySelector('.tag-editor-error-modal');
+            this.modalBodyNode = this.modalElement.querySelector('.modal-body');
+
+            // Clean whitespace text nodes between spans
+            for (const n of this.modalBodyNode.childNodes) {
+                if (n.nodeType === Node.TEXT_NODE) {
+                    this.modalBodyNode.removeChild(n);
+                }
+            }
+        }
+
+        showModal(msg) {
+            const selectedMessage = this.modalBodyNode.querySelector(`span[data-message='${msg}']`);
+            if (!selectedMessage) {
+                selectedMessage = this.modalBodyNode.childNodes[0];
+            }
+
+            for (const n of this.modalBodyNode.childNodes) {
+                n.classList.add('d-none');
+            }
+            selectedMessage.classList.remove('d-none');
+
+            jQuery(this.modalElement).modal('show');
         }
 
         addTagListUpdatedListener(c) {
@@ -130,16 +154,12 @@
             const uriTagName = encodeURIComponent(tagName);
 
             const fail = (msg) => {
-                msg = msg || "Error creating tag";
-
                 this.addTagInput.select();
-
-                // TODO: Replace with modal
-                alert(msg);
+                this.taggingBase.showModal(msg || "error-creating-tag");
             };
 
             if (!tagName) {
-                fail('Not a valid tag name');
+                fail('invalid-tag-name');
                 return;
             }
 
@@ -164,10 +184,10 @@
                             (text) => {
                                 const tagJson = JSON.parse(text);
                                 addTag(tagJson.name, tagJson.color);
-                            }, fail
+                            }, () => fail("tag-creation-failed")
                         );
                     }
-                }, fail
+                }, () => fail("tag-checking-failed")
             );
         }
     };

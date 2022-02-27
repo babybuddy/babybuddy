@@ -35,4 +35,27 @@
         name="tags"
         value="{% for t in widget.value %}&quot;{{ t.name }}&quot;{% if not forloop.last %},{% endif %}{% endfor %}"
     >
+
+    <div class="modal fade tag-editor-error-modal">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Error</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            
+                <div class="modal-body">
+                    <span data-message="generic">An error ocurred</span>
+                    <span data-message="error-creating-tag">Error creating tag.</span>
+                    <span data-message="invalid-tag-name">Invalid tag name.</span>
+                    <span data-message="tag-creation-failed">Failed to create tag.</span>
+                    <span data-message="tag-checking-failed">Failed to obtain tag data.</span>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
