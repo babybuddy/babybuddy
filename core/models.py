@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import re
-import time
 from datetime import timedelta
 from typing import Iterable, Optional
 
@@ -12,7 +10,6 @@ from django.utils.text import slugify
 from django.utils import timezone
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
-from django.utils.timezone import now
 from django.core.validators import RegexValidator
 
 import random
@@ -20,7 +17,7 @@ import random
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, GenericTaggedItemBase, TaggedItemBase
 
-random.seed(time.time())
+random.seed()
 
 
 def validate_date(date, field_name):
@@ -120,7 +117,7 @@ class BabyBuddyTag(TagBase):
     )
 
     last_used = models.DateTimeField(
-        default=now,
+        default=timezone.now,
         blank=False,
     )
 
@@ -133,7 +130,7 @@ class BabyBuddyTagged(GenericTaggedItemBase):
     )
 
     def save_base(self, *args, **kwargs):
-        self.tag.last_used = now()
+        self.tag.last_used = timezone.now()
         self.tag.save()
         return super().save_base(*args, **kwargs)
 

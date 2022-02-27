@@ -2,6 +2,7 @@ from django.forms import Media
 from typing import Any, Dict, Optional
 from django.forms import Widget
 
+from . import models
 
 class TagsEditor(Widget):
     class Media:
@@ -27,8 +28,6 @@ class TagsEditor(Widget):
         return attrs
 
     def get_context(self, name: str, value: Any, attrs) -> Dict[str, Any]:
-        from . import models
-
         most_tags = models.BabyBuddyTag.objects.order_by("-last_used").all()[:256]
 
         result = super().get_context(name, value, attrs)
