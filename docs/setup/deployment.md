@@ -18,7 +18,7 @@ configuration as a template to get started quickly:
 version: "2.1"
 services:
   babybuddy:
-    image: ghcr.io/linuxserver/babybuddy
+    image: lscr.io/linuxserver/babybuddy
     container_name: babybuddy
     environment:
       - TZ=UTC
@@ -28,10 +28,6 @@ services:
       - 8000:8000
     restart: unless-stopped
 ```
-
-:warning: Baby Buddy v1.7.0 was the final version deployed to
-[babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) on Docker Hub
-Future versions of Baby Buddy will use the LSIO container.
 
 For doing administrative work within the LSIO container, setting an environment variable may be necessary.
 For example:
