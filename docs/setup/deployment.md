@@ -29,6 +29,8 @@ services:
     restart: unless-stopped
 ```
 
+See [HTTPS/SSL configuration](ssl.md) for information on how to secure Baby Buddy.
+
 For doing administrative work within the LSIO container, setting an environment variable may be necessary.
 For example:
 
@@ -191,3 +193,5 @@ and any number of children).
          sudo service nginx restart
 
 15. That's it (hopefully)!
+
+See [HTTPS/SSL configuration](ssl.md) for information on how to secure Baby Buddy.
