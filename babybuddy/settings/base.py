@@ -20,7 +20,7 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
 
 # Applications
-# https://docs.djangoproject.com/en/3.0/ref/applications/
+# https://docs.djangoproject.com/en/4.0/ref/applications/
 
 INSTALLED_APPS = [
     "api",
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 # Middleware
-# https://docs.djangoproject.com/en/3.0/ref/middleware/
+# https://docs.djangoproject.com/en/4.0/ref/middleware/
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -67,18 +67,18 @@ MIDDLEWARE = [
 
 
 # URL dispatcher
-# https://docs.djangoproject.com/en/3.0/topics/http/urls/
+# https://docs.djangoproject.com/en/4.0/topics/http/urls/
 
 ROOT_URLCONF = "babybuddy.urls"
 
 
 # Templates
-# https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-TEMPLATES
+# https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-TEMPLATES
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["babybuddy/templates/error"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -93,7 +93,7 @@ TEMPLATES = [
 
 
 # Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 config = {
     "ENGINE": os.getenv("DB_ENGINE") or "django.db.backends.sqlite3",
@@ -114,7 +114,7 @@ DATABASES = {"default": config}
 
 
 # Cache
-# https://docs.djangoproject.com/en/3.0/topics/cache/
+# https://docs.djangoproject.com/en/4.0/topics/cache/
 
 CACHES = {
     "default": {
@@ -125,13 +125,13 @@ CACHES = {
 
 
 # WGSI
-# https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
+# https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/
 
 WSGI_APPLICATION = "babybuddy.wsgi.application"
 
 
 # Authentication
-# https://docs.djangoproject.com/en/3.0/topics/auth/default/
+# https://docs.djangoproject.com/en/4.0/topics/auth/default/
 
 AUTHENTICATION_BACKENDS = [
     "axes.backends.AxesBackend",
@@ -146,14 +146,14 @@ LOGOUT_REDIRECT_URL = "babybuddy:login"
 
 
 # Timezone
-# https://docs.djangoproject.com/en/3.0/topics/i18n/timezones/
+# https://docs.djangoproject.com/en/4.0/topics/i18n/timezones/
 
 USE_TZ = True
 
 TIME_ZONE = os.environ.get("TIME_ZONE") or "UTC"
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
+# https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 USE_I18N = True
 
@@ -164,9 +164,10 @@ LOCALE_PATHS = [
 ]
 
 LANGUAGES = [
+    ("zh-hans", _("Chinese (simplified)")),
+    ("nl", _("Dutch")),
     ("en-US", _("English (US)")),
     ("en-GB", _("English (UK)")),
-    ("nl", _("Dutch")),
     ("fr", _("French")),
     ("fi", _("Finnish")),
     ("de", _("German")),
@@ -180,7 +181,7 @@ LANGUAGES = [
 
 
 # Format localization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/formatting/
+# https://docs.djangoproject.com/en/4.0/topics/i18n/formatting/
 
 USE_L10N = True
 
@@ -196,7 +197,7 @@ USE_24_HOUR_TIME_FORMAT = bool(
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
 # http://whitenoise.evans.io/en/stable/django.html
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -206,7 +207,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATIC_URL = "static/"
+STATIC_URL = os.path.join(os.environ.get("SUB_PATH") or "", "static/")
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
@@ -214,7 +215,7 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, "static", "babybuddy", "root")
 
 
 # Media files (User uploaded content)
-# https://docs.djangoproject.com/en/3.0/topics/files/
+# https://docs.djangoproject.com/en/4.0/topics/files/
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -232,19 +233,24 @@ if AWS_STORAGE_BUCKET_NAME:
 
 # Security
 
-# https://docs.djangoproject.com/en/3.2/ref/settings/#secure-proxy-ssl-header
+# https://docs.djangoproject.com/en/4.0/ref/settings/#secure-proxy-ssl-header
 if os.environ.get("SECURE_PROXY_SSL_HEADER"):
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# https://docs.djangoproject.com/en/3.2/topics/http/sessions/#settings
+# https://docs.djangoproject.com/en/4.0/topics/http/sessions/#settings
 SESSION_COOKIE_HTTPONLY = True
 # SESSION_COOKIE_SECURE = True
 
-# https://docs.djangoproject.com/en/3.2/ref/csrf/#settings
+# https://docs.djangoproject.com/en/4.0/ref/csrf/#settings
 CSRF_COOKIE_HTTPONLY = True
 # CSRF_COOKIE_SECURE = True
+CSRF_FAILURE_VIEW = "babybuddy.views.csrf_failure"
+CSRF_TRUSTED_ORIGINS = list(
+    filter(None, os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(","))
+)
 
-# https://docs.djangoproject.com/en/3.2/topics/auth/passwords/
+
+# https://docs.djangoproject.com/en/4.0/topics/auth/passwords/
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -301,12 +307,12 @@ AXES_FAILURE_LIMIT = 5
 
 # Session configuration
 # Used by RollingSessionMiddleware to determine how often to reset the session.
-# See https://docs.djangoproject.com/en/3.0/topics/http/sessions/
+# See https://docs.djangoproject.com/en/4.0/topics/http/sessions/
 
 ROLLING_SESSION_REFRESH = 86400
 
 # Set default auto field for models.
-# See https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+# See https://docs.djangoproject.com/en/4.0/releases/3.2/#customizing-type-of-auto-created-primary-keys
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 

@@ -29,6 +29,7 @@ BabyBuddy.DatetimePicker = function ($, moment) {
             var defaultOptions = {
                 buttons: { showToday: true, showClose: true },
                 defaultDate: 'now',
+                focusOnShow: false,
                 format: 'L LT',
                 ignoreReadonly: true,
                 locale: moment.locale(),

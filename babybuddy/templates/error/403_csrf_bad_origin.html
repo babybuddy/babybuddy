@@ -1,0 +1,21 @@
+{% extends 'error/base.html' %}
+{% load i18n %}
+
+{% block title %}403 {{ title }}{% endblock %}
+
+{% block breadcrumb_nav %}{% endblock %}
+
+{% block content %}
+    <h1>403: {{ title }}</h1>
+    <div class="alert alert-danger" role="alert">
+        {{ main }} {{ reason }}
+    </div>
+    <div class="jumbotron">
+        <h2>{% trans "How to Fix" %}</h2>
+        {% blocktrans trimmed with origin=origin %}
+            Add <samp>{{ origin }}</samp> to the <code>CSRF_TRUSTED_ORIGINS</code>
+            environment variable. If multiple origins are required separate
+            with commas.
+        {% endblocktrans %}
+    </div>
+{% endblock %}

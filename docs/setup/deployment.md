@@ -4,7 +4,7 @@ The default username and password for Baby Buddy is `admin`/`admin`. For any
 deployment, **log in and change the default password immediately**.
 
 Many of Baby Buddy's configuration settings can be controlled using environment
-variables - see [Configuration](/docs/setup/configuration.md) for detailed information.
+variables - see [Configuration](configuration.md) for detailed information.
 
 ## Docker
 
@@ -18,7 +18,7 @@ configuration as a template to get started quickly:
 version: "2.1"
 services:
   babybuddy:
-    image: ghcr.io/linuxserver/babybuddy
+    image: lscr.io/linuxserver/babybuddy
     container_name: babybuddy
     environment:
       - TZ=UTC
@@ -29,9 +29,7 @@ services:
     restart: unless-stopped
 ```
 
-:warning: Baby Buddy v1.7.0 was the final version deployed to
-[babybuddy/babybuddy](https://hub.docker.com/r/babybuddy/babybuddy) on Docker Hub
-Future versions of Baby Buddy will use the LSIO container.
+See [HTTPS/SSL configuration](ssl.md) for information on how to secure Baby Buddy.
 
 For doing administrative work within the LSIO container, setting an environment variable may be necessary.
 For example:
@@ -49,12 +47,12 @@ python3 /app/babybuddy/manage.py clearsessions
 For manual deployments to Heroku without using the "deploy" button, make sure to
 create the following settings before pushing:
 
+    heroku config:set DISABLE_COLLECTSTATIC=1
     heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
     heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
-    heroku config:set DISABLE_COLLECTSTATIC=1
     heroku config:set TIME_ZONE=<DESIRED DEFAULT TIMEZONE>
 
-See [Configuration](/docs/setup/configuration.md) for other settings that can be controlled
+See [Configuration](configuration.md) for other settings that can be controlled
 by `heroku config:set`.
 
 After an initial push, execute the following commands:
@@ -76,115 +74,124 @@ requirements are Python, a web server, an application server, and a database.
 
 ### Example deployment
 
-*This example assumes a 512 MB VPS instance with Ubuntu 18.04.* It uses Python 3.6+,
-nginx, uwsgi and sqlite. It should be sufficient for a few users(e.g., two parents
-and 1+ child).
+*This example assumes a 1 GB VPS instance with Ubuntu 20.04.* It uses Python 3.8,
+nginx, uwsgi and sqlite. It should be sufficient for a few users (e.g., two parents
+and any number of children).
 
 1. Install system packages
 
         sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev libpq-dev
 
-1. Default python3 to python for this session
+2. Default python3 to python for this session
 
         alias python=python3
 
-1. Install pipenv
+3. Install pipenv
 
         sudo -H pip3 install pipenv
 
-1. Set up directories and files
+4. Set up directories and files
 
         sudo mkdir /var/www/babybuddy
         sudo chown $USER:$(id -gn $USER) /var/www/babybuddy
         mkdir -p /var/www/babybuddy/data/media
         git clone https://github.com/babybuddy/babybuddy.git /var/www/babybuddy/public
 
-1. Move in to the application folder
+5. Move in to the application folder
 
         cd /var/www/babybuddy/public
         
-1. Set pipenv to install locally.
+6. Initiate and enter a Python environment with Pipenv locally.
 
         export PIPENV_VENV_IN_PROJECT=1
-
-1. Initiate and enter the Python environment
-
         pipenv install --three
         pipenv shell
 
-1. Create a production settings file and set the ``SECRET_KEY`` and ``ALLOWED_HOSTS`` values
+7. Create a production settings file and set the ``SECRET_KEY`` and ``ALLOWED_HOSTS`` values
 
         cp babybuddy/settings/production.example.py babybuddy/settings/production.py
         editor babybuddy/settings/production.py
 
-1. Initiate the application
+8. Initiate the application
 
         export DJANGO_SETTINGS_MODULE=babybuddy.settings.production
         python manage.py migrate
         python manage.py createcachetable
 
-1. Set appropriate permissions on the database and data folder
+9. Set appropriate permissions on the database and data folder
 
         sudo chown -R www-data:www-data /var/www/babybuddy/data
         sudo chmod 640 /var/www/babybuddy/data/db.sqlite3
         sudo chmod 750 /var/www/babybuddy/data
 
-1. Create and configure the uwsgi app
+10. Create and configure the uwsgi app
 
-        sudo editor /etc/uwsgi/apps-available/babybuddy.ini
+         sudo editor /etc/uwsgi/apps-available/babybuddy.ini
 
-    Example config:
+      Example config:
 
-        [uwsgi]
-        plugins = python3
-        project = babybuddy
-        base_dir = /var/www/babybuddy
+      ```ini
+      [uwsgi]
+      plugins = python3
+      project = babybuddy
+      base_dir = /var/www/babybuddy
 
-        chdir = %(base_dir)/public
-        virtualenv = %(chdir)/.venv
-        module =  %(project).wsgi:application
-        env = DJANGO_SETTINGS_MODULE=%(project).settings.production
-        master = True
-        vacuum = True
+      chdir = %(base_dir)/public
+      virtualenv = %(chdir)/.venv
+      module =  %(project).wsgi:application
+      env = DJANGO_SETTINGS_MODULE=%(project).settings.production
+      master = True
+      vacuum = True
+      ```
 
-    See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
-    for more advanced configuration details.
+      See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
+      for more advanced configuration details.
 
-1. Symlink config and restart uWSGI:
+      See [Subdirectory configuration](subdirectory.md) for additional configuration
+      required if Baby Buddy will be hosted in a subdirectory of another server.
 
-        sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
-        sudo service uwsgi restart
+11. Symlink config and restart uWSGI:
 
-1. Create and configure the nginx server
+         sudo ln -s /etc/uwsgi/apps-available/babybuddy.ini /etc/uwsgi/apps-enabled/babybuddy.ini
+         sudo service uwsgi restart
 
-        sudo editor /etc/nginx/sites-available/babybuddy
+12. Create and configure the nginx server
 
-    Example config:
+         sudo editor /etc/nginx/sites-available/babybuddy
 
-        upstream babybuddy {
-            server unix:///var/run/uwsgi/app/babybuddy/socket;
-        }
+      Example config:
 
-        server {
-            listen 80;
-            server_name babybuddy.example.com;
+      ```nginx
+      upstream babybuddy {
+         server unix:///var/run/uwsgi/app/babybuddy/socket;
+      }
+         
+      server {
+         listen 80;
+         server_name babybuddy.example.com;
+         
+         location / {
+            uwsgi_pass babybuddy;
+            include uwsgi_params;
+         }
+                  
+         location /media {
+            alias /var/www/babybuddy/data/media;
+         }
+      }
+      ```
 
-            location / {
-                uwsgi_pass babybuddy;
-                include uwsgi_params;
-            }
-            
-            location /media {
-                alias /var/www/babybuddy/data/media;
-            }
-        }
+      See the [nginx documentation](https://nginx.org/en/docs/) for more advanced
+      configuration details.
 
-    See the [nginx documentation](https://nginx.org/en/docs/) for more advanced
-    configuration details.
+      See [Subdirectory configuration](subdirectory.md) for additional configuration
+      required if Baby Buddy will be hosted in a subdirectory of another server.
 
-1. Symlink config and restart NGINX:
+14. Symlink config and restart NGINX:
 
-        sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
-        sudo service nginx restart
+         sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
+         sudo service nginx restart
 
-1. That's it (hopefully)! :tada:
+15. That's it (hopefully)!
+
+See [HTTPS/SSL configuration](ssl.md) for information on how to secure Baby Buddy.

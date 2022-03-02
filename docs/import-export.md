@@ -39,5 +39,5 @@ and formats. All rows will be checked for errors on import and any issues will
 be reported on screen and will need to be resolved before the import can be
 performed.
 
-See the [example import files](/core/tests/import) used for tests to get an idea
-of the expected data format.
+See the [example import files](https://github.com/babybuddy/babybuddy/tree/master/core/tests/import)
+used for tests to get an idea of the expected data format.

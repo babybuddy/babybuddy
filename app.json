@@ -12,13 +12,17 @@
         "self-host"
     ],
     "repository": "https://github.com/babybuddy/babybuddy",
-    "website": "http://www.baby-buddy.net",
+    "website": "https://docs.baby-buddy.net",
     "buildpacks": [
         {
             "url": "heroku/python"
         }
     ],
     "env": {
+        "DISABLE_COLLECTSTATIC": {
+            "description": "Prevent static asset collection.",
+            "generator": "secret"
+        },
         "DJANGO_SETTINGS_MODULE": {
             "description": "A prebuilt configuration for Heroku.",
             "value": "babybuddy.settings.heroku"
@@ -26,16 +30,15 @@
         "SECRET_KEY": {
             "description": "Used for the auth system.",
             "generator": "secret"
-        },
-        "DISABLE_COLLECTSTATIC": {
-            "description": "Prevent static asset collection.",
-            "value": "1"
-        },
-        "TIME_ZONE": {
-            "description": "Sets the instance default time zone.",
-            "value": "UTC"
         }
     },
+    "environments": {
+        "review": {
+          "scripts": {
+            "postdeploy": "python manage.py migrate && python manage.py createcachetable && python manage.py reset --no-input"
+          }
+        }
+      },
     "scripts": {
         "postdeploy": "python manage.py migrate && python manage.py createcachetable"
     }

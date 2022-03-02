@@ -1,0 +1,2025 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Baby Buddy\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-25 05:14+0000\n"
+"Language: zh-Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: babybuddy/admin.py:12 babybuddy/admin.py:13
+#: babybuddy/templates/babybuddy/nav-dropdown.html:326
+#: babybuddy/templates/babybuddy/user_settings_form.html:8
+msgid "Settings"
+msgstr "设置"
+
+#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:104
+#: babybuddy/templates/babybuddy/user_settings_form.html:61
+#: dashboard/templates/dashboard/child.html:4
+#: dashboard/templates/dashboard/child.html:9
+#: dashboard/templates/dashboard/child_button_group.html:6
+#: dashboard/templates/dashboard/dashboard.html:4
+#: dashboard/templates/dashboard/dashboard.html:7
+msgid "Dashboard"
+msgstr "数据看板"
+
+#: babybuddy/models.py:19
+msgid "Refresh rate"
+msgstr "刷新频率"
+
+#: babybuddy/models.py:21
+msgid ""
+"If supported by browser, the dashboard will only refresh when visible, and "
+"also when receiving focus."
+msgstr "如果浏览器支持，数据看板只会在可见及接收焦点时也会刷新。"
+
+#: babybuddy/models.py:28
+msgid "disabled"
+msgstr "禁用"
+
+#: babybuddy/models.py:29
+msgid "1 min."
+msgstr "1分钟"
+
+#: babybuddy/models.py:30
+msgid "2 min."
+msgstr "2分钟"
+
+#: babybuddy/models.py:31
+msgid "3 min."
+msgstr "3分钟"
+
+#: babybuddy/models.py:32
+msgid "4 min."
+msgstr "4分钟"
+
+#: babybuddy/models.py:33
+msgid "5 min."
+msgstr "5分钟"
+
+#: babybuddy/models.py:34
+msgid "10 min."
+msgstr "10分钟"
+
+#: babybuddy/models.py:35
+msgid "15 min."
+msgstr "15分钟"
+
+#: babybuddy/models.py:36
+msgid "30 min."
+msgstr "30分钟"
+
+#: babybuddy/models.py:40
+msgid "Hide Empty Dashboard Cards"
+msgstr "隐藏空的数据看板卡片"
+
+#: babybuddy/models.py:43
+msgid "Hide data older than"
+msgstr "隐藏数据早于"
+
+#: babybuddy/models.py:45
+msgid "This setting controls which data will be shown in the dashboard."
+msgstr "此设置控制哪些数据显示在数据看板中。"
+
+#: babybuddy/models.py:51
+msgid "show all data"
+msgstr "展示所有数据"
+
+#: babybuddy/models.py:52
+msgid "1 day"
+msgstr "1天"
+
+#: babybuddy/models.py:53
+msgid "2 days"
+msgstr "2天"
+
+#: babybuddy/models.py:54
+msgid "3 days"
+msgstr "3天"
+
+#: babybuddy/models.py:55
+msgid "1 week"
+msgstr "1周"
+
+#: babybuddy/models.py:56
+msgid "4 weeks"
+msgstr "4 周"
+
+#: babybuddy/models.py:63
+msgid "Language"
+msgstr "语言"
+
+#: babybuddy/models.py:69
+msgid "Timezone"
+msgstr "时区"
+
+#: babybuddy/models.py:73
+#, python-brace-format
+msgid "{user}'s Settings"
+msgstr "{user}的设置"
+
+#: babybuddy/settings/base.py:166
+msgid "Chinese (simplified)"
+msgstr ""
+
+#: babybuddy/settings/base.py:167
+msgid "Dutch"
+msgstr "荷兰语"
+
+#: babybuddy/settings/base.py:168
+msgid "English (US)"
+msgstr "英语(美国)"
+
+#: babybuddy/settings/base.py:169
+msgid "English (UK)"
+msgstr "英语(英国)"
+
+#: babybuddy/settings/base.py:170
+msgid "French"
+msgstr "法语"
+
+#: babybuddy/settings/base.py:171
+msgid "Finnish"
+msgstr "芬兰语"
+
+#: babybuddy/settings/base.py:172
+msgid "German"
+msgstr "德语"
+
+#: babybuddy/settings/base.py:173
+msgid "Italian"
+msgstr "意大利语"
+
+#: babybuddy/settings/base.py:174
+msgid "Polish"
+msgstr "波兰语"
+
+#: babybuddy/settings/base.py:175
+msgid "Portuguese"
+msgstr "葡萄牙语"
+
+#: babybuddy/settings/base.py:176
+msgid "Spanish"
+msgstr "西班牙语"
+
+#: babybuddy/settings/base.py:177
+msgid "Swedish"
+msgstr "瑞典语"
+
+#: babybuddy/settings/base.py:178
+msgid "Turkish"
+msgstr "土耳其语"
+
+#: babybuddy/templates/admin/base_site.html:4
+#: babybuddy/templates/admin/base_site.html:7
+#: babybuddy/templates/babybuddy/nav-dropdown.html:338
+msgid "Database Admin"
+msgstr "数据库管理员"
+
+#: babybuddy/templates/babybuddy/base.html:36
+msgid "Home"
+msgstr "主页"
+
+#: babybuddy/templates/babybuddy/filter.html:18
+msgid "Filter"
+msgstr "过滤"
+
+#: babybuddy/templates/babybuddy/filter.html:19
+msgid "Reset"
+msgstr "重置"
+
+#: babybuddy/templates/babybuddy/filter.html:32
+msgid "Filters"
+msgstr "过滤"
+
+#: babybuddy/templates/babybuddy/form.html:11
+#: babybuddy/templates/babybuddy/user_settings_form.html:89
+msgid "Submit"
+msgstr "提交"
+
+#: babybuddy/templates/babybuddy/messages.html:18
+#: babybuddy/templates/babybuddy/user_settings_form.html:19
+#, python-format
+msgid "<strong>Error:</strong> %(error)s"
+msgstr "<strong>错误:</strong> %(error)s"
+
+#: babybuddy/templates/babybuddy/messages.html:23
+#: babybuddy/templates/babybuddy/user_settings_form.html:26
+msgid "<strong>Error:</strong> Some fields have errors. See below for details."
+msgstr "<strong>错误:</strong> 有些字段有错误。详情见下文。 "
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:32
+#: core/templates/core/timer_nav.html:18
+msgid "Quick Start Timer"
+msgstr "快速开始计时"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:51 core/models.py:158
+#: core/models.py:162
+msgid "Diaper Change"
+msgstr "更换尿布"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:57
+#: babybuddy/templates/babybuddy/nav-dropdown.html:274 core/models.py:227
+#: core/models.py:231 core/templates/core/timer_detail.html:43
+msgid "Feeding"
+msgstr "喂食"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:63
+#: babybuddy/templates/babybuddy/nav-dropdown.html:150 core/models.py:250
+#: core/models.py:260 core/models.py:264 core/templates/core/note_list.html:29
+msgid "Note"
+msgstr "记录"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:69
+#: babybuddy/templates/babybuddy/nav-dropdown.html:281
+#: babybuddy/templates/babybuddy/welcome.html:42 core/models.py:292
+#: core/models.py:293 core/models.py:296
+#: core/templates/core/sleep_confirm_delete.html:7
+#: core/templates/core/sleep_form.html:13 core/templates/core/sleep_list.html:4
+#: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:12
+#: core/templates/core/timer_detail.html:51
+msgid "Sleep"
+msgstr "睡眠"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:75
+#: babybuddy/templates/babybuddy/nav-dropdown.html:172 core/models.py:331
+#: core/models.py:341 core/models.py:342 core/models.py:345
+#: core/templates/core/temperature_confirm_delete.html:7
+#: core/templates/core/temperature_form.html:13
+#: core/templates/core/temperature_list.html:4
+#: core/templates/core/temperature_list.html:7
+#: core/templates/core/temperature_list.html:12
+#: core/templates/core/temperature_list.html:29
+msgid "Temperature"
+msgstr "体温"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:81
+#: babybuddy/templates/babybuddy/nav-dropdown.html:294
+#: babybuddy/templates/babybuddy/welcome.html:50 core/models.py:468
+#: core/models.py:469 core/models.py:472
+#: core/templates/core/timer_detail.html:59
+#: core/templates/core/tummytime_confirm_delete.html:7
+#: core/templates/core/tummytime_form.html:13
+#: core/templates/core/tummytime_list.html:4
+#: core/templates/core/tummytime_list.html:7
+#: core/templates/core/tummytime_list.html:12
+msgid "Tummy Time"
+msgstr "趴玩时间"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:87
+#: babybuddy/templates/babybuddy/nav-dropdown.html:186 core/models.py:494
+#: core/models.py:503 core/models.py:504 core/models.py:507
+#: core/templates/core/weight_confirm_delete.html:7
+#: core/templates/core/weight_form.html:13
+#: core/templates/core/weight_list.html:4
+#: core/templates/core/weight_list.html:7
+#: core/templates/core/weight_list.html:12
+#: core/templates/core/weight_list.html:29
+#: dashboard/templates/dashboard/child_button_group.html:31
+#: reports/graphs/weight_weight.py:19 reports/graphs/weight_weight.py:30
+#: reports/templates/reports/weight_change.html:4
+#: reports/templates/reports/weight_change.html:8
+msgid "Weight"
+msgstr "体重"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:111
+#: core/templates/timeline/timeline.html:4
+#: core/templates/timeline/timeline.html:7
+#: dashboard/templates/dashboard/child_button_group.html:9
+msgid "Timeline"
+msgstr "时间线"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:122
+#: babybuddy/templates/babybuddy/nav-dropdown.html:130 core/models.py:101
+#: core/templates/core/child_confirm_delete.html:7
+#: core/templates/core/child_detail.html:7
+#: core/templates/core/child_form.html:13 core/templates/core/child_list.html:4
+#: core/templates/core/child_list.html:7 core/templates/core/child_list.html:12
+#: dashboard/templates/dashboard/child.html:7
+#: reports/templates/reports/report_base.html:7
+msgid "Children"
+msgstr "我的宝宝"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:136 core/models.py:100
+#: core/models.py:134 core/models.py:190 core/models.py:248 core/models.py:276
+#: core/models.py:328 core/models.py:359 core/models.py:452 core/models.py:492
+#: core/models.py:519 core/models.py:546 core/models.py:572
+#: core/templates/core/bmi_list.html:27
+#: core/templates/core/diaperchange_list.html:27
+#: core/templates/core/feeding_list.html:27
+#: core/templates/core/head_circumference_list.html:27
+#: core/templates/core/height_list.html:27
+#: core/templates/core/note_list.html:27 core/templates/core/sleep_list.html:28
+#: core/templates/core/temperature_list.html:27
+#: core/templates/core/timer_list.html:27
+#: core/templates/core/tummytime_list.html:27
+#: core/templates/core/weight_list.html:27
+msgid "Child"
+msgstr "宝宝"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:144 core/models.py:151
+#: core/models.py:220 core/models.py:261 core/models.py:284 core/models.py:334
+#: core/models.py:496 core/models.py:523 core/models.py:552 core/models.py:576
+#: core/templates/core/note_confirm_delete.html:7
+#: core/templates/core/note_form.html:13 core/templates/core/note_list.html:4
+#: core/templates/core/note_list.html:7 core/templates/core/note_list.html:12
+msgid "Notes"
+msgstr "成长记录"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:164
+msgid "Measurements"
+msgstr "测量"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:178
+msgid "Temperature reading"
+msgstr "体温读数"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:192
+msgid "Weight entry"
+msgstr "体重记录"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:200 core/models.py:521
+#: core/models.py:530 core/models.py:531 core/models.py:534
+#: core/templates/core/height_confirm_delete.html:7
+#: core/templates/core/height_form.html:13
+#: core/templates/core/height_list.html:4
+#: core/templates/core/height_list.html:7
+#: core/templates/core/height_list.html:12
+#: core/templates/core/height_list.html:29
+#: dashboard/templates/dashboard/child_button_group.html:32
+#: reports/graphs/height_height.py:19 reports/graphs/height_height.py:30
+#: reports/templates/reports/height_change.html:4
+#: reports/templates/reports/height_change.html:8
+msgid "Height"
+msgstr "身高"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:206
+msgid "Height entry"
+msgstr "身高记录"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:214 core/models.py:549
+#: core/models.py:559 core/models.py:560 core/models.py:563
+#: core/templates/core/head_circumference_confirm_delete.html:7
+#: core/templates/core/head_circumference_form.html:13
+#: core/templates/core/head_circumference_list.html:4
+#: core/templates/core/head_circumference_list.html:7
+#: core/templates/core/head_circumference_list.html:12
+#: core/templates/core/head_circumference_list.html:29
+#: dashboard/templates/dashboard/child_button_group.html:33
+#: reports/graphs/head_circumference_head_circumference.py:19
+#: reports/graphs/head_circumference_head_circumference.py:30
+#: reports/templates/reports/head_circumference_change.html:4
+#: reports/templates/reports/head_circumference_change.html:8
+msgid "Head Circumference"
+msgstr "头围"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:220
+msgid "Head Circumference entry"
+msgstr "头围记录"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:228 core/models.py:574
+#: core/models.py:583 core/models.py:584 core/models.py:587
+#: core/templates/core/bmi_confirm_delete.html:7
+#: core/templates/core/bmi_form.html:13 core/templates/core/bmi_list.html:4
+#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:12
+#: core/templates/core/bmi_list.html:29
+#: dashboard/templates/dashboard/child_button_group.html:34
+#: reports/graphs/bmi_bmi.py:19 reports/graphs/bmi_bmi.py:30
+#: reports/templates/reports/bmi_change.html:4
+#: reports/templates/reports/bmi_change.html:8
+msgid "BMI"
+msgstr "身体质量指数(BMI)"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:234
+msgid "BMI entry"
+msgstr "BMI记录"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:248
+msgid "Activities"
+msgstr "活动"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:255
+#: reports/graphs/diaperchange_lifetimes.py:27
+msgid "Changes"
+msgstr "换尿布"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:261
+msgid "Change"
+msgstr "换尿布"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:268
+#: babybuddy/templates/babybuddy/welcome.html:34 core/models.py:228
+#: core/templates/core/feeding_confirm_delete.html:7
+#: core/templates/core/feeding_form.html:13
+#: core/templates/core/feeding_list.html:4
+#: core/templates/core/feeding_list.html:7
+#: core/templates/core/feeding_list.html:12
+msgid "Feedings"
+msgstr "喂食"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:287
+msgid "Sleep entry"
+msgstr "睡眠记录"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:300
+msgid "Tummy Time entry"
+msgstr "趴玩时间记录"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:325
+#: babybuddy/templates/babybuddy/user_list.html:17
+#: babybuddy/templates/babybuddy/user_password_form.html:7
+#: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:378
+#: core/templates/core/timer_list.html:32
+msgid "User"
+msgstr "用户"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:327
+msgid "Password"
+msgstr "密码"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:331
+msgid "Logout"
+msgstr "登出"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:334
+msgid "Site"
+msgstr "站点"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:335
+msgid "API Browser"
+msgstr "API浏览"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:337
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:7
+#: babybuddy/templates/babybuddy/user_form.html:13
+#: babybuddy/templates/babybuddy/user_list.html:4
+#: babybuddy/templates/babybuddy/user_list.html:7
+msgid "Users"
+msgstr "用户"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:340
+msgid "Support"
+msgstr "支持"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:342
+msgid "Source Code"
+msgstr "源代码"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:344
+msgid "Chat / Support"
+msgstr "聊天 / 支持"
+
+#: babybuddy/templates/babybuddy/paginator.html:11
+#: core/templates/timeline/_timeline.html:5
+#: core/templates/timeline/_timeline.html:7
+#: core/templates/timeline/_timeline.html:66
+#: core/templates/timeline/_timeline.html:68
+#: dashboard/templates/cards/feeding_last_method.html:32
+#: dashboard/templates/cards/statistics.html:34
+msgid "Previous"
+msgstr "上一页"
+
+#: babybuddy/templates/babybuddy/paginator.html:28
+#: core/templates/timeline/_timeline.html:12
+#: core/templates/timeline/_timeline.html:14
+#: core/templates/timeline/_timeline.html:73
+#: core/templates/timeline/_timeline.html:75
+#: dashboard/templates/cards/feeding_last_method.html:36
+#: dashboard/templates/cards/statistics.html:38
+msgid "Next"
+msgstr "下一页"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:4
+msgid "Delete User"
+msgstr "删除用户"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:9
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:18
+#: core/templates/core/bmi_confirm_delete.html:8
+#: core/templates/core/bmi_confirm_delete.html:17
+#: core/templates/core/child_confirm_delete.html:9
+#: core/templates/core/child_confirm_delete.html:31
+#: core/templates/core/diaperchange_confirm_delete.html:8
+#: core/templates/core/diaperchange_confirm_delete.html:17
+#: core/templates/core/feeding_confirm_delete.html:8
+#: core/templates/core/feeding_confirm_delete.html:17
+#: core/templates/core/head_circumference_confirm_delete.html:8
+#: core/templates/core/head_circumference_confirm_delete.html:17
+#: core/templates/core/height_confirm_delete.html:8
+#: core/templates/core/height_confirm_delete.html:17
+#: core/templates/core/note_confirm_delete.html:8
+#: core/templates/core/note_confirm_delete.html:17
+#: core/templates/core/sleep_confirm_delete.html:8
+#: core/templates/core/sleep_confirm_delete.html:17
+#: core/templates/core/temperature_confirm_delete.html:8
+#: core/templates/core/temperature_confirm_delete.html:17
+#: core/templates/core/timer_confirm_delete.html:11
+#: core/templates/core/timer_confirm_delete.html:20
+#: core/templates/core/timer_confirm_delete_inactive.html:21
+#: core/templates/core/tummytime_confirm_delete.html:8
+#: core/templates/core/tummytime_confirm_delete.html:17
+#: core/templates/core/weight_confirm_delete.html:8
+#: core/templates/core/weight_confirm_delete.html:17
+#: dashboard/templates/dashboard/child_button_group.html:48
+msgid "Delete"
+msgstr "删除"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:15
+#: core/templates/core/bmi_confirm_delete.html:14
+#: core/templates/core/child_confirm_delete.html:15
+#: core/templates/core/diaperchange_confirm_delete.html:14
+#: core/templates/core/feeding_confirm_delete.html:14
+#: core/templates/core/head_circumference_confirm_delete.html:14
+#: core/templates/core/height_confirm_delete.html:14
+#: core/templates/core/note_confirm_delete.html:14
+#: core/templates/core/sleep_confirm_delete.html:14
+#: core/templates/core/temperature_confirm_delete.html:14
+#: core/templates/core/timer_confirm_delete.html:17
+#: core/templates/core/tummytime_confirm_delete.html:14
+#: core/templates/core/weight_confirm_delete.html:14
+#, python-format
+msgid ""
+"<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+"span>?</h1>"
+msgstr "<h1>确定要删除吗？<span class=\"text-info\">%(object)s</span>?</h1>"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:19
+#: core/templates/core/bmi_confirm_delete.html:18
+#: core/templates/core/child_confirm_delete.html:32
+#: core/templates/core/diaperchange_confirm_delete.html:18
+#: core/templates/core/feeding_confirm_delete.html:18
+#: core/templates/core/head_circumference_confirm_delete.html:18
+#: core/templates/core/height_confirm_delete.html:18
+#: core/templates/core/note_confirm_delete.html:18
+#: core/templates/core/sleep_confirm_delete.html:18
+#: core/templates/core/temperature_confirm_delete.html:18
+#: core/templates/core/timer_confirm_delete.html:21
+#: core/templates/core/timer_confirm_delete_inactive.html:22
+#: core/templates/core/tummytime_confirm_delete.html:18
+#: core/templates/core/weight_confirm_delete.html:18
+msgid "Cancel"
+msgstr "取消"
+
+#: babybuddy/templates/babybuddy/user_form.html:8
+#: babybuddy/templates/babybuddy/user_form.html:18
+#: babybuddy/templates/babybuddy/user_form.html:28
+#: babybuddy/templates/babybuddy/user_list.html:65
+msgid "Create User"
+msgstr "新增用户"
+
+#: babybuddy/templates/babybuddy/user_form.html:16
+#: core/templates/core/bmi_form.html:15 core/templates/core/child_form.html:16
+#: core/templates/core/diaperchange_form.html:15
+#: core/templates/core/feeding_form.html:15
+#: core/templates/core/head_circumference_form.html:15
+#: core/templates/core/height_form.html:15
+#: core/templates/core/note_form.html:15 core/templates/core/sleep_form.html:15
+#: core/templates/core/temperature_form.html:15
+#: core/templates/core/timer_form.html:10
+#: core/templates/core/tummytime_form.html:15
+#: core/templates/core/weight_form.html:15
+msgid "Update"
+msgstr "更新"
+
+#: babybuddy/templates/babybuddy/user_form.html:24
+#: core/templates/core/bmi_form.html:23 core/templates/core/child_form.html:24
+#: core/templates/core/diaperchange_form.html:23
+#: core/templates/core/feeding_form.html:23
+#: core/templates/core/head_circumference_form.html:23
+#: core/templates/core/height_form.html:23
+#: core/templates/core/note_form.html:23 core/templates/core/sleep_form.html:23
+#: core/templates/core/temperature_form.html:23
+#: core/templates/core/timer_form.html:18
+#: core/templates/core/tummytime_form.html:23
+#: core/templates/core/weight_form.html:23
+#, python-format
+msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+msgstr "<h1>更新 <span class=\"text-info\">%(object)s</span></h1>"
+
+#: babybuddy/templates/babybuddy/user_list.html:18
+#: core/templates/core/child_list.html:25
+msgid "First Name"
+msgstr "名"
+
+#: babybuddy/templates/babybuddy/user_list.html:19
+#: core/templates/core/child_list.html:26
+msgid "Last Name"
+msgstr "姓"
+
+#: babybuddy/templates/babybuddy/user_list.html:20
+msgid "Email"
+msgstr "电子邮箱"
+
+#: babybuddy/templates/babybuddy/user_list.html:21
+msgid "Staff"
+msgstr "管理员"
+
+#: babybuddy/templates/babybuddy/user_list.html:22 core/models.py:373
+#: core/templates/core/timer_list.html:31
+msgid "Active"
+msgstr "活动"
+
+#: babybuddy/templates/babybuddy/user_list.html:23
+#: core/templates/core/bmi_list.html:24 core/templates/core/bmi_list.html:37
+#: core/templates/core/child_list.html:28
+#: core/templates/core/child_list.html:48
+#: core/templates/core/diaperchange_list.html:24
+#: core/templates/core/diaperchange_list.html:39
+#: core/templates/core/feeding_list.html:24
+#: core/templates/core/feeding_list.html:42
+#: core/templates/core/head_circumference_list.html:24
+#: core/templates/core/head_circumference_list.html:37
+#: core/templates/core/height_list.html:24
+#: core/templates/core/height_list.html:37
+#: core/templates/core/note_list.html:24 core/templates/core/note_list.html:36
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:39
+#: core/templates/core/temperature_list.html:24
+#: core/templates/core/temperature_list.html:37
+#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:37
+#: core/templates/core/weight_list.html:24
+#: core/templates/core/weight_list.html:37
+msgid "Actions"
+msgstr "操作"
+
+#: babybuddy/templates/babybuddy/user_list.html:55
+msgid "No users found."
+msgstr "找不到用户"
+
+#: babybuddy/templates/babybuddy/user_password_form.html:4
+#: babybuddy/templates/babybuddy/user_password_form.html:8
+#: babybuddy/templates/babybuddy/user_password_form.html:12
+msgid "Change Password"
+msgstr "更改密码"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:4
+#: babybuddy/templates/babybuddy/user_settings_form.html:12
+msgid "User Settings"
+msgstr "用户设置"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:33
+msgid "User Profile"
+msgstr "用户档案"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:79
+msgid "API"
+msgstr "API"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:81
+msgid "Key"
+msgstr "秘钥"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:84
+msgid "Regenerate"
+msgstr "重新生成"
+
+#: babybuddy/templates/babybuddy/welcome.html:4
+#: babybuddy/templates/babybuddy/welcome.html:7
+msgid "Welcome!"
+msgstr "欢迎"
+
+#: babybuddy/templates/babybuddy/welcome.html:12
+msgid "Welcome to Baby Buddy!"
+msgstr "欢迎使用Baby Buddy!"
+
+#: babybuddy/templates/babybuddy/welcome.html:14
+msgid ""
+"Learn about and predict baby's needs without (<em>as much</em>) guess work "
+"by using Baby Buddy to track &mdash;"
+msgstr ""
+"通过使用 Baby Buddy 来跟踪了解和预测宝宝的需求，而无需 (<em>尽可能多地</em>) "
+"进行猜测工作 &mdash;"
+
+#: babybuddy/templates/babybuddy/welcome.html:26 core/models.py:159
+#: core/templates/core/diaperchange_confirm_delete.html:7
+#: core/templates/core/diaperchange_form.html:13
+#: core/templates/core/diaperchange_list.html:4
+#: core/templates/core/diaperchange_list.html:7
+#: core/templates/core/diaperchange_list.html:12
+#: dashboard/templates/cards/diaperchange_types.html:6
+msgid "Diaper Changes"
+msgstr "更换尿布"
+
+#: babybuddy/templates/babybuddy/welcome.html:56
+msgid ""
+"As the amount of entries grows, Baby Buddy will help parents and caregivers "
+"to identify small patterns in baby's habits using the dashboard and graphs. "
+"Baby Buddy is mobile-friendly and uses a dark theme to help weary moms and "
+"dads with 2AM feedings and changings. To get started, just click the button "
+"below to add your first (or second, third, etc.) child!"
+msgstr ""
+"随着条目数量的增加，Baby Buddy将帮助家长和护理人员使用数据看板和图表识别宝宝"
+"的习惯。Baby Buddy是一款手机友好型产品，使用黑色主题帮助疲惫的爸爸妈妈在凌晨2"
+"点喂食和换尿布。想要开始使用，只需单击下面的按钮添加您的第一个(或第二个、第三"
+"个等)宝宝！"
+
+#: babybuddy/templates/babybuddy/welcome.html:68
+#: core/templates/core/child_form.html:8 core/templates/core/child_form.html:18
+#: core/templates/core/child_form.html:28
+msgid "Add a Child"
+msgstr "添加一个宝宝"
+
+#: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
+msgid "Bad Request"
+msgstr ""
+
+#: babybuddy/templates/error/403.html:4 babybuddy/templates/error/403.html:7
+msgid "Permission Denied"
+msgstr "无权限"
+
+#: babybuddy/templates/error/403.html:9
+msgid ""
+"You do not have permission to access this resource. Contact a site "
+"administrator for assistance."
+msgstr "您没有访问此资源的权限。请联系网站管理员以获得帮助。"
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:14
+msgid "How to Fix"
+msgstr ""
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:15
+#, python-format
+msgid ""
+"Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
+"environment variable. If multiple origins are required separate with commas."
+msgstr ""
+
+#: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
+msgid "Page Not Found"
+msgstr ""
+
+#: babybuddy/templates/error/404.html:9
+#, python-format
+msgid "The path <code>%(request_path)s</code> does not exist."
+msgstr ""
+
+#: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
+msgid "Server Error"
+msgstr ""
+
+#: babybuddy/templates/error/base.html:14
+#, fuzzy
+#| msgid "Welcome to Baby Buddy!"
+msgid "Return to Baby Buddy"
+msgstr "欢迎使用Baby Buddy!"
+
+#: babybuddy/templates/registration/login.html:32
+msgid "Login"
+msgstr "登录"
+
+#: babybuddy/templates/registration/login.html:38
+msgid "Forgot your password?"
+msgstr "忘记了密码？"
+
+#: babybuddy/templates/registration/password_reset_complete.html:4
+msgid "Password Reset Successfully!"
+msgstr "密码重置成功！"
+
+#: babybuddy/templates/registration/password_reset_complete.html:8
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr "密码设置完成，请重新登录。"
+
+#: babybuddy/templates/registration/password_reset_complete.html:9
+msgid "Log in"
+msgstr "登录"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:4
+msgid "Password Reset"
+msgstr "密码重置"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:13
+msgid ""
+"<strong>Oh snap!</strong> The two passwords did not match. Please try again."
+msgstr "<strong>提示！</strong> 两次密码输入的不一致，请重试。"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:22
+msgid "Enter your new password in each field below."
+msgstr "在下面的每个字段中输入新密码。"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:46
+#: babybuddy/templates/registration/password_reset_form.html:31
+msgid "Reset Password"
+msgstr "重置密码"
+
+#: babybuddy/templates/registration/password_reset_done.html:4
+msgid "Reset Email Sent"
+msgstr "重置邮件发送"
+
+#: babybuddy/templates/registration/password_reset_done.html:9
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+"我们已通过电子邮件向您发送了设置密码的说明。如果您输入的电子邮件正确，您将很"
+"快收到邮件。"
+
+#: babybuddy/templates/registration/password_reset_done.html:15
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"如果您没有收到电子邮件，请确保您已输入正确的邮箱地址，并检查您的垃圾邮件文件"
+"夹。"
+
+#: babybuddy/templates/registration/password_reset_form.html:4
+msgid "Forgot Password"
+msgstr "忘记密码"
+
+#: babybuddy/templates/registration/password_reset_form.html:9
+msgid ""
+"Enter your account email address in the form below. If the address is valid, "
+"you will receive instructions for resetting your password."
+msgstr ""
+"在下面的表格中输入您的电子邮箱地址。如果地址有效，您将收到重置密码的说明。"
+
+#: babybuddy/views.py:43
+msgid "Forbidden"
+msgstr ""
+
+#: babybuddy/views.py:44
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: babybuddy/views.py:102
+#, python-format
+msgid "User %(username)s added!"
+msgstr "用户 %(username)s 已添加!"
+
+#: babybuddy/views.py:113
+#, python-format
+msgid "User %(username)s updated."
+msgstr "用户 %(username)s 已更新。"
+
+#: babybuddy/views.py:125
+#, python-brace-format
+msgid "User {user} deleted."
+msgstr "User {user} 删除成功。"
+
+#: babybuddy/views.py:146
+msgid "Password updated."
+msgstr "密码更新完成。"
+
+#: babybuddy/views.py:175
+msgid "User API key regenerated."
+msgstr "用于API秘钥已重新生成。"
+
+#: babybuddy/views.py:188
+msgid "Settings saved!"
+msgstr "设置已保存！"
+
+#: core/forms.py:115
+msgid "Name does not match child name."
+msgstr "名称语宝宝名称不匹配。"
+
+#: core/models.py:23
+msgid "Date can not be in the future."
+msgstr "不能选择未来的时间。"
+
+#: core/models.py:37
+msgid "Start time must come before end time."
+msgstr "开始时间必须早于结束时间。"
+
+#: core/models.py:40
+msgid "Duration too long."
+msgstr "持续时间太长。"
+
+#: core/models.py:56
+msgid "Another entry intersects the specified time period."
+msgstr "另一个条目与指定的时间段相交。"
+
+#: core/models.py:70
+msgid "Date/time can not be in the future."
+msgstr "不能选择未来的日期/时间。"
+
+#: core/models.py:76
+msgid "First name"
+msgstr "名"
+
+#: core/models.py:78
+msgid "Last name"
+msgstr "姓"
+
+#: core/models.py:80
+msgid "Birth date"
+msgstr "出生日期"
+
+#: core/models.py:87
+msgid "Slug"
+msgstr "少量"
+
+#: core/models.py:90
+msgid "Picture"
+msgstr "宝宝照片"
+
+#: core/models.py:136 core/models.py:252 core/models.py:333
+#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/note_list.html:25
+#: core/templates/core/temperature_list.html:25
+msgid "Time"
+msgstr "时间"
+
+#: core/models.py:137 core/templates/core/diaperchange_list.html:60
+#: reports/graphs/diaperchange_types.py:36
+msgid "Wet"
+msgstr "小便"
+
+#: core/models.py:138 core/templates/core/diaperchange_list.html:61
+#: reports/graphs/diaperchange_types.py:30
+msgid "Solid"
+msgstr "大便"
+
+#: core/models.py:142
+msgid "Black"
+msgstr "黑色"
+
+#: core/models.py:143
+msgid "Brown"
+msgstr "棕色"
+
+#: core/models.py:144
+msgid "Green"
+msgstr "绿色"
+
+#: core/models.py:145
+msgid "Yellow"
+msgstr "黄色"
+
+#: core/models.py:148 core/templates/core/diaperchange_list.html:30
+msgid "Color"
+msgstr "颜色"
+
+#: core/models.py:150 core/models.py:219
+#: core/templates/core/diaperchange_list.html:31
+msgid "Amount"
+msgstr "数量"
+
+#: core/models.py:180
+msgid "Wet and/or solid is required."
+msgstr "大便或小便是必填的。"
+
+#: core/models.py:192 core/models.py:279 core/models.py:365 core/models.py:454
+msgid "Start time"
+msgstr "开始时间"
+
+#: core/models.py:193 core/models.py:280 core/models.py:368 core/models.py:455
+msgid "End time"
+msgstr "结束时间"
+
+#: core/models.py:195 core/models.py:282 core/models.py:371 core/models.py:457
+#: core/templates/core/feeding_list.html:34
+#: core/templates/core/sleep_list.html:30
+#: core/templates/core/timer_list.html:29
+#: core/templates/core/tummytime_list.html:29
+msgid "Duration"
+msgstr "持续时间"
+
+#: core/models.py:199
+msgid "Breast milk"
+msgstr "母乳"
+
+#: core/models.py:200
+msgid "Formula"
+msgstr "配方奶"
+
+#: core/models.py:201
+msgid "Fortified breast milk"
+msgstr "强化母乳"
+
+#: core/models.py:202
+msgid "Solid food"
+msgstr "固体食物"
+
+#: core/models.py:205 core/templates/core/feeding_list.html:30
+msgid "Type"
+msgstr "类型"
+
+#: core/models.py:209
+msgid "Bottle"
+msgstr "奶瓶"
+
+#: core/models.py:210
+msgid "Left breast"
+msgstr "左乳房"
+
+#: core/models.py:211
+msgid "Right breast"
+msgstr "右乳房"
+
+#: core/models.py:212
+msgid "Both breasts"
+msgstr "两侧乳房"
+
+#: core/models.py:213
+msgid "Parent fed"
+msgstr "父母喂养"
+
+#: core/models.py:214
+msgid "Self fed"
+msgstr "自己吃"
+
+#: core/models.py:217 core/templates/core/feeding_list.html:29
+msgid "Method"
+msgstr "方式"
+
+#: core/models.py:278
+msgid "Napping"
+msgstr "小睡"
+
+#: core/models.py:362 core/templates/core/timer_list.html:25
+msgid "Name"
+msgstr "名字"
+
+#: core/models.py:386 core/templates/core/timer_form.html:4
+msgid "Timer"
+msgstr "计时器"
+
+#: core/models.py:387 core/templates/core/timer_confirm_delete.html:9
+#: core/templates/core/timer_confirm_delete_inactive.html:9
+#: core/templates/core/timer_detail.html:8
+#: core/templates/core/timer_form.html:7 core/templates/core/timer_list.html:4
+#: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:12
+#: core/templates/core/timer_nav.html:10
+msgid "Timers"
+msgstr "计时器"
+
+#: core/models.py:390
+#, python-brace-format
+msgid "Timer #{id}"
+msgstr "计时器 #{id}"
+
+#: core/models.py:460 core/templates/core/tummytime_list.html:30
+msgid "Milestone"
+msgstr "里程碑"
+
+#: core/models.py:495 core/models.py:522 core/models.py:551 core/models.py:575
+#: core/templates/core/bmi_list.html:25
+#: core/templates/core/feeding_list.html:25
+#: core/templates/core/head_circumference_list.html:25
+#: core/templates/core/height_list.html:25
+#: core/templates/core/weight_list.html:25 reports/graphs/bmi_bmi.py:28
+#: reports/graphs/diaperchange_amounts.py:37
+#: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
+#: reports/graphs/feeding_duration.py:56
+#: reports/graphs/head_circumference_head_circumference.py:28
+#: reports/graphs/height_height.py:28 reports/graphs/sleep_pattern.py:151
+#: reports/graphs/sleep_totals.py:59 reports/graphs/tummytime_duration.py:51
+#: reports/graphs/weight_weight.py:28
+msgid "Date"
+msgstr "日期"
+
+#: core/templates/core/bmi_confirm_delete.html:4
+msgid "Delete a BMI Entry"
+msgstr "删除一条BMI记录"
+
+#: core/templates/core/bmi_form.html:8 core/templates/core/bmi_form.html:17
+#: core/templates/core/bmi_form.html:27
+msgid "Add a BMI Entry"
+msgstr "新增一条BMI记录"
+
+#: core/templates/core/bmi_list.html:15
+msgid "Add BMI"
+msgstr "新增BMI记录"
+
+#: core/templates/core/bmi_list.html:66
+msgid "No bmi entries found."
+msgstr "未找到BMI记录。"
+
+#: core/templates/core/child_confirm_delete.html:4
+msgid "Delete a Child"
+msgstr "删除宝宝信息"
+
+#: core/templates/core/child_confirm_delete.html:20
+msgid "To confirm this action. Type the full name of the child below."
+msgstr "确认这一行为，请在下面键入孩子的全名。"
+
+#: core/templates/core/child_detail.html:23
+#: dashboard/templates/dashboard/dashboard.html:32
+msgid "Born"
+msgstr "生日"
+
+#: core/templates/core/child_detail.html:24
+#: dashboard/templates/dashboard/dashboard.html:33
+msgid "Age"
+msgstr "年龄"
+
+#: core/templates/core/child_list.html:15
+msgid "Add Child"
+msgstr "新增宝宝"
+
+#: core/templates/core/child_list.html:27
+msgid "Birth Date"
+msgstr "出生日期"
+
+#: core/templates/core/child_list.html:67
+msgid "No children found."
+msgstr "未找到宝宝。"
+
+#: core/templates/core/diaperchange_confirm_delete.html:4
+msgid "Delete a Diaper Change"
+msgstr "删除一条换尿布记录"
+
+#: core/templates/core/diaperchange_form.html:6
+msgid "Update a Diaper Change"
+msgstr "更新一条换尿布记录"
+
+#: core/templates/core/diaperchange_form.html:8
+#: core/templates/core/diaperchange_form.html:27
+msgid "Add a Diaper Change"
+msgstr "添加一条换尿布记录"
+
+#: core/templates/core/diaperchange_form.html:17
+#: core/templates/core/feeding_form.html:17
+#: core/templates/core/note_form.html:17 core/templates/core/sleep_form.html:17
+#: core/templates/core/tummytime_form.html:17
+msgid "Add"
+msgstr "添加"
+
+#: core/templates/core/diaperchange_list.html:15
+msgid "Add Diaper Change"
+msgstr "新增换尿布记录"
+
+#: core/templates/core/diaperchange_list.html:29
+msgid "Contents"
+msgstr "内容"
+
+#: core/templates/core/diaperchange_list.html:73
+msgid "No diaper changes found."
+msgstr "未找到换尿布记录。"
+
+#: core/templates/core/feeding_confirm_delete.html:4
+msgid "Delete a Feeding"
+msgstr "删除一条喂食记录"
+
+#: core/templates/core/feeding_form.html:6
+msgid "Update a Feeding"
+msgstr "更新一条喂食记录"
+
+#: core/templates/core/feeding_form.html:8
+#: core/templates/core/feeding_form.html:27
+msgid "Add a Feeding"
+msgstr "新增一条喂食记录"
+
+#: core/templates/core/feeding_list.html:15
+msgid "Add Feeding"
+msgstr "新增喂食记录"
+
+#: core/templates/core/feeding_list.html:33
+msgid "Amt."
+msgstr "数量"
+
+#: core/templates/core/feeding_list.html:78
+msgid "No feedings found."
+msgstr "未找到喂食记录。"
+
+#: core/templates/core/head_circumference_confirm_delete.html:4
+msgid "Delete a Head Circumference Entry"
+msgstr "删除一条头围记录"
+
+#: core/templates/core/head_circumference_form.html:8
+#: core/templates/core/head_circumference_form.html:17
+#: core/templates/core/head_circumference_form.html:27
+msgid "Add a Head Circumference Entry"
+msgstr "新增一条头围记录"
+
+#: core/templates/core/head_circumference_list.html:15
+msgid "Add Head Circumference"
+msgstr "新增头围记录"
+
+#: core/templates/core/head_circumference_list.html:66
+msgid "No head circumference entries found."
+msgstr "未找到头围记录。"
+
+#: core/templates/core/height_confirm_delete.html:4
+msgid "Delete a Height Entry"
+msgstr "删除一条身高记录"
+
+#: core/templates/core/height_form.html:8
+#: core/templates/core/height_form.html:17
+#: core/templates/core/height_form.html:27
+msgid "Add a Height Entry"
+msgstr "新增一条身高记录"
+
+#: core/templates/core/height_list.html:15
+msgid "Add Height"
+msgstr "新增身高记录"
+
+#: core/templates/core/height_list.html:66
+msgid "No height entries found."
+msgstr "未找到身高记录。"
+
+#: core/templates/core/note_confirm_delete.html:4
+msgid "Delete a Note"
+msgstr "删除一条记录"
+
+#: core/templates/core/note_form.html:6
+msgid "Update a Note"
+msgstr "更新一条记录"
+
+#: core/templates/core/note_form.html:8 core/templates/core/note_form.html:27
+msgid "Add a Note"
+msgstr "新增一条记录"
+
+#: core/templates/core/note_list.html:15
+msgid "Add Note"
+msgstr "新增笔记"
+
+#: core/templates/core/note_list.html:60
+msgid "No notes found."
+msgstr "未找到记录。"
+
+#: core/templates/core/sleep_confirm_delete.html:4
+msgid "Delete a Sleep Entry"
+msgstr "删除一条睡眠记录"
+
+#: core/templates/core/sleep_form.html:6
+msgid "Update a Sleep Entry"
+msgstr "更新一条睡眠记录"
+
+#: core/templates/core/sleep_form.html:8 core/templates/core/sleep_form.html:27
+msgid "Add a Sleep Entry"
+msgstr "新增一条睡眠记录"
+
+#: core/templates/core/sleep_list.html:15
+msgid "Add Sleep"
+msgstr "新增睡眠记录"
+
+#: core/templates/core/sleep_list.html:25
+#: core/templates/core/timer_form.html:12
+#: core/templates/core/timer_list.html:24
+#: core/templates/core/tummytime_list.html:24
+msgid "Start"
+msgstr "开始"
+
+#: core/templates/core/sleep_list.html:26
+#: core/templates/core/timer_list.html:30
+#: core/templates/core/tummytime_list.html:25
+msgid "End"
+msgstr "结束"
+
+#: core/templates/core/sleep_list.html:31
+msgid "Nap"
+msgstr "小睡"
+
+#: core/templates/core/sleep_list.html:70
+msgid "No sleep entries found."
+msgstr "未找到睡眠记录。"
+
+#: core/templates/core/temperature_confirm_delete.html:4
+msgid "Delete a Temperature Reading"
+msgstr "删除一个体温读数"
+
+#: core/templates/core/temperature_form.html:8
+#: core/templates/core/temperature_form.html:17
+msgid "Add a Temperature Reading"
+msgstr "新增一个体温读数"
+
+#: core/templates/core/temperature_form.html:27
+msgid "Add a Temperature Entry"
+msgstr "新增一个体温条目"
+
+#: core/templates/core/temperature_list.html:15
+msgid "Add Temperature Reading"
+msgstr "新增体温记录"
+
+#: core/templates/core/temperature_list.html:66
+msgid "No temperature entries found."
+msgstr "未找到体温条目。"
+
+#: core/templates/core/timer_confirm_delete.html:5
+#, python-format
+msgid "Delete %(object)s"
+msgstr "删除 %(object)s"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:5
+msgid "Delete All Inactive Timers"
+msgstr "删除所有处于非活动状态的计时器"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:10
+msgid "Delete Inactive"
+msgstr "删除非活动"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:17
+#, fuzzy, python-format
+msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
+msgstr "确定要删除 %(number)s 个非活动的计时器?"
+
+#: core/templates/core/timer_detail.html:28
+msgid "Started"
+msgstr "已经开始"
+
+#: core/templates/core/timer_detail.html:30
+msgid "Stopped"
+msgstr "已经结束"
+
+#: core/templates/core/timer_detail.html:34
+#, python-format
+msgid "%(timer)s created by %(user)s"
+msgstr "%(timer)s 由 %(user)s 创建"
+
+#: core/templates/core/timer_detail.html:63
+msgid "Timer actions"
+msgstr "计时器操作"
+
+#: core/templates/core/timer_detail.html:77
+msgid "Restart timer"
+msgstr "重启计时器"
+
+#: core/templates/core/timer_detail.html:84
+msgid "Delete timer"
+msgstr "删除计时器"
+
+#: core/templates/core/timer_form.html:22
+#: core/templates/core/timer_list.html:15 core/templates/core/timer_nav.html:23
+msgid "Start Timer"
+msgstr "开始计时"
+
+#: core/templates/core/timer_list.html:58
+msgid "No timer entries found."
+msgstr "未找到计时器。"
+
+#: core/templates/core/timer_list.html:68
+msgid "Delete Inactive Timers"
+msgstr "删除处于非活动状态下的计时器"
+
+#: core/templates/core/timer_nav.html:28
+msgid "View Timers"
+msgstr "查看计时器"
+
+#: core/templates/core/timer_nav.html:32
+#: dashboard/templates/cards/timer_list.html:6
+msgid "Active Timers"
+msgstr "激活的计时器"
+
+#: core/templates/core/timer_nav.html:38
+#: dashboard/templates/cards/diaperchange_last.html:17
+#: dashboard/templates/cards/diaperchange_types.html:12
+#: dashboard/templates/cards/feeding_day.html:14
+#: dashboard/templates/cards/feeding_last.html:17
+#: dashboard/templates/cards/feeding_last_method.html:41
+#: dashboard/templates/cards/sleep_day.html:14
+#: dashboard/templates/cards/sleep_last.html:17
+#: dashboard/templates/cards/sleep_naps_day.html:16
+#: dashboard/templates/cards/tummytime_day.html:14
+msgid "None"
+msgstr "无"
+
+#: core/templates/core/tummytime_confirm_delete.html:4
+msgid "Delete a Tummy Time Entry"
+msgstr "删除一条趴玩记录"
+
+#: core/templates/core/tummytime_form.html:6
+msgid "Update a Tummy Time Entry"
+msgstr "更新一条趴玩记录"
+
+#: core/templates/core/tummytime_form.html:8
+#: core/templates/core/tummytime_form.html:27
+msgid "Add a Tummy Time Entry"
+msgstr "新增一条趴玩记录"
+
+#: core/templates/core/tummytime_list.html:15
+msgid "Add Tummy Time"
+msgstr "新增趴玩时间"
+
+#: core/templates/core/tummytime_list.html:63
+msgid "No tummy time entries found."
+msgstr "未找到趴玩记录。"
+
+#: core/templates/core/weight_confirm_delete.html:4
+msgid "Delete a Weight Entry"
+msgstr "删除一条体重记录"
+
+#: core/templates/core/weight_form.html:8
+#: core/templates/core/weight_form.html:17
+#: core/templates/core/weight_form.html:27
+msgid "Add a Weight Entry"
+msgstr "新增一条体重记录"
+
+#: core/templates/core/weight_list.html:15
+msgid "Add Weight"
+msgstr "新增体重记录"
+
+#: core/templates/core/weight_list.html:66
+msgid "No weight entries found."
+msgstr "未找到体重记录。"
+
+#: core/templates/timeline/_timeline.html:33
+#, python-format
+msgid "%(since)s ago (%(time)s)"
+msgstr "%(since)s 之前 (%(time)s)"
+
+#: core/templates/timeline/_timeline.html:39
+#, python-format
+msgid "Duration: %(duration)s"
+msgstr "持续时间：%(duration)s"
+
+#: core/templates/timeline/_timeline.html:48
+#, python-format
+msgid "%(since)s since previous"
+msgstr "距离上一次 %(since)s"
+
+#: core/templates/timeline/_timeline.html:56
+#: dashboard/templates/dashboard/child_button_group.html:41
+msgid "Edit"
+msgstr "编辑"
+
+#: core/templates/timeline/_timeline.html:80
+msgid "No events"
+msgstr "没有事件"
+
+#: core/templatetags/datetime.py:60
+msgid "Today"
+msgstr "今天"
+
+#: core/templatetags/datetime.py:75
+msgid "{}, {}"
+msgstr "{}, {}"
+
+#: core/templatetags/duration.py:23
+msgid "0 days"
+msgstr "0天"
+
+#: core/timeline.py:53
+#, python-format
+msgid "%(child)s started tummy time!"
+msgstr "%(child)s 开始了趴玩时光！"
+
+#: core/timeline.py:64
+#, python-format
+msgid "%(child)s finished tummy time."
+msgstr "%(child)s 结束了趴玩。"
+
+#: core/timeline.py:89
+#, python-format
+msgid "%(child)s fell asleep."
+msgstr "%(child)s 睡着了。"
+
+#: core/timeline.py:100
+#, python-format
+msgid "%(child)s woke up."
+msgstr "%(child)s 醒了。"
+
+#: core/timeline.py:133
+#, python-format
+msgid "Amount: %(amount).0f"
+msgstr "数量: %(amount).0f"
+
+#: core/timeline.py:141
+#, python-format
+msgid "%(child)s started feeding."
+msgstr "%(child)s 开始喂食。"
+
+#: core/timeline.py:153
+#, python-format
+msgid "%(child)s finished feeding."
+msgstr "%(child)s 喂食完成。"
+
+#: core/timeline.py:179
+#, python-format
+msgid "%(child)s had a %(type)s diaper change."
+msgstr "%(child)s 有一条 %(type)s 换尿裤记录."
+
+#: core/utils.py:15
+#, python-format
+msgid "%(hours)s hour"
+msgid_plural "%(hours)s hours"
+msgstr[0] "%(hours)s 小时"
+
+#: core/utils.py:19
+#, python-format
+msgid "%(minutes)s minute"
+msgid_plural "%(minutes)s minutes"
+msgstr[0] "%(minutes)s 分钟"
+
+#: core/utils.py:25
+#, python-format
+msgid "%(seconds)s second"
+msgid_plural "%(seconds)s seconds"
+msgstr[0] "%(seconds)s 秒"
+
+#: core/views.py:33
+#, python-format
+msgid "%(model)s entry for %(child)s added!"
+msgstr "为%(child)s 增加了一条 %(model)s 记录！"
+
+#: core/views.py:35
+#, python-format
+msgid "%(model)s entry added!"
+msgstr "增加了一条 %(model)s 记录！"
+
+#: core/views.py:61
+#, python-format
+msgid "%(model)s entry for %(child)s updated."
+msgstr "为%(child)s 更新了一条 %(model)s 记录！"
+
+#: core/views.py:63
+#, python-format
+msgid "%(model)s entry updated."
+msgstr "更新了一条 %(model)s 记录！"
+
+#: core/views.py:69 core/views.py:118
+#, python-format
+msgid "%(model)s entry deleted."
+msgstr "%(model)s 条目已删除。"
+
+#: core/views.py:87
+#, python-format
+msgid "%(first_name)s %(last_name)s added!"
+msgstr "%(first_name)s %(last_name)s 已新增!"
+
+#: core/views.py:249
+#, python-format
+msgid "%(model)s reading added!"
+msgstr "%(model)s 读数已增加！"
+
+#: core/views.py:257
+#, python-format
+msgid "%(model)s reading for %(child)s updated."
+msgstr "%(child)s 的 %(model)s 读数已更新。"
+
+#: core/views.py:361
+#, python-format
+msgid "%(timer)s stopped."
+msgstr "%(timer)s 停止。"
+
+#: core/views.py:384
+msgid "All inactive timers deleted."
+msgstr "所有处于非活动状态下的计时器已删除。"
+
+#: core/views.py:394
+msgid "No inactive timers exist."
+msgstr "不存在非活动的计时器。"
+
+#: dashboard/templates/cards/diaperchange_last.html:6
+msgid "Last Diaper Change"
+msgstr "上一次换尿布"
+
+#: dashboard/templates/cards/diaperchange_last.html:12
+#: dashboard/templates/cards/feeding_last.html:12
+#: dashboard/templates/cards/sleep_last.html:12
+#: dashboard/templates/cards/tummytime_last.html:13
+#, python-format
+msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
+msgstr "<div>%(since)s 之前</div> <small>%(time)s</small>"
+
+#: dashboard/templates/cards/diaperchange_types.html:14
+msgid "Past Week"
+msgstr "过去一周"
+
+#: dashboard/templates/cards/diaperchange_types.html:26
+msgid "wet"
+msgstr "小便"
+
+#: dashboard/templates/cards/diaperchange_types.html:33
+msgid "solid"
+msgstr "大便"
+
+#: dashboard/templates/cards/diaperchange_types.html:38
+msgid "today"
+msgstr "今天"
+
+#: dashboard/templates/cards/diaperchange_types.html:40
+msgid "yesterday"
+msgstr "昨天"
+
+#: dashboard/templates/cards/diaperchange_types.html:42
+#, python-format
+msgid "%(key)s days ago"
+msgstr "%(key)s 天之前"
+
+#: dashboard/templates/cards/feeding_day.html:6
+msgid "Today's Feeding"
+msgstr "今天的喂食"
+
+#: dashboard/templates/cards/feeding_day.html:20
+#, python-format
+msgid "%(count)s feeding entries"
+msgstr "%(count)s 喂食条目"
+
+#: dashboard/templates/cards/feeding_last.html:6
+msgid "Last Feeding"
+msgstr "上一次喂食"
+
+#: dashboard/templates/cards/feeding_last_method.html:6
+msgid "Last Feeding Method"
+msgstr "上一次喂食的方式"
+
+#: dashboard/templates/cards/feeding_last_method.html:19
+msgid "most recent"
+msgstr "最近"
+
+#: dashboard/templates/cards/feeding_last_method.html:21
+#, fuzzy, python-format
+#| msgid "%(n)s feeding%(plural)s ago"
+msgid "%(n)s feeding%(plural)s ago"
+msgstr "前 %(n)s 喂食"
+
+#: dashboard/templates/cards/sleep_day.html:6
+msgid "Today's Sleep"
+msgstr "今天的睡觉"
+
+#: dashboard/templates/cards/sleep_day.html:20
+#, python-format
+msgid "%(count)s sleep entries"
+msgstr "%(count)s 条睡眠记录"
+
+#: dashboard/templates/cards/sleep_last.html:6
+msgid "Last Sleep"
+msgstr "上一次睡眠"
+
+#: dashboard/templates/cards/sleep_naps_day.html:6
+msgid "Today's Naps"
+msgstr "今天的小睡"
+
+#: dashboard/templates/cards/sleep_naps_day.html:12
+#, python-format
+msgid "%(count)s nap%(plural)s"
+msgstr "%(count)s 小睡%(plural)s"
+
+#: dashboard/templates/cards/statistics.html:7
+msgid "Statistics"
+msgstr "统计数据"
+
+#: dashboard/templates/cards/statistics.html:25
+msgid "Not enough data"
+msgstr "没有足够的数据"
+
+#: dashboard/templates/cards/statistics.html:42
+msgid "No data yet"
+msgstr "还没有数据"
+
+#: dashboard/templates/cards/timer_list.html:12
+#, fuzzy, python-format
+#| msgid "%(count)s active timer%(plural)s"
+msgid "%(count)s active timer%(plural)s"
+msgstr "%(count)s 个激活的计时器"
+
+#: dashboard/templates/cards/timer_list.html:25
+#, python-format
+msgid "Started by %(user)s at %(start)s"
+msgstr "在 %(start)s 由 %(user)s 开始"
+
+#: dashboard/templates/cards/tummytime_day.html:6
+msgid "Today's Tummy Time"
+msgstr "今天的趴玩时间"
+
+#: dashboard/templates/cards/tummytime_day.html:22
+#, python-format
+msgid "%(duration)s at %(end)s"
+msgstr "%(duration)s 直到 %(end)s"
+
+#: dashboard/templates/cards/tummytime_last.html:6
+msgid "Last Tummy Time"
+msgstr "上一次趴玩时间"
+
+#: dashboard/templates/cards/tummytime_last.html:18
+msgid "Never"
+msgstr "从不"
+
+#: dashboard/templates/dashboard/child_button_group.html:3
+msgid "Child actions"
+msgstr "宝宝行动"
+
+#: dashboard/templates/dashboard/child_button_group.html:17
+#: reports/templates/reports/report_base.html:9
+msgid "Reports"
+msgstr "报告"
+
+#: dashboard/templates/dashboard/child_button_group.html:23
+msgid "Diaper Change Amounts"
+msgstr "换尿布数量"
+
+#: dashboard/templates/dashboard/child_button_group.html:24
+#: reports/templates/reports/diaperchange_types.html:4
+#: reports/templates/reports/diaperchange_types.html:8
+msgid "Diaper Change Types"
+msgstr "换尿布类型"
+
+#: dashboard/templates/dashboard/child_button_group.html:25
+#: reports/templates/reports/diaperchange_lifetimes.html:4
+#: reports/templates/reports/diaperchange_lifetimes.html:8
+msgid "Diaper Lifetimes"
+msgstr "换尿布时间间隔"
+
+#: dashboard/templates/dashboard/child_button_group.html:26
+#: reports/templates/reports/feeding_amounts.html:4
+#: reports/templates/reports/feeding_amounts.html:8
+msgid "Feeding Amounts"
+msgstr "喂食量"
+
+#: dashboard/templates/dashboard/child_button_group.html:27
+msgid "Feeding Durations (Average)"
+msgstr "喂食时间（平均）"
+
+#: dashboard/templates/dashboard/child_button_group.html:28
+#: reports/templates/reports/sleep_pattern.html:4
+#: reports/templates/reports/sleep_pattern.html:8
+msgid "Sleep Pattern"
+msgstr "睡眠类型"
+
+#: dashboard/templates/dashboard/child_button_group.html:29
+#: reports/templates/reports/sleep_totals.html:4
+#: reports/templates/reports/sleep_totals.html:8
+msgid "Sleep Totals"
+msgstr "睡眠统计"
+
+#: dashboard/templates/dashboard/child_button_group.html:30
+msgid "Tummy Time Durations (Sum)"
+msgstr "趴玩时光持续时间（合计）"
+
+#: dashboard/templatetags/cards.py:288
+msgid "Diaper change frequency"
+msgstr "换尿布频率"
+
+#: dashboard/templatetags/cards.py:309
+msgid "Average nap duration"
+msgstr "平均小睡时间"
+
+#: dashboard/templatetags/cards.py:316
+msgid "Average naps per day"
+msgstr "每天的平均小睡次数"
+
+#: dashboard/templatetags/cards.py:326
+msgid "Average sleep duration"
+msgstr "平均睡眠时间"
+
+#: dashboard/templatetags/cards.py:333
+msgid "Average awake duration"
+msgstr "平均清醒时间"
+
+#: dashboard/templatetags/cards.py:343
+msgid "Weight change per week"
+msgstr "每周体重变化"
+
+#: dashboard/templatetags/cards.py:353
+msgid "Height change per week"
+msgstr "每周身高变化"
+
+#: dashboard/templatetags/cards.py:363
+msgid "Head circumference change per week"
+msgstr "每周头围变化"
+
+#: dashboard/templatetags/cards.py:373
+msgid "BMI change per week"
+msgstr "每周BMI变化"
+
+#: dashboard/templatetags/cards.py:418
+msgid "Feeding frequency (past 3 days)"
+msgstr "喂食频率（过去三天）"
+
+#: dashboard/templatetags/cards.py:422
+msgid "Feeding frequency (past 2 weeks)"
+msgstr "喂食频率（过去两周）"
+
+#: dashboard/templatetags/cards.py:428
+msgid "Feeding frequency"
+msgstr "喂食频率"
+
+#: reports/graphs/bmi_bmi.py:27
+msgid "<b>BMI</b>"
+msgstr "<b>身体质量指数(BMI)</b>"
+
+#: reports/graphs/diaperchange_amounts.py:27
+msgid "Diaper change amount"
+msgstr "换尿布数量"
+
+#: reports/graphs/diaperchange_amounts.py:36
+msgid "<b>Diaper Change Amounts</b>"
+msgstr "<b>换尿布数量</b>"
+
+#: reports/graphs/diaperchange_amounts.py:39
+msgid "Change amount"
+msgstr "换尿布数量"
+
+#: reports/graphs/diaperchange_lifetimes.py:35
+msgid "<b>Diaper Lifetimes</b>"
+msgstr "<b>换尿布时间间隔</b>"
+
+#: reports/graphs/diaperchange_lifetimes.py:36
+msgid "Time between changes (hours)"
+msgstr "换尿布间隔时间（小时）"
+
+#: reports/graphs/diaperchange_types.py:41 reports/graphs/feeding_amounts.py:58
+msgid "Total"
+msgstr "总计"
+
+#: reports/graphs/diaperchange_types.py:48
+msgid "<b>Diaper Change Types</b>"
+msgstr "<b>换尿布类型</b>"
+
+#: reports/graphs/diaperchange_types.py:51
+msgid "Number of changes"
+msgstr "换尿布次数"
+
+#: reports/graphs/feeding_amounts.py:69
+msgid "<b>Total Feeding Amount by Type</b>"
+msgstr "<b>按类型划分的总喂食量统计</b>"
+
+#: reports/graphs/feeding_amounts.py:72
+msgid "Feeding amount"
+msgstr "喂食量"
+
+#: reports/graphs/feeding_duration.py:38
+msgid "Average duration"
+msgstr "平均持续时间"
+
+#: reports/graphs/feeding_duration.py:46
+msgid "Total feedings"
+msgstr "总喂食量"
+
+#: reports/graphs/feeding_duration.py:55
+msgid "<b>Average Feeding Durations</b>"
+msgstr "<b>平均喂食持续时间</b>"
+
+#: reports/graphs/feeding_duration.py:58
+msgid "Average duration (minutes)"
+msgstr "平均持续时间（分钟）"
+
+#: reports/graphs/feeding_duration.py:60
+msgid "Number of feedings"
+msgstr "喂食次数"
+
+#: reports/graphs/head_circumference_head_circumference.py:27
+msgid "<b>Head Circumference</b>"
+msgstr "<b>头围</b>"
+
+#: reports/graphs/height_height.py:27
+msgid "<b>Height</b>"
+msgstr "<b>身高</b>"
+
+#: reports/graphs/sleep_pattern.py:148
+msgid "<b>Sleep Pattern</b>"
+msgstr "<b>睡眠类型</b>"
+
+#: reports/graphs/sleep_pattern.py:165
+msgid "Time of day"
+msgstr "当日时间"
+
+#: reports/graphs/sleep_totals.py:48
+msgid "Total sleep"
+msgstr "睡眠统计"
+
+#: reports/graphs/sleep_totals.py:58
+msgid "<b>Sleep Totals</b>"
+msgstr "<b>睡眠总计</b>"
+
+#: reports/graphs/sleep_totals.py:61
+msgid "Hours of sleep"
+msgstr "睡眠时间"
+
+#: reports/graphs/tummytime_duration.py:34
+msgid "Total duration"
+msgstr "总持续时间"
+
+#: reports/graphs/tummytime_duration.py:41
+#: reports/graphs/tummytime_duration.py:55
+msgid "Number of sessions"
+msgstr "趴玩次数"
+
+#: reports/graphs/tummytime_duration.py:50
+msgid "<b>Total Tummy Time Durations</b>"
+msgstr "<b>趴玩时光持续时间合计</b>"
+
+#: reports/graphs/tummytime_duration.py:53
+msgid "Total duration (minutes)"
+msgstr "总持续时间（分钟）"
+
+#: reports/graphs/weight_weight.py:27
+msgid "<b>Weight</b>"
+msgstr "<b>体重</b>"
+
+#: reports/templates/reports/diaperchange_amounts.html:4
+#: reports/templates/reports/diaperchange_amounts.html:8
+msgid "Diaper Amounts"
+msgstr "换尿布数量"
+
+#: reports/templates/reports/feeding_duration.html:4
+#: reports/templates/reports/feeding_duration.html:8
+msgid "Average Feeding Durations"
+msgstr "平均喂食持续时间"
+
+#: reports/templates/reports/report_base.html:19
+msgid "There is not enough data to generate this report."
+msgstr "没有足够的数据来生成这个报告。"
+
+#: reports/templates/reports/tummytime_duration.html:4
+#: reports/templates/reports/tummytime_duration.html:8
+msgid "Total Tummy Time Durations"
+msgstr "趴玩时光持续时间合计"
+
+#~ msgid ""
+#~ "This setting will only be used when a browser does not support refresh on "
+#~ "focus."
+#~ msgstr "此设置仅在浏览器不支持焦点刷新时使用。"
+
+#~ msgid "English"
+#~ msgstr "英语"
+
+#~ msgid ""
+#~ "You do not have permission to access this resource.\n"
+#~ "        Contact a site administrator for assistance."
+#~ msgstr ""
+#~ "您没有访问此资源的权限。\n"
+#~ "请与站点管理员联系以获取帮助。"
+
+#~ msgid ""
+#~ "<strong>Error:</strong> Some fields have errors. See below for details. "
+#~ msgstr "<strong>错误:</strong> 字段填写错误。参见具体原因。 "
+
+#~ msgid "Backend Admin"
+#~ msgstr "后台管理员"
+
+#~ msgid ""
+#~ "Learn about and predict baby's needs without\n"
+#~ "            (<em>as much</em>) guess work by using Baby Buddy to track "
+#~ "&mdash;"
+#~ msgstr ""
+#~ "通过使用 Baby Buddy 来跟踪了解和预测宝宝的需求，而无需 (<em>尽可能多地</"
+#~ "em>) 进行猜测工作 &mdash;"
+
+#, fuzzy
+#~ msgid ""
+#~ "As the amount of entries grows, Baby Buddy will help\n"
+#~ "            parents and caregivers to identify small patterns in baby's "
+#~ "habits\n"
+#~ "            using the dashboard and graphs. Baby Buddy is mobile-friendly "
+#~ "and\n"
+#~ "            uses a dark theme to help weary moms and dads with 2AM "
+#~ "feedings and\n"
+#~ "            changings. To get started, just click the button below to add "
+#~ "your\n"
+#~ "            first (or second, third, etc.) child!"
+#~ msgstr ""
+#~ "随着条目数量的增加，Baby Buddy将帮助家长和护理人员使用数据看板和图表识别宝"
+#~ "宝的习惯。Baby Buddy是一款手机友好型产品，使用黑色主题帮助疲惫的爸爸妈妈在"
+#~ "凌晨2点喂食和换尿布。想要开始使用，只需单击下面的按钮添加您的第一个(或第二"
+#~ "个、第三个等)宝宝！"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
+#~ "                two passwords did not match. Please try again.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\"><strong>提示</strong>两次密码输入的不一致，请重试。</p>"
+
+#~ msgid ""
+#~ "<p>We've emailed you instructions for setting your\n"
+#~ "            password, if an account exists with the email you entered. "
+#~ "You\n"
+#~ "            should receive them shortly.</p>\n"
+#~ "        <p class=\"mb-0\">If you don't receive an email, please make sure "
+#~ "you've\n"
+#~ "            entered the address you registered with, and check your spam\n"
+#~ "            folder.</p>"
+#~ msgstr ""
+#~ "<p>我们已通过电子邮件向您发送了设置密码的说明。如果您输入的电子邮件正确，"
+#~ "您将很快收到邮件。</p>\n"
+#~ " <p class=\"mb-0\">如果您没有收到电子邮件，请确保您已输入正确的邮箱地址，"
+#~ "并检查您的垃圾邮件文件夹。</p>"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\">Enter your account email address in the\n"
+#~ "        form below. If the address is valid, you will receive "
+#~ "instructions for\n"
+#~ "        resetting your password.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\">在下面的表格中输入您的帐户电子邮件地址。如果地址有效，您"
+#~ "将收到重置密码的说明。</p>"
+
+#~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
+#~ msgstr "只有“奶瓶”方式才允许使用“配方奶”类型。"
+
+#~ msgid "Add a Change"
+#~ msgstr "添加一条尿布记录"
+
+#~ msgid "%(timer)s created by %(object.user)s"
+#~ msgstr "%(timer)s 由 %(object.user)s 创建"
+
+#~ msgid "%(child)s had a diaper change."
+#~ msgstr "%(child)s 换了一条尿布。"
+
+#~ msgid "%(time)s ago"
+#~ msgstr "%(time)s 之前"
+
+#~ msgid "None yet today"
+#~ msgstr "今天还没有"
+
+#~ msgid "Last Slept"
+#~ msgstr "上一次入睡"
+
+#~ msgid "Started by %(instance.user)s at %(start)s"
+#~ msgstr "在 %(start)s 由 %(instance.user)s 开始"
+
+#~ msgid "There is no enough data to generate this report."
+#~ msgstr "没有足够的数据来生成报告。"
+
+#~ msgid "Total feeding amount"
+#~ msgstr "合计喂食量"
+
+#~ msgid "<b>Total Feeding Amounts</b>"
+#~ msgstr "<b>合计喂食量</b>"
+
+#~ msgid "Contents: %(contents)s"
+#~ msgstr "内容: %(contents)s"

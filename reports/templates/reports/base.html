@@ -1,0 +1,10 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n static %}
+
+{% block title %}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">{% trans "Children" %}</a></li>
+    <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:child' object.slug %}">{{ object }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'reports:report-list' object.slug %}">{% trans "Reports" %}</a></li>
+{% endblock %}
