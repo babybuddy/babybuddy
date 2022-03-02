@@ -104,7 +104,7 @@ def random_color():
     return TAG_COLORS[random.randrange(0, len(TAG_COLORS))]
 
 
-class BabyBuddyTag(TagBase):
+class Tag(TagBase):
     class Meta:
         verbose_name = _("Tag")
         verbose_name_plural = _("Tags")
@@ -122,9 +122,9 @@ class BabyBuddyTag(TagBase):
     )
 
 
-class BabyBuddyTagged(GenericTaggedItemBase):
+class Tagged(GenericTaggedItemBase):
     tag = models.ForeignKey(
-        BabyBuddyTag,
+        Tag,
         on_delete=models.CASCADE,
         related_name="%(app_label)s_%(class)s_items",
     )
@@ -135,7 +135,7 @@ class BabyBuddyTagged(GenericTaggedItemBase):
         return super().save_base(*args, **kwargs)
 
 
-class BabyBuddyTaggableManager(TaggableManager):
+class TaggableManager(TaggableManager):
     """
     Remove default help_text - only reason for this to exist.
     """
@@ -325,7 +325,7 @@ class Note(models.Model):
     time = models.DateTimeField(
         default=timezone.now, blank=False, verbose_name=_("Time")
     )
-    tags = BabyBuddyTaggableManager(blank=True, through=BabyBuddyTagged)
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 

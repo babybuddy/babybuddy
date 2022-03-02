@@ -204,7 +204,7 @@ class BMISerializer(CoreModelSerializer):
 
 class TagsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = models.BabyBuddyTag
+        model = models.Tag
         fields = ("slug", "name", "color", "last_used")
         extra_kwargs = {
             "slug": {"required": False, "read_only": True},

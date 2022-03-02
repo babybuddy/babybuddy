@@ -12,7 +12,7 @@ class TagsEditor(Widget):
     template_name = "core/widget_tag_editor.html"
 
     @staticmethod
-    def __unpack_tag(tag):
+    def __unpack_tag(tag: models.Tag):
         return {"name": tag.name, "color": tag.color}
 
     def format_value(self, value: Any) -> Optional[str]:
@@ -28,7 +28,7 @@ class TagsEditor(Widget):
         return attrs
 
     def get_context(self, name: str, value: Any, attrs) -> Dict[str, Any]:
-        most_tags = models.BabyBuddyTag.objects.order_by("-last_used").all()[:256]
+        most_tags = models.Tag.objects.order_by("-last_used").all()[:256]
 
         result = super().get_context(name, value, attrs)
 
