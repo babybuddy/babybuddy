@@ -14,8 +14,8 @@ from django.core.validators import RegexValidator
 
 import random
 
-from taggit.managers import TaggableManager
-from taggit.models import TagBase, GenericTaggedItemBase, TaggedItemBase
+from taggit.managers import TaggableManager as TaggitTaggableManager
+from taggit.models import TagBase, GenericTaggedItemBase
 
 random.seed()
 
@@ -135,7 +135,7 @@ class Tagged(GenericTaggedItemBase):
         return super().save_base(*args, **kwargs)
 
 
-class TaggableManager(TaggableManager):
+class TaggableManager(TaggitTaggableManager):
     """
     Remove default help_text - only reason for this to exist.
     """

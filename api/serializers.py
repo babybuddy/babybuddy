@@ -132,7 +132,7 @@ class NoteSerializer(TaggitSerializer, CoreModelSerializer):
         model = models.Note
         fields = ("id", "child", "note", "time", "tags")
 
-    tags = TagListSerializerField()
+    tags = TagListSerializerField(required=False)
 
 
 class SleepSerializer(CoreModelWithDurationSerializer):

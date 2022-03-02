@@ -251,13 +251,14 @@ class NoteAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     def test_get(self):
         response = self.client.get(self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(
+        self.assertDictEqual(
             response.data["results"][0],
             {
                 "id": 1,
                 "child": 1,
                 "note": "Fake note.",
                 "time": "2017-11-17T22:45:00-05:00",
+                "tags": [],
             },
         )
 
