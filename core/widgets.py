@@ -4,6 +4,7 @@ from django.forms import Widget
 
 from . import models
 
+
 class TagsEditor(Widget):
     class Media:
         js = ("babybuddy/js/tags_editor.js",)
