@@ -3,10 +3,11 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0018_bmi_headcircumference_height'),
+        ("core", "0018_bmi_headcircumference_height"),
     ]
 
     operations = [

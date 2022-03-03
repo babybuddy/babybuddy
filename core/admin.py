@@ -77,7 +77,7 @@ class BreastpumpAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "amount",
     )
     resource_class = BreastpumpImportExportResource
-    
+
 
 class DiaperChangeImportExportResource(ImportExportResourceBase):
     class Meta:
