@@ -35,6 +35,24 @@ class ChildTestCase(TestCase):
         self.assertEqual(models.Child.count(), 1)
 
 
+class BreastpumpTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.temp = models.Breastpump.objects.create(
+            child=self.child,
+            time=timezone.localtime() - timezone.timedelta(days=1),
+            amount=98.6,
+        )
+
+    def test_breastpump_create(self):
+        self.assertEqual(self.temp, models.Breastpump.objects.first())
+        self.assertEqual(str(self.temp), "Breastpump")
+        self.assertEqual(self.temp.amount, 98.6)
+
+
 class DiaperChangeTestCase(TestCase):
     def setUp(self):
         call_command("migrate", verbosity=0)

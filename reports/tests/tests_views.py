@@ -35,6 +35,9 @@ class ViewsTestCase(TestCase):
         page = self.c.get(base_url)
         self.assertEqual(page.status_code, 200)
 
+        page = self.c.get("{}/breastpump/amounts/".format(base_url))
+        self.assertEqual(page.status_code, 200)
+
         page = self.c.get("{}/changes/amounts/".format(base_url))
         self.assertEqual(page.status_code, 200)
         page = self.c.get("{}/changes/lifetimes/".format(base_url))

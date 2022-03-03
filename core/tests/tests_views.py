@@ -49,6 +49,18 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/children/{}/delete/".format(entry.slug))
         self.assertEqual(page.status_code, 200)
 
+    def test_breastpump_views(self):
+        page = self.c.get("/breastpump/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/breastpump/add/")
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.Breastpump.objects.first()
+        page = self.c.get("/breastpump/{}/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/breastpump/{}/delete/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
     def test_diaperchange_views(self):
         page = self.c.get("/changes/")
         self.assertEqual(page.status_code, 200)
