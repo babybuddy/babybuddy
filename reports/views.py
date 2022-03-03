@@ -17,6 +17,24 @@ class ChildReportList(PermissionRequiredMixin, DetailView):
     template_name = "reports/report_list.html"
 
 
+class BreastpumpAmounts(PermissionRequiredMixin, DetailView):
+    """
+    Graph of breastpump milk amounts collected.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/breastpump_amounts.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(BreastpumpAmounts, self).get_context_data(**kwargs)
+        child = context["object"]
+        changes = models.Breastpump.objects.filter(child=child)
+        if changes and changes.count() > 0:
+            context["html"], context["js"] = graphs.breastpump_amounts(changes)
+        return context
+
+
 class DiaperChangeAmounts(PermissionRequiredMixin, DetailView):
     """
     Graph of diaper "amounts" - measurements of urine output.

@@ -12,6 +12,11 @@ urlpatterns = [
         name="report-list",
     ),
     path(
+        "children/<str:slug>/reports/breastpump/amounts/",
+        views.BreastpumpAmounts.as_view(),
+        name="report-breastpump-amounts-child",
+    ),
+    path(
         "children/<str:slug>/reports/changes/amounts/",
         views.DiaperChangeAmounts.as_view(),
         name="report-diaperchange-amounts-child",

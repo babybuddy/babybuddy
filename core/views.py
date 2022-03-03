@@ -121,6 +121,36 @@ class ChildDelete(CoreUpdateView):
         return success_message % cleaned_data
 
 
+class BreastpumpList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.Breastpump
+    template_name = "core/breastpump_list.html"
+    permission_required = ("core.view_breastpump",)
+    paginate_by = 10
+    filterset_fields = ("child",)
+
+
+class BreastpumpAdd(CoreAddView):
+    model = models.Breastpump
+    permission_required = ("core.add_breastpump",)
+    form_class = forms.BreastpumpForm
+    success_url = reverse_lazy("core:breastpump-list")
+    success_message = _("%(model)s reading added!")
+
+
+class BreastpumpUpdate(CoreUpdateView):
+    model = models.Breastpump
+    permission_required = ("core.change_breastpump",)
+    form_class = forms.BreastpumpForm
+    success_url = reverse_lazy("core:breastpump-list")
+    success_message = _("%(model)s reading for %(child)s updated.")
+
+
+class BreastpumpDelete(CoreDeleteView):
+    model = models.Breastpump
+    permission_required = ("core.delete_breastpump",)
+    success_url = reverse_lazy("core:breastpump-list")
+
+
 class DiaperChangeList(PermissionRequiredMixin, BabyBuddyFilterView):
     model = models.DiaperChange
     template_name = "core/diaperchange_list.html"

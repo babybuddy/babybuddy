@@ -63,6 +63,11 @@ class StartEndFieldFilter(ChildFieldFilter):
         )
 
 
+class BreastpumpFilter(TimeFieldFilter):
+    class Meta(TimeFieldFilter.Meta):
+        model = models.Breastpump
+
+
 class DiaperChangeFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.DiaperChange

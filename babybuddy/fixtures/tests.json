@@ -21,6 +21,17 @@
       "picture": ""
     }
   },
+    {
+    "model": "core.breastpump",
+    "pk": 1,
+    "fields":
+    {
+      "child": 1,
+      "amount": 50.0,
+      "time": "2017-11-17T17:52:00Z",
+      "notes": "new device"
+    }
+  },
   {
     "model": "core.diaperchange",
     "pk": 2,

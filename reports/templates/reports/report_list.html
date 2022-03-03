@@ -8,6 +8,7 @@
         <h1>Reports</h1>
         <div class="list-group">
             <a href="{% url 'reports:report-bmi-bmi-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Body Mass Index (BMI)" %}</a>
+            <a href="{% url 'reports:report-breastpump-amounts-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Breastpump Amounts" %}</a>
             <a href="{% url 'reports:report-diaperchange-amounts-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Change Amounts" %}</a>
             <a href="{% url 'reports:report-diaperchange-types-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Change Types" %}</a>
             <a href="{% url 'reports:report-diaperchange-lifetimes-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Lifetimes" %}</a>
