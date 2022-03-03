@@ -132,7 +132,6 @@ class Command(BaseCommand):
                 self._add_bmi_entry()
                 last_bmi_entry_time = self.time
 
-
     @transaction.atomic
     def _add_breastpump_entry(self):
         """
@@ -148,7 +147,6 @@ class Command(BaseCommand):
         models.Breastpump.objects.create(
             child=self.child, amount=self.amount, time=self.time, notes=notes
         ).save()
-
 
     @transaction.atomic
     def _add_diaperchange_entry(self):

@@ -181,9 +181,7 @@ class Breastpump(models.Model):
         related_name="breastpump",
         verbose_name=_("Child"),
     )
-    amount = models.FloatField(
-        blank=False, null=False, verbose_name=_("Amount")
-    )
+    amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
     time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
