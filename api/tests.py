@@ -129,6 +129,52 @@ class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.data, entry)
 
 
+class BreastpumpAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:breastpump-list")
+    model = models.Breastpump
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["results"][0],
+            {
+                "id": 1,
+                "child": 1,
+                "amount": 50.0,
+                "time": "2017-11-17T12:52:00-05:00",
+                "notes": "new device",
+            },
+        )
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "amount": "21",
+            "time": "2017-11-20T22:52:00-05:00",
+            "notes": "old device",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.Breastpump.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.amount), data["amount"])
+        self.assertEqual(obj.notes, data["notes"])
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, 1)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry["amount"] = 41
+        response = self.client.patch(
+            endpoint,
+            {
+                "amount": entry["amount"],
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+
 class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse("api:diaperchange-list")
     model = models.DiaperChange

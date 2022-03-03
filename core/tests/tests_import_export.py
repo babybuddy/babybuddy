@@ -41,6 +41,9 @@ class ImportTestCase(TestCase):
     def test_child(self):
         self.import_data(models.Child, 2)
 
+    def test_breastpump(self):
+        self.import_data(models.Breastpump, 23)
+
     def test_diaperchange(self):
         self.import_data(models.DiaperChange, 75)
 

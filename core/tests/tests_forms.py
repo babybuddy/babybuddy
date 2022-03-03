@@ -194,6 +194,49 @@ class ChildFormsTestCase(FormsTestCaseBase):
         self.assertContains(page, "Child entry deleted")
 
 
+class BreastpumpFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(BreastpumpFormsTestCase, cls).setUpClass()
+        cls.bp = models.Breastpump.objects.create(
+            child=cls.child,
+            amount=50.0,
+            time=timezone.localtime() - timezone.timedelta(days=1),
+        )
+
+    def test_add(self):
+        params = {
+            "child": self.child.id,
+            "amount": "50.0",
+            "time": self.localtime_string(),
+        }
+
+        page = self.c.post("/breastpump/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(
+            page, "Breastpump entry for {} added".format(str(self.child))
+        )
+
+    def test_edit(self):
+        params = {
+            "child": self.bp.child.id,
+            "amount": self.bp.amount + 2,
+            "time": self.localtime_string(),
+        }
+        page = self.c.post("/breastpump/{}/".format(self.bp.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.bp.refresh_from_db()
+        self.assertEqual(self.bp.amount, params["amount"])
+        self.assertContains(
+            page, "Breastpump entry for {} updated".format(str(self.bp.child))
+        )
+
+    def test_delete(self):
+        page = self.c.post("/breastpump/{}/delete/".format(self.bp.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Breastpump entry deleted")
+
+
 class DiaperChangeFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
