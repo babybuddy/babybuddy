@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'babybuddy';
-  src: url('../font/babybuddy.eot?3615871');
-  src: url('../font/babybuddy.eot?3615871#iefix') format('embedded-opentype'),
-       url('../font/babybuddy.woff2?3615871') format('woff2'),
-       url('../font/babybuddy.woff?3615871') format('woff'),
-       url('../font/babybuddy.ttf?3615871') format('truetype'),
-       url('../font/babybuddy.svg?3615871#babybuddy') format('svg');
+  src: url('../font/babybuddy.eot?90744039');
+  src: url('../font/babybuddy.eot?90744039#iefix') format('embedded-opentype'),
+       url('../font/babybuddy.woff2?90744039') format('woff2'),
+       url('../font/babybuddy.woff?90744039') format('woff'),
+       url('../font/babybuddy.ttf?90744039') format('truetype'),
+       url('../font/babybuddy.svg?90744039#babybuddy') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'babybuddy';
-    src: url('../font/babybuddy.svg?3615871#babybuddy') format('svg');
+    src: url('../font/babybuddy.svg?90744039#babybuddy') format('svg');
   }
 }
 */
@@ -94,3 +94,4 @@
 .icon-today:before { content: '\f274'; } /* '' */
 .icon-bmi:before { content: '\f295'; } /* '' */
 .icon-temperature:before { content: '\f2c8'; } /* '' */
+.icon-breastpump:before { content: '\f4a7'; } /* '' */
