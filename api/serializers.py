@@ -102,6 +102,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username")
 
 
+class BreastpumpSerializer(CoreModelSerializer):
+    class Meta:
+        model = models.Breastpump
+        fields = ("id", "child", "amount", "time", "notes")
+
+
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Child

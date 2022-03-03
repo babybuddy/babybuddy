@@ -11,6 +11,7 @@ authorization.
 Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 `POST` requests:
 
+- `/api/breastpump/`
 - `/api/children/`
 - `/api/changes/` (Diaper Changes)
 - `/api/feedings/`

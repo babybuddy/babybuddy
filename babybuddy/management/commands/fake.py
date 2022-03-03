@@ -75,6 +75,9 @@ class Command(BaseCommand):
         """
         self.time = self.child.birth_date
 
+        self.breastpump = round(uniform(95.0, 102.0), 2)
+        self._add_breastpump_entry()
+
         self.temperature = round(uniform(95.0, 102.0), 2)
         self._add_temperature_entry()
 
@@ -103,6 +106,7 @@ class Command(BaseCommand):
                 self._add_diaperchange_entry()
             self._add_feeding_entry()
             self._add_diaperchange_entry()
+            self._add_breastpump_entry()
             if choice([True, False]):
                 self._add_tummytime_entry()
             if choice([True, False]):
@@ -110,6 +114,8 @@ class Command(BaseCommand):
                 self._add_tummytime_entry()
             if choice([True, False]):
                 self._add_temperature_entry()
+            if choice([True, False]):
+                self._add_breastpump_entry()
             if (self.time - last_note_entry_time).days > 1 and choice([True, False]):
                 self._add_note_entry()
                 last_note_entry_time = self.time
@@ -125,6 +131,24 @@ class Command(BaseCommand):
             if (self.time - last_bmi_entry_time).days > 6:
                 self._add_bmi_entry()
                 last_bmi_entry_time = self.time
+
+
+    @transaction.atomic
+    def _add_breastpump_entry(self):
+        """
+        Add a Breastpump entry. This assumes a weekly interval.
+        :returns:
+        """
+        self.amount = round(uniform(95.0, 102.0), 2)
+
+        notes = ""
+        if choice([True, False, False, False]):
+            notes = " ".join(self.faker.sentences(randint(1, 5)))
+
+        models.Breastpump.objects.create(
+            child=self.child, amount=self.amount, time=self.time, notes=notes
+        ).save()
+
 
     @transaction.atomic
     def _add_diaperchange_entry(self):

@@ -173,6 +173,35 @@ class TaggableManager(TaggitTaggableManager):
         return super().formfield(*args, **kwargs)
 
 
+class Breastpump(models.Model):
+    model_name = "breastpump"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="breastpump",
+        verbose_name=_("Child"),
+    )
+    amount = models.FloatField(
+        blank=False, null=False, verbose_name=_("Amount")
+    )
+    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-time"]
+        verbose_name = _("Breastpump")
+        verbose_name_plural = _("Breastpump")
+
+    def __str__(self):
+        return str(_("Breastpump"))
+
+    def clean(self):
+        validate_time(self.time, "time")
+
+
 class Child(models.Model):
     model_name = "child"
     first_name = models.CharField(max_length=255, verbose_name=_("First name"))

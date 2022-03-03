@@ -16,6 +16,12 @@ class ChildViewSet(viewsets.ModelViewSet):
     filterset_fields = ("first_name", "last_name", "slug", "birth_date")
 
 
+class BreastpumpViewSet(viewsets.ModelViewSet):
+    queryset = models.Breastpump.objects.all()
+    serializer_class = serializers.BreastpumpSerializer
+    filterset_class = filters.BreastpumpFilter
+
+
 class DiaperChangeViewSet(viewsets.ModelViewSet):
     queryset = models.DiaperChange.objects.all()
     serializer_class = serializers.DiaperChangeSerializer

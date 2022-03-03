@@ -87,6 +87,12 @@
                             {% trans "Weight" %}
                         </a>
                     {% endif %}
+                    {% if perms.core.add_breastpump %}
+                        <a class="dropdown-item p-2" href="{% url 'core:breastpump-add' %}">
+                            <i class="icon-breastpump" aria-hidden="true"></i>
+                            {% trans "Breastpump" %}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -232,6 +238,20 @@
                                 <a class="dropdown-item pl-5{% if request.path == '/bmi/add/' %} active{% endif %}"
                                    href="{% url 'core:bmi-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "BMI entry" %}
+                                </a>
+                            {% endif %}
+
+                            {% if perms.core.view_breastpump %}
+                                <a class="dropdown-item{% if request.path == '/breastpump/' %} active{% endif %}"
+                                   href="{% url 'core:breastpump-list' %}">
+                                    <i class="icon-breastpump" aria-hidden="true"></i>
+                                    {% trans "Breastpump" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_breastpump %}
+                                <a class="dropdown-item pl-5{% if request.path == '/breastpump/add/' %} active{% endif %}"
+                                   href="{% url 'core:breastpump-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Breastpump entry" %}
                                 </a>
                             {% endif %}
 

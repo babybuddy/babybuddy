@@ -6,6 +6,18 @@ from . import views
 app_name = "core"
 
 urlpatterns = [
+    path("breastpump/", views.BreastpumpList.as_view(), name="breastpump-list"),
+    path("breastpump/add/", views.BreastpumpAdd.as_view(), name="breastpump-add"),
+    path(
+        "breastpump/<int:pk>/",
+        views.BreastpumpUpdate.as_view(),
+        name="breastpump-update",
+    ),
+    path(
+        "breastpump/<int:pk>/delete/",
+        views.BreastpumpDelete.as_view(),
+        name="breastpump-delete",
+    ),
     path("children/", views.ChildList.as_view(), name="child-list"),
     path("children/add/", views.ChildAdd.as_view(), name="child-add"),
     path("children/<str:slug>/", views.ChildDetail.as_view(), name="child"),

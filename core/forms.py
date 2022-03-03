@@ -124,6 +124,21 @@ class ChildDeleteForm(forms.ModelForm):
         return instance
 
 
+class BreastpumpForm(CoreModelForm):
+    class Meta:
+        model = models.Breastpump
+        fields = ["child", "amount", "time", "notes"]
+        widgets = {
+            "time": forms.DateTimeInput(
+                attrs={
+                    "autocomplete": "off",
+                    "data-target": "#datetimepicker_time",
+                }
+            ),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
 class DiaperChangeForm(CoreModelForm):
     class Meta:
         model = models.DiaperChange

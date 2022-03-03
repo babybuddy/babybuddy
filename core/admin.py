@@ -58,6 +58,27 @@ class ChildAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     resource_class = ChildImportExportResource
 
 
+class BreastpumpImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.Breastpump
+
+
+@admin.register(models.Breastpump)
+class BreastpumpAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        "child",
+        "amount",
+        "time",
+    )
+    list_filter = ("child",)
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "amount",
+    )
+    resource_class = BreastpumpImportExportResource
+    
+
 class DiaperChangeImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.DiaperChange
