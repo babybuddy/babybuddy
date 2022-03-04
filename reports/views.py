@@ -17,21 +17,21 @@ class ChildReportList(PermissionRequiredMixin, DetailView):
     template_name = "reports/report_list.html"
 
 
-class BreastpumpAmounts(PermissionRequiredMixin, DetailView):
+class PumpingAmounts(PermissionRequiredMixin, DetailView):
     """
-    Graph of breastpump milk amounts collected.
+    Graph of pumping milk amounts collected.
     """
 
     model = models.Child
     permission_required = ("core.view_child",)
-    template_name = "reports/breastpump_amounts.html"
+    template_name = "reports/pumping_amounts.html"
 
     def get_context_data(self, **kwargs):
-        context = super(BreastpumpAmounts, self).get_context_data(**kwargs)
+        context = super(PumpingAmounts, self).get_context_data(**kwargs)
         child = context["object"]
-        changes = models.Breastpump.objects.filter(child=child)
+        changes = models.Pumping.objects.filter(child=child)
         if changes and changes.count() > 0:
-            context["html"], context["js"] = graphs.breastpump_amounts(changes)
+            context["html"], context["js"] = graphs.pumping_amounts(changes)
         return context
 
 

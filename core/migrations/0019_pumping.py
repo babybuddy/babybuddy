@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Breastpump",
+            name="Pumping",
             fields=[
                 (
                     "id",
@@ -29,21 +29,21 @@ class Migration(migrations.Migration):
                     "child",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="breastpump",
+                        related_name="pumping",
                         to="core.Child",
                         verbose_name="Child",
                     ),
                 ),
             ],
             options={
-                "verbose_name": "Breastpump",
-                "verbose_name_plural": "Breastpump",
+                "verbose_name": "Pumping",
+                "verbose_name_plural": "Pumping",
                 "ordering": ["-time"],
                 "default_permissions": ("view", "add", "change", "delete"),
             },
         ),
         migrations.AddField(
-            model_name="breastpump",
+            model_name="pumping",
             name="notes",
             field=models.TextField(blank=True, null=True, verbose_name="Notes"),
         ),

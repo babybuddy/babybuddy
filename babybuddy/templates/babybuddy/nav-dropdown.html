@@ -87,10 +87,10 @@
                             {% trans "Weight" %}
                         </a>
                     {% endif %}
-                    {% if perms.core.add_breastpump %}
-                        <a class="dropdown-item p-2" href="{% url 'core:breastpump-add' %}">
-                            <i class="icon-breastpump" aria-hidden="true"></i>
-                            {% trans "Breastpump" %}
+                    {% if perms.core.add_pumping %}
+                        <a class="dropdown-item p-2" href="{% url 'core:pumping-add' %}">
+                            <i class="icon-pumping" aria-hidden="true"></i>
+                            {% trans "Pumping" %}
                         </a>
                     {% endif %}
                 </div>
@@ -241,17 +241,17 @@
                                 </a>
                             {% endif %}
 
-                            {% if perms.core.view_breastpump %}
-                                <a class="dropdown-item{% if request.path == '/breastpump/' %} active{% endif %}"
-                                   href="{% url 'core:breastpump-list' %}">
-                                    <i class="icon-breastpump" aria-hidden="true"></i>
-                                    {% trans "Breastpump" %}
+                            {% if perms.core.view_pumping %}
+                                <a class="dropdown-item{% if request.path == '/pumping/' %} active{% endif %}"
+                                   href="{% url 'core:pumping-list' %}">
+                                    <i class="icon-pumping" aria-hidden="true"></i>
+                                    {% trans "Pumping" %}
                                 </a>
                             {% endif %}
-                            {% if perms.core.add_breastpump %}
-                                <a class="dropdown-item pl-5{% if request.path == '/breastpump/add/' %} active{% endif %}"
-                                   href="{% url 'core:breastpump-add' %}"><i class="icon-add" aria-hidden="true"></i>
-                                    {% trans "Breastpump entry" %}
+                            {% if perms.core.add_pumping %}
+                                <a class="dropdown-item pl-5{% if request.path == '/pumping/add/' %} active{% endif %}"
+                                   href="{% url 'core:pumping-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Pumping entry" %}
                                 </a>
                             {% endif %}
 

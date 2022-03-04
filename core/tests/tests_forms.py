@@ -194,11 +194,11 @@ class ChildFormsTestCase(FormsTestCaseBase):
         self.assertContains(page, "Child entry deleted")
 
 
-class BreastpumpFormsTestCase(FormsTestCaseBase):
+class PumpingFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(BreastpumpFormsTestCase, cls).setUpClass()
-        cls.bp = models.Breastpump.objects.create(
+        super(PumpingFormsTestCase, cls).setUpClass()
+        cls.bp = models.Pumping.objects.create(
             child=cls.child,
             amount=50.0,
             time=timezone.localtime() - timezone.timedelta(days=1),
@@ -211,10 +211,10 @@ class BreastpumpFormsTestCase(FormsTestCaseBase):
             "time": self.localtime_string(),
         }
 
-        page = self.c.post("/breastpump/add/", params, follow=True)
+        page = self.c.post("/pumping/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(
-            page, "Breastpump entry for {} added".format(str(self.child))
+            page, "Pumping entry for {} added".format(str(self.child))
         )
 
     def test_edit(self):
@@ -223,18 +223,18 @@ class BreastpumpFormsTestCase(FormsTestCaseBase):
             "amount": self.bp.amount + 2,
             "time": self.localtime_string(),
         }
-        page = self.c.post("/breastpump/{}/".format(self.bp.id), params, follow=True)
+        page = self.c.post("/pumping/{}/".format(self.bp.id), params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.bp.refresh_from_db()
         self.assertEqual(self.bp.amount, params["amount"])
         self.assertContains(
-            page, "Breastpump entry for {} updated".format(str(self.bp.child))
+            page, "Pumping entry for {} updated".format(str(self.bp.child))
         )
 
     def test_delete(self):
-        page = self.c.post("/breastpump/{}/delete/".format(self.bp.id), follow=True)
+        page = self.c.post("/pumping/{}/delete/".format(self.bp.id), follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertContains(page, "Breastpump entry deleted")
+        self.assertContains(page, "Pumping entry deleted")
 
 
 class DiaperChangeFormsTestCase(FormsTestCaseBase):

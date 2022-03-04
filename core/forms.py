@@ -124,9 +124,9 @@ class ChildDeleteForm(forms.ModelForm):
         return instance
 
 
-class BreastpumpForm(CoreModelForm):
+class PumpingForm(CoreModelForm):
     class Meta:
-        model = models.Breastpump
+        model = models.Pumping
         fields = ["child", "amount", "time", "notes"]
         widgets = {
             "time": forms.DateTimeInput(
