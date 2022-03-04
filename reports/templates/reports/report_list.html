@@ -8,7 +8,6 @@
         <h1>Reports</h1>
         <div class="list-group">
             <a href="{% url 'reports:report-bmi-bmi-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Body Mass Index (BMI)" %}</a>
-            <a href="{% url 'reports:report-pumping-amounts-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Pumping Amounts" %}</a>
             <a href="{% url 'reports:report-diaperchange-amounts-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Change Amounts" %}</a>
             <a href="{% url 'reports:report-diaperchange-types-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Change Types" %}</a>
             <a href="{% url 'reports:report-diaperchange-lifetimes-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Lifetimes" %}</a>
@@ -16,6 +15,7 @@
             <a href="{% url 'reports:report-feeding-duration-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Feeding Durations (Average)" %}</a>
             <a href="{% url 'reports:report-head-circumference-head-circumference-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Head Circumference" %}</a>
             <a href="{% url 'reports:report-height-height-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Height" %}</a>
+            <a href="{% url 'reports:report-pumping-amounts-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Pumping Amounts" %}</a>
             <a href="{% url 'reports:report-sleep-pattern-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Sleep Pattern" %}</a>
             <a href="{% url 'reports:report-sleep-totals-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Sleep Totals" %}</a>
             <a href="{% url 'reports:report-tummytime-duration-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Tummy Time Durations (Sum)" %}</a>
