@@ -150,7 +150,7 @@ class PumpingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     def test_post(self):
         data = {
             "child": 1,
-            "amount": "21",
+            "amount": "21.0",
             "time": "2017-11-20T22:52:00-05:00",
             "notes": "old device",
         }
