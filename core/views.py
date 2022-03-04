@@ -134,7 +134,7 @@ class PumpingAdd(CoreAddView):
     permission_required = ("core.add_pumping",)
     form_class = forms.PumpingForm
     success_url = reverse_lazy("core:pumping-list")
-    success_message = _("%(model)s reading added!")
+    success_message = _("%(model)s entry added!")
 
 
 class PumpingUpdate(CoreUpdateView):
@@ -142,7 +142,7 @@ class PumpingUpdate(CoreUpdateView):
     permission_required = ("core.change_pumping",)
     form_class = forms.PumpingForm
     success_url = reverse_lazy("core:pumping-list")
-    success_message = _("%(model)s reading for %(child)s updated.")
+    success_message = _("%(model)s entry for %(child)s updated.")
 
 
 class PumpingDelete(CoreDeleteView):
