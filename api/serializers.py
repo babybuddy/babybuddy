@@ -102,9 +102,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username")
 
 
-class BreastpumpSerializer(CoreModelSerializer):
+class PumpingSerializer(CoreModelSerializer):
     class Meta:
-        model = models.Breastpump
+        model = models.Pumping
         fields = ("id", "child", "amount", "time", "notes")
 
 

@@ -129,9 +129,9 @@ class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.data, entry)
 
 
-class BreastpumpAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
-    endpoint = reverse("api:breastpump-list")
-    model = models.Breastpump
+class PumpingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:pumping-list")
+    model = models.Pumping
 
     def test_get(self):
         response = self.client.get(self.endpoint)
@@ -156,7 +156,7 @@ class BreastpumpAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         }
         response = self.client.post(self.endpoint, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        obj = models.Breastpump.objects.get(pk=response.data["id"])
+        obj = models.Pumping.objects.get(pk=response.data["id"])
         self.assertEqual(str(obj.amount), data["amount"])
         self.assertEqual(obj.notes, data["notes"])
 

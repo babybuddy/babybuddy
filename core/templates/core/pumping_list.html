@@ -1,18 +1,18 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime i18n widget_tweaks %}
 
-{% block title %}{% trans "Breastpump" %}{% endblock %}
+{% block title %}{% trans "Pumping" %}{% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Breastpump" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Pumping" %}</li>
 {% endblock %}
 
 {% block content %}
     <h1>
-        {% trans "Breastpump" %}
-        {% if perms.core.add_breastpump %}
-            <a href="{% url 'core:breastpump-add' %}" class="btn btn-sm btn-success">
-                <i class="icon-breastpump" aria-hidden="true"></i> {% trans "Add Breastpump Entry" %}
+        {% trans "Pumping" %}
+        {% if perms.core.add_pumping %}
+            <a href="{% url 'core:pumping-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-pumping" aria-hidden="true"></i> {% trans "Add Pumping Entry" %}
             </a>
         {% endif %}
     </h1>
@@ -30,40 +30,40 @@
                 </tr>
             </thead>
             <tbody>
-                {% for breastpump in object_list %}
+                {% for pumping in object_list %}
                     {% cycle "odd" "even" as row_class silent %}
                     <tr class="{{ row_class }}">
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
-                                {% if perms.core.change_breastpump %}
-                                    <a href="{% url 'core:breastpump-update' breastpump.id %}" class="btn btn-primary">
+                                {% if perms.core.change_pumping %}
+                                    <a href="{% url 'core:pumping-update' pumping.id %}" class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
-                                {% if perms.core.delete_breastpump %}
-                                    <a href="{% url 'core:breastpump-delete' breastpump.id %}" class="btn btn-danger">
+                                {% if perms.core.delete_pumping %}
+                                    <a href="{% url 'core:pumping-delete' pumping.id %}" class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
 
                             </div>
                         </td>
-                        <th scope="row">{{ breastpump.time|datetime_short }}</th>
+                        <th scope="row">{{ pumping.time|datetime_short }}</th>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' breastpump.child.slug %}">{{ breastpump.child }}</a></td>
+                            <td><a href="{% url 'core:child' pumping.child.slug %}">{{ pumping.child }}</a></td>
                         {% endif %}
-                        <td>{{ breastpump.amount }}</td>
+                        <td>{{ pumping.amount }}</td>
                     </tr>
-                    {% if breastpump.notes %}
+                    {% if pumping.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="4"><i class="icon-note mr-2" aria-hidden="true"></i>{{ breastpump.notes }}</td>
+                            <td colspan="4"><i class="icon-note mr-2" aria-hidden="true"></i>{{ pumping.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="4">{% trans "No breastpump entries found." %}</th>
+                        <th colspan="4">{% trans "No pumping entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

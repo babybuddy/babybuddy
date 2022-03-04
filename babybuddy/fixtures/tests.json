@@ -22,7 +22,7 @@
     }
   },
     {
-    "model": "core.breastpump",
+    "model": "core.pumping",
     "pk": 1,
     "fields":
     {
