@@ -213,9 +213,7 @@ class PumpingFormsTestCase(FormsTestCaseBase):
 
         page = self.c.post("/pumping/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertContains(
-            page, "Pumping entry for {} added".format(str(self.child))
-        )
+        self.assertContains(page, "Pumping entry for {} added".format(str(self.child)))
 
     def test_edit(self):
         params = {
