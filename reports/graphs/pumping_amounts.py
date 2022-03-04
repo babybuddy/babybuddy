@@ -16,7 +16,7 @@ def pumping_amounts(objects):
     """
     objects = objects.order_by("-time")
 
-    trace = go.Scatter(
+    trace = go.Bar(
         name=_("Pumping"),
         x=list(objects.values_list("time", flat=True)),
         y=list(objects.values_list("amount", flat=True)),

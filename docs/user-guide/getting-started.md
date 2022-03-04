@@ -45,7 +45,6 @@ ability to edit any entry.
 
 The Measurements menu provides the option to view and track your baby's
 measurements of temperature, weight, height, head circumference and BMI.
-This section also includes the mother's measurements for pumping pumped.
 
 Selecting any of the measurements will open that specific page with all related
 measurements listed.
