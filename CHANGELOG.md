@@ -1,6 +1,31 @@
 # Changelog
 
-## [v1.10.0](https://github.com/babybuddy/babybuddy/tree/v1.10.0) (2022-02-21)
+## [v1.10.2](https://github.com/babybuddy/babybuddy/tree/v1.10.2) (2022-03-03)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.10.1...v1.10.2)
+
+**Implemented enhancements:**
+
+- Document Docker + NGINX HTTPS config [\#407](https://github.com/babybuddy/babybuddy/issues/407)
+- Create custom `CSRF_FAILURE_VIEW` with details about how to resolve the issue [\#402](https://github.com/babybuddy/babybuddy/issues/402)
+- Host in a subfolder / different root path [\#186](https://github.com/babybuddy/babybuddy/issues/186)
+- All the words have been translated into Chinese. [\#405](https://github.com/babybuddy/babybuddy/pull/405) ([gesisirus](https://github.com/gesisirus))
+- Update Spanish translations [\#404](https://github.com/babybuddy/babybuddy/pull/404) ([Alberdi](https://github.com/Alberdi))
+- Improve 403 Bad Origin and other error templates [\#403](https://github.com/babybuddy/babybuddy/pull/403) ([cdubz](https://github.com/cdubz))
+
+**Fixed bugs:**
+
+- v1.9.0 update to manual timer edit makes mobile UX worse [\#385](https://github.com/babybuddy/babybuddy/issues/385)
+- Graph selection has unreachable areas on mobile [\#379](https://github.com/babybuddy/babybuddy/issues/379)
+- "Time since" using Django time zone and not user time zone [\#178](https://github.com/babybuddy/babybuddy/issues/178)
+
+**Closed issues:**
+
+- HTTPS doesn't seem to be working...? [\#406](https://github.com/babybuddy/babybuddy/issues/406)
+- Add documentation about proxy setup [\#394](https://github.com/babybuddy/babybuddy/issues/394)
+- Remove/Change Drop-down Options [\#389](https://github.com/babybuddy/babybuddy/issues/389)
+
+## [v1.10.1](https://github.com/babybuddy/babybuddy/tree/v1.10.1) (2022-02-22)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.10.0...v1.10.1)
 
