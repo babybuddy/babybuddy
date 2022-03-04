@@ -93,6 +93,7 @@
                             {% trans "Pumping" %}
                         </a>
                     {% endif %}
+
                 </div>
             </div>
         </div>
@@ -241,20 +242,6 @@
                                 </a>
                             {% endif %}
 
-                            {% if perms.core.view_pumping %}
-                                <a class="dropdown-item{% if request.path == '/pumping/' %} active{% endif %}"
-                                   href="{% url 'core:pumping-list' %}">
-                                    <i class="icon-pumping" aria-hidden="true"></i>
-                                    {% trans "Pumping" %}
-                                </a>
-                            {% endif %}
-                            {% if perms.core.add_pumping %}
-                                <a class="dropdown-item pl-5{% if request.path == '/pumping/add/' %} active{% endif %}"
-                                   href="{% url 'core:pumping-add' %}"><i class="icon-add" aria-hidden="true"></i>
-                                    {% trans "Pumping entry" %}
-                                </a>
-                            {% endif %}
-
                         </div>
                     </li>
 
@@ -321,6 +308,20 @@
                                 </a>
                             {% endif %}
 
+
+                            {% if perms.core.view_pumping %}
+                                <a class="dropdown-item{% if request.path == '/pumping/' %} active{% endif %}"
+                                   href="{% url 'core:pumping-list' %}">
+                                    <i class="icon-pumping" aria-hidden="true"></i>
+                                    {% trans "Pumping" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_pumping %}
+                                <a class="dropdown-item pl-5{% if request.path == '/pumping/add/' %} active{% endif %}"
+                                   href="{% url 'core:pumping-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Pumping entry" %}
+                                </a>
+                            {% endif %}
                         </div>
                     </li>
 
