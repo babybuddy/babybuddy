@@ -111,12 +111,14 @@ class Tag(TagBase):
 
     color = models.CharField(
         "Color",
+        verbose_name=_("Color"),
         max_length=32,
         default=random_color,
         validators=[RegexValidator(r"^#[0-9A-F]{6}$")],
     )
 
     last_used = models.DateTimeField(
+        verbose_name=_("Last used"),
         default=timezone.now,
         blank=False,
     )
@@ -125,11 +127,16 @@ class Tag(TagBase):
 class Tagged(GenericTaggedItemBase):
     tag = models.ForeignKey(
         Tag,
+        verbose_name=_("Tag"),
         on_delete=models.CASCADE,
         related_name="%(app_label)s_%(class)s_items",
     )
 
     def save_base(self, *args, **kwargs):
+        """
+        Update last_used of the used tag, whenever it is used in a
+        save-operation.
+        """
         self.tag.last_used = timezone.now()
         self.tag.save()
         return super().save_base(*args, **kwargs)
