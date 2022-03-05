@@ -10,40 +10,102 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
-        ('core', '0018_bmi_headcircumference_height'),
+        ("contenttypes", "0002_remove_content_type_name"),
+        ("core", "0018_bmi_headcircumference_height"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, unique=True, verbose_name='name')),
-                ('slug', models.SlugField(max_length=100, unique=True, verbose_name='slug')),
-                ('color', models.CharField(default=core.models.random_color, max_length=32, validators=[django.core.validators.RegexValidator('^#[0-9A-F]{6}$')], verbose_name='Color')),
-                ('last_used', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Last used')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=100, unique=True, verbose_name="name"),
+                ),
+                (
+                    "slug",
+                    models.SlugField(max_length=100, unique=True, verbose_name="slug"),
+                ),
+                (
+                    "color",
+                    models.CharField(
+                        default=core.models.random_color,
+                        max_length=32,
+                        validators=[
+                            django.core.validators.RegexValidator("^#[0-9A-F]{6}$")
+                        ],
+                        verbose_name="Color",
+                    ),
+                ),
+                (
+                    "last_used",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Last used"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Tag',
-                'verbose_name_plural': 'Tags',
+                "verbose_name": "Tag",
+                "verbose_name_plural": "Tags",
             },
         ),
         migrations.CreateModel(
-            name='Tagged',
+            name="Tagged",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('object_id', models.IntegerField(db_index=True, verbose_name='object ID')),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_tagged_items', to='contenttypes.contenttype', verbose_name='content type')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_items', to='core.tag', verbose_name='Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "object_id",
+                    models.IntegerField(db_index=True, verbose_name="object ID"),
+                ),
+                (
+                    "content_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="%(app_label)s_%(class)s_tagged_items",
+                        to="contenttypes.contenttype",
+                        verbose_name="content type",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="%(app_label)s_%(class)s_items",
+                        to="core.tag",
+                        verbose_name="Tag",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AddField(
-            model_name='note',
-            name='tags',
-            field=core.models.TaggableManager(blank=True, help_text=None, through='core.Tagged', to='core.Tag', verbose_name='Tags'),
+            model_name="note",
+            name="tags",
+            field=core.models.TaggableManager(
+                blank=True,
+                help_text=None,
+                through="core.Tagged",
+                to="core.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]
