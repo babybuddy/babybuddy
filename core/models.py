@@ -110,7 +110,6 @@ class Tag(TagBase):
         verbose_name_plural = _("Tags")
 
     color = models.CharField(
-        "Color",
         verbose_name=_("Color"),
         max_length=32,
         default=random_color,
