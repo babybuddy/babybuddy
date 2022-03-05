@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     "api",
     "babybuddy",
     "core",
-    "taggit",
     "dashboard",
     "reports",
     "axes",
