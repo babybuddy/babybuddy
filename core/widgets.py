@@ -42,7 +42,7 @@ class TagsEditor(Widget):
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         """
-        Bootstrap integration adds form-control to the classes of the widget. 
+        Bootstrap integration adds form-control to the classes of the widget.
         This works only for "plain" input-based widgets however. In addition,
         we need to add a custom class "babybuddy-tags-editor" for the javascript
         file to detect the widget and take control of its contents.
@@ -56,9 +56,9 @@ class TagsEditor(Widget):
     def get_context(self, name: str, value: Any, attrs) -> Dict[str, Any]:
         """
         Adds extra information to the payload provided to the widget's template.
-        
+
         Specifically:
-        - Query a list if "recently used" tags (max 256 to not cause 
+        - Query a list if "recently used" tags (max 256 to not cause
           DoS issues) from the database to be used for auto-completion. ("most")
         - Query a smaller list of 5 tags to be made available from a quick
           selection widget ("quick").
