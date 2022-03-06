@@ -462,5 +462,16 @@
       "date": "2017-11-18",
       "notes": "before feed"
     }
+  },
+  {
+    "model": "core.tag",
+    "pk": 1,
+    "fields":
+    {
+      "name": "a name",
+      "slug": "a-name",
+      "color": "#FF0000",
+      "last_used": "2017-11-18T16:00:00Z"
+    }
   }
 ]
