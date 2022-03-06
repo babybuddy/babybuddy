@@ -663,7 +663,7 @@ class NotesFormsTest(FormsTestCaseBase):
             "child": self.note.child.id,
             "note": "Edited note",
             "time": self.localdate_string(),
-            "tags": "oldtag,newtag"
+            "tags": "oldtag,newtag",
         }
         page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
         self.assertEqual(page.status_code, 200)
@@ -676,8 +676,7 @@ class NotesFormsTest(FormsTestCaseBase):
         )
 
         self.assertSetEqual(
-            set(t.name for t in self.note.tags.all()),
-            {"oldtag", "newtag"}
+            set(t.name for t in self.note.tags.all()), {"oldtag", "newtag"}
         )
 
         # Old tag remains old, because it was not added
@@ -692,7 +691,7 @@ class NotesFormsTest(FormsTestCaseBase):
             "child": self.note.child.id,
             "note": "Edited note (2)",
             "time": self.localdate_string(),
-            "tags": "oldtag"
+            "tags": "oldtag",
         }
         page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
         self.assertEqual(page.status_code, 200)
