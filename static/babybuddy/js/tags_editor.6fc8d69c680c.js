@@ -7,22 +7,39 @@
     }
 
     /**
-     * Attempt to compute a high-contrast color from a background color.
-     * 
-     * (This probably should be researched better because this was 
-     * hand-crafted ad-hoc.)
-     */
-    function computeComplementaryColor(colorStr) {
-        let avgColor = 0.0;
-        avgColor += hexParse(colorStr.substring(1, 3)) * -0.5;
-        avgColor += hexParse(colorStr.substring(3, 5)) * 1.5;
-        avgColor += hexParse(colorStr.substring(5, 7)) * 1.0;
+    * Get the contrasting color for any hex color
+    *
+    * Sourced from: https://vanillajstoolkit.com/helpers/getcontrast/
+    *  - Modified with slightly softer colors
+    * (c) 2021 Chris Ferdinandi, MIT License, https://gomakethings.com
+    * Derived from work by Brian Suda, https://24ways.org/2010/calculating-color-contrast/
+    * @param  {String} A hexcolor value
+    * @return {String} The contrasting color (black or white)
+    */
+    function computeComplementaryColor(hexcolor) {
 
-        if (avgColor > 200) {
-            return "#101010";
-        } else {
-            return "#E0E0E0";
+        // If a leading # is provided, remove it
+        if (hexcolor.slice(0, 1) === '#') {
+            hexcolor = hexcolor.slice(1);
         }
+
+        // If a three-character hexcode, make six-character
+        if (hexcolor.length === 3) {
+            hexcolor = hexcolor.split('').map(function (hex) {
+                return hex + hex;
+            }).join('');
+        }
+
+        // Convert to RGB value
+        let r = parseInt(hexcolor.substr(0,2),16);
+        let g = parseInt(hexcolor.substr(2,2),16);
+        let b = parseInt(hexcolor.substr(4,2),16);
+
+        // Get YIQ ratio
+        let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+        // Check contrast
+        return (yiq >= 128) ? '#101010' : '#EFEFEF';
     }
 
     // CSRF token should always be present because it is auto-included with
@@ -135,7 +152,7 @@
      * Handler for the edit field allowing to dynamically create new tags.
      * 
      * Handles user inputs for the editor. Calls the 'onInsertNewTag' callback
-     * when the craetion of a new tag has been requested. All backend handling
+     * when the creation of a new tag has been requested. All backend handling
      * like guareteening that the requested tag exists is handled by this class,
      * the only task left is to add the new tag to the tags-list when
      * 'onInsertNewTag' is called.

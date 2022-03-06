@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import TestCase
@@ -602,3 +603,106 @@ class WeightFormsTest(FormsTestCaseBase):
         page = self.c.post("/weight/{}/delete/".format(self.weight.id), follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Weight entry deleted")
+
+
+class NotesFormsTest(FormsTestCaseBase):
+    """
+    Piggy-backs a bunch of tests for the tags-logic.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        super(NotesFormsTest, cls).setUpClass()
+
+        cls.note = models.Note.objects.create(
+            child=cls.child,
+            note="Setup note",
+            time=timezone.now() - timezone.timedelta(days=2),
+        )
+        cls.note.tags.add("oldtag")
+        cls.oldtag = models.Tag.objects.filter(slug="oldtag").first()
+
+    def test_add_no_tags(self):
+        params = {
+            "child": self.child.id,
+            "note": "note with no tags",
+            "time": (timezone.now() - timezone.timedelta(minutes=1)).isoformat(),
+        }
+
+        page = self.c.post("/notes/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "note with no tags")
+
+    def test_add_with_tags(self):
+        params = {
+            "child": self.child.id,
+            "note": "this note has tags",
+            "time": (timezone.now() - timezone.timedelta(minutes=1)).isoformat(),
+            "tags": 'A,B,"setup tag"',
+        }
+
+        old_notes = list(models.Note.objects.all())
+
+        page = self.c.post("/notes/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "this note has tags")
+
+        new_notes = list(models.Note.objects.all())
+
+        # Find the new tag and extract its tags
+        old_pks = [n.pk for n in old_notes]
+        new_note = [n for n in new_notes if n.pk not in old_pks][0]
+        new_note_tag_names = [t.name for t in new_note.tags.all()]
+
+        self.assertSetEqual(set(new_note_tag_names), {"A", "B", "setup tag"})
+
+    def test_edit(self):
+        old_tag_last_used = self.oldtag.last_used
+
+        params = {
+            "child": self.note.child.id,
+            "note": "Edited note",
+            "time": self.localdate_string(),
+            "tags": "oldtag,newtag"
+        }
+        page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+
+        self.note.refresh_from_db()
+        self.oldtag.refresh_from_db()
+        self.assertEqual(self.note.note, params["note"])
+        self.assertContains(
+            page, "Note entry for {} updated".format(str(self.note.child))
+        )
+
+        self.assertSetEqual(
+            set(t.name for t in self.note.tags.all()),
+            {"oldtag", "newtag"}
+        )
+
+        # Old tag remains old, because it was not added
+        self.assertEqual(old_tag_last_used, self.oldtag.last_used)
+
+        # Second phase: Remove all tags then add "oldtag" through posting
+        # which should update the last_used tag
+        self.note.tags.clear()
+        self.note.save()
+
+        params = {
+            "child": self.note.child.id,
+            "note": "Edited note (2)",
+            "time": self.localdate_string(),
+            "tags": "oldtag"
+        }
+        page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+
+        self.note.refresh_from_db()
+        self.oldtag.refresh_from_db()
+
+        self.assertLess(old_tag_last_used, self.oldtag.last_used)
+
+    def test_delete(self):
+        page = self.c.post("/notes/{}/delete/".format(self.note.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Note entry deleted")
