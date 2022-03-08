@@ -142,11 +142,13 @@ class Tagged(GenericTaggedItemBase):
 
 class TaggableManager(TaggitTaggableManager):
     """
-    Remove default help_text - only reason for this to exist.
+    Replace the default help_text with 
     """
 
     def __init__(self, *args, **kwargs):
-        kwargs["help_text"] = kwargs.get("help_text")
+        kwargs["help_text"] = _(
+            "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
+        )
         super().__init__(*args, **kwargs)
 
 
