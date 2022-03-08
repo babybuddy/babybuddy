@@ -18,6 +18,7 @@ router.register(r"weight", views.WeightViewSet)
 router.register(r"height", views.HeightViewSet)
 router.register(r"head-circumference", views.HeadCircumferenceViewSet)
 router.register(r"bmi", views.BMIViewSet)
+router.register(r"tags", views.TagsViewSet)
 
 app_name = "api"
 

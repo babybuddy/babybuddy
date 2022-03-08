@@ -6,6 +6,8 @@ from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+from taggit.serializers import TagListSerializerField, TaggitSerializer
+
 from core import models
 
 
@@ -125,10 +127,12 @@ class FeedingSerializer(CoreModelWithDurationSerializer):
         )
 
 
-class NoteSerializer(CoreModelSerializer):
+class NoteSerializer(TaggitSerializer, CoreModelSerializer):
     class Meta:
         model = models.Note
-        fields = ("id", "child", "note", "time")
+        fields = ("id", "child", "note", "time", "tags")
+
+    tags = TagListSerializerField(required=False)
 
 
 class SleepSerializer(CoreModelWithDurationSerializer):
@@ -196,3 +200,14 @@ class BMISerializer(CoreModelSerializer):
     class Meta:
         model = models.BMI
         fields = ("id", "child", "bmi", "date", "notes")
+
+
+class TagsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Tag
+        fields = ("slug", "name", "color", "last_used")
+        extra_kwargs = {
+            "slug": {"required": False, "read_only": True},
+            "color": {"required": False},
+            "last_used": {"required": False, "read_only": True},
+        }

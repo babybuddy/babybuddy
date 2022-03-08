@@ -6,6 +6,7 @@ from import_export import fields, resources
 from import_export.admin import ImportExportMixin, ExportActionMixin
 
 from core import models
+from core.forms import TagAdminForm
 
 
 class ImportExportResourceBase(resources.ModelResource):
@@ -177,3 +178,17 @@ class WeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "weight",
     )
     resource_class = WeightImportExportResource
+
+
+class TaggedItemInline(admin.StackedInline):
+    model = models.Tagged
+
+
+@admin.register(models.Tag)
+class TagAdmin(admin.ModelAdmin):
+    form = TagAdminForm
+    inlines = [TaggedItemInline]
+    list_display = ["name", "slug", "color", "last_used"]
+    ordering = ["name", "slug"]
+    search_fields = ["name"]
+    prepopulated_fields = {"slug": ["name"]}

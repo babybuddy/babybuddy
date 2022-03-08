@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.forms import widgets
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from core import models
+from core.widgets import TagsEditor
 
 
 def set_initial_values(kwargs, form_type):
@@ -82,6 +84,7 @@ class CoreModelForm(forms.ModelForm):
             timer.stop(instance.end)
         if commit:
             instance.save()
+            self.save_m2m()
         return instance
 
 
@@ -161,7 +164,7 @@ class FeedingForm(CoreModelForm):
 class NoteForm(CoreModelForm):
     class Meta:
         model = models.Note
-        fields = ["child", "note", "time"]
+        fields = ["child", "note", "time", "tags"]
         widgets = {
             "time": forms.DateTimeInput(
                 attrs={
@@ -169,6 +172,7 @@ class NoteForm(CoreModelForm):
                     "data-target": "#datetimepicker_time",
                 }
             ),
+            "tags": TagsEditor(),
         }
 
 
@@ -310,3 +314,8 @@ class BMIForm(CoreModelForm):
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
+
+
+class TagAdminForm(forms.ModelForm):
+    class Meta:
+        widgets = {"color": widgets.TextInput(attrs={"type": "color"})}

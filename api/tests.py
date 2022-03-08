@@ -251,13 +251,14 @@ class NoteAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     def test_get(self):
         response = self.client.get(self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(
+        self.assertDictEqual(
             response.data["results"][0],
             {
                 "id": 1,
                 "child": 1,
                 "note": "Fake note.",
                 "time": "2017-11-17T22:45:00-05:00",
+                "tags": [],
             },
         )
 
@@ -551,3 +552,56 @@ class WeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
+
+
+class TagsAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:tag-list")
+    model = models.Tag
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            dict(response.data["results"][0]),
+            {
+                "name": "a name",
+                "slug": "a-name",
+                "color": "#FF0000",
+                "last_used": "2017-11-18T11:00:00-05:00",
+            },
+        )
+
+    def test_post(self):
+        data = {"name": "new tag", "color": "#123456"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response = self.client.get(self.endpoint)
+        results = response.json()["results"]
+        results_by_name = {r["name"]: r for r in results}
+
+        tag_data = results_by_name["new tag"]
+        self.assertDictContainsSubset(data, tag_data)
+        self.assertEqual(tag_data["slug"], "new-tag")
+        self.assertTrue(tag_data["last_used"])
+
+    def test_patch(self):
+        endpoint = f"{self.endpoint}a-name/"
+
+        modified_data = {
+            "name": "A different name",
+            "color": "#567890",
+        }
+        response = self.client.patch(
+            endpoint,
+            modified_data,
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictContainsSubset(modified_data, response.data)
+
+    def test_delete(self):
+        endpoint = f"{self.endpoint}a-name/"
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

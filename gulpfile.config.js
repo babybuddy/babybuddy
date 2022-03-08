@@ -68,6 +68,9 @@ module.exports = {
             'api/static_src/js/*.js',
             'core/static_src/js/*.js',
             'dashboard/static_src/js/*.js'
+        ],
+        tags_editor: [
+            'babybuddy/static_src/js/tags_editor.js'
         ]
     },
     stylesConfig: {

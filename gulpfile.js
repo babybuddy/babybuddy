@@ -199,6 +199,12 @@ function scripts(cb) {
         concat('app.js'),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
+
+    pump([
+        gulp.src(config.scriptsConfig.tags_editor),
+        concat('tags_editor.js'),
+        gulp.dest(config.scriptsConfig.dest)
+    ], cb);
 }
 
 /**

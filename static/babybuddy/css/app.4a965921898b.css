@@ -10586,6 +10586,10 @@ h3 {
   font-size: 1.65em;
 }
 
+.modal-content {
+  color: #343a40;
+}
+
 #view-core\:child .child-photo {
   max-width: 150px;
 }

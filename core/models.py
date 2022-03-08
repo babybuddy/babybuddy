@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import timedelta
+from typing import Iterable, Optional
 
 from django.conf import settings
 from django.core.cache import cache
@@ -9,6 +10,14 @@ from django.utils.text import slugify
 from django.utils import timezone
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import RegexValidator
+
+import random
+
+from taggit.managers import TaggableManager as TaggitTaggableManager
+from taggit.models import TagBase, GenericTaggedItemBase
+
+random.seed()
 
 
 def validate_date(date, field_name):
@@ -69,6 +78,78 @@ def validate_time(time, field_name):
         raise ValidationError(
             {field_name: _("Date/time can not be in the future.")}, code="time_invalid"
         )
+
+
+def random_color():
+    TAG_COLORS = [
+        "#ff0000",
+        "#00ff00",
+        "#0000ff",
+        "#ff00ff",
+        "#ffff00",
+        "#00ffff",
+        "#ff7f7f",
+        "#7fff7f",
+        "#7f7fff",
+        "#ff7fff",
+        "#ffff7f",
+        "#7fffff",
+        "#7f0000",
+        "#007f00",
+        "#00007f",
+        "#7f007f",
+        "#7f7f00",
+        "#007f7f",
+    ]
+    return TAG_COLORS[random.randrange(0, len(TAG_COLORS))]
+
+
+class Tag(TagBase):
+    class Meta:
+        verbose_name = _("Tags")
+
+    color = models.CharField(
+        verbose_name=_("Color"),
+        max_length=32,
+        default=random_color,
+        validators=[RegexValidator(r"^#[0-9a-fA-F]{6}$")],
+    )
+
+    last_used = models.DateTimeField(
+        verbose_name=_("Last used"),
+        default=timezone.now,
+        blank=False,
+    )
+
+
+class Tagged(GenericTaggedItemBase):
+    tag = models.ForeignKey(
+        Tag,
+        verbose_name=_("Tag"),
+        on_delete=models.CASCADE,
+        related_name="%(app_label)s_%(class)s_items",
+    )
+
+    def save_base(self, *args, **kwargs):
+        """
+        Update last_used of the used tag, whenever it is used in a
+        save-operation.
+        """
+        self.tag.last_used = timezone.now()
+        self.tag.save()
+        return super().save_base(*args, **kwargs)
+
+
+class TaggableManager(TaggitTaggableManager):
+    """
+    Replace the default help_text with
+    """
+
+    def __init__(self, *args, **kwargs):
+        kwargs["help_text"] = _(
+            "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
+        )
+        super().__init__(*args, **kwargs)
 
 
 class Child(models.Model):
@@ -251,6 +332,7 @@ class Note(models.Model):
     time = models.DateTimeField(
         default=timezone.now, blank=False, verbose_name=_("Time")
     )
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
