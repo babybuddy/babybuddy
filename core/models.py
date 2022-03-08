@@ -142,7 +142,7 @@ class Tagged(GenericTaggedItemBase):
 
 class TaggableManager(TaggitTaggableManager):
     """
-    Replace the default help_text with 
+    Replace the default help_text with
     """
 
     def __init__(self, *args, **kwargs):
