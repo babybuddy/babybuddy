@@ -56,13 +56,7 @@
                         {% endif %}
                         <td>{{ note.note }}</td>
                         <td>
-                            {% for tag in note.tags.all %}
-                                <span class="badge badge-pill" style="background-color:{{ tag.color }};color:{{ tag.complementary_color }};">
-                                    {{ tag.name|escape }}
-                                </span>
-                            {% empty %}
-                                -
-                            {% endfor %}
+                            {% include "core/render_tag_list.html" with tags=note.tags.all %}
                         </td>
                     </tr>
                 {% empty %}
