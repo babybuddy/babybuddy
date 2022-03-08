@@ -6,7 +6,6 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from core import models
-from core.widgets import TagsEditor
 
 
 def set_initial_values(kwargs, form_type):
@@ -128,7 +127,7 @@ class ChildDeleteForm(forms.ModelForm):
 class DiaperChangeForm(CoreModelForm):
     class Meta:
         model = models.DiaperChange
-        fields = ["child", "time", "wet", "solid", "color", "amount", "notes"]
+        fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
         widgets = {
             "time": forms.DateTimeInput(
                 attrs={
@@ -143,7 +142,7 @@ class DiaperChangeForm(CoreModelForm):
 class FeedingForm(CoreModelForm):
     class Meta:
         model = models.Feeding
-        fields = ["child", "start", "end", "type", "method", "amount", "notes"]
+        fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
         widgets = {
             "start": forms.DateTimeInput(
                 attrs={
@@ -172,14 +171,13 @@ class NoteForm(CoreModelForm):
                     "data-target": "#datetimepicker_time",
                 }
             ),
-            "tags": TagsEditor(),
         }
 
 
 class SleepForm(CoreModelForm):
     class Meta:
         model = models.Sleep
-        fields = ["child", "start", "end", "notes"]
+        fields = ["child", "start", "end", "notes", "tags"]
         widgets = {
             "start": forms.DateTimeInput(
                 attrs={
@@ -200,7 +198,7 @@ class SleepForm(CoreModelForm):
 class TemperatureForm(CoreModelForm):
     class Meta:
         model = models.Temperature
-        fields = ["child", "temperature", "time", "notes"]
+        fields = ["child", "temperature", "time", "notes", "tags"]
         widgets = {
             "time": forms.DateTimeInput(
                 attrs={
@@ -239,7 +237,7 @@ class TimerForm(CoreModelForm):
 class TummyTimeForm(CoreModelForm):
     class Meta:
         model = models.TummyTime
-        fields = ["child", "start", "end", "milestone"]
+        fields = ["child", "start", "end", "milestone", "tags"]
         widgets = {
             "start": forms.DateTimeInput(
                 attrs={
@@ -259,7 +257,7 @@ class TummyTimeForm(CoreModelForm):
 class WeightForm(CoreModelForm):
     class Meta:
         model = models.Weight
-        fields = ["child", "weight", "date", "notes"]
+        fields = ["child", "weight", "date", "notes", "tags"]
         widgets = {
             "date": forms.DateInput(
                 attrs={
@@ -274,7 +272,7 @@ class WeightForm(CoreModelForm):
 class HeightForm(CoreModelForm):
     class Meta:
         model = models.Height
-        fields = ["child", "height", "date", "notes"]
+        fields = ["child", "height", "date", "notes", "tags"]
         widgets = {
             "date": forms.DateInput(
                 attrs={
@@ -289,7 +287,7 @@ class HeightForm(CoreModelForm):
 class HeadCircumferenceForm(CoreModelForm):
     class Meta:
         model = models.HeadCircumference
-        fields = ["child", "head_circumference", "date", "notes"]
+        fields = ["child", "head_circumference", "date", "notes", "tags"]
         widgets = {
             "date": forms.DateInput(
                 attrs={
@@ -304,7 +302,7 @@ class HeadCircumferenceForm(CoreModelForm):
 class BMIForm(CoreModelForm):
     class Meta:
         model = models.BMI
-        fields = ["child", "bmi", "date", "notes"]
+        fields = ["child", "bmi", "date", "notes", "tags"]
         widgets = {
             "date": forms.DateInput(
                 attrs={
