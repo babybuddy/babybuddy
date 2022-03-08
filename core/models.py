@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 from datetime import timedelta
 from typing import Iterable, Optional
 
@@ -11,8 +12,6 @@ from django.utils import timezone
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
-
-import random
 
 from taggit.managers import TaggableManager as TaggitTaggableManager
 from taggit.models import TagBase, GenericTaggedItemBase
@@ -151,6 +150,13 @@ class TaggableManager(TaggitTaggableManager):
         )
         super().__init__(*args, **kwargs)
 
+    def formfield(self, *args, **kwargs):
+        # Local import required because .widgets imports .models
+        from core.widgets import TagsEditor
+
+        kwargs["widget"] = TagsEditor
+        return super().formfield(*args, **kwargs)
+
 
 class Child(models.Model):
     model_name = "child"
@@ -230,6 +236,7 @@ class DiaperChange(models.Model):
     )
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
@@ -299,6 +306,7 @@ class Feeding(models.Model):
     )
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
@@ -364,6 +372,7 @@ class Sleep(models.Model):
         editable=False, null=True, verbose_name=_("Duration")
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
     naps = NapsManager()
@@ -414,6 +423,7 @@ class Temperature(models.Model):
     )
     time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
@@ -541,6 +551,7 @@ class TummyTime(models.Model):
     milestone = models.CharField(
         blank=True, max_length=255, verbose_name=_("Milestone")
     )
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
@@ -576,6 +587,7 @@ class Weight(models.Model):
     weight = models.FloatField(blank=False, null=False, verbose_name=_("Weight"))
     date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
@@ -603,6 +615,7 @@ class Height(models.Model):
     height = models.FloatField(blank=False, null=False, verbose_name=_("Height"))
     date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
@@ -632,6 +645,7 @@ class HeadCircumference(models.Model):
     )
     date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
@@ -656,6 +670,7 @@ class BMI(models.Model):
     bmi = models.FloatField(blank=False, null=False, verbose_name=_("BMI"))
     date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
