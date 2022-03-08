@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+import re
 from datetime import timedelta
 from typing import Iterable, Optional
 
@@ -119,6 +120,20 @@ class Tag(TagBase):
         default=timezone.now,
         blank=False,
     )
+
+    @property
+    def complementary_color(self):
+        DARK, LIGHT = '#101010', '#EFEFEF'
+        if not self.color:
+            return DARK
+
+
+        r, g, b = [int(x, 16) for x in re.match("#(..)(..)(..)", self.color).groups()]
+        yiq = ((r * 299) + (g * 587) + (b * 114)) // 1000
+        if yiq >= 128:
+            return DARK
+        else:
+            return LIGHT
 
 
 class Tagged(GenericTaggedItemBase):

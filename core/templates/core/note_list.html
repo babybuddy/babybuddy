@@ -27,6 +27,7 @@
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th>{% trans "Note" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +55,15 @@
                             <td><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></td>
                         {% endif %}
                         <td>{{ note.note }}</td>
+                        <td>
+                            {% for tag in note.tags.all %}
+                                <span class="badge badge-pill" style="background-color:{{ tag.color }};color:{{ tag.complementary_color }};">
+                                    {{ tag.name|escape }}
+                                </span>
+                            {% empty %}
+                                -
+                            {% endfor %}
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>
