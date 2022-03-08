@@ -31,6 +31,7 @@
                     {% comment %}Abbreviation of "Amount"{% endcomment %}
                     <th>{% trans "Amt." %}</th>
                     <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,15 +67,18 @@
                             {% endif %}
                         </td>
                         <td>{{ feeding.duration|duration_string }}</td>
+                        <td>
+                            {% include "core/render_tag_list.html" with tags=feeding.tags.all %}
+                        </td>
                     </tr>
                     {% if feeding.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="7"><i class="icon-note mr-2" aria-hidden="true"></i>{{ feeding.notes }}</td>
+                            <td colspan="8"><i class="icon-note mr-2" aria-hidden="true"></i>{{ feeding.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No feedings found." %}</th>
+                        <th colspan="8">{% trans "No feedings found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

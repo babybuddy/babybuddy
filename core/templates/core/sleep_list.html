@@ -29,6 +29,7 @@
                     {% endif %}
                     <th>{% trans "Duration" %}</th>
                     <th class="text-center">{% trans "Nap" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,15 +60,18 @@
                         {% endif %}
                         <td>{{ sleep.duration|duration_string }}</td>
                         <td class="text-center">{{ sleep.nap|bool_icon }}</td>
+                        <td>
+                            {% include "core/render_tag_list.html" with tags=sleep.tags.all %}
+                        </td>
                     </tr>
                     {% if sleep.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="6"><i class="icon-note mr-2" aria-hidden="true"></i>{{ sleep.notes }}</td>
+                            <td colspan="7"><i class="icon-note mr-2" aria-hidden="true"></i>{{ sleep.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="6">{% trans "No sleep entries found." %}</th>
+                        <th colspan="7">{% trans "No sleep entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

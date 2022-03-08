@@ -27,6 +27,7 @@
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th>{% trans "Temperature" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,15 +56,18 @@
                             <td><a href="{% url 'core:child' temperature.child.slug %}">{{ temperature.child }}</a></td>
                         {% endif %}
                         <td>{{ temperature.temperature }}</td>
+                        <td>
+                            {% include "core/render_tag_list.html" with tags=temperature.tags.all %}
+                        </td>
                     </tr>
                     {% if temperature.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="4"><i class="icon-note mr-2" aria-hidden="true"></i>{{ temperature.notes }}</td>
+                            <td colspan="5"><i class="icon-note mr-2" aria-hidden="true"></i>{{ temperature.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="4">{% trans "No temperature entries found." %}</th>
+                        <th colspan="5">{% trans "No temperature entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

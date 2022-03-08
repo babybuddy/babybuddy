@@ -27,6 +27,7 @@
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th>{% trans "BMI" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,15 +56,18 @@
                             <td><a href="{% url 'core:child' bmi.child.slug %}">{{ bmi.child }}</a></td>
                         {% endif %}
                         <td>{{ bmi.bmi }}</td>
+                        <td>
+                            {% include "core/render_tag_list.html" with tags=bmi.tags.all %}
+                        </td>
                     </tr>
                     {% if bmi.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="4"><i class="icon-note mr-2" aria-hidden="true"></i>{{ bmi.notes }}</td>
+                            <td colspan="5"><i class="icon-note mr-2" aria-hidden="true"></i>{{ bmi.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="4">{% trans "No bmi entries found." %}</th>
+                        <th colspan="5">{% trans "No bmi entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
