@@ -29,6 +29,7 @@
                     <th class="text-center">{% trans "Contents" %}</th>
                     <th>{% trans "Color" %}</th>
                     <th>{% trans "Amount" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +63,9 @@
                         </td>
                         <td>{{ change.get_color_display }}</td>
                         <td>{{ change.amount|default_if_none:"" }}</td>
+                        <td>
+                            {% include "core/render_tag_list.html" with tags=change.tags.all %}
+                        </td>
                     </tr>
                     {% if change.notes %}
                         <tr class="{{ row_class }} row-details">
@@ -70,7 +74,7 @@
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="6">{% trans "No diaper changes found." %}</th>
+                        <th colspan="7">{% trans "No diaper changes found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

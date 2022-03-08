@@ -28,6 +28,11 @@
                         {% for detail in object.details %}
                             <div><small>{{ detail }}</small></div>
                         {% endfor %}
+                        {% if object.tags %}
+                            <div>
+                                {% include "core/render_tag_list.html" with tags=object.tags %}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="card-footer text-muted">
                         {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}

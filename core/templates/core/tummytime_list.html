@@ -28,6 +28,7 @@
                     {% endif %}
                     <th>{% trans "Duration" %}</th>
                     <th>{% trans "Milestone" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,10 +58,13 @@
                         {% endif %}
                         <td>{{ tummytime.duration|duration_string }}</td>
                         <td>{{ tummytime.milestone }}</td>
+                        <td>
+                            {% include "core/render_tag_list.html" with tags=tummytime.tags.all %}
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="6">{% trans "No tummy time entries found." %}</th>
+                        <th colspan="7">{% trans "No tummy time entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

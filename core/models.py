@@ -123,10 +123,9 @@ class Tag(TagBase):
 
     @property
     def complementary_color(self):
-        DARK, LIGHT = '#101010', '#EFEFEF'
+        DARK, LIGHT = "#101010", "#EFEFEF"
         if not self.color:
             return DARK
-
 
         r, g, b = [int(x, 16) for x in re.match("#(..)(..)(..)", self.color).groups()]
         yiq = ((r * 299) + (g * 587) + (b * 114)) // 1000

@@ -56,6 +56,7 @@ def _add_tummy_times(min_date, max_date, events, child=None):
                 "edit_link": edit_link,
                 "model_name": instance.model_name,
                 "type": "start",
+                "tags": instance.tags.all(),
             }
         )
         events.append(
@@ -68,6 +69,7 @@ def _add_tummy_times(min_date, max_date, events, child=None):
                 "duration": timesince.timesince(instance.start, now=instance.end),
                 "model_name": instance.model_name,
                 "type": "end",
+                "tags": instance.tags.all(),
             }
         )
 
@@ -92,6 +94,7 @@ def _add_sleeps(min_date, max_date, events, child=None):
                 "edit_link": edit_link,
                 "model_name": instance.model_name,
                 "type": "start",
+                "tags": instance.tags.all(),
             }
         )
         events.append(
@@ -103,6 +106,7 @@ def _add_sleeps(min_date, max_date, events, child=None):
                 "duration": timesince.timesince(instance.start, now=instance.end),
                 "model_name": instance.model_name,
                 "type": "end",
+                "tags": instance.tags.all(),
             }
         )
 
@@ -145,6 +149,7 @@ def _add_feedings(min_date, max_date, events, child=None):
                 "time_since_prev": time_since_prev,
                 "model_name": instance.model_name,
                 "type": "start",
+                "tags": instance.tags.all(),
             }
         )
         events.append(
@@ -157,6 +162,7 @@ def _add_feedings(min_date, max_date, events, child=None):
                 "duration": timesince.timesince(instance.start, now=instance.end),
                 "model_name": instance.model_name,
                 "type": "end",
+                "tags": instance.tags.all(),
             }
         )
 
@@ -183,6 +189,7 @@ def _add_diaper_changes(min_date, max_date, events, child):
                 },
                 "edit_link": reverse("core:diaperchange-update", args=[instance.id]),
                 "model_name": instance.model_name,
+                "tags": instance.tags.all(),
             }
         )
 
@@ -198,5 +205,6 @@ def _add_notes(min_date, max_date, events, child):
                 "details": [instance.note],
                 "edit_link": reverse("core:note-update", args=[instance.id]),
                 "model_name": instance.model_name,
+                "tags": instance.tags.all(),
             }
         )
