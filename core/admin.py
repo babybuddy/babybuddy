@@ -6,6 +6,7 @@ from import_export import fields, resources
 from import_export.admin import ImportExportMixin, ExportActionMixin
 
 from core import models
+from core.forms import TagAdminForm
 
 
 class ImportExportResourceBase(resources.ModelResource):
@@ -185,6 +186,7 @@ class TaggedItemInline(admin.StackedInline):
 
 @admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
+    form = TagAdminForm
     inlines = [TaggedItemInline]
     list_display = ["name", "slug", "color", "last_used"]
     ordering = ["name", "slug"]

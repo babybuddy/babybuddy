@@ -82,24 +82,24 @@ def validate_time(time, field_name):
 
 def random_color():
     TAG_COLORS = [
-        "#FF0000",
-        "#00FF00",
-        "#0000FF",
-        "#FF00FF",
-        "#FFFF00",
-        "#00FFFF",
-        "#FF7F7F",
-        "#7FFF7F",
-        "#7F7FFF",
-        "#FF7FFF",
-        "#FFFF7F",
-        "#7FFFFF",
-        "#7F0000",
-        "#007F00",
-        "#00007F",
-        "#7F007F",
-        "#7F7F00",
-        "#007F7F",
+        "#ff0000",
+        "#00ff00",
+        "#0000ff",
+        "#ff00ff",
+        "#ffff00",
+        "#00ffff",
+        "#ff7f7f",
+        "#7fff7f",
+        "#7f7fff",
+        "#ff7fff",
+        "#ffff7f",
+        "#7fffff",
+        "#7f0000",
+        "#007f00",
+        "#00007f",
+        "#7f007f",
+        "#7f7f00",
+        "#007f7f",
     ]
     return TAG_COLORS[random.randrange(0, len(TAG_COLORS))]
 
@@ -112,7 +112,7 @@ class Tag(TagBase):
         verbose_name=_("Color"),
         max_length=32,
         default=random_color,
-        validators=[RegexValidator(r"^#[0-9A-F]{6}$")],
+        validators=[RegexValidator(r"^#[0-9a-fA-F]{6}$")],
     )
 
     last_used = models.DateTimeField(

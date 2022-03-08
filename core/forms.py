@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.forms import widgets
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -313,3 +314,8 @@ class BMIForm(CoreModelForm):
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
+
+
+class TagAdminForm(forms.ModelForm):
+    class Meta:
+        widgets = {"color": widgets.TextInput(attrs={"type": "color"})}
