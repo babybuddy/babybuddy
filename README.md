@@ -39,7 +39,7 @@ Visit [https://docs.baby-buddy.net](https://docs.baby-buddy.net) for full docume
 
 Baby Buddy is available in a variety of languages thanks to the efforts of numerous
 translators. Language can be set on a per-user basis from the user settings page
-(`/user/settings/`). See [Contributing](https://docs.baby-buddy.net/contributing/#translation)
+(`/user/settings/`). See [Contributing](https://docs.baby-buddy.net/contributing/translation/)
 for information about how to create/update translations.
 
 ### Available languages
