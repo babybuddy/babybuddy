@@ -14,22 +14,56 @@ def pumping_amounts(objects):
     :param instances: a QuerySet of Pumping instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    objects = objects.order_by("-time")
+    objects = objects.order_by("time")
 
-    trace = go.Bar(
-        name=_("Pumping"),
-        x=list(objects.values_list("time", flat=True)),
-        y=list(objects.values_list("amount", flat=True)),
-        fill="tozeroy",
-    )
+    # We need to find date totals for annotations at the end
+    curr_date = ''
+    date_totals = [0.0]
+    index = -1
+    for object in objects:
+        date_s = str(object.time.date())
+        if curr_date != date_s:
+            index += 1
+            date_totals.append(0.0)
+            curr_date = date_s
+        date_totals[index] += object.amount
+    date_totals.pop(-1)
+
+    dates = [] # Single array for each bar
+    amounts = [] # Array of arrays containing amounts
+    index_x, index_y = 0,-1
+    for object in objects:
+        date_s = str(object.time.date())
+        if date_s not in dates:
+            dates.append(date_s)
+            index_y += 1
+            index_x = 0
+        if len(amounts) == 0 or len(amounts) <= index_x:
+            amounts.append([0]*len(date_totals))
+        amounts[index_x][index_y] = object.amount
+        index_x += 1
+        
+    traces = []
+    for i in range(0, len(date_totals)-1):
+        traces.append(
+            go.Bar(
+                name="Amount",
+                x=dates,
+                y=amounts[i],
+                text=amounts[i],
+                hovertemplate=amounts[i],
+                showlegend=False,
+            )
+        )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args["barmode"] = "stack"
-    layout_args["title"] = _("<b>Pumping</b>")
+    layout_args["title"] = _("<b>Total Pumping Amount</b>")
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
-    layout_args["yaxis"]["title"] = _("Pumping")
+    layout_args["yaxis"]["title"] = _("Pumping Amount")
 
-    fig = go.Figure({"data": [trace], "layout": go.Layout(**layout_args)})
+    total_labels = [{"x": x, "y": total*1.1, "text": str(total), "showarrow": False} for x, total in zip(list(dates), date_totals)]
+    fig = go.Figure({"data": traces, "layout": go.Layout(**layout_args)})
+    fig.update_layout(barmode="stack", annotations=total_labels)
     output = plotly.plot(fig, output_type="div", include_plotlyjs=False)
     return utils.split_graph_output(output)
