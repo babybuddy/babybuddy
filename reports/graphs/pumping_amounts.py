@@ -41,8 +41,6 @@ def pumping_amounts(objects):
         index_x += 1
         
     traces = []
-    print(amounts)
-    print(len(date_totals.keys()))
     for i in range(0, len(amounts)-1):
         traces.append(
             go.Bar(
