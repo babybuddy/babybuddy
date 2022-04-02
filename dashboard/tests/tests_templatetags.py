@@ -164,6 +164,19 @@ class TemplateTagsTestCase(TestCase):
     def test_card_statistics(self):
         data = cards.card_statistics(self.context, self.child)
         stats = [
+            # Statistics date basis is not particularly strong to these diaper change
+            # examples.
+            # TODO: Improve testing of diaper change frequency statistics.
+            {
+                "type": "duration",
+                "stat": 0.0,
+                "title": "Diaper change frequency (past 3 days)",
+            },
+            {
+                "type": "duration",
+                "stat": 0.0,
+                "title": "Diaper change frequency (past 2 weeks)",
+            },
             {
                 "title": "Diaper change frequency",
                 "stat": timezone.timedelta(0, 44228, 571429),
