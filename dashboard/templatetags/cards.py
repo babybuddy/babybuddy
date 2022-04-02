@@ -281,13 +281,14 @@ def card_statistics(context, child):
 
     changes = _diaperchange_statistics(child)
     if changes:
-        stats.append(
-            {
-                "type": "duration",
-                "stat": changes["btwn_average"],
-                "title": _("Diaper change frequency"),
-            }
-        )
+        for item in changes:
+            stats.append(
+                {
+                    "type": "duration",
+                    "stat": item["btwn_average"],
+                    "title": item["title"],
+                }
+            )
 
     feedings = _feeding_statistics(child)
     if feedings:
@@ -385,24 +386,43 @@ def _diaperchange_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
+    changes = [
+        {
+            "start": timezone.now() - timezone.timedelta(days=3),
+            "title": _("Diaper change frequency (past 3 days)"),
+        },
+        {
+            "start": timezone.now() - timezone.timedelta(weeks=2),
+            "title": _("Diaper change frequency (past 2 weeks)"),
+        },
+        {
+            "start": timezone.make_aware(
+                datetime.combine(date.min, time(0, 0)) + timezone.timedelta(days=1)
+            ),
+            "title": _("Diaper change frequency"),
+        },
+    ]
+    for timespan in changes:
+        timespan["btwn_total"] = timezone.timedelta(0)
+        timespan["btwn_count"] = 0
+        timespan["btwn_average"] = 0.0
+
     instances = models.DiaperChange.objects.filter(child=child).order_by("time")
     if len(instances) == 0:
         return False
-    changes = {
-        "btwn_total": timezone.timedelta(0),
-        "btwn_count": instances.count() - 1,
-        "btwn_average": 0.0,
-    }
     last_instance = None
 
     for instance in instances:
         if last_instance:
-            changes["btwn_total"] += instance.time - last_instance.time
+            for timespan in changes:
+                if last_instance.time > timespan["start"]:
+                    timespan["btwn_total"] += instance.time - last_instance.time
+                    timespan["btwn_count"] += 1
         last_instance = instance
 
-    if changes["btwn_count"] > 0:
-        changes["btwn_average"] = changes["btwn_total"] / changes["btwn_count"]
-
+    for timespan in changes:
+        if timespan["btwn_count"] > 0:
+            timespan["btwn_average"] = timespan["btwn_total"] / timespan["btwn_count"]
     return changes
 
 
