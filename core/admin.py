@@ -20,6 +20,27 @@ class ImportExportResourceBase(resources.ModelResource):
         exclude = ("duration",)
 
 
+class BMIImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.BMI
+
+
+@admin.register(models.BMI)
+class BMIAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        "child",
+        "bmi",
+        "date",
+    )
+    list_filter = ("child",)
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "bmi",
+    )
+    resource_class = BMIImportExportResource
+
+
 class ChildImportExportResource(resources.ModelResource):
     class Meta:
         model = models.Child
@@ -73,6 +94,48 @@ class FeedingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "method",
     )
     resource_class = FeedingImportExportResource
+
+
+class HeadCircumferenceImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.HeadCircumference
+
+
+@admin.register(models.HeadCircumference)
+class HeadCircumferenceAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        "child",
+        "head_circumference",
+        "date",
+    )
+    list_filter = ("child",)
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "head_circumference",
+    )
+    resource_class = HeadCircumferenceImportExportResource
+
+
+class HeightImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.Height
+
+
+@admin.register(models.Height)
+class HeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        "child",
+        "height",
+        "date",
+    )
+    list_filter = ("child",)
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "height",
+    )
+    resource_class = HeightImportExportResource
 
 
 class NoteImportExportResource(ImportExportResourceBase):
