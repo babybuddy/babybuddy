@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from random import choice, randint, uniform
+from random import choice, choices, randint, uniform
 from datetime import timedelta
 from decimal import Decimal
 
 from django.db import transaction
+from django.db.utils import IntegrityError
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
@@ -20,6 +21,7 @@ class Command(BaseCommand):
         self.faker = Factory.create()
         self.child = None
         self.weight = None
+        self.tags = []
         self.time = None
         self.time_now = timezone.localtime()
 
@@ -41,6 +43,14 @@ class Command(BaseCommand):
         verbosity = int(kwargs["verbosity"])
         children = int(kwargs["children"]) or 1
         days = int(kwargs["days"]) or 31
+
+        for word in self.faker.words(10, unique=True):
+            try:
+                tag = models.Tag.objects.create(name=word)
+                tag.save()
+                self.tags.append(tag)
+            except IntegrityError:
+                pass
 
         birth_date = timezone.localtime() - timedelta(days=days)
         for i in range(0, children):
@@ -85,6 +95,8 @@ class Command(BaseCommand):
         last_bmi_entry_time = self.time
 
         self._add_note_entry()
+        last_note_entry_time = self.time
+
         while self.time < self.time_now:
             self._add_sleep_entry()
             if choice([True, False]):
@@ -98,6 +110,9 @@ class Command(BaseCommand):
                 self._add_tummytime_entry()
             if choice([True, False]):
                 self._add_temperature_entry()
+            if (self.time - last_note_entry_time).days > 1 and choice([True, False]):
+                self._add_note_entry()
+                last_note_entry_time = self.time
             if (self.time - last_weight_entry_time).days > 6:
                 self._add_weight_entry()
                 last_weight_entry_time = self.time
@@ -132,7 +147,7 @@ class Command(BaseCommand):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
         if time < self.time_now:
-            models.DiaperChange.objects.create(
+            instance = models.DiaperChange.objects.create(
                 child=self.child,
                 time=time,
                 wet=wet,
@@ -140,7 +155,9 @@ class Command(BaseCommand):
                 color=color,
                 amount=amount,
                 notes=notes,
-            ).save()
+            )
+            instance.save()
+            self._add_tags(instance)
         self.time = time
 
     @transaction.atomic
@@ -161,7 +178,7 @@ class Command(BaseCommand):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
         if end < self.time_now:
-            models.Feeding.objects.create(
+            instance = models.Feeding.objects.create(
                 child=self.child,
                 start=start,
                 end=end,
@@ -169,7 +186,9 @@ class Command(BaseCommand):
                 method=method,
                 amount=amount,
                 notes=notes,
-            ).save()
+            )
+            instance.save()
+            self._add_tags(instance)
         self.time = end
 
     @transaction.atomic
@@ -179,7 +198,9 @@ class Command(BaseCommand):
         :returns:
         """
         note = self.faker.sentence()
-        models.Note.objects.create(child=self.child, note=note).save()
+        instance = models.Note.objects.create(child=self.child, note=note)
+        instance.save()
+        self._add_tags(instance)
 
     @transaction.atomic
     def _add_sleep_entry(self):
@@ -199,9 +220,11 @@ class Command(BaseCommand):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
         if end < self.time_now:
-            models.Sleep.objects.create(
+            instance = models.Sleep.objects.create(
                 child=self.child, start=self.time, end=end, notes=notes
-            ).save()
+            )
+            instance.save()
+            self._add_tags(instance)
         self.time = end
 
     @transaction.atomic
@@ -216,9 +239,11 @@ class Command(BaseCommand):
         if choice([True, False, False, False]):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
-        models.Temperature.objects.create(
+        instance = models.Temperature.objects.create(
             child=self.child, temperature=self.temperature, time=self.time, notes=notes
-        ).save()
+        )
+        instance.save()
+        self._add_tags(instance)
 
     @transaction.atomic
     def _add_tummytime_entry(self):
@@ -235,9 +260,11 @@ class Command(BaseCommand):
             end = start + timedelta(minutes=1, seconds=30)
 
         if end < self.time_now:
-            models.TummyTime.objects.create(
+            instance = models.TummyTime.objects.create(
                 child=self.child, start=start, end=end, milestone=milestone
-            ).save()
+            )
+            instance.save()
+            self._add_tags(instance)
         self.time = end
 
     @transaction.atomic
@@ -252,12 +279,14 @@ class Command(BaseCommand):
         if choice([True, False, False, False]):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
-        models.Weight.objects.create(
+        instance = models.Weight.objects.create(
             child=self.child,
             weight=round(self.weight, 2),
             date=self.time.date(),
             notes=notes,
-        ).save()
+        )
+        instance.save()
+        self._add_tags(instance)
 
     @transaction.atomic
     def _add_height_entry(self):
@@ -271,12 +300,14 @@ class Command(BaseCommand):
         if choice([True, False, False, False]):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
-        models.Height.objects.create(
+        instance = models.Height.objects.create(
             child=self.child,
             height=round(self.height, 2),
             date=self.time.date(),
             notes=notes,
-        ).save()
+        )
+        instance.save()
+        self._add_tags(instance)
 
     @transaction.atomic
     def _add_head_circumference_entry(self):
@@ -290,12 +321,14 @@ class Command(BaseCommand):
         if choice([True, False, False, False]):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
-        models.HeadCircumference.objects.create(
+        instance = models.HeadCircumference.objects.create(
             child=self.child,
             head_circumference=round(self.head_circumference, 2),
             date=self.time.date(),
             notes=notes,
-        ).save()
+        )
+        instance.save()
+        self._add_tags(instance)
 
     @transaction.atomic
     def _add_bmi_entry(self):
@@ -309,6 +342,13 @@ class Command(BaseCommand):
         if choice([True, False, False, False]):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
-        models.BMI.objects.create(
+        instance = models.BMI.objects.create(
             child=self.child, bmi=round(self.bmi, 2), date=self.time.date(), notes=notes
-        ).save()
+        )
+        instance.save()
+        self._add_tags(instance)
+
+    @transaction.atomic
+    def _add_tags(self, instance):
+        if choice([True, False, False, False]):
+            instance.tags.add(*choices(self.tags, k=randint(1, 5)))
