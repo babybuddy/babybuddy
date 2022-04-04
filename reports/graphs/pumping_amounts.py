@@ -17,7 +17,7 @@ def pumping_amounts(objects):
     objects = objects.order_by("time")
 
     # We need to find date totals for annotations at the end
-    curr_date = ''
+    curr_date = ""
     date_totals = {}
     for object in objects:
         date_s = str(object.time.date())
@@ -26,9 +26,9 @@ def pumping_amounts(objects):
             curr_date = date_s
         date_totals[date_s] += object.amount
 
-    dates = [] # Single array for each bar
-    amounts = [] # Array of arrays containing amounts
-    index_x, index_y = 0,-1
+    dates = []  # Single array for each bar
+    amounts = []  # Array of arrays containing amounts
+    index_x, index_y = 0, -1
     for object in objects:
         date_s = str(object.time.date())
         if date_s not in dates:
@@ -36,12 +36,12 @@ def pumping_amounts(objects):
             index_y += 1
             index_x = 0
         if len(amounts) == 0 or len(amounts) <= index_x:
-            amounts.append([0]*len(date_totals.keys()))
+            amounts.append([0] * len(date_totals.keys()))
         amounts[index_x][index_y] = object.amount
         index_x += 1
-        
+
     traces = []
-    for i in range(0, len(amounts)-1):
+    for i in range(0, len(amounts) - 1):
         traces.append(
             go.Bar(
                 name="Amount",
@@ -59,7 +59,11 @@ def pumping_amounts(objects):
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Pumping Amount")
 
-    total_labels = [{"x": x, "y": total*1.1, "text": str(total), "showarrow": False} for x, total in zip(list(dates), date_totals.values())]
+    total_labels = [
+        {"x": x, "y": total * 1.1, "text": str(total), "showarrow": False}
+        for x, total in zip(list(dates), date_totals.values())
+    ]
+
     fig = go.Figure({"data": traces, "layout": go.Layout(**layout_args)})
     fig.update_layout(barmode="stack", annotations=total_labels)
     output = plotly.plot(fig, output_type="div", include_plotlyjs=False)
