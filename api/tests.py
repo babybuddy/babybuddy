@@ -148,6 +148,7 @@ class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "color": "",
                 "amount": 2.25,
                 "notes": "stinky",
+                "tags": [],
             },
         )
 
@@ -207,6 +208,7 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "method": "bottle",
                 "amount": 2.5,
                 "notes": "forgot vitamins :(",
+                "tags": [],
             },
         )
 
@@ -308,6 +310,7 @@ class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "duration": "04:00:00",
                 "nap": False,
                 "notes": "lots of squirming",
+                "tags": [],
             },
         )
 
@@ -356,6 +359,7 @@ class TemperatureAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "temperature": 98.6,
                 "time": "2017-11-17T12:52:00-05:00",
                 "notes": "tympanic",
+                "tags": [],
             },
         )
 
@@ -478,6 +482,7 @@ class TummyTimeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "end": "2017-11-18T15:30:45-05:00",
                 "duration": "00:00:45",
                 "milestone": "",
+                "tags": [],
             },
         )
 
@@ -523,6 +528,7 @@ class WeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "weight": 9.5,
                 "date": "2017-11-18",
                 "notes": "before feed",
+                "tags": [],
             },
         )
 
@@ -605,3 +611,9 @@ class TagsAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         response = self.client.delete(endpoint)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_post_tags_to_model(self):
+        data = {"child": 1, "note": "New tagged note.", "tags": ["tag1", "tag2"]}
+        response = self.client.post(reverse("api:note-list"), data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data["tags"], data["tags"])
