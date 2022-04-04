@@ -6,7 +6,7 @@ from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from taggit.serializers import TagListSerializerField, TaggitSerializer
+from taggit.serializers import TagListSerializerField
 
 from core import models
 
@@ -92,6 +92,10 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
         return attrs
 
 
+class TaggableSerializer(serializers.HyperlinkedModelSerializer):
+    tags = TagListSerializerField(required=False)
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -105,13 +109,23 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
         lookup_field = "slug"
 
 
-class DiaperChangeSerializer(CoreModelSerializer):
+class DiaperChangeSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.DiaperChange
-        fields = ("id", "child", "time", "wet", "solid", "color", "amount", "notes")
+        fields = (
+            "id",
+            "child",
+            "time",
+            "wet",
+            "solid",
+            "color",
+            "amount",
+            "notes",
+            "tags",
+        )
 
 
-class FeedingSerializer(CoreModelWithDurationSerializer):
+class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Feeding
         fields = (
@@ -124,27 +138,26 @@ class FeedingSerializer(CoreModelWithDurationSerializer):
             "method",
             "amount",
             "notes",
+            "tags",
         )
 
 
-class NoteSerializer(TaggitSerializer, CoreModelSerializer):
+class NoteSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Note
         fields = ("id", "child", "note", "time", "tags")
 
-    tags = TagListSerializerField(required=False)
 
-
-class SleepSerializer(CoreModelWithDurationSerializer):
+class SleepSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Sleep
-        fields = ("id", "child", "start", "end", "duration", "nap", "notes")
+        fields = ("id", "child", "start", "end", "duration", "nap", "notes", "tags")
 
 
-class TemperatureSerializer(CoreModelSerializer):
+class TemperatureSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Temperature
-        fields = ("id", "child", "temperature", "time", "notes")
+        fields = ("id", "child", "temperature", "time", "notes", "tags")
 
 
 class TimerSerializer(CoreModelSerializer):
@@ -172,34 +185,34 @@ class TimerSerializer(CoreModelSerializer):
         return attrs
 
 
-class TummyTimeSerializer(CoreModelWithDurationSerializer):
+class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.TummyTime
-        fields = ("id", "child", "start", "end", "duration", "milestone")
+        fields = ("id", "child", "start", "end", "duration", "milestone", "tags")
 
 
-class WeightSerializer(CoreModelSerializer):
+class WeightSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Weight
-        fields = ("id", "child", "weight", "date", "notes")
+        fields = ("id", "child", "weight", "date", "notes", "tags")
 
 
-class HeightSerializer(CoreModelSerializer):
+class HeightSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Height
-        fields = ("id", "child", "height", "date", "notes")
+        fields = ("id", "child", "height", "date", "notes", "tags")
 
 
-class HeadCircumferenceSerializer(CoreModelSerializer):
+class HeadCircumferenceSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.HeadCircumference
-        fields = ("id", "child", "head_circumference", "date", "notes")
+        fields = ("id", "child", "head_circumference", "date", "notes", "tags")
 
 
-class BMISerializer(CoreModelSerializer):
+class BMISerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.BMI
-        fields = ("id", "child", "bmi", "date", "notes")
+        fields = ("id", "child", "bmi", "date", "notes", "tags")
 
 
 class TagSerializer(serializers.HyperlinkedModelSerializer):
