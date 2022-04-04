@@ -1,12 +1,28 @@
 # -*- coding: utf-8 -*-
 from django_filters import rest_framework as filters
+
 from core import models
+
+
+class CharInFilter(filters.BaseInFilter, filters.CharFilter):
+    pass
 
 
 class ChildFieldFilter(filters.FilterSet):
     class Meta:
         abstract = True
         fields = ["child"]
+
+
+class TagsFieldFilter(filters.FilterSet):
+    tags = CharInFilter(
+        field_name="tags__name",
+        label="tag",
+        help_text="A list of tag names, comma separated",
+    )
+
+    class Meta:
+        abstract = True
 
 
 class TimeFieldFilter(ChildFieldFilter):
@@ -47,7 +63,7 @@ class StartEndFieldFilter(ChildFieldFilter):
         )
 
 
-class DiaperChangeFilter(TimeFieldFilter):
+class DiaperChangeFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.DiaperChange
         fields = sorted(
@@ -55,23 +71,23 @@ class DiaperChangeFilter(TimeFieldFilter):
         )
 
 
-class FeedingFilter(StartEndFieldFilter):
+class FeedingFilter(StartEndFieldFilter, TagsFieldFilter):
     class Meta(StartEndFieldFilter.Meta):
         model = models.Feeding
         fields = sorted(StartEndFieldFilter.Meta.fields + ["type", "method"])
 
 
-class NoteFilter(TimeFieldFilter):
+class NoteFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.Note
 
 
-class SleepFilter(StartEndFieldFilter):
+class SleepFilter(StartEndFieldFilter, TagsFieldFilter):
     class Meta(StartEndFieldFilter.Meta):
         model = models.Sleep
 
 
-class TemperatureFilter(TimeFieldFilter):
+class TemperatureFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.Temperature
 
@@ -82,6 +98,6 @@ class TimerFilter(StartEndFieldFilter):
         fields = sorted(StartEndFieldFilter.Meta.fields + ["active", "user"])
 
 
-class TummyTimeFilter(StartEndFieldFilter):
+class TummyTimeFilter(StartEndFieldFilter, TagsFieldFilter):
     class Meta(StartEndFieldFilter.Meta):
         model = models.TummyTime
