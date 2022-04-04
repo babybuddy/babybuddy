@@ -32,7 +32,7 @@ class BMIAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "bmi",
         "date",
     )
-    list_filter = ("child",)
+    list_filter = ("child", "tags")
     search_fields = (
         "child__first_name",
         "child__last_name",
@@ -66,7 +66,7 @@ class DiaperChangeImportExportResource(ImportExportResourceBase):
 @admin.register(models.DiaperChange)
 class DiaperChangeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ("child", "time", "wet", "solid", "color")
-    list_filter = ("child", "wet", "solid", "color")
+    list_filter = ("child", "wet", "solid", "color", "tags")
     search_fields = (
         "child__first_name",
         "child__last_name",
@@ -86,6 +86,7 @@ class FeedingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "child",
         "type",
         "method",
+        "tags",
     )
     search_fields = (
         "child__first_name",
@@ -108,7 +109,7 @@ class HeadCircumferenceAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAd
         "head_circumference",
         "date",
     )
-    list_filter = ("child",)
+    list_filter = ("child", "tags")
     search_fields = (
         "child__first_name",
         "child__last_name",
@@ -129,7 +130,7 @@ class HeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "height",
         "date",
     )
-    list_filter = ("child",)
+    list_filter = ("child", "tags")
     search_fields = (
         "child__first_name",
         "child__last_name",
@@ -150,7 +151,7 @@ class NoteAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "child",
         "note",
     )
-    list_filter = ("child",)
+    list_filter = ("child", "tags")
     search_fields = ("child__last_name",)
     resource_class = NoteImportExportResource
 
@@ -163,7 +164,7 @@ class SleepImportExportResource(ImportExportResourceBase):
 @admin.register(models.Sleep)
 class SleepAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = ("start", "end", "duration", "child", "nap")
-    list_filter = ("child",)
+    list_filter = ("child", "tags")
     search_fields = (
         "child__first_name",
         "child__last_name",
@@ -183,7 +184,7 @@ class TemperatureAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "temperature",
         "time",
     )
-    list_filter = ("child",)
+    list_filter = ("child", "tags")
     search_fields = (
         "child__first_name",
         "child__last_name",
@@ -213,7 +214,7 @@ class TummyTimeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "child",
         "milestone",
     )
-    list_filter = ("child",)
+    list_filter = ("child", "tags")
     search_fields = (
         "child__first_name",
         "child__last_name",
@@ -234,7 +235,7 @@ class WeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "weight",
         "date",
     )
-    list_filter = ("child",)
+    list_filter = ("child", "tags")
     search_fields = (
         "child__first_name",
         "child__last_name",
