@@ -202,7 +202,7 @@ class BMISerializer(CoreModelSerializer):
         fields = ("id", "child", "bmi", "date", "notes")
 
 
-class TagsSerializer(serializers.HyperlinkedModelSerializer):
+class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Tag
         fields = ("slug", "name", "color", "last_used")
