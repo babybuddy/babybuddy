@@ -303,12 +303,6 @@ class DiaperChange(models.Model):
     def clean(self):
         validate_time(self.time, "time")
 
-        # One or both of Wet and Solid is required.
-        if not self.wet and not self.solid:
-            raise ValidationError(
-                _("Wet and/or solid is required."), code="wet_or_solid"
-            )
-
 
 class Feeding(models.Model):
     model_name = "feeding"
