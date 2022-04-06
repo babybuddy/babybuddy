@@ -256,11 +256,6 @@ class DiaperChangeFormsTestCase(FormsTestCaseBase):
             "color": "black",
             "amount": 0.45,
         }
-        page = self.c.post("/changes/add/", params)
-        self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, "form", None, "Wet and/or solid is required.")
-
-        params.update({"wet": 1, "solid": 1, "color": "black"})
         page = self.c.post("/changes/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Diaper Change entry for {} added".format(str(child)))
