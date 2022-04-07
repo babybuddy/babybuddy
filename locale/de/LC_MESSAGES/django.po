@@ -130,7 +130,7 @@ msgstr "<strong>Fehler:</strong> Manche Felder sind fehlerhaft. Details sind unt
 #: babybuddy/templates/babybuddy/nav-dropdown.html:51 core/models.py:158
 #: core/models.py:162
 msgid "Diaper Change"
-msgstr "Windeln wechseln"
+msgstr "Windelwechsel"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:57
 #: babybuddy/templates/babybuddy/nav-dropdown.html:274 core/models.py:227
@@ -743,7 +743,7 @@ msgstr "Brustmilch"
 
 #: core/models.py:200
 msgid "Formula"
-msgstr "Formel"
+msgstr "Formula"
 
 #: core/models.py:205 core/templates/core/feeding_list.html:30
 msgid "Type"
@@ -1068,11 +1068,11 @@ msgstr "%(model)s Eintrag hinzugefügt!"
 
 #: core/views.py:61
 msgid "%(model)s entry for %(child)s updated."
-msgstr "%(model)s Eintrag für %(child)s geändert! "
+msgstr "%(model)s Eintrag für %(child)s geändert."
 
 #: core/views.py:63
 msgid "%(model)s entry updated."
-msgstr "%(model)s Eintrag geändert! "
+msgstr "%(model)s Eintrag geändert."
 
 #: core/views.py:87
 msgid "%(first_name)s %(last_name)s added!"
@@ -1080,7 +1080,7 @@ msgstr "%(first_name)s %(last_name)s added!"
 
 #: core/views.py:361
 msgid "%(timer)s stopped."
-msgstr "%(timer)s gestoppt.."
+msgstr "%(timer)s gestoppt."
 
 #: dashboard/templates/cards/diaperchange_last.html:6
 msgid "Last Diaper Change"
