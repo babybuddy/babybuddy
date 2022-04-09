@@ -159,8 +159,6 @@ class Command(BaseCommand):
         color = ""
         if solid:
             color = choice(models.DiaperChange._meta.get_field("color").choices)[0]
-        if not wet and not solid:
-            wet = True
         amount = Decimal("%d.%d" % (randint(0, 6), randint(1, 9)))
         time = self.time + timedelta(minutes=randint(1, 60))
 
