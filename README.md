@@ -44,6 +44,8 @@ for information about how to create/update translations.
 
 ### Available languages
 
+:es: Catalan
+
 :cn: Chinese (simplified)
 
 :netherlands: Dutch
