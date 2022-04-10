@@ -163,6 +163,7 @@ LOCALE_PATHS = [
 ]
 
 LANGUAGES = [
+    ("ca", _("Catalan")),
     ("zh-hans", _("Chinese (simplified)")),
     ("nl", _("Dutch")),
     ("en-US", _("English (US)")),
