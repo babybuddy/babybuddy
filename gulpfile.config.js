@@ -32,6 +32,7 @@ module.exports = {
             'node_modules/popper.js/dist/umd/popper.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
             'node_modules/moment/moment.js',
+            'node_modules/moment/locale/ca.js',
             'node_modules/moment/locale/de.js',
             'node_modules/moment/locale/en-gb.js',
             'node_modules/moment/locale/es.js',
@@ -49,6 +50,7 @@ module.exports = {
         ],
         graph: [
             'node_modules/plotly.js/dist/plotly-cartesian.js',
+            'node_modules/plotly.js/dist/plotly-locale-ca.js',
             'node_modules/plotly.js/dist/plotly-locale-de.js',
             'node_modules/plotly.js/dist/plotly-locale-es.js',
             'node_modules/plotly.js/dist/plotly-locale-fi.js',
