@@ -25,11 +25,11 @@ information and steps below to set up a local development environment for Baby B
     
 1. Installed Node 14.x (if necessary)
 
-        nvm install 14
+       nvm install 14
 
 1. Activate Node 14.x
 
-        nvm use
+       nvm use
 
 1. Install Gulp CLI
 
