@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.urls import reverse
-from django.utils import timezone
-
-from rest_framework import status
-from rest_framework.test import APITestCase
-
 from babybuddy.models import User
 from core import models
+from django.urls import reverse
+from django.utils import timezone
+from rest_framework import status
+from rest_framework.test import APITestCase
 
 
 class TestBase:

@@ -6,15 +6,13 @@ from datetime import timedelta
 from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
-from django.db import models
-from django.utils.text import slugify
-from django.utils import timezone
-from django.utils.text import format_lazy
-from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
-
+from django.db import models
+from django.utils import timezone
+from django.utils.text import format_lazy, slugify
+from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
-from taggit.models import TagBase, GenericTaggedItemBase
+from taggit.models import GenericTaggedItemBase, TagBase
 
 random.seed()
 
