@@ -215,6 +215,24 @@ class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(obj.amount, data["amount"])
         self.assertEqual(obj.notes, data["notes"])
 
+    def test_post_null_time(self):
+        data = {
+            "child": 1,
+            "wet": False,
+            "solid": True,
+            "color": "black",
+            "amount": 3,
+            "notes": "noxious",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.DiaperChange.objects.get(pk=response.data["id"])
+        self.assertFalse(obj.wet)
+        self.assertTrue(obj.solid)
+        self.assertEqual(obj.color, data["color"])
+        self.assertEqual(obj.amount, data["amount"])
+        self.assertEqual(obj.notes, data["notes"])
+
     def test_patch(self):
         endpoint = "{}{}/".format(self.endpoint, 3)
         response = self.client.get(endpoint)
@@ -319,6 +337,16 @@ class NoteAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         obj = models.Note.objects.get(pk=response.data["id"])
         self.assertEqual(obj.note, data["note"])
 
+    def test_post_null_time(self):
+        data = {
+            "child": 1,
+            "note": "Another fake note.",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.Note.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.note, data["note"])
+
     def test_patch(self):
         endpoint = "{}{}/".format(self.endpoint, 1)
         response = self.client.get(endpoint)
@@ -413,6 +441,18 @@ class TemperatureAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             "temperature": "100.1",
             "time": "2017-11-20T22:52:00-05:00",
             "notes": "rectal",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.Temperature.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.temperature), data["temperature"])
+        self.assertEqual(obj.notes, data["notes"])
+
+    def test_post_null_time(self):
+        data = {
+            "child": 1,
+            "temperature": "100.5",
+            "notes": "temporal",
         }
         response = self.client.post(self.endpoint, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -582,6 +622,18 @@ class WeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             "weight": "9.75",
             "date": "2017-11-20",
             "notes": "after feed",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.Weight.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.weight), data["weight"])
+        self.assertEqual(str(obj.notes), data["notes"])
+
+    def test_post_null_date(self):
+        data = {
+            "child": 1,
+            "weight": "12.25",
+            "notes": "with diaper at peds",
         }
         response = self.client.post(self.endpoint, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
