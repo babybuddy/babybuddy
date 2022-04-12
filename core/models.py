@@ -259,7 +259,9 @@ class DiaperChange(models.Model):
         related_name="diaper_change",
         verbose_name=_("Child"),
     )
-    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    time = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("Time")
+    )
     wet = models.BooleanField(verbose_name=_("Wet"))
     solid = models.BooleanField(verbose_name=_("Solid"))
     color = models.CharField(
@@ -377,7 +379,7 @@ class Note(models.Model):
     )
     note = models.TextField(verbose_name=_("Note"))
     time = models.DateTimeField(
-        default=timezone.now, blank=False, verbose_name=_("Time")
+        blank=False, default=timezone.localtime, verbose_name=_("Time")
     )
     tags = TaggableManager(blank=True, through=Tagged)
 
@@ -460,7 +462,9 @@ class Temperature(models.Model):
     temperature = models.FloatField(
         blank=False, null=False, verbose_name=_("Temperature")
     )
-    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    time = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("Time")
+    )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
 
@@ -624,7 +628,9 @@ class Weight(models.Model):
         verbose_name=_("Child"),
     )
     weight = models.FloatField(blank=False, null=False, verbose_name=_("Weight"))
-    date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
 
@@ -652,7 +658,9 @@ class Height(models.Model):
         verbose_name=_("Child"),
     )
     height = models.FloatField(blank=False, null=False, verbose_name=_("Height"))
-    date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
 
@@ -682,7 +690,9 @@ class HeadCircumference(models.Model):
     head_circumference = models.FloatField(
         blank=False, null=False, verbose_name=_("Head Circumference")
     )
-    date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
 
@@ -707,7 +717,9 @@ class BMI(models.Model):
         "Child", on_delete=models.CASCADE, related_name="bmi", verbose_name=_("Child")
     )
     bmi = models.FloatField(blank=False, null=False, verbose_name=_("BMI"))
-    date = models.DateField(blank=False, null=False, verbose_name=_("Date"))
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
 
