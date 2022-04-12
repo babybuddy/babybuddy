@@ -2,7 +2,6 @@
 import random
 import re
 from datetime import timedelta
-from typing import Iterable, Optional
 
 from django.conf import settings
 from django.core.cache import cache
