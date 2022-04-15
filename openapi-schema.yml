@@ -356,6 +356,12 @@ paths:
         description: wet
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -471,6 +477,12 @@ paths:
         description: wet
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -541,6 +553,12 @@ paths:
         required: false
         in: query
         description: wet
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       requestBody:
@@ -626,6 +644,12 @@ paths:
         description: wet
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -707,6 +731,12 @@ paths:
         required: false
         in: query
         description: wet
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       responses:
@@ -797,6 +827,12 @@ paths:
           - formula
           - fortified breast milk
           - solid food
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -925,6 +961,12 @@ paths:
           - formula
           - fortified breast milk
           - solid food
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -1010,6 +1052,12 @@ paths:
           - formula
           - fortified breast milk
           - solid food
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1106,6 +1154,12 @@ paths:
           - formula
           - fortified breast milk
           - solid food
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1202,6 +1256,12 @@ paths:
           - formula
           - fortified breast milk
           - solid food
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '204':
           description: ''
@@ -1246,6 +1306,12 @@ paths:
         required: false
         in: query
         description: Min. Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       responses:
@@ -1334,6 +1400,12 @@ paths:
         description: Min. Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -1375,6 +1447,12 @@ paths:
         required: false
         in: query
         description: Min. Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       requestBody:
@@ -1431,6 +1509,12 @@ paths:
         description: Min. Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1483,6 +1567,12 @@ paths:
         required: false
         in: query
         description: Min. Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       responses:
@@ -1547,6 +1637,12 @@ paths:
         required: false
         in: query
         description: Min. Start Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       responses:
@@ -1653,6 +1749,12 @@ paths:
         description: Min. Start Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -1712,6 +1814,12 @@ paths:
         required: false
         in: query
         description: Min. Start Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       requestBody:
@@ -1786,6 +1894,12 @@ paths:
         description: Min. Start Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1858,6 +1972,295 @@ paths:
         description: Min. Start Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/pumping/:
+    get:
+      operationId: listPumpings
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pumping'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createPumping
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pumping'
+          description: ''
+      tags:
+      - api
+  /api/pumping/{id}/:
+    get:
+      operationId: retrievePumping
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Pumping.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pumping'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updatePumping
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Pumping.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pumping'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdatePumping
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Pumping.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pumping'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyPumping
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Pumping.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: Date
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. Date
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. Date
+        schema:
+          type: string
       responses:
         '204':
           description: ''
@@ -1902,6 +2305,12 @@ paths:
         required: false
         in: query
         description: Min. Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       responses:
@@ -1990,6 +2399,12 @@ paths:
         description: Min. Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -2031,6 +2446,12 @@ paths:
         required: false
         in: query
         description: Min. Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       requestBody:
@@ -2087,6 +2508,12 @@ paths:
         description: Min. Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -2139,6 +2566,12 @@ paths:
         required: false
         in: query
         description: Min. Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       responses:
@@ -2638,6 +3071,12 @@ paths:
         description: Min. Start Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -2742,6 +3181,12 @@ paths:
         description: Min. Start Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       responses:
         '200':
           content:
@@ -2801,6 +3246,12 @@ paths:
         required: false
         in: query
         description: Min. Start Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       requestBody:
@@ -2875,6 +3326,12 @@ paths:
         description: Min. Start Date
         schema:
           type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -2945,6 +3402,12 @@ paths:
         required: false
         in: query
         description: Min. Start Date
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
         schema:
           type: string
       responses:
@@ -4185,6 +4648,8 @@ components:
         notes:
           type: string
           nullable: true
+        tags:
+          type: string
       required:
       - child
       - time
@@ -4230,6 +4695,8 @@ components:
         notes:
           type: string
           nullable: true
+        tags:
+          type: string
       required:
       - type
       - method
@@ -4275,6 +4742,28 @@ components:
         notes:
           type: string
           nullable: true
+        tags:
+          type: string
+    Pumping:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+        amount:
+          type: number
+        time:
+          type: string
+          format: date-time
+        notes:
+          type: string
+          nullable: true
+      required:
+      - child
+      - amount
+      - time
     Temperature:
       type: object
       properties:
@@ -4291,6 +4780,8 @@ components:
         notes:
           type: string
           nullable: true
+        tags:
+          type: string
       required:
       - child
       - temperature
@@ -4345,6 +4836,8 @@ components:
         milestone:
           type: string
           maxLength: 255
+        tags:
+          type: string
     Weight:
       type: object
       properties:
@@ -4361,6 +4854,8 @@ components:
         notes:
           type: string
           nullable: true
+        tags:
+          type: string
       required:
       - child
       - weight
@@ -4381,6 +4876,8 @@ components:
         notes:
           type: string
           nullable: true
+        tags:
+          type: string
       required:
       - child
       - height
@@ -4401,6 +4898,8 @@ components:
         notes:
           type: string
           nullable: true
+        tags:
+          type: string
       required:
       - child
       - head_circumference
@@ -4421,6 +4920,8 @@ components:
         notes:
           type: string
           nullable: true
+        tags:
+          type: string
       required:
       - child
       - bmi
