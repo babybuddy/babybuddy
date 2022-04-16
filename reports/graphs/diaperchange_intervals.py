@@ -85,7 +85,6 @@ def diaperchange_intervals(changes):
     return utils.split_graph_output(output)
 
 
-
 def _duration_string_hms(duration):
     """
     Format a duration string with hours, minutes and seconds. This is
