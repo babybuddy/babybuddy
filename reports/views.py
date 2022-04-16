@@ -80,7 +80,7 @@ class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
 
     model = models.Child
     permission_required = ("core.view_child",)
-    template_name = "reports/diaperchange_types.html"
+    template_name = "reports/diaperchange_intervals.html"
 
     def get_context_data(self, **kwargs):
         context = super(DiaperChangeTypesChildReport, self).get_context_data(**kwargs)
@@ -88,6 +88,26 @@ class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
         changes = models.DiaperChange.objects.filter(child=child)
         if changes:
             context["html"], context["js"] = graphs.diaperchange_types(changes)
+        return context
+
+
+class DiaperChangeIntervalsChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of diaper change intervals.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/diaperchange_intervals.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DiaperChangeIntervalsChildReport, self).get_context_data(
+            **kwargs
+        )
+        child = context["object"]
+        changes = models.DiaperChange.objects.filter(child=child)
+        if changes:
+            context["html"], context["js"] = graphs.diaperchange_intervals(changes)
         return context
 
 
@@ -136,6 +156,23 @@ class FeedingDurationChildReport(PermissionRequiredMixin, DetailView):
             context["html"], context["js"] = graphs.feeding_duration(instances)
         return context
 
+
+class FeedingIntervalsChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of diaper change intervals.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/feeding_intervals.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(FeedingIntervalsChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        instances = models.Feeding.objects.filter(child=child)
+        if instances:
+            context["html"], context["js"] = graphs.feeding_intervals(instances)
+        return context
 
 class HeadCircumferenceChangeChildReport(PermissionRequiredMixin, DetailView):
     """

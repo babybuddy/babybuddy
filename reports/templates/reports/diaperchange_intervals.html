@@ -1,0 +1,9 @@
+{% extends 'reports/report_base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Diaper Change Intervals" %} - {{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Diaper Change Intervals" %}</li>
+{% endblock %}
