@@ -46,7 +46,7 @@ def feeding_intervals(instances):
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args["title"] = _("<b>Feeding interval</b>")
+    layout_args["title"] = _("<b>Feeding intervals</b>")
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Feeding interval (minutes)")
