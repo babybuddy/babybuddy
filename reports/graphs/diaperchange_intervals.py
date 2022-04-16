@@ -25,13 +25,13 @@ def diaperchange_intervals(changes):
     intervals_wet = []
     last_change = changes.first()
     for change in changes[1:]:
-        duration = change.time - last_change.time
-        if duration.seconds > 0:
-            intervals.append(duration)
+        interval = change.time - last_change.time
+        if interval.seconds > 0:
+            intervals.append(interval)
             if change.solid:
-                intervals_solid.append(duration)
+                intervals_solid.append(interval)
             if change.wet:
-                intervals_wet.append(duration)
+                intervals_wet.append(interval)
         last_change = change
 
     trace_solid = go.Scatter(
