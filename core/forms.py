@@ -5,7 +5,10 @@ from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+from taggit.forms import TagField
+
 from core import models
+from core.widgets import TagsEditor
 
 
 def set_initial_values(kwargs, form_type):
@@ -124,6 +127,17 @@ class ChildDeleteForm(forms.ModelForm):
         return instance
 
 
+class TaggableModelForm(forms.ModelForm):
+    tags = TagField(
+        widget=TagsEditor,
+        required=False,
+        strip=True,
+        help_text=_(
+            "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
+        ),
+    )
+
+
 class PumpingForm(CoreModelForm):
     class Meta:
         model = models.Pumping
@@ -139,7 +153,7 @@ class PumpingForm(CoreModelForm):
         }
 
 
-class DiaperChangeForm(CoreModelForm):
+class DiaperChangeForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.DiaperChange
         fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
@@ -154,7 +168,7 @@ class DiaperChangeForm(CoreModelForm):
         }
 
 
-class FeedingForm(CoreModelForm):
+class FeedingForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Feeding
         fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
@@ -175,7 +189,7 @@ class FeedingForm(CoreModelForm):
         }
 
 
-class NoteForm(CoreModelForm):
+class NoteForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Note
         fields = ["child", "note", "time", "tags"]
@@ -185,11 +199,11 @@ class NoteForm(CoreModelForm):
                     "autocomplete": "off",
                     "data-target": "#datetimepicker_time",
                 }
-            ),
+            )
         }
 
 
-class SleepForm(CoreModelForm):
+class SleepForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Sleep
         fields = ["child", "start", "end", "notes", "tags"]
@@ -210,7 +224,7 @@ class SleepForm(CoreModelForm):
         }
 
 
-class TemperatureForm(CoreModelForm):
+class TemperatureForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Temperature
         fields = ["child", "temperature", "time", "notes", "tags"]
@@ -249,7 +263,7 @@ class TimerForm(CoreModelForm):
         return instance
 
 
-class TummyTimeForm(CoreModelForm):
+class TummyTimeForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.TummyTime
         fields = ["child", "start", "end", "milestone", "tags"]
@@ -269,7 +283,7 @@ class TummyTimeForm(CoreModelForm):
         }
 
 
-class WeightForm(CoreModelForm):
+class WeightForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Weight
         fields = ["child", "weight", "date", "notes", "tags"]
@@ -284,7 +298,7 @@ class WeightForm(CoreModelForm):
         }
 
 
-class HeightForm(CoreModelForm):
+class HeightForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Height
         fields = ["child", "height", "date", "notes", "tags"]
@@ -299,7 +313,7 @@ class HeightForm(CoreModelForm):
         }
 
 
-class HeadCircumferenceForm(CoreModelForm):
+class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.HeadCircumference
         fields = ["child", "head_circumference", "date", "notes", "tags"]
@@ -314,7 +328,7 @@ class HeadCircumferenceForm(CoreModelForm):
         }
 
 
-class BMIForm(CoreModelForm):
+class BMIForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.BMI
         fields = ["child", "bmi", "date", "notes", "tags"]
