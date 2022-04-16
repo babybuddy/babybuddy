@@ -92,5 +92,4 @@ def _duration_string_hms(duration):
     :returns: a string of the form Xm.
     """
     h, m, s = duration_parts(duration)
-    print(duration, h, m, s)
     return "{}h{}m{}s".format(h, m, s)
