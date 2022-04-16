@@ -14,7 +14,7 @@ from reports import utils
 
 def diaperchange_intervals(changes):
     """
-    Create a graph showing types of totals for diaper changes.
+    Create a graph showing intervals of diaper changes.
     :param changes: a QuerySet of Diaper Change instances.
     :returns: a tuple of the the graph's html and javascript.
     """
