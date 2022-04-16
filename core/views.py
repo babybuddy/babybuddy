@@ -71,6 +71,34 @@ class CoreDeleteView(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
         }
 
 
+class BMIList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.BMI
+    template_name = "core/bmi_list.html"
+    permission_required = ("core.view_bmi",)
+    paginate_by = 10
+    filterset_fields = ("child",)
+
+
+class BMIAdd(CoreAddView):
+    model = models.BMI
+    permission_required = ("core.add_bmi",)
+    form_class = forms.BMIForm
+    success_url = reverse_lazy("core:bmi-list")
+
+
+class BMIUpdate(CoreUpdateView):
+    model = models.BMI
+    permission_required = ("core.change_bmi",)
+    form_class = forms.BMIForm
+    success_url = reverse_lazy("core:bmi-list")
+
+
+class BMIDelete(CoreDeleteView):
+    model = models.BMI
+    permission_required = ("core.delete_bmi",)
+    success_url = reverse_lazy("core:bmi-list")
+
+
 class ChildList(PermissionRequiredMixin, BabyBuddyFilterView):
     model = models.Child
     template_name = "core/child_list.html"
@@ -119,36 +147,6 @@ class ChildDelete(CoreUpdateView):
             "model": self.model._meta.verbose_name.title()
         }
         return success_message % cleaned_data
-
-
-class PumpingList(PermissionRequiredMixin, BabyBuddyFilterView):
-    model = models.Pumping
-    template_name = "core/pumping_list.html"
-    permission_required = ("core.view_pumping",)
-    paginate_by = 10
-    filterset_fields = ("child",)
-
-
-class PumpingAdd(CoreAddView):
-    model = models.Pumping
-    permission_required = ("core.add_pumping",)
-    form_class = forms.PumpingForm
-    success_url = reverse_lazy("core:pumping-list")
-    success_message = _("%(model)s entry added!")
-
-
-class PumpingUpdate(CoreUpdateView):
-    model = models.Pumping
-    permission_required = ("core.change_pumping",)
-    form_class = forms.PumpingForm
-    success_url = reverse_lazy("core:pumping-list")
-    success_message = _("%(model)s entry for %(child)s updated.")
-
-
-class PumpingDelete(CoreDeleteView):
-    model = models.Pumping
-    permission_required = ("core.delete_pumping",)
-    success_url = reverse_lazy("core:pumping-list")
 
 
 class DiaperChangeList(PermissionRequiredMixin, BabyBuddyFilterView):
@@ -207,6 +205,65 @@ class FeedingDelete(CoreDeleteView):
     success_url = reverse_lazy("core:feeding-list")
 
 
+class HeadCircumferenceList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.HeadCircumference
+    template_name = "core/head_circumference_list.html"
+    permission_required = ("core.view_head_circumference",)
+    paginate_by = 10
+    filterset_fields = ("child",)
+
+
+class HeadCircumferenceAdd(CoreAddView):
+    model = models.HeadCircumference
+    template_name = "core/head_circumference_form.html"
+    permission_required = ("core.add_head_circumference",)
+    form_class = forms.HeadCircumferenceForm
+    success_url = reverse_lazy("core:head-circumference-list")
+
+
+class HeadCircumferenceUpdate(CoreUpdateView):
+    model = models.HeadCircumference
+    template_name = "core/head_circumference_form.html"
+    permission_required = ("core.change_head_circumference",)
+    form_class = forms.HeadCircumferenceForm
+    success_url = reverse_lazy("core:head-circumference-list")
+
+
+class HeadCircumferenceDelete(CoreDeleteView):
+    model = models.HeadCircumference
+    template_name = "core/head_circumference_confirm_delete.html"
+    permission_required = ("core.delete_head_circumference",)
+    success_url = reverse_lazy("core:head-circumference-list")
+
+
+class HeightList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.Height
+    template_name = "core/height_list.html"
+    permission_required = ("core.view_height",)
+    paginate_by = 10
+    filterset_fields = ("child",)
+
+
+class HeightAdd(CoreAddView):
+    model = models.Height
+    permission_required = ("core.add_height",)
+    form_class = forms.HeightForm
+    success_url = reverse_lazy("core:height-list")
+
+
+class HeightUpdate(CoreUpdateView):
+    model = models.Height
+    permission_required = ("core.change_height",)
+    form_class = forms.HeightForm
+    success_url = reverse_lazy("core:height-list")
+
+
+class HeightDelete(CoreDeleteView):
+    model = models.Height
+    permission_required = ("core.delete_height",)
+    success_url = reverse_lazy("core:height-list")
+
+
 class NoteList(PermissionRequiredMixin, BabyBuddyFilterView):
     model = models.Note
     template_name = "core/note_list.html"
@@ -233,6 +290,36 @@ class NoteDelete(CoreDeleteView):
     model = models.Note
     permission_required = ("core.delete_note",)
     success_url = reverse_lazy("core:note-list")
+
+
+class PumpingList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.Pumping
+    template_name = "core/pumping_list.html"
+    permission_required = ("core.view_pumping",)
+    paginate_by = 10
+    filterset_fields = ("child",)
+
+
+class PumpingAdd(CoreAddView):
+    model = models.Pumping
+    permission_required = ("core.add_pumping",)
+    form_class = forms.PumpingForm
+    success_url = reverse_lazy("core:pumping-list")
+    success_message = _("%(model)s entry added!")
+
+
+class PumpingUpdate(CoreUpdateView):
+    model = models.Pumping
+    permission_required = ("core.change_pumping",)
+    form_class = forms.PumpingForm
+    success_url = reverse_lazy("core:pumping-list")
+    success_message = _("%(model)s entry for %(child)s updated.")
+
+
+class PumpingDelete(CoreDeleteView):
+    model = models.Pumping
+    permission_required = ("core.delete_pumping",)
+    success_url = reverse_lazy("core:pumping-list")
 
 
 class SleepList(PermissionRequiredMixin, BabyBuddyFilterView):
@@ -488,90 +575,3 @@ class WeightDelete(CoreDeleteView):
     model = models.Weight
     permission_required = ("core.delete_weight",)
     success_url = reverse_lazy("core:weight-list")
-
-
-class HeightList(PermissionRequiredMixin, BabyBuddyFilterView):
-    model = models.Height
-    template_name = "core/height_list.html"
-    permission_required = ("core.view_height",)
-    paginate_by = 10
-    filterset_fields = ("child",)
-
-
-class HeightAdd(CoreAddView):
-    model = models.Height
-    permission_required = ("core.add_height",)
-    form_class = forms.HeightForm
-    success_url = reverse_lazy("core:height-list")
-
-
-class HeightUpdate(CoreUpdateView):
-    model = models.Height
-    permission_required = ("core.change_height",)
-    form_class = forms.HeightForm
-    success_url = reverse_lazy("core:height-list")
-
-
-class HeightDelete(CoreDeleteView):
-    model = models.Height
-    permission_required = ("core.delete_height",)
-    success_url = reverse_lazy("core:height-list")
-
-
-class HeadCircumferenceList(PermissionRequiredMixin, BabyBuddyFilterView):
-    model = models.HeadCircumference
-    template_name = "core/head_circumference_list.html"
-    permission_required = ("core.view_head_circumference",)
-    paginate_by = 10
-    filterset_fields = ("child",)
-
-
-class HeadCircumferenceAdd(CoreAddView):
-    model = models.HeadCircumference
-    template_name = "core/head_circumference_form.html"
-    permission_required = ("core.add_head_circumference",)
-    form_class = forms.HeadCircumferenceForm
-    success_url = reverse_lazy("core:head-circumference-list")
-
-
-class HeadCircumferenceUpdate(CoreUpdateView):
-    model = models.HeadCircumference
-    template_name = "core/head_circumference_form.html"
-    permission_required = ("core.change_head_circumference",)
-    form_class = forms.HeadCircumferenceForm
-    success_url = reverse_lazy("core:head-circumference-list")
-
-
-class HeadCircumferenceDelete(CoreDeleteView):
-    model = models.HeadCircumference
-    template_name = "core/head_circumference_delete.html"
-    permission_required = ("core.delete_head_circumference",)
-    success_url = reverse_lazy("core:head-circumference-list")
-
-
-class BMIList(PermissionRequiredMixin, BabyBuddyFilterView):
-    model = models.BMI
-    template_name = "core/bmi_list.html"
-    permission_required = ("core.view_bmi",)
-    paginate_by = 10
-    filterset_fields = ("child",)
-
-
-class BMIAdd(CoreAddView):
-    model = models.BMI
-    permission_required = ("core.add_bmi",)
-    form_class = forms.BMIForm
-    success_url = reverse_lazy("core:bmi-list")
-
-
-class BMIUpdate(CoreUpdateView):
-    model = models.BMI
-    permission_required = ("core.change_bmi",)
-    form_class = forms.BMIForm
-    success_url = reverse_lazy("core:bmi-list")
-
-
-class BMIDelete(CoreDeleteView):
-    model = models.BMI
-    permission_required = ("core.delete_bmi",)
-    success_url = reverse_lazy("core:bmi-list")
