@@ -55,7 +55,7 @@ def card_diaperchange_types(context, child, date=None):
     seven days.
     :param child: an instance of the Child model.
     :param date: a Date object for the day to filter.
-    :returns: a dictionary with the wet/dry statistics.
+    :returns: a dictionary with the wet/solid/empty statistics.
     """
     if not date:
         time = timezone.localtime()
@@ -70,7 +70,7 @@ def card_diaperchange_types(context, child, date=None):
     )
 
     for x in range(7):
-        stats[x] = {"wet": 0.0, "solid": 0.0}
+        stats[x] = {"wet": 0.0, "solid": 0.0, "empty": 0.0}
 
     instances = (
         models.DiaperChange.objects.filter(child=child)
@@ -86,13 +86,16 @@ def card_diaperchange_types(context, child, date=None):
             stats[key]["wet"] += 1
         if instance.solid:
             stats[key]["solid"] += 1
+        if not instance.wet and not instance.solid:
+            stats[key]["empty"] += 1
 
     for key, info in stats.items():
-        total = info["wet"] + info["solid"]
+        total = info["wet"] + info["solid"] + info["empty"]
         week_total += total
         if total > 0:
             stats[key]["wet_pct"] = info["wet"] / total * 100
             stats[key]["solid_pct"] = info["solid"] / total * 100
+            stats[key]["empty_pct"] = info["empty"] / total * 100
 
     return {
         "type": "diaperchange",

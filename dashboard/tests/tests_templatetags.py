@@ -92,13 +92,62 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_diaperchange_types(self.context, self.child, self.date)
         self.assertEqual(data["type"], "diaperchange")
         stats = {
-            0: {"wet_pct": 50.0, "solid_pct": 50.0, "solid": 1, "wet": 1},
-            1: {"wet_pct": 0.0, "solid_pct": 100.0, "solid": 2, "wet": 0},
-            2: {"wet_pct": 100.0, "solid_pct": 0.0, "solid": 0, "wet": 2},
-            3: {"wet_pct": 75.0, "solid_pct": 25.0, "solid": 1, "wet": 3},
-            4: {"wet_pct": 100.0, "solid_pct": 0.0, "solid": 0, "wet": 1},
-            5: {"wet_pct": 100.0, "solid_pct": 0.0, "solid": 0, "wet": 2},
-            6: {"wet_pct": 100.0, "solid_pct": 0.0, "solid": 0, "wet": 1},
+            0: {
+                "wet_pct": 50.0,
+                "solid_pct": 50.0,
+                "empty_pct": 0.0,
+                "solid": 1,
+                "wet": 1,
+                "empty": 0.0,
+            },
+            1: {
+                "wet_pct": 0.0,
+                "solid_pct": 100.0,
+                "empty_pct": 0.0,
+                "solid": 2,
+                "wet": 0,
+                "empty": 0.0,
+            },
+            2: {
+                "wet_pct": 100.0,
+                "solid_pct": 0.0,
+                "empty_pct": 0.0,
+                "solid": 0,
+                "wet": 2,
+                "empty": 0.0,
+            },
+            3: {
+                "wet_pct": 75.0,
+                "solid_pct": 25.0,
+                "empty_pct": 0.0,
+                "solid": 1,
+                "wet": 3,
+                "empty": 0.0,
+            },
+            4: {
+                "wet_pct": 100.0,
+                "solid_pct": 0.0,
+                "empty_pct": 0.0,
+                "solid": 0,
+                "wet": 1,
+                "empty": 0.0,
+            },
+            5: {
+                "wet_pct": 100.0,
+                "solid_pct": 0.0,
+                "empty_pct": 0.0,
+                "solid": 0,
+                "wet": 2,
+                "empty": 0.0,
+            },
+            6: {
+                "wet_pct": 100.0,
+                "solid_pct": 0.0,
+                "empty_pct": 0.0,
+                "solid": 0,
+                "wet": 1,
+                "empty": 0.0,
+            },
         }
         self.assertEqual(data["stats"], stats)
 
