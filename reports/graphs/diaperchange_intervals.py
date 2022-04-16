@@ -52,8 +52,6 @@ def diaperchange_intervals(changes):
         text=[_duration_string_hms(i) for i in intervals_wet],
     )
 
-    print(intervals, [i.seconds / 60 for i in intervals])
-
     trace_total = go.Scatter(
         name=_("Total"),
         line=dict(shape="spline"),
