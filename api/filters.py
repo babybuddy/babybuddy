@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from django_filters import rest_framework as filters
-
 from core import models
+from django_filters import rest_framework as filters
 
 
 class CharInFilter(filters.BaseInFilter, filters.CharFilter):
@@ -26,12 +25,12 @@ class TagsFieldFilter(filters.FilterSet):
 
 
 class TimeFieldFilter(ChildFieldFilter):
-    date = filters.DateFilter(field_name="time__date", label="Date")
-    date_max = filters.DateFilter(
-        field_name="time__date", label="Max. Date", lookup_expr="lte"
+    date = filters.IsoDateTimeFilter(field_name="time", label="DateTime")
+    date_max = filters.IsoDateTimeFilter(
+        field_name="time", label="Max. DateTime", lookup_expr="lte"
     )
-    date_min = filters.DateFilter(
-        field_name="time__date", label="Min. Date", lookup_expr="gte"
+    date_min = filters.IsoDateTimeFilter(
+        field_name="time", label="Min. DateTime", lookup_expr="gte"
     )
 
     class Meta:
@@ -40,19 +39,19 @@ class TimeFieldFilter(ChildFieldFilter):
 
 
 class StartEndFieldFilter(ChildFieldFilter):
-    end = filters.DateFilter(field_name="end__date", label="End Date")
-    end_max = filters.DateFilter(
-        field_name="end__date", label="Max. End Date", lookup_expr="lte"
+    end = filters.IsoDateTimeFilter(field_name="end", label="End DateTime")
+    end_max = filters.IsoDateTimeFilter(
+        field_name="end", label="Max. End DateTime", lookup_expr="lte"
     )
-    end_min = filters.DateFilter(
-        field_name="end__date", label="Min. End Date", lookup_expr="gte"
+    end_min = filters.IsoDateTimeFilter(
+        field_name="end", label="Min. End DateTime", lookup_expr="gte"
     )
-    start = filters.DateFilter(field_name="start__date", label="Start Date")
-    start_max = filters.DateFilter(
-        field_name="start__date", lookup_expr="lte", label="Max. End Date"
+    start = filters.IsoDateTimeFilter(field_name="start", label="Start DateTime")
+    start_max = filters.IsoDateTimeFilter(
+        field_name="start", lookup_expr="lte", label="Max. End DateTime"
     )
-    start_min = filters.DateFilter(
-        field_name="start__date", lookup_expr="gte", label="Min. Start Date"
+    start_min = filters.IsoDateTimeFilter(
+        field_name="start", lookup_expr="gte", label="Min. Start DateTime"
     )
 
     class Meta:
