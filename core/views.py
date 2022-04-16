@@ -12,7 +12,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from babybuddy.views import BabyBuddyFilterView
-from core import forms, models, timeline
+from core import filters, forms, models, timeline
 
 
 def _prepare_timeline_context_data(context, date, child=None):
@@ -76,7 +76,7 @@ class BMIList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/bmi_list.html"
     permission_required = ("core.view_bmi",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.BMIFilter
 
 
 class BMIAdd(CoreAddView):
@@ -154,7 +154,7 @@ class DiaperChangeList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/diaperchange_list.html"
     permission_required = ("core.view_diaperchange",)
     paginate_by = 10
-    filterset_fields = ("child", "wet", "solid", "color")
+    filterset_class = filters.DiaperChangeFilter
 
 
 class DiaperChangeAdd(CoreAddView):
@@ -182,7 +182,7 @@ class FeedingList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/feeding_list.html"
     permission_required = ("core.view_feeding",)
     paginate_by = 10
-    filterset_fields = ("child", "type", "method")
+    filterset_class = filters.FeedingFilter
 
 
 class FeedingAdd(CoreAddView):
@@ -210,7 +210,7 @@ class HeadCircumferenceList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/head_circumference_list.html"
     permission_required = ("core.view_head_circumference",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.HeadCircumferenceFilter
 
 
 class HeadCircumferenceAdd(CoreAddView):
@@ -241,7 +241,7 @@ class HeightList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/height_list.html"
     permission_required = ("core.view_height",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.HeightFilter
 
 
 class HeightAdd(CoreAddView):
@@ -269,7 +269,7 @@ class NoteList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/note_list.html"
     permission_required = ("core.view_note",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.NoteFilter
 
 
 class NoteAdd(CoreAddView):
@@ -297,7 +297,7 @@ class PumpingList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/pumping_list.html"
     permission_required = ("core.view_pumping",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.PumpingFilter
 
 
 class PumpingAdd(CoreAddView):
@@ -327,7 +327,7 @@ class SleepList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/sleep_list.html"
     permission_required = ("core.view_sleep",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.SleepFilter
 
 
 class SleepAdd(CoreAddView):
@@ -355,7 +355,7 @@ class TemperatureList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/temperature_list.html"
     permission_required = ("core.view_temperature",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.TemperatureFilter
 
 
 class TemperatureAdd(CoreAddView):
@@ -526,7 +526,7 @@ class TummyTimeList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/tummytime_list.html"
     permission_required = ("core.view_tummytime",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.TummyTimeFilter
 
 
 class TummyTimeAdd(CoreAddView):
@@ -554,7 +554,7 @@ class WeightList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/weight_list.html"
     permission_required = ("core.view_weight",)
     paginate_by = 10
-    filterset_fields = ("child",)
+    filterset_class = filters.WeightFilter
 
 
 class WeightAdd(CoreAddView):
