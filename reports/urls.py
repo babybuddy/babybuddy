@@ -47,6 +47,11 @@ urlpatterns = [
         name="report-feeding-duration-child",
     ),
     path(
+        "children/<str:slug>/reports/feeding/intervals/",
+        views.FeedingIntervalsChildReport.as_view(),
+        name="report-feeding-intervals-child",
+    ),
+    path(
         "children/<str:slug>/reports/sleep/pattern/",
         views.SleepPatternChildReport.as_view(),
         name="report-sleep-pattern-child",

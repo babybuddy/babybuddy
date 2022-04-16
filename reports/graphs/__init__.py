@@ -5,6 +5,7 @@ from .diaperchange_types import diaperchange_types  # NOQA
 from .diaperchange_intervals import diaperchange_intervals  # NOQA
 from .feeding_amounts import feeding_amounts  # NOQA
 from .feeding_duration import feeding_duration  # NOQA
+from .feeding_intervals import feeding_intervals  # NOQA
 from .sleep_pattern import sleep_pattern  # NOQA
 from .sleep_totals import sleep_totals  # NOQA
 from .tummytime_duration import tummytime_duration  # NOQA

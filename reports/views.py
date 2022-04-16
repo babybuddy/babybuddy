@@ -157,6 +157,24 @@ class FeedingDurationChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
+class FeedingIntervalsChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of diaper change intervals.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/feeding_intervals.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(FeedingIntervalsChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        instances = models.Feeding.objects.filter(child=child)
+        if instances:
+            context["html"], context["js"] = graphs.feeding_intervals(instances)
+        return context
+
+
 class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of sleep pattern comparing sleep to wake times by day.
