@@ -329,19 +329,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: solid
@@ -450,7 +450,7 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
@@ -462,7 +462,7 @@ paths:
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: solid
@@ -528,7 +528,7 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
@@ -540,7 +540,7 @@ paths:
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: solid
@@ -623,13 +623,13 @@ paths:
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: solid
@@ -712,13 +712,13 @@ paths:
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: solid
@@ -776,13 +776,13 @@ paths:
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: method
@@ -801,19 +801,19 @@ paths:
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: type
@@ -904,19 +904,19 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: method
@@ -935,19 +935,19 @@ paths:
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: type
@@ -995,19 +995,19 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: method
@@ -1026,19 +1026,19 @@ paths:
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: type
@@ -1097,19 +1097,19 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: method
@@ -1128,19 +1128,19 @@ paths:
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: type
@@ -1199,19 +1199,19 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: method
@@ -1230,19 +1230,19 @@ paths:
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: type
@@ -1293,19 +1293,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -1385,19 +1385,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -1434,19 +1434,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -1494,19 +1494,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -1554,19 +1554,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -1606,37 +1606,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -1716,37 +1716,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -1783,37 +1783,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -1861,37 +1861,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -1939,37 +1939,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -2292,19 +2292,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -2384,19 +2384,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -2433,19 +2433,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -2493,19 +2493,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -2553,19 +2553,19 @@ paths:
       - name: date
         required: false
         in: query
-        description: Date
+        description: DateTime
         schema:
           type: string
       - name: date_max
         required: false
         in: query
-        description: Max. Date
+        description: Max. DateTime
         schema:
           type: string
       - name: date_min
         required: false
         in: query
-        description: Min. Date
+        description: Min. DateTime
         schema:
           type: string
       - name: tags
@@ -2611,37 +2611,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: user
@@ -2727,37 +2727,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: user
@@ -2800,37 +2800,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: user
@@ -2884,37 +2884,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: user
@@ -2968,37 +2968,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: user
@@ -3038,37 +3038,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -3148,37 +3148,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -3215,37 +3215,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -3293,37 +3293,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags
@@ -3371,37 +3371,37 @@ paths:
       - name: end
         required: false
         in: query
-        description: End Date
+        description: End DateTime
         schema:
           type: string
       - name: end_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: end_min
         required: false
         in: query
-        description: Min. End Date
+        description: Min. End DateTime
         schema:
           type: string
       - name: start
         required: false
         in: query
-        description: Start Date
+        description: Start DateTime
         schema:
           type: string
       - name: start_max
         required: false
         in: query
-        description: Max. End Date
+        description: Max. End DateTime
         schema:
           type: string
       - name: start_min
         required: false
         in: query
-        description: Min. Start Date
+        description: Min. Start DateTime
         schema:
           type: string
       - name: tags

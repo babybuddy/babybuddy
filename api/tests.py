@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.urls import reverse
-from django.utils import timezone
-
-from rest_framework import status
-from rest_framework.test import APITestCase
-
 from babybuddy.models import User
 from core import models
+from django.urls import reverse
+from django.utils import timezone
+from rest_framework import status
+from rest_framework.test import APITestCase
 
 
 class TestBase:
@@ -257,6 +255,19 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "tags": [],
             },
         )
+
+    # check backwards compatibility
+    def test_get_with_date_filter(self):
+        response = self.client.get(self.endpoint, {"start_min": "2017-11-18"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 3)
+
+    def test_get_with_iso_filter(self):
+        response = self.client.get(
+            self.endpoint, {"start_min": "2017-11-18T11:30:00-05:00"}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 2)
 
     def test_post(self):
         data = {
