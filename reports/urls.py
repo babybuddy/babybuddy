@@ -32,6 +32,11 @@ urlpatterns = [
         name="report-diaperchange-types-child",
     ),
     path(
+        "children/<str:slug>/reports/changes/intervals/",
+        views.DiaperChangeIntervalsChildReport.as_view(),
+        name="report-diaperchange-intervals-child",
+    ),
+    path(
         "children/<str:slug>/reports/feeding/amounts/",
         views.FeedingAmountsChildReport.as_view(),
         name="report-feeding-amounts-child",
@@ -55,6 +60,11 @@ urlpatterns = [
         "children/<str:slug>/reports/pumping/amounts/",
         views.PumpingAmounts.as_view(),
         name="report-pumping-amounts-child",
+    ),
+    path(
+        "children/<str:slug>/reports/feeding/intervals/",
+        views.FeedingIntervalsChildReport.as_view(),
+        name="report-feeding-intervals-child",
     ),
     path(
         "children/<str:slug>/reports/sleep/pattern/",
