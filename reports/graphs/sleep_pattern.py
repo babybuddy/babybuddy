@@ -190,6 +190,8 @@ def _add_adjustment(adjustment, days):
     :param blocks: List of days
     """
     column = adjustment.pop("column")
+    if not column in days:
+        days[column] = []
     # Fake (0) entry to keep the color switching logic working.
     days[column].append({"time": 0, "label": 0})
 
