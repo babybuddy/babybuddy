@@ -743,7 +743,7 @@ msgstr "Brustmilch"
 
 #: core/models.py:200
 msgid "Formula"
-msgstr "Formula"
+msgstr "Fertignahrung"
 
 #: core/models.py:205 core/templates/core/feeding_list.html:30
 msgid "Type"
