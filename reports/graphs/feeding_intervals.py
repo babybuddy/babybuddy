@@ -36,14 +36,6 @@ def feeding_intervals(instances):
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals],
     )
-    trace_count = go.Scatter(
-        name=_("Total feedings"),
-        mode="markers",
-        x=list(totals.values_list("start", flat=True)),
-        y=list(totals.values_list("count", flat=True)),
-        yaxis="y2",
-        hoverinfo="y",
-    )
 
     layout_args = utils.default_graph_layout_options()
     layout_args["title"] = _("<b>Feeding intervals</b>")
@@ -55,9 +47,7 @@ def feeding_intervals(instances):
     layout_args["yaxis2"]["overlaying"] = "y"
     layout_args["yaxis2"]["side"] = "right"
 
-    fig = go.Figure(
-        {"data": [trace_avg, trace_count], "layout": go.Layout(**layout_args)}
-    )
+    fig = go.Figure({"data": [trace_avg], "layout": go.Layout(**layout_args)})
     output = plotly.plot(fig, output_type="div", include_plotlyjs=False)
     return utils.split_graph_output(output)
 
