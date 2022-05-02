@@ -42,10 +42,6 @@ def feeding_intervals(instances):
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Feeding interval (minutes)")
-    layout_args["yaxis2"] = dict(layout_args["yaxis"])
-    layout_args["yaxis2"]["title"] = _("Number of feedings")
-    layout_args["yaxis2"]["overlaying"] = "y"
-    layout_args["yaxis2"]["side"] = "right"
 
     fig = go.Figure({"data": [trace_avg], "layout": go.Layout(**layout_args)})
     output = plotly.plot(fig, output_type="div", include_plotlyjs=False)
