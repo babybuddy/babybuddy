@@ -26,7 +26,7 @@ def diaperchange_intervals(changes):
     last_change = changes.first()
     for change in changes[1:]:
         interval = change.time - last_change.time
-        if interval.seconds > 0:
+        if interval.total_seconds() > 0:
             intervals.append(interval)
             if change.solid:
                 intervals_solid.append(interval)
@@ -38,7 +38,7 @@ def diaperchange_intervals(changes):
         name=_("Solid"),
         line=dict(shape="spline"),
         x=list(changes.values_list("time", flat=True)),
-        y=[i.seconds / 60 for i in intervals_solid],
+        y=[i.total_seconds() / 3600 for i in intervals_solid],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals_solid],
     )
@@ -47,7 +47,7 @@ def diaperchange_intervals(changes):
         name=_("Wet"),
         line=dict(shape="spline"),
         x=list(changes.values_list("time", flat=True)),
-        y=[i.seconds / 60 for i in intervals_wet],
+        y=[i.total_seconds() / 3600 for i in intervals_wet],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals_wet],
     )
@@ -56,7 +56,7 @@ def diaperchange_intervals(changes):
         name=_("Total"),
         line=dict(shape="spline"),
         x=list(changes.values_list("time", flat=True)),
-        y=[i.seconds / 60 for i in intervals],
+        y=[i.total_seconds() / 3600 for i in intervals],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals],
     )
@@ -66,7 +66,7 @@ def diaperchange_intervals(changes):
     layout_args["title"] = _("<b>Diaper Change Intervals</b>")
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
-    layout_args["yaxis"]["title"] = _("Interval (minutes)")
+    layout_args["yaxis"]["title"] = _("Interval (hours)")
 
     fig = go.Figure(
         {

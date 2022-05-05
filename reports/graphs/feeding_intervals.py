@@ -24,7 +24,7 @@ def feeding_intervals(instances):
     last_feeding = totals.first()
     for feeding in totals[1:]:
         interval = feeding.start - last_feeding.start
-        if interval.seconds > 0:
+        if interval.total_seconds() > 0:
             intervals.append(interval)
         last_feeding = feeding
 
@@ -32,7 +32,7 @@ def feeding_intervals(instances):
         name=_("Interval"),
         line=dict(shape="spline"),
         x=list(totals.values_list("start", flat=True)),
-        y=[i.seconds / 60 for i in intervals],
+        y=[i.total_seconds() / 3600 for i in intervals],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals],
     )
@@ -41,7 +41,7 @@ def feeding_intervals(instances):
     layout_args["title"] = _("<b>Feeding intervals</b>")
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
-    layout_args["yaxis"]["title"] = _("Feeding interval (minutes)")
+    layout_args["yaxis"]["title"] = _("Feeding interval (hours)")
 
     fig = go.Figure({"data": [trace_avg], "layout": go.Layout(**layout_args)})
     output = plotly.plot(fig, output_type="div", include_plotlyjs=False)
