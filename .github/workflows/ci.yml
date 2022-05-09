@@ -58,15 +58,15 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           parallel-finished: true
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Deploy demo
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+#  deploy:
+#    needs: test
+#    runs-on: ubuntu-latest
+#    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Deploy demo
+#        uses: akhileshns/heroku-deploy@v3.12.12
+#        with:
+#          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+#          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+#          heroku_email: ${{ secrets.HEROKU_EMAIL }}
