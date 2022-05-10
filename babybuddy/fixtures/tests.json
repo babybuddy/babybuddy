@@ -234,8 +234,8 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-18T14:00:00Z",
-      "end": "2017-11-18T14:30:00Z",
+      "start": "2017-11-18T14:00:00-05:00",
+      "end": "2017-11-18T14:30:00-05:00",
       "duration": "00:30:00",
       "type": "breast milk",
       "method": "left breast",
@@ -248,8 +248,8 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-18T16:30:00Z",
-      "end": "2017-11-18T17:00:00Z",
+      "start": "2017-11-18T16:30:00-05:00",
+      "end": "2017-11-18T17:00:00-05:00",
       "duration": "00:30:00",
       "type": "breast milk",
       "method": "right breast",
@@ -262,13 +262,58 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-18T19:00:00Z",
-      "end": "2017-11-18T19:15:00Z",
+      "start": "2017-11-18T19:00:00-05:00",
+      "end": "2017-11-18T19:15:00-05:00",
       "duration": "00:15:00",
       "type": "formula",
       "method": "bottle",
       "amount": 2.5,
       "notes": "forgot vitamins :("
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 4,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-17T19:00:00-05:00",
+      "end": "2017-11-17T19:15:00-05:00",
+      "duration": "00:15:00",
+      "type": "formula",
+      "method": "bottle",
+      "amount": 0.25,
+      "notes": "forgot vitamins :("
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 5,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-11T19:00:00-05:00",
+      "end": "2017-11-11T19:15:00-05:00",
+      "duration": "00:15:00",
+      "type": "formula",
+      "method": "bottle",
+      "amount": 10.0,
+      "notes": "last day feedings"
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 6,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-11T00:00:00-05:00",
+      "end": "2017-11-11T00:15:00-05:00",
+      "duration": "00:15:00",
+      "type": "formula",
+      "method": "bottle",
+      "amount": 10.0,
+      "notes": "oldest feeding at midnight"
     }
   },
   {
