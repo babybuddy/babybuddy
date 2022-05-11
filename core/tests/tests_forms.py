@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import unittest
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.core.management import call_command

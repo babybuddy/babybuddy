@@ -255,7 +255,7 @@ class TemplateTagsTestCase(TestCase):
             },
             {
                 "type": "duration",
-                "stat": timezone.timedelta(0, 7200),
+                "stat": timezone.timedelta(days=1, seconds=46980),
                 "title": "Feeding frequency",
             },
             {

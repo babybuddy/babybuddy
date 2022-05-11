@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import unittest
+
 from django.contrib.auth.models import User
 from django.test import TestCase, override_settings
 from django.utils import timezone, formats
