@@ -6,3 +6,4 @@ pip install -r requirements.txt
 
 python manage.py migrate
 python manage.py createcachetable
+python python manage.py reset --no-input
