@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit
 
-python -m pip install --upgrade pipenv wheel
-pipenv install
+pip install -r requirements.txt
 
 python manage.py migrate
