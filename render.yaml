@@ -7,6 +7,7 @@ services:
   - type: web
     name: babybuddy
     env: python
+    buildCommand: "./.render.com/build.sh"
     startCommand: "gunicorn babybuddy.wsgi:application"
     envVars:
       - key: DJANGO_SETTINGS_MODULE
