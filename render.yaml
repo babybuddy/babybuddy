@@ -1,0 +1,21 @@
+databases:
+  - name: babybuddy
+    databaseName: babybuddy
+    user: babybuddy
+
+services:
+  - type: web
+    name: babybuddy
+    env: python
+    startCommand: "gunicorn babybuddy.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: babybuddy.settings.render
+      - key: DATABASE_URL
+        fromDatabase:
+          name: babybuddy
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
