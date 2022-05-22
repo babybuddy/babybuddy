@@ -6,4 +6,5 @@
 !gitpod.py
 !heroku.py
 !production.example.py
+!render.py
 !test.py
