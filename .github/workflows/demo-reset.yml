@@ -1,0 +1,16 @@
+name: Demo reset
+on:
+  schedule:
+    - cron: "0 * * * *"
+jobs:
+  reset:
+    name: Reset
+    runs-on: ubuntu-latest
+    steps:
+    - name: Reset demo database
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.RENDER_COM_DEMO_HOST }}
+        username: ${{ secrets.RENDER_COM_DEMO_USER }}
+        key: ${{ secrets.RENDER_COM_DEMO_KEY }}
+        script: python manage.py reset --no-input
