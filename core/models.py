@@ -155,31 +155,31 @@ class TaggableManager(TaggitTaggableManager):
     pass
 
 
-class Pumping(models.Model):
-    model_name = "pumping"
+class BMI(models.Model):
+    model_name = "bmi"
     child = models.ForeignKey(
-        "Child",
-        on_delete=models.CASCADE,
-        related_name="pumping",
-        verbose_name=_("Child"),
+        "Child", on_delete=models.CASCADE, related_name="bmi", verbose_name=_("Child")
     )
-    amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
-    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    bmi = models.FloatField(blank=False, null=False, verbose_name=_("BMI"))
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-time"]
-        verbose_name = _("Pumping")
-        verbose_name_plural = _("Pumping")
+        ordering = ["-date"]
+        verbose_name = _("BMI")
+        verbose_name_plural = _("BMI")
 
     def __str__(self):
-        return str(_("Pumping"))
+        return str(_("BMI"))
 
     def clean(self):
-        validate_time(self.time, "time")
+        validate_date(self.date, "date")
 
 
 class Child(models.Model):
@@ -350,6 +350,68 @@ class Feeding(models.Model):
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
 
+class HeadCircumference(models.Model):
+    model_name = "head_circumference"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="head_circumference",
+        verbose_name=_("Child"),
+    )
+    head_circumference = models.FloatField(
+        blank=False, null=False, verbose_name=_("Head Circumference")
+    )
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-date"]
+        verbose_name = _("Head Circumference")
+        verbose_name_plural = _("Head Circumference")
+
+    def __str__(self):
+        return str(_("Head Circumference"))
+
+    def clean(self):
+        validate_date(self.date, "date")
+
+
+class Height(models.Model):
+    model_name = "height"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="height",
+        verbose_name=_("Child"),
+    )
+    height = models.FloatField(blank=False, null=False, verbose_name=_("Height"))
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-date"]
+        verbose_name = _("Height")
+        verbose_name_plural = _("Height")
+
+    def __str__(self):
+        return str(_("Height"))
+
+    def clean(self):
+        validate_date(self.date, "date")
+
+
 class Note(models.Model):
     model_name = "note"
     child = models.ForeignKey(
@@ -377,6 +439,33 @@ class NapsManager(models.Manager):
     def get_queryset(self):
         qs = super(NapsManager, self).get_queryset()
         return qs.filter(id__in=[obj.id for obj in qs if obj.nap])
+
+
+class Pumping(models.Model):
+    model_name = "pumping"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="pumping",
+        verbose_name=_("Child"),
+    )
+    amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
+    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-time"]
+        verbose_name = _("Pumping")
+        verbose_name_plural = _("Pumping")
+
+    def __str__(self):
+        return str(_("Pumping"))
+
+    def clean(self):
+        validate_time(self.time, "time")
 
 
 class Sleep(models.Model):
@@ -622,95 +711,6 @@ class Weight(models.Model):
 
     def __str__(self):
         return str(_("Weight"))
-
-    def clean(self):
-        validate_date(self.date, "date")
-
-
-class Height(models.Model):
-    model_name = "height"
-    child = models.ForeignKey(
-        "Child",
-        on_delete=models.CASCADE,
-        related_name="height",
-        verbose_name=_("Child"),
-    )
-    height = models.FloatField(blank=False, null=False, verbose_name=_("Height"))
-    date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
-    tags = TaggableManager(blank=True, through=Tagged)
-
-    objects = models.Manager()
-
-    class Meta:
-        default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
-        verbose_name = _("Height")
-        verbose_name_plural = _("Height")
-
-    def __str__(self):
-        return str(_("Height"))
-
-    def clean(self):
-        validate_date(self.date, "date")
-
-
-class HeadCircumference(models.Model):
-    model_name = "head_circumference"
-    child = models.ForeignKey(
-        "Child",
-        on_delete=models.CASCADE,
-        related_name="head_circumference",
-        verbose_name=_("Child"),
-    )
-    head_circumference = models.FloatField(
-        blank=False, null=False, verbose_name=_("Head Circumference")
-    )
-    date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
-    tags = TaggableManager(blank=True, through=Tagged)
-
-    objects = models.Manager()
-
-    class Meta:
-        default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
-        verbose_name = _("Head Circumference")
-        verbose_name_plural = _("Head Circumference")
-
-    def __str__(self):
-        return str(_("Head Circumference"))
-
-    def clean(self):
-        validate_date(self.date, "date")
-
-
-class BMI(models.Model):
-    model_name = "bmi"
-    child = models.ForeignKey(
-        "Child", on_delete=models.CASCADE, related_name="bmi", verbose_name=_("Child")
-    )
-    bmi = models.FloatField(blank=False, null=False, verbose_name=_("BMI"))
-    date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
-    tags = TaggableManager(blank=True, through=Tagged)
-
-    objects = models.Manager()
-
-    class Meta:
-        default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
-        verbose_name = _("BMI")
-        verbose_name_plural = _("BMI")
-
-    def __str__(self):
-        return str(_("BMI"))
 
     def clean(self):
         validate_date(self.date, "date")
