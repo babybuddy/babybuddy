@@ -181,16 +181,16 @@ class PumpingTestCase(TestCase):
         self.child = models.Child.objects.create(
             first_name="First", last_name="Last", birth_date=timezone.localdate()
         )
-        self.temp = models.Pumping.objects.create(
+        self.pumping = models.Pumping.objects.create(
             child=self.child,
             time=timezone.localtime() - timezone.timedelta(days=1),
             amount=98.6,
         )
 
     def test_pumping_create(self):
-        self.assertEqual(self.temp, models.Pumping.objects.first())
-        self.assertEqual(str(self.temp), "Pumping")
-        self.assertEqual(self.temp.amount, 98.6)
+        self.assertEqual(self.pumping, models.Pumping.objects.first())
+        self.assertEqual(str(self.pumping), "Pumping")
+        self.assertEqual(self.pumping.amount, 98.6)
 
 
 class SleepTestCase(TestCase):
@@ -209,6 +209,39 @@ class SleepTestCase(TestCase):
         self.assertEqual(sleep, models.Sleep.objects.first())
         self.assertEqual(str(sleep), "Sleep")
         self.assertEqual(sleep.duration, sleep.end - sleep.start)
+
+
+class TagTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+
+    def test_create_tag(self):
+        tag1 = models.Tag.objects.create(name="Tag 1")
+        self.assertEqual(tag1, models.Tag.objects.first())
+
+        tag2 = models.Tag.objects.create(name="Tag 2")
+        self.assertEqual(tag2, models.Tag.objects.filter(name="Tag 2").get())
+
+    def test_tag_complementary_color(self):
+        light_tag = models.Tag.objects.create(name="Light Tag", color="#ffffff")
+        self.assertEqual(light_tag.complementary_color, models.Tag.DARK_COLOR)
+
+        dark_tag = models.Tag.objects.create(name="Dark Tag", color="#000000")
+        self.assertEqual(dark_tag.complementary_color, models.Tag.LIGHT_COLOR)
+
+    def test_model_tagging(self):
+        temp = models.Temperature.objects.create(
+            child=self.child,
+            time=timezone.localtime() - timezone.timedelta(days=1),
+            temperature=98.6,
+        )
+        temp.tags.add("Tag 1")
+        self.assertEqual(
+            temp.tags.all().get(), models.Tag.objects.filter(name="Tag 1").get()
+        )
 
 
 class TemperatureTestCase(TestCase):
