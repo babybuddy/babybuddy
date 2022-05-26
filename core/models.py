@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
 import re
 from datetime import timedelta
 
@@ -14,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
-random.seed()
+from core.utils import random_color
 
 
 def validate_date(date, field_name):
@@ -77,34 +76,9 @@ def validate_time(time, field_name):
         )
 
 
-def random_color():
-    TAG_COLORS = [
-        "#ff0000",
-        "#00ff00",
-        "#0000ff",
-        "#ff00ff",
-        "#ffff00",
-        "#00ffff",
-        "#ff7f7f",
-        "#7fff7f",
-        "#7f7fff",
-        "#ff7fff",
-        "#ffff7f",
-        "#7fffff",
-        "#7f0000",
-        "#007f00",
-        "#00007f",
-        "#7f007f",
-        "#7f7f00",
-        "#007f7f",
-    ]
-    return TAG_COLORS[random.randrange(0, len(TAG_COLORS))]
-
-
 class Tag(TagBase):
-    class Meta:
-        verbose_name = _("Tag")
-        verbose_name_plural = _("Tags")
+    DARK_COLOR = "#101010"
+    LIGHT_COLOR = "#EFEFEF"
 
     color = models.CharField(
         verbose_name=_("Color"),
@@ -112,25 +86,27 @@ class Tag(TagBase):
         default=random_color,
         validators=[RegexValidator(r"^#[0-9a-fA-F]{6}$")],
     )
-
     last_used = models.DateTimeField(
         verbose_name=_("Last used"),
         default=timezone.now,
         blank=False,
     )
 
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+
     @property
     def complementary_color(self):
-        DARK, LIGHT = "#101010", "#EFEFEF"
         if not self.color:
-            return DARK
+            return self.DARK_COLOR
 
         r, g, b = [int(x, 16) for x in re.match("#(..)(..)(..)", self.color).groups()]
         yiq = ((r * 299) + (g * 587) + (b * 114)) // 1000
         if yiq >= 128:
-            return DARK
+            return self.DARK_COLOR
         else:
-            return LIGHT
+            return self.LIGHT_COLOR
 
 
 class Tagged(GenericTaggedItemBase):
