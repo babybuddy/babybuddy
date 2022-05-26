@@ -39,6 +39,16 @@ class ChildTestCase(TestCase):
         self.assertEqual(child.name(), "First Last")
         self.assertEqual(child.name(reverse=True), "Last, First")
 
+    def test_child_create_without_last_name(self):
+        child = models.Child.objects.create(
+            first_name="Nolastname", birth_date=timezone.localdate()
+        )
+        self.assertEqual(child, models.Child.objects.get(first_name="Nolastname"))
+        self.assertEqual(child.slug, "nolastname")
+        self.assertEqual(str(child), "Nolastname")
+        self.assertEqual(child.name(), "Nolastname")
+        self.assertEqual(child.name(reverse=True), "Nolastname")
+
     def test_child_count(self):
         self.assertEqual(models.Child.count(), 0)
         models.Child.objects.create(
