@@ -7,7 +7,7 @@ import plotly.graph_objs as go
 from reports import utils
 
 
-def bmi_bmi(objects):
+def bmi_change(objects):
     """
     Create a graph showing bmi over time.
     :param objects: a QuerySet of BMI instances.

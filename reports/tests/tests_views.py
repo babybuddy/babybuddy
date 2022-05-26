@@ -35,7 +35,7 @@ class ViewsTestCase(TestCase):
         page = self.c.get(base_url)
         self.assertEqual(page.status_code, 200)
 
-        page = self.c.get("{}/pumping/amounts/".format(base_url))
+        page = self.c.get("{}/bmi/bmi/".format(base_url))
         self.assertEqual(page.status_code, 200)
 
         page = self.c.get("{}/changes/amounts/".format(base_url))
@@ -50,19 +50,22 @@ class ViewsTestCase(TestCase):
         page = self.c.get("{}/feeding/duration/".format(base_url))
         self.assertEqual(page.status_code, 200)
 
-        page = self.c.get("{}/sleep/pattern/".format(base_url))
-        self.assertEqual(page.status_code, 200)
-        page = self.c.get("{}/sleep/totals/".format(base_url))
-        self.assertEqual(page.status_code, 200)
-
-        page = self.c.get("{}/weight/weight/".format(base_url))
+        page = self.c.get("{}/head-circumference/head-circumference/".format(base_url))
         self.assertEqual(page.status_code, 200)
 
         page = self.c.get("{}/height/height/".format(base_url))
         self.assertEqual(page.status_code, 200)
 
-        page = self.c.get("{}/head-circumference/head-circumference/".format(base_url))
+        page = self.c.get("{}/pumping/amounts/".format(base_url))
         self.assertEqual(page.status_code, 200)
 
-        page = self.c.get("{}/bmi/bmi/".format(base_url))
+        page = self.c.get("{}/sleep/pattern/".format(base_url))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("{}/sleep/totals/".format(base_url))
+        self.assertEqual(page.status_code, 200)
+
+        page = self.c.get("{}/tummy-time/duration/".format(base_url))
+        self.assertEqual(page.status_code, 200)
+
+        page = self.c.get("{}/weight/weight/".format(base_url))
         self.assertEqual(page.status_code, 200)
