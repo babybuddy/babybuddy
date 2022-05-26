@@ -7,6 +7,24 @@ from django.utils import timezone
 from core import models
 
 
+class BMITestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.bmi = models.BMI.objects.create(
+            child=self.child,
+            date=timezone.localdate(),
+            bmi=63.2,
+        )
+
+    def test_weight_create(self):
+        self.assertEqual(self.bmi, models.BMI.objects.first())
+        self.assertEqual(str(self.bmi), "BMI")
+        self.assertEqual(self.bmi.bmi, 63.2)
+
+
 class ChildTestCase(TestCase):
     def setUp(self):
         call_command("migrate", verbosity=0)
@@ -94,6 +112,42 @@ class FeedingTestCase(TestCase):
         self.assertEqual(feeding, models.Feeding.objects.first())
         self.assertEqual(str(feeding), "Feeding")
         self.assertEqual(feeding.method, "both breasts")
+
+
+class HeadCircumferenceTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.hc = models.HeadCircumference.objects.create(
+            child=self.child,
+            date=timezone.localdate(),
+            head_circumference=13.25,
+        )
+
+    def test_weight_create(self):
+        self.assertEqual(self.hc, models.HeadCircumference.objects.first())
+        self.assertEqual(str(self.hc), "Head Circumference")
+        self.assertEqual(self.hc.head_circumference, 13.25)
+
+
+class HeightTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.height = models.Height.objects.create(
+            child=self.child,
+            date=timezone.localdate(),
+            height=34.5,
+        )
+
+    def test_weight_create(self):
+        self.assertEqual(self.height, models.Height.objects.first())
+        self.assertEqual(str(self.height), "Height")
+        self.assertEqual(self.height.height, 34.5)
 
 
 class NoteTestCase(TestCase):
@@ -247,3 +301,21 @@ class TummyTimeTestCase(TestCase):
         self.assertEqual(tummy_time, models.TummyTime.objects.first())
         self.assertEqual(str(tummy_time), "Tummy Time")
         self.assertEqual(tummy_time.duration, tummy_time.end - tummy_time.start)
+
+
+class WeightTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.weight = models.Weight.objects.create(
+            child=self.child,
+            date=timezone.localdate(),
+            weight=23,
+        )
+
+    def test_weight_create(self):
+        self.assertEqual(self.weight, models.Weight.objects.first())
+        self.assertEqual(str(self.weight), "Weight")
+        self.assertEqual(self.weight.weight, 23)
