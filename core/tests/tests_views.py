@@ -49,18 +49,6 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/children/{}/delete/".format(entry.slug))
         self.assertEqual(page.status_code, 200)
 
-    def test_pumping_views(self):
-        page = self.c.get("/pumping/")
-        self.assertEqual(page.status_code, 200)
-        page = self.c.get("/pumping/add/")
-        self.assertEqual(page.status_code, 200)
-
-        entry = models.Pumping.objects.first()
-        page = self.c.get("/pumping/{}/".format(entry.id))
-        self.assertEqual(page.status_code, 200)
-        page = self.c.get("/pumping/{}/delete/".format(entry.id))
-        self.assertEqual(page.status_code, 200)
-
     def test_diaperchange_views(self):
         page = self.c.get("/changes/")
         self.assertEqual(page.status_code, 200)
@@ -95,6 +83,18 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/notes/{}/".format(entry.id))
         self.assertEqual(page.status_code, 200)
         page = self.c.get("/notes/{}/delete/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
+    def test_pumping_views(self):
+        page = self.c.get("/pumping/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/pumping/add/")
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.Pumping.objects.first()
+        page = self.c.get("/pumping/{}/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/pumping/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
 
     def test_sleep_views(self):
