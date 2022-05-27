@@ -81,6 +81,54 @@ class TestBase:
             self.assertEqual(obj.end, timer.end)
 
 
+class BMIAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:bmi-list")
+    model = models.BMI
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["results"][0],
+            {
+                "id": 2,
+                "child": 1,
+                "bmi": 26.5,
+                "date": "2017-11-18",
+                "notes": "before feed",
+                "tags": [],
+            },
+        )
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "bmi": "27.0",
+            "date": "2017-11-15",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.bmi), data["bmi"])
+
+    def test_post_null_date(self):
+        data = {"child": 1, "bmi": "12.25"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.bmi), data["bmi"])
+        self.assertEqual(str(obj.date), timezone.localdate().strftime("%Y-%m-%d"))
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, 2)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry["bmi"] = 30.0
+        response = self.client.patch(endpoint, {"bmi": entry["bmi"]})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+
 class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse("api:child-list")
     model = models.Child
@@ -317,6 +365,102 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "amount": entry["amount"],
             },
         )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+
+class HeadCircumferenceAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:headcircumference-list")
+    model = models.HeadCircumference
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["results"][0],
+            {
+                "id": 2,
+                "child": 1,
+                "head_circumference": 6.5,
+                "date": "2017-11-18",
+                "notes": "before feed",
+                "tags": [],
+            },
+        )
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "head_circumference": "9.5",
+            "date": "2017-11-15",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.head_circumference), data["head_circumference"])
+
+    def test_post_null_date(self):
+        data = {"child": 1, "head_circumference": "10.0"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.head_circumference), data["head_circumference"])
+        self.assertEqual(str(obj.date), timezone.localdate().strftime("%Y-%m-%d"))
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, 2)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry["head_circumference"] = 23
+        response = self.client.patch(endpoint, {"head_circumference": entry["head_circumference"]})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+
+class HeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:height-list")
+    model = models.Height
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["results"][0],
+            {
+                "id": 2,
+                "child": 1,
+                "height": 10.5,
+                "date": "2017-11-18",
+                "notes": "before feed",
+                "tags": [],
+            },
+        )
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "height": "12.5",
+            "date": "2017-11-15",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.height), data["height"])
+
+    def test_post_null_date(self):
+        data = {"child": 1, "height": "19.0"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.height), data["height"])
+        self.assertEqual(str(obj.date), timezone.localdate().strftime("%Y-%m-%d"))
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, 2)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry["height"] = 23.5
+        response = self.client.patch(endpoint, {"height": entry["height"]})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
 
