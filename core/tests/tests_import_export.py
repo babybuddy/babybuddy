@@ -38,6 +38,9 @@ class ImportTestCase(TestCase):
         self.assertFalse(result.has_errors())
         self.assertEqual(model.objects.count(), count)
 
+    def test_bmi(self):
+        self.import_data(models.BMI, 5)
+
     def test_child(self):
         self.import_data(models.Child, 2)
 
@@ -47,6 +50,12 @@ class ImportTestCase(TestCase):
     def test_feeding(self):
         self.import_data(models.Feeding, 40)
 
+    def test_headercircumference(self):
+        self.import_data(models.HeadCircumference, 5)
+
+    def test_height(self):
+        self.import_data(models.Height, 5)
+
     def test_note(self):
         self.import_data(models.Note, 1)
 
@@ -55,6 +64,9 @@ class ImportTestCase(TestCase):
 
     def test_sleep(self):
         self.import_data(models.Sleep, 39)
+
+    def test_tag(self):
+        self.import_data(models.Tag, 10)
 
     def test_temperature(self):
         self.import_data(models.Temperature, 23)
