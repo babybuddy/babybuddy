@@ -412,7 +412,9 @@ class HeadCircumferenceAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         response = self.client.get(endpoint)
         entry = response.data
         entry["head_circumference"] = 23
-        response = self.client.patch(endpoint, {"head_circumference": entry["head_circumference"]})
+        response = self.client.patch(
+            endpoint, {"head_circumference": entry["head_circumference"]}
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
 

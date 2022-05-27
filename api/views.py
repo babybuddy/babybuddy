@@ -20,7 +20,7 @@ class BMIViewSet(viewsets.ModelViewSet):
         """
         name = models.BMI._meta.verbose_name
         if self.suffix:
-            name += ' ' + self.suffix
+            name += " " + self.suffix
         return name
 
 
