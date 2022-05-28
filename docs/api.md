@@ -169,20 +169,88 @@ formats.
 
 ### Timer Field
 
-The "timer" field is a special field available for `POST` operations to model
-endpoints supporting duration (Feeding, Sleep, Tummy Time). Se the "timer"
-in a request to fill in the `start` and `end` fields automatically using the
-`start` and `end` values *from the Timer* (the Timer will be stopped if it is
-currently running).
+`POST` requests also accept a `timer` field to model endpoints supporting duration
+(Feeding, Sleep, Tummy Time). Set `timer` to a valid timer ID in a request instead of
+the `start` and `end` fields. The new entry will use the `start` and `end` values
+*from the Timer*  and if the timer is running it will be stopped by this operation.
 
-Additionally, if the Timer has a Child relationship, the `child` field will be
-filled in automatically use the `child` value from the Timer.
+Additionally, if the Timer has a child relationship, the `child` field will be
+filled in automatically with the `child` value from the Timer.
 
-The "timer" field will **always override** the relevant fields (`child`, `start`,
+The `timer` field will **always override** the relevant fields (`child`, `start`,
 and `end`) on the request. E.g., a `POST` request with both the `timer` and `end`
 fields will ignore the `end` field value and replace it with the Timer's `end`
 value. The same applies for `start` and `child`. These fields are all **required**
 if the `timer` field is *not* set.
+
+#### Example `timer` field usage
+
+Create a new timer associated with a `child`:
+
+```shell
+curl --location --request POST '[...]/api/timers/' \
+--header 'Authorization: Token [...]' \
+--header 'Content-Type: application/json' \
+--data-raw '{"child": 1}'
+```
+
+Note the timer `id` in the response:
+
+```json
+{
+    "id": 5,
+    "child": 1,
+    "name": null,
+    "start": "2022-05-28T19:59:40.013914Z",
+    "end": null,
+    "duration": null,
+    "active": true,
+    "user": 1
+}
+```
+
+Create a new tummy time entry supplying only the timer `id`:
+
+```shell
+curl --location --request POST '[...]/api/tummy-times/' \
+--header 'Authorization: Token [...]' \
+--header 'Content-Type: application/json' \
+--data-raw '{"timer": 5}'
+```
+
+Note that `child` and `start` match the timer values (and `end` is auto-populated):
+
+```json
+{
+    "id": 162,
+    "child": 1,
+    "start": "2022-05-28T19:59:40.013914Z",
+    "end": "2022-05-28T20:01:13.549099Z",
+    "duration": "00:01:33.535185",
+    "milestone": "",
+    "tags": []
+}
+```
+
+Also note that the timer has been stopped:
+
+```shell
+curl --location --request GET '[...]/api/timers/5' \
+--header 'Authorization: Token [...]'
+```
+
+```json
+{
+    "id": 5,
+    "child": 1,
+    "name": null,
+    "start": "2022-05-28T19:59:40.013914Z",
+    "end": "2022-05-28T20:01:13.549099Z",
+    "duration": "00:01:33.535185",
+    "active": false,
+    "user": 1
+}
+```
 
 ### Response
 
