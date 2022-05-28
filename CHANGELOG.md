@@ -1,6 +1,58 @@
 # Changelog
 
-## [v1.10.2](https://github.com/babybuddy/babybuddy/tree/v1.10.2) (2022-03-03)
+## [v1.11.0](https://github.com/babybuddy/babybuddy/tree/v1.11.0) (2022-05-28)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.0...HEAD)
+
+**Implemented enhancements:**
+
+- Diaper change frequency statistics [\#425](https://github.com/babybuddy/babybuddy/issues/425)
+- Tagging refinements [\#415](https://github.com/babybuddy/babybuddy/issues/415)
+- Track crying and bedtime [\#412](https://github.com/babybuddy/babybuddy/issues/412)
+- Feature suggestion: Add user editable tags to "notes"-sections [\#380](https://github.com/babybuddy/babybuddy/issues/380)
+- Feature Request: track milk pumping [\#159](https://github.com/babybuddy/babybuddy/issues/159)
+- Allow end of feeding to be in the future [\#443](https://github.com/babybuddy/babybuddy/pull/443) ([myxor](https://github.com/myxor))
+- change api date filter to datetime filter [\#442](https://github.com/babybuddy/babybuddy/pull/442) ([jcgoette](https://github.com/jcgoette))
+- Defaults some models to now [\#438](https://github.com/babybuddy/babybuddy/pull/438) ([jcgoette](https://github.com/jcgoette))
+- Add Catalan language support [\#436](https://github.com/babybuddy/babybuddy/pull/436) ([cdubz](https://github.com/cdubz))
+- Further improve german translations [\#433](https://github.com/babybuddy/babybuddy/pull/433) ([myxor](https://github.com/myxor))
+- Allow diaper change without any contents [\#431](https://github.com/babybuddy/babybuddy/pull/431) ([myxor](https://github.com/myxor))
+- Add import/export support to new models + tag filtering in Database Admin [\#430](https://github.com/babybuddy/babybuddy/pull/430) ([cdubz](https://github.com/cdubz))
+- Add tag filtering support to API [\#429](https://github.com/babybuddy/babybuddy/pull/429) ([cdubz](https://github.com/cdubz))
+- Add diaper change stats for 3 days and 2 weeks [\#427](https://github.com/babybuddy/babybuddy/pull/427) ([myxor](https://github.com/myxor))
+- Update german translations [\#422](https://github.com/babybuddy/babybuddy/pull/422) ([myxor](https://github.com/myxor))
+- Show tags in lists [\#416](https://github.com/babybuddy/babybuddy/pull/416) ([MrApplejuice](https://github.com/MrApplejuice))
+- Add tags support to most things [\#414](https://github.com/babybuddy/babybuddy/pull/414) ([MrApplejuice](https://github.com/MrApplejuice))
+- Add breastpump measurement [\#409](https://github.com/babybuddy/babybuddy/pull/409) ([bugbountyguy](https://github.com/bugbountyguy))
+- Tagging [\#396](https://github.com/babybuddy/babybuddy/pull/396) ([MrApplejuice](https://github.com/MrApplejuice))
+
+**Fixed bugs:**
+
+- Photos of children not found after upgrade to v1.10.0 [\#400](https://github.com/babybuddy/babybuddy/issues/400)
+- Fix KeyError at /children/x/reports/sleep/pattern/ [\#445](https://github.com/babybuddy/babybuddy/pull/445) ([myxor](https://github.com/myxor))
+- Fix link to translation documentation [\#420](https://github.com/babybuddy/babybuddy/pull/420) ([myxor](https://github.com/myxor))
+
+**Closed issues:**
+
+- Feature Request : Ability to add custom activities. [\#455](https://github.com/babybuddy/babybuddy/issues/455)
+- API endpoint list missing port? [\#446](https://github.com/babybuddy/babybuddy/issues/446)
+- Sleep Pattern giving 500 Internal Server Error [\#440](https://github.com/babybuddy/babybuddy/issues/440)
+- catalan translation [\#434](https://github.com/babybuddy/babybuddy/issues/434)
+- Diaper change without wet/solid  [\#426](https://github.com/babybuddy/babybuddy/issues/426)
+- "Failed to install add-on" in Home Assistant due to "non-zero code" [\#423](https://github.com/babybuddy/babybuddy/issues/423)
+- Update import/export support for new models [\#421](https://github.com/babybuddy/babybuddy/issues/421)
+- Sleep Patterns showing a 500 error - Exception Type: KeyError [\#417](https://github.com/babybuddy/babybuddy/issues/417)
+- 500 error when trying to login / 'attempt to write a readonly database' in the logs [\#411](https://github.com/babybuddy/babybuddy/issues/411)
+
+**Merged pull requests:**
+
+- Improve test coverage [\#458](https://github.com/babybuddy/babybuddy/pull/458) ([cdubz](https://github.com/cdubz))
+- Integrate with Render.com [\#457](https://github.com/babybuddy/babybuddy/pull/457) ([cdubz](https://github.com/cdubz))
+- fix typo [\#452](https://github.com/babybuddy/babybuddy/pull/452) ([adamaze](https://github.com/adamaze))
+- fastforward openapi-schema [\#441](https://github.com/babybuddy/babybuddy/pull/441) ([jcgoette](https://github.com/jcgoette))
+- fix leading spaces [\#437](https://github.com/babybuddy/babybuddy/pull/437) ([jcgoette](https://github.com/jcgoette))
+
+## [v1.10.2](https://github.com/babybuddy/babybuddy/tree/v1.10.2) (2022-03-04)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.10.1...v1.10.2)
 
@@ -15,15 +67,15 @@
 
 **Fixed bugs:**
 
+- "Time since" using Django time zone and not user time zone [\#178](https://github.com/babybuddy/babybuddy/issues/178)
 - v1.9.0 update to manual timer edit makes mobile UX worse [\#385](https://github.com/babybuddy/babybuddy/issues/385)
 - Graph selection has unreachable areas on mobile [\#379](https://github.com/babybuddy/babybuddy/issues/379)
-- "Time since" using Django time zone and not user time zone [\#178](https://github.com/babybuddy/babybuddy/issues/178)
 
 **Closed issues:**
 
-- HTTPS doesn't seem to be working...? [\#406](https://github.com/babybuddy/babybuddy/issues/406)
 - Add documentation about proxy setup [\#394](https://github.com/babybuddy/babybuddy/issues/394)
 - Remove/Change Drop-down Options [\#389](https://github.com/babybuddy/babybuddy/issues/389)
+- HTTPS doesn't seem to be working...? [\#406](https://github.com/babybuddy/babybuddy/issues/406)
 
 ## [v1.10.1](https://github.com/babybuddy/babybuddy/tree/v1.10.1) (2022-02-22)
 
