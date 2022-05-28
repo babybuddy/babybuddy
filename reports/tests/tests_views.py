@@ -4,7 +4,7 @@ from django.test import Client as HttpClient
 from django.contrib.auth.models import User
 from django.core.management import call_command
 
-from faker import Factory
+from faker import Faker
 
 from core import models
 
@@ -13,7 +13,7 @@ class ViewsTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         super(ViewsTestCase, cls).setUpClass()
-        fake = Factory.create()
+        fake = Faker()
         call_command("migrate", verbosity=0)
         call_command("fake", verbosity=0)
 

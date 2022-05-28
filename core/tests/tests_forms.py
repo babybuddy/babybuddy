@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import TestCase
@@ -7,7 +6,7 @@ from django.test import Client as HttpClient
 from django.utils import timezone
 from django.utils.formats import get_format
 
-from faker import Factory
+from faker import Faker
 
 from core import models
 
@@ -20,7 +19,7 @@ class FormsTestCaseBase(TestCase):
     @classmethod
     def setUpClass(cls):
         super(FormsTestCaseBase, cls).setUpClass()
-        fake = Factory.create()
+        fake = Faker()
         call_command("migrate", verbosity=0)
 
         cls.c = HttpClient()

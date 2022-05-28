@@ -8,7 +8,7 @@ from django.db.utils import IntegrityError
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from faker import Factory
+from faker import Faker
 
 from core import models
 
@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
-        self.faker = Factory.create()
+        self.faker = Faker()
         self.child = None
         self.weight = None
         self.tags = []
