@@ -29,7 +29,9 @@ protected requests to succeed.
 
 Note: multiple origins can be added by separating origins with commas. E.g.:
 
-    CSRF_TRUSTED_ORIGINS=https://baby.example.com,https://baby.example.org
+```shell
+CSRF_TRUSTED_ORIGINS=https://baby.example.com,https://baby.example.org
+```
 
 ### [`SECURE_PROXY_SSL_HEADER`](../configuration#secure_proxy_ssl_header)
 
