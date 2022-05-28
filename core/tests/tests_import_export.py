@@ -44,6 +44,12 @@ class ImportTestCase(TestCase):
     def test_child(self):
         self.import_data(models.Child, 2)
 
+    def test_child_invalid(self):
+        dataset = self.get_dataset("diaperchange-invalid-child")
+        resource = admin.DiaperChangeImportExportResource()
+        result = resource.import_data(dataset, dry_run=False)
+        self.assertTrue(result.has_validation_errors())
+
     def test_diaperchange(self):
         self.import_data(models.DiaperChange, 75)
 
@@ -68,6 +74,20 @@ class ImportTestCase(TestCase):
     def test_tag(self):
         self.import_data(models.Tag, 10)
 
+    def test_tagged(self):
+        self.import_data(models.Tag, 10)
+        self.import_data(models.Temperature, 23)
+        tests = [
+            (65, ["ten", "method"]),
+            (70, ["our", "you", "everybody", "ten", "military"]),
+            (71, ["you", "treatment", "method"]),
+            (75, ["everybody"]),
+            (78, ["our", "treatment", "surface"]),
+        ]
+        for pk, tags in tests:
+            entry = models.Temperature.objects.get(pk=pk)
+            self.assertQuerysetEqual(entry.tags.names(), tags, ordered=False)
+
     def test_temperature(self):
         self.import_data(models.Temperature, 23)
 
@@ -76,9 +96,3 @@ class ImportTestCase(TestCase):
 
     def test_weight(self):
         self.import_data(models.Weight, 5)
-
-    def test_invalid_child(self):
-        dataset = self.get_dataset("diaperchange-invalid-child")
-        resource = admin.DiaperChangeImportExportResource()
-        result = resource.import_data(dataset, dry_run=False)
-        self.assertTrue(result.has_validation_errors())
