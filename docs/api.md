@@ -11,12 +11,16 @@ authorization.
 Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 `POST` requests:
 
-- `/api/pumping/`
+- `/api/bmi/` (Body Mass Index)
 - `/api/children/`
 - `/api/changes/` (Diaper Changes)
 - `/api/feedings/`
+- `/api/head-circumference/`
+- `/api/height/`
 - `/api/notes/`
+- `/api/pumping/`
 - `/api/sleep/`
+- `/api/tags/`
 - `/api/temperature/`
 - `/api/timers/`
 - `/api/tummy-times/`
