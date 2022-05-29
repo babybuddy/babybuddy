@@ -9,7 +9,7 @@
   "devDependencies": {
     "@ronilaukkarinen/gulp-stylelint": "^14.0.6",
     "bootstrap": "^4.6.1",
-    "del": "^6.1.0",
+    "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^4.0.1",
@@ -23,16 +23,22 @@
     "jquery": "^3.6.0",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
+    "npm-force-resolutions": "^0.0.10",
     "plotly.js": "^2.12.1",
     "popper.js": "^1.16.1",
     "pulltorefreshjs": "^0.1.22",
     "pump": "^3.0.0",
     "sass": "^1.52.1",
-    "stylelint": "^14.8.3",
+    "stylelint": "^14.8.5",
     "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.2.0",
     "tempusdominus-bootstrap-4": "5.39.2",
     "tempusdominus-core": "5.19.3"
+  },
+  "preinstall": "npx npm-force-resolutions",
+  "resolutions": {
+    "lodash.template": ">=4.5.0",
+    "glob-parent": ">=5.1.2"
   }
 }
