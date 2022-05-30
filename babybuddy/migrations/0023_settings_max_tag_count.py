@@ -16,7 +16,6 @@ class Migration(migrations.Migration):
             field=models.IntegerField(
                 default=5,
                 help_text="The maximum number of tags to display when adding things that have tags",
-                max_length=256,
                 verbose_name="Max Tag Count",
             ),
         ),
