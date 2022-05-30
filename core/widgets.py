@@ -1,6 +1,7 @@
-from django.forms import Media
 from typing import Any, Dict, Optional
 from django.forms import Widget
+
+from babybuddy.models import Settings
 
 from . import models
 
@@ -60,9 +61,12 @@ class TagsEditor(Widget):
         Specifically:
         - Query a list if "recently used" tags (max 256 to not cause
           DoS issues) from the database to be used for auto-completion. ("most")
-        - Query a smaller list of 5 tags to be made available from a quick
+        - Query a smaller list of max_tag_acount tags to be made available from a quick
           selection widget ("quick").
         """
+        # TODO: Get based on current user session instead of just first user
+        max_tag_count = Settings.objects.first().max_tag_count
+        print(max_tag_count)
         most_tags = models.Tag.objects.order_by("-last_used").all()[:256]
 
         result = super().get_context(name, value, attrs)
@@ -70,7 +74,9 @@ class TagsEditor(Widget):
         tag_names = set(
             x["name"] for x in (result.get("widget", {}).get("value", None) or [])
         )
-        quick_suggestion_tags = [t for t in most_tags if t.name not in tag_names][:5]
+        quick_suggestion_tags = [t for t in most_tags if t.name not in tag_names][
+            :max_tag_count
+        ]
 
         result["widget"]["tag_suggestions"] = {
             "quick": [

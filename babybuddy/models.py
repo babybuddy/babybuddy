@@ -62,6 +62,11 @@ class Settings(models.Model):
         max_length=255,
         verbose_name=_("Language"),
     )
+    max_tag_count = models.IntegerField(
+        default=5,
+        verbose_name=_("Max Tag Count"),
+        help_text="The maximum number of tags to display when adding things that have tags. Minimum is 1 and maximum is 256.",
+    )
     timezone = models.CharField(
         choices=tuple(zip(pytz.common_timezones, pytz.common_timezones)),
         default=timezone.get_default_timezone_name(),
