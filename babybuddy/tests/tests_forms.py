@@ -34,6 +34,7 @@ class FormsTestCase(TestCase):
             "language": "en-US",
             "timezone": "UTC",
             "next": "/user/settings/",
+            "max_tag_count": 5,
         }
 
     def test_change_password(self):
