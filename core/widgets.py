@@ -66,7 +66,6 @@ class TagsEditor(Widget):
         """
         # TODO: Get based on current user session instead of just first user
         max_tag_count = Settings.objects.first().max_tag_count
-        print(max_tag_count)
         most_tags = models.Tag.objects.order_by("-last_used").all()[:256]
 
         result = super().get_context(name, value, attrs)
