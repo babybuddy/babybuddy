@@ -64,6 +64,37 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(duration.seconds(""), 0)
         self.assertRaises(TypeError, duration.seconds("not a delta"))
 
+    def test_duration_dayssince(self):
+        # test with a few different dates that could be pathological
+        dates = [
+            timezone.datetime(2022, 1, 1, 0, 0, 1).date(),  # new year
+            timezone.datetime(2021, 12, 31, 23, 59, 59).date(),  # almost new year
+            timezone.datetime(
+                1969, 2, 1, 23, 59, 59
+            ).date(),  # old but middle of the year
+        ]
+        for d in dates:
+            self.assertEqual(duration.dayssince(d, today=d), "today")
+            self.assertEqual(
+                duration.dayssince((d - timezone.timedelta(hours=5)), today=d), "today"
+            )
+            self.assertEqual(
+                duration.dayssince((d - timezone.timedelta(hours=24)), today=d),
+                "yesterday",
+            )
+            self.assertEqual(
+                duration.dayssince((d - timezone.timedelta(hours=24 * 2)), today=d),
+                "2 days ago",
+            )
+            self.assertEqual(
+                duration.dayssince((d - timezone.timedelta(hours=24 * 10)), today=d),
+                "10 days ago",
+            )
+            self.assertEqual(
+                duration.dayssince((d - timezone.timedelta(hours=24 * 60)), today=d),
+                "60 days ago",
+            )
+
     def test_instance_add_url(self):
         child = Child.objects.create(
             first_name="Test", last_name="Child", birth_date=timezone.localdate()

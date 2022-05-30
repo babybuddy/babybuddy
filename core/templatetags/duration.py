@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django import template
 from django.utils import timesince, timezone
 from django.utils.translation import gettext as _
@@ -90,3 +92,25 @@ def seconds(duration):
         return s
     except (ValueError, TypeError):
         return 0
+
+
+@register.filter()
+def dayssince(value, today=None):
+    """
+    Returns the days since passed datetime in a user friendly way. (e.g. today, yesterday, 2 days ago, ...)
+    :param value: a date instance
+    :param today: date to compare to (defaults to today)
+    :returns: the formatted string
+    """
+    if today is None:
+        today = timezone.datetime.now().date()
+
+    delta = today - value
+
+    if delta < datetime.timedelta(days=1):
+        return "today"
+    if delta < datetime.timedelta(days=2):
+        return "yesterday"
+
+    # use standard timesince for anything beyond yesterday
+    return str(delta.days) + " days ago"

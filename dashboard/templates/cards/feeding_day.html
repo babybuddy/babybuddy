@@ -12,21 +12,23 @@
 <div id="feeding-days-carousel" class="carousel slide" data-interval="false">
     <div class="carousel-inner">
         {% for feeding in feedings %}
-        <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
-            <div class="last-feeding-method text-center">
-                {% if feeding.total %}
-                {{ feeding.total }}
-                {% else %}
-                {% trans "None" %}
-                {% endif %}
-            </div>
-            <div class="text-center small">
-                {% if feeding.count > 0 %} {{ feeding.count }} feedings {% endif %}
-            </div>
-            <div class="text-center small text-muted">
-                {{ feeding.date.date }}
-            </div>
-        </div>
+            <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
+                <div class="last-feeding-method text-center">
+                    {% if feeding.total %}
+                        {{ feeding.total }}
+                    {% else %}
+                        {% trans "None" %}
+                    {% endif %}
+                </div>
+                <div class="text-center small">
+                    {% if feeding.count > 0 %} {{ feeding.count }} feedings {% endif %}
+                </div>
+                {% blocktrans trimmed with since=feeding.date.date|dayssince %}
+                    <div class="text-center small text-muted">
+                        {{ since }}
+                    </div>
+                {% endblocktrans %}
+                </div>
         {% endfor %}
     </div>
     {% if feedings|length > 1 %}
