@@ -188,6 +188,17 @@ class FormsTestCase(TestCase):
             self.user.settings.dashboard_hide_age, datetime.timedelta(days=1)
         )
 
+    def test_user_settings_max_tag_count(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params["max_tag_count"] = 10
+
+        page = self.c.post("/user/settings/", data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings.max_tag_count, 10)
+
     def test_csrf_error_handling(self):
         c = HttpClient(enforce_csrf_checks=True)
         c.login(**self.credentials)
