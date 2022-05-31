@@ -311,8 +311,8 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             {
                 "id": 3,
                 "child": 1,
-                "start": "2017-11-18T14:00:00-05:00",
-                "end": "2017-11-18T14:15:00-05:00",
+                "start": "2017-11-18T19:00:00-05:00",
+                "end": "2017-11-18T19:15:00-05:00",
                 "duration": "00:15:00",
                 "type": "formula",
                 "method": "bottle",
@@ -333,7 +333,7 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             self.endpoint, {"start_min": "2017-11-18T11:30:00-05:00"}
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 2)
+        self.assertEqual(response.data["count"], 3)
 
     def test_post(self):
         data = {

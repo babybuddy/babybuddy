@@ -156,8 +156,17 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(data["type"], "feeding")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
-        self.assertEqual(data["total"], 2.5)
-        self.assertEqual(data["count"], 3)
+        # most recent day
+        self.assertEqual(data["feedings"][0]["total"], 2.5)
+        self.assertEqual(data["feedings"][0]["count"], 3)
+
+        # yesterday
+        self.assertEqual(data["feedings"][1]["total"], 0.25)
+        self.assertEqual(data["feedings"][1]["count"], 1)
+
+        # last day
+        self.assertEqual(data["feedings"][-1]["total"], 20.0)
+        self.assertEqual(data["feedings"][-1]["count"], 2)
 
     def test_card_feeding_last(self):
         data = cards.card_feeding_last(self.context, self.child)
@@ -246,7 +255,7 @@ class TemplateTagsTestCase(TestCase):
             },
             {
                 "type": "duration",
-                "stat": timezone.timedelta(0, 7200),
+                "stat": timezone.timedelta(days=1, seconds=46980),
                 "title": "Feeding frequency",
             },
             {

@@ -8,15 +8,42 @@
 {% endblock %}
 
 {% block title %}
-    {% if total %}
-        {{ total }}
-    {% else %}
-        {% trans "None" %}
+{% if feedings|length > 0 %}
+<div id="feeding-days-carousel" class="carousel slide" data-interval="false">
+    <div class="carousel-inner">
+        {% for feeding in feedings %}
+            <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
+                <div class="last-feeding-method text-center">
+                    {% if feeding.total %}
+                        {{ feeding.total }}
+                    {% else %}
+                        {% trans "None" %}
+                    {% endif %}
+                </div>
+                <div class="text-center small">
+                    {% if feeding.count > 0 %} {{ feeding.count }} feedings {% endif %}
+                </div>
+                {% blocktrans trimmed with since=feeding.date.date|dayssince %}
+                    <div class="text-center small text-muted">
+                        {{ since }}
+                    </div>
+                {% endblocktrans %}
+                </div>
+        {% endfor %}
+    </div>
+    {% if feedings|length > 1 %}
+    <a class="carousel-control-prev" href="#feeding-days-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">{% trans "Previous" %}</span>
+    </a>
+    <a class="carousel-control-next" href="#feeding-days-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">{% trans "Next" %}</span>
+    </a>
     {% endif %}
-{% endblock %}
+</div>
+{% else %}
+{% trans "None" %}
+{% endif %}
 
-{% block content %}
-    {% if count > 0 %}
-        {% blocktrans %}{{ count }} feeding entries{% endblocktrans %}
-    {% endif %}
 {% endblock %}
