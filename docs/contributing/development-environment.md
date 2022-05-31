@@ -8,7 +8,7 @@ information and steps below to set up a local development environment for Baby B
 ## Requirements
 
 - Python 3.6+, pip, pipenv
-- NVM (NodeJS 14.x and NPM 7.x)
+- NodeJS 16.x and NPM 8.x (NVM recommended)
 - Gulp
 - Possibly `libpq-dev`
   - This is necessary if `psycopg2` can't find an appropriate prebuilt binary.
@@ -25,13 +25,13 @@ information and steps below to set up a local development environment for Baby B
    
     If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
     
-1. Installed Node 14.x (if necessary)
+1. Installed Node 16.x (if necessary)
 
     ```shell
-    nvm install 14
+    nvm install 16
     ```
 
-1. Activate Node 14.x
+1. Activate Node 16.x
 
     ```shell
     nvm use

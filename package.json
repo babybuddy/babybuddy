@@ -36,7 +36,9 @@
     "tempusdominus-bootstrap-4": "5.39.2",
     "tempusdominus-core": "5.19.3"
   },
-  "preinstall": "npx npm-force-resolutions",
+  "scripts": {
+    "preinstall": "npx npm-force-resolutions"
+  },
   "resolutions": {
     "lodash.template": ">=4.5.0",
     "glob-parent": ">=5.1.2"
