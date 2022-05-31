@@ -10,7 +10,7 @@ and tweaking of settings.
 ### [`CSRF_TRUSTED_ORIGINS`](../configuration#csrf_trusted_origins)
 
 [Cross Site Request Forgery](https://owasp.org/www-community/attacks/csrf) protection is
-an important way to prevent malicious users from sening fake requests to Baby Buddy to
+an important way to prevent malicious users from sending fake requests to Baby Buddy to
 read, alter, or destroy data.
 
 To protect against this threat Baby Buddy checks the `Origin` header of certain requests
@@ -29,7 +29,9 @@ protected requests to succeed.
 
 Note: multiple origins can be added by separating origins with commas. E.g.:
 
-    CSRF_TRUSTED_ORIGINS=https://baby.example.com,https://baby.example.org
+```shell
+CSRF_TRUSTED_ORIGINS=https://baby.example.com,https://baby.example.org
+```
 
 ### [`SECURE_PROXY_SSL_HEADER`](../configuration#secure_proxy_ssl_header)
 

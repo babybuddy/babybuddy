@@ -9,7 +9,7 @@ const pump = require('pump');
 const removeSourcemaps = require('gulp-remove-sourcemaps');
 const sass = require('gulp-sass')(require('sass'));
 const sassGlob = require('gulp-sass-glob');
-const styleLint = require('gulp-stylelint');
+const styleLint = require('@ronilaukkarinen/gulp-stylelint');
 const spawn = require('child_process').spawn;
 
 const config = require('./gulpfile.config.js');

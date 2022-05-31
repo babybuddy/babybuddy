@@ -10233,6 +10233,29 @@ h3 {
     border-color: #343a40;
   }
 }
+body.tempusdominus-bootstrap-datetimepicker-widget-day-click,
+body.tempusdominus-bootstrap-datetimepicker-widget-day-click * {
+  cursor: pointer !important;
+}
+
+body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
+  position: relative !important;
+}
+
+.tempusdominus-bootstrap-datetimepicker-widget-day-click-glass-panel {
+  position: absolute;
+  z-index: 999999999999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer !important;
+}
+
+.bootstrap-datetimepicker-widget .datepicker-days tbody td {
+  cursor: pointer;
+}
+
 .bootstrap-datetimepicker-widget {
   list-style: none;
 }
@@ -10241,6 +10264,15 @@ h3 {
   margin: 2px 0;
   padding: 4px;
   width: 14rem;
+}
+.bootstrap-datetimepicker-widget.dropdown-menu.tempusdominus-bootstrap-datetimepicker-widget-with-feather-icons {
+  width: 16rem;
+}
+.bootstrap-datetimepicker-widget.dropdown-menu.tempusdominus-bootstrap-datetimepicker-widget-with-calendar-weeks {
+  width: 16rem;
+}
+.bootstrap-datetimepicker-widget.dropdown-menu.tempusdominus-bootstrap-datetimepicker-widget-with-calendar-weeks.tempusdominus-bootstrap-datetimepicker-widget-with-feather-icons {
+  width: 17rem;
 }
 @media (min-width: 576px) {
   .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
@@ -10321,6 +10353,12 @@ h3 {
 .bootstrap-datetimepicker-widget button[data-action] {
   padding: 6px;
 }
+.bootstrap-datetimepicker-widget .btn[data-action=togglePeriod] {
+  text-align: center;
+  font-family: Arial, sans-serif, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  width: 38px;
+  height: 38px;
+}
 .bootstrap-datetimepicker-widget .btn[data-action=incrementHours]::after {
   content: "Increment Hours";
 }
@@ -10366,6 +10404,10 @@ h3 {
   height: 2.5em;
   width: 100%;
 }
+.bootstrap-datetimepicker-widget .picker-switch.picker-switch-with-feathers-icons td span {
+  line-height: 2.8;
+  height: 2.8em;
+}
 .bootstrap-datetimepicker-widget table {
   width: 100%;
   margin: 0;
@@ -10409,6 +10451,7 @@ h3 {
   height: 20px;
   line-height: 20px;
   color: #6c757d;
+  cursor: default;
 }
 .bootstrap-datetimepicker-widget table td.day {
   height: 20px;
@@ -10454,7 +10497,8 @@ h3 {
   width: 54px;
   height: 54px;
   line-height: 54px;
-  margin: 2px 1.5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   cursor: pointer;
   border-radius: 0.25rem;
 }
@@ -10477,6 +10521,28 @@ h3 {
 .bootstrap-datetimepicker-widget.usetwentyfour td.hour {
   height: 27px;
   line-height: 27px;
+}
+.bootstrap-datetimepicker-widget .timepicker .timepicker-picker a.btn {
+  color: #007bff;
+  color: var(--blue, #007bff);
+}
+.bootstrap-datetimepicker-widget .timepicker .timepicker-picker a.btn:hover {
+  color: #0056b3;
+}
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td.day, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td.hour, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td.minute, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td.second,
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=incrementHours], .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=incrementMinutes], .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=incrementSeconds],
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=decrementHours], .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=decrementMinutes], .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=decrementSeconds],
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=showHours], .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=showMinutes], .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=showSeconds],
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=togglePeriod] {
+  pointer-events: none;
+  cursor: default;
+}
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td.day:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td.hour:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td.minute:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td.second:hover,
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=incrementHours]:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=incrementMinutes]:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=incrementSeconds]:hover,
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=decrementHours]:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=decrementMinutes]:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=decrementSeconds]:hover,
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=showHours]:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=showMinutes]:hover, .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=showSeconds]:hover,
+.bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=togglePeriod]:hover {
+  background: none;
 }
 
 .input-group [data-toggle=datetimepicker] {
@@ -10848,8 +10914,8 @@ h3 {
 }
 @font-face {
   font-family: "babybuddy";
-  src: url("../font/babybuddy.eot?90744039");
-  src: url("../font/babybuddy.eot?90744039#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?90744039") format("woff2"), url("../font/babybuddy.woff?90744039") format("woff"), url("../font/babybuddy.ttf?90744039") format("truetype"), url("../font/babybuddy.svg?90744039#babybuddy") format("svg");
+  src: url("../font/babybuddy.eot?34831680");
+  src: url("../font/babybuddy.eot?34831680#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?34831680") format("woff2"), url("../font/babybuddy.woff?34831680") format("woff"), url("../font/babybuddy.ttf?34831680") format("truetype"), url("../font/babybuddy.svg?34831680#babybuddy") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -10859,7 +10925,7 @@ h3 {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'babybuddy';
-    src: url('../font/babybuddy.svg?90744039#babybuddy') format('svg');
+    src: url('../font/babybuddy.svg?34831680#babybuddy') format('svg');
   }
 }
 */

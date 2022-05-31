@@ -96,10 +96,13 @@ class TaggableSerializer(serializers.HyperlinkedModelSerializer):
     tags = TagListSerializerField(required=False)
 
 
-class UserSerializer(serializers.ModelSerializer):
+class BMISerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
-        model = User
-        fields = ("id", "username")
+        model = models.BMI
+        fields = ("id", "child", "bmi", "date", "notes", "tags")
+        extra_kwargs = {
+            "core.BMI.bmi": {"label": "BMI"},
+        }
 
 
 class PumpingSerializer(CoreModelSerializer):
@@ -148,6 +151,18 @@ class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
         )
 
 
+class HeadCircumferenceSerializer(CoreModelSerializer, TaggableSerializer):
+    class Meta:
+        model = models.HeadCircumference
+        fields = ("id", "child", "head_circumference", "date", "notes", "tags")
+
+
+class HeightSerializer(CoreModelSerializer, TaggableSerializer):
+    class Meta:
+        model = models.Height
+        fields = ("id", "child", "height", "date", "notes", "tags")
+
+
 class NoteSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Note
@@ -158,6 +173,17 @@ class SleepSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Sleep
         fields = ("id", "child", "start", "end", "duration", "nap", "notes", "tags")
+
+
+class TagSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Tag
+        fields = ("slug", "name", "color", "last_used")
+        extra_kwargs = {
+            "slug": {"required": False, "read_only": True},
+            "color": {"required": False},
+            "last_used": {"required": False, "read_only": True},
+        }
 
 
 class TemperatureSerializer(CoreModelSerializer, TaggableSerializer):
@@ -197,36 +223,13 @@ class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
         fields = ("id", "child", "start", "end", "duration", "milestone", "tags")
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "username")
+
+
 class WeightSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Weight
         fields = ("id", "child", "weight", "date", "notes", "tags")
-
-
-class HeightSerializer(CoreModelSerializer, TaggableSerializer):
-    class Meta:
-        model = models.Height
-        fields = ("id", "child", "height", "date", "notes", "tags")
-
-
-class HeadCircumferenceSerializer(CoreModelSerializer, TaggableSerializer):
-    class Meta:
-        model = models.HeadCircumference
-        fields = ("id", "child", "head_circumference", "date", "notes", "tags")
-
-
-class BMISerializer(CoreModelSerializer, TaggableSerializer):
-    class Meta:
-        model = models.BMI
-        fields = ("id", "child", "bmi", "date", "notes", "tags")
-
-
-class TagSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.Tag
-        fields = ("slug", "name", "color", "last_used")
-        extra_kwargs = {
-            "slug": {"required": False, "read_only": True},
-            "color": {"required": False},
-            "last_used": {"required": False, "read_only": True},
-        }

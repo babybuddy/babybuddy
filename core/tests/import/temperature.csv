@@ -1,24 +1,24 @@
-child_id,temperature,time
-1,100.2,2020-02-17 09:31:49
-1,99.62,2020-02-17 04:11:09
-1,101.45,2020-02-17 00:14:09
-1,97.41,2020-02-16 14:42:52
-1,99.53,2020-02-16 11:28:41
-1,98.92,2020-02-16 07:38:01
-1,97.69,2020-02-15 22:53:01
-1,98.37,2020-02-15 17:37:21
-1,101.73,2020-02-15 07:51:45
-1,98.31,2020-02-15 03:06:24
-1,95.31,2020-02-14 12:12:28
-1,99.5,2020-02-14 07:41:40
-1,99.9,2020-02-13 18:05:46
-1,98.33,2020-02-13 14:15:54
-1,98.78,2020-02-13 09:39:03
-1,98.51,2020-02-12 18:17:05
-1,100.76,2020-02-12 05:54:01
-1,98.96,2020-02-11 21:00:14
-1,95.15,2020-02-11 17:33:04
-1,95.89,2020-02-11 14:51:04
-1,98.57,2020-02-11 08:30:34
-1,99.16,2020-02-11 06:35:34
-1,98.37,2020-02-10 10:25:06
+id,child_id,child_first_name,child_last_name,temperature,time,notes,tags
+83,1,Robert,Smith,97.81,2022-05-28 10:50:06,,
+82,1,Robert,Smith,98.67,2022-05-28 03:09:33,,
+81,1,Robert,Smith,95.29,2022-05-26 22:34:27,,
+80,1,Robert,Smith,99.53,2022-05-26 18:03:27,,
+79,1,Robert,Smith,96.72,2022-05-26 14:32:36,Main city customer sister strategy century. Green night treatment ability least me.,
+78,1,Robert,Smith,100.24,2022-05-26 09:45:20,,"1,7,9"
+77,1,Robert,Smith,101.88,2022-05-26 04:02:08,,
+76,1,Robert,Smith,95.9,2022-05-25 15:13:00,Have spring eat season while. Because carry media will us.,
+75,1,Robert,Smith,98.68,2022-05-25 11:55:24,,4
+74,1,Robert,Smith,100.11,2022-05-24 15:20:08,,
+73,1,Robert,Smith,95.64,2022-05-24 05:40:22,Then piece probably can Mrs. Paper tax account hot that throw across line.,
+72,1,Robert,Smith,95.3,2022-05-23 11:30:23,Bad there them read present western kid. Relationship involve create community Mrs. Let personal manager mind fire station near. Owner design new understand.,
+71,1,Robert,Smith,99.73,2022-05-23 08:51:23,,"3,9,10"
+70,1,Robert,Smith,100.03,2022-05-22 15:25:50,About heart growth beyond laugh because visit style.,"1,3,4,5,6"
+69,1,Robert,Smith,95.49,2022-05-21 11:53:47,Support around first significant realize. If opportunity base.,
+68,1,Robert,Smith,96.85,2022-05-20 20:13:24,Door major age choice nothing management. Wide activity skill become. Not author administration fine whatever here have. Team officer pull major no feel Mr.,
+67,1,Robert,Smith,98.12,2022-05-20 16:56:28,,
+66,1,Robert,Smith,96.92,2022-05-20 13:25:36,,
+65,1,Robert,Smith,97.79,2022-05-20 09:04:57,Set enjoy happen industry note. Direction character operation hit century compare while. Morning stand large him lose information. Production away reach place building those. Game whose son other.,"5,10"
+64,1,Robert,Smith,101.3,2022-05-20 06:22:57,,
+63,1,Robert,Smith,95.74,2022-05-19 10:45:38,,
+62,1,Robert,Smith,97.19,2022-05-19 02:43:50,,
+61,1,Robert,Smith,99.01,2022-05-18 15:59:57,Hospital see prove food. Research road bag. Sense remain suddenly various mother natural nearly cost. Marriage teacher home somebody social hear environmental.,

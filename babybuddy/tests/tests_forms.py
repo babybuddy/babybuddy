@@ -6,14 +6,14 @@ from django.core.management import call_command
 from django.test import Client as HttpClient, override_settings, TestCase
 from django.utils import timezone
 
-from faker import Factory
+from faker import Faker
 
 
 class FormsTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         super(FormsTestCase, cls).setUpClass()
-        fake = Factory.create()
+        fake = Faker()
         call_command("migrate", verbosity=0)
         call_command("fake", verbosity=0)
 

@@ -7,27 +7,27 @@ import plotly.graph_objs as go
 from reports import utils
 
 
-def head_circumference_head_circumference(objects):
+def height_change(objects):
     """
-    Create a graph showing head_circumference over time.
-    :param objects: a QuerySet of Head Circumference instances.
+    Create a graph showing height over time.
+    :param objects: a QuerySet of Height instances.
     :returns: a tuple of the the graph's html and javascript.
     """
     objects = objects.order_by("-date")
 
     trace = go.Scatter(
-        name=_("Head Circumference"),
+        name=_("Height"),
         x=list(objects.values_list("date", flat=True)),
-        y=list(objects.values_list("head_circumference", flat=True)),
+        y=list(objects.values_list("height", flat=True)),
         fill="tozeroy",
     )
 
     layout_args = utils.default_graph_layout_options()
     layout_args["barmode"] = "stack"
-    layout_args["title"] = _("<b>Head Circumference</b>")
+    layout_args["title"] = _("<b>Height</b>")
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
-    layout_args["yaxis"]["title"] = _("Head Circumference")
+    layout_args["yaxis"]["title"] = _("Height")
 
     fig = go.Figure({"data": [trace], "layout": go.Layout(**layout_args)})
     output = plotly.plot(fig, output_type="div", include_plotlyjs=False)

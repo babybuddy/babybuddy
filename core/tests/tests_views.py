@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.test import Client as HttpClient
 from django.utils import timezone
 
-from faker import Factory
+from faker import Faker
 
 from core import models
 
@@ -14,7 +14,7 @@ class ViewsTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         super(ViewsTestCase, cls).setUpClass()
-        fake = Factory.create()
+        fake = Faker()
         call_command("migrate", verbosity=0)
         call_command("fake", verbosity=0)
 
@@ -28,6 +28,18 @@ class ViewsTestCase(TestCase):
         cls.user = User.objects.create_user(is_superuser=True, **cls.credentials)
 
         cls.c.login(**cls.credentials)
+
+    def test_bmi_views(self):
+        page = self.c.get("/bmi/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/bmi/add/")
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.BMI.objects.first()
+        page = self.c.get("/bmi/{}/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/bmi/{}/delete/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
 
     def test_child_views(self):
         page = self.c.get("/children/")
@@ -47,18 +59,6 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/children/{}/edit/".format(entry.slug))
         self.assertEqual(page.status_code, 200)
         page = self.c.get("/children/{}/delete/".format(entry.slug))
-        self.assertEqual(page.status_code, 200)
-
-    def test_pumping_views(self):
-        page = self.c.get("/pumping/")
-        self.assertEqual(page.status_code, 200)
-        page = self.c.get("/pumping/add/")
-        self.assertEqual(page.status_code, 200)
-
-        entry = models.Pumping.objects.first()
-        page = self.c.get("/pumping/{}/".format(entry.id))
-        self.assertEqual(page.status_code, 200)
-        page = self.c.get("/pumping/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
 
     def test_diaperchange_views(self):
@@ -85,6 +85,30 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/feedings/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
 
+    def test_headcircumference_views(self):
+        page = self.c.get("/head-circumference/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/head-circumference/add/")
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.HeadCircumference.objects.first()
+        page = self.c.get("/head-circumference/{}/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/head-circumference/{}/delete/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
+    def test_height_views(self):
+        page = self.c.get("/height/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/height/add/")
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.Height.objects.first()
+        page = self.c.get("/height/{}/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/height/{}/delete/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
     def test_note_views(self):
         page = self.c.get("/notes/")
         self.assertEqual(page.status_code, 200)
@@ -95,6 +119,18 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/notes/{}/".format(entry.id))
         self.assertEqual(page.status_code, 200)
         page = self.c.get("/notes/{}/delete/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
+    def test_pumping_views(self):
+        page = self.c.get("/pumping/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/pumping/add/")
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.Pumping.objects.first()
+        page = self.c.get("/pumping/{}/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/pumping/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
 
     def test_sleep_views(self):

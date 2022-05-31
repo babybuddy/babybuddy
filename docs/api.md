@@ -11,12 +11,16 @@ authorization.
 Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 `POST` requests:
 
-- `/api/pumping/`
+- `/api/bmi/` (Body Mass Index)
 - `/api/children/`
 - `/api/changes/` (Diaper Changes)
 - `/api/feedings/`
+- `/api/head-circumference/`
+- `/api/height/`
 - `/api/notes/`
+- `/api/pumping/`
 - `/api/sleep/`
+- `/api/tags/`
 - `/api/temperature/`
 - `/api/timers/`
 - `/api/tummy-times/`
@@ -57,13 +61,18 @@ The `limit` and `offset` request parameters can be used to limit
 and offset the results set respectively. For example, the following request
 will return five diaper changes starting from the 10th diaper change entry:
 
-    curl -X GET 'https://[...]/api/changes/?limit=5&offset=10' -H 'Authorization: Token [...]'
-    {
-        "count": <int>,
-        "next": "https://[...]/api/changes/?limit=5&offset=15",
-        "previous": "https://[...]/api/changes/?limit=5&offset=5",
-        "results": [...]
-    }
+```shell
+curl -X GET 'https://[...]/api/changes/?limit=5&offset=10' -H 'Authorization: Token [...]'
+```
+
+```json
+{
+    "count": 20,
+    "next": "https://[...]/api/changes/?limit=5&offset=15",
+    "previous": "https://[...]/api/changes/?limit=5&offset=5",
+    "results": []
+}
+```
 
 Field-based filters for specific endpoints can be found the in the `filters`
 field of the `OPTIONS` response for specific endpoints.
@@ -71,35 +80,48 @@ field of the `OPTIONS` response for specific endpoints.
 Single entries can also be retrieved by adding the ID (or in the case of a 
 Child entry, the slug) of a particular entry:
 
-     curl -X GET https://[...]/api/children/gregory-hill/ -H 'Authorization: Token [...]'
-     {
-        "id":3,
-        "first_name":"Gregory",
-        "last_name":"Hill",
-        "birth_date":"2020-02-11",
-        "slug":"gregory-hill",
-        "picture":null
-    }
-    curl -X GET https://[...]/api/sleep/1/ -H 'Authorization: Token [...]'
-    {
-     "id":480,
-     "child":3,
-     "start":"2020-03-12T21:25:28.916016-07:00",
-     "end":"2020-03-13T01:34:28.916016-07:00",
-     "duration":"04:09:00",
-     "nap":false
-    }
+```shell
+curl -X GET https://[...]/api/children/gregory-hill/ -H 'Authorization: Token [...]'
+```
+
+```json
+{
+    "id":3,
+    "first_name":"Gregory",
+    "last_name":"Hill",
+    "birth_date":"2020-02-11",
+    "slug":"gregory-hill",
+    "picture":null
+}
+```
+
+```shell
+curl -X GET https://[...]/api/sleep/1/ -H 'Authorization: Token [...]'
+```
+
+```json
+{
+    "id":480,
+    "child":3,
+    "start":"2020-03-12T21:25:28.916016-07:00",
+    "end":"2020-03-13T01:34:28.916016-07:00",
+    "duration":"04:09:00",
+    "nap":false
+}
+```
 
 ### Response
 
 Returns JSON data in the response body in the following format:
 
-    {
-        "count":<int>,
-        "next":<url>,
-        "previous":<url>,
-        "results":[{...}]
-    }
+```json
+{
+    "count":<int>,
+    "next":<url>,
+    "previous":<url>,
+    "results":[{...}]
+}
+```
 
 - `count`: Total number of records (*in the database*, not just the response).
 - `next`: URL for the next set of results.
@@ -122,34 +144,36 @@ Returns JSON data in the response body describing the endpoint, available
 options for `POST` requests, and available filters for `GET` requests. The
 following example describes the `/api/children` endpoint:
 
-    {
-        "name": "Child List",
-        "renders": [
-            "application/json",
-            "text/html"
-        ],
-        "parses": [
-            "application/json",
-            "application/x-www-form-urlencoded",
-            "multipart/form-data"
-        ],
-        "actions": {
-            "POST": {
-                "id": {
-                    "type": "integer",
-                    "required": false,
-                    "read_only": true,
-                    "label": "ID"
-                },
-                [...]
-            }
-        },
-        "filters": [
-            "first_name",
-            "last_name",
-            "slug"
-        ]
-    }
+```json
+{
+    "name": "Child List",
+    "renders": [
+        "application/json",
+        "text/html"
+    ],
+    "parses": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+    ],
+    "actions": {
+        "POST": {
+            "id": {
+                "type": "integer",
+                "required": false,
+                "read_only": true,
+                "label": "ID"
+            },
+            [...]
+        }
+    },
+    "filters": [
+        "first_name",
+        "last_name",
+        "slug"
+    ]
+}
+```
 
 ## `POST` Method
 
@@ -165,20 +189,88 @@ formats.
 
 ### Timer Field
 
-The "timer" field is a special field available for `POST` operations to model
-endpoints supporting duration (Feeding, Sleep, Tummy Time). Se the "timer"
-in a request to fill in the `start` and `end` fields automatically using the
-`start` and `end` values *from the Timer* (the Timer will be stopped if it is
-currently running).
+`POST` requests also accept a `timer` field to model endpoints supporting duration
+(Feeding, Sleep, Tummy Time). Set `timer` to a valid timer ID in a request instead of
+the `start` and `end` fields. The new entry will use the `start` and `end` values
+*from the Timer*  and if the timer is running it will be stopped by this operation.
 
-Additionally, if the Timer has a Child relationship, the `child` field will be
-filled in automatically use the `child` value from the Timer.
+Additionally, if the Timer has a child relationship, the `child` field will be
+filled in automatically with the `child` value from the Timer.
 
-The "timer" field will **always override** the relevant fields (`child`, `start`,
+The `timer` field will **always override** the relevant fields (`child`, `start`,
 and `end`) on the request. E.g., a `POST` request with both the `timer` and `end`
 fields will ignore the `end` field value and replace it with the Timer's `end`
 value. The same applies for `start` and `child`. These fields are all **required**
 if the `timer` field is *not* set.
+
+#### Example `timer` field usage
+
+Create a new timer associated with a `child`:
+
+```shell
+curl --location --request POST '[...]/api/timers/' \
+--header 'Authorization: Token [...]' \
+--header 'Content-Type: application/json' \
+--data-raw '{"child": 1}'
+```
+
+Note the timer `id` in the response:
+
+```json
+{
+    "id": 5,
+    "child": 1,
+    "name": null,
+    "start": "2022-05-28T19:59:40.013914Z",
+    "end": null,
+    "duration": null,
+    "active": true,
+    "user": 1
+}
+```
+
+Create a new tummy time entry supplying only the timer `id`:
+
+```shell
+curl --location --request POST '[...]/api/tummy-times/' \
+--header 'Authorization: Token [...]' \
+--header 'Content-Type: application/json' \
+--data-raw '{"timer": 5}'
+```
+
+Note that `child` and `start` match the timer values (and `end` is auto-populated):
+
+```json
+{
+    "id": 162,
+    "child": 1,
+    "start": "2022-05-28T19:59:40.013914Z",
+    "end": "2022-05-28T20:01:13.549099Z",
+    "duration": "00:01:33.535185",
+    "milestone": "",
+    "tags": []
+}
+```
+
+Also note that the timer has been stopped:
+
+```shell
+curl --location --request GET '[...]/api/timers/5' \
+--header 'Authorization: Token [...]'
+```
+
+```json
+{
+    "id": 5,
+    "child": 1,
+    "name": null,
+    "start": "2022-05-28T19:59:40.013914Z",
+    "end": "2022-05-28T20:01:13.549099Z",
+    "duration": "00:01:33.535185",
+    "active": false,
+    "user": 1
+}
+```
 
 ### Response
 
@@ -195,11 +287,13 @@ for the entry to be updated. The `Content-Type` header for `PATCH` request must
 be set to `application/json`. For example, to update a Diaper Change entry with
 ID 947 to indicate a "wet" diaper only:
 
-    curl -X PATCH \
-        -H 'Authorization: Token [...]' \
-        -H "Content-Type: application/json" \
-        -d '{"wet":1, "solid":0}' \
-        https://[...]/api/changes/947/
+```shell
+curl -X PATCH \
+    -H 'Authorization: Token [...]' \
+    -H "Content-Type: application/json" \
+    -d '{"wet":1, "solid":0}' \
+    https://[...]/api/changes/947/
+```
 
 Regular sanity checks will be performed on relevant data. See the `OPTIONS`
 response for a particular endpoint for details on required fields and data
@@ -219,7 +313,9 @@ To delete an existing entry, send a `DELETE` request to the single entry
 endpoint to be deleted. For example, to delete a Diaper Change entry with ID
 947:
 
-    curl -X DELETE https://[...]/api/changes/947/ -H 'Authorization: Token [...]'
+```shell
+curl -X DELETE https://[...]/api/changes/947/ -H 'Authorization: Token [...]'
+```
 
 ### Response
 

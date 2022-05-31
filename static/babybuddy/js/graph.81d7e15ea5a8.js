@@ -1,6 +1,6 @@
 /**
-* plotly.js (cartesian) v2.8.0
-* Copyright 2012-2021, Plotly, Inc.
+* plotly.js (cartesian) v2.12.1
+* Copyright 2012-2022, Plotly, Inc.
 * All rights reserved.
 * Licensed under the MIT license
 */
@@ -51,10 +51,10 @@ var rules = {
     "X .modebar.vertical .modebar-group .modebar-btn": "display:block;text-align:center;",
     "X [data-title]:before,X [data-title]:after": "position:absolute;-webkit-transform:translate3d(0, 0, 0);-moz-transform:translate3d(0, 0, 0);-ms-transform:translate3d(0, 0, 0);-o-transform:translate3d(0, 0, 0);transform:translate3d(0, 0, 0);display:none;opacity:0;z-index:1001;pointer-events:none;top:110%;right:50%;",
     "X [data-title]:hover:before,X [data-title]:hover:after": "display:block;opacity:1;",
-    "X [data-title]:before": "content:\"\";position:absolute;background:transparent;border:6px solid transparent;z-index:1002;margin-top:-12px;border-bottom-color:#69738a;margin-right:-6px;",
+    "X [data-title]:before": "content:\"\";position:absolute;background:rgba(0,0,0,0);border:6px solid rgba(0,0,0,0);z-index:1002;margin-top:-12px;border-bottom-color:#69738a;margin-right:-6px;",
     "X [data-title]:after": "content:attr(data-title);background:#69738a;color:#fff;padding:8px 10px;font-size:12px;line-height:12px;white-space:nowrap;margin-right:-18px;border-radius:2px;",
     "X .vertical [data-title]:before,X .vertical [data-title]:after": "top:0%;right:200%;",
-    "X .vertical [data-title]:before": "border:6px solid transparent;border-left-color:#69738a;margin-top:8px;margin-right:-30px;",
+    "X .vertical [data-title]:before": "border:6px solid rgba(0,0,0,0);border-left-color:#69738a;margin-top:8px;margin-right:-30px;",
     "X .select-outline": "fill:none;stroke-width:1;shape-rendering:crispEdges;",
     "X .select-outline-1": "stroke:#fff;",
     "X .select-outline-2": "stroke:#000;stroke-dasharray:2px 2px;",
@@ -15724,7 +15724,15 @@ exports.readUInt32BE = function (data, offset) {
 
 function ProbeError(message, code, statusCode) {
   Error.call(this);
-  Error.captureStackTrace(this, this.constructor);
+
+  // Include stack trace in error object
+  if (Error.captureStackTrace) {
+    // Chrome and NodeJS
+    Error.captureStackTrace(this, this.constructor);
+  } else {
+    // FF, IE 10+ and Safari 6+. Fallback for others
+    this.stack = (new Error()).stack || '';
+  }
 
   this.name = this.constructor.name;
 
@@ -30822,6 +30830,7 @@ module.exports = overrideAll({
     ticklen: axesAttrs.ticklen,
     tickwidth: axesAttrs.tickwidth,
     tickcolor: axesAttrs.tickcolor,
+    ticklabelstep: axesAttrs.ticklabelstep,
     showticklabels: axesAttrs.showticklabels,
     tickfont: fontAttrs({
     }),
@@ -31912,6 +31921,7 @@ function mockColorBarAxis(gd, opts, zrange) {
         showticklabels: opts.showticklabels,
         ticklabelposition: opts.ticklabelposition,
         ticklabeloverflow: opts.ticklabeloverflow,
+        ticklabelstep: opts.ticklabelstep,
         tickfont: opts.tickfont,
         tickangle: opts.tickangle,
         tickformat: opts.tickformat,
@@ -32064,7 +32074,7 @@ module.exports = function colorScaleAttrs(context, opts) {
     }
 
     var effectDesc = onlyIfNumerical ?
-        ' Has an effect only if ' + colorAttrFull + 'is set to a numerical array.' :
+        ' Has an effect only if ' + colorAttrFull + ' is set to a numerical array.' :
         '';
 
     var auto = cLetter + 'auto';
@@ -33650,24 +33660,42 @@ drawing.dashStyle = function(dash, lineWidth) {
     return dash;
 };
 
+function setFillStyle(sel, trace, gd) {
+    var markerPattern = trace.fillpattern;
+    var patternShape = markerPattern && drawing.getPatternAttr(markerPattern.shape, 0, '');
+    if(patternShape) {
+        var patternBGColor = drawing.getPatternAttr(markerPattern.bgcolor, 0, null);
+        var patternFGColor = drawing.getPatternAttr(markerPattern.fgcolor, 0, null);
+        var patternFGOpacity = markerPattern.fgopacity;
+        var patternSize = drawing.getPatternAttr(markerPattern.size, 0, 8);
+        var patternSolidity = drawing.getPatternAttr(markerPattern.solidity, 0, 0.3);
+        var patternID = trace.uid;
+        drawing.pattern(sel, 'point', gd, patternID,
+            patternShape, patternSize, patternSolidity,
+            undefined, markerPattern.fillmode,
+            patternBGColor, patternFGColor, patternFGOpacity
+        );
+    } else if(trace.fillcolor) {
+        sel.call(Color.fill, trace.fillcolor);
+    }
+}
+
 // Same as fillGroupStyle, except in this case the selection may be a transition
-drawing.singleFillStyle = function(sel) {
+drawing.singleFillStyle = function(sel, gd) {
     var node = d3.select(sel.node());
     var data = node.data();
-    var fillcolor = (((data[0] || [])[0] || {}).trace || {}).fillcolor;
-    if(fillcolor) {
-        sel.call(Color.fill, fillcolor);
-    }
+    var trace = ((data[0] || [])[0] || {}).trace || {};
+    setFillStyle(sel, trace, gd);
 };
 
-drawing.fillGroupStyle = function(s) {
+drawing.fillGroupStyle = function(s, gd) {
     s.style('stroke-width', 0)
     .each(function(d) {
         var shape = d3.select(this);
         // N.B. 'd' won't be a calcdata item when
         // fill !== 'none' on a segment-less and marker-less trace
         if(d[0].trace) {
-            shape.call(Color.fill, d[0].trace.fillcolor);
+            setFillStyle(shape, d[0].trace, gd);
         }
     });
 };
@@ -33820,12 +33848,7 @@ drawing.gradient = function(sel, gd, gradientID, type, colorscale, prop) {
     sel.style(prop, getFullUrl(fullID, gd))
         .style(prop + '-opacity', null);
 
-    var className2query = function(s) {
-        return '.' + s.attr('class').replace(/\s/g, '.');
-    };
-    var k = className2query(d3.select(sel.node().parentNode)) +
-        '>' + className2query(sel);
-    fullLayout._gradientUrlQueryParts[k] = 1;
+    sel.classed('gradient_filled', true);
 };
 
 /**
@@ -34032,11 +34055,6 @@ drawing.pattern = function(sel, calledBy, gd, patternID, shape, size, solidity, 
         .style('fill-opacity', null);
 
     sel.classed('pattern_filled', true);
-    var className2query = function(s) {
-        return '.' + s.attr('class').replace(/\s/g, '.');
-    };
-    var k = className2query(d3.select(sel.node().parentNode)) + '>.pattern_filled';
-    fullLayout._patternUrlQueryParts[k] = 1;
 };
 
 /*
@@ -34052,9 +34070,7 @@ drawing.initGradients = function(gd) {
     var gradientsGroup = Lib.ensureSingle(fullLayout._defs, 'g', 'gradients');
     gradientsGroup.selectAll('linearGradient,radialGradient').remove();
 
-    // initialize stash of query parts filled in Drawing.gradient,
-    // used to fix URL strings during image exports
-    fullLayout._gradientUrlQueryParts = {};
+    d3.select(gd).selectAll('.gradient_filled').classed('gradient_filled', false);
 };
 
 drawing.initPatterns = function(gd) {
@@ -34063,9 +34079,7 @@ drawing.initPatterns = function(gd) {
     var patternsGroup = Lib.ensureSingle(fullLayout._defs, 'g', 'patterns');
     patternsGroup.selectAll('pattern').remove();
 
-    // initialize stash of query parts filled in Drawing.pattern,
-    // used to fix URL strings during image exports
-    fullLayout._patternUrlQueryParts = {};
+    d3.select(gd).selectAll('.pattern_filled').classed('pattern_filled', false);
 };
 
 drawing.getPatternAttr = function(mp, i, dflt) {
@@ -39532,7 +39546,7 @@ module.exports = function draw(gd) {
                     canvas.width = this.width;
                     canvas.height = this.height;
 
-                    var ctx = canvas.getContext('2d');
+                    var ctx = canvas.getContext('2d', {willReadFrequently: true});
                     ctx.drawImage(this, 0, 0);
 
                     var dataURL = canvas.toDataURL('image/png');
@@ -40718,7 +40732,6 @@ function computeLegendDimensions(gd, groups, traces, legendObj) {
                     offsetY += h;
                     maxWidthInGroup = Math.max(maxWidthInGroup, textGap + w);
                 });
-                maxGroupHeightInRow = Math.max(maxGroupHeightInRow, offsetY);
 
                 var next = maxWidthInGroup + itemGap;
 
@@ -40734,6 +40747,8 @@ function computeLegendDimensions(gd, groups, traces, legendObj) {
                     groupOffsetX = 0;
                     groupOffsetY += maxGroupHeightInRow + traceGroupGap;
                     maxGroupHeightInRow = offsetY;
+                } else {
+                    maxGroupHeightInRow = Math.max(maxGroupHeightInRow, offsetY);
                 }
 
                 Drawing.setTranslate(this, groupOffsetX, groupOffsetY);
@@ -41401,12 +41416,16 @@ module.exports = function style(s, gd, legend) {
         var colorscale = cOpts.colorscale;
         var reversescale = cOpts.reversescale;
 
-        var fillGradient = function(s) {
+        var fillStyle = function(s) {
             if(s.size()) {
-                var gradientID = 'legendfill-' + trace.uid;
-                Drawing.gradient(s, gd, gradientID,
-                    getGradientDirection(reversescale),
-                    colorscale, 'fill');
+                if(showFill) {
+                    Drawing.fillGroupStyle(s, gd);
+                } else {
+                    var gradientID = 'legendfill-' + trace.uid;
+                    Drawing.gradient(s, gd, gradientID,
+                        getGradientDirection(reversescale),
+                        colorscale, 'fill');
+                }
             }
         };
 
@@ -41435,7 +41454,7 @@ module.exports = function style(s, gd, legend) {
         fill.enter().append('path').classed('js-fill', true);
         fill.exit().remove();
         fill.attr('d', pathStart + 'h' + itemWidth + 'v6h-' + itemWidth + 'z')
-            .call(showFill ? Drawing.fillGroupStyle : fillGradient);
+            .call(fillStyle);
 
         if(showLine || showGradientLine) {
             var lw = boundLineWidth(undefined, trace.line, MAX_LINE_WIDTH, CST_LINE_WIDTH);
@@ -42863,6 +42882,7 @@ var isUnifiedHover = _dereq_('../fx/helpers').isUnifiedHover;
 var createModeBar = _dereq_('./modebar');
 var modeBarButtons = _dereq_('./buttons');
 var DRAW_MODES = _dereq_('./constants').DRAW_MODES;
+var extendDeep = _dereq_('../../lib').extendDeep;
 
 /**
  * ModeBar wrapper around 'create' and 'update',
@@ -43185,7 +43205,9 @@ function appendButtonsToGroups(groups, buttons) {
 }
 
 // fill in custom buttons referring to default mode bar buttons
-function fillCustomButton(customButtons) {
+function fillCustomButton(originalModeBarButtons) {
+    var customButtons = extendDeep([], originalModeBarButtons);
+
     for(var i = 0; i < customButtons.length; i++) {
         var buttonGroup = customButtons[i];
 
@@ -43208,7 +43230,7 @@ function fillCustomButton(customButtons) {
     return customButtons;
 }
 
-},{"../../plots/cartesian/axis_ids":338,"../../registry":378,"../../traces/scatter/subtypes":525,"../fx/helpers":193,"./buttons":217,"./constants":218,"./modebar":222}],222:[function(_dereq_,module,exports){
+},{"../../lib":287,"../../plots/cartesian/axis_ids":338,"../../registry":378,"../../traces/scatter/subtypes":525,"../fx/helpers":193,"./buttons":217,"./constants":218,"./modebar":222}],222:[function(_dereq_,module,exports){
 'use strict';
 
 var d3 = _dereq_('@plotly/d3');
@@ -43216,6 +43238,8 @@ var isNumeric = _dereq_('fast-isnumeric');
 
 var Lib = _dereq_('../../lib');
 var Icons = _dereq_('../../fonts/ploticon');
+var version = _dereq_('../../version').version;
+
 var Parser = new DOMParser();
 
 /**
@@ -43494,6 +43518,10 @@ proto.hasButtons = function(buttons) {
     return true;
 };
 
+function jsVersion(str) {
+    return str + ' (v' + version + ')';
+}
+
 /**
  * @return {HTMLDivElement} The logo image wrapped in a group
  */
@@ -43503,7 +43531,7 @@ proto.getLogo = function() {
 
     a.href = 'https://plotly.com/';
     a.target = '_blank';
-    a.setAttribute('data-title', Lib._(this.graphInfo, 'Produced with Plotly'));
+    a.setAttribute('data-title', jsVersion(Lib._(this.graphInfo, 'Produced with Plotly.js')));
     a.className = 'modebar-btn plotlyjsicon modebar-btn--logo';
 
     a.appendChild(this.createIcon(Icons.newplotlylogo));
@@ -43545,7 +43573,7 @@ function createModeBar(gd, buttons) {
 
 module.exports = createModeBar;
 
-},{"../../fonts/ploticon":270,"../../lib":287,"@plotly/d3":20,"fast-isnumeric":33}],223:[function(_dereq_,module,exports){
+},{"../../fonts/ploticon":270,"../../lib":287,"../../version":552,"@plotly/d3":20,"fast-isnumeric":33}],223:[function(_dereq_,module,exports){
 'use strict';
 
 var fontAttrs = _dereq_('../../plots/font_attributes');
@@ -56056,6 +56084,7 @@ exports.convertToTspans = function(_context, gd, _callback) {
     // Until we get tex integrated more fully (so it can be used along with non-tex)
     // allow some elements to prohibit it by attaching 'data-notex' to the original
     var tex = (!_context.attr('data-notex')) &&
+        gd && gd._context.typesetMath &&
         (typeof MathJax !== 'undefined') &&
         str.match(FIND_TEX);
 
@@ -56210,70 +56239,154 @@ function cleanEscapesForTex(s) {
         .replace(GT_MATCH, '\\gt ');
 }
 
+var inlineMath = [['$', '$'], ['\\(', '\\)']];
+
 function texToSVG(_texString, _config, _callback) {
+    var MathJaxVersion = parseInt(
+        (MathJax.version || '').split('.')[0]
+    );
+
+    if(
+        MathJaxVersion !== 2 &&
+        MathJaxVersion !== 3
+    ) {
+        Lib.warn('No MathJax version:', MathJax.version);
+        return;
+    }
+
     var originalRenderer,
         originalConfig,
         originalProcessSectionDelay,
         tmpDiv;
 
-    MathJax.Hub.Queue(
-    function() {
+    var setConfig2 = function() {
         originalConfig = Lib.extendDeepAll({}, MathJax.Hub.config);
 
         originalProcessSectionDelay = MathJax.Hub.processSectionDelay;
         if(MathJax.Hub.processSectionDelay !== undefined) {
-            // MathJax 2.5+
+            // MathJax 2.5+ but not 3+
             MathJax.Hub.processSectionDelay = 0;
         }
 
         return MathJax.Hub.Config({
             messageStyle: 'none',
             tex2jax: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
+                inlineMath: inlineMath
             },
             displayAlign: 'left',
         });
-    },
-    function() {
-        // Get original renderer
+    };
+
+    var setConfig3 = function() {
+        originalConfig = Lib.extendDeepAll({}, MathJax.config);
+
+        if(!MathJax.config.tex) {
+            MathJax.config.tex = {};
+        }
+
+        MathJax.config.tex.inlineMath = inlineMath;
+    };
+
+    var setRenderer2 = function() {
         originalRenderer = MathJax.Hub.config.menuSettings.renderer;
         if(originalRenderer !== 'SVG') {
             return MathJax.Hub.setRenderer('SVG');
         }
-    },
-    function() {
+    };
+
+    var setRenderer3 = function() {
+        originalRenderer = MathJax.config.startup.output;
+        if(originalRenderer !== 'svg') {
+            MathJax.config.startup.output = 'svg';
+        }
+    };
+
+    var initiateMathJax = function() {
         var randomID = 'math-output-' + Lib.randstr({}, 64);
         tmpDiv = d3.select('body').append('div')
             .attr({id: randomID})
-            .style({visibility: 'hidden', position: 'absolute'})
-            .style({'font-size': _config.fontSize + 'px'})
+            .style({
+                visibility: 'hidden',
+                position: 'absolute',
+                'font-size': _config.fontSize + 'px'
+            })
             .text(cleanEscapesForTex(_texString));
 
-        return MathJax.Hub.Typeset(tmpDiv.node());
-    },
-    function() {
-        var glyphDefs = d3.select('body').select('#MathJax_SVG_glyphs');
+        var tmpNode = tmpDiv.node();
 
-        if(tmpDiv.select('.MathJax_SVG').empty() || !tmpDiv.select('svg').node()) {
+        return MathJaxVersion === 2 ?
+            MathJax.Hub.Typeset(tmpNode) :
+            MathJax.typeset([tmpNode]);
+    };
+
+    var finalizeMathJax = function() {
+        var sel = tmpDiv.select(
+            MathJaxVersion === 2 ? '.MathJax_SVG' : '.MathJax'
+        );
+
+        var node = !sel.empty() && tmpDiv.select('svg').node();
+        if(!node) {
             Lib.log('There was an error in the tex syntax.', _texString);
             _callback();
         } else {
-            var svgBBox = tmpDiv.select('svg').node().getBoundingClientRect();
-            _callback(tmpDiv.select('.MathJax_SVG'), glyphDefs, svgBBox);
+            var nodeBBox = node.getBoundingClientRect();
+            var glyphDefs;
+            if(MathJaxVersion === 2) {
+                glyphDefs = d3.select('body').select('#MathJax_SVG_glyphs');
+            } else {
+                glyphDefs = sel.select('defs');
+            }
+            _callback(sel, glyphDefs, nodeBBox);
         }
 
         tmpDiv.remove();
+    };
 
+    var resetRenderer2 = function() {
         if(originalRenderer !== 'SVG') {
             return MathJax.Hub.setRenderer(originalRenderer);
         }
-    },
-    function() {
+    };
+
+    var resetRenderer3 = function() {
+        if(originalRenderer !== 'svg') {
+            MathJax.config.startup.output = originalRenderer;
+        }
+    };
+
+    var resetConfig2 = function() {
         if(originalProcessSectionDelay !== undefined) {
             MathJax.Hub.processSectionDelay = originalProcessSectionDelay;
         }
         return MathJax.Hub.Config(originalConfig);
-    });
+    };
+
+    var resetConfig3 = function() {
+        MathJax.config = originalConfig;
+    };
+
+    if(MathJaxVersion === 2) {
+        MathJax.Hub.Queue(
+            setConfig2,
+            setRenderer2,
+            initiateMathJax,
+            finalizeMathJax,
+            resetRenderer2,
+            resetConfig2
+        );
+    } else if(MathJaxVersion === 3) {
+        setConfig3();
+        setRenderer3();
+        MathJax.startup.defaultReady();
+
+        MathJax.startup.promise.then(function() {
+            initiateMathJax();
+            finalizeMathJax();
+
+            resetRenderer3();
+            resetConfig3();
+        });
+    }
 }
 
 var TAG_STYLES = {
@@ -60400,7 +60513,9 @@ function _relayout(gd, aobj) {
             if(parentFull.autorange) flags.calc = true;
             else flags.plot = true;
         } else {
-            if((fullLayout._has('scatter-like') && fullLayout._has('regl')) &&
+            if(ai === 'dragmode' && ((vi === false && vOld !== false) || (vi !== false && vOld === false))) {
+                flags.plot = true;
+            } else if((fullLayout._has('scatter-like') && fullLayout._has('regl')) &&
                 (ai === 'dragmode' &&
                 (vi === 'lasso' || vi === 'select') &&
                 !(vOld === 'lasso' || vOld === 'select'))
@@ -62091,6 +62206,11 @@ var configAttributes = {
     staticPlot: {
         valType: 'boolean',
         dflt: false,
+    },
+
+    typesetMath: {
+        valType: 'boolean',
+        dflt: true,
     },
 
     plotlyServerURL: {
@@ -66171,6 +66291,7 @@ var BADNUM = constants.BADNUM;
 
 var ZERO_PATH = { K: 'zeroline' };
 var GRID_PATH = { K: 'gridline', L: 'path' };
+var MINORGRID_PATH = { K: 'minor-gridline', L: 'path' };
 var TICK_PATH = { K: 'tick', L: 'path' };
 var TICK_TEXT = { K: 'tick', L: 'text' };
 
@@ -66675,12 +66796,112 @@ function autoShiftMonthBins(binStart, data, dtick, dataMin, calendar) {
 // Ticks and grids
 // ----------------------------------------------------
 
+// ensure we have minor tick0 and dtick calculated
+axes.prepMinorTicks = function(mockAx, ax, opts) {
+    if(!ax.minor.dtick) {
+        delete mockAx.dtick;
+        var hasMajor = ax.dtick && isNumeric(ax._tmin);
+        var mockMinorRange;
+        if(hasMajor) {
+            var tick2 = axes.tickIncrement(ax._tmin, ax.dtick, true);
+            // mock range a tiny bit smaller than one major tick interval
+            mockMinorRange = [ax._tmin, tick2 * 0.99 + ax._tmin * 0.01];
+        } else {
+            var rl = Lib.simpleMap(ax.range, ax.r2l);
+            // If we don't have a major dtick, the concept of minor ticks is a little
+            // ambiguous - just take a stab and say minor.nticks should span 1/5 the axis
+            mockMinorRange = [rl[0], 0.8 * rl[0] + 0.2 * rl[1]];
+        }
+        mockAx.range = Lib.simpleMap(mockMinorRange, ax.l2r);
+        mockAx._isMinor = true;
+
+        axes.prepTicks(mockAx, opts);
+
+        if(hasMajor) {
+            var numericMajor = isNumeric(ax.dtick);
+            var numericMinor = isNumeric(mockAx.dtick);
+            var majorNum = numericMajor ? ax.dtick : +ax.dtick.substring(1);
+            var minorNum = numericMinor ? mockAx.dtick : +mockAx.dtick.substring(1);
+            if(numericMajor && numericMinor) {
+                if(!isMultiple(majorNum, minorNum)) {
+                    // give up on minor ticks - outside the below exceptions,
+                    // this can only happen if minor.nticks is smaller than two jumps
+                    // in the auto-tick scale and the first jump is not an even multiple
+                    // (5 -> 2 or for dates 3 ->2, 15 -> 10 etc)  or if you provided
+                    // an explicit dtick, in which case it's fine to give up,
+                    // you can provide an explicit minor.dtick.
+                    if((majorNum === 2 * ONEWEEK) && (minorNum === 3 * ONEDAY)) {
+                        mockAx.dtick = ONEWEEK;
+                    } else if(majorNum === ONEWEEK && !(ax._input.minor || {}).nticks) {
+                        // minor.nticks defaults to 5, but in this one case we want 7,
+                        // so the minor ticks show on all days of the week
+                        mockAx.dtick = ONEDAY;
+                    } else if(isClose(majorNum / minorNum, 2.5)) {
+                        // 5*10^n -> 2*10^n and you've set nticks < 5
+                        // quarters are pretty common, we don't do this by default as it
+                        // would add an extra digit to display, but minor has no labels
+                        mockAx.dtick = majorNum / 2;
+                    } else {
+                        mockAx.dtick = majorNum;
+                    }
+                } else if(majorNum === 2 * ONEWEEK && minorNum === 2 * ONEDAY) {
+                    // this is a weird one: we don't want to automatically choose
+                    // 2-day minor ticks for 2-week major, even though it IS an even multiple,
+                    // because people would expect to see the weeks clearly
+                    mockAx.dtick = ONEWEEK;
+                }
+            } else if(String(ax.dtick).charAt(0) === 'M') {
+                if(numericMinor) {
+                    mockAx.dtick = 'M1';
+                } else {
+                    if(!isMultiple(majorNum, minorNum)) {
+                        // unless you provided an explicit ax.dtick (in which case
+                        // it's OK for us to give up, you can provide an explicit
+                        // minor.dtick too), this can only happen with:
+                        // minor.nticks < 3 and dtick === M3, or
+                        // minor.nticks < 5 and dtick === 5 * 10^n years
+                        // so in all cases we just give up.
+                        mockAx.dtick = ax.dtick;
+                    } else if((majorNum >= 12) && (minorNum === 2)) {
+                        // another special carve-out: for year major ticks, don't show
+                        // 2-month minor ticks, bump to quarters
+                        mockAx.dtick = 'M3';
+                    }
+                }
+            } else if(String(mockAx.dtick).charAt(0) === 'L') {
+                if(String(ax.dtick).charAt(0) === 'L') {
+                    if(!isMultiple(majorNum, minorNum)) {
+                        mockAx.dtick = isClose(majorNum / minorNum, 2.5) ? (ax.dtick / 2) : ax.dtick;
+                    }
+                } else {
+                    mockAx.dtick = 'D1';
+                }
+            } else if(mockAx.dtick === 'D2' && +ax.dtick > 1) {
+                // the D2 log axis tick spacing is confusing for unlabeled minor ticks if
+                // the major dtick is more than one order of magnitude.
+                mockAx.dtick = 1;
+            }
+        }
+        // put back the original range, to use to find the full set of minor ticks
+        mockAx.range = ax.range;
+    }
+    if(ax.minor._tick0Init === undefined) {
+        // ensure identical tick0
+        mockAx.tick0 = ax.tick0;
+    }
+};
+
+function isMultiple(bigger, smaller) {
+    return Math.abs((bigger / smaller + 0.5) % 1 - 0.5) < 0.001;
+}
+
+function isClose(a, b) {
+    return Math.abs((a / b) - 1) < 0.001;
+}
+
 // ensure we have tick0, dtick, and tick rounding calculated
 axes.prepTicks = function(ax, opts) {
     var rng = Lib.simpleMap(ax.range, ax.r2l, undefined, undefined, opts);
-
-    ax._dtickInit = ax.dtick;
-    ax._tick0Init = ax.tick0;
 
     // calculate max number of (auto) ticks to display based on plot size
     if(ax.tickmode === 'auto' || !ax.dtick) {
@@ -66701,10 +66922,11 @@ axes.prepTicks = function(ax, opts) {
             if(ax._name === 'radialaxis') nt *= 2;
         }
 
-        // add a couple of extra digits for filling in ticks when we
-        // have explicit tickvals without tick text
-        if(ax.tickmode === 'array') nt *= 100;
-
+        if(!(ax.minor && ax.minor.tickmode !== 'array')) {
+            // add a couple of extra digits for filling in ticks when we
+            // have explicit tickvals without tick text
+            if(ax.tickmode === 'array') nt *= 100;
+        }
 
         ax._roughDTick = Math.abs(rng[1] - rng[0]) / nt;
         axes.autoTicks(ax, ax._roughDTick);
@@ -66922,81 +67144,201 @@ function positionPeriodTicks(tickVals, ax, definedDelta) {
 // in any case, set tickround to # of digits to round tick labels to,
 // or codes to this effect for log and date scales
 axes.calcTicks = function calcTicks(ax, opts) {
-    axes.prepTicks(ax, opts);
+    var type = ax.type;
+    var calendar = ax.calendar;
+    var ticklabelstep = ax.ticklabelstep;
+    var isPeriod = ax.ticklabelmode === 'period';
+
     var rng = Lib.simpleMap(ax.range, ax.r2l, undefined, undefined, opts);
-
-    // now that we've figured out the auto values for formatting
-    // in case we're missing some ticktext, we can break out for array ticks
-    if(ax.tickmode === 'array') return arrayTicks(ax);
-
-    // add a tiny bit so we get ticks which may have rounded out
-    var exRng = expandRange(rng);
-    var startTick = exRng[0];
-    var endTick = exRng[1];
-    // check for reversed axis
     var axrev = (rng[1] < rng[0]);
     var minRange = Math.min(rng[0], rng[1]);
     var maxRange = Math.max(rng[0], rng[1]);
 
-    var isDLog = (ax.type === 'log') && !(isNumeric(ax.dtick) || ax.dtick.charAt(0) === 'L');
-    var isPeriod = ax.ticklabelmode === 'period';
-
-    // find the first tick
-    ax._tmin = axes.tickFirst(ax, opts);
-
-    // No visible ticks? Quit.
-    // I've only seen this on category axes with all categories off the edge.
-    if((ax._tmin < startTick) !== axrev) return [];
-
-    // return the full set of tick vals
-    if(ax.type === 'category' || ax.type === 'multicategory') {
-        endTick = (axrev) ? Math.max(-0.5, endTick) :
-            Math.min(ax._categories.length - 0.5, endTick);
-    }
-
-    var x = ax._tmin;
-
-    if(ax.rangebreaks && ax._tick0Init !== ax.tick0) {
-        // adjust tick0
-        x = moveOutsideBreak(x, ax);
-        if(!axrev) {
-            x = axes.tickIncrement(x, ax.dtick, !axrev, ax.calendar);
-        }
-    }
-
-    if(isPeriod) {
-        // add one item to label period before tick0
-        x = axes.tickIncrement(x, ax.dtick, !axrev, ax.calendar);
-    }
-
     var maxTicks = Math.max(1000, ax._length || 0);
+
+    var ticksOut = [];
+    var minorTicks = [];
+
     var tickVals = [];
-    var xPrevious = null;
-    for(;
-        (axrev) ? (x >= endTick) : (x <= endTick);
-        x = axes.tickIncrement(x, ax.dtick, axrev, ax.calendar)
-    ) {
-        if(ax.rangebreaks) {
-            if(!axrev) {
-                if(x < startTick) continue;
-                if(ax.maskBreaks(x) === BADNUM && moveOutsideBreak(x, ax) >= maxRange) break;
+    var minorTickVals = [];
+
+    var hasMinor = ax.minor && (ax.minor.ticks || ax.minor.showgrid);
+
+    // calc major first
+    for(var major = 1; major >= (hasMinor ? 0 : 1); major--) {
+        var isMinor = !major;
+
+        if(major) {
+            ax._dtickInit = ax.dtick;
+            ax._tick0Init = ax.tick0;
+        } else {
+            ax.minor._dtickInit = ax.minor.dtick;
+            ax.minor._tick0Init = ax.minor.tick0;
+        }
+
+        var mockAx = major ? ax : Lib.extendFlat({}, ax, ax.minor);
+
+        if(isMinor) {
+            axes.prepMinorTicks(mockAx, ax, opts);
+        } else {
+            axes.prepTicks(mockAx, opts);
+        }
+
+        // now that we've figured out the auto values for formatting
+        // in case we're missing some ticktext, we can break out for array ticks
+        if(mockAx.tickmode === 'array') {
+            if(major) {
+                tickVals = [];
+                ticksOut = arrayTicks(ax);
+            } else {
+                minorTickVals = [];
+                minorTicks = arrayTicks(ax);
+            }
+            continue;
+        }
+
+        // add a tiny bit so we get ticks which may have rounded out
+        var exRng = expandRange(rng);
+        var startTick = exRng[0];
+        var endTick = exRng[1];
+
+        var numDtick = isNumeric(mockAx.dtick);
+        var isDLog = (type === 'log') && !(numDtick || mockAx.dtick.charAt(0) === 'L');
+
+        // find the first tick
+        var x0 = axes.tickFirst(mockAx, opts);
+
+        if(major) {
+            ax._tmin = x0;
+
+            // No visible ticks? Quit.
+            // I've only seen this on category axes with all categories off the edge.
+            if((x0 < startTick) !== axrev) break;
+
+            // return the full set of tick vals
+            if(type === 'category' || type === 'multicategory') {
+                endTick = (axrev) ? Math.max(-0.5, endTick) :
+                    Math.min(ax._categories.length - 0.5, endTick);
             }
         }
 
-        // prevent infinite loops - no more than one tick per pixel,
-        // and make sure each value is different from the previous
-        if(tickVals.length > maxTicks || x === xPrevious) break;
-        xPrevious = x;
+        var prevX = null;
+        var x = x0;
+        var majorId;
 
-        var minor = false;
-        if(isDLog && (x !== (x | 0))) {
-            minor = true;
+        if(major) {
+            // ids for ticklabelstep
+            var _dTick;
+            if(numDtick) {
+                _dTick = ax.dtick;
+            } else {
+                if(type === 'date') {
+                    if(typeof ax.dtick === 'string' && ax.dtick.charAt(0) === 'M') {
+                        _dTick = ONEAVGMONTH * ax.dtick.substring(1);
+                    }
+                } else {
+                    _dTick = ax._roughDTick;
+                }
+            }
+
+            majorId = Math.round((
+                ax.r2l(x) -
+                ax.r2l(ax.tick0)
+            ) / _dTick) - 1;
         }
 
-        tickVals.push({
-            minor: minor,
-            value: x
-        });
+        var dtick = mockAx.dtick;
+
+        if(mockAx.rangebreaks && mockAx._tick0Init !== mockAx.tick0) {
+            // adjust tick0
+            x = moveOutsideBreak(x, ax);
+            if(!axrev) {
+                x = axes.tickIncrement(x, dtick, !axrev, calendar);
+            }
+        }
+
+        if(major && isPeriod) {
+            // add one item to label period before tick0
+            x = axes.tickIncrement(x, dtick, !axrev, calendar);
+            majorId--;
+        }
+
+        for(;
+            axrev ?
+                (x >= endTick) :
+                (x <= endTick);
+            x = axes.tickIncrement(
+                x,
+                dtick,
+                axrev,
+                calendar
+            )
+        ) {
+            if(major) majorId++;
+
+            if(mockAx.rangebreaks) {
+                if(!axrev) {
+                    if(x < startTick) continue;
+                    if(mockAx.maskBreaks(x) === BADNUM && moveOutsideBreak(x, mockAx) >= maxRange) break;
+                }
+            }
+
+            // prevent infinite loops - no more than one tick per pixel,
+            // and make sure each value is different from the previous
+            if(tickVals.length > maxTicks || x === prevX) break;
+            prevX = x;
+
+            var obj = { value: x };
+
+            if(major) {
+                if(isDLog && (x !== (x | 0))) {
+                    obj.simpleLabel = true;
+                }
+
+                if(ticklabelstep > 1 && majorId % ticklabelstep) {
+                    obj.skipLabel = true;
+                }
+
+                tickVals.push(obj);
+            } else {
+                obj.minor = true;
+
+                minorTickVals.push(obj);
+            }
+        }
+    }
+
+    if(hasMinor) {
+        var canOverlap =
+            (ax.minor.ticks === 'inside' && ax.ticks === 'outside') ||
+            (ax.minor.ticks === 'outside' && ax.ticks === 'inside');
+
+        if(!canOverlap) {
+            // remove duplicate minors
+
+            var majorValues = tickVals.map(function(d) { return d.value; });
+
+            var list = [];
+            for(var k = 0; k < minorTickVals.length; k++) {
+                var T = minorTickVals[k];
+                var v = T.value;
+                if(majorValues.indexOf(v) !== -1) {
+                    continue;
+                }
+                var found = false;
+                for(var q = 0; !found && (q < tickVals.length); q++) {
+                    if(
+                        // add 10e6 to eliminate problematic digits
+                        10e6 + tickVals[q].value ===
+                        10e6 + v
+                    ) {
+                        found = true;
+                    }
+                }
+                if(!found) list.push(T);
+            }
+            minorTickVals = list;
+        }
     }
 
     if(isPeriod) positionPeriodTicks(tickVals, ax, ax._definedDelta);
@@ -67049,52 +67391,69 @@ axes.calcTicks = function calcTicks(ax, opts) {
     ax._prevDateHead = '';
     ax._inCalcTicks = true;
 
-    var ticksOut = [];
+    var lastVisibleHead;
+    var hideLabel = function(tick) {
+        tick.text = '';
+        ax._prevDateHead = lastVisibleHead;
+    };
+
+    tickVals = tickVals.concat(minorTickVals);
+
     var t, p;
     for(i = 0; i < tickVals.length; i++) {
         var _minor = tickVals[i].minor;
         var _value = tickVals[i].value;
 
-        t = axes.tickText(
-            ax,
-            _value,
-            false, // hover
-            _minor // noSuffixPrefix
-        );
+        if(_minor) {
+            minorTicks.push({
+                x: _value,
+                minor: true
+            });
+        } else {
+            lastVisibleHead = ax._prevDateHead;
 
-        p = tickVals[i].periodX;
-        if(p !== undefined) {
-            t.periodX = p;
-            if(p > maxRange || p < minRange) { // hide label if outside the range
-                if(p > maxRange) t.periodX = maxRange;
-                if(p < minRange) t.periodX = minRange;
+            t = axes.tickText(
+                ax,
+                _value,
+                false, // hover
+                tickVals[i].simpleLabel // noSuffixPrefix
+            );
 
-                t.text = ' '; // don't use an empty string here which can confuse automargin (issue 5132)
-                ax._prevDateHead = '';
+            p = tickVals[i].periodX;
+            if(p !== undefined) {
+                t.periodX = p;
+                if(p > maxRange || p < minRange) { // hide label if outside the range
+                    if(p > maxRange) t.periodX = maxRange;
+                    if(p < minRange) t.periodX = minRange;
+
+                    hideLabel(t);
+                }
             }
-        }
 
-        ticksOut.push(t);
+            if(tickVals[i].skipLabel) {
+                hideLabel(t);
+            }
+
+            ticksOut.push(t);
+        }
     }
+    ticksOut = ticksOut.concat(minorTicks);
 
     ax._inCalcTicks = false;
+
+    if(isPeriod && ticksOut.length) {
+        // drop very first tick that we added to handle period
+        ticksOut[0].noTick = true;
+    }
 
     return ticksOut;
 };
 
 function arrayTicks(ax) {
-    var vals = ax.tickvals;
-    var text = ax.ticktext;
-    var ticksOut = new Array(vals.length);
     var rng = Lib.simpleMap(ax.range, ax.r2l);
     var exRng = expandRange(rng);
     var tickMin = Math.min(exRng[0], exRng[1]);
     var tickMax = Math.max(exRng[0], exRng[1]);
-    var j = 0;
-
-    // without a text array, just format the given values as any other ticks
-    // except with more precision to the numbers
-    if(!Array.isArray(text)) text = [];
 
     // make sure showing ticks doesn't accidentally add new categories
     // TODO multicategory, if we allow ticktext / tickvals
@@ -67106,16 +67465,35 @@ function arrayTicks(ax) {
         ax.dtick = 'L' + Math.pow(10, Math.floor(Math.min(ax.range[0], ax.range[1])) - 1);
     }
 
-    for(var i = 0; i < vals.length; i++) {
-        var vali = tickVal2l(vals[i]);
-        if(vali > tickMin && vali < tickMax) {
-            if(text[i] === undefined) ticksOut[j] = axes.tickText(ax, vali);
-            else ticksOut[j] = tickTextObj(ax, vali, String(text[i]));
-            j++;
+    var ticksOut = [];
+    for(var isMinor = 0; isMinor <= 1; isMinor++) {
+        if(isMinor && !ax.minor) continue;
+        var vals = !isMinor ? ax.tickvals : ax.minor.tickvals;
+        var text = !isMinor ? ax.ticktext : [];
+
+        if(!vals) continue;
+
+
+        // without a text array, just format the given values as any other ticks
+        // except with more precision to the numbers
+        if(!Array.isArray(text)) text = [];
+
+        for(var i = 0; i < vals.length; i++) {
+            var vali = tickVal2l(vals[i]);
+            if(vali > tickMin && vali < tickMax) {
+                var obj = text[i] === undefined ?
+                        axes.tickText(ax, vali) :
+                        tickTextObj(ax, vali, String(text[i]));
+
+                if(isMinor) {
+                    obj.minor = true;
+                    obj.text = '';
+                }
+
+                ticksOut.push(obj);
+            }
         }
     }
-
-    if(j < vals.length) ticksOut.splice(j, vals.length - j);
 
     if(ax.rangebreaks) {
         // remove ticks falling inside rangebreaks
@@ -67159,7 +67537,7 @@ function roundDTick(roughDTick, base, roundingSet) {
 //      log with linear ticks: L# where # is the linear tick spacing
 //      log showing powers plus some intermediates:
 //          D1 shows all digits, D2 shows 2 and 5
-axes.autoTicks = function(ax, roughDTick) {
+axes.autoTicks = function(ax, roughDTick, isMinor) {
     var base;
 
     function getBase(v) {
@@ -67182,20 +67560,22 @@ axes.autoTicks = function(ax, roughDTick) {
             ax.dtick = 'M' + roundDTick(roughDTick, 1, roundBase24);
         } else if(roughX2 > ONEDAY) {
             ax.dtick = roundDTick(roughDTick, ONEDAY, ax._hasDayOfWeekBreaks ? [1, 2, 7, 14] : roundDays);
-            // get week ticks on sunday
-            // this will also move the base tick off 2000-01-01 if dtick is
-            // 2 or 3 days... but that's a weird enough case that we'll ignore it.
-            var tickformat = axes.getTickFormat(ax);
-            var isPeriod = ax.ticklabelmode === 'period';
-            if(isPeriod) ax._rawTick0 = ax.tick0;
+            if(!isMinor) {
+                // get week ticks on sunday
+                // this will also move the base tick off 2000-01-01 if dtick is
+                // 2 or 3 days... but that's a weird enough case that we'll ignore it.
+                var tickformat = axes.getTickFormat(ax);
+                var isPeriod = ax.ticklabelmode === 'period';
+                if(isPeriod) ax._rawTick0 = ax.tick0;
 
-            if(/%[uVW]/.test(tickformat)) {
-                ax.tick0 = Lib.dateTick0(ax.calendar, 2); // Monday
-            } else {
-                ax.tick0 = Lib.dateTick0(ax.calendar, 1); // Sunday
+                if(/%[uVW]/.test(tickformat)) {
+                    ax.tick0 = Lib.dateTick0(ax.calendar, 2); // Monday
+                } else {
+                    ax.tick0 = Lib.dateTick0(ax.calendar, 1); // Sunday
+                }
+
+                if(isPeriod) ax._dowTick0 = ax.tick0;
             }
-
-            if(isPeriod) ax._dowTick0 = ax.tick0;
         } else if(roughX2 > ONEHOUR) {
             ax.dtick = roundDTick(roughDTick, ONEHOUR, roundBase24);
         } else if(roughX2 > ONEMIN) {
@@ -67210,7 +67590,12 @@ axes.autoTicks = function(ax, roughDTick) {
     } else if(ax.type === 'log') {
         ax.tick0 = 0;
         var rng = Lib.simpleMap(ax.range, ax.r2l);
-
+        if(ax._isMinor) {
+            // Log axes by default get MORE than nTicks based on the metrics below
+            // But for minor ticks we don't want this increase, we already have
+            // the major ticks.
+            roughDTick *= 1.5;
+        }
         if(roughDTick > 0.7) {
             // only show powers of 10
             ax.dtick = Math.ceil(roughDTick);
@@ -68097,6 +68482,7 @@ axes.draw = function(gd, arg, opts) {
                 plotinfo.xaxislayer.selectAll('.' + xa._id + 'divider').remove();
                 plotinfo.yaxislayer.selectAll('.' + ya._id + 'divider').remove();
 
+                if(plotinfo.minorGridlayer) plotinfo.minorGridlayer.selectAll('path').remove();
                 if(plotinfo.gridlayer) plotinfo.gridlayer.selectAll('path').remove();
                 if(plotinfo.zerolinelayer) plotinfo.zerolinelayer.selectAll('path').remove();
 
@@ -68250,6 +68636,7 @@ axes.drawOne = function(gd, ax, opts) {
                 vals: gridVals,
                 counterAxis: counterAxis,
                 layer: plotinfo.gridlayer.select('.' + axId),
+                minorLayer: plotinfo.minorGridlayer.select('.' + axId),
                 path: gridPath,
                 transFn: transTickFn
             });
@@ -68262,60 +68649,86 @@ axes.drawOne = function(gd, ax, opts) {
         }
     }
 
-    var tickSigns = axes.getTickSigns(ax);
-    var tickSubplots = [];
+    var tickPath;
 
-    if(ax.ticks) {
-        var mainTickPath = axes.makeTickPath(ax, mainLinePosition, tickSigns[2]);
-        var mirrorTickPath;
-        var fullTickPath;
+    var majorTickSigns = axes.getTickSigns(ax);
+    var minorTickSigns = axes.getTickSigns(ax, 'minor');
+
+    if(ax.ticks || (ax.minor && ax.minor.ticks)) {
+        var majorTickPath = axes.makeTickPath(ax, mainLinePosition, majorTickSigns[2]);
+        var minorTickPath = axes.makeTickPath(ax, mainLinePosition, minorTickSigns[2], { minor: true });
+
+        var mirrorMajorTickPath;
+        var mirrorMinorTickPath;
+
+        var fullMajorTickPath;
+        var fullMinorTickPath;
+
         if(ax._anchorAxis && ax.mirror && ax.mirror !== true) {
-            mirrorTickPath = axes.makeTickPath(ax, mainMirrorPosition, tickSigns[3]);
-            fullTickPath = mainTickPath + mirrorTickPath;
+            mirrorMajorTickPath = axes.makeTickPath(ax, mainMirrorPosition, majorTickSigns[3]);
+            mirrorMinorTickPath = axes.makeTickPath(ax, mainMirrorPosition, minorTickSigns[3], { minor: true });
+
+            fullMajorTickPath = majorTickPath + mirrorMajorTickPath;
+            fullMinorTickPath = minorTickPath + mirrorMinorTickPath;
         } else {
-            mirrorTickPath = '';
-            fullTickPath = mainTickPath;
+            mirrorMajorTickPath = '';
+            mirrorMinorTickPath = '';
+            fullMajorTickPath = majorTickPath;
+            fullMinorTickPath = minorTickPath;
         }
 
-        var tickPath;
         if(ax.showdividers && outsideTicks && ax.tickson === 'boundaries') {
             var dividerLookup = {};
             for(i = 0; i < dividerVals.length; i++) {
                 dividerLookup[dividerVals[i].x] = 1;
             }
             tickPath = function(d) {
-                return dividerLookup[d.x] ? mirrorTickPath : fullTickPath;
+                return dividerLookup[d.x] ? mirrorMajorTickPath : fullMajorTickPath;
             };
         } else {
-            tickPath = fullTickPath;
-        }
-
-        axes.drawTicks(gd, ax, {
-            vals: tickVals,
-            layer: mainAxLayer,
-            path: tickPath,
-            transFn: transTickFn
-        });
-
-        if(ax.mirror === 'allticks') {
-            tickSubplots = Object.keys(ax._linepositions || {});
+            tickPath = function(d) {
+                return d.minor ? fullMinorTickPath : fullMajorTickPath;
+            };
         }
     }
 
-    for(i = 0; i < tickSubplots.length; i++) {
-        sp = tickSubplots[i];
-        plotinfo = fullLayout._plots[sp];
-        // [bottom or left, top or right], free and main are handled above
-        var linepositions = ax._linepositions[sp] || [];
-        var spTickPath = axes.makeTickPath(ax, linepositions[0], tickSigns[0]) +
-            axes.makeTickPath(ax, linepositions[1], tickSigns[1]);
+    axes.drawTicks(gd, ax, {
+        vals: tickVals,
+        layer: mainAxLayer,
+        path: tickPath,
+        transFn: transTickFn
+    });
 
-        axes.drawTicks(gd, ax, {
-            vals: tickVals,
-            layer: plotinfo[axLetter + 'axislayer'],
-            path: spTickPath,
-            transFn: transTickFn
-        });
+    if(ax.mirror === 'allticks') {
+        var tickSubplots = Object.keys(ax._linepositions || {});
+
+        for(i = 0; i < tickSubplots.length; i++) {
+            sp = tickSubplots[i];
+            plotinfo = fullLayout._plots[sp];
+            // [bottom or left, top or right], free and main are handled above
+            var linepositions = ax._linepositions[sp] || [];
+
+            var p0 = linepositions[0];
+            var p1 = linepositions[1];
+            var isMinor = linepositions[2];
+
+            var spTickPath =
+                axes.makeTickPath(ax, p0,
+                    isMinor ? majorTickSigns[0] : minorTickSigns[0],
+                    { minor: isMinor }
+                ) +
+                axes.makeTickPath(ax, p1,
+                    isMinor ? majorTickSigns[1] : minorTickSigns[1],
+                    { minor: isMinor }
+                );
+
+            axes.drawTicks(gd, ax, {
+                vals: tickVals,
+                layer: plotinfo[axLetter + 'axislayer'],
+                path: spTickPath,
+                transFn: transTickFn
+            });
+        }
     }
 
     var seq = [];
@@ -68348,23 +68761,23 @@ axes.drawOne = function(gd, ax, opts) {
                 repositionOnUpdate: true,
                 secondary: true,
                 transFn: transTickFn,
-                labelFns: axes.makeLabelFns(ax, mainLinePosition + standoff * tickSigns[4])
+                labelFns: axes.makeLabelFns(ax, mainLinePosition + standoff * majorTickSigns[4])
             });
         });
 
         seq.push(function() {
-            ax._depth = tickSigns[4] * (getLabelLevelBbox('tick2')[ax.side] - mainLinePosition);
+            ax._depth = majorTickSigns[4] * (getLabelLevelBbox('tick2')[ax.side] - mainLinePosition);
 
             return drawDividers(gd, ax, {
                 vals: dividerVals,
                 layer: mainAxLayer,
-                path: axes.makeTickPath(ax, mainLinePosition, tickSigns[4], ax._depth),
+                path: axes.makeTickPath(ax, mainLinePosition, majorTickSigns[4], { len: ax._depth }),
                 transFn: transTickFn
             });
         });
     } else if(ax.title.hasOwnProperty('standoff')) {
         seq.push(function() {
-            ax._depth = tickSigns[4] * (getLabelLevelBbox()[ax.side] - mainLinePosition);
+            ax._depth = majorTickSigns[4] * (getLabelLevelBbox()[ax.side] - mainLinePosition);
         });
     }
 
@@ -68605,13 +69018,15 @@ function calcLabelLevelBbox(ax, cls) {
  *  - [3]: sign for ticks mirroring 'ax.side'
  *  - [4]: sign of arrow starting at axis pointing towards margin
  */
-axes.getTickSigns = function(ax) {
+axes.getTickSigns = function(ax, minor) {
     var axLetter = ax._id.charAt(0);
     var sideOpposite = {x: 'top', y: 'right'}[axLetter];
     var main = ax.side === sideOpposite ? 1 : -1;
     var out = [-1, 1, main, -main];
     // then we flip if outside XOR y axis
-    if((ax.ticks !== 'inside') === (axLetter === 'x')) {
+
+    var ticks = minor ? (ax.minor || {}).ticks : ax.ticks;
+    if((ticks !== 'inside') === (axLetter === 'x')) {
         out = out.map(function(v) { return -v; });
     }
     // independent of `ticks`; do not flip this one
@@ -68715,11 +69130,17 @@ function getTickLabelUV(ax) {
  *  - {number} linewidth
  * @param {number} shift along direction of ticklen
  * @param {1 or -1} sgn tick sign
- * @param {number (optional)} len tick length
+ * @param {object} opts
+ * - {number (optional)} len tick length
  * @return {string}
  */
-axes.makeTickPath = function(ax, shift, sgn, len) {
-    len = len !== undefined ? len : ax.ticklen;
+axes.makeTickPath = function(ax, shift, sgn, opts) {
+    if(!opts) opts = {};
+    var minor = opts.minor;
+    if(minor && !ax.minor) return '';
+
+    var len = opts.len !== undefined ? opts.len :
+        minor ? ax.minor.ticklen : ax.ticklen;
 
     var axLetter = ax._id.charAt(0);
     var pad = (ax.linewidth || 1) / 2;
@@ -68926,17 +69347,20 @@ axes.drawTicks = function(gd, ax, opts) {
 
     var cls = ax._id + 'tick';
 
-    var vals = opts.vals;
-    if(
-        ax.ticklabelmode === 'period'
-    ) {
-        // drop very first tick that we added to handle period
-        vals = vals.slice();
-        vals.shift();
-    }
+    var vals = []
+        .concat(ax.minor && ax.minor.ticks ?
+            // minor vals
+            opts.vals.filter(function(d) { return d.minor && !d.noTick; }) :
+            []
+        )
+        .concat(ax.ticks ?
+            // major vals
+            opts.vals.filter(function(d) { return !d.minor && !d.noTick; }) :
+            []
+        );
 
     var ticks = opts.layer.selectAll('path.' + cls)
-        .data(ax.ticks ? vals : [], tickDataFn);
+        .data(vals, tickDataFn);
 
     ticks.exit().remove();
 
@@ -68944,8 +69368,16 @@ axes.drawTicks = function(gd, ax, opts) {
         .classed(cls, 1)
         .classed('ticks', 1)
         .classed('crisp', opts.crisp !== false)
-        .call(Color.stroke, ax.tickcolor)
-        .style('stroke-width', Drawing.crispRound(gd, ax.tickwidth, 1) + 'px')
+        .each(function(d) {
+            return Color.stroke(d3.select(this), d.minor ? ax.minor.tickcolor : ax.tickcolor);
+        })
+        .style('stroke-width', function(d) {
+            return Drawing.crispRound(
+                gd,
+                d.minor ? ax.minor.tickwidth : ax.tickwidth,
+                1
+            ) + 'px';
+        })
         .attr('d', opts.path)
         .style('display', null); // visible
 
@@ -68963,6 +69395,7 @@ axes.drawTicks = function(gd, ax, opts) {
  *  - {boolean} showgrid
  *  - {string} gridcolor
  *  - {string} gridwidth
+ *  - {string} griddash
  *  - {boolean} zeroline
  *  - {string} type
  *  - {string} dtick
@@ -68979,16 +69412,18 @@ axes.drawGrid = function(gd, ax, opts) {
     opts = opts || {};
 
     var cls = ax._id + 'grid';
-    var vals = opts.vals;
+
+    var hasMinor = ax.minor && ax.minor.showgrid;
+    var minorVals = hasMinor ? opts.vals.filter(function(d) { return d.minor; }) : [];
+    var majorVals = ax.showgrid ? opts.vals.filter(function(d) { return !d.minor; }) : [];
+
     var counterAx = opts.counterAxis;
-    if(ax.showgrid === false) {
-        vals = [];
-    } else if(counterAx && axes.shouldShowZeroLine(gd, ax, counterAx)) {
+    if(counterAx && axes.shouldShowZeroLine(gd, ax, counterAx)) {
         var isArrayMode = ax.tickmode === 'array';
-        for(var i = 0; i < vals.length; i++) {
-            var xi = vals[i].x;
+        for(var i = 0; i < majorVals.length; i++) {
+            var xi = majorVals[i].x;
             if(isArrayMode ? !xi : (Math.abs(xi) < ax.dtick / 100)) {
-                vals = vals.slice(0, i).concat(vals.slice(i + 1));
+                majorVals = majorVals.slice(0, i).concat(majorVals.slice(i + 1));
                 // In array mode you can in principle have multiple
                 // ticks at 0, so test them all. Otherwise once we found
                 // one we can stop.
@@ -68998,26 +69433,50 @@ axes.drawGrid = function(gd, ax, opts) {
         }
     }
 
-    var grid = opts.layer.selectAll('path.' + cls)
-        .data(vals, tickDataFn);
+    ax._gw =
+        Drawing.crispRound(gd, ax.gridwidth, 1);
 
-    grid.exit().remove();
+    var wMinor = !hasMinor ? 0 :
+        Drawing.crispRound(gd, ax.minor.gridwidth, 1);
 
-    grid.enter().append('path')
-        .classed(cls, 1)
-        .classed('crisp', opts.crisp !== false);
+    var majorLayer = opts.layer;
+    var minorLayer = opts.minorLayer;
+    for(var major = 1; major >= 0; major--) {
+        var layer = major ? majorLayer : minorLayer;
+        if(!layer) continue;
 
-    ax._gw = Drawing.crispRound(gd, ax.gridwidth, 1);
+        var grid = layer.selectAll('path.' + cls)
+            .data(major ? majorVals : minorVals, tickDataFn);
 
-    grid.attr('transform', opts.transFn)
-        .attr('d', opts.path)
-        .call(Color.stroke, ax.gridcolor || '#ddd')
-        .style('stroke-width', ax._gw + 'px')
-        .style('display', null); // visible
+        grid.exit().remove();
 
-    hideCounterAxisInsideTickLabels(ax, [GRID_PATH]);
+        grid.enter().append('path')
+            .classed(cls, 1)
+            .classed('crisp', opts.crisp !== false);
 
-    if(typeof opts.path === 'function') grid.attr('d', opts.path);
+        grid.attr('transform', opts.transFn)
+            .attr('d', opts.path)
+            .each(function(d) {
+                return Color.stroke(d3.select(this), d.minor ?
+                    ax.minor.gridcolor :
+                    (ax.gridcolor || '#ddd')
+                );
+            })
+            .style('stroke-dasharray', function(d) {
+                return Drawing.dashStyle(
+                    d.minor ? ax.minor.griddash : ax.griddash,
+                    d.minor ? ax.minor.gridwidth : ax.gridwidth
+                );
+            })
+            .style('stroke-width', function(d) {
+                return (d.minor ? wMinor : ax._gw) + 'px';
+            })
+            .style('display', null); // visible
+
+        if(typeof opts.path === 'function') grid.attr('d', opts.path);
+    }
+
+    hideCounterAxisInsideTickLabels(ax, [GRID_PATH, MINORGRID_PATH]);
 };
 
 /**
@@ -69101,7 +69560,8 @@ axes.drawLabels = function(gd, ax, opts) {
     var axId = ax._id;
     var axLetter = axId.charAt(0);
     var cls = opts.cls || axId + 'tick';
-    var vals = opts.vals;
+
+    var vals = opts.vals.filter(function(d) { return d.text; });
 
     var labelFns = opts.labelFns;
     var tickAngle = opts.secondary ? 0 : ax.tickangle;
@@ -69283,6 +69743,7 @@ axes.drawLabels = function(gd, ax, opts) {
             if(anchorAx && insideTicklabelposition(anchorAx)) {
                 (partialOpts || [
                     ZERO_PATH,
+                    MINORGRID_PATH,
                     GRID_PATH,
                     TICK_PATH,
                     TICK_TEXT
@@ -69296,6 +69757,7 @@ axes.drawLabels = function(gd, ax, opts) {
 
                     var sel;
                     if(e.K === ZERO_PATH.K) sel = mainPlotinfo.zerolinelayer.selectAll('.' + ax._id + 'zl');
+                    else if(e.K === MINORGRID_PATH.K) sel = mainPlotinfo.minorGridlayer.selectAll('.' + ax._id);
                     else if(e.K === GRID_PATH.K) sel = mainPlotinfo.gridlayer.selectAll('.' + ax._id);
                     else sel = mainPlotinfo[ax._id.charAt(0) + 'axislayer'];
 
@@ -70103,6 +70565,7 @@ var isNumeric = _dereq_('fast-isnumeric');
 
 var Registry = _dereq_('../../registry');
 var Lib = _dereq_('../../lib');
+var Template = _dereq_('../../plot_api/plot_template');
 
 var handleArrayContainerDefaults = _dereq_('../array_container_defaults');
 
@@ -70220,16 +70683,45 @@ module.exports = function handleAxisDefaults(containerIn, containerOut, coerce, 
         color: dfltFontColor
     });
 
+    // major ticks
     handleTickValueDefaults(containerIn, containerOut, coerce, axType);
+
+    var hasMinor = options.hasMinor;
+    if(hasMinor) {
+        // minor ticks
+        Template.newContainer(containerOut, 'minor');
+        handleTickValueDefaults(containerIn, containerOut, coerce, axType, { isMinor: true });
+    }
+
     handleTickLabelDefaults(containerIn, containerOut, coerce, axType, options);
+
+    // major and minor ticks
     handleTickMarkDefaults(containerIn, containerOut, coerce, options);
+    if(hasMinor) {
+        var keepIsMinor = options.isMinor;
+        options.isMinor = true;
+        handleTickMarkDefaults(containerIn, containerOut, coerce, options);
+        options.isMinor = keepIsMinor;
+    }
+
     handleLineGridDefaults(containerIn, containerOut, coerce, {
         dfltColor: dfltColor,
         bgColor: options.bgColor,
         showGrid: options.showGrid,
+        hasMinor: hasMinor,
         attributes: layoutAttributes
     });
 
+    // delete minor when no minor ticks or gridlines
+    if(
+        hasMinor &&
+        !containerOut.minor.ticks &&
+        !containerOut.minor.showgrid
+    ) {
+        delete containerOut.minor;
+    }
+
+    // mirror
     if(containerOut.showline || containerOut.ticks) coerce('mirror');
 
     if(options.automargin) coerce('automargin');
@@ -70409,7 +70901,7 @@ function indexOfDay(v) {
     ];
 }
 
-},{"../../lib":287,"../../registry":378,"../array_container_defaults":329,"./category_order_defaults":339,"./constants":341,"./layout_attributes":349,"./line_grid_defaults":351,"./prefix_suffix_defaults":353,"./set_convert":356,"./tick_label_defaults":358,"./tick_mark_defaults":359,"./tick_value_defaults":360,"fast-isnumeric":33}],337:[function(_dereq_,module,exports){
+},{"../../lib":287,"../../plot_api/plot_template":323,"../../registry":378,"../array_container_defaults":329,"./category_order_defaults":339,"./constants":341,"./layout_attributes":349,"./line_grid_defaults":351,"./prefix_suffix_defaults":353,"./set_convert":356,"./tick_label_defaults":358,"./tick_mark_defaults":359,"./tick_value_defaults":360,"fast-isnumeric":33}],337:[function(_dereq_,module,exports){
 'use strict';
 
 var docs = _dereq_('../../constants/docs');
@@ -73602,6 +74094,7 @@ function makeSubplotLayer(gd, plotinfo) {
             plotinfo.shapelayer = ensureSingle(backLayer, 'g', 'shapelayer');
             plotinfo.imagelayer = ensureSingle(backLayer, 'g', 'imagelayer');
 
+            plotinfo.minorGridlayer = ensureSingle(plotgroup, 'g', 'minor-gridlayer');
             plotinfo.gridlayer = ensureSingle(plotgroup, 'g', 'gridlayer');
             plotinfo.zerolinelayer = ensureSingle(plotgroup, 'g', 'zerolinelayer');
 
@@ -73641,6 +74134,7 @@ function makeSubplotLayer(gd, plotinfo) {
         // their other components to the corresponding
         // extra groups of their main plots.
 
+        plotinfo.minorGridlayer = mainplotinfo.minorGridlayer;
         plotinfo.gridlayer = mainplotinfo.gridlayer;
         plotinfo.zerolinelayer = mainplotinfo.zerolinelayer;
 
@@ -73666,6 +74160,12 @@ function makeSubplotLayer(gd, plotinfo) {
     // common attributes for all subplots, overlays or not
 
     if(!hasOnlyLargeSploms) {
+        ensureSingleAndAddDatum(plotinfo.minorGridlayer, 'g', plotinfo.xaxis._id);
+        ensureSingleAndAddDatum(plotinfo.minorGridlayer, 'g', plotinfo.yaxis._id);
+        plotinfo.minorGridlayer.selectAll('g')
+            .map(function(d) { return d[0]; })
+            .sort(axisIds.idSort);
+
         ensureSingleAndAddDatum(plotinfo.gridlayer, 'g', plotinfo.xaxis._id);
         ensureSingleAndAddDatum(plotinfo.gridlayer, 'g', plotinfo.yaxis._id);
         plotinfo.gridlayer.selectAll('g')
@@ -73761,6 +74261,100 @@ var ONEDAY = _dereq_('../../constants/numerical').ONEDAY;
 var constants = _dereq_('./constants');
 var HOUR = constants.HOUR_PATTERN;
 var DAY_OF_WEEK = constants.WEEKDAY_PATTERN;
+
+var tickmode = {
+    valType: 'enumerated',
+    values: ['auto', 'linear', 'array'],
+    editType: 'ticks',
+    impliedEdits: {tick0: undefined, dtick: undefined},
+};
+
+function makeNticks(minor) {
+    return {
+        valType: 'integer',
+        min: 0,
+        dflt: minor ? 5 : 0,
+        editType: 'ticks',
+    };
+}
+
+var tick0 = {
+    valType: 'any',
+    editType: 'ticks',
+    impliedEdits: {tickmode: 'linear'},
+};
+
+var dtick = {
+    valType: 'any',
+    editType: 'ticks',
+    impliedEdits: {tickmode: 'linear'},
+};
+
+var tickvals = {
+    valType: 'data_array',
+    editType: 'ticks',
+};
+
+var ticks = {
+    valType: 'enumerated',
+    values: ['outside', 'inside', ''],
+    editType: 'ticks',
+};
+
+function makeTicklen(minor) {
+    var obj = {
+        valType: 'number',
+        min: 0,
+        editType: 'ticks',
+    };
+
+    if(!minor) obj.dflt = 5;
+
+    return obj;
+}
+
+function makeTickwidth(minor) {
+    var obj = {
+        valType: 'number',
+        min: 0,
+        editType: 'ticks',
+    };
+
+    if(!minor) obj.dflt = 1;
+
+    return obj;
+}
+
+var tickcolor = {
+    valType: 'color',
+    dflt: colorAttrs.defaultLine,
+    editType: 'ticks',
+};
+
+var gridcolor = {
+    valType: 'color',
+    dflt: colorAttrs.lightLine,
+    editType: 'ticks',
+};
+
+function makeGridwidth(minor) {
+    var obj = {
+        valType: 'number',
+        min: 0,
+        editType: 'ticks',
+    };
+
+    if(!minor) obj.dflt = 1;
+
+    return obj;
+}
+
+var griddash = extendFlat({}, dash, {editType: 'ticks'});
+
+var showgrid = {
+    valType: 'boolean',
+    editType: 'ticks',
+};
 
 module.exports = {
     visible: {
@@ -73935,41 +74529,22 @@ module.exports = {
     }),
 
     // ticks
-    tickmode: {
-        valType: 'enumerated',
-        values: ['auto', 'linear', 'array'],
-        editType: 'ticks',
-        impliedEdits: {tick0: undefined, dtick: undefined},
-    },
-    nticks: {
+    tickmode: tickmode,
+    nticks: makeNticks(),
+    tick0: tick0,
+    dtick: dtick,
+    ticklabelstep: {
         valType: 'integer',
-        min: 0,
-        dflt: 0,
+        min: 1,
+        dflt: 1,
         editType: 'ticks',
     },
-    tick0: {
-        valType: 'any',
-        editType: 'ticks',
-        impliedEdits: {tickmode: 'linear'},
-    },
-    dtick: {
-        valType: 'any',
-        editType: 'ticks',
-        impliedEdits: {tickmode: 'linear'},
-    },
-    tickvals: {
-        valType: 'data_array',
-        editType: 'ticks',
-    },
+    tickvals: tickvals,
     ticktext: {
         valType: 'data_array',
         editType: 'ticks',
     },
-    ticks: {
-        valType: 'enumerated',
-        values: ['outside', 'inside', ''],
-        editType: 'ticks',
-    },
+    ticks: ticks,
     tickson: {
         valType: 'enumerated',
         values: ['labels', 'boundaries'],
@@ -74011,23 +74586,9 @@ module.exports = {
         dflt: false,
         editType: 'ticks+layoutstyle',
     },
-    ticklen: {
-        valType: 'number',
-        min: 0,
-        dflt: 5,
-        editType: 'ticks',
-    },
-    tickwidth: {
-        valType: 'number',
-        min: 0,
-        dflt: 1,
-        editType: 'ticks',
-    },
-    tickcolor: {
-        valType: 'color',
-        dflt: colorAttrs.defaultLine,
-        editType: 'ticks',
-    },
+    ticklen: makeTicklen(),
+    tickwidth: makeTickwidth(),
+    tickcolor: tickcolor,
     showticklabels: {
         valType: 'boolean',
         dflt: true,
@@ -74169,21 +74730,11 @@ module.exports = {
         dflt: 1,
         editType: 'ticks+layoutstyle',
     },
-    showgrid: {
-        valType: 'boolean',
-        editType: 'ticks',
-    },
-    gridcolor: {
-        valType: 'color',
-        dflt: colorAttrs.lightLine,
-        editType: 'ticks',
-    },
-    gridwidth: {
-        valType: 'number',
-        min: 0,
-        dflt: 1,
-        editType: 'ticks',
-    },
+    showgrid: showgrid,
+    gridcolor: gridcolor,
+    gridwidth: makeGridwidth(),
+    griddash: griddash,
+
     zeroline: {
         valType: 'boolean',
         editType: 'ticks',
@@ -74247,6 +74798,26 @@ module.exports = {
         ],
         editType: 'plot',
     },
+
+    minor: {
+        tickmode: tickmode,
+        nticks: makeNticks('minor'),
+        tick0: tick0,
+        dtick: dtick,
+        tickvals: tickvals,
+        ticks: ticks,
+        ticklen: makeTicklen('minor'),
+        tickwidth: makeTickwidth('minor'),
+        tickcolor: tickcolor,
+
+        gridcolor: gridcolor,
+        gridwidth: makeGridwidth('minor'),
+        griddash: griddash,
+        showgrid: showgrid,
+
+        editType: 'ticks'
+    },
+
     layer: {
         valType: 'enumerated',
         values: ['above traces', 'below traces'],
@@ -74540,6 +75111,7 @@ module.exports = function supplyLayoutDefaults(layoutIn, layoutOut, fullData) {
               ));
 
         var defaultOptions = {
+            hasMinor: true,
             letter: axLetter,
             font: layoutOut.font,
             outerTicks: outerTicks[axName],
@@ -74690,7 +75262,7 @@ module.exports = function supplyLayoutDefaults(layoutIn, layoutOut, fullData) {
 'use strict';
 
 var colorMix = _dereq_('tinycolor2').mix;
-var lightFraction = _dereq_('../../components/color/attributes').lightFraction;
+var colorAttrs = _dereq_('../../components/color/attributes');
 var Lib = _dereq_('../../lib');
 
 /**
@@ -74721,14 +75293,38 @@ module.exports = function handleLineGridDefaults(containerIn, containerOut, coer
         delete containerOut.linewidth;
     }
 
-    var gridColorDflt = colorMix(dfltColor, opts.bgColor, opts.blend || lightFraction).toRgbString();
+    var gridColorDflt = colorMix(dfltColor, opts.bgColor, opts.blend || colorAttrs.lightFraction).toRgbString();
     var gridColor = coerce2('gridcolor', gridColorDflt);
     var gridWidth = coerce2('gridwidth');
-    var showGridLines = coerce('showgrid', opts.showGrid || !!gridColor || !!gridWidth);
+    var gridDash = coerce2('griddash');
+    var showGridLines = coerce('showgrid', opts.showGrid ||
+        !!gridColor ||
+        !!gridWidth ||
+        !!gridDash
+    );
 
     if(!showGridLines) {
         delete containerOut.gridcolor;
         delete containerOut.gridwidth;
+        delete containerOut.griddash;
+    }
+
+    if(opts.hasMinor) {
+        var minorGridColorDflt = colorMix(containerOut.gridcolor, opts.bgColor, 67).toRgbString();
+        var minorGridColor = coerce2('minor.gridcolor', minorGridColorDflt);
+        var minorGridWidth = coerce2('minor.gridwidth', containerOut.gridwidth || 1);
+        var minorGridDash = coerce2('minor.griddash', containerOut.griddash || 'solid');
+        var minorShowGridLines = coerce('minor.showgrid',
+            !!minorGridColor ||
+            !!minorGridWidth ||
+            !!minorGridDash
+        );
+
+        if(!minorShowGridLines) {
+            delete containerOut.minor.gridcolor;
+            delete containerOut.minor.gridwidth;
+            delete containerOut.minor.griddash;
+        }
     }
 
     if(!opts.noZeroLine) {
@@ -76821,6 +77417,14 @@ module.exports = function handleTickLabelDefaults(containerIn, containerOut, coe
             color: dfltFontColor
         });
 
+        if(
+            !options.noTicklabelstep &&
+            axType !== 'multicategory' &&
+            axType !== 'log'
+        ) {
+            coerce('ticklabelstep');
+        }
+
         if(!options.noAng) coerce('tickangle');
 
         if(axType !== 'category') {
@@ -76869,15 +77473,23 @@ var layoutAttributes = _dereq_('./layout_attributes');
  * options: inherits outerTicks from axes.handleAxisDefaults
  */
 module.exports = function handleTickMarkDefaults(containerIn, containerOut, coerce, options) {
-    var tickLen = Lib.coerce2(containerIn, containerOut, layoutAttributes, 'ticklen');
-    var tickWidth = Lib.coerce2(containerIn, containerOut, layoutAttributes, 'tickwidth');
-    var tickColor = Lib.coerce2(containerIn, containerOut, layoutAttributes, 'tickcolor', containerOut.color);
-    var showTicks = coerce('ticks', (options.outerTicks || tickLen || tickWidth || tickColor) ? 'outside' : '');
+    var isMinor = options.isMinor;
+    var cIn = isMinor ? containerIn.minor || {} : containerIn;
+    var cOut = isMinor ? containerOut.minor : containerOut;
+    var lAttr = isMinor ? layoutAttributes.minor : layoutAttributes;
+    var prefix = isMinor ? 'minor.' : '';
+
+    var tickLen = Lib.coerce2(cIn, cOut, lAttr, 'ticklen', isMinor ? ((containerOut.ticklen || 5) * 0.6) : undefined);
+    var tickWidth = Lib.coerce2(cIn, cOut, lAttr, 'tickwidth', isMinor ? (containerOut.tickwidth || 1) : undefined);
+    var tickColor = Lib.coerce2(cIn, cOut, lAttr, 'tickcolor', (isMinor ? containerOut.tickcolor : undefined) || cOut.color);
+    var showTicks = coerce(prefix + 'ticks', (
+        (!isMinor && options.outerTicks) || tickLen || tickWidth || tickColor
+    ) ? 'outside' : '');
 
     if(!showTicks) {
-        delete containerOut.ticklen;
-        delete containerOut.tickwidth;
-        delete containerOut.tickcolor;
+        delete cOut.ticklen;
+        delete cOut.tickwidth;
+        delete cOut.tickcolor;
     }
 };
 
@@ -76887,12 +77499,18 @@ module.exports = function handleTickMarkDefaults(containerIn, containerOut, coer
 var cleanTicks = _dereq_('./clean_ticks');
 var isArrayOrTypedArray = _dereq_('../../lib').isArrayOrTypedArray;
 
-module.exports = function handleTickValueDefaults(containerIn, containerOut, coerce, axType) {
+module.exports = function handleTickValueDefaults(containerIn, containerOut, coerce, axType, opts) {
+    if(!opts) opts = {};
+    var isMinor = opts.isMinor;
+    var cIn = isMinor ? containerIn.minor || {} : containerIn;
+    var cOut = isMinor ? containerOut.minor : containerOut;
+    var prefix = isMinor ? 'minor.' : '';
+
     function readInput(attr) {
-        var v = containerIn[attr];
+        var v = cIn[attr];
         return (
             v !== undefined
-        ) ? v : (containerOut._template || {})[attr];
+        ) ? v : (cOut._template || {})[attr];
     }
 
     var _tick0 = readInput('tick0');
@@ -76902,21 +77520,22 @@ module.exports = function handleTickValueDefaults(containerIn, containerOut, coe
     var tickmodeDefault = isArrayOrTypedArray(_tickvals) ? 'array' :
         _dtick ? 'linear' :
         'auto';
-    var tickmode = coerce('tickmode', tickmodeDefault);
+    var tickmode = coerce(prefix + 'tickmode', tickmodeDefault);
 
-    if(tickmode === 'auto') coerce('nticks');
-    else if(tickmode === 'linear') {
+    if(tickmode === 'auto') {
+        coerce(prefix + 'nticks');
+    } else if(tickmode === 'linear') {
         // dtick is usually a positive number, but there are some
         // special strings available for log or date axes
         // tick0 also has special logic
-        var dtick = containerOut.dtick = cleanTicks.dtick(
+        var dtick = cOut.dtick = cleanTicks.dtick(
             _dtick, axType);
-        containerOut.tick0 = cleanTicks.tick0(
+        cOut.tick0 = cleanTicks.tick0(
             _tick0, axType, containerOut.calendar, dtick);
     } else if(axType !== 'multicategory') {
-        var tickvals = coerce('tickvals');
-        if(tickvals === undefined) containerOut.tickmode = 'auto';
-        else coerce('ticktext');
+        var tickvals = coerce(prefix + 'tickvals');
+        if(tickvals === undefined) cOut.tickmode = 'auto';
+        else if(!isMinor) coerce('ticktext');
     }
 };
 
@@ -81939,6 +82558,7 @@ var ternaryAxesAttrs = {
     ticklen: axesAttrs.ticklen,
     tickwidth: axesAttrs.tickwidth,
     tickcolor: axesAttrs.tickcolor,
+    ticklabelstep: axesAttrs.ticklabelstep,
     showticklabels: axesAttrs.showticklabels,
     showtickprefix: axesAttrs.showtickprefix,
     tickprefix: axesAttrs.tickprefix,
@@ -81960,6 +82580,7 @@ var ternaryAxesAttrs = {
     showgrid: extendFlat({}, axesAttrs.showgrid, {dflt: true}),
     gridcolor: axesAttrs.gridcolor,
     gridwidth: axesAttrs.gridwidth,
+    griddash: axesAttrs.griddash,
     layer: axesAttrs.layer,
     // range
     min: {
@@ -83178,7 +83799,7 @@ function registerTraceModule(_module) {
     // add `PlotlyGeoAssets` global to stash references to all fetched
     // topojson / geojson data
     if((bpmName === 'geo' || bpmName === 'mapbox') &&
-        (typeof window !== undefined && window.PlotlyGeoAssets === undefined)
+        (window.PlotlyGeoAssets === undefined)
     ) {
         window.PlotlyGeoAssets = {topojson: {}};
     }
@@ -83771,7 +84392,7 @@ function svgToImg(opts) {
         var w1 = scale * w0;
         var h1 = scale * h0;
 
-        var ctx = canvas.getContext('2d');
+        var ctx = canvas.getContext('2d', {willReadFrequently: true});
         var img = new Image();
         var svgBlob, url;
 
@@ -83959,7 +84580,7 @@ module.exports = function toSVG(gd, format, scale) {
     var toppaper = fullLayout._toppaper;
     var width = fullLayout.width;
     var height = fullLayout.height;
-    var i, k;
+    var i;
 
     // make background color a rect in the svg, then revert after scraping
     // all other alterations have been dealt with by properly preparing the svg
@@ -84032,32 +84653,21 @@ module.exports = function toSVG(gd, format, scale) {
             }
         });
 
-    var queryParts = [];
-    if(fullLayout._gradientUrlQueryParts) {
-        for(k in fullLayout._gradientUrlQueryParts) queryParts.push(k);
-    }
+    svg.selectAll('.gradient_filled,.pattern_filled').each(function() {
+        var pt = d3.select(this);
 
-    if(fullLayout._patternUrlQueryParts) {
-        for(k in fullLayout._patternUrlQueryParts) queryParts.push(k);
-    }
+        // similar to font family styles above,
+        // we must remove " after the SVG DOM has been serialized
+        var fill = this.style.fill;
+        if(fill && fill.indexOf('url(') !== -1) {
+            pt.style('fill', fill.replace(DOUBLEQUOTE_REGEX, DUMMY_SUB));
+        }
 
-    if(queryParts.length) {
-        svg.selectAll(queryParts.join(',')).each(function() {
-            var pt = d3.select(this);
-
-            // similar to font family styles above,
-            // we must remove " after the SVG DOM has been serialized
-            var fill = this.style.fill;
-            if(fill && fill.indexOf('url(') !== -1) {
-                pt.style('fill', fill.replace(DOUBLEQUOTE_REGEX, DUMMY_SUB));
-            }
-
-            var stroke = this.style.stroke;
-            if(stroke && stroke.indexOf('url(') !== -1) {
-                pt.style('stroke', stroke.replace(DOUBLEQUOTE_REGEX, DUMMY_SUB));
-            }
-        });
-    }
+        var stroke = this.style.stroke;
+        if(stroke && stroke.indexOf('url(') !== -1) {
+            pt.style('stroke', stroke.replace(DOUBLEQUOTE_REGEX, DUMMY_SUB));
+        }
+    });
 
     if(format === 'pdf' || format === 'eps') {
         // these formats make the extra line MathJax adds around symbols look super thick in some cases
@@ -86417,12 +87027,14 @@ function calcTexttemplate(fullLayout, cd, index, xa, ya) {
     var trace = cd[0].trace;
     var texttemplate = Lib.castOption(trace, index, 'texttemplate');
     if(!texttemplate) return '';
+    var isHistogram = (trace.type === 'histogram');
     var isWaterfall = (trace.type === 'waterfall');
     var isFunnel = (trace.type === 'funnel');
+    var isHorizontal = trace.orientation === 'h';
 
     var pLetter, pAxis;
     var vLetter, vAxis;
-    if(trace.orientation === 'h') {
+    if(isHorizontal) {
         pLetter = 'y';
         pAxis = ya;
         vLetter = 'x';
@@ -86456,6 +87068,11 @@ function calcTexttemplate(fullLayout, cd, index, xa, ya) {
 
     var pt = {};
     appendArrayPointValue(pt, trace, cdi.i);
+
+    if(isHistogram || pt.x === undefined) pt.x = isHorizontal ? obj.value : obj.label;
+    if(isHistogram || pt.y === undefined) pt.y = isHorizontal ? obj.label : obj.value;
+    if(isHistogram || pt.xLabel === undefined) pt.xLabel = isHorizontal ? obj.valueLabel : obj.labelLabel;
+    if(isHistogram || pt.yLabel === undefined) pt.yLabel = isHorizontal ? obj.labelLabel : obj.valueLabel;
 
     if(isWaterfall) {
         obj.delta = +cdi.rawS || cdi.s;
@@ -92704,6 +93321,7 @@ module.exports = function(gd, plotinfo, cdheatmaps, heatmapLayer) {
             var font = trace.textfont;
             var fontFamily = font.family;
             var fontSize = font.size;
+            var globalFontSize = gd._fullLayout.font.size;
 
             if(!fontSize || fontSize === 'auto') {
                 var minW = Infinity;
@@ -92730,7 +93348,7 @@ module.exports = function(gd, plotinfo, cdheatmaps, heatmapLayer) {
                     !isFinite(minW) ||
                     !isFinite(minH)
                 ) {
-                    fontSize = 12;
+                    fontSize = globalFontSize;
                 } else {
                     minW -= xGap;
                     minH -= yGap;
@@ -92743,7 +93361,8 @@ module.exports = function(gd, plotinfo, cdheatmaps, heatmapLayer) {
 
                     fontSize = Math.min(
                         Math.floor(minW),
-                        Math.floor(minH)
+                        Math.floor(minH),
+                        globalFontSize
                     );
                 }
             }
@@ -93397,8 +94016,9 @@ var getBinSpanLabelRound = _dereq_('./bin_label_vals');
 function calc(gd, trace) {
     var pos = [];
     var size = [];
-    var pa = Axes.getFromId(gd, trace.orientation === 'h' ? trace.yaxis : trace.xaxis);
-    var mainData = trace.orientation === 'h' ? 'y' : 'x';
+    var isHorizontal = trace.orientation === 'h';
+    var pa = Axes.getFromId(gd, isHorizontal ? trace.yaxis : trace.xaxis);
+    var mainData = isHorizontal ? 'y' : 'x';
     var counterData = {x: 'y', y: 'x'}[mainData];
     var calendar = trace[mainData + 'calendar'];
     var cumulativeSpec = trace.cumulative;
@@ -95299,7 +95919,7 @@ module.exports = function hoverPoints(pointData, xval, yval) {
     if(trace._hasZ) {
         pixel = cd0.z[ny][nx];
     } else if(trace._hasSource) {
-        pixel = trace._canvas.el.getContext('2d').getImageData(nx, ny, 1, 1).data;
+        pixel = trace._canvas.el.getContext('2d', {willReadFrequently: true}).getImageData(nx, ny, 1, 1).data;
     }
 
     // return early if pixel is undefined
@@ -95480,7 +96100,7 @@ module.exports = function plot(gd, plotinfo, cdimage, imageLayer) {
             var canvas = document.createElement('canvas');
             canvas.width = imageWidth;
             canvas.height = imageHeight;
-            var context = canvas.getContext('2d');
+            var context = canvas.getContext('2d', {willReadFrequently: true});
 
             var ipx = function(i) {return Lib.constrain(Math.round(xa.c2p(x0 + i * dx) - left), 0, imageWidth);};
             var jpx = function(j) {return Lib.constrain(Math.round(ya.c2p(y0 + j * dy) - top), 0, imageHeight);};
@@ -95555,7 +96175,7 @@ module.exports = function plot(gd, plotinfo, cdimage, imageLayer) {
                     var canvas = document.createElement('canvas');
                     canvas.width = w;
                     canvas.height = h;
-                    var context = canvas.getContext('2d');
+                    var context = canvas.getContext('2d', {willReadFrequently: true});
 
                     trace._image = trace._image || new Image();
                     var image = trace._image;
@@ -95580,7 +96200,7 @@ module.exports = function plot(gd, plotinfo, cdimage, imageLayer) {
                 if(realImage) {
                     href = trace.source;
                 } else {
-                    var context = trace._canvas.el.getContext('2d');
+                    var context = trace._canvas.el.getContext('2d', {willReadFrequently: true});
                     var data = context.getImageData(0, 0, w, h).data;
                     canvas = drawMagnifiedPixelsOnCanvas(function(i, j) {
                         var index = 4 * (j * w + i);
@@ -97565,6 +98185,7 @@ var hovertemplateAttrs = _dereq_('../../plots/template_attributes').hovertemplat
 var colorScaleAttrs = _dereq_('../../components/colorscale/attributes');
 var fontAttrs = _dereq_('../../plots/font_attributes');
 var dash = _dereq_('../../components/drawing/attributes').dash;
+var pattern = _dereq_('../../components/drawing/attributes').pattern;
 
 var Drawing = _dereq_('../../components/drawing');
 var constants = _dereq_('./constants');
@@ -97752,6 +98373,7 @@ module.exports = {
         editType: 'style',
         anim: true,
     },
+    fillpattern: pattern,
     marker: extendFlat({
         symbol: {
             valType: 'enumerated',
@@ -98488,6 +99110,7 @@ var handleLineDefaults = _dereq_('./line_defaults');
 var handleLineShapeDefaults = _dereq_('./line_shape_defaults');
 var handleTextDefaults = _dereq_('./text_defaults');
 var handleFillColorDefaults = _dereq_('./fillcolor_defaults');
+var coercePattern = _dereq_('../../lib').coercePattern;
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
     function coerce(attr, dflt) {
@@ -98541,6 +99164,7 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     if(traceOut.fill !== 'none') {
         handleFillColorDefaults(traceIn, traceOut, defaultColor, coerce);
         if(!subTypes.hasLines(traceOut)) handleLineShapeDefaults(traceIn, traceOut, coerce);
+        coercePattern(coerce, 'fillpattern', traceOut.fillcolor, false);
     }
 
     var lineColor = (traceOut.line || {}).color;
@@ -99923,11 +100547,11 @@ function plotOne(gd, idx, plotinfo, cdscatter, cdscatterAll, element, transition
                     // the points on the axes are the first two points. Otherwise
                     // animations get a little crazy if the number of points changes.
                     transition(ownFillEl3).attr('d', 'M' + pt1 + 'L' + pt0 + 'L' + fullpath.substr(1))
-                        .call(Drawing.singleFillStyle);
+                        .call(Drawing.singleFillStyle, gd);
                 } else {
                     // fill to self: just join the path to itself
                     transition(ownFillEl3).attr('d', fullpath + 'Z')
-                        .call(Drawing.singleFillStyle);
+                        .call(Drawing.singleFillStyle, gd);
                 }
             }
         } else if(tonext) {
@@ -99939,7 +100563,7 @@ function plotOne(gd, idx, plotinfo, cdscatter, cdscatterAll, element, transition
                     // This makes strange results if one path is *not* entirely
                     // inside the other, but then that is a strange usage.
                     transition(tonext).attr('d', fullpath + 'Z' + prevRevpath + 'Z')
-                        .call(Drawing.singleFillStyle);
+                        .call(Drawing.singleFillStyle, gd);
                 } else {
                     // tonextx/y: for now just connect endpoints with lines. This is
                     // the correct behavior if the endpoints are at the same value of
@@ -99947,7 +100571,7 @@ function plotOne(gd, idx, plotinfo, cdscatter, cdscatterAll, element, transition
                     // things depending on whether the new endpoint projects onto the
                     // existing curve or off the end of it
                     transition(tonext).attr('d', fullpath + 'L' + prevRevpath.substr(1) + 'Z')
-                        .call(Drawing.singleFillStyle);
+                        .call(Drawing.singleFillStyle, gd);
                 }
                 trace._polygons = trace._polygons.concat(prevPolygons);
             } else {
@@ -100340,7 +100964,7 @@ function style(gd) {
         .call(Drawing.lineGroupStyle);
 
     s.selectAll('g.trace path.js-fill')
-        .call(Drawing.fillGroupStyle);
+        .call(Drawing.fillGroupStyle, gd);
 
     Registry.getComponentMethod('errorbars', 'style')(s);
 }
@@ -102807,22 +103431,22 @@ function getSortFunc(opts, d2c) {
 'use strict';
 
 // package version injected by `npm run preprocess`
-exports.version = '2.8.0';
+exports.version = '2.12.1';
 
 },{}]},{},[15])(15)
 });
 
 var locale={moduleType:"locale",name:"ca",dictionary:{},format:{days:["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"],shortDays:["Dug","Dln","Dmt","Dmc","Djs","Dvn","Dsb"],months:["Gener","Febrer","Mar\xe7","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"],shortMonths:["Gen","Feb","Mar","Abr","Mai","Jun","Jul","Ago","Set","Oct","Nov","Des"],date:"%d/%m/%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"de",dictionary:{Autoscale:"Automatische Skalierung","Box Select":"Rechteckauswahl","Click to enter Colorscale title":"Klicken, um den Farbskalatitel einzugeben","Click to enter Component A title":"Klicken, um den Titel der Komponente A einzugeben","Click to enter Component B title":"Klicken, um den Titel der Komponente B einzugeben","Click to enter Component C title":"Klicken, um den Titel der Komponente C einzugeben","Click to enter Plot title":"Klicken, um den Titel des Graphen einzugeben","Click to enter X axis title":"Klicken, um den Titel der X-Achse einzugeben","Click to enter Y axis title":"Klicken, um den Titel der Y-Achse einzugeben","Compare data on hover":"\xdcber die Daten fahren, um sie zu vergleichen","Double-click on legend to isolate one trace":"Daten isolieren durch Doppelklick in der Legende","Double-click to zoom back out":"Herauszoomen durch Doppelklick","Download plot as a png":"Graphen als PNG herunterladen","Download plot":"Graphen herunterladen","Edit in Chart Studio":"Im Chart Studio bearbeiten","IE only supports svg.  Changing format to svg.":"IE unterst\xfctzt nur SVG-Dateien.  Format wird zu SVG gewechselt.","Lasso Select":"Lassoauswahl","Orbital rotation":"Orbitalrotation",Pan:"Verschieben","Produced with Plotly":"Erstellt mit Plotly",Reset:"Zur\xfccksetzen","Reset axes":"Achsen zur\xfccksetzen","Reset camera to default":"Kamera auf Standard zur\xfccksetzen","Reset camera to last save":"Kamera auf letzte Speicherung zur\xfccksetzen","Reset view":"Ansicht zur\xfccksetzen","Reset views":"Ansichten zur\xfccksetzen","Show closest data on hover":"Zeige n\xe4heste Daten beim \xdcberfahren","Snapshot succeeded":"Snapshot erfolgreich","Sorry, there was a problem downloading your snapshot!":"Es gab ein Problem beim Herunterladen des Snapshots","Taking snapshot - this may take a few seconds":"Erstelle einen Snapshot - dies kann einige Sekunden dauern",Zoom:"Zoom","Zoom in":"Hineinzoomen","Zoom out":"Herauszoomen","close:":"Schluss:",trace:"Datenspur","lat:":"Lat.:","lon:":"Lon.:","q1:":"q1:","q3:":"q3:","source:":"Quelle:","target:":"Ziel:","lower fence:":"Untere Schranke:","upper fence:":"Obere Schranke:","max:":"Max.:","mean \xb1 \u03c3:":"Mittelwert \xb1 \u03c3:","mean:":"Mittelwert:","median:":"Median:","min:":"Min.:","Turntable rotation":"Drehscheibenorbit","Toggle Spike Lines":"Bezugslinien an-/abschalten","open:":"Er\xf6ffnung:","high:":"H\xf6chstkurs:","low:":"Tiefstkurs:","Toggle show closest data on hover":"Anzeige der n\xe4hesten Daten an-/abschalten","incoming flow count:":"Anzahl eingehender Verbindungen:","outgoing flow count:":"Anzahl ausgehender Verbindungen:","kde:":"Dichte:"},format:{days:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],shortDays:["So","Mo","Di","Mi","Do","Fr","Sa"],months:["Januar","Februar","M\xe4rz","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],shortMonths:["Jan","Feb","M\xe4r","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],date:"%d.%m.%Y",decimal:",",thousands:"."}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"es",dictionary:{Autoscale:"Autoescalar","Box Select":"Seleccionar Caja","Click to enter Colorscale title":"Introducir el t\xedtulo de la Escala de Color","Click to enter Component A title":"Introducir el t\xedtulo del Componente A","Click to enter Component B title":"Introducir el t\xedtulo del Componente B","Click to enter Component C title":"Introducir el t\xedtulo del Componente C","Click to enter Plot title":"Introducir el t\xedtulo de la Gr\xe1fica","Click to enter X axis title":"Introducir el t\xedtulo del eje X","Click to enter Y axis title":"Introducir el t\xedtulo del eje Y","Click to enter radial axis title":"Introducir el t\xedtulo del eje radial","Compare data on hover":"Comparar datos al pasar por encima","Double-click on legend to isolate one trace":"Haga doble-clic en la leyenda para aislar una traza","Double-click to zoom back out":"Haga doble-clic para restaurar la escala","Download plot as a png":"Descargar gr\xe1fica como png","Download plot":"Descargar gr\xe1fica","Edit in Chart Studio":"Editar en Chart Studio","IE only supports svg.  Changing format to svg.":"IE solo soporta svg. Cambiando formato a svg.","Lasso Select":"Seleccionar con lazo","Orbital rotation":"Rotaci\xf3n esf\xe9rica",Pan:"Modo Panor\xe1mica","Produced with Plotly":"Hecho con Plotly",Reset:"Reiniciar","Reset axes":"Reiniciar ejes","Reset camera to default":"Restaurar c\xe1mara predeterminada","Reset camera to last save":"Restaurar anterior c\xe1mara","Reset view":"Restaurar vista","Reset views":"Restaurar vistas","Show closest data on hover":"Mostrar el dato m\xe1s cercano al pasar por encima","Snapshot succeeded":"La captura de la instant\xe1nea finaliz\xf3 correctamente","Sorry, there was a problem downloading your snapshot!":"\xa1La descarga de la instant\xe1nea fall\xf3!","Taking snapshot - this may take a few seconds":"Capturando una instant\xe1nea - podr\xeda tardar unos segundos","Toggle Spike Lines":"Mostrar/Ocultar Gu\xedas","Toggle show closest data on hover":"Activar/Desactivar mostrar el dato m\xe1s cercano al pasar por encima","Turntable rotation":"Rotaci\xf3n plana",Zoom:"Modo Ampliar/Reducir","Zoom in":"Ampliar","Zoom out":"Reducir","close:":"cierre:","high:":"alza:","incoming flow count:":"flujo de entrada:","kde:":"edp:","lat:":"lat:","lon:":"lon:","low:":"baja:","lower fence:":"l\xedmite inferior:","max:":"m\xe1x:","mean \xb1 \u03c3:":"media \xb1 \u03c3:","mean:":"media:","median:":"mediana:","min:":"m\xedn:","new text":"nuevo texto","open:":"apertura:","outgoing flow count:":"flujo de salida:","q1:":"q1:","q3:":"q3:","source:":"fuente:","target:":"destino:",trace:"traza","upper fence:":"l\xedmite superior:"},format:{days:["Domingo","Lunes","Martes","Mi\xe9rcoles","Jueves","Viernes","S\xe1bado"],shortDays:["Dom","Lun","Mar","Mi\xe9","Jue","Vie","S\xe1b"],months:["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],shortMonths:["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],date:"%d/%m/%Y",decimal:",",thousands:" "}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"fi",dictionary:{Autoscale:"Autoskaalaa","Box Select":"Laatikkovalinta","Click to enter Colorscale title":"Klikkaa antaaksesi v\xe4riskaalan otsikko","Click to enter Component A title":"Klikkaa antaaksesi komponentin A otsikko","Click to enter Component B title":"Klikkaa antaaksesi komponentin B otsikko","Click to enter Component C title":"Klikkaa antaaksesi komponentin C otsikko","Click to enter Plot title":"Klikkaa antaaksesi kuvion otsikko","Click to enter X axis title":"Klikkaa antaaksesi x-akselin otsikko","Click to enter Y axis title":"Klikkaa antaaksesi y-akselin otsikko","Click to enter radial axis title":"Klikkaa antaaksesi radiaalisen akselin otsikko","Compare data on hover":"Vertaa dataa kursorilla","Double-click on legend to isolate one trace":"Kaksoisklikkaa selitett\xe4 erist\xe4\xe4ksesi yksi sarja","Double-click to zoom back out":"Kaksoisklikkaa zoomataksesi ulos","Download plot":"Lataa kuvio","Download plot as png":"Lataa kuvio png-muodossa","Edit in Chart Studio":"Muokkaa Chart Studiossa","IE only supports svg. Changing format to svg.":"Formaatiksi vaihdetaan IE:n tukema svg.","Lasso Select":"Lassovalinta","Orbital rotation":"Orbitaalikierto",Pan:"Panorointi","Produced with Plotly":"Tuotettu Plotlyll\xe4",Reset:"Palauta oletusasetukset","Reset axes":"Palauta akselien oletusasetukset","Reset camera to default":"Palauta kameran oletusasetukset","Reset camera to last save":"Palauta kameran viimeksi tallennetut asetukset","Reset view":"Palauta n\xe4kym\xe4n oletusasetukset","Reset views":"Palauta n\xe4kymien oletusasetukset","Show closest data on hover":"N\xe4yt\xe4 kursoria l\xe4hin data","Snapshot succeeded":"Tilannekuvan ottaminen onnistui","Sorry, there was a problem downloading your snapshot!":"Pahoittelut, tilannekuvan lataaminen ep\xe4onnistui!","Taking snapshot - this may take a few seconds":"Otetaan tilannekuvaa - odota hetki","Toggle Spike Lines":"N\xe4yt\xe4 huiput","Toggle show closest data on hover":"N\xe4yt\xe4 kursoria l\xe4hin data","Turntable rotation":"Tasokierto",Zoom:"Zoomaus","Zoom in":"Zoomaa sis\xe4\xe4n","Zoom out":"Zoomaa ulos","close:":"loppu:","high:":"korkein:","incoming flow count:":"saapuva virtaus:","kde:":"ydinestimointi:","lat:":"lat.:","lon:":"lon.:","low:":"matalin:","lower fence:":"alempi raja:","max:":"maks.:","mean \xb1 \u03c3:":"keskiarvo \xb1 \u03c3:","mean:":"keskiarvo:","median:":"mediaani:","min:":"min.:","new text":"uusi teksti","open:":"alku:","outgoing flow count:":"l\xe4htev\xe4 virtaus:","q1:":"q1:","q3:":"q3:","source:":"l\xe4hde:","target:":"kohde:",trace:"sarja","upper fence:":"ylempi raja:"},format:{days:["sunnuntai","maanantai","tiistai","keskiviikko","torstai","perjantai","lauantai"],shortDays:["su","ma","ti","ke","to","pe","la"],months:["tammikuu","helmikuu","maaliskuu","huhtikuu","toukokuu","kes\xe4kuu","hein\xe4kuu","elokuu","syyskuu","lokakuu","marraskuu","joulukuu"],shortMonths:["tammi","helmi","maalis","huhti","touko","kes\xe4","hein\xe4","elo","syys","loka","marras","joulu"],date:"%d.%m.%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"fr",dictionary:{Autoscale:"\xc9chelle automatique","Box Select":"S\xe9lection rectangulaire","Click to enter Colorscale title":"Ajouter un titre \xe0 l'\xe9chelle de couleurs","Click to enter Component A title":"Ajouter un titre \xe0 la composante A","Click to enter Component B title":"Ajouter un titre \xe0 la composante B","Click to enter Component C title":"Ajouter un titre \xe0 la composante C","Click to enter Plot title":"Ajouter un titre au graphique","Click to enter X axis title":"Ajouter un titre \xe0 l'axe des x","Click to enter Y axis title":"Ajouter un titre \xe0 l'axe des y","Click to enter radial axis title":"Ajouter un titre \xe0 l'axe radial","Compare data on hover":"Comparaison entre donn\xe9es en survol","Double-click on legend to isolate one trace":"Double-cliquer sur la l\xe9gende pour isoler une s\xe9rie","Double-click to zoom back out":"Double-cliquer pour d\xe9zoomer","Download plot as a png":"T\xe9l\xe9charger le graphique en fichier PNG","Download plot":"T\xe9l\xe9charger le graphique","Edit in Chart Studio":"\xc9diter le graphique sur Chart Studio","IE only supports svg.  Changing format to svg.":"IE ne permet que les conversions en SVG. Conversion en SVG en cours.","Lasso Select":"S\xe9lection lasso","Orbital rotation":"Rotation orbitale",Pan:"Translation","Produced with Plotly":"G\xe9n\xe9r\xe9 avec Plotly",Reset:"R\xe9initialiser","Reset axes":"R\xe9initialiser les axes","Reset camera to default":"R\xe9gler la cam\xe9ra \xe0 sa valeur d\xe9faut","Reset camera to last save":"R\xe9gler la cam\xe9ra \xe0 sa valeur sauvegard\xe9e","Reset view":"R\xe9initialiser","Reset views":"R\xe9initialiser","Show closest data on hover":"Donn\xe9es les plus proches en survol","Snapshot succeeded":"Conversion r\xe9ussie","Sorry, there was a problem downloading your snapshot!":"D\xe9sol\xe9, un probl\xe8me est survenu lors du t\xe9l\xe9chargement de votre graphique","Taking snapshot - this may take a few seconds":"Conversion en cours, ceci peut prendre quelques secondes",Zoom:"Zoom","Zoom in":"Zoom int\xe9rieur","Zoom out":"Zoom ext\xe9rieur","close:":"fermeture :",trace:"s\xe9rie","lat:":"lat. :","lon:":"lon. :","q1:":"q1 :","q3:":"q3 :","source:":"source :","target:":"embouchure :","lower fence:":"cl\xf4ture sup\xe9rieure :","upper fence:":"cl\xf4ture inf\xe9rieure :","max:":"max. :","mean \xb1 \u03c3:":"moyenne \xb1 \u03c3 :","mean:":"moyenne :","median:":"m\xe9diane :","min:":"min. :","new text":"nouveau texte","Turntable rotation":"Rotation planaire","Toggle Spike Lines":"Activer/d\xe9sactiver les pics","open:":"ouverture :","high:":"haut :","low:":"bas :","Toggle show closest data on hover":"Activer/d\xe9sactiver le survol","incoming flow count:":"flux entrant :","outgoing flow count:":"flux sortant :","kde:":"est. par noyau :"},format:{days:["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],shortDays:["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"],months:["Janvier","F\xe9vrier","Mars","Avril","Mai","Juin","Juillet","Ao\xfbt","Septembre","Octobre","Novembre","D\xe9cembre"],shortMonths:["Jan","F\xe9v","Mar","Avr","Mai","Jun","Jul","Ao\xfb","Sep","Oct","Nov","D\xe9c"],date:"%d/%m/%Y",decimal:",",thousands:" ",year:"%Y",month:"%b %Y",dayMonth:"%-d %b",dayMonthYear:"%-d %b %Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"it",dictionary:{Autoscale:"Scala automaticamente","Box Select":"Selezione box","Click to enter Colorscale title":"Clicca per inserire un titolo alla scala di colori","Click to enter Component A title":"Clicca per inserire un titolo al componente A","Click to enter Component B title":"Clicca per inserire un titolo al componente B","Click to enter Component C title":"Clicca per inserire un titolo al componente C","Click to enter Plot title":"Clicca per inserire un titolo al grafico","Click to enter X axis title":"Clicca per inserire un titolo all'asse X","Click to enter Y axis title":"Clicca per inserire un titolo all'asse Y","Click to enter radial axis title":"Clicca per inserire un titolo per l' asse radiale","Compare data on hover":"Paragona i dati al passaggio del mouse","Double-click on legend to isolate one trace":"Doppio click per isolare i dati di una traccia","Double-click to zoom back out":"Doppio click per tornare allo zoom iniziale","Download plot as a png":"Scarica il grafico come immagine png","Download plot":"Scarica il grafico","Edit in Chart Studio":"Modifica in Chart Studio","IE only supports svg.  Changing format to svg.":"IE supporta solo svg.  Modifica formato in svg.","Lasso Select":"Selezione lazo","Orbital rotation":"Rotazione orbitale",Pan:"Sposta","Produced with Plotly":"Creato con Plotly",Reset:"Reset","Reset axes":"Resetta gli assi","Reset camera to default":"Reimposta la camera ai valori predefiniti","Reset camera to last save":"Reimposta la camera all' ultimo salvataggio","Reset view":"Reimposta la vista","Reset views":"Reimposta le viste","Show closest data on hover":"Mostra i dati pi\xf9 vicini al passaggio del mouse","Snapshot succeeded":"Screenshot creato con successo","Sorry, there was a problem downloading your snapshot!":"Si \xe8 verificato un errore durante la creazione dello screenshot","Taking snapshot - this may take a few seconds":"Creazione screenshot - potrebbe richiedere qualche secondo",Zoom:"Zoom","Zoom in":"Ingrandisci","Zoom out":"Rimpicciolisci","close:":"chiudi:",trace:"traccia","lat:":"lat.:","lon:":"lon.:","q1:":"q1:","q3:":"q3:","source:":"sorgente:","target:":"target:","max:":"max.:","mean \xb1 \u03c3:":"media \xb1 \u03c3:","mean:":"media:","median:":"mediana:","min:":"min.:","new text:":"Nuovo testo:","upper fence:":"limite superiore:","lower fence:":"limite inferiore:","Turntable rotation":"Rotazione piattaforma","Toggle Spike Lines":"Abilita linee di identificazione","open:":"apri:","high:":"alto:","kde:":"kde:","low:":"basso:","incoming flow count:":"Flusso in entrata:","outgoing flow count:":"Flusso in uscita:","Toggle show closest data on hover":"Abilita mostra i dati pi\xf9 vicini al passaggio del mouse"},format:{days:["Domenica","Luned\xec","Marted\xec","Mercoled\xec","Gioved\xec","Venerd\xec","Sabato"],shortDays:["Dom","Lun","Mar","Mer","Gio","Ven","Sab"],months:["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"],shortMonths:["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"],date:"%d/%m/%Y",decimal:",",thousands:"."}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"de",dictionary:{Autoscale:"Automatische Skalierung","Box Select":"Rechteckauswahl","Click to enter Colorscale title":"Klicken, um den Farbskalatitel einzugeben","Click to enter Component A title":"Klicken, um den Titel der Komponente A einzugeben","Click to enter Component B title":"Klicken, um den Titel der Komponente B einzugeben","Click to enter Component C title":"Klicken, um den Titel der Komponente C einzugeben","Click to enter Plot title":"Klicken, um den Titel des Graphen einzugeben","Click to enter X axis title":"Klicken, um den Titel der X-Achse einzugeben","Click to enter Y axis title":"Klicken, um den Titel der Y-Achse einzugeben","Compare data on hover":"\xdcber die Daten fahren, um sie zu vergleichen","Double-click on legend to isolate one trace":"Daten isolieren durch Doppelklick in der Legende","Double-click to zoom back out":"Herauszoomen durch Doppelklick","Download plot as a png":"Graphen als PNG herunterladen","Download plot":"Graphen herunterladen","Edit in Chart Studio":"Im Chart Studio bearbeiten","IE only supports svg.  Changing format to svg.":"IE unterst\xfctzt nur SVG-Dateien.  Format wird zu SVG gewechselt.","Lasso Select":"Lassoauswahl","Orbital rotation":"Orbitalrotation",Pan:"Verschieben","Produced with Plotly.js":"Erstellt mit Plotly.js",Reset:"Zur\xfccksetzen","Reset axes":"Achsen zur\xfccksetzen","Reset camera to default":"Kamera auf Standard zur\xfccksetzen","Reset camera to last save":"Kamera auf letzte Speicherung zur\xfccksetzen","Reset view":"Ansicht zur\xfccksetzen","Reset views":"Ansichten zur\xfccksetzen","Show closest data on hover":"Zeige n\xe4heste Daten beim \xdcberfahren","Snapshot succeeded":"Snapshot erfolgreich","Sorry, there was a problem downloading your snapshot!":"Es gab ein Problem beim Herunterladen des Snapshots","Taking snapshot - this may take a few seconds":"Erstelle einen Snapshot - dies kann einige Sekunden dauern",Zoom:"Zoom","Zoom in":"Hineinzoomen","Zoom out":"Herauszoomen","close:":"Schluss:",trace:"Datenspur","lat:":"Lat.:","lon:":"Lon.:","q1:":"q1:","q3:":"q3:","source:":"Quelle:","target:":"Ziel:","lower fence:":"Untere Schranke:","upper fence:":"Obere Schranke:","max:":"Max.:","mean \xb1 \u03c3:":"Mittelwert \xb1 \u03c3:","mean:":"Mittelwert:","median:":"Median:","min:":"Min.:","Turntable rotation":"Drehscheibenorbit","Toggle Spike Lines":"Bezugslinien an-/abschalten","open:":"Er\xf6ffnung:","high:":"H\xf6chstkurs:","low:":"Tiefstkurs:","Toggle show closest data on hover":"Anzeige der n\xe4hesten Daten an-/abschalten","incoming flow count:":"Anzahl eingehender Verbindungen:","outgoing flow count:":"Anzahl ausgehender Verbindungen:","kde:":"Dichte:"},format:{days:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],shortDays:["So","Mo","Di","Mi","Do","Fr","Sa"],months:["Januar","Februar","M\xe4rz","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],shortMonths:["Jan","Feb","M\xe4r","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],date:"%d.%m.%Y",decimal:",",thousands:"."}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"es",dictionary:{Autoscale:"Autoescalar","Box Select":"Seleccionar Caja","Click to enter Colorscale title":"Introducir el t\xedtulo de la Escala de Color","Click to enter Component A title":"Introducir el t\xedtulo del Componente A","Click to enter Component B title":"Introducir el t\xedtulo del Componente B","Click to enter Component C title":"Introducir el t\xedtulo del Componente C","Click to enter Plot title":"Introducir el t\xedtulo de la Gr\xe1fica","Click to enter X axis title":"Introducir el t\xedtulo del eje X","Click to enter Y axis title":"Introducir el t\xedtulo del eje Y","Click to enter radial axis title":"Introducir el t\xedtulo del eje radial","Compare data on hover":"Comparar datos al pasar por encima","Double-click on legend to isolate one trace":"Haga doble-clic en la leyenda para aislar una traza","Double-click to zoom back out":"Haga doble-clic para restaurar la escala","Download plot as a png":"Descargar gr\xe1fica como png","Download plot":"Descargar gr\xe1fica","Edit in Chart Studio":"Editar en Chart Studio","IE only supports svg.  Changing format to svg.":"IE solo soporta svg. Cambiando formato a svg.","Lasso Select":"Seleccionar con lazo","Orbital rotation":"Rotaci\xf3n esf\xe9rica",Pan:"Modo Panor\xe1mica","Produced with Plotly.js":"Hecho con Plotly.js",Reset:"Reiniciar","Reset axes":"Reiniciar ejes","Reset camera to default":"Restaurar c\xe1mara predeterminada","Reset camera to last save":"Restaurar anterior c\xe1mara","Reset view":"Restaurar vista","Reset views":"Restaurar vistas","Show closest data on hover":"Mostrar el dato m\xe1s cercano al pasar por encima","Snapshot succeeded":"La captura de la instant\xe1nea finaliz\xf3 correctamente","Sorry, there was a problem downloading your snapshot!":"\xa1La descarga de la instant\xe1nea fall\xf3!","Taking snapshot - this may take a few seconds":"Capturando una instant\xe1nea - podr\xeda tardar unos segundos","Toggle Spike Lines":"Mostrar/Ocultar Gu\xedas","Toggle show closest data on hover":"Activar/Desactivar mostrar el dato m\xe1s cercano al pasar por encima","Turntable rotation":"Rotaci\xf3n plana",Zoom:"Modo Ampliar/Reducir","Zoom in":"Ampliar","Zoom out":"Reducir","close:":"cierre:","high:":"alza:","incoming flow count:":"flujo de entrada:","kde:":"edp:","lat:":"lat:","lon:":"lon:","low:":"baja:","lower fence:":"l\xedmite inferior:","max:":"m\xe1x:","mean \xb1 \u03c3:":"media \xb1 \u03c3:","mean:":"media:","median:":"mediana:","min:":"m\xedn:","new text":"nuevo texto","open:":"apertura:","outgoing flow count:":"flujo de salida:","q1:":"q1:","q3:":"q3:","source:":"fuente:","target:":"destino:",trace:"traza","upper fence:":"l\xedmite superior:"},format:{days:["Domingo","Lunes","Martes","Mi\xe9rcoles","Jueves","Viernes","S\xe1bado"],shortDays:["Dom","Lun","Mar","Mi\xe9","Jue","Vie","S\xe1b"],months:["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],shortMonths:["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],date:"%d/%m/%Y",decimal:",",thousands:" "}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"fi",dictionary:{Autoscale:"Autoskaalaa","Box Select":"Laatikkovalinta","Click to enter Colorscale title":"Klikkaa antaaksesi v\xe4riskaalan otsikko","Click to enter Component A title":"Klikkaa antaaksesi komponentin A otsikko","Click to enter Component B title":"Klikkaa antaaksesi komponentin B otsikko","Click to enter Component C title":"Klikkaa antaaksesi komponentin C otsikko","Click to enter Plot title":"Klikkaa antaaksesi kuvion otsikko","Click to enter X axis title":"Klikkaa antaaksesi x-akselin otsikko","Click to enter Y axis title":"Klikkaa antaaksesi y-akselin otsikko","Click to enter radial axis title":"Klikkaa antaaksesi radiaalisen akselin otsikko","Compare data on hover":"Vertaa dataa kursorilla","Double-click on legend to isolate one trace":"Kaksoisklikkaa selitett\xe4 erist\xe4\xe4ksesi yksi sarja","Double-click to zoom back out":"Kaksoisklikkaa zoomataksesi ulos","Download plot":"Lataa kuvio","Download plot as png":"Lataa kuvio png-muodossa","Edit in Chart Studio":"Muokkaa Chart Studiossa","IE only supports svg. Changing format to svg.":"Formaatiksi vaihdetaan IE:n tukema svg.","Lasso Select":"Lassovalinta","Orbital rotation":"Orbitaalikierto",Pan:"Panorointi","Produced with Plotly.js":"Tuotettu Plotly.jsll\xe4",Reset:"Palauta oletusasetukset","Reset axes":"Palauta akselien oletusasetukset","Reset camera to default":"Palauta kameran oletusasetukset","Reset camera to last save":"Palauta kameran viimeksi tallennetut asetukset","Reset view":"Palauta n\xe4kym\xe4n oletusasetukset","Reset views":"Palauta n\xe4kymien oletusasetukset","Show closest data on hover":"N\xe4yt\xe4 kursoria l\xe4hin data","Snapshot succeeded":"Tilannekuvan ottaminen onnistui","Sorry, there was a problem downloading your snapshot!":"Pahoittelut, tilannekuvan lataaminen ep\xe4onnistui!","Taking snapshot - this may take a few seconds":"Otetaan tilannekuvaa - odota hetki","Toggle Spike Lines":"N\xe4yt\xe4 huiput","Toggle show closest data on hover":"N\xe4yt\xe4 kursoria l\xe4hin data","Turntable rotation":"Tasokierto",Zoom:"Zoomaus","Zoom in":"Zoomaa sis\xe4\xe4n","Zoom out":"Zoomaa ulos","close:":"loppu:","high:":"korkein:","incoming flow count:":"saapuva virtaus:","kde:":"ydinestimointi:","lat:":"lat.:","lon:":"lon.:","low:":"matalin:","lower fence:":"alempi raja:","max:":"maks.:","mean \xb1 \u03c3:":"keskiarvo \xb1 \u03c3:","mean:":"keskiarvo:","median:":"mediaani:","min:":"min.:","new text":"uusi teksti","open:":"alku:","outgoing flow count:":"l\xe4htev\xe4 virtaus:","q1:":"q1:","q3:":"q3:","source:":"l\xe4hde:","target:":"kohde:",trace:"sarja","upper fence:":"ylempi raja:"},format:{days:["sunnuntai","maanantai","tiistai","keskiviikko","torstai","perjantai","lauantai"],shortDays:["su","ma","ti","ke","to","pe","la"],months:["tammikuu","helmikuu","maaliskuu","huhtikuu","toukokuu","kes\xe4kuu","hein\xe4kuu","elokuu","syyskuu","lokakuu","marraskuu","joulukuu"],shortMonths:["tammi","helmi","maalis","huhti","touko","kes\xe4","hein\xe4","elo","syys","loka","marras","joulu"],date:"%d.%m.%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"fr",dictionary:{Autoscale:"\xc9chelle automatique","Box Select":"S\xe9lection rectangulaire","Click to enter Colorscale title":"Ajouter un titre \xe0 l'\xe9chelle de couleurs","Click to enter Component A title":"Ajouter un titre \xe0 la composante A","Click to enter Component B title":"Ajouter un titre \xe0 la composante B","Click to enter Component C title":"Ajouter un titre \xe0 la composante C","Click to enter Plot title":"Ajouter un titre au graphique","Click to enter X axis title":"Ajouter un titre \xe0 l'axe des x","Click to enter Y axis title":"Ajouter un titre \xe0 l'axe des y","Click to enter radial axis title":"Ajouter un titre \xe0 l'axe radial","Compare data on hover":"Comparaison entre donn\xe9es en survol","Double-click on legend to isolate one trace":"Double-cliquer sur la l\xe9gende pour isoler une s\xe9rie","Double-click to zoom back out":"Double-cliquer pour d\xe9zoomer","Download plot as a png":"T\xe9l\xe9charger le graphique en fichier PNG","Download plot":"T\xe9l\xe9charger le graphique","Edit in Chart Studio":"\xc9diter le graphique sur Chart Studio","IE only supports svg.  Changing format to svg.":"IE ne permet que les conversions en SVG. Conversion en SVG en cours.","Lasso Select":"S\xe9lection lasso","Orbital rotation":"Rotation orbitale",Pan:"Translation","Produced with Plotly.js":"G\xe9n\xe9r\xe9 avec Plotly.js",Reset:"R\xe9initialiser","Reset axes":"R\xe9initialiser les axes","Reset camera to default":"R\xe9gler la cam\xe9ra \xe0 sa valeur d\xe9faut","Reset camera to last save":"R\xe9gler la cam\xe9ra \xe0 sa valeur sauvegard\xe9e","Reset view":"R\xe9initialiser","Reset views":"R\xe9initialiser","Show closest data on hover":"Donn\xe9es les plus proches en survol","Snapshot succeeded":"Conversion r\xe9ussie","Sorry, there was a problem downloading your snapshot!":"D\xe9sol\xe9, un probl\xe8me est survenu lors du t\xe9l\xe9chargement de votre graphique","Taking snapshot - this may take a few seconds":"Conversion en cours, ceci peut prendre quelques secondes",Zoom:"Zoom","Zoom in":"Zoom int\xe9rieur","Zoom out":"Zoom ext\xe9rieur","close:":"fermeture :",trace:"s\xe9rie","lat:":"lat. :","lon:":"lon. :","q1:":"q1 :","q3:":"q3 :","source:":"source :","target:":"embouchure :","lower fence:":"cl\xf4ture sup\xe9rieure :","upper fence:":"cl\xf4ture inf\xe9rieure :","max:":"max. :","mean \xb1 \u03c3:":"moyenne \xb1 \u03c3 :","mean:":"moyenne :","median:":"m\xe9diane :","min:":"min. :","new text":"nouveau texte","Turntable rotation":"Rotation planaire","Toggle Spike Lines":"Activer/d\xe9sactiver les pics","open:":"ouverture :","high:":"haut :","low:":"bas :","Toggle show closest data on hover":"Activer/d\xe9sactiver le survol","incoming flow count:":"flux entrant :","outgoing flow count:":"flux sortant :","kde:":"est. par noyau :"},format:{days:["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],shortDays:["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"],months:["Janvier","F\xe9vrier","Mars","Avril","Mai","Juin","Juillet","Ao\xfbt","Septembre","Octobre","Novembre","D\xe9cembre"],shortMonths:["Jan","F\xe9v","Mar","Avr","Mai","Jun","Jul","Ao\xfb","Sep","Oct","Nov","D\xe9c"],date:"%d/%m/%Y",decimal:",",thousands:" ",year:"%Y",month:"%b %Y",dayMonth:"%-d %b",dayMonthYear:"%-d %b %Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"it",dictionary:{Autoscale:"Scala automaticamente","Box Select":"Selezione box","Click to enter Colorscale title":"Clicca per inserire un titolo alla scala di colori","Click to enter Component A title":"Clicca per inserire un titolo al componente A","Click to enter Component B title":"Clicca per inserire un titolo al componente B","Click to enter Component C title":"Clicca per inserire un titolo al componente C","Click to enter Plot title":"Clicca per inserire un titolo al grafico","Click to enter X axis title":"Clicca per inserire un titolo all'asse X","Click to enter Y axis title":"Clicca per inserire un titolo all'asse Y","Click to enter radial axis title":"Clicca per inserire un titolo per l' asse radiale","Compare data on hover":"Paragona i dati al passaggio del mouse","Double-click on legend to isolate one trace":"Doppio click per isolare i dati di una traccia","Double-click to zoom back out":"Doppio click per tornare allo zoom iniziale","Download plot as a png":"Scarica il grafico come immagine png","Download plot":"Scarica il grafico","Edit in Chart Studio":"Modifica in Chart Studio","IE only supports svg.  Changing format to svg.":"IE supporta solo svg.  Modifica formato in svg.","Lasso Select":"Selezione lazo","Orbital rotation":"Rotazione orbitale",Pan:"Sposta","Produced with Plotly.js":"Creato con Plotly.js",Reset:"Reset","Reset axes":"Resetta gli assi","Reset camera to default":"Reimposta la camera ai valori predefiniti","Reset camera to last save":"Reimposta la camera all' ultimo salvataggio","Reset view":"Reimposta la vista","Reset views":"Reimposta le viste","Show closest data on hover":"Mostra i dati pi\xf9 vicini al passaggio del mouse","Snapshot succeeded":"Screenshot creato con successo","Sorry, there was a problem downloading your snapshot!":"Si \xe8 verificato un errore durante la creazione dello screenshot","Taking snapshot - this may take a few seconds":"Creazione screenshot - potrebbe richiedere qualche secondo",Zoom:"Zoom","Zoom in":"Ingrandisci","Zoom out":"Rimpicciolisci","close:":"chiudi:",trace:"traccia","lat:":"lat.:","lon:":"lon.:","q1:":"q1:","q3:":"q3:","source:":"sorgente:","target:":"target:","max:":"max.:","mean \xb1 \u03c3:":"media \xb1 \u03c3:","mean:":"media:","median:":"mediana:","min:":"min.:","new text:":"Nuovo testo:","upper fence:":"limite superiore:","lower fence:":"limite inferiore:","Turntable rotation":"Rotazione piattaforma","Toggle Spike Lines":"Abilita linee di identificazione","open:":"apri:","high:":"alto:","kde:":"kde:","low:":"basso:","incoming flow count:":"Flusso in entrata:","outgoing flow count:":"Flusso in uscita:","Toggle show closest data on hover":"Abilita mostra i dati pi\xf9 vicini al passaggio del mouse"},format:{days:["Domenica","Luned\xec","Marted\xec","Mercoled\xec","Gioved\xec","Venerd\xec","Sabato"],shortDays:["Dom","Lun","Mar","Mer","Gio","Ven","Sab"],months:["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"],shortMonths:["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"],date:"%d/%m/%Y",decimal:",",thousands:"."}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
 var locale={moduleType:"locale",name:"nl",dictionary:{},format:{days:["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"],shortDays:["zon","maa","din","woe","don","vri","zat"],months:["januari","februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december"],shortMonths:["jan","feb","maa","apr","mei","jun","jul","aug","sep","okt","nov","dec"],date:"%d-%m-%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
 var locale={moduleType:"locale",name:"pl",dictionary:{},format:{days:["Niedziela","Poniedzia\u0142ek","Wtorek","\u015aroda","Czwartek","Pi\u0105tek","Sobota"],shortDays:["Nie","Pn","Wt","\u015ar","Czw","Pt","So"],months:["Stycze\u0144","Luty","Marzec","Kwiecie\u0144","Maj","Czerwiec","Lipiec","Sierpie\u0144","Wrzesie\u0144","Pa\u017adziernik","Listopad","Grudzie\u0144"],shortMonths:["Sty","Lu","Mar","Kw","Maj","Cze","Lip","Sie","Wrz","Pa","Lis","Gru"],date:"%Y-%m-%d"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"pt-BR",dictionary:{Autoscale:"Escala autom\xe1tica","Box Select":"Sele\xe7\xe3o retangular","Click to enter Colorscale title":"Clique para editar o t\xedtulo da escala de cor","Click to enter Component A title":"Clique para editar o t\xedtulo do Componente A","Click to enter Component B title":"Clique para editar o t\xedtulo do Componente B","Click to enter Component C title":"Clique para editar o t\xedtulo do Componente C","Click to enter Plot title":"Clique para editar o t\xedtulo do Gr\xe1fico","Click to enter X axis title":"Clique para editar o t\xedtulo do eixo X","Click to enter Y axis title":"Clique para editar o t\xedtulo do eixo Y","Click to enter radial axis title":"Clique para editar o t\xedtulo do eixo radial","Compare data on hover":"Comparar dados ao pairar","Double-click on legend to isolate one trace":"Duplo clique na legenda para isolar uma s\xe9rie","Double-click to zoom back out":"Duplo clique para reverter zoom","Download plot as a png":"Fazer download do gr\xe1fico como imagem (png)","Download plot":"Fazer download do gr\xe1fico","Edit in Chart Studio":"Editar no Chart Studio","IE only supports svg.  Changing format to svg.":"IE suporta apenas svg. Alterando formato para svg","Lasso Select":"Sele\xe7\xe3o de la\xe7o","Orbital rotation":"Rota\xe7\xe3o orbital",Pan:"Mover","Produced with Plotly":"Criado com o Plotly",Reset:"Restaurar","Reset axes":"Restaurar eixos","Reset camera to default":"Restaurar c\xe2mera para padr\xe3o","Reset camera to last save":"Restaurar c\xe2mera para \xfaltima salva","Reset view":"Restaurar vis\xe3o","Reset views":"Restaurar vis\xf5es","Show closest data on hover":"Exibir dado mais pr\xf3ximo ao pairar","Snapshot succeeded":"Captura instant\xe2nea completa","Sorry, there was a problem downloading your snapshot!":"Desculpe, houve um problema no download de sua captura instant\xe2nea!","Taking snapshot - this may take a few seconds":"Efetuando captura instant\xe2nea - isso pode levar alguns instantes","Toggle Spike Lines":"Habilitar/desabilitar triangula\xe7\xe3o de linhas","Toggle show closest data on hover":"Habilitar/desabilitar exibi\xe7\xe3o de dado mais pr\xf3ximo ao pairar","Turntable rotation":"Rota\xe7\xe3o de mesa",Zoom:"Zoom","Zoom in":"Ampliar zoom","Zoom out":"Reduzir zoom",close:"fechamento",high:"alta","incoming flow count":"contagem de fluxo de entrada",kde:"kde",lat:"latitude",lon:"longitude",low:"baixa","lower fence":"limite inferior",max:"m\xe1ximo","mean \xb1 \u03c3":"m\xe9dia \xb1 \u03c3",mean:"m\xe9dia",median:"mediana",min:"m\xednimo","new text":"novo texto",open:"abertura","outgoing flow count":"contagem de fluxo de sa\xedda",q1:"q1",q3:"q3",source:"origem",target:"destino",trace:"s\xe9rie","upper fence":"limite superior"},format:{days:["Domingo","Segunda-feira","Ter\xe7a-feira","Quarta-feira","Quinta-feira","Sexta-feira","S\xe1bado"],shortDays:["Dom","Seg","Ter","Qua","Qui","Sex","S\xe1b"],months:["Janeiro","Fevereiro","Mar\xe7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],shortMonths:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],date:"%d/%m/%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"pt-PT",dictionary:{Autoscale:"Escala autom\xe1tica","Box Select":"Sele\xe7\xe3o retangular","Click to enter Colorscale title":"Clique para editar o t\xedtulo da escala de cor","Click to enter Component A title":"Clique para editar o t\xedtulo do Componente A","Click to enter Component B title":"Clique para editar o t\xedtulo do Componente B","Click to enter Component C title":"Clique para editar o t\xedtulo do Componente C","Click to enter Plot title":"Clique para editar o t\xedtulo do Gr\xe1fico","Click to enter X axis title":"Clique para editar o t\xedtulo do eixo X","Click to enter Y axis title":"Clique para editar o t\xedtulo do eixo Y","Click to enter radial axis title":"Clique para editar o t\xedtulo do eixo radial","Compare data on hover":"Comparar dados ao pairar","Double-click on legend to isolate one trace":"Duplo clique na legenda para isolar uma s\xe9rie","Double-click to zoom back out":"Duplo clique para reverter amplia\xe7\xe3o","Download plot as a png":"Baixar gr\xe1fico como imagem (png)","Download plot":"Baixar gr\xe1fico","Edit in Chart Studio":"Editar no Chart Studio","IE only supports svg.  Changing format to svg.":"IE suporta apenas svg. Alterando formato para svg","Lasso Select":"Sele\xe7\xe3o de la\xe7o","Orbital rotation":"Rota\xe7\xe3o orbital",Pan:"Mover","Produced with Plotly":"Criado com Plotly",Reset:"Restaurar","Reset axes":"Restaurar eixos","Reset camera to default":"Restaurar c\xe2mera para padr\xe3o","Reset camera to last save":"Restaurar c\xe2mera para \xfaltima grava\xe7\xe3o","Reset view":"Restaurar vista","Reset views":"Restaurar vistas","Show closest data on hover":"Exibir dado mais pr\xf3ximo ao pairar","Snapshot succeeded":"Captura instant\xe2nea com sucesso","Sorry, there was a problem downloading your snapshot!":"Desculpe, houve um problema no download de sua captura instant\xe2nea!","Taking snapshot - this may take a few seconds":"Efetuando captura instant\xe2nea - isso pode demorar alguns segundos","Toggle Spike Lines":"Habilitar/desabilitar triangula\xe7\xe3o de linhas","Toggle show closest data on hover":"Habilitar/desabilitar exibi\xe7\xe3o de dado mais pr\xf3ximo ao pairar","Turntable rotation":"Rodar",Zoom:"Ampliar","Zoom in":"Aumentar Amplia\xe7\xe3o","Zoom out":"Reduzir Amplia\xe7\xe3o",close:"fechar",high:"alta","incoming flow count":"contagem de fluxo de entrada",kde:"kde",lat:"latitude",lon:"longitude",low:"baixa","lower fence":"limite inferior",max:"m\xe1ximo","mean \xb1 \u03c3":"m\xe9dia \xb1 \u03c3",mean:"m\xe9dia",median:"mediana",min:"m\xednimo","new text":"novo texto",open:"abrir","outgoing flow count":"contagem de fluxo de sa\xedda",q1:"q1",q3:"q3",source:"origem",target:"destino",trace:"s\xe9rie","upper fence":"limite superior"},format:{days:["domingo","segunda-feira","ter\xe7a-feira","quarta-feira","quinta-feira","sexta-feira","s\xe1bado"],shortDays:["Dom","Seg","Ter","Qua","Qui","Sex","S\xe1b"],months:["Janeiro","Fevereiro","Mar\xe7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],shortMonths:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],date:"%d/%m/%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"sv",dictionary:{Autoscale:"Autoskala","Box Select":"V\xe4lj rektangel","Click to enter Colorscale title":"Klicka f\xf6r att ange titel p\xe5 f\xe4rgskala","Click to enter Component A title":"Klicka f\xf6r att ange titel p\xe5 komponent A","Click to enter Component B title":"Klicka f\xf6r att ange titel p\xe5 komponent B","Click to enter Component C title":"Klicka f\xf6r att ange titel p\xe5 komponent C","Click to enter Plot title":"Klicka f\xf6r att ange titel p\xe5 diagram","Click to enter X axis title":"Klicka f\xf6r att ange titel p\xe5 x-axel","Click to enter Y axis title":"Klicka f\xf6r att ange titel p\xe5 y-axel","Click to enter radial axis title":"Klicka f\xf6r att ange titel p\xe5 radiell axel","Compare data on hover":"J\xe4mf\xf6r data n\xe4r muspekaren h\xe5lls \xf6ver","Double-click on legend to isolate one trace":"Dubbelklicka p\xe5 f\xf6rklaringen f\xf6r att visa endast en serie","Double-click to zoom back out":"Dubbelklicka f\xf6r att zooma ut igen","Download plot":"Ladda ner diagram","Download plot as a png":"Ladda ner diagram som png","Edit in Chart Studio":"Editera i Chart Studio","IE only supports svg.  Changing format to svg.":"IE st\xf6der enbart svg. Byter format till svg.","Lasso Select":"V\xe4lj lasso","Orbital rotation":"Orbital rotation",Pan:"Panorera","Produced with Plotly":"Skapad med Plotly",Reset:"\xc5terst\xe4ll","Reset axes":"\xc5terst\xe4ll axlar","Reset camera to default":"\xc5terst\xe4ll kamera till standard","Reset camera to last save":"\xc5terst\xe4ll kamera till senast sparad","Reset view":"\xc5terst\xe4ll vy","Reset views":"\xc5terst\xe4ll vyer","Show closest data on hover":"Visa n\xe4rmaste v\xe4rde n\xe4r muspekaren h\xe5lls \xf6ver","Snapshot succeeded":"Bild skapad","Sorry, there was a problem downloading your snapshot!":"Tyv\xe4rr gick n\xe5got fel vid nedladdning av bild","Taking snapshot - this may take a few seconds":"Skapar bild - detta kan ta n\xe5gra sekunder","Toggle Spike Lines":"Aktivera/Inaktivera topplinjer","Toggle show closest data on hover":"Aktivera/Inaktivera visa n\xe4rmaste v\xe4rde n\xe4r muspekaren h\xe5lls \xf6ver","Turntable rotation":"Platt rotation",Zoom:"Zooma","Zoom in":"Zooma in","Zoom out":"Zooma ut","close:":"st\xe4ngning:","concentration:":"koncentration:","high:":"h\xf6g:","incoming flow count:":"inkommande fl\xf6de summering:","kde:":"kde:","lat:":"lat:","lon:":"lon:","low:":"l\xe5g:","lower fence:":"undre gr\xe4ns:","max:":"max:","mean \xb1 \u03c3:":"medel \xb1 \u03c3:","mean:":"medel:","median:":"median:","min:":"min:","new text":"ny text","open:":"\xf6ppning:","outgoing flow count:":"utg\xe5ende fl\xf6de summering:","q1:":"q1:","q3:":"q3:","source:":"k\xe4lla:","target:":"m\xe5l:",trace:"serie","upper fence:":"\xf6vre gr\xe4ns:"},format:{days:["S\xf6ndag","M\xe5ndag","Tisdag","Onsdag","Torsdag","Fredag","L\xf6rdag"],shortDays:["S\xf6n","M\xe5n","Tis","Ons","Tor","Fre","L\xf6r"],months:["Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"],shortMonths:["Jan","Feb","Mar","Apr","Maj","Jun","Jul","Aug","Sep","Okt","Nov","Dec"],date:"%Y-%m-%d"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"pt-BR",dictionary:{Autoscale:"Escala autom\xe1tica","Box Select":"Sele\xe7\xe3o retangular","Click to enter Colorscale title":"Clique para editar o t\xedtulo da escala de cor","Click to enter Component A title":"Clique para editar o t\xedtulo do Componente A","Click to enter Component B title":"Clique para editar o t\xedtulo do Componente B","Click to enter Component C title":"Clique para editar o t\xedtulo do Componente C","Click to enter Plot title":"Clique para editar o t\xedtulo do Gr\xe1fico","Click to enter X axis title":"Clique para editar o t\xedtulo do eixo X","Click to enter Y axis title":"Clique para editar o t\xedtulo do eixo Y","Click to enter radial axis title":"Clique para editar o t\xedtulo do eixo radial","Compare data on hover":"Comparar dados ao pairar","Double-click on legend to isolate one trace":"Duplo clique na legenda para isolar uma s\xe9rie","Double-click to zoom back out":"Duplo clique para reverter zoom","Download plot as a png":"Fazer download do gr\xe1fico como imagem (png)","Download plot":"Fazer download do gr\xe1fico","Edit in Chart Studio":"Editar no Chart Studio","IE only supports svg.  Changing format to svg.":"IE suporta apenas svg. Alterando formato para svg","Lasso Select":"Sele\xe7\xe3o de la\xe7o","Orbital rotation":"Rota\xe7\xe3o orbital",Pan:"Mover","Produced with Plotly.js":"Criado com o Plotly.js",Reset:"Restaurar","Reset axes":"Restaurar eixos","Reset camera to default":"Restaurar c\xe2mera para padr\xe3o","Reset camera to last save":"Restaurar c\xe2mera para \xfaltima salva","Reset view":"Restaurar vis\xe3o","Reset views":"Restaurar vis\xf5es","Show closest data on hover":"Exibir dado mais pr\xf3ximo ao pairar","Snapshot succeeded":"Captura instant\xe2nea completa","Sorry, there was a problem downloading your snapshot!":"Desculpe, houve um problema no download de sua captura instant\xe2nea!","Taking snapshot - this may take a few seconds":"Efetuando captura instant\xe2nea - isso pode levar alguns instantes","Toggle Spike Lines":"Habilitar/desabilitar triangula\xe7\xe3o de linhas","Toggle show closest data on hover":"Habilitar/desabilitar exibi\xe7\xe3o de dado mais pr\xf3ximo ao pairar","Turntable rotation":"Rota\xe7\xe3o de mesa",Zoom:"Zoom","Zoom in":"Ampliar zoom","Zoom out":"Reduzir zoom",close:"fechamento",high:"alta","incoming flow count":"contagem de fluxo de entrada",kde:"kde",lat:"latitude",lon:"longitude",low:"baixa","lower fence":"limite inferior",max:"m\xe1ximo","mean \xb1 \u03c3":"m\xe9dia \xb1 \u03c3",mean:"m\xe9dia",median:"mediana",min:"m\xednimo","new text":"novo texto",open:"abertura","outgoing flow count":"contagem de fluxo de sa\xedda",q1:"q1",q3:"q3",source:"origem",target:"destino",trace:"s\xe9rie","upper fence":"limite superior"},format:{days:["Domingo","Segunda-feira","Ter\xe7a-feira","Quarta-feira","Quinta-feira","Sexta-feira","S\xe1bado"],shortDays:["Dom","Seg","Ter","Qua","Qui","Sex","S\xe1b"],months:["Janeiro","Fevereiro","Mar\xe7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],shortMonths:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],date:"%d/%m/%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"pt-PT",dictionary:{Autoscale:"Escala autom\xe1tica","Box Select":"Sele\xe7\xe3o retangular","Click to enter Colorscale title":"Clique para editar o t\xedtulo da escala de cor","Click to enter Component A title":"Clique para editar o t\xedtulo do Componente A","Click to enter Component B title":"Clique para editar o t\xedtulo do Componente B","Click to enter Component C title":"Clique para editar o t\xedtulo do Componente C","Click to enter Plot title":"Clique para editar o t\xedtulo do Gr\xe1fico","Click to enter X axis title":"Clique para editar o t\xedtulo do eixo X","Click to enter Y axis title":"Clique para editar o t\xedtulo do eixo Y","Click to enter radial axis title":"Clique para editar o t\xedtulo do eixo radial","Compare data on hover":"Comparar dados ao pairar","Double-click on legend to isolate one trace":"Duplo clique na legenda para isolar uma s\xe9rie","Double-click to zoom back out":"Duplo clique para reverter amplia\xe7\xe3o","Download plot as a png":"Baixar gr\xe1fico como imagem (png)","Download plot":"Baixar gr\xe1fico","Edit in Chart Studio":"Editar no Chart Studio","IE only supports svg.  Changing format to svg.":"IE suporta apenas svg. Alterando formato para svg","Lasso Select":"Sele\xe7\xe3o de la\xe7o","Orbital rotation":"Rota\xe7\xe3o orbital",Pan:"Mover","Produced with Plotly.js":"Criado com Plotly.js",Reset:"Restaurar","Reset axes":"Restaurar eixos","Reset camera to default":"Restaurar c\xe2mera para padr\xe3o","Reset camera to last save":"Restaurar c\xe2mera para \xfaltima grava\xe7\xe3o","Reset view":"Restaurar vista","Reset views":"Restaurar vistas","Show closest data on hover":"Exibir dado mais pr\xf3ximo ao pairar","Snapshot succeeded":"Captura instant\xe2nea com sucesso","Sorry, there was a problem downloading your snapshot!":"Desculpe, houve um problema no download de sua captura instant\xe2nea!","Taking snapshot - this may take a few seconds":"Efetuando captura instant\xe2nea - isso pode demorar alguns segundos","Toggle Spike Lines":"Habilitar/desabilitar triangula\xe7\xe3o de linhas","Toggle show closest data on hover":"Habilitar/desabilitar exibi\xe7\xe3o de dado mais pr\xf3ximo ao pairar","Turntable rotation":"Rodar",Zoom:"Ampliar","Zoom in":"Aumentar Amplia\xe7\xe3o","Zoom out":"Reduzir Amplia\xe7\xe3o",close:"fechar",high:"alta","incoming flow count":"contagem de fluxo de entrada",kde:"kde",lat:"latitude",lon:"longitude",low:"baixa","lower fence":"limite inferior",max:"m\xe1ximo","mean \xb1 \u03c3":"m\xe9dia \xb1 \u03c3",mean:"m\xe9dia",median:"mediana",min:"m\xednimo","new text":"novo texto",open:"abrir","outgoing flow count":"contagem de fluxo de sa\xedda",q1:"q1",q3:"q3",source:"origem",target:"destino",trace:"s\xe9rie","upper fence":"limite superior"},format:{days:["domingo","segunda-feira","ter\xe7a-feira","quarta-feira","quinta-feira","sexta-feira","s\xe1bado"],shortDays:["Dom","Seg","Ter","Qua","Qui","Sex","S\xe1b"],months:["Janeiro","Fevereiro","Mar\xe7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],shortMonths:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],date:"%d/%m/%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"sv",dictionary:{Autoscale:"Autoskala","Box Select":"V\xe4lj rektangel","Click to enter Colorscale title":"Klicka f\xf6r att ange titel p\xe5 f\xe4rgskala","Click to enter Component A title":"Klicka f\xf6r att ange titel p\xe5 komponent A","Click to enter Component B title":"Klicka f\xf6r att ange titel p\xe5 komponent B","Click to enter Component C title":"Klicka f\xf6r att ange titel p\xe5 komponent C","Click to enter Plot title":"Klicka f\xf6r att ange titel p\xe5 diagram","Click to enter X axis title":"Klicka f\xf6r att ange titel p\xe5 x-axel","Click to enter Y axis title":"Klicka f\xf6r att ange titel p\xe5 y-axel","Click to enter radial axis title":"Klicka f\xf6r att ange titel p\xe5 radiell axel","Compare data on hover":"J\xe4mf\xf6r data n\xe4r muspekaren h\xe5lls \xf6ver","Double-click on legend to isolate one trace":"Dubbelklicka p\xe5 f\xf6rklaringen f\xf6r att visa endast en serie","Double-click to zoom back out":"Dubbelklicka f\xf6r att zooma ut igen","Download plot":"Ladda ner diagram","Download plot as a png":"Ladda ner diagram som png","Edit in Chart Studio":"Editera i Chart Studio","IE only supports svg.  Changing format to svg.":"IE st\xf6der enbart svg. Byter format till svg.","Lasso Select":"V\xe4lj lasso","Orbital rotation":"Orbital rotation",Pan:"Panorera","Produced with Plotly.js":"Skapad med Plotly.js",Reset:"\xc5terst\xe4ll","Reset axes":"\xc5terst\xe4ll axlar","Reset camera to default":"\xc5terst\xe4ll kamera till standard","Reset camera to last save":"\xc5terst\xe4ll kamera till senast sparad","Reset view":"\xc5terst\xe4ll vy","Reset views":"\xc5terst\xe4ll vyer","Show closest data on hover":"Visa n\xe4rmaste v\xe4rde n\xe4r muspekaren h\xe5lls \xf6ver","Snapshot succeeded":"Bild skapad","Sorry, there was a problem downloading your snapshot!":"Tyv\xe4rr gick n\xe5got fel vid nedladdning av bild","Taking snapshot - this may take a few seconds":"Skapar bild - detta kan ta n\xe5gra sekunder","Toggle Spike Lines":"Aktivera/Inaktivera topplinjer","Toggle show closest data on hover":"Aktivera/Inaktivera visa n\xe4rmaste v\xe4rde n\xe4r muspekaren h\xe5lls \xf6ver","Turntable rotation":"Platt rotation",Zoom:"Zooma","Zoom in":"Zooma in","Zoom out":"Zooma ut","close:":"st\xe4ngning:","concentration:":"koncentration:","high:":"h\xf6g:","incoming flow count:":"inkommande fl\xf6de summering:","kde:":"kde:","lat:":"lat:","lon:":"lon:","low:":"l\xe5g:","lower fence:":"undre gr\xe4ns:","max:":"max:","mean \xb1 \u03c3:":"medel \xb1 \u03c3:","mean:":"medel:","median:":"median:","min:":"min:","new text":"ny text","open:":"\xf6ppning:","outgoing flow count:":"utg\xe5ende fl\xf6de summering:","q1:":"q1:","q3:":"q3:","source:":"k\xe4lla:","target:":"m\xe5l:",trace:"serie","upper fence:":"\xf6vre gr\xe4ns:"},format:{days:["S\xf6ndag","M\xe5ndag","Tisdag","Onsdag","Torsdag","Fredag","L\xf6rdag"],shortDays:["S\xf6n","M\xe5n","Tis","Ons","Tor","Fre","L\xf6r"],months:["Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"],shortMonths:["Jan","Feb","Mar","Apr","Maj","Jun","Jul","Aug","Sep","Okt","Nov","Dec"],date:"%Y-%m-%d"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
 var locale={moduleType:"locale",name:"tr",dictionary:{},format:{days:["Pazar","Pazartesi","Sal\u0131","\xc7ar\u015famba","Per\u015fembe","Cuma","Cumartesi"],shortDays:["Pz","Pt","Sa","\xc7a","Pe","Cu","Ct"],months:["Ocak","\u015eubat","Mart","Nisan","May\u0131s","Haziran","Temmuz","A\u011fustos","Eyl\xfcl","Ekim","Kas\u0131m","Aral\u0131k"],shortMonths:["Oca","\u015eub","Mar","Nis","May","Haz","Tem","A\u011fu","Eyl","Eki","Kas","Ara"],date:"%d.%m.%Y"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"uk",dictionary:{Autoscale:"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u0435 \u0448\u043a\u0430\u043b\u044e\u0432\u0430\u043d\u043d\u044f","Box Select":"\u0412\u0438\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u043f\u0440\u044f\u043c\u043e\u043a\u0443\u0442\u043d\u043e\u0457 \u043e\u0431\u043b\u0430\u0441\u0442\u0456","Click to enter Colorscale title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u0448\u043a\u0430\u043b\u0438 \u043a\u043e\u043b\u044c\u043e\u0440\u0443","Click to enter Component A title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0443 A","Click to enter Component B title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0443 B","Click to enter Component C title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0443 C","Click to enter Plot title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u0433\u0440\u0430\u0444\u0456\u043a\u0430","Click to enter X axis title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043e\u0441\u0456 X","Click to enter Y axis title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043e\u0441\u0456 Y","Click to enter radial axis title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043f\u043e\u043b\u044f\u0440\u043d\u043e\u0457 \u043e\u0441\u0456","Compare data on hover":"\u041f\u0440\u0438 \u043d\u0430\u0432\u0435\u0434\u0435\u043d\u043d\u0456 \u043f\u043e\u043a\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0432\u0441\u0456 \u0434\u0430\u043d\u0456","Double-click on legend to isolate one trace":"\u0414\u0432\u0456\u0447\u0456 \u043a\u043b\u0430\u0446\u043d\u0456\u0442\u044c \u043f\u043e \u043b\u0435\u0433\u0435\u043d\u0434\u0456 \u0434\u043b\u044f \u0432\u0438\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u043e\u043a\u0440\u0435\u043c\u0438\u0445 \u0434\u0430\u043d\u0438\u0445","Double-click to zoom back out":"\u0414\u043b\u044f \u0432\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044f \u043c\u0430\u0441\u0448\u0442\u0430\u0431\u0443 \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c \u0434\u0432\u0456\u0447\u0456 \u043a\u043b\u0430\u0446\u043d\u0456\u0442\u044c \u043c\u0438\u0448\u0435\u044e","Download plot":"\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0433\u0440\u0430\u0444\u0456\u043a","Download plot as a png":"\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0443 \u0444\u043e\u0440\u043c\u0430\u0442\u0456 PNG","Edit in Chart Studio":"\u0420\u0435\u0434\u0430\u0433\u0443\u0432\u0430\u0442\u0438 \u0443 Chart Studio","IE only supports svg.  Changing format to svg.":"IE \u043f\u0456\u0434\u0442\u0440\u0438\u043c\u0443\u0454 \u043b\u0438\u0448\u0435 svg. \u0424\u043e\u0440\u043c\u0430\u0442 \u0437\u043c\u0456\u043d\u044e\u0454\u0442\u044c\u0441\u044f \u043d\u0430 svg.","Lasso Select":"\u041b\u0430\u0441\u043e","Orbital rotation":"\u0420\u0443\u0445 \u043f\u043e \u043e\u0440\u0431\u0456\u0442\u0456",Pan:"\u0417\u0441\u0443\u0432","Produced with Plotly":"\u0421\u0442\u0432\u043e\u0440\u0435\u043d\u043e \u0437\u0430 \u0434\u043e\u043f\u043e\u043c\u043e\u0433\u043e\u044e Plotly",Reset:"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Reset axes":"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u043e\u0441\u044f\u043c \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Reset camera to default":"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u043a\u0430\u043c\u0435\u0440\u0456 \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Reset camera to last save":"\u041f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u0438 \u043a\u0430\u043c\u0435\u0440\u0443 \u0432 \u043e\u0441\u0442\u0430\u043d\u043d\u0456\u0439 \u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043d\u0438\u0439 \u0441\u0442\u0430\u043d","Reset view":"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u0432\u0456\u0434\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044e \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Reset views":"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u0432\u0456\u0434\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f\u043c \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Show closest data on hover":"\u041f\u0440\u0438 \u043d\u0430\u0432\u0435\u0434\u0435\u043d\u043d\u0456 \u043f\u043e\u043a\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043d\u0430\u0439\u0431\u043b\u0438\u0436\u0447\u0456 \u0434\u0430\u043d\u0456","Snapshot succeeded":"\u0417\u043d\u0456\u043c\u043e\u043a \u0443\u0441\u043f\u0456\u0448\u043d\u043e \u0441\u0442\u0432\u043e\u0440\u0435\u043d\u0438\u0439","Sorry, there was a problem downloading your snapshot!":"\u041d\u0430 \u0436\u0430\u043b\u044c, \u0432\u0438\u043d\u0438\u043a\u043b\u0430 \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u0430 \u043f\u0440\u0438 \u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043d\u043d\u0456 \u0437\u043d\u0456\u043c\u043a\u0443","Taking snapshot - this may take a few seconds":"\u0421\u0442\u0432\u043e\u0440\u044e\u0454\u0442\u044c\u0441\u044f \u0437\u043d\u0456\u043c\u043e\u043a - \u0446\u0435 \u043c\u043e\u0436\u0435 \u0437\u0430\u0439\u043d\u044f\u0442\u0438 \u043a\u0456\u043b\u044c\u043a\u0430 \u0441\u0435\u043a\u0443\u043d\u0434","Toggle Spike Lines":"\u0423\u0432\u0456\u043c\u043a\u043d\u0443\u0442\u0438/\u0432\u0438\u043c\u043a\u043d\u0443\u0442\u0438 \u0432\u0456\u0434\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043b\u0456\u043d\u0456\u0439 \u043f\u0440\u043e\u0435\u043a\u0446\u0456\u0439 \u0442\u043e\u0447\u043e\u043a","Toggle show closest data on hover":"\u0423\u0432\u0456\u043c\u043a\u043d\u0443\u0442\u0438/\u0432\u0438\u043c\u043a\u043d\u0443\u0442\u0438 \u0432\u0456\u0434\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043d\u0430\u0439\u0431\u043b\u0438\u0436\u0447\u0438\u0445 \u0434\u0430\u043d\u0438\u0445 \u043f\u0440\u0438 \u043d\u0430\u0432\u0435\u0434\u0435\u043d\u043d\u0456","Turntable rotation":"\u041e\u0431\u0435\u0440\u0442\u0430\u043d\u043d\u044f \u043d\u0430 \u043f\u043e\u0432\u043e\u0440\u043e\u0442\u043d\u043e\u043c\u0443 \u0441\u0442\u043e\u043b\u0456",Zoom:"\u0417\u0443\u043c","Zoom in":"\u0417\u0431\u0456\u043b\u044c\u0448\u0438\u0442\u0438","Zoom out":"\u0417\u043c\u0435\u043d\u0448\u0438\u0442\u0438","close:":"\u0417\u0430\u043a\u0440\u0438\u0442\u0442\u044f:","concentration:":"\u041a\u043e\u043d\u0446\u0435\u043d\u0442\u0440\u0430\u0446\u0456\u044f:","high:":"\u041c\u0430\u043a\u0441\u0438\u043c\u0443\u043c:","incoming flow count:":"\u041a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0432\u0445\u0456\u0434\u043d\u0438\u0445 \u0437\u0432'\u044f\u0437\u043a\u0456\u0432:","kde:":"\u042f\u0434\u0440\u043e\u0432\u0430 \u043e\u0446\u0456\u043d\u043a\u0430 \u0433\u0443\u0441\u0442\u0438\u043d\u0438 \u0440\u043e\u0437\u043f\u043e\u0434\u0456\u043b\u0443:","lat:":"\u0428\u0438\u0440\u043e\u0442\u0430:","lon:":"\u0414\u043e\u0432\u0433\u043e\u0442\u0430:","low:":"\u041c\u0456\u043d\u0456\u043c\u0443\u043c:","lower fence:":"\u041d\u0438\u0436\u043d\u044f \u0433\u0440\u0430\u043d\u0438\u0446\u044f:","max:":"\u041c\u0430\u043a\u0441.:","mean \xb1 \u03c3:":"\u0421\u0435\u0440\u0435\u0434\u043d\u0454 \xb1 \u03c3:","mean:":"\u0421\u0435\u0440\u0435\u0434\u043d\u0454:","median:":"\u041c\u0435\u0434\u0456\u0430\u043d\u0430:","min:":"\u041c\u0456\u043d.:","new text":"\u041d\u043e\u0432\u0438\u0439 \u0442\u0435\u043a\u0441\u0442","open:":"\u0412\u0456\u0434\u043a\u0440\u0438\u0442\u0442\u044f:","outgoing flow count:":"\u041a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0432\u0438\u0445\u0456\u0434\u043d\u0438\u0445 \u0437\u0432'\u044f\u0437\u043a\u0456\u0432:","q1:":"q1:","q3:":"q3:","source:":"\u0414\u0436\u0435\u0440\u0435\u043b\u043e:","target:":"\u0426\u0456\u043b\u044c:",trace:"\u0420\u044f\u0434","upper fence:":"\u0412\u0435\u0440\u0445\u043d\u044f \u0433\u0440\u0430\u043d\u0438\u0446\u044f:"},format:{days:["\u043d\u0435\u0434\u0456\u043b\u044f","\u043f\u043e\u043d\u0435\u0434\u0456\u043b\u043e\u043a","\u0432\u0456\u0432\u0442\u043e\u0440\u043e\u043a","\u0441\u0435\u0440\u0435\u0434\u0430","\u0447\u0435\u0442\u0432\u0435\u0440","\u043f'\u044f\u0442\u043d\u0438\u0446\u044f","\u0441\u0443\u0431\u043e\u0442\u0430"],shortDays:["\u043d\u0434","\u043f\u043d","\u0432\u0442","\u0441\u0440","\u0447\u0442","\u043f\u0442","\u0441\u0431"],months:["\u0421\u0456\u0447\u0435\u043d\u044c","\u041b\u044e\u0442\u0438\u0439","\u0411\u0435\u0440\u0435\u0437\u0435\u043d\u044c","\u041a\u0432\u0456\u0442\u0435\u043d\u044c","\u0422\u0440\u0430\u0432\u0435\u043d\u044c","\u0427\u0435\u0440\u0432\u0435\u043d\u044c","\u041b\u0438\u043f\u0435\u043d\u044c","\u0421\u0435\u0440\u043f\u0435\u043d\u044c","\u0412\u0435\u0440\u0435\u0441\u0435\u043d\u044c","\u0416\u043e\u0432\u0442\u0435\u043d\u044c","\u041b\u0438\u0441\u0442\u043e\u043f\u0430\u0434","\u0413\u0440\u0443\u0434\u0435\u043d\u044c"],shortMonths:["\u0421\u0456\u0447.","\u041b\u044e\u0442.","\u0411\u0435\u0440\u0435\u0437.","\u041a\u0432\u0456\u0442.","\u0422\u0440\u0430\u0432.","\u0427\u0435\u0440\u0432.","\u041b\u0438\u043f.","\u0421\u0435\u0440\u043f.","\u0412\u0435\u0440\u0435\u0441.","\u0416\u043e\u0432\u0442.","\u041b\u0438\u0441\u0442\u043e\u043f.","\u0413\u0440\u0443\u0434."],date:"%d.%m.%Y",decimal:",",thousands:" "}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
-var locale={moduleType:"locale",name:"zh-CN",dictionary:{Autoscale:"\u81ea\u52a8\u7f29\u653e","Box Select":"\u77e9\u5f62\u6846\u9009","Click to enter Colorscale title":"\u70b9\u51fb\u8f93\u5165\u8272\u9636\u7684\u6807\u9898","Click to enter Component A title":"\u70b9\u51fb\u8f93\u5165\u7ec4\u4ef6A\u7684\u6807\u9898","Click to enter Component B title":"\u70b9\u51fb\u8f93\u5165\u7ec4\u4ef6B\u7684\u6807\u9898","Click to enter Component C title":"\u70b9\u51fb\u8f93\u5165\u7ec4\u4ef6C\u7684\u6807\u9898","Click to enter Plot title":"\u70b9\u51fb\u8f93\u5165\u56fe\u8868\u7684\u6807\u9898","Click to enter X axis title":"\u70b9\u51fb\u8f93\u5165X\u8f74\u7684\u6807\u9898","Click to enter Y axis title":"\u70b9\u51fb\u8f93\u5165Y\u8f74\u7684\u6807\u9898","Compare data on hover":"\u60ac\u505c\u65f6\u6bd4\u8f83\u6570\u636e","Double-click on legend to isolate one trace":"\u53cc\u51fb\u56fe\u4f8b\u6765\u7a81\u663e\u5bf9\u5e94\u8f68\u8ff9","Double-click to zoom back out":"\u53cc\u51fb\u8fd4\u56de\u7f29\u5c0f\u663e\u793a","Download plot as a png":"\u4e0b\u8f7d\u56fe\u8868\u4e3aPNG\u683c\u5f0f","Download plot":"\u4e0b\u8f7d\u56fe\u8868","Edit in Chart Studio":"\u5728Chart Studio\u4e2d\u7f16\u8f91","IE only supports svg.  Changing format to svg.":"IE\u53ea\u652f\u6301SVG\u3002\u8f6c\u6362\u683c\u5f0f\u4e3aSVG\u3002","Lasso Select":"\u5957\u7d22\u9009\u62e9","Orbital rotation":"\u8f68\u9053\u65cb\u8f6c",Pan:"\u5e73\u79fb","Produced with Plotly":"\u7531Plotly\u751f\u6210",Reset:"\u91cd\u7f6e","Reset axes":"\u91cd\u7f6e\u8f74","Reset camera to default":"\u91cd\u7f6e\u955c\u5934\u89c6\u89d2\u4e3a\u9ed8\u8ba4\u72b6\u6001","Reset camera to last save":"\u91cd\u7f6e\u955c\u5934\u89c6\u89d2\u4e3a\u4e0a\u6b21\u4fdd\u5b58\u72b6\u6001","Reset view":"\u91cd\u7f6e\u89c6\u56fe","Reset views":"\u91cd\u7f6e\u89c6\u56fe","Show closest data on hover":"\u60ac\u505c\u65f6\u663e\u793a\u6700\u8fd1\u7684\u6570\u636e","Snapshot succeeded":"\u751f\u6210\u5feb\u7167\u6210\u529f","Sorry, there was a problem downloading your snapshot!":"\u62b1\u6b49\uff0c\u4e0b\u8f7d\u5feb\u7167\u51fa\u73b0\u95ee\u9898\uff01","Taking snapshot - this may take a few seconds":"\u6b63\u5728\u751f\u6210\u5feb\u7167 - \u53ef\u80fd\u9700\u8981\u51e0\u79d2\u949f",Zoom:"\u7f29\u653e","Zoom in":"\u653e\u5927","Zoom out":"\u7f29\u5c0f","close:":"\u5173\u95ed:",trace:"\u8e2a\u8ff9:","lat:":"\u7eac\u5ea6:","lon:":"\u7ecf\u5ea6:","q1:":"\u7b2c\u4e00\u56db\u5206\u4f4d\u6570:","q3:":"\u7b2c\u4e09\u56db\u5206\u4f4d\u6570:","source:":"\u6e90:","target:":"\u76ee\u6807:","lower fence:":"\u5185\u4fa7\u680f(lower fence):","upper fence:":"\u5916\u4fa7\u680f(upper fence):","max:":"\u6700\u5927\u503c:","mean \xb1 \u03c3:":"\u5e73\u5747\u6570 \xb1 \u6807\u51c6\u5dee\u03c3:","mean:":"\u5e73\u5747\u6570:","median:":"\u4e2d\u4f4d\u6570:","min:":"\u6700\u5c0f\u503c:","Turntable rotation":"\u65cb\u8f6c\u8f6c\u76d8:","Toggle Spike Lines":"\u5207\u6362\u663e\u793a\u6570\u636e\u70b9\u8f85\u52a9\u7ebf(Spike Lines)","open:":"\u6253\u5f00:","high:":"\u9ad8:","low:":"\u4f4e:","Toggle show closest data on hover":"\u5207\u6362\u60ac\u505c\u65f6\u663e\u793a\u6700\u8fd1\u7684\u6570\u636e\u70b9","incoming flow count:":"\u6d41\u5165\u6570\u91cf:","outgoing flow count:":"\u6d41\u51fa\u6570\u91cf:","kde:":"kde:","Click to enter radial axis title":"\u70b9\u51fb\u8f93\u5165\u5f84\u5411\u8f74\u6807\u9898","new text":"\u65b0\u5efa\u6587\u672c"},format:{days:["\u661f\u671f\u65e5","\u661f\u671f\u4e00","\u661f\u671f\u4e8c","\u661f\u671f\u4e09","\u661f\u671f\u56db","\u661f\u671f\u4e94","\u661f\u671f\u516d"],shortDays:["\u5468\u65e5","\u5468\u4e00","\u5468\u4e8c","\u5468\u4e09","\u5468\u56db","\u5468\u4e94","\u5468\u516d"],months:["\u4e00\u6708","\u4e8c\u6708","\u4e09\u6708","\u56db\u6708","\u4e94\u6708","\u516d\u6708","\u4e03\u6708","\u516b\u6708","\u4e5d\u6708","\u5341\u6708","\u5341\u4e00\u6708","\u5341\u4e8c\u6708"],shortMonths:["\u4e00","\u4e8c","\u4e09","\u56db","\u4e94","\u516d","\u4e03","\u516b","\u4e5d","\u5341","\u5341\u4e00","\u5341\u4e8c"],date:"%Y-%m-%d"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"uk",dictionary:{Autoscale:"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u0435 \u0448\u043a\u0430\u043b\u044e\u0432\u0430\u043d\u043d\u044f","Box Select":"\u0412\u0438\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u043f\u0440\u044f\u043c\u043e\u043a\u0443\u0442\u043d\u043e\u0457 \u043e\u0431\u043b\u0430\u0441\u0442\u0456","Click to enter Colorscale title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u0448\u043a\u0430\u043b\u0438 \u043a\u043e\u043b\u044c\u043e\u0440\u0443","Click to enter Component A title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0443 A","Click to enter Component B title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0443 B","Click to enter Component C title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0443 C","Click to enter Plot title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u0433\u0440\u0430\u0444\u0456\u043a\u0430","Click to enter X axis title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043e\u0441\u0456 X","Click to enter Y axis title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043e\u0441\u0456 Y","Click to enter radial axis title":"\u041d\u0430\u0442\u0438\u0441\u043d\u0456\u0442\u044c \u0434\u043b\u044f \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f \u043d\u0430\u0437\u0432\u0438 \u043f\u043e\u043b\u044f\u0440\u043d\u043e\u0457 \u043e\u0441\u0456","Compare data on hover":"\u041f\u0440\u0438 \u043d\u0430\u0432\u0435\u0434\u0435\u043d\u043d\u0456 \u043f\u043e\u043a\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0432\u0441\u0456 \u0434\u0430\u043d\u0456","Double-click on legend to isolate one trace":"\u0414\u0432\u0456\u0447\u0456 \u043a\u043b\u0430\u0446\u043d\u0456\u0442\u044c \u043f\u043e \u043b\u0435\u0433\u0435\u043d\u0434\u0456 \u0434\u043b\u044f \u0432\u0438\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u043e\u043a\u0440\u0435\u043c\u0438\u0445 \u0434\u0430\u043d\u0438\u0445","Double-click to zoom back out":"\u0414\u043b\u044f \u0432\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044f \u043c\u0430\u0441\u0448\u0442\u0430\u0431\u0443 \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c \u0434\u0432\u0456\u0447\u0456 \u043a\u043b\u0430\u0446\u043d\u0456\u0442\u044c \u043c\u0438\u0448\u0435\u044e","Download plot":"\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0433\u0440\u0430\u0444\u0456\u043a","Download plot as a png":"\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0443 \u0444\u043e\u0440\u043c\u0430\u0442\u0456 PNG","Edit in Chart Studio":"\u0420\u0435\u0434\u0430\u0433\u0443\u0432\u0430\u0442\u0438 \u0443 Chart Studio","IE only supports svg.  Changing format to svg.":"IE \u043f\u0456\u0434\u0442\u0440\u0438\u043c\u0443\u0454 \u043b\u0438\u0448\u0435 svg. \u0424\u043e\u0440\u043c\u0430\u0442 \u0437\u043c\u0456\u043d\u044e\u0454\u0442\u044c\u0441\u044f \u043d\u0430 svg.","Lasso Select":"\u041b\u0430\u0441\u043e","Orbital rotation":"\u0420\u0443\u0445 \u043f\u043e \u043e\u0440\u0431\u0456\u0442\u0456",Pan:"\u0417\u0441\u0443\u0432","Produced with Plotly.js":"\u0421\u0442\u0432\u043e\u0440\u0435\u043d\u043e \u0437\u0430 \u0434\u043e\u043f\u043e\u043c\u043e\u0433\u043e\u044e Plotly.js",Reset:"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Reset axes":"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u043e\u0441\u044f\u043c \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Reset camera to default":"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u043a\u0430\u043c\u0435\u0440\u0456 \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Reset camera to last save":"\u041f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u0438 \u043a\u0430\u043c\u0435\u0440\u0443 \u0432 \u043e\u0441\u0442\u0430\u043d\u043d\u0456\u0439 \u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043d\u0438\u0439 \u0441\u0442\u0430\u043d","Reset view":"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u0432\u0456\u0434\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044e \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Reset views":"\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0438 \u0432\u0456\u0434\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f\u043c \u0437\u043d\u0430\u0447\u0435\u043d\u043d\u044f \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c","Show closest data on hover":"\u041f\u0440\u0438 \u043d\u0430\u0432\u0435\u0434\u0435\u043d\u043d\u0456 \u043f\u043e\u043a\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043d\u0430\u0439\u0431\u043b\u0438\u0436\u0447\u0456 \u0434\u0430\u043d\u0456","Snapshot succeeded":"\u0417\u043d\u0456\u043c\u043e\u043a \u0443\u0441\u043f\u0456\u0448\u043d\u043e \u0441\u0442\u0432\u043e\u0440\u0435\u043d\u0438\u0439","Sorry, there was a problem downloading your snapshot!":"\u041d\u0430 \u0436\u0430\u043b\u044c, \u0432\u0438\u043d\u0438\u043a\u043b\u0430 \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u0430 \u043f\u0440\u0438 \u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043d\u043d\u0456 \u0437\u043d\u0456\u043c\u043a\u0443","Taking snapshot - this may take a few seconds":"\u0421\u0442\u0432\u043e\u0440\u044e\u0454\u0442\u044c\u0441\u044f \u0437\u043d\u0456\u043c\u043e\u043a - \u0446\u0435 \u043c\u043e\u0436\u0435 \u0437\u0430\u0439\u043d\u044f\u0442\u0438 \u043a\u0456\u043b\u044c\u043a\u0430 \u0441\u0435\u043a\u0443\u043d\u0434","Toggle Spike Lines":"\u0423\u0432\u0456\u043c\u043a\u043d\u0443\u0442\u0438/\u0432\u0438\u043c\u043a\u043d\u0443\u0442\u0438 \u0432\u0456\u0434\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043b\u0456\u043d\u0456\u0439 \u043f\u0440\u043e\u0435\u043a\u0446\u0456\u0439 \u0442\u043e\u0447\u043e\u043a","Toggle show closest data on hover":"\u0423\u0432\u0456\u043c\u043a\u043d\u0443\u0442\u0438/\u0432\u0438\u043c\u043a\u043d\u0443\u0442\u0438 \u0432\u0456\u0434\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043d\u0430\u0439\u0431\u043b\u0438\u0436\u0447\u0438\u0445 \u0434\u0430\u043d\u0438\u0445 \u043f\u0440\u0438 \u043d\u0430\u0432\u0435\u0434\u0435\u043d\u043d\u0456","Turntable rotation":"\u041e\u0431\u0435\u0440\u0442\u0430\u043d\u043d\u044f \u043d\u0430 \u043f\u043e\u0432\u043e\u0440\u043e\u0442\u043d\u043e\u043c\u0443 \u0441\u0442\u043e\u043b\u0456",Zoom:"\u0417\u0443\u043c","Zoom in":"\u0417\u0431\u0456\u043b\u044c\u0448\u0438\u0442\u0438","Zoom out":"\u0417\u043c\u0435\u043d\u0448\u0438\u0442\u0438","close:":"\u0417\u0430\u043a\u0440\u0438\u0442\u0442\u044f:","concentration:":"\u041a\u043e\u043d\u0446\u0435\u043d\u0442\u0440\u0430\u0446\u0456\u044f:","high:":"\u041c\u0430\u043a\u0441\u0438\u043c\u0443\u043c:","incoming flow count:":"\u041a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0432\u0445\u0456\u0434\u043d\u0438\u0445 \u0437\u0432'\u044f\u0437\u043a\u0456\u0432:","kde:":"\u042f\u0434\u0440\u043e\u0432\u0430 \u043e\u0446\u0456\u043d\u043a\u0430 \u0433\u0443\u0441\u0442\u0438\u043d\u0438 \u0440\u043e\u0437\u043f\u043e\u0434\u0456\u043b\u0443:","lat:":"\u0428\u0438\u0440\u043e\u0442\u0430:","lon:":"\u0414\u043e\u0432\u0433\u043e\u0442\u0430:","low:":"\u041c\u0456\u043d\u0456\u043c\u0443\u043c:","lower fence:":"\u041d\u0438\u0436\u043d\u044f \u0433\u0440\u0430\u043d\u0438\u0446\u044f:","max:":"\u041c\u0430\u043a\u0441.:","mean \xb1 \u03c3:":"\u0421\u0435\u0440\u0435\u0434\u043d\u0454 \xb1 \u03c3:","mean:":"\u0421\u0435\u0440\u0435\u0434\u043d\u0454:","median:":"\u041c\u0435\u0434\u0456\u0430\u043d\u0430:","min:":"\u041c\u0456\u043d.:","new text":"\u041d\u043e\u0432\u0438\u0439 \u0442\u0435\u043a\u0441\u0442","open:":"\u0412\u0456\u0434\u043a\u0440\u0438\u0442\u0442\u044f:","outgoing flow count:":"\u041a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0432\u0438\u0445\u0456\u0434\u043d\u0438\u0445 \u0437\u0432'\u044f\u0437\u043a\u0456\u0432:","q1:":"q1:","q3:":"q3:","source:":"\u0414\u0436\u0435\u0440\u0435\u043b\u043e:","target:":"\u0426\u0456\u043b\u044c:",trace:"\u0420\u044f\u0434","upper fence:":"\u0412\u0435\u0440\u0445\u043d\u044f \u0433\u0440\u0430\u043d\u0438\u0446\u044f:"},format:{days:["\u043d\u0435\u0434\u0456\u043b\u044f","\u043f\u043e\u043d\u0435\u0434\u0456\u043b\u043e\u043a","\u0432\u0456\u0432\u0442\u043e\u0440\u043e\u043a","\u0441\u0435\u0440\u0435\u0434\u0430","\u0447\u0435\u0442\u0432\u0435\u0440","\u043f'\u044f\u0442\u043d\u0438\u0446\u044f","\u0441\u0443\u0431\u043e\u0442\u0430"],shortDays:["\u043d\u0434","\u043f\u043d","\u0432\u0442","\u0441\u0440","\u0447\u0442","\u043f\u0442","\u0441\u0431"],months:["\u0421\u0456\u0447\u0435\u043d\u044c","\u041b\u044e\u0442\u0438\u0439","\u0411\u0435\u0440\u0435\u0437\u0435\u043d\u044c","\u041a\u0432\u0456\u0442\u0435\u043d\u044c","\u0422\u0440\u0430\u0432\u0435\u043d\u044c","\u0427\u0435\u0440\u0432\u0435\u043d\u044c","\u041b\u0438\u043f\u0435\u043d\u044c","\u0421\u0435\u0440\u043f\u0435\u043d\u044c","\u0412\u0435\u0440\u0435\u0441\u0435\u043d\u044c","\u0416\u043e\u0432\u0442\u0435\u043d\u044c","\u041b\u0438\u0441\u0442\u043e\u043f\u0430\u0434","\u0413\u0440\u0443\u0434\u0435\u043d\u044c"],shortMonths:["\u0421\u0456\u0447.","\u041b\u044e\u0442.","\u0411\u0435\u0440\u0435\u0437.","\u041a\u0432\u0456\u0442.","\u0422\u0440\u0430\u0432.","\u0427\u0435\u0440\u0432.","\u041b\u0438\u043f.","\u0421\u0435\u0440\u043f.","\u0412\u0435\u0440\u0435\u0441.","\u0416\u043e\u0432\u0442.","\u041b\u0438\u0441\u0442\u043e\u043f.","\u0413\u0440\u0443\u0434."],date:"%d.%m.%Y",decimal:",",thousands:" "}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);
+var locale={moduleType:"locale",name:"zh-CN",dictionary:{Autoscale:"\u81ea\u52a8\u7f29\u653e","Box Select":"\u77e9\u5f62\u6846\u9009","Click to enter Colorscale title":"\u70b9\u51fb\u8f93\u5165\u8272\u9636\u7684\u6807\u9898","Click to enter Component A title":"\u70b9\u51fb\u8f93\u5165\u7ec4\u4ef6A\u7684\u6807\u9898","Click to enter Component B title":"\u70b9\u51fb\u8f93\u5165\u7ec4\u4ef6B\u7684\u6807\u9898","Click to enter Component C title":"\u70b9\u51fb\u8f93\u5165\u7ec4\u4ef6C\u7684\u6807\u9898","Click to enter Plot title":"\u70b9\u51fb\u8f93\u5165\u56fe\u8868\u7684\u6807\u9898","Click to enter X axis title":"\u70b9\u51fb\u8f93\u5165X\u8f74\u7684\u6807\u9898","Click to enter Y axis title":"\u70b9\u51fb\u8f93\u5165Y\u8f74\u7684\u6807\u9898","Compare data on hover":"\u60ac\u505c\u65f6\u6bd4\u8f83\u6570\u636e","Double-click on legend to isolate one trace":"\u53cc\u51fb\u56fe\u4f8b\u6765\u7a81\u663e\u5bf9\u5e94\u8f68\u8ff9","Double-click to zoom back out":"\u53cc\u51fb\u8fd4\u56de\u7f29\u5c0f\u663e\u793a","Download plot as a png":"\u4e0b\u8f7d\u56fe\u8868\u4e3aPNG\u683c\u5f0f","Download plot":"\u4e0b\u8f7d\u56fe\u8868","Edit in Chart Studio":"\u5728Chart Studio\u4e2d\u7f16\u8f91","IE only supports svg.  Changing format to svg.":"IE\u53ea\u652f\u6301SVG\u3002\u8f6c\u6362\u683c\u5f0f\u4e3aSVG\u3002","Lasso Select":"\u5957\u7d22\u9009\u62e9","Orbital rotation":"\u8f68\u9053\u65cb\u8f6c",Pan:"\u5e73\u79fb","Produced with Plotly.js":"\u7531Plotly.js\u751f\u6210",Reset:"\u91cd\u7f6e","Reset axes":"\u91cd\u7f6e\u8f74","Reset camera to default":"\u91cd\u7f6e\u955c\u5934\u89c6\u89d2\u4e3a\u9ed8\u8ba4\u72b6\u6001","Reset camera to last save":"\u91cd\u7f6e\u955c\u5934\u89c6\u89d2\u4e3a\u4e0a\u6b21\u4fdd\u5b58\u72b6\u6001","Reset view":"\u91cd\u7f6e\u89c6\u56fe","Reset views":"\u91cd\u7f6e\u89c6\u56fe","Show closest data on hover":"\u60ac\u505c\u65f6\u663e\u793a\u6700\u8fd1\u7684\u6570\u636e","Snapshot succeeded":"\u751f\u6210\u5feb\u7167\u6210\u529f","Sorry, there was a problem downloading your snapshot!":"\u62b1\u6b49\uff0c\u4e0b\u8f7d\u5feb\u7167\u51fa\u73b0\u95ee\u9898\uff01","Taking snapshot - this may take a few seconds":"\u6b63\u5728\u751f\u6210\u5feb\u7167 - \u53ef\u80fd\u9700\u8981\u51e0\u79d2\u949f",Zoom:"\u7f29\u653e","Zoom in":"\u653e\u5927","Zoom out":"\u7f29\u5c0f","close:":"\u5173\u95ed:",trace:"\u8e2a\u8ff9:","lat:":"\u7eac\u5ea6:","lon:":"\u7ecf\u5ea6:","q1:":"\u7b2c\u4e00\u56db\u5206\u4f4d\u6570:","q3:":"\u7b2c\u4e09\u56db\u5206\u4f4d\u6570:","source:":"\u6e90:","target:":"\u76ee\u6807:","lower fence:":"\u5185\u4fa7\u680f(lower fence):","upper fence:":"\u5916\u4fa7\u680f(upper fence):","max:":"\u6700\u5927\u503c:","mean \xb1 \u03c3:":"\u5e73\u5747\u6570 \xb1 \u6807\u51c6\u5dee\u03c3:","mean:":"\u5e73\u5747\u6570:","median:":"\u4e2d\u4f4d\u6570:","min:":"\u6700\u5c0f\u503c:","Turntable rotation":"\u65cb\u8f6c\u8f6c\u76d8:","Toggle Spike Lines":"\u5207\u6362\u663e\u793a\u6570\u636e\u70b9\u8f85\u52a9\u7ebf(Spike Lines)","open:":"\u6253\u5f00:","high:":"\u9ad8:","low:":"\u4f4e:","Toggle show closest data on hover":"\u5207\u6362\u60ac\u505c\u65f6\u663e\u793a\u6700\u8fd1\u7684\u6570\u636e\u70b9","incoming flow count:":"\u6d41\u5165\u6570\u91cf:","outgoing flow count:":"\u6d41\u51fa\u6570\u91cf:","kde:":"kde:","Click to enter radial axis title":"\u70b9\u51fb\u8f93\u5165\u5f84\u5411\u8f74\u6807\u9898","new text":"\u65b0\u5efa\u6587\u672c"},format:{days:["\u661f\u671f\u65e5","\u661f\u671f\u4e00","\u661f\u671f\u4e8c","\u661f\u671f\u4e09","\u661f\u671f\u56db","\u661f\u671f\u4e94","\u661f\u671f\u516d"],shortDays:["\u5468\u65e5","\u5468\u4e00","\u5468\u4e8c","\u5468\u4e09","\u5468\u56db","\u5468\u4e94","\u5468\u516d"],months:["\u4e00\u6708","\u4e8c\u6708","\u4e09\u6708","\u56db\u6708","\u4e94\u6708","\u516d\u6708","\u4e03\u6708","\u516b\u6708","\u4e5d\u6708","\u5341\u6708","\u5341\u4e00\u6708","\u5341\u4e8c\u6708"],shortMonths:["\u4e00","\u4e8c","\u4e09","\u56db","\u4e94","\u516d","\u4e03","\u516b","\u4e5d","\u5341","\u5341\u4e00","\u5341\u4e8c"],date:"%Y-%m-%d"}};"undefined"==typeof Plotly?(window.PlotlyLocales=window.PlotlyLocales||[],window.PlotlyLocales.push(locale)):Plotly.register(locale);

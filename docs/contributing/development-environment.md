@@ -19,45 +19,63 @@ information and steps below to set up a local development environment for Baby B
 
 1. Install required Python packages, including dev packages
 
-       pipenv install --three --dev
-
-   - If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
+    ```shell
+    pipenv install --three --dev
+    ```
+   
+    If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
     
 1. Installed Node 14.x (if necessary)
 
-       nvm install 14
+    ```shell
+    nvm install 14
+    ```
 
 1. Activate Node 14.x
 
-       nvm use
+    ```shell
+    nvm use
+    ```
 
 1. Install Gulp CLI
 
-       npm install -g gulp-cli
+    ```shell
+    npm install -g gulp-cli
+    ```
 
 1. Install required Node packages
 
-       npm install
+    ```shell
+    npm install
+    ```
 
 1. Set, at least, the `DJANGO_SETTINGS_MODULE` environment variable
 
-       export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
-
+    ```shell
+    export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
+    ```
+    
     This process will differ based on the host OS. The above example is for
     Linux-based systems. See [Configuration](../setup/configuration.md) for other
     settings and methods for defining them.
 
 1. Migrate the database
 
-       gulp migrate
+    ```shell
+    gulp migrate
+    ```
         
 1. Create cache table
 
-       gulp createcachetable
+    ```shell
+    gulp createcachetable
+    ```
 
 1. Build assets and run the server
 
-       gulp
+    ```shell
+    gulp
+    ```
 
     This command will also watch for file system changes to rebuild assets and
     restart the server as needed.

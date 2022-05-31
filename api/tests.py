@@ -81,6 +81,54 @@ class TestBase:
             self.assertEqual(obj.end, timer.end)
 
 
+class BMIAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:bmi-list")
+    model = models.BMI
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["results"][0],
+            {
+                "id": 2,
+                "child": 1,
+                "bmi": 26.5,
+                "date": "2017-11-18",
+                "notes": "before feed",
+                "tags": [],
+            },
+        )
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "bmi": "27.0",
+            "date": "2017-11-15",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.bmi), data["bmi"])
+
+    def test_post_null_date(self):
+        data = {"child": 1, "bmi": "12.25"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.bmi), data["bmi"])
+        self.assertEqual(str(obj.date), timezone.localdate().strftime("%Y-%m-%d"))
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, 2)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry["bmi"] = 30.0
+        response = self.client.patch(endpoint, {"bmi": entry["bmi"]})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+
 class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse("api:child-list")
     model = models.Child
@@ -321,6 +369,104 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.data, entry)
 
 
+class HeadCircumferenceAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:headcircumference-list")
+    model = models.HeadCircumference
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["results"][0],
+            {
+                "id": 2,
+                "child": 1,
+                "head_circumference": 6.5,
+                "date": "2017-11-18",
+                "notes": "before feed",
+                "tags": [],
+            },
+        )
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "head_circumference": "9.5",
+            "date": "2017-11-15",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.head_circumference), data["head_circumference"])
+
+    def test_post_null_date(self):
+        data = {"child": 1, "head_circumference": "10.0"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.head_circumference), data["head_circumference"])
+        self.assertEqual(str(obj.date), timezone.localdate().strftime("%Y-%m-%d"))
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, 2)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry["head_circumference"] = 23
+        response = self.client.patch(
+            endpoint, {"head_circumference": entry["head_circumference"]}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+
+class HeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:height-list")
+    model = models.Height
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["results"][0],
+            {
+                "id": 2,
+                "child": 1,
+                "height": 10.5,
+                "date": "2017-11-18",
+                "notes": "before feed",
+                "tags": [],
+            },
+        )
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "height": "12.5",
+            "date": "2017-11-15",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.height), data["height"])
+
+    def test_post_null_date(self):
+        data = {"child": 1, "height": "19.0"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(str(obj.height), data["height"])
+        self.assertEqual(str(obj.date), timezone.localdate().strftime("%Y-%m-%d"))
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, 2)
+        response = self.client.get(endpoint)
+        entry = response.data
+        entry["height"] = 23.5
+        response = self.client.patch(endpoint, {"height": entry["height"]})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, entry)
+
+
 class NoteAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse("api:note-list")
     model = models.Note
@@ -427,6 +573,65 @@ class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         # The duration of entry will always update automatically, so only check
         # the new value.
         self.assertEqual(response.data["end"], entry["end"])
+
+
+class TagsAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:tag-list")
+    model = models.Tag
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictEqual(
+            dict(response.data["results"][0]),
+            {
+                "name": "a name",
+                "slug": "a-name",
+                "color": "#FF0000",
+                "last_used": "2017-11-18T11:00:00-05:00",
+            },
+        )
+
+    def test_post(self):
+        data = {"name": "new tag", "color": "#123456"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response = self.client.get(self.endpoint)
+        results = response.json()["results"]
+        results_by_name = {r["name"]: r for r in results}
+
+        tag_data = results_by_name["new tag"]
+        self.assertDictContainsSubset(data, tag_data)
+        self.assertEqual(tag_data["slug"], "new-tag")
+        self.assertTrue(tag_data["last_used"])
+
+    def test_patch(self):
+        endpoint = f"{self.endpoint}a-name/"
+
+        modified_data = {
+            "name": "A different name",
+            "color": "#567890",
+        }
+        response = self.client.patch(
+            endpoint,
+            modified_data,
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictContainsSubset(modified_data, response.data)
+
+    def test_delete(self):
+        endpoint = f"{self.endpoint}a-name/"
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_post_tags_to_model(self):
+        data = {"child": 1, "note": "New tagged note.", "tags": ["tag1", "tag2"]}
+        response = self.client.post(reverse("api:note-list"), data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data["tags"], data["tags"])
 
 
 class TemperatureAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
@@ -667,62 +872,3 @@ class WeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
-
-
-class TagsAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
-    endpoint = reverse("api:tag-list")
-    model = models.Tag
-
-    def test_get(self):
-        response = self.client.get(self.endpoint)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertDictEqual(
-            dict(response.data["results"][0]),
-            {
-                "name": "a name",
-                "slug": "a-name",
-                "color": "#FF0000",
-                "last_used": "2017-11-18T11:00:00-05:00",
-            },
-        )
-
-    def test_post(self):
-        data = {"name": "new tag", "color": "#123456"}
-        response = self.client.post(self.endpoint, data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        response = self.client.get(self.endpoint)
-        results = response.json()["results"]
-        results_by_name = {r["name"]: r for r in results}
-
-        tag_data = results_by_name["new tag"]
-        self.assertDictContainsSubset(data, tag_data)
-        self.assertEqual(tag_data["slug"], "new-tag")
-        self.assertTrue(tag_data["last_used"])
-
-    def test_patch(self):
-        endpoint = f"{self.endpoint}a-name/"
-
-        modified_data = {
-            "name": "A different name",
-            "color": "#567890",
-        }
-        response = self.client.patch(
-            endpoint,
-            modified_data,
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertDictContainsSubset(modified_data, response.data)
-
-    def test_delete(self):
-        endpoint = f"{self.endpoint}a-name/"
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        response = self.client.delete(endpoint)
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
-    def test_post_tags_to_model(self):
-        data = {"child": 1, "note": "New tagged note.", "tags": ["tag1", "tag2"]}
-        response = self.client.post(reverse("api:note-list"), data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data["tags"], data["tags"])
