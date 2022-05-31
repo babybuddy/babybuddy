@@ -7,7 +7,7 @@ information and steps below to set up a local development environment for Baby B
 
 ## Requirements
 
-- Python 3.6+, pip, pipenv
+- Python 3.7+, pip, pipenv
 - NodeJS 16.x and NPM 8.x (NVM recommended)
 - Gulp
 - Possibly `libpq-dev`
