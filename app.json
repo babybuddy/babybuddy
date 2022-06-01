@@ -35,11 +35,8 @@
     "environments": {
         "review": {
           "scripts": {
-            "postdeploy": "python manage.py migrate && python manage.py createcachetable && python manage.py reset --no-input"
+            "postdeploy": "python manage.py reset --no-input"
           }
         }
-      },
-    "scripts": {
-        "postdeploy": "python manage.py migrate && python manage.py createcachetable"
-    }
+      }
 }
