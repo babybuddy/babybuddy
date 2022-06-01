@@ -1,1 +1,1 @@
-web: bash Profile.sh
+web: bash Procfile.sh
