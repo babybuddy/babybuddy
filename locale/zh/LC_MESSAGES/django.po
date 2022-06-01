@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 09:48+0000\n"
+"POT-Creation-Date: 2022-06-01 13:01+0000\n"
 "Language: zh-Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -724,8 +724,8 @@ msgid ""
 "Learn about and predict baby's needs without (<em>as much</em>) guess work "
 "by using Baby Buddy to track &mdash;"
 msgstr ""
-"通过使用 Baby Buddy 来跟踪了解和预测宝宝的需求，而无需 (<em>过多地</em>) "
-"进行猜测工作 &mdash;"
+"通过使用 Baby Buddy 来跟踪了解和预测宝宝的需求，而无需 (<em>过多地</em>) 进行"
+"猜测工作 &mdash;"
 
 #: babybuddy/templates/babybuddy/welcome.html:26 core/models.py:249
 #: core/templates/core/diaperchange_confirm_delete.html:7
@@ -780,8 +780,8 @@ msgid ""
 "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
 "environment variable. If multiple origins are required separate with commas."
 msgstr ""
-"添加 <samp>%(origin)s</samp> 到环境变量 <code>CSRF_TRUSTED_ORIGINS</code>。"
-"用英文逗号分隔多个来源。"
+"添加 <samp>%(origin)s</samp> 到环境变量 <code>CSRF_TRUSTED_ORIGINS</code>。用"
+"英文逗号分隔多个来源。"
 
 #: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
 msgid "Page Not Found"
@@ -916,8 +916,7 @@ msgstr "名称与宝宝名称不匹配。"
 msgid ""
 "Click on the tags to add (+) or remove (-) tags or use the text editor to "
 "create new tags."
-msgstr ""
-"点击标签来添加 (+) 或删除 (-) ，也可编辑以新建标签。"
+msgstr "点击标签来添加 (+) 或删除 (-) ，也可编辑以新建标签。"
 
 #: core/models.py:28
 msgid "Date can not be in the future."
@@ -1730,7 +1729,6 @@ msgstr "最近"
 
 #: dashboard/templates/cards/feeding_last_method.html:21
 #, python-format
-#| msgid "%(n)s feeding%(plural)s ago"
 msgid "%(n)s feeding%(plural)s ago"
 msgstr "前 %(n)s 次喂食%(plural)s"
 
@@ -1770,7 +1768,6 @@ msgstr "还没有数据"
 
 #: dashboard/templates/cards/timer_list.html:12
 #, python-format
-#| msgid "%(count)s active timer%(plural)s"
 msgid "%(count)s active timer%(plural)s"
 msgstr "%(count)s 个激活的计时器%(plural)s"
 
@@ -2051,120 +2048,3 @@ msgstr "趴玩时光持续时间（合计）"
 #: reports/templates/reports/tummytime_duration.html:8
 msgid "Total Tummy Time Durations"
 msgstr "趴玩时光持续时间合计"
-
-#~ msgid "Wet and/or solid is required."
-#~ msgstr "大便或小便是必填的。"
-
-#~ msgid "%(count)s feeding entries"
-#~ msgstr "%(count)s 喂食条目"
-
-#~ msgid ""
-#~ "This setting will only be used when a browser does not support refresh on "
-#~ "focus."
-#~ msgstr "此设置仅在浏览器不支持焦点刷新时使用。"
-
-#~ msgid "English"
-#~ msgstr "英语"
-
-#~ msgid ""
-#~ "You do not have permission to access this resource.\n"
-#~ "        Contact a site administrator for assistance."
-#~ msgstr ""
-#~ "您没有访问此资源的权限。\n"
-#~ "请与站点管理员联系以获取帮助。"
-
-#~ msgid ""
-#~ "<strong>Error:</strong> Some fields have errors. See below for details. "
-#~ msgstr "<strong>错误:</strong> 字段填写错误。参见具体原因。 "
-
-#~ msgid "Backend Admin"
-#~ msgstr "后台管理员"
-
-#~ msgid ""
-#~ "Learn about and predict baby's needs without\n"
-#~ "            (<em>as much</em>) guess work by using Baby Buddy to track "
-#~ "&mdash;"
-#~ msgstr ""
-#~ "通过使用 Baby Buddy 来跟踪了解和预测宝宝的需求，而无需 (<em>尽可能多地</"
-#~ "em>) 进行猜测工作 &mdash;"
-
-#, fuzzy
-#~ msgid ""
-#~ "As the amount of entries grows, Baby Buddy will help\n"
-#~ "            parents and caregivers to identify small patterns in baby's "
-#~ "habits\n"
-#~ "            using the dashboard and graphs. Baby Buddy is mobile-friendly "
-#~ "and\n"
-#~ "            uses a dark theme to help weary moms and dads with 2AM "
-#~ "feedings and\n"
-#~ "            changings. To get started, just click the button below to add "
-#~ "your\n"
-#~ "            first (or second, third, etc.) child!"
-#~ msgstr ""
-#~ "随着条目数量的增加，Baby Buddy将帮助家长和护理人员使用数据看板和图表识别宝"
-#~ "宝的习惯。Baby Buddy是一款手机友好型产品，使用黑色主题帮助疲惫的爸爸妈妈在"
-#~ "凌晨2点喂食和换尿布。想要开始使用，只需单击下面的按钮添加您的第一个(或第二"
-#~ "个、第三个等)宝宝！"
-
-#~ msgid ""
-#~ "<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
-#~ "                two passwords did not match. Please try again.</p>"
-#~ msgstr ""
-#~ "<p class=\"mb-0\"><strong>提示</strong>两次密码输入的不一致，请重试。</p>"
-
-#~ msgid ""
-#~ "<p>We've emailed you instructions for setting your\n"
-#~ "            password, if an account exists with the email you entered. "
-#~ "You\n"
-#~ "            should receive them shortly.</p>\n"
-#~ "        <p class=\"mb-0\">If you don't receive an email, please make sure "
-#~ "you've\n"
-#~ "            entered the address you registered with, and check your spam\n"
-#~ "            folder.</p>"
-#~ msgstr ""
-#~ "<p>我们已通过电子邮件向您发送了设置密码的说明。如果您输入的电子邮件正确，"
-#~ "您将很快收到邮件。</p>\n"
-#~ " <p class=\"mb-0\">如果您没有收到电子邮件，请确保您已输入正确的邮箱地址，"
-#~ "并检查您的垃圾邮件文件夹。</p>"
-
-#~ msgid ""
-#~ "<p class=\"mb-0\">Enter your account email address in the\n"
-#~ "        form below. If the address is valid, you will receive "
-#~ "instructions for\n"
-#~ "        resetting your password.</p>"
-#~ msgstr ""
-#~ "<p class=\"mb-0\">在下面的表格中输入您的帐户电子邮件地址。如果地址有效，您"
-#~ "将收到重置密码的说明。</p>"
-
-#~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
-#~ msgstr "只有“奶瓶”方式才允许使用“配方奶”类型。"
-
-#~ msgid "Add a Change"
-#~ msgstr "添加一条尿布记录"
-
-#~ msgid "%(timer)s created by %(object.user)s"
-#~ msgstr "%(timer)s 由 %(object.user)s 创建"
-
-#~ msgid "%(child)s had a diaper change."
-#~ msgstr "%(child)s 换了一条尿布。"
-
-#~ msgid "%(time)s ago"
-#~ msgstr "%(time)s 之前"
-
-#~ msgid "None yet today"
-#~ msgstr "今天还没有"
-
-#~ msgid "Last Slept"
-#~ msgstr "上一次入睡"
-
-#~ msgid "Started by %(instance.user)s at %(start)s"
-#~ msgstr "在 %(start)s 由 %(instance.user)s 开始"
-
-#~ msgid "There is no enough data to generate this report."
-#~ msgstr "没有足够的数据来生成报告。"
-
-#~ msgid "Total feeding amount"
-#~ msgstr "合计喂食量"
-
-#~ msgid "Contents: %(contents)s"
-#~ msgstr "内容: %(contents)s"
