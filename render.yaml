@@ -1,18 +1,17 @@
 databases:
-  - name: babybuddy
-    databaseName: babybuddy
-    user: babybuddy
+  - name: db
+    plan: free
 
 services:
   - type: web
-    name: babybuddy
+    name: app
     env: python
     buildCommand: "./.render.com/build.sh"
     startCommand: "gunicorn babybuddy.wsgi:application"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: babybuddy
+          name: db
           property: connectionString
       - key: DJANGO_SETTINGS_MODULE
         value: babybuddy.settings.render
