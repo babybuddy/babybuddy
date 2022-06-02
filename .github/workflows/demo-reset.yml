@@ -15,9 +15,6 @@ jobs:
     - name: Install Railway CLI
       run: npm i -g @railway/cli
     - name: Reset demo database
-      run: |
-        npx railway link $RAILWAY_PROJECT_ID
-        npx railway run python manage.py reset --no-input
+      run: npx railway run python manage.py reset --no-input
       env:
-        RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
