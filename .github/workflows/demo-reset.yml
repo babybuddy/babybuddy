@@ -26,7 +26,7 @@ jobs:
     - name: Install Railway CLI
       run: npm i -g @railway/cli
     - name: Reset demo database
-      run: npx railway run python manage.py reset --no-input
+      run: npx railway run pipenv run python manage.py reset --no-input
       env:
         DJANGO_SETTINGS_MODULE: babybuddy.settings.railway
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
