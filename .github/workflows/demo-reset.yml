@@ -8,10 +8,16 @@ jobs:
     name: Reset
     runs-on: ubuntu-latest
     steps:
-    - name: Reset demo database
-      uses: appleboy/ssh-action@master
+    - name: Install node v16
+      uses: actions/setup-node@v3
       with:
-        host: ${{ secrets.RENDER_COM_DEMO_HOST }}
-        username: ${{ secrets.RENDER_COM_DEMO_USER }}
-        key: ${{ secrets.RENDER_COM_DEMO_KEY }}
-        script: python manage.py reset --no-input
+        node-version: 16
+    - name: Install Railway CLI
+      run: npm i -g @railway/cli
+    - name: Reset demo database
+      run: |
+        npx railway link $RAILWAY_PROJECT_ID
+        npx railway run python manage.py reset --no-input
+      env:
+        railway_project_id: ${{ secrets.RAILWAY_PROJECT_ID }}
+        railway_token: ${{ secrets.RAILWAY_TOKEN }}
