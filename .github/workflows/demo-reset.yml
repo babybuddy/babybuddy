@@ -19,5 +19,5 @@ jobs:
         npx railway link $RAILWAY_PROJECT_ID
         npx railway run python manage.py reset --no-input
       env:
-        railway_project_id: ${{ secrets.RAILWAY_PROJECT_ID }}
-        railway_token: ${{ secrets.RAILWAY_TOKEN }}
+        RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
