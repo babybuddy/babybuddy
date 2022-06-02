@@ -7,8 +7,8 @@ services:
     name: babybuddy
     plan: free
     env: python
-    buildCommand: "./.render.com/build.sh"
-    startCommand: "gunicorn babybuddy.wsgi:application"
+    buildCommand: "python -m pip install --upgrade pip && pip install -r requirements.txt"
+    startCommand: "bash Procfile.sh"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
