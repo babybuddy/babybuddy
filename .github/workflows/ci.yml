@@ -42,7 +42,7 @@ jobs:
           github-token: ${{ secrets.github_token }}
           flag-name: test-python-${{ matrix.python-version }}
           parallel: true
-  coveralls_finish:
+  coveralls-finish:
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -53,15 +53,13 @@ jobs:
           parallel-finished: true
   deploy-docs:
     needs: test
-    name: Deploy docs
     runs-on: ubuntu-latest
     environment:
       name: documentation
       url: https://docs.baby-buddy.net
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     steps:
-      - name: Checkout main
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Deploy docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
