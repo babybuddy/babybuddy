@@ -7,6 +7,9 @@ jobs:
   reset:
     name: Reset
     runs-on: ubuntu-latest
+    environment:
+      name: demo
+      url: https://demo.baby-buddy.net
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v3
