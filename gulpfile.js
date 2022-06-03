@@ -71,7 +71,7 @@ function coverage(cb) {
             try {
                 config.testsConfig.isolated.forEach(function (test_name) {
                     es(
-                        'pipenv run coverage run manage.py test ' + test_name,
+                        'pipenv run coverage run manage.py test --settings=babybuddy.settings.test ' + test_name,
                         {stdio: 'inherit'}
                     );
                 })
