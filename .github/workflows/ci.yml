@@ -20,7 +20,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - uses: actions/cache@v3
         with:
-          path: ~/.local/share/virtualenvs
+          path: |
+            ~/.local/share/virtualenvs
+            Pipfile.lock
           key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('**/requirements.txt') }}
       - name: Install Python dependencies
         run: |
