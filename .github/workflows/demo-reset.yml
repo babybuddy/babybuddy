@@ -8,10 +8,10 @@ jobs:
     name: Reset
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
-        python-version: "3.10"
+        python-version: '3.x'
     - uses: actions/cache@v3
       with:
         path: ~/.local/share/virtualenvs
@@ -22,7 +22,7 @@ jobs:
       run: pipenv install
     - uses: actions/setup-node@v3
       with:
-        node-version: "16"
+        node-version: '16'
     - name: Install Railway CLI
       run: npm i -g @railway/cli
     - name: Reset demo database
