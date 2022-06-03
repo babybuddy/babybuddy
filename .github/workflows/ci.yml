@@ -62,6 +62,7 @@ jobs:
     needs: test
     name: Deploy docs
     runs-on: ubuntu-latest
+    environment: documentation
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     steps:
       - name: Checkout main
