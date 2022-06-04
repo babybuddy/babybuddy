@@ -18,8 +18,10 @@
                         {% if forloop.last %}
                             {% trans "most recent" %}
                         {% else %}
-                            {% blocktrans trimmed with n=forloop.revcounter0 plural=forloop.revcounter0|pluralize %}
-                                {{ n }} feeding{{ plural }} ago
+                            {% blocktrans trimmed with n=forloop.revcounter0 count counter=n %}
+                                {{ n }} feeding ago
+                            {% plural %}
+                                {{ n }} feedings ago
                             {% endblocktrans %}
                         {% endif %}
                     </div>

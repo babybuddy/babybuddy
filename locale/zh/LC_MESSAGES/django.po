@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 13:01+0000\n"
+"POT-Creation-Date: 2022-06-04 03:37+0000\n"
 "Language: zh-Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -498,8 +498,8 @@ msgstr "聊天 / 支持"
 #: core/templates/timeline/_timeline.html:7
 #: core/templates/timeline/_timeline.html:71
 #: core/templates/timeline/_timeline.html:73
-#: dashboard/templates/cards/feeding_day.html:37
-#: dashboard/templates/cards/feeding_last_method.html:32
+#: dashboard/templates/cards/feeding_day.html:43
+#: dashboard/templates/cards/feeding_last_method.html:34
 #: dashboard/templates/cards/statistics.html:34
 msgid "Previous"
 msgstr "上一页"
@@ -509,8 +509,8 @@ msgstr "上一页"
 #: core/templates/timeline/_timeline.html:14
 #: core/templates/timeline/_timeline.html:78
 #: core/templates/timeline/_timeline.html:80
-#: dashboard/templates/cards/feeding_day.html:41
-#: dashboard/templates/cards/feeding_last_method.html:36
+#: dashboard/templates/cards/feeding_day.html:47
+#: dashboard/templates/cards/feeding_last_method.html:38
 #: dashboard/templates/cards/statistics.html:38
 msgid "Next"
 msgstr "下一页"
@@ -543,7 +543,7 @@ msgstr "删除用户"
 #: core/templates/core/temperature_confirm_delete.html:17
 #: core/templates/core/timer_confirm_delete.html:11
 #: core/templates/core/timer_confirm_delete.html:20
-#: core/templates/core/timer_confirm_delete_inactive.html:21
+#: core/templates/core/timer_confirm_delete_inactive.html:23
 #: core/templates/core/tummytime_confirm_delete.html:8
 #: core/templates/core/tummytime_confirm_delete.html:17
 #: core/templates/core/weight_confirm_delete.html:8
@@ -584,7 +584,7 @@ msgstr "<h1>确定要删除<span class=\"text-info\">%(object)s</span>吗？</h1
 #: core/templates/core/sleep_confirm_delete.html:18
 #: core/templates/core/temperature_confirm_delete.html:18
 #: core/templates/core/timer_confirm_delete.html:21
-#: core/templates/core/timer_confirm_delete_inactive.html:22
+#: core/templates/core/timer_confirm_delete_inactive.html:24
 #: core/templates/core/tummytime_confirm_delete.html:18
 #: core/templates/core/weight_confirm_delete.html:18
 msgid "Cancel"
@@ -1381,8 +1381,9 @@ msgstr "删除非活动"
 
 #: core/templates/core/timer_confirm_delete_inactive.html:17
 #, python-format
-msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
-msgstr "确定要删除%(number)s个非活动的计时器%(plural)s?"
+msgid "Are you sure you want to delete %(number)s inactive timer?"
+msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+msgstr[0] "确定要删除%(number)s个非活动的计时器?"
 
 #: core/templates/core/timer_detail.html:28
 msgid "Started"
@@ -1435,12 +1436,12 @@ msgstr "激活的计时器"
 #: dashboard/templates/cards/diaperchange_last.html:17
 #: dashboard/templates/cards/diaperchange_types.html:12
 #: dashboard/templates/cards/feeding_day.html:20
-#: dashboard/templates/cards/feeding_day.html:46
+#: dashboard/templates/cards/feeding_day.html:52
 #: dashboard/templates/cards/feeding_last.html:17
-#: dashboard/templates/cards/feeding_last_method.html:41
+#: dashboard/templates/cards/feeding_last_method.html:43
 #: dashboard/templates/cards/sleep_day.html:14
 #: dashboard/templates/cards/sleep_last.html:17
-#: dashboard/templates/cards/sleep_naps_day.html:16
+#: dashboard/templates/cards/sleep_naps_day.html:18
 #: dashboard/templates/cards/tummytime_day.html:14
 msgid "None"
 msgstr "无"
@@ -1710,7 +1711,13 @@ msgstr "%(key)s 天之前"
 msgid "Today's Feeding"
 msgstr "今天的喂食"
 
-#: dashboard/templates/cards/feeding_day.html:26
+#: dashboard/templates/cards/feeding_day.html:25
+#, python-format
+msgid "%(counter)s feeding"
+msgid_plural "%(counter)s feedings"
+msgstr[0] "%(counter)s 次喂食"
+
+#: dashboard/templates/cards/feeding_day.html:32
 #, python-format
 msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
 msgstr ""
@@ -1729,8 +1736,9 @@ msgstr "最近"
 
 #: dashboard/templates/cards/feeding_last_method.html:21
 #, python-format
-msgid "%(n)s feeding%(plural)s ago"
-msgstr "前 %(n)s 次喂食%(plural)s"
+msgid "%(n)s feeding ago"
+msgid_plural "%(n)s feedings ago"
+msgstr[0] "前 %(n)s 次喂食"
 
 #: dashboard/templates/cards/sleep_day.html:6
 msgid "Today's Sleep"
@@ -1751,8 +1759,9 @@ msgstr "今天的小睡"
 
 #: dashboard/templates/cards/sleep_naps_day.html:12
 #, python-format
-msgid "%(count)s nap%(plural)s"
-msgstr "%(count)s 小睡%(plural)s"
+msgid "%(count)s nap"
+msgid_plural "%(count)s naps"
+msgstr[0] "%(count)s 小睡"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1768,10 +1777,11 @@ msgstr "还没有数据"
 
 #: dashboard/templates/cards/timer_list.html:12
 #, python-format
-msgid "%(count)s active timer%(plural)s"
-msgstr "%(count)s 个激活的计时器%(plural)s"
+msgid "%(count)s active timer"
+msgid_plural "%(count)s active timers"
+msgstr[0] "%(count)s 个激活的计时器"
 
-#: dashboard/templates/cards/timer_list.html:25
+#: dashboard/templates/cards/timer_list.html:27
 #, python-format
 msgid "Started by %(user)s at %(start)s"
 msgstr "在 %(start)s 由 %(user)s 开始"

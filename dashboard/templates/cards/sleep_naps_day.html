@@ -9,8 +9,10 @@
 
 {% block title %}
     {% if count %}
-        {% blocktrans trimmed with plural=count|pluralize %}
-            {{ count }} nap{{ plural }}
+        {% blocktrans trimmed count counter=count %}
+            {{ count }} nap
+        {% plural %}
+            {{ count }} naps
         {% endblocktrans %}
     {% else %}
         {% trans "None" %}
