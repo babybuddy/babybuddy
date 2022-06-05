@@ -125,11 +125,11 @@ msgstr "Configuración de {user}"
 
 #: babybuddy/settings/base.py:166
 msgid "Catalan"
-msgstr ""
+msgstr "Catalán"
 
 #: babybuddy/settings/base.py:167
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "Chino (simplificado)"
 
 #: babybuddy/settings/base.py:168
 msgid "Dutch"
@@ -304,7 +304,7 @@ msgstr "Peso"
 #: reports/templates/reports/pumping_amounts.html:4
 #: reports/templates/reports/pumping_amounts.html:8
 msgid "Pumping"
-msgstr ""
+msgstr "Extracciones"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:118
 #: core/templates/timeline/timeline.html:4
@@ -451,7 +451,7 @@ msgstr "Entrada de tiempo boca abajo"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:322
 msgid "Pumping entry"
-msgstr ""
+msgstr "Entrada de extracción"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:346
 #: babybuddy/templates/babybuddy/user_list.html:17
@@ -766,7 +766,7 @@ msgstr "Añadir Niño"
 
 #: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
 msgid "Bad Request"
-msgstr ""
+msgstr "Petición incorrecta"
 
 #: babybuddy/templates/error/403.html:4 babybuddy/templates/error/403.html:7
 msgid "Permission Denied"
@@ -782,7 +782,7 @@ msgstr ""
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:14
 msgid "How to Fix"
-msgstr ""
+msgstr "Cómo arreglarlo"
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:15
 #, python-format
@@ -790,23 +790,26 @@ msgid ""
 "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
 "environment variable. If multiple origins are required separate with commas."
 msgstr ""
+"Añade <samp>%(origin)s</samp> a la variable de entorno "
+"<code>CSRF_TRUSTED_ORIGINS</code>. Si se requieren orígenes múltiples, "
+"sepáralos por comas.\n"
 
 #: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
 msgid "Page Not Found"
-msgstr ""
+msgstr "Página no encontrada"
 
 #: babybuddy/templates/error/404.html:9
 #, python-format
 msgid "The path <code>%(request_path)s</code> does not exist."
-msgstr ""
+msgstr "La ruta <code>%(request_path)s</code> no existe."
 
 #: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
 msgid "Server Error"
-msgstr ""
+msgstr "Error del servidor"
 
 #: babybuddy/templates/error/base.html:14
 msgid "Return to Baby Buddy"
-msgstr ""
+msgstr "Volver a Baby Buddy"
 
 #: babybuddy/templates/registration/login.html:32
 msgid "Login"
@@ -882,11 +885,11 @@ msgstr ""
 
 #: babybuddy/views.py:43
 msgid "Forbidden"
-msgstr ""
+msgstr "Prohibido"
 
 #: babybuddy/views.py:44
 msgid "CSRF verification failed. Request aborted."
-msgstr ""
+msgstr "Verificación CSRF fallida. Petición abortada."
 
 #: babybuddy/views.py:102
 #, python-format
@@ -917,7 +920,7 @@ msgstr "¡Configuraciones guardadas!"
 
 #: core/filters.py:11 core/models.py:96 core/models.py:115
 msgid "Tag"
-msgstr ""
+msgstr "Etiqueta"
 
 #: core/forms.py:120
 msgid "Name does not match child name."
@@ -928,6 +931,8 @@ msgid ""
 "Click on the tags to add (+) or remove (-) tags or use the text editor to "
 "create new tags."
 msgstr ""
+"Haz click en las etiquetas para añadirlas (+) o eliminarlas (-). O usa el "
+"editor de texto para crearlas nuevas."
 
 #: core/models.py:28
 msgid "Date can not be in the future."
@@ -956,7 +961,7 @@ msgstr "Color"
 
 #: core/models.py:90
 msgid "Last used"
-msgstr ""
+msgstr "Últimas usadas"
 
 #: core/models.py:97 core/templates/core/bmi_list.html:30
 #: core/templates/core/diaperchange_list.html:32
@@ -968,7 +973,7 @@ msgstr ""
 #: core/templates/core/tummytime_list.html:31
 #: core/templates/core/weight_list.html:30
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetas"
 
 #: core/models.py:141 core/models.py:341 core/models.py:371 core/models.py:675
 #: core/templates/core/bmi_list.html:25
@@ -1303,21 +1308,21 @@ msgstr "No se han encontrado notas."
 
 #: core/templates/core/pumping_confirm_delete.html:4
 msgid "Delete a Pumping Entry"
-msgstr ""
+msgstr "Borrar una extracción"
 
 #: core/templates/core/pumping_form.html:8
 #: core/templates/core/pumping_form.html:17
 #: core/templates/core/pumping_form.html:27
 msgid "Add a Pumping Entry"
-msgstr ""
+msgstr "Añadir una extracción"
 
 #: core/templates/core/pumping_list.html:15
 msgid "Add Pumping Entry"
-msgstr ""
+msgstr "Añadir extracción"
 
 #: core/templates/core/pumping_list.html:66
 msgid "No pumping entries found."
-msgstr ""
+msgstr "No se encontraron extracciones."
 
 #: core/templates/core/sleep_confirm_delete.html:4
 msgid "Delete a Sleep Entry"
@@ -1504,41 +1509,41 @@ msgstr "No se han encontrado entradas de peso."
 
 #: core/templates/core/widget_tag_editor.html:22
 msgid "Tag name"
-msgstr ""
+msgstr "Etiqueta"
 
 #: core/templates/core/widget_tag_editor.html:27
 msgid "Recently used:"
-msgstr ""
+msgstr "Usadas recientemente:"
 
 #: core/templates/core/widget_tag_editor.html:45
 msgctxt "Error modal"
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: core/templates/core/widget_tag_editor.html:50
 msgctxt "Error modal"
 msgid "An error ocurred."
-msgstr ""
+msgstr "Ocurrió un error."
 
 #: core/templates/core/widget_tag_editor.html:51
 msgctxt "Error modal"
 msgid "Invalid tag name."
-msgstr ""
+msgstr "Etiqueta inválida."
 
 #: core/templates/core/widget_tag_editor.html:52
 msgctxt "Error modal"
 msgid "Failed to create tag."
-msgstr ""
+msgstr "No se pudo crear la etiqueta."
 
 #: core/templates/core/widget_tag_editor.html:53
 msgctxt "Error modal"
 msgid "Failed to obtain tag data."
-msgstr ""
+msgstr "Fallo al obtener los datos de la etiqueta."
 
 #: core/templates/core/widget_tag_editor.html:58
 msgctxt "Error modal"
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: core/templates/timeline/_timeline.html:38
 #, python-format
@@ -1640,17 +1645,17 @@ msgstr[1] "%(seconds)s segundos"
 #: core/views.py:33
 #, python-format
 msgid "%(model)s entry for %(child)s added!"
-msgstr "¡%(model)s entrada para %(child)s añadida!"
+msgstr "¡Entrada de %(model)s para %(child)s añadida!"
 
 #: core/views.py:35 core/views.py:308
 #, python-format
 msgid "%(model)s entry added!"
-msgstr "¡%(model)s entrada añadida!"
+msgstr "¡Entrada de %(model)s añadida!"
 
 #: core/views.py:61 core/views.py:316
 #, python-format
 msgid "%(model)s entry for %(child)s updated."
-msgstr "%(model)s entrada para %(child)s actualizada."
+msgstr "Entrada de %(model)s para %(child)s actualizada."
 
 #: core/views.py:63
 #, python-format
@@ -1742,7 +1747,7 @@ msgstr[1] "%(count)s entradas de sueño"
 #: dashboard/templates/cards/feeding_day.html:32
 #, python-format
 msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
-msgstr ""
+msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
 
 #: dashboard/templates/cards/feeding_last.html:6
 msgid "Last Feeding"
@@ -1875,11 +1880,11 @@ msgstr "Cambio de IMC por semana"
 
 #: dashboard/templatetags/cards.py:410
 msgid "Diaper change frequency (past 3 days)"
-msgstr ""
+msgstr "Frecuencia de pañales (últimos 3 días)"
 
 #: dashboard/templatetags/cards.py:414
 msgid "Diaper change frequency (past 2 weeks)"
-msgstr ""
+msgstr "Frecuencia de pañales (últimas 2 semanas)"
 
 #: dashboard/templatetags/cards.py:420
 msgid "Diaper change frequency"
@@ -1971,11 +1976,11 @@ msgstr "<b>Altura</b>"
 
 #: reports/graphs/pumping_amounts.py:57
 msgid "<b>Total Pumping Amount</b>"
-msgstr ""
+msgstr "<b>Cantidad total extraída</b>"
 
 #: reports/graphs/pumping_amounts.py:60
 msgid "Pumping Amount"
-msgstr ""
+msgstr "Cantidad de extracción"
 
 #: reports/graphs/sleep_pattern.py:148
 msgid "<b>Sleep Pattern</b>"
@@ -2052,7 +2057,7 @@ msgstr "No hay suficientes datos para generar este informe."
 
 #: reports/templates/reports/report_list.html:10
 msgid "Body Mass Index (BMI)"
-msgstr ""
+msgstr "Índice de Masa Corporal (IMC)"
 
 #: reports/templates/reports/report_list.html:11
 msgid "Diaper Change Amounts"
@@ -2064,7 +2069,7 @@ msgstr "Duración de Tomas (Media)"
 
 #: reports/templates/reports/report_list.html:18
 msgid "Pumping Amounts"
-msgstr ""
+msgstr "Cantidad de extracciones"
 
 #: reports/templates/reports/report_list.html:19
 #: reports/templates/reports/sleep_pattern.html:4
@@ -2086,3 +2091,141 @@ msgstr "Tiempo Boca Abajo (Suma)"
 #: reports/templates/reports/tummytime_duration.html:8
 msgid "Total Tummy Time Durations"
 msgstr "Duración Total Tiempo Boca Abajo"
+
+#~ msgid ""
+#~ "This setting will only be used when a browser does not support refresh on "
+#~ "focus."
+#~ msgstr ""
+#~ "Este parámetro solo será utilizado en caso de que tu navegador no soporte "
+#~ "la opción de refrescar al hacer foco."
+
+#~ msgid "English"
+#~ msgstr "Inglés"
+
+#~ msgid ""
+#~ "You do not have permission to access this resource.\n"
+#~ "        Contact a site administrator for assistance."
+#~ msgstr ""
+#~ "No tienes permiso para acceder a este recurso.\n"
+#~ "Contacta con un administrador si necesitas asistencia."
+
+#~ msgid ""
+#~ "<strong>Error:</strong> Some fields have errors. See below for details. "
+#~ msgstr ""
+#~ "<strong>Error:</strong> Algunos campos contienen errores. Mira más abajo "
+#~ "para más detalles. "
+
+#~ msgid "Backend Admin"
+#~ msgstr "Administrar Backend"
+
+#~ msgid ""
+#~ "Learn about and predict baby's needs without\n"
+#~ "            (<em>as much</em>) guess work by using Baby Buddy to track "
+#~ "&mdash;"
+#~ msgstr ""
+#~ "Aprende y predice las necesidades de tu bebé sin\n"
+#~ "           tener que adivinar (<em>tanto</em>) usando Baby Buddy &mdash;"
+
+#~ msgid ""
+#~ "As the amount of entries grows, Baby Buddy will help\n"
+#~ "            parents and caregivers to identify small patterns in baby's "
+#~ "habits\n"
+#~ "            using the dashboard and graphs. Baby Buddy is mobile-friendly "
+#~ "and\n"
+#~ "            uses a dark theme to help weary moms and dads with 2AM "
+#~ "feedings and\n"
+#~ "            changings. To get started, just click the button below to add "
+#~ "your\n"
+#~ "            first (or second, third, etc.) child!"
+#~ msgstr ""
+#~ "A medida que las entradas van aumentando, Baby Buddy ayudará\n"
+#~ "            a padres y cuidadores a identificar pequeños patrones en los "
+#~ "hábitos\n"
+#~ "            del bebé usando las gráficas y el dashboard. Baby Buddy "
+#~ "funciona en\n"
+#~ "            el móvil y usa un tema oscuro para ayudar a las mamás y papás "
+#~ "cansados\n"
+#~ "            con las tomas y cambios de las 2 de la mañana. Para empezar, "
+#~ "haz click\n"
+#~ "            en el enlace más abajo para añadir tu primer (o segundo, "
+#~ "tercero, etc.) hijo!"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
+#~ "                two passwords did not match. Please try again.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\"><strong>¡Vaya!</strong> Las contraseñas no coinciden. "
+#~ "Por favor, inténtalo de nuevo.</p>"
+
+#~ msgid ""
+#~ "<p>We've emailed you instructions for setting your\n"
+#~ "            password, if an account exists with the email you entered. "
+#~ "You\n"
+#~ "            should receive them shortly.</p>\n"
+#~ "        <p class=\"mb-0\">If you don't receive an email, please make sure "
+#~ "you've\n"
+#~ "            entered the address you registered with, and check your spam\n"
+#~ "            folder.</p>"
+#~ msgstr ""
+#~ "<p>Te hemos enviado instrucciones para configurar tu\n"
+#~ "            contraseña, si la cuenta existe y coincide con el email "
+#~ "introducido, \n"
+#~ "            deberías recibirlas en breve.</p>\n"
+#~ "        <p class=\"mb-0\">Si no recibes el email, por favor comprueba "
+#~ "que\n"
+#~ "            has introducido el email con el que te has registrado y tu "
+#~ "carpeta\n"
+#~ "            de spam.</p>"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\">Enter your account email address in the\n"
+#~ "        form below. If the address is valid, you will receive "
+#~ "instructions for\n"
+#~ "        resetting your password.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\">Introduce tu dirección de email en el siguiente \n"
+#~ "        formulario. Si la direción es valida, recibirás las "
+#~ "instrucciones\n"
+#~ "        para resetear tu contraseña.</p>"
+
+#~ msgid "Wet and/or solid is required."
+#~ msgstr "Se requiere mojado y/o sólido."
+
+#~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
+#~ msgstr "Solo se permite método \"botella\" para el tipo \"Fórmula\"."
+
+#~ msgid "Add a Change"
+#~ msgstr "Añadir Cambio"
+
+#~ msgid "%(timer)s created by %(object.user)s"
+#~ msgstr "%(timer)s creado por %(object.user)s"
+
+#~ msgid "%(child)s had a diaper change."
+#~ msgstr "%(child)s ha tenido un cambio de pañal."
+
+#~ msgid "%(time)s ago"
+#~ msgstr "hace %(time)s"
+
+#~ msgid "None yet today"
+#~ msgstr "Ninguno hoy todavía"
+
+#~ msgid "Last Slept"
+#~ msgstr "Último Sueño"
+
+#~ msgid "Started by %(instance.user)s at %(start)s"
+#~ msgstr "Iniciado por %(instance.user)s a las %(start)s"
+
+#~ msgid "There is no enough data to generate this report."
+#~ msgstr "No hay suficientes datos para generar este reporte."
+
+#~ msgid "Total feeding amount"
+#~ msgstr "Total cantidad toma"
+
+#~ msgid "<b>Total Feeding Amounts</b>"
+#~ msgstr "<b>Cantidad Total Tomas</b>"
+
+#~ msgid "Contents: %(contents)s"
+#~ msgstr "Contenidos: %(contents)s"
+
+#~ msgid "%(count)s feeding entries"
+#~ msgstr "%(count)s entradas de tomas"
