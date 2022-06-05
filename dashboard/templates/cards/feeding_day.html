@@ -21,7 +21,13 @@
                     {% endif %}
                 </div>
                 <div class="text-center small">
-                    {% if feeding.count > 0 %} {{ feeding.count }} feedings {% endif %}
+                    {% if feeding.count > 0 %}
+                        {% blocktrans trimmed count counter=feeding.count %}
+                            {{ counter }} feeding
+                        {% plural %}
+                            {{ counter }} feedings
+                        {% endblocktrans %}
+                    {% endif %}
                 </div>
                 {% blocktrans trimmed with since=feeding.date.date|dayssince %}
                     <div class="text-center small text-muted">

@@ -9,8 +9,10 @@
 
 {% block title %}
     {% with instances|length as count %}
-        {% blocktrans trimmed with plural=count|pluralize %}
-            {{ count }} active timer{{ plural }}
+        {% blocktrans trimmed count counter=count %}
+            {{ count }} active timer
+        {% plural %}
+            {{ count }} active timers
         {% endblocktrans %}
     {% endwith %}
 {% endblock %}

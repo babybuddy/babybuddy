@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 13:01+0000\n"
+"POT-Creation-Date: 2022-06-05 13:25+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -516,8 +516,8 @@ msgstr "Tchat / Support"
 #: core/templates/timeline/_timeline.html:7
 #: core/templates/timeline/_timeline.html:71
 #: core/templates/timeline/_timeline.html:73
-#: dashboard/templates/cards/feeding_day.html:37
-#: dashboard/templates/cards/feeding_last_method.html:32
+#: dashboard/templates/cards/feeding_day.html:43
+#: dashboard/templates/cards/feeding_last_method.html:34
 #: dashboard/templates/cards/statistics.html:34
 msgid "Previous"
 msgstr "Précédente"
@@ -527,8 +527,8 @@ msgstr "Précédente"
 #: core/templates/timeline/_timeline.html:14
 #: core/templates/timeline/_timeline.html:78
 #: core/templates/timeline/_timeline.html:80
-#: dashboard/templates/cards/feeding_day.html:41
-#: dashboard/templates/cards/feeding_last_method.html:36
+#: dashboard/templates/cards/feeding_day.html:47
+#: dashboard/templates/cards/feeding_last_method.html:38
 #: dashboard/templates/cards/statistics.html:38
 msgid "Next"
 msgstr "Suivante"
@@ -561,7 +561,7 @@ msgstr "Supprimer l'utilisateur"
 #: core/templates/core/temperature_confirm_delete.html:17
 #: core/templates/core/timer_confirm_delete.html:11
 #: core/templates/core/timer_confirm_delete.html:20
-#: core/templates/core/timer_confirm_delete_inactive.html:21
+#: core/templates/core/timer_confirm_delete_inactive.html:23
 #: core/templates/core/tummytime_confirm_delete.html:8
 #: core/templates/core/tummytime_confirm_delete.html:17
 #: core/templates/core/weight_confirm_delete.html:8
@@ -604,7 +604,7 @@ msgstr ""
 #: core/templates/core/sleep_confirm_delete.html:18
 #: core/templates/core/temperature_confirm_delete.html:18
 #: core/templates/core/timer_confirm_delete.html:21
-#: core/templates/core/timer_confirm_delete_inactive.html:22
+#: core/templates/core/timer_confirm_delete_inactive.html:24
 #: core/templates/core/tummytime_confirm_delete.html:18
 #: core/templates/core/weight_confirm_delete.html:18
 msgid "Cancel"
@@ -1442,9 +1442,13 @@ msgid "Delete Inactive"
 msgstr "Supprimer inactifs"
 
 #: core/templates/core/timer_confirm_delete_inactive.html:17
-#, python-format
-msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
-msgstr ""
+#, fuzzy, python-format
+#| msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
+msgid "Are you sure you want to delete %(number)s inactive timer?"
+msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+msgstr[0] ""
+"Voulez-vous vraiment supprimer %(number)s chronomètres inactif%(plural)s?"
+msgstr[1] ""
 "Voulez-vous vraiment supprimer %(number)s chronomètres inactif%(plural)s?"
 
 #: core/templates/core/timer_detail.html:28
@@ -1498,12 +1502,12 @@ msgstr "Chronomètres actifs"
 #: dashboard/templates/cards/diaperchange_last.html:17
 #: dashboard/templates/cards/diaperchange_types.html:12
 #: dashboard/templates/cards/feeding_day.html:20
-#: dashboard/templates/cards/feeding_day.html:46
+#: dashboard/templates/cards/feeding_day.html:52
 #: dashboard/templates/cards/feeding_last.html:17
-#: dashboard/templates/cards/feeding_last_method.html:41
+#: dashboard/templates/cards/feeding_last_method.html:43
 #: dashboard/templates/cards/sleep_day.html:14
 #: dashboard/templates/cards/sleep_last.html:17
-#: dashboard/templates/cards/sleep_naps_day.html:16
+#: dashboard/templates/cards/sleep_naps_day.html:18
 #: dashboard/templates/cards/tummytime_day.html:14
 msgid "None"
 msgstr "Aucun"
@@ -1780,7 +1784,15 @@ msgstr "il y a %(key)s jours"
 msgid "Today's Feeding"
 msgstr "L'alimentation d'aujourd'hui"
 
-#: dashboard/templates/cards/feeding_day.html:26
+#: dashboard/templates/cards/feeding_day.html:25
+#, fuzzy, python-format
+#| msgid "%(count)s sleep entries"
+msgid "%(counter)s feeding"
+msgid_plural "%(counter)s feedings"
+msgstr[0] "%(count)s entrées de sommeil."
+msgstr[1] "%(count)s entrées de sommeil."
+
+#: dashboard/templates/cards/feeding_day.html:32
 #, python-format
 msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
 msgstr ""
@@ -1798,9 +1810,12 @@ msgid "most recent"
 msgstr "le plus récent"
 
 #: dashboard/templates/cards/feeding_last_method.html:21
-#, python-format
-msgid "%(n)s feeding%(plural)s ago"
-msgstr "il y a %(n)s alimentation%(plural)s"
+#, fuzzy, python-format
+#| msgid "%(n)s feeding%(plural)s ago"
+msgid "%(n)s feeding ago"
+msgid_plural "%(n)s feedings ago"
+msgstr[0] "il y a %(n)s alimentation%(plural)s"
+msgstr[1] "il y a %(n)s alimentation%(plural)s"
 
 #: dashboard/templates/cards/sleep_day.html:6
 msgid "Today's Sleep"
@@ -1820,9 +1835,12 @@ msgid "Today's Naps"
 msgstr "Siestes Aujourd'hui"
 
 #: dashboard/templates/cards/sleep_naps_day.html:12
-#, python-format
-msgid "%(count)s nap%(plural)s"
-msgstr "%(count)s Sieste%(plural)s"
+#, fuzzy, python-format
+#| msgid "%(count)s nap%(plural)s"
+msgid "%(count)s nap"
+msgid_plural "%(count)s naps"
+msgstr[0] "%(count)s Sieste%(plural)s"
+msgstr[1] "%(count)s Sieste%(plural)s"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1837,11 +1855,14 @@ msgid "No data yet"
 msgstr "Pas encore de données"
 
 #: dashboard/templates/cards/timer_list.html:12
-#, python-format
-msgid "%(count)s active timer%(plural)s"
-msgstr "%(count)s chronomètre%(plural)s actif"
+#, fuzzy, python-format
+#| msgid "%(count)s active timer%(plural)s"
+msgid "%(count)s active timer"
+msgid_plural "%(count)s active timers"
+msgstr[0] "%(count)s chronomètre%(plural)s actif"
+msgstr[1] "%(count)s chronomètre%(plural)s actif"
 
-#: dashboard/templates/cards/timer_list.html:25
+#: dashboard/templates/cards/timer_list.html:27
 #, python-format
 msgid "Started by %(user)s at %(start)s"
 msgstr "Lancé par %(user)s à %(start)s"

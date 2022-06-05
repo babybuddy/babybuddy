@@ -14,8 +14,10 @@
     <form role="form" method="post">
         {% csrf_token %}
         <h1>
-            {% blocktrans trimmed with number=timer_count|apnumber|intcomma plural=timer_count|pluralize %}
-                Are you sure you want to delete {{ number }} inactive timer{{ plural }}?
+            {% blocktrans trimmed with number=timer_count|apnumber|intcomma count counter=timer_count %}
+                Are you sure you want to delete {{ number }} inactive timer?
+            {% plural %}
+                Are you sure you want to delete {{ number }} inactive timers?
             {% endblocktrans %}
         </h1>
         <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
