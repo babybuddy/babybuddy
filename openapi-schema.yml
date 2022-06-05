@@ -4690,6 +4690,10 @@ components:
         end:
           type: string
           format: date-time
+        timer:
+          type: integer
+          writeOnly: true
+          nullable: true
         duration:
           type: string
           readOnly: true
@@ -4815,6 +4819,10 @@ components:
         end:
           type: string
           format: date-time
+        timer:
+          type: integer
+          writeOnly: true
+          nullable: true
         duration:
           type: string
           readOnly: true
@@ -4911,6 +4919,10 @@ components:
         end:
           type: string
           format: date-time
+        timer:
+          type: integer
+          writeOnly: true
+          nullable: true
         duration:
           type: string
           readOnly: true

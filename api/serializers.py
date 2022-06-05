@@ -44,6 +44,14 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
         required=False,
     )
 
+    timer = serializers.PrimaryKeyRelatedField(
+        allow_null=True,
+        allow_empty=True,
+        queryset=models.Timer.objects.all(),
+        required=False,
+        write_only=True,
+    )
+
     class Meta:
         abstract = True
         extra_kwargs = {
@@ -56,11 +64,12 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
         # of "start" and "end" fields as well as "child" if it is set on the
         # Timer entry.
         timer = None
-        if "timer" in self.initial_data:
-            try:
-                timer = models.Timer.objects.get(pk=self.initial_data["timer"])
-            except models.Timer.DoesNotExist:
-                raise ValidationError({"timer": ["Timer does not exist."]})
+        if "timer" in attrs:
+            # Remove the "timer" attribute (super validation would fail as it
+            # is not a true field on the model).
+            timer = attrs["timer"]
+            attrs.pop("timer")
+
             if timer.end:
                 end = timer.end
             else:
@@ -142,6 +151,7 @@ class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "child",
             "start",
             "end",
+            "timer",
             "duration",
             "type",
             "method",
@@ -172,7 +182,17 @@ class NoteSerializer(CoreModelSerializer, TaggableSerializer):
 class SleepSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Sleep
-        fields = ("id", "child", "start", "end", "duration", "nap", "notes", "tags")
+        fields = (
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "nap",
+            "notes",
+            "tags",
+        )
 
 
 class TagSerializer(serializers.HyperlinkedModelSerializer):
@@ -220,7 +240,16 @@ class TimerSerializer(CoreModelSerializer):
 class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.TummyTime
-        fields = ("id", "child", "start", "end", "duration", "milestone", "tags")
+        fields = (
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "milestone",
+            "tags",
+        )
 
 
 class UserSerializer(serializers.ModelSerializer):
