@@ -39,14 +39,14 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
 
     child = serializers.PrimaryKeyRelatedField(
         allow_null=True,
-        allow_empty=True,
+        help_text="Required unless a Timer value is provided.",
         queryset=models.Child.objects.all(),
         required=False,
     )
 
     timer = serializers.PrimaryKeyRelatedField(
         allow_null=True,
-        allow_empty=True,
+        help_text="May be used in place of the Start, End, and/or Child values.",
         queryset=models.Timer.objects.all(),
         required=False,
         write_only=True,
@@ -55,8 +55,14 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
     class Meta:
         abstract = True
         extra_kwargs = {
-            "start": {"required": False},
-            "end": {"required": False},
+            "start": {
+                "help_text": "Required unless a Timer value is provided.",
+                "required": False,
+            },
+            "end": {
+                "help_text": "Required unless a Timer value is provided.",
+                "required": False,
+            },
         }
 
     def validate(self, attrs):

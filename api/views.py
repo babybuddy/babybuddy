@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from core import models
 
 from . import serializers, filters
-from .mixins import TimerFieldSupportMixin
 
 
 class BMIViewSet(viewsets.ModelViewSet):
@@ -37,7 +36,7 @@ class DiaperChangeViewSet(viewsets.ModelViewSet):
     filterset_class = filters.DiaperChangeFilter
 
 
-class FeedingViewSet(TimerFieldSupportMixin, viewsets.ModelViewSet):
+class FeedingViewSet(viewsets.ModelViewSet):
     queryset = models.Feeding.objects.all()
     serializer_class = serializers.FeedingSerializer
     filterset_class = filters.FeedingFilter
@@ -67,7 +66,7 @@ class PumpingViewSet(viewsets.ModelViewSet):
     filterset_class = filters.PumpingFilter
 
 
-class SleepViewSet(TimerFieldSupportMixin, viewsets.ModelViewSet):
+class SleepViewSet(viewsets.ModelViewSet):
     queryset = models.Sleep.objects.all()
     serializer_class = serializers.SleepSerializer
     filterset_class = filters.SleepFilter
@@ -104,7 +103,7 @@ class TimerViewSet(viewsets.ModelViewSet):
         return Response(self.serializer_class(timer).data)
 
 
-class TummyTimeViewSet(TimerFieldSupportMixin, viewsets.ModelViewSet):
+class TummyTimeViewSet(viewsets.ModelViewSet):
     queryset = models.TummyTime.objects.all()
     serializer_class = serializers.TummyTimeSerializer
     filterset_class = filters.TummyTimeFilter

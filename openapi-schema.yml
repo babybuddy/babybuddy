@@ -4684,16 +4684,20 @@ components:
         child:
           type: integer
           nullable: true
+          description: Required unless a Timer value is provided.
         start:
           type: string
           format: date-time
+          description: Required unless a Timer value is provided.
         end:
           type: string
           format: date-time
+          description: Required unless a Timer value is provided.
         timer:
           type: integer
           writeOnly: true
           nullable: true
+          description: May be used in place of the Start, End, and/or Child values.
         duration:
           type: string
           readOnly: true
@@ -4813,16 +4817,20 @@ components:
         child:
           type: integer
           nullable: true
+          description: Required unless a Timer value is provided.
         start:
           type: string
           format: date-time
+          description: Required unless a Timer value is provided.
         end:
           type: string
           format: date-time
+          description: Required unless a Timer value is provided.
         timer:
           type: integer
           writeOnly: true
           nullable: true
+          description: May be used in place of the Start, End, and/or Child values.
         duration:
           type: string
           readOnly: true
@@ -4913,16 +4921,20 @@ components:
         child:
           type: integer
           nullable: true
+          description: Required unless a Timer value is provided.
         start:
           type: string
           format: date-time
+          description: Required unless a Timer value is provided.
         end:
           type: string
           format: date-time
+          description: Required unless a Timer value is provided.
         timer:
           type: integer
           writeOnly: true
           nullable: true
+          description: May be used in place of the Start, End, and/or Child values.
         duration:
           type: string
           readOnly: true
