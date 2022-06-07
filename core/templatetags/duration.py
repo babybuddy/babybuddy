@@ -108,9 +108,9 @@ def dayssince(value, today=None):
     delta = today - value
 
     if delta < datetime.timedelta(days=1):
-        return "today"
+        return _("today")
     if delta < datetime.timedelta(days=2):
-        return "yesterday"
+        return _("yesterday")
 
     # use standard timesince for anything beyond yesterday
-    return str(delta.days) + " days ago"
+    return str(delta.days) + _(" days ago")
