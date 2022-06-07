@@ -100,7 +100,7 @@ class ChildForm(forms.ModelForm):
             "birth_date": forms.DateInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
+                    "data-td-target": "#datetimepicker_date",
                 }
             ),
         }
@@ -146,7 +146,7 @@ class PumpingForm(CoreModelForm):
             "time": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
+                    "data-td-target": "#datetimepicker_time",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
@@ -161,7 +161,7 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
             "time": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
+                    "data-td-target": "#datetimepicker_time",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
@@ -176,13 +176,13 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
             "start": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
+                    "data-td-target": "#datetimepicker_start",
                 }
             ),
             "end": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
+                    "data-td-target": "#datetimepicker_end",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
@@ -197,7 +197,7 @@ class NoteForm(CoreModelForm, TaggableModelForm):
             "time": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
+                    "data-td-target": "#datetimepicker_time",
                 }
             )
         }
@@ -211,13 +211,13 @@ class SleepForm(CoreModelForm, TaggableModelForm):
             "start": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
+                    "data-td-target": "#datetimepicker_start",
                 }
             ),
             "end": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
+                    "data-td-target": "#datetimepicker_end",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
@@ -232,7 +232,7 @@ class TemperatureForm(CoreModelForm, TaggableModelForm):
             "time": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
+                    "data-td-target": "#datetimepicker_time",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
@@ -247,7 +247,7 @@ class TimerForm(CoreModelForm):
             "start": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
+                    "data-td-target": "#datetimepicker_start",
                 }
             )
         }
@@ -271,13 +271,13 @@ class TummyTimeForm(CoreModelForm, TaggableModelForm):
             "start": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
+                    "data-td-target": "#datetimepicker_start",
                 }
             ),
             "end": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
+                    "data-td-target": "#datetimepicker_end",
                 }
             ),
         }
@@ -291,7 +291,7 @@ class WeightForm(CoreModelForm, TaggableModelForm):
             "date": forms.DateInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
+                    "data-td-target": "#datetimepicker_date",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
@@ -306,7 +306,7 @@ class HeightForm(CoreModelForm, TaggableModelForm):
             "date": forms.DateInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
+                    "data-td-target": "#datetimepicker_date",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
@@ -321,7 +321,7 @@ class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
             "date": forms.DateInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
+                    "data-td-target": "#datetimepicker_date",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),
@@ -336,7 +336,7 @@ class BMIForm(CoreModelForm, TaggableModelForm):
             "date": forms.DateInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
+                    "data-td-target": "#datetimepicker_date",
                 }
             ),
             "notes": forms.Textarea(attrs={"rows": 5}),

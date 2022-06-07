@@ -29,7 +29,7 @@ module.exports = {
         vendor: [
             'node_modules/pulltorefreshjs/dist/index.umd.js',
             'node_modules/jquery/dist/jquery.js',
-            'node_modules/popper.js/dist/umd/popper.js',
+            'node_modules/@popperjs/core/dist/umd/popper.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
             'node_modules/moment/moment.js',
             'node_modules/moment/locale/ca.js',
@@ -46,7 +46,7 @@ module.exports = {
             'node_modules/moment/locale/tr.js',
             'node_modules/moment/locale/zh-cn.js',
             'node_modules/moment-timezone/builds/moment-timezone-with-data-10-year-range.js',
-            'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
+            'node_modules/@eonasdan/tempus-dominus/dist/js/tempus-dominus.js'
         ],
         graph: [
             'node_modules/plotly.js/dist/plotly-cartesian.js',

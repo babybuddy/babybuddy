@@ -33,9 +33,16 @@
 {% block javascript %}
     <script type="text/javascript">
         BabyBuddy.DatetimePicker.init($('#datetimepicker_birth_date'), {
-            format: 'L',
-            viewMode: 'years',
-            extraFormats: ['YYYY-MM-DD']
+             components: {
+               decades: true,
+               year: true,
+               month: true,
+               date: true,
+               hours: false,
+               minutes: false,
+               seconds: false,
+             },
+            viewMode: 'years'
         });
     </script>
 {% endblock %}
