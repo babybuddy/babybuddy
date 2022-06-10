@@ -34,11 +34,11 @@ $dark: $gray-800;
 $body-bg: $gray-900;
 $body-color: $gray-400;
 
-
 // Links
 // Style anchor elements.
 
 $link-color: $info;
+$link-decoration: none;
 $link-hover-color: color.adjust($link-color, $lightness: -15%);
 
 
@@ -139,5 +139,7 @@ $list-group-action-hover-color: $list-group-action-color;
 
 // Breadcrumbs
 
-$breadcrumb-bg: none;
 $breadcrumb-active-color: $gray-600;
+$breadcrumb-bg: none;
+$breadcrumb-padding-y: 0.75rem;
+$breadcrumb-padding-x: 1rem;

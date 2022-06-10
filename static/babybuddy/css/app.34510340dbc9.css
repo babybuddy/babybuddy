@@ -229,7 +229,7 @@ sup {
 
 a {
   color: #44c4dd;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: #219cb4;
@@ -2678,7 +2678,6 @@ textarea.form-control-lg {
   line-height: 1.5;
   color: #ced4da;
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -3149,7 +3148,7 @@ textarea.form-control-lg {
 .btn-link {
   font-weight: 400;
   color: #44c4dd;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:hover {
   color: #219cb4;
@@ -3440,7 +3439,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: #ced4da;
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -3616,7 +3614,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #44c4dd;
-  text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3726,7 +3723,6 @@ textarea.form-control-lg {
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-nav {
@@ -4453,7 +4449,7 @@ textarea.form-control-lg {
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 0;
+  padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   list-style: none;
   background-color: none;
@@ -4482,7 +4478,6 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   color: #44c4dd;
-  text-decoration: none;
   background-color: #343a40;
   border: 1px solid #3f474e;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4764,7 +4759,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #212529;
-  text-decoration: none;
   background-color: #343a40;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -10701,10 +10695,6 @@ textarea.form-control-lg {
     margin-left: 0;
     top: 16px;
   }
-}
-#timer-status {
-  font-size: 2.5rem;
-  font-weight: 300;
 }
 #timer-status.timer-stopped {
   color: #343a40;
