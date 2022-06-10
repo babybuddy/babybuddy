@@ -10,18 +10,40 @@
 {% endblock %}
 
 {% block content %}
-    <div id="dashboard-child" class="card-columns">
-        {% card_timer_list object %}
-        {% card_feeding_last object %}
-        {% card_diaperchange_last object %}
-        {% card_sleep_last object %}
-        {% card_feeding_last_method object %}
-        {% card_feeding_day object %}
-        {% card_statistics object %}
-        {% card_sleep_day object %}
-        {% card_sleep_naps_day object %}
-        {% card_tummytime_day object %}
-        {% card_diaperchange_types object %}
+    <div id="dashboard-child" class="row">
+        <div class="col-sm-6 col-lg-4">
+            {% card_timer_list object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_feeding_last object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_diaperchange_last object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_sleep_last object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_feeding_last_method object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_feeding_day object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_statistics object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_sleep_day object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_sleep_naps_day object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_tummytime_day object %}
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            {% card_diaperchange_types object %}
+        </div>
     </div>
 {% endblock %}
 

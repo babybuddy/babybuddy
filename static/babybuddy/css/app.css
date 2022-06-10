@@ -10800,11 +10800,6 @@ textarea.form-control-lg {
   flex-wrap: wrap;
 }
 
-@media (min-width: 576px) and (max-width: 767.98px) {
-  #dashboard-child.card-columns {
-    column-count: 2;
-  }
-}
 @font-face {
   font-family: "babybuddy";
   src: url("../font/babybuddy.eot?34831680");
