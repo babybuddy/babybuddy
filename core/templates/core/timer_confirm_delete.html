@@ -7,7 +7,7 @@
 
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">{% trans "Timers" %}</a></li>
-    <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:timer-detail' object.id %}">{{ object }}</a></li>
+    <li class="breadcrumb-item fw-bold"><a href="{% url 'core:timer-detail' object.id %}">{{ object }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
 {% endblock %}
 

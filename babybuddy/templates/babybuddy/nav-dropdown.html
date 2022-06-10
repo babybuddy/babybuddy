@@ -3,13 +3,13 @@
 
 {% block nav %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
-        <a class="navbar-brand mr-2" href={% url "babybuddy:root-router" %}>
+        <a class="navbar-brand me-2" href={% url "babybuddy:root-router" %}>
             <img src="{% static "babybuddy/logo/icon-brand.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
             <span class="d-none d-lg-inline-block">
                 <span class="text-primary">Baby</span> Buddy
             </span>
         </a>
-        <div class="d-lg-none d-md-none d-flex mr-auto p-0 ml-2">
+        <div class="d-lg-none d-md-none d-flex me-auto p-0 ms-2">
             <div>
                 <a class="text-muted"
                     href="{% url 'dashboard:dashboard' %}"
@@ -26,8 +26,8 @@
             </div>
         </div>
 
-        <div class="d-lg-none d-md-none d-flex ml-auto p-0 mr-2">
-            <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="mr-2">
+        <div class="d-lg-none d-md-none d-flex ms-auto p-0 me-2">
+            <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="me-2">
                 {% csrf_token %}
                 <label class="sr-only">{% trans "Quick Start Timer" %}</label>
                 <button class="btn m-0 p-0 text-success">
@@ -104,7 +104,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         <div class="collapse navbar-collapse" id="navbar-app">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item{% if request.path == '/' %} active{% endif %}">
                         <a class="nav-link" href="{% url 'dashboard:dashboard' %}">
                             <i class="icon-dashboard" aria-hidden="true"></i>
@@ -138,7 +138,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_child %}
-                                <a class="dropdown-item pl-5{% if request.path == '/children/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/children/add/' %} active{% endif %}"
                                    href="{% url 'core:child-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Child" %}
                                 </a>
@@ -152,7 +152,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_note %}
-                                <a class="dropdown-item pl-5{% if request.path == '/notes/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/notes/add/' %} active{% endif %}"
                                    href="{% url 'core:note-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Note" %}
                                 </a>
@@ -180,7 +180,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_temperature %}
-                                <a class="dropdown-item pl-5{% if request.path == '/temperature/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/temperature/add/' %} active{% endif %}"
                                    href="{% url 'core:temperature-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Temperature reading" %}
                                 </a>
@@ -194,7 +194,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_weight %}
-                                <a class="dropdown-item pl-5{% if request.path == '/weight/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/weight/add/' %} active{% endif %}"
                                    href="{% url 'core:weight-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Weight entry" %}
                                 </a>
@@ -208,7 +208,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_height %}
-                                <a class="dropdown-item pl-5{% if request.path == '/height/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/height/add/' %} active{% endif %}"
                                    href="{% url 'core:height-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Height entry" %}
                                 </a>
@@ -222,7 +222,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_head_circumference %}
-                                <a class="dropdown-item pl-5{% if request.path == '/head-circumference/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/head-circumference/add/' %} active{% endif %}"
                                    href="{% url 'core:head-circumference-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Head Circumference entry" %}
                                 </a>
@@ -236,7 +236,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_bmi %}
-                                <a class="dropdown-item pl-5{% if request.path == '/bmi/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/bmi/add/' %} active{% endif %}"
                                    href="{% url 'core:bmi-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "BMI entry" %}
                                 </a>
@@ -263,7 +263,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_diaperchange %}
-                                <a class="dropdown-item pl-5{% if request.path == '/changes/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/changes/add/' %} active{% endif %}"
                                    href="{% url 'core:diaperchange-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Change" %}
                                 </a>
@@ -276,7 +276,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_diaperchange %}
-                                <a class="dropdown-item pl-5{% if request.path == '/feedings/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/feedings/add/' %} active{% endif %}"
                                    href="{% url 'core:feeding-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Feeding" %}
                                 </a>
@@ -289,7 +289,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_sleep %}
-                                <a class="dropdown-item pl-5{% if request.path == '/sleep/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/sleep/add/' %} active{% endif %}"
                                    href="{% url 'core:sleep-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Sleep entry" %}
                                 </a>
@@ -302,7 +302,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_tummytime %}
-                                <a class="dropdown-item pl-5{% if request.path == '/tummy-time/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/tummy-time/add/' %} active{% endif %}"
                                    href="{% url 'core:tummytime-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Tummy Time entry" %}
                                 </a>
@@ -317,7 +317,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_pumping %}
-                                <a class="dropdown-item pl-5{% if request.path == '/pumping/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/pumping/add/' %} active{% endif %}"
                                    href="{% url 'core:pumping-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Pumping entry" %}
                                 </a>
@@ -331,7 +331,7 @@
                 </ul>
 
                 {% if request.user %}
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <a id="nav-user-menu-link"
                                class="nav-link dropdown-toggle"

@@ -14,7 +14,7 @@
             <div class="dropdown-item">
                 <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="d-inline">
                     {% csrf_token %}
-                    <button class="btn text-left p-0">
+                    <button class="btn text-start p-0">
                         <i class="icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
                     </button>
                 </form>

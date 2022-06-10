@@ -22,7 +22,7 @@
               id="datetimepicker_{{ field.name }}"
               data-td-target-input="nearest"
               data-td-target-toggle="nearest">
-             <div class="input-group-prepend px-2 rounded-left bg-dark">
+             <div class="input-group-prepend px-2 rounded-start bg-dark">
                 <span class="input-group-text"
                    data-td-target="#datetimepicker_{{ field.name }}"
                    data-td-toggle="datetimepicker"><i class="icon-calendar"></i></span>
@@ -35,9 +35,9 @@
          </div>
     {% elif 'choice' in field|field_type %}
         {% if field.errors %}
-            {{ field|add_class:"custom-select is-invalid" }}
+            {{ field|add_class:"form-select is-invalid" }}
         {% else %}
-            {{ field|add_class:"custom-select" }}
+            {{ field|add_class:"form-select" }}
         {% endif %}
     {% else %}
         {% if field.errors %}
