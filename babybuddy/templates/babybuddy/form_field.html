@@ -22,16 +22,17 @@
               id="datetimepicker_{{ field.name }}"
               data-td-target-input="nearest"
               data-td-target-toggle="nearest">
-             <span class="input-group-text"
+             <div class="input-group-prepend px-2 rounded-left bg-dark">
+                <span class="input-group-text"
                    data-td-target="#datetimepicker_{{ field.name }}"
                    data-td-toggle="datetimepicker"><i class="icon-calendar"></i></span>
+             </div>
              {% if field.errors %}
                 {{ field|add_class:"datetimepicker-input form-control form-control-lg is-invalid" }}
             {% else %}
                 {{ field|add_class:"datetimepicker-input form-control form-control-lg" }}
             {% endif %}
          </div>
- </div>
     {% elif 'choice' in field|field_type %}
         {% if field.errors %}
             {{ field|add_class:"custom-select is-invalid" }}
