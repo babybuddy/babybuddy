@@ -41,5 +41,8 @@
   "resolutions": {
     "lodash.template": ">=4.5.0",
     "glob-parent": ">=5.1.2"
+  },
+  "dependencies": {
+    "masonry-layout": "^4.2.2"
   }
 }

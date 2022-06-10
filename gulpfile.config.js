@@ -31,6 +31,7 @@ module.exports = {
             'node_modules/jquery/dist/jquery.js',
             'node_modules/@popperjs/core/dist/umd/popper.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
+            'node_modules/masonry-layout/dist/masonry.pkgd.js',
             'node_modules/moment/moment.js',
             'node_modules/moment/locale/ca.js',
             'node_modules/moment/locale/de.js',
