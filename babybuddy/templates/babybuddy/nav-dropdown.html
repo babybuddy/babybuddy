@@ -29,7 +29,7 @@
         <div class="d-lg-none d-md-none d-flex ms-auto p-0 me-2">
             <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="me-2">
                 {% csrf_token %}
-                <label class="sr-only">{% trans "Quick Start Timer" %}</label>
+                <label class="visually-hidden">{% trans "Quick Start Timer" %}</label>
                 <button class="btn m-0 p-0 text-success">
                     <i class="icon-2x icon-timer" aria-hidden="true"></i>
                 </button>
@@ -39,7 +39,7 @@
                    href="#"
                    role="button"
                    id="nav-quick-add-link"
-                   data-toggle="dropdown"
+                   data-bs-toggle="dropdown"
                    aria-haspopup="true"
                    aria-expanded="false"><i class="icon-2x icon-add" aria-hidden="true"></i>
                 </a>
@@ -98,7 +98,7 @@
             </div>
         </div>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-target="#navbar-app" aria-controls="navbar-app"
                     aria-expanded="false"  aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -123,7 +123,7 @@
                         <a id="nav-children-menu-link"
                            class="nav-link dropdown-toggle"
                            href="#"
-                           data-toggle="dropdown"
+                           data-bs-toggle="dropdown"
                            aria-haspopup="true"
                            aria-expanded="false"><i class="icon-child" aria-hidden="true"></i>
                             {% trans "Children" %}
@@ -165,7 +165,7 @@
                         <a id="nav-measurements-menu-link"
                            class="nav-link dropdown-toggle"
                            href="#"
-                           data-toggle="dropdown"
+                           data-bs-toggle="dropdown"
                            aria-haspopup="true"
                            aria-expanded="false"><i class="icon-measurements" aria-hidden="true"></i>
                             {% trans "Measurements" %}
@@ -249,7 +249,7 @@
                         <a id="nav-activity-menu-link"
                            class="nav-link dropdown-toggle"
                            href="#"
-                           data-toggle="dropdown"
+                           data-bs-toggle="dropdown"
                            aria-haspopup="true"
                            aria-expanded="false"><i class="icon-activities" aria-hidden="true"></i>
                             {% trans "Activities" %}
@@ -336,7 +336,7 @@
                             <a id="nav-user-menu-link"
                                class="nav-link dropdown-toggle"
                                href="#"
-                               data-toggle="dropdown"
+                               data-bs-toggle="dropdown"
                                aria-haspopup="true"
                                aria-expanded="false">
                                 <i class="icon-user" aria-hidden="true"></i>

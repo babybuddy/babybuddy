@@ -8,7 +8,7 @@
 
         <input type="hidden" name="next" value="{{ next }}">
 
-        <label class="sr-only" for="username-input-group">
+        <label class="visually-hidden" for="username-input-group">
             {{ form.username.label }}
         </label>
         <div class="input-group mb-3 fade-in">
@@ -18,7 +18,7 @@
             {% render_field form.username name='username' class+='form-control' id='username-input-group' placeholder=form.username.label %}
         </div>
 
-        <label class="sr-only" for="password-input-group">
+        <label class="visually-hidden" for="password-input-group">
             {{ form.password.label }}
         </label>
         <div class="input-group mb-3 fade-in">
