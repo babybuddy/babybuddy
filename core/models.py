@@ -273,8 +273,15 @@ class Feeding(models.Model):
         related_name="feeding",
         verbose_name=_("Child"),
     )
-    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
-    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+    )
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
@@ -426,7 +433,9 @@ class Pumping(models.Model):
         verbose_name=_("Child"),
     )
     amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
-    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    time = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("Time")
+    )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
 
     objects = models.Manager()
@@ -450,8 +459,15 @@ class Sleep(models.Model):
         "Child", on_delete=models.CASCADE, related_name="sleep", verbose_name=_("Child")
     )
     napping = models.BooleanField(editable=False, null=True, verbose_name=_("Napping"))
-    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
-    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+    )
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
@@ -629,8 +645,15 @@ class TummyTime(models.Model):
         related_name="tummy_time",
         verbose_name=_("Child"),
     )
-    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
-    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+    )
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )

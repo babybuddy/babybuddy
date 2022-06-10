@@ -31,7 +31,7 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        BabyBuddy.DatetimePicker.init($('#datetimepicker_start'), { useCurrent: false });
-        BabyBuddy.DatetimePicker.init($('#datetimepicker_end'));
+        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_start'));
+        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_end'));
     </script>
 {% endblock %}

@@ -32,7 +32,7 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        BabyBuddy.DatetimePicker.init($('#datetimepicker_birth_date'), {
+        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_birth_date'), {
              components: {
                decades: true,
                year: true,
