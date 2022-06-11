@@ -32,7 +32,7 @@ def pumping_amounts(objects):
     index_x, index_y = 0, -1
     for object in objects:
         date_s = timezone.localtime(object.time)
-        date_s = str(date_s.date())new 
+        date_s = str(date_s.date()) 
         if date_s not in dates:
             dates.append(date_s)
             index_y += 1
