@@ -32,8 +32,13 @@
 {% block javascript %}
     <script type="text/javascript">
         BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_date'), {
-            format: 'L',
-            extraFormats: ['YYYY-MM-DD']
+           display: {
+             components: {
+               hours: false,
+               minutes: false,
+               seconds: false,
+             }
+           }
         });
     </script>
 {% endblock %}

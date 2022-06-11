@@ -31,6 +31,12 @@
             padding-right: $card-spacer-x;
         }
     }
+
+    .list-group {
+        .list-group-item {
+            color: $white;
+        }
+    }
 }
 
 .card-diaperchange {

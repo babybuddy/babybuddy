@@ -10597,7 +10597,7 @@ textarea.form-control-lg {
   clear: both;
 }
 .timeline li .card {
-  width: 47%;
+  width: 46%;
   float: left;
   position: relative;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
@@ -10721,6 +10721,9 @@ textarea.form-control-lg {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.card-dashboard .list-group .list-group-item {
+  color: #fff;
+}
 
 .card-diaperchange {
   border-color: #a72431;
@@ -10788,6 +10791,10 @@ textarea.form-control-lg {
 
 .child-actions {
   flex-wrap: wrap;
+}
+
+.reports-list .list-group-item {
+  color: #fff;
 }
 
 @font-face {

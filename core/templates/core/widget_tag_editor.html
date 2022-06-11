@@ -20,9 +20,7 @@
     <div class="new-tags">
         <div class="create-tag-inputs input-group">
             <input class="form-control" type="text" name="" placeholder="{% trans "Tag name" %}">
-            <div class="input-group-append">
-                <button class="btn btn-outline-primary bg-dark btn-add-new-tag" type="button">{% trans "Add" %}</button>
-            </div>
+            <button id="add-tag" class="btn btn-outline-primary bg-dark" type="button">{% trans "Add" %}</button>
         </div>
         <span>{% trans "Recently used:" %}</span>
         {% for t in widget.tag_suggestions.quick %}
