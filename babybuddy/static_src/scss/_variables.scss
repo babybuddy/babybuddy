@@ -59,16 +59,6 @@ $hr-border-color: rgba($black, .1) !default;
 $mark-bg: #fcf8e3 !default;
 
 
-// Tables
-// Customizes the `.table` component with basic values, each used across all table variations.
-
-$table-border-color: $gray-800;
-$table-color: $body-color;
-$table-head-bg: $primary;
-$table-hover-color: $body-color;
-$table-inverse-bg: $primary;
-$table-accent-bg: rgba($primary, .1);
-
 // Forms
 
 $input-bg: $white;
@@ -77,6 +67,12 @@ $input-color: $black;
 $input-border-color: rgba($gray-600, .15);
 $input-group-addon-bg: $gray-500;
 
+
+// Tables
+
+$table-cell-padding-y: 0.75rem;
+$table-cell-padding-x: 0.75rem;
+$table-striped-bg: $dark;
 
 // Dropdowns
 // Dropdown menu container and contents.

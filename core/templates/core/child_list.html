@@ -18,10 +18,10 @@
     </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
-        <table class="table table-striped table-hover child-list">
-            <thead class="thead-inverse">
+        <table class="table table-borderless table-striped table-hover align-middle">
+            <thead>
                 <tr>
-                    <th class="picture-column"><i class="icon-camera" aria-hidden="true"></i></th>
+                    <th><i class="icon-camera" aria-hidden="true"></i></th>
                     <th>{% trans "First Name" %}</th>
                     <th>{% trans "Last Name" %}</th>
                     <th>{% trans "Birth Date" %}</th>
@@ -31,7 +31,7 @@
             <tbody>
                 {% for child in object_list %}
                     <tr>
-                        <td class="picture-column">
+                        <td>
                             {% if child.picture %}
                                 {% thumbnail '40x40' child.picture as thumb %}
                                 <img src="{{ thumb.url }}" class="img-fluid rounded-circle" />
@@ -64,7 +64,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="4">{% trans "No children found." %}</th>
+                        <th colspan="5">{% trans "No children found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

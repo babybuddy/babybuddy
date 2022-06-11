@@ -27,29 +27,6 @@
     }
 }
 
-// Basic table of model instances.
-.table-instances {
-    tr {
-        td, th {
-            vertical-align: middle;
-        }
-
-        &.odd {
-            background: $table-accent-bg;
-        }
-        &.even {
-            background: none;
-        }
-        &.row-details {
-            td {
-                color: $gray-500;
-                padding-top: 0;
-                border-top: 0;
-            }
-        }
-    }
-}
-
 // Larger icon variant.
 .icon-2x {
     font-size: 1.65em;

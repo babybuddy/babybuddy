@@ -18,8 +18,8 @@
     </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
-        <table class="table table-instances">
-            <thead class="thead-inverse">
+        <table class="table table-borderless table-striped table-hover align-middle">
+            <thead>
                 <tr>
                     <th>{% trans "Actions" %}</th>
                     <th>{% trans "Date" %}</th>
@@ -36,8 +36,7 @@
             </thead>
             <tbody>
                 {% for feeding in object_list %}
-                    {% cycle "odd" "even" as row_class silent %}
-                    <tr class="{{ row_class }}">
+                    <tr>
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
