@@ -8,66 +8,76 @@
 {% endblock %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1 class="display-3">{% trans "Welcome to Baby Buddy!" %}</h1>
-        <p class="lead">
-            {% blocktrans trimmed%}
-                Learn about and predict baby's needs without (<em>as much</em>)
-                guess work by using Baby Buddy to track &mdash;
-            {% endblocktrans %}
-        </p>
-        <hr class="my-4">
-        <div class="card-deck">
-            <div class="card card-diaperchange">
-                <div class="card-header text-center">
-                    <i class="icon-2x icon-diaperchange" aria-hidden="true"></i>
+    <div class="px-2 py-5 bg-dark rounded-3">
+        <div class="container-fluid">
+            <h1 class="display-3">{% trans "Welcome to Baby Buddy!" %}</h1>
+            <p class="lead">
+                {% blocktrans trimmed%}
+                    Learn about and predict baby's needs without (<em>as much</em>)
+                    guess work by using Baby Buddy to track &mdash;
+                {% endblocktrans %}
+            </p>
+            <hr class="my-4">
+            <div class="row gy-4">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-diaperchange">
+                        <div class="card-header text-center">
+                            <i class="icon-2x icon-diaperchange" aria-hidden="true"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title text-center">{% trans "Diaper Changes" %}</h3>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3 class="card-title text-center">{% trans "Diaper Changes" %}</h3>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-feeding">
+                        <div class="card-header text-center">
+                            <i class="icon-2x icon-feeding" aria-hidden="true"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title text-center">{% trans "Feedings" %}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-sleep">
+                        <div class="card-header text-center">
+                            <i class="icon-2x icon-sleep" aria-hidden="true"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title text-center">{% trans "Sleep" %}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-tummytime">
+                        <div class="card-header text-center">
+                            <i class="icon-2x icon-tummytime" aria-hidden="true"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title text-center">{% trans "Tummy Time" %}</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card card-feeding">
-                <div class="card-header text-center">
-                    <i class="icon-2x icon-feeding" aria-hidden="true"></i>
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title text-center">{% trans "Feedings" %}</h3>
-                </div>
-            </div>
-            <div class="card card-sleep">
-                <div class="card-header text-center">
-                    <i class="icon-2x icon-sleep" aria-hidden="true"></i>
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title text-center">{% trans "Sleep" %}</h3>
-                </div>
-            </div>
-            <div class="card card-tummytime">
-                <div class="card-header text-center">
-                    <i class="icon-2x icon-tummytime" aria-hidden="true"></i>
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title text-center">{% trans "Tummy Time" %}</h3>
-                </div>
-            </div>
+            <hr class="my-4">
+            <p class="lead">
+                {% blocktrans trimmed %}
+                    As the amount of entries grows, Baby Buddy will help parents
+                    and caregivers to identify small patterns in baby's habits
+                    using the dashboard and graphs. Baby Buddy is mobile-friendly
+                    and uses a dark theme to help weary moms and dads with 2AM
+                    feedings and changings. To get started, just click the button
+                    below to add your first (or second, third, etc.) child!
+                {% endblocktrans %}
+            </p>
+            <p class="text-center">
+                {% if perms.core.add_child %}
+                    <a href="{% url 'core:child-add' %}" class="btn btn-lg btn-success">
+                        <i class="icon-child" aria-hidden="true"></i> {% trans "Add a Child" %}
+                    </a>
+                {% endif %}
+            </p>
         </div>
-        <hr class="my-4">
-        <p class="lead">
-            {% blocktrans trimmed %}
-                As the amount of entries grows, Baby Buddy will help parents
-                and caregivers to identify small patterns in baby's habits
-                using the dashboard and graphs. Baby Buddy is mobile-friendly
-                and uses a dark theme to help weary moms and dads with 2AM
-                feedings and changings. To get started, just click the button
-                below to add your first (or second, third, etc.) child!
-            {% endblocktrans %}
-        </p>
-        <p class="text-center">
-            {% if perms.core.add_child %}
-                <a href="{% url 'core:child-add' %}" class="btn btn-lg btn-success">
-                    <i class="icon-child" aria-hidden="true"></i> {% trans "Add a Child" %}
-                </a>
-            {% endif %}
-        </p>
     </div>
 {% endblock %}
