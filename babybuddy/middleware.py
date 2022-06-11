@@ -104,10 +104,9 @@ class UserLanguageMiddleware:
 
 class UserTimezoneMiddleware:
     """
-    Sets the timezone based on a user specific setting that falls back on
-    `settings.TIME_ZONE`. This middleware must run after
-    `django.contrib.auth.middleware.AuthenticationMiddleware` because it uses
-    the request.user object.
+    Sets the timezone based on a user specific setting. This middleware must run after
+    `django.contrib.auth.middleware.AuthenticationMiddleware` because it uses the
+    request.user object.
     """
 
     def __init__(self, get_response):

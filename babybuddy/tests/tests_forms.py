@@ -222,11 +222,10 @@ class FormsTestCase(TestCase):
         page = self.c.post("/user/settings/", data=params, follow=True)
         self.assertContains(page, "Paramètres utilisateur")
 
-    @override_settings(TIME_ZONE="US/Eastern")
     def test_user_settings_timezone(self):
         self.c.login(**self.credentials)
 
-        self.assertEqual(timezone.get_default_timezone_name(), "US/Eastern")
+        self.assertEqual(timezone.get_default_timezone_name(), "UTC")
         params = self.settings_template.copy()
         params["timezone"] = "US/Pacific"
         page = self.c.post("/user/settings/", data=params, follow=True)
