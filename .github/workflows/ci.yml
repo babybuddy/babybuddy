@@ -17,11 +17,10 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           python-version: ${{ matrix.python-version }}
-      - run: |
-          npm install -g gulp-cli
-          npm install
-          gulp lint
-          gulp coverage
+      - run: npm install --location=global gulp-cli
+      - run: npm install
+      - run: gulp lint
+      - run: gulp coverage
       - name: Submit results to Coveralls
         uses: AndreMiras/coveralls-python-action@develop
         with:
