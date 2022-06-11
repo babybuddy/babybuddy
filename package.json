@@ -23,6 +23,7 @@
     "gulp-spawn": "^1.0.0",
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.6.0",
+    "masonry-layout": "^4.2.2",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "npm-force-resolutions": "^0.0.10",
@@ -34,15 +35,5 @@
     "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.2.0"
-  },
-  "scripts": {
-    "preinstall": "npx npm-force-resolutions"
-  },
-  "resolutions": {
-    "lodash.template": ">=4.5.0",
-    "glob-parent": ">=5.1.2"
-  },
-  "dependencies": {
-    "masonry-layout": "^4.2.2"
   }
 }
