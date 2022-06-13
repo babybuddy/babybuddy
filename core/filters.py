@@ -9,8 +9,7 @@ from core import models
 class TagFilter(django_filters.FilterSet):
     tag = django_filters.ModelChoiceFilter(
         label=_("Tag"),
-        field_name="tags__slug",
-        to_field_name="slug",
+        field_name="tags__name",
         distinct=True,
         queryset=models.Tag.objects.all().order_by("name"),
     )

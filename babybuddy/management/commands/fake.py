@@ -44,9 +44,10 @@ class Command(BaseCommand):
         children = int(kwargs["children"]) or 1
         days = int(kwargs["days"]) or 31
 
-        for word in self.faker.words(10, unique=True):
+        for i in range(0, 10):
+            text = self.faker.password(randint(4, 10))
             try:
-                tag = models.Tag.objects.create(name=word)
+                tag = models.Tag.objects.create(name=text)
                 tag.save()
                 self.tags.append(tag)
             except IntegrityError:
