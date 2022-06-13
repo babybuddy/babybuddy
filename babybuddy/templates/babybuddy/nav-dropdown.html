@@ -69,31 +69,12 @@
                             {% trans "Sleep" %}
                         </a>
                     {% endif %}
-                    {% if perms.core.add_temperature %}
-                        <a class="dropdown-item p-2" href="{% url 'core:temperature-add' %}">
-                            <i class="icon-temperature" aria-hidden="true"></i>
-                            {% trans "Temperature" %}
-                        </a>
-                    {% endif %}
                     {% if perms.core.add_tummytime %}
                         <a class="dropdown-item p-2" href="{% url 'core:tummytime-add' %}">
                             <i class="icon-tummytime" aria-hidden="true"></i>
                             {% trans "Tummy Time" %}
                         </a>
                     {% endif %}
-                    {% if perms.core.add_weight %}
-                        <a class="dropdown-item p-2" href="{% url 'core:weight-add' %}">
-                            <i class="icon-weight" aria-hidden="true"></i>
-                            {% trans "Weight" %}
-                        </a>
-                    {% endif %}
-                    {% if perms.core.add_pumping %}
-                        <a class="dropdown-item p-2" href="{% url 'core:pumping-add' %}">
-                            <i class="icon-pumping" aria-hidden="true"></i>
-                            {% trans "Pumping" %}
-                        </a>
-                    {% endif %}
-
                 </div>
             </div>
         </div>
@@ -172,6 +153,48 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="nav-measurements-menu-link">
 
+                            {% if perms.core.view_bmi %}
+                                <a class="dropdown-item{% if request.path == '/bmi/' %} active{% endif %}"
+                                   href="{% url 'core:bmi-list' %}">
+                                    <i class="icon-bmi" aria-hidden="true"></i>
+                                    {% trans "BMI" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_bmi %}
+                                <a class="dropdown-item pl-5{% if request.path == '/bmi/add/' %} active{% endif %}"
+                                   href="{% url 'core:bmi-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "BMI entry" %}
+                                </a>
+                            {% endif %}
+
+                            {% if perms.core.view_head_circumference %}
+                                <a class="dropdown-item{% if request.path == '/head-circumference/' %} active{% endif %}"
+                                   href="{% url 'core:head-circumference-list' %}">
+                                    <i class="icon-head-circumference aria-hidden="true"></i>
+                                    {% trans "Head Circumference" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_head_circumference %}
+                                <a class="dropdown-item pl-5{% if request.path == '/head-circumference/add/' %} active{% endif %}"
+                                   href="{% url 'core:head-circumference-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Head Circumference entry" %}
+                                </a>
+                            {% endif %}
+
+                            {% if perms.core.view_height %}
+                                <a class="dropdown-item{% if request.path == '/height/' %} active{% endif %}"
+                                   href="{% url 'core:height-list' %}">
+                                    <i class="icon-height" aria-hidden="true"></i>
+                                    {% trans "Height" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_height %}
+                                <a class="dropdown-item pl-5{% if request.path == '/height/add/' %} active{% endif %}"
+                                   href="{% url 'core:height-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Height entry" %}
+                                </a>
+                            {% endif %}
+
                             {% if perms.core.view_temperature %}
                                 <a class="dropdown-item{% if request.path == '/temperature/' %} active{% endif %}"
                                    href="{% url 'core:temperature-list' %}">
@@ -197,48 +220,6 @@
                                 <a class="dropdown-item pl-5{% if request.path == '/weight/add/' %} active{% endif %}"
                                    href="{% url 'core:weight-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Weight entry" %}
-                                </a>
-                            {% endif %}
-
-                            {% if perms.core.view_height %}
-                                <a class="dropdown-item{% if request.path == '/height/' %} active{% endif %}"
-                                   href="{% url 'core:height-list' %}">
-                                    <i class="icon-height" aria-hidden="true"></i>
-                                    {% trans "Height" %}
-                                </a>
-                            {% endif %}
-                            {% if perms.core.add_height %}
-                                <a class="dropdown-item pl-5{% if request.path == '/height/add/' %} active{% endif %}"
-                                   href="{% url 'core:height-add' %}"><i class="icon-add" aria-hidden="true"></i>
-                                    {% trans "Height entry" %}
-                                </a>
-                            {% endif %}
-
-                            {% if perms.core.view_head_circumference %}
-                                <a class="dropdown-item{% if request.path == '/head-circumference/' %} active{% endif %}"
-                                   href="{% url 'core:head-circumference-list' %}">
-                                    <i class="icon-head-circumference aria-hidden="true"></i>
-                                    {% trans "Head Circumference" %}
-                                </a>
-                            {% endif %}
-                            {% if perms.core.add_head_circumference %}
-                                <a class="dropdown-item pl-5{% if request.path == '/head-circumference/add/' %} active{% endif %}"
-                                   href="{% url 'core:head-circumference-add' %}"><i class="icon-add" aria-hidden="true"></i>
-                                    {% trans "Head Circumference entry" %}
-                                </a>
-                            {% endif %}
-
-                            {% if perms.core.view_bmi %}
-                                <a class="dropdown-item{% if request.path == '/bmi/' %} active{% endif %}"
-                                   href="{% url 'core:bmi-list' %}">
-                                    <i class="icon-bmi" aria-hidden="true"></i>
-                                    {% trans "BMI" %}
-                                </a>
-                            {% endif %}
-                            {% if perms.core.add_bmi %}
-                                <a class="dropdown-item pl-5{% if request.path == '/bmi/add/' %} active{% endif %}"
-                                   href="{% url 'core:bmi-add' %}"><i class="icon-add" aria-hidden="true"></i>
-                                    {% trans "BMI entry" %}
                                 </a>
                             {% endif %}
 
@@ -275,10 +256,24 @@
                                     {% trans "Feedings" %}
                                 </a>
                             {% endif %}
-                            {% if perms.core.add_diaperchange %}
+                            {% if perms.core.add_feeding %}
                                 <a class="dropdown-item pl-5{% if request.path == '/feedings/add/' %} active{% endif %}"
                                    href="{% url 'core:feeding-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Feeding" %}
+                                </a>
+                            {% endif %}
+
+                            {% if perms.core.view_pumping %}
+                                <a class="dropdown-item{% if request.path == '/pumping/' %} active{% endif %}"
+                                   href="{% url 'core:pumping-list' %}">
+                                    <i class="icon-pumping" aria-hidden="true"></i>
+                                    {% trans "Pumping" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_pumping %}
+                                <a class="dropdown-item pl-5{% if request.path == '/pumping/add/' %} active{% endif %}"
+                                   href="{% url 'core:pumping-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Pumping entry" %}
                                 </a>
                             {% endif %}
 
@@ -305,21 +300,6 @@
                                 <a class="dropdown-item pl-5{% if request.path == '/tummy-time/add/' %} active{% endif %}"
                                    href="{% url 'core:tummytime-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Tummy Time entry" %}
-                                </a>
-                            {% endif %}
-
-
-                            {% if perms.core.view_pumping %}
-                                <a class="dropdown-item{% if request.path == '/pumping/' %} active{% endif %}"
-                                   href="{% url 'core:pumping-list' %}">
-                                    <i class="icon-pumping" aria-hidden="true"></i>
-                                    {% trans "Pumping" %}
-                                </a>
-                            {% endif %}
-                            {% if perms.core.add_pumping %}
-                                <a class="dropdown-item pl-5{% if request.path == '/pumping/add/' %} active{% endif %}"
-                                   href="{% url 'core:pumping-add' %}"><i class="icon-add" aria-hidden="true"></i>
-                                    {% trans "Pumping entry" %}
                                 </a>
                             {% endif %}
                         </div>
