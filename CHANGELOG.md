@@ -1,8 +1,41 @@
 # Changelog
 
+## [v1.11.1](https://github.com/babybuddy/babybuddy/tree/v1.11.1) (2022-06-12)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.0...v1.11.1)
+
+**Implemented enhancements:**
+
+- Use local timezone for pumping graph data [\#478](https://github.com/babybuddy/babybuddy/pull/478) ([appletalk](https://github.com/appletalk))
+- Add i18n for `dayssince` filter [\#477](https://github.com/babybuddy/babybuddy/pull/477) ([amorphobia](https://github.com/amorphobia))
+- ✨ adds support for other S3-like providers [\#476](https://github.com/babybuddy/babybuddy/pull/476) ([jljouannic](https://github.com/jljouannic))
+- Add `timer` field data to OpenAPI schema [\#474](https://github.com/babybuddy/babybuddy/pull/474) ([cdubz](https://github.com/cdubz))
+- Handle plurals with `count` tag [\#473](https://github.com/babybuddy/babybuddy/pull/473) ([amorphobia](https://github.com/amorphobia))
+- Add carousel of last 7 days of feedings to the todays feeding card [\#450](https://github.com/babybuddy/babybuddy/pull/450) ([DanBeard](https://github.com/DanBeard))
+
+**Fixed bugs:**
+
+- "No notes found" background doesn't extend to the Tags column [\#469](https://github.com/babybuddy/babybuddy/issues/469)
+- Can't filter notes by capitalized tags [\#467](https://github.com/babybuddy/babybuddy/issues/467)
+- Fix list view classes and colspans and re-sort menu items [\#481](https://github.com/babybuddy/babybuddy/pull/481) ([cdubz](https://github.com/cdubz))
+- Fix filtering not working for capitalized tags [\#480](https://github.com/babybuddy/babybuddy/pull/480) ([Alberdi](https://github.com/Alberdi))
+
+**Closed issues:**
+
+- Handle plurals with `count` tag of `blocktrans` [\#472](https://github.com/babybuddy/babybuddy/issues/472)
+- Missing "timer" field documentation in openapi schema [\#439](https://github.com/babybuddy/babybuddy/issues/439)
+- Feature request: Support for tea and water as feeding type [\#432](https://github.com/babybuddy/babybuddy/issues/432)
+- Remove `TIME_ZONE` environment variable configuration [\#301](https://github.com/babybuddy/babybuddy/issues/301)
+
+**Merged pull requests:**
+
+- Update Spanish translations [\#466](https://github.com/babybuddy/babybuddy/pull/466) ([Alberdi](https://github.com/Alberdi))
+- Use bash script for Procfile [\#465](https://github.com/babybuddy/babybuddy/pull/465) ([cdubz](https://github.com/cdubz))
+- Update Chinese translations [\#464](https://github.com/babybuddy/babybuddy/pull/464) ([amorphobia](https://github.com/amorphobia))
+
 ## [v1.11.0](https://github.com/babybuddy/babybuddy/tree/v1.11.0) (2022-05-28)
 
-[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.0...HEAD)
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.10.2...v1.11.0)
 
 **Implemented enhancements:**
 
@@ -29,8 +62,8 @@
 **Fixed bugs:**
 
 - Photos of children not found after upgrade to v1.10.0 [\#400](https://github.com/babybuddy/babybuddy/issues/400)
-- Fix KeyError at /children/x/reports/sleep/pattern/ [\#445](https://github.com/babybuddy/babybuddy/pull/445) ([myxor](https://github.com/myxor))
 - Fix link to translation documentation [\#420](https://github.com/babybuddy/babybuddy/pull/420) ([myxor](https://github.com/myxor))
+- Fix KeyError at /children/x/reports/sleep/pattern/ [\#445](https://github.com/babybuddy/babybuddy/pull/445) ([myxor](https://github.com/myxor))
 
 **Closed issues:**
 
@@ -46,11 +79,11 @@
 
 **Merged pull requests:**
 
-- Improve test coverage [\#458](https://github.com/babybuddy/babybuddy/pull/458) ([cdubz](https://github.com/cdubz))
 - Integrate with Render.com [\#457](https://github.com/babybuddy/babybuddy/pull/457) ([cdubz](https://github.com/cdubz))
+- fix leading spaces [\#437](https://github.com/babybuddy/babybuddy/pull/437) ([jcgoette](https://github.com/jcgoette))
+- Improve test coverage [\#458](https://github.com/babybuddy/babybuddy/pull/458) ([cdubz](https://github.com/cdubz))
 - fix typo [\#452](https://github.com/babybuddy/babybuddy/pull/452) ([adamaze](https://github.com/adamaze))
 - fastforward openapi-schema [\#441](https://github.com/babybuddy/babybuddy/pull/441) ([jcgoette](https://github.com/jcgoette))
-- fix leading spaces [\#437](https://github.com/babybuddy/babybuddy/pull/437) ([jcgoette](https://github.com/jcgoette))
 
 ## [v1.10.2](https://github.com/babybuddy/babybuddy/tree/v1.10.2) (2022-03-04)
 
