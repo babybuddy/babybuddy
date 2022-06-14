@@ -145,10 +145,10 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertEqual(self.localtime_string(self.timer.end), params["end"])
 
 
-class BMIFormsTest(FormsTestCaseBase):
+class BMIFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(BMIFormsTest, cls).setUpClass()
+        super(BMIFormsTestCase, cls).setUpClass()
         cls.bmi = models.BMI.objects.create(
             child=cls.child,
             bmi=30,
@@ -335,10 +335,10 @@ class FeedingFormsTestCase(FormsTestCaseBase):
         self.assertContains(page, "Feeding entry deleted")
 
 
-class HeadCircumferenceFormsTest(FormsTestCaseBase):
+class HeadCircumferenceFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(HeadCircumferenceFormsTest, cls).setUpClass()
+        super(HeadCircumferenceFormsTestCase, cls).setUpClass()
         cls.head_circumference = models.HeadCircumference.objects.create(
             child=cls.child,
             head_circumference=15,
@@ -390,10 +390,10 @@ class HeadCircumferenceFormsTest(FormsTestCaseBase):
         self.assertContains(page, "Head Circumference entry deleted")
 
 
-class HeightFormsTest(FormsTestCaseBase):
+class HeightFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(HeightFormsTest, cls).setUpClass()
+        super(HeightFormsTestCase, cls).setUpClass()
         cls.height = models.Height.objects.create(
             child=cls.child,
             height=12.5,
@@ -431,10 +431,10 @@ class HeightFormsTest(FormsTestCaseBase):
         self.assertContains(page, "Height entry deleted")
 
 
-class NoteFormsTest(FormsTestCaseBase):
+class NoteFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(NoteFormsTest, cls).setUpClass()
+        super(NoteFormsTestCase, cls).setUpClass()
         cls.note = models.Note.objects.create(
             child=cls.child,
             note="Test note!",
@@ -875,10 +875,10 @@ class ValidationsTestCase(FormsTestCaseBase):
         )
 
 
-class WeightFormsTest(FormsTestCaseBase):
+class WeightFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(WeightFormsTest, cls).setUpClass()
+        super(WeightFormsTestCase, cls).setUpClass()
         cls.weight = models.Weight.objects.create(
             child=cls.child,
             weight=8,
