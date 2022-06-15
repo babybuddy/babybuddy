@@ -103,7 +103,7 @@ def dayssince(value, today=None):
     :returns: the formatted string
     """
     if today is None:
-        today = timezone.datetime.now().date()
+        today = timezone.localtime().date()
 
     delta = today - value
 
