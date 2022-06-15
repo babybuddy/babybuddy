@@ -204,7 +204,7 @@ class TemplateTagsTestCase(TestCase):
         self.assertFalse(data["hide_empty"])
 
     def test_card_sleep_day(self):
-        data = cards.card_sleep_day(self.context, self.child, self.date)
+        data = cards.card_sleep_recent(self.context, self.child, self.date)
         self.assertEqual(data["type"], "sleep")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])

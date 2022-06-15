@@ -221,8 +221,8 @@ def card_sleep_last(context, child):
     }
 
 
-@register.inclusion_tag("cards/sleep_day.html", takes_context=True)
-def card_sleep_day(context, child, end_date=None):
+@register.inclusion_tag("cards/sleep_recent.html", takes_context=True)
+def card_sleep_recent(context, child, end_date=None):
     """
     Filters sleeping instances to get total amount for a specific date and for 7 days before
     :param child: an instance of the Child model.
