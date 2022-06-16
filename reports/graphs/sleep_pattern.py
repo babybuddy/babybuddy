@@ -26,7 +26,9 @@ def sleep_pattern(sleeps):
     last_end_time = None
     adjustment = None
 
-    days = _init_days(sleeps.first().start, sleeps.last().end)
+    first_day = timezone.localtime(sleeps.first().start)
+    last_day = timezone.localtime(sleeps.last().end)
+    days = _init_days(first_day, last_day)
 
     for sleep in sleeps:
         start_time = timezone.localtime(sleep.start)
