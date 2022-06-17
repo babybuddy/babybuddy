@@ -13,6 +13,7 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
         cache: 'pipenv'
+        cache-dependency-path: 'requirements.txt'
     - name: Install Python dependencies
       shell: bash
       run: pipenv install --dev
