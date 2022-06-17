@@ -8,6 +8,9 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Install Pipenv
+      shell: bash
+      run: pipx install pipenv
     - uses: actions/setup-python@v4
       id: setup-python
       with:
