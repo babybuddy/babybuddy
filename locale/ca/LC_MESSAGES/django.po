@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-05 13:25+0000\n"
+"POT-Creation-Date: 2022-06-17 22:25+0000\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11,12 +11,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: babybuddy/admin.py:12 babybuddy/admin.py:13
-#: babybuddy/templates/babybuddy/nav-dropdown.html:347
+#: babybuddy/templates/babybuddy/nav-dropdown.html:327
 #: babybuddy/templates/babybuddy/user_settings_form.html:8
 msgid "Settings"
 msgstr "Opcions"
 
-#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:111
+#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:92
 #: babybuddy/templates/babybuddy/user_settings_form.html:61
 #: dashboard/templates/dashboard/child.html:4
 #: dashboard/templates/dashboard/child.html:9
@@ -179,7 +179,7 @@ msgstr "Turc"
 
 #: babybuddy/templates/admin/base_site.html:4
 #: babybuddy/templates/admin/base_site.html:7
-#: babybuddy/templates/babybuddy/nav-dropdown.html:359
+#: babybuddy/templates/babybuddy/nav-dropdown.html:339
 msgid "Database Admin"
 msgstr "BBDD Admin"
 
@@ -226,19 +226,19 @@ msgid "Diaper Change"
 msgstr "Canvi Bolquers"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:57
-#: babybuddy/templates/babybuddy/nav-dropdown.html:281 core/models.py:312
+#: babybuddy/templates/babybuddy/nav-dropdown.html:262 core/models.py:312
 #: core/models.py:316 core/templates/core/timer_detail.html:43
 msgid "Feeding"
 msgstr "Biberó"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:63
-#: babybuddy/templates/babybuddy/nav-dropdown.html:157 core/models.py:396
+#: babybuddy/templates/babybuddy/nav-dropdown.html:138 core/models.py:396
 #: core/models.py:407 core/models.py:411 core/templates/core/note_list.html:29
 msgid "Note"
 msgstr "Nota"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:69
-#: babybuddy/templates/babybuddy/nav-dropdown.html:288
+#: babybuddy/templates/babybuddy/nav-dropdown.html:283
 #: babybuddy/templates/babybuddy/welcome.html:42 core/models.py:467
 #: core/models.py:468 core/models.py:471
 #: core/templates/core/sleep_confirm_delete.html:7
@@ -249,19 +249,7 @@ msgid "Sleep"
 msgstr "Dormir"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:75
-#: babybuddy/templates/babybuddy/nav-dropdown.html:179 core/models.py:506
-#: core/models.py:519 core/models.py:520 core/models.py:523
-#: core/templates/core/temperature_confirm_delete.html:7
-#: core/templates/core/temperature_form.html:13
-#: core/templates/core/temperature_list.html:4
-#: core/templates/core/temperature_list.html:7
-#: core/templates/core/temperature_list.html:12
-#: core/templates/core/temperature_list.html:29
-msgid "Temperature"
-msgstr "Temperatura"
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:81
-#: babybuddy/templates/babybuddy/nav-dropdown.html:301
+#: babybuddy/templates/babybuddy/nav-dropdown.html:296
 #: babybuddy/templates/babybuddy/welcome.html:50 core/models.py:647
 #: core/models.py:648 core/models.py:651
 #: core/templates/core/timer_detail.html:59
@@ -273,44 +261,15 @@ msgstr "Temperatura"
 msgid "Tummy Time"
 msgstr "Temps de panxa"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:87
-#: babybuddy/templates/babybuddy/nav-dropdown.html:193 core/models.py:673
-#: core/models.py:685 core/models.py:686 core/models.py:689
-#: core/templates/core/weight_confirm_delete.html:7
-#: core/templates/core/weight_form.html:13
-#: core/templates/core/weight_list.html:4
-#: core/templates/core/weight_list.html:7
-#: core/templates/core/weight_list.html:12
-#: core/templates/core/weight_list.html:29 reports/graphs/weight_change.py:19
-#: reports/graphs/weight_change.py:30
-#: reports/templates/reports/report_list.html:22
-#: reports/templates/reports/weight_change.html:4
-#: reports/templates/reports/weight_change.html:8
-msgid "Weight"
-msgstr "Pes"
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:93
-#: babybuddy/templates/babybuddy/nav-dropdown.html:316 core/models.py:437
-#: core/models.py:438 core/models.py:441
-#: core/templates/core/pumping_confirm_delete.html:7
-#: core/templates/core/pumping_form.html:13
-#: core/templates/core/pumping_list.html:4
-#: core/templates/core/pumping_list.html:7
-#: core/templates/core/pumping_list.html:12
-#: reports/templates/reports/pumping_amounts.html:4
-#: reports/templates/reports/pumping_amounts.html:8
-msgid "Pumping"
-msgstr ""
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:118
+#: babybuddy/templates/babybuddy/nav-dropdown.html:99
 #: core/templates/timeline/timeline.html:4
 #: core/templates/timeline/timeline.html:7
 #: dashboard/templates/dashboard/child_button_group.html:9
 msgid "Timeline"
 msgstr "Línia de Temps"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:129
-#: babybuddy/templates/babybuddy/nav-dropdown.html:137 core/models.py:188
+#: babybuddy/templates/babybuddy/nav-dropdown.html:110
+#: babybuddy/templates/babybuddy/nav-dropdown.html:118 core/models.py:188
 #: core/templates/core/child_confirm_delete.html:7
 #: core/templates/core/child_detail.html:7
 #: core/templates/core/child_form.html:13 core/templates/core/child_list.html:4
@@ -320,7 +279,7 @@ msgstr "Línia de Temps"
 msgid "Children"
 msgstr "Nadons"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:143 core/models.py:137
+#: babybuddy/templates/babybuddy/nav-dropdown.html:124 core/models.py:137
 #: core/models.py:187 core/models.py:221 core/models.py:274 core/models.py:335
 #: core/models.py:367 core/models.py:394 core/models.py:426 core/models.py:450
 #: core/models.py:503 core/models.py:537 core/models.py:630 core/models.py:671
@@ -339,7 +298,7 @@ msgstr "Nadons"
 msgid "Child"
 msgstr "Nadó"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:151 core/models.py:143
+#: babybuddy/templates/babybuddy/nav-dropdown.html:132 core/models.py:143
 #: core/models.py:240 core/models.py:304 core/models.py:343 core/models.py:373
 #: core/models.py:408 core/models.py:430 core/models.py:458 core/models.py:511
 #: core/models.py:677 core/templates/core/note_confirm_delete.html:7
@@ -348,38 +307,26 @@ msgstr "Nadó"
 msgid "Notes"
 msgstr "Notes"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:171
+#: babybuddy/templates/babybuddy/nav-dropdown.html:152
 msgid "Measurements"
 msgstr "Mides"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:185
-msgid "Temperature reading"
-msgstr "Lectura Temperatura"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:160 core/models.py:139
+#: core/models.py:151 core/models.py:152 core/models.py:155
+#: core/templates/core/bmi_confirm_delete.html:7
+#: core/templates/core/bmi_form.html:13 core/templates/core/bmi_list.html:4
+#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:12
+#: core/templates/core/bmi_list.html:29 reports/graphs/bmi_change.py:19
+#: reports/graphs/bmi_change.py:30 reports/templates/reports/bmi_change.html:4
+#: reports/templates/reports/bmi_change.html:8
+msgid "BMI"
+msgstr "BMI"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:199
-msgid "Weight entry"
-msgstr "Entrada Pes"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:166
+msgid "BMI entry"
+msgstr "Entrada BMI"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:207 core/models.py:369
-#: core/models.py:381 core/models.py:382 core/models.py:385
-#: core/templates/core/height_confirm_delete.html:7
-#: core/templates/core/height_form.html:13
-#: core/templates/core/height_list.html:4
-#: core/templates/core/height_list.html:7
-#: core/templates/core/height_list.html:12
-#: core/templates/core/height_list.html:29 reports/graphs/height_change.py:19
-#: reports/graphs/height_change.py:30
-#: reports/templates/reports/height_change.html:4
-#: reports/templates/reports/height_change.html:8
-#: reports/templates/reports/report_list.html:17
-msgid "Height"
-msgstr "Alçada"
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:213
-msgid "Height entry"
-msgstr "Entrada Alçada"
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:221 core/models.py:338
+#: babybuddy/templates/babybuddy/nav-dropdown.html:174 core/models.py:338
 #: core/models.py:351 core/models.py:352 core/models.py:355
 #: core/templates/core/head_circumference_confirm_delete.html:7
 #: core/templates/core/head_circumference_form.html:13
@@ -395,39 +342,77 @@ msgstr "Entrada Alçada"
 msgid "Head Circumference"
 msgstr ""
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:227
+#: babybuddy/templates/babybuddy/nav-dropdown.html:180
 msgid "Head Circumference entry"
 msgstr ""
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:235 core/models.py:139
-#: core/models.py:151 core/models.py:152 core/models.py:155
-#: core/templates/core/bmi_confirm_delete.html:7
-#: core/templates/core/bmi_form.html:13 core/templates/core/bmi_list.html:4
-#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:12
-#: core/templates/core/bmi_list.html:29 reports/graphs/bmi_change.py:19
-#: reports/graphs/bmi_change.py:30 reports/templates/reports/bmi_change.html:4
-#: reports/templates/reports/bmi_change.html:8
-msgid "BMI"
-msgstr "BMI"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:188 core/models.py:369
+#: core/models.py:381 core/models.py:382 core/models.py:385
+#: core/templates/core/height_confirm_delete.html:7
+#: core/templates/core/height_form.html:13
+#: core/templates/core/height_list.html:4
+#: core/templates/core/height_list.html:7
+#: core/templates/core/height_list.html:12
+#: core/templates/core/height_list.html:29 reports/graphs/height_change.py:19
+#: reports/graphs/height_change.py:30
+#: reports/templates/reports/height_change.html:4
+#: reports/templates/reports/height_change.html:8
+#: reports/templates/reports/report_list.html:17
+msgid "Height"
+msgstr "Alçada"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:241
-msgid "BMI entry"
-msgstr "Entrada BMI"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:194
+msgid "Height entry"
+msgstr "Entrada Alçada"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:255
+#: babybuddy/templates/babybuddy/nav-dropdown.html:202 core/models.py:506
+#: core/models.py:519 core/models.py:520 core/models.py:523
+#: core/templates/core/temperature_confirm_delete.html:7
+#: core/templates/core/temperature_form.html:13
+#: core/templates/core/temperature_list.html:4
+#: core/templates/core/temperature_list.html:7
+#: core/templates/core/temperature_list.html:12
+#: core/templates/core/temperature_list.html:29
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:208
+msgid "Temperature reading"
+msgstr "Lectura Temperatura"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:216 core/models.py:673
+#: core/models.py:685 core/models.py:686 core/models.py:689
+#: core/templates/core/weight_confirm_delete.html:7
+#: core/templates/core/weight_form.html:13
+#: core/templates/core/weight_list.html:4
+#: core/templates/core/weight_list.html:7
+#: core/templates/core/weight_list.html:12
+#: core/templates/core/weight_list.html:29 reports/graphs/weight_change.py:19
+#: reports/graphs/weight_change.py:30
+#: reports/templates/reports/report_list.html:22
+#: reports/templates/reports/weight_change.html:4
+#: reports/templates/reports/weight_change.html:8
+msgid "Weight"
+msgstr "Pes"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:222
+msgid "Weight entry"
+msgstr "Entrada Pes"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:236
 msgid "Activities"
 msgstr "Activitats"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:262
+#: babybuddy/templates/babybuddy/nav-dropdown.html:243
 #: reports/graphs/diaperchange_lifetimes.py:27
 msgid "Changes"
 msgstr "Canvis"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:268
+#: babybuddy/templates/babybuddy/nav-dropdown.html:249
 msgid "Change"
 msgstr "Canvi"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:275
+#: babybuddy/templates/babybuddy/nav-dropdown.html:256
 #: babybuddy/templates/babybuddy/welcome.html:34 core/models.py:313
 #: core/templates/core/feeding_confirm_delete.html:7
 #: core/templates/core/feeding_form.html:13
@@ -437,19 +422,31 @@ msgstr "Canvi"
 msgid "Feedings"
 msgstr "Biberons"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:294
-msgid "Sleep entry"
-msgstr "Entrada Son"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:270 core/models.py:437
+#: core/models.py:438 core/models.py:441
+#: core/templates/core/pumping_confirm_delete.html:7
+#: core/templates/core/pumping_form.html:13
+#: core/templates/core/pumping_list.html:4
+#: core/templates/core/pumping_list.html:7
+#: core/templates/core/pumping_list.html:12
+#: reports/templates/reports/pumping_amounts.html:4
+#: reports/templates/reports/pumping_amounts.html:8
+msgid "Pumping"
+msgstr ""
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:307
-msgid "Tummy Time entry"
-msgstr "Entrada de temps de panxa"
-
-#: babybuddy/templates/babybuddy/nav-dropdown.html:322
+#: babybuddy/templates/babybuddy/nav-dropdown.html:276
 msgid "Pumping entry"
 msgstr ""
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:346
+#: babybuddy/templates/babybuddy/nav-dropdown.html:289
+msgid "Sleep entry"
+msgstr "Entrada Son"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:302
+msgid "Tummy Time entry"
+msgstr "Entrada de temps de panxa"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:326
 #: babybuddy/templates/babybuddy/user_list.html:17
 #: babybuddy/templates/babybuddy/user_password_form.html:7
 #: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:556
@@ -457,23 +454,23 @@ msgstr ""
 msgid "User"
 msgstr "Usuari"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:348
+#: babybuddy/templates/babybuddy/nav-dropdown.html:328
 msgid "Password"
 msgstr "Clau"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:352
+#: babybuddy/templates/babybuddy/nav-dropdown.html:332
 msgid "Logout"
 msgstr "Tancar"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:355
+#: babybuddy/templates/babybuddy/nav-dropdown.html:335
 msgid "Site"
 msgstr "Lloc"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:356
+#: babybuddy/templates/babybuddy/nav-dropdown.html:336
 msgid "API Browser"
 msgstr "Navegador API"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:358
+#: babybuddy/templates/babybuddy/nav-dropdown.html:338
 #: babybuddy/templates/babybuddy/user_confirm_delete.html:7
 #: babybuddy/templates/babybuddy/user_form.html:13
 #: babybuddy/templates/babybuddy/user_list.html:4
@@ -481,15 +478,15 @@ msgstr "Navegador API"
 msgid "Users"
 msgstr "Usuaris"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:361
+#: babybuddy/templates/babybuddy/nav-dropdown.html:341
 msgid "Support"
 msgstr "Suport"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:363
+#: babybuddy/templates/babybuddy/nav-dropdown.html:343
 msgid "Source Code"
 msgstr "Codi Font"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:365
+#: babybuddy/templates/babybuddy/nav-dropdown.html:345
 msgid "Chat / Support"
 msgstr "Xat / Suport"
 
@@ -500,6 +497,7 @@ msgstr "Xat / Suport"
 #: core/templates/timeline/_timeline.html:73
 #: dashboard/templates/cards/feeding_day.html:43
 #: dashboard/templates/cards/feeding_last_method.html:34
+#: dashboard/templates/cards/sleep_recent.html:43
 #: dashboard/templates/cards/statistics.html:34
 msgid "Previous"
 msgstr "Anterior"
@@ -511,6 +509,7 @@ msgstr "Anterior"
 #: core/templates/timeline/_timeline.html:80
 #: dashboard/templates/cards/feeding_day.html:47
 #: dashboard/templates/cards/feeding_last_method.html:38
+#: dashboard/templates/cards/sleep_recent.html:47
 #: dashboard/templates/cards/statistics.html:38
 msgid "Next"
 msgstr "Següent"
@@ -957,7 +956,7 @@ msgstr ""
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
 #: reports/graphs/feeding_duration.py:56
 #: reports/graphs/head_circumference_change.py:28
-#: reports/graphs/height_change.py:28 reports/graphs/pumping_amounts.py:58
+#: reports/graphs/height_change.py:28 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:151 reports/graphs/sleep_totals.py:59
 #: reports/graphs/tummytime_duration.py:51 reports/graphs/weight_change.py:28
 msgid "Date"
@@ -1131,7 +1130,9 @@ msgid "Add BMI"
 msgstr "Afegeix BMI"
 
 #: core/templates/core/bmi_list.html:70
-msgid "No bmi entries found."
+#, fuzzy
+#| msgid "No bmi entries found."
+msgid "No BMI entries found."
 msgstr "Entrades BMI no trobades."
 
 #: core/templates/core/child_confirm_delete.html:4
@@ -1428,9 +1429,10 @@ msgstr "Temporitzadors Actius"
 #: dashboard/templates/cards/feeding_day.html:52
 #: dashboard/templates/cards/feeding_last.html:17
 #: dashboard/templates/cards/feeding_last_method.html:43
-#: dashboard/templates/cards/sleep_day.html:14
 #: dashboard/templates/cards/sleep_last.html:17
 #: dashboard/templates/cards/sleep_naps_day.html:18
+#: dashboard/templates/cards/sleep_recent.html:20
+#: dashboard/templates/cards/sleep_recent.html:52
 #: dashboard/templates/cards/tummytime_day.html:14
 msgid "None"
 msgstr "Cap"
@@ -1547,6 +1549,22 @@ msgstr "{}, {}"
 #: core/templatetags/duration.py:25
 msgid "0 days"
 msgstr "0 dies"
+
+#: core/templatetags/duration.py:111
+#: dashboard/templates/cards/diaperchange_types.html:49
+msgid "today"
+msgstr "avui"
+
+#: core/templatetags/duration.py:113
+#: dashboard/templates/cards/diaperchange_types.html:51
+msgid "yesterday"
+msgstr "ahir"
+
+#: core/templatetags/duration.py:116
+#, fuzzy
+#| msgid "%(key)s days ago"
+msgid " days ago"
+msgstr "Fa %(key)s dies"
 
 #: core/timeline.py:53
 #, python-format
@@ -1686,14 +1704,6 @@ msgstr "líquid"
 msgid "solid"
 msgstr "sòlid"
 
-#: dashboard/templates/cards/diaperchange_types.html:49
-msgid "today"
-msgstr "avui"
-
-#: dashboard/templates/cards/diaperchange_types.html:51
-msgid "yesterday"
-msgstr "ahir"
-
 #: dashboard/templates/cards/diaperchange_types.html:53
 #, python-format
 msgid "%(key)s days ago"
@@ -1712,6 +1722,7 @@ msgstr[0] "Total alimentacions"
 msgstr[1] "Total alimentacions"
 
 #: dashboard/templates/cards/feeding_day.html:32
+#: dashboard/templates/cards/sleep_recent.html:32
 #, python-format
 msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
 msgstr ""
@@ -1736,15 +1747,6 @@ msgid_plural "%(n)s feedings ago"
 msgstr[0] "Fa %(key)s dies"
 msgstr[1] "Fa %(key)s dies"
 
-#: dashboard/templates/cards/sleep_day.html:6
-msgid "Today's Sleep"
-msgstr "Son d'Avui"
-
-#: dashboard/templates/cards/sleep_day.html:20
-#, python-format
-msgid "%(count)s sleep entries"
-msgstr ""
-
 #: dashboard/templates/cards/sleep_last.html:6
 msgid "Last Sleep"
 msgstr "Últim Son"
@@ -1759,6 +1761,20 @@ msgid "%(count)s nap"
 msgid_plural "%(count)s naps"
 msgstr[0] ""
 msgstr[1] ""
+
+#: dashboard/templates/cards/sleep_recent.html:6
+#, fuzzy
+#| msgid "Last Sleep"
+msgid "Recent Sleep"
+msgstr "Últim Son"
+
+#: dashboard/templates/cards/sleep_recent.html:25
+#, fuzzy, python-format
+#| msgid "Total feedings"
+msgid "%(counter)s sleep"
+msgid_plural "%(counter)s sleep"
+msgstr[0] "Total alimentacions"
+msgstr[1] "Total alimentacions"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1811,59 +1827,59 @@ msgstr "Accions Nadó"
 msgid "Reports"
 msgstr "Informes"
 
-#: dashboard/templatetags/cards.py:328
+#: dashboard/templatetags/cards.py:357
 msgid "Average nap duration"
 msgstr "Mitjana migdiades"
 
-#: dashboard/templatetags/cards.py:335
+#: dashboard/templatetags/cards.py:364
 msgid "Average naps per day"
 msgstr "Mitjana migdiades per dia"
 
-#: dashboard/templatetags/cards.py:345
+#: dashboard/templatetags/cards.py:374
 msgid "Average sleep duration"
 msgstr "Mitjana temps de son"
 
-#: dashboard/templatetags/cards.py:352
+#: dashboard/templatetags/cards.py:381
 msgid "Average awake duration"
 msgstr "Mitjana temps despert"
 
-#: dashboard/templatetags/cards.py:362
+#: dashboard/templatetags/cards.py:391
 msgid "Weight change per week"
 msgstr "Canvi pes setmanal"
 
-#: dashboard/templatetags/cards.py:372
+#: dashboard/templatetags/cards.py:401
 msgid "Height change per week"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:382
+#: dashboard/templatetags/cards.py:411
 msgid "Head circumference change per week"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:392
+#: dashboard/templatetags/cards.py:421
 msgid "BMI change per week"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:410
+#: dashboard/templatetags/cards.py:439
 msgid "Diaper change frequency (past 3 days)"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:414
+#: dashboard/templatetags/cards.py:443
 msgid "Diaper change frequency (past 2 weeks)"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:420
+#: dashboard/templatetags/cards.py:449
 msgid "Diaper change frequency"
 msgstr "Freqüència Canvi Bolquers"
 
-#: dashboard/templatetags/cards.py:456
+#: dashboard/templatetags/cards.py:485
 msgid "Feeding frequency (past 3 days)"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:460
+#: dashboard/templatetags/cards.py:489
 msgid "Feeding frequency (past 2 weeks)"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:466
+#: dashboard/templatetags/cards.py:495
 msgid "Feeding frequency"
 msgstr "Freqüència Alimentació"
 
@@ -1939,11 +1955,11 @@ msgstr ""
 msgid "<b>Height</b>"
 msgstr "<b>Alçada</b>"
 
-#: reports/graphs/pumping_amounts.py:57
+#: reports/graphs/pumping_amounts.py:59
 msgid "<b>Total Pumping Amount</b>"
 msgstr ""
 
-#: reports/graphs/pumping_amounts.py:60
+#: reports/graphs/pumping_amounts.py:62
 msgid "Pumping Amount"
 msgstr ""
 
@@ -2056,3 +2072,6 @@ msgstr ""
 #: reports/templates/reports/tummytime_duration.html:8
 msgid "Total Tummy Time Durations"
 msgstr ""
+
+#~ msgid "Today's Sleep"
+#~ msgstr "Son d'Avui"
