@@ -8,21 +8,18 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - uses: actions/setup-python@v3
+    - name: Install Pipenv
+      shell: bash
+      run: pipx install pipenv
+    - uses: actions/setup-python@v4
       id: setup-python
       with:
         python-version: ${{ inputs.python-version }}
-    - uses: actions/cache@v3
-      with:
-        path: |
-          ~/.local/share/virtualenvs
-          Pipfile.lock
-        key: ${{ runner.os }}-python-${{ inputs.python-version }}-pipenv-${{ hashFiles('**/requirements.txt') }}
+        cache: 'pipenv'
+        cache-dependency-path: 'requirements.txt'
     - name: Install Python dependencies
       shell: bash
-      run: |
-        python -m pip install --upgrade pipenv wheel
-        pipenv install --dev
+      run: pipenv install --dev
     - uses: actions/setup-node@v3
       with:
         node-version: 16
