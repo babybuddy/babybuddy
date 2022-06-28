@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased](https://github.com/babybuddy/babybuddy/tree/v1.11.2) (2022-06-28)
+## [v1.11.2](https://github.com/babybuddy/babybuddy/tree/v1.11.2) (2022-06-28)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.1...v1.11.2)
 
