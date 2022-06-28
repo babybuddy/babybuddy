@@ -6,7 +6,7 @@ from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from taggit.serializers import TagListSerializerField
+from taggit.serializers import TagListSerializerField, TaggitSerializer
 
 from core import models
 
@@ -107,7 +107,7 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
         return attrs
 
 
-class TaggableSerializer(serializers.HyperlinkedModelSerializer):
+class TaggableSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
     tags = TagListSerializerField(required=False)
 
 
