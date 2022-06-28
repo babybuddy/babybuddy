@@ -633,7 +633,7 @@ class TagsAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data["tags"], data["tags"])
         note = models.Note.objects.get(pk=response.data["id"])
-        self.assertEqual(list(note.tags.names()), data["tags"])
+        self.assertCountEqual(list(note.tags.names()), data["tags"])
 
 
 class TemperatureAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
