@@ -1,6 +1,21 @@
 # Changelog
 
-## [v1.11.1](https://github.com/babybuddy/babybuddy/tree/v1.11.1) (2022-06-12)
+## [Unreleased](https://github.com/babybuddy/babybuddy/tree/v1.11.2) (2022-06-28)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.1...v1.11.2)
+
+**Implemented enhancements:**
+
+- Sleep history [\#485](https://github.com/babybuddy/babybuddy/pull/485) ([DanBeard](https://github.com/DanBeard))
+
+**Fixed bugs:**
+
+- Unable to add tags to notes via API [\#488](https://github.com/babybuddy/babybuddy/issues/488)
+- Use Taggit serializer for taggable models [\#489](https://github.com/babybuddy/babybuddy/pull/489) ([cdubz](https://github.com/cdubz))
+- Fix 500 in sleep pattern [\#487](https://github.com/babybuddy/babybuddy/pull/487) ([kejadlen](https://github.com/kejadlen))
+- Fix dayssince sometimes being off by 1 day depending on timezone [\#484](https://github.com/babybuddy/babybuddy/pull/484) ([DanBeard](https://github.com/DanBeard))
+
+## [v1.11.1](https://github.com/babybuddy/babybuddy/tree/v1.11.1) (2022-06-13)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.0...v1.11.1)
 
