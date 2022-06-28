@@ -631,7 +631,7 @@ class TagsAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         data = {"child": 1, "note": "New tagged note.", "tags": ["tag1", "tag2"]}
         response = self.client.post(reverse("api:note-list"), data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data["tags"], data["tags"])
+        self.assertCountEqual(response.data["tags"], data["tags"])
         note = models.Note.objects.get(pk=response.data["id"])
         self.assertCountEqual(list(note.tags.names()), data["tags"])
 
