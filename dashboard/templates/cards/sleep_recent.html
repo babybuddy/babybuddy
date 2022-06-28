@@ -1,0 +1,54 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+
+{% block header %}
+    <a href="{% url "core:sleep-list" %}">
+        {% trans "Recent Sleep" %}
+    </a>
+{% endblock %}
+
+{% block title %}
+{% if sleeps|length > 0 %}
+<div id="sleep-days-carousel" class="carousel slide" data-interval="false">
+    <div class="carousel-inner">
+        {% for sleep in sleeps %}
+            <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
+                <div class="last-sleep-method text-center">
+                    {% if sleep.total %}
+                        {{ sleep.total|duration_string:"m" }}
+                    {% else %}
+                        {% trans "None" %}
+                    {% endif %}
+                </div>
+                <div class="text-center small">
+                    {% if sleep.count > 0 %}
+                        {% blocktrans trimmed count counter=sleep.count %}
+                            {{ counter }} sleep
+                        {% plural %}
+                            {{ counter }} sleep
+                        {% endblocktrans %}
+                    {% endif %}
+                </div>
+                {% blocktrans trimmed with since=sleep.date.date|dayssince %}
+                    <div class="text-center small text-muted">
+                        {{ since }}
+                    </div>
+                {% endblocktrans %}
+                </div>
+        {% endfor %}
+    </div>
+    {% if sleeps|length > 1 %}
+    <a class="carousel-control-prev" href="#sleep-days-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">{% trans "Previous" %}</span>
+    </a>
+    <a class="carousel-control-next" href="#sleep-days-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">{% trans "Next" %}</span>
+    </a>
+    {% endif %}
+</div>
+{% else %}
+{% trans "None" %}
+{% endif %}
+{% endblock %}

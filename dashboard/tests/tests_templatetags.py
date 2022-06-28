@@ -204,12 +204,15 @@ class TemplateTagsTestCase(TestCase):
         self.assertFalse(data["hide_empty"])
 
     def test_card_sleep_day(self):
-        data = cards.card_sleep_day(self.context, self.child, self.date)
+        data = cards.card_sleep_recent(self.context, self.child, self.date)
         self.assertEqual(data["type"], "sleep")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
-        self.assertEqual(data["total"], timezone.timedelta(2, 7200))
-        self.assertEqual(data["count"], 4)
+        self.assertEqual(data["sleeps"][0]["total"], timezone.timedelta(hours=7))
+        self.assertEqual(data["sleeps"][0]["count"], 4)
+
+        self.assertEqual(data["sleeps"][1]["total"], timezone.timedelta(minutes=30))
+        self.assertEqual(data["sleeps"][1]["count"], 1)
 
     def test_card_sleep_naps_day(self):
         data = cards.card_sleep_naps_day(self.context, self.child, self.date)

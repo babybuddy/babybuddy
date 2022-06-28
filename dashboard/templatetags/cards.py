@@ -221,42 +221,71 @@ def card_sleep_last(context, child):
     }
 
 
-@register.inclusion_tag("cards/sleep_day.html", takes_context=True)
-def card_sleep_day(context, child, date=None):
+@register.inclusion_tag("cards/sleep_recent.html", takes_context=True)
+def card_sleep_recent(context, child, end_date=None):
     """
-    Filters Sleep instances to get count and total values for a specific date.
+    Filters sleeping instances to get total amount for a specific date and for 7 days before
     :param child: an instance of the Child model.
-    :param date: a Date object for the day to filter.
-    :returns: a dictionary with count and total values for the Sleep instances.
+    :param end_date: a Date object for the day to filter.
+    :returns: a dict with count and total amount for the sleeping instances.
     """
-    if not date:
-        date = timezone.localtime().date()
-    instances = models.Sleep.objects.filter(child=child).filter(
-        start__year=date.year, start__month=date.month, start__day=date.day
-    ) | models.Sleep.objects.filter(child=child).filter(
-        end__year=date.year, end__month=date.month, end__day=date.day
-    )
-    empty = len(instances) == 0
+    if not end_date:
+        end_date = timezone.localtime()
 
-    total = timezone.timedelta(seconds=0)
+    # push end_date to very end of that day
+    end_date = end_date.replace(hour=23, minute=59, second=59, microsecond=9999)
+    # we need a datetime to use the range helper in the model
+    start_date = end_date - timezone.timedelta(
+        days=8
+    )  # end of the -8th day so we get the FULL 7th day
+
+    instances = models.Sleep.objects.filter(child=child).filter(
+        start__range=[start_date, end_date]
+    ) | models.Sleep.objects.filter(child=child).filter(
+        end__range=[start_date, end_date]
+    )
+
+    # prepare the result list for the last 7 days
+    dates = [end_date - timezone.timedelta(days=i) for i in range(8)]
+    results = [{"date": d, "total": timezone.timedelta(), "count": 0} for d in dates]
+
+    # do one pass over the data and add it to the appropriate day
     for instance in instances:
+        # convert to local tz and push feed_date to end so we're comparing apples to apples for the date
         start = timezone.localtime(instance.start)
         end = timezone.localtime(instance.end)
-        # Account for dates crossing midnight.
-        if start.date() != date:
-            start = start.replace(
-                year=end.year, month=end.month, day=end.day, hour=0, minute=0, second=0
-            )
+        sleep_start_date = start.replace(
+            hour=23, minute=59, second=59, microsecond=9999
+        )
+        sleep_end_date = end.replace(hour=23, minute=59, second=59, microsecond=9999)
+        start_idx = (end_date - sleep_start_date).days
+        end_idx = (end_date - sleep_end_date).days
+        # this is more complicated than feedings because we only want to capture the PORTION of sleep
+        # that is a part of this day (e.g. starts sleep at 7PM and finished at 7AM = 5 hrs yesterday 7 hrs today)
+        # (Assuming you have a unicorn sleeper. Congratulations)
+        if start_idx == end_idx:  # if we're in the same day it's simple
+            result = results[start_idx]
+            result["total"] += end - start
+            result["count"] += 1
+        else:  # otherwise we need to split the time up
+            midnight = end.replace(hour=0, minute=0, second=0)
 
-        total += end - start
+            if 0 <= start_idx < len(results):
+                result = results[start_idx]
+                # only the portion that is today
+                result["total"] += midnight - start
+                result["count"] += 1
 
-    count = len(instances)
+            if 0 <= end_idx < len(results):
+                result = results[end_idx]
+                # only the portion that is tomorrow
+                result["total"] += end - midnight
+                result["count"] += 1
 
     return {
+        "sleeps": results,
         "type": "sleep",
-        "total": total,
-        "count": count,
-        "empty": empty,
+        "empty": len(instances) == 0,
         "hide_empty": _hide_empty(context),
     }
 
