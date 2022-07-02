@@ -1,0 +1,12 @@
+{% load imagekit static %}
+
+{% if widget.wrap_label %}
+    <label{% if widget.attrs.id %}
+        for="{{ widget.attrs.id }}"{% endif %}>{% endif %}{% include "django/forms/widgets/input.html" %}
+{% if widget.wrap_label %}{% if widget.picture %}
+    {% thumbnail '40x40' widget.picture as thumb %}
+    <img src="{{ thumb.url }}" class="img-fluid rounded-circle" />
+{% else %}
+    <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}"
+         width="40" height="40" class="img-fluid rounded-circle" />
+{% endif %} {{ widget.label }}</label>{% endif %}

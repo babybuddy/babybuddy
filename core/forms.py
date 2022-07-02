@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 from taggit.forms import TagField
 
 from core import models
-from core.widgets import TagsEditor
+from core.widgets import TagsEditor, ChildRadioSelect
 
 
 def set_initial_values(kwargs, form_type):
@@ -173,6 +173,7 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
         model = models.Feeding
         fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
         widgets = {
+            "child": ChildRadioSelect,
             "start": forms.DateTimeInput(
                 attrs={
                     "autocomplete": "off",
