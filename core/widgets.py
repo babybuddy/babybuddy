@@ -1,6 +1,6 @@
-from django.forms import Media
 from typing import Any, Dict, Optional
-from django.forms import Widget
+
+from django.forms import Widget, RadioSelect
 
 from . import models
 
@@ -81,3 +81,13 @@ class TagsEditor(Widget):
             "most": [self.__unpack_tag(t) for t in most_tags],
         }
         return result
+
+
+class ChildRadioSelect(RadioSelect):
+    input_type = "radio"
+    option_template_name = "core/child_radio_option.html"
+
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+        option['picture'] = value.instance.picture
+        return option
