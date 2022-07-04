@@ -32,12 +32,7 @@
                 {% for child in object_list %}
                     <tr>
                         <td class="picture-column">
-                            {% if child.picture %}
-                                {% thumbnail '40x40' child.picture as thumb %}
-                                <img src="{{ thumb.url }}" class="img-fluid rounded-circle" />
-                            {% else %}
-                                <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" width="40" height="40" class="img-fluid rounded-circle" />
-                            {% endif %}
+                            {% include "core/child_thumbnail.html" %}
                         </td>
                         <th scope="row">
                             <a href="{% url 'core:child' child.slug %}">{{ child.first_name }}</a>
