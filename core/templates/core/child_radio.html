@@ -1,0 +1,8 @@
+{% with id=widget.attrs.id %}
+    <div{% if id %} id="{{ id }}"{% endif %} class="btn-group btn-group-toggle" data-toggle="buttons">
+        {% for group, options, index in widget.optgroups %}
+            {% for option in options %}
+                {% include option.template_name with widget=option %}
+            {% endfor %}
+        {% endfor %}
+    </div>{% endwith %}
