@@ -90,5 +90,6 @@ class ChildRadioSelect(RadioSelect):
 
     def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
         option = super().create_option(name, value, label, selected, index, subindex, attrs)
-        option['picture'] = value.instance.picture
+        if value != '':
+            option['picture'] = value.instance.picture
         return option
