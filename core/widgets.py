@@ -88,8 +88,12 @@ class ChildRadioSelect(RadioSelect):
     template_name = "core/child_radio.html"
     option_template_name = "core/child_radio_option.html"
 
-    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
-        option = super().create_option(name, value, label, selected, index, subindex, attrs)
-        if value != '':
-            option['picture'] = value.instance.picture
+    def create_option(
+        self, name, value, label, selected, index, subindex=None, attrs=None
+    ):
+        option = super().create_option(
+            name, value, label, selected, index, subindex, attrs
+        )
+        if value != "":
+            option["picture"] = value.instance.picture
         return option

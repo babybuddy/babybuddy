@@ -157,8 +157,7 @@ class PumpingForm(CoreModelForm):
 class DiaperChangeForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.DiaperChange
-        fields = ["child", "time", "wet", "solid", "color", "amount", "notes",
-                  "tags"]
+        fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect(),
             "time": forms.DateTimeInput(
@@ -174,8 +173,7 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
 class FeedingForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Feeding
-        fields = ["child", "start", "end", "type", "method", "amount", "notes",
-                  "tags"]
+        fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": forms.DateTimeInput(
@@ -205,7 +203,7 @@ class NoteForm(CoreModelForm, TaggableModelForm):
                     "autocomplete": "off",
                     "data-target": "#datetimepicker_time",
                 }
-            )
+            ),
         }
 
 
@@ -248,7 +246,6 @@ class TemperatureForm(CoreModelForm, TaggableModelForm):
 
 
 class TimerForm(CoreModelForm):
-
     class Meta:
         model = models.Timer
         fields = ["child", "name", "start"]
@@ -259,7 +256,7 @@ class TimerForm(CoreModelForm):
                     "autocomplete": "off",
                     "data-target": "#datetimepicker_start",
                 }
-            )
+            ),
         }
 
     def __init__(self, *args, **kwargs):
