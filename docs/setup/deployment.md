@@ -64,6 +64,31 @@ heroku run python manage.py migrate
 heroku run python manage.py createcachetable
 ```
 
+## Clever Cloud
+
+To deploy on [Clever Cloud](https://www.clever-cloud.com), log in to your
+[Clever Cloud console](https://console.clever-cloud.com/), create a Python
+application, link it to a PostgreSQL addon and optionally a Cellar S3 Storage
+addon (only if you want file storage for child picture in particular).
+Then make sure to set the following environment variables in your Python
+application before pushing the babybuddy source code:
+
+```shell
+CC_PYTHON_BACKEND=uwsgi
+CC_PYTHON_MANAGE_TASKS=migrate, createcachetable
+CC_PYTHON_MODULE=babybuddy.wsgi:application
+DJANGO_SETTINGS_MODULE=babybuddy.settings.clever-cloud
+SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
+TIME_ZONE=<DESIRED DEFAULT TIMEZONE>
+AWS_STORAGE_BUCKET_NAME=<DESIRED BUCKET NAME> # only if file storage is needed
+```
+
+See [Configuration](configuration.md) for other environment variables available
+for your instance of babybuddy.
+
+After that, you just have to push babybuddy code repository to the Git
+deployment URL of your Clever Cloud Python application.
+
 ## Manual
 
 There are many ways to deploy Baby Buddy manually to any server/VPS. The basic 
