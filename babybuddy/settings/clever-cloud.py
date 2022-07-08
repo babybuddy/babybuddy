@@ -11,7 +11,6 @@ if os.getenv("POSTGRESQL_ADDON_HOST"):
 
 if os.getenv("CELLAR_ADDON_HOST"):
     BABY_BUDDY["ALLOW_UPLOADS"] = True
-    AWS_S3_ENDPOINT_URL = "https://{}".format(
-        os.environ.get("CELLAR_ADDON_HOST"))
+    AWS_S3_ENDPOINT_URL = "https://{}".format(os.environ.get("CELLAR_ADDON_HOST"))
     AWS_ACCESS_KEY_ID = os.environ.get("CELLAR_ADDON_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("CELLAR_ADDON_KEY_SECRET")
