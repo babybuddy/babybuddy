@@ -5,7 +5,7 @@ url = "https://pypi.python.org/simple"
 [packages]
 boto3 = "*"
 dj-database-url = "*"
-django = "==4.*"
+django = ">=4.0.6"
 django-axes = "*"
 django-filter = "*"
 django-imagekit = "*"
@@ -22,7 +22,7 @@ python-dotenv = "*"
 pyyaml = "*"
 uritemplate = "*"
 whitenoise = "*"
-django-taggit = "==2.1.0"
+django-taggit = "*"
 
 [dev-packages]
 coveralls = "*"
