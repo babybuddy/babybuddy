@@ -2,8 +2,7 @@
 from django import template
 from django.urls import reverse
 
-from core.models import Timer
-
+from core.models import Timer, Child
 
 register = template.Library()
 
@@ -18,9 +17,22 @@ def timer_nav(context, active=True):
     """
     request = context["request"] or None
     timers = Timer.objects.filter(active=active)
+    children = Child.objects.all()
     perms = context["perms"] or None
     # The 'next' parameter is currently not used.
-    return {"timers": timers, "perms": perms, "next": request.path}
+    return {
+        "timers": timers,
+        "children": children,
+        "perms": perms,
+        "next": request.path,
+    }
+
+
+@register.inclusion_tag("core/quick_timer_nav.html", takes_context=True)
+def quick_timer_nav(context):
+    children = Child.objects.all()
+    perms = context["perms"] or None
+    return {"children": children, "perms": perms}
 
 
 @register.simple_tag(takes_context=True)

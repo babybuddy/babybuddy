@@ -26,14 +26,11 @@
             </div>
         </div>
 
+
         <div class="d-lg-none d-md-none d-flex ml-auto p-0 mr-2">
-            <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="mr-2">
-                {% csrf_token %}
-                <label class="sr-only">{% trans "Quick Start Timer" %}</label>
-                <button class="btn m-0 p-0 text-success">
-                    <i class="icon-2x icon-timer" aria-hidden="true"></i>
-                </button>
-            </form>
+
+            {% quick_timer_nav %}
+
             <div class="dropdown show">
                 <a class="text-success"
                    href="#"
@@ -138,7 +135,7 @@
                                     {% trans "Note" %}
                                 </a>
                             {% endif %}
-                             
+
                         </div>
                     </li>
 
@@ -170,7 +167,7 @@
                             {% if perms.core.view_head_circumference %}
                                 <a class="dropdown-item{% if request.path == '/head-circumference/' %} active{% endif %}"
                                    href="{% url 'core:head-circumference-list' %}">
-                                    <i class="icon-head-circumference aria-hidden="true"></i>
+                                    <i class="icon-head-circumference" aria-hidden="true"></i>
                                     {% trans "Head Circumference" %}
                                 </a>
                             {% endif %}
