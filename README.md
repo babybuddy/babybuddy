@@ -72,7 +72,7 @@ for information about how to create/update translations.
 
 :tr: Turkish
 
-## Cool Projects Using Baby Buddy
+## Baby Buddy on the Web
 
 This is a non-exhaustive list of neat projects and blog posts that either extend
 or use Baby Buddy in fun ways. If you have a project to share please open a PR
