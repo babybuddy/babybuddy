@@ -75,9 +75,14 @@ BabyBuddy.PullToRefresh = function(ptr) {
 /**
  * Fix for duplicate form submission from double pressing submit
  */
+function preventDoubleSubmit() {
+    return false;
+}
+$('form').off("submit", preventDoubleSubmit);
 $("form").on("submit", function() {
-    $(this).find("button[type='submit']").prop('disabled', true);
+    $(this).on("submit", preventDoubleSubmit);
 });
+
 /* Baby Buddy Timer
  *
  * Uses a supplied ID to run a timer. The element using the ID must have
