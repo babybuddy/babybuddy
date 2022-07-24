@@ -50,20 +50,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           REQUIREMENTS: docs/requirements.txt
-#  deploy-demo:
+#  deploy:
 #    needs: test
 #    runs-on: ubuntu-latest
 #    environment:
 #      name: demo
-#      url: https://demo.baby-buddy.net
+#      url: http://demo.baby-buddy.net
 #    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
 #    steps:
 #      - uses: actions/checkout@v3
-#      - uses: ./.github/actions/setup
-#      - name: Install Railway CLI
-#        run: npm i -g @railway/cli
 #      - name: Deploy demo
-#        run: npx railway up
-#        env:
-#          DJANGO_SETTINGS_MODULE: babybuddy.settings.railway
-#          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+#        uses: akhileshns/heroku-deploy@v3.12.12
+#        with:
+#          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+#          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+#          heroku_email: ${{ secrets.HEROKU_EMAIL }}
