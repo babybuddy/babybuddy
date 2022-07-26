@@ -1,7 +1,16 @@
 {% extends 'reports/base.html' %}
-{% load i18n static %}
+{% load breadcrumb i18n static %}
 
 {% block title %}{% trans "Reports" %} - {{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="breadcrumb-item font-weight-bold">
+        {% child_quick_switch object 'reports:report-list' %}
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Reports" %}</li>
+
+{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
