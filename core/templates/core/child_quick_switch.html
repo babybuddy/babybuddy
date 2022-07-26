@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<a href="{% url 'core:child' current_child.slug %}">{{ current_child }}</a>
+{% if children.count > 0 %}
+    <a href="#" class="ml-1 pl-1 pr-1 btn btn-xs btn-outline-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">{% trans 'Switch child' %}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <h6 class="dropdown-header">{% trans "Switch to…" %}</h6>
+        {% for child in children %}
+            <a class="dropdown-item d-flex align-items-center" href="{% url target_url child.slug %}">
+                {% include "core/child_thumbnail.html" %}
+                <span class="text-wrap ml-2">{{ child }}</span>
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}
