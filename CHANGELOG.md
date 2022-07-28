@@ -1,5 +1,21 @@
 # Changelog
 
+## [v1.12.0](https://github.com/babybuddy/babybuddy/tree/v1.12.0) (2022-07-28)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.2...v1.12.0)
+
+**Implemented enhancements:**
+
+- Improves Quick Start Timer UX in multiple children case [\#500](https://github.com/babybuddy/babybuddy/pull/500) ([jljouannic](https://github.com/jljouannic))
+- Adds settings file and documentation to deploy on clever cloud [\#495](https://github.com/babybuddy/babybuddy/pull/495) ([jljouannic](https://github.com/jljouannic))
+- Radio buttons for child selection [\#494](https://github.com/babybuddy/babybuddy/pull/494) ([jljouannic](https://github.com/jljouannic))
+
+**Closed issues:**
+
+- "Child" dropdown intermittently not accessible when used in PWA mode on iOS [\#501](https://github.com/babybuddy/babybuddy/issues/501)
+- Fix for Django Framework SQL Injection vulnerability [\#496](https://github.com/babybuddy/babybuddy/issues/496)
+- Re-enable Python cache in CI [\#256](https://github.com/babybuddy/babybuddy/issues/256)
+
 ## [v1.11.2](https://github.com/babybuddy/babybuddy/tree/v1.11.2) (2022-06-28)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.1...v1.11.2)
