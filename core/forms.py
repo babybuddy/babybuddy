@@ -210,7 +210,7 @@ class NoteForm(CoreModelForm, TaggableModelForm):
 class SleepForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Sleep
-        fields = ["child", "start", "end", "notes", "tags"]
+        fields = ["child", "start", "end", "napping", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": forms.DateTimeInput(
