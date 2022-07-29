@@ -449,7 +449,7 @@ class Sleep(models.Model):
     child = models.ForeignKey(
         "Child", on_delete=models.CASCADE, related_name="sleep", verbose_name=_("Child")
     )
-    napping = models.BooleanField(editable=True, default=False, null=True, verbose_name=_("Napping"))
+    napping = models.BooleanField(editable=True, default=False, verbose_name=_("Napping"))
     start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
     end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
     duration = models.DurationField(
@@ -472,14 +472,15 @@ class Sleep(models.Model):
 
     @property
     def nap(self):
-        nap_start_min = timezone.datetime.strptime(
-            settings.BABY_BUDDY["NAP_START_MIN"], "%H:%M"
-        ).time()
-        nap_start_max = timezone.datetime.strptime(
-            settings.BABY_BUDDY["NAP_START_MAX"], "%H:%M"
-        ).time()
-        local_start_time = timezone.localtime(self.start).time()
-        return nap_start_min <= local_start_time <= nap_start_max
+        if self.napping:
+            nap_start_min = timezone.datetime.strptime(
+                settings.BABY_BUDDY["NAP_START_MIN"], "%H:%M"
+            ).time()
+            nap_start_max = timezone.datetime.strptime(
+                settings.BABY_BUDDY["NAP_START_MAX"], "%H:%M"
+            ).time()
+            local_start_time = timezone.localtime(self.start).time()
+            return nap_start_min <= local_start_time <= nap_start_max
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
