@@ -449,7 +449,7 @@ class Sleep(models.Model):
     child = models.ForeignKey(
         "Child", on_delete=models.CASCADE, related_name="sleep", verbose_name=_("Child")
     )
-    napping = models.BooleanField(editable=False, null=True, verbose_name=_("Napping"))
+    napping = models.BooleanField(editable=True, default=False, null=True, verbose_name=_("Napping"))
     start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
     end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
     duration = models.DurationField(
