@@ -56,7 +56,7 @@ information and steps below to set up a local development environment for Baby B
     ```
     
     This process will differ based on the host OS. The above example is for
-    Linux-based systems. See [Configuration](../setup/configuration.md) for other
+    Linux-based systems. See [Configuration](../configuration/intro.md) for other
     settings and methods for defining them.
 
 1. Migrate the database

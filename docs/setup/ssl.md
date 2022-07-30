@@ -1,4 +1,4 @@
-# HTTPS/SSL configuration
+# HTTPS/SSL
 
 The example Docker and manual deployment methods do not include HTTPS/SSL by default.
 Additional tools and configuration are required to add HTTPS support.

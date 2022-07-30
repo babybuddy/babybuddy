@@ -1,4 +1,4 @@
-# Proxy configuration
+# Proxy
 
 Configuring Baby Buddy to run behind a proxy may require some additional configuration
 depending on the individual proxy configuration. Baby Buddy's environment variables for
@@ -7,7 +7,7 @@ and tweaking of settings.
 
 ## Important configuration
 
-### [`CSRF_TRUSTED_ORIGINS`](../configuration#csrf_trusted_origins)
+### [`CSRF_TRUSTED_ORIGINS`](../configuration/security.md#csrf_trusted_origins)
 
 [Cross Site Request Forgery](https://owasp.org/www-community/attacks/csrf) protection is
 an important way to prevent malicious users from sending fake requests to Baby Buddy to
@@ -33,7 +33,7 @@ Note: multiple origins can be added by separating origins with commas. E.g.:
 CSRF_TRUSTED_ORIGINS=https://baby.example.com,https://baby.example.org
 ```
 
-### [`SECURE_PROXY_SSL_HEADER`](../configuration#secure_proxy_ssl_header)
+### [`SECURE_PROXY_SSL_HEADER`](../configuration/security.md#secure_proxy_ssl_header)
 
 If Baby Buddy is configured behind a standard HTTP proxy requests will always been seen
 as insecure even if the exposed public connection uses HTTPS between the client and

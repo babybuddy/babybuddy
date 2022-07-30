@@ -244,7 +244,7 @@ function test(cb) {
             // Run isolated tests.
             config.testsConfig.isolated.forEach(function(test_name) {
                 try {
-                    es('pipenv run python manage.py test ' + test_name, {stdio: 'inherit'});
+                    es('pipenv run python manage.py test --settings=babybuddy.settings.test ' + test_name, {stdio: 'inherit'});
                 } catch (error) {
                     console.error(error);
                     cb();

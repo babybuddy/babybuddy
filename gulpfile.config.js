@@ -84,7 +84,8 @@ module.exports = {
     },
     testsConfig: {
       isolated: [
-          'babybuddy.tests.formats.tests_en_us.FormatsTestCase.test_use_24_hour_time_format'
+          'babybuddy.tests.formats.tests_en_us.FormatsTestCase.test_use_24_hour_time_format',
+          'babybuddy.tests.tests_views.ViewsTestCase.test_password_reset'
       ],
     },
     watchConfig: {

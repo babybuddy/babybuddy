@@ -233,6 +233,24 @@ if AWS_STORAGE_BUCKET_NAME:
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 
+# Email
+# https://docs.djangoproject.com/en/4.0/topics/email/
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_SUBJECT_PREFIX = "[Baby Buddy] "
+EMAIL_TIMEOUT = 30
+if os.environ.get("EMAIL_HOST"):
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = os.environ.get("EMAIL_HOST")
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER") or ""
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD") or ""
+    EMAIL_PORT = os.environ.get("EMAIL_PORT") or 25
+    EMAIL_USE_TLS = bool(strtobool(os.environ.get("EMAIL_USE_TLS") or "False"))
+    EMAIL_USE_SSL = bool(strtobool(os.environ.get("EMAIL_USE_SSL") or "False"))
+    EMAIL_SSL_KEYFILE = os.environ.get("EMAIL_SSL_KEYFILE") or None
+    EMAIL_SSL_CERTFILE = os.environ.get("EMAIL_SSL_CERTFILE") or None
+
+
 # Security
 
 # https://docs.djangoproject.com/en/4.0/ref/settings/#secure-proxy-ssl-header

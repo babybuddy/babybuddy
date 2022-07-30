@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import re
 import time
 
-from django.test import TestCase, override_settings
+from django.test import TestCase, override_settings, tag
 from django.test import Client as HttpClient
 from django.contrib.auth.models import User
+from django.core import mail
 from django.core.management import call_command
 
 from faker import Faker
@@ -23,7 +25,9 @@ class ViewsTestCase(TestCase):
             "username": fake_user["username"],
             "password": fake.password(),
         }
-        cls.user = User.objects.create_user(is_superuser=True, **cls.credentials)
+        cls.user = User.objects.create_user(
+            is_superuser=True, email="admin@admin.admin", **cls.credentials
+        )
 
         cls.c.login(**cls.credentials)
 
@@ -73,3 +77,33 @@ class ViewsTestCase(TestCase):
     def test_logout_get_fails(self):
         page = self.c.get("/logout/")
         self.assertEqual(page.status_code, 405)
+
+    @tag("isolate")
+    def test_password_reset(self):
+        """
+        Testing this class primarily ensures Baby Buddy's custom templates are correctly
+        configured for Django's password reset flow.
+        """
+        self.c.logout()
+
+        page = self.c.get("/reset/")
+        self.assertEqual(page.status_code, 200)
+
+        page = self.c.post("/reset/", data={"email": self.user.email}, follow=True)
+        self.assertEqual(page.status_code, 200)
+
+        self.assertEqual(len(mail.outbox), 1)
+
+        path = re.search(
+            "http://testserver(?P<path>[^\\s]+)", mail.outbox[0].body
+        ).group("path")
+        page = self.c.get(path, follow=True)
+        self.assertEqual(page.status_code, 200)
+
+        new_password = "xZZVN6z4TvhFg6S"
+        data = {
+            "new_password1": new_password,
+            "new_password2": new_password,
+        }
+        page = self.c.post(page.request["PATH_INFO"], data=data, follow=True)
+        self.assertEqual(page.status_code, 200)
