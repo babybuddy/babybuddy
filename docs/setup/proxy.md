@@ -1,4 +1,4 @@
-# Proxy configuration
+# Proxy
 
 Configuring Baby Buddy to run behind a proxy may require some additional configuration
 depending on the individual proxy configuration. Baby Buddy's environment variables for

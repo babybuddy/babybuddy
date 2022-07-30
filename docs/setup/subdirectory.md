@@ -1,4 +1,4 @@
-# Subdirectory configuration
+# Subdirectory
 
 Baby Buddy's default configuration assumes deployment in to the root of a web server.
 Some additional configuration is required to install Baby Buddy in a subdirectory of a
