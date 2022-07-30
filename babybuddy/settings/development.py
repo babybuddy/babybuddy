@@ -17,6 +17,11 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG") or "True"))
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 
+# Email
+# https://docs.djangoproject.com/en/4.0/topics/email/
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
 # Django Rest Framework
 # https://www.django-rest-framework.org/
 
