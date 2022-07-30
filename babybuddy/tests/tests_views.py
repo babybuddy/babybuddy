@@ -2,7 +2,7 @@
 import re
 import time
 
-from django.test import TestCase, override_settings
+from django.test import TestCase, override_settings, tag
 from django.test import Client as HttpClient
 from django.contrib.auth.models import User
 from django.core import mail
@@ -78,11 +78,14 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/logout/")
         self.assertEqual(page.status_code, 405)
 
+    @tag("isolate")
     def test_password_reset(self):
         """
         Testing this class primarily ensures Baby Buddy's custom templates are correctly
         configured for Django's password reset flow.
         """
+        self.c.logout()
+
         page = self.c.get("/reset/")
         self.assertEqual(page.status_code, 200)
 
@@ -97,9 +100,10 @@ class ViewsTestCase(TestCase):
         page = self.c.get(path, follow=True)
         self.assertEqual(page.status_code, 200)
 
+        new_password = "xZZVN6z4TvhFg6S"
         data = {
-            "new_password1": "xZZVN6z4TvhFg6S",
-            "new_password2": "xZZVN6z4TvhFg6S",
+            "new_password1": new_password,
+            "new_password2": new_password,
         }
         page = self.c.post(page.request["PATH_INFO"], data=data, follow=True)
         self.assertEqual(page.status_code, 200)
