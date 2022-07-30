@@ -237,7 +237,7 @@ if AWS_STORAGE_BUCKET_NAME:
 # https://docs.djangoproject.com/en/4.0/topics/email/
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_SUBJECT_PREFIX = '[Baby Buddy] '
+EMAIL_SUBJECT_PREFIX = "[Baby Buddy] "
 EMAIL_TIMEOUT = 30
 if os.environ.get("EMAIL_HOST"):
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
