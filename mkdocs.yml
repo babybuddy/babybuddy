@@ -8,21 +8,27 @@ markdown_extensions:
 nav:
   - 'index.md'
   - 'Setup':
-      - 'setup/deployment.md'
-      - 'setup/configuration.md'
-      - 'setup/ssl.md'
-      - 'setup/subdirectory.md'
-      - 'setup/proxy.md'
+    - 'setup/deployment.md'
+    - 'setup/ssl.md'
+    - 'setup/subdirectory.md'
+    - 'setup/proxy.md'
+  - 'Configuration':
+    - 'configuration/intro.md'
+    - 'configuration/application.md'
+    - 'configuration/database.md'
+    - 'configuration/email.md'
+    - 'configuration/security.md'
+    - 'configuration/storage.md'
   - 'User Guide':
     - 'user-guide/getting-started.md'
     - 'user-guide/managing-users.md'
     - 'user-guide/adding-entries.md'
     - 'user-guide/using-timers.md'
   - 'Contributing':
-      - 'contributing/development-environment.md'
-      - 'contributing/translation.md'
-      - 'contributing/pull-requests.md'
-      - 'contributing/gulp-command-reference.md'
+    - 'contributing/development-environment.md'
+    - 'contributing/translation.md'
+    - 'contributing/pull-requests.md'
+    - 'contributing/gulp-command-reference.md'
   - 'import-export.md'
   - 'api.md'
 theme:
