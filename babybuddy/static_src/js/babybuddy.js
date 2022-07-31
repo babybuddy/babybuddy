@@ -61,6 +61,7 @@ BabyBuddy.DatetimePicker = function (moment) {
                     locale: moment.locale(),
                 },
             };
+
             new tempusDominus.TempusDominus(element, Object.assign(defaultOptions, options));
         }
     };
