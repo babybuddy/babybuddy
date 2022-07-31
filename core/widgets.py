@@ -87,6 +87,12 @@ class ChildRadioSelect(RadioSelect):
     input_type = "radio"
     template_name = "core/child_radio.html"
     option_template_name = "core/child_radio_option.html"
+    attrs = {"class": "btn-check"}
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+        attrs["class"] += " btn-check"
+        return attrs
 
     def create_option(
         self, name, value, label, selected, index, subindex=None, attrs=None
