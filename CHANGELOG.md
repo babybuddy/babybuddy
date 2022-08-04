@@ -1,5 +1,25 @@
 # Changelog
 
+## [v1.12.1](https://github.com/babybuddy/babybuddy/tree/v1.12.1) (2022-08-03)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.0...v1.12.1)
+
+**Implemented enhancements:**
+
+- Add a way to set the SMTP configuration [\#499](https://github.com/babybuddy/babybuddy/issues/499)
+- 🚸 adds a child quick switch in breadcrumb [\#511](https://github.com/babybuddy/babybuddy/pull/511) ([jljouannic](https://github.com/jljouannic))
+- Add a way to set the SMTP configuration [\#506](https://github.com/babybuddy/babybuddy/pull/506) ([cdubz](https://github.com/cdubz))
+
+**Fixed bugs:**
+
+- Bug - DateTime fields don't load the current values when the language is Portuguese  [\#498](https://github.com/babybuddy/babybuddy/issues/498)
+- Set default date during picker initialization [\#505](https://github.com/babybuddy/babybuddy/pull/505) ([cdubz](https://github.com/cdubz))
+
+**Closed issues:**
+
+- One user does not see the "Pumping entry" menu, the other one does [\#493](https://github.com/babybuddy/babybuddy/issues/493)
+- Move demo and PR deploys to new service [\#462](https://github.com/babybuddy/babybuddy/issues/462)
+
 ## [v1.12.0](https://github.com/babybuddy/babybuddy/tree/v1.12.0) (2022-07-28)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.2...v1.12.0)
