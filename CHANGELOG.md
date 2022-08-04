@@ -1,6 +1,20 @@
 # Changelog
 
-## [v1.12.1](https://github.com/babybuddy/babybuddy/tree/v1.12.1) (2022-08-03)
+## [v1.12.2](https://github.com/babybuddy/babybuddy/tree/v1.12.2)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.1...v1.12.2)
+
+**Fixed bugs:**
+
+- Ver 1.12.1 regression - date is reversed with en\_gb locale  [\#516](https://github.com/babybuddy/babybuddy/issues/516)
+
+**Closed issues:**
+
+- Nap vs sleep [\#503](https://github.com/babybuddy/babybuddy/issues/503)
+- Possible to manually assign nap / sleep? [\#323](https://github.com/babybuddy/babybuddy/issues/323)
+- UI needs work [\#32](https://github.com/babybuddy/babybuddy/issues/32)
+
+## [v1.12.1](https://github.com/babybuddy/babybuddy/tree/v1.12.1) (2022-08-04)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.0...v1.12.1)
 
