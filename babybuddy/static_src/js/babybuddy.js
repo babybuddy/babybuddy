@@ -47,18 +47,6 @@ BabyBuddy.DatetimePicker = function ($, moment) {
                 },
                 viewMode: 'times',
             };
-
-            // Provide the initial date value from the form, if available. This is not
-            // strictly necessary but acts as a workaround for a bug with certain
-            // locales e.g., Portuguese (pt), that causes the default value to be lost
-            // in the form.
-            // @see https://github.com/tempusdominus/bootstrap-4/issues/189#issuecomment-590791416
-            var id = element.attr('id');
-            var input = element.find(`input[data-target="#${id}"]`)
-            if (input.length === 1) {
-                defaultOptions.date = input.val()
-            }
-
             element.datetimepicker($.extend(defaultOptions, options));
         }
     };
