@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-30 21:13+0000\n"
+"POT-Creation-Date: 2022-08-09 07:47+0000\n"
 "Language: zh-Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr "设置"
 #: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:89
 #: babybuddy/templates/babybuddy/user_settings_form.html:61
 #: dashboard/templates/dashboard/child.html:4
-#: dashboard/templates/dashboard/child.html:9
+#: dashboard/templates/dashboard/child.html:11
 #: dashboard/templates/dashboard/child_button_group.html:6
 #: dashboard/templates/dashboard/dashboard.html:4
 #: dashboard/templates/dashboard/dashboard.html:7
@@ -313,7 +313,7 @@ msgstr "测量"
 #: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:12
 #: core/templates/core/bmi_list.html:29 reports/graphs/bmi_change.py:19
 #: reports/graphs/bmi_change.py:30 reports/templates/reports/bmi_change.html:4
-#: reports/templates/reports/bmi_change.html:8
+#: reports/templates/reports/bmi_change.html:9
 msgid "BMI"
 msgstr "身体质量指数(BMI)"
 
@@ -332,8 +332,8 @@ msgstr "BMI记录"
 #: reports/graphs/head_circumference_change.py:19
 #: reports/graphs/head_circumference_change.py:30
 #: reports/templates/reports/head_circumference_change.html:4
-#: reports/templates/reports/head_circumference_change.html:8
-#: reports/templates/reports/report_list.html:16
+#: reports/templates/reports/head_circumference_change.html:9
+#: reports/templates/reports/report_list.html:25
 msgid "Head Circumference"
 msgstr "头围"
 
@@ -351,8 +351,8 @@ msgstr "头围记录"
 #: core/templates/core/height_list.html:29 reports/graphs/height_change.py:19
 #: reports/graphs/height_change.py:30
 #: reports/templates/reports/height_change.html:4
-#: reports/templates/reports/height_change.html:8
-#: reports/templates/reports/report_list.html:17
+#: reports/templates/reports/height_change.html:9
+#: reports/templates/reports/report_list.html:26
 msgid "Height"
 msgstr "身高"
 
@@ -384,9 +384,9 @@ msgstr "体温读数"
 #: core/templates/core/weight_list.html:12
 #: core/templates/core/weight_list.html:29 reports/graphs/weight_change.py:19
 #: reports/graphs/weight_change.py:30
-#: reports/templates/reports/report_list.html:22
+#: reports/templates/reports/report_list.html:31
 #: reports/templates/reports/weight_change.html:4
-#: reports/templates/reports/weight_change.html:8
+#: reports/templates/reports/weight_change.html:9
 msgid "Weight"
 msgstr "体重"
 
@@ -425,7 +425,7 @@ msgstr "喂食"
 #: core/templates/core/pumping_list.html:7
 #: core/templates/core/pumping_list.html:12
 #: reports/templates/reports/pumping_amounts.html:4
-#: reports/templates/reports/pumping_amounts.html:8
+#: reports/templates/reports/pumping_amounts.html:9
 msgid "Pumping"
 msgstr "吸奶"
 
@@ -857,19 +857,19 @@ msgstr ""
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
-msgstr ""
+msgstr "你收到这封邮件是因为你在网站 %(site_name)s 请求为你的账户重置密码。"
 
 #: babybuddy/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "请转到下面的网页来重置密码："
 
 #: babybuddy/templates/registration/password_reset_email.html:8
 msgid "Your username, in case you’ve forgotten:"
-msgstr ""
+msgstr "以防你已忘记，你的用户名是："
 
 #: babybuddy/templates/registration/password_reset_email.html:10
 msgid "Thanks for using Baby Buddy!"
-msgstr ""
+msgstr "感谢使用 Baby Buddy！"
 
 #: babybuddy/templates/registration/password_reset_form.html:4
 msgid "Forgot Password"
@@ -1156,8 +1156,6 @@ msgid "Add BMI"
 msgstr "新增BMI记录"
 
 #: core/templates/core/bmi_list.html:70
-#, fuzzy
-#| msgid "No bmi entries found."
 msgid "No BMI entries found."
 msgstr "未找到BMI记录。"
 
@@ -1169,12 +1167,12 @@ msgstr "删除宝宝信息"
 msgid "To confirm this action. Type the full name of the child below."
 msgstr "确认这一行为，请在下面键入孩子的全名。"
 
-#: core/templates/core/child_detail.html:23
+#: core/templates/core/child_detail.html:25
 #: dashboard/templates/dashboard/dashboard.html:32
 msgid "Born"
 msgstr "生日"
 
-#: core/templates/core/child_detail.html:24
+#: core/templates/core/child_detail.html:26
 #: dashboard/templates/dashboard/dashboard.html:33
 msgid "Age"
 msgstr "年龄"
@@ -1190,6 +1188,14 @@ msgstr "出生日期"
 #: core/templates/core/child_list.html:62
 msgid "No children found."
 msgstr "未找到宝宝。"
+
+#: core/templates/core/child_quick_switch.html:6
+msgid "Switch child"
+msgstr "切换宝宝"
+
+#: core/templates/core/child_quick_switch.html:13
+msgid "Switch to…"
+msgstr "切换到…"
 
 #: core/templates/core/diaperchange_confirm_delete.html:4
 msgid "Delete a Diaper Change"
@@ -1331,10 +1337,8 @@ msgstr "快速开始计时"
 
 #: core/templates/core/quick_timer_nav.html:19
 #: core/templates/core/timer_nav.html:28
-#, fuzzy
-#| msgid "Quick Start Timer"
 msgid "Quick Start Timer For…"
-msgstr "快速开始计时"
+msgstr "为…快速开始计时"
 
 #: core/templates/core/sleep_confirm_delete.html:4
 msgid "Delete a Sleep Entry"
@@ -1791,18 +1795,14 @@ msgid_plural "%(count)s naps"
 msgstr[0] "%(count)s 小睡"
 
 #: dashboard/templates/cards/sleep_recent.html:6
-#, fuzzy
-#| msgid "Last Sleep"
 msgid "Recent Sleep"
-msgstr "上一次睡眠"
+msgstr "最近的睡眠"
 
 #: dashboard/templates/cards/sleep_recent.html:25
-#, fuzzy, python-format
-#| msgid "%(counter)s feeding"
-#| msgid_plural "%(counter)s feedings"
+#, python-format
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleep"
-msgstr[0] "%(counter)s 次喂食"
+msgstr[0] "%(counter)s 次睡眠"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1849,8 +1849,9 @@ msgid "Child actions"
 msgstr "宝宝行动"
 
 #: dashboard/templates/dashboard/child_button_group.html:12
-#: reports/templates/reports/base.html:9
+#: reports/templates/reports/breadcrumb_common_chunk.html:6
 #: reports/templates/reports/report_list.html:4
+#: reports/templates/reports/report_list.html:11
 msgid "Reports"
 msgstr "报告"
 
@@ -2032,30 +2033,30 @@ msgid "<b>Weight</b>"
 msgstr "<b>体重</b>"
 
 #: reports/templates/reports/diaperchange_amounts.html:4
-#: reports/templates/reports/diaperchange_amounts.html:8
+#: reports/templates/reports/diaperchange_amounts.html:9
 msgid "Diaper Amounts"
 msgstr "换尿布数量"
 
 #: reports/templates/reports/diaperchange_lifetimes.html:4
-#: reports/templates/reports/diaperchange_lifetimes.html:8
-#: reports/templates/reports/report_list.html:13
+#: reports/templates/reports/diaperchange_lifetimes.html:9
+#: reports/templates/reports/report_list.html:22
 msgid "Diaper Lifetimes"
 msgstr "换尿布时间间隔"
 
 #: reports/templates/reports/diaperchange_types.html:4
-#: reports/templates/reports/diaperchange_types.html:8
-#: reports/templates/reports/report_list.html:12
+#: reports/templates/reports/diaperchange_types.html:9
+#: reports/templates/reports/report_list.html:21
 msgid "Diaper Change Types"
 msgstr "换尿布类型"
 
 #: reports/templates/reports/feeding_amounts.html:4
-#: reports/templates/reports/feeding_amounts.html:8
-#: reports/templates/reports/report_list.html:14
+#: reports/templates/reports/feeding_amounts.html:9
+#: reports/templates/reports/report_list.html:23
 msgid "Feeding Amounts"
 msgstr "喂食量"
 
 #: reports/templates/reports/feeding_duration.html:4
-#: reports/templates/reports/feeding_duration.html:8
+#: reports/templates/reports/feeding_duration.html:9
 msgid "Average Feeding Durations"
 msgstr "平均喂食持续时间"
 
@@ -2063,46 +2064,45 @@ msgstr "平均喂食持续时间"
 msgid "There is not enough data to generate this report."
 msgstr "没有足够的数据来生成这个报告。"
 
-#: reports/templates/reports/report_list.html:10
+#: reports/templates/reports/report_list.html:19
 msgid "Body Mass Index (BMI)"
 msgstr "身体质量指数 (BMI)"
 
-#: reports/templates/reports/report_list.html:11
+#: reports/templates/reports/report_list.html:20
 msgid "Diaper Change Amounts"
 msgstr "换尿布数量"
 
-#: reports/templates/reports/report_list.html:15
+#: reports/templates/reports/report_list.html:24
 msgid "Feeding Durations (Average)"
 msgstr "喂食时间（平均）"
 
-#: reports/templates/reports/report_list.html:18
+#: reports/templates/reports/report_list.html:27
 msgid "Pumping Amounts"
 msgstr "吸奶量"
 
-#: reports/templates/reports/report_list.html:19
+#: reports/templates/reports/report_list.html:28
 #: reports/templates/reports/sleep_pattern.html:4
-#: reports/templates/reports/sleep_pattern.html:8
+#: reports/templates/reports/sleep_pattern.html:9
 msgid "Sleep Pattern"
 msgstr "睡眠类型"
 
-#: reports/templates/reports/report_list.html:20
+#: reports/templates/reports/report_list.html:29
 #: reports/templates/reports/sleep_totals.html:4
-#: reports/templates/reports/sleep_totals.html:8
+#: reports/templates/reports/sleep_totals.html:9
 msgid "Sleep Totals"
 msgstr "睡眠统计"
 
-#: reports/templates/reports/report_list.html:21
+#: reports/templates/reports/report_list.html:30
 msgid "Tummy Time Durations (Sum)"
 msgstr "趴玩时光持续时间（合计）"
 
 #: reports/templates/reports/tummytime_duration.html:4
-#: reports/templates/reports/tummytime_duration.html:8
+#: reports/templates/reports/tummytime_duration.html:9
 msgid "Total Tummy Time Durations"
 msgstr "趴玩时光持续时间合计"
 
 #~ msgid "Today's Sleep"
 #~ msgstr "今天的睡觉"
 
-#, python-format
 #~ msgid "%(count)s sleep entries"
 #~ msgstr "%(count)s 条睡眠记录"
