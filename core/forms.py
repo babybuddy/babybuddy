@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 from taggit.forms import TagField
 
 from core import models
-from core.widgets import TagsEditor, ChildRadioSelect, DateTimeInput
+from core.widgets import TagsEditor, ChildRadioSelect, DateInput, DateTimeInput
 
 
 def set_initial_values(kwargs, form_type):
@@ -97,7 +97,7 @@ class ChildForm(forms.ModelForm):
         if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
             fields.append("picture")
         widgets = {
-            "birth_date": DateTimeInput(),
+            "birth_date": DateInput(),
         }
 
 
@@ -237,7 +237,7 @@ class WeightForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "weight", "date", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "date": DateTimeInput(),
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -248,7 +248,7 @@ class HeightForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "height", "date", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "date": DateTimeInput(),
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -259,7 +259,7 @@ class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "head_circumference", "date", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "date": DateTimeInput(),
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -270,7 +270,7 @@ class BMIForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "bmi", "date", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "date": DateTimeInput(),
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 

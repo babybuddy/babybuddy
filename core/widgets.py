@@ -1,13 +1,12 @@
 import datetime
 from typing import Any, Dict, Optional
 
-from django.forms import Widget, RadioSelect, DateTimeInput as DateTimeInputBase
-from django.utils import timezone
+from django.forms import RadioSelect, widgets
 
 from . import models
 
 
-class TagsEditor(Widget):
+class TagsEditor(widgets.Widget):
     """
     Custom widget that provides an alternative editor for tags provided by the
     taggit library.
@@ -107,10 +106,16 @@ class ChildRadioSelect(RadioSelect):
         return option
 
 
-class DateTimeInput(DateTimeInputBase):
-    input_type = "datetime-local"
-
+class DateTimeBaseInput(widgets.DateTimeBaseInput):
     def format_value(self, value):
         if isinstance(value, datetime.datetime):
             value = value.isoformat()
         return value
+
+
+class DateTimeInput(DateTimeBaseInput):
+    input_type = "datetime-local"
+
+
+class DateInput(DateTimeBaseInput):
+    input_type = "date"
