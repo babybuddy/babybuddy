@@ -1,3 +1,4 @@
+import datetime
 from typing import Any, Dict, Optional
 
 from django.forms import Widget, RadioSelect, DateTimeInput as DateTimeInputBase
@@ -110,4 +111,6 @@ class DateTimeInput(DateTimeInputBase):
     input_type = "datetime-local"
 
     def format_value(self, value):
-        return value.isoformat()
+        if isinstance(value, datetime.datetime):
+            value = value.isoformat()
+        return value
