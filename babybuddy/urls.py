@@ -35,6 +35,7 @@ app_patterns = [
         name="password_reset_complete",
     ),
     path("", views.RootRouter.as_view(), name="root-router"),
+    path("settings/", views.SiteSettingsUpdate.as_view(), name="site-settings-update"),
     path("welcome/", views.Welcome.as_view(), name="welcome"),
     path("users/", views.UserList.as_view(), name="user-list"),
     path("users/add/", views.UserAdd.as_view(), name="user-add"),

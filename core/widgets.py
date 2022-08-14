@@ -119,3 +119,7 @@ class DateTimeInput(DateTimeBaseInput):
 
 class DateInput(DateTimeBaseInput):
     input_type = "date"
+
+
+class TimeInput(DateTimeBaseInput):
+    input_type = "time"

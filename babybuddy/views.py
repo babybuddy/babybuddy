@@ -37,6 +37,7 @@ from django_filters.views import FilterView
 
 from babybuddy import forms
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin, StaffOnlyMixin
+from babybuddy.models import SiteSettings
 
 
 def csrf_failure(request, reason=""):
@@ -93,6 +94,17 @@ class BabyBuddyFilterView(FilterView):
 @method_decorator(require_POST, name="dispatch")
 class LogoutView(LogoutViewBase):
     pass
+
+
+class SiteSettingsUpdate(StaffOnlyMixin, SuccessMessageMixin, UpdateView):
+    model = SiteSettings
+    template_name = "babybuddy/site_settings_form.html"
+    form_class = forms.SiteSettingsForm
+    success_url = reverse_lazy("babybuddy:site-settings-update")
+    success_message = gettext_lazy("Site settings updated.")
+
+    def get_object(self, queryset=None):
+        return SiteSettings.objects.get_or_create(pk=1)[0]
 
 
 class UserList(StaffOnlyMixin, BabyBuddyFilterView):

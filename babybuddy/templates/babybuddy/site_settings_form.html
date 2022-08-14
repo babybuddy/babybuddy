@@ -1,0 +1,14 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Site Settings" %}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">{% trans "Site" %}</li>
+    <li class="breadcrumb-item active">{% trans "Settings" %}</li>
+{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Site Settings" %}</h1>
+    {% include 'babybuddy/form.html' %}
+{% endblock %}
