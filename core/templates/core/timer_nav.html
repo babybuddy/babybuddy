@@ -49,7 +49,7 @@
         {% endif %}
         {% if timers %}
             <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">{% trans "Active Timers" %}</h6>
+            <h6 class="dropdown-header">{% trans "Timers" %}</h6>
             {% for timer in timers %}
                 <a class="dropdown-item" href="{% url 'core:timer-detail' timer.id %}">
                     {{ timer.title_with_child }}

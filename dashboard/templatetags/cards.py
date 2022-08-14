@@ -707,10 +707,10 @@ def card_timer_list(context, child=None):
     if child:
         # Get active instances for the selected child _or_ None (no child).
         instances = models.Timer.objects.filter(
-            Q(active=True), Q(child=child) | Q(child=None)
+            Q(child=child) | Q(child=None)
         ).order_by("-start")
     else:
-        instances = models.Timer.objects.filter(active=True).order_by("-start")
+        instances = models.Timer.objects.order_by("-start")
     empty = len(instances) == 0
 
     return {

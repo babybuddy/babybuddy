@@ -323,7 +323,7 @@ class TemplateTagsTestCase(TestCase):
 
         data = cards.card_timer_list(self.context)
         self.assertIsInstance(data["instances"][0], models.Timer)
-        self.assertEqual(len(data["instances"]), 3)
+        self.assertEqual(len(data["instances"]), 4)
 
         data = cards.card_timer_list(self.context, child)
         self.assertIsInstance(data["instances"][0], models.Timer)

@@ -93,13 +93,7 @@ BabyBuddy.Timer = function ($) {
                     timerElement.find('.timer-minutes').text(parseInt(duration[1]));
                     timerElement.find('.timer-seconds').text(parseInt(duration[2]));
                     lastUpdate = new Date()
-
-                    if (data['active']) {
-                        runIntervalId = setInterval(Timer.tick, 1000);
-                    }
-                    else {
-                        timerElement.addClass('timer-stopped');
-                    }
+                    runIntervalId = setInterval(Timer.tick, 1000);
                 }
             });
         }

@@ -270,11 +270,9 @@ class TimerTestCase(TestCase):
         )
         self.user = get_user_model().objects.first()
         self.named = models.Timer.objects.create(
-            name="Named", end=timezone.localtime(), user=self.user, child=child
+            name="Named", user=self.user, child=child
         )
-        self.unnamed = models.Timer.objects.create(
-            end=timezone.localtime(), user=self.user
-        )
+        self.unnamed = models.Timer.objects.create(user=self.user)
 
     def test_timer_create(self):
         self.assertEqual(self.named, models.Timer.objects.get(name="Named"))
@@ -302,19 +300,7 @@ class TimerTestCase(TestCase):
 
     def test_timer_restart(self):
         self.named.restart()
-        self.assertIsNone(self.named.end)
-        self.assertIsNone(self.named.duration)
-        self.assertTrue(self.named.active)
-
-    def test_timer_stop(self):
-        stop_time = timezone.localtime()
-        self.unnamed.stop(end=stop_time)
-        self.assertEqual(self.unnamed.end, stop_time)
-        self.assertEqual(
-            self.unnamed.duration.seconds,
-            (self.unnamed.end - self.unnamed.start).seconds,
-        )
-        self.assertFalse(self.unnamed.active)
+        self.assertGreaterEqual(timezone.localtime(), self.named.start)
 
     def test_timer_duration(self):
         timer = models.Timer.objects.create(user=get_user_model().objects.first())
@@ -322,9 +308,9 @@ class TimerTestCase(TestCase):
         timer.save()
         timer.refresh_from_db()
 
-        self.assertEqual(timer.duration.seconds, timezone.timedelta(minutes=30).seconds)
-        timer.stop()
-        self.assertEqual(timer.duration.seconds, timezone.timedelta(minutes=30).seconds)
+        self.assertEqual(
+            timer.duration().seconds, timezone.timedelta(minutes=30).seconds
+        )
 
 
 class TummyTimeTestCase(TestCase):

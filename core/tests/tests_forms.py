@@ -122,27 +122,23 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertEqual(page.context["form"].initial["type"], f_three.type)
         self.assertEqual(page.context["form"].initial["method"], f_three.method)
 
-    def test_timer_set(self):
+    def test_timer_form_field_set(self):
         self.timer.stop()
 
         page = self.c.get("/sleep/add/")
         self.assertTrue("start" not in page.context["form"].initial)
         self.assertTrue("end" not in page.context["form"].initial)
 
-        page = self.c.get("/sleep/add/?timer={}".format(self.timer.id))
-        self.assertEqual(page.context["form"].initial["start"], self.timer.start)
-        self.assertEqual(page.context["form"].initial["end"], self.timer.end)
-
     def test_timer_stop_on_save(self):
-        end = timezone.localtime()
+        timer = models.Timer.objects.create(
+            user=self.user, start=timezone.localtime() - timezone.timedelta(minutes=30)
+        )
         params = {
             "child": self.child.id,
             "start": self.localtime_string(self.timer.start),
-            "end": self.localtime_string(end),
+            "end": self.localtime_string(),
         }
-        page = self.c.post(
-            "/sleep/add/?timer={}".format(self.timer.id), params, follow=True
-        )
+        page = self.c.post("/sleep/add/?timer={}".format(timer.id), params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.timer.refresh_from_db()
         self.assertFalse(self.timer.active)

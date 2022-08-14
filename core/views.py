@@ -404,7 +404,7 @@ class TimerList(PermissionRequiredMixin, BabyBuddyFilterView):
     template_name = "core/timer_list.html"
     permission_required = ("core.view_timer",)
     paginate_by = 10
-    filterset_fields = ("active", "user")
+    filterset_fields = ("user",)
 
 
 class TimerDetail(PermissionRequiredMixin, DetailView):
@@ -477,53 +477,10 @@ class TimerRestart(PermissionRequiredMixin, RedirectView):
         return reverse("core:timer-detail", kwargs={"pk": kwargs["pk"]})
 
 
-class TimerStop(PermissionRequiredMixin, SuccessMessageMixin, RedirectView):
-    http_method_names = ["post"]
-    permission_required = ("core.change_timer",)
-    success_message = _("%(timer)s stopped.")
-
-    def post(self, request, *args, **kwargs):
-        instance = models.Timer.objects.get(id=kwargs["pk"])
-        instance.stop()
-        messages.success(request, "{} stopped.".format(instance))
-        return super(TimerStop, self).get(request, *args, **kwargs)
-
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse("core:timer-detail", kwargs={"pk": kwargs["pk"]})
-
-
 class TimerDelete(CoreDeleteView):
     model = models.Timer
     permission_required = ("core.delete_timer",)
     success_url = reverse_lazy("core:timer-list")
-
-
-class TimerDeleteInactive(PermissionRequiredMixin, SuccessMessageMixin, FormView):
-    permission_required = ("core.delete_timer",)
-    form_class = Form
-    template_name = "core/timer_confirm_delete_inactive.html"
-    success_url = reverse_lazy("core:timer-list")
-    success_message = _("All inactive timers deleted.")
-
-    def get_context_data(self, **kwargs):
-        kwargs = super().get_context_data(**kwargs)
-        kwargs["timer_count"] = self.get_instances().count()
-        return kwargs
-
-    def get(self, request, *args, **kwargs):
-        # Redirect back to list if there are no inactive timers.
-        if self.get_instances().count() == 0:
-            messages.warning(request, _("No inactive timers exist."))
-            return HttpResponseRedirect(self.success_url)
-        return super().get(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        self.get_instances().delete()
-        return super().form_valid(form)
-
-    @staticmethod
-    def get_instances():
-        return models.Timer.objects.filter(active=False)
 
 
 class TummyTimeList(PermissionRequiredMixin, BabyBuddyFilterView):

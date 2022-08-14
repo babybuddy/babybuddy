@@ -8,15 +8,14 @@ register = template.Library()
 
 
 @register.inclusion_tag("core/timer_nav.html", takes_context=True)
-def timer_nav(context, active=True):
+def timer_nav(context):
     """
-    Get a list of active Timer instances to include in the nav menu.
+    Get a list of Timer instances to include in the nav menu.
     :param context: Django's context data.
-    :param active: the state of Timers to filter.
     :returns: a dictionary with timers data.
     """
     request = context["request"] or None
-    timers = Timer.objects.filter(active=active)
+    timers = Timer.objects.filter()
     children = Child.objects.all()
     perms = context["perms"] or None
     # The 'next' parameter is currently not used.

@@ -13,7 +13,7 @@
     <div class="p-5 mb-4 bg-dark rounded-3 text-center">
         <div class="container-fluid py-1">
             <h1 id="timer-status"
-                class="display-1 {% if not object.active %} timer-stopped{% endif %}">
+                class="display-1">
                 <span class="timer-hours">{{ object.duration|hours }}</span>h
                 <span class="timer-minutes">{{ object.duration|minutes }}</span>m
                 <span class="timer-seconds">{{ object.duration|seconds }}</span>s
@@ -27,9 +27,6 @@
 
             <p class="lead text-secondary">
                 {% trans "Started" %} {{ object.start }}
-                {% if not object.active %}
-                    / {% trans "Stopped" %} {{ object.end }}
-                {% endif %}
             </p>
             <p class="text-muted">
                 {% blocktrans trimmed with user=object.user_username %}
@@ -80,14 +77,6 @@
                         <label class="visually-hidden">{% trans "Restart timer" %}</label>
                         <button type="submit" class="btn btn-lg btn-secondary"><i class="icon-refresh" aria-hidden="true"></i></button>
                     </form>
-
-                    {% if object.active %}
-                        <form action="{% url 'core:timer-stop' timer.id %}" role="form" method="post" class="d-inline">
-                            {% csrf_token %}
-                            <label class="visually-hidden">{% trans "Delete timer" %}</label>
-                            <button type="submit" class="btn btn-lg btn-warning"><i class="icon-stop" aria-hidden="true"></i></button>
-                        </form>
-                    {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -95,9 +84,7 @@
 {% endblock %}
 
 {% block javascript %}
-    {% if object.active %}
-        <script type="application/javascript">
-            BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');
-        </script>
-    {% endif %}
+    <script type="application/javascript">
+        BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');
+    </script>
 {% endblock %}

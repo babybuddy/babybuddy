@@ -44,7 +44,7 @@ def set_initial_values(kwargs, form_type):
     if timer_id:
         timer = models.Timer.objects.get(id=timer_id)
         kwargs["initial"].update(
-            {"timer": timer, "start": timer.start, "end": timer.end or timezone.now()}
+            {"timer": timer, "start": timer.start, "end": timezone.now()}
         )
 
     # Set type and method values for Feeding instance based on last feed.
@@ -83,7 +83,7 @@ class CoreModelForm(forms.ModelForm):
         instance = super(CoreModelForm, self).save(commit=False)
         if self.timer_id:
             timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop(instance.end)
+            timer.stop()
         if commit:
             instance.save()
             self.save_m2m()

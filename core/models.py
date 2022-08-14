@@ -559,12 +559,6 @@ class Timer(models.Model):
     start = models.DateTimeField(
         default=timezone.now, blank=False, verbose_name=_("Start time")
     )
-    end = models.DateTimeField(
-        blank=True, editable=False, null=True, verbose_name=_("End time")
-    )
-    duration = models.DurationField(
-        editable=False, null=True, verbose_name=_("Duration")
-    )
     active = models.BooleanField(default=True, editable=False, verbose_name=_("Active"))
     user = models.ForeignKey(
         "auth.User",
@@ -577,7 +571,7 @@ class Timer(models.Model):
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-active", "-start", "-end"]
+        ordering = ["-start"]
         verbose_name = _("Timer")
         verbose_name_plural = _("Timers")
 
@@ -600,42 +594,24 @@ class Timer(models.Model):
             return self.user.get_full_name()
         return self.user.get_username()
 
-    @classmethod
-    def from_db(cls, db, field_names, values):
-        instance = super(Timer, cls).from_db(db, field_names, values)
-        if not instance.duration:
-            instance.duration = timezone.now() - instance.start
-        return instance
+    def duration(self):
+        return timezone.now() - self.start
 
     def restart(self):
         """Restart the timer."""
         self.start = timezone.now()
-        self.end = None
-        self.duration = None
-        self.active = True
         self.save()
 
-    def stop(self, end=None):
-        """Stop the timer."""
-        if not end:
-            end = timezone.now()
-        self.end = end
-        self.save()
+    def stop(self):
+        """Stop (delete) the timer."""
+        self.delete()
 
     def save(self, *args, **kwargs):
-        self.active = self.end is None
         self.name = self.name or None
-        if self.start and self.end:
-            self.duration = self.end - self.start
-        else:
-            self.duration = None
         super(Timer, self).save(*args, **kwargs)
 
     def clean(self):
         validate_time(self.start, "start")
-        if self.end:
-            validate_time(self.end, "end")
-        validate_duration(self)
 
 
 class TummyTime(models.Model):

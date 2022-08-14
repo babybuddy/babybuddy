@@ -222,9 +222,7 @@ Note the timer `id` in the response:
     "child": 1,
     "name": null,
     "start": "2022-05-28T19:59:40.013914Z",
-    "end": null,
     "duration": null,
-    "active": true,
     "user": 1
 }
 ```
@@ -252,25 +250,7 @@ Note that `child` and `start` match the timer values (and `end` is auto-populate
 }
 ```
 
-Also note that the timer has been stopped:
-
-```shell
-curl --location --request GET '[...]/api/timers/5' \
---header 'Authorization: Token [...]'
-```
-
-```json
-{
-    "id": 5,
-    "child": 1,
-    "name": null,
-    "start": "2022-05-28T19:59:40.013914Z",
-    "end": "2022-05-28T20:01:13.549099Z",
-    "duration": "00:01:33.535185",
-    "active": false,
-    "user": 1
-}
-```
+Also note that the timer has been deleted.
 
 ### Response
 
