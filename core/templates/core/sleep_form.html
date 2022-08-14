@@ -28,10 +28,3 @@
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}
-
-{% block javascript %}
-    <script type="text/javascript">
-        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_start'));
-        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_end'));
-    </script>
-{% endblock %}

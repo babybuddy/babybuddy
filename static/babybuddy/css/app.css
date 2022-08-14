@@ -2784,12 +2784,12 @@ textarea.form-control-lg {
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .tempus-dominus-widget .date-container-days .btn.range-start, .tempus-dominus-widget .date-container-days .btn.range-end, .tempus-dominus-widget .date-container-days .btn.range-in, .btn.show {
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
   color: var(--bs-btn-active-color);
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
-.btn-check:checked + .btn:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .btn:first-child:active:focus-visible, .btn.active:focus-visible, .tempus-dominus-widget .date-container-days .btn.range-start:focus-visible, .tempus-dominus-widget .date-container-days .btn.range-end:focus-visible, .tempus-dominus-widget .date-container-days .btn.range-in:focus-visible, .btn.show:focus-visible {
+.btn-check:checked + .btn:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .btn:first-child:active:focus-visible, .btn.active:focus-visible, .btn.show:focus-visible {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
 .btn:disabled, .btn.disabled, fieldset:disabled .btn {
@@ -3415,7 +3415,7 @@ textarea.form-control-lg {
   color: var(--bs-dropdown-link-hover-color);
   background-color: var(--bs-dropdown-link-hover-bg);
 }
-.dropdown-item.active, .tempus-dominus-widget .date-container-days .dropdown-item.range-start, .tempus-dominus-widget .date-container-days .dropdown-item.range-end, .tempus-dominus-widget .date-container-days .dropdown-item.range-in, .dropdown-item:active {
+.dropdown-item.active, .dropdown-item:active {
   color: var(--bs-dropdown-link-active-color);
   text-decoration: none;
   background-color: var(--bs-dropdown-link-active-bg);
@@ -3477,18 +3477,12 @@ textarea.form-control-lg {
 .btn-group > .btn:focus,
 .btn-group > .btn:active,
 .btn-group > .btn.active,
-.tempus-dominus-widget .date-container-days .btn-group > .btn.range-start,
-.tempus-dominus-widget .date-container-days .btn-group > .btn.range-end,
-.tempus-dominus-widget .date-container-days .btn-group > .btn.range-in,
 .btn-group-vertical > .btn-check:checked + .btn,
 .btn-group-vertical > .btn-check:focus + .btn,
 .btn-group-vertical > .btn:hover,
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > .btn:active,
-.btn-group-vertical > .btn.active,
-.tempus-dominus-widget .date-container-days .btn-group-vertical > .btn.range-start,
-.tempus-dominus-widget .date-container-days .btn-group-vertical > .btn.range-end,
-.tempus-dominus-widget .date-container-days .btn-group-vertical > .btn.range-in {
+.btn-group-vertical > .btn.active {
   z-index: 1;
 }
 
@@ -3628,7 +3622,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border-color: transparent;
 }
-.nav-tabs .nav-link.active, .nav-tabs .tempus-dominus-widget .date-container-days .nav-link.range-start, .tempus-dominus-widget .date-container-days .nav-tabs .nav-link.range-start, .nav-tabs .tempus-dominus-widget .date-container-days .nav-link.range-end, .tempus-dominus-widget .date-container-days .nav-tabs .nav-link.range-end, .nav-tabs .tempus-dominus-widget .date-container-days .nav-link.range-in, .tempus-dominus-widget .date-container-days .nav-tabs .nav-link.range-in,
+.nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: var(--bs-nav-tabs-link-active-color);
   background-color: var(--bs-nav-tabs-link-active-bg);
@@ -3655,7 +3649,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border-color: transparent;
 }
-.nav-pills .nav-link.active, .nav-pills .tempus-dominus-widget .date-container-days .nav-link.range-start, .tempus-dominus-widget .date-container-days .nav-pills .nav-link.range-start, .nav-pills .tempus-dominus-widget .date-container-days .nav-link.range-end, .tempus-dominus-widget .date-container-days .nav-pills .nav-link.range-end, .nav-pills .tempus-dominus-widget .date-container-days .nav-link.range-in, .tempus-dominus-widget .date-container-days .nav-pills .nav-link.range-in,
+.nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: var(--bs-nav-pills-link-active-color);
   background-color: var(--bs-nav-pills-link-active-bg);
@@ -3682,7 +3676,7 @@ textarea.form-control-lg {
 .tab-content > .tab-pane {
   display: none;
 }
-.tab-content > .active, .tempus-dominus-widget .date-container-days .tab-content > .range-start, .tempus-dominus-widget .date-container-days .tab-content > .range-end, .tempus-dominus-widget .date-container-days .tab-content > .range-in {
+.tab-content > .active {
   display: block;
 }
 
@@ -3752,13 +3746,7 @@ textarea.form-control-lg {
   list-style: none;
 }
 .navbar-nav .show > .nav-link,
-.navbar-nav .nav-link.active,
-.navbar-nav .tempus-dominus-widget .date-container-days .nav-link.range-start,
-.tempus-dominus-widget .date-container-days .navbar-nav .nav-link.range-start,
-.navbar-nav .tempus-dominus-widget .date-container-days .nav-link.range-end,
-.tempus-dominus-widget .date-container-days .navbar-nav .nav-link.range-end,
-.navbar-nav .tempus-dominus-widget .date-container-days .nav-link.range-in,
-.tempus-dominus-widget .date-container-days .navbar-nav .nav-link.range-in {
+.navbar-nav .nav-link.active {
   color: var(--bs-navbar-active-color);
 }
 .navbar-nav .dropdown-menu {
@@ -4216,7 +4204,7 @@ textarea.form-control-lg {
   margin-left: calc(-0.5 * var(--bs-card-cap-padding-x));
   border-bottom: 0;
 }
-.card-header-tabs .nav-link.active, .card-header-tabs .tempus-dominus-widget .date-container-days .nav-link.range-start, .tempus-dominus-widget .date-container-days .card-header-tabs .nav-link.range-start, .card-header-tabs .tempus-dominus-widget .date-container-days .nav-link.range-end, .tempus-dominus-widget .date-container-days .card-header-tabs .nav-link.range-end, .card-header-tabs .tempus-dominus-widget .date-container-days .nav-link.range-in, .tempus-dominus-widget .date-container-days .card-header-tabs .nav-link.range-in {
+.card-header-tabs .nav-link.active {
   background-color: var(--bs-card-bg);
   border-bottom-color: var(--bs-card-bg);
 }
@@ -4459,7 +4447,7 @@ textarea.form-control-lg {
   color: var(--bs-breadcrumb-divider-color);
   content: var(--bs-breadcrumb-divider, "/") /* rtl: var(--bs-breadcrumb-divider, "/") */;
 }
-.breadcrumb-item.active, .tempus-dominus-widget .date-container-days .breadcrumb-item.range-start, .tempus-dominus-widget .date-container-days .breadcrumb-item.range-end, .tempus-dominus-widget .date-container-days .breadcrumb-item.range-in {
+.breadcrumb-item.active {
   color: var(--bs-breadcrumb-item-active-color);
 }
 
@@ -4517,7 +4505,7 @@ textarea.form-control-lg {
   outline: 0;
   box-shadow: var(--bs-pagination-focus-box-shadow);
 }
-.page-link.active, .tempus-dominus-widget .date-container-days .page-link.range-start, .tempus-dominus-widget .date-container-days .page-link.range-end, .tempus-dominus-widget .date-container-days .page-link.range-in, .active > .page-link, .tempus-dominus-widget .date-container-days .range-start > .page-link, .tempus-dominus-widget .date-container-days .range-end > .page-link, .tempus-dominus-widget .date-container-days .range-in > .page-link {
+.page-link.active, .active > .page-link {
   z-index: 3;
   color: var(--bs-pagination-active-color);
   background-color: var(--bs-pagination-active-bg);
@@ -4816,7 +4804,7 @@ textarea.form-control-lg {
   pointer-events: none;
   background-color: var(--bs-list-group-disabled-bg);
 }
-.list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-item.range-in {
+.list-group-item.active {
   z-index: 2;
   color: var(--bs-list-group-active-color);
   background-color: var(--bs-list-group-active-bg);
@@ -4825,7 +4813,7 @@ textarea.form-control-lg {
 .list-group-item + .list-group-item {
   border-top-width: 0;
 }
-.list-group-item + .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-item + .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-item + .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-item + .list-group-item.range-in {
+.list-group-item + .list-group-item.active {
   margin-top: calc(-1 * var(--bs-list-group-border-width));
   border-top-width: var(--bs-list-group-border-width);
 }
@@ -4841,14 +4829,14 @@ textarea.form-control-lg {
   border-top-right-radius: var(--bs-list-group-border-radius);
   border-bottom-left-radius: 0;
 }
-.list-group-horizontal > .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal > .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal > .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal > .list-group-item.range-in {
+.list-group-horizontal > .list-group-item.active {
   margin-top: 0;
 }
 .list-group-horizontal > .list-group-item + .list-group-item {
   border-top-width: var(--bs-list-group-border-width);
   border-left-width: 0;
 }
-.list-group-horizontal > .list-group-item + .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal > .list-group-item + .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal > .list-group-item + .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal > .list-group-item + .list-group-item.range-in {
+.list-group-horizontal > .list-group-item + .list-group-item.active {
   margin-left: calc(-1 * var(--bs-list-group-border-width));
   border-left-width: var(--bs-list-group-border-width);
 }
@@ -4865,14 +4853,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-sm > .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-sm > .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-sm > .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-sm > .list-group-item.range-in {
+  .list-group-horizontal-sm > .list-group-item.active {
     margin-top: 0;
   }
   .list-group-horizontal-sm > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-sm > .list-group-item + .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-sm > .list-group-item + .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-sm > .list-group-item + .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-sm > .list-group-item + .list-group-item.range-in {
+  .list-group-horizontal-sm > .list-group-item + .list-group-item.active {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4889,14 +4877,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-md > .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-md > .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-md > .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-md > .list-group-item.range-in {
+  .list-group-horizontal-md > .list-group-item.active {
     margin-top: 0;
   }
   .list-group-horizontal-md > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-md > .list-group-item + .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-md > .list-group-item + .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-md > .list-group-item + .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-md > .list-group-item + .list-group-item.range-in {
+  .list-group-horizontal-md > .list-group-item + .list-group-item.active {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4913,14 +4901,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-lg > .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-lg > .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-lg > .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-lg > .list-group-item.range-in {
+  .list-group-horizontal-lg > .list-group-item.active {
     margin-top: 0;
   }
   .list-group-horizontal-lg > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-lg > .list-group-item + .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-lg > .list-group-item + .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-lg > .list-group-item + .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-lg > .list-group-item + .list-group-item.range-in {
+  .list-group-horizontal-lg > .list-group-item + .list-group-item.active {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4937,14 +4925,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-xl > .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-xl > .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-xl > .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-xl > .list-group-item.range-in {
+  .list-group-horizontal-xl > .list-group-item.active {
     margin-top: 0;
   }
   .list-group-horizontal-xl > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-xl > .list-group-item + .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-xl > .list-group-item + .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-xl > .list-group-item + .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-xl > .list-group-item + .list-group-item.range-in {
+  .list-group-horizontal-xl > .list-group-item + .list-group-item.active {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4961,14 +4949,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-xxl > .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-xxl > .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-xxl > .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-xxl > .list-group-item.range-in {
+  .list-group-horizontal-xxl > .list-group-item.active {
     margin-top: 0;
   }
   .list-group-horizontal-xxl > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-xxl > .list-group-item + .list-group-item.active, .tempus-dominus-widget .date-container-days .list-group-horizontal-xxl > .list-group-item + .list-group-item.range-start, .tempus-dominus-widget .date-container-days .list-group-horizontal-xxl > .list-group-item + .list-group-item.range-end, .tempus-dominus-widget .date-container-days .list-group-horizontal-xxl > .list-group-item + .list-group-item.range-in {
+  .list-group-horizontal-xxl > .list-group-item + .list-group-item.active {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4991,7 +4979,7 @@ textarea.form-control-lg {
   color: #21678c;
   background-color: #c2d6e2;
 }
-.list-group-item-primary.list-group-item-action.active, .tempus-dominus-widget .date-container-days .list-group-item-primary.list-group-item-action.range-start, .tempus-dominus-widget .date-container-days .list-group-item-primary.list-group-item-action.range-end, .tempus-dominus-widget .date-container-days .list-group-item-primary.list-group-item-action.range-in {
+.list-group-item-primary.list-group-item-action.active {
   color: #fff;
   background-color: #21678c;
   border-color: #21678c;
@@ -5005,7 +4993,7 @@ textarea.form-control-lg {
   color: #995600;
   background-color: #e6d2b8;
 }
-.list-group-item-secondary.list-group-item-action.active, .tempus-dominus-widget .date-container-days .list-group-item-secondary.list-group-item-action.range-start, .tempus-dominus-widget .date-container-days .list-group-item-secondary.list-group-item-action.range-end, .tempus-dominus-widget .date-container-days .list-group-item-secondary.list-group-item-action.range-in {
+.list-group-item-secondary.list-group-item-action.active {
   color: #fff;
   background-color: #995600;
   border-color: #995600;
@@ -5019,7 +5007,7 @@ textarea.form-control-lg {
   color: #155934;
   background-color: #bed3c7;
 }
-.list-group-item-success.list-group-item-action.active, .tempus-dominus-widget .date-container-days .list-group-item-success.list-group-item-action.range-start, .tempus-dominus-widget .date-container-days .list-group-item-success.list-group-item-action.range-end, .tempus-dominus-widget .date-container-days .list-group-item-success.list-group-item-action.range-in {
+.list-group-item-success.list-group-item-action.active {
   color: #fff;
   background-color: #155934;
   border-color: #155934;
@@ -5033,7 +5021,7 @@ textarea.form-control-lg {
   color: #297685;
   background-color: #c4dbdf;
 }
-.list-group-item-info.list-group-item-action.active, .tempus-dominus-widget .date-container-days .list-group-item-info.list-group-item-action.range-start, .tempus-dominus-widget .date-container-days .list-group-item-info.list-group-item-action.range-end, .tempus-dominus-widget .date-container-days .list-group-item-info.list-group-item-action.range-in {
+.list-group-item-info.list-group-item-action.active {
   color: #fff;
   background-color: #297685;
   border-color: #297685;
@@ -5047,7 +5035,7 @@ textarea.form-control-lg {
   color: #664c1a;
   background-color: #e6dac3;
 }
-.list-group-item-warning.list-group-item-action.active, .tempus-dominus-widget .date-container-days .list-group-item-warning.list-group-item-action.range-start, .tempus-dominus-widget .date-container-days .list-group-item-warning.list-group-item-action.range-end, .tempus-dominus-widget .date-container-days .list-group-item-warning.list-group-item-action.range-in {
+.list-group-item-warning.list-group-item-action.active {
   color: #fff;
   background-color: #664c1a;
   border-color: #664c1a;
@@ -5061,7 +5049,7 @@ textarea.form-control-lg {
   color: #64161d;
   background-color: #d5bec1;
 }
-.list-group-item-danger.list-group-item-action.active, .tempus-dominus-widget .date-container-days .list-group-item-danger.list-group-item-action.range-start, .tempus-dominus-widget .date-container-days .list-group-item-danger.list-group-item-action.range-end, .tempus-dominus-widget .date-container-days .list-group-item-danger.list-group-item-action.range-in {
+.list-group-item-danger.list-group-item-action.active {
   color: #fff;
   background-color: #64161d;
   border-color: #64161d;
@@ -5075,7 +5063,7 @@ textarea.form-control-lg {
   color: #636464;
   background-color: #e5e5e5;
 }
-.list-group-item-light.list-group-item-action.active, .tempus-dominus-widget .date-container-days .list-group-item-light.list-group-item-action.range-start, .tempus-dominus-widget .date-container-days .list-group-item-light.list-group-item-action.range-end, .tempus-dominus-widget .date-container-days .list-group-item-light.list-group-item-action.range-in {
+.list-group-item-light.list-group-item-action.active {
   color: #fff;
   background-color: #636464;
   border-color: #636464;
@@ -5089,7 +5077,7 @@ textarea.form-control-lg {
   color: #1f2326;
   background-color: #c1c2c3;
 }
-.list-group-item-dark.list-group-item-action.active, .tempus-dominus-widget .date-container-days .list-group-item-dark.list-group-item-action.range-start, .tempus-dominus-widget .date-container-days .list-group-item-dark.list-group-item-action.range-end, .tempus-dominus-widget .date-container-days .list-group-item-dark.list-group-item-action.range-in {
+.list-group-item-dark.list-group-item-action.active {
   color: #fff;
   background-color: #1f2326;
   border-color: #1f2326;
@@ -5778,25 +5766,19 @@ textarea.form-control-lg {
   }
 }
 
-.carousel-item.active, .tempus-dominus-widget .date-container-days .carousel-item.range-start, .tempus-dominus-widget .date-container-days .carousel-item.range-end, .tempus-dominus-widget .date-container-days .carousel-item.range-in,
+.carousel-item.active,
 .carousel-item-next,
 .carousel-item-prev {
   display: block;
 }
 
 .carousel-item-next:not(.carousel-item-start),
-.active.carousel-item-end,
-.tempus-dominus-widget .date-container-days .carousel-item-end.range-start,
-.tempus-dominus-widget .date-container-days .carousel-item-end.range-end,
-.tempus-dominus-widget .date-container-days .carousel-item-end.range-in {
+.active.carousel-item-end {
   transform: translateX(100%);
 }
 
 .carousel-item-prev:not(.carousel-item-end),
-.active.carousel-item-start,
-.tempus-dominus-widget .date-container-days .carousel-item-start.range-start,
-.tempus-dominus-widget .date-container-days .carousel-item-start.range-end,
-.tempus-dominus-widget .date-container-days .carousel-item-start.range-in {
+.active.carousel-item-start {
   transform: translateX(-100%);
 }
 
@@ -5805,33 +5787,21 @@ textarea.form-control-lg {
   transition-property: opacity;
   transform: none;
 }
-.carousel-fade .carousel-item.active, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item.range-start, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item.range-start, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item.range-end, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item.range-end, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item.range-in, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item.range-in,
+.carousel-fade .carousel-item.active,
 .carousel-fade .carousel-item-next.carousel-item-start,
 .carousel-fade .carousel-item-prev.carousel-item-end {
   z-index: 1;
   opacity: 1;
 }
-.carousel-fade .active.carousel-item-start, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-start.range-start, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-start.range-start, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-start.range-end, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-start.range-end, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-start.range-in, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-start.range-in,
-.carousel-fade .active.carousel-item-end,
-.carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-end.range-start,
-.tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-end.range-start,
-.carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-end.range-end,
-.tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-end.range-end,
-.carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-end.range-in,
-.tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-end.range-in {
+.carousel-fade .active.carousel-item-start,
+.carousel-fade .active.carousel-item-end {
   z-index: 0;
   opacity: 0;
   transition: opacity 0s 0.6s;
 }
 @media (prefers-reduced-motion: reduce) {
-  .carousel-fade .active.carousel-item-start, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-start.range-start, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-start.range-start, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-start.range-end, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-start.range-end, .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-start.range-in, .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-start.range-in,
-  .carousel-fade .active.carousel-item-end,
-  .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-end.range-start,
-  .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-end.range-start,
-  .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-end.range-end,
-  .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-end.range-end,
-  .carousel-fade .tempus-dominus-widget .date-container-days .carousel-item-end.range-in,
-  .tempus-dominus-widget .date-container-days .carousel-fade .carousel-item-end.range-in {
+  .carousel-fade .active.carousel-item-start,
+  .carousel-fade .active.carousel-item-end {
     transition: none;
   }
 }
@@ -5940,7 +5910,7 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-.carousel-indicators .active, .carousel-indicators .tempus-dominus-widget .date-container-days .range-start, .tempus-dominus-widget .date-container-days .carousel-indicators .range-start, .carousel-indicators .tempus-dominus-widget .date-container-days .range-end, .tempus-dominus-widget .date-container-days .carousel-indicators .range-end, .carousel-indicators .tempus-dominus-widget .date-container-days .range-in, .tempus-dominus-widget .date-container-days .carousel-indicators .range-in {
+.carousel-indicators .active {
   opacity: 1;
 }
 
@@ -6860,7 +6830,7 @@ textarea.form-control-lg {
   align-self: stretch;
 }
 
-.visually-hidden, .tempus-dominus-widget [data-action]::after,
+.visually-hidden,
 .visually-hidden-focusable:not(:focus):not(:focus-within) {
   position: absolute !important;
   width: 1px !important;
@@ -10793,706 +10763,6 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.visually-hidden, .tempus-dominus-widget [data-action]::after {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-.tempus-dominus-widget {
-  list-style: none;
-  padding: 4px;
-  width: 19rem;
-  border-radius: 4px;
-  display: none;
-  z-index: 9999;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
-}
-.tempus-dominus-widget.calendarWeeks {
-  width: 21rem;
-}
-.tempus-dominus-widget.calendarWeeks .date-container-days {
-  grid-auto-columns: 12.5%;
-  grid-template-areas: "a a a a a a a a";
-}
-.tempus-dominus-widget [data-action] {
-  cursor: pointer;
-}
-.tempus-dominus-widget [data-action]::after {
-  content: attr(title);
-}
-.tempus-dominus-widget [data-action].disabled, .tempus-dominus-widget [data-action].disabled:hover {
-  background: none;
-  cursor: not-allowed;
-}
-.tempus-dominus-widget .arrow {
-  display: none;
-}
-.tempus-dominus-widget.show {
-  display: block;
-}
-.tempus-dominus-widget.show.date-container {
-  min-height: 315px;
-}
-.tempus-dominus-widget.show.time-container {
-  min-height: 217px;
-}
-.tempus-dominus-widget .td-collapse:not(.show) {
-  display: none;
-}
-.tempus-dominus-widget .td-collapsing {
-  height: 0;
-  overflow: hidden;
-  transition: height 0.35s ease;
-}
-@media (min-width: 576px) {
-  .tempus-dominus-widget.timepicker-sbs {
-    width: 38em;
-  }
-}
-@media (min-width: 768px) {
-  .tempus-dominus-widget.timepicker-sbs {
-    width: 38em;
-  }
-}
-@media (min-width: 992px) {
-  .tempus-dominus-widget.timepicker-sbs {
-    width: 38em;
-  }
-}
-.tempus-dominus-widget.timepicker-sbs .td-row {
-  display: flex;
-}
-.tempus-dominus-widget.timepicker-sbs .td-row .td-half {
-  flex: 0 0 auto;
-  width: 50%;
-}
-.tempus-dominus-widget div[data-action]:active {
-  box-shadow: none;
-}
-.tempus-dominus-widget .timepicker-hour,
-.tempus-dominus-widget .timepicker-minute,
-.tempus-dominus-widget .timepicker-second {
-  width: 54px;
-  font-weight: bold;
-  font-size: 1.2em;
-  margin: 0;
-}
-.tempus-dominus-widget button[data-action] {
-  padding: 6px;
-}
-.tempus-dominus-widget .toggleMeridiem {
-  text-align: center;
-  height: 38px;
-}
-.tempus-dominus-widget .calendar-header {
-  display: grid;
-  grid-template-areas: "a a a";
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.tempus-dominus-widget .calendar-header .next {
-  text-align: right;
-  padding-right: 10px;
-}
-.tempus-dominus-widget .calendar-header .previous {
-  text-align: left;
-  padding-left: 10px;
-}
-.tempus-dominus-widget .calendar-header .picker-switch {
-  text-align: center;
-}
-.tempus-dominus-widget .toolbar {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-rows: 40px;
-}
-.tempus-dominus-widget .toolbar div {
-  border-radius: 999px;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  display: flex;
-}
-.tempus-dominus-widget .date-container-days {
-  display: grid;
-  grid-template-areas: "a a a a a a a";
-  grid-auto-rows: 40px;
-  grid-auto-columns: 14.2857142857%;
-}
-.tempus-dominus-widget .date-container-days .range-in {
-  background-color: #01419e !important;
-  border: none;
-  border-radius: 0 !important;
-  box-shadow: -5px 0 0 #01419e, 5px 0 0 #01419e;
-}
-.tempus-dominus-widget .date-container-days .range-end {
-  border-radius: 0 50px 50px 0 !important;
-}
-.tempus-dominus-widget .date-container-days .range-start {
-  border-radius: 50px 0 0 50px !important;
-}
-.tempus-dominus-widget .date-container-days .dow {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.tempus-dominus-widget .date-container-days .cw {
-  width: 90%;
-  height: 90%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  font-size: 0.8em;
-  line-height: 20px;
-  cursor: default;
-}
-.tempus-dominus-widget .date-container-decades,
-.tempus-dominus-widget .date-container-years,
-.tempus-dominus-widget .date-container-months {
-  display: grid;
-  grid-template-areas: "a a a";
-  grid-auto-rows: calc((19rem - 8px) / 7);
-}
-.tempus-dominus-widget .time-container-hour,
-.tempus-dominus-widget .time-container-minute,
-.tempus-dominus-widget .time-container-second {
-  display: grid;
-  grid-template-areas: "a a a a";
-  grid-auto-rows: calc((19rem - 8px) / 7);
-}
-.tempus-dominus-widget .time-container-clock {
-  display: grid;
-  grid-auto-rows: calc((19rem - 8px) / 7);
-}
-.tempus-dominus-widget .time-container-clock .no-highlight {
-  width: 90%;
-  height: 90%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-.tempus-dominus-widget .date-container-decades div:not(.no-highlight),
-.tempus-dominus-widget .date-container-years div:not(.no-highlight),
-.tempus-dominus-widget .date-container-months div:not(.no-highlight),
-.tempus-dominus-widget .date-container-days div:not(.no-highlight),
-.tempus-dominus-widget .time-container-clock div:not(.no-highlight),
-.tempus-dominus-widget .time-container-hour div:not(.no-highlight),
-.tempus-dominus-widget .time-container-minute div:not(.no-highlight),
-.tempus-dominus-widget .time-container-second div:not(.no-highlight) {
-  width: 90%;
-  height: 90%;
-  border-radius: 999px;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  display: flex;
-}
-.tempus-dominus-widget .date-container-decades div:not(.no-highlight).disabled, .tempus-dominus-widget .date-container-decades div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget .date-container-years div:not(.no-highlight).disabled,
-.tempus-dominus-widget .date-container-years div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget .date-container-months div:not(.no-highlight).disabled,
-.tempus-dominus-widget .date-container-months div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget .date-container-days div:not(.no-highlight).disabled,
-.tempus-dominus-widget .date-container-days div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget .time-container-clock div:not(.no-highlight).disabled,
-.tempus-dominus-widget .time-container-clock div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget .time-container-hour div:not(.no-highlight).disabled,
-.tempus-dominus-widget .time-container-hour div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget .time-container-minute div:not(.no-highlight).disabled,
-.tempus-dominus-widget .time-container-minute div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget .time-container-second div:not(.no-highlight).disabled,
-.tempus-dominus-widget .time-container-second div:not(.no-highlight).disabled:hover {
-  background: none;
-  cursor: not-allowed;
-}
-.tempus-dominus-widget .date-container-decades div:not(.no-highlight).today,
-.tempus-dominus-widget .date-container-years div:not(.no-highlight).today,
-.tempus-dominus-widget .date-container-months div:not(.no-highlight).today,
-.tempus-dominus-widget .date-container-days div:not(.no-highlight).today,
-.tempus-dominus-widget .time-container-clock div:not(.no-highlight).today,
-.tempus-dominus-widget .time-container-hour div:not(.no-highlight).today,
-.tempus-dominus-widget .time-container-minute div:not(.no-highlight).today,
-.tempus-dominus-widget .time-container-second div:not(.no-highlight).today {
-  position: relative;
-}
-.tempus-dominus-widget .date-container-decades div:not(.no-highlight).today:before,
-.tempus-dominus-widget .date-container-years div:not(.no-highlight).today:before,
-.tempus-dominus-widget .date-container-months div:not(.no-highlight).today:before,
-.tempus-dominus-widget .date-container-days div:not(.no-highlight).today:before,
-.tempus-dominus-widget .time-container-clock div:not(.no-highlight).today:before,
-.tempus-dominus-widget .time-container-hour div:not(.no-highlight).today:before,
-.tempus-dominus-widget .time-container-minute div:not(.no-highlight).today:before,
-.tempus-dominus-widget .time-container-second div:not(.no-highlight).today:before {
-  content: "";
-  display: inline-block;
-  border: solid transparent;
-  border-width: 0 0 7px 7px;
-  position: absolute;
-  bottom: 6px;
-  right: 6px;
-}
-.tempus-dominus-widget .time-container {
-  margin-bottom: 0.5rem;
-}
-.tempus-dominus-widget button {
-  display: inline-block;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: center;
-  text-decoration: none;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td.day,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td.hour,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td.minute,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td.second,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=incrementHours],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=incrementMinutes],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=incrementSeconds],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=decrementHours],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=decrementMinutes],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=decrementSeconds],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=showHours],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=showMinutes],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=showSeconds],
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=togglePeriod] {
-  pointer-events: none;
-  cursor: default;
-}
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td.day:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td.hour:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td.minute:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td.second:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=incrementHours]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=incrementMinutes]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=incrementSeconds]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=decrementHours]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=decrementMinutes]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=decrementSeconds]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=showHours]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=showMinutes]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=showSeconds]:hover,
-.tempus-dominus-widget.tempus-dominus-widget-readonly table td [data-action=togglePeriod]:hover {
-  background: none;
-}
-.tempus-dominus-widget.light {
-  color: #000;
-  background-color: #fff;
-}
-.tempus-dominus-widget.light [data-action].disabled, .tempus-dominus-widget.light [data-action].disabled:hover {
-  color: #6c757d;
-}
-.tempus-dominus-widget.light .toolbar div:hover {
-  background: #e9ecef;
-}
-.tempus-dominus-widget.light .date-container-days .dow {
-  color: rgba(0, 0, 0, 0.5);
-}
-.tempus-dominus-widget.light .date-container-days .cw {
-  color: rgba(0, 0, 0, 0.38);
-}
-.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight):hover,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight):hover,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight):hover,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight):hover,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight):hover,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight):hover,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight):hover,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight):hover {
-  background: #e9ecef;
-}
-.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).active,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).active,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).active,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).active,
-.tempus-dominus-widget.light .date-container-days div.range-in:not(.no-highlight),
-.tempus-dominus-widget.light .date-container-days div.range-end:not(.no-highlight),
-.tempus-dominus-widget.light .date-container-days div.range-start:not(.no-highlight),
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).active,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).active,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).active,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).active {
-  background-color: #0d6efd;
-  color: #fff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).active.old, .tempus-dominus-widget.light .date-container-decades .date-container-days div.range-in:not(.no-highlight).old, .tempus-dominus-widget.light .date-container-days .date-container-decades div.range-in:not(.no-highlight).old, .tempus-dominus-widget.light .date-container-decades .date-container-days div.range-end:not(.no-highlight).old, .tempus-dominus-widget.light .date-container-days .date-container-decades div.range-end:not(.no-highlight).old, .tempus-dominus-widget.light .date-container-decades .date-container-days div.range-start:not(.no-highlight).old, .tempus-dominus-widget.light .date-container-days .date-container-decades div.range-start:not(.no-highlight).old, .tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).active.new, .tempus-dominus-widget.light .date-container-decades .date-container-days div.range-in:not(.no-highlight).new, .tempus-dominus-widget.light .date-container-days .date-container-decades div.range-in:not(.no-highlight).new, .tempus-dominus-widget.light .date-container-decades .date-container-days div.range-end:not(.no-highlight).new, .tempus-dominus-widget.light .date-container-days .date-container-decades div.range-end:not(.no-highlight).new, .tempus-dominus-widget.light .date-container-decades .date-container-days div.range-start:not(.no-highlight).new, .tempus-dominus-widget.light .date-container-days .date-container-decades div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).active.old,
-.tempus-dominus-widget.light .date-container-years .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .date-container-years div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-years .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .date-container-years div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-years .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .date-container-years div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).active.new,
-.tempus-dominus-widget.light .date-container-years .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .date-container-years div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-years .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .date-container-years div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-years .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .date-container-years div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).active.old,
-.tempus-dominus-widget.light .date-container-months .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .date-container-months div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-months .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .date-container-months div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-months .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .date-container-months div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).active.new,
-.tempus-dominus-widget.light .date-container-months .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .date-container-months div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-months .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .date-container-months div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-months .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .date-container-months div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).active.old,
-.tempus-dominus-widget.light .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).active.new,
-.tempus-dominus-widget.light .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).active.old,
-.tempus-dominus-widget.light .time-container-clock .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-clock div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-clock .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-clock div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-clock .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-clock div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).active.new,
-.tempus-dominus-widget.light .time-container-clock .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-clock div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-clock .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-clock div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-clock .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-clock div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).active.old,
-.tempus-dominus-widget.light .time-container-hour .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-hour div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-hour .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-hour div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-hour .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-hour div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).active.new,
-.tempus-dominus-widget.light .time-container-hour .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-hour div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-hour .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-hour div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-hour .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-hour div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).active.old,
-.tempus-dominus-widget.light .time-container-minute .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-minute div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-minute .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-minute div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-minute .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-minute div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).active.new,
-.tempus-dominus-widget.light .time-container-minute .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-minute div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-minute .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-minute div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-minute .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-minute div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).active.old,
-.tempus-dominus-widget.light .time-container-second .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-second div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-second .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-second div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-second .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days .time-container-second div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).active.new,
-.tempus-dominus-widget.light .time-container-second .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-second div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-second .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-second div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-second .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days .time-container-second div.range-start:not(.no-highlight).new {
-  color: #fff;
-}
-.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.light .date-container-days div.range-in:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .date-container-days div.range-end:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .date-container-days div.range-start:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).active.today:before {
-  border-bottom-color: #fff;
-}
-.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).old, .tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).new,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).old,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).new,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).old,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).new {
-  color: rgba(0, 0, 0, 0.38);
-}
-.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).disabled, .tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).disabled,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).disabled,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).disabled,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).disabled,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).disabled,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).disabled,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).disabled,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).disabled:hover {
-  color: #6c757d;
-}
-.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).today:before,
-.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).today:before {
-  border-bottom-color: #0d6efd;
-  border-top-color: rgba(0, 0, 0, 0.2);
-}
-.tempus-dominus-widget.light button {
-  color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-.tempus-dominus-widget.dark {
-  color: #e3e3e3;
-  background-color: #1b1b1b;
-}
-.tempus-dominus-widget.dark [data-action].disabled, .tempus-dominus-widget.dark [data-action].disabled:hover {
-  color: #6c757d;
-}
-.tempus-dominus-widget.dark .toolbar div:hover {
-  background: rgb(35, 38, 39);
-}
-.tempus-dominus-widget.dark .date-container-days .dow {
-  color: rgba(232, 230, 227, 0.5);
-}
-.tempus-dominus-widget.dark .date-container-days .range-in {
-  background-color: #0071c7 !important;
-  box-shadow: -5px 0 0 #0071c7, 5px 0 0 #0071c7;
-}
-.tempus-dominus-widget.dark .date-container-days .cw {
-  color: rgba(232, 230, 227, 0.38);
-}
-.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight):hover,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight):hover,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight):hover,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight):hover,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight):hover,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight):hover,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight):hover,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight):hover {
-  background: rgb(35, 38, 39);
-}
-.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).active,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).active,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).active,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).active,
-.tempus-dominus-widget.dark .date-container-days div.range-in:not(.no-highlight),
-.tempus-dominus-widget.dark .date-container-days div.range-end:not(.no-highlight),
-.tempus-dominus-widget.dark .date-container-days div.range-start:not(.no-highlight),
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).active,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).active,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).active,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).active {
-  background-color: #4db2ff;
-  color: #fff;
-  text-shadow: 0 -1px 0 rgba(232, 230, 227, 0.25);
-}
-.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).active.old, .tempus-dominus-widget.dark .date-container-decades .date-container-days div.range-in:not(.no-highlight).old, .tempus-dominus-widget.dark .date-container-days .date-container-decades div.range-in:not(.no-highlight).old, .tempus-dominus-widget.dark .date-container-decades .date-container-days div.range-end:not(.no-highlight).old, .tempus-dominus-widget.dark .date-container-days .date-container-decades div.range-end:not(.no-highlight).old, .tempus-dominus-widget.dark .date-container-decades .date-container-days div.range-start:not(.no-highlight).old, .tempus-dominus-widget.dark .date-container-days .date-container-decades div.range-start:not(.no-highlight).old, .tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).active.new, .tempus-dominus-widget.dark .date-container-decades .date-container-days div.range-in:not(.no-highlight).new, .tempus-dominus-widget.dark .date-container-days .date-container-decades div.range-in:not(.no-highlight).new, .tempus-dominus-widget.dark .date-container-decades .date-container-days div.range-end:not(.no-highlight).new, .tempus-dominus-widget.dark .date-container-days .date-container-decades div.range-end:not(.no-highlight).new, .tempus-dominus-widget.dark .date-container-decades .date-container-days div.range-start:not(.no-highlight).new, .tempus-dominus-widget.dark .date-container-days .date-container-decades div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).active.old,
-.tempus-dominus-widget.dark .date-container-years .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .date-container-years div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-years .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .date-container-years div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-years .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .date-container-years div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).active.new,
-.tempus-dominus-widget.dark .date-container-years .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .date-container-years div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-years .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .date-container-years div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-years .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .date-container-years div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).active.old,
-.tempus-dominus-widget.dark .date-container-months .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .date-container-months div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-months .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .date-container-months div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-months .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .date-container-months div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).active.new,
-.tempus-dominus-widget.dark .date-container-months .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .date-container-months div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-months .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .date-container-months div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-months .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .date-container-months div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).active.old,
-.tempus-dominus-widget.dark .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).active.new,
-.tempus-dominus-widget.dark .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).active.old,
-.tempus-dominus-widget.dark .time-container-clock .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-clock div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-clock .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-clock div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-clock .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-clock div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).active.new,
-.tempus-dominus-widget.dark .time-container-clock .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-clock div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-clock .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-clock div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-clock .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-clock div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).active.old,
-.tempus-dominus-widget.dark .time-container-hour .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-hour div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-hour .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-hour div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-hour .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-hour div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).active.new,
-.tempus-dominus-widget.dark .time-container-hour .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-hour div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-hour .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-hour div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-hour .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-hour div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).active.old,
-.tempus-dominus-widget.dark .time-container-minute .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-minute div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-minute .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-minute div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-minute .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-minute div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).active.new,
-.tempus-dominus-widget.dark .time-container-minute .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-minute div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-minute .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-minute div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-minute .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-minute div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).active.old,
-.tempus-dominus-widget.dark .time-container-second .date-container-days div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-second div.range-in:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-second .date-container-days div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-second div.range-end:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-second .date-container-days div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days .time-container-second div.range-start:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).active.new,
-.tempus-dominus-widget.dark .time-container-second .date-container-days div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-second div.range-in:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-second .date-container-days div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-second div.range-end:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-second .date-container-days div.range-start:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days .time-container-second div.range-start:not(.no-highlight).new {
-  color: #fff;
-}
-.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.dark .date-container-days div.range-in:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .date-container-days div.range-end:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .date-container-days div.range-start:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).active.today:before,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).active.today:before {
-  border-bottom-color: #1b1b1b;
-}
-.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).old, .tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).new,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).old,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).new,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).old,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).new {
-  color: rgba(232, 230, 227, 0.38);
-}
-.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).disabled, .tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).disabled,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).disabled,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).disabled,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).disabled,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).disabled,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).disabled,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).disabled:hover,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).disabled,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).disabled:hover {
-  color: #6c757d;
-}
-.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).today:before,
-.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).today:before {
-  border-bottom-color: #4db2ff;
-  border-top-color: rgba(232, 230, 227, 0.2);
-}
-.tempus-dominus-widget.dark button {
-  color: #fff;
-  background-color: #4db2ff;
-  border-color: #4db2ff;
-}
-
 .invalid-feedback {
   display: block;
 }
@@ -11505,26 +10775,6 @@ textarea.form-control-lg {
 
 .boolean-label {
   pointer-events: none;
-}
-
-.bootstrap-datetimepicker-widget {
-  color: #ced4da;
-  z-index: 1050;
-}
-
-.input-group.datetimepicker .input-group-text {
-  background: none;
-  border: 0;
-  color: #37abe9;
-  padding-left: 0;
-  padding-right: 0;
-}
-.input-group.datetimepicker .datetimepicker-input[readonly] {
-  background: none;
-  border: 0;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
 }
 
 .submit-primary {

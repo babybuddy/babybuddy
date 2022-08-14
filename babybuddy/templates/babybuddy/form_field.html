@@ -14,20 +14,6 @@
             <label for="id_{{ field.name }}" class="btn btn-outline-light btn-no-hover{% if field.value %} active{% endif %}">
                 {{ field.label }}
             </label>
-        {% elif field|field_type == "datetimefield" or field|field_type == "datefield" %}
-             <div class="input-group input-group-lg datetimepicker"
-                  id="datetimepicker_{{ field.name }}"
-                  data-td-target-input="nearest"
-                  data-td-target-toggle="nearest">
-                    <span class="input-group-text px-2 rounded-start bg-dark"
-                       data-td-target="#datetimepicker_{{ field.name }}"
-                       data-td-toggle="datetimepicker"><i class="icon-calendar"></i></span>
-                 {% if field.errors %}
-                    {{ field|add_class:"datetimepicker-input form-control form-control-lg is-invalid" }}
-                {% else %}
-                    {{ field|add_class:"datetimepicker-input form-control form-control-lg" }}
-                {% endif %}
-             </div>
         {% elif 'choice' in field|field_type %}
             {% if field.errors %}
                 {{ field|add_class:"form-select is-invalid" }}

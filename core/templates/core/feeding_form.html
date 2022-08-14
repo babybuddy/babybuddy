@@ -28,22 +28,3 @@
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}
-
-{% block javascript %}
-    <script type="text/javascript">
-        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_start'));
-        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_end'));
-        $('#id_type').change(function() {
-            var feed_type=$('#id_type').val();
-            if (feed_type === 'formula' || feed_type === 'fortified breast milk') {
-                $('#id_method').val('bottle');
-            }
-        });
-        $('#id_method').change(function() {
-            var method = $('#id_method').val();
-            if (['left breast', 'right breast', 'both breasts'].includes(method)) {
-                $('#id_type').val('breast milk');
-            }
-        });
-    </script>
-{% endblock %}

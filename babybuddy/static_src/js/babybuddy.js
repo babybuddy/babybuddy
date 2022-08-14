@@ -1,9 +1,6 @@
 if (typeof jQuery === 'undefined') {
   throw new Error('Baby Buddy requires jQuery.')
 }
-if (typeof moment === 'undefined') {
-  throw new Error('Baby Buddy requires moment.js.')
-}
 
 /**
  * Baby Buddy Namespace
@@ -15,57 +12,6 @@ if (typeof moment === 'undefined') {
 var BabyBuddy = function () {
     return {};
 }();
-
-/**
- * Datetime Picker.
- *
- * Provides modifications and defaults for the base datetime picker widget.
- *
- * @type {{init: BabyBuddy.DatetimePicker.init}}
- */
-BabyBuddy.DatetimePicker = function (moment) {
-    return {
-        init: function (element, options) {
-            let defaultOptions = {
-                display: {
-                    buttons: {
-                        close: true,
-                        today: true,
-                    },
-                    components: {
-                        calendar: true,
-                        clock: true,
-                        date: true,
-                        decades: true,
-                        hours: true,
-                        minutes: true,
-                        month: true,
-                        seconds: false,
-                        useTwentyfourHour: false,
-                        year: true,
-                    },
-                    icons: {
-                        clear: 'icon-delete',
-                        close: 'icon-cancel',
-                        date: 'icon-calendar',
-                        down: 'icon-arrow-down',
-                        next: 'icon-angle-circled-right',
-                        previous: 'icon-angle-circled-left',
-                        time: 'icon-clock',
-                        today: 'icon-today',
-                        up: 'icon-arrow-up',
-                    },
-                    viewMode: 'clock',
-                },
-                localization: {
-                    locale: moment.locale(),
-                },
-            };
-
-            new tempusDominus.TempusDominus(element, Object.assign(defaultOptions, options));
-        }
-    };
-}(moment);
 
 /**
  * Pull to refresh.

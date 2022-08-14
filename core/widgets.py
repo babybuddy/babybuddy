@@ -1,6 +1,7 @@
 from typing import Any, Dict, Optional
 
-from django.forms import Widget, RadioSelect
+from django.forms import Widget, RadioSelect, DateTimeInput as DateTimeInputBase
+from django.utils import timezone
 
 from . import models
 
@@ -103,3 +104,10 @@ class ChildRadioSelect(RadioSelect):
         if value != "":
             option["picture"] = value.instance.picture
         return option
+
+
+class DateTimeInput(DateTimeInputBase):
+    input_type = "datetime-local"
+
+    def format_value(self, value):
+        return value.isoformat()
