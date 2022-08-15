@@ -137,7 +137,7 @@ class FormsTestCase(TestCase):
         params = self.settings_template.copy()
         params["language"] = "fr"
         page = self.c.post("/user/settings/", data=params, follow=True)
-        self.assertContains(page, "Paramètres Utilisateur")
+        self.assertContains(page, "Paramètres utilisateur")
 
     @override_settings(TIME_ZONE="US/Eastern")
     def test_user_settings_timezone(self):
