@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import base64
+
+from urllib.parse import urljoin
+
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -158,14 +162,22 @@ class UserSettings(LoginRequiredMixin, View):
     template_name = "babybuddy/user_settings_form.html"
 
     def get(self, request):
+        settings = request.user.settings
+
+        page_root = request.build_absolute_uri(reverse("babybuddy:root-router"))
+        base64_png = base64.b64encode(
+            settings.generate_login_qr_code_png(page_root)
+        )
+
         return render(
             request,
             self.template_name,
             {
                 "form_user": self.form_user_class(instance=request.user),
                 "form_settings": self.form_settings_class(
-                    instance=request.user.settings
+                    instance=settings
                 ),
+                "login_qr_code_png": base64_png.decode(),
             },
         )
 

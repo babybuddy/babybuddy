@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytz
+import json
+import io
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -11,6 +13,8 @@ from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.authtoken.models import Token
+
+import qrcode
 
 
 class Settings(models.Model):
@@ -81,6 +85,22 @@ class Settings(models.Model):
         if reset:
             Token.objects.get(user=self.user).delete()
         return Token.objects.get_or_create(user=self.user)[0]
+
+    def generate_login_qr_code_png(self, page_root: str) -> bytes:
+        json_data = {
+            "url": page_root,
+            "api_key": str(self.api_key()),
+        }
+        qr_code_data = r"BABYBUDDY-LOGIN:" + json.dumps(json_data)
+
+        qr = qrcode.QRCode(border=1, box_size=5)
+        qr.add_data(qr_code_data)
+        qr.make(fit=True)
+        image = qr.make_image()
+
+        bytesio = io.BytesIO()
+        image.save(bytesio, format="png")
+        return bytesio.getbuffer()
 
     @property
     def dashboard_refresh_rate_milliseconds(self):
