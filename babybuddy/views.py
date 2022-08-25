@@ -164,20 +164,12 @@ class UserSettings(LoginRequiredMixin, View):
     def get(self, request):
         settings = request.user.settings
 
-        page_root = request.build_absolute_uri(reverse("babybuddy:root-router"))
-        base64_png = base64.b64encode(
-            settings.generate_login_qr_code_png(page_root)
-        )
-
         return render(
             request,
             self.template_name,
             {
                 "form_user": self.form_user_class(instance=request.user),
-                "form_settings": self.form_settings_class(
-                    instance=settings
-                ),
-                "login_qr_code_png": base64_png.decode(),
+                "form_settings": self.form_settings_class(instance=settings),
             },
         )
 
