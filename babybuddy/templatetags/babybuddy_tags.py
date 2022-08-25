@@ -62,21 +62,6 @@ def get_current_timezone():
     return timezone.get_current_timezone_name()
 
 
-@register.simple_tag()
-def inline_png_qrcode(qr_code_data, border=1, box_size=5):
-    import qrcode
-
-    qr = qrcode.QRCode(border=border, box_size=box_size)
-    qr.add_data(qr_code_data)
-    qr.make(fit=True)
-    image = qr.make_image()
-
-    bytesio = io.BytesIO()
-    image.save(bytesio, format="png")
-    base64_data = base64.b64encode(bytesio.getbuffer()).decode()
-    return f"data:image/png;base64,{base64_data}"
-
-
 @register.simple_tag(takes_context=True)
 def make_absolute_url(context, url):
     request = context["request"]
@@ -114,6 +99,30 @@ class QrCodeNode(template.Node):
 
 @register.tag_function
 def qrcodepng(parser, token):
+    """
+    This template tag allows the generation of arbirary qr code pngs that
+    can be displayed, for example, in <img src="..."> html tags.
+
+    The template tag can be used as follows:
+
+    <img src="{% qrcodepng %}
+        Hello world
+    {% endqrcodepng %}">
+
+    This will produce a qrcode that encodes the
+    string "\n        Hello World\n    ". One can use the qrcode parameter
+    ``stripwhitespace`` to strip the extra whitespace at the start and end of
+    the string:
+
+    {% qrcodepng stripwhitespace %}
+
+    All supported arguments:
+
+    - stripwhitespace: strip whitespace of the qrcode-contents
+    - border=[int]: Border of the qrcode in pixels (default: 1)
+    - box_size=[int]: Pixel size of the qr-code blocks (default: 5)
+    """
+
     contents = token.split_contents()
     params = contents[1:]
 
@@ -131,7 +140,6 @@ def qrcodepng(parser, token):
                     return True
                 else:
                     str_value = p[len(search_for) :]
-                    print("AHAGAGAG", str_value)
                     try:
                         result = value_type(str_value)
                     except ValueError:
