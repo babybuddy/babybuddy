@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-from rest_framework import viewsets
+from django.shortcuts import get_object_or_404
+
+from rest_framework import viewsets, views
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from core import models
+from babybuddy import models as babybuddy_models
 
 from . import serializers, filters
 
@@ -113,3 +116,17 @@ class WeightViewSet(viewsets.ModelViewSet):
     queryset = models.Weight.objects.all()
     serializer_class = serializers.WeightSerializer
     filterset_fields = ("child", "date")
+
+
+class ProfileView(views.APIView):
+    basename = "profile"
+    queryset = babybuddy_models.Settings.objects.all()
+    serializer_class = serializers.ProfileSerializer
+
+    def get(self, request):
+        settings = get_object_or_404(
+            babybuddy_models.Settings.objects,
+            user=request.user
+        )
+        serializer = self.serializer_class(settings)
+        return Response(serializer.data) 

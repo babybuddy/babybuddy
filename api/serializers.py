@@ -9,6 +9,7 @@ from django.utils import timezone
 from taggit.serializers import TagListSerializerField, TaggitSerializer
 
 from core import models
+from babybuddy import models as babybuddy_models
 
 
 class CoreModelSerializer(serializers.HyperlinkedModelSerializer):
@@ -268,3 +269,9 @@ class WeightSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Weight
         fields = ("id", "child", "weight", "date", "notes", "tags")
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = babybuddy_models.Settings
+        fields = ("user", "language")

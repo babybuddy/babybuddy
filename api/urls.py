@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from typing import NamedTuple, Optional, Any
+
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
@@ -21,13 +23,14 @@ router.register(r"timers", views.TimerViewSet)
 router.register(r"tummy-times", views.TummyTimeViewSet)
 router.register(r"weight", views.WeightViewSet)
 
-app_name = "api"
+class ExtraUrl(NamedTuple):
+    view: Any
+    name: Optional[str] = None
 
-urlpatterns = [
-    path("api/", include(router.urls)),
-    path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
+extra_api_urls = [
+    path("api/profile", views.ProfileView.as_view()),
     path(
-        "api/schema",
+        "api/schema", 
         get_schema_view(
             title="Baby Buddy API",
             version=1,
@@ -36,3 +39,11 @@ urlpatterns = [
         name="openapi-schema",
     ),
 ]
+
+app_name = "api"
+
+
+urlpatterns = [
+    path("api/", include(router.urls + list(extra_api_urls))),
+    path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
+] + extra_api_urls
