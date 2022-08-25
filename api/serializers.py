@@ -272,6 +272,37 @@ class WeightSerializer(CoreModelSerializer, TaggableSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    api_key = serializers.SerializerMethodField("get_api_key")
+    first_name = serializers.SerializerMethodField("get_first_name")
+    last_name = serializers.SerializerMethodField("get_last_name")
+    email = serializers.SerializerMethodField("get_email")
+    staff = serializers.SerializerMethodField("is_staff")
+
+    def get_api_key(self, value):
+        return self.instance.api_key().key
+
+    def get_first_name(self, value):
+        return self.instance.user.first_name
+
+    def get_last_name(self, value):
+        return self.instance.user.last_name
+
+    def get_email(self, value):
+        return self.instance.user.email
+
+    def is_staff(self, value):
+        return self.instance.user.is_staff
+
     class Meta:
         model = babybuddy_models.Settings
-        fields = ("user", "language")
+        fields = (
+            "user",
+            "first_name",
+            "last_name",
+            "email",
+            "staff",
+            "language",
+            "timezone",
+            "api_key",
+        )
+        extra_kwargs = {k: {"read_only": True} for k in fields}
