@@ -9,7 +9,7 @@
     "COPY . /app",
     "RUN pip3 install -U --no-cache-dir pip && pip install --no-cache-dir --ignore-installed -r requirements.txt",
     "RUN apk del --purge build-dependencies && rm -rf /root/.cache",
-    "EXPOSE 80",
+    "EXPOSE 8000",
     "CMD sh /app/Procfile.sh"
   ]
 }
