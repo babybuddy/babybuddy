@@ -125,8 +125,7 @@ class ProfileView(views.APIView):
 
     def get(self, request):
         settings = get_object_or_404(
-            babybuddy_models.Settings.objects,
-            user=request.user
+            babybuddy_models.Settings.objects, user=request.user
         )
         serializer = self.serializer_class(settings)
-        return Response(serializer.data) 
+        return Response(serializer.data)
