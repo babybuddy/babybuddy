@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "dockerfileLines": [
-    "FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.14",
+    "FROM python:3.10-alpine",
     "RUN apk add --no-cache --virtual=build-dependencies build-base curl jpeg-dev libffi-dev libxml2-dev libxslt-dev postgresql-dev python3-dev zlib-dev",
     "RUN apk add --no-cache jpeg libffi libpq libxml2 libxslt py3-mysqlclient py3-pip python3",
     "RUN mkdir -p /app",
