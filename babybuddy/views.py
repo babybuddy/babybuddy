@@ -160,9 +160,13 @@ class UserSettings(LoginRequiredMixin, View):
     form_user_class = forms.UserForm
     form_settings_class = forms.UserSettingsForm
     template_name = "babybuddy/user_settings_form.html"
+    qr_code_template = "babybuddy/login_qr_code.txt"
 
     def get(self, request):
         settings = request.user.settings
+
+        qr_code_response = render(request, self.qr_code_template)
+        qr_code_data = qr_code_response.content.decode().strip()
 
         return render(
             request,
@@ -170,6 +174,7 @@ class UserSettings(LoginRequiredMixin, View):
             {
                 "form_user": self.form_user_class(instance=request.user),
                 "form_settings": self.form_settings_class(instance=settings),
+                "qr_code_data": qr_code_data,
             },
         )
 

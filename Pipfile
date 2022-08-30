@@ -23,7 +23,7 @@ pyyaml = "*"
 uritemplate = "*"
 whitenoise = "*"
 django-taggit = "*"
-qrcode = "*"
+django-qr-code = "*"
 
 [dev-packages]
 coveralls = "*"

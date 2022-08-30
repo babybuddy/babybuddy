@@ -12,6 +12,7 @@ django-filter==22.1
 django-imagekit==4.1.0
 django-import-export==2.8.0
 django-ipware==4.0.2
+django-qr-code==3.1.1
 django-storages==1.12.3
 django-taggit==3.0.0
 django-widget-tweaks==1.4.12
@@ -31,7 +32,6 @@ python-dateutil==2.8.2
 python-dotenv==0.20.0
 pytz==2022.1
 pyyaml==6.0
-qrcode==7.3.1
 s3transfer==0.6.0
 setuptools==63.1.0
 six==1.16.0

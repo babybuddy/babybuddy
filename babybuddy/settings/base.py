@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "imagekit",
     "storages",
     "import_export",
+    "qr_code",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

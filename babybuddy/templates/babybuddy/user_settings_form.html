@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n widget_tweaks babybuddy_tags %}
+{% load i18n widget_tweaks babybuddy_tags qr_code %}
 
 {% block title %}{% trans "User Settings" %}{% endblock %}
 
@@ -87,12 +87,9 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">{% trans "Login QR code" %}</label>
                     <div class="col-sm-10">
-                        {% url 'babybuddy:root-router' as relative_root_url %}
-                        {% make_absolute_url relative_root_url as absolute_root_url %}
-                        
-                        <img src="{% qrcodepng stripwhitespace %}
-                            BABYBUDDY-LOGIN:{"url":"{{ absolute_root_url }}","api_key":"{{ user.settings.api_key }}"}
-                        {% endqrcodepng %}">
+                        <div style="display:inline-block;background-color:white;">
+                            {% qr_from_text qr_code_data size="s" %}
+                        </div>
                     </div>
                 </div>
             </fieldset>
