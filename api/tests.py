@@ -874,3 +874,32 @@ class WeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, entry)
+
+
+class TestProfileAPITestCase(APITestCase):
+    endpoint = reverse("api:profile")
+
+    def setUp(self):
+        self.client.login(username="admin", password="admin")
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertDictContainsSubset(
+            {
+                "user": 1,
+                "username": "admin",
+                "first_name": "",
+                "last_name": "",
+                "email": "",
+                "staff": True,
+                "language": "en-US",
+                "timezone": "UTC",
+            },
+            response.data,
+        )
+
+        # Test that api_key is in the mix and "some long string"
+        self.assertIn("api_key", response.data)
+        self.assertTrue(isinstance(response.data["api_key"], str))
+        self.assertGreater(len(response.data["api_key"]), 30)

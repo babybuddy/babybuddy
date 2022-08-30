@@ -273,6 +273,7 @@ class WeightSerializer(CoreModelSerializer, TaggableSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     api_key = serializers.SerializerMethodField("get_api_key")
+    username = serializers.SerializerMethodField("get_username")
     first_name = serializers.SerializerMethodField("get_first_name")
     last_name = serializers.SerializerMethodField("get_last_name")
     email = serializers.SerializerMethodField("get_email")
@@ -280,6 +281,9 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_api_key(self, value):
         return self.instance.api_key().key
+
+    def get_username(self, value):
+        return self.instance.user.username
 
     def get_first_name(self, value):
         return self.instance.user.first_name
@@ -297,6 +301,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = babybuddy_models.Settings
         fields = (
             "user",
+            "username",
             "first_name",
             "last_name",
             "email",
