@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
-import io
-import base64
-from multiprocessing.sharedctypes import Value
 
 from django import template
 from django.apps import apps
 from django.utils import timezone
 from django.utils.translation import to_locale, get_language
-from django.template.defaultfilters import stringfilter
 
 from core.models import Child
 
