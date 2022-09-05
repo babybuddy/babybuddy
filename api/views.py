@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, views
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.schemas.openapi import AutoSchema
 
 from core import models
 from babybuddy import models as babybuddy_models
@@ -119,7 +120,11 @@ class WeightViewSet(viewsets.ModelViewSet):
 
 
 class ProfileView(views.APIView):
+    schema = AutoSchema(operation_id_base="CurrentProfile")
+
+    action = "get"
     basename = "profile"
+
     queryset = babybuddy_models.Settings.objects.all()
     serializer_class = serializers.ProfileSerializer
 
