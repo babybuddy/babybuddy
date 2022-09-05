@@ -887,16 +887,21 @@ class TestProfileAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictContainsSubset(
             {
-                "user": 1,
-                "username": "admin",
-                "first_name": "",
-                "last_name": "",
-                "email": "",
-                "staff": True,
                 "language": "en-US",
                 "timezone": "UTC",
             },
             response.data,
+        )
+        self.assertDictContainsSubset(
+            {
+                "id": 1,
+                "username": "admin",
+                "first_name": "",
+                "last_name": "",
+                "email": "",
+                "is_staff": True,
+            },
+            response.data["user"],
         )
 
         # Test that api_key is in the mix and "some long string"
