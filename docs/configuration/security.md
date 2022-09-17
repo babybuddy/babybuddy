@@ -56,7 +56,7 @@ Sets the header to read the authenticated username from when
 
 ## `REVERSE_PROXY_AUTH`
 
-*Default:* `None`
+*Default:* `False`
 
 Enable use of `PROXY_HEADER` to pass the username of an authenticated user.
 This setting should *only* be used with a properly configured reverse proxy to

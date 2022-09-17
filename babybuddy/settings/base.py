@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 load_dotenv(find_dotenv())
 
-REVERSE_PROXY_AUTH = bool(int(os.getenv("REVERSE_PROXY_AUTH", False)))
+REVERSE_PROXY_AUTH = bool(strtobool(os.environ.get("REVERSE_PROXY_AUTH") or "False"))
 
 # Required settings
 
@@ -64,7 +64,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "axes.middleware.AxesMiddleware",
-    "babybuddy.middleware.CustomRemoteUser",
 ]
 
 
