@@ -6,6 +6,12 @@ from django.conf import settings
 from django.utils import timezone, translation
 from django.conf.locale.en import formats as formats_en_us
 from django.conf.locale.en_GB import formats as formats_en_gb
+from os import getenv
+from django.contrib.auth.middleware import RemoteUserMiddleware
+
+
+class CustomRemoteUser(RemoteUserMiddleware):
+    header = getenv("PROXY_HEADER", "HTTP_REMOTE_USER")
 
 
 def update_en_us_date_formats():

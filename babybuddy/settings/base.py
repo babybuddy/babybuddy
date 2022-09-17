@@ -12,6 +12,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 load_dotenv(find_dotenv())
 
+REVERSE_PROXY_AUTH = bool(int(os.getenv("REVERSE_PROXY_AUTH", False)))
+
 # Required settings
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
@@ -62,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "axes.middleware.AxesMiddleware",
+    "babybuddy.middleware.CustomRemoteUser",
 ]
 
 
@@ -142,6 +145,12 @@ LOGIN_REDIRECT_URL = "babybuddy:root-router"
 LOGIN_URL = "babybuddy:login"
 
 LOGOUT_REDIRECT_URL = "babybuddy:login"
+
+# Only include when REVERSE_PROXY_AUTH env is 1
+if REVERSE_PROXY_AUTH:
+    # Must appear AFTER AuthenticationMiddleware
+    MIDDLEWARE.insert(6, "babybuddy.middleware.CustomRemoteUser")
+    AUTHENTICATION_BACKENDS.append("django.contrib.auth.backends.RemoteUserBackend")
 
 
 # Timezone
