@@ -12,8 +12,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 load_dotenv(find_dotenv())
 
-REVERSE_PROXY_AUTH = bool(strtobool(os.environ.get("REVERSE_PROXY_AUTH") or "False"))
-
 # Required settings
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
@@ -145,10 +143,12 @@ LOGIN_URL = "babybuddy:login"
 
 LOGOUT_REDIRECT_URL = "babybuddy:login"
 
-# Only include when REVERSE_PROXY_AUTH env is 1
+REVERSE_PROXY_AUTH = bool(strtobool(os.environ.get("REVERSE_PROXY_AUTH") or "False"))
+
+# Use remote user middleware when reverse proxy auth is enabled.
 if REVERSE_PROXY_AUTH:
-    # Must appear AFTER AuthenticationMiddleware
-    MIDDLEWARE.insert(6, "babybuddy.middleware.CustomRemoteUser")
+    # Must appear AFTER AuthenticationMiddleware.
+    MIDDLEWARE.append("babybuddy.middleware.CustomRemoteUser")
     AUTHENTICATION_BACKENDS.append("django.contrib.auth.backends.RemoteUserBackend")
 
 
