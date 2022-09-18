@@ -1,4 +1,5 @@
-import time
+from os import getenv
+from time import time
 
 import pytz
 
@@ -6,6 +7,7 @@ from django.conf import settings
 from django.utils import timezone, translation
 from django.conf.locale.en import formats as formats_en_us
 from django.conf.locale.en_GB import formats as formats_en_gb
+from django.contrib.auth.middleware import RemoteUserMiddleware
 
 
 def update_en_us_date_formats():
@@ -134,12 +136,20 @@ class RollingSessionMiddleware:
             session_refresh = request.session.get("session_refresh")
             if session_refresh:
                 try:
-                    delta = int(time.time()) - session_refresh
+                    delta = int(time()) - session_refresh
                 except (ValueError, TypeError):
                     delta = settings.ROLLING_SESSION_REFRESH + 1
                 if delta > settings.ROLLING_SESSION_REFRESH:
-                    request.session["session_refresh"] = int(time.time())
+                    request.session["session_refresh"] = int(time())
                     request.session.set_expiry(settings.SESSION_COOKIE_AGE)
             else:
-                request.session["session_refresh"] = int(time.time())
+                request.session["session_refresh"] = int(time())
         return self.get_response(request)
+
+
+class CustomRemoteUser(RemoteUserMiddleware):
+    """
+    Middleware used for remote authentication when `REVERSE_PROXY_AUTH` is True.
+    """
+
+    header = getenv("PROXY_HEADER", "HTTP_REMOTE_USER")

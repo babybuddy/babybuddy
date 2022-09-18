@@ -143,6 +143,14 @@ LOGIN_URL = "babybuddy:login"
 
 LOGOUT_REDIRECT_URL = "babybuddy:login"
 
+REVERSE_PROXY_AUTH = bool(strtobool(os.environ.get("REVERSE_PROXY_AUTH") or "False"))
+
+# Use remote user middleware when reverse proxy auth is enabled.
+if REVERSE_PROXY_AUTH:
+    # Must appear AFTER AuthenticationMiddleware.
+    MIDDLEWARE.append("babybuddy.middleware.CustomRemoteUser")
+    AUTHENTICATION_BACKENDS.append("django.contrib.auth.backends.RemoteUserBackend")
+
 
 # Timezone
 # https://docs.djangoproject.com/en/4.0/topics/i18n/timezones/
