@@ -24,13 +24,21 @@
                 <button class="btn btn-outline-primary bg-dark btn-add-new-tag" type="button">{% trans "Add" %}</button>
             </div>
         </div>
-        <span>{% trans "Recently used:" %}</span>
-        {% for t in widget.tag_suggestions.quick %}
-        <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer mr-1" style="background-color: {{ t.color }};">
-            {{ t.name }}
-            <span class="add-remove-icon pl-1 pr-1">+</span>
-        </span>
-        {% endfor %}
+        {% if widget.tag_suggestions.quick %}
+            <span>{% trans "Recently used:" %}</span>
+            {% for t in widget.tag_suggestions.quick %}
+            <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer mr-1" style="background-color: {{ t.color }};">
+                {{ t.name }}
+                <span class="add-remove-icon pl-1 pr-1">+</span>
+            </span>
+            {% endfor %}
+        {% else %}
+            <style>
+                .help-block{
+                    display: none;
+                }
+            </style>
+        {%endif%}
     </div>
     <input 
         type="hidden"
