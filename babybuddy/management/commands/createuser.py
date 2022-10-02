@@ -7,8 +7,7 @@ Example usage:
   manage.py createuser \
           --username test     \
           --email test@test.test \
-          --is-staff \
-          --is-superuser
+          --is-staff
 """
 import sys
 import getpass
@@ -38,13 +37,14 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--database",
-            default=DEFAULT_DB_ALIAS,
-            help='Specifies the database to use. Default is "default".',
-        )
-        parser.add_argument(
             f"--{self.UserModel.USERNAME_FIELD}",
             help="Specifies the login for a user.",
+        )
+        parser.add_argument(
+            "--email",
+            dest="email",
+            default="",
+            help="Specifies the email for the user. Optional.",
         )
         parser.add_argument(
             "--password",
@@ -65,23 +65,9 @@ class Command(BaseCommand):
             default=True,
             help="Specifies the active status for the user. Default is True.",
         )
-        parser.add_argument(
-            "--is-superuser",
-            dest="is_superuser",
-            action="store_true",
-            default=False,
-            help="Specifies the superuser status for the user. Default is False.",
-        )
-
-        for field_name in self.UserModel.REQUIRED_FIELDS:
-            parser.add_argument(
-                f"--{field_name}",
-                help=f"Specifies the {field_name} for the user.",
-            )
 
     def handle(self, *args, **options):
         username = options.get(self.UserModel.USERNAME_FIELD)
-        database = options.get("database")
         password = options.get("password")
 
         user_data = {}
@@ -89,19 +75,13 @@ class Command(BaseCommand):
         verbose_field_name = self.username_field.verbose_name
 
         try:
-            error_msg = self._validate_username(username, verbose_field_name, database)
+            error_msg = self._validate_username(
+                username, verbose_field_name, DEFAULT_DB_ALIAS
+            )
             if error_msg:
                 raise CommandError(error_msg)
 
             user_data[self.UserModel.USERNAME_FIELD] = username
-
-            # Populate required fields from command line args
-            for field_name in self.UserModel.REQUIRED_FIELDS:
-                value = options.get(field_name)
-                if not value:
-                    raise CommandError(f"{capfirst(field_name)} cannot be empty.")
-                field = self.UserModel._meta.get_field(field_name)
-                user_data[field_name] = field.clean(value, None)
 
             # Prompt for a password interactively (if password not set via arg)
             while password is None:
@@ -136,10 +116,10 @@ class Command(BaseCommand):
                 user_password = password
 
             user = self.UserModel._default_manager.db_manager(
-                database
-            ).create_superuser(**user_data, password=user_password)
+                DEFAULT_DB_ALIAS
+            ).create_user(**user_data, password=user_password)
+            user.email = options.get("email")
             user.is_staff = options.get("is_staff")
-            user.is_superuser = options.get("is_superuser")
             user.is_active = options.get("is_active")
             user.save()
 

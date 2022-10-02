@@ -33,11 +33,9 @@ class CommandsTestCase(TransactionTestCase):
         )
         self.assertIsInstance(User.objects.get(username="test"), User)
         self.assertFalse(User.objects.filter(username="test", is_staff=True))
-        self.assertFalse(User.objects.filter(username="test", is_superuser=True))
         call_command(
             "createuser",
             "--is-staff",
-            "--is-superuser",
             username="testadmin",
             email="testadmin@testadmin.testadmin",
             password="test",
@@ -45,4 +43,3 @@ class CommandsTestCase(TransactionTestCase):
         )
         self.assertIsInstance(User.objects.get(username="testadmin"), User)
         self.assertTrue(User.objects.filter(username="testadmin", is_staff=True))
-        self.assertTrue(User.objects.filter(username="testadmin", is_superuser=True))
