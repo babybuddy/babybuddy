@@ -58,13 +58,6 @@ class Command(BaseCommand):
             default=False,
             help="Specifies the staff status for the user. Default is False.",
         )
-        parser.add_argument(
-            "--in-active",
-            dest="is_active",
-            action="store_false",
-            default=True,
-            help="Specifies the active status for the user. Default is True.",
-        )
 
     def handle(self, *args, **options):
         username = options.get(self.UserModel.USERNAME_FIELD)
@@ -120,7 +113,6 @@ class Command(BaseCommand):
             ).create_user(**user_data, password=user_password)
             user.email = options.get("email")
             user.is_staff = options.get("is_staff")
-            user.is_active = options.get("is_active")
             user.save()
 
             if options.get("verbosity") > 0:
