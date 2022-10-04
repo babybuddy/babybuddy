@@ -1,6 +1,7 @@
 [[source]]
 verify_ssl = true
 url = "https://pypi.python.org/simple"
+name = "pypi"
 
 [packages]
 boto3 = "*"

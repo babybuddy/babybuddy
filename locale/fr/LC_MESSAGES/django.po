@@ -133,7 +133,7 @@ msgstr "Changement de couche"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:281 core/models.py:312
 #: core/models.py:316 core/templates/core/timer_detail.html:43
 msgid "Feeding"
-msgstr "Allaitement"
+msgstr "Alimentation"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:63
 #: babybuddy/templates/babybuddy/nav-dropdown.html:157 core/models.py:396
@@ -377,7 +377,7 @@ msgstr "Supprimer"
 #: core/templates/core/tummytime_confirm_delete.html:14
 #: core/templates/core/weight_confirm_delete.html:14
 msgid "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</span>?</h1>"
-msgstr "<h1>Êtes-vous sûr de vouloir supprimer <span class=\"text-info\">%(object)s</span> ?</h1>"
+msgstr "<h1>Êtes-vous sûr(e) de vouloir supprimer <span class=\"text-info\">%(object)s</span> ?</h1>"
 
 #: babybuddy/templates/babybuddy/user_confirm_delete.html:19
 #: core/templates/core/bmi_confirm_delete.html:18
@@ -452,7 +452,7 @@ msgstr "Email"
 
 #: babybuddy/templates/babybuddy/user_list.html:21
 msgid "Staff"
-msgstr "Personnel"
+msgstr "Administrateur"
 
 #: babybuddy/templates/babybuddy/user_list.html:22 core/models.py:551
 #: core/templates/core/timer_list.html:31
@@ -533,7 +533,7 @@ msgstr "Bienvenue sur Baby Buddy !"
 #: babybuddy/templates/babybuddy/welcome.html:14
 msgid "Learn about and predict baby's needs without\n"
 "            (<em>as much</em>) guess work by using Baby Buddy to track &mdash;"
-msgstr "Apprendre et prédire les besoins de bébé deviens un jeu d'enfants avec Baby Buddy &mdash;"
+msgstr "Apprendre et prédire les besoins de bébé devient (<em>un peu plus</em>) facile avec Baby Buddy &mdash;"
 
 #: babybuddy/templates/babybuddy/welcome.html:26 core/models.py:249
 #: core/templates/core/diaperchange_confirm_delete.html:7
@@ -1180,7 +1180,7 @@ msgstr "Pas assez de données"
 
 #: dashboard/templates/cards/timer_list.html:12
 msgid "%(count)s active timer%(plural)s"
-msgstr "%(count)s chronomètre%(plural)s actif"
+msgstr "%(count)s chronomètre%(plural)s actif%(plural)s"
 
 #: dashboard/templates/cards/timer_list.html:19
 msgid "Started by %(instance.user)s at %(start)s"
@@ -1464,7 +1464,7 @@ msgstr "Lancé par %(user)s à %(start)s"
 #: reports/templates/reports/feeding_amounts.html:8
 #: reports/templates/reports/report_list.html:14
 msgid "Feeding Amounts"
-msgstr "Allaitements"
+msgstr "Quantités d'alimentation"
 
 #: reports/graphs/feeding_amounts.py:27
 msgid "Total feeding amount"
@@ -1476,7 +1476,7 @@ msgstr "<b>Durée moyenne d'alimentation</b>"
 
 #: reports/graphs/feeding_amounts.py:72
 msgid "Feeding amount"
-msgstr "Allaitement"
+msgstr "Quantité d'alimentation"
 
 #: reports/templates/reports/report_base.html:17
 msgid "There is not enough data to generate this report."
@@ -1887,7 +1887,7 @@ msgstr "Aucun événement"
 
 #: core/timeline.py:185
 msgid "%(child)s had a %(type)s diaper change."
-msgstr "%(child)s a eu sa %(type)s couche changée."
+msgstr "La couche %(type)s de %(child)s a été changée."
 
 #: dashboard/templatetags/cards.py:372
 msgid "Height change per week"
@@ -2089,8 +2089,8 @@ msgstr "Quantités pompées"
 #: core/templates/core/timer_confirm_delete_inactive.html:17
 msgid "Are you sure you want to delete %(number)s inactive timer?"
 msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
-msgstr[0] "Voulez-vous vraiment supprimer %(number)s chronomètre inactif%(plural)s?"
-msgstr[1] "Voulez-vous vraiment supprimer %(number)s chronomètres inactif%(plural)s?"
+msgstr[0] "Voulez-vous vraiment supprimer %(number)s chronomètre inactif ?"
+msgstr[1] "Voulez-vous vraiment supprimer %(number)s chronomètres inactifs ?"
 
 #: dashboard/templates/cards/feeding_day.html:25
 msgid "%(counter)s feeding"
@@ -2101,8 +2101,8 @@ msgstr[1] "%(counter)s alimentations"
 #: dashboard/templates/cards/feeding_last_method.html:21
 msgid "%(n)s feeding ago"
 msgid_plural "%(n)s feedings ago"
-msgstr[0] "il y a %(n)s alimentation%(plural)s"
-msgstr[1] "il y a %(n)s alimentation%(plural)s"
+msgstr[0] "il y a %(n)s alimentation"
+msgstr[1] "il y a %(n)s alimentations"
 
 #: dashboard/templates/cards/sleep_naps_day.html:12
 msgid "%(count)s nap"
@@ -2113,6 +2113,6 @@ msgstr[1] "%(count)s Sieste%(plural)s"
 #: dashboard/templates/cards/timer_list.html:12
 msgid "%(count)s active timer"
 msgid_plural "%(count)s active timers"
-msgstr[0] "%(count)s chronomètre%(plural)s actif"
-msgstr[1] "%(count)s chronomètre%(plural)s actif"
+msgstr[0] "%(count)s chronomètre actif"
+msgstr[1] "%(count)s chronomètre%(plural)s actifs"
 

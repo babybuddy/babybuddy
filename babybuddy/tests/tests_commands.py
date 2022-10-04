@@ -22,3 +22,24 @@ class CommandsTestCase(TransactionTestCase):
         call_command("reset", verbosity=0, interactive=False)
         self.assertIsInstance(User.objects.get(username="admin"), User)
         self.assertEqual(Child.objects.count(), 1)
+
+    def test_createuser(self):
+        call_command(
+            "createuser",
+            username="test",
+            email="test@test.test",
+            password="test",
+            verbosity=0,
+        )
+        self.assertIsInstance(User.objects.get(username="test"), User)
+        self.assertFalse(User.objects.filter(username="test", is_staff=True))
+        call_command(
+            "createuser",
+            "--is-staff",
+            username="testadmin",
+            email="testadmin@testadmin.testadmin",
+            password="test",
+            verbosity=0,
+        )
+        self.assertIsInstance(User.objects.get(username="testadmin"), User)
+        self.assertTrue(User.objects.filter(username="testadmin", is_staff=True))
