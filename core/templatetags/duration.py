@@ -33,7 +33,7 @@ def child_age_string(birth_date):
 def duration_string(duration, precision="s"):
     """
     Format a duration (e.g. "2 hours, 3 minutes, 35 seconds").
-    :param duration: a timedetla instance.
+    :param duration: a timedelta instance.
     :param precision: the level of precision to return (h for hours, m for
                       minutes, s for seconds)
     :returns: a string representation of the duration.
@@ -50,7 +50,7 @@ def duration_string(duration, precision="s"):
 def hours(duration):
     """
     Return the "hours" portion of a duration.
-    :param duration: a timedetla instance.
+    :param duration: a timedelta instance.
     :returns: an integer representing the number of hours in duration.
     """
     if not duration:
@@ -66,7 +66,7 @@ def hours(duration):
 def minutes(duration):
     """
     Return the "minutes" portion of a duration.
-    :param duration: a timedetla instance.
+    :param duration: a timedelta instance.
     :returns: an integer representing the number of minutes in duration.
     """
     if not duration:
@@ -82,7 +82,7 @@ def minutes(duration):
 def seconds(duration):
     """
     Return the "seconds" portion of a duration.
-    :param duration: a timedetla instance.
+    :param duration: a timedelta instance.
     :returns: an integer representing the number of seconds in duration.
     """
     if not duration:
@@ -114,3 +114,19 @@ def dayssince(value, today=None):
 
     # use standard timesince for anything beyond yesterday
     return str(delta.days) + _(" days ago")
+
+
+@register.filter
+def deltasince(value, now=None):
+    """
+    Returns a timedelta representing the time since passed datetime
+    :param value: a datetime instance
+    :param now: datetime to compare to (defaults to now)
+    :returns: a timedelta representing the elapsed time
+    """
+    if now is None:
+        now = timezone.now()
+
+    delta = now - value
+
+    return delta
