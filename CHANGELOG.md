@@ -1,6 +1,41 @@
 # Changelog
 
-## [v1.12.2](https://github.com/babybuddy/babybuddy/tree/v1.12.2)
+## [v1.13.0](https://github.com/babybuddy/babybuddy/tree/v1.13.0) (2022-10-11)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.2...v1.13.0)
+
+**Implemented enhancements:**
+
+- Dutch Translations updated on POEditor [\#535](https://github.com/babybuddy/babybuddy/issues/535)
+- Delete Inactive Timers shouldn't appear if there are no timer entries [\#533](https://github.com/babybuddy/babybuddy/issues/533)
+- Create a user add management command [\#528](https://github.com/babybuddy/babybuddy/issues/528)
+- French translations updated on POEditor [\#521](https://github.com/babybuddy/babybuddy/issues/521)
+- Allow REMOTE\_USER authentication  [\#517](https://github.com/babybuddy/babybuddy/issues/517)
+- "Recently used" shouldn't appear if no tags were recently used [\#470](https://github.com/babybuddy/babybuddy/issues/470)
+- Minutes instead of minutos in Spanish [\#468](https://github.com/babybuddy/babybuddy/issues/468)
+- Delete \(instead of deactivate\) completed timers [\#109](https://github.com/babybuddy/babybuddy/issues/109)
+- \#468  Minutes instead of minutos in Spanish [\#538](https://github.com/babybuddy/babybuddy/pull/538) ([jmunoz94](https://github.com/jmunoz94))
+- 533 - Delete Inactive Timers shouldn't appear if there are no timer entries [\#537](https://github.com/babybuddy/babybuddy/pull/537) ([earthcomfy](https://github.com/earthcomfy))
+- 470 - "Recently used" shouldn't appear if no tags were recently used [\#536](https://github.com/babybuddy/babybuddy/pull/536) ([earthcomfy](https://github.com/earthcomfy))
+- 528 - Create a user add management command [\#534](https://github.com/babybuddy/babybuddy/pull/534) ([earthcomfy](https://github.com/earthcomfy))
+- Add forward auth by way of remote user [\#531](https://github.com/babybuddy/babybuddy/pull/531) ([EnsuingRequiem](https://github.com/EnsuingRequiem))
+- Install GNU gettext at gitpod startup [\#519](https://github.com/babybuddy/babybuddy/pull/519) ([amorphobia](https://github.com/amorphobia))
+- Update Chinese translations [\#518](https://github.com/babybuddy/babybuddy/pull/518) ([amorphobia](https://github.com/amorphobia))
+
+**Fixed bugs:**
+
+- Data mismatch [\#520](https://github.com/babybuddy/babybuddy/issues/520)
+- Data mismatch - Issue \#520 [\#527](https://github.com/babybuddy/babybuddy/pull/527) ([matthieu-kr](https://github.com/matthieu-kr))
+
+**Closed issues:**
+
+- Feeding via API returns 400 [\#522](https://github.com/babybuddy/babybuddy/issues/522)
+
+**Merged pull requests:**
+
+- Dokku [\#526](https://github.com/babybuddy/babybuddy/pull/526) ([cdubz](https://github.com/cdubz))
+
+## [v1.12.2](https://github.com/babybuddy/babybuddy/tree/v1.12.2) (2022-08-04)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.1...v1.12.2)
 
@@ -26,7 +61,6 @@
 
 **Fixed bugs:**
 
-- Bug - DateTime fields don't load the current values when the language is Portuguese  [\#498](https://github.com/babybuddy/babybuddy/issues/498)
 - Set default date during picker initialization [\#505](https://github.com/babybuddy/babybuddy/pull/505) ([cdubz](https://github.com/cdubz))
 
 **Closed issues:**
