@@ -1,6 +1,14 @@
 # Changelog
 
-## [v1.13.0](https://github.com/babybuddy/babybuddy/tree/v1.13.0) (2022-10-11)
+## [v1.13.1](https://github.com/babybuddy/babybuddy/tree/v1.13.1)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.0...v1.13.1)
+
+**Fixed bugs:**
+
+- Database Admin: 500 Error v1.13.0 [\#540](https://github.com/babybuddy/babybuddy/issues/540)
+
+## [v1.13.0](https://github.com/babybuddy/babybuddy/tree/v1.13.0) (2022-10-12)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.2...v1.13.0)
 
