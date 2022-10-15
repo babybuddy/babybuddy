@@ -1,6 +1,14 @@
 # Changelog
 
-## [v1.13.1](https://github.com/babybuddy/babybuddy/tree/v1.13.1)
+## [v1.13.2](https://github.com/babybuddy/babybuddy/tree/v1.13.2) (2022-10-15)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.1...v1.13.2)
+
+**Implemented enhancements:**
+
+- Staff users added via CLI should also be superuser [\#543](https://github.com/babybuddy/babybuddy/issues/543)
+
+## [v1.13.1](https://github.com/babybuddy/babybuddy/tree/v1.13.1) (2022-10-13)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.0...v1.13.1)
 
