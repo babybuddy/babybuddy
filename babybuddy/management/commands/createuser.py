@@ -113,6 +113,8 @@ class Command(BaseCommand):
             ).create_user(**user_data, password=user_password)
             user.email = options.get("email")
             user.is_staff = options.get("is_staff")
+            # All Baby Buddy users are superusers.
+            user.is_superuser = True
             user.save()
 
             if options.get("verbosity") > 0:
