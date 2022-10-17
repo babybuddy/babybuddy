@@ -43,7 +43,7 @@ def pumping_amounts(objects):
         index_x += 1
 
     traces = []
-    for i in range(0, len(amounts) - 1):
+    for i in range(0, len(amounts)):
         traces.append(
             go.Bar(
                 name="Amount",
