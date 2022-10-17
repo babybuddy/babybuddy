@@ -63,7 +63,7 @@
     </div>
     {% include 'babybuddy/paginator.html' %}
 
-    {% if perms.core.delete_timer %}
+    {% if object_list and perms.core.delete_timer %}
         <a href="{% url 'core:timer-delete-inactive' %}" class="btn btn-sm btn-danger">
             <i class="icon-delete" aria-hidden="true"></i> {% trans "Delete Inactive Timers" %}
         </a>

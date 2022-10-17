@@ -38,6 +38,34 @@ Each entry must contain both the scheme (http, https) and fully-qualified domain
 - [`ALLOWED_HOSTS`](#allowed_hosts)
 - [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header)
 
+## `PROXY_HEADER`
+
+*Default:* `HTTP_REMOTE_USER`
+
+Sets the header to read the authenticated username from when
+`REVERSE_PROXY_AUTH` has been enabled.
+
+**Example value**
+
+    HTTP_X_AUTH_USER
+
+**See also**
+
+- [Django's documentation on the `REMOTE_USER` authentication method](https://docs.djangoproject.com/en/4.1/howto/auth-remote-user/)
+- [`REVERSE_PROXY_AUTH`](#reverse_proxy_auth)
+
+## `REVERSE_PROXY_AUTH`
+
+*Default:* `False`
+
+Enable use of `PROXY_HEADER` to pass the username of an authenticated user.
+This setting should *only* be used with a properly configured reverse proxy to
+ensure the headers are not forwarded from sources other than your proxy.
+
+**See also**
+
+- [`PROXY_HEADER`](#proxy_header)
+
 ## `SECRET_KEY`
 
 *Default:* `None`

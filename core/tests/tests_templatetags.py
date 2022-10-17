@@ -95,6 +95,26 @@ class TemplateTagsTestCase(TestCase):
                 "60 days ago",
             )
 
+    def test_duration_deltasince(self):
+        datetimes = [
+            (
+                timezone.datetime(2022, 1, 1, 0, 0, 1),
+                timezone.timedelta(seconds=1),
+            ),  # new year
+            (
+                timezone.datetime(2021, 12, 31, 23, 59, 59),
+                timezone.timedelta(seconds=3),
+            ),  # almost new year
+            (
+                timezone.datetime(1969, 2, 1, 23, 59, 59),
+                timezone.timedelta(days=19326, seconds=3),
+            ),  # old but middle of the year
+        ]
+        now = timezone.datetime(2022, 1, 1, 0, 0, 2)
+        for d, expected_delta in datetimes:
+            with self.subTest():
+                self.assertEqual(duration.deltasince(d, now), expected_delta)
+
     def test_instance_add_url(self):
         child = Child.objects.create(
             first_name="Test", last_name="Child", birth_date=timezone.localdate()

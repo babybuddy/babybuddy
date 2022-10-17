@@ -20,6 +20,7 @@ class UserAddForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(UserAddForm, self).save(commit=False)
+        # All Baby Buddy users are superusers.
         user.is_superuser = True
         if commit:
             user.save()

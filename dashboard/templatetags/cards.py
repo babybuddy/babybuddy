@@ -135,7 +135,7 @@ def card_feeding_day(context, child, end_date=None):
     # do one pass over the data and add it to the appropriate day
     for instance in instances:
         # convert to local tz and push feed_date to end so we're comparing apples to apples for the date
-        feed_date = timezone.localtime(instance.start).replace(
+        feed_date = timezone.localtime(instance.end).replace(
             hour=23, minute=59, second=59, microsecond=9999
         )
         idx = (end_date - feed_date).days
