@@ -323,6 +323,7 @@
                                 <h6 class="dropdown-header">{% trans "User" %}</h6>
                                 <a href="{% url 'babybuddy:user-settings' %}" class="dropdown-item">{% trans "Settings" %}</a>
                                 <a href="{% url 'babybuddy:user-password' %}" class="dropdown-item">{% trans "Password" %}</a>
+                                <a href="{% url 'babybuddy:user-add-device' %}" class="dropdown-item">{% trans "Add a device" %}</a>
                                 <form action="{% url 'babybuddy:logout' %}" role="form" method="post">
                                     {% csrf_token %}
                                     <button class="dropdown-item">
