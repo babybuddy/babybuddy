@@ -1,11 +1,29 @@
-# Development environment
+# Development Environment
+
+## Options 
+- [Gitpod](#Gitpod)
+- [VS Code Devcontainer](#VS-Code-Devcontainer)
+- [Manual Installation](#Manual-Installation)
+
+## Gitpod
+
+Click the Gitpod badge to open a new development environment in Gitpod.
 
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/babybuddy/babybuddy)
 
-Click the Gitpod badge to open a new development environment in Gitpod or use the
-information and steps below to set up a local development environment for Baby Buddy.
+## VS Code Devcontainer
 
-## Requirements
+1. Clone the repository
+
+1. Open the repository in VS Code
+
+1. Open the directory in VS Code and choose to "Reopen in Container" when asked. Setup will take a few minutes.
+
+1. <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+</kbd><kbd>P</kbd> -> Tasks: Run Task -> Run The Server - Gulp
+
+## Manual Installation
+
+### Requirements
 
 - Python 3.7+, pip, pipenv
 - NodeJS 16.x and NPM 8.x (NVM recommended)
@@ -13,7 +31,7 @@ information and steps below to set up a local development environment for Baby B
 - Possibly `libpq-dev`
   - This is necessary if `psycopg2` can't find an appropriate prebuilt binary.
 
-## Installation
+### Instructions
 
 1. Install pipenv per [Installing pipenv](https://pipenv.pypa.io/en/latest/install/#installing-pipenv)
 
