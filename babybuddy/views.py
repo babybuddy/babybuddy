@@ -224,7 +224,7 @@ class UserAddDevice(LoginRequiredMixin, RegenerateApiKey, View):
 
     def post(self, request):
         if self.handle_api_key_post(request):
-            return redirect("babybuddy:user-settings")
+            return redirect("babybuddy:user-add-device")
         else:
             raise BadRequest()
 
