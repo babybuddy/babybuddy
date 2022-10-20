@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from xmlrpc.client import Boolean
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -149,16 +148,22 @@ class UserPassword(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form})
 
 
-class RegenerateApiKey:
-    def handle_api_key_post(self, request) -> Boolean:
-        if request.POST.get("api_key_regenerate"):
-            request.user.settings.api_key(reset=True)
-            messages.success(request, _("User API key regenerated."))
-            return True
-        return False
+def handle_api_regenerate_request(request) -> bool:
+    """
+    Checks if the current request contains a request to update the API key
+    and if it does, updeates the API key.
+
+    Returns True, if the API-key regenerate request was detected and handled.
+    """
+
+    if request.POST.get("api_key_regenerate"):
+        request.user.settings.api_key(reset=True)
+        messages.success(request, _("User API key regenerated."))
+        return True
+    return False
 
 
-class UserSettings(LoginRequiredMixin, RegenerateApiKey, View):
+class UserSettings(LoginRequiredMixin, View):
     """
     Handles both the User and Settings models.
     Based on this SO answer: https://stackoverflow.com/a/45056835.
@@ -181,7 +186,7 @@ class UserSettings(LoginRequiredMixin, RegenerateApiKey, View):
         )
 
     def post(self, request):
-        if self.handle_api_key_post(request):
+        if handle_api_regenerate_request(request):
             return redirect("babybuddy:user-settings")
 
         form_user = self.form_user_class(instance=request.user, data=request.POST)
@@ -204,7 +209,7 @@ class UserSettings(LoginRequiredMixin, RegenerateApiKey, View):
         )
 
 
-class UserAddDevice(LoginRequiredMixin, RegenerateApiKey, View):
+class UserAddDevice(LoginRequiredMixin, View):
     form_user_class = forms.UserForm
     template_name = "babybuddy/user_add_device.html"
     qr_code_template = "babybuddy/login_qr_code.txt"
@@ -223,7 +228,7 @@ class UserAddDevice(LoginRequiredMixin, RegenerateApiKey, View):
         )
 
     def post(self, request):
-        if self.handle_api_key_post(request):
+        if handle_api_regenerate_request(request):
             return redirect("babybuddy:user-add-device")
         else:
             raise BadRequest()
