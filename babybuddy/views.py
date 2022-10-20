@@ -5,6 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView as LogoutViewBase
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import BadRequest
 from django.http import HttpResponseForbidden
 from django.middleware.csrf import REASON_BAD_ORIGIN
 from django.shortcuts import redirect, render
@@ -147,6 +148,21 @@ class UserPassword(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form})
 
 
+def handle_api_regenerate_request(request) -> bool:
+    """
+    Checks if the current request contains a request to update the API key
+    and if it does, updeates the API key.
+
+    Returns True, if the API-key regenerate request was detected and handled.
+    """
+
+    if request.POST.get("api_key_regenerate"):
+        request.user.settings.api_key(reset=True)
+        messages.success(request, _("User API key regenerated."))
+        return True
+    return False
+
+
 class UserSettings(LoginRequiredMixin, View):
     """
     Handles both the User and Settings models.
@@ -158,21 +174,19 @@ class UserSettings(LoginRequiredMixin, View):
     template_name = "babybuddy/user_settings_form.html"
 
     def get(self, request):
+        settings = request.user.settings
+
         return render(
             request,
             self.template_name,
             {
                 "form_user": self.form_user_class(instance=request.user),
-                "form_settings": self.form_settings_class(
-                    instance=request.user.settings
-                ),
+                "form_settings": self.form_settings_class(instance=settings),
             },
         )
 
     def post(self, request):
-        if request.POST.get("api_key_regenerate"):
-            request.user.settings.api_key(reset=True)
-            messages.success(request, _("User API key regenerated."))
+        if handle_api_regenerate_request(request):
             return redirect("babybuddy:user-settings")
 
         form_user = self.form_user_class(instance=request.user, data=request.POST)
@@ -193,6 +207,31 @@ class UserSettings(LoginRequiredMixin, View):
             self.template_name,
             {"user_form": form_user, "settings_form": form_settings},
         )
+
+
+class UserAddDevice(LoginRequiredMixin, View):
+    form_user_class = forms.UserForm
+    template_name = "babybuddy/user_add_device.html"
+    qr_code_template = "babybuddy/login_qr_code.txt"
+
+    def get(self, request):
+        qr_code_response = render(request, self.qr_code_template)
+        qr_code_data = qr_code_response.content.decode().strip()
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form_user": self.form_user_class(instance=request.user),
+                "qr_code_data": qr_code_data,
+            },
+        )
+
+    def post(self, request):
+        if handle_api_regenerate_request(request):
+            return redirect("babybuddy:user-add-device")
+        else:
+            raise BadRequest()
 
 
 class Welcome(LoginRequiredMixin, TemplateView):

@@ -9,6 +9,7 @@ from django.utils import timezone
 from taggit.serializers import TagListSerializerField, TaggitSerializer
 
 from core import models
+from babybuddy import models as babybuddy_models
 
 
 class CoreModelSerializer(serializers.HyperlinkedModelSerializer):
@@ -258,13 +259,39 @@ class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
         )
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ("id", "username")
-
-
 class WeightSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Weight
         fields = ("id", "child", "weight", "date", "notes", "tags")
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "is_staff",
+        )
+        extra_kwargs = {k: {"read_only": True} for k in fields}
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False)
+    api_key = serializers.SerializerMethodField("get_api_key")
+
+    def get_api_key(self, value):
+        return self.instance.api_key().key
+
+    class Meta:
+        model = babybuddy_models.Settings
+        fields = (
+            "user",
+            "language",
+            "timezone",
+            "api_key",
+        )
+        extra_kwargs = {k: {"read_only": True} for k in fields}

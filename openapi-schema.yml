@@ -4530,6 +4530,19 @@ paths:
           description: ''
       tags:
       - api
+  /api/profile:
+    get:
+      operationId: retrieveCurrentProfile
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
   /api/timers/{id}/restart/:
     patch:
       operationId: restartTimer
@@ -4848,7 +4861,7 @@ components:
         slug:
           type: string
           readOnly: true
-          pattern: ^[-a-zA-Z0-9_]+$
+          pattern: ^[-\w]+\z
         name:
           type: string
           maxLength: 100

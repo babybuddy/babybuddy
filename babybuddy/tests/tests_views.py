@@ -52,6 +52,13 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/user/settings/")
         self.assertEqual(page.status_code, 200)
 
+    def test_add_device_page(self):
+        page = self.c.get("/user/add-device/")
+        self.assertRegex(
+            page.content.decode(),
+            r""".*<div [^>]* data-qr-code-content="[^"]+"[^>]*>.*""",
+        )
+
     def test_user_views(self):
         # Staff setting is required to access user management.
         page = self.c.get("/users/")

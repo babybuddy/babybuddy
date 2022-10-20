@@ -117,9 +117,23 @@ class FormsTestCase(TestCase):
 
         page = self.c.post("/user/settings/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertNotEqual(
-            api_key_before, User.objects.get(pk=self.user.id).settings.api_key()
-        )
+        new_api_key = User.objects.get(pk=self.user.id).settings.api_key()
+        self.assertNotEqual(api_key_before, new_api_key)
+
+        # API key can also be regenerated on the add-device page
+        api_key_before = new_api_key
+        params = {"api_key_regenerate": "Regenerate"}
+        page = self.c.post("/user/add-device/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        new_api_key = User.objects.get(pk=self.user.id).settings.api_key()
+        self.assertNotEqual(api_key_before, new_api_key)
+
+    def test_invalid_post_to_add_device(self):
+        self.c.login(**self.credentials)
+        page = self.c.get("/user/add-device/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.post("/user/add-device/", params={"garbage": True}, follow=True)
+        self.assertEqual(page.status_code, 400)
 
     def test_user_settings_invalid(self):
         self.c.login(**self.credentials)

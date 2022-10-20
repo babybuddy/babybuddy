@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from django import template
 from django.apps import apps
 from django.utils import timezone
@@ -55,3 +56,10 @@ def get_child_count():
 @register.simple_tag()
 def get_current_timezone():
     return timezone.get_current_timezone_name()
+
+
+@register.simple_tag(takes_context=True)
+def make_absolute_url(context, url):
+    request = context["request"]
+    abs_url = request.build_absolute_uri(url)
+    return abs_url
