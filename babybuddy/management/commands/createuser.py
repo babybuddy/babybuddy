@@ -7,12 +7,12 @@ Example usage:
   manage.py createuser \
           --username test     \
           --email test@test.test \
-          --is-staff
+          --group staff
 """
 import sys
 import getpass
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, models
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from django.core.management.base import BaseCommand, CommandError
@@ -52,19 +52,21 @@ class Command(BaseCommand):
             help="Specifies the password for the user. Optional.",
         )
         parser.add_argument(
-            "--is-staff",
-            dest="is_staff",
-            action="store_true",
-            default=False,
-            help="Specifies the staff status for the user. Default is False.",
+            "--group",
+            dest="groups",
+            choices=("read_only", "standard", "staff"),
+            default="read_only",
+            help="Specifies the group a user belongs to. Default is read_only.",
         )
 
     def handle(self, *args, **options):
         username = options.get(self.UserModel.USERNAME_FIELD)
         password = options.get("password")
+        group_name = options.get("groups", "read_only")
 
         user_data = {}
         user_password = ""
+        group = ""
         verbose_field_name = self.username_field.verbose_name
 
         try:
@@ -75,6 +77,7 @@ class Command(BaseCommand):
                 raise CommandError(error_msg)
 
             user_data[self.UserModel.USERNAME_FIELD] = username
+            group = self._validate_group(group_name)
 
             # Prompt for a password interactively (if password not set via arg)
             while password is None:
@@ -112,10 +115,10 @@ class Command(BaseCommand):
                 DEFAULT_DB_ALIAS
             ).create_user(**user_data, password=user_password)
             user.email = options.get("email")
-            user.is_staff = options.get("is_staff")
-            # All Baby Buddy users are superusers.
-            user.is_superuser = True
+            if group_name == "staff":
+                user.is_staff = True
             user.save()
+            user.groups.add(group)
 
             if options.get("verbosity") > 0:
                 self.stdout.write(f"User {username} created successfully.")
@@ -164,3 +167,12 @@ class Command(BaseCommand):
             self.username_field.clean(username, None)
         except exceptions.ValidationError as e:
             return "; ".join(e.messages)
+
+    def _validate_group(self, group_name):
+        """
+        Validate user group. If invalid, raise an error.
+        """
+        try:
+            return models.Group.objects.get(name=group_name)
+        except models.Group.DoesNotExist as e:
+            raise CommandError(e)

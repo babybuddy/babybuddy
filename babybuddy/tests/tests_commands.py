@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TransactionTestCase
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 
 from core.models import Child
@@ -24,6 +24,9 @@ class CommandsTestCase(TransactionTestCase):
         self.assertEqual(Child.objects.count(), 1)
 
     def test_createuser(self):
+        Group.objects.create(name="read_only")
+        Group.objects.create(name="staff")
+
         call_command(
             "createuser",
             username="test",
@@ -35,10 +38,10 @@ class CommandsTestCase(TransactionTestCase):
         self.assertFalse(User.objects.filter(username="test", is_staff=True))
         call_command(
             "createuser",
-            "--is-staff",
             username="testadmin",
             email="testadmin@testadmin.testadmin",
             password="test",
+            group="staff",
             verbosity=0,
         )
         self.assertIsInstance(User.objects.get(username="testadmin"), User)
