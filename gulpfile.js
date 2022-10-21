@@ -191,6 +191,7 @@ function scripts(cb) {
     pump([
         gulp.src(config.scriptsConfig.graph),
         removeSourcemaps(),
+        minify(),
         concat('graph.js'),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
@@ -198,12 +199,14 @@ function scripts(cb) {
     pump([
         gulp.src(config.scriptsConfig.app),
         removeSourcemaps(),
+        minify(),
         concat('app.js'),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
 
     pump([
         gulp.src(config.scriptsConfig.tags_editor),
+        minify(),
         concat('tags_editor.js'),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
