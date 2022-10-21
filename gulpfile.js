@@ -5,6 +5,7 @@ const del = require('del');
 const es = require('child_process').execSync;
 const flatten = require('gulp-flatten');
 const fontello = require('gulp-fontello');
+const minify = require('gulp-minify');
 const pump = require('pump');
 const removeSourcemaps = require('gulp-remove-sourcemaps');
 const sass = require('gulp-sass')(require('sass'));
@@ -182,6 +183,7 @@ function scripts(cb) {
     pump([
         gulp.src(config.scriptsConfig.vendor),
         removeSourcemaps(),
+        minify(),
         concat('vendor.js'),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);

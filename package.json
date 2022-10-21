@@ -15,6 +15,7 @@
     "gulp-csso": "^4.0.1",
     "gulp-flatten": "^0.4.0",
     "gulp-fontello": "^0.5.2",
+    "gulp-minify": "^3.1.0",
     "gulp-remove-sourcemaps": "^1.0.4",
     "gulp-sass": "^5.1.0",
     "gulp-sass-glob": "^1.1.0",
