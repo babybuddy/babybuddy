@@ -20,6 +20,12 @@
 
 ## Creating a User from the Command Line
 
+A user's type can be:
+
+- Read only (can access all data but not make new entries)
+- Standard (default, can access and make/edit any type of entry)
+- Staff (bypasses permissions, can access Database Admin area)
+
 There are 2 ways you can create a user from the command line:
 
 1. Passing user's password as an argument:
@@ -27,6 +33,8 @@ There are 2 ways you can create a user from the command line:
 ```shell
 python manage.py createuser --username <username> --password <password>
 ```
+
+This will create a user with the standard privileges.
 
 2. Interactively setting user's password:
 
@@ -36,7 +44,13 @@ python manage.py createuser --username <username>
 
 You will then be prompted to enter and confirm a password.
 
-- If you want to make the user a staff, you can append the `--is-staff` argument:
+- If you want to create a user with read only privileges, pass in the `read_only` value to the `group` arg:
+
+```shell
+python manage.py createuser --username <username> --password <password> --group read_only
+```
+
+- If you want to create a user with the highest level of permission, you can append the `--is-staff` argument:
 
 ```shell
 python manage.py createuser --username <username> --is-staff

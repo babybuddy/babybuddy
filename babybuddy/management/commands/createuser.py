@@ -7,7 +7,7 @@ Example usage:
   manage.py createuser \
           --username test     \
           --email test@test.test \
-          --group staff
+          --group read_only
 """
 import sys
 import getpass
@@ -54,15 +54,22 @@ class Command(BaseCommand):
         parser.add_argument(
             "--group",
             dest="groups",
-            choices=("read_only", "standard", "staff"),
-            default="read_only",
-            help="Specifies the group a user belongs to. Default is read_only.",
+            choices=("read_only", "standard"),
+            default="standard",
+            help="Specifies the group a user belongs to. Default is standard.",
+        )
+        parser.add_argument(
+            "--is-staff",
+            dest="is_staff",
+            action="store_true",
+            default=False,
+            help="Specifies the staff status for the user. Default is False.",
         )
 
     def handle(self, *args, **options):
         username = options.get(self.UserModel.USERNAME_FIELD)
         password = options.get("password")
-        group_name = options.get("groups", "read_only")
+        group_name = options.get("groups", "standard")
 
         user_data = {}
         user_password = ""
@@ -115,10 +122,13 @@ class Command(BaseCommand):
                 DEFAULT_DB_ALIAS
             ).create_user(**user_data, password=user_password)
             user.email = options.get("email")
-            if group_name == "staff":
-                user.is_staff = True
+            user.is_staff = options.get("is_staff")
             user.save()
-            user.groups.add(group)
+            if user.is_staff:
+                user.is_superuser = True
+                user.save()
+            else:
+                user.groups.add(group)
 
             if options.get("verbosity") > 0:
                 self.stdout.write(f"User {username} created successfully.")
