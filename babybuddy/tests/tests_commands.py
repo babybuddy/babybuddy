@@ -25,7 +25,7 @@ class CommandsTestCase(TransactionTestCase):
 
     def test_createuser(self):
         Group.objects.create(name="read_only")
-        Group.objects.create(name="staff")
+        Group.objects.create(name="standard")
 
         call_command(
             "createuser",
@@ -35,14 +35,18 @@ class CommandsTestCase(TransactionTestCase):
             verbosity=0,
         )
         self.assertIsInstance(User.objects.get(username="test"), User)
-        self.assertFalse(User.objects.filter(username="test", is_staff=True))
+        self.assertFalse(
+            User.objects.filter(username="test", is_staff=True, is_superuser=True)
+        )
         call_command(
             "createuser",
+            "--is-staff",
             username="testadmin",
             email="testadmin@testadmin.testadmin",
             password="test",
-            group="staff",
             verbosity=0,
         )
         self.assertIsInstance(User.objects.get(username="testadmin"), User)
-        self.assertTrue(User.objects.filter(username="testadmin", is_staff=True))
+        self.assertTrue(
+            User.objects.filter(username="testadmin", is_staff=True, is_superuser=True)
+        )
