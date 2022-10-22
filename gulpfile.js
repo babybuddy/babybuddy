@@ -180,34 +180,40 @@ function lint(cb) {
  * @param cb
  */
 function scripts(cb) {
+    const minifyOptions = {
+        ext: { min:'.js' },
+        noSource: true,
+    };
+
     pump([
         gulp.src(config.scriptsConfig.vendor),
         removeSourcemaps(),
-        minify(),
         concat('vendor.js'),
+        minify(minifyOptions),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
 
     pump([
         gulp.src(config.scriptsConfig.graph),
         removeSourcemaps(),
-        minify(),
         concat('graph.js'),
+        minify(minifyOptions),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
 
     pump([
         gulp.src(config.scriptsConfig.app),
         removeSourcemaps(),
-        minify(),
         concat('app.js'),
+        minify(minifyOptions),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
 
     pump([
         gulp.src(config.scriptsConfig.tags_editor),
-        minify(),
+        removeSourcemaps(),
         concat('tags_editor.js'),
+        minify(minifyOptions),
         gulp.dest(config.scriptsConfig.dest)
     ], cb);
 }
