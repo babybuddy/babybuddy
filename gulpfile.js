@@ -1,11 +1,12 @@
 const gulp = require('gulp');
 
+const all = require('gulp-all');
 const concat = require('gulp-concat');
 const del = require('del');
 const es = require('child_process').execSync;
 const flatten = require('gulp-flatten');
 const fontello = require('gulp-fontello');
-const pump = require('pump');
+const minify = require('gulp-minify');
 const removeSourcemaps = require('gulp-remove-sourcemaps');
 const sass = require('gulp-sass')(require('sass'));
 const sassGlob = require('gulp-sass-glob');
@@ -15,15 +16,26 @@ const spawn = require('child_process').spawn;
 const config = require('./gulpfile.config.js');
 
 /**
- * Support functions for Gulp tasks.
+ * Spawns a command for pipenv.
+ *
+ * @param command
+ *   Command and arguments.
+ *
+ * @returns {Promise<unknown>}
+ *
+ * @private
  */
-
-function _runInPipenv(command, cb) {
+function _runInPipenv(command) {
     command.unshift('run');
     command = command.concat(process.argv.splice(3));
-    spawn('pipenv', command, { stdio: 'inherit' }).on('exit', function (code) {
-        if (code) process.exit(code);
-        cb();
+    return new Promise((resolve, reject) => {
+        spawn('pipenv', command, { stdio: 'inherit' })
+            .on('exit', function (code) {
+                if (code) {
+                    reject();
+                }
+                resolve();
+            });
     });
 }
 
@@ -92,134 +104,93 @@ function coverage(cb) {
 
 /**
  * Builds the documentation site locally.
- *
- * @param cb
  */
-function docsBuild(cb) {
-    _runInPipenv(['mkdocs', 'build'], cb);
+function docsBuild() {
+    return _runInPipenv(['mkdocs', 'build']);
 }
 
 /**
  * Deploys the documentation site to GitHub Pages.
- *
- * @param cb
  */
-function docsDeploy(cb) {
-    _runInPipenv(['mkdocs', 'gh-deploy'], cb);
+function docsDeploy() {
+    return _runInPipenv(['mkdocs', 'gh-deploy']);
 }
 
 /**
  * Serves the documentation site, watching for changes.
- *
- * @param cb
  */
-function docsWatch(cb) {
-    _runInPipenv(['mkdocs', 'serve'], cb);
+function docsWatch() {
+    return _runInPipenv(['mkdocs', 'serve']);
 }
 
 /**
  * Builds and copies "extra" static files to configured paths.
- *
- * @param cb
  */
-function extras(cb) {
-    pump([
-        gulp.src(config.extrasConfig.fonts.files),
-        gulp.dest(config.extrasConfig.fonts.dest)
-    ], cb);
-
-    pump([
-        gulp.src(config.extrasConfig.images.files),
-        flatten({ subPath: 3 }),
-        gulp.dest(config.extrasConfig.images.dest)
-    ], cb);
-
-    pump([
-        gulp.src(config.extrasConfig.logo.files),
-        flatten({ subPath: 3 }),
-        gulp.dest(config.extrasConfig.logo.dest)
-    ], cb);
-
-    pump([
-        gulp.src(config.extrasConfig.root.files),
-        gulp.dest(config.extrasConfig.root.dest)
-    ], cb);
+function extras() {
+    return all(
+        gulp.src(config.extrasConfig.fonts.files)
+            .pipe(gulp.dest(config.extrasConfig.fonts.dest)),
+        gulp.src(config.extrasConfig.images.files)
+            .pipe(flatten({ subPath: 3 }))
+            .pipe(gulp.dest(config.extrasConfig.images.dest)),
+        gulp.src(config.extrasConfig.logo.files)
+            .pipe(flatten({ subPath: 3 }))
+            .pipe(gulp.dest(config.extrasConfig.logo.dest)),
+        gulp.src(config.extrasConfig.root.files)
+            .pipe(gulp.dest(config.extrasConfig.root.dest))
+    );
 }
 
 /**
  * Runs Black formatting on Python code.
- *
- * @param cb
  */
-function format(cb) {
-    _runInPipenv(['black', '.'], cb);
+function format() {
+    return _runInPipenv(['black', '.']);
 }
 
 /**
  * Runs linting on Python and SASS code.
- *
- * @param cb
  */
-function lint(cb) {
-    _runInPipenv(['black', '.', '--check', '--diff', '--color'], cb);
-
-    pump([
-        gulp.src(config.watchConfig.stylesGlob),
-        styleLint({
-            reporters: [
-                { formatter: 'string', console: true }
-            ]
-        })
-    ], cb);
+function lint() {
+    return all(
+        _runInPipenv(['black', '.', '--check', '--diff', '--color']),
+        gulp.src(config.watchConfig.stylesGlob)
+            .pipe(styleLint({
+                reporters: [{ formatter: 'string', console: true }]
+            }))
+    );
 }
 
 /**
  * Builds and copies JavaScript static files to configured paths.
- *
- * @param cb
  */
-function scripts(cb) {
-    pump([
-        gulp.src(config.scriptsConfig.vendor),
-        removeSourcemaps(),
-        concat('vendor.js'),
-        gulp.dest(config.scriptsConfig.dest)
-    ], cb);
-
-    pump([
-        gulp.src(config.scriptsConfig.graph),
-        removeSourcemaps(),
-        concat('graph.js'),
-        gulp.dest(config.scriptsConfig.dest)
-    ], cb);
-
-    pump([
-        gulp.src(config.scriptsConfig.app),
-        removeSourcemaps(),
-        concat('app.js'),
-        gulp.dest(config.scriptsConfig.dest)
-    ], cb);
-
-    pump([
-        gulp.src(config.scriptsConfig.tags_editor),
-        concat('tags_editor.js'),
-        gulp.dest(config.scriptsConfig.dest)
-    ], cb);
+function scripts() {
+    const streams = [];
+    const types = ['vendor', 'graph', 'app', 'tags_editor'];
+    types.forEach((type) => {
+        streams.push(
+            gulp.src(config.scriptsConfig[type])
+                .pipe(removeSourcemaps())
+                .pipe(concat(`${type}.js`))
+                .pipe(minify({
+                    ext: { min:'.js' },
+                    noSource: true,
+                }))
+                .pipe(gulp.dest(config.scriptsConfig.dest))
+        );
+    })
+    return all(streams);
 }
 
 /**
  * Builds and copies CSS static files to configured paths.
- *
- * @param cb
  */
-function styles(cb) {
-    pump([
-        gulp.src(config.stylesConfig.app),
-        sassGlob({ignorePaths: config.stylesConfig.ignore}),
-        sass().on('error', sass.logError),
-        concat('app.css'),
-        gulp.dest(config.stylesConfig.dest)
-    ], cb);
+function styles() {
+    return gulp.src(config.stylesConfig.app)
+        .pipe(sassGlob({ignorePaths: config.stylesConfig.ignore}))
+        .pipe(sass().on('error', sass.logError))
+        .pipe(concat('app.css'))
+        .pipe(gulp.dest(config.stylesConfig.dest));
 }
 
 /**
@@ -260,12 +231,10 @@ function test(cb) {
 /**
  * Updates glyphs font data from Fontello.
  */
-function updateglyphs(cb) {
-    pump([
-        gulp.src(config.glyphFontConfig.configFile),
-        fontello({ assetsOnly: false }),
-        gulp.dest(config.glyphFontConfig.dest)
-    ], cb);
+function updateGlyphs() {
+    return gulp.src(config.glyphFontConfig.configFile)
+        .pipe(fontello({ assetsOnly: false }))
+        .pipe(gulp.dest(config.glyphFontConfig.dest));
 }
 
 /**
@@ -300,32 +269,32 @@ gulp.task('collectstatic', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
-gulp.task('compilemessages', function(cb) {
-    _runInPipenv(['python', 'manage.py', 'compilemessages'], cb);
+gulp.task('compilemessages', () => {
+    return _runInPipenv(['python', 'manage.py', 'compilemessages']);
 });
 
-gulp.task('createcachetable', function(cb) {
-    _runInPipenv(['python', 'manage.py', 'createcachetable'], cb);
+gulp.task('createcachetable', () => {
+    return _runInPipenv(['python', 'manage.py', 'createcachetable']);
 });
 
-gulp.task('fake', function(cb) {
-    _runInPipenv(['python', 'manage.py', 'fake'], cb);
+gulp.task('fake', () => {
+    return _runInPipenv(['python', 'manage.py', 'fake']);
 });
 
-gulp.task('migrate', function(cb) {
-    _runInPipenv(['python', 'manage.py', 'migrate'], cb);
+gulp.task('migrate', () => {
+    return _runInPipenv(['python', 'manage.py', 'migrate']);
 });
 
-gulp.task('makemessages', function(cb) {
-    _runInPipenv(['python', 'manage.py', 'makemessages'], cb);
+gulp.task('makemessages', () => {
+    return _runInPipenv(['python', 'manage.py', 'makemessages']);
 });
 
-gulp.task('makemigrations', function(cb) {
-    _runInPipenv(['python', 'manage.py', 'makemigrations'], cb);
+gulp.task('makemigrations', () => {
+    return _runInPipenv(['python', 'manage.py', 'makemigrations']);
 });
 
-gulp.task('reset', function(cb) {
-    _runInPipenv(['python', 'manage.py', 'reset', '--no-input'], cb);
+gulp.task('reset', () => {
+    return _runInPipenv(['python', 'manage.py', 'reset', '--no-input']);
 });
 
 gulp.task('runserver', function(cb) {
@@ -357,8 +326,8 @@ gulp.task('runserver', function(cb) {
     spawn('pipenv', command, { stdio: 'inherit' }).on('exit', cb);
 });
 
-gulp.task('generateschema', function(cb) {
-    _runInPipenv([
+gulp.task('generateschema', () => {
+    return _runInPipenv([
         'python',
         'manage.py',
         'generateschema',
@@ -366,7 +335,7 @@ gulp.task('generateschema', function(cb) {
         'Baby Buddy API',
         '--file',
         'openapi-schema.yml'
-    ], cb);
+    ]);
 });
 
 /**
@@ -395,7 +364,7 @@ gulp.task('styles', styles);
 
 gulp.task('test', test);
 
-gulp.task('updateglyphs', updateglyphs);
+gulp.task('updateglyphs', updateGlyphs);
 
 gulp.task('watch', watch);
 
