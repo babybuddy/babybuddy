@@ -24,9 +24,6 @@ class CommandsTestCase(TransactionTestCase):
         self.assertEqual(Child.objects.count(), 1)
 
     def test_createuser(self):
-        Group.objects.create(name="read_only")
-        Group.objects.create(name="standard")
-
         call_command(
             "createuser",
             username="test",
