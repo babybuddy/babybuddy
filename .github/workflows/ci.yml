@@ -81,6 +81,9 @@ jobs:
   deploy-demo:
     needs: test
     runs-on: ubuntu-latest
+    environment:
+      name: demo
+      url: https://demo.baby-buddy.net
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     steps:
       - uses: actions/checkout@v3
