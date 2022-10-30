@@ -2,11 +2,8 @@
 !__init__.py
 !base.py
 !ci.py
+!clever-cloud.py
 !development.py
 !gitpod.py
-!heroku.py
 !production.example.py
-!railway.py
-!render.py
 !test.py
-!clever-cloud.py

@@ -4,8 +4,7 @@
 
 *Default:* `True`
 
-Whether to allow uploads (e.g., of Child photos). For some deployments (Heroku)
-this setting will default to False due to the lack of available persistent storage.
+Whether to allow uploads (e.g., of Child photos).
 
 ## `AWS_ACCESS_KEY_ID`
 
@@ -29,9 +28,8 @@ See also: [`AWS_STORAGE_BUCKET_NAME`](#aws_storage_bucket_name)
 
 *Default:* `None`
 
-If you would like to use AWS S3 for storage on ephemeral storage platforms like
-Heroku you will need to create a bucket and add its name. See django-storages'
-[Amazon S3 documentation](https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html).
+If you would like to use AWS S3 for storage you will need to create a bucket and add
+its name. See django-storages' [Amazon S3 documentation](https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html).
 
 ## `AWS_S3_ENDPOINT_URL`
 

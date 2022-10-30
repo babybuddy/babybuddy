@@ -19,8 +19,8 @@ guess work.
 
 ## Demo
 
-A [demo of Baby Buddy](http://demo.baby-buddy.net) is available on Heroku.
-The demo instance resets every hour. Login credentials are:
+A [demo of Baby Buddy](https://demo.baby-buddy.net) is available. The demo instance
+resets every hour. Login credentials are:
 
 - Username: `admin`
 - Password: `admin`

@@ -40,30 +40,6 @@ export DJANGO_SETTINGS_MODULE="babybuddy.settings.base"
 python3 /app/babybuddy/manage.py clearsessions
 ```
 
-## Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fbabybuddy%2Fbabybuddy&template=https%3A%2F%2Fgithub.com%2Fbabybuddy%2Fbabybuddy)
-
-For manual deployments to Heroku without using the "deploy" button, make sure to
-create the following settings before pushing:
-
-```shell
-heroku config:set DISABLE_COLLECTSTATIC=1
-heroku config:set DJANGO_SETTINGS_MODULE=babybuddy.settings.heroku
-heroku config:set SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
-heroku config:set TIME_ZONE=<DESIRED DEFAULT TIMEZONE>
-```
-
-See [Configuration](../configuration/intro.md) for other settings that can be controlled
-by `heroku config:set`.
-
-After an initial push, execute the following commands:
-
-```shell
-heroku run python manage.py migrate
-heroku run python manage.py createcachetable
-```
-
 ## Clever Cloud
 
 To deploy on [Clever Cloud](https://www.clever-cloud.com), log in to your
