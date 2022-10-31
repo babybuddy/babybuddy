@@ -70,4 +70,7 @@ def _duration_string_ms(duration):
     :returns: a string of the form Xm.
     """
     h, m, s = duration_parts(duration)
-    return "{}m{}s".format(m, s)
+    if h > 0:
+        return "{}h{}m{}s".format(h, m, s)
+    else:
+        return "{}m{}s".format(m, s)
