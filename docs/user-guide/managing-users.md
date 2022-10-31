@@ -44,10 +44,10 @@ python manage.py createuser --username <username>
 
 You will then be prompted to enter and confirm a password.
 
-- If you want to create a user with read only privileges, pass in the `read_only` value to the `group` arg:
+- If you want to create a user with read only privileges, pass in the `--read_only` flag:
 
 ```shell
-python manage.py createuser --username <username> --password <password> --group read_only
+python manage.py createuser --username <username> --password <password> --read-only
 ```
 
 - If you want to create a user with the highest level of permission, you can append the `--is-staff` argument:

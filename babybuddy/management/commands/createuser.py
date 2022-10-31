@@ -7,7 +7,6 @@ Example usage:
   manage.py createuser \
           --username test     \
           --email test@test.test \
-          --group read_only
 """
 import sys
 import getpass
@@ -52,11 +51,10 @@ class Command(BaseCommand):
             help="Specifies the password for the user. Optional.",
         )
         parser.add_argument(
-            "--group",
-            dest="groups",
-            choices=("read_only", "standard"),
-            default="standard",
-            help="Specifies the group a user belongs to. Default is standard.",
+            "--read-only",
+            action="store_true",
+            default=False,
+            help="Specifies read-only privileges for the user. Default is False.",
         )
         parser.add_argument(
             "--is-staff",
@@ -69,7 +67,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         username = options.get(self.UserModel.USERNAME_FIELD)
         password = options.get("password")
-        group_name = options.get("groups", "standard")
+        is_group_read_only = options.get("read_only")
+        is_staff = options.get("is_staff")
 
         user_data = {}
         user_password = ""
@@ -84,7 +83,13 @@ class Command(BaseCommand):
                 raise CommandError(error_msg)
 
             user_data[self.UserModel.USERNAME_FIELD] = username
-            group = self._validate_group(group_name)
+
+            if is_staff and is_group_read_only:
+                raise CommandError(
+                    "You cannot set both read_only and is_staff flags simultaneously."
+                )
+
+            group = self.get_user_group(is_group_read_only)
 
             # Prompt for a password interactively (if password not set via arg)
             while password is None:
@@ -178,11 +183,10 @@ class Command(BaseCommand):
         except exceptions.ValidationError as e:
             return "; ".join(e.messages)
 
-    def _validate_group(self, group_name):
+    def get_user_group(self, is_group_read_only):
         """
-        Validate user group. If invalid, raise an error.
+        Returns the group a user belongs to depnding on the '--read-only' flag
         """
-        try:
-            return models.Group.objects.get(name=group_name)
-        except models.Group.DoesNotExist as e:
-            raise CommandError(e)
+        if is_group_read_only:
+            return models.Group.objects.get(name="read_only")
+        return models.Group.objects.get(name="standard")
