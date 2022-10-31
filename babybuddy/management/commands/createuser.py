@@ -71,7 +71,7 @@ class Command(BaseCommand):
         is_staff = options.get("is_staff")
 
         user_data = {}
-        user_password = ""
+        user_password = options.get("password")
         group = ""
         verbose_field_name = self.username_field.verbose_name
 
