@@ -52,7 +52,7 @@ jobs:
           command: review-apps:create
           git_remote_url: ${{ env.DOKKU_GIT_REMOTE_URL }}
           review_app_name: pr-${{ github.event.pull_request.number }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
   destroy-review-app:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -63,7 +63,7 @@ jobs:
           command: review-apps:destroy
           git_remote_url: ${{ env.DOKKU_GIT_REMOTE_URL }}
           review_app_name: pr-${{ github.event.pull_request.number }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
   deploy-docs:
     needs: test
     runs-on: ubuntu-latest

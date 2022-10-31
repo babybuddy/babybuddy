@@ -64,6 +64,10 @@ def sleep_pattern(sleeps):
             )
             duration = end_time - start_time
 
+        if last_end_time:
+            if last_end_time.date() < start_time.date():
+                last_end_time = start_time.replace(hour=0, minute=0, second=0)
+
         if not last_end_time:
             last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
