@@ -1,6 +1,4 @@
 name: CI
-env:
-   DOKKU_GIT_REMOTE_URL: 'ssh://dokku@dokku.baby-buddy.net:22/demo'
 on:
   push:
     branches:
@@ -38,32 +36,6 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           parallel-finished: true
-  deploy-review-app:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'opened'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Push to dokku
-        uses: dokku/github-action@master
-        with:
-          command: review-apps:create
-          git_remote_url: ${{ env.DOKKU_GIT_REMOTE_URL }}
-          review_app_name: pr-${{ github.event.pull_request.number }}
-          ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
-  destroy-review-app:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    steps:
-      - name: Destroy the review app
-        uses: dokku/github-action@master
-        with:
-          command: review-apps:destroy
-          git_remote_url: ${{ env.DOKKU_GIT_REMOTE_URL }}
-          review_app_name: pr-${{ github.event.pull_request.number }}
-          ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
   deploy-docs:
     needs: test
     runs-on: ubuntu-latest
@@ -92,5 +64,5 @@ jobs:
       - name: Push to dokku
         uses: dokku/github-action@master
         with:
-          git_remote_url: ${{ env.DOKKU_GIT_REMOTE_URL }}
+          git_remote_url: 'ssh://dokku@dokku.baby-buddy.net:22/demo'
           ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
