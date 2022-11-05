@@ -58,7 +58,7 @@ class Command(BaseCommand):
         migrate.handle(*args, **options)
 
         # Create cache table.
-        call_command("createcachetable")
+        call_command("createcachetable", verbosity=verbosity)
         if verbosity > 0:
             self.stdout.write(self.style.SUCCESS("Cache table created."))
 
