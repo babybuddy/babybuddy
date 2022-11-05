@@ -1,0 +1,33 @@
+name: "Review app"
+env:
+   DOKKU_GIT_REMOTE_URL: 'ssh://dokku@dokku.baby-buddy.net:22'
+   TRIGGER_LABEL: 'to review'
+on:
+  pull_request:
+    types: [labeled, unlabeled]
+jobs:
+  create-review-app:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'labeled' && github.event.label.name == ${{ env.TRIGGER_LABEL }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Create review app
+        uses: dokku/github-action@master
+        with:
+          command: review-apps:create
+          git_remote_url: ${{ env.DOKKU_GIT_REMOTE_URL }}/demo
+          review_app_name: pr-${{ github.event.pull_request.number }}
+          ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
+  destroy-review-app:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'unlabeled' && github.event.label.name == ${{ env.TRIGGER_LABEL }}
+    steps:
+      - name: Destroy review app
+        uses: dokku/github-action@master
+        with:
+          command: review-apps:destroy
+          git_remote_url: ${{ env.DOKKU_GIT_REMOTE_URL }}/demo
+          review_app_name: pr-${{ github.event.pull_request.number }}
+          ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
