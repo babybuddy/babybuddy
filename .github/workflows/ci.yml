@@ -30,6 +30,9 @@ jobs:
   coveralls-finish:
     needs: test
     runs-on: ubuntu-latest
+    environment:
+      name: coverage
+      url: https://coveralls.io/github/babybuddy/babybuddy
     steps:
       - name: Coveralls Finished
         uses: AndreMiras/coveralls-python-action@develop
