@@ -1,6 +1,7 @@
 #!/bin/sh -l
 
 if [ "$IS_REVIEW_APP" = "true" ]; then
-  ssh "$SSH_REMOTE" -- config:set "$APP_NAME" "DOMAIN=$APP_NAME.dokku.baby-buddy.net"
-  echo "configured the review app domain"
+  DOMAIN="$APP_NAME.dokku.baby-buddy.net"
+  ssh "$SSH_REMOTE" -- config:set "$APP_NAME" "ALLOWED_HOSTS=$DOMAIN CSRF_TRUSTED_ORIGINS=http://$DOMAIN"
+  echo "Review app configured"
 fi
