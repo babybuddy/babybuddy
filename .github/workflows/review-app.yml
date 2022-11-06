@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pr-${{ github.event.pull_request.number }}
-      url: https://pr-${{ github.event.pull_request.number }}.dokku.baby-buddy.net
+      url: http://pr-${{ github.event.pull_request.number }}.dokku.baby-buddy.net
     if: github.event.action == 'labeled' && github.event.label.name == 'to review'
     steps:
       - uses: actions/checkout@v3
@@ -24,9 +24,6 @@ jobs:
           ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
   destroy-review-app:
     runs-on: ubuntu-latest
-    environment:
-      name: pr-${{ github.event.pull_request.number }}
-      url: https://pr-${{ github.event.pull_request.number }}.dokku.baby-buddy.net
     if: github.event.action == 'unlabeled' && github.event.label.name == 'to review'
     steps:
       - name: Destroy review app
@@ -41,3 +38,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment: pr-${{ github.event.pull_request.number }}
+          onlyRemoveDeployments: true
