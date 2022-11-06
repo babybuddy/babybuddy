@@ -5,6 +5,16 @@ on:
   pull_request:
     types: [labeled, unlabeled]
 jobs:
+  dump-contexts-to-log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
   create-review-app:
     runs-on: ubuntu-latest
     environment:
