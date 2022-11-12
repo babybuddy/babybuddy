@@ -318,7 +318,6 @@ class TimerTestCase(TestCase):
 
     def test_timer_duration(self):
         timer = models.Timer.objects.create(user=User.objects.first())
-        # Timer.start uses auto_now_add, so it cannot be set in create().
         timer.start = timezone.localtime() - timezone.timedelta(minutes=30)
         timer.save()
         timer.refresh_from_db()
