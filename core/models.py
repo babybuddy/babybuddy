@@ -76,6 +76,33 @@ def validate_time(time, field_name):
         )
 
 
+def validate_timer_context(context):
+    """
+    Confirm that a Timer's context contains valid information.
+    :param context: A JSON store of context for the Timer
+    :return:
+    """
+    if context is None:
+        return
+
+    valid_types = ["feeding"]
+
+    if context.get("timer_type") not in valid_types:
+        raise ValidationError(_("Not a valid timer type"), code="invalid_timer_type")
+
+    excludes = []
+    fields = Feeding._meta.get_fields()
+    feeding = Feeding()
+
+    for field in fields:
+        if context.get(field.name) is None:
+            excludes.append(field.name)
+        else:
+            setattr(feeding, field.name, context.get(field.name))
+
+    feeding.clean_fields(exclude=excludes)
+
+
 class Tag(TagBase):
     DARK_COLOR = "#101010"
     LIGHT_COLOR = "#EFEFEF"
@@ -556,6 +583,10 @@ class Timer(models.Model):
         verbose_name=_("User"),
     )
 
+    context = models.JSONField(
+        default=None, blank=True, null=True, verbose_name=_("Context")
+    )
+
     objects = models.Manager()
 
     class Meta:
@@ -619,6 +650,7 @@ class Timer(models.Model):
         if self.end:
             validate_time(self.end, "end")
         validate_duration(self)
+        validate_timer_context(self.context)
 
 
 class TummyTime(models.Model):

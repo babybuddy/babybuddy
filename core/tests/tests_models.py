@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.core.management import call_command
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 
@@ -325,6 +326,44 @@ class TimerTestCase(TestCase):
         self.assertEqual(timer.duration.seconds, timezone.timedelta(minutes=30).seconds)
         timer.stop()
         self.assertEqual(timer.duration.seconds, timezone.timedelta(minutes=30).seconds)
+
+    def test_timer_valid_context(self):
+        timer = models.Timer.objects.create(user=User.objects.first())
+        timer.context = dict(timer_type="feeding", method="bottle", type="formula")
+
+        timer.clean()
+        self.assertEqual(timer.context["timer_type"], "feeding")
+
+        # Don't need to specify method
+        timer.context = dict(timer_type="feeding", type="breast milk")
+        timer.clean()
+        self.assertEqual(timer.context["timer_type"], "feeding")
+
+        # Don't need to specify type or method
+        timer.context = dict(timer_type="feeding")
+        timer.clean()
+        self.assertEqual(timer.context["timer_type"], "feeding")
+
+    def test_timer_invalid_type(self):
+        timer = models.Timer.objects.create(user=User.objects.first())
+        timer.context = dict(timer_type="invalid", method="bottle", type="formula")
+
+        with self.assertRaises(ValidationError):
+            timer.clean()
+
+    def test_timer_invalid_feeding_method(self):
+        timer = models.Timer.objects.create(user=User.objects.first())
+        timer.context = dict(timer_type="feeding", method="bottleohno", type="formula")
+
+        with self.assertRaises(ValidationError):
+            timer.clean()
+
+    def test_timer_invalid_feeding_type(self):
+        timer = models.Timer.objects.create(user=User.objects.first())
+        timer.context = dict(timer_type="feeding", method="bottle", type="formulaohno")
+
+        with self.assertRaises(ValidationError):
+            timer.clean()
 
 
 class TummyTimeTestCase(TestCase):
