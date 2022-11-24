@@ -19,6 +19,15 @@ Do not include schemes ("http" or "https") with this setting.
 - [`CSRF_TRUSTED_ORIGINS`](#csrf_trusted_origins)
 - [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header)
 
+## `CSRF_COOKIE_SECURE`
+
+*Default:* `False`
+
+If this is set to `True`, the browser CSRF cookie will be marked as "secure", which instructs the browser to only send the cookie over an HTTPS connection (never HTTP).
+
+**See also**
+- [Django's documentation on the `CSRF_COOKIE_SECURE` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#csrf-cookie-secure)
+
 ## `CSRF_TRUSTED_ORIGINS`
 
 *Default:* `None`
@@ -89,3 +98,12 @@ came in via HTTPS).
 - [Django's documentation on the SECURE_PROXY_SSL_HEADER setting](https://docs.djangoproject.com/en/4.0/ref/settings/#secure-proxy-ssl-header)
 - [`ALLOWED_HOSTS`](#allowed_hosts)
 - [`CSRF_TRUSTED_ORIGINS`](#csrf_trusted_origins)
+
+## `SESSION_COOKIE_SECURE`
+
+*Default:* `False`
+
+If this is set to `True`, the browser session cookie will be marked as "secure", which instructs the browser to only send the cookie over an HTTPS connection (never HTTP).
+
+**See also**
+- [Django's documentation on the `SESSION_COOKIE_SECURE` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#session-cookie-secure)
