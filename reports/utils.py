@@ -50,6 +50,24 @@ def rangeselector_date():
     }
 
 
+def rangeselector_time():
+    """
+    Graph time range selectors settings for 12h, 24h, 48h, 3d and all.
+    :returns: a dict of settings for the selectors.
+    """
+    return {
+        "bgcolor": "rgb(35, 149, 86)",
+        "activecolor": "rgb(25, 108, 62)",
+        "buttons": [
+            {"count": 12, "label": "12h", "step": "hour", "stepmode": "backward"},
+            {"count": 24, "label": "24h", "step": "hour", "stepmode": "backward"},
+            {"count": 48, "label": "48h", "step": "hour", "stepmode": "backward"},
+            {"count": 3, "label": "3d", "step": "day", "stepmode": "backward"},
+            {"count": 7, "label": "7d", "step": "day", "stepmode": "backward"},
+            {"step": "all"},
+        ],
+    }
+
 def split_graph_output(output):
     """
     Split out of a Plotly graph in to html and javascript.
