@@ -64,6 +64,9 @@ class ViewsTestCase(TestCase):
         page = self.c.get("{}/sleep/totals/".format(base_url))
         self.assertEqual(page.status_code, 200)
 
+        page = self.c.get("{}/temperature/temperature/".format(base_url))
+        self.assertEqual(page.status_code, 200)
+
         page = self.c.get("{}/tummy-time/duration/".format(base_url))
         self.assertEqual(page.status_code, 200)
 
