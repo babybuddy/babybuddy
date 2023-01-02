@@ -242,6 +242,24 @@ class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
+class TemperatureChangeChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of temperature change over time.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/temperature_change.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(TemperatureChangeChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        objects = models.Temperature.objects.filter(child=child)
+        if objects:
+            context["html"], context["js"] = graphs.temperature_change(objects)
+        return context
+
+
 class TummyTimeDurationChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of tummy time durations over time.
