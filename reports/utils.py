@@ -68,6 +68,7 @@ def rangeselector_time():
         ],
     }
 
+
 def split_graph_output(output):
     """
     Split out of a Plotly graph in to html and javascript.
