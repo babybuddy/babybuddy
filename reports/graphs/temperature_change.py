@@ -19,7 +19,6 @@ def temperature_change(objects):
         name=_("Temperature"),
         x=list(objects.values_list("time", flat=True)),
         y=list(objects.values_list("temperature", flat=True)),
-        fill="tozeroy",
     )
 
     layout_args = utils.default_graph_layout_options()
