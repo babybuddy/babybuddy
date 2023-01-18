@@ -387,8 +387,9 @@ def card_statistics(context, child):
         stats.append(
             {
                 "type": "float",
-                "stat": weight["change_weekly"],
-                "title": _("Weight change per week"),
+                "stat": weight["change"],
+                "title": _("Weight change (over %(over)s day(s), %(since)s day(s) ago)") % {'over': weight['over'],
+                                                                                            'since': weight['since']},
             }
         )
 
@@ -588,19 +589,21 @@ def _weight_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    weight = {"change_weekly": 0.0}
+    weight = {"change": 0.0}
 
-    instances = models.Weight.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
+    instances = models.Weight.objects.filter(child=child).order_by("-date")[:2]
+    if len(instances) != 2:
         return False
 
-    newest = instances.first()
-    oldest = instances.last()
+    newest = instances[0]
+    oldest = instances[1]
 
     if newest != oldest:
         weight_change = newest.weight - oldest.weight
-        weeks = (newest.date - oldest.date).days / 7
-        weight["change_weekly"] = weight_change / weeks
+        days_between = (newest.date - oldest.date).days
+        weight["change"] = weight_change
+        weight["over"] = days_between
+        weight["since"] = (datetime.now().date() - newest.date).days
 
     return weight
 
