@@ -138,10 +138,10 @@ class TaggableModelForm(forms.ModelForm):
     )
 
 
-class PumpingForm(CoreModelForm):
+class PumpingForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Pumping
-        fields = ["child", "amount", "time", "notes"]
+        fields = ["child", "amount", "time", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "time": forms.DateTimeInput(
