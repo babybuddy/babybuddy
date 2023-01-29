@@ -190,6 +190,7 @@ class PumpingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "amount": 50.0,
                 "time": "2017-11-17T12:52:00-05:00",
                 "notes": "new device",
+                "tags": []
             },
         )
 
