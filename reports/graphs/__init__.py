@@ -9,5 +9,6 @@ from .height_change import height_change  # NOQA
 from .pumping_amounts import pumping_amounts  # NOQA
 from .sleep_pattern import sleep_pattern  # NOQA
 from .sleep_totals import sleep_totals  # NOQA
+from .temperature_change import temperature_change  # NOQA
 from .tummytime_duration import tummytime_duration  # NOQA
 from .weight_change import weight_change  # NOQA

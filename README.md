@@ -86,7 +86,8 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 - [Sandstorm app](https://github.com/babybuddy/babybuddy-sandstorm)
 - [iOS shortcuts](https://github.com/babybuddy/babybuddy/discussions/300)
 - Newborn parenting software - [part 1](https://lutzky.net/2021/10/03/software-parenting-1/), [part 2](https://lutzky.net/2021/10/05/software-parenting-2/), [part 3](https://lutzky.net/2021/10/10/software-parenting-3/) (API, buttons, LCD information screen!)
-- [Quick Entry Keypad for BabyBuddy and Home Assistant with ESPHome](https://github.com/sfgabe/OITProjects/tree/master/Baby_Buddy_Keypad)
+- [Quick Entry Keypad (ESP8266)](https://github.com/sfgabe/OITProjects/tree/master/Baby_Buddy_Keypad) for BabyBuddy and Home Assistant with ESPHome
+- [Baby Buddy Keypad (ESP32)](https://github.com/jeroenterheerdt/Baby-Buddy-Keypad)
 - [BabyScout](https://github.com/MikeSchapp/BabyScout) - Keypad for recording diaper changes, feedings and sleep to BabyBuddy
 - [Baby Buddy: Keep Records of Your Child/Baby's Growth and Activities](https://www.youtube.com/watch?v=sO6rjn2s6-k) (video)
 

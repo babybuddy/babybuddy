@@ -268,11 +268,13 @@ if os.environ.get("SECURE_PROXY_SSL_HEADER"):
 
 # https://docs.djangoproject.com/en/4.0/topics/http/sessions/#settings
 SESSION_COOKIE_HTTPONLY = True
-# SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = bool(
+    strtobool(os.environ.get("SESSION_COOKIE_SECURE") or "False")
+)
 
 # https://docs.djangoproject.com/en/4.0/ref/csrf/#settings
 CSRF_COOKIE_HTTPONLY = True
-# CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = bool(strtobool(os.environ.get("CSRF_COOKIE_SECURE") or "False"))
 CSRF_FAILURE_VIEW = "babybuddy.views.csrf_failure"
 CSRF_TRUSTED_ORIGINS = list(
     filter(None, os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(","))
