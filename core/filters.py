@@ -51,7 +51,7 @@ class NoteFilter(TagFilter):
         fields = ["child"]
 
 
-class PumpingFilter(django_filters.FilterSet):
+class PumpingFilter(TagFilter):
     class Meta:
         model = models.Pumping
         fields = ["child"]
