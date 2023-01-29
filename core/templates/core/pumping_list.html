@@ -27,6 +27,7 @@
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th>{% trans "Amount" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,6 +56,9 @@
                             <td><a href="{% url 'core:child' pumping.child.slug %}">{{ pumping.child }}</a></td>
                         {% endif %}
                         <td>{{ pumping.amount }}</td>
+                        <td>
+                            {% include "core/render_tag_list.html" with tags=pumping.tags.all %}
+                        </td>
                     </tr>
                     {% if pumping.notes %}
                         <tr class="{{ row_class }} row-details">
