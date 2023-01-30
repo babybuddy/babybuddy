@@ -1,5 +1,54 @@
 # Changelog
 
+## [v1.14.0](https://github.com/babybuddy/babybuddy/tree/v1.14.0) (2023-01-29)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.2...v1.14.0)
+
+**Implemented enhancements:**
+
+- Issue with Tummy time graph bar [\#556](https://github.com/babybuddy/babybuddy/issues/556)
+- Improve asset minification [\#492](https://github.com/babybuddy/babybuddy/issues/492)
+- Add "user guide" to documentation [\#377](https://github.com/babybuddy/babybuddy/issues/377)
+- Timer view should show today's totals [\#294](https://github.com/babybuddy/babybuddy/issues/294)
+- FR/Question: Is it possible to make a read-only user/dashboard? [\#70](https://github.com/babybuddy/babybuddy/issues/70)
+- Add tags to Pumping model [\#590](https://github.com/babybuddy/babybuddy/pull/590) ([btoconnor](https://github.com/btoconnor))
+- Add temperature to reports [\#585](https://github.com/babybuddy/babybuddy/pull/585) ([pgazda](https://github.com/pgazda))
+- Allow setting `CSRF_COOKIE_SECURE` and `SESSION_COOKIE_SECURE` via env vars [\#577](https://github.com/babybuddy/babybuddy/pull/577) ([tpansino](https://github.com/tpansino))
+- Add condition on tummytime-duration.py in order to display hours when… [\#561](https://github.com/babybuddy/babybuddy/pull/561) ([Anoerak](https://github.com/Anoerak))
+- 544 - Improve user permissions structure [\#551](https://github.com/babybuddy/babybuddy/pull/551) ([earthcomfy](https://github.com/earthcomfy))
+- feat: minify vendor.js [\#550](https://github.com/babybuddy/babybuddy/pull/550) ([mikejgray](https://github.com/mikejgray))
+- Extra API endpoints and login qr-code for app integration [\#524](https://github.com/babybuddy/babybuddy/pull/524) ([MrApplejuice](https://github.com/MrApplejuice))
+
+**Fixed bugs:**
+
+- Passwords set by non-interactive createuser don't work [\#562](https://github.com/babybuddy/babybuddy/issues/562)
+- Issue with vertical axis in Sleep Pattern [\#554](https://github.com/babybuddy/babybuddy/issues/554)
+- Pumping graph entries do not line up with totals \(time zone issue?\) [\#523](https://github.com/babybuddy/babybuddy/issues/523)
+- Select list options intermittently invisible when used as a PWA iOS 15+ [\#381](https://github.com/babybuddy/babybuddy/issues/381)
+- 562 - Fix empty password bug in createuser command [\#564](https://github.com/babybuddy/babybuddy/pull/564) ([earthcomfy](https://github.com/earthcomfy))
+- Corrections to last\_end\_time made to correctly calculate and display … [\#560](https://github.com/babybuddy/babybuddy/pull/560) ([garyglatfelter](https://github.com/garyglatfelter))
+- resolves \#523 [\#546](https://github.com/babybuddy/babybuddy/pull/546) ([garyglatfelter](https://github.com/garyglatfelter))
+
+**Closed issues:**
+
+- Enhancement: Add support for tracking weaning? [\#591](https://github.com/babybuddy/babybuddy/issues/591)
+- Home Assistant - Rest command to log feeding [\#586](https://github.com/babybuddy/babybuddy/issues/586)
+- Pumping entries should be taggable [\#584](https://github.com/babybuddy/babybuddy/issues/584)
+- Unable to add feeding [\#572](https://github.com/babybuddy/babybuddy/issues/572)
+- Unable to create Feeding during DST overlap [\#570](https://github.com/babybuddy/babybuddy/issues/570)
+- Issue with winter/summer time [\#557](https://github.com/babybuddy/babybuddy/issues/557)
+- Enhancement: Feeding method - add "nanny fed" [\#507](https://github.com/babybuddy/babybuddy/issues/507)
+- Add LDAP as authentication backend [\#202](https://github.com/babybuddy/babybuddy/issues/202)
+- Timer for medicine [\#200](https://github.com/babybuddy/babybuddy/issues/200)
+- Add ARCHITECTURE.md file [\#196](https://github.com/babybuddy/babybuddy/issues/196)
+- Track other baby care tasks \(bathing, nail trimming...\) [\#176](https://github.com/babybuddy/babybuddy/issues/176)
+- Ability to track Medicine [\#153](https://github.com/babybuddy/babybuddy/issues/153)
+
+**Merged pull requests:**
+
+- test: Remove out of date comment [\#571](https://github.com/babybuddy/babybuddy/pull/571) ([jcgoette](https://github.com/jcgoette))
+- Misc updates [\#569](https://github.com/babybuddy/babybuddy/pull/569) ([cdubz](https://github.com/cdubz))
+
 ## [v1.13.2](https://github.com/babybuddy/babybuddy/tree/v1.13.2) (2022-10-15)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.1...v1.13.2)
