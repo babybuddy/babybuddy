@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from django.utils import timezone
@@ -268,7 +268,7 @@ class TimerTestCase(TestCase):
         child = models.Child.objects.create(
             first_name="First", last_name="Last", birth_date=timezone.localdate()
         )
-        self.user = User.objects.first()
+        self.user = get_user_model().objects.first()
         self.named = models.Timer.objects.create(
             name="Named", end=timezone.localtime(), user=self.user, child=child
         )
@@ -317,7 +317,7 @@ class TimerTestCase(TestCase):
         self.assertFalse(self.unnamed.active)
 
     def test_timer_duration(self):
-        timer = models.Timer.objects.create(user=User.objects.first())
+        timer = models.Timer.objects.create(user=get_user_model().objects.first())
         timer.start = timezone.localtime() - timezone.timedelta(minutes=30)
         timer.save()
         timer.refresh_from_db()

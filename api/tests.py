@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from babybuddy.models import User
+from babybuddy.models import get_user_model
 from core import models
 from django.urls import reverse
 from django.utils import timezone
@@ -35,7 +35,7 @@ class TestBase:
         def test_post_with_timer(self):
             if not self.timer_test_data:
                 return
-            user = User.objects.first()
+            user = get_user_model().objects.first()
             start = timezone.now() - timezone.timedelta(minutes=10)
             timer = models.Timer.objects.create(user=user, start=start)
             self.timer_test_data["timer"] = timer.id
@@ -64,7 +64,7 @@ class TestBase:
         def test_post_with_timer_with_child(self):
             if not self.timer_test_data:
                 return
-            user = User.objects.first()
+            user = get_user_model().objects.first()
             child = models.Child.objects.first()
             start = timezone.now() - timezone.timedelta(minutes=10)
             timer = models.Timer.objects.create(user=user, child=child, start=start)
@@ -725,7 +725,7 @@ class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(obj.name, data["name"])
 
     def test_post_default_user(self):
-        user = User.objects.first()
+        user = get_user_model().objects.first()
         response = self.client.post(self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Timer.objects.get(pk=response.data["id"])

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytz
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
 
@@ -24,7 +24,7 @@ class TemplateTagsTestCase(TestCase):
     def setUpClass(cls):
         super(TemplateTagsTestCase, cls).setUpClass()
         cls.child = models.Child.objects.first()
-        cls.context = {"request": MockUserRequest(User.objects.first())}
+        cls.context = {"request": MockUserRequest(get_user_model().objects.first())}
 
         # Ensure timezone matches the one defined by fixtures.
         user_timezone = Settings.objects.first().timezone
@@ -35,14 +35,14 @@ class TemplateTagsTestCase(TestCase):
         cls.date = timezone.make_aware(date)
 
     def test_hide_empty(self):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_empty = True
         context = {"request": request}
         hide_empty = cards._hide_empty(context)
         self.assertTrue(hide_empty)
 
     def test_filter_data_age_none(self):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_age = None
         context = {"request": request}
         filter_data_age = cards._filter_data_age(context)
@@ -50,7 +50,7 @@ class TemplateTagsTestCase(TestCase):
 
     @mock.patch("dashboard.templatetags.cards.timezone")
     def test_filter_data_age_one_day(self, mocked_timezone):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
         context = {"request": request}
         mocked_timezone.localtime.return_value = timezone.localtime().strptime(
@@ -79,7 +79,7 @@ class TemplateTagsTestCase(TestCase):
 
     @mock.patch("dashboard.templatetags.cards.timezone")
     def test_card_diaperchange_last_filter_age(self, mocked_timezone):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
         context = {"request": request}
         time = timezone.localtime().strptime("2017-11-10", "%Y-%m-%d")
@@ -292,7 +292,7 @@ class TemplateTagsTestCase(TestCase):
         self.assertFalse(data["hide_empty"])
 
     def test_card_timer_list(self):
-        user = User.objects.first()
+        user = get_user_model().objects.first()
         child = models.Child.objects.first()
         child_two = models.Child.objects.create(
             first_name="Child", last_name="Two", birth_date=timezone.localdate()

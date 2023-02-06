@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from django.test import Client as HttpClient
@@ -25,7 +25,7 @@ class ViewsTestCase(TestCase):
             "username": fake_user["username"],
             "password": fake.password(),
         }
-        cls.user = User.objects.create_user(is_superuser=True, **cls.credentials)
+        cls.user = get_user_model().objects.create_user(is_superuser=True, **cls.credentials)
 
         cls.c.login(**cls.credentials)
 

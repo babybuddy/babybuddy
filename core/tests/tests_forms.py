@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from django.test import Client as HttpClient
@@ -26,7 +26,7 @@ class FormsTestCaseBase(TestCase):
 
         fake_user = fake.simple_profile()
         credentials = {"username": fake_user["username"], "password": fake.password()}
-        cls.user = User.objects.create_user(is_superuser=True, **credentials)
+        cls.user = get_user_model().objects.create_user(is_superuser=True, **credentials)
         cls.c.login(**credentials)
 
         cls.child = models.Child.objects.create(

@@ -4,7 +4,7 @@ import time
 
 from django.test import TestCase, override_settings, tag
 from django.test import Client as HttpClient
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core import mail
 from django.core.management import call_command
 
@@ -25,7 +25,7 @@ class ViewsTestCase(TestCase):
             "username": fake_user["username"],
             "password": fake.password(),
         }
-        cls.user = User.objects.create_user(
+        cls.user = get_user_model().objects.create_user(
             is_superuser=True, email="admin@admin.admin", **cls.credentials
         )
 
@@ -71,7 +71,7 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/users/add/")
         self.assertEqual(page.status_code, 200)
 
-        entry = User.objects.first()
+        entry = get_user_model().objects.first()
         page = self.c.get("/users/{}/edit/".format(entry.id))
         self.assertEqual(page.status_code, 200)
         page = self.c.get("/users/{}/delete/".format(entry.id))
