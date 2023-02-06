@@ -2,7 +2,7 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LogoutView as LogoutViewBase
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import BadRequest
@@ -87,7 +87,7 @@ class LogoutView(LogoutViewBase):
 
 
 class UserList(StaffOnlyMixin, BabyBuddyFilterView):
-    model = User
+    model = get_user_model()
     template_name = "babybuddy/user_list.html"
     ordering = "username"
     paginate_by = 10
@@ -95,7 +95,7 @@ class UserList(StaffOnlyMixin, BabyBuddyFilterView):
 
 
 class UserAdd(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    model = User
+    model = get_user_model()
     template_name = "babybuddy/user_form.html"
     permission_required = ("admin.add_user",)
     form_class = forms.UserAddForm
@@ -106,7 +106,7 @@ class UserAdd(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin, Crea
 class UserUpdate(
     StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
 ):
-    model = User
+    model = get_user_model()
     template_name = "babybuddy/user_form.html"
     permission_required = ("admin.change_user",)
     form_class = forms.UserUpdateForm
@@ -117,7 +117,7 @@ class UserUpdate(
 class UserDelete(
     StaffOnlyMixin, PermissionRequiredMixin, DeleteView, SuccessMessageMixin
 ):
-    model = User
+    model = get_user_model()
     template_name = "babybuddy/user_confirm_delete.html"
     permission_required = ("admin.delete_user",)
     success_url = reverse_lazy("babybuddy:user-list")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TransactionTestCase
-from django.contrib.auth.models import User, Group
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 
 from core.models import Child
@@ -9,7 +9,7 @@ from core.models import Child
 class CommandsTestCase(TransactionTestCase):
     def test_migrate(self):
         call_command("migrate", verbosity=0)
-        self.assertIsInstance(User.objects.get(username="admin"), User)
+        self.assertIsInstance(get_user_model().objects.get(username="admin"), get_user_model())
 
     def test_fake(self):
         call_command("migrate", verbosity=0)
@@ -20,7 +20,7 @@ class CommandsTestCase(TransactionTestCase):
 
     def test_reset(self):
         call_command("reset", verbosity=0, interactive=False)
-        self.assertIsInstance(User.objects.get(username="admin"), User)
+        self.assertIsInstance(get_user_model().objects.get(username="admin"), get_user_model())
         self.assertEqual(Child.objects.count(), 1)
 
     def test_createuser(self):
@@ -31,9 +31,9 @@ class CommandsTestCase(TransactionTestCase):
             password="test",
             verbosity=0,
         )
-        self.assertIsInstance(User.objects.get(username="test"), User)
+        self.assertIsInstance(get_user_model().objects.get(username="test"), get_user_model())
         self.assertFalse(
-            User.objects.filter(username="test", is_staff=True, is_superuser=True)
+            get_user_model().objects.filter(username="test", is_staff=True, is_superuser=True)
         )
         call_command(
             "createuser",
@@ -43,7 +43,7 @@ class CommandsTestCase(TransactionTestCase):
             password="test",
             verbosity=0,
         )
-        self.assertIsInstance(User.objects.get(username="testadmin"), User)
+        self.assertIsInstance(get_user_model().objects.get(username="testadmin"), get_user_model())
         self.assertTrue(
-            User.objects.filter(username="testadmin", is_staff=True, is_superuser=True)
+            get_user_model().objects.filter(username="testadmin", is_staff=True, is_superuser=True)
         )

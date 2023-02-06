@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import Client as HttpClient, override_settings, TestCase
 from django.utils import timezone
@@ -24,7 +24,7 @@ class FormsTestCase(TestCase):
             "username": fake_user["username"],
             "password": fake.password(),
         }
-        cls.user = User.objects.create_user(is_superuser=True, **cls.credentials)
+        cls.user = get_user_model().objects.create_user(is_superuser=True, **cls.credentials)
 
         cls.settings_template = {
             "first_name": "User",
@@ -84,8 +84,8 @@ class FormsTestCase(TestCase):
 
         page = self.c.post("/users/add/", params)
         self.assertEqual(page.status_code, 302)
-        new_user = User.objects.get(username="username")
-        self.assertIsInstance(new_user, User)
+        new_user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(new_user, get_user_model())
 
         params["first_name"] = "Changed"
         page = self.c.post("/users/{}/edit/".format(new_user.id), params)
@@ -95,7 +95,7 @@ class FormsTestCase(TestCase):
 
         page = self.c.post("/users/{}/delete/".format(new_user.id))
         self.assertEqual(page.status_code, 302)
-        self.assertQuerysetEqual(User.objects.filter(username="username"), [])
+        self.assertQuerysetEqual(get_user_model().objects.filter(username="username"), [])
 
     def test_user_settings(self):
         self.c.login(**self.credentials)
@@ -110,14 +110,14 @@ class FormsTestCase(TestCase):
     def test_user_regenerate_api_key(self):
         self.c.login(**self.credentials)
 
-        api_key_before = User.objects.get(pk=self.user.id).settings.api_key()
+        api_key_before = get_user_model().objects.get(pk=self.user.id).settings.api_key()
 
         params = self.settings_template.copy()
         params["api_key_regenerate"] = "Regenerate"
 
         page = self.c.post("/user/settings/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        new_api_key = User.objects.get(pk=self.user.id).settings.api_key()
+        new_api_key = get_user_model().objects.get(pk=self.user.id).settings.api_key()
         self.assertNotEqual(api_key_before, new_api_key)
 
         # API key can also be regenerated on the add-device page
@@ -125,7 +125,7 @@ class FormsTestCase(TestCase):
         params = {"api_key_regenerate": "Regenerate"}
         page = self.c.post("/user/add-device/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        new_api_key = User.objects.get(pk=self.user.id).settings.api_key()
+        new_api_key = get_user_model().objects.get(pk=self.user.id).settings.api_key()
         self.assertNotEqual(api_key_before, new_api_key)
 
     def test_invalid_post_to_add_device(self):

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-import unittest
-
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.utils import timezone, formats
 
@@ -119,7 +117,7 @@ class TemplateTagsTestCase(TestCase):
         child = Child.objects.create(
             first_name="Test", last_name="Child", birth_date=timezone.localdate()
         )
-        user = User.objects.create_user(username="timer")
+        user = get_user_model().objects.create_user(username="timer")
         timer = Timer.objects.create(user=user)
 
         url = timers.instance_add_url({"timer": timer}, "core:sleep-add")
@@ -132,7 +130,7 @@ class TemplateTagsTestCase(TestCase):
         )
 
     def test_datetimepicker_format(self):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_empty = True
         context = {"request": request}
 
@@ -150,7 +148,7 @@ class TemplateTagsTestCase(TestCase):
 
     @override_settings(USE_24_HOUR_TIME_FORMAT=False)
     def test_datetimepicker_format_en_gb(self):
-        user = User.objects.first()
+        user = get_user_model().objects.first()
         user.settings.language = "en-GB"
         user.save()
 
