@@ -20,6 +20,9 @@ runs:
     - name: Install Python dependencies
       shell: bash
       run: pipenv install --dev
+    - name: Print installed dependency versions
+      shell: bash
+      run: pipenv graph
     - uses: actions/setup-node@v3
       with:
         node-version: 16
