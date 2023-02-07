@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("core", "0023_alter_tag_options_alter_bmi_tags_and_more"),
     ]

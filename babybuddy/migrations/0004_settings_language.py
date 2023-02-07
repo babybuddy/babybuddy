@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("babybuddy", "0003_add_refresh_help_text"),
     ]

@@ -12,7 +12,6 @@ def add_settings(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("babybuddy", "0020_update_language_en_to_en_us"),
     ]

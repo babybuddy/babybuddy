@@ -70,7 +70,6 @@ def revert_migration(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("babybuddy", "0023_alter_settings_timezone"),
     ]

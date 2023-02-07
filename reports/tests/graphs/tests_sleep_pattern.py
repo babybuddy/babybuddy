@@ -18,7 +18,6 @@ class SleepPatternTestCase(TestCase):
         timezone.activate(self.original_tz)
 
     def test_sleep_pattern(self):
-
         c = models.Child(birth_date=dt.datetime.now())
         c.save()
 
