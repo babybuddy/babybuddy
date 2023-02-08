@@ -11,7 +11,9 @@ class Command(migrate.Command):
 
         superusers = get_user_model().objects.filter(is_superuser=True)
         if len(superusers) == 0:
-            default_user = get_user_model().objects.create_user("admin", password="admin")
+            default_user = get_user_model().objects.create_user(
+                "admin", password="admin"
+            )
             default_user.is_superuser = True
             default_user.is_staff = True
             default_user.save()

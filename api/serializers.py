@@ -227,7 +227,10 @@ class TimerSerializer(CoreModelSerializer):
         required=False,
     )
     user = serializers.PrimaryKeyRelatedField(
-        allow_null=True, allow_empty=True, queryset=get_user_model().objects.all(), required=False
+        allow_null=True,
+        allow_empty=True,
+        queryset=get_user_model().objects.all(),
+        required=False,
     )
 
     class Meta:

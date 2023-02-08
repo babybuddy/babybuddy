@@ -26,7 +26,9 @@ class FormsTestCaseBase(TestCase):
 
         fake_user = fake.simple_profile()
         credentials = {"username": fake_user["username"], "password": fake.password()}
-        cls.user = get_user_model().objects.create_user(is_superuser=True, **credentials)
+        cls.user = get_user_model().objects.create_user(
+            is_superuser=True, **credentials
+        )
         cls.c.login(**credentials)
 
         cls.child = models.Child.objects.create(
