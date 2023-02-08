@@ -63,3 +63,8 @@ def make_absolute_url(context, url):
     request = context["request"]
     abs_url = request.build_absolute_uri(url)
     return abs_url
+
+
+@register.simple_tag()
+def user_is_read_only(user):
+    return user.groups.filter(name="read_only").exists()
