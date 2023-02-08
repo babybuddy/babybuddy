@@ -24,7 +24,9 @@ class ViewsTestCase(TestCase):
             "username": fake_user["username"],
             "password": fake.password(),
         }
-        cls.user = get_user_model().objects.create_user(is_superuser=True, **cls.credentials)
+        cls.user = get_user_model().objects.create_user(
+            is_superuser=True, **cls.credentials
+        )
 
         cls.c.login(**cls.credentials)
 

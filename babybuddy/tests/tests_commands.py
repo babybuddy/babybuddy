@@ -9,7 +9,9 @@ from core.models import Child
 class CommandsTestCase(TransactionTestCase):
     def test_migrate(self):
         call_command("migrate", verbosity=0)
-        self.assertIsInstance(get_user_model().objects.get(username="admin"), get_user_model())
+        self.assertIsInstance(
+            get_user_model().objects.get(username="admin"), get_user_model()
+        )
 
     def test_fake(self):
         call_command("migrate", verbosity=0)
@@ -20,7 +22,9 @@ class CommandsTestCase(TransactionTestCase):
 
     def test_reset(self):
         call_command("reset", verbosity=0, interactive=False)
-        self.assertIsInstance(get_user_model().objects.get(username="admin"), get_user_model())
+        self.assertIsInstance(
+            get_user_model().objects.get(username="admin"), get_user_model()
+        )
         self.assertEqual(Child.objects.count(), 1)
 
     def test_createuser(self):
@@ -31,9 +35,13 @@ class CommandsTestCase(TransactionTestCase):
             password="test",
             verbosity=0,
         )
-        self.assertIsInstance(get_user_model().objects.get(username="test"), get_user_model())
+        self.assertIsInstance(
+            get_user_model().objects.get(username="test"), get_user_model()
+        )
         self.assertFalse(
-            get_user_model().objects.filter(username="test", is_staff=True, is_superuser=True)
+            get_user_model().objects.filter(
+                username="test", is_staff=True, is_superuser=True
+            )
         )
         call_command(
             "createuser",
@@ -43,7 +51,11 @@ class CommandsTestCase(TransactionTestCase):
             password="test",
             verbosity=0,
         )
-        self.assertIsInstance(get_user_model().objects.get(username="testadmin"), get_user_model())
+        self.assertIsInstance(
+            get_user_model().objects.get(username="testadmin"), get_user_model()
+        )
         self.assertTrue(
-            get_user_model().objects.filter(username="testadmin", is_staff=True, is_superuser=True)
+            get_user_model().objects.filter(
+                username="testadmin", is_staff=True, is_superuser=True
+            )
         )

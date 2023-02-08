@@ -24,7 +24,9 @@ class FormsTestCase(TestCase):
             "username": fake_user["username"],
             "password": fake.password(),
         }
-        cls.user = get_user_model().objects.create_user(is_superuser=True, **cls.credentials)
+        cls.user = get_user_model().objects.create_user(
+            is_superuser=True, **cls.credentials
+        )
 
         cls.settings_template = {
             "first_name": "User",
@@ -95,7 +97,9 @@ class FormsTestCase(TestCase):
 
         page = self.c.post("/users/{}/delete/".format(new_user.id))
         self.assertEqual(page.status_code, 302)
-        self.assertQuerysetEqual(get_user_model().objects.filter(username="username"), [])
+        self.assertQuerysetEqual(
+            get_user_model().objects.filter(username="username"), []
+        )
 
     def test_user_settings(self):
         self.c.login(**self.credentials)
@@ -110,7 +114,9 @@ class FormsTestCase(TestCase):
     def test_user_regenerate_api_key(self):
         self.c.login(**self.credentials)
 
-        api_key_before = get_user_model().objects.get(pk=self.user.id).settings.api_key()
+        api_key_before = (
+            get_user_model().objects.get(pk=self.user.id).settings.api_key()
+        )
 
         params = self.settings_template.copy()
         params["api_key_regenerate"] = "Regenerate"
