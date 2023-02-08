@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load bootstrap i18n widget_tweaks %}
+{% load babybuddy_tags bootstrap i18n widget_tweaks %}
 
 {% block title %}{% trans "Users" %}{% endblock %}
 
@@ -18,6 +18,7 @@
                     <th>{% trans "First Name" %}</th>
                     <th>{% trans "Last Name" %}</th>
                     <th>{% trans "Email" %}</th>
+                    <th>{% trans "Read only" %}</th>
                     <th>{% trans "Staff" %}</th>
                     <th>{% trans "Active" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
@@ -30,6 +31,8 @@
                         <td>{{ object.first_name }}</td>
                         <td>{{ object.last_name }}</td>
                         <td>{{ object.email }}</td>
+                        {% user_is_read_only object as is_readonly %}
+                        <td>{{ is_readonly|bool_icon }}</td>
                         <td>{{ object.is_staff|bool_icon }}</td>
                         <td>{{ object.is_active|bool_icon }}</td>
                         <td class="text-center">
