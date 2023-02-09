@@ -67,12 +67,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         username = options.get(self.UserModel.USERNAME_FIELD)
         password = options.get("password")
-        is_group_read_only = options.get("read_only")
-        is_staff = options.get("is_staff")
+        is_read_only = options.get("read_only")
 
         user_data = {}
         user_password = options.get("password")
-        group = ""
         verbose_field_name = self.username_field.verbose_name
 
         try:
@@ -84,13 +82,6 @@ class Command(BaseCommand):
 
             user_data[self.UserModel.USERNAME_FIELD] = username
 
-            if is_staff and is_group_read_only:
-                raise CommandError(
-                    "You cannot set both read_only and is_staff flags simultaneously."
-                )
-
-            group = self.get_user_group(is_group_read_only)
-
             # Prompt for a password interactively (if password not set via arg)
             while password is None:
                 password = getpass.getpass()
@@ -99,18 +90,15 @@ class Command(BaseCommand):
                 if password.strip() == "":
                     self.stderr.write("Error: Blank passwords aren't allowed.")
                     password = None
-                    # Don't validate blank passwords.
                     continue
 
                 if password != password2:
                     self.stderr.write("Error: Your passwords didn't match.")
                     password = None
-                    password2 = None
-                    # Don't validate passwords that don't match.
                     continue
 
                 try:
-                    validate_password(password2, self.UserModel(**user_data))
+                    validate_password(password, self.UserModel(**user_data))
                 except exceptions.ValidationError as err:
                     self.stderr.write("\n".join(err.messages))
                     response = input(
@@ -118,7 +106,6 @@ class Command(BaseCommand):
                     )
                     if response.lower() != "y":
                         password = None
-                        password2 = None
                         continue
 
                 user_password = password
@@ -128,12 +115,15 @@ class Command(BaseCommand):
             ).create_user(**user_data, password=user_password)
             user.email = options.get("email")
             user.is_staff = options.get("is_staff")
-            user.save()
-            if user.is_staff:
+
+            if is_read_only:
+                user.is_superuser = False
+                user.save()
+                group = models.Group.objects.get(name="read_only")
+                user.groups.add(group)
+            else:
                 user.is_superuser = True
                 user.save()
-            else:
-                user.groups.add(group)
 
             if options.get("verbosity") > 0:
                 self.stdout.write(f"User {username} created successfully.")
@@ -182,11 +172,3 @@ class Command(BaseCommand):
             self.username_field.clean(username, None)
         except exceptions.ValidationError as e:
             return "; ".join(e.messages)
-
-    def get_user_group(self, is_group_read_only):
-        """
-        Returns the group a user belongs to depnding on the '--read-only' flag
-        """
-        if is_group_read_only:
-            return models.Group.objects.get(name="read_only")
-        return models.Group.objects.get(name="standard")
