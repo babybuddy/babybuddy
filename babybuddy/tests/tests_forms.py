@@ -28,6 +28,17 @@ class FormsTestCase(TestCase):
             is_superuser=True, **cls.credentials
         )
 
+        cls.user_template = {
+            "username": "username",
+            "first_name": "User",
+            "last_name": "Name",
+            "email": "user@user.user",
+            "is_staff": False,
+            "is_read_only": False,
+            "password1": "d47o8dD&#hu3ulu3",
+            "password2": "d47o8dD&#hu3ulu3",
+        }
+
         cls.settings_template = {
             "first_name": "User",
             "last_name": "Name",
@@ -74,15 +85,7 @@ class FormsTestCase(TestCase):
         self.user.is_staff = True
         self.user.save()
         self.c.login(**self.credentials)
-
-        params = {
-            "username": "username",
-            "first_name": "User",
-            "last_name": "Name",
-            "email": "user@user.user",
-            "password1": "d47o8dD&#hu3ulu3",
-            "password2": "d47o8dD&#hu3ulu3",
-        }
+        params = self.user_template.copy()
 
         page = self.c.post("/users/add/", params)
         self.assertEqual(page.status_code, 302)
@@ -100,6 +103,53 @@ class FormsTestCase(TestCase):
         self.assertQuerysetEqual(
             get_user_model().objects.filter(username="username"), []
         )
+
+    def test_add_regular_user(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(user, get_user_model())
+        self.assertTrue(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertFalse(user.groups.filter(name="read_only").exists())
+
+    def test_add_staff_user(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params["is_staff"] = True
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(user, get_user_model())
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
+        self.assertFalse(user.groups.filter(name="read_only").exists())
+
+    def test_add_read_only_user(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params["is_read_only"] = True
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(user, get_user_model())
+        self.assertFalse(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertTrue(user.groups.filter(name="read_only").exists())
 
     def test_user_settings(self):
         self.c.login(**self.credentials)

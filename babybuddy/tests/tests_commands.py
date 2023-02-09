@@ -30,32 +30,40 @@ class CommandsTestCase(TransactionTestCase):
     def test_createuser(self):
         call_command(
             "createuser",
-            username="test",
-            email="test@test.test",
+            username="regularuser",
+            email="regularuser@test.test",
             password="test",
             verbosity=0,
         )
-        self.assertIsInstance(
-            get_user_model().objects.get(username="test"), get_user_model()
-        )
-        self.assertFalse(
-            get_user_model().objects.filter(
-                username="test", is_staff=True, is_superuser=True
-            )
-        )
+        user = get_user_model().objects.get(username="regularuser")
+        self.assertIsInstance(user, get_user_model())
+        self.assertTrue(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertEqual(user.email, "regularuser@test.test")
+
         call_command(
             "createuser",
             "--is-staff",
-            username="testadmin",
-            email="testadmin@testadmin.testadmin",
+            username="staffuser",
+            email="staffuser@test.test",
             password="test",
             verbosity=0,
         )
-        self.assertIsInstance(
-            get_user_model().objects.get(username="testadmin"), get_user_model()
+        user = get_user_model().objects.get(username="staffuser")
+        self.assertIsInstance(user, get_user_model())
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
+
+        call_command(
+            "createuser",
+            "--read-only",
+            username="readonlyuser",
+            email="readonlyuser@test.test",
+            password="test",
+            verbosity=0,
         )
-        self.assertTrue(
-            get_user_model().objects.filter(
-                username="testadmin", is_staff=True, is_superuser=True
-            )
-        )
+        user = get_user_model().objects.get(username="readonlyuser")
+        self.assertIsInstance(user, get_user_model())
+        self.assertFalse(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertTrue(user.groups.filter(name="read_only").exists())
