@@ -31,8 +31,8 @@
                         <td>{{ object.first_name }}</td>
                         <td>{{ object.last_name }}</td>
                         <td>{{ object.email }}</td>
-                        {% user_is_read_only object as is_readonly %}
-                        <td>{{ is_readonly|bool_icon }}</td>
+                        {% user_is_read_only object as is_read_only %}
+                        <td>{{ is_read_only|bool_icon }}</td>
                         <td>{{ object.is_staff|bool_icon }}</td>
                         <td>{{ object.is_active|bool_icon }}</td>
                         <td class="text-center">

@@ -9,7 +9,7 @@ from .models import Settings
 
 
 class BabyBuddyUserForm(forms.ModelForm):
-    is_readonly = forms.BooleanField(
+    is_read_only = forms.BooleanField(
         required=False,
         label=_("Read only"),
         help_text=_("Restricts user to viewing data only."),
@@ -23,7 +23,7 @@ class BabyBuddyUserForm(forms.ModelForm):
             "last_name",
             "email",
             "is_staff",
-            "is_readonly",
+            "is_read_only",
             "is_active",
         ]
 
@@ -31,21 +31,21 @@ class BabyBuddyUserForm(forms.ModelForm):
         user = kwargs["instance"]
         if user:
             kwargs["initial"].update(
-                {"is_readonly": user.groups.filter(name="read_only").exists()}
+                {"is_read_only": user.groups.filter(name="read_only").exists()}
             )
         super(BabyBuddyUserForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
         user = super(BabyBuddyUserForm, self).save(commit=False)
-        is_readonly = self.cleaned_data["is_readonly"]
-        if is_readonly:
+        is_read_only = self.cleaned_data["is_read_only"]
+        if is_read_only:
             user.is_superuser = False
         else:
             user.is_superuser = True
         if commit:
             user.save()
         readonly_group = Group.objects.get(name="read_only")
-        if is_readonly:
+        if is_read_only:
             user.groups.add(readonly_group.id)
         else:
             user.groups.remove(readonly_group.id)
