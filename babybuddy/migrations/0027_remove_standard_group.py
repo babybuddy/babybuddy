@@ -13,4 +13,6 @@ class Migration(migrations.Migration):
         ("babybuddy", "0026_alter_settings_timezone"),
     ]
 
-    operations = [migrations.RunPython(remove_standard_group)]
+    operations = [
+        migrations.RunPython(remove_standard_group, migrations.RunPython.noop)
+    ]
