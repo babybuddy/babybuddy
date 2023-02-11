@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TestCase
@@ -26,6 +27,6 @@ class TemplateTagsTestCase(TestCase):
         )
         self.assertFalse(babybuddy.user_is_read_only(user))
 
-        group = Group.objects.get(name="read_only")
+        group = Group.objects.get(name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"])
         user.groups.add(group)
         self.assertTrue(babybuddy.user_is_read_only(user))

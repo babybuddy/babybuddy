@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import Client as HttpClient, override_settings, TestCase
@@ -117,7 +118,11 @@ class FormsTestCase(TestCase):
         self.assertIsInstance(user, get_user_model())
         self.assertTrue(user.is_superuser)
         self.assertFalse(user.is_staff)
-        self.assertFalse(user.groups.filter(name="read_only").exists())
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
 
     def test_add_staff_user(self):
         self.user.is_staff = True
@@ -133,7 +138,11 @@ class FormsTestCase(TestCase):
         self.assertIsInstance(user, get_user_model())
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
-        self.assertFalse(user.groups.filter(name="read_only").exists())
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
 
     def test_add_read_only_user(self):
         self.user.is_staff = True
@@ -149,7 +158,11 @@ class FormsTestCase(TestCase):
         self.assertIsInstance(user, get_user_model())
         self.assertFalse(user.is_superuser)
         self.assertFalse(user.is_staff)
-        self.assertTrue(user.groups.filter(name="read_only").exists())
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
 
     def test_user_settings(self):
         self.c.login(**self.credentials)

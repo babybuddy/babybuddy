@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth.models import Group
@@ -31,7 +32,11 @@ class BabyBuddyUserForm(forms.ModelForm):
         user = kwargs["instance"]
         if user:
             kwargs["initial"].update(
-                {"is_read_only": user.groups.filter(name="read_only").exists()}
+                {
+                    "is_read_only": user.groups.filter(
+                        name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+                    ).exists()
+                }
             )
         super(BabyBuddyUserForm, self).__init__(*args, **kwargs)
 
@@ -44,7 +49,9 @@ class BabyBuddyUserForm(forms.ModelForm):
             user.is_superuser = True
         if commit:
             user.save()
-        readonly_group = Group.objects.get(name="read_only")
+        readonly_group = Group.objects.get(
+            name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+        )
         if is_read_only:
             user.groups.add(readonly_group.id)
         else:

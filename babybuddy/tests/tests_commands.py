@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TransactionTestCase
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 
@@ -28,6 +29,7 @@ class CommandsTestCase(TransactionTestCase):
         self.assertEqual(Child.objects.count(), 1)
 
     def test_createuser(self):
+        call_command("migrate", verbosity=0)
         call_command(
             "createuser",
             username="regularuser",
@@ -66,4 +68,8 @@ class CommandsTestCase(TransactionTestCase):
         self.assertIsInstance(user, get_user_model())
         self.assertFalse(user.is_superuser)
         self.assertFalse(user.is_staff)
-        self.assertTrue(user.groups.filter(name="read_only").exists())
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )

@@ -2,6 +2,7 @@
 
 from django import template
 from django.apps import apps
+from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import to_locale, get_language
 
@@ -80,4 +81,4 @@ def user_is_locked(user):
 
 @register.simple_tag()
 def user_is_read_only(user):
-    return user.groups.filter(name="read_only").exists()
+    return user.groups.filter(name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]).exists()

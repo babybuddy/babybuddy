@@ -24,8 +24,8 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
 INSTALLED_APPS = [
     "api",
-    "babybuddy",
-    "core",
+    "babybuddy.apps.BabyBuddyConfig",
+    "core.apps.CoreConfig",
     "dashboard",
     "reports",
     "axes",
@@ -356,7 +356,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # See README.md#configuration for details about these settings.
 
 BABY_BUDDY = {
-    "NAP_START_MIN": os.environ.get("NAP_START_MIN") or "06:00",
-    "NAP_START_MAX": os.environ.get("NAP_START_MAX") or "18:00",
     "ALLOW_UPLOADS": bool(strtobool(os.environ.get("ALLOW_UPLOADS") or "True")),
+    "NAP_START_MAX": os.environ.get("NAP_START_MAX") or "18:00",
+    "NAP_START_MIN": os.environ.get("NAP_START_MIN") or "06:00",
+    "READ_ONLY_GROUP_NAME": "read_only",
 }

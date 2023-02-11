@@ -11,6 +11,7 @@ Example usage:
 import sys
 import getpass
 
+from django.conf import settings
 from django.contrib.auth import get_user_model, models
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
@@ -119,7 +120,9 @@ class Command(BaseCommand):
             if is_read_only:
                 user.is_superuser = False
                 user.save()
-                group = models.Group.objects.get(name="read_only")
+                group = models.Group.objects.get(
+                    name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+                )
                 user.groups.add(group)
             else:
                 user.is_superuser = True
