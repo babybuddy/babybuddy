@@ -46,9 +46,9 @@ for information about how to create/update translations.
 
 :es: Catalan
 
-:czech_republic: Czech
-
 :cn: Chinese (simplified)
+
+:czech_republic: Czech
 
 :denmark: Danish
 
