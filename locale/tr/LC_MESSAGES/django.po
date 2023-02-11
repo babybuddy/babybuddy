@@ -104,7 +104,7 @@ msgstr "Filtre"
 
 #: babybuddy/templates/babybuddy/filter.html:19
 msgid "Reset"
-msgstr "Yeniden Başlat"
+msgstr "Sıfırla"
 
 #: babybuddy/templates/babybuddy/filter.html:32
 msgid "Filters"
@@ -1731,12 +1731,12 @@ msgstr "Beslenme sıklığı (son 2 hafta)"
 
 #: reports/graphs/tummytime_duration.py:34
 msgid "Total duration"
-msgstr "Toplam düre"
+msgstr "Toplam süre"
 
 #: reports/graphs/tummytime_duration.py:41
 #: reports/graphs/tummytime_duration.py:55
 msgid "Number of sessions"
-msgstr "Session sayısı"
+msgstr "Oturum sayısı"
 
 #: reports/graphs/tummytime_duration.py:50
 msgid "<b>Total Tummy Time Durations</b>"
@@ -1752,7 +1752,6 @@ msgid "Total Tummy Time Durations"
 msgstr "Toplam Karın Üstü Süresi"
 
 #: babybuddy/settings/base.py:169
-#, fuzzy
 msgid "English (US)"
 msgstr "İngilizce"
 
@@ -1763,7 +1762,7 @@ msgstr "İngilizce"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:171
 msgid "Measurements"
-msgstr ""
+msgstr "Ölçümler"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:207 core/models.py:369
 #: core/models.py:381 core/models.py:382 core/models.py:385
@@ -1777,14 +1776,12 @@ msgstr ""
 #: reports/templates/reports/height_change.html:4
 #: reports/templates/reports/height_change.html:8
 #: reports/templates/reports/report_list.html:17
-#, fuzzy
 msgid "Height"
-msgstr "Ağırlık"
+msgstr "Boy"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:213
-#, fuzzy
 msgid "Height entry"
-msgstr "Ağırlık girdisi"
+msgstr "Boy verisi"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:221 core/models.py:338
 #: core/models.py:351 core/models.py:352 core/models.py:355
@@ -1800,7 +1797,7 @@ msgstr "Ağırlık girdisi"
 #: reports/templates/reports/head_circumference_change.html:8
 #: reports/templates/reports/report_list.html:16
 msgid "Head Circumference"
-msgstr ""
+msgstr "Baş Çevresi"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:227
 msgid "Head Circumference entry"
@@ -1815,84 +1812,75 @@ msgstr ""
 #: reports/graphs/bmi_change.py:30 reports/templates/reports/bmi_change.html:4
 #: reports/templates/reports/bmi_change.html:8
 msgid "BMI"
-msgstr ""
+msgstr "VKI"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:241
-#, fuzzy
 msgid "BMI entry"
-msgstr "Uyku Girişi"
+msgstr "VKI verisi"
 
 #: core/models.py:452
 msgid "Napping"
 msgstr ""
 
 #: core/templates/core/bmi_confirm_delete.html:4
-#, fuzzy
 msgid "Delete a BMI Entry"
-msgstr "Uyku Girdisi Sil"
+msgstr "VKI Verisi Sil"
 
 #: core/templates/core/bmi_form.html:8 core/templates/core/bmi_form.html:17
 #: core/templates/core/bmi_form.html:27
-#, fuzzy
 msgid "Add a BMI Entry"
-msgstr "Uyku Girdisi Ekle"
+msgstr "VKI Verisi Ekle"
 
 #: core/templates/core/bmi_list.html:15
 msgid "Add BMI"
-msgstr ""
+msgstr "VKI Ekle"
 
 #: core/templates/core/bmi_list.html:70
-#, fuzzy
 msgid "No bmi entries found."
 msgstr "Zamanlayıcı girdisi bulunamadı"
 
 #: core/templates/core/head_circumference_confirm_delete.html:4
-#, fuzzy
 msgid "Delete a Head Circumference Entry"
 msgstr "Karın Üstü Uyku Girdisi Sil"
 
 #: core/templates/core/head_circumference_form.html:8
 #: core/templates/core/head_circumference_form.html:17
 #: core/templates/core/head_circumference_form.html:27
-#, fuzzy
 msgid "Add a Head Circumference Entry"
-msgstr "Uyku Girdisi Ekle"
+msgstr "Baş Çevresi Verisi Ekle"
 
 #: core/templates/core/head_circumference_list.html:15
 msgid "Add Head Circumference"
-msgstr ""
+msgstr "Baş Çevresi Ekle"
 
 #: core/templates/core/head_circumference_list.html:70
-#, fuzzy
 msgid "No head circumference entries found."
-msgstr "Zamanlayıcı girdisi bulunamadı"
+msgstr "Baş çevresi verisi bulunamadı."
 
 #: core/templates/core/height_confirm_delete.html:4
-#, fuzzy
 msgid "Delete a Height Entry"
-msgstr "Ağırlık Girdisi Sil"
+msgstr "Boy Verisi Sil"
 
 #: core/templates/core/height_form.html:8
 #: core/templates/core/height_form.html:17
 #: core/templates/core/height_form.html:27
-#, fuzzy
 msgid "Add a Height Entry"
-msgstr "Ağırlık Girdisi Ekle"
+msgstr "Boy Verisi Ekle"
 
 #: core/templates/core/height_list.html:15
 #, fuzzy
 msgid "Add Height"
-msgstr "Ağırlık Ekle"
+msgstr "Boy Ekle"
 
 #: core/templates/core/height_list.html:70
 #, fuzzy
 msgid "No height entries found."
-msgstr "Ağırlık girdisi bulunamadı."
+msgstr "Boy verisi bulunamadı."
 
 #: core/templates/timeline/_timeline.html:44
 #, fuzzy
 msgid "Duration: %(duration)s"
-msgstr "Süre çok uzun."
+msgstr "Süre: %(duration) "
 
 #: core/templates/timeline/_timeline.html:53
 msgid "%(since)s since previous"
@@ -1900,7 +1888,7 @@ msgstr ""
 
 #: core/templates/timeline/_timeline.html:85
 msgid "No events"
-msgstr ""
+msgstr "Etkinlik yok"
 
 #: core/timeline.py:185
 #, fuzzy
@@ -1910,22 +1898,22 @@ msgstr "%(child)s bez değiştirildi."
 #: dashboard/templatetags/cards.py:372
 #, fuzzy
 msgid "Height change per week"
-msgstr "Haftalık ağırlık değişimi"
+msgstr "Haftalık boy değişimi"
 
 #: dashboard/templatetags/cards.py:382
 #, fuzzy
 msgid "Head circumference change per week"
-msgstr "Haftalık ağırlık değişimi"
+msgstr "Haftalık baş çevresi değişimi"
 
 #: dashboard/templatetags/cards.py:392
 #, fuzzy
 msgid "BMI change per week"
-msgstr "Haftalık ağırlık değişimi"
+msgstr "Haftalık vki değişimi"
 
 #: reports/graphs/bmi_change.py:27
 #, fuzzy
 msgid "<b>BMI</b>"
-msgstr "<b>Ağırlık</b>"
+msgstr "<b>VKI</b>"
 
 #: reports/graphs/feeding_amounts.py:69
 #, fuzzy
@@ -1934,24 +1922,24 @@ msgstr "<b>Ortalama Beslenme Süreleri</b>"
 
 #: reports/graphs/head_circumference_change.py:27
 msgid "<b>Head Circumference</b>"
-msgstr ""
+msgstr "<b>Baş Çevresi</b>"
 
 #: reports/graphs/height_change.py:27
 #, fuzzy
 msgid "<b>Height</b>"
-msgstr "<b>Ağırlık</b>"
+msgstr "<b>Boy</b>"
 
 #: babybuddy/settings/base.py:167
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "Çince (Basitleştirişmiş)"
 
 #: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
 msgid "Bad Request"
-msgstr ""
+msgstr "Yanlış İstek"
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:14
 msgid "How to Fix"
-msgstr ""
+msgstr "Nasıl Düzeltilir"
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:15
 msgid "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> environment variable. If multiple origins are required separate with commas."
@@ -1959,7 +1947,7 @@ msgstr ""
 
 #: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
 msgid "Page Not Found"
-msgstr ""
+msgstr "Sayfa Bulunamadı"
 
 #: babybuddy/templates/error/404.html:9
 msgid "The path <code>%(request_path)s</code> does not exist."
@@ -1967,7 +1955,7 @@ msgstr ""
 
 #: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
 msgid "Server Error"
-msgstr ""
+msgstr "Sunucu Hatası"
 
 #: babybuddy/templates/error/base.html:14
 #, fuzzy
@@ -1976,11 +1964,11 @@ msgstr "Baby Buddy'e Hoşgeldiniz!"
 
 #: babybuddy/views.py:43
 msgid "Forbidden"
-msgstr ""
+msgstr "Yasak"
 
 #: babybuddy/views.py:44
 msgid "CSRF verification failed. Request aborted."
-msgstr ""
+msgstr "CSRF doğrulama hatası. İstek iptal edildi."
 
 #: babybuddy/settings/base.py:166
 msgid "Catalan"
@@ -2006,7 +1994,7 @@ msgstr "Ağırlık girdisi"
 
 #: core/filters.py:11 core/models.py:96 core/models.py:115
 msgid "Tag"
-msgstr ""
+msgstr "Etiket"
 
 #: core/forms.py:136
 msgid "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
@@ -2015,7 +2003,7 @@ msgstr ""
 #: core/models.py:90
 #, fuzzy
 msgid "Last used"
-msgstr "Soyad"
+msgstr "Son kullanılan"
 
 #: core/models.py:97 core/templates/core/bmi_list.html:30
 #: core/templates/core/diaperchange_list.html:32
@@ -2027,7 +2015,7 @@ msgstr "Soyad"
 #: core/templates/core/tummytime_list.html:31
 #: core/templates/core/weight_list.html:30
 msgid "Tags"
-msgstr ""
+msgstr "Etiketler"
 
 #: core/templates/core/pumping_confirm_delete.html:4
 #, fuzzy
@@ -2054,31 +2042,31 @@ msgstr "Zamanlayıcı girdisi bulunamadı"
 #: core/templates/core/widget_tag_editor.html:22
 #, fuzzy
 msgid "Tag name"
-msgstr "Soyad"
+msgstr "Etiket adı"
 
 #: core/templates/core/widget_tag_editor.html:27
 msgid "Recently used:"
-msgstr ""
+msgstr "En son kullanılan:"
 
 #: core/templates/core/widget_tag_editor.html:45
 msgctxt "Error modal"
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #: core/templates/core/widget_tag_editor.html:50
 msgctxt "Error modal"
 msgid "An error ocurred."
-msgstr ""
+msgstr "Hata meydana geldi."
 
 #: core/templates/core/widget_tag_editor.html:51
 msgctxt "Error modal"
 msgid "Invalid tag name."
-msgstr ""
+msgstr "Geçersiz etiket adı."
 
 #: core/templates/core/widget_tag_editor.html:52
 msgctxt "Error modal"
 msgid "Failed to create tag."
-msgstr ""
+msgstr "Etiket oluşturulamadı."
 
 #: core/templates/core/widget_tag_editor.html:53
 msgctxt "Error modal"
@@ -2088,7 +2076,7 @@ msgstr ""
 #: core/templates/core/widget_tag_editor.html:58
 msgctxt "Error modal"
 msgid "Close"
-msgstr ""
+msgstr "Kapat"
 
 #: dashboard/templates/cards/feeding_day.html:32
 msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
@@ -2116,7 +2104,7 @@ msgstr "Beslenmeler"
 
 #: reports/templates/reports/report_list.html:10
 msgid "Body Mass Index (BMI)"
-msgstr ""
+msgstr "Vücut Kütle Endeksi (VKI)"
 
 #: reports/templates/reports/report_list.html:18
 #, fuzzy

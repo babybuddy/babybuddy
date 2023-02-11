@@ -1209,7 +1209,7 @@ msgstr "Aktionen des Kindes"
 #: reports/templates/reports/diaperchange_types.html:8
 #: reports/templates/reports/report_list.html:12
 msgid "Diaper Change Types"
-msgstr "Windewechsel Typen"
+msgstr "Windelwechsel Typen"
 
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:8
@@ -1890,7 +1890,7 @@ msgstr "Keine Ereignisse"
 
 #: core/timeline.py:185
 msgid "%(child)s had a %(type)s diaper change."
-msgstr "%(child)s hatten einen %(type)s Windelwechsel."
+msgstr "%(child)s hatte einen %(type)s Windelwechsel."
 
 #: dashboard/templatetags/cards.py:372
 msgid "Height change per week"
@@ -1962,7 +1962,7 @@ msgstr "CSRF Verifikation fehlgeschlagen. Anfrage abgebrochen."
 
 #: babybuddy/settings/base.py:166
 msgid "Catalan"
-msgstr ""
+msgstr "Katalanisch"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:93
 #: babybuddy/templates/babybuddy/nav-dropdown.html:316 core/models.py:437
@@ -1975,11 +1975,11 @@ msgstr ""
 #: reports/templates/reports/pumping_amounts.html:4
 #: reports/templates/reports/pumping_amounts.html:8
 msgid "Pumping"
-msgstr ""
+msgstr "Abpumpen"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:322
 msgid "Pumping entry"
-msgstr ""
+msgstr "Abpump-Eintrag"
 
 #: core/filters.py:11 core/models.py:96 core/models.py:115
 msgid "Tag"
@@ -1987,11 +1987,11 @@ msgstr ""
 
 #: core/forms.py:136
 msgid "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
-msgstr ""
+msgstr "Klicke auf den gewünschten Tag um ihn hinzuzufügen (+) oder zu entfernen (-) oder gib einen neuen Tag ein."
 
 #: core/models.py:90
 msgid "Last used"
-msgstr ""
+msgstr "zuletzt verwendet"
 
 #: core/models.py:97 core/templates/core/bmi_list.html:30
 #: core/templates/core/diaperchange_list.html:32
@@ -2007,21 +2007,21 @@ msgstr ""
 
 #: core/templates/core/pumping_confirm_delete.html:4
 msgid "Delete a Pumping Entry"
-msgstr ""
+msgstr "Abpump-Eintrag löschen"
 
 #: core/templates/core/pumping_form.html:8
 #: core/templates/core/pumping_form.html:17
 #: core/templates/core/pumping_form.html:27
 msgid "Add a Pumping Entry"
-msgstr ""
+msgstr "Abpump-Eintrag hinzufügen"
 
 #: core/templates/core/pumping_list.html:15
 msgid "Add Pumping Entry"
-msgstr ""
+msgstr "Abpump-Eintrag hinzufügen"
 
 #: core/templates/core/pumping_list.html:66
 msgid "No pumping entries found."
-msgstr ""
+msgstr "Keine Abpump-Einträge gefunden."
 
 #: core/templates/core/widget_tag_editor.html:22
 msgid "Tag name"
@@ -2029,27 +2029,27 @@ msgstr ""
 
 #: core/templates/core/widget_tag_editor.html:27
 msgid "Recently used:"
-msgstr ""
+msgstr "Zuletzt verwendet:"
 
 #: core/templates/core/widget_tag_editor.html:45
 msgctxt "Error modal"
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: core/templates/core/widget_tag_editor.html:50
 msgctxt "Error modal"
 msgid "An error ocurred."
-msgstr ""
+msgstr "Ein Fehler ist aufgetreten."
 
 #: core/templates/core/widget_tag_editor.html:51
 msgctxt "Error modal"
 msgid "Invalid tag name."
-msgstr ""
+msgstr "Ungültiger Tag-Name."
 
 #: core/templates/core/widget_tag_editor.html:52
 msgctxt "Error modal"
 msgid "Failed to create tag."
-msgstr ""
+msgstr "Tag konnte nicht erstellt werden."
 
 #: core/templates/core/widget_tag_editor.html:53
 msgctxt "Error modal"
@@ -2059,35 +2059,35 @@ msgstr ""
 #: core/templates/core/widget_tag_editor.html:58
 msgctxt "Error modal"
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #: dashboard/templates/cards/feeding_day.html:32
 msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
-msgstr ""
+msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
 
 #: dashboard/templatetags/cards.py:410
 msgid "Diaper change frequency (past 3 days)"
-msgstr ""
+msgstr "Windelwechselintervall (die letzten drei Tage)"
 
 #: dashboard/templatetags/cards.py:414
 msgid "Diaper change frequency (past 2 weeks)"
-msgstr ""
+msgstr "Windelwechselintervall (die letzten zwei Wochen)"
 
 #: reports/graphs/pumping_amounts.py:57
 msgid "<b>Total Pumping Amount</b>"
-msgstr ""
+msgstr "<b>Gesamte abgepumpte Menge</b>"
 
 #: reports/graphs/pumping_amounts.py:60
 msgid "Pumping Amount"
-msgstr ""
+msgstr "Abgepumpte Menge"
 
 #: reports/templates/reports/report_list.html:10
 msgid "Body Mass Index (BMI)"
-msgstr ""
+msgstr "Body Mass Index (BMI)"
 
 #: reports/templates/reports/report_list.html:18
 msgid "Pumping Amounts"
-msgstr ""
+msgstr "Abgepumpte Menge"
 
 #: core/templates/core/timer_confirm_delete_inactive.html:17
 #, fuzzy

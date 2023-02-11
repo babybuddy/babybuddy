@@ -46,7 +46,11 @@ for information about how to create/update translations.
 
 :es: Catalan
 
+:czech_republic: Czech
+
 :cn: Chinese (simplified)
+
+:denmark: Danish
 
 :netherlands: Dutch
 
@@ -60,11 +64,15 @@ for information about how to create/update translations.
 
 :de: German
 
+:hungary: Hungarian
+
 :it: Italian
 
 :poland: Polish
 
 :portugal: :brazil: Portuguese
+
+:ru: Russian
 
 :mexico: :es: Spanish
 

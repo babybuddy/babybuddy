@@ -1943,8 +1943,7 @@ msgstr "Cómo arreglarlo"
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:15
 msgid "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> environment variable. If multiple origins are required separate with commas."
-msgstr "Añade <samp>%(origin)s</samp> a la variable de entorno <code>CSRF_TRUSTED_ORIGINS</code>. Si se requieren orígenes múltiples, sepáralos por comas.\n"
-""
+msgstr "Añade <samp>%(origin)s</samp> a la variable de entorno <code>CSRF_TRUSTED_ORIGINS</code>. Si se requieren orígenes múltiples, sepáralos por comas."
 
 #: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
 msgid "Page Not Found"
