@@ -10,6 +10,8 @@ from django.core.management import call_command
 
 from faker import Faker
 
+from babybuddy.views import UserUnlock
+
 
 class ViewsTestCase(TestCase):
     @classmethod
@@ -76,6 +78,20 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         page = self.c.get("/users/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
+
+    def test_user_unlock(self):
+        # Staff setting is required to unlock users.
+        self.user.is_staff = True
+        self.user.save()
+
+        entry = get_user_model().objects.first()
+        url = "/users/{}/unlock/".format(entry.id)
+
+        page = self.c.get(url)
+        self.assertEqual(page.status_code, 200)
+        page = self.c.post(url, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, UserUnlock.success_message)
 
     def test_welcome(self):
         page = self.c.get("/welcome/")
