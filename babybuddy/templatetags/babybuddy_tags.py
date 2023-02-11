@@ -5,9 +5,16 @@ from django.apps import apps
 from django.utils import timezone
 from django.utils.translation import to_locale, get_language
 
+from axes.helpers import get_lockout_message
+
 from core.models import Child
 
 register = template.Library()
+
+
+@register.simple_tag
+def axes_lockout_message():
+    return get_lockout_message()
 
 
 @register.simple_tag(takes_context=True)

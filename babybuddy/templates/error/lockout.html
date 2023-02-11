@@ -1,0 +1,8 @@
+{% extends 'error/base.html' %}
+{% load babybuddy_tags i18n %}
+
+{% block title %}403 {% trans "Too Many Login Attempts" %}{% endblock %}
+
+{% block content %}
+    <h1>{% axes_lockout_message %}</h1>
+{% endblock %}

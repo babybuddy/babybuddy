@@ -337,6 +337,10 @@ AXES_COOLOFF_TIME = 1
 
 AXES_FAILURE_LIMIT = 5
 
+AXES_LOCKOUT_TEMPLATE = "error/lockout.html"
+
+AXES_LOCKOUT_URL = "/login/lock"
+
 # Session configuration
 # Used by RollingSessionMiddleware to determine how often to reset the session.
 # See https://docs.djangoproject.com/en/4.0/topics/http/sessions/
