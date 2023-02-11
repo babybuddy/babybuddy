@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.translation import to_locale, get_language
 
 from axes.helpers import get_lockout_message
+from axes.models import AccessAttempt
 
 from core.models import Child
 
@@ -70,6 +71,11 @@ def make_absolute_url(context, url):
     request = context["request"]
     abs_url = request.build_absolute_uri(url)
     return abs_url
+
+
+@register.simple_tag()
+def user_is_locked(user):
+    return AccessAttempt.objects.filter(username=user.username).exists()
 
 
 @register.simple_tag()

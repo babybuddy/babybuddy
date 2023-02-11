@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LogoutView as LogoutViewBase
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import BadRequest
+from django.forms import Form
 from django.http import HttpResponseForbidden
 from django.middleware.csrf import REASON_BAD_ORIGIN
 from django.shortcuts import redirect, render
@@ -21,9 +22,17 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.detail import BaseDetailView
+from django.views.generic.edit import (
+    CreateView,
+    DeleteView,
+    FormMixin,
+    SingleObjectTemplateResponseMixin,
+    UpdateView,
+)
 from django.views.i18n import set_language
 
+from axes.utils import reset
 from django_filters.views import FilterView
 
 from babybuddy import forms
@@ -112,6 +121,33 @@ class UserUpdate(
     form_class = forms.UserUpdateForm
     success_url = reverse_lazy("babybuddy:user-list")
     success_message = gettext_lazy("User %(username)s updated.")
+
+
+class UserUnlock(
+    StaffOnlyMixin,
+    PermissionRequiredMixin,
+    SuccessMessageMixin,
+    FormMixin,
+    SingleObjectTemplateResponseMixin,
+    BaseDetailView,
+):
+    model = get_user_model()
+    template_name = "babybuddy/user_confirm_unlock.html"
+    permission_required = ("admin.change_user",)
+    form_class = Form
+    success_message = gettext_lazy("User unlocked.")
+
+    def post(self, request, *args, **kwargs):
+        user = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            reset(username=user.username)
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_success_url(self):
+        return reverse("babybuddy:user-update", kwargs={"pk": self.kwargs["pk"]})
 
 
 class UserDelete(
