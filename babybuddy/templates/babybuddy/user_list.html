@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load babybuddy_tags bootstrap i18n widget_tweaks %}
+{% load babybuddy bootstrap i18n widget_tweaks %}
 
 {% block title %}{% trans "Users" %}{% endblock %}
 
@@ -18,9 +18,10 @@
                     <th>{% trans "First Name" %}</th>
                     <th>{% trans "Last Name" %}</th>
                     <th>{% trans "Email" %}</th>
-                    <th>{% trans "Read only" %}</th>
-                    <th>{% trans "Staff" %}</th>
-                    <th>{% trans "Active" %}</th>
+                    <th class="text-center">{% trans "Read only" %}</th>
+                    <th class="text-center">{% trans "Staff" %}</th>
+                    <th class="text-center">{% trans "Active" %}</th>
+                    <th class="text-center">{% trans "Locked" %}</th>
                     <th class="text-center">{% trans "Actions" %}</th>
                 </tr>
             </thead>
@@ -32,9 +33,11 @@
                         <td>{{ object.last_name }}</td>
                         <td>{{ object.email }}</td>
                         {% user_is_read_only object as is_read_only %}
-                        <td>{{ is_read_only|bool_icon }}</td>
-                        <td>{{ object.is_staff|bool_icon }}</td>
-                        <td>{{ object.is_active|bool_icon }}</td>
+                        <td class="text-center">{{ is_read_only|bool_icon }}</td>
+                        <td class="text-center">{{ object.is_staff|bool_icon }}</td>
+                        <td class="text-center">{{ object.is_active|bool_icon }}</td>
+                        {% user_is_locked object as is_locked %}
+                        <td class="text-center">{{ is_locked|bool_icon }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
 

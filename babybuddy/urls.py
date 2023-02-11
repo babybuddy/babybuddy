@@ -39,6 +39,7 @@ app_patterns = [
     path("users/", views.UserList.as_view(), name="user-list"),
     path("users/add/", views.UserAdd.as_view(), name="user-add"),
     path("users/<int:pk>/edit/", views.UserUpdate.as_view(), name="user-update"),
+    path("users/<int:pk>/unlock/", views.UserUnlock.as_view(), name="user-unlock"),
     path("users/<int:pk>/delete/", views.UserDelete.as_view(), name="user-delete"),
     path("user/password/", views.UserPassword.as_view(), name="user-password"),
     path("user/settings/", views.UserSettings.as_view(), name="user-settings"),
