@@ -4,7 +4,7 @@ from django.core.management import call_command
 from django.test import TestCase
 from django.test import Client as HttpClient
 from django.utils import timezone
-from django.utils.formats import get_format
+from django.utils.formats import get_format, reset_format_cache
 
 from faker import Faker
 
@@ -38,12 +38,14 @@ class FormsTestCaseBase(TestCase):
     @staticmethod
     def localdate_string(datetime=None):
         """Converts an object to a local date string for form input."""
+        reset_format_cache()
         date_format = get_format("DATE_INPUT_FORMATS")[0]
         return timezone.localdate(datetime).strftime(date_format)
 
     @staticmethod
     def localtime_string(datetime=None):
         """Converts an object to a local time string for form input."""
+        reset_format_cache()
         datetime_format = get_format("DATETIME_INPUT_FORMATS")[0]
         return timezone.localtime(datetime).strftime(datetime_format)
 
