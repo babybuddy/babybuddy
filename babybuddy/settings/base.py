@@ -198,6 +198,8 @@ LANGUAGES = [
 
 USE_L10N = True
 
+FORMAT_MODULE_PATH = ["babybuddy.formats"]
+
 # Custom setting that can be used to override the locale-based time set by
 # USE_L10N _for specific locales_ to use 24-hour format. In order for this to
 # work with a given locale it must be set at the FORMAT_MODULE_PATH with
