@@ -198,6 +198,29 @@ def card_feeding_last_method(context, child):
     }
 
 
+@register.inclusion_tag("cards/pumping_last.html", takes_context=True)
+def card_pumping_last(context, child):
+    """
+    Information about the most recent pumping.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Pumping instance.
+    """
+    instance = (
+        models.Pumping.objects.filter(child=child)
+        .filter(**_filter_data_age(context))
+        .order_by("-time")
+        .first()
+    )
+    empty = not instance
+
+    return {
+        "type": "pumping",
+        "pumping": instance,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
+
+
 @register.inclusion_tag("cards/sleep_last.html", takes_context=True)
 def card_sleep_last(context, child):
     """
