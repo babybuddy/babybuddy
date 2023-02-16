@@ -188,6 +188,14 @@ class TemplateTagsTestCase(TestCase):
             data["feedings"][2].method, models.Feeding.objects.first().method
         )
 
+    def test_card_pumping_last(self):
+        data = cards.card_pumping_last(self.context, self.child)
+        self.assertEqual(data["type"], "pumping")
+        self.assertFalse(data["empty"])
+        self.assertFalse(data["hide_empty"])
+        self.assertIsInstance(data["pumping"], models.Pumping)
+        self.assertEqual(data["pumping"], models.Pumping.objects.first())
+
     def test_card_sleep_last(self):
         data = cards.card_sleep_last(self.context, self.child)
         self.assertEqual(data["type"], "sleep")

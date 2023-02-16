@@ -10117,17 +10117,22 @@ body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
   height: 2rem;
 }
 
-.card-feeding {
+.card-feeding,
+.card-pumping {
   border-color: #37abe9;
 }
-.card-feeding .card-header, .card-feeding .card-header a {
+.card-feeding .card-header, .card-feeding .card-header a,
+.card-pumping .card-header,
+.card-pumping .card-header a {
   background-color: #37abe9;
   color: #f8f9fa;
 }
-.card-feeding .card-body {
+.card-feeding .card-body,
+.card-pumping .card-body {
   color: #37abe9;
 }
-.card-feeding .card-body .last-feeding-method {
+.card-feeding .card-body .last-feeding-method,
+.card-pumping .card-body .last-feeding-method {
   font-size: 2em;
 }
 
