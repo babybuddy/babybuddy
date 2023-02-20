@@ -1,6 +1,34 @@
 # Changelog
 
-## [v1.14.0](https://github.com/babybuddy/babybuddy/tree/v1.14.0) (2023-01-29)
+## [Unreleased](https://github.com/babybuddy/babybuddy/tree/v1.15.0)  (2023-02-20)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.14.0...v1.15.0)
+
+**Implemented enhancements:**
+
+- Additional Dashboard Tile - Pumping [\#601](https://github.com/babybuddy/babybuddy/issues/601)
+- Implement ordering support in API [\#588](https://github.com/babybuddy/babybuddy/issues/588)
+- Implement user types in users management form [\#563](https://github.com/babybuddy/babybuddy/issues/563)
+- Improve user permissions structure [\#544](https://github.com/babybuddy/babybuddy/issues/544)
+- Indicate user locked state and allow unlocking from users admin [\#449](https://github.com/babybuddy/babybuddy/issues/449)
+- Add a last pumping dashboard card [\#604](https://github.com/babybuddy/babybuddy/pull/604) ([cdubz](https://github.com/cdubz))
+- Indicate user locked state and allow unlocking from users admin [\#600](https://github.com/babybuddy/babybuddy/pull/600) ([cdubz](https://github.com/cdubz))
+- Add DRF's OrderingFilter to list of default filter backends to implement ordering in the API [\#598](https://github.com/babybuddy/babybuddy/pull/598) ([btoconnor](https://github.com/btoconnor))
+- Implement user types in users management form [\#597](https://github.com/babybuddy/babybuddy/pull/597) ([cdubz](https://github.com/cdubz))
+
+**Fixed bugs:**
+
+- Today's Feedings should be rounded [\#595](https://github.com/babybuddy/babybuddy/issues/595)
+- In Portuguese: events created from timers don't inherit times \(start/end\) [\#532](https://github.com/babybuddy/babybuddy/issues/532)
+- DateTime fields don't load the current values or fail to validate in some languages [\#498](https://github.com/babybuddy/babybuddy/issues/498)
+- Unit tests fail on fresh dev install on Ubuntu [\#483](https://github.com/babybuddy/babybuddy/issues/483)
+- Use Django's floatformat on today's feeding total [\#596](https://github.com/babybuddy/babybuddy/pull/596) ([btoconnor](https://github.com/btoconnor))
+
+**Closed issues:**
+
+- Can't add event in the future [\#579](https://github.com/babybuddy/babybuddy/issues/579)
+
+## [v1.14.0](https://github.com/babybuddy/babybuddy/tree/v1.14.0) (2023-01-30)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.2...v1.14.0)
 
