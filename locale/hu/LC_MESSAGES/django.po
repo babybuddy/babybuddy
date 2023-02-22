@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 20:36+0000\n"
+"POT-Creation-Date: 2023-02-22 14:39+0000\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,11 +28,11 @@ msgstr "Irányítópult"
 
 #: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:21
 msgid "Read only"
-msgstr ""
+msgstr "Csak olvas"
 
 #: babybuddy/forms.py:16
 msgid "Restricts user to viewing data only."
-msgstr ""
+msgstr "Felhasználó korlátozása csak adatok olvasására."
 
 #: babybuddy/models.py:19
 msgid "Refresh rate"
@@ -139,17 +139,15 @@ msgstr "Katalán"
 
 #: babybuddy/settings/base.py:176
 msgid "Czech"
-msgstr ""
+msgstr "Cheh"
 
 #: babybuddy/settings/base.py:177
 msgid "Chinese (simplified)"
 msgstr "Kínai (egyszerűsített)"
 
 #: babybuddy/settings/base.py:178
-#, fuzzy
-#| msgid "Spanish"
 msgid "Danish"
-msgstr "Spanyol"
+msgstr "Dán"
 
 #: babybuddy/settings/base.py:179
 msgid "Dutch"
@@ -177,7 +175,7 @@ msgstr "Német"
 
 #: babybuddy/settings/base.py:185
 msgid "Hungarian"
-msgstr ""
+msgstr "Magyar"
 
 #: babybuddy/settings/base.py:186
 msgid "Italian"
@@ -193,7 +191,7 @@ msgstr "Portugál"
 
 #: babybuddy/settings/base.py:189
 msgid "Russian"
-msgstr ""
+msgstr "Orosz"
 
 #: babybuddy/settings/base.py:190
 msgid "Spanish"
@@ -493,10 +491,8 @@ msgstr "Jelszó"
 #: babybuddy/templates/babybuddy/user_add_device.html:4
 #: babybuddy/templates/babybuddy/user_add_device.html:8
 #: babybuddy/templates/babybuddy/user_add_device.html:12
-#, fuzzy
-#| msgid "Add a Feeding"
 msgid "Add a device"
-msgstr "Etetés hozzáadása"
+msgstr "Készülék hozzáadása"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:330
 msgid "Logout"
@@ -557,7 +553,7 @@ msgstr "Következő"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:15
 msgid "Authentication Methods"
-msgstr ""
+msgstr "Autentikciós módok"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:18
 #: babybuddy/templates/babybuddy/user_settings_form.html:81
@@ -571,7 +567,7 @@ msgstr "Újragenerál"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:28
 msgid "Login QR code"
-msgstr ""
+msgstr "Bejelentkezés vagy QR kód"
 
 #: babybuddy/templates/babybuddy/user_confirm_delete.html:4
 msgid "Delete User"
@@ -653,25 +649,22 @@ msgstr "Mégse"
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:4
 msgid "Unlock User"
-msgstr ""
+msgstr "Felhasználó feloldása"
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:9
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:18
 #: babybuddy/templates/babybuddy/user_form.html:31
 msgid "Unlock"
-msgstr ""
+msgstr "feloldás"
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:15
-#, fuzzy, python-format
-#| msgid ""
-#| "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
-#| "span>?</h1>"
+#, python-format
 msgid ""
 "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
 "span>?</h1>"
 msgstr ""
-"<h1>Biztosan törlöd a következőt <span class=\"text-info\">%(object)s</span>?"
-"</h1>"
+"<h1>Biztosan fel akarod oldani <span class=\"text-info\">%(object)s</span>?</"
+"h1>"
 
 #: babybuddy/templates/babybuddy/user_form.html:8
 #: babybuddy/templates/babybuddy/user_form.html:18
@@ -698,7 +691,7 @@ msgstr "Frissítés"
 
 #: babybuddy/templates/babybuddy/user_form.html:28
 msgid "User locked."
-msgstr ""
+msgstr "Felhasználó lezárva."
 
 #: babybuddy/templates/babybuddy/user_form.html:35
 #: core/templates/core/bmi_form.html:23 core/templates/core/child_form.html:24
@@ -742,7 +735,7 @@ msgstr "Aktív"
 
 #: babybuddy/templates/babybuddy/user_list.html:24
 msgid "Locked"
-msgstr ""
+msgstr "Lezárva"
 
 #: babybuddy/templates/babybuddy/user_list.html:25
 #: core/templates/core/bmi_list.html:24 core/templates/core/bmi_list.html:38
@@ -889,7 +882,7 @@ msgstr "Vissza Baby Buddy-hoz"
 
 #: babybuddy/templates/error/lockout.html:4
 msgid "Too Many Login Attempts"
-msgstr ""
+msgstr "Túl sok bejelentkezési kísérlet"
 
 #: babybuddy/templates/registration/login.html:32
 msgid "Login"
@@ -955,18 +948,20 @@ msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
+"Azért kapta ezt az e-mailt, mert jelszó-visszaállítást kért felhasználói "
+"fiókjához itt: %(site_name)s."
 
 #: babybuddy/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "Kérjük, lépjen a következő oldalra, és válasszon új jelszót:"
 
 #: babybuddy/templates/registration/password_reset_email.html:8
 msgid "Your username, in case you’ve forgotten:"
-msgstr ""
+msgstr "Felhasználóneved, ha elfelejtette volna:"
 
 #: babybuddy/templates/registration/password_reset_email.html:10
 msgid "Thanks for using Baby Buddy!"
-msgstr ""
+msgstr "Köszönjük, hogy a Baby Buddy-t használja!"
 
 #: babybuddy/templates/registration/password_reset_form.html:4
 msgid "Forgot Password"
@@ -1000,7 +995,7 @@ msgstr "%(username)s nevű felhasználót frissítettük."
 
 #: babybuddy/views.py:138
 msgid "User unlocked."
-msgstr ""
+msgstr "Felhasználó zárolva"
 
 #: babybuddy/views.py:162
 #, python-brace-format
@@ -1152,6 +1147,7 @@ msgstr "Sárga"
 #: core/models.py:239 core/models.py:303 core/models.py:428
 #: core/templates/core/diaperchange_list.html:31
 #: core/templates/core/pumping_list.html:29
+#: dashboard/templates/cards/pumping_last.html:23
 msgid "Amount"
 msgstr "Mennyiség"
 
@@ -1263,10 +1259,8 @@ msgid "Add BMI"
 msgstr "BMI hozzáadás"
 
 #: core/templates/core/bmi_list.html:70
-#, fuzzy
-#| msgid "No bmi entries found."
 msgid "No BMI entries found."
-msgstr "BMI-bejegyzés nem található."
+msgstr "Nem található BMI bejegyzés"
 
 #: core/templates/core/child_confirm_delete.html:4
 msgid "Delete a Child"
@@ -1300,11 +1294,11 @@ msgstr "Nem található gyermek."
 
 #: core/templates/core/child_quick_switch.html:6
 msgid "Switch child"
-msgstr ""
+msgstr "Gyermek váltása"
 
 #: core/templates/core/child_quick_switch.html:13
 msgid "Switch to…"
-msgstr ""
+msgstr "Váltás erre"
 
 #: core/templates/core/diaperchange_confirm_delete.html:4
 msgid "Delete a Diaper Change"
@@ -1446,10 +1440,8 @@ msgstr "Stopper gyors indítása"
 
 #: core/templates/core/quick_timer_nav.html:19
 #: core/templates/core/timer_nav.html:28
-#, fuzzy
-#| msgid "Quick Start Timer"
 msgid "Quick Start Timer For…"
-msgstr "Stopper gyors indítása"
+msgstr "Gyors időzítő a következőhöz"
 
 #: core/templates/core/sleep_confirm_delete.html:4
 msgid "Delete a Sleep Entry"
@@ -1583,6 +1575,7 @@ msgstr "Aktív stopperek"
 #: dashboard/templates/cards/feeding_day.html:52
 #: dashboard/templates/cards/feeding_last.html:17
 #: dashboard/templates/cards/feeding_last_method.html:43
+#: dashboard/templates/cards/pumping_last.html:17
 #: dashboard/templates/cards/sleep_last.html:17
 #: dashboard/templates/cards/sleep_naps_day.html:18
 #: dashboard/templates/cards/sleep_recent.html:20
@@ -1715,10 +1708,8 @@ msgid "yesterday"
 msgstr "tegnap"
 
 #: core/templatetags/duration.py:116
-#, fuzzy
-#| msgid "%(key)s days ago"
 msgid " days ago"
-msgstr "%(key)s nappal ezelőtt"
+msgstr "␣napja"
 
 #: core/timeline.py:53
 #, python-format
@@ -1840,6 +1831,7 @@ msgstr "Utolsó pelenkacsere"
 
 #: dashboard/templates/cards/diaperchange_last.html:12
 #: dashboard/templates/cards/feeding_last.html:12
+#: dashboard/templates/cards/pumping_last.html:12
 #: dashboard/templates/cards/sleep_last.html:12
 #: dashboard/templates/cards/tummytime_last.html:13
 #, python-format
@@ -1899,6 +1891,12 @@ msgid_plural "%(n)s feedings ago"
 msgstr[0] "%(n)s etetéssel ezelőtt"
 msgstr[1] "%(n)s etetéssel ezelőtt"
 
+#: dashboard/templates/cards/pumping_last.html:6
+#, fuzzy
+#| msgid "Pumping"
+msgid "Last Pumping"
+msgstr "Pumpálás"
+
 #: dashboard/templates/cards/sleep_last.html:6
 msgid "Last Sleep"
 msgstr "Utolsó alvás"
@@ -1915,19 +1913,17 @@ msgstr[0] "%(count)s szundi"
 msgstr[1] "%(count)s szundi"
 
 #: dashboard/templates/cards/sleep_recent.html:6
-#, fuzzy
-#| msgid "Last Sleep"
 msgid "Recent Sleep"
-msgstr "Utolsó alvás"
+msgstr "Legutóbbi alvás"
 
 #: dashboard/templates/cards/sleep_recent.html:25
 #, fuzzy, python-format
-#| msgid "%(counter)s feeding"
-#| msgid_plural "%(counter)s feedings"
+#| msgid "%(counter)s sleep"
+#| msgid_plural "%(counter)s sleep"
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleep"
-msgstr[0] "%(counter)s etetés"
-msgstr[1] "%(counter)s etetés"
+msgstr[0] "%(counter) alvása "
+msgstr[1] "%(counter) alvásai"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1981,59 +1977,59 @@ msgstr "Műveletek a gyermekkel"
 msgid "Reports"
 msgstr "Összesítők"
 
-#: dashboard/templatetags/cards.py:357
+#: dashboard/templatetags/cards.py:380
 msgid "Average nap duration"
 msgstr "Átlagos szundi időtartam"
 
-#: dashboard/templatetags/cards.py:364
+#: dashboard/templatetags/cards.py:387
 msgid "Average naps per day"
 msgstr "Átlagos napi szundi szám"
 
-#: dashboard/templatetags/cards.py:374
+#: dashboard/templatetags/cards.py:397
 msgid "Average sleep duration"
 msgstr "Átlagos alvási időtartam"
 
-#: dashboard/templatetags/cards.py:381
+#: dashboard/templatetags/cards.py:404
 msgid "Average awake duration"
 msgstr "Átlagos ébren töltött idő"
 
-#: dashboard/templatetags/cards.py:391
+#: dashboard/templatetags/cards.py:414
 msgid "Weight change per week"
 msgstr "Heti tömegnövekedés"
 
-#: dashboard/templatetags/cards.py:401
+#: dashboard/templatetags/cards.py:424
 msgid "Height change per week"
 msgstr "Magasság válzotás / hét"
 
-#: dashboard/templatetags/cards.py:411
+#: dashboard/templatetags/cards.py:434
 msgid "Head circumference change per week"
 msgstr "Fejkörfogat változás / hét"
 
-#: dashboard/templatetags/cards.py:421
+#: dashboard/templatetags/cards.py:444
 msgid "BMI change per week"
 msgstr "BMI változás / hét"
 
-#: dashboard/templatetags/cards.py:439
+#: dashboard/templatetags/cards.py:462
 msgid "Diaper change frequency (past 3 days)"
 msgstr "Pelenkacsere gyakorisága (utolsó 3 nap)"
 
-#: dashboard/templatetags/cards.py:443
+#: dashboard/templatetags/cards.py:466
 msgid "Diaper change frequency (past 2 weeks)"
 msgstr "Pelenkacsere gyakorisága (utolsó 2 hét)"
 
-#: dashboard/templatetags/cards.py:449
+#: dashboard/templatetags/cards.py:472
 msgid "Diaper change frequency"
 msgstr "Pelenkacsere gyakoriság"
 
-#: dashboard/templatetags/cards.py:485
+#: dashboard/templatetags/cards.py:508
 msgid "Feeding frequency (past 3 days)"
 msgstr "Etetés gyakorisága (elmúlt 3 nap)"
 
-#: dashboard/templatetags/cards.py:489
+#: dashboard/templatetags/cards.py:512
 msgid "Feeding frequency (past 2 weeks)"
 msgstr "Etetés gyakorisága (elmúlt 2 hét)"
 
-#: dashboard/templatetags/cards.py:495
+#: dashboard/templatetags/cards.py:518
 msgid "Feeding frequency"
 msgstr "Etetési gyakoriság"
 
@@ -2138,10 +2134,8 @@ msgid "Hours of sleep"
 msgstr "Alvással töltött órák"
 
 #: reports/graphs/temperature_change.py:26
-#, fuzzy
-#| msgid "Temperature"
 msgid "<b>Temperature</b>"
-msgstr "Testhőmérséklet"
+msgstr "<b>Hőmérséklet</b>"
 
 #: reports/graphs/tummytime_duration.py:34
 msgid "Total duration"
@@ -2378,3 +2372,6 @@ msgstr "Összes pocakidő"
 
 #~ msgid "%(count)s feeding entries"
 #~ msgstr "%(count)s etetési bejegyzések"
+
+#~ msgid "No bmi entries found."
+#~ msgstr "BMI-bejegyzés nem található."

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 20:36+0000\n"
+"POT-Creation-Date: 2023-02-22 14:39+0000\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1143,6 +1143,7 @@ msgstr "Žlutá"
 #: core/models.py:239 core/models.py:303 core/models.py:428
 #: core/templates/core/diaperchange_list.html:31
 #: core/templates/core/pumping_list.html:29
+#: dashboard/templates/cards/pumping_last.html:23
 msgid "Amount"
 msgstr "Množství"
 
@@ -1575,6 +1576,7 @@ msgstr "Aktivní časovače"
 #: dashboard/templates/cards/feeding_day.html:52
 #: dashboard/templates/cards/feeding_last.html:17
 #: dashboard/templates/cards/feeding_last_method.html:43
+#: dashboard/templates/cards/pumping_last.html:17
 #: dashboard/templates/cards/sleep_last.html:17
 #: dashboard/templates/cards/sleep_naps_day.html:18
 #: dashboard/templates/cards/sleep_recent.html:20
@@ -1835,6 +1837,7 @@ msgstr "Poslední výměna plenky"
 
 #: dashboard/templates/cards/diaperchange_last.html:12
 #: dashboard/templates/cards/feeding_last.html:12
+#: dashboard/templates/cards/pumping_last.html:12
 #: dashboard/templates/cards/sleep_last.html:12
 #: dashboard/templates/cards/tummytime_last.html:13
 #, python-format
@@ -1895,6 +1898,12 @@ msgid_plural "%(n)s feedings ago"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+#: dashboard/templates/cards/pumping_last.html:6
+#, fuzzy
+#| msgid "Last Feeding"
+msgid "Last Pumping"
+msgstr "Poslední krmení"
 
 #: dashboard/templates/cards/sleep_last.html:6
 msgid "Last Sleep"
@@ -1980,59 +1989,59 @@ msgstr "Akce dítěte"
 msgid "Reports"
 msgstr "Výkazy"
 
-#: dashboard/templatetags/cards.py:357
+#: dashboard/templatetags/cards.py:380
 msgid "Average nap duration"
 msgstr "Průměrná výdrž plenky"
 
-#: dashboard/templatetags/cards.py:364
+#: dashboard/templatetags/cards.py:387
 msgid "Average naps per day"
 msgstr "Průměrně šlofíků za den"
 
-#: dashboard/templatetags/cards.py:374
+#: dashboard/templatetags/cards.py:397
 msgid "Average sleep duration"
 msgstr "Průměrná doba spánku"
 
-#: dashboard/templatetags/cards.py:381
+#: dashboard/templatetags/cards.py:404
 msgid "Average awake duration"
 msgstr "Průměrná doba bdělosti"
 
-#: dashboard/templatetags/cards.py:391
+#: dashboard/templatetags/cards.py:414
 msgid "Weight change per week"
 msgstr "Změna váhy za týden"
 
-#: dashboard/templatetags/cards.py:401
+#: dashboard/templatetags/cards.py:424
 msgid "Height change per week"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:411
+#: dashboard/templatetags/cards.py:434
 msgid "Head circumference change per week"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:421
+#: dashboard/templatetags/cards.py:444
 msgid "BMI change per week"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:439
+#: dashboard/templatetags/cards.py:462
 msgid "Diaper change frequency (past 3 days)"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:443
+#: dashboard/templatetags/cards.py:466
 msgid "Diaper change frequency (past 2 weeks)"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:449
+#: dashboard/templatetags/cards.py:472
 msgid "Diaper change frequency"
 msgstr "Četnost výměn plenek"
 
-#: dashboard/templatetags/cards.py:485
+#: dashboard/templatetags/cards.py:508
 msgid "Feeding frequency (past 3 days)"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:489
+#: dashboard/templatetags/cards.py:512
 msgid "Feeding frequency (past 2 weeks)"
 msgstr ""
 
-#: dashboard/templatetags/cards.py:495
+#: dashboard/templatetags/cards.py:518
 msgid "Feeding frequency"
 msgstr "Četnost krmení"
 

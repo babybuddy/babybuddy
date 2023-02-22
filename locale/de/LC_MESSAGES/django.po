@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 20:36+0000\n"
+"POT-Creation-Date: 2023-02-22 14:39+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: babybuddy/forms.py:16
 msgid "Restricts user to viewing data only."
-msgstr ""
+msgstr "Benutzer kann Daten lesen aber nicht schreiben."
 
 #: babybuddy/models.py:19
 msgid "Refresh rate"
@@ -138,17 +138,15 @@ msgstr "Katalanisch"
 
 #: babybuddy/settings/base.py:176
 msgid "Czech"
-msgstr ""
+msgstr "Tschechisch"
 
 #: babybuddy/settings/base.py:177
 msgid "Chinese (simplified)"
 msgstr "Chinesisch (vereinfacht)"
 
 #: babybuddy/settings/base.py:178
-#, fuzzy
-#| msgid "Spanish"
 msgid "Danish"
-msgstr "Spanisch"
+msgstr "Dänisch"
 
 #: babybuddy/settings/base.py:179
 msgid "Dutch"
@@ -176,7 +174,7 @@ msgstr "Deutsch"
 
 #: babybuddy/settings/base.py:185
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungarisch"
 
 #: babybuddy/settings/base.py:186
 msgid "Italian"
@@ -192,7 +190,7 @@ msgstr "Portugiesisch"
 
 #: babybuddy/settings/base.py:189
 msgid "Russian"
-msgstr ""
+msgstr "Russisch"
 
 #: babybuddy/settings/base.py:190
 msgid "Spanish"
@@ -494,10 +492,8 @@ msgstr "Passwort"
 #: babybuddy/templates/babybuddy/user_add_device.html:4
 #: babybuddy/templates/babybuddy/user_add_device.html:8
 #: babybuddy/templates/babybuddy/user_add_device.html:12
-#, fuzzy
-#| msgid "Add a Feeding"
 msgid "Add a device"
-msgstr "Mahlzeit hinzufügen"
+msgstr "Gerät hinzufügen"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:330
 msgid "Logout"
@@ -654,25 +650,22 @@ msgstr "Abbrechen"
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:4
 msgid "Unlock User"
-msgstr ""
+msgstr "Benutzer entsperrt."
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:9
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:18
 #: babybuddy/templates/babybuddy/user_form.html:31
 msgid "Unlock"
-msgstr ""
+msgstr "Entsperren"
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:15
-#, fuzzy, python-format
-#| msgid ""
-#| "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
-#| "span>?</h1>"
+#, python-format
 msgid ""
 "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
 "span>?</h1>"
 msgstr ""
-"<h1>Bist du sicher, dass du <span class=\"text-info\">%(object)s</span> "
-"löschen möchtest?</h1>"
+"<h1>Möchtest du wirklich <span class=\"text-info\">%(object)s</span> "
+"entsperren?</h1>"
 
 #: babybuddy/templates/babybuddy/user_form.html:8
 #: babybuddy/templates/babybuddy/user_form.html:18
@@ -699,7 +692,7 @@ msgstr "Aktualisieren"
 
 #: babybuddy/templates/babybuddy/user_form.html:28
 msgid "User locked."
-msgstr ""
+msgstr "Benutzer gesperrt."
 
 #: babybuddy/templates/babybuddy/user_form.html:35
 #: core/templates/core/bmi_form.html:23 core/templates/core/child_form.html:24
@@ -743,7 +736,7 @@ msgstr "Aktiv"
 
 #: babybuddy/templates/babybuddy/user_list.html:24
 msgid "Locked"
-msgstr ""
+msgstr "Gesperrt"
 
 #: babybuddy/templates/babybuddy/user_list.html:25
 #: core/templates/core/bmi_list.html:24 core/templates/core/bmi_list.html:38
@@ -891,7 +884,7 @@ msgstr "Zurück zu Baby Buddy"
 
 #: babybuddy/templates/error/lockout.html:4
 msgid "Too Many Login Attempts"
-msgstr ""
+msgstr "Zu viele Login-Versuche"
 
 #: babybuddy/templates/registration/login.html:32
 msgid "Login"
@@ -960,18 +953,20 @@ msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
+"Du erhältst dieses Mail, weil du für deinen User auf %(site_name)s das "
+"Passwort zurücksetzen möchtest."
 
 #: babybuddy/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "Bitte rufe die folgende Seite auf und wähle ein neues Passwort:"
 
 #: babybuddy/templates/registration/password_reset_email.html:8
 msgid "Your username, in case you’ve forgotten:"
-msgstr ""
+msgstr "Hier ist dein Benutzername, solltest du ihn vergessen haben:"
 
 #: babybuddy/templates/registration/password_reset_email.html:10
 msgid "Thanks for using Baby Buddy!"
-msgstr ""
+msgstr "Danke, dass du BabyBuddy nutzt!"
 
 #: babybuddy/templates/registration/password_reset_form.html:4
 msgid "Forgot Password"
@@ -1005,7 +1000,7 @@ msgstr "User %(username)s geändert."
 
 #: babybuddy/views.py:138
 msgid "User unlocked."
-msgstr ""
+msgstr "Benutzer entsperrt."
 
 #: babybuddy/views.py:162
 #, python-brace-format
@@ -1157,6 +1152,7 @@ msgstr "Gelb"
 #: core/models.py:239 core/models.py:303 core/models.py:428
 #: core/templates/core/diaperchange_list.html:31
 #: core/templates/core/pumping_list.html:29
+#: dashboard/templates/cards/pumping_last.html:23
 msgid "Amount"
 msgstr "Menge"
 
@@ -1268,10 +1264,8 @@ msgid "Add BMI"
 msgstr "Füge BMI hinzu"
 
 #: core/templates/core/bmi_list.html:70
-#, fuzzy
-#| msgid "No bmi entries found."
 msgid "No BMI entries found."
-msgstr "Keine BMI Einträge gefunden."
+msgstr "Keine BMI-Einträge gefunden."
 
 #: core/templates/core/child_confirm_delete.html:4
 msgid "Delete a Child"
@@ -1306,11 +1300,11 @@ msgstr "Keine Kinder gefunden."
 
 #: core/templates/core/child_quick_switch.html:6
 msgid "Switch child"
-msgstr ""
+msgstr "Kind wechseln"
 
 #: core/templates/core/child_quick_switch.html:13
 msgid "Switch to…"
-msgstr ""
+msgstr "Wechsle zu..."
 
 #: core/templates/core/diaperchange_confirm_delete.html:4
 msgid "Delete a Diaper Change"
@@ -1452,10 +1446,8 @@ msgstr "Quick-Start Timer"
 
 #: core/templates/core/quick_timer_nav.html:19
 #: core/templates/core/timer_nav.html:28
-#, fuzzy
-#| msgid "Quick Start Timer"
 msgid "Quick Start Timer For…"
-msgstr "Quick-Start Timer"
+msgstr ""
 
 #: core/templates/core/sleep_confirm_delete.html:4
 msgid "Delete a Sleep Entry"
@@ -1591,6 +1583,7 @@ msgstr "Aktive Timer"
 #: dashboard/templates/cards/feeding_day.html:52
 #: dashboard/templates/cards/feeding_last.html:17
 #: dashboard/templates/cards/feeding_last_method.html:43
+#: dashboard/templates/cards/pumping_last.html:17
 #: dashboard/templates/cards/sleep_last.html:17
 #: dashboard/templates/cards/sleep_naps_day.html:18
 #: dashboard/templates/cards/sleep_recent.html:20
@@ -1723,10 +1716,8 @@ msgid "yesterday"
 msgstr "gestern"
 
 #: core/templatetags/duration.py:116
-#, fuzzy
-#| msgid "%(key)s days ago"
 msgid " days ago"
-msgstr "Vor %(key)s Tagen"
+msgstr ""
 
 #: core/timeline.py:53
 #, python-format
@@ -1848,6 +1839,7 @@ msgstr "Letzer Windelwechsel"
 
 #: dashboard/templates/cards/diaperchange_last.html:12
 #: dashboard/templates/cards/feeding_last.html:12
+#: dashboard/templates/cards/pumping_last.html:12
 #: dashboard/templates/cards/sleep_last.html:12
 #: dashboard/templates/cards/tummytime_last.html:13
 #, python-format
@@ -1907,6 +1899,12 @@ msgid_plural "%(n)s feedings ago"
 msgstr[0] "vor %(n)s Mahlzeit%(plural)sen"
 msgstr[1] "vor %(n)s Mahlzeit%(plural)sen"
 
+#: dashboard/templates/cards/pumping_last.html:6
+#, fuzzy
+#| msgid "Pumping"
+msgid "Last Pumping"
+msgstr "Abpumpen"
+
 #: dashboard/templates/cards/sleep_last.html:6
 msgid "Last Sleep"
 msgstr "Letzter Schlaf"
@@ -1923,17 +1921,15 @@ msgstr[0] "%(count)s Nickerchen%(plural)s."
 msgstr[1] "%(count)s Nickerchen%(plural)s."
 
 #: dashboard/templates/cards/sleep_recent.html:6
-#, fuzzy
-#| msgid "Last Sleep"
 msgid "Recent Sleep"
-msgstr "Letzter Schlaf"
+msgstr "Kürzlicher Schlaf"
 
 #: dashboard/templates/cards/sleep_recent.html:25
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleep"
-msgstr[0] "%(count)s Schlaf-Einträge"
-msgstr[1] "%(count)s Schlaf-Einträge"
+msgstr[0] ""
+msgstr[1] ""
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1987,59 +1983,59 @@ msgstr "Aktionen des Kindes"
 msgid "Reports"
 msgstr "Reports"
 
-#: dashboard/templatetags/cards.py:357
+#: dashboard/templatetags/cards.py:380
 msgid "Average nap duration"
 msgstr "Durschnittliche Nickerchen-Dauer"
 
-#: dashboard/templatetags/cards.py:364
+#: dashboard/templatetags/cards.py:387
 msgid "Average naps per day"
 msgstr "Durschnittliche Anzahl Nickerchen"
 
-#: dashboard/templatetags/cards.py:374
+#: dashboard/templatetags/cards.py:397
 msgid "Average sleep duration"
 msgstr "Durchschnittliche Schlafdauer"
 
-#: dashboard/templatetags/cards.py:381
+#: dashboard/templatetags/cards.py:404
 msgid "Average awake duration"
 msgstr "Durchschnittlich wach"
 
-#: dashboard/templatetags/cards.py:391
+#: dashboard/templatetags/cards.py:414
 msgid "Weight change per week"
 msgstr "Gewichtsänderung pro Woche"
 
-#: dashboard/templatetags/cards.py:401
+#: dashboard/templatetags/cards.py:424
 msgid "Height change per week"
 msgstr "Größenänderung pro Woche"
 
-#: dashboard/templatetags/cards.py:411
+#: dashboard/templatetags/cards.py:434
 msgid "Head circumference change per week"
 msgstr "Kopfumfang Änderung pro woche"
 
-#: dashboard/templatetags/cards.py:421
+#: dashboard/templatetags/cards.py:444
 msgid "BMI change per week"
 msgstr "BMI Änderung pro Woche"
 
-#: dashboard/templatetags/cards.py:439
+#: dashboard/templatetags/cards.py:462
 msgid "Diaper change frequency (past 3 days)"
 msgstr "Windelwechselintervall (die letzten drei Tage)"
 
-#: dashboard/templatetags/cards.py:443
+#: dashboard/templatetags/cards.py:466
 msgid "Diaper change frequency (past 2 weeks)"
 msgstr "Windelwechselintervall (die letzten zwei Wochen)"
 
-#: dashboard/templatetags/cards.py:449
+#: dashboard/templatetags/cards.py:472
 msgid "Diaper change frequency"
 msgstr "Frequenz Windelwechsel"
 
-#: dashboard/templatetags/cards.py:485
+#: dashboard/templatetags/cards.py:508
 msgid "Feeding frequency (past 3 days)"
 msgstr "Mahlzeitenintervall (letzte 3 Tage)"
 
-#: dashboard/templatetags/cards.py:489
+#: dashboard/templatetags/cards.py:512
 msgid "Feeding frequency (past 2 weeks)"
 msgstr "Mahlzeitenintervall (letzte 2 Wochen)"
 
-#: dashboard/templatetags/cards.py:495
+#: dashboard/templatetags/cards.py:518
 msgid "Feeding frequency"
 msgstr "Frequenz Mahlzeiten"
 
@@ -2144,10 +2140,8 @@ msgid "Hours of sleep"
 msgstr "Schlafstunden"
 
 #: reports/graphs/temperature_change.py:26
-#, fuzzy
-#| msgid "Temperature"
 msgid "<b>Temperature</b>"
-msgstr "Temperatur"
+msgstr "<b>Temperatur</b>"
 
 #: reports/graphs/tummytime_duration.py:34
 msgid "Total duration"
@@ -2390,3 +2384,6 @@ msgstr "Totalle Bauchzeit Dauer"
 
 #~ msgid "%(count)s feeding entries"
 #~ msgstr "%(count)s Fütterungseinträge"
+
+#~ msgid "No bmi entries found."
+#~ msgstr "Keine BMI Einträge gefunden."
