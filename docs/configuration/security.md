@@ -54,13 +54,16 @@ Each entry must contain both the scheme (http, https) and fully-qualified domain
 Sets the header to read the authenticated username from when
 `REVERSE_PROXY_AUTH` has been enabled.
 
+Django modifies headers in the HTTP request; HTTP headers in the request have all characters converted to uppercase, replacing any hyphens with underscores and adding an HTTP_ prefix to the name. For example `X-Auth-User` would be converted to `HTTP_X_AUTH_USER`.
+
 **Example value**
 
+    // For header key X-Auth-User
     HTTP_X_AUTH_USER
 
 **See also**
-
 - [Django's documentation on the `REMOTE_USER` authentication method](https://docs.djangoproject.com/en/4.1/howto/auth-remote-user/)
+- [Django's documentation on the request.META object](https://docs.djangoproject.com/en/4.1/ref/request-response/#django.http.HttpRequest.META)
 - [`REVERSE_PROXY_AUTH`](#reverse_proxy_auth)
 
 ## `REVERSE_PROXY_AUTH`
