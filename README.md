@@ -100,6 +100,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 - [Baby Buddy: Keep Records of Your Child/Baby's Growth and Activities](https://www.youtube.com/watch?v=sO6rjn2s6-k) (video)
 - [Convert exported data from "Baby tracker - feeding, sleep and diaper" mobile app to Baby Buddy](https://github.com/babybuddy/babybuddy/discussions/424)
 - [Grafana Dashboard](https://github.com/babybuddy/babybuddy/discussions/607)
+- [Baby Buddy for Android](https://play.google.com/store/apps/details?id=eu.pkgsoftware.babybuddywidgets) ([Source](https://github.com/MrApplejuice/BabyBuddyAndroid/))
 
 ## Reporting Vulnerabilities
 
