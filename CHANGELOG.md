@@ -1,6 +1,15 @@
 # Changelog
 
-## [v1.15.0](https://github.com/babybuddy/babybuddy/tree/v1.15.0)  (2023-02-20)
+## [v1.15.1](https://github.com/babybuddy/babybuddy/tree/v1.15.1) (2023-03-18)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.15.0...v1.15.1)
+
+**Fixed bugs:**
+
+- Changing display up till time brings up persistent 500 server error [\#613](https://github.com/babybuddy/babybuddy/issues/613)
+- Non-staff users get 403 error unless given superuser privileges [\#605](https://github.com/babybuddy/babybuddy/issues/605)
+
+## [v1.15.0](https://github.com/babybuddy/babybuddy/tree/v1.15.0) (2023-02-20)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.14.0...v1.15.0)
 
