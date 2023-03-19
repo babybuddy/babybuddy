@@ -40,6 +40,19 @@ export DJANGO_SETTINGS_MODULE="babybuddy.settings.base"
 python3 /app/babybuddy/manage.py clearsessions
 ```
 
+## Home Assistant
+
+[Home Assistant](https://www.home-assistant.io/) is an open source home automation tool
+that can be used to host and control Baby Buddy. An existing Home Assistant installation
+is required to use this method.
+
+See the community-maintained [Baby Buddy Home Assistant Addon](https://github.com/OttPeterR/addon-babybuddy)
+for installation instructions and then review the community-maintained [Baby Buddy Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant)
+for added integrations with the base Home Assistant system.
+
+See also [How to Setup Baby Buddy in Home Assistant](https://smarthomescene.com/guides/how-to-setup-baby-buddy-in-home-assistant/)
+from Smart Home Scene for more detailed installation and configuration instructions.
+
 ## Clever Cloud
 
 To deploy on [Clever Cloud](https://www.clever-cloud.com), log in to your
