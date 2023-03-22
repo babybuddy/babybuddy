@@ -54,7 +54,7 @@ Each entry must contain both the scheme (http, https) and fully-qualified domain
 Sets the header to read the authenticated username from when
 `REVERSE_PROXY_AUTH` has been enabled.
 
-Django modifies headers in the HTTP request; HTTP headers in the request have all characters converted to uppercase, replacing any hyphens with underscores and adding an HTTP_ prefix to the name. For example `X-Auth-User` would be converted to `HTTP_X_AUTH_USER`.
+Baby Buddy modifies headers in the HTTP request; HTTP headers in the request have all characters converted to uppercase, replacing any hyphens with underscores and adding an HTTP_ prefix to the name. For example `X-Auth-User` would be converted to `HTTP_X_AUTH_USER`.
 
 **Example value**
 
