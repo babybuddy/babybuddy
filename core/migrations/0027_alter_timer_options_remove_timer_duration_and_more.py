@@ -9,7 +9,6 @@ def delete_inactive_timers(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("core", "0026_alter_feeding_end_alter_feeding_start_and_more"),
     ]

@@ -93,6 +93,7 @@ class Settings(models.Model):
             return self.dashboard_refresh_rate.seconds * 1000
         return None
 
+
 class SiteSettings(models.Model):
     nap_start_min = models.TimeField(
         verbose_name=_("Default minimum nap start time"),

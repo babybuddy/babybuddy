@@ -166,7 +166,7 @@ function lint() {
  */
 function scripts() {
     const streams = [];
-    const types = ['graph', 'app', 'tags_editor'];
+    const types = ['vendor', 'graph', 'app', 'tags_editor'];
     types.forEach((type) => {
         streams.push(
             gulp.src(config.scriptsConfig[type])

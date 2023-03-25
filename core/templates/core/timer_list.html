@@ -26,9 +26,6 @@
                 {% if not unique_child %}
                     <th>{% trans "Child" %}</th>
                 {% endif %}
-                <th>{% trans "Duration" %}</th>
-                <th>{% trans "End" %}</th>
-                <th>{% trans "Active" %}</th>
                 <th>{% trans "User" %}</th>
             </tr>
             </thead>
@@ -44,13 +41,6 @@
                             {% endif %}
                         </td>
                     {% endif %}
-                    <td>{{ timer.duration|duration_string }}</td>
-                    <td>
-                        {% if timer.end %}
-                            {{ timer.end|datetime_short }}
-                        {% endif %}
-                    </td>
-                    <td>{{ timer.active|bool_icon }}</td>
                     <td>{{ timer.user_username }}</td>
                 </tr>
             {% empty %}

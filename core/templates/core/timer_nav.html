@@ -11,14 +11,6 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
         {% if perms.core.add_timer %}
-            <div class="dropdown-item">
-                <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="d-inline">
-                    {% csrf_token %}
-                    <button class="btn text-start p-0">
-                        <i class="icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
-                    </button>
-                </form>
-            </div>
             <a class="dropdown-item" href="{% url 'core:timer-add' %}">
                 <i class="icon-add" aria-hidden="true"></i> {% trans "Start Timer" %}
             </a>

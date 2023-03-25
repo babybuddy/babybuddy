@@ -4,9 +4,8 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ("babybuddy", "0023_alter_settings_timezone"),
+        ("babybuddy", "0027_remove_standard_group"),
     ]
 
     operations = [
