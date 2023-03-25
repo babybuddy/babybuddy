@@ -12,10 +12,12 @@
         {% if html %}
             {{ html|safe }}
         {% else %}
-            <div class="jumbotron text-center">
-                <i class="icon-sad" aria-hidden="true"></i>
-                {% trans "There is not enough data to generate this report." %}
-                <i class="icon-sad" aria-hidden="true"></i>
+            <div class="px-2 py-5 bg-dark rounded-3 text-center display-5">
+                <div class="container-fluid">
+                    <i class="icon-sad" aria-hidden="true"></i>
+                    {% trans "There is not enough data to generate this report." %}
+                    <i class="icon-sad" aria-hidden="true"></i>
+                </div>
             </div>
         {% endif %}
     </div>

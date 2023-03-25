@@ -7,7 +7,7 @@
         {% csrf_token %}
         {% for field in form %}
             {{ field.widget }}
-            <div class="form-group row">
+            <div class="row">
                 {% include 'babybuddy/form_field.html' %}
             </div>
         {% endfor %}

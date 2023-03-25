@@ -23,34 +23,48 @@ var BabyBuddy = function () {
  *
  * @type {{init: BabyBuddy.DatetimePicker.init}}
  */
-BabyBuddy.DatetimePicker = function ($, moment) {
+BabyBuddy.DatetimePicker = function (moment) {
     return {
         init: function (element, options) {
-            var defaultOptions = {
-                buttons: { showToday: true, showClose: true },
-                defaultDate: 'now',
-                focusOnShow: false,
-                format: 'L LT',
-                ignoreReadonly: true,
-                locale: moment.locale(),
-                useCurrent: false,
-                icons: {
-                    time: 'icon-clock',
-                    date: 'icon-calendar',
-                    up: 'icon-arrow-up',
-                    down: 'icon-arrow-down',
-                    previous: 'icon-angle-circled-left',
-                    next: 'icon-angle-circled-right',
-                    today: 'icon-today',
-                    clear: 'icon-delete',
-                    close: 'icon-cancel'
+            let defaultOptions = {
+                display: {
+                    buttons: {
+                        close: true,
+                        today: true,
+                    },
+                    components: {
+                        calendar: true,
+                        clock: true,
+                        date: true,
+                        decades: true,
+                        hours: true,
+                        minutes: true,
+                        month: true,
+                        seconds: false,
+                        useTwentyfourHour: false,
+                        year: true,
+                    },
+                    icons: {
+                        clear: 'icon-delete',
+                        close: 'icon-cancel',
+                        date: 'icon-calendar',
+                        down: 'icon-arrow-down',
+                        next: 'icon-angle-circled-right',
+                        previous: 'icon-angle-circled-left',
+                        time: 'icon-clock',
+                        today: 'icon-today',
+                        up: 'icon-arrow-up',
+                    },
+                    viewMode: 'clock',
                 },
-                viewMode: 'times',
+                localization: {
+                    locale: moment.locale(),
+                },
             };
-            element.datetimepicker($.extend(defaultOptions, options));
+            new tempusDominus.TempusDominus(element, Object.assign(defaultOptions, options));
         }
     };
-}(jQuery, moment);
+}(moment);
 
 /**
  * Pull to refresh.

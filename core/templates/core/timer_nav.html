@@ -4,13 +4,21 @@
     <a id="nav-timer-menu-link"
        class="nav-link dropdown-toggle"
        href="#"
-       data-toggle="dropdown"
+       data-bs-toggle="dropdown"
        aria-haspopup="true"
        aria-expanded="false"><i class="icon-timer" aria-hidden="true"></i>
         {% trans "Timers" %}
     </a>
     <div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
         {% if perms.core.add_timer %}
+            <div class="dropdown-item">
+                <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button class="btn text-start p-0">
+                        <i class="icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
+                    </button>
+                </form>
+            </div>
             <a class="dropdown-item" href="{% url 'core:timer-add' %}">
                 <i class="icon-add" aria-hidden="true"></i> {% trans "Start Timer" %}
             </a>

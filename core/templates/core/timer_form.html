@@ -6,7 +6,7 @@
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'core:timer-list' %}">{% trans "Timers" %}</a></li>
     {% if object %}
-        <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:timer-detail' object.id %}">{{ object }}</a></li>
+        <li class="breadcrumb-item fw-bold"><a href="{% url 'core:timer-detail' object.id %}">{{ object }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
         <li class="breadcrumb-item active" aria-current="page">{% trans "Start" %}</li>
@@ -26,8 +26,6 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        BabyBuddy.DatetimePicker.init($('#datetimepicker_start'), {
-            format: '{% datetimepicker_format 'L LTS' %}'
-        });
+        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_start'));
     </script>
 {% endblock %}

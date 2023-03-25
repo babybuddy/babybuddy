@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // Baby Buddy form style customizations.
 
 // BB form fields do not follow typical BS4 style that enables this display.
@@ -34,7 +36,7 @@
         .input-group-text {
             background: none;
             border: 0;
-            color: theme-color('primary');
+            color: map.get($theme-colors, 'primary');
             padding-left: 0;
             padding-right: 0;
         }

@@ -31,8 +31,6 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        BabyBuddy.DatetimePicker.init($('#datetimepicker_time'), {
-            format: '{% datetimepicker_format %}'
-        });
+        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_time'));
     </script>
 {% endblock %}

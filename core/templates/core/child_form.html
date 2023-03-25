@@ -12,7 +12,7 @@
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">{% trans "Children" %}</a></li>
     {% if object %}
-        <li class="breadcrumb-item font-weight-bold"><a href="{% url 'core:child' object.slug %}">{{ object }}</a></li>
+        <li class="breadcrumb-item fw-bold"><a href="{% url 'core:child' object.slug %}">{{ object }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
         <li class="breadcrumb-item active" aria-current="page">{% trans "Add a Child" %}</li>
@@ -32,10 +32,15 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        BabyBuddy.DatetimePicker.init($('#datetimepicker_birth_date'), {
-            format: 'L',
-            viewMode: 'years',
-            extraFormats: ['YYYY-MM-DD']
+        BabyBuddy.DatetimePicker.init(document.querySelector('#datetimepicker_birth_date'), {
+            display: {
+                components: {
+                    hours: false,
+                    minutes: false,
+                    seconds: false,
+                },
+                viewMode: 'years'
+            }
         });
     </script>
 {% endblock %}

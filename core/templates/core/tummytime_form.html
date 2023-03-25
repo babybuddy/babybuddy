@@ -31,12 +31,7 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        BabyBuddy.DatetimePicker.init($('#datetimepicker_start'), {
-            defaultDate: false,
-            format: '{% datetimepicker_format 'L LTS' %}'
-        });
-        BabyBuddy.DatetimePicker.init($('#datetimepicker_end'), {
-            format: '{% datetimepicker_format 'L LTS' %}'
-        });
+        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_start'));
+        BabyBuddy.DatetimePicker.init(document.getElementById('datetimepicker_end'));
     </script>
 {% endblock %}
