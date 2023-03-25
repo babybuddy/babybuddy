@@ -48,12 +48,3 @@ the user settings form.
 **See also**
 
 [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
-
-## `USE_24_HOUR_TIME_FORMAT`
-
-*Default:* `False`
-
-Whether to force 24-hour time format for locales that do not ordinarily use it
-(e.g. `en`). Support for this feature must be implemented on a per-locale basis.
-See format files under [`babybuddy/formats`](https://github.com/babybuddy/babybuddy/tree/master/babybuddy/formats)
-for supported locales.

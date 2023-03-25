@@ -200,16 +200,6 @@ USE_L10N = True
 
 FORMAT_MODULE_PATH = ["babybuddy.formats"]
 
-# Custom setting that can be used to override the locale-based time set by
-# USE_L10N _for specific locales_ to use 24-hour format. In order for this to
-# work with a given locale it must be set at the FORMAT_MODULE_PATH with
-# conditionals on this setting. See babybuddy/forms/en/formats.py for an example
-# implementation for the English locale.
-
-USE_24_HOUR_TIME_FORMAT = bool(
-    strtobool(os.environ.get("USE_24_HOUR_TIME_FORMAT") or "False")
-)
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

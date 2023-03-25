@@ -144,9 +144,3 @@ class TemplateTagsTestCase(TestCase):
                 formats.date_format(date, format="TIME_FORMAT"),
             ),
         )
-
-        date = timezone.localtime() - timezone.timedelta(days=500)
-        self.assertEqual(
-            datetime.datetime_short(date),
-            formats.date_format(date, format="SHORT_DATETIME_FORMAT"),
-        )
