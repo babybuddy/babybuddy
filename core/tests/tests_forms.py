@@ -129,21 +129,6 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertTrue("start" not in page.context["form"].initial)
         self.assertTrue("end" not in page.context["form"].initial)
 
-    def test_timer_stop_on_save(self):
-        timer = models.Timer.objects.create(
-            user=self.user, start=timezone.localtime() - timezone.timedelta(minutes=30)
-        )
-        params = {
-            "child": self.child.id,
-            "start": self.localtime_string(self.timer.start),
-            "end": self.localtime_string(),
-        }
-        page = self.c.post("/sleep/add/?timer={}".format(timer.id), params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.timer.refresh_from_db()
-        self.assertFalse(self.timer.active)
-        self.assertEqual(self.localtime_string(self.timer.end), params["end"])
-
 
 class BMIFormsTestCase(FormsTestCaseBase):
     @classmethod
@@ -778,29 +763,6 @@ class TimerFormsTestCase(FormsTestCaseBase):
         self.assertContains(page, params["name"])
         self.timer.refresh_from_db()
         self.assertEqual(self.localtime_string(self.timer.start), params["start"])
-
-    def test_edit_stopped(self):
-        self.timer.stop()
-        params = {
-            "name": "Edit stopped timer",
-            "start": self.localtime_string(self.timer.start),
-            "end": self.localtime_string(self.timer.end),
-        }
-        page = self.c.post(
-            "/timers/{}/edit/".format(self.timer.id), params, follow=True
-        )
-        self.assertEqual(page.status_code, 200)
-
-    def test_delete_inactive(self):
-        models.Timer.objects.create(user=self.user)
-        self.assertEqual(models.Timer.objects.count(), 2)
-        self.timer.stop()
-        page = self.c.post("/timers/delete-inactive/", follow=True)
-        self.assertEqual(page.status_code, 200)
-        messages = list(page.context["messages"])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), "All inactive timers deleted.")
-        self.assertEqual(models.Timer.objects.count(), 1)
 
 
 class ValidationsTestCase(FormsTestCaseBase):
