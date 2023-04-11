@@ -33,7 +33,7 @@ class ChildViewSet(viewsets.ModelViewSet):
     queryset = models.Child.objects.all()
     serializer_class = serializers.ChildSerializer
     lookup_field = "slug"
-    filterset_fields = ("first_name", "last_name", "slug", "birth_date")
+    filterset_fields = ("id", "first_name", "last_name", "slug", "birth_date")
     ordering_fields = ("birth_date", "first_name", "last_name", "slug")
     ordering = "-birth_date"
 
