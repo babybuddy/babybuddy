@@ -3,11 +3,9 @@ on:
   push:
     branches:
       - master
-      - v2
   pull_request:
     branches:
       - master
-      - v2
   schedule:
     - cron: '33 0 * * 3'
 jobs:
