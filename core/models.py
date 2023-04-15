@@ -2,7 +2,6 @@
 import re
 from datetime import timedelta
 
-from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -13,6 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
+from babybuddy.site_settings import NapSettings
 from core.utils import random_color
 
 
@@ -477,6 +477,7 @@ class Sleep(models.Model):
 
     objects = models.Manager()
     naps = NapsManager()
+    settings = NapSettings(_("Nap settings"))
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
@@ -489,14 +490,12 @@ class Sleep(models.Model):
 
     @property
     def nap(self):
-        nap_start_min = timezone.datetime.strptime(
-            settings.BABY_BUDDY["NAP_START_MIN"], "%H:%M"
-        ).time()
-        nap_start_max = timezone.datetime.strptime(
-            settings.BABY_BUDDY["NAP_START_MAX"], "%H:%M"
-        ).time()
         local_start_time = timezone.localtime(self.start).time()
-        return nap_start_min <= local_start_time <= nap_start_max
+        return (
+            Sleep.settings.nap_start_min
+            <= local_start_time
+            <= Sleep.settings.nap_start_max
+        )
 
     def save(self, *args, **kwargs):
         if self.start and self.end:

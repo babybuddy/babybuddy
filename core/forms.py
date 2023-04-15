@@ -7,8 +7,9 @@ from django.utils.translation import gettext as _
 
 from taggit.forms import TagField
 
+from babybuddy.widgets import DateInput, DateTimeInput
 from core import models
-from core.widgets import TagsEditor, ChildRadioSelect, DateInput, DateTimeInput
+from core.widgets import TagsEditor, ChildRadioSelect
 
 
 def set_initial_values(kwargs, form_type):

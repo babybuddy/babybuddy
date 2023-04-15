@@ -9,20 +9,6 @@ for exceptions. This setting should be *False* in production deployments.
 
 See also [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/4.0/ref/settings/#debug).
 
-## `NAP_START_MAX`
-
-*Default:* `18:00`
-
-The maximum nap *start* time (in the instance's time zone). Expects the 24-hour
-format %H:%M.
-
-## `NAP_START_MIN`
-
-*Default:* `06:00`
-
-The minimum nap *start* time (in the instance's time zone). Expects the 24-hour
-format %H:%M.
-
 ## `SUB_PATH`
 
 *Default:* `None`

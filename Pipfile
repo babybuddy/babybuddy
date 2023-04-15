@@ -25,6 +25,7 @@ uritemplate = "*"
 whitenoise = "*"
 django-taggit = "*"
 django-qr-code = "*"
+django-dbsettings = "*"
 
 [dev-packages]
 coveralls = "*"

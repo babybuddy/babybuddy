@@ -336,7 +336,7 @@
                                 <h6 class="dropdown-header">{% trans "Site" %}</h6>
                                 <a href="{% url 'api:api-root' %}" class="dropdown-item">{% trans "API Browser" %}</a>
                                 {% if request.user.is_staff %}
-                                    <a href="{% url 'babybuddy:site-settings-update' %}"
+                                    <a href="{% url 'babybuddy:site_settings' %}"
                                        class="dropdown-item">{% trans "Settings" %}</a>
                                     <a href="{% url 'babybuddy:user-list' %}"
                                        class="dropdown-item">{% trans "Users" %}</a>

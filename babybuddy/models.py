@@ -94,32 +94,6 @@ class Settings(models.Model):
         return None
 
 
-class SiteSettings(models.Model):
-    nap_start_min = models.TimeField(
-        verbose_name=_("Default minimum nap start time"),
-        help_text=_(
-            "The minimum default time that a sleep entry is consider a nap."
-            "If set the nap property will be preselected if the start"
-            "time is within the bounds."
-        ),
-        blank=True,
-        null=True,
-    )
-    nap_start_max = models.TimeField(
-        verbose_name=_("Default maximum nap start time"),
-        help_text=_(
-            "The maximum default time that a sleep entry is consider a nap."
-            "If set the nap property will be preselected if the start"
-            "time is within the bounds."
-        ),
-        blank=True,
-        null=True,
-    )
-
-    def __str__(self):
-        return _("Site Settings")
-
-
 @receiver(post_save, sender=get_user_model())
 def create_user_settings(sender, instance, created, **kwargs):
     if created:
