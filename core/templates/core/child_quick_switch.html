@@ -2,7 +2,7 @@
 
 <a href="{% url 'core:child' current_child.slug %}">{{ current_child }}</a>
 {% if children.count > 0 %}
-    <a href="#" class="ml-1 pl-1 pr-1 dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a href="#" class="ms-1 ps-1 pe-1 dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="visually-hidden">{% trans 'Switch child' %}</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"             fill="currentColor" viewBox="0 0 16 16">
             <path d="M3.626 6.832A.5.5 0 0 1 4 6h8a.5.5 0 0 1 .374.832l-4 4.5a.5.5 0 0 1-.748 0l-4-4.5z"></path>
@@ -14,7 +14,7 @@
         {% for child in children %}
             <a class="dropdown-item d-flex align-items-center" href="{% url target_url child.slug %}">
                 {% include "core/child_thumbnail.html" %}
-                <span class="text-wrap ml-2">{{ child }}</span>
+                <span class="text-wrap ms-2">{{ child }}</span>
             </a>
         {% endfor %}
     </div>

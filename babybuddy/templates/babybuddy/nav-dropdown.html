@@ -200,8 +200,7 @@
                             {% endif %}
                             {% if perms.core.add_temperature %}
                                 <a class="dropdown-item ps-5{% if request.path == '/temperature/add/' %} active{% endif %}"
-                                   href="{% url 'core:temperature-add' %}"><i class="icon-add"
-                                                                                     aria-hidden="true"></i>
+                                   href="{% url 'core:temperature-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Temperature reading" %}
                                 </a>
                             {% endif %}
@@ -214,7 +213,7 @@
                                 </a>
                             {% endif %}
                             {% if perms.core.add_weight %}
-                                <a class="dropdown-item pl-5{% if request.path == '/weight/add/' %} active{% endif %}"
+                                <a class="dropdown-item ps-5{% if request.path == '/weight/add/' %} active{% endif %}"
                                    href="{% url 'core:weight-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Weight entry" %}
                                 </a>

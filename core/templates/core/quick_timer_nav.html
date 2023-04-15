@@ -20,7 +20,7 @@
                 {% for child in children %}
                     <button class="dropdown-item d-flex align-items-center" type="submit" name="child" value="{{ child.pk }}">
                         {% include "core/child_thumbnail.html" %}
-                        <span class="text-wrap ml-2">{{ child }}</span>
+                        <span class="text-wrap ms-2">{{ child }}</span>
                     </button>
                 {% endfor %}
             </div>
