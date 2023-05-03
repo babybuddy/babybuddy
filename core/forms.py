@@ -100,7 +100,7 @@ class ChildForm(forms.ModelForm):
             "birth_date": forms.DateInput(
                 attrs={
                     "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
+                    "data-target": "#datetimepicker_birth_date",
                 }
             ),
         }
