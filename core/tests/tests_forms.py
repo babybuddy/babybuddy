@@ -148,6 +148,18 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertFalse(self.timer.active)
         self.assertEqual(self.localtime_string(self.timer.end), params["end"])
 
+    def test_timer_set_initial_from_context(self):
+        self.timer.context = {
+            "timer_type": "feeding",
+            "method": "bottle",
+            "type": "formula",
+        }
+        self.timer.stop()
+
+        page = self.c.get("/feedings/add/?timer={}".format(self.timer.id))
+        self.assertEqual(page.context["form"].initial["method"], "bottle")
+        self.assertEqual(page.context["form"].initial["type"], "formula")
+
 
 class BMIFormsTestCase(FormsTestCaseBase):
     @classmethod

@@ -41,6 +41,7 @@ def set_initial_values(kwargs, form_type):
 
     # Set start and end time based on Timer from `timer` kwarg.
     timer_id = kwargs.get("timer", None)
+    timer = None
     if timer_id:
         timer = models.Timer.objects.get(id=timer_id)
         kwargs["initial"].update(
@@ -60,6 +61,17 @@ def set_initial_values(kwargs, form_type):
             if last_method not in ["left breast", "right breast"]:
                 last_feed_args["method"] = last_method
             kwargs["initial"].update(last_feed_args)
+
+    if (
+        form_type == FeedingForm
+        and timer is not None
+        and timer.context is not None
+        and timer.context.get("timer_type") == "feeding"
+    ):
+
+        for arg in ["method", "type"]:
+            if timer.context.get(arg) is not None:
+                kwargs["initial"][arg] = timer.context[arg]
 
     # Remove custom kwargs so they do not interfere with `super` calls.
     for key in ["child", "timer"]:
