@@ -8,14 +8,14 @@
             </label>
             <div class="col-xs-10 col-sm-auto">
                 {% if 'choice' or 'boolean' in field|field_type %}
-                    {{ field|add_class:"custom-select custom-select-sm" }}
+                    {{ field|add_class:"form-select form-select-sm" }}
                 {% else %}
                     {{ field|add_class:"form-control form-control-sm" }}
                 {% endif %}
             </div>
         {% endfor %}
         <div class="col-xs-12 col-sm-auto mt-3 mt-sm-0">
-            <button type="submit" class="btn btn-sm btn-primary mr-2">{% trans "Filter" %}</button>
+            <button type="submit" class="btn btn-sm btn-primary me-2">{% trans "Filter" %}</button>
             <a href="{{ request.path }}" class="btn btn-sm btn-error">{% trans "Reset" %}</a>
         </div>
     </div>
@@ -24,7 +24,7 @@
 
 <p>
     <a class="btn btn-dark btn-sm"
-       data-toggle="collapse"
+       data-bs-toggle="collapse"
        href="#filter_form"
        role="button"
        aria-expanded="false"

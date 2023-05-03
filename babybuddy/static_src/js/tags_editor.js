@@ -174,7 +174,7 @@
             this.apiTagsUrl = widget.getAttribute('data-tags-url');
             this.createTagInputs = widget.querySelector('.create-tag-inputs');
             this.addTagInput = this.createTagInputs.querySelector('input[type="text"]');
-            this.addTagButton = this.createTagInputs.querySelector('.btn-add-new-tag');
+            this.addTagButton = this.createTagInputs.querySelector('#add-tag');
 
             this.addTagInput.value = "";
             

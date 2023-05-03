@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 
 from taggit.forms import TagField
 
+from babybuddy.widgets import DateInput, DateTimeInput
 from core import models
 from core.widgets import TagsEditor, ChildRadioSelect
 
@@ -44,7 +45,7 @@ def set_initial_values(kwargs, form_type):
     if timer_id:
         timer = models.Timer.objects.get(id=timer_id)
         kwargs["initial"].update(
-            {"timer": timer, "start": timer.start, "end": timer.end or timezone.now()}
+            {"timer": timer, "start": timer.start, "end": timezone.now()}
         )
 
     # Set type and method values for Feeding instance based on last feed.
@@ -83,7 +84,7 @@ class CoreModelForm(forms.ModelForm):
         instance = super(CoreModelForm, self).save(commit=False)
         if self.timer_id:
             timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop(instance.end)
+            timer.stop()
         if commit:
             instance.save()
             self.save_m2m()
@@ -97,12 +98,7 @@ class ChildForm(forms.ModelForm):
         if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
             fields.append("picture")
         widgets = {
-            "birth_date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_birth_date",
-                }
-            ),
+            "birth_date": DateInput(),
         }
 
 
@@ -144,12 +140,7 @@ class PumpingForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "amount", "time", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "time": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
-                }
-            ),
+            "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -160,12 +151,7 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect(),
-            "time": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
-                }
-            ),
+            "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -176,18 +162,8 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "start": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
-                }
-            ),
-            "end": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
-                }
-            ),
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -198,12 +174,7 @@ class NoteForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "note", "time", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "time": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
-                }
-            ),
+            "time": DateTimeInput(),
         }
 
 
@@ -213,18 +184,8 @@ class SleepForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "start", "end", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "start": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
-                }
-            ),
-            "end": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
-                }
-            ),
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -235,12 +196,7 @@ class TemperatureForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "temperature", "time", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "time": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
-                }
-            ),
+            "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -251,12 +207,7 @@ class TimerForm(CoreModelForm):
         fields = ["child", "name", "start"]
         widgets = {
             "child": ChildRadioSelect,
-            "start": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
-                }
-            ),
+            "start": DateTimeInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -276,18 +227,8 @@ class TummyTimeForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "start", "end", "milestone", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "start": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
-                }
-            ),
-            "end": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
-                }
-            ),
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
         }
 
 
@@ -297,12 +238,7 @@ class WeightForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "weight", "date", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -313,12 +249,7 @@ class HeightForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "height", "date", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -329,12 +260,7 @@ class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "head_circumference", "date", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -345,12 +271,7 @@ class BMIForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "bmi", "date", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
-            "date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 

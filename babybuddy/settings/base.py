@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "storages",
     "import_export",
     "qr_code",
+    "dbsettings",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -78,7 +79,7 @@ ROOT_URLCONF = "babybuddy.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["babybuddy/templates/error"],
+        "DIRS": ["babybuddy/templates", "babybuddy/templates/error"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -158,7 +159,7 @@ if REVERSE_PROXY_AUTH:
 
 USE_TZ = True
 
-TIME_ZONE = os.environ.get("TIME_ZONE") or "UTC"
+TIME_ZONE = "UTC"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -200,16 +201,6 @@ LANGUAGES = [
 USE_L10N = True
 
 FORMAT_MODULE_PATH = ["babybuddy.formats"]
-
-# Custom setting that can be used to override the locale-based time set by
-# USE_L10N _for specific locales_ to use 24-hour format. In order for this to
-# work with a given locale it must be set at the FORMAT_MODULE_PATH with
-# conditionals on this setting. See babybuddy/forms/en/formats.py for an example
-# implementation for the English locale.
-
-USE_24_HOUR_TIME_FORMAT = bool(
-    strtobool(os.environ.get("USE_24_HOUR_TIME_FORMAT") or "False")
-)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -364,7 +355,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 BABY_BUDDY = {
     "ALLOW_UPLOADS": bool(strtobool(os.environ.get("ALLOW_UPLOADS") or "True")),
-    "NAP_START_MAX": os.environ.get("NAP_START_MAX") or "18:00",
-    "NAP_START_MIN": os.environ.get("NAP_START_MIN") or "06:00",
     "READ_ONLY_GROUP_NAME": "read_only",
 }

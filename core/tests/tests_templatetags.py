@@ -129,39 +129,6 @@ class TemplateTagsTestCase(TestCase):
             url, "/sleep/add/?timer={}&child={}".format(timer.id, child.slug)
         )
 
-    def test_datetimepicker_format(self):
-        request = MockUserRequest(get_user_model().objects.first())
-        request.user.settings.dashboard_hide_empty = True
-        context = {"request": request}
-
-        with self.settings(USE_24_HOUR_TIME_FORMAT=False):
-            self.assertEqual(datetime.datetimepicker_format(context), "L LT")
-            self.assertEqual(datetime.datetimepicker_format(context, "L LT"), "L LT")
-            self.assertEqual(datetime.datetimepicker_format(context, "L LTS"), "L LTS")
-
-        with self.settings(USE_24_HOUR_TIME_FORMAT=True):
-            self.assertEqual(datetime.datetimepicker_format(context), "L HH:mm")
-            self.assertEqual(datetime.datetimepicker_format(context, "L LT"), "L HH:mm")
-            self.assertEqual(
-                datetime.datetimepicker_format(context, "L LTS"), "L HH:mm:ss"
-            )
-
-    @override_settings(USE_24_HOUR_TIME_FORMAT=False)
-    def test_datetimepicker_format_en_gb(self):
-        user = get_user_model().objects.first()
-        user.settings.language = "en-GB"
-        user.save()
-
-        request = MockUserRequest(user)
-        request.user.settings.dashboard_hide_empty = True
-        context = {"request": request}
-
-        self.assertEqual(datetime.datetimepicker_format(context), "L h:mm a")
-        self.assertEqual(datetime.datetimepicker_format(context, "L LT"), "L h:mm a")
-        self.assertEqual(
-            datetime.datetimepicker_format(context, "L LTS"), "L h:mm:ss a"
-        )
-
     def test_datetime_short(self):
         date = timezone.localtime()
         self.assertEqual(
@@ -176,10 +143,4 @@ class TemplateTagsTestCase(TestCase):
                 formats.date_format(date, format="SHORT_MONTH_DAY_FORMAT"),
                 formats.date_format(date, format="TIME_FORMAT"),
             ),
-        )
-
-        date = timezone.localtime() - timezone.timedelta(days=500)
-        self.assertEqual(
-            datetime.datetime_short(date),
-            formats.date_format(date, format="SHORT_DATETIME_FORMAT"),
         )

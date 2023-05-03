@@ -3,16 +3,16 @@
 
 {% block header %}
     <a href="{% url "core:timer-list" %}">
-        {% trans "Active Timers" %}
+        {% trans "Timers" %}
     </a>
 {% endblock %}
 
 {% block title %}
     {% with instances|length as count %}
         {% blocktrans trimmed count counter=count %}
-            {{ count }} active timer
+            {{ count }} timer
         {% plural %}
-            {{ count }} active timers
+            {{ count }} timers
         {% endblocktrans %}
     {% endwith %}
 {% endblock %}

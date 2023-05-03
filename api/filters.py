@@ -99,7 +99,7 @@ class TemperatureFilter(TimeFieldFilter, TagsFieldFilter):
 class TimerFilter(StartEndFieldFilter):
     class Meta(StartEndFieldFilter.Meta):
         model = models.Timer
-        fields = sorted(StartEndFieldFilter.Meta.fields + ["active", "user"])
+        fields = sorted(StartEndFieldFilter.Meta.fields + ["user"])
 
 
 class TummyTimeFilter(StartEndFieldFilter, TagsFieldFilter):

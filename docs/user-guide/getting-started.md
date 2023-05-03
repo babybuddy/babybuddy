@@ -19,7 +19,7 @@ an overview of all elements related to your child, including:
 - Last sleep is the start of the last nap/sleep, and includes the nap duration below.
 - Last feeding method is a quick view of how the baby was last fed. This is particularly useful for nursing mothers to remember which breast they started with on the previous feed. 
 - Today's Feeding is a snapshot of the total numbers of daily feeds.
-- Active timers let you know if you have a timer running.
+- Timers let you know if you have a timer running.
 - Statistics is a snapshot of various statistics – these can be scrolled through or select Statistics from the menu bar to see more.
 - Today's Sleep lists the total number of hours slept for the day.
 - Today's Naps lists the number of naps taken that day in bold and the total nap time below.

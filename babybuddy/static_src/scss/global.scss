@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // Baby Buddy site-wide custom styles.
 
 // Remove extra margin below site breadcrumb.
@@ -7,7 +9,7 @@
 
 // Extra-small button.
 .btn-xs {
-    @include button-size(.2rem, .12rem, .75rem, 1, .2rem);
+    @include button-size(.2rem, .12rem, .75rem, .2rem);
 }
 
 // Right align main dropdown menu.
@@ -18,33 +20,10 @@
 
 // PullToRefresh elements.
 .ptr--ptr {
-    background: theme-color('dark');
+    background: map.get($theme-colors, 'dark');
     .ptr--text, .ptr--icon {
         // "!important" must be used to override inline styling from JS.
-        color: theme-color('light') !important;
-    }
-}
-
-// Basic table of model instances.
-.table-instances {
-    tr {
-        td, th {
-            vertical-align: middle;
-        }
-
-        &.odd {
-            background: $table-accent-bg;
-        }
-        &.even {
-            background: none;
-        }
-        &.row-details {
-            td {
-                color: $gray-500;
-                padding-top: 0;
-                border-top: 0;
-            }
-        }
+        color: map.get($theme-colors, 'light') !important;
     }
 }
 
@@ -55,5 +34,5 @@
 
 // All modals
 .modal-content {
-    color: theme-color('dark');
+    color: map.get($theme-colors, 'dark');
 }

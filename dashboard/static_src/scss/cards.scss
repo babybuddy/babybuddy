@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 %card-header-text {
     font-size: $h4-font-size;
     font-weight: $headings-font-weight;
@@ -29,18 +31,24 @@
             padding-right: $card-spacer-x;
         }
     }
+
+    .list-group {
+        .list-group-item {
+            color: $white;
+        }
+    }
 }
 
 .card-diaperchange {
-    border-color: theme-color('danger');
+    border-color: map.get($theme-colors, 'danger');
 
     .card-header, .card-header a {
-        background-color: theme-color('danger');
-        color: theme-color('light');
+        background-color: map.get($theme-colors, 'danger');
+        color: map.get($theme-colors, 'light');
     }
 
     .card-body {
-        color: theme-color('danger');
+        color: map.get($theme-colors, 'danger');
     }
 
     .progress {
@@ -50,15 +58,15 @@
 
 .card-feeding,
 .card-pumping {
-    border-color: theme-color('primary');
+    border-color: map.get($theme-colors, 'primary');
 
     .card-header, .card-header a {
-        background-color: theme-color('primary');
-        color: theme-color('light');
+        background-color: map.get($theme-colors, 'primary');
+        color: map.get($theme-colors, 'light');
     }
 
     .card-body {
-        color: theme-color('primary');
+        color: map.get($theme-colors, 'primary');
 
         // Last feeding method header in card.
         .last-feeding-method {
@@ -68,28 +76,28 @@
 }
 
 .card-sleep {
-    border-color: theme-color('secondary');
+    border-color: map.get($theme-colors, 'secondary');
 
     .card-header, .card-header a {
-        background-color: theme-color('secondary');
-        color: theme-color('light');
+        background-color: map.get($theme-colors, 'secondary');
+        color: map.get($theme-colors, 'light');
     }
 }
 
 .card-statistics, .card-timer {
-    border-color: theme-color('light');
+    border-color: map.get($theme-colors, 'light');
 
     .card-header {
-        background-color: theme-color('light');
-        color: theme-color('dark');
+        background-color: map.get($theme-colors, 'light');
+        color: map.get($theme-colors, 'dark');
 
         a {
-            color: theme-color('dark');
+            color: map.get($theme-colors, 'dark');
         }
     }
 
     .card-body {
-        color: theme-color('light');
+        color: map.get($theme-colors, 'light');
 
         .container {
             padding: 0;
@@ -98,14 +106,14 @@
 }
 
 .card-tummytime {
-    border-color: theme-color('success');
+    border-color: map.get($theme-colors, 'success');
 
     .card-header, .card-header a {
-        background-color: theme-color('success');
-        color: theme-color('light');
+        background-color: map.get($theme-colors, 'success');
+        color: map.get($theme-colors, 'light');
     }
 
     .card-body {
-        color: theme-color('success');
+        color: map.get($theme-colors, 'success');
     }
 }

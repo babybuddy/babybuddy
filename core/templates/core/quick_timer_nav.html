@@ -20,13 +20,13 @@
                 {% for child in children %}
                     <button class="dropdown-item d-flex align-items-center" type="submit" name="child" value="{{ child.pk }}">
                         {% include "core/child_thumbnail.html" %}
-                        <span class="text-wrap ml-2">{{ child }}</span>
+                        <span class="text-wrap ms-2">{{ child }}</span>
                     </button>
                 {% endfor %}
             </div>
         </div>
     {% else %}
-        <label class="sr-only">{% trans "Quick Start Timer" %}</label>
+        <label class="visually-hidden">{% trans "Quick Start Timer" %}</label>
         <button class="btn m-0 p-0 text-success">
             <i class="icon-2x icon-timer" aria-hidden="true"></i>
         </button>

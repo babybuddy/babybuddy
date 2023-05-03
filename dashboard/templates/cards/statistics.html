@@ -8,7 +8,7 @@
         </div>
         <div class="card-body text-center">
             {% if stats|length > 0 %}
-            <div id="statistics-carousel" class="carousel slide" data-interval="false">
+            <div id="statistics-carousel" class="carousel slide" data-bs-interval="false">
                 <div class="carousel-inner">
                     {% for stat in stats %}
                         <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
@@ -29,13 +29,19 @@
                         </div>
                     {% endfor %}
                 </div>
-                <a class="carousel-control-prev" href="#statistics-carousel" role="button" data-slide="prev">
+                <a class="carousel-control-prev"
+                   href="#statistics-carousel"
+                   role="button"
+                   data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">{% trans "Previous" %}</span>
+                    <span class="visually-hidden">{% trans "Previous" %}</span>
                 </a>
-                <a class="carousel-control-next" href="#statistics-carousel" role="button" data-slide="next">
+                <a class="carousel-control-next"
+                   href="#statistics-carousel"
+                   role="button"
+                   data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">{% trans "Next" %}</span>
+                    <span class="visually-hidden">{% trans "Next" %}</span>
                 </a>
             </div>
             {% else %}

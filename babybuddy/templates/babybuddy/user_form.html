@@ -12,7 +12,7 @@
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'babybuddy:user-list' %}">{% trans "Users" %}</a></li>
     {% if object %}
-        <li class="breadcrumb-item font-weight-bold">{{ object }}</li>
+        <li class="breadcrumb-item fw-bold">{{ object }}</li>
         <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
         <li class="breadcrumb-item active" aria-current="page">{% trans "Create User" %}</li>

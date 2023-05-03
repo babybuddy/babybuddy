@@ -4,14 +4,14 @@
     {% if date_previous %}
         <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
             <i class="icon-2x icon-angle-circled-left" aria-hidden="true"></i>
-            <span class="sr-only">{% trans "Previous" %}</span>
+            <span class="visually-hidden">{% trans "Previous" %}</span>
         </a>
     {% endif %}
     {{ date|date }}
     {% if date_next %}
         <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
             <i class="icon-2x icon-angle-circled-right" aria-hidden="true"></i>
-            <span class="sr-only">{% trans "Next" %}</span>
+            <span class="visually-hidden">{% trans "Next" %}</span>
         </a>
     {% endif %}
 </h3>
@@ -22,7 +22,7 @@
                 <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
                     <i class="icon-{{ object.model_name }}"></i>
                 </div>
-                <div class="card text-right">
+                <div class="card text-end">
                     <div class="card-body">
                         {{ object.event }}
                         {% for detail in object.details %}
@@ -70,14 +70,14 @@
         {% if date_previous %}
             <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
                 <i class="icon-2x icon-angle-circled-left" aria-hidden="true"></i>
-                <span class="sr-only">{% trans "Previous" %}</span>
+                <span class="visually-hidden">{% trans "Previous" %}</span>
             </a>
         {% endif %}
         {{ date|date }}
         {% if date_next %}
             <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
                 <i class="icon-2x icon-angle-circled-right" aria-hidden="true"></i>
-                <span class="sr-only">{% trans "Next" %}</span>
+                <span class="visually-hidden">{% trans "Next" %}</span>
             </a>
         {% endif %}
     </h3>

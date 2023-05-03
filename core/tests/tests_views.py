@@ -178,27 +178,10 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/timers/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
 
-        page = self.c.get("/timers/{}/stop/".format(entry.id))
-        self.assertEqual(page.status_code, 405)
-        page = self.c.post("/timers/{}/stop/".format(entry.id), follow=True)
-        self.assertEqual(page.status_code, 200)
-
         page = self.c.get("/timers/{}/restart/".format(entry.id))
         self.assertEqual(page.status_code, 405)
         page = self.c.post("/timers/{}/restart/".format(entry.id), follow=True)
         self.assertEqual(page.status_code, 200)
-
-        page = self.c.get("/timers/delete-inactive/", follow=True)
-        self.assertEqual(page.status_code, 200)
-        messages = list(page.context["messages"])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), "No inactive timers exist.")
-
-        entry = models.Timer.objects.first()
-        entry.stop()
-        page = self.c.get("/timers/delete-inactive/")
-        self.assertEqual(page.status_code, 200)
-        self.assertEqual(page.context["timer_count"], 1)
 
     def test_timeline_views(self):
         child = models.Child.objects.first()

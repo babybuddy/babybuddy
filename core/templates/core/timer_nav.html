@@ -4,7 +4,7 @@
     <a id="nav-timer-menu-link"
        class="nav-link dropdown-toggle"
        href="#"
-       data-toggle="dropdown"
+       data-bs-toggle="dropdown"
        aria-haspopup="true"
        aria-expanded="false"><i class="icon-timer" aria-hidden="true"></i>
         {% trans "Timers" %}
@@ -29,7 +29,7 @@
                     {% for child in children %}
                         <button class="dropdown-item d-flex align-items-center" type="submit" name="child" value="{{ child.pk }}">
                             {% include "core/child_thumbnail.html" %}
-                            <span class="text-wrap ml-2">{{ child }}</span>
+                            <span class="text-wrap ms-2">{{ child }}</span>
                         </button>
                     {% endfor %}
                 {% else %}
@@ -41,7 +41,7 @@
         {% endif %}
         {% if timers %}
             <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">{% trans "Active Timers" %}</h6>
+            <h6 class="dropdown-header">{% trans "Timers" %}</h6>
             {% for timer in timers %}
                 <a class="dropdown-item" href="{% url 'core:timer-detail' timer.id %}">
                     {{ timer.title_with_child }}

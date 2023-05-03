@@ -77,16 +77,12 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
             timer = attrs["timer"]
             attrs.pop("timer")
 
-            if timer.end:
-                end = timer.end
-            else:
-                end = timezone.now()
             if timer.child:
                 attrs["child"] = timer.child
 
             # Overwrites values provided directly!
             attrs["start"] = timer.start
-            attrs["end"] = end
+            attrs["end"] = timezone.now()
 
         # The "child", "start", and "end" field should all be set at this
         # point. If one is not, model validation will fail because they are
@@ -103,7 +99,7 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
 
         # Only actually stop the timer if all validation passed.
         if timer:
-            timer.stop(attrs["end"])
+            timer.stop()
 
         return attrs
 
@@ -232,10 +228,11 @@ class TimerSerializer(CoreModelSerializer):
         queryset=get_user_model().objects.all(),
         required=False,
     )
+    duration = serializers.DurationField(read_only=True, required=False)
 
     class Meta:
         model = models.Timer
-        fields = ("id", "child", "name", "start", "end", "duration", "active", "user")
+        fields = ("id", "child", "name", "start", "duration", "user")
 
     def validate(self, attrs):
         attrs = super(TimerSerializer, self).validate(attrs)

@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // Adapted for Bootstrap 4 from https://www.bootply.com/SzXin8KDZJ.
 $card-shadow: rgba(0, 0, 0, .175);
 
@@ -12,7 +14,7 @@ $card-shadow: rgba(0, 0, 0, .175);
         position: absolute;
         content: ' ';
         width: 3px;
-        background-color: theme-color('primary');
+        background-color: map.get($theme-colors, 'primary');
         left: 50%;
         margin-left: -1.5px;
 
@@ -34,7 +36,7 @@ $card-shadow: rgba(0, 0, 0, .175);
         }
 
         .card {
-            width: 47%;
+            width: 46%;
             float: left;
             position: relative;
             box-shadow: 0 1px 6px $card-shadow;
@@ -45,8 +47,8 @@ $card-shadow: rgba(0, 0, 0, .175);
                 right: -15px;
                 display: inline-block;
                 border-top: 15px solid transparent;
-                border-left: 15px solid theme-color('dark');
-                border-right: 0 solid theme-color('dark');
+                border-left: 15px solid map.get($theme-colors, 'dark');
+                border-right: 0 solid map.get($theme-colors, 'dark');
                 border-bottom: 15px solid transparent;
                 content: ' ';
             }
@@ -57,8 +59,8 @@ $card-shadow: rgba(0, 0, 0, .175);
                 right: -14px;
                 display: inline-block;
                 border-top: 14px solid transparent;
-                border-left: 14px solid theme-color('dark');
-                border-right: 0 solid theme-color('dark');
+                border-left: 14px solid map.get($theme-colors, 'dark');
+                border-right: 0 solid map.get($theme-colors, 'dark');
                 border-bottom: 14px solid transparent;
                 content: ' ';
             }
@@ -95,7 +97,7 @@ $card-shadow: rgba(0, 0, 0, .175);
             top: 16px;
             left: 50%;
             margin-left: -25px;
-            background-color: theme-color('dark');
+            background-color: map.get($theme-colors, 'dark');
             z-index: 100;
             border-radius: 50%;
 
@@ -110,7 +112,7 @@ $card-shadow: rgba(0, 0, 0, .175);
                 top: 26px;
                 left: 50%;
                 margin-left: -25px;
-                background-color: theme-color('dark');
+                background-color: map.get($theme-colors, 'dark');
                 z-index: 100;
                 border-radius: 50%;
             }

@@ -8,23 +8,19 @@
 
         <input type="hidden" name="next" value="{{ next }}">
 
-        <label class="sr-only" for="username-input-group">
+        <label class="visually-hidden" for="username-input-group">
             {{ form.username.label }}
         </label>
         <div class="input-group mb-3 fade-in">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user" aria-hidden="true"></i></span>
-            </div>
+            <span class="input-group-text text-muted"><i class="icon-user" aria-hidden="true"></i></span>
             {% render_field form.username name='username' class+='form-control' id='username-input-group' placeholder=form.username.label %}
         </div>
 
-        <label class="sr-only" for="password-input-group">
+        <label class="visually-hidden" for="password-input-group">
             {{ form.password.label }}
         </label>
         <div class="input-group mb-3 fade-in">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-lock" aria-hidden="true"></i></span>
-            </div>
+            <span class="input-group-text text-muted"><i class="icon-lock" aria-hidden="true"></i></span>
             {% render_field form.password name='password' class+='form-control' id='password-input-group' placeholder=form.password.label %}
         </div>
 

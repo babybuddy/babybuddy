@@ -7,8 +7,9 @@
     "url": "https://github.com/babybuddy/babybuddy.git"
   },
   "devDependencies": {
+    "@popperjs/core": "^2.11.7",
     "@ronilaukkarinen/gulp-stylelint": "^14.1.1",
-    "bootstrap": "^4.6.2",
+    "bootstrap": "^5.2.3",
     "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-all": "^1.1.0",
@@ -23,18 +24,15 @@
     "gulp-spawn": "^2.0.0",
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.6.4",
-    "moment": "^2.29.4",
-    "moment-timezone": "^0.5.43",
+    "masonry-layout": "^4.2.2",
     "npm-force-resolutions": "^0.0.10",
     "plotly.js": "^2.22.0",
-    "popper.js": "^1.16.1",
     "pulltorefreshjs": "^0.1.22",
+    "pump": "^3.0.0",
     "sass": "^1.62.1",
     "stylelint": "^15.6.1",
     "stylelint-config-recommended-scss": "^11.0.0",
     "stylelint-order": "^6.0.3",
-    "stylelint-scss": "^5.0.0",
-    "tempusdominus-bootstrap-4": "5.39.2",
-    "tempusdominus-core": "5.19.3"
+    "stylelint-scss": "^5.0.0"
   }
 }

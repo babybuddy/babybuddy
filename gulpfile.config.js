@@ -29,29 +29,9 @@ module.exports = {
         vendor: [
             'node_modules/pulltorefreshjs/dist/index.umd.js',
             'node_modules/jquery/dist/jquery.js',
-            'node_modules/popper.js/dist/umd/popper.js',
+            'node_modules/@popperjs/core/dist/umd/popper.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
-            'node_modules/moment/moment.js',
-            'node_modules/moment/locale/ca.js',
-            'node_modules/moment/locale/cs.js',
-            'node_modules/moment/locale/da.js',
-            'node_modules/moment/locale/de.js',
-            'node_modules/moment/locale/en-gb.js',
-            'node_modules/moment/locale/es.js',
-            'node_modules/moment/locale/fi.js',
-            'node_modules/moment/locale/fr.js',
-            'node_modules/moment/locale/it.js',
-            'node_modules/moment/locale/hu.js',
-            'node_modules/moment/locale/nb.js',
-            'node_modules/moment/locale/nl.js',
-            'node_modules/moment/locale/pl.js',
-            'node_modules/moment/locale/pt.js',
-            'node_modules/moment/locale/ru.js',
-            'node_modules/moment/locale/sv.js',
-            'node_modules/moment/locale/tr.js',
-            'node_modules/moment/locale/zh-cn.js',
-            'node_modules/moment-timezone/builds/moment-timezone-with-data-10-year-range.js',
-            'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js'
+            'node_modules/masonry-layout/dist/masonry.pkgd.js'
         ],
         graph: [
             'node_modules/plotly.js/dist/plotly-cartesian.js',
@@ -94,7 +74,6 @@ module.exports = {
     },
     testsConfig: {
       isolated: [
-          'babybuddy.tests.formats.tests_en_us.FormatsTestCase.test_use_24_hour_time_format',
           'babybuddy.tests.tests_views.ViewsTestCase.test_password_reset'
       ],
     },

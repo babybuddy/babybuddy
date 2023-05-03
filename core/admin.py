@@ -216,8 +216,8 @@ class TemperatureAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
 
 @admin.register(models.Timer)
 class TimerAdmin(admin.ModelAdmin):
-    list_display = ("name", "child", "start", "end", "duration", "active", "user")
-    list_filter = ("child", "active", "user")
+    list_display = ("name", "child", "start", "duration", "user")
+    list_filter = ("child", "user")
     search_fields = ("child__first_name", "child__last_name", "name", "user")
 
 

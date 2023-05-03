@@ -1,16 +1,7 @@
+@use 'sass:map';
+
 #timer-status {
-    font-size: $h1-font-size;
-    font-weight: $display1-weight;
-
     &.timer-stopped {
-        color: theme-color('danger');
-    }
-}
-
-@include media-breakpoint-up(sm) {
-    #view-core\:timer-detail {
-        #timer-status {
-            font-size: $display1-size;
-        }
+        color: map.get($theme-colors, 'dark');
     }
 }

@@ -9,20 +9,6 @@ for exceptions. This setting should be *False* in production deployments.
 
 See also [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/4.0/ref/settings/#debug).
 
-## `NAP_START_MAX`
-
-*Default:* `18:00`
-
-The maximum nap *start* time (in the instance's time zone). Expects the 24-hour
-format %H:%M.
-
-## `NAP_START_MIN`
-
-*Default:* `06:00`
-
-The minimum nap *start* time (in the instance's time zone). Expects the 24-hour
-format %H:%M.
-
 ## `SUB_PATH`
 
 *Default:* `None`
@@ -48,12 +34,3 @@ the user settings form.
 **See also**
 
 [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
-
-## `USE_24_HOUR_TIME_FORMAT`
-
-*Default:* `False`
-
-Whether to force 24-hour time format for locales that do not ordinarily use it
-(e.g. `en`). Support for this feature must be implemented on a per-locale basis.
-See format files under [`babybuddy/formats`](https://github.com/babybuddy/babybuddy/tree/master/babybuddy/formats)
-for supported locales.

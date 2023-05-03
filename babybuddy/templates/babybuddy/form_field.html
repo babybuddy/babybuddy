@@ -1,50 +1,37 @@
 {% load widget_tweaks %}
 
-<label for="id_{{ field.name }}" class="col-sm-2 col-form-label{% if field|field_type == 'booleanfield' %} boolean-label{% endif %}">
-    {% if field|field_type != "booleanfield" %}
+<div class="row mb-3">
+    <label for="id_{{ field.name }}" class="col-sm-2 col-form-label{% if field|field_type == 'booleanfield' %} boolean-label{% endif %}">
         {{ field.label }}
-    {% endif %}
-</label>
-<div class="col-sm-10{% if field|widget_type == 'childradioselect' %} overflow-auto"{% endif %}">
-    {% if field|field_type == "booleanfield" %}
-        <div class="btn-group-toggle" data-toggle="buttons">
+    </label>
+    <div class="col-sm-10{% if field|widget_type == 'childradioselect' %} overflow-auto"{% endif %}">
+        {% if field|field_type == "booleanfield" %}
+            {% if field.errors %}
+                {{ field|add_class:"btn-check is-invalid" }}
+            {% else %}
+                {{ field|add_class:"btn-check" }}
+            {% endif %}
             <label for="id_{{ field.name }}" class="btn btn-outline-light btn-no-hover{% if field.value %} active{% endif %}">
-                {% if field.errors %}
-                    {{ field|add_class:"is-invalid" }}
-                {% else %}
-                    {{ field }}
-                {% endif %}
                 {{ field.label }}
             </label>
-        </div>
-    {% elif field|field_type == "datetimefield" or field|field_type == "datefield" %}
-        <div class="input-group input-group-lg datetimepicker" id="datetimepicker_{{ field.name }}" data-target-input="nearest">
-            <div class="input-group-prepend px-2 rounded-left bg-dark" data-target="#datetimepicker_{{ field.name }}" data-toggle="datetimepicker">
-                <span class="input-group-text"><i class="icon-calendar"></i></span>
-            </div>
+        {% elif 'choice' in field|field_type %}
             {% if field.errors %}
-                {{ field|add_class:"datetimepicker-input form-control form-control-lg is-invalid" }}
+                {{ field|add_class:"form-select is-invalid" }}
             {% else %}
-                {{ field|add_class:"datetimepicker-input form-control form-control-lg" }}
+                {{ field|add_class:"form-select" }}
             {% endif %}
-        </div>
-    {% elif 'choice' in field|field_type %}
-        {% if field.errors %}
-            {{ field|add_class:"custom-select is-invalid" }}
         {% else %}
-            {{ field|add_class:"custom-select" }}
+            {% if field.errors %}
+                {{ field|add_class:"form-control is-invalid" }}
+            {% else %}
+                {{ field|add_class:"form-control" }}
+            {% endif %}
         {% endif %}
-    {% else %}
+        {% if field.help_text %}
+            <div class="help-block"><small>{{ field.help_text }}</small></div>
+        {% endif %}
         {% if field.errors %}
-            {{ field|add_class:"form-control is-invalid" }}
-        {% else %}
-            {{ field|add_class:"form-control" }}
+            <div class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</div>
         {% endif %}
-    {% endif %}
-    {% if field.help_text %}
-        <div class="help-block"><small>{{ field.help_text }}</small></div>
-    {% endif %}
-    {% if field.errors %}
-        <div class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</div>
-    {% endif %}
+    </div>
 </div>
