@@ -79,7 +79,7 @@ ROOT_URLCONF = "babybuddy.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["babybuddy/templates/error"],
+        "DIRS": ["babybuddy/templates", "babybuddy/templates/error"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
