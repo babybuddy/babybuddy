@@ -1,6 +1,27 @@
 # Changelog
 
-## [v1.16.0](https://github.com/babybuddy/babybuddy/tree/v1.16.0) (2023-05-02)
+## [v2.0.0-beta1](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta1)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.16.0...v2.0.0-beta1)
+
+**Implemented enhancements:**
+
+- Move nap start min and max environment variables to site settings [\#639](https://github.com/babybuddy/babybuddy/issues/639)
+- Create method for managing application-level settings [\#637](https://github.com/babybuddy/babybuddy/issues/637)
+- Use browser native datetime handling [\#636](https://github.com/babybuddy/babybuddy/issues/636)
+- Delete \(instead of deactivate\) completed timers [\#109](https://github.com/babybuddy/babybuddy/issues/109)
+
+**Closed issues:**
+
+- Remove `USE_24_HOUR_TIME_FORMAT` option \(rely on `datetime-local` form fields\) [\#638](https://github.com/babybuddy/babybuddy/issues/638)
+- Upgrade to Bootstrap 5 [\#635](https://github.com/babybuddy/babybuddy/issues/635)
+- Remove `TIME_ZONE` environment variable configuration [\#301](https://github.com/babybuddy/babybuddy/issues/301)
+
+**Merged pull requests:**
+
+- v2 [\#627](https://github.com/babybuddy/babybuddy/pull/627) ([cdubz](https://github.com/cdubz))
+
+## [v1.16.0](https://github.com/babybuddy/babybuddy/tree/v1.16.0) (2023-05-03)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.15.1...v1.16.0)
 
@@ -142,7 +163,6 @@
 - Allow REMOTE\_USER authentication  [\#517](https://github.com/babybuddy/babybuddy/issues/517)
 - "Recently used" shouldn't appear if no tags were recently used [\#470](https://github.com/babybuddy/babybuddy/issues/470)
 - Minutes instead of minutos in Spanish [\#468](https://github.com/babybuddy/babybuddy/issues/468)
-- Delete \(instead of deactivate\) completed timers [\#109](https://github.com/babybuddy/babybuddy/issues/109)
 - \#468  Minutes instead of minutos in Spanish [\#538](https://github.com/babybuddy/babybuddy/pull/538) ([jmunoz94](https://github.com/jmunoz94))
 - 533 - Delete Inactive Timers shouldn't appear if there are no timer entries [\#537](https://github.com/babybuddy/babybuddy/pull/537) ([earthcomfy](https://github.com/earthcomfy))
 - 470 - "Recently used" shouldn't appear if no tags were recently used [\#536](https://github.com/babybuddy/babybuddy/pull/536) ([earthcomfy](https://github.com/earthcomfy))
@@ -253,7 +273,6 @@
 - Handle plurals with `count` tag of `blocktrans` [\#472](https://github.com/babybuddy/babybuddy/issues/472)
 - Missing "timer" field documentation in openapi schema [\#439](https://github.com/babybuddy/babybuddy/issues/439)
 - Feature request: Support for tea and water as feeding type [\#432](https://github.com/babybuddy/babybuddy/issues/432)
-- Remove `TIME_ZONE` environment variable configuration [\#301](https://github.com/babybuddy/babybuddy/issues/301)
 
 **Merged pull requests:**
 
