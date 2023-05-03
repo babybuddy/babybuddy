@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-22 14:39+0000\n"
+"POT-Creation-Date: 2023-05-02 18:53-0700\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,26 +183,30 @@ msgid "Italian"
 msgstr ""
 
 #: babybuddy/settings/base.py:187
-msgid "Polish"
+msgid "Norwegian Bokmål"
 msgstr ""
 
 #: babybuddy/settings/base.py:188
-msgid "Portuguese"
+msgid "Polish"
 msgstr ""
 
 #: babybuddy/settings/base.py:189
-msgid "Russian"
+msgid "Portuguese"
 msgstr ""
 
 #: babybuddy/settings/base.py:190
+msgid "Russian"
+msgstr ""
+
+#: babybuddy/settings/base.py:191
 msgid "Spanish"
 msgstr "Hiszpański"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:192
 msgid "Swedish"
 msgstr "Szwedzki"
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:193
 msgid "Turkish"
 msgstr "Turecki"
 

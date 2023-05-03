@@ -68,6 +68,8 @@ for information about how to create/update translations.
 
 :it: Italian
 
+:norway: Norwegian Bokmål
+
 :poland: Polish
 
 :portugal: :brazil: Portuguese
