@@ -44,6 +44,7 @@ module.exports = {
             'node_modules/plotly.js/dist/plotly-locale-fr.js',
             'node_modules/plotly.js/dist/plotly-locale-hu.js',
             'node_modules/plotly.js/dist/plotly-locale-it.js',
+            'node_modules/plotly.js/dist/plotly-locale-no.js',
             'node_modules/plotly.js/dist/plotly-locale-nl.js',
             'node_modules/plotly.js/dist/plotly-locale-pl.js',
             'node_modules/plotly.js/dist/plotly-locale-pt-br.js',

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-22 14:39+0000\n"
+"POT-Creation-Date: 2023-05-02 18:53-0700\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr "Apenas Leitura"
 
 #: babybuddy/forms.py:16
 msgid "Restricts user to viewing data only."
-msgstr ""
+msgstr "Limita o utilizador a modo de leitura."
 
 #: babybuddy/models.py:19
 msgid "Refresh rate"
@@ -137,7 +137,7 @@ msgstr "Catalão"
 
 #: babybuddy/settings/base.py:176
 msgid "Czech"
-msgstr ""
+msgstr "Checo"
 
 #: babybuddy/settings/base.py:177
 msgid "Chinese (simplified)"
@@ -145,7 +145,7 @@ msgstr "Chinês (Simplificado)"
 
 #: babybuddy/settings/base.py:178
 msgid "Danish"
-msgstr ""
+msgstr "Dinamarquês"
 
 #: babybuddy/settings/base.py:179
 msgid "Dutch"
@@ -175,33 +175,37 @@ msgstr "Alemão"
 
 #: babybuddy/settings/base.py:185
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #: babybuddy/settings/base.py:186
 msgid "Italian"
 msgstr "Italiano"
 
 #: babybuddy/settings/base.py:187
+msgid "Norwegian Bokmål"
+msgstr ""
+
+#: babybuddy/settings/base.py:188
 msgid "Polish"
 msgstr "Polaco"
 
-#: babybuddy/settings/base.py:188
+#: babybuddy/settings/base.py:189
 msgid "Portuguese"
 msgstr "Português"
 
-#: babybuddy/settings/base.py:189
-msgid "Russian"
-msgstr ""
-
 #: babybuddy/settings/base.py:190
+msgid "Russian"
+msgstr "Russo"
+
+#: babybuddy/settings/base.py:191
 msgid "Spanish"
 msgstr "Espanhol"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:192
 msgid "Swedish"
 msgstr "Sueco"
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:193
 msgid "Turkish"
 msgstr "Turco"
 
@@ -696,7 +700,7 @@ msgstr "Actualizar"
 
 #: babybuddy/templates/babybuddy/user_form.html:28
 msgid "User locked."
-msgstr ""
+msgstr "Utilizador bloqueado."
 
 #: babybuddy/templates/babybuddy/user_form.html:35
 #: core/templates/core/bmi_form.html:23 core/templates/core/child_form.html:24
@@ -740,7 +744,7 @@ msgstr "Activo"
 
 #: babybuddy/templates/babybuddy/user_list.html:24
 msgid "Locked"
-msgstr ""
+msgstr "Bloqueado"
 
 #: babybuddy/templates/babybuddy/user_list.html:25
 #: core/templates/core/bmi_list.html:24 core/templates/core/bmi_list.html:38
@@ -841,7 +845,7 @@ msgstr "Adicionar uma Criança"
 
 #: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
 msgid "Bad Request"
-msgstr ""
+msgstr "Pedido errado"
 
 #: babybuddy/templates/error/403.html:4 babybuddy/templates/error/403.html:7
 msgid "Permission Denied"
@@ -873,7 +877,7 @@ msgstr "Página não encontrada"
 #: babybuddy/templates/error/404.html:9
 #, python-format
 msgid "The path <code>%(request_path)s</code> does not exist."
-msgstr ""
+msgstr "O caminho <code>%(request_path)s</code> não existe."
 
 #: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
 msgid "Server Error"
@@ -886,7 +890,7 @@ msgstr "Bem-vindo ao Baby Buddy!"
 
 #: babybuddy/templates/error/lockout.html:4
 msgid "Too Many Login Attempts"
-msgstr ""
+msgstr "Demasiadas tentativas de acesso"
 
 #: babybuddy/templates/registration/login.html:32
 msgid "Login"
@@ -957,15 +961,15 @@ msgstr ""
 
 #: babybuddy/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "Vá até á seguinte página e introduza a nova password:"
 
 #: babybuddy/templates/registration/password_reset_email.html:8
 msgid "Your username, in case you’ve forgotten:"
-msgstr ""
+msgstr "O teu nome de utilizador, caso te tenhas esquecido:"
 
 #: babybuddy/templates/registration/password_reset_email.html:10
 msgid "Thanks for using Baby Buddy!"
-msgstr ""
+msgstr "Obrigado por utilizar o Baby Buddy!"
 
 #: babybuddy/templates/registration/password_reset_form.html:4
 msgid "Forgot Password"
@@ -985,7 +989,7 @@ msgstr "Proibido"
 
 #: babybuddy/views.py:54
 msgid "CSRF verification failed. Request aborted."
-msgstr ""
+msgstr "Verificação CSRF falhou. Pedido cancelado."
 
 #: babybuddy/views.py:112
 #, python-format
@@ -999,7 +1003,7 @@ msgstr "Utilizador %(username)s actualizado."
 
 #: babybuddy/views.py:138
 msgid "User unlocked."
-msgstr ""
+msgstr "Utilizador desbloqueado."
 
 #: babybuddy/views.py:162
 #, python-brace-format
@@ -1459,7 +1463,7 @@ msgstr "Temporizador Rápido"
 #: core/templates/core/quick_timer_nav.html:19
 #: core/templates/core/timer_nav.html:28
 msgid "Quick Start Timer For…"
-msgstr ""
+msgstr "Temporizador rápido para..."
 
 #: core/templates/core/sleep_confirm_delete.html:4
 msgid "Delete a Sleep Entry"
@@ -1915,10 +1919,8 @@ msgstr[0] "%(n)s alimentaçõe%(plural)s atrás"
 msgstr[1] "%(n)s alimentaçõe%(plural)s atrás"
 
 #: dashboard/templates/cards/pumping_last.html:6
-#, fuzzy
-#| msgid "Pumping"
 msgid "Last Pumping"
-msgstr "Extração com Bomba"
+msgstr "Última extração"
 
 #: dashboard/templates/cards/sleep_last.html:6
 msgid "Last Sleep"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-22 14:39+0000\n"
+"POT-Creation-Date: 2023-05-02 18:53-0700\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,26 +182,30 @@ msgid "Italian"
 msgstr "Italiaans"
 
 #: babybuddy/settings/base.py:187
+msgid "Norwegian Bokmål"
+msgstr ""
+
+#: babybuddy/settings/base.py:188
 msgid "Polish"
 msgstr "Pools"
 
-#: babybuddy/settings/base.py:188
+#: babybuddy/settings/base.py:189
 msgid "Portuguese"
 msgstr "Portugees"
 
-#: babybuddy/settings/base.py:189
+#: babybuddy/settings/base.py:190
 msgid "Russian"
 msgstr ""
 
-#: babybuddy/settings/base.py:190
+#: babybuddy/settings/base.py:191
 msgid "Spanish"
 msgstr "Spaans"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:192
 msgid "Swedish"
 msgstr "Zweeds"
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:193
 msgid "Turkish"
 msgstr "Turks"
 
@@ -1912,10 +1916,8 @@ msgstr[0] "%(n)s maaltijd geleden"
 msgstr[1] "%(n)s maaltijden geleden"
 
 #: dashboard/templates/cards/pumping_last.html:6
-#, fuzzy
-#| msgid "Pumping"
 msgid "Last Pumping"
-msgstr "Afkolven"
+msgstr ""
 
 #: dashboard/templates/cards/sleep_last.html:6
 msgid "Last Sleep"

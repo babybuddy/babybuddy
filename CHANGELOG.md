@@ -1,5 +1,32 @@
 # Changelog
 
+## [v1.16.0](https://github.com/babybuddy/babybuddy/tree/v1.16.0) (2023-05-02)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.15.1...v1.16.0)
+
+**Implemented enhancements:**
+
+- PROXY\_HEADER - Documentation update [\#608](https://github.com/babybuddy/babybuddy/issues/608)
+- Feature Request: Store Baby's Schedule/Routine [\#362](https://github.com/babybuddy/babybuddy/issues/362)
+- Add `id` to filter fields for children-api endpoint [\#625](https://github.com/babybuddy/babybuddy/pull/625) ([MrApplejuice](https://github.com/MrApplejuice))
+
+**Fixed bugs:**
+
+- Birth date when adding time does not format correctly  [\#631](https://github.com/babybuddy/babybuddy/issues/631)
+
+**Closed issues:**
+
+- DOC : new value to SECURE\_PROXY\_SSL\_HEADER [\#632](https://github.com/babybuddy/babybuddy/issues/632)
+- new feature : add wash the baby activity [\#630](https://github.com/babybuddy/babybuddy/issues/630)
+- Hide unused fields from dashboard [\#622](https://github.com/babybuddy/babybuddy/issues/622)
+- Feature Request - Potty Training [\#620](https://github.com/babybuddy/babybuddy/issues/620)
+- Unable to install Baby Buddy in Home Assistant via Add-Ons [\#618](https://github.com/babybuddy/babybuddy/issues/618)
+- Notifications filling each screen even when navigating to another screen [\#616](https://github.com/babybuddy/babybuddy/issues/616)
+
+**Merged pull requests:**
+
+- Add django-specific notes for PROXY\_HEADER config [\#609](https://github.com/babybuddy/babybuddy/pull/609) ([p-b--](https://github.com/p-b--))
+
 ## [v1.15.1](https://github.com/babybuddy/babybuddy/tree/v1.15.1) (2023-03-18)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.15.0...v1.15.1)
@@ -348,7 +375,7 @@
 - Fix German translation mistake [\#368](https://github.com/babybuddy/babybuddy/pull/368) ([MrApplejuice](https://github.com/MrApplejuice))
 - Add timer restart and stop triggers to REST-API [\#367](https://github.com/babybuddy/babybuddy/pull/367) ([MrApplejuice](https://github.com/MrApplejuice))
 - Optional last name [\#361](https://github.com/babybuddy/babybuddy/pull/361) ([Alberdi](https://github.com/Alberdi))
-- Add Height, Head Circumference, and BMI [\#360](https://github.com/babybuddy/babybuddy/pull/360) ([Daegalus](https://github.com/Daegalus))
+- Add Height, Head Circumference, and BMI [\#360](https://github.com/babybuddy/babybuddy/pull/360) ([daegalus](https://github.com/daegalus))
 - Improve iOS webapp/clip/pwa experience [\#359](https://github.com/babybuddy/babybuddy/pull/359) ([cdubz](https://github.com/cdubz))
 - Convert envir variables that are supposed to be boolean to boolean [\#356](https://github.com/babybuddy/babybuddy/pull/356) ([MagiX13](https://github.com/MagiX13))
 
