@@ -27,7 +27,7 @@ class SiteSettingsTestCase(TestCase):
             is_superuser=True, is_staff=True, **cls.credentials
         )
 
-    def test_default_settings(self):
+    def test_settings_default(self):
         self.c.login(**self.credentials)
         page = self.c.get("/settings/")
         self.assertEqual(page.status_code, 200)
@@ -40,9 +40,8 @@ class SiteSettingsTestCase(TestCase):
             "06:00:00",
         )
 
-    def test_nap_start_settings(self):
+    def test_settings_nap_start(self):
         self.c.login(**self.credentials)
-        self.assert_naps()
         params = {
             "core.models__Sleep__nap_start_max": "20:00:00",
             "core.models__Sleep__nap_start_min": "09:00:00",
@@ -57,16 +56,3 @@ class SiteSettingsTestCase(TestCase):
             Sleep.settings.nap_start_min.strftime("%H:%M:%S"),
             params["core.models__Sleep__nap_start_min"],
         )
-        self.assert_naps()
-
-    def assert_naps(self):
-        """
-        Asserts sleep instances filtered with nap start min and max match nap instances.
-        """
-        instances = Sleep.objects.filter(
-            start__time__range=(
-                Sleep.settings.nap_start_min.strftime("%H:%M:%S"),
-                Sleep.settings.nap_start_max.strftime("%H:%M:%S"),
-            )
-        )
-        self.assertQuerySetEqual(instances, Sleep.objects.filter(nap=True))

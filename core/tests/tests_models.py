@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
@@ -209,6 +211,33 @@ class SleepTestCase(TestCase):
         self.assertEqual(sleep, models.Sleep.objects.first())
         self.assertEqual(str(sleep), "Sleep")
         self.assertEqual(sleep.duration, sleep.end - sleep.start)
+
+    def test_sleep_nap(self):
+        tz = timezone.get_fixed_timezone(-5)
+        start = datetime(year=2023, month=5, day=5, hour=12, tzinfo=tz)
+        sleep = models.Sleep.objects.create(
+            child=self.child,
+            start=start,
+            end=start + timezone.timedelta(hours=2)
+        )
+        self.assertTrue(sleep.nap)
+
+        start = datetime(year=2023, month=5, day=5, hour=20, tzinfo=tz)
+        sleep = models.Sleep.objects.create(
+            child=self.child,
+            start=start,
+            end=start + timezone.timedelta(hours=8)
+        )
+        self.assertFalse(sleep.nap)
+
+        start = datetime(year=2023, month=5, day=5, hour=20, tzinfo=tz)
+        sleep = models.Sleep.objects.create(
+            child=self.child,
+            start=start,
+            end=start + timezone.timedelta(hours=8),
+            nap=True
+        )
+        self.assertTrue(sleep.nap)
 
 
 class TagTestCase(TestCase):
