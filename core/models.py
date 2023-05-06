@@ -418,12 +418,6 @@ class Note(models.Model):
         return str(_("Note"))
 
 
-class NapsManager(models.Manager):
-    def get_queryset(self):
-        qs = super(NapsManager, self).get_queryset()
-        return qs.filter(id__in=[obj.id for obj in qs if obj.nap])
-
-
 class Pumping(models.Model):
     model_name = "pumping"
     child = models.ForeignKey(
@@ -459,7 +453,6 @@ class Sleep(models.Model):
     child = models.ForeignKey(
         "Child", on_delete=models.CASCADE, related_name="sleep", verbose_name=_("Child")
     )
-    napping = models.BooleanField(editable=False, null=True, verbose_name=_("Napping"))
     start = models.DateTimeField(
         blank=False,
         default=timezone.localtime,
@@ -469,6 +462,7 @@ class Sleep(models.Model):
     end = models.DateTimeField(
         blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
     )
+    nap = models.BooleanField(default=False, verbose_name=_("Nap"))
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
@@ -476,7 +470,6 @@ class Sleep(models.Model):
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
-    naps = NapsManager()
     settings = NapSettings(_("Nap settings"))
 
     class Meta:
@@ -488,19 +481,15 @@ class Sleep(models.Model):
     def __str__(self):
         return str(_("Sleep"))
 
-    @property
-    def nap(self):
-        local_start_time = timezone.localtime(self.start).time()
-        return (
-            Sleep.settings.nap_start_min
-            <= local_start_time
-            <= Sleep.settings.nap_start_max
-        )
-
     def save(self, *args, **kwargs):
+        if not self.nap:
+            self.nap = (
+                Sleep.settings.nap_start_min
+                <= timezone.localtime(self.start).time()
+                <= Sleep.settings.nap_start_max
+            )
         if self.start and self.end:
             self.duration = self.end - self.start
-        self.napping = self.nap
         super(Sleep, self).save(*args, **kwargs)
 
     def clean(self):

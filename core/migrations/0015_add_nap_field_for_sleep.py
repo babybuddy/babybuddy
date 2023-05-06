@@ -20,7 +20,8 @@ class Migration(migrations.Migration):
             name="napping",
             field=models.BooleanField(null=True, verbose_name="Napping"),
         ),
-        migrations.RunPython(set_napping, reverse_code=migrations.RunPython.noop),
+        # Migration superseded by 0028_alter_sleep_options_remove_sleep_napping_sleep_nap.py
+        # migrations.RunPython(set_napping, reverse_code=migrations.RunPython.noop),
         migrations.AlterField(
             model_name="sleep",
             name="napping",

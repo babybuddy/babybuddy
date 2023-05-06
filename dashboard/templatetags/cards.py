@@ -324,9 +324,9 @@ def card_sleep_naps_day(context, child, date=None):
     """
     if not date:
         date = timezone.localtime().date()
-    instances = models.Sleep.naps.filter(child=child).filter(
+    instances = models.Sleep.objects.filter(child=child, nap=True).filter(
         start__year=date.year, start__month=date.month, start__day=date.day
-    ) | models.Sleep.naps.filter(child=child).filter(
+    ) | models.Sleep.objects.filter(child=child, nap=True).filter(
         end__year=date.year, end__month=date.month, end__day=date.day
     )
     empty = len(instances) == 0
@@ -548,7 +548,7 @@ def _nap_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    instances = models.Sleep.naps.filter(child=child).order_by("start")
+    instances = models.Sleep.objects.filter(child=child, nap=True).order_by("start")
     if len(instances) == 0:
         return False
     naps = {

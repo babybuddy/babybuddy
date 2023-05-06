@@ -69,5 +69,4 @@ class SiteSettingsTestCase(TestCase):
                 Sleep.settings.nap_start_max.strftime("%H:%M:%S"),
             )
         )
-        naps = Sleep.naps.all()
-        self.assertQuerySetEqual(instances, naps)
+        self.assertQuerySetEqual(instances, Sleep.objects.filter(nap=True))

@@ -62,7 +62,20 @@ def set_initial_values(kwargs, form_type):
                 last_feed_args["method"] = last_method
             kwargs["initial"].update(last_feed_args)
 
-    # Remove custom kwargs so they do not interfere with `super` calls.
+    # Set default "nap" value for Sleep instances.
+    if form_type == SleepForm:
+        try:
+            start = timezone.localtime(kwargs["initial"]["start"]).time()
+        except KeyError:
+            start = timezone.localtime().time()
+        nap = (
+            models.Sleep.settings.nap_start_min
+            <= start
+            <= models.Sleep.settings.nap_start_max
+        )
+        kwargs["initial"].update({"nap": nap})
+
+    # Remove custom kwargs, so they do not interfere with `super` calls.
     for key in ["child", "timer"]:
         try:
             kwargs.pop(key)
@@ -181,7 +194,7 @@ class NoteForm(CoreModelForm, TaggableModelForm):
 class SleepForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Sleep
-        fields = ["child", "start", "end", "notes", "tags"]
+        fields = ["child", "start", "end", "nap", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
