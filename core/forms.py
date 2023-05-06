@@ -63,7 +63,7 @@ def set_initial_values(kwargs, form_type):
             kwargs["initial"].update(last_feed_args)
 
     # Set default "nap" value for Sleep instances.
-    if form_type == SleepForm:
+    if form_type == SleepForm and "nap" not in kwargs["initial"]:
         try:
             start = timezone.localtime(kwargs["initial"]["start"]).time()
         except KeyError:

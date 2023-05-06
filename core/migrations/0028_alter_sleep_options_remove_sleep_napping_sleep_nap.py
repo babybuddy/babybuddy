@@ -9,10 +9,9 @@ def set_sleep_nap_values(apps, schema_editor):
     from core.models import Sleep
 
     for sleep in Sleep.objects.all():
-        local_start_time = timezone.localtime(sleep.start).time()
         sleep.nap = (
             Sleep.settings.nap_start_min
-            <= local_start_time
+            <= timezone.localtime(sleep.start).time()
             <= Sleep.settings.nap_start_max
         )
         sleep.save()
@@ -41,7 +40,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="sleep",
             name="nap",
-            field=models.BooleanField(default=False, verbose_name="Nap"),
+            field=models.BooleanField(null=True, verbose_name="Nap"),
         ),
         migrations.RunPython(
             set_sleep_nap_values, reverse_code=migrations.RunPython.noop

@@ -462,7 +462,7 @@ class Sleep(models.Model):
     end = models.DateTimeField(
         blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
     )
-    nap = models.BooleanField(default=False, verbose_name=_("Nap"))
+    nap = models.BooleanField(null=True, verbose_name=_("Nap"))
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
@@ -482,7 +482,7 @@ class Sleep(models.Model):
         return str(_("Sleep"))
 
     def save(self, *args, **kwargs):
-        if not self.nap:
+        if self.nap is None:
             self.nap = (
                 Sleep.settings.nap_start_min
                 <= timezone.localtime(self.start).time()
