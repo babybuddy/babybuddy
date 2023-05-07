@@ -462,7 +462,7 @@ class Sleep(models.Model):
     end = models.DateTimeField(
         blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
     )
-    nap = models.BooleanField(null=True, verbose_name=_("Nap"))
+    nap = models.BooleanField(null=False, blank=True, verbose_name=_("Nap"))
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
