@@ -213,24 +213,37 @@ class SleepTestCase(TestCase):
         self.assertEqual(sleep.duration, sleep.end - sleep.start)
 
     def test_sleep_nap(self):
-        tz = timezone.get_fixed_timezone(-5)
-        start = datetime(year=2023, month=5, day=5, hour=12, tzinfo=tz)
+        models.Sleep.settings.nap_start_min = (
+            timezone.now() - timezone.timedelta(hours=1)
+        ).time()
+        models.Sleep.settings.nap_start_max = (
+            timezone.now() + timezone.timedelta(hours=1)
+        ).time()
         sleep = models.Sleep.objects.create(
-            child=self.child, start=start, end=start + timezone.timedelta(hours=2)
+            child=self.child,
+            start=timezone.now(),
+            end=(timezone.now() + timezone.timedelta(hours=2)),
         )
         self.assertTrue(sleep.nap)
 
-        start = datetime(year=2023, month=5, day=5, hour=20, tzinfo=tz)
+    def test_sleep_not_nap(self):
+        models.Sleep.settings.nap_start_min = (
+            timezone.now() + timezone.timedelta(hours=1)
+        ).time()
+        models.Sleep.settings.nap_start_max = (
+            timezone.now() + timezone.timedelta(hours=2)
+        ).time()
         sleep = models.Sleep.objects.create(
-            child=self.child, start=start, end=start + timezone.timedelta(hours=8)
+            child=self.child,
+            start=timezone.now(),
+            end=(timezone.now() + timezone.timedelta(hours=8)),
         )
         self.assertFalse(sleep.nap)
 
-        start = datetime(year=2023, month=5, day=5, hour=20, tzinfo=tz)
         sleep = models.Sleep.objects.create(
             child=self.child,
-            start=start,
-            end=start + timezone.timedelta(hours=8),
+            start=timezone.now(),
+            end=(timezone.now() + timezone.timedelta(hours=8)),
             nap=True,
         )
         self.assertTrue(sleep.nap)
