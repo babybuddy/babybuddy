@@ -8,6 +8,8 @@ from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 from django.core.management.commands.flush import Command as Flush
 
+from dbsettings.models import Setting
+
 from .fake import Command as Fake
 from .migrate import Command as Migrate
 
@@ -37,6 +39,9 @@ class Command(BaseCommand):
         flush.handle(**options)
         if verbosity > 0:
             self.stdout.write(self.style.SUCCESS("Database flushed."))
+
+        # Remove all site-wide settings.
+        Setting.objects.all().delete()
 
         # Run migrations for all Baby Buddy apps.
         for config in apps.app_configs.values():

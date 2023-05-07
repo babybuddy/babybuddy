@@ -216,10 +216,10 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(data["type"], "sleep")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
-        self.assertEqual(data["sleeps"][0]["total"], timezone.timedelta(hours=7))
-        self.assertEqual(data["sleeps"][0]["count"], 4)
+        self.assertEqual(data["sleeps"][0]["total"], timezone.timedelta(seconds=43200))
+        self.assertEqual(data["sleeps"][0]["count"], 3)
 
-        self.assertEqual(data["sleeps"][1]["total"], timezone.timedelta(minutes=30))
+        self.assertEqual(data["sleeps"][1]["total"], timezone.timedelta(seconds=30600))
         self.assertEqual(data["sleeps"][1]["count"], 1)
 
     def test_card_sleep_naps_day(self):
@@ -227,8 +227,8 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(data["type"], "sleep")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
-        self.assertEqual(data["total"], timezone.timedelta(0, 9000))
-        self.assertEqual(data["count"], 2)
+        self.assertEqual(data["total"], timezone.timedelta(0, 7200))
+        self.assertEqual(data["count"], 1)
 
     def test_card_statistics(self):
         data = cards.card_statistics(self.context, self.child)
@@ -271,18 +271,18 @@ class TemplateTagsTestCase(TestCase):
             },
             {
                 "title": "Average nap duration",
-                "stat": timezone.timedelta(0, 4500),
+                "stat": timezone.timedelta(0, 6300),
                 "type": "duration",
             },
-            {"title": "Average naps per day", "stat": 2.0, "type": "float"},
+            {"title": "Average naps per day", "stat": 1.0, "type": "float"},
             {
                 "title": "Average sleep duration",
-                "stat": timezone.timedelta(0, 6750),
+                "stat": timezone.timedelta(0, 19800),
                 "type": "duration",
             },
             {
                 "title": "Average awake duration",
-                "stat": timezone.timedelta(0, 19200),
+                "stat": timezone.timedelta(0, 18000),
                 "type": "duration",
             },
             {"title": "Weight change per week", "stat": 1.0, "type": "float"},

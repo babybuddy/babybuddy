@@ -332,10 +332,10 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-18T04:30:00Z",
+      "start": "2017-11-17T20:30:00Z",
       "end": "2017-11-18T05:30:00Z",
-      "duration": "01:00:00",
-      "napping": false
+      "duration": "09:00:00",
+      "nap": false
     }
   },
   {
@@ -347,7 +347,7 @@
       "start": "2017-11-18T15:00:00Z",
       "end": "2017-11-18T17:00:00Z",
       "duration": "02:00:00",
-      "napping": true
+      "nap": true
     }
   },
   {
@@ -357,9 +357,9 @@
     {
       "child": 1,
       "start": "2017-11-18T19:00:00Z",
-      "end": "2017-11-18T19:30:00Z",
-      "duration": "00:30:00",
-      "napping": false
+      "end": "2017-11-19T04:30:00Z",
+      "duration": "09:30:00",
+      "nap": false
     }
   },
   {
@@ -368,11 +368,11 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-19T00:00:00Z",
-      "end": "2017-11-19T04:00:00Z",
-      "duration": "04:00:00",
+      "start": "2017-11-19T08:00:00Z",
+      "end": "2017-11-19T09:30:00Z",
+      "duration": "01:30:00",
       "notes": "lots of squirming",
-      "napping": false
+      "nap": true
     }
   },
     {

@@ -11,7 +11,7 @@
             {% else %}
                 {{ field|add_class:"btn-check" }}
             {% endif %}
-            <label for="id_{{ field.name }}" class="btn btn-outline-light btn-no-hover{% if field.value %} active{% endif %}">
+            <label for="id_{{ field.name }}" class="btn btn-outline-light btn-no-hover">
                 {{ field.label }}
             </label>
         {% elif 'choice' in field|field_type %}

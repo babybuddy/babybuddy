@@ -527,15 +527,15 @@ class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     def test_get(self):
         response = self.client.get(self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(
+        self.assertDictEqual(
             response.data["results"][0],
             {
                 "id": 4,
                 "child": 1,
-                "start": "2017-11-18T19:00:00-05:00",
-                "end": "2017-11-18T23:00:00-05:00",
-                "duration": "04:00:00",
-                "nap": False,
+                "start": "2017-11-19T03:00:00-05:00",
+                "end": "2017-11-19T04:30:00-05:00",
+                "duration": "01:30:00",
+                "nap": True,
                 "notes": "lots of squirming",
                 "tags": [],
             },
@@ -558,7 +558,7 @@ class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         endpoint = "{}{}/".format(self.endpoint, 4)
         response = self.client.get(endpoint)
         entry = response.data
-        entry["end"] = "2017-11-18T23:30:00-05:00"
+        entry["end"] = "2017-11-19T08:30:00-05:00"
         response = self.client.patch(
             endpoint,
             {

@@ -19,3 +19,8 @@ EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 # See https://django-axes.readthedocs.io/en/latest/4_configuration.html
 
 AXES_ENABLED = False
+
+# DBSettings configuration
+# See https://github.com/zlorf/django-dbsettings#a-note-about-caching
+
+DBSETTINGS_USE_CACHE = False

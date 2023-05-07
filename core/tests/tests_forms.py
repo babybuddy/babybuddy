@@ -545,6 +545,26 @@ class SleepFormsTestCase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Sleep entry deleted")
 
+    def test_nap_default(self):
+        models.Sleep.settings.nap_start_min = (
+            timezone.now() - timezone.timedelta(hours=1)
+        ).time()
+        models.Sleep.settings.nap_start_max = (
+            timezone.now() + timezone.timedelta(hours=1)
+        ).time()
+        response = self.c.get("/sleep/add/")
+        self.assertTrue(response.context["form"].initial["nap"])
+
+    def test_not_nap_default(self):
+        models.Sleep.settings.nap_start_min = (
+            timezone.now() + timezone.timedelta(hours=1)
+        ).time()
+        models.Sleep.settings.nap_start_max = (
+            timezone.now() + timezone.timedelta(hours=2)
+        ).time()
+        response = self.c.get("/sleep/add/")
+        self.assertFalse(response.context["form"].initial["nap"])
+
 
 class TaggedFormsTestCase(FormsTestCaseBase):
     @classmethod

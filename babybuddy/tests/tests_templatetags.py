@@ -21,9 +21,9 @@ class TemplateTagsTestCase(TestCase):
         )
         self.assertEqual(babybuddy.get_child_count(), 2)
 
-    def user_is_read_only(self):
+    def test_user_is_read_only(self):
         user = get_user_model().objects.create_user(
-            username="readonly", password="readonly", is_superuser=False, is_staf=False
+            username="readonly", password="readonly", is_superuser=False, is_staff=False
         )
         self.assertFalse(babybuddy.user_is_read_only(user))
 
