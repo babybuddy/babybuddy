@@ -216,17 +216,13 @@ class SleepTestCase(TestCase):
         tz = timezone.get_fixed_timezone(-5)
         start = datetime(year=2023, month=5, day=5, hour=12, tzinfo=tz)
         sleep = models.Sleep.objects.create(
-            child=self.child,
-            start=start,
-            end=start + timezone.timedelta(hours=2)
+            child=self.child, start=start, end=start + timezone.timedelta(hours=2)
         )
         self.assertTrue(sleep.nap)
 
         start = datetime(year=2023, month=5, day=5, hour=20, tzinfo=tz)
         sleep = models.Sleep.objects.create(
-            child=self.child,
-            start=start,
-            end=start + timezone.timedelta(hours=8)
+            child=self.child, start=start, end=start + timezone.timedelta(hours=8)
         )
         self.assertFalse(sleep.nap)
 
@@ -235,7 +231,7 @@ class SleepTestCase(TestCase):
             child=self.child,
             start=start,
             end=start + timezone.timedelta(hours=8),
-            nap=True
+            nap=True,
         )
         self.assertTrue(sleep.nap)
 
