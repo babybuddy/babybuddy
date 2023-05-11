@@ -20,6 +20,7 @@ def set_sleep_nap_values(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [
         ("core", "0027_alter_timer_options_remove_timer_duration_and_more"),
+        ("dbsettings", "0001_initial"),
     ]
 
     operations = [
