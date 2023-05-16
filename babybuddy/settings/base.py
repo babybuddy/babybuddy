@@ -181,6 +181,7 @@ LANGUAGES = [
     ("fi", _("Finnish")),
     ("de", _("German")),
     ("it", _("Italian")),
+    ("hu", _("Hungarian")),
     ("pl", _("Polish")),
     ("pt", _("Portuguese")),
     ("es", _("Spanish")),
