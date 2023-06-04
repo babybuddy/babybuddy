@@ -64,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "axes.middleware.AxesMiddleware",
+    "babybuddy.middleware.HomeAssistant",
 ]
 
 
@@ -351,9 +352,13 @@ ROLLING_SESSION_REFRESH = 86400
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Baby Buddy configuration
-# See README.md#configuration for details about these settings.
+# See https://docs.baby-buddy.net/ for details about these settings.
 
 BABY_BUDDY = {
     "ALLOW_UPLOADS": bool(strtobool(os.environ.get("ALLOW_UPLOADS") or "True")),
     "READ_ONLY_GROUP_NAME": "read_only",
 }
+
+# Home assistant specific configuration
+
+HOME_ASSISTANT_USE_X_INGRESS_PATH = False

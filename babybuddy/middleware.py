@@ -2,11 +2,12 @@ from os import getenv
 from time import time
 
 import pytz
+from urllib.parse import urlunsplit, urlsplit
 
 from django.conf import settings
 from django.utils import timezone, translation
 from django.contrib.auth.middleware import RemoteUserMiddleware
-
+from django.http import HttpRequest
 
 class UserLanguageMiddleware:
     """
@@ -88,3 +89,37 @@ class CustomRemoteUser(RemoteUserMiddleware):
     """
 
     header = getenv("PROXY_HEADER", "HTTP_REMOTE_USER")
+
+
+class HomeAssistant:
+    def __init__(self, get_response):
+        self.get_response = get_response
+        self.use_x_ingress_path_rewrite = settings.HOME_ASSISTANT_USE_X_INGRESS_PATH
+
+    def __call__(self, request: HttpRequest):
+        def wrap_x_ingress_path(org_func):
+            if request.headers.get("HTTP_X_HASS_SOURCE") != "core.ingress":
+                return org_func
+            x_ingress_path = request.headers.get("HTTP_X_INGRESS_PATH")
+            if x_ingress_path is None:
+                return org_func
+
+            def wrapper(*args, **kwargs):
+                url = org_func(*args, **kwargs)
+
+                url_parts = urlsplit(url)
+                url = urlunsplit(
+                    url_parts._replace(path=x_ingress_path + url_parts.path)
+                )
+
+                return url
+            return wrapper
+
+        if self.use_x_ingress_path_rewrite:
+            request.build_absolute_uri = wrap_x_ingress_path(
+                request.build_absolute_uri
+            )
+
+        return self.get_response(request)
+
+    
