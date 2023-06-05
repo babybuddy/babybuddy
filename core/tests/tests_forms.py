@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
@@ -546,22 +548,14 @@ class SleepFormsTestCase(FormsTestCaseBase):
         self.assertContains(page, "Sleep entry deleted")
 
     def test_nap_default(self):
-        models.Sleep.settings.nap_start_min = (
-            timezone.now() - timezone.timedelta(hours=1)
-        ).time()
-        models.Sleep.settings.nap_start_max = (
-            timezone.now() + timezone.timedelta(hours=1)
-        ).time()
+        models.Sleep.settings.nap_start_min = datetime.time(0, 0, 0)
+        models.Sleep.settings.nap_start_max = datetime.time(23, 59, 59)
         response = self.c.get("/sleep/add/")
         self.assertTrue(response.context["form"].initial["nap"])
 
     def test_not_nap_default(self):
-        models.Sleep.settings.nap_start_min = (
-            timezone.now() + timezone.timedelta(hours=1)
-        ).time()
-        models.Sleep.settings.nap_start_max = (
-            timezone.now() + timezone.timedelta(hours=2)
-        ).time()
+        models.Sleep.settings.nap_start_min = datetime.time(0, 0, 0)
+        models.Sleep.settings.nap_start_max = datetime.time(0, 0, 0)
         response = self.c.get("/sleep/add/")
         self.assertFalse(response.context["form"].initial["nap"])
 
