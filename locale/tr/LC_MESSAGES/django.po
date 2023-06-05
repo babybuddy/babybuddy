@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-03 02:56+0000\n"
+"POT-Creation-Date: 2023-06-05 00:40+0000\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -213,21 +213,21 @@ msgstr "İsveççe"
 msgid "Turkish"
 msgstr "Türkçe"
 
-#: babybuddy/site_settings.py:14
+#: babybuddy/site_settings.py:23
 msgid "Default minimum nap start time"
 msgstr ""
 
-#: babybuddy/site_settings.py:16
+#: babybuddy/site_settings.py:25
 msgid ""
 "The minimum default time that a sleep entry is consider a nap. If set the "
 "nap property will be preselected if the start time is within the bounds."
 msgstr ""
 
-#: babybuddy/site_settings.py:23
+#: babybuddy/site_settings.py:32
 msgid "Default maximum nap start time"
 msgstr ""
 
-#: babybuddy/site_settings.py:25
+#: babybuddy/site_settings.py:34
 msgid ""
 "The maximum default time that a sleep entry is consider a nap. If set the "
 "nap property will be preselected if the start time is within the bounds."
@@ -292,8 +292,8 @@ msgstr "Not"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:64
 #: babybuddy/templates/babybuddy/nav-dropdown.html:279
-#: babybuddy/templates/babybuddy/welcome.html:48 core/models.py:485
-#: core/models.py:486 core/models.py:489
+#: babybuddy/templates/babybuddy/welcome.html:48 core/models.py:478
+#: core/models.py:479 core/models.py:482
 #: core/templates/core/sleep_confirm_delete.html:7
 #: core/templates/core/sleep_form.html:13 core/templates/core/sleep_list.html:4
 #: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:12
@@ -303,8 +303,8 @@ msgstr "Uyku"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:70
 #: babybuddy/templates/babybuddy/nav-dropdown.html:293
-#: babybuddy/templates/babybuddy/welcome.html:58 core/models.py:646
-#: core/models.py:647 core/models.py:650
+#: babybuddy/templates/babybuddy/welcome.html:58 core/models.py:635
+#: core/models.py:636 core/models.py:639
 #: core/templates/core/timer_detail.html:58
 #: core/templates/core/tummytime_confirm_delete.html:7
 #: core/templates/core/tummytime_form.html:13
@@ -334,8 +334,8 @@ msgstr "Çocuklar"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:120 core/models.py:137
 #: core/models.py:187 core/models.py:221 core/models.py:274 core/models.py:342
-#: core/models.py:374 core/models.py:401 core/models.py:433 core/models.py:460
-#: core/models.py:519 core/models.py:553 core/models.py:622 core/models.py:670
+#: core/models.py:374 core/models.py:401 core/models.py:427 core/models.py:454
+#: core/models.py:508 core/models.py:542 core/models.py:611 core/models.py:659
 #: core/templates/core/bmi_list.html:27
 #: core/templates/core/diaperchange_list.html:27
 #: core/templates/core/feeding_list.html:27
@@ -353,8 +353,8 @@ msgstr "Çocuk"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:128 core/models.py:143
 #: core/models.py:240 core/models.py:311 core/models.py:350 core/models.py:380
-#: core/models.py:415 core/models.py:439 core/models.py:475 core/models.py:527
-#: core/models.py:676 core/templates/core/note_confirm_delete.html:7
+#: core/models.py:415 core/models.py:433 core/models.py:469 core/models.py:516
+#: core/models.py:665 core/templates/core/note_confirm_delete.html:7
 #: core/templates/core/note_form.html:13 core/templates/core/note_list.html:4
 #: core/templates/core/note_list.html:7 core/templates/core/note_list.html:12
 msgid "Notes"
@@ -418,8 +418,8 @@ msgstr "Boy"
 msgid "Height entry"
 msgstr "Boy verisi"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:198 core/models.py:522
-#: core/models.py:535 core/models.py:536 core/models.py:539
+#: babybuddy/templates/babybuddy/nav-dropdown.html:198 core/models.py:511
+#: core/models.py:524 core/models.py:525 core/models.py:528
 #: core/templates/core/temperature_confirm_delete.html:7
 #: core/templates/core/temperature_form.html:13
 #: core/templates/core/temperature_list.html:4
@@ -438,8 +438,8 @@ msgstr "Sıcaklık"
 msgid "Temperature reading"
 msgstr "Sıcaklık okuma"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:212 core/models.py:672
-#: core/models.py:684 core/models.py:685 core/models.py:688
+#: babybuddy/templates/babybuddy/nav-dropdown.html:212 core/models.py:661
+#: core/models.py:673 core/models.py:674 core/models.py:677
 #: core/templates/core/weight_confirm_delete.html:7
 #: core/templates/core/weight_form.html:13
 #: core/templates/core/weight_list.html:4
@@ -480,8 +480,8 @@ msgstr "Değişim"
 msgid "Feedings"
 msgstr "Beslenmeler"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:266 core/models.py:447
-#: core/models.py:448 core/models.py:451
+#: babybuddy/templates/babybuddy/nav-dropdown.html:266 core/models.py:441
+#: core/models.py:442 core/models.py:445
 #: core/templates/core/pumping_confirm_delete.html:7
 #: core/templates/core/pumping_form.html:13
 #: core/templates/core/pumping_list.html:4
@@ -509,7 +509,7 @@ msgstr "Karın Üstü Zaman Girişi"
 #: babybuddy/templates/babybuddy/user_add_device.html:7
 #: babybuddy/templates/babybuddy/user_list.html:17
 #: babybuddy/templates/babybuddy/user_password_form.html:7
-#: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:566
+#: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:555
 #: core/templates/core/timer_list.html:29
 msgid "User"
 msgstr "Kullanıcı"
@@ -763,7 +763,7 @@ msgstr "Eposta"
 msgid "Staff"
 msgstr "Ekip"
 
-#: babybuddy/templates/babybuddy/user_list.html:23 core/models.py:561
+#: babybuddy/templates/babybuddy/user_list.html:23 core/models.py:550
 msgid "Active"
 msgstr "Etkin"
 
@@ -1053,15 +1053,28 @@ msgstr "Kullanıcı API anahtarı yeniden oluşturuldu."
 msgid "Settings saved!"
 msgstr "Ayarlar kaydedildi."
 
+#: core/fields.py:13
+#, python-format
+msgid ""
+"Nap start max. value %(max)s must be greater than nap start min. value "
+"%(min)s."
+msgstr ""
+
+#: core/fields.py:27
+#, python-format
+msgid ""
+"Nap start min. value %(min)s must be less than nap start min. value %(max)s."
+msgstr ""
+
 #: core/filters.py:11 core/models.py:96 core/models.py:115
 msgid "Tag"
 msgstr "Etiket"
 
-#: core/forms.py:116
+#: core/forms.py:129
 msgid "Name does not match child name."
 msgstr "İsim çocuk ismiyle eşleşmiyor."
 
-#: core/forms.py:132
+#: core/forms.py:145
 msgid ""
 "Click on the tags to add (+) or remove (-) tags or use the text editor to "
 "create new tags."
@@ -1111,7 +1124,7 @@ msgstr "Son kullanılan"
 msgid "Tags"
 msgstr "Etiketler"
 
-#: core/models.py:141 core/models.py:348 core/models.py:378 core/models.py:674
+#: core/models.py:141 core/models.py:348 core/models.py:378 core/models.py:663
 #: core/templates/core/bmi_list.html:25
 #: core/templates/core/feeding_list.html:25
 #: core/templates/core/head_circumference_list.html:25
@@ -1147,7 +1160,7 @@ msgstr "Slug"
 msgid "Picture"
 msgstr "Resim"
 
-#: core/models.py:224 core/models.py:405 core/models.py:437 core/models.py:525
+#: core/models.py:224 core/models.py:405 core/models.py:431 core/models.py:514
 #: core/templates/core/diaperchange_list.html:25
 #: core/templates/core/note_list.html:25
 #: core/templates/core/pumping_list.html:25
@@ -1182,22 +1195,22 @@ msgstr "Yeşil"
 msgid "Yellow"
 msgstr "Sarı"
 
-#: core/models.py:239 core/models.py:310 core/models.py:435
+#: core/models.py:239 core/models.py:310 core/models.py:429
 #: core/templates/core/diaperchange_list.html:31
 #: core/templates/core/pumping_list.html:29
 #: dashboard/templates/cards/pumping_last.html:23
 msgid "Amount"
 msgstr "Miktar"
 
-#: core/models.py:280 core/models.py:467 core/models.py:559 core/models.py:628
+#: core/models.py:280 core/models.py:460 core/models.py:548 core/models.py:617
 msgid "Start time"
 msgstr "Başlangıç zamanı"
 
-#: core/models.py:283 core/models.py:470 core/models.py:631
+#: core/models.py:283 core/models.py:463 core/models.py:620
 msgid "End time"
 msgstr "Bitiş zamanı"
 
-#: core/models.py:286 core/models.py:473 core/models.py:634
+#: core/models.py:286 core/models.py:467 core/models.py:623
 #: core/templates/core/feeding_list.html:34
 #: core/templates/core/sleep_list.html:30
 #: core/templates/core/tummytime_list.html:29
@@ -1252,25 +1265,25 @@ msgstr "Kendi beslenme"
 msgid "Method"
 msgstr "Metod"
 
-#: core/models.py:462
-msgid "Napping"
-msgstr ""
+#: core/models.py:465 core/templates/core/sleep_list.html:31
+msgid "Nap"
+msgstr "Kısa uyku"
 
-#: core/models.py:480
+#: core/models.py:473
 #, fuzzy
 #| msgid "Settings"
 msgid "Nap settings"
 msgstr "Ayarlar"
 
-#: core/models.py:556 core/templates/core/timer_list.html:25
+#: core/models.py:545 core/templates/core/timer_list.html:25
 msgid "Name"
 msgstr "İsim"
 
-#: core/models.py:574 core/templates/core/timer_form.html:4
+#: core/models.py:563 core/templates/core/timer_form.html:4
 msgid "Timer"
 msgstr "Zamanlayıcı"
 
-#: core/models.py:575 core/templates/core/timer_confirm_delete.html:9
+#: core/models.py:564 core/templates/core/timer_confirm_delete.html:9
 #: core/templates/core/timer_detail.html:8
 #: core/templates/core/timer_form.html:7 core/templates/core/timer_list.html:4
 #: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:12
@@ -1279,12 +1292,12 @@ msgstr "Zamanlayıcı"
 msgid "Timers"
 msgstr "Zamallayıcılar"
 
-#: core/models.py:578
+#: core/models.py:567
 #, python-brace-format
 msgid "Timer #{id}"
 msgstr "Zamallayıcı #{id}"
 
-#: core/models.py:637 core/templates/core/tummytime_list.html:30
+#: core/models.py:626 core/templates/core/tummytime_list.html:30
 msgid "Milestone"
 msgstr "Dönüm noktası"
 
@@ -1523,10 +1536,6 @@ msgstr "Başla"
 #: core/templates/core/tummytime_list.html:25
 msgid "End"
 msgstr "Bitir"
-
-#: core/templates/core/sleep_list.html:31
-msgid "Nap"
-msgstr "Kısa uyku"
 
 #: core/templates/core/sleep_list.html:73
 msgid "No sleep entries found."
