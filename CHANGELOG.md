@@ -1,6 +1,34 @@
 # Changelog
 
-## [v2.0.0-beta1](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta1)
+## [v2.0.0-beta1](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta2) (2023-06-04)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0-beta1...v2.0.0-beta2)
+
+**Implemented enhancements:**
+
+- Overlapping Times Error if Entries Have Same HH:MM [\#619](https://github.com/babybuddy/babybuddy/issues/619)
+- Make nap user toggleable [\#513](https://github.com/babybuddy/babybuddy/issues/513)
+- display 0 minutes ago on dashboard when event is less than 1 minute old [\#649](https://github.com/babybuddy/babybuddy/pull/649) ([abdessamad-el](https://github.com/abdessamad-el))
+- 513: Make nap user toggleable [\#641](https://github.com/babybuddy/babybuddy/pull/641) ([cdubz](https://github.com/cdubz))
+
+**Fixed bugs:**
+
+- Migration fails for `0028_alter_sleep_options_remove_sleep_napping_sleep_nap` if something in "set\_sleep\_nap\_values" is None [\#644](https://github.com/babybuddy/babybuddy/issues/644)
+- Events less than 1 minute old show incorrect "time ago" on dashboard [\#628](https://github.com/babybuddy/babybuddy/issues/628)
+- Fix dependency for hand-written migration 0028 [\#645](https://github.com/babybuddy/babybuddy/pull/645) ([MrApplejuice](https://github.com/MrApplejuice))
+
+**Closed issues:**
+
+- Failed to save "Diaper change" [\#651](https://github.com/babybuddy/babybuddy/issues/651)
+- Failed to start when using Home Assistant add-on  [\#646](https://github.com/babybuddy/babybuddy/issues/646)
+- Loading Baby Buddy in iframe [\#643](https://github.com/babybuddy/babybuddy/issues/643)
+- Make error more helpful when entering conflicting/bad data [\#542](https://github.com/babybuddy/babybuddy/issues/542)
+
+**Merged pull requests:**
+
+- New PostgreSQL database requirement with BabyBuddy 1.16.0 / Django 4.2 [\#654](https://github.com/babybuddy/babybuddy/pull/654) ([ldrouard](https://github.com/ldrouard))
+
+## [v2.0.0-beta1](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta1) (2023-05-03)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.16.0...v2.0.0-beta1)
 
