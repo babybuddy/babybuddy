@@ -183,6 +183,8 @@ class NoteSerializer(CoreModelSerializer, TaggableSerializer):
 
 
 class SleepSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
+    nap = serializers.BooleanField(allow_null=True, default=None, required=False)
+
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Sleep
         fields = (
