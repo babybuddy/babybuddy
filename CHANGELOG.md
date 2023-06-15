@@ -1,6 +1,20 @@
 # Changelog
 
-## [v2.0.0-beta1](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta2) (2023-06-04)
+## [v2.0.0-beta3](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta3) (2023-06-14)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0-beta2...v2.0.0-beta3)
+
+**Fixed bugs:**
+
+- Nap field always False when adding Sleep entries via API [\#657](https://github.com/babybuddy/babybuddy/issues/657)
+- Timeline shows wrong time since events happened [\#648](https://github.com/babybuddy/babybuddy/issues/648)
+
+**Closed issues:**
+
+- nginx: \[emerg\] no "events" section in configuration [\#659](https://github.com/babybuddy/babybuddy/issues/659)
+- Feed update appears to reset the breast selection [\#658](https://github.com/babybuddy/babybuddy/issues/658)
+
+## [v2.0.0-beta2](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta2) (2023-06-05)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0-beta1...v2.0.0-beta2)
 
