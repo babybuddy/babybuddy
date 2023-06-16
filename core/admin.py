@@ -66,9 +66,11 @@ class PumpingImportExportResource(ImportExportResourceBase):
 @admin.register(models.Pumping)
 class PumpingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = (
+        "start",
+        "end",
+        "duration",
         "child",
         "amount",
-        "time",
     )
     list_filter = ("child",)
     search_fields = (
@@ -102,7 +104,15 @@ class FeedingImportExportResource(ImportExportResourceBase):
 
 @admin.register(models.Feeding)
 class FeedingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
-    list_display = ("start", "end", "duration", "child", "type", "method", "amount")
+    list_display = (
+        "start",
+        "end",
+        "duration",
+        "child",
+        "type",
+        "method",
+        "amount",
+    )
     list_filter = (
         "child",
         "type",
