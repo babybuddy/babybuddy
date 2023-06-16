@@ -145,9 +145,13 @@ class Command(BaseCommand):
         if choice([True, False, False, False]):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
-        models.Pumping.objects.create(
-            child=self.child, amount=self.amount, time=self.time, notes=notes
-        ).save()
+        start = self.time + timedelta(minutes=randint(1, 60))
+        end = start + timedelta(minutes=randint(5, 20))
+
+        if end < self.time_now:
+            models.Pumping.objects.create(
+                child=self.child, amount=self.amount, start=start, end=end, notes=notes
+            ).save()
 
     @transaction.atomic
     def _add_diaperchange_entry(self):
