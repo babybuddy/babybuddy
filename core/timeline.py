@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils import timezone, timesince
 from django.utils.translation import gettext as _
 
-from core.models import DiaperChange, Feeding, Note, Sleep, TummyTime
+from core.models import DiaperChange, Feeding, Note, Sleep, TummyTime, Temperature
 from datetime import timedelta
 
 
@@ -23,6 +23,7 @@ def get_objects(date, child=None):
     _add_sleeps(min_date, max_date, events, child)
     _add_tummy_times(min_date, max_date, events, child)
     _add_notes(min_date, max_date, events, child)
+    _add_temperature_measurements(min_date, max_date, events, child)
 
     explicit_type_ordering = {"start": 0, "end": 1}
     events.sort(
@@ -204,6 +205,38 @@ def _add_notes(min_date, max_date, events, child):
                 "time": timezone.localtime(instance.time),
                 "details": [instance.note],
                 "edit_link": reverse("core:note-update", args=[instance.id]),
+                "model_name": instance.model_name,
+                "tags": instance.tags.all(),
+            }
+        )
+
+
+def _add_temperature_measurements(min_date, max_date, events, child):
+    instances = Temperature.objects.filter(time__range=(min_date, max_date)).order_by(
+        "-time"
+    )
+    if child:
+        instances = instances.filter(child=child)
+    for instance in instances:
+        details = []
+        if instance.notes:
+            details.append(instance.notes)
+        if instance.temperature:
+            details.append(
+                _("Temperature: %(temperature).0f")
+                % {
+                    "temperature": instance.temperature,
+                }
+            )
+        events.append(
+            {
+                "time": timezone.localtime(instance.time),
+                "event": _("%(child)s had a temperature measurement.")
+                % {
+                    "child": instance.child.first_name,
+                },
+                "details": details,
+                "edit_link": reverse("core:temperature-update", args=[instance.id]),
                 "model_name": instance.model_name,
                 "tags": instance.tags.all(),
             }

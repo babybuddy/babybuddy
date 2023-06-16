@@ -5,11 +5,20 @@ from django.utils.translation import gettext_lazy as _
 
 import dbsettings
 
+from core.fields import NapStartMaxTimeField, NapStartMinTimeField
 from .widgets import TimeInput
 
 
+class NapStartMaxTimeValue(dbsettings.TimeValue):
+    field = NapStartMaxTimeField
+
+
+class NapStartMinTimeValue(dbsettings.TimeValue):
+    field = NapStartMinTimeField
+
+
 class NapSettings(dbsettings.Group):
-    nap_start_min = dbsettings.TimeValue(
+    nap_start_min = NapStartMinTimeValue(
         default=time(6),
         description=_("Default minimum nap start time"),
         help_text=_(
@@ -18,7 +27,7 @@ class NapSettings(dbsettings.Group):
         ),
         widget=TimeInput,
     )
-    nap_start_max = dbsettings.TimeValue(
+    nap_start_max = NapStartMaxTimeValue(
         default=time(18),
         description=_("Default maximum nap start time"),
         help_text=_(

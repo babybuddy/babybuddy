@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+import datetime
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
@@ -213,12 +213,8 @@ class SleepTestCase(TestCase):
         self.assertEqual(sleep.duration, sleep.end - sleep.start)
 
     def test_sleep_nap(self):
-        models.Sleep.settings.nap_start_min = (
-            timezone.now() - timezone.timedelta(hours=1)
-        ).time()
-        models.Sleep.settings.nap_start_max = (
-            timezone.now() + timezone.timedelta(hours=1)
-        ).time()
+        models.Sleep.settings.nap_start_min = datetime.time(0, 0, 0)
+        models.Sleep.settings.nap_start_max = datetime.time(23, 59, 59)
         sleep = models.Sleep.objects.create(
             child=self.child,
             start=timezone.now(),
@@ -227,12 +223,8 @@ class SleepTestCase(TestCase):
         self.assertTrue(sleep.nap)
 
     def test_sleep_not_nap(self):
-        models.Sleep.settings.nap_start_min = (
-            timezone.now() + timezone.timedelta(hours=1)
-        ).time()
-        models.Sleep.settings.nap_start_max = (
-            timezone.now() + timezone.timedelta(hours=2)
-        ).time()
+        models.Sleep.settings.nap_start_min = datetime.time(0, 0, 0)
+        models.Sleep.settings.nap_start_max = datetime.time(0, 0, 0)
         sleep = models.Sleep.objects.create(
             child=self.child,
             start=timezone.now(),
