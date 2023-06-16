@@ -43,6 +43,14 @@
                     </a>
                 {% endif %}
 
+                {% if perms.core.add_pumping %}
+                    <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:pumping-add' %}"
+                       role="button"><i class="icon-pumping" aria-hidden="true"></i>
+                        {% trans "Pumping" %}
+                    </a>
+                {% endif %}
+
                 {% if perms.core.add_sleep %}
                     <a class="btn btn-success btn-lg"
                        href="{% instance_add_url 'core:sleep-add' %}"
