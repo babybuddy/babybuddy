@@ -426,10 +426,24 @@ class Pumping(models.Model):
         related_name="pumping",
         verbose_name=_("Child"),
     )
-    amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
-    time = models.DateTimeField(
-        blank=False, default=timezone.localtime, null=False, verbose_name=_("Time")
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
     )
+    end = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("End time"),
+    )
+    duration = models.DurationField(
+        editable=False,
+        null=True,
+        verbose_name=_("Duration"),
+    )
+    amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
 
@@ -437,15 +451,22 @@ class Pumping(models.Model):
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-time"]
+        ordering = ["-start"]
         verbose_name = _("Pumping")
         verbose_name_plural = _("Pumping")
 
     def __str__(self):
         return str(_("Pumping"))
 
+    def save(self, *args, **kwargs):
+        if self.start and self.end:
+            self.duration = self.end - self.start
+        super(Pumping, self).save(*args, **kwargs)
+
     def clean(self):
-        validate_time(self.time, "time")
+        validate_time(self.start, "start")
+        validate_duration(self)
+        validate_unique_period(Pumping.objects.filter(child=self.child), self)
 
 
 class Sleep(models.Model):
