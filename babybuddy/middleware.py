@@ -98,9 +98,9 @@ class HomeAssistant:
 
     def __call__(self, request: HttpRequest):
         def wrap_x_ingress_path(org_func):
-            if request.headers.get("HTTP_X_HASS_SOURCE") != "core.ingress":
+            if not request.is_homeassistant_ingress_request:
                 return org_func
-            x_ingress_path = request.headers.get("HTTP_X_INGRESS_PATH")
+            x_ingress_path = request.headers.get("X-Ingress-Path")
             if x_ingress_path is None:
                 return org_func
 
@@ -114,6 +114,10 @@ class HomeAssistant:
 
                 return url
             return wrapper
+
+        request.is_homeassistant_ingress_request = (
+            request.headers.get("X-Hass-Source") == "core.ingress"
+        )
 
         if self.use_x_ingress_path_rewrite:
             request.build_absolute_uri = wrap_x_ingress_path(
