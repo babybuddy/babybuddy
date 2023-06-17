@@ -251,7 +251,18 @@ class UserAddDevice(LoginRequiredMixin, View):
     qr_code_template = "babybuddy/login_qr_code.txt"
 
     def get(self, request):
-        qr_code_response = render(request, self.qr_code_template)
+        session_cookie = ""
+        if request.is_homeassistant_ingress_request:
+            session_cookie = request.headers.get("Cookie", "")
+
+        qr_code_response = render(
+            request,
+            self.qr_code_template,
+            {
+                "session_cookie": session_cookie,
+            }
+
+        )
         qr_code_data = qr_code_response.content.decode().strip()
 
         return render(
