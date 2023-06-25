@@ -9,6 +9,7 @@ from django.utils import timezone, translation
 from django.contrib.auth.middleware import RemoteUserMiddleware
 from django.http import HttpRequest
 
+
 class UserLanguageMiddleware:
     """
     Customizes settings based on user language setting.
@@ -113,6 +114,7 @@ class HomeAssistant:
                 )
 
                 return url
+
             return wrapper
 
         request.is_homeassistant_ingress_request = (
@@ -120,10 +122,6 @@ class HomeAssistant:
         )
 
         if self.use_x_ingress_path_rewrite:
-            request.build_absolute_uri = wrap_x_ingress_path(
-                request.build_absolute_uri
-            )
+            request.build_absolute_uri = wrap_x_ingress_path(request.build_absolute_uri)
 
         return self.get_response(request)
-
-    

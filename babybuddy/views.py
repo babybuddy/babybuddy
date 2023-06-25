@@ -255,17 +255,12 @@ class UserAddDevice(LoginRequiredMixin, View):
     def get(self, request):
         session_cookies = {}
         if request.is_homeassistant_ingress_request:
-            session_cookies["ingress_session"] = ( 
-                request.COOKIES.get("ingress_session")
-            )
+            session_cookies["ingress_session"] = request.COOKIES.get("ingress_session")
 
         qr_code_response = render(
             request,
             self.qr_code_template,
-            {
-                "session_cookies": json.dumps(session_cookies)
-            }
-
+            {"session_cookies": json.dumps(session_cookies)},
         )
         qr_code_data = qr_code_response.content.decode().strip()
 
