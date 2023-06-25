@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import json
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import update_session_auth_hash
@@ -251,15 +253,17 @@ class UserAddDevice(LoginRequiredMixin, View):
     qr_code_template = "babybuddy/login_qr_code.txt"
 
     def get(self, request):
-        session_cookie = ""
+        session_cookies = {}
         if request.is_homeassistant_ingress_request:
-            session_cookie = request.headers.get("Cookie", "")
+            session_cookies["ingress_session"] = ( 
+                request.COOKIES.get("ingress_session")
+            )
 
         qr_code_response = render(
             request,
             self.qr_code_template,
             {
-                "session_cookie": session_cookie,
+                "session_cookies": json.dumps(session_cookies)
             }
 
         )
