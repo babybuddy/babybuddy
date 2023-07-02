@@ -82,8 +82,8 @@ class PumpingViewSet(viewsets.ModelViewSet):
     queryset = models.Pumping.objects.all()
     serializer_class = serializers.PumpingSerializer
     filterset_class = filters.PumpingFilter
-    ordering_fields = ("amount", "time")
-    ordering = "-time"
+    ordering_fields = ("amount", "duration", "end", "start")
+    ordering = "-start"
 
 
 class SleepViewSet(viewsets.ModelViewSet):
