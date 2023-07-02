@@ -21,14 +21,29 @@
       "picture": ""
     }
   },
-    {
+  {
     "model": "core.pumping",
     "pk": 1,
     "fields":
     {
       "child": 1,
-      "amount": 50.0,
-      "time": "2017-11-17T17:52:00Z",
+      "amount": 5.0,
+      "start": "2017-11-17T17:52:00Z",
+      "end": "2017-11-17T17:59:00Z",
+      "duration": "00:07:00",
+      "notes": "new device"
+    }
+  },
+  {
+    "model": "core.pumping",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "amount": 9.0,
+      "start": "2017-11-17T20:03:00Z",
+      "end": "2017-11-17T20:22:00Z",
+      "duration": "00:19:00",
       "notes": "new device"
     }
   },
