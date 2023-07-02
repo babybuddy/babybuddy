@@ -183,9 +183,12 @@ class PumpingTestCase(TestCase):
         self.child = models.Child.objects.create(
             first_name="First", last_name="Last", birth_date=timezone.localdate()
         )
+        start = timezone.localtime() - timezone.timedelta(days=1)
+        end = start + timezone.timedelta(minutes=14)
         self.pumping = models.Pumping.objects.create(
             child=self.child,
-            time=timezone.localtime() - timezone.timedelta(days=1),
+            start=start,
+            end=end,
             amount=98.6,
         )
 
