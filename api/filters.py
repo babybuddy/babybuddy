@@ -81,8 +81,8 @@ class NoteFilter(TimeFieldFilter, TagsFieldFilter):
         model = models.Note
 
 
-class PumpingFilter(TimeFieldFilter):
-    class Meta(TimeFieldFilter.Meta):
+class PumpingFilter(StartEndFieldFilter):
+    class Meta(StartEndFieldFilter.Meta):
         model = models.Pumping
 
 
