@@ -14,13 +14,13 @@ def pumping_amounts(objects):
     :param instances: a QuerySet of Pumping instances.
     :returns: a tuple of the the graph's html and javascript.
     """
-    objects = objects.order_by("time")
+    objects = objects.order_by("start")
 
     # We need to find date totals for annotations at the end
     curr_date = ""
     date_totals = {}
     for object in objects:
-        date_s = timezone.localtime(object.time)
+        date_s = timezone.localtime(object.start)
         date_s = str(date_s.date())
         if curr_date != date_s:
             date_totals[date_s] = 0.0
@@ -31,7 +31,7 @@ def pumping_amounts(objects):
     amounts = []  # Array of arrays containing amounts
     index_x, index_y = 0, -1
     for object in objects:
-        date_s = timezone.localtime(object.time)
+        date_s = timezone.localtime(object.start)
         date_s = str(date_s.date())
         if date_s not in dates:
             dates.append(date_s)
