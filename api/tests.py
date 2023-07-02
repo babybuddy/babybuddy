@@ -180,10 +180,12 @@ class PumpingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(
             response.data["results"][0],
             {
-                "id": 1,
+                "id": 2,
                 "child": 1,
-                "amount": 50.0,
-                "time": "2017-11-17T12:52:00-05:00",
+                "amount": 9.0,
+                "start": "2017-11-17T20:03:00Z",
+                "end": "2017-11-17T20:22:00Z",
+                "duration": "00:19:00",
                 "notes": "new device",
                 "tags": [],
             },
@@ -193,7 +195,8 @@ class PumpingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         data = {
             "child": 1,
             "amount": "21.0",
-            "time": "2017-11-20T22:52:00-05:00",
+            "start": "2017-11-20T22:52:00-05:00",
+            "end": "2017-11-20T23:05:00-05:00",
             "notes": "old device",
         }
         response = self.client.post(self.endpoint, data, format="json")
