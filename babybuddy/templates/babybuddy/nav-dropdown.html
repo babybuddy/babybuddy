@@ -52,6 +52,12 @@
                                 {% trans "Feeding" %}
                             </a>
                         {% endif %}
+                        {% if perms.core.add_pumping %}
+                            <a class="dropdown-item p-2" href="{% url 'core:pumping-add' %}">
+                                <i class="icon-pumping" aria-hidden="true"></i>
+                                {% trans "Pumping" %}
+                            </a>
+                        {% endif %}
                         {% if perms.core.add_note %}
                             <a class="dropdown-item p-2" href="{% url 'core:note-add' %}">
                                 <i class="icon-note" aria-hidden="true"></i>
