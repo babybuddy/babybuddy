@@ -463,17 +463,23 @@ class PumpingFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
         super(PumpingFormsTestCase, cls).setUpClass()
+        start = timezone.localtime() - timezone.timedelta(days=1)
+        end = start + timezone.timedelta(minutes=3)
         cls.bp = models.Pumping.objects.create(
             child=cls.child,
             amount=50.0,
-            time=timezone.localtime() - timezone.timedelta(days=1),
+            start=start,
+            end=end,
         )
 
     def test_add(self):
+        start = timezone.localtime() - timezone.timedelta(days=3)
+        end = start + timezone.timedelta(minutes=5)
         params = {
             "child": self.child.id,
             "amount": "50.0",
-            "time": self.localtime_string(),
+            "start": self.localtime_string(start),
+            "end": self.localtime_string(end),
         }
 
         page = self.c.post("/pumping/add/", params, follow=True)
@@ -484,7 +490,8 @@ class PumpingFormsTestCase(FormsTestCaseBase):
         params = {
             "child": self.bp.child.id,
             "amount": self.bp.amount + 2,
-            "time": self.localtime_string(),
+            "start": self.localtime_string(self.bp.start),
+            "end": self.localtime_string(self.bp.end + timezone.timedelta(minutes=15)),
         }
         page = self.c.post("/pumping/{}/".format(self.bp.id), params, follow=True)
         self.assertEqual(page.status_code, 200)
