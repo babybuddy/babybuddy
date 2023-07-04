@@ -361,4 +361,4 @@ BABY_BUDDY = {
 
 # Home assistant specific configuration
 
-HOME_ASSISTANT_USE_X_INGRESS_PATH = False
+ENABLE_HOME_ASSISTANT_SUPPORT = False
