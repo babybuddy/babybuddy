@@ -10,6 +10,7 @@ from django.utils import timezone, translation
 from django.contrib.auth.middleware import RemoteUserMiddleware
 from django.http import HttpRequest
 
+
 class UserLanguageMiddleware:
     """
     Customizes settings based on user language setting.
@@ -97,17 +98,17 @@ class HomeAssistant:
     Django middleware that adds HomeAssistant specific properties and checks
     to the request-object.
 
-    The middleware is only active if the settings variable 
+    The middleware is only active if the settings variable
     `ENABLE_HOME_ASSISTANT_SUPPORT` is set to True. Note that some features
-    remain enabled even if the middleware is set to inactive through the 
+    remain enabled even if the middleware is set to inactive through the
     settings.
 
     Features:
-    
+
     - request.is_homeassistant_ingress_request (bool)
 
         Indicates if a request was rerouted through the home assistant ingress
-        service. This parameters is always present regardless of the 
+        service. This parameters is always present regardless of the
         ENABLE_HOME_ASSISTANT_SUPPORT settings option. It defaults to false
         if the middleware is disabled.
 
@@ -139,11 +140,10 @@ class HomeAssistant:
                     url_parts._replace(path=x_ingress_path + url_parts.path)
                 )
                 return url
+
             return wrapper
 
-        request.build_absolute_uri = wrap_x_ingress_path(
-            request.build_absolute_uri
-        )
+        request.build_absolute_uri = wrap_x_ingress_path(request.build_absolute_uri)
 
     def __call__(self, request: HttpRequest):
         if self.home_assistant_support_enabled:
@@ -156,4 +156,3 @@ class HomeAssistant:
         self.__wrap_build_absolute_uri(request)
 
         return self.get_response(request)
-    
