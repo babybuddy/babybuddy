@@ -1,5 +1,6 @@
 from os import getenv
 from time import time
+from functools import wraps
 
 import pytz
 from urllib.parse import urlunsplit, urlsplit
@@ -8,7 +9,6 @@ from django.conf import settings
 from django.utils import timezone, translation
 from django.contrib.auth.middleware import RemoteUserMiddleware
 from django.http import HttpRequest
-
 
 class UserLanguageMiddleware:
     """
@@ -93,11 +93,37 @@ class CustomRemoteUser(RemoteUserMiddleware):
 
 
 class HomeAssistant:
+    """
+    Django middleware that adds HomeAssistant specific properties and checks
+    to the request-object.
+
+    The middleware is only active if the settings variable 
+    `ENABLE_HOME_ASSISTANT_SUPPORT` is set to True. Note that some features
+    remain enabled even if the middleware is set to inactive through the 
+    settings.
+
+    Features:
+    
+    - request.is_homeassistant_ingress_request (bool)
+
+        Indicates if a request was rerouted through the home assistant ingress
+        service. This parameters is always present regardless of the 
+        ENABLE_HOME_ASSISTANT_SUPPORT settings option. It defaults to false
+        if the middleware is disabled.
+
+    - wrapped request.build_absolute_uri function
+
+        The middleware redefines (wraps) the build_absolute_uri function
+        provided by django to allow it to interprete the X-Ingress-Path
+        request header. This allows home assistant to construct correct
+        absolute URLs when run through home assistant's ingress service.
+    """
+
     def __init__(self, get_response):
         self.get_response = get_response
-        self.use_x_ingress_path_rewrite = settings.HOME_ASSISTANT_USE_X_INGRESS_PATH
+        self.home_assistant_support_enabled = settings.ENABLE_HOME_ASSISTANT_SUPPORT
 
-    def __call__(self, request: HttpRequest):
+    def __wrap_build_absolute_uri(self, request: HttpRequest):
         def wrap_x_ingress_path(org_func):
             if not request.is_homeassistant_ingress_request:
                 return org_func
@@ -105,23 +131,29 @@ class HomeAssistant:
             if x_ingress_path is None:
                 return org_func
 
+            @wraps(org_func)
             def wrapper(*args, **kwargs):
                 url = org_func(*args, **kwargs)
-
                 url_parts = urlsplit(url)
                 url = urlunsplit(
                     url_parts._replace(path=x_ingress_path + url_parts.path)
                 )
-
                 return url
-
             return wrapper
 
-        request.is_homeassistant_ingress_request = (
-            request.headers.get("X-Hass-Source") == "core.ingress"
+        request.build_absolute_uri = wrap_x_ingress_path(
+            request.build_absolute_uri
         )
 
-        if self.use_x_ingress_path_rewrite:
-            request.build_absolute_uri = wrap_x_ingress_path(request.build_absolute_uri)
+    def __call__(self, request: HttpRequest):
+        if self.home_assistant_support_enabled:
+            request.is_homeassistant_ingress_request = (
+                request.headers.get("X-Hass-Source") == "core.ingress"
+            )
+        else:
+            request.is_homeassistant_ingress_request = False
+
+        self.__wrap_build_absolute_uri(request)
 
         return self.get_response(request)
+    
