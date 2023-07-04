@@ -17,9 +17,9 @@ nav:
     - 'configuration/application.md'
     - 'configuration/database.md'
     - 'configuration/email.md'
+    - 'configuration/homeassistant.md'
     - 'configuration/security.md'
     - 'configuration/storage.md'
-    - 'configuration/homeassistant.md'
   - 'User Guide':
     - 'user-guide/getting-started.md'
     - 'user-guide/managing-users.md'
