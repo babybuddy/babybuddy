@@ -253,6 +253,9 @@ class UserAddDevice(LoginRequiredMixin, View):
     qr_code_template = "babybuddy/login_qr_code.txt"
 
     def get(self, request):
+        # Assemble qr_code json-data. For Home Assistant ingress support, we
+        # also need to extract the ingress_session token to allow an external
+        # app to authenticate with home assistant so it can reach baby buddy
         session_cookies = {}
         if request.is_homeassistant_ingress_request:
             session_cookies["ingress_session"] = request.COOKIES.get("ingress_session")
@@ -264,6 +267,9 @@ class UserAddDevice(LoginRequiredMixin, View):
         )
         qr_code_data = qr_code_response.content.decode().strip()
 
+        # Now that the qr_code json-data is assembled, we can pass the json
+        # structure as data to the user_add_device - template where it will
+        # be converted into a qr-code.
         return render(
             request,
             self.template_name,
