@@ -24,3 +24,7 @@ AXES_ENABLED = False
 # See https://github.com/zlorf/django-dbsettings#a-note-about-caching
 
 DBSETTINGS_USE_CACHE = False
+
+# We want to test the home assistant middleware
+
+ENABLE_HOME_ASSISTANT_SUPPORT = True
