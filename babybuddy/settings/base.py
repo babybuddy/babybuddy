@@ -361,4 +361,6 @@ BABY_BUDDY = {
 
 # Home assistant specific configuration
 
-ENABLE_HOME_ASSISTANT_SUPPORT = False
+ENABLE_HOME_ASSISTANT_SUPPORT = bool(
+    strtobool(os.environ.get("ENABLE_HOME_ASSISTANT_SUPPORT") or "False")
+)
