@@ -67,4 +67,6 @@ class HomeAssistantMiddlewareTestCase(TestCase):
         )
         json_response = json.loads(response.content)
 
-        self.assertEqual(json_response["profile"], "http://testserver/magic/sub/url/api/profile")
+        self.assertEqual(
+            json_response["profile"], "http://testserver/magic/sub/url/api/profile"
+        )
