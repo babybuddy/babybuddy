@@ -83,7 +83,7 @@ class PumpingViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PumpingSerializer
     filterset_class = filters.PumpingFilter
     ordering_fields = ("amount", "duration", "end", "start")
-    ordering = "-start"
+    ordering = "-end"
 
 
 class SleepViewSet(viewsets.ModelViewSet):
