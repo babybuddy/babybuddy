@@ -6,7 +6,7 @@ import django.utils.timezone
 
 def set_pumping_start_end_values(apps, schema_editor):
     # The model must be imported to ensure its overridden `save` method is run.
-    from core.models import Pumping
+    Pumping = apps.get_model("core", "Pumping")
 
     for pumping in Pumping.objects.all():
         pumping.start = pumping.time
