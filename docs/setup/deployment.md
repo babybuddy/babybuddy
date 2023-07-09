@@ -87,7 +87,7 @@ requirements are Python, a web server, an application server, and a database.
 
 ### Requirements
 
-- Python 3.7+, pip, pipenv
+- Python 3.8+, pip, pipenv
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database (See [Django's databases documentation](https://docs.djangoproject.com/en/4.2/ref/databases/)).
