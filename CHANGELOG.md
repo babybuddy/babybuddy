@@ -1,6 +1,28 @@
 # Changelog
 
-## [v2.0.0-beta3](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta3) (2023-06-14)
+## [v2.0.0](https://github.com/babybuddy/babybuddy/tree/v2.0.0) (2023-07-09)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0-beta3...v2.0.0)
+
+**Implemented enhancements:**
+
+- \[Enhancement\] Include temperature measurements in timeline [\#662](https://github.com/babybuddy/babybuddy/issues/662)
+- Pumping should have a start time and be creatable from a timer [\#573](https://github.com/babybuddy/babybuddy/issues/573)
+- Use homeassistant X-Ingress-Path for building paths, expose ingress\_session [\#672](https://github.com/babybuddy/babybuddy/pull/672) ([MrApplejuice](https://github.com/MrApplejuice))
+- Add Pumping Duration and Create from Quick Timer [\#665](https://github.com/babybuddy/babybuddy/pull/665) ([johnmerlie](https://github.com/johnmerlie))
+- Add Pumping link to quick-add in navbar  [\#664](https://github.com/babybuddy/babybuddy/pull/664) ([johnmerlie](https://github.com/johnmerlie))
+- Include temperature measurements in timeline [\#663](https://github.com/babybuddy/babybuddy/pull/663) ([abdessamad-el](https://github.com/abdessamad-el))
+
+**Closed issues:**
+
+- Start Time Default to Current Date/Time [\#670](https://github.com/babybuddy/babybuddy/issues/670)
+- Running replica babybuddy containers [\#668](https://github.com/babybuddy/babybuddy/issues/668)
+
+**Merged pull requests:**
+
+- docs: Fix broken link [\#671](https://github.com/babybuddy/babybuddy/pull/671) ([jcgoette](https://github.com/jcgoette))
+
+## [v2.0.0-beta3](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta3) (2023-06-15)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0-beta2...v2.0.0-beta3)
 
@@ -70,7 +92,6 @@
 **Implemented enhancements:**
 
 - PROXY\_HEADER - Documentation update [\#608](https://github.com/babybuddy/babybuddy/issues/608)
-- Feature Request: Store Baby's Schedule/Routine [\#362](https://github.com/babybuddy/babybuddy/issues/362)
 - Add `id` to filter fields for children-api endpoint [\#625](https://github.com/babybuddy/babybuddy/pull/625) ([MrApplejuice](https://github.com/MrApplejuice))
 
 **Fixed bugs:**
@@ -85,6 +106,7 @@
 - Feature Request - Potty Training [\#620](https://github.com/babybuddy/babybuddy/issues/620)
 - Unable to install Baby Buddy in Home Assistant via Add-Ons [\#618](https://github.com/babybuddy/babybuddy/issues/618)
 - Notifications filling each screen even when navigating to another screen [\#616](https://github.com/babybuddy/babybuddy/issues/616)
+- Feature Request: Store Baby's Schedule/Routine [\#362](https://github.com/babybuddy/babybuddy/issues/362)
 
 **Merged pull requests:**
 
