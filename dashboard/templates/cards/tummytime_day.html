@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block listgroup %}
-    <ul class="list-group list-group-flush text-muted small">
+    <ul class="list-group list-group-flush text-body-secondary small">
     {% for instance in instances %}
         <li class="list-group-item">
             {% blocktrans trimmed with duration=instance.duration|duration_string end=instance.end|time %}

@@ -34,7 +34,7 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="card-footer text-muted">
+                    <div class="card-footer text-body-secondary">
                         {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
                             {{ since }} ago ({{ time }})
                         {% endblocktrans %}

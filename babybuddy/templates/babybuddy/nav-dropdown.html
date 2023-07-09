@@ -2,7 +2,7 @@
 {% load babybuddy i18n static timers %}
 
 {% block nav %}
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-md navbar bg-dark sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand me-2" href={% url "babybuddy:root-router" %}>
                 <img src="{% static "babybuddy/logo/icon-brand.png" %}" width="30" height="30"
@@ -13,14 +13,14 @@
             </a>
             <div class="d-lg-none d-md-none d-flex me-auto p-0 ms-2">
                 <div>
-                    <a class="text-muted"
+                    <a class="text-body-secondary"
                        href="{% url 'dashboard:dashboard' %}"
                        aria-expanded="false"><i class="icon-2x icon-dashboard" aria-hidden="true"></i>
                     </a>
                     &nbsp;
                 </div>
                 <div>
-                    <a class="text-muted"
+                    <a class="text-body-secondary"
                        href="{% url 'core:timeline' %}"
                        aria-expanded="false"><i class="icon-2x icon-timeline" aria-hidden="true"></i>
                     </a>

@@ -14,7 +14,7 @@
             {% for feeding in feedings %}
                 <div class="carousel-item{% if forloop.counter == feedings|length %} active{% endif %}">
                     <div class="last-feeding-method text-center">{{ feeding.get_method_display }}</div>
-                    <div class="text-center small text-muted">
+                    <div class="text-center small text-body-secondary">
                         {% if forloop.last %}
                             {% trans "most recent" %}
                         {% else %}
