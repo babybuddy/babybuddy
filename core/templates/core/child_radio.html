@@ -1,5 +1,5 @@
 {% with id=widget.attrs.id %}
-    <div{% if id %} id="{{ id }}"{% endif %} class="btn-group btn-group-toggle" data-toggle="buttons">
+    <div{% if id %} id="{{ id }}"{% endif %} class="btn-group btn-group-toggle" data-bs-toggle="buttons">
         {% for group, options, index in widget.optgroups %}
             {% for option in options %}
                 {% if option.value != '' %}

@@ -11904,7 +11904,7 @@ textarea.form-control-lg {
   --bs-btn-border-radius: 0.2rem;
 }
 
-.dropdown-menu-right {
+.dropdown-menu-end {
   right: 0;
   left: auto;
 }
