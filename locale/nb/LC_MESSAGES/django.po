@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-17 13:37+0000\n"
+"POT-Creation-Date: 2023-07-17 13:48+0000\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -562,8 +562,8 @@ msgstr "Chat / Hjelp"
 #: core/templates/timeline/_timeline.html:7
 #: core/templates/timeline/_timeline.html:71
 #: core/templates/timeline/_timeline.html:73
-#: dashboard/templates/cards/feeding_day.html:46
 #: dashboard/templates/cards/feeding_last_method.html:37
+#: dashboard/templates/cards/feeding_recent.html:46
 #: dashboard/templates/cards/sleep_recent.html:43
 #: dashboard/templates/cards/statistics.html:37
 msgid "Previous"
@@ -574,8 +574,8 @@ msgstr "Tidligere"
 #: core/templates/timeline/_timeline.html:14
 #: core/templates/timeline/_timeline.html:78
 #: core/templates/timeline/_timeline.html:80
-#: dashboard/templates/cards/feeding_day.html:53
 #: dashboard/templates/cards/feeding_last_method.html:44
+#: dashboard/templates/cards/feeding_recent.html:53
 #: dashboard/templates/cards/sleep_recent.html:47
 #: dashboard/templates/cards/statistics.html:44
 msgid "Next"
@@ -1597,10 +1597,10 @@ msgstr "Vis tidtakere"
 #: core/templates/core/timer_nav.html:50
 #: dashboard/templates/cards/diaperchange_last.html:17
 #: dashboard/templates/cards/diaperchange_types.html:12
-#: dashboard/templates/cards/feeding_day.html:20
-#: dashboard/templates/cards/feeding_day.html:58
 #: dashboard/templates/cards/feeding_last.html:17
 #: dashboard/templates/cards/feeding_last_method.html:49
+#: dashboard/templates/cards/feeding_recent.html:20
+#: dashboard/templates/cards/feeding_recent.html:58
 #: dashboard/templates/cards/pumping_last.html:17
 #: dashboard/templates/cards/sleep_last.html:17
 #: dashboard/templates/cards/sleep_naps_day.html:18
@@ -1887,24 +1887,6 @@ msgstr "fast"
 msgid "%(key)s days ago"
 msgstr "%(key) dager siden"
 
-#: dashboard/templates/cards/feeding_day.html:6
-msgid "Today's Feeding"
-msgstr "Mating i dag"
-
-#: dashboard/templates/cards/feeding_day.html:25
-#, python-format
-msgid "%(counter)s feeding"
-msgid_plural "%(counter)s feedings"
-msgstr[0] "%(counter)s mating"
-msgstr[1] "%(counter)s matinger"
-
-#: dashboard/templates/cards/feeding_day.html:32
-#: dashboard/templates/cards/sleep_recent.html:32
-#, fuzzy, python-format
-#| msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
-msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
-msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
-
 #: dashboard/templates/cards/feeding_last.html:6
 msgid "Last Feeding"
 msgstr "Sist mating"
@@ -1923,6 +1905,26 @@ msgid "%(n)s feeding ago"
 msgid_plural "%(n)s feedings ago"
 msgstr[0] "%(n)s mating siden"
 msgstr[1] "%(n)s matinger siden"
+
+#: dashboard/templates/cards/feeding_recent.html:6
+#, fuzzy
+#| msgid "Delete a Feeding"
+msgid "Recent Feedings"
+msgstr "Slett en mating"
+
+#: dashboard/templates/cards/feeding_recent.html:25
+#, python-format
+msgid "%(counter)s feeding"
+msgid_plural "%(counter)s feedings"
+msgstr[0] "%(counter)s mating"
+msgstr[1] "%(counter)s matinger"
+
+#: dashboard/templates/cards/feeding_recent.html:32
+#: dashboard/templates/cards/sleep_recent.html:32
+#, fuzzy, python-format
+#| msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
 
 #: dashboard/templates/cards/pumping_last.html:6
 msgid "Last Pumping"
@@ -2259,6 +2261,9 @@ msgstr "Magetid totalt"
 #: reports/templates/reports/tummytime_duration.html:9
 msgid "Total Tummy Time Durations"
 msgstr "Varighet for magetid totalt"
+
+#~ msgid "Today's Feeding"
+#~ msgstr "Mating i dag"
 
 #~ msgid "Napping"
 #~ msgstr "Middagshvil"

@@ -151,8 +151,8 @@ class TemplateTagsTestCase(TestCase):
         }
         self.assertEqual(data["stats"], stats)
 
-    def test_card_feeding_day(self):
-        data = cards.card_feeding_day(self.context, self.child, self.date)
+    def test_card_feeding_recent(self):
+        data = cards.card_feeding_recent(self.context, self.child, self.date)
         self.assertEqual(data["type"], "feeding")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])

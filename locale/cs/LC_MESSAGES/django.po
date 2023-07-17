@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-17 13:37+0000\n"
+"POT-Creation-Date: 2023-07-17 13:48+0000\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -562,8 +562,8 @@ msgstr "Chat / podpora"
 #: core/templates/timeline/_timeline.html:7
 #: core/templates/timeline/_timeline.html:71
 #: core/templates/timeline/_timeline.html:73
-#: dashboard/templates/cards/feeding_day.html:46
 #: dashboard/templates/cards/feeding_last_method.html:37
+#: dashboard/templates/cards/feeding_recent.html:46
 #: dashboard/templates/cards/sleep_recent.html:43
 #: dashboard/templates/cards/statistics.html:37
 msgid "Previous"
@@ -574,8 +574,8 @@ msgstr "Předchozí"
 #: core/templates/timeline/_timeline.html:14
 #: core/templates/timeline/_timeline.html:78
 #: core/templates/timeline/_timeline.html:80
-#: dashboard/templates/cards/feeding_day.html:53
 #: dashboard/templates/cards/feeding_last_method.html:44
+#: dashboard/templates/cards/feeding_recent.html:53
 #: dashboard/templates/cards/sleep_recent.html:47
 #: dashboard/templates/cards/statistics.html:44
 msgid "Next"
@@ -1587,10 +1587,10 @@ msgstr "Zobrazit časovače"
 #: core/templates/core/timer_nav.html:50
 #: dashboard/templates/cards/diaperchange_last.html:17
 #: dashboard/templates/cards/diaperchange_types.html:12
-#: dashboard/templates/cards/feeding_day.html:20
-#: dashboard/templates/cards/feeding_day.html:58
 #: dashboard/templates/cards/feeding_last.html:17
 #: dashboard/templates/cards/feeding_last_method.html:49
+#: dashboard/templates/cards/feeding_recent.html:20
+#: dashboard/templates/cards/feeding_recent.html:58
 #: dashboard/templates/cards/pumping_last.html:17
 #: dashboard/templates/cards/sleep_last.html:17
 #: dashboard/templates/cards/sleep_naps_day.html:18
@@ -1874,24 +1874,6 @@ msgstr "pevné"
 msgid "%(key)s days ago"
 msgstr "před %(key)s dny"
 
-#: dashboard/templates/cards/feeding_day.html:6
-msgid "Today's Feeding"
-msgstr ""
-
-#: dashboard/templates/cards/feeding_day.html:25
-#, python-format
-msgid "%(counter)s feeding"
-msgid_plural "%(counter)s feedings"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: dashboard/templates/cards/feeding_day.html:32
-#: dashboard/templates/cards/sleep_recent.html:32
-#, python-format
-msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
-msgstr ""
-
 #: dashboard/templates/cards/feeding_last.html:6
 msgid "Last Feeding"
 msgstr "Poslední krmení"
@@ -1911,6 +1893,26 @@ msgid_plural "%(n)s feedings ago"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+#: dashboard/templates/cards/feeding_recent.html:6
+#, fuzzy
+#| msgid "Delete a Feeding"
+msgid "Recent Feedings"
+msgstr "Vymazat krmení"
+
+#: dashboard/templates/cards/feeding_recent.html:25
+#, python-format
+msgid "%(counter)s feeding"
+msgid_plural "%(counter)s feedings"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: dashboard/templates/cards/feeding_recent.html:32
+#: dashboard/templates/cards/sleep_recent.html:32
+#, python-format
+msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+msgstr ""
 
 #: dashboard/templates/cards/pumping_last.html:6
 #, fuzzy

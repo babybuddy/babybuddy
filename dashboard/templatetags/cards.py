@@ -106,8 +106,8 @@ def card_diaperchange_types(context, child, date=None):
     }
 
 
-@register.inclusion_tag("cards/feeding_day.html", takes_context=True)
-def card_feeding_day(context, child, end_date=None):
+@register.inclusion_tag("cards/feeding_recent.html", takes_context=True)
+def card_feeding_recent(context, child, end_date=None):
     """
     Filters Feeding instances to get total amount for a specific date and for 7 days before
     :param child: an instance of the Child model.
