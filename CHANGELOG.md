@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.0.2](https://github.com/babybuddy/babybuddy/tree/v2.0.2) (2023-07-17)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.1...v2.0.2)
+
+**Implemented enhancements:**
+
+- Polish translation via POEditor not included in last updates [\#681](https://github.com/babybuddy/babybuddy/issues/681)
+
+**Fixed bugs:**
+
+- Recent Sleep arrow buttons don't work on v2 dashboard [\#680](https://github.com/babybuddy/babybuddy/issues/680)
+
 ## [v2.0.1](https://github.com/babybuddy/babybuddy/tree/v2.0.1) (2023-07-13)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0...v2.0.1)
@@ -7,6 +19,12 @@
 **Fixed bugs:**
 
 - Quick start timer icon no longer working [\#677](https://github.com/babybuddy/babybuddy/issues/677)
+- Time spans on the timeline page seem 2 years out [\#673](https://github.com/babybuddy/babybuddy/issues/673)
+- Wrong even/odd row coloring on lists with notes [\#615](https://github.com/babybuddy/babybuddy/issues/615)
+
+**Closed issues:**
+
+- Release version 2.0.0 [\#515](https://github.com/babybuddy/babybuddy/issues/515)
 
 ## [v2.0.0](https://github.com/babybuddy/babybuddy/tree/v2.0.0) (2023-07-09)
 
@@ -21,16 +39,10 @@
 - Add Pumping link to quick-add in navbar  [\#664](https://github.com/babybuddy/babybuddy/pull/664) ([johnmerlie](https://github.com/johnmerlie))
 - Include temperature measurements in timeline [\#663](https://github.com/babybuddy/babybuddy/pull/663) ([abdessamad-el](https://github.com/abdessamad-el))
 
-**Fixed bugs:**
-
-- Time spans on the timeline page seem 2 years out [\#673](https://github.com/babybuddy/babybuddy/issues/673)
-- Wrong even/odd row coloring on lists with notes [\#615](https://github.com/babybuddy/babybuddy/issues/615)
-
 **Closed issues:**
 
 - Start Time Default to Current Date/Time [\#670](https://github.com/babybuddy/babybuddy/issues/670)
 - Running replica babybuddy containers [\#668](https://github.com/babybuddy/babybuddy/issues/668)
-- Release version 2.0.0 [\#515](https://github.com/babybuddy/babybuddy/issues/515)
 
 **Merged pull requests:**
 
