@@ -9,7 +9,7 @@
 
 {% block title %}
 {% if sleeps|length > 0 %}
-<div id="sleep-days-carousel" class="carousel slide" data-interval="false">
+<div id="sleep-days-carousel" class="carousel slide" data-bs-interval="false">
     <div class="carousel-inner">
         {% for sleep in sleeps %}
             <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
@@ -38,11 +38,11 @@
         {% endfor %}
     </div>
     {% if sleeps|length > 1 %}
-    <a class="carousel-control-prev" href="#sleep-days-carousel" role="button" data-slide="prev">
+    <a class="carousel-control-prev" href="#sleep-days-carousel" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">{% trans "Previous" %}</span>
     </a>
-    <a class="carousel-control-next" href="#sleep-days-carousel" role="button" data-slide="next">
+    <a class="carousel-control-next" href="#sleep-days-carousel" role="button" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">{% trans "Next" %}</span>
     </a>
