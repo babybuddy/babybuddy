@@ -64,12 +64,6 @@ information and steps below to set up a local development environment for Baby B
     ```shell
     gulp migrate
     ```
-        
-1. Create cache table
-
-    ```shell
-    gulp createcachetable
-    ```
 
 1. Build assets and run the server
 

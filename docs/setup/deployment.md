@@ -66,7 +66,7 @@ application before pushing the babybuddy source code:
 
 ```shell
 CC_PYTHON_BACKEND=uwsgi
-CC_PYTHON_MANAGE_TASKS=migrate, createcachetable
+CC_PYTHON_MANAGE_TASKS=migrate
 CC_PYTHON_MODULE=babybuddy.wsgi:application
 DJANGO_SETTINGS_MODULE=babybuddy.settings.clever-cloud
 SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
@@ -151,7 +151,6 @@ and any number of children).
     ```shell
     export DJANGO_SETTINGS_MODULE=babybuddy.settings.production
     python manage.py migrate
-    python manage.py createcachetable
     ```
 
 9. Set appropriate permissions on the database and data folder
