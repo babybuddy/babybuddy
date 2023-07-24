@@ -57,11 +57,6 @@ for more details about other options and functionality of this command.
 Create a test coverage report. See [`.coveragerc`](https://github.com/babybuddy/babybuddy/tree/master/.coveragerc)
 for default settings information.
 
-### `createcachetable`
-
-Executes Django's `createcachetable` management task. See [django-admin createcachetable](https://docs.djangoproject.com/en/4.0/ref/django-admin/#createcachetable)
-for more details about other options and functionality of this command.
-
 ### `extras`
 
 Copies "extra" files (fonts, images and server root contents) to the build

@@ -273,10 +273,6 @@ gulp.task('compilemessages', () => {
     return _runInPipenv(['python', 'manage.py', 'compilemessages']);
 });
 
-gulp.task('createcachetable', () => {
-    return _runInPipenv(['python', 'manage.py', 'createcachetable']);
-});
-
 gulp.task('fake', () => {
     return _runInPipenv(['python', 'manage.py', 'fake']);
 });

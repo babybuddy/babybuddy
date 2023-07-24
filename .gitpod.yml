@@ -5,8 +5,7 @@ tasks:
       pipenv install --three &&
       npm install -g gulp-cli &&
       npm install &&
-      gulp migrate &&
-      gulp createcachetable
+      gulp migrate
     env:
       DJANGO_SETTINGS_MODULE: babybuddy.settings.gitpod
     command: gulp
