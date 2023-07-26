@@ -1,5 +1,14 @@
 # Changelog
 
+## [v2.0.3](https://github.com/babybuddy/babybuddy/tree/v2.0.3) (2023-07-25)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.2...v2.0.3)
+
+**Fixed bugs:**
+
+- Missing table on fresh 2.0.2 install [\#687](https://github.com/babybuddy/babybuddy/issues/687)
+- Move cache table creation to a migration [\#688](https://github.com/babybuddy/babybuddy/pull/688) ([cdubz](https://github.com/cdubz))
+
 ## [v2.0.2](https://github.com/babybuddy/babybuddy/tree/v2.0.2) (2023-07-17)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.1...v2.0.2)
