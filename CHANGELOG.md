@@ -1,6 +1,14 @@
 # Changelog
 
-## [v2.0.3](https://github.com/babybuddy/babybuddy/tree/v2.0.3) (2023-07-25)
+## [v2.0.4](https://github.com/babybuddy/babybuddy/tree/v2.0.4) (2023-07-29)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.3...v2.0.4)
+
+**Fixed bugs:**
+
+- Unable to login with default information + image uploads fail [\#684](https://github.com/babybuddy/babybuddy/issues/684)
+
+## [v2.0.3](https://github.com/babybuddy/babybuddy/tree/v2.0.3) (2023-07-26)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.2...v2.0.3)
 
