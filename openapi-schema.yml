@@ -1,7 +1,8 @@
 openapi: 3.0.2
 info:
   title: Baby Buddy API
-  version: ''
+  version: 1
+  description: API documentation for the Baby Buddy application
 paths:
   /api/bmi/:
     get:
@@ -618,6 +619,12 @@ paths:
         description: The initial index from which to return the results.
         schema:
           type: integer
+      - name: id
+        required: false
+        in: query
+        description: id
+        schema:
+          type: string
       - name: first_name
         required: false
         in: query
@@ -710,6 +717,12 @@ paths:
         description: ''
         schema:
           type: string
+      - name: id
+        required: false
+        in: query
+        description: id
+        schema:
+          type: string
       - name: first_name
         required: false
         in: query
@@ -757,6 +770,12 @@ paths:
         in: path
         required: true
         description: ''
+        schema:
+          type: string
+      - name: id
+        required: false
+        in: query
+        description: id
         schema:
           type: string
       - name: first_name
@@ -817,6 +836,12 @@ paths:
         in: path
         required: true
         description: ''
+        schema:
+          type: string
+      - name: id
+        required: false
+        in: query
+        description: id
         schema:
           type: string
       - name: first_name
@@ -2009,22 +2034,40 @@ paths:
         description: child
         schema:
           type: string
-      - name: date
+      - name: end
         required: false
         in: query
-        description: DateTime
+        description: End DateTime
         schema:
           type: string
-      - name: date_max
+      - name: end_max
         required: false
         in: query
-        description: Max. DateTime
+        description: Max. End DateTime
         schema:
           type: string
-      - name: date_min
+      - name: end_min
         required: false
         in: query
-        description: Min. DateTime
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
         schema:
           type: string
       - name: ordering
@@ -2101,22 +2144,40 @@ paths:
         description: child
         schema:
           type: string
-      - name: date
+      - name: end
         required: false
         in: query
-        description: DateTime
+        description: End DateTime
         schema:
           type: string
-      - name: date_max
+      - name: end_max
         required: false
         in: query
-        description: Max. DateTime
+        description: Max. End DateTime
         schema:
           type: string
-      - name: date_min
+      - name: end_min
         required: false
         in: query
-        description: Min. DateTime
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
         schema:
           type: string
       - name: ordering
@@ -2150,22 +2211,40 @@ paths:
         description: child
         schema:
           type: string
-      - name: date
+      - name: end
         required: false
         in: query
-        description: DateTime
+        description: End DateTime
         schema:
           type: string
-      - name: date_max
+      - name: end_max
         required: false
         in: query
-        description: Max. DateTime
+        description: Max. End DateTime
         schema:
           type: string
-      - name: date_min
+      - name: end_min
         required: false
         in: query
-        description: Min. DateTime
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
         schema:
           type: string
       - name: ordering
@@ -2210,22 +2289,40 @@ paths:
         description: child
         schema:
           type: string
-      - name: date
+      - name: end
         required: false
         in: query
-        description: DateTime
+        description: End DateTime
         schema:
           type: string
-      - name: date_max
+      - name: end_max
         required: false
         in: query
-        description: Max. DateTime
+        description: Max. End DateTime
         schema:
           type: string
-      - name: date_min
+      - name: end_min
         required: false
         in: query
-        description: Min. DateTime
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
         schema:
           type: string
       - name: ordering
@@ -3087,12 +3184,6 @@ paths:
         description: The initial index from which to return the results.
         schema:
           type: integer
-      - name: active
-        required: false
-        in: query
-        description: active
-        schema:
-          type: string
       - name: child
         required: false
         in: query
@@ -3209,12 +3300,6 @@ paths:
         description: A unique integer value identifying this Timer.
         schema:
           type: string
-      - name: active
-        required: false
-        in: query
-        description: active
-        schema:
-          type: string
       - name: child
         required: false
         in: query
@@ -3286,12 +3371,6 @@ paths:
         in: path
         required: true
         description: A unique integer value identifying this Timer.
-        schema:
-          type: string
-      - name: active
-        required: false
-        in: query
-        description: active
         schema:
           type: string
       - name: child
@@ -3376,12 +3455,6 @@ paths:
         in: path
         required: true
         description: A unique integer value identifying this Timer.
-        schema:
-          type: string
-      - name: active
-        required: false
-        in: query
-        description: active
         schema:
           type: string
       - name: child
@@ -4041,37 +4114,6 @@ paths:
           description: ''
       tags:
       - api
-  /api/timers/{id}/stop/:
-    patch:
-      operationId: stopTimer
-      description: ''
-      parameters:
-      - name: id
-        in: path
-        required: true
-        description: A unique integer value identifying this Timer.
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Timer'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Timer'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Timer'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Timer'
-          description: ''
-      tags:
-      - api
 components:
   schemas:
     BMI:
@@ -4291,9 +4333,16 @@ components:
           type: integer
         amount:
           type: number
-        time:
+        start:
           type: string
           format: date-time
+        end:
+          type: string
+          format: date-time
+        duration:
+          type: string
+          readOnly: true
+          nullable: true
         notes:
           type: string
           nullable: true
@@ -4304,7 +4353,6 @@ components:
       required:
       - child
       - amount
-      - time
     Sleep:
       type: object
       properties:
@@ -4333,8 +4381,8 @@ components:
           readOnly: true
           nullable: true
         nap:
-          type: string
-          readOnly: true
+          type: boolean
+          nullable: true
         notes:
           type: string
           nullable: true
@@ -4401,17 +4449,8 @@ components:
         start:
           type: string
           format: date-time
-        end:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
         duration:
           type: string
-          readOnly: true
-          nullable: true
-        active:
-          type: boolean
           readOnly: true
         user:
           type: integer
