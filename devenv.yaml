@@ -8,5 +8,3 @@ inputs:
         follows: nixpkgs
   mk-shell-bin:
     url: github:rrbutani/nix-mk-shell-bin
-  devenv:
-    url: github:cachix/devenv/python-rewrite

@@ -85,6 +85,4 @@ username and password (`admin`/`admin`).
 1. Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
 username and password (`admin`/`admin`).
 
-This method also lets you generate a docker image from your devenv afterwards using `devenv container shell` https://devenv.sh/containers/ . You can run this docker development image using `devenv container shell --docker-run`
-
-devenv also generates the devcontainer for vscode
+Devenv also generates the devcontainer for vscode, and sets up github codespaces support. To run babybuddy, open a terminal after opening this repo in the devcontainer
