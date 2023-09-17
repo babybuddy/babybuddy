@@ -22,9 +22,9 @@ information and steps below to set up a local development environment for Baby B
     ```shell
     pipenv install --three --dev
     ```
-   
+
     If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
-    
+
 1. Installed Node 18.x (if necessary)
 
     ```shell
@@ -54,7 +54,7 @@ information and steps below to set up a local development environment for Baby B
     ```shell
     export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
     ```
-    
+
     This process will differ based on the host OS. The above example is for
     Linux-based systems. See [Configuration](../configuration/intro.md) for other
     settings and methods for defining them.
@@ -76,3 +76,15 @@ information and steps below to set up a local development environment for Baby B
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
 username and password (`admin`/`admin`).
+
+## Alternative: https://devenv.sh/
+
+1. Install devenv (linux/mac/windows subsystem for linux/docker) via https://devenv.sh/getting-started/
+1. git clone the repo
+1. run `devenv shell`
+1. Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
+username and password (`admin`/`admin`).
+
+This method also lets you generate a docker image from your devenv afterwards using `derenv container shell`
+
+devenv also generates the devcontainer for vscode
