@@ -2,7 +2,9 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "mkhl.direnv"
+        "bbenoist.Nix",
+        "ms-python.python",
+        "batisteo.vscode-django"
       ]
     }
   },

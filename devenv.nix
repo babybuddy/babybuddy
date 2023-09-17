@@ -8,6 +8,7 @@
   packages = [
     pkgs.pipenv
     pkgs.nodejs_18
+    pkgs.nodePackages.gulp
   ];
 
   # https://devenv.sh/scripts/
@@ -15,8 +16,8 @@
   enterShell = ''
     pipenv install --dev
     npm i
-    npx gulp migrate
-    npx gulp
+    gulp migrate
+    gulp
   '';
 
   # https://devenv.sh/languages/
@@ -26,7 +27,14 @@
     npm.install.enable = true;
   };
 
-  devcontainer.enable = true;
+  devcontainer = {
+    enable = true;
+    settings.customizations.vscode.extensions = [
+      "bbenoist.Nix"
+      "ms-python.python"
+      "batisteo.vscode-django"
+    ];
+  };
 
   # services.nginx.enable = true;
 
