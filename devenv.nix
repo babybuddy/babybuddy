@@ -7,9 +7,7 @@
   # https://devenv.sh/packages/
   packages = [
     pkgs.pipenv
-    pkgs.python311
     pkgs.nodejs_18
-    pkgs.glibc
   ];
 
   # https://devenv.sh/scripts/
