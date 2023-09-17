@@ -9,7 +9,7 @@
     pkgs.pipenv
     pkgs.python311
     pkgs.nodejs_18
-    pkgs.glib
+    pkgs.glibc
   ];
 
   # https://devenv.sh/scripts/
@@ -30,7 +30,7 @@
 
   devcontainer.enable = true;
 
-  services.nginx.enable = true;
+  # services.nginx.enable = true;
 
   # See full reference at https://devenv.sh/reference/options/
 }
