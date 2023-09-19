@@ -22,7 +22,9 @@ must also be updated to reflect the change. This is necessary because hosting en
 do not provide adequate support for pipenv. To update the `requirements.txt` file to be in
 sync with the `Pipenv` file run:
 
-      pipenv lock -r > requirements.txt
+```shell
+pipenv requirements > requirements.txt
+```
 
 Add and commit the changes to the `requirements.txt` file.
 

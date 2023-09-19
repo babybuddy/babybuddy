@@ -20,7 +20,6 @@ def update_language_en_us_to_en(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("babybuddy", "0019_alter_settings_timezone"),
     ]

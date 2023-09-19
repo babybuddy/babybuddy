@@ -12,9 +12,9 @@ urlpatterns = [
         name="report-list",
     ),
     path(
-        "children/<str:slug>/reports/pumping/amounts/",
-        views.PumpingAmounts.as_view(),
-        name="report-pumping-amounts-child",
+        "children/<str:slug>/reports/bmi/bmi/",
+        views.BMIChangeChildReport.as_view(),
+        name="report-bmi-change-child",
     ),
     path(
         "children/<str:slug>/reports/changes/amounts/",
@@ -42,6 +42,16 @@ urlpatterns = [
         name="report-feeding-amounts-child",
     ),
     path(
+        "children/<str:slug>/reports/head-circumference/head-circumference/",
+        views.HeadCircumferenceChangeChildReport.as_view(),
+        name="report-head-circumference-change-child",
+    ),
+    path(
+        "children/<str:slug>/reports/height/height/",
+        views.HeightChangeChildReport.as_view(),
+        name="report-height-change-child",
+    ),
+    path(
         "children/<str:slug>/reports/feeding/duration/",
         views.FeedingDurationChildReport.as_view(),
         name="report-feeding-duration-child",
@@ -50,6 +60,11 @@ urlpatterns = [
         "children/<str:slug>/reports/feeding/intervals/",
         views.FeedingIntervalsChildReport.as_view(),
         name="report-feeding-intervals-child",
+    ),
+    path(
+        "children/<str:slug>/reports/pumping/amounts/",
+        views.PumpingAmounts.as_view(),
+        name="report-pumping-amounts-child",
     ),
     path(
         "children/<str:slug>/reports/sleep/pattern/",
@@ -62,28 +77,18 @@ urlpatterns = [
         name="report-sleep-totals-child",
     ),
     path(
-        "children/<str:slug>/reports/tummytime/duration/",
+        "children/<str:slug>/reports/temperature/temperature/",
+        views.TemperatureChangeChildReport.as_view(),
+        name="report-temperature-change-child",
+    ),
+    path(
+        "children/<str:slug>/reports/tummy-time/duration/",
         views.TummyTimeDurationChildReport.as_view(),
-        name="report-tummytime-duration-child",
+        name="report-tummy-time-duration-child",
     ),
     path(
         "children/<str:slug>/reports/weight/weight/",
-        views.WeightWeightChildReport.as_view(),
-        name="report-weight-weight-child",
-    ),
-    path(
-        "children/<str:slug>/reports/height/height/",
-        views.HeightHeightChildReport.as_view(),
-        name="report-height-height-child",
-    ),
-    path(
-        "children/<str:slug>/reports/head-circumference/head-circumference/",
-        views.HeadCircumferenceHeadCircumferenceChildReport.as_view(),
-        name="report-head-circumference-head-circumference-child",
-    ),
-    path(
-        "children/<str:slug>/reports/bmi/bmi/",
-        views.BMIBMIChildReport.as_view(),
-        name="report-bmi-bmi-child",
+        views.WeightChangeChildReport.as_view(),
+        name="report-weight-change-child",
     ),
 ]

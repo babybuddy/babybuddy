@@ -1,6 +1,445 @@
 # Changelog
 
-## [v1.10.2](https://github.com/babybuddy/babybuddy/tree/v1.10.2) (2022-03-03)
+## [v2.0.4](https://github.com/babybuddy/babybuddy/tree/v2.0.4) (2023-07-29)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.3...v2.0.4)
+
+**Fixed bugs:**
+
+- Unable to login with default information + image uploads fail [\#684](https://github.com/babybuddy/babybuddy/issues/684)
+
+## [v2.0.3](https://github.com/babybuddy/babybuddy/tree/v2.0.3) (2023-07-26)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.2...v2.0.3)
+
+**Fixed bugs:**
+
+- Missing table on fresh 2.0.2 install [\#687](https://github.com/babybuddy/babybuddy/issues/687)
+- Move cache table creation to a migration [\#688](https://github.com/babybuddy/babybuddy/pull/688) ([cdubz](https://github.com/cdubz))
+
+## [v2.0.2](https://github.com/babybuddy/babybuddy/tree/v2.0.2) (2023-07-17)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.1...v2.0.2)
+
+**Implemented enhancements:**
+
+- Polish translation via POEditor not included in last updates [\#681](https://github.com/babybuddy/babybuddy/issues/681)
+
+**Fixed bugs:**
+
+- Recent Sleep arrow buttons don't work on v2 dashboard [\#680](https://github.com/babybuddy/babybuddy/issues/680)
+
+## [v2.0.1](https://github.com/babybuddy/babybuddy/tree/v2.0.1) (2023-07-13)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0...v2.0.1)
+
+**Fixed bugs:**
+
+- Quick start timer icon no longer working [\#677](https://github.com/babybuddy/babybuddy/issues/677)
+- Time spans on the timeline page seem 2 years out [\#673](https://github.com/babybuddy/babybuddy/issues/673)
+- Wrong even/odd row coloring on lists with notes [\#615](https://github.com/babybuddy/babybuddy/issues/615)
+
+**Closed issues:**
+
+- Release version 2.0.0 [\#515](https://github.com/babybuddy/babybuddy/issues/515)
+
+## [v2.0.0](https://github.com/babybuddy/babybuddy/tree/v2.0.0) (2023-07-09)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0-beta3...v2.0.0)
+
+**Implemented enhancements:**
+
+- \[Enhancement\] Include temperature measurements in timeline [\#662](https://github.com/babybuddy/babybuddy/issues/662)
+- Pumping should have a start time and be creatable from a timer [\#573](https://github.com/babybuddy/babybuddy/issues/573)
+- Use homeassistant X-Ingress-Path for building paths, expose ingress\_session [\#672](https://github.com/babybuddy/babybuddy/pull/672) ([MrApplejuice](https://github.com/MrApplejuice))
+- Add Pumping Duration and Create from Quick Timer [\#665](https://github.com/babybuddy/babybuddy/pull/665) ([johnmerlie](https://github.com/johnmerlie))
+- Add Pumping link to quick-add in navbar  [\#664](https://github.com/babybuddy/babybuddy/pull/664) ([johnmerlie](https://github.com/johnmerlie))
+- Include temperature measurements in timeline [\#663](https://github.com/babybuddy/babybuddy/pull/663) ([abdessamad-el](https://github.com/abdessamad-el))
+
+**Closed issues:**
+
+- Start Time Default to Current Date/Time [\#670](https://github.com/babybuddy/babybuddy/issues/670)
+- Running replica babybuddy containers [\#668](https://github.com/babybuddy/babybuddy/issues/668)
+
+**Merged pull requests:**
+
+- docs: Fix broken link [\#671](https://github.com/babybuddy/babybuddy/pull/671) ([jcgoette](https://github.com/jcgoette))
+
+## [v2.0.0-beta3](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta3) (2023-06-15)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0-beta2...v2.0.0-beta3)
+
+**Fixed bugs:**
+
+- Nap field always False when adding Sleep entries via API [\#657](https://github.com/babybuddy/babybuddy/issues/657)
+- Timeline shows wrong time since events happened [\#648](https://github.com/babybuddy/babybuddy/issues/648)
+
+**Closed issues:**
+
+- nginx: \[emerg\] no "events" section in configuration [\#659](https://github.com/babybuddy/babybuddy/issues/659)
+- Feed update appears to reset the breast selection [\#658](https://github.com/babybuddy/babybuddy/issues/658)
+
+## [v2.0.0-beta2](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta2) (2023-06-05)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v2.0.0-beta1...v2.0.0-beta2)
+
+**Implemented enhancements:**
+
+- Overlapping Times Error if Entries Have Same HH:MM [\#619](https://github.com/babybuddy/babybuddy/issues/619)
+- Make nap user toggleable [\#513](https://github.com/babybuddy/babybuddy/issues/513)
+- display 0 minutes ago on dashboard when event is less than 1 minute old [\#649](https://github.com/babybuddy/babybuddy/pull/649) ([abdessamad-el](https://github.com/abdessamad-el))
+- 513: Make nap user toggleable [\#641](https://github.com/babybuddy/babybuddy/pull/641) ([cdubz](https://github.com/cdubz))
+
+**Fixed bugs:**
+
+- Migration fails for `0028_alter_sleep_options_remove_sleep_napping_sleep_nap` if something in "set\_sleep\_nap\_values" is None [\#644](https://github.com/babybuddy/babybuddy/issues/644)
+- Events less than 1 minute old show incorrect "time ago" on dashboard [\#628](https://github.com/babybuddy/babybuddy/issues/628)
+- Fix dependency for hand-written migration 0028 [\#645](https://github.com/babybuddy/babybuddy/pull/645) ([MrApplejuice](https://github.com/MrApplejuice))
+
+**Closed issues:**
+
+- Failed to save "Diaper change" [\#651](https://github.com/babybuddy/babybuddy/issues/651)
+- Failed to start when using Home Assistant add-on  [\#646](https://github.com/babybuddy/babybuddy/issues/646)
+- Loading Baby Buddy in iframe [\#643](https://github.com/babybuddy/babybuddy/issues/643)
+- Make error more helpful when entering conflicting/bad data [\#542](https://github.com/babybuddy/babybuddy/issues/542)
+
+**Merged pull requests:**
+
+- New PostgreSQL database requirement with BabyBuddy 1.16.0 / Django 4.2 [\#654](https://github.com/babybuddy/babybuddy/pull/654) ([ldrouard](https://github.com/ldrouard))
+
+## [v2.0.0-beta1](https://github.com/babybuddy/babybuddy/tree/v2.0.0-beta1) (2023-05-03)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.16.0...v2.0.0-beta1)
+
+**Implemented enhancements:**
+
+- Move nap start min and max environment variables to site settings [\#639](https://github.com/babybuddy/babybuddy/issues/639)
+- Create method for managing application-level settings [\#637](https://github.com/babybuddy/babybuddy/issues/637)
+- Use browser native datetime handling [\#636](https://github.com/babybuddy/babybuddy/issues/636)
+- Delete \(instead of deactivate\) completed timers [\#109](https://github.com/babybuddy/babybuddy/issues/109)
+
+**Closed issues:**
+
+- Remove `USE_24_HOUR_TIME_FORMAT` option \(rely on `datetime-local` form fields\) [\#638](https://github.com/babybuddy/babybuddy/issues/638)
+- Upgrade to Bootstrap 5 [\#635](https://github.com/babybuddy/babybuddy/issues/635)
+- Remove `TIME_ZONE` environment variable configuration [\#301](https://github.com/babybuddy/babybuddy/issues/301)
+
+**Merged pull requests:**
+
+- v2 [\#627](https://github.com/babybuddy/babybuddy/pull/627) ([cdubz](https://github.com/cdubz))
+
+## [v1.16.0](https://github.com/babybuddy/babybuddy/tree/v1.16.0) (2023-05-03)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.15.1...v1.16.0)
+
+**Implemented enhancements:**
+
+- PROXY\_HEADER - Documentation update [\#608](https://github.com/babybuddy/babybuddy/issues/608)
+- Add `id` to filter fields for children-api endpoint [\#625](https://github.com/babybuddy/babybuddy/pull/625) ([MrApplejuice](https://github.com/MrApplejuice))
+
+**Fixed bugs:**
+
+- Birth date when adding time does not format correctly  [\#631](https://github.com/babybuddy/babybuddy/issues/631)
+
+**Closed issues:**
+
+- DOC : new value to SECURE\_PROXY\_SSL\_HEADER [\#632](https://github.com/babybuddy/babybuddy/issues/632)
+- new feature : add wash the baby activity [\#630](https://github.com/babybuddy/babybuddy/issues/630)
+- Hide unused fields from dashboard [\#622](https://github.com/babybuddy/babybuddy/issues/622)
+- Feature Request - Potty Training [\#620](https://github.com/babybuddy/babybuddy/issues/620)
+- Unable to install Baby Buddy in Home Assistant via Add-Ons [\#618](https://github.com/babybuddy/babybuddy/issues/618)
+- Notifications filling each screen even when navigating to another screen [\#616](https://github.com/babybuddy/babybuddy/issues/616)
+- Feature Request: Store Baby's Schedule/Routine [\#362](https://github.com/babybuddy/babybuddy/issues/362)
+
+**Merged pull requests:**
+
+- Add django-specific notes for PROXY\_HEADER config [\#609](https://github.com/babybuddy/babybuddy/pull/609) ([p-b--](https://github.com/p-b--))
+
+## [v1.15.1](https://github.com/babybuddy/babybuddy/tree/v1.15.1) (2023-03-18)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.15.0...v1.15.1)
+
+**Fixed bugs:**
+
+- Changing display up till time brings up persistent 500 server error [\#613](https://github.com/babybuddy/babybuddy/issues/613)
+- Non-staff users get 403 error unless given superuser privileges [\#605](https://github.com/babybuddy/babybuddy/issues/605)
+
+## [v1.15.0](https://github.com/babybuddy/babybuddy/tree/v1.15.0) (2023-02-20)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.14.0...v1.15.0)
+
+**Implemented enhancements:**
+
+- Additional Dashboard Tile - Pumping [\#601](https://github.com/babybuddy/babybuddy/issues/601)
+- Implement ordering support in API [\#588](https://github.com/babybuddy/babybuddy/issues/588)
+- Implement user types in users management form [\#563](https://github.com/babybuddy/babybuddy/issues/563)
+- Improve user permissions structure [\#544](https://github.com/babybuddy/babybuddy/issues/544)
+- Indicate user locked state and allow unlocking from users admin [\#449](https://github.com/babybuddy/babybuddy/issues/449)
+- Add a last pumping dashboard card [\#604](https://github.com/babybuddy/babybuddy/pull/604) ([cdubz](https://github.com/cdubz))
+- Indicate user locked state and allow unlocking from users admin [\#600](https://github.com/babybuddy/babybuddy/pull/600) ([cdubz](https://github.com/cdubz))
+- Add DRF's OrderingFilter to list of default filter backends to implement ordering in the API [\#598](https://github.com/babybuddy/babybuddy/pull/598) ([btoconnor](https://github.com/btoconnor))
+- Implement user types in users management form [\#597](https://github.com/babybuddy/babybuddy/pull/597) ([cdubz](https://github.com/cdubz))
+
+**Fixed bugs:**
+
+- Today's Feedings should be rounded [\#595](https://github.com/babybuddy/babybuddy/issues/595)
+- In Portuguese: events created from timers don't inherit times \(start/end\) [\#532](https://github.com/babybuddy/babybuddy/issues/532)
+- DateTime fields don't load the current values or fail to validate in some languages [\#498](https://github.com/babybuddy/babybuddy/issues/498)
+- Unit tests fail on fresh dev install on Ubuntu [\#483](https://github.com/babybuddy/babybuddy/issues/483)
+- Use Django's floatformat on today's feeding total [\#596](https://github.com/babybuddy/babybuddy/pull/596) ([btoconnor](https://github.com/btoconnor))
+
+**Closed issues:**
+
+- Can't add event in the future [\#579](https://github.com/babybuddy/babybuddy/issues/579)
+
+## [v1.14.0](https://github.com/babybuddy/babybuddy/tree/v1.14.0) (2023-01-30)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.2...v1.14.0)
+
+**Implemented enhancements:**
+
+- Issue with Tummy time graph bar [\#556](https://github.com/babybuddy/babybuddy/issues/556)
+- Improve asset minification [\#492](https://github.com/babybuddy/babybuddy/issues/492)
+- Add "user guide" to documentation [\#377](https://github.com/babybuddy/babybuddy/issues/377)
+- Timer view should show today's totals [\#294](https://github.com/babybuddy/babybuddy/issues/294)
+- FR/Question: Is it possible to make a read-only user/dashboard? [\#70](https://github.com/babybuddy/babybuddy/issues/70)
+- Add tags to Pumping model [\#590](https://github.com/babybuddy/babybuddy/pull/590) ([btoconnor](https://github.com/btoconnor))
+- Add temperature to reports [\#585](https://github.com/babybuddy/babybuddy/pull/585) ([pgazda](https://github.com/pgazda))
+- Allow setting `CSRF_COOKIE_SECURE` and `SESSION_COOKIE_SECURE` via env vars [\#577](https://github.com/babybuddy/babybuddy/pull/577) ([tpansino](https://github.com/tpansino))
+- Add condition on tummytime-duration.py in order to display hours when… [\#561](https://github.com/babybuddy/babybuddy/pull/561) ([Anoerak](https://github.com/Anoerak))
+- 544 - Improve user permissions structure [\#551](https://github.com/babybuddy/babybuddy/pull/551) ([earthcomfy](https://github.com/earthcomfy))
+- feat: minify vendor.js [\#550](https://github.com/babybuddy/babybuddy/pull/550) ([mikejgray](https://github.com/mikejgray))
+- Extra API endpoints and login qr-code for app integration [\#524](https://github.com/babybuddy/babybuddy/pull/524) ([MrApplejuice](https://github.com/MrApplejuice))
+
+**Fixed bugs:**
+
+- Passwords set by non-interactive createuser don't work [\#562](https://github.com/babybuddy/babybuddy/issues/562)
+- Issue with vertical axis in Sleep Pattern [\#554](https://github.com/babybuddy/babybuddy/issues/554)
+- Pumping graph entries do not line up with totals \(time zone issue?\) [\#523](https://github.com/babybuddy/babybuddy/issues/523)
+- Select list options intermittently invisible when used as a PWA iOS 15+ [\#381](https://github.com/babybuddy/babybuddy/issues/381)
+- 562 - Fix empty password bug in createuser command [\#564](https://github.com/babybuddy/babybuddy/pull/564) ([earthcomfy](https://github.com/earthcomfy))
+- Corrections to last\_end\_time made to correctly calculate and display … [\#560](https://github.com/babybuddy/babybuddy/pull/560) ([garyglatfelter](https://github.com/garyglatfelter))
+- resolves \#523 [\#546](https://github.com/babybuddy/babybuddy/pull/546) ([garyglatfelter](https://github.com/garyglatfelter))
+
+**Closed issues:**
+
+- Enhancement: Add support for tracking weaning? [\#591](https://github.com/babybuddy/babybuddy/issues/591)
+- Home Assistant - Rest command to log feeding [\#586](https://github.com/babybuddy/babybuddy/issues/586)
+- Pumping entries should be taggable [\#584](https://github.com/babybuddy/babybuddy/issues/584)
+- Unable to add feeding [\#572](https://github.com/babybuddy/babybuddy/issues/572)
+- Unable to create Feeding during DST overlap [\#570](https://github.com/babybuddy/babybuddy/issues/570)
+- Issue with winter/summer time [\#557](https://github.com/babybuddy/babybuddy/issues/557)
+- Enhancement: Feeding method - add "nanny fed" [\#507](https://github.com/babybuddy/babybuddy/issues/507)
+- Add LDAP as authentication backend [\#202](https://github.com/babybuddy/babybuddy/issues/202)
+- Timer for medicine [\#200](https://github.com/babybuddy/babybuddy/issues/200)
+- Add ARCHITECTURE.md file [\#196](https://github.com/babybuddy/babybuddy/issues/196)
+- Track other baby care tasks \(bathing, nail trimming...\) [\#176](https://github.com/babybuddy/babybuddy/issues/176)
+- Ability to track Medicine [\#153](https://github.com/babybuddy/babybuddy/issues/153)
+
+**Merged pull requests:**
+
+- test: Remove out of date comment [\#571](https://github.com/babybuddy/babybuddy/pull/571) ([jcgoette](https://github.com/jcgoette))
+- Misc updates [\#569](https://github.com/babybuddy/babybuddy/pull/569) ([cdubz](https://github.com/cdubz))
+
+## [v1.13.2](https://github.com/babybuddy/babybuddy/tree/v1.13.2) (2022-10-15)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.1...v1.13.2)
+
+**Implemented enhancements:**
+
+- Staff users added via CLI should also be superuser [\#543](https://github.com/babybuddy/babybuddy/issues/543)
+
+## [v1.13.1](https://github.com/babybuddy/babybuddy/tree/v1.13.1) (2022-10-13)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.13.0...v1.13.1)
+
+**Fixed bugs:**
+
+- Database Admin: 500 Error v1.13.0 [\#540](https://github.com/babybuddy/babybuddy/issues/540)
+
+## [v1.13.0](https://github.com/babybuddy/babybuddy/tree/v1.13.0) (2022-10-12)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.2...v1.13.0)
+
+**Implemented enhancements:**
+
+- Dutch Translations updated on POEditor [\#535](https://github.com/babybuddy/babybuddy/issues/535)
+- Delete Inactive Timers shouldn't appear if there are no timer entries [\#533](https://github.com/babybuddy/babybuddy/issues/533)
+- Create a user add management command [\#528](https://github.com/babybuddy/babybuddy/issues/528)
+- French translations updated on POEditor [\#521](https://github.com/babybuddy/babybuddy/issues/521)
+- Allow REMOTE\_USER authentication  [\#517](https://github.com/babybuddy/babybuddy/issues/517)
+- "Recently used" shouldn't appear if no tags were recently used [\#470](https://github.com/babybuddy/babybuddy/issues/470)
+- Minutes instead of minutos in Spanish [\#468](https://github.com/babybuddy/babybuddy/issues/468)
+- \#468  Minutes instead of minutos in Spanish [\#538](https://github.com/babybuddy/babybuddy/pull/538) ([jmunoz94](https://github.com/jmunoz94))
+- 533 - Delete Inactive Timers shouldn't appear if there are no timer entries [\#537](https://github.com/babybuddy/babybuddy/pull/537) ([earthcomfy](https://github.com/earthcomfy))
+- 470 - "Recently used" shouldn't appear if no tags were recently used [\#536](https://github.com/babybuddy/babybuddy/pull/536) ([earthcomfy](https://github.com/earthcomfy))
+- 528 - Create a user add management command [\#534](https://github.com/babybuddy/babybuddy/pull/534) ([earthcomfy](https://github.com/earthcomfy))
+- Add forward auth by way of remote user [\#531](https://github.com/babybuddy/babybuddy/pull/531) ([EnsuingRequiem](https://github.com/EnsuingRequiem))
+- Install GNU gettext at gitpod startup [\#519](https://github.com/babybuddy/babybuddy/pull/519) ([amorphobia](https://github.com/amorphobia))
+- Update Chinese translations [\#518](https://github.com/babybuddy/babybuddy/pull/518) ([amorphobia](https://github.com/amorphobia))
+
+**Fixed bugs:**
+
+- Data mismatch [\#520](https://github.com/babybuddy/babybuddy/issues/520)
+- Data mismatch - Issue \#520 [\#527](https://github.com/babybuddy/babybuddy/pull/527) ([matthieu-kr](https://github.com/matthieu-kr))
+
+**Closed issues:**
+
+- Feeding via API returns 400 [\#522](https://github.com/babybuddy/babybuddy/issues/522)
+
+**Merged pull requests:**
+
+- Dokku [\#526](https://github.com/babybuddy/babybuddy/pull/526) ([cdubz](https://github.com/cdubz))
+
+## [v1.12.2](https://github.com/babybuddy/babybuddy/tree/v1.12.2) (2022-08-04)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.1...v1.12.2)
+
+**Fixed bugs:**
+
+- Ver 1.12.1 regression - date is reversed with en\_gb locale  [\#516](https://github.com/babybuddy/babybuddy/issues/516)
+
+**Closed issues:**
+
+- Nap vs sleep [\#503](https://github.com/babybuddy/babybuddy/issues/503)
+- Possible to manually assign nap / sleep? [\#323](https://github.com/babybuddy/babybuddy/issues/323)
+- UI needs work [\#32](https://github.com/babybuddy/babybuddy/issues/32)
+
+## [v1.12.1](https://github.com/babybuddy/babybuddy/tree/v1.12.1) (2022-08-04)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.12.0...v1.12.1)
+
+**Implemented enhancements:**
+
+- Add a way to set the SMTP configuration [\#499](https://github.com/babybuddy/babybuddy/issues/499)
+- 🚸 adds a child quick switch in breadcrumb [\#511](https://github.com/babybuddy/babybuddy/pull/511) ([jljouannic](https://github.com/jljouannic))
+- Add a way to set the SMTP configuration [\#506](https://github.com/babybuddy/babybuddy/pull/506) ([cdubz](https://github.com/cdubz))
+
+**Fixed bugs:**
+
+- Set default date during picker initialization [\#505](https://github.com/babybuddy/babybuddy/pull/505) ([cdubz](https://github.com/cdubz))
+
+**Closed issues:**
+
+- One user does not see the "Pumping entry" menu, the other one does [\#493](https://github.com/babybuddy/babybuddy/issues/493)
+- Move demo and PR deploys to new service [\#462](https://github.com/babybuddy/babybuddy/issues/462)
+
+## [v1.12.0](https://github.com/babybuddy/babybuddy/tree/v1.12.0) (2022-07-28)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.2...v1.12.0)
+
+**Implemented enhancements:**
+
+- Improves Quick Start Timer UX in multiple children case [\#500](https://github.com/babybuddy/babybuddy/pull/500) ([jljouannic](https://github.com/jljouannic))
+- Adds settings file and documentation to deploy on clever cloud [\#495](https://github.com/babybuddy/babybuddy/pull/495) ([jljouannic](https://github.com/jljouannic))
+- Radio buttons for child selection [\#494](https://github.com/babybuddy/babybuddy/pull/494) ([jljouannic](https://github.com/jljouannic))
+
+**Closed issues:**
+
+- "Child" dropdown intermittently not accessible when used in PWA mode on iOS [\#501](https://github.com/babybuddy/babybuddy/issues/501)
+- Fix for Django Framework SQL Injection vulnerability [\#496](https://github.com/babybuddy/babybuddy/issues/496)
+- Re-enable Python cache in CI [\#256](https://github.com/babybuddy/babybuddy/issues/256)
+
+## [v1.11.2](https://github.com/babybuddy/babybuddy/tree/v1.11.2) (2022-06-28)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.1...v1.11.2)
+
+**Implemented enhancements:**
+
+- Sleep history [\#485](https://github.com/babybuddy/babybuddy/pull/485) ([DanBeard](https://github.com/DanBeard))
+
+**Fixed bugs:**
+
+- Unable to add tags to notes via API [\#488](https://github.com/babybuddy/babybuddy/issues/488)
+- Use Taggit serializer for taggable models [\#489](https://github.com/babybuddy/babybuddy/pull/489) ([cdubz](https://github.com/cdubz))
+- Fix 500 in sleep pattern [\#487](https://github.com/babybuddy/babybuddy/pull/487) ([kejadlen](https://github.com/kejadlen))
+- Fix dayssince sometimes being off by 1 day depending on timezone [\#484](https://github.com/babybuddy/babybuddy/pull/484) ([DanBeard](https://github.com/DanBeard))
+
+## [v1.11.1](https://github.com/babybuddy/babybuddy/tree/v1.11.1) (2022-06-13)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.11.0...v1.11.1)
+
+**Implemented enhancements:**
+
+- Use local timezone for pumping graph data [\#478](https://github.com/babybuddy/babybuddy/pull/478) ([appletalk](https://github.com/appletalk))
+- Add i18n for `dayssince` filter [\#477](https://github.com/babybuddy/babybuddy/pull/477) ([amorphobia](https://github.com/amorphobia))
+- ✨ adds support for other S3-like providers [\#476](https://github.com/babybuddy/babybuddy/pull/476) ([jljouannic](https://github.com/jljouannic))
+- Add `timer` field data to OpenAPI schema [\#474](https://github.com/babybuddy/babybuddy/pull/474) ([cdubz](https://github.com/cdubz))
+- Handle plurals with `count` tag [\#473](https://github.com/babybuddy/babybuddy/pull/473) ([amorphobia](https://github.com/amorphobia))
+- Add carousel of last 7 days of feedings to the todays feeding card [\#450](https://github.com/babybuddy/babybuddy/pull/450) ([DanBeard](https://github.com/DanBeard))
+
+**Fixed bugs:**
+
+- "No notes found" background doesn't extend to the Tags column [\#469](https://github.com/babybuddy/babybuddy/issues/469)
+- Can't filter notes by capitalized tags [\#467](https://github.com/babybuddy/babybuddy/issues/467)
+- Fix list view classes and colspans and re-sort menu items [\#481](https://github.com/babybuddy/babybuddy/pull/481) ([cdubz](https://github.com/cdubz))
+- Fix filtering not working for capitalized tags [\#480](https://github.com/babybuddy/babybuddy/pull/480) ([Alberdi](https://github.com/Alberdi))
+
+**Closed issues:**
+
+- Handle plurals with `count` tag of `blocktrans` [\#472](https://github.com/babybuddy/babybuddy/issues/472)
+- Missing "timer" field documentation in openapi schema [\#439](https://github.com/babybuddy/babybuddy/issues/439)
+- Feature request: Support for tea and water as feeding type [\#432](https://github.com/babybuddy/babybuddy/issues/432)
+
+**Merged pull requests:**
+
+- Update Spanish translations [\#466](https://github.com/babybuddy/babybuddy/pull/466) ([Alberdi](https://github.com/Alberdi))
+- Use bash script for Procfile [\#465](https://github.com/babybuddy/babybuddy/pull/465) ([cdubz](https://github.com/cdubz))
+- Update Chinese translations [\#464](https://github.com/babybuddy/babybuddy/pull/464) ([amorphobia](https://github.com/amorphobia))
+
+## [v1.11.0](https://github.com/babybuddy/babybuddy/tree/v1.11.0) (2022-05-28)
+
+[Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.10.2...v1.11.0)
+
+**Implemented enhancements:**
+
+- Diaper change frequency statistics [\#425](https://github.com/babybuddy/babybuddy/issues/425)
+- Tagging refinements [\#415](https://github.com/babybuddy/babybuddy/issues/415)
+- Track crying and bedtime [\#412](https://github.com/babybuddy/babybuddy/issues/412)
+- Feature suggestion: Add user editable tags to "notes"-sections [\#380](https://github.com/babybuddy/babybuddy/issues/380)
+- Feature Request: track milk pumping [\#159](https://github.com/babybuddy/babybuddy/issues/159)
+- Allow end of feeding to be in the future [\#443](https://github.com/babybuddy/babybuddy/pull/443) ([myxor](https://github.com/myxor))
+- change api date filter to datetime filter [\#442](https://github.com/babybuddy/babybuddy/pull/442) ([jcgoette](https://github.com/jcgoette))
+- Defaults some models to now [\#438](https://github.com/babybuddy/babybuddy/pull/438) ([jcgoette](https://github.com/jcgoette))
+- Add Catalan language support [\#436](https://github.com/babybuddy/babybuddy/pull/436) ([cdubz](https://github.com/cdubz))
+- Further improve german translations [\#433](https://github.com/babybuddy/babybuddy/pull/433) ([myxor](https://github.com/myxor))
+- Allow diaper change without any contents [\#431](https://github.com/babybuddy/babybuddy/pull/431) ([myxor](https://github.com/myxor))
+- Add import/export support to new models + tag filtering in Database Admin [\#430](https://github.com/babybuddy/babybuddy/pull/430) ([cdubz](https://github.com/cdubz))
+- Add tag filtering support to API [\#429](https://github.com/babybuddy/babybuddy/pull/429) ([cdubz](https://github.com/cdubz))
+- Add diaper change stats for 3 days and 2 weeks [\#427](https://github.com/babybuddy/babybuddy/pull/427) ([myxor](https://github.com/myxor))
+- Update german translations [\#422](https://github.com/babybuddy/babybuddy/pull/422) ([myxor](https://github.com/myxor))
+- Show tags in lists [\#416](https://github.com/babybuddy/babybuddy/pull/416) ([MrApplejuice](https://github.com/MrApplejuice))
+- Add tags support to most things [\#414](https://github.com/babybuddy/babybuddy/pull/414) ([MrApplejuice](https://github.com/MrApplejuice))
+- Add breastpump measurement [\#409](https://github.com/babybuddy/babybuddy/pull/409) ([bugbountyguy](https://github.com/bugbountyguy))
+- Tagging [\#396](https://github.com/babybuddy/babybuddy/pull/396) ([MrApplejuice](https://github.com/MrApplejuice))
+
+**Fixed bugs:**
+
+- Photos of children not found after upgrade to v1.10.0 [\#400](https://github.com/babybuddy/babybuddy/issues/400)
+- Fix link to translation documentation [\#420](https://github.com/babybuddy/babybuddy/pull/420) ([myxor](https://github.com/myxor))
+- Fix KeyError at /children/x/reports/sleep/pattern/ [\#445](https://github.com/babybuddy/babybuddy/pull/445) ([myxor](https://github.com/myxor))
+
+**Closed issues:**
+
+- Feature Request : Ability to add custom activities. [\#455](https://github.com/babybuddy/babybuddy/issues/455)
+- API endpoint list missing port? [\#446](https://github.com/babybuddy/babybuddy/issues/446)
+- Sleep Pattern giving 500 Internal Server Error [\#440](https://github.com/babybuddy/babybuddy/issues/440)
+- catalan translation [\#434](https://github.com/babybuddy/babybuddy/issues/434)
+- Diaper change without wet/solid  [\#426](https://github.com/babybuddy/babybuddy/issues/426)
+- "Failed to install add-on" in Home Assistant due to "non-zero code" [\#423](https://github.com/babybuddy/babybuddy/issues/423)
+- Update import/export support for new models [\#421](https://github.com/babybuddy/babybuddy/issues/421)
+- Sleep Patterns showing a 500 error - Exception Type: KeyError [\#417](https://github.com/babybuddy/babybuddy/issues/417)
+- 500 error when trying to login / 'attempt to write a readonly database' in the logs [\#411](https://github.com/babybuddy/babybuddy/issues/411)
+
+**Merged pull requests:**
+
+- Integrate with Render.com [\#457](https://github.com/babybuddy/babybuddy/pull/457) ([cdubz](https://github.com/cdubz))
+- fix leading spaces [\#437](https://github.com/babybuddy/babybuddy/pull/437) ([jcgoette](https://github.com/jcgoette))
+- Improve test coverage [\#458](https://github.com/babybuddy/babybuddy/pull/458) ([cdubz](https://github.com/cdubz))
+- fix typo [\#452](https://github.com/babybuddy/babybuddy/pull/452) ([adamaze](https://github.com/adamaze))
+- fastforward openapi-schema [\#441](https://github.com/babybuddy/babybuddy/pull/441) ([jcgoette](https://github.com/jcgoette))
+
+## [v1.10.2](https://github.com/babybuddy/babybuddy/tree/v1.10.2) (2022-03-04)
 
 [Full Changelog](https://github.com/babybuddy/babybuddy/compare/v1.10.1...v1.10.2)
 
@@ -15,15 +454,15 @@
 
 **Fixed bugs:**
 
+- "Time since" using Django time zone and not user time zone [\#178](https://github.com/babybuddy/babybuddy/issues/178)
 - v1.9.0 update to manual timer edit makes mobile UX worse [\#385](https://github.com/babybuddy/babybuddy/issues/385)
 - Graph selection has unreachable areas on mobile [\#379](https://github.com/babybuddy/babybuddy/issues/379)
-- "Time since" using Django time zone and not user time zone [\#178](https://github.com/babybuddy/babybuddy/issues/178)
 
 **Closed issues:**
 
-- HTTPS doesn't seem to be working...? [\#406](https://github.com/babybuddy/babybuddy/issues/406)
 - Add documentation about proxy setup [\#394](https://github.com/babybuddy/babybuddy/issues/394)
 - Remove/Change Drop-down Options [\#389](https://github.com/babybuddy/babybuddy/issues/389)
+- HTTPS doesn't seem to be working...? [\#406](https://github.com/babybuddy/babybuddy/issues/406)
 
 ## [v1.10.1](https://github.com/babybuddy/babybuddy/tree/v1.10.1) (2022-02-22)
 
@@ -62,7 +501,7 @@
 - Fix German translation mistake [\#368](https://github.com/babybuddy/babybuddy/pull/368) ([MrApplejuice](https://github.com/MrApplejuice))
 - Add timer restart and stop triggers to REST-API [\#367](https://github.com/babybuddy/babybuddy/pull/367) ([MrApplejuice](https://github.com/MrApplejuice))
 - Optional last name [\#361](https://github.com/babybuddy/babybuddy/pull/361) ([Alberdi](https://github.com/Alberdi))
-- Add Height, Head Circumference, and BMI [\#360](https://github.com/babybuddy/babybuddy/pull/360) ([Daegalus](https://github.com/Daegalus))
+- Add Height, Head Circumference, and BMI [\#360](https://github.com/babybuddy/babybuddy/pull/360) ([daegalus](https://github.com/daegalus))
 - Improve iOS webapp/clip/pwa experience [\#359](https://github.com/babybuddy/babybuddy/pull/359) ([cdubz](https://github.com/cdubz))
 - Convert envir variables that are supposed to be boolean to boolean [\#356](https://github.com/babybuddy/babybuddy/pull/356) ([MagiX13](https://github.com/MagiX13))
 

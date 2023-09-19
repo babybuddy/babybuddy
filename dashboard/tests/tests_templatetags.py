@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytz
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
 
@@ -24,7 +24,7 @@ class TemplateTagsTestCase(TestCase):
     def setUpClass(cls):
         super(TemplateTagsTestCase, cls).setUpClass()
         cls.child = models.Child.objects.first()
-        cls.context = {"request": MockUserRequest(User.objects.first())}
+        cls.context = {"request": MockUserRequest(get_user_model().objects.first())}
 
         # Ensure timezone matches the one defined by fixtures.
         user_timezone = Settings.objects.first().timezone
@@ -35,14 +35,14 @@ class TemplateTagsTestCase(TestCase):
         cls.date = timezone.make_aware(date)
 
     def test_hide_empty(self):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_empty = True
         context = {"request": request}
         hide_empty = cards._hide_empty(context)
         self.assertTrue(hide_empty)
 
     def test_filter_data_age_none(self):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_age = None
         context = {"request": request}
         filter_data_age = cards._filter_data_age(context)
@@ -50,7 +50,7 @@ class TemplateTagsTestCase(TestCase):
 
     @mock.patch("dashboard.templatetags.cards.timezone")
     def test_filter_data_age_one_day(self, mocked_timezone):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
         context = {"request": request}
         mocked_timezone.localtime.return_value = timezone.localtime().strptime(
@@ -79,7 +79,7 @@ class TemplateTagsTestCase(TestCase):
 
     @mock.patch("dashboard.templatetags.cards.timezone")
     def test_card_diaperchange_last_filter_age(self, mocked_timezone):
-        request = MockUserRequest(User.objects.first())
+        request = MockUserRequest(get_user_model().objects.first())
         request.user.settings.dashboard_hide_age = timezone.timedelta(days=1)
         context = {"request": request}
         time = timezone.localtime().strptime("2017-11-10", "%Y-%m-%d")
@@ -151,13 +151,22 @@ class TemplateTagsTestCase(TestCase):
         }
         self.assertEqual(data["stats"], stats)
 
-    def test_card_feeding_day(self):
-        data = cards.card_feeding_day(self.context, self.child, self.date)
+    def test_card_feeding_recent(self):
+        data = cards.card_feeding_recent(self.context, self.child, self.date)
         self.assertEqual(data["type"], "feeding")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
-        self.assertEqual(data["total"], 2.5)
-        self.assertEqual(data["count"], 3)
+        # most recent day
+        self.assertEqual(data["feedings"][0]["total"], 2.5)
+        self.assertEqual(data["feedings"][0]["count"], 3)
+
+        # yesterday
+        self.assertEqual(data["feedings"][1]["total"], 0.25)
+        self.assertEqual(data["feedings"][1]["count"], 1)
+
+        # last day
+        self.assertEqual(data["feedings"][-1]["total"], 20.0)
+        self.assertEqual(data["feedings"][-1]["count"], 2)
 
     def test_card_feeding_last(self):
         data = cards.card_feeding_last(self.context, self.child)
@@ -179,6 +188,14 @@ class TemplateTagsTestCase(TestCase):
             data["feedings"][2].method, models.Feeding.objects.first().method
         )
 
+    def test_card_pumping_last(self):
+        data = cards.card_pumping_last(self.context, self.child)
+        self.assertEqual(data["type"], "pumping")
+        self.assertFalse(data["empty"])
+        self.assertFalse(data["hide_empty"])
+        self.assertIsInstance(data["pumping"], models.Pumping)
+        self.assertEqual(data["pumping"], models.Pumping.objects.first())
+
     def test_card_sleep_last(self):
         data = cards.card_sleep_last(self.context, self.child)
         self.assertEqual(data["type"], "sleep")
@@ -195,20 +212,23 @@ class TemplateTagsTestCase(TestCase):
         self.assertFalse(data["hide_empty"])
 
     def test_card_sleep_day(self):
-        data = cards.card_sleep_day(self.context, self.child, self.date)
+        data = cards.card_sleep_recent(self.context, self.child, self.date)
         self.assertEqual(data["type"], "sleep")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
-        self.assertEqual(data["total"], timezone.timedelta(2, 7200))
-        self.assertEqual(data["count"], 4)
+        self.assertEqual(data["sleeps"][0]["total"], timezone.timedelta(seconds=43200))
+        self.assertEqual(data["sleeps"][0]["count"], 3)
+
+        self.assertEqual(data["sleeps"][1]["total"], timezone.timedelta(seconds=30600))
+        self.assertEqual(data["sleeps"][1]["count"], 1)
 
     def test_card_sleep_naps_day(self):
         data = cards.card_sleep_naps_day(self.context, self.child, self.date)
         self.assertEqual(data["type"], "sleep")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
-        self.assertEqual(data["total"], timezone.timedelta(0, 9000))
-        self.assertEqual(data["count"], 2)
+        self.assertEqual(data["total"], timezone.timedelta(0, 7200))
+        self.assertEqual(data["count"], 1)
 
     def test_card_statistics(self):
         data = cards.card_statistics(self.context, self.child)
@@ -246,23 +266,23 @@ class TemplateTagsTestCase(TestCase):
             },
             {
                 "type": "duration",
-                "stat": timezone.timedelta(0, 7200),
+                "stat": timezone.timedelta(days=1, seconds=46980),
                 "title": "Feeding frequency",
             },
             {
                 "title": "Average nap duration",
-                "stat": timezone.timedelta(0, 4500),
+                "stat": timezone.timedelta(0, 6300),
                 "type": "duration",
             },
-            {"title": "Average naps per day", "stat": 2.0, "type": "float"},
+            {"title": "Average naps per day", "stat": 1.0, "type": "float"},
             {
                 "title": "Average sleep duration",
-                "stat": timezone.timedelta(0, 6750),
+                "stat": timezone.timedelta(0, 19800),
                 "type": "duration",
             },
             {
                 "title": "Average awake duration",
-                "stat": timezone.timedelta(0, 19200),
+                "stat": timezone.timedelta(0, 18000),
                 "type": "duration",
             },
             {"title": "Weight change per week", "stat": 1.0, "type": "float"},
@@ -280,7 +300,7 @@ class TemplateTagsTestCase(TestCase):
         self.assertFalse(data["hide_empty"])
 
     def test_card_timer_list(self):
-        user = User.objects.first()
+        user = get_user_model().objects.first()
         child = models.Child.objects.first()
         child_two = models.Child.objects.create(
             first_name="Child", last_name="Two", birth_date=timezone.localdate()
@@ -303,7 +323,7 @@ class TemplateTagsTestCase(TestCase):
 
         data = cards.card_timer_list(self.context)
         self.assertIsInstance(data["instances"][0], models.Timer)
-        self.assertEqual(len(data["instances"]), 3)
+        self.assertEqual(len(data["instances"]), 4)
 
         data = cards.card_timer_list(self.context, child)
         self.assertIsInstance(data["instances"][0], models.Timer)

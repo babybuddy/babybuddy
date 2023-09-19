@@ -2,7 +2,7 @@
 import pytz
 
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -14,7 +14,7 @@ from rest_framework.authtoken.models import Token
 
 
 class Settings(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     dashboard_refresh_rate = models.DurationField(
         verbose_name=_("Refresh rate"),
         help_text=_(
@@ -94,12 +94,12 @@ class Settings(models.Model):
         return None
 
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=get_user_model())
 def create_user_settings(sender, instance, created, **kwargs):
     if created:
         Settings.objects.create(user=instance)
 
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=get_user_model())
 def save_user_settings(sender, instance, **kwargs):
     instance.settings.save()

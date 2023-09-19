@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("core", "0020_bmi_tags_diaperchange_tags_feeding_tags_and_more"),
     ]

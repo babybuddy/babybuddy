@@ -1,0 +1,28 @@
+name: Setup
+description: Set up Baby Buddy environment and dependencies.
+inputs:
+  python-version:
+    description: 'What Python version to use.'
+    required: false
+    default: '3.x'
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Pipenv
+      shell: bash
+      run: pipx install pipenv
+    - uses: actions/setup-python@v4
+      id: setup-python
+      with:
+        python-version: ${{ inputs.python-version }}
+        cache: 'pipenv'
+        cache-dependency-path: 'requirements.txt'
+    - name: Install Python dependencies
+      shell: bash
+      run: pipenv install --dev
+    - name: Print installed dependency versions
+      shell: bash
+      run: pipenv graph
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18

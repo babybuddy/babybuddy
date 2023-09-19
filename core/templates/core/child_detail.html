@@ -1,11 +1,13 @@
 {% extends 'babybuddy/page.html' %}
-{% load duration i18n imagekit static %}
+{% load breadcrumb duration i18n imagekit static %}
 
 {% block title %}{{ object }}{% endblock %}
 
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">{% trans "Children" %}</a></li>
-    <li class="breadcrumb-item font-weight-bold">{{ object }}</li>
+    <li class="breadcrumb-item fw-bold">
+        {% child_quick_switch object 'core:child' %}
+    </li>
 {% endblock %}
 
 {% block content %}

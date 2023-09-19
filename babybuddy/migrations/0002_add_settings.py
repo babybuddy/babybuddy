@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.db import migrations
 
 
 def add_settings(apps, schema_editor):
     Settings = apps.get_model("babybuddy", "Settings")
-    User = apps.get_model("auth", "User")
+    User = apps.get_model(settings.AUTH_USER_MODEL)
     for user in User.objects.all():
         if Settings.objects.filter(user=user).count() == 0:
-            settings = Settings.objects.create(user=user)
-            settings.save()
+            user_settings = Settings.objects.create(user=user)
+            user_settings.save()
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

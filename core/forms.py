@@ -5,7 +5,11 @@ from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+from taggit.forms import TagField
+
+from babybuddy.widgets import DateInput, DateTimeInput
 from core import models
+from core.widgets import TagsEditor, ChildRadioSelect
 
 
 def set_initial_values(kwargs, form_type):
@@ -41,7 +45,7 @@ def set_initial_values(kwargs, form_type):
     if timer_id:
         timer = models.Timer.objects.get(id=timer_id)
         kwargs["initial"].update(
-            {"timer": timer, "start": timer.start, "end": timer.end or timezone.now()}
+            {"timer": timer, "start": timer.start, "end": timezone.now()}
         )
 
     # Set type and method values for Feeding instance based on last feed.
@@ -58,7 +62,20 @@ def set_initial_values(kwargs, form_type):
                 last_feed_args["method"] = last_method
             kwargs["initial"].update(last_feed_args)
 
-    # Remove custom kwargs so they do not interfere with `super` calls.
+    # Set default "nap" value for Sleep instances.
+    if form_type == SleepForm and "nap" not in kwargs["initial"]:
+        try:
+            start = timezone.localtime(kwargs["initial"]["start"]).time()
+        except KeyError:
+            start = timezone.localtime().time()
+        nap = (
+            models.Sleep.settings.nap_start_min
+            <= start
+            <= models.Sleep.settings.nap_start_max
+        )
+        kwargs["initial"].update({"nap": nap})
+
+    # Remove custom kwargs, so they do not interfere with `super` calls.
     for key in ["child", "timer"]:
         try:
             kwargs.pop(key)
@@ -80,7 +97,7 @@ class CoreModelForm(forms.ModelForm):
         instance = super(CoreModelForm, self).save(commit=False)
         if self.timer_id:
             timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop(instance.end)
+            timer.stop()
         if commit:
             instance.save()
             self.save_m2m()
@@ -94,12 +111,7 @@ class ChildForm(forms.ModelForm):
         if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
             fields.append("picture")
         widgets = {
-            "birth_date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "birth_date": DateInput(),
         }
 
 
@@ -124,103 +136,81 @@ class ChildDeleteForm(forms.ModelForm):
         return instance
 
 
-class PumpingForm(CoreModelForm):
+class TaggableModelForm(forms.ModelForm):
+    tags = TagField(
+        widget=TagsEditor,
+        required=False,
+        strip=True,
+        help_text=_(
+            "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
+        ),
+    )
+
+
+class PumpingForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Pumping
-        fields = ["child", "amount", "time", "notes"]
+        fields = ["child", "start", "end", "amount", "notes", "tags"]
         widgets = {
-            "time": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
-class DiaperChangeForm(CoreModelForm):
+class DiaperChangeForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.DiaperChange
         fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
         widgets = {
-            "time": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
-                }
-            ),
+            "child": ChildRadioSelect(),
+            "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
-class FeedingForm(CoreModelForm):
+class FeedingForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Feeding
         fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
         widgets = {
-            "start": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
-                }
-            ),
-            "end": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
-class NoteForm(CoreModelForm):
+class NoteForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Note
         fields = ["child", "note", "time", "tags"]
         widgets = {
-            "time": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "time": DateTimeInput(),
         }
 
 
-class SleepForm(CoreModelForm):
+class SleepForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Sleep
-        fields = ["child", "start", "end", "notes", "tags"]
+        fields = ["child", "start", "end", "nap", "notes", "tags"]
         widgets = {
-            "start": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
-                }
-            ),
-            "end": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
-class TemperatureForm(CoreModelForm):
+class TemperatureForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Temperature
         fields = ["child", "temperature", "time", "notes", "tags"]
         widgets = {
-            "time": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_time",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -230,12 +220,8 @@ class TimerForm(CoreModelForm):
         model = models.Timer
         fields = ["child", "name", "start"]
         widgets = {
-            "start": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
-                }
-            )
+            "child": ChildRadioSelect,
+            "start": DateTimeInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -249,82 +235,57 @@ class TimerForm(CoreModelForm):
         return instance
 
 
-class TummyTimeForm(CoreModelForm):
+class TummyTimeForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.TummyTime
         fields = ["child", "start", "end", "milestone", "tags"]
         widgets = {
-            "start": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_start",
-                }
-            ),
-            "end": forms.DateTimeInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_end",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
         }
 
 
-class WeightForm(CoreModelForm):
+class WeightForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Weight
         fields = ["child", "weight", "date", "notes", "tags"]
         widgets = {
-            "date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
-class HeightForm(CoreModelForm):
+class HeightForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Height
         fields = ["child", "height", "date", "notes", "tags"]
         widgets = {
-            "date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
-class HeadCircumferenceForm(CoreModelForm):
+class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.HeadCircumference
         fields = ["child", "head_circumference", "date", "notes", "tags"]
         widgets = {
-            "date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
-class BMIForm(CoreModelForm):
+class BMIForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.BMI
         fields = ["child", "bmi", "date", "notes", "tags"]
         widgets = {
-            "date": forms.DateInput(
-                attrs={
-                    "autocomplete": "off",
-                    "data-target": "#datetimepicker_date",
-                }
-            ),
+            "child": ChildRadioSelect,
+            "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 

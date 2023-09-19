@@ -1,0 +1,4 @@
+{% load i18n widget_tweaks babybuddy qr_code %}
+{% url 'babybuddy:root-router' as relative_root_url %}
+{% make_absolute_url relative_root_url as absolute_root_url %}
+BABYBUDDY-LOGIN:{"url":"{{ absolute_root_url }}","api_key":"{{ user.settings.api_key }}","session_cookies":{{ session_cookies|safe }}}

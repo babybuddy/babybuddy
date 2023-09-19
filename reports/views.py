@@ -7,6 +7,24 @@ from core import models
 from . import graphs
 
 
+class BMIChangeChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of BMI change over time.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/bmi_change.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(BMIChangeChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        objects = models.BMI.objects.filter(child=child)
+        if objects:
+            context["html"], context["js"] = graphs.bmi_change(objects)
+        return context
+
+
 class ChildReportList(PermissionRequiredMixin, DetailView):
     """
     Listing of available reports for a child.
@@ -15,24 +33,6 @@ class ChildReportList(PermissionRequiredMixin, DetailView):
     model = models.Child
     permission_required = ("core.view_child",)
     template_name = "reports/report_list.html"
-
-
-class PumpingAmounts(PermissionRequiredMixin, DetailView):
-    """
-    Graph of pumping milk amounts collected.
-    """
-
-    model = models.Child
-    permission_required = ("core.view_child",)
-    template_name = "reports/pumping_amounts.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(PumpingAmounts, self).get_context_data(**kwargs)
-        child = context["object"]
-        changes = models.Pumping.objects.filter(child=child)
-        if changes and changes.count() > 0:
-            context["html"], context["js"] = graphs.pumping_amounts(changes)
-        return context
 
 
 class DiaperChangeAmounts(PermissionRequiredMixin, DetailView):
@@ -175,6 +175,65 @@ class FeedingIntervalsChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
+class HeadCircumferenceChangeChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of head circumference change over time.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/head_circumference_change.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HeadCircumferenceChangeChildReport, self).get_context_data(
+            **kwargs
+        )
+        child = context["object"]
+        objects = models.HeadCircumference.objects.filter(child=child)
+        if objects:
+            (
+                context["html"],
+                context["js"],
+            ) = graphs.head_circumference_change(objects)
+        return context
+
+
+class HeightChangeChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of height change over time.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/height_change.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HeightChangeChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        objects = models.Height.objects.filter(child=child)
+        if objects:
+            context["html"], context["js"] = graphs.height_change(objects)
+        return context
+
+
+class PumpingAmounts(PermissionRequiredMixin, DetailView):
+    """
+    Graph of pumping milk amounts collected.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/pumping_amounts.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PumpingAmounts, self).get_context_data(**kwargs)
+        child = context["object"]
+        changes = models.Pumping.objects.filter(child=child)
+        if changes and changes.count() > 0:
+            context["html"], context["js"] = graphs.pumping_amounts(changes)
+        return context
+
+
 class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of sleep pattern comparing sleep to wake times by day.
@@ -221,6 +280,24 @@ class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
+class TemperatureChangeChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of temperature change over time.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/temperature_change.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(TemperatureChangeChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        objects = models.Temperature.objects.filter(child=child)
+        if objects:
+            context["html"], context["js"] = graphs.temperature_change(objects)
+        return context
+
+
 class TummyTimeDurationChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of tummy time durations over time.
@@ -244,7 +321,7 @@ class TummyTimeDurationChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
-class WeightWeightChildReport(PermissionRequiredMixin, DetailView):
+class WeightChangeChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of weight change over time.
     """
@@ -254,70 +331,9 @@ class WeightWeightChildReport(PermissionRequiredMixin, DetailView):
     template_name = "reports/weight_change.html"
 
     def get_context_data(self, **kwargs):
-        context = super(WeightWeightChildReport, self).get_context_data(**kwargs)
+        context = super(WeightChangeChildReport, self).get_context_data(**kwargs)
         child = context["object"]
         objects = models.Weight.objects.filter(child=child)
         if objects:
-            context["html"], context["js"] = graphs.weight_weight(objects)
-        return context
-
-
-class HeightHeightChildReport(PermissionRequiredMixin, DetailView):
-    """
-    Graph of height change over time.
-    """
-
-    model = models.Child
-    permission_required = ("core.view_child",)
-    template_name = "reports/height_change.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(HeightHeightChildReport, self).get_context_data(**kwargs)
-        child = context["object"]
-        objects = models.Height.objects.filter(child=child)
-        if objects:
-            context["html"], context["js"] = graphs.height_height(objects)
-        return context
-
-
-class HeadCircumferenceHeadCircumferenceChildReport(
-    PermissionRequiredMixin, DetailView
-):
-    """
-    Graph of head circumference change over time.
-    """
-
-    model = models.Child
-    permission_required = ("core.view_child",)
-    template_name = "reports/head_circumference_change.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(
-            HeadCircumferenceHeadCircumferenceChildReport, self
-        ).get_context_data(**kwargs)
-        child = context["object"]
-        objects = models.HeadCircumference.objects.filter(child=child)
-        if objects:
-            (
-                context["html"],
-                context["js"],
-            ) = graphs.head_circumference_head_circumference(objects)
-        return context
-
-
-class BMIBMIChildReport(PermissionRequiredMixin, DetailView):
-    """
-    Graph of BMI change over time.
-    """
-
-    model = models.Child
-    permission_required = ("core.view_child",)
-    template_name = "reports/bmi_change.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(BMIBMIChildReport, self).get_context_data(**kwargs)
-        child = context["object"]
-        objects = models.BMI.objects.filter(child=child)
-        if objects:
-            context["html"], context["js"] = graphs.bmi_bmi(objects)
+            context["html"], context["js"] = graphs.weight_change(objects)
         return context

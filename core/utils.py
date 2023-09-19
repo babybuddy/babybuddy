@@ -1,6 +1,31 @@
 # -*- coding: utf-8 -*-
+import random
+
 from django.utils import timezone
 from django.utils.translation import ngettext
+
+random.seed()
+
+COLORS = [
+    "#ff0000",
+    "#00ff00",
+    "#0000ff",
+    "#ff00ff",
+    "#ffff00",
+    "#00ffff",
+    "#ff7f7f",
+    "#7fff7f",
+    "#7f7fff",
+    "#ff7fff",
+    "#ffff7f",
+    "#7fffff",
+    "#7f0000",
+    "#007f00",
+    "#00007f",
+    "#7f007f",
+    "#7f7f00",
+    "#007f7f",
+]
 
 
 def duration_string(duration, precision="s"):
@@ -13,7 +38,7 @@ def duration_string(duration, precision="s"):
     duration = ""
     if h > 0:
         duration = ngettext("%(hours)s hour", "%(hours)s hours", h) % {"hours": h}
-    if m > 0 and precision != "h":
+    if m >= 0 and precision != "h":
         if duration != "":
             duration += ", "
         duration += ngettext("%(minutes)s minute", "%(minutes)s minutes", m) % {
@@ -37,3 +62,7 @@ def duration_parts(duration):
     h += duration.days * 24
     m, s = divmod(remainder, 60)
     return h, m, s
+
+
+def random_color():
+    return COLORS[random.randrange(0, len(COLORS))]

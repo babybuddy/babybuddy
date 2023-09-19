@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import Client as HttpClient, override_settings, TestCase
 from django.utils import timezone
 
-from faker import Factory
+from faker import Faker
 
 
 class FormsTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         super(FormsTestCase, cls).setUpClass()
-        fake = Factory.create()
+        fake = Faker()
         call_command("migrate", verbosity=0)
         call_command("fake", verbosity=0)
 
@@ -24,7 +25,20 @@ class FormsTestCase(TestCase):
             "username": fake_user["username"],
             "password": fake.password(),
         }
-        cls.user = User.objects.create_user(is_superuser=True, **cls.credentials)
+        cls.user = get_user_model().objects.create_user(
+            is_superuser=True, **cls.credentials
+        )
+
+        cls.user_template = {
+            "username": "username",
+            "first_name": "User",
+            "last_name": "Name",
+            "email": "user@user.user",
+            "is_staff": False,
+            "is_read_only": False,
+            "password1": "d47o8dD&#hu3ulu3",
+            "password2": "d47o8dD&#hu3ulu3",
+        }
 
         cls.settings_template = {
             "first_name": "User",
@@ -72,20 +86,12 @@ class FormsTestCase(TestCase):
         self.user.is_staff = True
         self.user.save()
         self.c.login(**self.credentials)
-
-        params = {
-            "username": "username",
-            "first_name": "User",
-            "last_name": "Name",
-            "email": "user@user.user",
-            "password1": "d47o8dD&#hu3ulu3",
-            "password2": "d47o8dD&#hu3ulu3",
-        }
+        params = self.user_template.copy()
 
         page = self.c.post("/users/add/", params)
         self.assertEqual(page.status_code, 302)
-        new_user = User.objects.get(username="username")
-        self.assertIsInstance(new_user, User)
+        new_user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(new_user, get_user_model())
 
         params["first_name"] = "Changed"
         page = self.c.post("/users/{}/edit/".format(new_user.id), params)
@@ -95,7 +101,68 @@ class FormsTestCase(TestCase):
 
         page = self.c.post("/users/{}/delete/".format(new_user.id))
         self.assertEqual(page.status_code, 302)
-        self.assertQuerysetEqual(User.objects.filter(username="username"), [])
+        self.assertQuerysetEqual(
+            get_user_model().objects.filter(username="username"), []
+        )
+
+    def test_add_regular_user(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(user, get_user_model())
+        self.assertTrue(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
+
+    def test_add_staff_user(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params["is_staff"] = True
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(user, get_user_model())
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
+
+    def test_add_read_only_user(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params["is_read_only"] = True
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(user, get_user_model())
+        self.assertFalse(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
 
     def test_user_settings(self):
         self.c.login(**self.credentials)
@@ -110,16 +177,32 @@ class FormsTestCase(TestCase):
     def test_user_regenerate_api_key(self):
         self.c.login(**self.credentials)
 
-        api_key_before = User.objects.get(pk=self.user.id).settings.api_key()
+        api_key_before = (
+            get_user_model().objects.get(pk=self.user.id).settings.api_key()
+        )
 
         params = self.settings_template.copy()
         params["api_key_regenerate"] = "Regenerate"
 
         page = self.c.post("/user/settings/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertNotEqual(
-            api_key_before, User.objects.get(pk=self.user.id).settings.api_key()
-        )
+        new_api_key = get_user_model().objects.get(pk=self.user.id).settings.api_key()
+        self.assertNotEqual(api_key_before, new_api_key)
+
+        # API key can also be regenerated on the add-device page
+        api_key_before = new_api_key
+        params = {"api_key_regenerate": "Regenerate"}
+        page = self.c.post("/user/add-device/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        new_api_key = get_user_model().objects.get(pk=self.user.id).settings.api_key()
+        self.assertNotEqual(api_key_before, new_api_key)
+
+    def test_invalid_post_to_add_device(self):
+        self.c.login(**self.credentials)
+        page = self.c.get("/user/add-device/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.post("/user/add-device/", params={"garbage": True}, follow=True)
+        self.assertEqual(page.status_code, 400)
 
     def test_user_settings_invalid(self):
         self.c.login(**self.credentials)
@@ -137,13 +220,12 @@ class FormsTestCase(TestCase):
         params = self.settings_template.copy()
         params["language"] = "fr"
         page = self.c.post("/user/settings/", data=params, follow=True)
-        self.assertContains(page, "Paramètres Utilisateur")
+        self.assertContains(page, "Paramètres utilisateur")
 
-    @override_settings(TIME_ZONE="US/Eastern")
     def test_user_settings_timezone(self):
         self.c.login(**self.credentials)
 
-        self.assertEqual(timezone.get_default_timezone_name(), "US/Eastern")
+        self.assertEqual(timezone.get_default_timezone_name(), "UTC")
         params = self.settings_template.copy()
         params["timezone"] = "US/Pacific"
         page = self.c.post("/user/settings/", data=params, follow=True)

@@ -26,7 +26,9 @@ def sleep_pattern(sleeps):
     last_end_time = None
     adjustment = None
 
-    days = _init_days(sleeps.first().start, sleeps.last().end)
+    first_day = timezone.localtime(sleeps.first().start)
+    last_day = timezone.localtime(sleeps.last().end)
+    days = _init_days(first_day, last_day)
 
     for sleep in sleeps:
         start_time = timezone.localtime(sleep.start)
@@ -61,6 +63,10 @@ def sleep_pattern(sleeps):
                 second=0,
             )
             duration = end_time - start_time
+
+        if last_end_time:
+            if last_end_time.date() < start_time.date():
+                last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
         if not last_end_time:
             last_end_time = start_time.replace(hour=0, minute=0, second=0)
@@ -190,6 +196,8 @@ def _add_adjustment(adjustment, days):
     :param blocks: List of days
     """
     column = adjustment.pop("column")
+    if not column in days:
+        days[column] = []
     # Fake (0) entry to keep the color switching logic working.
     days[column].append({"time": 0, "label": 0})
 

@@ -40,15 +40,6 @@ the language. If it does:
 
     2. Build, collect, and commit the `/static` folder (see [`gulp updatestatic`](gulp-command-reference.md#updatestatic)).
 
-1. Check if Moment offers a translation (in `node_modules/moment/locale/`) for
-the language. If it does:
-
-    1. Add the Moment translation file path to [`gulpfile.config.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.config.js)
-       in `scriptsConfig.vendor`.
-
-    2. Build, collect, and commit the `/static` folder (see 
-    [`gulp updatestatic`](gulp-command-reference.md#updatestatic)).
-
 1. Run the development server, log in, and update the user language to test the
 newly translated strings.
 

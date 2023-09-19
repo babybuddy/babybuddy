@@ -3,14 +3,16 @@
 
 {% block header %}
     <a href="{% url "core:timer-list" %}">
-        {% trans "Active Timers" %}
+        {% trans "Timers" %}
     </a>
 {% endblock %}
 
 {% block title %}
     {% with instances|length as count %}
-        {% blocktrans trimmed with plural=count|pluralize %}
-            {{ count }} active timer{{ plural }}
+        {% blocktrans trimmed count counter=count %}
+            {{ count }} timer
+        {% plural %}
+            {{ count }} timers
         {% endblocktrans %}
     {% endwith %}
 {% endblock %}
@@ -21,7 +23,7 @@
         <a href="{% url 'core:timer-detail' timer.id %}"
            class="list-group-item list-group-item-action">
             <strong>{{ timer.title_with_child }}</strong>
-            <p class="text-muted small m-0">
+            <p class="text-body-secondary small m-0">
                 {% blocktrans trimmed with start=timer.start|time user=timer.user_username %}
                     Started by {{ user }} at {{ start }}
                 {% endblocktrans %}

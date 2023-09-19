@@ -1,5 +1,54 @@
-@import 'functions';
-@import '../../../node_modules/bootstrap/scss/variables';
-@import 'themes/blueorange';
+@use 'sass:color';
 
-// Baby Buddy site-wide variables.
+// Theme variables.
+
+// Color system
+
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000;
+
+$primary: #37abe9;
+$danger: #a72431;
+$error: $danger;
+$secondary: #ff8f00;
+$warning: #ffbe42;
+$success: #239556;
+$debug: #5abccc;
+$info: #44c4dd;
+$light: $gray-100;
+$dark: $gray-800;
+
+
+// Links
+
+$link-color: $info;
+$link-decoration: none;
+$link-hover-color: color.adjust($link-color, $lightness: -15%);
+
+
+// Components
+
+$border-color: $gray-200;
+$component-active-color: $gray-400;
+$component-active-bg: $primary;
+
+
+// Tables
+
+$table-cell-padding-y: 0.75rem;
+$table-cell-padding-x: 0.75rem;
+$table-striped-bg: $dark;
+
+// Breadcrumbs
+
+$breadcrumb-padding-y: 0.75rem;
+$breadcrumb-padding-x: 1rem;

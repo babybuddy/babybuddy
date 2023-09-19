@@ -1,4 +1,4 @@
-# Subdirectory configuration
+# Subdirectory
 
 Baby Buddy's default configuration assumes deployment in to the root of a web server.
 Some additional configuration is required to install Baby Buddy in a subdirectory of a
@@ -10,7 +10,7 @@ Baby Buddy added full support for subdirectory installing in version **1.10.2**.
 it is still possible to do a subdirectory installation in older versions of Baby Buddy
 it is not recommended.
 
-## [`SUB_PATH`](../configuration#sub_path)
+## [`SUB_PATH`](../configuration/application.md#sub_path)
 
 Set this environment variable to the subdirectory of the Baby Buddy installation. E.g.,
 `SUB_PATH=/babybuddy` if the desired URL is `http://www.example.com/babybuddy`).
@@ -28,7 +28,7 @@ paths used in these examples also assume a configuration based on the
 ### uWSGI
 
 In the app configuration replace the `module` declaration with a `mount` declaration and
-add the `manage-script-name` declaration and [`SUB_PATH`](../configuration#sub_path)
+add the `manage-script-name` declaration and [`SUB_PATH`](../configuration/application.md#sub_path)
 environment variable to the `[uwsgi]` configuration block.
 
 ``` diff

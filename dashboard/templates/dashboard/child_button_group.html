@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="child-actions btn-group btn-group-lg border rounded border-light bg-dark center-block" role="group" aria-label="{% trans "Child actions" %}">
+<div class="child-actions btn-group btn-group-lg border rounded border-light bg center-block" role="group" aria-label="{% trans "Child actions" %}">
 
     {% if perms.core.view_child %}
         <a href="{% url 'dashboard:dashboard-child' object.slug %}" class="btn" title="{% trans "Dashboard" %}">

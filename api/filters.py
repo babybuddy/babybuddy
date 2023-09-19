@@ -62,11 +62,6 @@ class StartEndFieldFilter(ChildFieldFilter):
         )
 
 
-class PumpingFilter(TimeFieldFilter):
-    class Meta(TimeFieldFilter.Meta):
-        model = models.Pumping
-
-
 class DiaperChangeFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.DiaperChange
@@ -86,6 +81,11 @@ class NoteFilter(TimeFieldFilter, TagsFieldFilter):
         model = models.Note
 
 
+class PumpingFilter(StartEndFieldFilter):
+    class Meta(StartEndFieldFilter.Meta):
+        model = models.Pumping
+
+
 class SleepFilter(StartEndFieldFilter, TagsFieldFilter):
     class Meta(StartEndFieldFilter.Meta):
         model = models.Sleep
@@ -99,7 +99,7 @@ class TemperatureFilter(TimeFieldFilter, TagsFieldFilter):
 class TimerFilter(StartEndFieldFilter):
     class Meta(StartEndFieldFilter.Meta):
         model = models.Timer
-        fields = sorted(StartEndFieldFilter.Meta.fields + ["active", "user"])
+        fields = sorted(StartEndFieldFilter.Meta.fields + ["name", "user"])
 
 
 class TummyTimeFilter(StartEndFieldFilter, TagsFieldFilter):

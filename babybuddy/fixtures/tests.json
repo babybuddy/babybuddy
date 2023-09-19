@@ -21,14 +21,29 @@
       "picture": ""
     }
   },
-    {
+  {
     "model": "core.pumping",
     "pk": 1,
     "fields":
     {
       "child": 1,
-      "amount": 50.0,
-      "time": "2017-11-17T17:52:00Z",
+      "amount": 5.0,
+      "start": "2017-11-17T17:52:00Z",
+      "end": "2017-11-17T17:59:00Z",
+      "duration": "00:07:00",
+      "notes": "old device"
+    }
+  },
+  {
+    "model": "core.pumping",
+    "pk": 2,
+    "fields":
+    {
+      "child": 1,
+      "amount": 9.0,
+      "start": "2017-11-17T20:03:00Z",
+      "end": "2017-11-17T20:22:00Z",
+      "duration": "00:19:00",
       "notes": "new device"
     }
   },
@@ -234,8 +249,8 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-18T14:00:00Z",
-      "end": "2017-11-18T14:30:00Z",
+      "start": "2017-11-18T14:00:00-05:00",
+      "end": "2017-11-18T14:30:00-05:00",
       "duration": "00:30:00",
       "type": "breast milk",
       "method": "left breast",
@@ -248,8 +263,8 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-18T16:30:00Z",
-      "end": "2017-11-18T17:00:00Z",
+      "start": "2017-11-18T16:30:00-05:00",
+      "end": "2017-11-18T17:00:00-05:00",
       "duration": "00:30:00",
       "type": "breast milk",
       "method": "right breast",
@@ -262,13 +277,58 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-18T19:00:00Z",
-      "end": "2017-11-18T19:15:00Z",
+      "start": "2017-11-18T19:00:00-05:00",
+      "end": "2017-11-18T19:15:00-05:00",
       "duration": "00:15:00",
       "type": "formula",
       "method": "bottle",
       "amount": 2.5,
       "notes": "forgot vitamins :("
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 4,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-17T19:00:00-05:00",
+      "end": "2017-11-17T19:15:00-05:00",
+      "duration": "00:15:00",
+      "type": "formula",
+      "method": "bottle",
+      "amount": 0.25,
+      "notes": "forgot vitamins :("
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 5,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-11T19:00:00-05:00",
+      "end": "2017-11-11T19:15:00-05:00",
+      "duration": "00:15:00",
+      "type": "formula",
+      "method": "bottle",
+      "amount": 10.0,
+      "notes": "last day feedings"
+    }
+  },
+  {
+    "model": "core.feeding",
+    "pk": 6,
+    "fields":
+    {
+      "child": 1,
+      "start": "2017-11-11T00:00:00-05:00",
+      "end": "2017-11-11T00:15:00-05:00",
+      "duration": "00:15:00",
+      "type": "formula",
+      "method": "bottle",
+      "amount": 10.0,
+      "notes": "oldest feeding at midnight"
     }
   },
   {
@@ -287,10 +347,10 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-18T04:30:00Z",
+      "start": "2017-11-17T20:30:00Z",
       "end": "2017-11-18T05:30:00Z",
-      "duration": "01:00:00",
-      "napping": false
+      "duration": "09:00:00",
+      "nap": false
     }
   },
   {
@@ -302,7 +362,7 @@
       "start": "2017-11-18T15:00:00Z",
       "end": "2017-11-18T17:00:00Z",
       "duration": "02:00:00",
-      "napping": true
+      "nap": true
     }
   },
   {
@@ -312,9 +372,9 @@
     {
       "child": 1,
       "start": "2017-11-18T19:00:00Z",
-      "end": "2017-11-18T19:30:00Z",
-      "duration": "00:30:00",
-      "napping": false
+      "end": "2017-11-19T04:30:00Z",
+      "duration": "09:30:00",
+      "nap": false
     }
   },
   {
@@ -323,11 +383,11 @@
     "fields":
     {
       "child": 1,
-      "start": "2017-11-19T00:00:00Z",
-      "end": "2017-11-19T04:00:00Z",
-      "duration": "04:00:00",
+      "start": "2017-11-19T08:00:00Z",
+      "end": "2017-11-19T09:30:00Z",
+      "duration": "01:30:00",
       "notes": "lots of squirming",
-      "napping": false
+      "nap": true
     }
   },
     {
@@ -348,9 +408,6 @@
     {
       "name": "Fake timer",
       "start": "2017-11-18T04:30:00Z",
-      "end": "2017-11-18T05:30:00Z",
-      "duration": "01:00:00",
-      "active": false,
       "user": 1
     }
   },

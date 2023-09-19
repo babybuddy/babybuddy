@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-import random
 import re
 from datetime import timedelta
 
-from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -14,7 +12,8 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
-random.seed()
+from babybuddy.site_settings import NapSettings
+from core.utils import random_color
 
 
 def validate_date(date, field_name):
@@ -77,34 +76,9 @@ def validate_time(time, field_name):
         )
 
 
-def random_color():
-    TAG_COLORS = [
-        "#ff0000",
-        "#00ff00",
-        "#0000ff",
-        "#ff00ff",
-        "#ffff00",
-        "#00ffff",
-        "#ff7f7f",
-        "#7fff7f",
-        "#7f7fff",
-        "#ff7fff",
-        "#ffff7f",
-        "#7fffff",
-        "#7f0000",
-        "#007f00",
-        "#00007f",
-        "#7f007f",
-        "#7f7f00",
-        "#007f7f",
-    ]
-    return TAG_COLORS[random.randrange(0, len(TAG_COLORS))]
-
-
 class Tag(TagBase):
-    class Meta:
-        verbose_name = _("Tag")
-        verbose_name_plural = _("Tags")
+    DARK_COLOR = "#101010"
+    LIGHT_COLOR = "#EFEFEF"
 
     color = models.CharField(
         verbose_name=_("Color"),
@@ -112,25 +86,27 @@ class Tag(TagBase):
         default=random_color,
         validators=[RegexValidator(r"^#[0-9a-fA-F]{6}$")],
     )
-
     last_used = models.DateTimeField(
         verbose_name=_("Last used"),
         default=timezone.now,
         blank=False,
     )
 
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+
     @property
     def complementary_color(self):
-        DARK, LIGHT = "#101010", "#EFEFEF"
         if not self.color:
-            return DARK
+            return self.DARK_COLOR
 
         r, g, b = [int(x, 16) for x in re.match("#(..)(..)(..)", self.color).groups()]
         yiq = ((r * 299) + (g * 587) + (b * 114)) // 1000
         if yiq >= 128:
-            return DARK
+            return self.DARK_COLOR
         else:
-            return LIGHT
+            return self.LIGHT_COLOR
 
 
 class Tagged(GenericTaggedItemBase):
@@ -152,49 +128,34 @@ class Tagged(GenericTaggedItemBase):
 
 
 class TaggableManager(TaggitTaggableManager):
-    """
-    Replace the default help_text with
-    """
-
-    def __init__(self, *args, **kwargs):
-        kwargs["help_text"] = _(
-            "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
-        )
-        super().__init__(*args, **kwargs)
-
-    def formfield(self, *args, **kwargs):
-        # Local import required because .widgets imports .models
-        from core.widgets import TagsEditor
-
-        kwargs["widget"] = TagsEditor
-        return super().formfield(*args, **kwargs)
+    pass
 
 
-class Pumping(models.Model):
-    model_name = "pumping"
+class BMI(models.Model):
+    model_name = "bmi"
     child = models.ForeignKey(
-        "Child",
-        on_delete=models.CASCADE,
-        related_name="pumping",
-        verbose_name=_("Child"),
+        "Child", on_delete=models.CASCADE, related_name="bmi", verbose_name=_("Child")
     )
-    amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
-    time = models.DateTimeField(blank=False, null=False, verbose_name=_("Time"))
+    bmi = models.FloatField(blank=False, null=False, verbose_name=_("BMI"))
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-time"]
-        verbose_name = _("Pumping")
-        verbose_name_plural = _("Pumping")
+        ordering = ["-date"]
+        verbose_name = _("BMI")
+        verbose_name_plural = _("BMI")
 
     def __str__(self):
-        return str(_("Pumping"))
+        return str(_("BMI"))
 
     def clean(self):
-        validate_time(self.time, "time")
+        validate_date(self.date, "date")
 
 
 class Child(models.Model):
@@ -312,8 +273,15 @@ class Feeding(models.Model):
         related_name="feeding",
         verbose_name=_("Child"),
     )
-    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
-    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+    )
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
@@ -361,9 +329,70 @@ class Feeding(models.Model):
 
     def clean(self):
         validate_time(self.start, "start")
-        validate_time(self.end, "end")
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
+
+
+class HeadCircumference(models.Model):
+    model_name = "head_circumference"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="head_circumference",
+        verbose_name=_("Child"),
+    )
+    head_circumference = models.FloatField(
+        blank=False, null=False, verbose_name=_("Head Circumference")
+    )
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-date"]
+        verbose_name = _("Head Circumference")
+        verbose_name_plural = _("Head Circumference")
+
+    def __str__(self):
+        return str(_("Head Circumference"))
+
+    def clean(self):
+        validate_date(self.date, "date")
+
+
+class Height(models.Model):
+    model_name = "height"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="height",
+        verbose_name=_("Child"),
+    )
+    height = models.FloatField(blank=False, null=False, verbose_name=_("Height"))
+    date = models.DateField(
+        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-date"]
+        verbose_name = _("Height")
+        verbose_name_plural = _("Height")
+
+    def __str__(self):
+        return str(_("Height"))
+
+    def clean(self):
+        validate_date(self.date, "date")
 
 
 class Note(models.Model):
@@ -389,10 +418,55 @@ class Note(models.Model):
         return str(_("Note"))
 
 
-class NapsManager(models.Manager):
-    def get_queryset(self):
-        qs = super(NapsManager, self).get_queryset()
-        return qs.filter(id__in=[obj.id for obj in qs if obj.nap])
+class Pumping(models.Model):
+    model_name = "pumping"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="pumping",
+        verbose_name=_("Child"),
+    )
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("End time"),
+    )
+    duration = models.DurationField(
+        editable=False,
+        null=True,
+        verbose_name=_("Duration"),
+    )
+    amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-start"]
+        verbose_name = _("Pumping")
+        verbose_name_plural = _("Pumping")
+
+    def __str__(self):
+        return str(_("Pumping"))
+
+    def save(self, *args, **kwargs):
+        if self.start and self.end:
+            self.duration = self.end - self.start
+        super(Pumping, self).save(*args, **kwargs)
+
+    def clean(self):
+        validate_time(self.start, "start")
+        validate_duration(self)
+        validate_unique_period(Pumping.objects.filter(child=self.child), self)
 
 
 class Sleep(models.Model):
@@ -400,9 +474,16 @@ class Sleep(models.Model):
     child = models.ForeignKey(
         "Child", on_delete=models.CASCADE, related_name="sleep", verbose_name=_("Child")
     )
-    napping = models.BooleanField(editable=False, null=True, verbose_name=_("Napping"))
-    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
-    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+    )
+    nap = models.BooleanField(null=False, blank=True, verbose_name=_("Nap"))
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
@@ -410,7 +491,7 @@ class Sleep(models.Model):
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
-    naps = NapsManager()
+    settings = NapSettings(_("Nap settings"))
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
@@ -421,21 +502,15 @@ class Sleep(models.Model):
     def __str__(self):
         return str(_("Sleep"))
 
-    @property
-    def nap(self):
-        nap_start_min = timezone.datetime.strptime(
-            settings.BABY_BUDDY["NAP_START_MIN"], "%H:%M"
-        ).time()
-        nap_start_max = timezone.datetime.strptime(
-            settings.BABY_BUDDY["NAP_START_MAX"], "%H:%M"
-        ).time()
-        local_start_time = timezone.localtime(self.start).time()
-        return nap_start_min <= local_start_time <= nap_start_max
-
     def save(self, *args, **kwargs):
+        if self.nap is None:
+            self.nap = (
+                Sleep.settings.nap_start_min
+                <= timezone.localtime(self.start).time()
+                <= Sleep.settings.nap_start_max
+            )
         if self.start and self.end:
             self.duration = self.end - self.start
-        self.napping = self.nap
         super(Sleep, self).save(*args, **kwargs)
 
     def clean(self):
@@ -493,12 +568,6 @@ class Timer(models.Model):
     start = models.DateTimeField(
         default=timezone.now, blank=False, verbose_name=_("Start time")
     )
-    end = models.DateTimeField(
-        blank=True, editable=False, null=True, verbose_name=_("End time")
-    )
-    duration = models.DurationField(
-        editable=False, null=True, verbose_name=_("Duration")
-    )
     active = models.BooleanField(default=True, editable=False, verbose_name=_("Active"))
     user = models.ForeignKey(
         "auth.User",
@@ -511,7 +580,7 @@ class Timer(models.Model):
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-active", "-start", "-end"]
+        ordering = ["-start"]
         verbose_name = _("Timer")
         verbose_name_plural = _("Timers")
 
@@ -534,42 +603,24 @@ class Timer(models.Model):
             return self.user.get_full_name()
         return self.user.get_username()
 
-    @classmethod
-    def from_db(cls, db, field_names, values):
-        instance = super(Timer, cls).from_db(db, field_names, values)
-        if not instance.duration:
-            instance.duration = timezone.now() - instance.start
-        return instance
+    def duration(self):
+        return timezone.now() - self.start
 
     def restart(self):
         """Restart the timer."""
         self.start = timezone.now()
-        self.end = None
-        self.duration = None
-        self.active = True
         self.save()
 
-    def stop(self, end=None):
-        """Stop the timer."""
-        if not end:
-            end = timezone.now()
-        self.end = end
-        self.save()
+    def stop(self):
+        """Stop (delete) the timer."""
+        self.delete()
 
     def save(self, *args, **kwargs):
-        self.active = self.end is None
         self.name = self.name or None
-        if self.start and self.end:
-            self.duration = self.end - self.start
-        else:
-            self.duration = None
         super(Timer, self).save(*args, **kwargs)
 
     def clean(self):
         validate_time(self.start, "start")
-        if self.end:
-            validate_time(self.end, "end")
-        validate_duration(self)
 
 
 class TummyTime(models.Model):
@@ -580,8 +631,15 @@ class TummyTime(models.Model):
         related_name="tummy_time",
         verbose_name=_("Child"),
     )
-    start = models.DateTimeField(blank=False, null=False, verbose_name=_("Start time"))
-    end = models.DateTimeField(blank=False, null=False, verbose_name=_("End time"))
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+    )
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
@@ -638,95 +696,6 @@ class Weight(models.Model):
 
     def __str__(self):
         return str(_("Weight"))
-
-    def clean(self):
-        validate_date(self.date, "date")
-
-
-class Height(models.Model):
-    model_name = "height"
-    child = models.ForeignKey(
-        "Child",
-        on_delete=models.CASCADE,
-        related_name="height",
-        verbose_name=_("Child"),
-    )
-    height = models.FloatField(blank=False, null=False, verbose_name=_("Height"))
-    date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
-    tags = TaggableManager(blank=True, through=Tagged)
-
-    objects = models.Manager()
-
-    class Meta:
-        default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
-        verbose_name = _("Height")
-        verbose_name_plural = _("Height")
-
-    def __str__(self):
-        return str(_("Height"))
-
-    def clean(self):
-        validate_date(self.date, "date")
-
-
-class HeadCircumference(models.Model):
-    model_name = "head_circumference"
-    child = models.ForeignKey(
-        "Child",
-        on_delete=models.CASCADE,
-        related_name="head_circumference",
-        verbose_name=_("Child"),
-    )
-    head_circumference = models.FloatField(
-        blank=False, null=False, verbose_name=_("Head Circumference")
-    )
-    date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
-    tags = TaggableManager(blank=True, through=Tagged)
-
-    objects = models.Manager()
-
-    class Meta:
-        default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
-        verbose_name = _("Head Circumference")
-        verbose_name_plural = _("Head Circumference")
-
-    def __str__(self):
-        return str(_("Head Circumference"))
-
-    def clean(self):
-        validate_date(self.date, "date")
-
-
-class BMI(models.Model):
-    model_name = "bmi"
-    child = models.ForeignKey(
-        "Child", on_delete=models.CASCADE, related_name="bmi", verbose_name=_("Child")
-    )
-    bmi = models.FloatField(blank=False, null=False, verbose_name=_("BMI"))
-    date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
-    )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
-    tags = TaggableManager(blank=True, through=Tagged)
-
-    objects = models.Manager()
-
-    class Meta:
-        default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
-        verbose_name = _("BMI")
-        verbose_name_plural = _("BMI")
-
-    def __str__(self):
-        return str(_("BMI"))
 
     def clean(self):
         validate_date(self.date, "date")

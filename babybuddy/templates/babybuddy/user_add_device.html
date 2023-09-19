@@ -1,0 +1,37 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks babybuddy qr_code %}
+
+{% block title %}{% trans "Add a device" %}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">{% trans "User" %}</li>
+    <li class="breadcrumb-item active">{% trans "Add a device" %}</li>
+{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Add a device" %}</h1>
+
+    <div class="container-fluid">
+        <legend>{% trans "Authentication Methods" %}</legend>
+        <fieldset>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">{% trans "Key" %}</label>
+                <div class="col-sm-10">
+                    <form method="post">
+                        {% csrf_token %}
+                        <samp>{{ user.settings.api_key }}</samp>
+                        <input type="submit" name="api_key_regenerate" value="{% trans "Regenerate" %}" class="btn btn-danger btn-xs" />
+                    </form>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">{% trans "Login QR code" %}</label>
+                <div class="col-sm-10">
+                    <div style="display:inline-block;background-color:white;" data-qr-code-content="{{ qr_code_data }}">
+                        {% qr_from_text qr_code_data size="s" %}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+{% endblock %}

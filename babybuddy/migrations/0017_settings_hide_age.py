@@ -3,7 +3,6 @@ from django.utils import timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("babybuddy", "0016_alter_settings_timezone"),
     ]

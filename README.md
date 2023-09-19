@@ -7,9 +7,10 @@
 [![CI Status](https://github.com/babybuddy/babybuddy/actions/workflows/ci.yml/badge.svg)](https://github.com/babybuddy/babybuddy/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/babybuddy/babybuddy/badge.svg?branch=master)](https://coveralls.io/github/babybuddy/babybuddy?branch=master)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/babybuddy/babybuddy)
+[![Open in GitHub Codespaces ready-to-code](https://img.shields.io/badge/Codespace-ready--to--code-blue?logo=github)](https://codespaces.new/babybuddy/babybuddy?quickstart=1)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, 
+A buddy for babies! Helps caregivers track sleep, feedings, diaper changes,
 tummy time and more to learn about and predict baby's needs without (*as much*)
 guess work.
 
@@ -19,8 +20,8 @@ guess work.
 
 ## Demo
 
-A [demo of Baby Buddy](http://demo.baby-buddy.net) is available on Heroku.
-The demo instance resets every hour. Login credentials are:
+A [demo of Baby Buddy](https://demo.baby-buddy.net) is available. The demo instance
+resets every hour. Login credentials are:
 
 - Username: `admin`
 - Password: `admin`
@@ -48,6 +49,10 @@ for information about how to create/update translations.
 
 :cn: Chinese (simplified)
 
+:czech_republic: Czech
+
+:denmark: Danish
+
 :netherlands: Dutch
 
 :uk: English (U.K.)
@@ -60,11 +65,17 @@ for information about how to create/update translations.
 
 :de: German
 
+:hungary: Hungarian
+
 :it: Italian
+
+:norway: Norwegian Bokmål
 
 :poland: Polish
 
 :portugal: :brazil: Portuguese
+
+:ru: Russian
 
 :mexico: :es: Spanish
 
@@ -72,20 +83,45 @@ for information about how to create/update translations.
 
 :tr: Turkish
 
-## Cool Projects Using Baby Buddy
+## Baby Buddy on the Web
 
 This is a non-exhaustive list of neat projects and blog posts that either extend
 or use Baby Buddy in fun ways. If you have a project to share please open a PR
 adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 
-- [Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant)
-- [Home Assistant Addon (host Baby Buddy on your Home Assistant)](https://github.com/OttPeterR/addon-babybuddy)
-- [Baby Buddy and Home Assistant](https://martinnoah.com/babybuddy-and-home-assistant.html) (how-to guide)
-- [Bottle Scale for BabyBuddy and Home Assistant with ESPHome](https://github.com/sfgabe/OITProjects/tree/master/BabyBuddy_ESP_HASS)
+### Smart home
+
+- [Home Assistant Addon](https://github.com/OttPeterR/addon-babybuddy) (host Baby Buddy on Home Assistant)
+- [Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant) (monitor and use Baby Buddy from Home Assistant)
+- [How to Setup Baby Buddy in Home Assistant](https://smarthomescene.com/guides/how-to-setup-baby-buddy-in-home-assistant/)
+- [Baby Buddy and Home Assistant](https://martinnoah.com/babybuddy-and-home-assistant.html)
 - [Alexa skill](https://github.com/babybuddy/babybuddy-alexa-skill)
-- [Sandstorm app](https://github.com/babybuddy/babybuddy-sandstorm)
+
+### Hardware
+
+- [Bottle Scale for BabyBuddy and Home Assistant with ESPHome](https://github.com/sfgabe/OITProjects/tree/master/BabyBuddy_ESP_HASS)
+- [Quick Entry Keypad (ESP8266)](https://github.com/sfgabe/OITProjects/tree/master/Baby_Buddy_Keypad)
+- [Baby Buddy Keypad (ESP32)](https://github.com/jeroenterheerdt/Baby-Buddy-Keypad)
+- [BabyScout](https://github.com/MikeSchapp/BabyScout) - Keypad for recording diaper changes, feedings and sleep to BabyBuddy
+
+### Mobile
+
+- [Baby Buddy for Android](https://play.google.com/store/apps/details?id=eu.pkgsoftware.babybuddywidgets) ([Source](https://github.com/MrApplejuice/BabyBuddyAndroid/))
 - [iOS shortcuts](https://github.com/babybuddy/babybuddy/discussions/300)
-- Newborn parenting software - [part 1](https://lutzky.net/2021/10/03/software-parenting-1/), [part 2](https://lutzky.net/2021/10/05/software-parenting-2/), [part 3](https://lutzky.net/2021/10/10/software-parenting-3/) (API, buttons, LCD information screen!)
+- [Convert exported data from "Baby tracker - feeding, sleep and diaper" mobile app to Baby Buddy](https://github.com/babybuddy/babybuddy/discussions/424)
+
+### Videos
+
+- [Baby Buddy: Keep Records of Your Child/Baby's Growth and Activities](https://www.youtube.com/watch?v=sO6rjn2s6-k)
+
+### Other
+
+- [Grafana Dashboard](https://github.com/babybuddy/babybuddy/discussions/607)
+- [Sandstorm app](https://github.com/babybuddy/babybuddy-sandstorm)
+- Newborn parenting software series (API, buttons, LCD information screen!)
+  - [part 1](https://lutzky.net/2021/10/03/software-parenting-1/)
+  - [part 2](https://lutzky.net/2021/10/05/software-parenting-2/)
+  - [part 3](https://lutzky.net/2021/10/10/software-parenting-3/)
 
 ## Reporting Vulnerabilities
 

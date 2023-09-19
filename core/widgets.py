@@ -1,11 +1,12 @@
-from django.forms import Media
+import datetime
 from typing import Any, Dict, Optional
-from django.forms import Widget
+
+from django.forms import RadioSelect, widgets
 
 from . import models
 
 
-class TagsEditor(Widget):
+class TagsEditor(widgets.Widget):
     """
     Custom widget that provides an alternative editor for tags provided by the
     taggit library.
@@ -81,3 +82,25 @@ class TagsEditor(Widget):
             "most": [self.__unpack_tag(t) for t in most_tags],
         }
         return result
+
+
+class ChildRadioSelect(RadioSelect):
+    input_type = "radio"
+    template_name = "core/child_radio.html"
+    option_template_name = "core/child_radio_option.html"
+    attrs = {"class": "btn-check"}
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+        attrs["class"] += " btn-check"
+        return attrs
+
+    def create_option(
+        self, name, value, label, selected, index, subindex=None, attrs=None
+    ):
+        option = super().create_option(
+            name, value, label, selected, index, subindex, attrs
+        )
+        if value != "":
+            option["picture"] = value.instance.picture
+        return option

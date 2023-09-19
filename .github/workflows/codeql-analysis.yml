@@ -1,17 +1,17 @@
 name: "CodeQL"
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
   schedule:
     - cron: '33 0 * * 3'
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    env:
-      PIPENV_VENV_IN_PROJECT: enabled
     permissions:
       actions: read
       contents: read
@@ -21,22 +21,11 @@ jobs:
       matrix:
         language: [ 'javascript', 'python' ]
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        export PATH="$HOME/.local/bin:$PATH"
-        python3 -m pip install --upgrade pipenv wheel
-        pipenv install
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
+    - uses: actions/checkout@v3
+    - uses: github/codeql-action/init@v2
       with:
         config-file: ./.github/codeql/codeql-config.yml
         languages: ${{ matrix.language }}
         setup-python-dependencies: false
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+    - uses: ./.github/actions/setup
+    - uses: github/codeql-action/analyze@v2

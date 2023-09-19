@@ -8,7 +8,7 @@ from django.db.utils import IntegrityError
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from faker import Factory
+from faker import Faker
 
 from core import models
 
@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
-        self.faker = Factory.create()
+        self.faker = Faker()
         self.child = None
         self.weight = None
         self.tags = []
@@ -44,9 +44,10 @@ class Command(BaseCommand):
         children = int(kwargs["children"]) or 1
         days = int(kwargs["days"]) or 31
 
-        for word in self.faker.words(10, unique=True):
+        for i in range(0, 10):
+            text = self.faker.password(randint(4, 10))
             try:
-                tag = models.Tag.objects.create(name=word)
+                tag = models.Tag.objects.create(name=text)
                 tag.save()
                 self.tags.append(tag)
             except IntegrityError:
@@ -144,9 +145,13 @@ class Command(BaseCommand):
         if choice([True, False, False, False]):
             notes = " ".join(self.faker.sentences(randint(1, 5)))
 
-        models.Pumping.objects.create(
-            child=self.child, amount=self.amount, time=self.time, notes=notes
-        ).save()
+        start = self.time + timedelta(minutes=randint(1, 60))
+        end = start + timedelta(minutes=randint(5, 20))
+
+        if end < self.time_now:
+            models.Pumping.objects.create(
+                child=self.child, amount=self.amount, start=start, end=end, notes=notes
+            ).save()
 
     @transaction.atomic
     def _add_diaperchange_entry(self):

@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-from django.contrib.auth.models import User
+import datetime
+
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from django.test import Client as HttpClient
 from django.utils import timezone
-from django.utils.formats import get_format
+from django.utils.formats import get_format, reset_format_cache
 
-from faker import Factory
+from faker import Faker
 
 from core import models
 
@@ -20,14 +21,16 @@ class FormsTestCaseBase(TestCase):
     @classmethod
     def setUpClass(cls):
         super(FormsTestCaseBase, cls).setUpClass()
-        fake = Factory.create()
+        fake = Faker()
         call_command("migrate", verbosity=0)
 
         cls.c = HttpClient()
 
         fake_user = fake.simple_profile()
         credentials = {"username": fake_user["username"], "password": fake.password()}
-        cls.user = User.objects.create_user(is_superuser=True, **credentials)
+        cls.user = get_user_model().objects.create_user(
+            is_superuser=True, **credentials
+        )
         cls.c.login(**credentials)
 
         cls.child = models.Child.objects.create(
@@ -37,12 +40,14 @@ class FormsTestCaseBase(TestCase):
     @staticmethod
     def localdate_string(datetime=None):
         """Converts an object to a local date string for form input."""
+        reset_format_cache()
         date_format = get_format("DATE_INPUT_FORMATS")[0]
         return timezone.localdate(datetime).strftime(date_format)
 
     @staticmethod
     def localtime_string(datetime=None):
         """Converts an object to a local time string for form input."""
+        reset_format_cache()
         datetime_format = get_format("DATETIME_INPUT_FORMATS")[0]
         return timezone.localtime(datetime).strftime(datetime_format)
 
@@ -119,31 +124,53 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertEqual(page.context["form"].initial["type"], f_three.type)
         self.assertEqual(page.context["form"].initial["method"], f_three.method)
 
-    def test_timer_set(self):
+    def test_timer_form_field_set(self):
         self.timer.stop()
 
         page = self.c.get("/sleep/add/")
         self.assertTrue("start" not in page.context["form"].initial)
         self.assertTrue("end" not in page.context["form"].initial)
 
-        page = self.c.get("/sleep/add/?timer={}".format(self.timer.id))
-        self.assertEqual(page.context["form"].initial["start"], self.timer.start)
-        self.assertEqual(page.context["form"].initial["end"], self.timer.end)
 
-    def test_timer_stop_on_save(self):
-        end = timezone.localtime()
+class BMIFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(BMIFormsTestCase, cls).setUpClass()
+        cls.bmi = models.BMI.objects.create(
+            child=cls.child,
+            bmi=30,
+            date=timezone.localdate() - timezone.timedelta(days=2),
+        )
+
+    def test_add(self):
         params = {
             "child": self.child.id,
-            "start": self.localtime_string(self.timer.start),
-            "end": self.localtime_string(end),
+            "bmi": 35,
+            "date": self.localdate_string(),
         }
-        page = self.c.post(
-            "/sleep/add/?timer={}".format(self.timer.id), params, follow=True
-        )
+
+        page = self.c.post("/bmi/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.timer.refresh_from_db()
-        self.assertFalse(self.timer.active)
-        self.assertEqual(self.localtime_string(self.timer.end), params["end"])
+        self.assertContains(page, "Bmi entry for {} added".format(str(self.child)))
+
+    def test_edit(self):
+        params = {
+            "child": self.bmi.child.id,
+            "bmi": self.bmi.bmi + 1,
+            "date": self.bmi.date,
+        }
+        page = self.c.post("/bmi/{}/".format(self.bmi.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.bmi.refresh_from_db()
+        self.assertEqual(self.bmi.bmi, params["bmi"])
+        self.assertContains(
+            page, "Bmi entry for {} updated".format(str(self.bmi.child))
+        )
+
+    def test_delete(self):
+        page = self.c.post("/bmi/{}/delete/".format(self.bmi.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Bmi entry deleted")
 
 
 class ChildFormsTestCase(FormsTestCaseBase):
@@ -192,47 +219,6 @@ class ChildFormsTestCase(FormsTestCaseBase):
         )
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Child entry deleted")
-
-
-class PumpingFormsTestCase(FormsTestCaseBase):
-    @classmethod
-    def setUpClass(cls):
-        super(PumpingFormsTestCase, cls).setUpClass()
-        cls.bp = models.Pumping.objects.create(
-            child=cls.child,
-            amount=50.0,
-            time=timezone.localtime() - timezone.timedelta(days=1),
-        )
-
-    def test_add(self):
-        params = {
-            "child": self.child.id,
-            "amount": "50.0",
-            "time": self.localtime_string(),
-        }
-
-        page = self.c.post("/pumping/add/", params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertContains(page, "Pumping entry for {} added".format(str(self.child)))
-
-    def test_edit(self):
-        params = {
-            "child": self.bp.child.id,
-            "amount": self.bp.amount + 2,
-            "time": self.localtime_string(),
-        }
-        page = self.c.post("/pumping/{}/".format(self.bp.id), params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.bp.refresh_from_db()
-        self.assertEqual(self.bp.amount, params["amount"])
-        self.assertContains(
-            page, "Pumping entry for {} updated".format(str(self.bp.child))
-        )
-
-    def test_delete(self):
-        page = self.c.post("/pumping/{}/delete/".format(self.bp.id), follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertContains(page, "Pumping entry deleted")
 
 
 class DiaperChangeFormsTestCase(FormsTestCaseBase):
@@ -336,6 +322,191 @@ class FeedingFormsTestCase(FormsTestCaseBase):
         self.assertContains(page, "Feeding entry deleted")
 
 
+class HeadCircumferenceFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(HeadCircumferenceFormsTestCase, cls).setUpClass()
+        cls.head_circumference = models.HeadCircumference.objects.create(
+            child=cls.child,
+            head_circumference=15,
+            date=timezone.localdate() - timezone.timedelta(days=2),
+        )
+
+    def test_add(self):
+        params = {
+            "child": self.child.id,
+            "head_circumference": 20,
+            "date": self.localdate_string(),
+        }
+
+        page = self.c.post("/head-circumference/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(
+            page, "Head Circumference entry for {} added".format(str(self.child))
+        )
+
+    def test_edit(self):
+        params = {
+            "child": self.head_circumference.child.id,
+            "head_circumference": self.head_circumference.head_circumference + 1,
+            "date": self.head_circumference.date,
+        }
+        page = self.c.post(
+            "/head-circumference/{}/".format(self.head_circumference.id),
+            params,
+            follow=True,
+        )
+        self.assertEqual(page.status_code, 200)
+        self.head_circumference.refresh_from_db()
+        self.assertEqual(
+            self.head_circumference.head_circumference, params["head_circumference"]
+        )
+        self.assertContains(
+            page,
+            "Head Circumference entry for {} updated".format(
+                str(self.head_circumference.child)
+            ),
+        )
+
+    def test_delete(self):
+        page = self.c.post(
+            "/head-circumference/{}/delete/".format(self.head_circumference.id),
+            follow=True,
+        )
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Head Circumference entry deleted")
+
+
+class HeightFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(HeightFormsTestCase, cls).setUpClass()
+        cls.height = models.Height.objects.create(
+            child=cls.child,
+            height=12.5,
+            date=timezone.localdate() - timezone.timedelta(days=2),
+        )
+
+    def test_add(self):
+        params = {
+            "child": self.child.id,
+            "height": 13.5,
+            "date": self.localdate_string(),
+        }
+
+        page = self.c.post("/height/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Height entry for {} added".format(str(self.child)))
+
+    def test_edit(self):
+        params = {
+            "child": self.height.child.id,
+            "height": self.height.height + 1,
+            "date": self.height.date,
+        }
+        page = self.c.post("/height/{}/".format(self.height.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.height.refresh_from_db()
+        self.assertEqual(self.height.height, params["height"])
+        self.assertContains(
+            page, "Height entry for {} updated".format(str(self.height.child))
+        )
+
+    def test_delete(self):
+        page = self.c.post("/height/{}/delete/".format(self.height.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Height entry deleted")
+
+
+class NoteFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(NoteFormsTestCase, cls).setUpClass()
+        cls.note = models.Note.objects.create(
+            child=cls.child,
+            note="Test note!",
+            time=timezone.localtime() - timezone.timedelta(days=2),
+        )
+
+    def test_add(self):
+        params = {
+            "child": self.child.id,
+            "note": "New note",
+            "time": self.localtime_string(),
+        }
+
+        page = self.c.post("/notes/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Note entry for {} added".format(str(self.child)))
+
+    def test_edit(self):
+        params = {
+            "child": self.note.child.id,
+            "note": "changed note",
+            "time": self.note.time,
+        }
+        page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.note.refresh_from_db()
+        self.assertEqual(self.note.note, params["note"])
+        self.assertContains(
+            page, "Note entry for {} updated".format(str(self.note.child))
+        )
+
+    def test_delete(self):
+        page = self.c.post("/notes/{}/delete/".format(self.note.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Note entry deleted")
+
+
+class PumpingFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(PumpingFormsTestCase, cls).setUpClass()
+        start = timezone.localtime() - timezone.timedelta(days=1)
+        end = start + timezone.timedelta(minutes=3)
+        cls.bp = models.Pumping.objects.create(
+            child=cls.child,
+            amount=50.0,
+            start=start,
+            end=end,
+        )
+
+    def test_add(self):
+        start = timezone.localtime() - timezone.timedelta(days=3)
+        end = start + timezone.timedelta(minutes=5)
+        params = {
+            "child": self.child.id,
+            "amount": "50.0",
+            "start": self.localtime_string(start),
+            "end": self.localtime_string(end),
+        }
+
+        page = self.c.post("/pumping/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Pumping entry for {} added".format(str(self.child)))
+
+    def test_edit(self):
+        params = {
+            "child": self.bp.child.id,
+            "amount": self.bp.amount + 2,
+            "start": self.localtime_string(self.bp.start),
+            "end": self.localtime_string(self.bp.end + timezone.timedelta(minutes=15)),
+        }
+        page = self.c.post("/pumping/{}/".format(self.bp.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.bp.refresh_from_db()
+        self.assertEqual(self.bp.amount, params["amount"])
+        self.assertContains(
+            page, "Pumping entry for {} updated".format(str(self.bp.child))
+        )
+
+    def test_delete(self):
+        page = self.c.post("/pumping/{}/delete/".format(self.bp.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Pumping entry deleted")
+
+
 class SleepFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
@@ -382,6 +553,116 @@ class SleepFormsTestCase(FormsTestCaseBase):
         page = self.c.post("/sleep/{}/delete/".format(self.sleep.id), follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Sleep entry deleted")
+
+    def test_nap_default(self):
+        models.Sleep.settings.nap_start_min = datetime.time(0, 0, 0)
+        models.Sleep.settings.nap_start_max = datetime.time(23, 59, 59)
+        response = self.c.get("/sleep/add/")
+        self.assertTrue(response.context["form"].initial["nap"])
+
+    def test_not_nap_default(self):
+        models.Sleep.settings.nap_start_min = datetime.time(0, 0, 0)
+        models.Sleep.settings.nap_start_max = datetime.time(0, 0, 0)
+        response = self.c.get("/sleep/add/")
+        self.assertFalse(response.context["form"].initial["nap"])
+
+
+class TaggedFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(TaggedFormsTestCase, cls).setUpClass()
+
+        cls.note = models.Note.objects.create(
+            child=cls.child,
+            note="Setup note",
+            time=timezone.now() - timezone.timedelta(days=2),
+        )
+        cls.note.tags.add("oldtag")
+        cls.oldtag = models.Tag.objects.filter(slug="oldtag").first()
+
+    def test_add_no_tags(self):
+        params = {
+            "child": self.child.id,
+            "note": "note with no tags",
+            "time": (timezone.now() - timezone.timedelta(minutes=1)).isoformat(),
+        }
+
+        page = self.c.post("/notes/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "note with no tags")
+
+    def test_add_with_tags(self):
+        params = {
+            "child": self.child.id,
+            "note": "this note has tags",
+            "time": (timezone.now() - timezone.timedelta(minutes=1)).isoformat(),
+            "tags": 'A,B,"setup tag"',
+        }
+
+        old_notes = list(models.Note.objects.all())
+
+        page = self.c.post("/notes/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "this note has tags")
+
+        new_notes = list(models.Note.objects.all())
+
+        # Find the new tag and extract its tags
+        old_pks = [n.pk for n in old_notes]
+        new_note = [n for n in new_notes if n.pk not in old_pks][0]
+        new_note_tag_names = [t.name for t in new_note.tags.all()]
+
+        self.assertSetEqual(set(new_note_tag_names), {"A", "B", "setup tag"})
+
+    def test_edit(self):
+        old_tag_last_used = self.oldtag.last_used
+
+        params = {
+            "child": self.note.child.id,
+            "note": "Edited note",
+            "time": self.localdate_string(),
+            "tags": "oldtag,newtag",
+        }
+        page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+
+        self.note.refresh_from_db()
+        self.oldtag.refresh_from_db()
+        self.assertEqual(self.note.note, params["note"])
+        self.assertContains(
+            page, "Note entry for {} updated".format(str(self.note.child))
+        )
+
+        self.assertSetEqual(
+            set(t.name for t in self.note.tags.all()), {"oldtag", "newtag"}
+        )
+
+        # Old tag remains old, because it was not added
+        self.assertEqual(old_tag_last_used, self.oldtag.last_used)
+
+        # Second phase: Remove all tags then add "oldtag" through posting
+        # which should update the last_used tag
+        self.note.tags.clear()
+        self.note.save()
+
+        params = {
+            "child": self.note.child.id,
+            "note": "Edited note (2)",
+            "time": self.localdate_string(),
+            "tags": "oldtag",
+        }
+        page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+
+        self.note.refresh_from_db()
+        self.oldtag.refresh_from_db()
+
+        self.assertLess(old_tag_last_used, self.oldtag.last_used)
+
+    def test_delete(self):
+        page = self.c.post("/notes/{}/delete/".format(self.note.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Note entry deleted")
 
 
 class TemperatureFormsTestCase(FormsTestCaseBase):
@@ -504,29 +785,6 @@ class TimerFormsTestCase(FormsTestCaseBase):
         self.timer.refresh_from_db()
         self.assertEqual(self.localtime_string(self.timer.start), params["start"])
 
-    def test_edit_stopped(self):
-        self.timer.stop()
-        params = {
-            "name": "Edit stopped timer",
-            "start": self.localtime_string(self.timer.start),
-            "end": self.localtime_string(self.timer.end),
-        }
-        page = self.c.post(
-            "/timers/{}/edit/".format(self.timer.id), params, follow=True
-        )
-        self.assertEqual(page.status_code, 200)
-
-    def test_delete_inactive(self):
-        models.Timer.objects.create(user=self.user)
-        self.assertEqual(models.Timer.objects.count(), 2)
-        self.timer.stop()
-        page = self.c.post("/timers/delete-inactive/", follow=True)
-        self.assertEqual(page.status_code, 200)
-        messages = list(page.context["messages"])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), "All inactive timers deleted.")
-        self.assertEqual(models.Timer.objects.count(), 1)
-
 
 class ValidationsTestCase(FormsTestCaseBase):
     def test_validate_date(self):
@@ -600,10 +858,10 @@ class ValidationsTestCase(FormsTestCaseBase):
         )
 
 
-class WeightFormsTest(FormsTestCaseBase):
+class WeightFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):
-        super(WeightFormsTest, cls).setUpClass()
+        super(WeightFormsTestCase, cls).setUpClass()
         cls.weight = models.Weight.objects.create(
             child=cls.child,
             weight=8,
@@ -639,105 +897,3 @@ class WeightFormsTest(FormsTestCaseBase):
         page = self.c.post("/weight/{}/delete/".format(self.weight.id), follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Weight entry deleted")
-
-
-class NotesFormsTest(FormsTestCaseBase):
-    """
-    Piggy-backs a bunch of tests for the tags-logic.
-    """
-
-    @classmethod
-    def setUpClass(cls):
-        super(NotesFormsTest, cls).setUpClass()
-
-        cls.note = models.Note.objects.create(
-            child=cls.child,
-            note="Setup note",
-            time=timezone.now() - timezone.timedelta(days=2),
-        )
-        cls.note.tags.add("oldtag")
-        cls.oldtag = models.Tag.objects.filter(slug="oldtag").first()
-
-    def test_add_no_tags(self):
-        params = {
-            "child": self.child.id,
-            "note": "note with no tags",
-            "time": (timezone.now() - timezone.timedelta(minutes=1)).isoformat(),
-        }
-
-        page = self.c.post("/notes/add/", params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertContains(page, "note with no tags")
-
-    def test_add_with_tags(self):
-        params = {
-            "child": self.child.id,
-            "note": "this note has tags",
-            "time": (timezone.now() - timezone.timedelta(minutes=1)).isoformat(),
-            "tags": 'A,B,"setup tag"',
-        }
-
-        old_notes = list(models.Note.objects.all())
-
-        page = self.c.post("/notes/add/", params, follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertContains(page, "this note has tags")
-
-        new_notes = list(models.Note.objects.all())
-
-        # Find the new tag and extract its tags
-        old_pks = [n.pk for n in old_notes]
-        new_note = [n for n in new_notes if n.pk not in old_pks][0]
-        new_note_tag_names = [t.name for t in new_note.tags.all()]
-
-        self.assertSetEqual(set(new_note_tag_names), {"A", "B", "setup tag"})
-
-    def test_edit(self):
-        old_tag_last_used = self.oldtag.last_used
-
-        params = {
-            "child": self.note.child.id,
-            "note": "Edited note",
-            "time": self.localdate_string(),
-            "tags": "oldtag,newtag",
-        }
-        page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
-        self.assertEqual(page.status_code, 200)
-
-        self.note.refresh_from_db()
-        self.oldtag.refresh_from_db()
-        self.assertEqual(self.note.note, params["note"])
-        self.assertContains(
-            page, "Note entry for {} updated".format(str(self.note.child))
-        )
-
-        self.assertSetEqual(
-            set(t.name for t in self.note.tags.all()), {"oldtag", "newtag"}
-        )
-
-        # Old tag remains old, because it was not added
-        self.assertEqual(old_tag_last_used, self.oldtag.last_used)
-
-        # Second phase: Remove all tags then add "oldtag" through posting
-        # which should update the last_used tag
-        self.note.tags.clear()
-        self.note.save()
-
-        params = {
-            "child": self.note.child.id,
-            "note": "Edited note (2)",
-            "time": self.localdate_string(),
-            "tags": "oldtag",
-        }
-        page = self.c.post("/notes/{}/".format(self.note.id), params, follow=True)
-        self.assertEqual(page.status_code, 200)
-
-        self.note.refresh_from_db()
-        self.oldtag.refresh_from_db()
-
-        self.assertLess(old_tag_last_used, self.oldtag.last_used)
-
-    def test_delete(self):
-        page = self.c.post("/notes/{}/delete/".format(self.note.id), follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertContains(page, "Note entry deleted")

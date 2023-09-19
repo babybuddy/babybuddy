@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load datetime i18n widget_tweaks %}
+{% load datetime duration i18n widget_tweaks %}
 
 {% block title %}{% trans "Pumping" %}{% endblock %}
 
@@ -18,21 +18,22 @@
     </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
-        <table class="table table-instances">
-            <thead class="thead-inverse">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
                 <tr>
                     <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Time" %}</th>
+                    <th>{% trans "Date" %}</th>
                     {% if not unique_child %}
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th>{% trans "Amount" %}</th>
+                    <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for pumping in object_list %}
-                    {% cycle "odd" "even" as row_class silent %}
-                    <tr class="{{ row_class }}">
+                    <tr>
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
@@ -50,20 +51,24 @@
 
                             </div>
                         </td>
-                        <th scope="row">{{ pumping.time|datetime_short }}</th>
+                        <th scope="row">{{ pumping.start|datetime_short }}</th>
                         {% if not unique_child %}
                             <td><a href="{% url 'core:child' pumping.child.slug %}">{{ pumping.child }}</a></td>
                         {% endif %}
                         <td>{{ pumping.amount }}</td>
+                        <td>{{ pumping.duration|duration_string }}</td>
+                        <td>
+                            {% include "core/render_tag_list.html" with tags=pumping.tags.all %}
+                        </td>
                     </tr>
                     {% if pumping.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="4"><i class="icon-note mr-2" aria-hidden="true"></i>{{ pumping.notes }}</td>
+                            <td colspan="5"><i class="icon-note me-2" aria-hidden="true"></i>{{ pumping.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="4">{% trans "No pumping entries found." %}</th>
+                        <th colspan="5">{% trans "No pumping entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

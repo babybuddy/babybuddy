@@ -3,12 +3,13 @@ from copy import deepcopy
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 
-from taggit.serializers import TagListSerializerField
+from taggit.serializers import TagListSerializerField, TaggitSerializer
 
 from core import models
+from babybuddy import models as babybuddy_models
 
 
 class CoreModelSerializer(serializers.HyperlinkedModelSerializer):
@@ -39,16 +40,30 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
 
     child = serializers.PrimaryKeyRelatedField(
         allow_null=True,
-        allow_empty=True,
+        help_text="Required unless a Timer value is provided.",
         queryset=models.Child.objects.all(),
         required=False,
+    )
+
+    timer = serializers.PrimaryKeyRelatedField(
+        allow_null=True,
+        help_text="May be used in place of the Start, End, and/or Child values.",
+        queryset=models.Timer.objects.all(),
+        required=False,
+        write_only=True,
     )
 
     class Meta:
         abstract = True
         extra_kwargs = {
-            "start": {"required": False},
-            "end": {"required": False},
+            "start": {
+                "help_text": "Required unless a Timer value is provided.",
+                "required": False,
+            },
+            "end": {
+                "help_text": "Required unless a Timer value is provided.",
+                "required": False,
+            },
         }
 
     def validate(self, attrs):
@@ -56,21 +71,18 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
         # of "start" and "end" fields as well as "child" if it is set on the
         # Timer entry.
         timer = None
-        if "timer" in self.initial_data:
-            try:
-                timer = models.Timer.objects.get(pk=self.initial_data["timer"])
-            except models.Timer.DoesNotExist:
-                raise ValidationError({"timer": ["Timer does not exist."]})
-            if timer.end:
-                end = timer.end
-            else:
-                end = timezone.now()
+        if "timer" in attrs:
+            # Remove the "timer" attribute (super validation would fail as it
+            # is not a true field on the model).
+            timer = attrs["timer"]
+            attrs.pop("timer")
+
             if timer.child:
                 attrs["child"] = timer.child
 
             # Overwrites values provided directly!
             attrs["start"] = timer.start
-            attrs["end"] = end
+            attrs["end"] = timezone.now()
 
         # The "child", "start", and "end" field should all be set at this
         # point. If one is not, model validation will fail because they are
@@ -87,25 +99,28 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
 
         # Only actually stop the timer if all validation passed.
         if timer:
-            timer.stop(attrs["end"])
+            timer.stop()
 
         return attrs
 
 
-class TaggableSerializer(serializers.HyperlinkedModelSerializer):
+class TaggableSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
     tags = TagListSerializerField(required=False)
 
 
-class UserSerializer(serializers.ModelSerializer):
+class BMISerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
-        model = User
-        fields = ("id", "username")
+        model = models.BMI
+        fields = ("id", "child", "bmi", "date", "notes", "tags")
+        extra_kwargs = {
+            "core.BMI.bmi": {"label": "BMI"},
+        }
 
 
-class PumpingSerializer(CoreModelSerializer):
+class PumpingSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Pumping
-        fields = ("id", "child", "amount", "time", "notes")
+        fields = ("id", "child", "amount", "start", "end", "duration", "notes", "tags")
 
 
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
@@ -139,6 +154,7 @@ class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "child",
             "start",
             "end",
+            "timer",
             "duration",
             "type",
             "method",
@@ -148,6 +164,18 @@ class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
         )
 
 
+class HeadCircumferenceSerializer(CoreModelSerializer, TaggableSerializer):
+    class Meta:
+        model = models.HeadCircumference
+        fields = ("id", "child", "head_circumference", "date", "notes", "tags")
+
+
+class HeightSerializer(CoreModelSerializer, TaggableSerializer):
+    class Meta:
+        model = models.Height
+        fields = ("id", "child", "height", "date", "notes", "tags")
+
+
 class NoteSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Note
@@ -155,9 +183,32 @@ class NoteSerializer(CoreModelSerializer, TaggableSerializer):
 
 
 class SleepSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
+    nap = serializers.BooleanField(allow_null=True, default=None, required=False)
+
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Sleep
-        fields = ("id", "child", "start", "end", "duration", "nap", "notes", "tags")
+        fields = (
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "nap",
+            "notes",
+            "tags",
+        )
+
+
+class TagSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Tag
+        fields = ("slug", "name", "color", "last_used")
+        extra_kwargs = {
+            "slug": {"required": False, "read_only": True},
+            "color": {"required": False},
+            "last_used": {"required": False, "read_only": True},
+        }
 
 
 class TemperatureSerializer(CoreModelSerializer, TaggableSerializer):
@@ -174,12 +225,16 @@ class TimerSerializer(CoreModelSerializer):
         required=False,
     )
     user = serializers.PrimaryKeyRelatedField(
-        allow_null=True, allow_empty=True, queryset=User.objects.all(), required=False
+        allow_null=True,
+        allow_empty=True,
+        queryset=get_user_model().objects.all(),
+        required=False,
     )
+    duration = serializers.DurationField(read_only=True, required=False)
 
     class Meta:
         model = models.Timer
-        fields = ("id", "child", "name", "start", "end", "duration", "active", "user")
+        fields = ("id", "child", "name", "start", "duration", "user")
 
     def validate(self, attrs):
         attrs = super(TimerSerializer, self).validate(attrs)
@@ -194,7 +249,16 @@ class TimerSerializer(CoreModelSerializer):
 class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.TummyTime
-        fields = ("id", "child", "start", "end", "duration", "milestone", "tags")
+        fields = (
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "milestone",
+            "tags",
+        )
 
 
 class WeightSerializer(CoreModelSerializer, TaggableSerializer):
@@ -203,30 +267,33 @@ class WeightSerializer(CoreModelSerializer, TaggableSerializer):
         fields = ("id", "child", "weight", "date", "notes", "tags")
 
 
-class HeightSerializer(CoreModelSerializer, TaggableSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Height
-        fields = ("id", "child", "height", "date", "notes", "tags")
+        model = get_user_model()
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "is_staff",
+        )
+        extra_kwargs = {k: {"read_only": True} for k in fields}
 
 
-class HeadCircumferenceSerializer(CoreModelSerializer, TaggableSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False)
+    api_key = serializers.SerializerMethodField("get_api_key")
+
+    def get_api_key(self, value):
+        return self.instance.api_key().key
+
     class Meta:
-        model = models.HeadCircumference
-        fields = ("id", "child", "head_circumference", "date", "notes", "tags")
-
-
-class BMISerializer(CoreModelSerializer, TaggableSerializer):
-    class Meta:
-        model = models.BMI
-        fields = ("id", "child", "bmi", "date", "notes", "tags")
-
-
-class TagSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.Tag
-        fields = ("slug", "name", "color", "last_used")
-        extra_kwargs = {
-            "slug": {"required": False, "read_only": True},
-            "color": {"required": False},
-            "last_used": {"required": False, "read_only": True},
-        }
+        model = babybuddy_models.Settings
+        fields = (
+            "user",
+            "language",
+            "timezone",
+            "api_key",
+        )
+        extra_kwargs = {k: {"read_only": True} for k in fields}

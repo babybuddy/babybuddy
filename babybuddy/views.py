@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
+import json
+
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView as LogoutViewBase
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import BadRequest
+from django.forms import Form
 from django.http import HttpResponseForbidden
 from django.middleware.csrf import REASON_BAD_ORIGIN
 from django.shortcuts import redirect, render
@@ -20,9 +24,17 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 from django.views.generic import View
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.detail import BaseDetailView
+from django.views.generic.edit import (
+    CreateView,
+    DeleteView,
+    FormMixin,
+    SingleObjectTemplateResponseMixin,
+    UpdateView,
+)
 from django.views.i18n import set_language
 
+from axes.utils import reset
 from django_filters.views import FilterView
 
 from babybuddy import forms
@@ -86,7 +98,7 @@ class LogoutView(LogoutViewBase):
 
 
 class UserList(StaffOnlyMixin, BabyBuddyFilterView):
-    model = User
+    model = get_user_model()
     template_name = "babybuddy/user_list.html"
     ordering = "username"
     paginate_by = 10
@@ -94,7 +106,7 @@ class UserList(StaffOnlyMixin, BabyBuddyFilterView):
 
 
 class UserAdd(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    model = User
+    model = get_user_model()
     template_name = "babybuddy/user_form.html"
     permission_required = ("admin.add_user",)
     form_class = forms.UserAddForm
@@ -105,7 +117,7 @@ class UserAdd(StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin, Crea
 class UserUpdate(
     StaffOnlyMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
 ):
-    model = User
+    model = get_user_model()
     template_name = "babybuddy/user_form.html"
     permission_required = ("admin.change_user",)
     form_class = forms.UserUpdateForm
@@ -113,10 +125,37 @@ class UserUpdate(
     success_message = gettext_lazy("User %(username)s updated.")
 
 
+class UserUnlock(
+    StaffOnlyMixin,
+    PermissionRequiredMixin,
+    SuccessMessageMixin,
+    FormMixin,
+    SingleObjectTemplateResponseMixin,
+    BaseDetailView,
+):
+    model = get_user_model()
+    template_name = "babybuddy/user_confirm_unlock.html"
+    permission_required = ("admin.change_user",)
+    form_class = Form
+    success_message = gettext_lazy("User unlocked.")
+
+    def post(self, request, *args, **kwargs):
+        user = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            reset(username=user.username)
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_success_url(self):
+        return reverse("babybuddy:user-update", kwargs={"pk": self.kwargs["pk"]})
+
+
 class UserDelete(
     StaffOnlyMixin, PermissionRequiredMixin, DeleteView, SuccessMessageMixin
 ):
-    model = User
+    model = get_user_model()
     template_name = "babybuddy/user_confirm_delete.html"
     permission_required = ("admin.delete_user",)
     success_url = reverse_lazy("babybuddy:user-list")
@@ -147,6 +186,21 @@ class UserPassword(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form})
 
 
+def handle_api_regenerate_request(request) -> bool:
+    """
+    Checks if the current request contains a request to update the API key
+    and if it does, updeates the API key.
+
+    Returns True, if the API-key regenerate request was detected and handled.
+    """
+
+    if request.POST.get("api_key_regenerate"):
+        request.user.settings.api_key(reset=True)
+        messages.success(request, _("User API key regenerated."))
+        return True
+    return False
+
+
 class UserSettings(LoginRequiredMixin, View):
     """
     Handles both the User and Settings models.
@@ -158,21 +212,19 @@ class UserSettings(LoginRequiredMixin, View):
     template_name = "babybuddy/user_settings_form.html"
 
     def get(self, request):
+        settings = request.user.settings
+
         return render(
             request,
             self.template_name,
             {
                 "form_user": self.form_user_class(instance=request.user),
-                "form_settings": self.form_settings_class(
-                    instance=request.user.settings
-                ),
+                "form_settings": self.form_settings_class(instance=settings),
             },
         )
 
     def post(self, request):
-        if request.POST.get("api_key_regenerate"):
-            request.user.settings.api_key(reset=True)
-            messages.success(request, _("User API key regenerated."))
+        if handle_api_regenerate_request(request):
             return redirect("babybuddy:user-settings")
 
         form_user = self.form_user_class(instance=request.user, data=request.POST)
@@ -193,6 +245,45 @@ class UserSettings(LoginRequiredMixin, View):
             self.template_name,
             {"user_form": form_user, "settings_form": form_settings},
         )
+
+
+class UserAddDevice(LoginRequiredMixin, View):
+    form_user_class = forms.UserForm
+    template_name = "babybuddy/user_add_device.html"
+    qr_code_template = "babybuddy/login_qr_code.txt"
+
+    def get(self, request):
+        # Assemble qr_code json-data. For Home Assistant ingress support, we
+        # also need to extract the ingress_session token to allow an external
+        # app to authenticate with home assistant so it can reach baby buddy
+        session_cookies = {}
+        if request.is_homeassistant_ingress_request:
+            session_cookies["ingress_session"] = request.COOKIES.get("ingress_session")
+
+        qr_code_response = render(
+            request,
+            self.qr_code_template,
+            {"session_cookies": json.dumps(session_cookies)},
+        )
+        qr_code_data = qr_code_response.content.decode().strip()
+
+        # Now that the qr_code json-data is assembled, we can pass the json
+        # structure as data to the user_add_device - template where it will
+        # be converted into a qr-code.
+        return render(
+            request,
+            self.template_name,
+            {
+                "form_user": self.form_user_class(instance=request.user),
+                "qr_code_data": qr_code_data,
+            },
+        )
+
+    def post(self, request):
+        if handle_api_regenerate_request(request):
+            return redirect("babybuddy:user-add-device")
+        else:
+            raise BadRequest()
 
 
 class Welcome(LoginRequiredMixin, TemplateView):

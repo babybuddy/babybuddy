@@ -1,0 +1,25 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+
+{% block header %}
+    <a href="{% url "core:pumping-list" %}">
+        {% trans "Last Pumping" %}
+    </a>
+{% endblock %}
+
+{% block title %}
+    {% if pumping %}
+        {% blocktrans trimmed with since=pumping.start|deltasince|duration_string:'m' time=pumping.start|time %}
+            <div>{{ since }} ago</div>
+            <small>{{ time }}</small>
+        {% endblocktrans %}
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if pumping %}
+        {% trans "Amount" %}: {{ pumping.amount }}
+    {% endif %}
+{% endblock %}

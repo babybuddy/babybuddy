@@ -1,0 +1,21 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks %}
+
+{% block title %}{% trans "Unlock User" %}{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'babybuddy:user-list' %}">{% trans "Users" %}</a></li>
+    <li class="breadcrumb-item">{{ object }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Unlock" %}</li>
+{% endblock %}
+
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% blocktrans trimmed %}
+            <h1>Are you sure you want to unlock <span class="text-info">{{ object }}</span>?</h1>
+        {% endblocktrans %}
+        <input type="submit" value="{% trans "Unlock" %}" class="btn btn-danger" />
+        <a href="{% url 'babybuddy:user-update' object.pk %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

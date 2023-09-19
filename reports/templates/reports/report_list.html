@@ -1,13 +1,22 @@
 {% extends 'reports/base.html' %}
-{% load i18n static %}
+{% load breadcrumb i18n static %}
 
 {% block title %}{% trans "Reports" %} - {{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="breadcrumb-item font-weight-bold">
+        {% child_quick_switch object 'reports:report-list' %}
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Reports" %}</li>
+
+{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <h1>Reports</h1>
-        <div class="list-group">
-            <a href="{% url 'reports:report-bmi-bmi-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Body Mass Index (BMI)" %}</a>
+        <div class="reports-list list-group">
+            <a href="{% url 'reports:report-bmi-change-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Body Mass Index (BMI)" %}</a>
             <a href="{% url 'reports:report-diaperchange-amounts-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Change Amounts" %}</a>
             <a href="{% url 'reports:report-diaperchange-types-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Change Types" %}</a>
             <a href="{% url 'reports:report-diaperchange-lifetimes-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Diaper Lifetimes" %}</a>
@@ -20,8 +29,9 @@
             <a href="{% url 'reports:report-pumping-amounts-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Pumping Amounts" %}</a>
             <a href="{% url 'reports:report-sleep-pattern-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Sleep Pattern" %}</a>
             <a href="{% url 'reports:report-sleep-totals-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Sleep Totals" %}</a>
-            <a href="{% url 'reports:report-tummytime-duration-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Tummy Time Durations (Sum)" %}</a>
-            <a href="{% url 'reports:report-weight-weight-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Weight" %}</a>
+            <a href="{% url 'reports:report-temperature-change-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Temperature" %}</a>
+            <a href="{% url 'reports:report-tummy-time-duration-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Tummy Time Durations (Sum)" %}</a>
+            <a href="{% url 'reports:report-weight-change-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Weight" %}</a>
         </div>
     </div>
 {% endblock %}

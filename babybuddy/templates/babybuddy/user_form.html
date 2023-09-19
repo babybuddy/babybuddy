@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n %}
+{% load babybuddy i18n %}
 
 {% block title %}
     {% if object %}
@@ -12,7 +12,7 @@
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'babybuddy:user-list' %}">{% trans "Users" %}</a></li>
     {% if object %}
-        <li class="breadcrumb-item font-weight-bold">{{ object }}</li>
+        <li class="breadcrumb-item fw-bold">{{ object }}</li>
         <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
         <li class="breadcrumb-item active" aria-current="page">{% trans "Create User" %}</li>
@@ -21,6 +21,17 @@
 
 {% block content %}
     {% if object %}
+        {% user_is_locked object as is_locked %}
+        {% if is_locked %}
+            <div class="alert alert-danger">
+                <div class="alert-heading h4">
+                    {% blocktrans %}User locked.{% endblocktrans %}
+                </div>
+                <a href="{% url 'babybuddy:user-unlock' object.id %}" class="btn btn-danger">
+                    {% blocktrans %}Unlock{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
         {% blocktrans trimmed %}
             <h1>Update <span class="text-info">{{ object }}</span></h1>
         {% endblocktrans %}

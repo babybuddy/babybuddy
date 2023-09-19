@@ -1,0 +1,7 @@
+{% load breadcrumb i18n %}
+
+<li class="breadcrumb-item font-weight-bold">
+    {% child_quick_switch object target_url %}
+</li>
+<li class="breadcrumb-item"><a href="{% url 'reports:report-list' object.slug %}">{% trans "Reports" %}</a></li>
+

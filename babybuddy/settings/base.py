@@ -24,8 +24,8 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
 INSTALLED_APPS = [
     "api",
-    "babybuddy",
-    "core",
+    "babybuddy.apps.BabyBuddyConfig",
+    "core.apps.CoreConfig",
     "dashboard",
     "reports",
     "axes",
@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     "imagekit",
     "storages",
     "import_export",
+    "qr_code",
+    "dbsettings",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -62,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "axes.middleware.AxesMiddleware",
+    "babybuddy.middleware.HomeAssistant",
 ]
 
 
@@ -77,7 +80,7 @@ ROOT_URLCONF = "babybuddy.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["babybuddy/templates/error"],
+        "DIRS": ["babybuddy/templates", "babybuddy/templates/error"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -143,13 +146,21 @@ LOGIN_URL = "babybuddy:login"
 
 LOGOUT_REDIRECT_URL = "babybuddy:login"
 
+REVERSE_PROXY_AUTH = bool(strtobool(os.environ.get("REVERSE_PROXY_AUTH") or "False"))
+
+# Use remote user middleware when reverse proxy auth is enabled.
+if REVERSE_PROXY_AUTH:
+    # Must appear AFTER AuthenticationMiddleware.
+    MIDDLEWARE.append("babybuddy.middleware.CustomRemoteUser")
+    AUTHENTICATION_BACKENDS.append("django.contrib.auth.backends.RemoteUserBackend")
+
 
 # Timezone
 # https://docs.djangoproject.com/en/4.0/topics/i18n/timezones/
 
 USE_TZ = True
 
-TIME_ZONE = os.environ.get("TIME_ZONE") or "UTC"
+TIME_ZONE = "UTC"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -164,16 +175,21 @@ LOCALE_PATHS = [
 
 LANGUAGES = [
     ("ca", _("Catalan")),
+    ("cs", _("Czech")),
     ("zh-hans", _("Chinese (simplified)")),
+    ("da", _("Danish")),
     ("nl", _("Dutch")),
     ("en-US", _("English (US)")),
     ("en-GB", _("English (UK)")),
     ("fr", _("French")),
     ("fi", _("Finnish")),
     ("de", _("German")),
+    ("hu", _("Hungarian")),
     ("it", _("Italian")),
+    ("nb", _("Norwegian Bokmål")),
     ("pl", _("Polish")),
     ("pt", _("Portuguese")),
+    ("ru", _("Russian")),
     ("es", _("Spanish")),
     ("sv", _("Swedish")),
     ("tr", _("Turkish")),
@@ -185,15 +201,7 @@ LANGUAGES = [
 
 USE_L10N = True
 
-# Custom setting that can be used to override the locale-based time set by
-# USE_L10N _for specific locales_ to use 24-hour format. In order for this to
-# work with a given locale it must be set at the FORMAT_MODULE_PATH with
-# conditionals on this setting. See babybuddy/forms/en/formats.py for an example
-# implementation for the English locale.
-
-USE_24_HOUR_TIME_FORMAT = bool(
-    strtobool(os.environ.get("USE_24_HOUR_TIME_FORMAT") or "False")
-)
+FORMAT_MODULE_PATH = ["babybuddy.formats"]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -227,8 +235,28 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID") or None
 
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY") or None
 
+AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL") or None
+
 if AWS_STORAGE_BUCKET_NAME:
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+
+# Email
+# https://docs.djangoproject.com/en/4.0/topics/email/
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_SUBJECT_PREFIX = "[Baby Buddy] "
+EMAIL_TIMEOUT = 30
+if os.environ.get("EMAIL_HOST"):
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = os.environ.get("EMAIL_HOST")
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER") or ""
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD") or ""
+    EMAIL_PORT = os.environ.get("EMAIL_PORT") or 25
+    EMAIL_USE_TLS = bool(strtobool(os.environ.get("EMAIL_USE_TLS") or "False"))
+    EMAIL_USE_SSL = bool(strtobool(os.environ.get("EMAIL_USE_SSL") or "False"))
+    EMAIL_SSL_KEYFILE = os.environ.get("EMAIL_SSL_KEYFILE") or None
+    EMAIL_SSL_CERTFILE = os.environ.get("EMAIL_SSL_CERTFILE") or None
 
 
 # Security
@@ -239,11 +267,13 @@ if os.environ.get("SECURE_PROXY_SSL_HEADER"):
 
 # https://docs.djangoproject.com/en/4.0/topics/http/sessions/#settings
 SESSION_COOKIE_HTTPONLY = True
-# SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = bool(
+    strtobool(os.environ.get("SESSION_COOKIE_SECURE") or "False")
+)
 
 # https://docs.djangoproject.com/en/4.0/ref/csrf/#settings
 CSRF_COOKIE_HTTPONLY = True
-# CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = bool(strtobool(os.environ.get("CSRF_COOKIE_SECURE") or "False"))
 CSRF_FAILURE_VIEW = "babybuddy.views.csrf_failure"
 CSRF_TRUSTED_ORIGINS = list(
     filter(None, os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(","))
@@ -279,6 +309,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.OrderingFilter",
     ],
     "DEFAULT_METADATA_CLASS": "api.metadata.APIMetadata",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
@@ -305,6 +336,10 @@ AXES_COOLOFF_TIME = 1
 
 AXES_FAILURE_LIMIT = 5
 
+AXES_LOCKOUT_TEMPLATE = "error/lockout.html"
+
+AXES_LOCKOUT_URL = "/login/lock"
+
 # Session configuration
 # Used by RollingSessionMiddleware to determine how often to reset the session.
 # See https://docs.djangoproject.com/en/4.0/topics/http/sessions/
@@ -317,10 +352,15 @@ ROLLING_SESSION_REFRESH = 86400
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Baby Buddy configuration
-# See README.md#configuration for details about these settings.
+# See https://docs.baby-buddy.net/ for details about these settings.
 
 BABY_BUDDY = {
-    "NAP_START_MIN": os.environ.get("NAP_START_MIN") or "06:00",
-    "NAP_START_MAX": os.environ.get("NAP_START_MAX") or "18:00",
     "ALLOW_UPLOADS": bool(strtobool(os.environ.get("ALLOW_UPLOADS") or "True")),
+    "READ_ONLY_GROUP_NAME": "read_only",
 }
+
+# Home assistant specific configuration
+
+ENABLE_HOME_ASSISTANT_SUPPORT = bool(
+    strtobool(os.environ.get("ENABLE_HOME_ASSISTANT_SUPPORT") or "False")
+)

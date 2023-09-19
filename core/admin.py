@@ -66,9 +66,11 @@ class PumpingImportExportResource(ImportExportResourceBase):
 @admin.register(models.Pumping)
 class PumpingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = (
+        "start",
+        "end",
+        "duration",
         "child",
         "amount",
-        "time",
     )
     list_filter = ("child",)
     search_fields = (
@@ -102,7 +104,15 @@ class FeedingImportExportResource(ImportExportResourceBase):
 
 @admin.register(models.Feeding)
 class FeedingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
-    list_display = ("start", "end", "duration", "child", "type", "method", "amount")
+    list_display = (
+        "start",
+        "end",
+        "duration",
+        "child",
+        "type",
+        "method",
+        "amount",
+    )
     list_filter = (
         "child",
         "type",
@@ -216,8 +226,8 @@ class TemperatureAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
 
 @admin.register(models.Timer)
 class TimerAdmin(admin.ModelAdmin):
-    list_display = ("name", "child", "start", "end", "duration", "active", "user")
-    list_filter = ("child", "active", "user")
+    list_display = ("name", "child", "start", "duration", "user")
+    list_filter = ("child", "user")
     search_fields = ("child__first_name", "child__last_name", "name", "user")
 
 

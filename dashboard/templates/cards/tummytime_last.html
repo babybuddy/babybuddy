@@ -10,7 +10,7 @@
 
 {% block title %}
     {% if tummytime %}
-        {% blocktrans trimmed with since=tummytime.time|timesince time=tummytime.time|time %}
+        {% blocktrans trimmed with since=tummytime.time|deltasince|duration_string:'m' time=tummytime.time|time %}
             <div>{{ since }} ago</div>
             <small>{{ time }}</small>
         {% endblocktrans %}

@@ -18,8 +18,8 @@
     </h1>
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
-        <table class="table table-instances">
-            <thead class="thead-inverse">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
                 <tr>
                     <th>{% trans "Actions" %}</th>
                     <th>{% trans "Date" %}</th>
@@ -32,8 +32,7 @@
             </thead>
             <tbody>
                 {% for bmi in object_list %}
-                    {% cycle "odd" "even" as row_class silent %}
-                    <tr class="{{ row_class }}">
+                    <tr>
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
 
@@ -62,12 +61,12 @@
                     </tr>
                     {% if bmi.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="5"><i class="icon-note mr-2" aria-hidden="true"></i>{{ bmi.notes }}</td>
+                            <td colspan="5"><i class="icon-note me-2" aria-hidden="true"></i>{{ bmi.notes }}</td>
                         </tr>
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No bmi entries found." %}</th>
+                        <th colspan="5">{% trans "No BMI entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
