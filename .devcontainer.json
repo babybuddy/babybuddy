@@ -4,8 +4,16 @@
       "extensions": [
         "bbenoist.Nix",
         "ms-python.python",
-        "batisteo.vscode-django"
-      ]
+        "batisteo.vscode-django",
+        "ms-python.black-formatter"
+      ],
+      "settings": {
+        "[python]": {
+          "editor": {
+            "defaultFormatter": "ms-python.black-formatter"
+          }
+        }
+      }
     }
   },
   "image": "ghcr.io/cachix/devenv:latest",

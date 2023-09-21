@@ -28,7 +28,7 @@ openpyxl==3.1.2
 packaging==23.1 ; python_version >= '3.7'
 pilkit==2.0
 pillow===9.5.0
-plotly==5.15.0
+plotly==5.17.0
 psycopg2-binary==2.9.6
 pydantic==2.1.1 ; python_version >= '3.7'
 pydantic-core==2.4.0 ; python_version >= '3.7'

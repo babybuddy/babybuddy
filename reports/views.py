@@ -295,7 +295,13 @@ class WeightChangeChildReport(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(WeightChangeChildReport, self).get_context_data(**kwargs)
         child = context["object"]
-        objects = models.Weight.objects.filter(child=child)
-        if objects:
-            context["html"], context["js"] = graphs.weight_change(objects)
+        birthday = child.birth_date
+        actual_weights = models.Weight.objects.filter(child=child)
+        percentile_weights = models.WeightPercentile.objects.filter(
+            sex=self.kwargs.get("sex")
+        )
+        if actual_weights:
+            context["html"], context["js"] = graphs.weight_change(
+                actual_weights, percentile_weights, birthday
+            )
         return context

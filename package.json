@@ -26,7 +26,7 @@
     "jquery": "^3.7.0",
     "masonry-layout": "^4.2.2",
     "npm-force-resolutions": "^0.0.10",
-    "plotly.js": "^2.24.3",
+    "plotly.js": "^2.26.0",
     "pulltorefreshjs": "^0.1.22",
     "pump": "^3.0.0",
     "sass": "^1.63.6",
