@@ -41,5 +41,10 @@
 
   # services.nginx.enable = true;
 
+  pre-commit.hooks = {
+    # format Python code 
+    black.enable = true;
+  };
+
   # See full reference at https://devenv.sh/reference/options/
 }
