@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils.translation import gettext as _
 from django.db.models.manager import BaseManager
 
@@ -39,6 +39,11 @@ def weight_change(
                 percentile_weights.values_list("age_in_days", flat=True),
             )
         )
+
+        # reduce percentile data xrange to end 1 day after last weigh in for formatting purposes
+        # https://github.com/babybuddy/babybuddy/pull/708#discussion_r1332335789
+        last_date_for_percentiles = max(weighing_dates) + timedelta(days=2)
+        dates = dates[: dates.index(last_date_for_percentiles)]
 
         percentile_weight_3_trace = go.Scatter(
             name=_("P3"),
@@ -81,7 +86,10 @@ def weight_change(
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Weight")
     if percentile_weights:
-        layout_args["xaxis"]["range"] = [birthday, datetime.now()]
+        layout_args["xaxis"]["range"] = [
+            birthday,
+            max(weighing_dates) + timedelta(days=1),
+        ]
         layout_args["yaxis"]["range"] = [0, max(measured_weights) * 1.5]
         data.extend(
             [
