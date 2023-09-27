@@ -1,25 +1,25 @@
 -i https://pypi.python.org/simple
 annotated-types==0.5.0 ; python_version >= '3.7'
 asgiref==3.7.2 ; python_version >= '3.7'
-boto3==1.28.15
-botocore==1.31.15 ; python_version >= '3.7'
+boto3==1.28.55
+botocore==1.31.55 ; python_version >= '3.7'
 defusedxml==0.7.1 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 diff-match-patch==20230430 ; python_version >= '3.7'
-dj-database-url==2.0.0
-django==4.2.3
+dj-database-url==2.1.0
+django==4.2.5
 django-appconf==1.0.5 ; python_version >= '3.1'
-django-axes==6.0.5
+django-axes==6.1.1
 django-dbsettings==1.3.0
-django-filter==23.2
+django-filter==23.3
 django-imagekit==4.1.0
-django-import-export==3.2.0
+django-import-export==3.3.1
 django-qr-code==3.1.1
-django-storages==1.13.2
+django-storages==1.14
 django-taggit==4.0.0
-django-widget-tweaks==1.4.12
+django-widget-tweaks==1.5.0
 djangorestframework==3.14.0
 et-xmlfile==1.1.0 ; python_version >= '3.6'
-faker==19.2.0
+faker==19.6.2
 gunicorn==21.2.0
 jmespath==1.0.1 ; python_version >= '3.7'
 markuppy==1.14
@@ -29,21 +29,21 @@ packaging==23.1 ; python_version >= '3.7'
 pilkit==2.0
 pillow===9.5.0
 plotly==5.17.0
-psycopg2-binary==2.9.6
-pydantic==2.1.1 ; python_version >= '3.7'
-pydantic-core==2.4.0 ; python_version >= '3.7'
+psycopg2-binary==2.9.7
+pydantic==2.4.1 ; python_version >= '3.7'
+pydantic-core==2.10.1 ; python_version >= '3.7'
 python-dateutil==2.8.2 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 python-dotenv==1.0.0
-pytz==2023.3
+pytz==2023.3.post1
 pyyaml==6.0.1
-s3transfer==0.6.1 ; python_version >= '3.7'
+s3transfer==0.7.0 ; python_version >= '3.7'
 segno==1.5.2 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
-setuptools==68.0.0 ; python_version >= '3.7'
+setuptools==68.2.2 ; python_version >= '3.8'
 six==1.16.0 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 sqlparse==0.4.4 ; python_version >= '3.5'
 tablib[html,ods,xls,xlsx,yaml]==3.5.0 ; python_version >= '3.8'
-tenacity==8.2.2 ; python_version >= '3.6'
-typing-extensions==4.7.1 ; python_version >= '3.7'
+tenacity==8.2.3 ; python_version >= '3.7'
+typing-extensions==4.8.0 ; python_version >= '3.8'
 uritemplate==4.1.1
 urllib3==1.26.16 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'
 whitenoise==6.5.0
