@@ -699,3 +699,31 @@ class Weight(models.Model):
 
     def clean(self):
         validate_date(self.date, "date")
+
+
+class WeightPercentile(models.Model):
+    model_name = "weight percentile"
+    age_in_days = models.DurationField(null=False)
+    p3_weight = models.FloatField(null=False)
+    p15_weight = models.FloatField(null=False)
+    p50_weight = models.FloatField(null=False)
+    p85_weight = models.FloatField(null=False)
+    p97_weight = models.FloatField(null=False)
+    sex = models.CharField(
+        null=False,
+        max_length=255,
+        choices=[
+            ("girl", _("Girl")),
+            ("boy", _("Boy")),
+        ],
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["age_in_days", "sex"], name="unique_age_sex"
+            )
+        ]
+
+    def __str__(self):
+        return f"Sex: {self.sex}, Age: {self.age_in_days} days, p3: {self.p3_weight} kg, p15: {self.p15_weight} kg, p50: {self.p50_weight} kg, p85: {self.p85_weight} kg, p97: {self.p97_weight} kg"

@@ -9,6 +9,7 @@
     pkgs.pipenv
     pkgs.nodejs_18
     pkgs.nodePackages.gulp
+    pkgs.sqlite
   ];
 
   # https://devenv.sh/scripts/
@@ -29,14 +30,21 @@
 
   devcontainer = {
     enable = true;
+    settings.customizations.vscode.settings."[python]".editor.defaultFormatter = "ms-python.black-formatter";
     settings.customizations.vscode.extensions = [
       "bbenoist.Nix"
       "ms-python.python"
       "batisteo.vscode-django"
+      "ms-python.black-formatter"
     ];
   };
 
   # services.nginx.enable = true;
+
+  pre-commit.hooks = {
+    # format Python code 
+    black.enable = true;
+  };
 
   # See full reference at https://devenv.sh/reference/options/
 }
