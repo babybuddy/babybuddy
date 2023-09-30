@@ -37,7 +37,7 @@ def diaperchange_intervals(changes):
     trace_solid = go.Scatter(
         name=_("Solid"),
         line=dict(shape="spline"),
-        x=list(changes.values_list("time", flat=True)),
+        x=list(changes.values_list("time", flat=True))[1:],
         y=[i.total_seconds() / 3600 for i in intervals_solid],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals_solid],
@@ -46,7 +46,7 @@ def diaperchange_intervals(changes):
     trace_wet = go.Scatter(
         name=_("Wet"),
         line=dict(shape="spline"),
-        x=list(changes.values_list("time", flat=True)),
+        x=list(changes.values_list("time", flat=True))[1:],
         y=[i.total_seconds() / 3600 for i in intervals_wet],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals_wet],
@@ -55,7 +55,7 @@ def diaperchange_intervals(changes):
     trace_total = go.Scatter(
         name=_("Total"),
         line=dict(shape="spline"),
-        x=list(changes.values_list("time", flat=True)),
+        x=list(changes.values_list("time", flat=True))[1:],
         y=[i.total_seconds() / 3600 for i in intervals],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals],
