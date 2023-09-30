@@ -174,6 +174,7 @@ class FeedingIntervalsChildReport(PermissionRequiredMixin, DetailView):
             context["html"], context["js"] = graphs.feeding_intervals(instances)
         return context
 
+
 class HeadCircumferenceChangeChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of head circumference change over time.
