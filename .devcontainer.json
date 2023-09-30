@@ -11,7 +11,8 @@
         "[python]": {
           "editor": {
             "defaultFormatter": "ms-python.black-formatter"
-          }
+          },
+          "pipenvPath": "pipenv"
         }
       }
     }
