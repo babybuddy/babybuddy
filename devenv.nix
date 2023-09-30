@@ -18,8 +18,11 @@
     pipenv install --dev
     npm i
     gulp migrate
-    gulp
   '';
+
+  processes = {
+    gulp.exec = "gulp";
+  };
 
   # https://devenv.sh/languages/
   languages.python.enable = true;
@@ -31,6 +34,7 @@
   devcontainer = {
     enable = true;
     settings.customizations.vscode.settings."[python]".editor.defaultFormatter = "ms-python.black-formatter";
+    settings.customizations.vscode.settings."[python]".pipenvPath = "pipenv";
     settings.customizations.vscode.extensions = [
       "bbenoist.Nix"
       "ms-python.python"

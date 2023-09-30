@@ -81,8 +81,41 @@ username and password (`admin`/`admin`).
 
 1. Install devenv (linux/mac/windows subsystem for linux/docker) via https://devenv.sh/getting-started/
 1. git clone the repo
-1. run `devenv shell`
+1. here you have two options
+    1. run `devenv shell` and then run `gulp`
+    1. _OR_ run `devenv up` which automatically runs gulp/nodejs/python as well
 1. Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
 username and password (`admin`/`admin`).
 
-Devenv also generates the devcontainer for vscode, and sets up github codespaces support. To run babybuddy, open a terminal after opening this repo in the devcontainer
+Devenv also generates the **.devcontainer for vscode**, and sets up **github codespaces support**. To run babybuddy in the devcontainer or codespaces, open a terminal after opening this repo in the devcontainer, which causes the dependencies to be installed via `devenv shell`. Then, run `gulp` to start the baby buddy server.
+
+### Debugging in devenv + vscode
+To debug in devenv + vscode/codespaces:
+
+1. add a `.vscode/launch.json` file like this: 
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/manage.py",
+            "env": {
+                "DEBUG": "False"
+            },
+            "args": [
+                "runserver"
+            ],
+            "django": true,
+            "justMyCode": true
+        }
+    ]
+}
+```
+2. Consider running `gulp fake --children 5 --days 7` as explained in the [gulp command reference](./gulp-command-reference.md) to add some fake data to the database
+3. Click Run -> Start Debugging (F5) and set your breakpoints in the python as desired
