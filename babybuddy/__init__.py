@@ -46,7 +46,7 @@
 """  # noqa
 
 __title__ = "Baby Buddy"
-__version__ = "2.0.4"
+__version__ = "2.1.0"
 __license__ = "BSD 2-Clause"
 
 VERSION = __version__
