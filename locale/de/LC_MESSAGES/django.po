@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-09 13:30+0000\n"
+"POT-Creation-Date: 2023-10-09 13:50+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2293,9 +2293,9 @@ msgstr "Windelwechsel-Mengen"
 
 #: reports/templates/reports/report_list.html:22
 #, fuzzy
-#| msgid "Diaper Amounts"
+#| msgid "Diaper Changes"
 msgid "Diaper Intervals"
-msgstr "Windel-Mengen"
+msgstr "Windelwechsel"
 
 #: reports/templates/reports/report_list.html:25
 msgid "Feeding Durations (Average)"
@@ -2334,75 +2334,22 @@ msgstr ""
 msgid "Total Tummy Time Durations"
 msgstr "Totale Bauchzeit-Dauer"
 
-#~ msgid "%(child)s had a diaper change."
-#~ msgstr "%(child)s bekam die Windel gewechselt."
+#~ msgid ""
+#~ "This setting will only be used when a browser does not support refresh on "
+#~ "focus."
+#~ msgstr ""
+#~ "Diese Einstellung wird nur verwendet, wenn ein Browser \"refresh on "
+#~ "focus\" nicht unterstützt."
 
-#, fuzzy
-#~ msgid "%(count)s active timer"
-#~ msgid_plural "%(count)s active timers"
-#~ msgstr[0] "%(count)s Timer%(plural)s aktiv"
-#~ msgstr[1] "%(count)s Timer%(plural)s aktiv"
-
-#~ msgid "%(count)s active timer%(plural)s"
-#~ msgstr "%(count)s Timer%(plural)s aktiv"
-
-#~ msgid "%(count)s feeding entries"
-#~ msgstr "%(count)s Fütterungseinträge"
-
-#~ msgid "%(count)s nap%(plural)s"
-#~ msgstr "%(count)s Nickerchen%(plural)s."
-
-#~ msgid "%(count)s sleep entries"
-#~ msgstr "%(count)s Schlaf-Einträge"
-
-#~ msgid "%(n)s feeding%(plural)s ago"
-#~ msgstr "vor %(n)s Mahlzeit%(plural)sen"
-
-#~ msgid "%(time)s ago"
-#~ msgstr "vor %(time)s"
-
-#~ msgid "%(timer)s created by %(object.user)s"
-#~ msgstr "%(timer)s von %(object.user)s erstellt"
-
-#~ msgid "%(timer)s stopped."
-#~ msgstr "%(timer)s gestoppt."
-
-#~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
-#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
+#~ msgid "English"
+#~ msgstr "Englisch"
 
 #~ msgid ""
-#~ "<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
-#~ "                two passwords did not match. Please try again.</p>"
+#~ "You do not have permission to access this resource.\n"
+#~ "        Contact a site administrator for assistance."
 #~ msgstr ""
-#~ "<p class=\"mb-0\"><strong>Oh nein!</strong> Die beiden Passwörter stimmen "
-#~ "nicht überein. Bitte versuche es erneut.</p>"
-
-#~ msgid ""
-#~ "<p class=\"mb-0\">Enter your account email address in the\n"
-#~ "        form below. If the address is valid, you will receive "
-#~ "instructions for\n"
-#~ "        resetting your password.</p>"
-#~ msgstr ""
-#~ "<p class=\"mb-0\">Bitte gib deine Account-E-Mail-Adresse ins folgende "
-#~ "Formular ein. Wenn die Adresse gültig ist, erhältst du Anweisungen um das "
-#~ "Passwort zurückzusetzen.</p>"
-
-#~ msgid ""
-#~ "<p>We've emailed you instructions for setting your\n"
-#~ "            password, if an account exists with the email you entered. "
-#~ "You\n"
-#~ "            should receive them shortly.</p>\n"
-#~ "        <p class=\"mb-0\">If you don't receive an email, please make sure "
-#~ "you've\n"
-#~ "            entered the address you registered with, and check your spam\n"
-#~ "            folder.</p>"
-#~ msgstr ""
-#~ "<p>Wenn ein Account mit dieser E-Mail-Adresse existiert, haben wir dir  "
-#~ "Anweisungen zum Zurücksetzen des Passworts an dieselbe Adresse gesendet.</"
-#~ "p>\n"
-#~ "        <p class=\"mb-0\">Falls du keine E-Mail erhältst, überprüfe ob du "
-#~ "die E-Mail-Adresse eingegeben hast, mit der du dich registriert hast, und "
-#~ "überprüfe deinen Spam-Ordner.</p>"
+#~ "Du hast keine Berechtigung auf diese Ressource zuzugreifen. Bitte "
+#~ "kontaktiere einen Administrator."
 
 #~ msgid ""
 #~ "<strong>Error:</strong> Some fields have errors. See below for details. "
@@ -2410,29 +2357,17 @@ msgstr "Totale Bauchzeit-Dauer"
 #~ "<strong>Fehler:</strong> Manche Felder sind fehlerhaft. Details sind "
 #~ "unten ersichtlich. "
 
-#~ msgid "Active Timers"
-#~ msgstr "Aktive Timer"
+#~ msgid "Backend Admin"
+#~ msgstr "Backend-Admin"
 
-#~ msgid "Add a Change"
-#~ msgstr "Änderung hinzufügen"
-
-#~ msgid "All inactive timers deleted."
-#~ msgstr "Alle inaktiven Timer gelöscht."
-
-#, fuzzy
-#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
-#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
-#~ msgstr[0] ""
-#~ "Bist du dicher, dass du %(number)s inaktive Timer%(plural)s löschen "
-#~ "möchtest?"
-#~ msgstr[1] ""
-#~ "Bist du dicher, dass du %(number)s inaktive Timer%(plural)s löschen "
-#~ "möchtest?"
-
-#~ msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
+#~ msgid ""
+#~ "Learn about and predict baby's needs without\n"
+#~ "            (<em>as much</em>) guess work by using Baby Buddy to track "
+#~ "&mdash;"
 #~ msgstr ""
-#~ "Bist du dicher, dass du %(number)s inaktive Timer%(plural)s löschen "
-#~ "möchtest?"
+#~ "Lerne und sehe die Bedürfnisse deines Babys voraus, ohne \n"
+#~ "            (<em>allzu viel</em>) Spekulation, indem du Baby Buddy "
+#~ "verwendest &mdash;"
 
 #~ msgid ""
 #~ "As the amount of entries grows, Baby Buddy will help\n"
@@ -2454,11 +2389,94 @@ msgstr "Totale Bauchzeit-Dauer"
 #~ "loszulegen, klicke einfach auf den untenstehenden Button, um das erste "
 #~ "(oder zweite, dritte, etc.) Kind hinzuzufügen!"
 
-#~ msgid "Backend Admin"
-#~ msgstr "Backend-Admin"
+#~ msgid ""
+#~ "<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
+#~ "                two passwords did not match. Please try again.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\"><strong>Oh nein!</strong> Die beiden Passwörter stimmen "
+#~ "nicht überein. Bitte versuche es erneut.</p>"
 
-#~ msgid "Contents: %(contents)s"
-#~ msgstr "Inhalte: %(contents)s"
+#~ msgid ""
+#~ "<p>We've emailed you instructions for setting your\n"
+#~ "            password, if an account exists with the email you entered. "
+#~ "You\n"
+#~ "            should receive them shortly.</p>\n"
+#~ "        <p class=\"mb-0\">If you don't receive an email, please make sure "
+#~ "you've\n"
+#~ "            entered the address you registered with, and check your spam\n"
+#~ "            folder.</p>"
+#~ msgstr ""
+#~ "<p>Wenn ein Account mit dieser E-Mail-Adresse existiert, haben wir dir  "
+#~ "Anweisungen zum Zurücksetzen des Passworts an dieselbe Adresse gesendet.</"
+#~ "p>\n"
+#~ "        <p class=\"mb-0\">Falls du keine E-Mail erhältst, überprüfe ob du "
+#~ "die E-Mail-Adresse eingegeben hast, mit der du dich registriert hast, und "
+#~ "überprüfe deinen Spam-Ordner.</p>"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\">Enter your account email address in the\n"
+#~ "        form below. If the address is valid, you will receive "
+#~ "instructions for\n"
+#~ "        resetting your password.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\">Bitte gib deine Account-E-Mail-Adresse ins folgende "
+#~ "Formular ein. Wenn die Adresse gültig ist, erhältst du Anweisungen um das "
+#~ "Passwort zurückzusetzen.</p>"
+
+#~ msgid "Wet and/or solid is required."
+#~ msgstr "Nass und/oder fest wird benötigt."
+
+#~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
+#~ msgstr ""
+#~ "Nur die Methode \"Fläschchen\" ist mit Typ \"Säuglingsnahrung\" erlaubt."
+
+#~ msgid "Add a Change"
+#~ msgstr "Änderung hinzufügen"
+
+#~ msgid "Stopped"
+#~ msgstr "Gestoppt"
+
+#~ msgid "%(timer)s created by %(object.user)s"
+#~ msgstr "%(timer)s von %(object.user)s erstellt"
+
+#~ msgid "Active Timers"
+#~ msgstr "Aktive Timer"
+
+#~ msgid "%(child)s had a diaper change."
+#~ msgstr "%(child)s bekam die Windel gewechselt."
+
+#~ msgid "%(timer)s stopped."
+#~ msgstr "%(timer)s gestoppt."
+
+#~ msgid "%(time)s ago"
+#~ msgstr "vor %(time)s"
+
+#~ msgid "Today's Sleep"
+#~ msgstr "Schlaf heute"
+
+#~ msgid "None yet today"
+#~ msgstr "Noch keine heute"
+
+#~ msgid "%(count)s sleep entries"
+#~ msgstr "%(count)s Schlaf-Einträge"
+
+#~ msgid "Last Slept"
+#~ msgstr "Zuletzt geschlafen"
+
+#~ msgid "%(count)s nap%(plural)s"
+#~ msgstr "%(count)s Nickerchen%(plural)s."
+
+#~ msgid "%(count)s active timer%(plural)s"
+#~ msgstr "%(count)s Timer%(plural)s aktiv"
+
+#~ msgid "Started by %(instance.user)s at %(start)s"
+#~ msgstr "Gestartet von %(instance.user)s um %(start)s"
+
+#~ msgid "There is no enough data to generate this report."
+#~ msgstr "Es gibt nicht genügend Daten um diesen Bericht zu generieren."
+
+#~ msgid "Total feeding amount"
+#~ msgstr "Total Mahlzeiten"
 
 #~ msgid "Delete All Inactive Timers"
 #~ msgstr "Alle inaktiven Timer löschen"
@@ -2466,26 +2484,34 @@ msgstr "Totale Bauchzeit-Dauer"
 #~ msgid "Delete Inactive"
 #~ msgstr "Inaktive löschen"
 
+#~ msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
+#~ msgstr ""
+#~ "Bist du dicher, dass du %(number)s inaktive Timer%(plural)s löschen "
+#~ "möchtest?"
+
 #~ msgid "Delete Inactive Timers"
 #~ msgstr "Inaktive Timer löschen"
+
+#~ msgid "All inactive timers deleted."
+#~ msgstr "Alle inaktiven Timer gelöscht."
+
+#~ msgid "No inactive timers exist."
+#~ msgstr "Keine inaktiven Timer vorhanden."
+
+#~ msgid "%(n)s feeding%(plural)s ago"
+#~ msgstr "vor %(n)s Mahlzeit%(plural)sen"
 
 #~ msgid "Delete timer"
 #~ msgstr "Timer löschen"
 
-#~ msgid "English"
-#~ msgstr "Englisch"
+#~ msgid "Contents: %(contents)s"
+#~ msgstr "Inhalte: %(contents)s"
 
-#~ msgid "Last Slept"
-#~ msgstr "Zuletzt geschlafen"
+#~ msgid "Today's Feeding"
+#~ msgstr "Heute gefüttert"
 
-#~ msgid ""
-#~ "Learn about and predict baby's needs without\n"
-#~ "            (<em>as much</em>) guess work by using Baby Buddy to track "
-#~ "&mdash;"
-#~ msgstr ""
-#~ "Lerne und sehe die Bedürfnisse deines Babys voraus, ohne \n"
-#~ "            (<em>allzu viel</em>) Spekulation, indem du Baby Buddy "
-#~ "verwendest &mdash;"
+#~ msgid "%(count)s feeding entries"
+#~ msgstr "%(count)s Fütterungseinträge"
 
 #~ msgid "Napping"
 #~ msgstr "Nickerchen"
@@ -2493,47 +2519,21 @@ msgstr "Totale Bauchzeit-Dauer"
 #~ msgid "No bmi entries found."
 #~ msgstr "Keine BMI-Einträge gefunden."
 
-#~ msgid "No inactive timers exist."
-#~ msgstr "Keine inaktiven Timer vorhanden."
+#~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
 
-#~ msgid "None yet today"
-#~ msgstr "Noch keine heute"
+#, fuzzy
+#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
+#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+#~ msgstr[0] ""
+#~ "Bist du dicher, dass du %(number)s inaktive Timer%(plural)s löschen "
+#~ "möchtest?"
+#~ msgstr[1] ""
+#~ "Bist du dicher, dass du %(number)s inaktive Timer%(plural)s löschen "
+#~ "möchtest?"
 
-#~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
-#~ msgstr ""
-#~ "Nur die Methode \"Fläschchen\" ist mit Typ \"Säuglingsnahrung\" erlaubt."
-
-#~ msgid "Started by %(instance.user)s at %(start)s"
-#~ msgstr "Gestartet von %(instance.user)s um %(start)s"
-
-#~ msgid "Stopped"
-#~ msgstr "Gestoppt"
-
-#~ msgid "There is no enough data to generate this report."
-#~ msgstr "Es gibt nicht genügend Daten um diesen Bericht zu generieren."
-
-#~ msgid ""
-#~ "This setting will only be used when a browser does not support refresh on "
-#~ "focus."
-#~ msgstr ""
-#~ "Diese Einstellung wird nur verwendet, wenn ein Browser \"refresh on "
-#~ "focus\" nicht unterstützt."
-
-#~ msgid "Today's Feeding"
-#~ msgstr "Heute gefüttert"
-
-#~ msgid "Today's Sleep"
-#~ msgstr "Schlaf heute"
-
-#~ msgid "Total feeding amount"
-#~ msgstr "Total Mahlzeiten"
-
-#~ msgid "Wet and/or solid is required."
-#~ msgstr "Nass und/oder fest wird benötigt."
-
-#~ msgid ""
-#~ "You do not have permission to access this resource.\n"
-#~ "        Contact a site administrator for assistance."
-#~ msgstr ""
-#~ "Du hast keine Berechtigung auf diese Ressource zuzugreifen. Bitte "
-#~ "kontaktiere einen Administrator."
+#, fuzzy
+#~ msgid "%(count)s active timer"
+#~ msgid_plural "%(count)s active timers"
+#~ msgstr[0] "%(count)s Timer%(plural)s aktiv"
+#~ msgstr[1] "%(count)s Timer%(plural)s aktiv"

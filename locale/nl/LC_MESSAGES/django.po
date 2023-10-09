@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-09 13:30+0000\n"
+"POT-Creation-Date: 2023-10-09 13:50+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,7 +139,7 @@ msgstr "Catalaans"
 
 #: babybuddy/settings/base.py:178
 msgid "Czech"
-msgstr ""
+msgstr "Tsjechisch"
 
 #: babybuddy/settings/base.py:179
 msgid "Chinese (simplified)"
@@ -185,7 +185,7 @@ msgstr "Italiaans"
 
 #: babybuddy/settings/base.py:189
 msgid "Norwegian Bokmål"
-msgstr ""
+msgstr "Noors Bokmal"
 
 #: babybuddy/settings/base.py:190
 msgid "Polish"
@@ -197,7 +197,7 @@ msgstr "Portugees"
 
 #: babybuddy/settings/base.py:192
 msgid "Russian"
-msgstr ""
+msgstr "Russisch"
 
 #: babybuddy/settings/base.py:193
 msgid "Spanish"
@@ -213,23 +213,29 @@ msgstr "Turks"
 
 #: babybuddy/site_settings.py:23
 msgid "Default minimum nap start time"
-msgstr ""
+msgstr "Standaard minimum dutje start tijd"
 
 #: babybuddy/site_settings.py:25
 msgid ""
 "The minimum default time that a sleep entry is consider a nap. If set the "
 "nap property will be preselected if the start time is within the bounds."
 msgstr ""
+"De minimum standaard tijd dat een slaap entry gezien wordt als een dutje. "
+"Als deze gezet is zal dutje voorgeselecteerd worden als de start tijd binnen "
+"de tijd valt."
 
 #: babybuddy/site_settings.py:32
 msgid "Default maximum nap start time"
-msgstr ""
+msgstr "Standaard maximum dutje start tijd"
 
 #: babybuddy/site_settings.py:34
 msgid ""
 "The maximum default time that a sleep entry is consider a nap. If set the "
 "nap property will be preselected if the start time is within the bounds."
 msgstr ""
+"De maximum standaard tijd dat een slaap entry gezien wordt als een dutje. "
+"Als deze gezet is zal dutje voorgeselecteerd worden als de start tijd binnen "
+"de tijd valt."
 
 #: babybuddy/templates/admin/base_site.html:4
 #: babybuddy/templates/admin/base_site.html:7
@@ -793,7 +799,7 @@ msgstr "Acties"
 
 #: babybuddy/templates/babybuddy/user_list.html:61
 msgid "No users found."
-msgstr "Geen gebruikers gevonden"
+msgstr "Geen gebruikers gevonden."
 
 #: babybuddy/templates/babybuddy/user_password_form.html:4
 #: babybuddy/templates/babybuddy/user_password_form.html:8
@@ -866,10 +872,8 @@ msgstr "Voeg een kind toe"
 
 #: babybuddy/templates/dbsettings/site_settings.html:4
 #: babybuddy/templates/dbsettings/site_settings.html:12
-#, fuzzy
-#| msgid "User Settings"
 msgid "Site Settings"
-msgstr "Gebruikers instellingen"
+msgstr "Site Instellingen"
 
 #: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
 msgid "Bad Request"
@@ -937,7 +941,7 @@ msgstr "Het wachtwoord is opnieuw ingesteld!"
 
 #: babybuddy/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set. You may go ahead and log in now."
-msgstr "Je wachtwoord"
+msgstr "Je wachtwoord is ingesteld. Je kan nu aanmelden."
 
 #: babybuddy/templates/registration/password_reset_complete.html:9
 msgid "Log in"
@@ -990,14 +994,16 @@ msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
+"Je ontvangt deze email omdat je een wachtwoord reset hebt aangevraagd voor "
+"jouw gebruikersaccount bij %(site_name)s."
 
 #: babybuddy/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "Ga naar de volgende pagina en kies een nieuw wachtwoord:"
 
 #: babybuddy/templates/registration/password_reset_email.html:8
 msgid "Your username, in case you’ve forgotten:"
-msgstr ""
+msgstr "Jouw gebruikersnaam, voor het geval je deze vergeten bent:"
 
 #: babybuddy/templates/registration/password_reset_email.html:10
 msgid "Thanks for using Baby Buddy!"
@@ -1036,7 +1042,7 @@ msgstr "Gebruiker %(username)s is geupdate."
 
 #: babybuddy/views.py:140
 msgid "User unlocked."
-msgstr "Gebruiker ontgrendeld. "
+msgstr "Gebruiker ontgrendeld."
 
 #: babybuddy/views.py:164
 #, python-brace-format
@@ -1061,12 +1067,16 @@ msgid ""
 "Nap start max. value %(max)s must be greater than nap start min. value "
 "%(min)s."
 msgstr ""
+"Dutje start max. waarde %(max)s moet groter zijn dan dutje start min. waarde "
+"%(min)s."
 
 #: core/fields.py:27
 #, python-format
 msgid ""
 "Nap start min. value %(min)s must be less than nap start min. value %(max)s."
 msgstr ""
+"Dutje start min. waarde %(min)s moet kleiner zijn dan dutje start min. "
+"waarde %(max)s."
 
 #: core/filters.py:11 core/models.py:96 core/models.py:115
 msgid "Tag"
@@ -1279,10 +1289,8 @@ msgid "Nap"
 msgstr "Dutje"
 
 #: core/models.py:494
-#, fuzzy
-#| msgid "Settings"
 msgid "Nap settings"
-msgstr "Instellingen"
+msgstr "Dutje instellingen"
 
 #: core/models.py:566 core/templates/core/timer_list.html:25
 msgid "Name"
@@ -1365,7 +1373,7 @@ msgstr "Geboortedatum"
 
 #: core/templates/core/child_list.html:66
 msgid "No children found."
-msgstr "Geen kinderen gevonden"
+msgstr "Geen kinderen gevonden."
 
 #: core/templates/core/child_quick_switch.html:6
 msgid "Switch child"
@@ -1556,7 +1564,7 @@ msgstr "Einde"
 
 #: core/templates/core/sleep_list.html:73
 msgid "No sleep entries found."
-msgstr "Geen slaap gegevens gevonden"
+msgstr "Geen slaap gegevens gevonden."
 
 #: core/templates/core/temperature_confirm_delete.html:4
 msgid "Delete a Temperature Reading"
@@ -1756,7 +1764,7 @@ msgstr "gisteren"
 
 #: core/templatetags/duration.py:116
 msgid " days ago"
-msgstr "␣dagen geleden"
+msgstr " dagen geleden"
 
 #: core/timeline.py:54
 #, python-format
@@ -1801,13 +1809,12 @@ msgstr "%(child)s onderging een %(type)s luierverschoning."
 #: core/timeline.py:226
 #, python-format
 msgid "Temperature: %(temperature).0f"
-msgstr ""
+msgstr "Temperatuur: %(temperature).0f"
 
 #: core/timeline.py:234
-#, fuzzy, python-format
-#| msgid "%(child)s had a diaper change."
+#, python-format
 msgid "%(child)s had a temperature measurement."
-msgstr "%(child)s luier is verschoond."
+msgstr "%(child)s hebben een temperatuur meting gehad."
 
 #: core/utils.py:40
 #, python-format
@@ -1848,7 +1855,7 @@ msgstr "%(model)s voor %(child)s is bijgewerkt."
 #: core/views.py:63
 #, python-format
 msgid "%(model)s entry updated."
-msgstr "%(model)s is bijgewerkt"
+msgstr "%(model)s is bijgewerkt."
 
 #: core/views.py:69 core/views.py:146
 #, python-format
@@ -1920,10 +1927,8 @@ msgstr[0] "%(n)s maaltijd geleden"
 msgstr[1] "%(n)s maaltijden geleden"
 
 #: dashboard/templates/cards/feeding_recent.html:6
-#, fuzzy
-#| msgid "Delete a Feeding"
 msgid "Recent Feedings"
-msgstr "Verwijder een maaltijd"
+msgstr "Recente Voedingen"
 
 #: dashboard/templates/cards/feeding_recent.html:25
 #, fuzzy, python-format
@@ -1934,14 +1939,13 @@ msgstr[1] "%(counter)s voedingen"
 
 #: dashboard/templates/cards/feeding_recent.html:32
 #: dashboard/templates/cards/sleep_recent.html:32
-#, fuzzy, python-format
-#| msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+#, python-format
 msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
-msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
+msgstr "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
 
 #: dashboard/templates/cards/pumping_last.html:6
 msgid "Last Pumping"
-msgstr ""
+msgstr "Laatste afkolving"
 
 #: dashboard/templates/cards/sleep_last.html:6
 msgid "Last Sleep"
@@ -1966,8 +1970,8 @@ msgstr "Recente slaap"
 #, python-format
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleep"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s slaap"
+msgstr[1] "%(counter)s slaap"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1983,10 +1987,12 @@ msgstr "Nog geen gegevens"
 
 #: dashboard/templates/cards/timer_list.html:12
 #, fuzzy, python-format
+#| msgid "%(count)s timer"
+#| msgid_plural "%(count)s timers"
 msgid "%(count)s timer"
 msgid_plural "%(count)s timers"
-msgstr[0] "%(count)s actieve timer"
-msgstr[1] "%(count)s actieve timers"
+msgstr[0] "%(count) timer"
+msgstr[1] "%(count)s timers"
 
 #: dashboard/templates/cards/timer_list.html:27
 #, python-format
@@ -2094,7 +2100,7 @@ msgstr "Aantal luiers verschoond"
 
 #: reports/graphs/diaperchange_amounts.py:36
 msgid "<b>Diaper Change Amounts</b>"
-msgstr "<b>Aantal luierverschoningen"
+msgstr "<b>Aantal luierverschoningen</b>"
 
 #: reports/graphs/diaperchange_amounts.py:39
 msgid "Change amount"
@@ -2109,7 +2115,7 @@ msgstr "Totaal"
 #, fuzzy
 #| msgid "<b>Diaper Change Amounts</b>"
 msgid "<b>Diaper Change Intervals</b>"
-msgstr "<b>Aantal luierverschoningen"
+msgstr "<b>Aantal luierverschoningen</b>"
 
 #: reports/graphs/diaperchange_intervals.py:69
 msgid "Interval (hours)"
@@ -2355,48 +2361,6 @@ msgstr ""
 msgid "Total Tummy Time Durations"
 msgstr "Totale tijdsduur Buikliggen"
 
-#~ msgid "Today's Feeding"
-#~ msgstr "Voeding vandaag"
-
-#~ msgid "Napping"
-#~ msgstr "Dutten"
-
-#~ msgid "Delete All Inactive Timers"
-#~ msgstr "Verwijder alle inactieve timers"
-
-#~ msgid "Delete Inactive"
-#~ msgstr "Verwijder inactieve"
-
-#, fuzzy, python-format
-#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
-#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
-#~ msgstr[0] ""
-#~ "Weet je zeker dat je %(number)s inactieve timer wilt verwijderen?"
-#~ msgstr[1] ""
-#~ "Weet je zeker dat je %(number)s inactieve timers wilt verwijderen?"
-
-#~ msgid "Stopped"
-#~ msgstr "Gestopt"
-
-#~ msgid "Delete timer"
-#~ msgstr "Verwijder timer"
-
-#~ msgid "Delete Inactive Timers"
-#~ msgstr "Verwijder inactieve timers"
-
-#~ msgid "Active Timers"
-#~ msgstr "Actieve timers"
-
-#, python-format
-#~ msgid "%(timer)s stopped."
-#~ msgstr "%(timer)s is gestopt."
-
-#~ msgid "All inactive timers deleted."
-#~ msgstr "Alle inactieve timers verwijderd."
-
-#~ msgid "No inactive timers exist."
-#~ msgstr "Geen inactieve timers gevonden."
-
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
 #~ "focus."
@@ -2496,8 +2460,20 @@ msgstr "Totale tijdsduur Buikliggen"
 #~ msgid "Add a Change"
 #~ msgstr "Voeg een verversing toe"
 
+#~ msgid "Stopped"
+#~ msgstr "Gestopt"
+
 #~ msgid "%(timer)s created by %(object.user)s"
 #~ msgstr "%(timer)s is aangemaakt door %(object.user)s"
+
+#~ msgid "Active Timers"
+#~ msgstr "Actieve timers"
+
+#~ msgid "%(child)s had a diaper change."
+#~ msgstr "%(child)s luier is verschoond."
+
+#~ msgid "%(timer)s stopped."
+#~ msgstr "%(timer)s is gestopt."
 
 #~ msgid "%(time)s ago"
 #~ msgstr "%(time)s geleden"
@@ -2529,19 +2505,60 @@ msgstr "Totale tijdsduur Buikliggen"
 #~ msgid "Total feeding amount"
 #~ msgstr "Totale hoeveelheid voeding"
 
+#~ msgid "Delete All Inactive Timers"
+#~ msgstr "Verwijder alle inactieve timers"
+
+#~ msgid "Delete Inactive"
+#~ msgstr "Verwijder inactieve"
+
 #~ msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
 #~ msgstr ""
 #~ "Ben je zeker dat je %(number)s inactieve timer%(plural)s wil verwijderen?"
 
+#~ msgid "Delete Inactive Timers"
+#~ msgstr "Verwijder inactieve timers"
+
+#~ msgid "All inactive timers deleted."
+#~ msgstr "Alle inactieve timers verwijderd."
+
+#~ msgid "No inactive timers exist."
+#~ msgstr "Geen inactieve timers gevonden."
+
 #~ msgid "%(n)s feeding%(plural)s ago"
 #~ msgstr "%(n)s maaltijd%(plural)s geleden"
+
+#~ msgid "Delete timer"
+#~ msgstr "Verwijder timer"
 
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Inhoud: %(contents)s"
 
+#~ msgid "Today's Feeding"
+#~ msgstr "Voeding vandaag"
+
 #~ msgid "%(count)s feeding entries"
 #~ msgstr "%(count)s voedingen"
+
+#~ msgid "Napping"
+#~ msgstr "Dutten"
 
 #, fuzzy
 #~ msgid "No bmi entries found."
 #~ msgstr "Geen bmi gegevens gevonden."
+
+#~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
+
+#, fuzzy
+#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
+#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+#~ msgstr[0] ""
+#~ "Weet je zeker dat je %(number)s inactieve timer wilt verwijderen?"
+#~ msgstr[1] ""
+#~ "Weet je zeker dat je %(number)s inactieve timers wilt verwijderen?"
+
+#, fuzzy
+#~ msgid "%(count)s active timer"
+#~ msgid_plural "%(count)s active timers"
+#~ msgstr[0] "%(count)s actieve timer"
+#~ msgstr[1] "%(count)s actieve timers"

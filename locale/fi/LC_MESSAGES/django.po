@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-09 13:30+0000\n"
+"POT-Creation-Date: 2023-10-09 13:50+0000\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -189,7 +189,7 @@ msgstr "puola"
 
 #: babybuddy/settings/base.py:191
 msgid "Portuguese"
-msgstr ""
+msgstr "portugali"
 
 #: babybuddy/settings/base.py:192
 msgid "Russian"
@@ -593,7 +593,7 @@ msgstr "Luo uudelleen"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:28
 msgid "Login QR code"
-msgstr ""
+msgstr "Kirjautumisen QR-koodi"
 
 #: babybuddy/templates/babybuddy/user_confirm_delete.html:4
 msgid "Delete User"
@@ -859,10 +859,8 @@ msgstr "Lisää lapsi"
 
 #: babybuddy/templates/dbsettings/site_settings.html:4
 #: babybuddy/templates/dbsettings/site_settings.html:12
-#, fuzzy
-#| msgid "User Settings"
 msgid "Site Settings"
-msgstr "Käyttäjäasetukset"
+msgstr ""
 
 #: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
 msgid "Bad Request"
@@ -1259,10 +1257,8 @@ msgid "Nap"
 msgstr "Päiväuni"
 
 #: core/models.py:494
-#, fuzzy
-#| msgid "Settings"
 msgid "Nap settings"
-msgstr "Asetukset"
+msgstr ""
 
 #: core/models.py:566 core/templates/core/timer_list.html:25
 msgid "Name"
@@ -1578,7 +1574,7 @@ msgstr "Aloita ajastin"
 
 #: core/templates/core/timer_list.html:48
 msgid "No timer entries found."
-msgstr "Akastimia ei löytynyt."
+msgstr "Ajastimia ei löytynyt."
 
 #: core/templates/core/timer_nav.html:20
 msgid "View Timers"
@@ -1773,12 +1769,9 @@ msgid "Temperature: %(temperature).0f"
 msgstr ""
 
 #: core/timeline.py:234
-#, fuzzy, python-format
-#| msgid "%(child)s had a diaper change."
+#, python-format
 msgid "%(child)s had a temperature measurement."
 msgstr ""
-"%(child)s sai\n"
-" tuoreen vaipan."
 
 #: core/utils.py:40
 #, python-format
@@ -1891,10 +1884,8 @@ msgstr[0] "%(n)s syöttöä%(plural)s sitten"
 msgstr[1] "%(n)s syöttöä%(plural)s sitten"
 
 #: dashboard/templates/cards/feeding_recent.html:6
-#, fuzzy
-#| msgid "Delete a Feeding"
 msgid "Recent Feedings"
-msgstr "Poista syöttö"
+msgstr "Viimeaikaiset ruokinnat"
 
 #: dashboard/templates/cards/feeding_recent.html:25
 #, fuzzy, python-format
@@ -1952,11 +1943,11 @@ msgid "No data yet"
 msgstr ""
 
 #: dashboard/templates/cards/timer_list.html:12
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s timer"
 msgid_plural "%(count)s timers"
-msgstr[0] "%(count)s unimerkintä"
-msgstr[1] "%(count)s unimerkintä"
+msgstr[0] ""
+msgstr[1] ""
 
 #: dashboard/templates/cards/timer_list.html:27
 #, python-format
@@ -2151,7 +2142,7 @@ msgstr ""
 
 #: reports/graphs/pumping_amounts.py:62
 msgid "Pumping Amount"
-msgstr ""
+msgstr "Pumppaus määrä"
 
 #: reports/graphs/sleep_pattern.py:154
 msgid "<b>Sleep Pattern</b>"
@@ -2317,48 +2308,6 @@ msgstr ""
 msgid "Total Tummy Time Durations"
 msgstr "Maha-aika tänään"
 
-#~ msgid "Today's Feeding"
-#~ msgstr "Ruokinta tänään"
-
-#~ msgid "Napping"
-#~ msgstr "Päiväunet"
-
-#~ msgid "Delete All Inactive Timers"
-#~ msgstr "Poista kaikki inaktiiviset ajastimet"
-
-#~ msgid "Delete Inactive"
-#~ msgstr "Poista inaktiivinen"
-
-#, fuzzy, python-format
-#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
-#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
-#~ msgstr[0] ""
-#~ "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
-#~ msgstr[1] ""
-#~ "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
-
-#~ msgid "Stopped"
-#~ msgstr "Pysäytetty"
-
-#~ msgid "Delete timer"
-#~ msgstr "Poista ajastin"
-
-#~ msgid "Delete Inactive Timers"
-#~ msgstr "Poista inaktiiviset ajastimet"
-
-#~ msgid "Active Timers"
-#~ msgstr "Aktiiviset ajastimet"
-
-#, python-format
-#~ msgid "%(timer)s stopped."
-#~ msgstr "%(timer)s pysäytetty."
-
-#~ msgid "All inactive timers deleted."
-#~ msgstr "Kaikki inaktiiviset ajastimet poistettu."
-
-#~ msgid "No inactive timers exist."
-#~ msgstr "Ei inaktiivisia ajastimia."
-
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
 #~ "focus."
@@ -2453,8 +2402,22 @@ msgstr "Maha-aika tänään"
 #~ msgid "Add a Change"
 #~ msgstr "Lisää vaipanvaihto"
 
+#~ msgid "Stopped"
+#~ msgstr "Pysäytetty"
+
 #~ msgid "%(timer)s created by %(object.user)s"
 #~ msgstr "%(timer)s loi %(object.user)s"
+
+#~ msgid "Active Timers"
+#~ msgstr "Aktiiviset ajastimet"
+
+#~ msgid "%(child)s had a diaper change."
+#~ msgstr ""
+#~ "%(child)s sai\n"
+#~ " tuoreen vaipan."
+
+#~ msgid "%(timer)s stopped."
+#~ msgstr "%(timer)s pysäytetty."
 
 #~ msgid "%(time)s ago"
 #~ msgstr "%(time)s sitten"
@@ -2486,11 +2449,49 @@ msgstr "Maha-aika tänään"
 #~ msgid "Total feeding amount"
 #~ msgstr "Syöttöjen määrä yhteensä"
 
+#~ msgid "Delete All Inactive Timers"
+#~ msgstr "Poista kaikki inaktiiviset ajastimet"
+
+#~ msgid "Delete Inactive"
+#~ msgstr "Poista inaktiivinen"
+
 #~ msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
 #~ msgstr "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
+
+#~ msgid "Delete Inactive Timers"
+#~ msgstr "Poista inaktiiviset ajastimet"
+
+#~ msgid "All inactive timers deleted."
+#~ msgstr "Kaikki inaktiiviset ajastimet poistettu."
+
+#~ msgid "No inactive timers exist."
+#~ msgstr "Ei inaktiivisia ajastimia."
 
 #~ msgid "%(n)s feeding%(plural)s ago"
 #~ msgstr "%(n)s syöttöä%(plural)s sitten"
 
+#~ msgid "Delete timer"
+#~ msgstr "Poista ajastin"
+
+#~ msgid "Today's Feeding"
+#~ msgstr "Ruokinta tänään"
+
 #~ msgid "%(count)s feeding entries"
 #~ msgstr "%(count)s ruokintamerkintää"
+
+#~ msgid "Napping"
+#~ msgstr "Päiväunet"
+
+#, fuzzy
+#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
+#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+#~ msgstr[0] ""
+#~ "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
+#~ msgstr[1] ""
+#~ "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
+
+#, fuzzy
+#~ msgid "%(count)s active timer"
+#~ msgid_plural "%(count)s active timers"
+#~ msgstr[0] "%(count)s unimerkintä"
+#~ msgstr[1] "%(count)s unimerkintä"
