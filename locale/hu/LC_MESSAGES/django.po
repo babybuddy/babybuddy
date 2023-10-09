@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-17 13:48+0000\n"
+"POT-Creation-Date: 2023-10-09 13:30+0000\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -401,7 +401,7 @@ msgstr "BMI bevitele"
 #: reports/graphs/head_circumference_change.py:30
 #: reports/templates/reports/head_circumference_change.html:4
 #: reports/templates/reports/head_circumference_change.html:9
-#: reports/templates/reports/report_list.html:25
+#: reports/templates/reports/report_list.html:27
 msgid "Head Circumference"
 msgstr "Fejkörfogat"
 
@@ -420,7 +420,7 @@ msgstr "Fejkörfogat bevitele"
 #: reports/graphs/height_change.py:30
 #: reports/templates/reports/height_change.html:4
 #: reports/templates/reports/height_change.html:9
-#: reports/templates/reports/report_list.html:26
+#: reports/templates/reports/report_list.html:28
 msgid "Height"
 msgstr "Magasság"
 
@@ -438,7 +438,7 @@ msgstr "Magasság bevitele"
 #: core/templates/core/temperature_list.html:29
 #: reports/graphs/temperature_change.py:19
 #: reports/graphs/temperature_change.py:29
-#: reports/templates/reports/report_list.html:30
+#: reports/templates/reports/report_list.html:32
 #: reports/templates/reports/temperature_change.html:4
 #: reports/templates/reports/temperature_change.html:9
 msgid "Temperature"
@@ -455,9 +455,9 @@ msgstr "Testhőmérséklet bevitele"
 #: core/templates/core/weight_list.html:4
 #: core/templates/core/weight_list.html:7
 #: core/templates/core/weight_list.html:12
-#: core/templates/core/weight_list.html:29 reports/graphs/weight_change.py:19
-#: reports/graphs/weight_change.py:30
-#: reports/templates/reports/report_list.html:32
+#: core/templates/core/weight_list.html:29 reports/graphs/weight_change.py:28
+#: reports/graphs/weight_change.py:87
+#: reports/templates/reports/report_list.html:34
 #: reports/templates/reports/weight_change.html:4
 #: reports/templates/reports/weight_change.html:9
 msgid "Weight"
@@ -1127,12 +1127,13 @@ msgstr "Címkék"
 #: core/templates/core/pumping_list.html:25
 #: core/templates/core/weight_list.html:25 reports/graphs/bmi_change.py:28
 #: reports/graphs/diaperchange_amounts.py:37
+#: reports/graphs/diaperchange_intervals.py:67
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
-#: reports/graphs/feeding_duration.py:56
+#: reports/graphs/feeding_duration.py:56 reports/graphs/feeding_intervals.py:42
 #: reports/graphs/head_circumference_change.py:28
 #: reports/graphs/height_change.py:28 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:157 reports/graphs/sleep_totals.py:59
-#: reports/graphs/tummytime_duration.py:51 reports/graphs/weight_change.py:28
+#: reports/graphs/tummytime_duration.py:51 reports/graphs/weight_change.py:85
 msgid "Date"
 msgstr "Dátum"
 
@@ -1165,11 +1166,13 @@ msgid "Time"
 msgstr "Idő"
 
 #: core/models.py:226 core/templates/core/diaperchange_list.html:60
+#: reports/graphs/diaperchange_intervals.py:47
 #: reports/graphs/diaperchange_types.py:36
 msgid "Wet"
 msgstr "Pisis"
 
 #: core/models.py:227 core/templates/core/diaperchange_list.html:61
+#: reports/graphs/diaperchange_intervals.py:38
 #: reports/graphs/diaperchange_types.py:30
 msgid "Solid"
 msgstr "Kakis"
@@ -1297,6 +1300,14 @@ msgstr "#{id}. stopper"
 #: core/models.py:647 core/templates/core/tummytime_list.html:30
 msgid "Milestone"
 msgstr "Mérföldkő"
+
+#: core/models.py:716
+msgid "Girl"
+msgstr ""
+
+#: core/models.py:717
+msgid "Boy"
+msgstr ""
 
 #: core/templates/core/bmi_confirm_delete.html:4
 msgid "Delete a BMI Entry"
@@ -2067,6 +2078,21 @@ msgstr "<b>Pelenkacserék száma</b>"
 msgid "Change amount"
 msgstr "Cserék száma"
 
+#: reports/graphs/diaperchange_intervals.py:56
+#: reports/graphs/diaperchange_types.py:41 reports/graphs/feeding_amounts.py:58
+msgid "Total"
+msgstr "Összesen"
+
+#: reports/graphs/diaperchange_intervals.py:66
+#, fuzzy
+#| msgid "<b>Diaper Change Amounts</b>"
+msgid "<b>Diaper Change Intervals</b>"
+msgstr "<b>Pelenkacserék száma</b>"
+
+#: reports/graphs/diaperchange_intervals.py:69
+msgid "Interval (hours)"
+msgstr ""
+
 #: reports/graphs/diaperchange_lifetimes.py:35
 msgid "<b>Diaper Lifetimes</b>"
 msgstr "<b>Pelenka élettartam</b>"
@@ -2074,10 +2100,6 @@ msgstr "<b>Pelenka élettartam</b>"
 #: reports/graphs/diaperchange_lifetimes.py:36
 msgid "Time between changes (hours)"
 msgstr "Idő két csere között (óra)"
-
-#: reports/graphs/diaperchange_types.py:41 reports/graphs/feeding_amounts.py:58
-msgid "Total"
-msgstr "Összesen"
 
 #: reports/graphs/diaperchange_types.py:48
 msgid "<b>Diaper Change Types</b>"
@@ -2114,6 +2136,20 @@ msgstr "Átlagos időtartam (perc)"
 #: reports/graphs/feeding_duration.py:60
 msgid "Number of feedings"
 msgstr "Etetések száma"
+
+#: reports/graphs/feeding_intervals.py:32
+msgid "Interval"
+msgstr ""
+
+#: reports/graphs/feeding_intervals.py:41
+#, fuzzy
+#| msgid "<b>Total Feeding Amounts</b>"
+msgid "<b>Feeding intervals</b>"
+msgstr "<b>Összes etetési mennyiség</b>"
+
+#: reports/graphs/feeding_intervals.py:44
+msgid "Feeding interval (hours)"
+msgstr ""
 
 #: reports/graphs/head_circumference_change.py:27
 msgid "<b>Head Circumference</b>"
@@ -2172,7 +2208,27 @@ msgstr "<b>Teljes pocakidő</b>"
 msgid "Total duration (minutes)"
 msgstr "Teljes időtartam (perc)"
 
-#: reports/graphs/weight_change.py:27
+#: reports/graphs/weight_change.py:49
+msgid "P3"
+msgstr ""
+
+#: reports/graphs/weight_change.py:55
+msgid "P15"
+msgstr ""
+
+#: reports/graphs/weight_change.py:61
+msgid "P50"
+msgstr ""
+
+#: reports/graphs/weight_change.py:67
+msgid "P85"
+msgstr ""
+
+#: reports/graphs/weight_change.py:73
+msgid "P97"
+msgstr ""
+
+#: reports/graphs/weight_change.py:84
 msgid "<b>Weight</b>"
 msgstr "<b>Testtömeg</b>"
 
@@ -2181,9 +2237,16 @@ msgstr "<b>Testtömeg</b>"
 msgid "Diaper Amounts"
 msgstr "Pelenkák száma"
 
+#: reports/templates/reports/diaperchange_intervals.html:4
+#: reports/templates/reports/diaperchange_intervals.html:8
+#, fuzzy
+#| msgid "Diaper Change Amounts"
+msgid "Diaper Change Intervals"
+msgstr "Pelenkacserék száma"
+
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:9
-#: reports/templates/reports/report_list.html:22
+#: reports/templates/reports/report_list.html:23
 msgid "Diaper Lifetimes"
 msgstr "Pelenka élettartama"
 
@@ -2195,7 +2258,7 @@ msgstr "Elhasznált pelenkák típusa"
 
 #: reports/templates/reports/feeding_amounts.html:4
 #: reports/templates/reports/feeding_amounts.html:9
-#: reports/templates/reports/report_list.html:23
+#: reports/templates/reports/report_list.html:24
 msgid "Feeding Amounts"
 msgstr "Etetési mennyiségek"
 
@@ -2203,6 +2266,14 @@ msgstr "Etetési mennyiségek"
 #: reports/templates/reports/feeding_duration.html:9
 msgid "Average Feeding Durations"
 msgstr "Átlagos etetési időtartam"
+
+#: reports/templates/reports/feeding_intervals.html:4
+#: reports/templates/reports/feeding_intervals.html:8
+#: reports/templates/reports/report_list.html:26
+#, fuzzy
+#| msgid "Feeding Amounts"
+msgid "Feeding Intervals"
+msgstr "Etetési mennyiségek"
 
 #: reports/templates/reports/report_base.html:18
 msgid "There is not enough data to generate this report."
@@ -2216,29 +2287,43 @@ msgstr "Testtömegindex (BMI)"
 msgid "Diaper Change Amounts"
 msgstr "Pelenkacserék száma"
 
-#: reports/templates/reports/report_list.html:24
+#: reports/templates/reports/report_list.html:22
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Intervals"
+msgstr "Pelenkacserék"
+
+#: reports/templates/reports/report_list.html:25
 msgid "Feeding Durations (Average)"
 msgstr "Etetési idők (átlagos)"
 
-#: reports/templates/reports/report_list.html:27
+#: reports/templates/reports/report_list.html:29
 msgid "Pumping Amounts"
 msgstr "Pumpált mennyiség"
 
-#: reports/templates/reports/report_list.html:28
+#: reports/templates/reports/report_list.html:30
 #: reports/templates/reports/sleep_pattern.html:4
 #: reports/templates/reports/sleep_pattern.html:9
 msgid "Sleep Pattern"
 msgstr "Alvási minta"
 
-#: reports/templates/reports/report_list.html:29
+#: reports/templates/reports/report_list.html:31
 #: reports/templates/reports/sleep_totals.html:4
 #: reports/templates/reports/sleep_totals.html:9
 msgid "Sleep Totals"
 msgstr "Összes alvás"
 
-#: reports/templates/reports/report_list.html:31
+#: reports/templates/reports/report_list.html:33
 msgid "Tummy Time Durations (Sum)"
 msgstr "Pocakidő (Összes)"
+
+#: reports/templates/reports/report_list.html:35
+msgid "WHO Weight Percentiles for Boys in kg"
+msgstr ""
+
+#: reports/templates/reports/report_list.html:36
+msgid "WHO Weight Percentiles for Girls in kg"
+msgstr ""
 
 #: reports/templates/reports/tummytime_duration.html:4
 #: reports/templates/reports/tummytime_duration.html:9
@@ -2412,9 +2497,6 @@ msgstr "Összes pocakidő"
 
 #~ msgid "Total feeding amount"
 #~ msgstr "Összes etetési mennyiség"
-
-#~ msgid "<b>Total Feeding Amounts</b>"
-#~ msgstr "<b>Összes etetési mennyiség</b>"
 
 #~ msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
 #~ msgstr "Biztosan törlöd a lejárt %(number)s stoppert?"
