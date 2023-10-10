@@ -106,7 +106,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 
 ### Mobile
 
-- [Baby Buddy for Android](https://play.google.com/store/apps/details?id=eu.pkgsoftware.babybuddywidgets) ([Source](https://github.com/MrApplejuice/BabyBuddyAndroid/))
+- [Baby Buddy for Android](https://play.google.com/store/apps/details?id=eu.pkgsoftware.babybuddywidgets) ([Source](https://github.com/babybuddy/babybuddy-for-android))
 - [iOS shortcuts](https://github.com/babybuddy/babybuddy/discussions/300)
 - [Convert exported data from "Baby tracker - feeding, sleep and diaper" mobile app to Baby Buddy](https://github.com/babybuddy/babybuddy/discussions/424)
 
