@@ -32,7 +32,6 @@ Visit [https://docs.baby-buddy.net](https://docs.baby-buddy.net) for full docume
 
 ### Additional documentation
 
-- [Changelog](/CHANGELOG.md)
 - [Security](/SECURITY.md)
 - [License](/LICENSE) (BSD-2 Clause)
 
