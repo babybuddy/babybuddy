@@ -107,7 +107,7 @@ def dayssince(value, today=None):
         today = timezone.localtime().date()
 
     delta = today - value
-    days_ago = _(" ") + str(delta.days) + _(" days ago")
+    days_ago = _("%(days_ago)s days ago") % {"days_ago": str(delta.days)}
 
     if delta < datetime.timedelta(days=1):
         return _("today")

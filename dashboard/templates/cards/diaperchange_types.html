@@ -47,7 +47,7 @@
                 {% elif key == 1 %}
                     {% trans "yesterday" %}
                 {% else %}
-                    {% blocktrans %}{{ key }} days ago{% endblocktrans %}
+                    {% blocktrans with days_ago=key %}{{ days_ago }} days ago{% endblocktrans %}
                 {% endif %}
             </div>
         {% endif %}
