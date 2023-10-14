@@ -102,10 +102,12 @@ def dayssince(value, today=None):
     :param today: date to compare to (defaults to today)
     :returns: the formatted string
     """
+
     if today is None:
         today = timezone.localtime().date()
 
     delta = today - value
+    days_ago = _(" ") + str(delta.days) + _(" days ago")
 
     if delta < datetime.timedelta(days=1):
         return _("today")
@@ -113,7 +115,7 @@ def dayssince(value, today=None):
         return _("yesterday")
 
     # use standard timesince for anything beyond yesterday
-    return str(delta.days) + _(" days ago")
+    return days_ago
 
 
 @register.filter
