@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-09 13:30+0000\n"
+"POT-Creation-Date: 2023-10-14 13:44+0000\n"
 "Language: en-GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1293,10 +1293,8 @@ msgid "Add BMI"
 msgstr ""
 
 #: core/templates/core/bmi_list.html:69
-#, fuzzy
-#| msgid "No diaper changes found."
 msgid "No BMI entries found."
-msgstr "No nappy changes found."
+msgstr ""
 
 #: core/templates/core/child_confirm_delete.html:4
 msgid "Delete a Child"
@@ -1696,18 +1694,20 @@ msgstr ""
 msgid "0 days"
 msgstr ""
 
-#: core/templatetags/duration.py:111
+#: core/templatetags/duration.py:110
+#: dashboard/templates/cards/diaperchange_types.html:50
+#, python-format
+msgid "%(days_ago)s days ago"
+msgstr ""
+
+#: core/templatetags/duration.py:113
 #: dashboard/templates/cards/diaperchange_types.html:46
 msgid "today"
 msgstr ""
 
-#: core/templatetags/duration.py:113
+#: core/templatetags/duration.py:115
 #: dashboard/templates/cards/diaperchange_types.html:48
 msgid "yesterday"
-msgstr ""
-
-#: core/templatetags/duration.py:116
-msgid " days ago"
 msgstr ""
 
 #: core/timeline.py:54
@@ -1756,10 +1756,9 @@ msgid "Temperature: %(temperature).0f"
 msgstr ""
 
 #: core/timeline.py:234
-#, fuzzy, python-format
-#| msgid "%(child)s had a %(type)s diaper change."
+#, python-format
 msgid "%(child)s had a temperature measurement."
-msgstr "%(child)s had a %(type)s nappy change."
+msgstr ""
 
 #: core/utils.py:40
 #, python-format
@@ -1847,11 +1846,6 @@ msgstr ""
 msgid "solid"
 msgstr ""
 
-#: dashboard/templates/cards/diaperchange_types.html:50
-#, python-format
-msgid "%(key)s days ago"
-msgstr ""
-
 #: dashboard/templates/cards/feeding_last.html:6
 msgid "Last Feeding"
 msgstr ""
@@ -1914,7 +1908,7 @@ msgstr ""
 #: dashboard/templates/cards/sleep_recent.html:25
 #, python-format
 msgid "%(counter)s sleep"
-msgid_plural "%(counter)s sleep"
+msgid_plural "%(counter)s sleeps"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -2049,8 +2043,6 @@ msgid "Total"
 msgstr ""
 
 #: reports/graphs/diaperchange_intervals.py:66
-#, fuzzy
-#| msgid "<b>Diaper Change Amounts</b>"
 msgid "<b>Diaper Change Intervals</b>"
 msgstr "<b>Nappy Change Amounts</b>"
 
@@ -2202,10 +2194,8 @@ msgstr "Nappy Amounts"
 
 #: reports/templates/reports/diaperchange_intervals.html:4
 #: reports/templates/reports/diaperchange_intervals.html:8
-#, fuzzy
-#| msgid "Diaper Change Amounts"
 msgid "Diaper Change Intervals"
-msgstr "Nappy Change Amounts"
+msgstr "Nappy Change Intervals"
 
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:9
@@ -2249,10 +2239,8 @@ msgid "Diaper Change Amounts"
 msgstr "Nappy Change Amounts"
 
 #: reports/templates/reports/report_list.html:22
-#, fuzzy
-#| msgid "Diaper Changes"
 msgid "Diaper Intervals"
-msgstr "Nappy Changes"
+msgstr "Nappy Intervals"
 
 #: reports/templates/reports/report_list.html:25
 msgid "Feeding Durations (Average)"
