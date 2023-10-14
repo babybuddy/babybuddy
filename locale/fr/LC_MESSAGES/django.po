@@ -1026,7 +1026,7 @@ msgstr "Chronomètres actifs"
 #: dashboard/templates/cards/sleep_recent.html:52
 #: dashboard/templates/cards/tummytime_day.html:14
 msgid "None"
-msgstr "Aucun"
+msgstr "Aucun(e)"
 
 #: core/templates/core/tummytime_confirm_delete.html:4
 msgid "Delete a Tummy Time Entry"
@@ -1182,9 +1182,9 @@ msgstr "Dernier sommeil"
 msgid "Today's Naps"
 msgstr "Siestes aujourd'hui"
 
-#: dashboard/templates/cards/sleep_naps_day.html:12
-msgid "%(count)s nap%(plural)s"
-msgstr "%(count)s sieste%(plural)s"
+#: dashboard/templates/cards/sleep_recent.html:4
+msgid "Recent Sleep"
+msgstr "Compteur de sommeil"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1700,6 +1700,15 @@ msgid "Today"
 msgstr "Aujourd'hui"
 
 #: core/templatetags/datetime.py:41
+#: core/templatetags/duration.py:110
+msgid " days ago"
+msgstr " jours"
+
+#: core/templatetags/duration.py:110
+msgid " "
+msgstr "il y a "
+
+#: core/templatetags/datetime.py:75
 msgid "{}, {}"
 msgstr "{}, {}"
 
@@ -1721,7 +1730,7 @@ msgstr "Contenu : %(contents)s"
 #: dashboard/templates/cards/sleep_last.html:12
 #: dashboard/templates/cards/tummytime_last.html:13
 msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
-msgstr "il y a %(since)s (%(time)s)"
+msgstr "<div>il y a %(since)s</div> <small>(%(time)s)</small>"
 
 #: dashboard/templates/cards/feeding_day.html:6
 msgid "Today's Feeding"
@@ -2142,7 +2151,7 @@ msgstr[1] "%(count)s siestes"
 msgid "%(count)s active timer"
 msgid_plural "%(count)s active timers"
 msgstr[0] "%(count)s chronomètre actif"
-msgstr[1] "%(count)s chronomètre%(plural)s actifs"
+msgstr[1] "%(count)s chronomètres actifs"
 
 #: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:21
 msgid "Read only"
@@ -2246,19 +2255,11 @@ msgstr "Changer..."
 msgid "Quick Start Timer For…"
 msgstr "Démarrer un chronomètre rapide pour..."
 
-#: core/templatetags/duration.py:116
-msgid " days ago"
-msgstr "il y a %(key)s jours"
-
-#: dashboard/templates/cards/sleep_recent.html:6
-msgid "Recent Sleep"
-msgstr "Sommeils récents"
-
 #: dashboard/templates/cards/sleep_recent.html:25
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleep"
-msgstr[0] "%(counter)s sommeil"
-msgstr[1] "%(counter)s sommeils"
+msgstr[0] "%(counter)s phase de sommeil"
+msgstr[1] "%(counter)s phases de sommeil"
 
 #: reports/graphs/temperature_change.py:26
 msgid "<b>Temperature</b>"
@@ -2399,4 +2400,3 @@ msgstr "Percentiles de poids de l'OMS pour les garçons en kg"
 #: reports/templates/reports/report_list.html:36
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr "Percentiles de poids de l'OMS pour les filles en kg"
-
