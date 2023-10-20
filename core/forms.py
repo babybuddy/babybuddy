@@ -186,6 +186,8 @@ class NoteForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Note
         fields = ["child", "note", "time", "tags"]
+        if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
+            fields.insert(2, "image")
         widgets = {
             "child": ChildRadioSelect,
             "time": DateTimeInput(),

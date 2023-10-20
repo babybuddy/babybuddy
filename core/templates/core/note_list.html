@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load datetime i18n widget_tweaks %}
+{% load datetime i18n imagekit widget_tweaks %}
 
 {% block title %}{% trans "Notes" %}{% endblock %}
 
@@ -26,6 +26,7 @@
                     {% if not unique_child %}
                         <th>{% trans "Child" %}</th>
                     {% endif %}
+                    <th>{% trans "Image" %}</th>
                     <th>{% trans "Note" %}</th>
                     <th>{% trans "Tags" %}</th>
                 </tr>
@@ -54,6 +55,12 @@
                         {% if not unique_child %}
                             <td><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></td>
                         {% endif %}
+                        <td>
+                            {% if note.image %}
+                                {% thumbnail '40x40' note.image as thumb %}
+                                <a href="{{ note.image.url }}" target="_blank"><img src="{{ thumb.url }}" class="img-fluid" /></a>
+                            {% endif %}
+                        </td>
                         <td>{{ note.note }}</td>
                         <td>
                             {% include "core/render_tag_list.html" with tags=note.tags.all %}

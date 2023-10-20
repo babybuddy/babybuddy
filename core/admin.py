@@ -173,6 +173,7 @@ class HeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
 class NoteImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Note
+        exclude = ("image",)
 
 
 @admin.register(models.Note)
