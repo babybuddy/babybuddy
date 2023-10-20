@@ -479,6 +479,7 @@ class NoteAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "id": 1,
                 "child": 1,
                 "note": "Fake note.",
+                "image": None,
                 "time": "2017-11-17T22:45:00-05:00",
                 "tags": [],
             },

@@ -404,6 +404,9 @@ class Note(models.Model):
     time = models.DateTimeField(
         blank=False, default=timezone.localtime, verbose_name=_("Time")
     )
+    image = models.ImageField(
+        blank=True, null=True, upload_to="notes/images/", verbose_name=_("Image")
+    )
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()

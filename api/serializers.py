@@ -179,7 +179,7 @@ class HeightSerializer(CoreModelSerializer, TaggableSerializer):
 class NoteSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.Note
-        fields = ("id", "child", "note", "time", "tags")
+        fields = ("id", "child", "note", "image", "time", "tags")
 
 
 class SleepSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
