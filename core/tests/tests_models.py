@@ -64,6 +64,24 @@ class ChildTestCase(TestCase):
         child.delete()
         self.assertEqual(models.Child.count(), 1)
 
+    def test_child_birth_datetime(self):
+        birth_date = timezone.localdate()
+        models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=birth_date
+        )
+        self.assertEqual(models.Child.objects.last().birth_datetime(), birth_date)
+        birth_time = datetime.datetime.now().time()
+        models.Child.objects.create(
+            first_name="Second",
+            last_name="Last",
+            birth_date=birth_date,
+            birth_time=birth_time,
+        )
+        self.assertEqual(
+            models.Child.objects.last().birth_datetime(),
+            timezone.make_aware(datetime.datetime.combine(birth_date, birth_time)),
+        )
+
 
 class DiaperChangeTestCase(TestCase):
     def setUp(self):
