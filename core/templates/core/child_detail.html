@@ -22,8 +22,8 @@
                 {% endif %}
                 <div class="child-name display-4">{{ object }}</div>
                 <p class="lead">
-                    {% trans "Born" %} <span class="text-secondary">{{ object.birth_date }}</span><br/>
-                    {% trans "Age" %} <span class="text-secondary">{{ object.birth_date|child_age_string }}</span>
+                    {% trans "Born" %} <span class="text-secondary">{{ object.birth_datetime }}</span><br/>
+                    {% trans "Age" %} <span class="text-secondary">{{ object.birth_datetime|child_age_string }}</span>
                 </p>
                 {% include 'dashboard/child_button_group.html' %}
             </div>

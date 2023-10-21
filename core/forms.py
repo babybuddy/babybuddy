@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from taggit.forms import TagField
 
-from babybuddy.widgets import DateInput, DateTimeInput
+from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
 from core.widgets import TagsEditor, ChildRadioSelect
 
@@ -107,11 +107,12 @@ class CoreModelForm(forms.ModelForm):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = models.Child
-        fields = ["first_name", "last_name", "birth_date"]
+        fields = ["first_name", "last_name", "birth_date", "birth_time"]
         if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
             fields.append("picture")
         widgets = {
             "birth_date": DateInput(),
+            "birth_time": TimeInput(),
         }
 
 

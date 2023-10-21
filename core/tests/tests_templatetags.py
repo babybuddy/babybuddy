@@ -24,8 +24,8 @@ class TemplateTagsTestCase(TestCase):
         )
 
     def test_child_age_string(self):
-        date = timezone.localdate() - timezone.timedelta(days=0, hours=6)
-        self.assertEqual("0 days", duration.child_age_string(date))
+        date = timezone.localtime() - timezone.timedelta(days=0, hours=6)
+        self.assertEqual("6\xa0hours", duration.child_age_string(date))
         date = timezone.localdate() - timezone.timedelta(days=1, hours=6)
         self.assertEqual("1\xa0day", duration.child_age_string(date))
         date = timezone.localdate() - timezone.timedelta(days=45)

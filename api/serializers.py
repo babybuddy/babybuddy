@@ -126,7 +126,15 @@ class PumpingSerializer(CoreModelSerializer, TaggableSerializer):
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Child
-        fields = ("id", "first_name", "last_name", "birth_date", "slug", "picture")
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "birth_date",
+            "birth_time",
+            "slug",
+            "picture",
+        )
         lookup_field = "slug"
 
 

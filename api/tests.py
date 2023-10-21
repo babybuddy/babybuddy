@@ -139,13 +139,19 @@ class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "first_name": "Fake",
                 "last_name": "Child",
                 "birth_date": "2017-11-11",
+                "birth_time": None,
                 "slug": "fake-child",
                 "picture": None,
             },
         )
 
     def test_post(self):
-        data = {"first_name": "Test", "last_name": "Child", "birth_date": "2017-11-12"}
+        data = {
+            "first_name": "Test",
+            "last_name": "Child",
+            "birth_date": "2017-11-12",
+            "birth_time": "23:25",
+        }
         response = self.client.post(self.endpoint, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Child.objects.get(pk=response.data["id"])
