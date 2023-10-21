@@ -602,7 +602,7 @@ class TagsAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         results_by_name = {r["name"]: r for r in results}
 
         tag_data = results_by_name["new tag"]
-        self.assertDictContainsSubset(data, tag_data)
+        self.assertEqual(tag_data, tag_data | data)
         self.assertEqual(tag_data["slug"], "new-tag")
         self.assertTrue(tag_data["last_used"])
 
@@ -618,7 +618,7 @@ class TagsAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             modified_data,
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertDictContainsSubset(modified_data, response.data)
+        self.assertEqual(response.data, response.data | modified_data)
 
     def test_delete(self):
         endpoint = f"{self.endpoint}a-name/"
@@ -861,15 +861,19 @@ class TestProfileAPITestCase(APITestCase):
     def test_get(self):
         response = self.client.get(self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertDictContainsSubset(
-            {
+
+        self.assertEqual(
+            response.data,
+            response.data
+            | {
                 "language": "en-US",
                 "timezone": "UTC",
             },
-            response.data,
         )
-        self.assertDictContainsSubset(
-            {
+        self.assertEqual(
+            response.data["user"],
+            response.data["user"]
+            | {
                 "id": 1,
                 "username": "admin",
                 "first_name": "",
@@ -877,9 +881,7 @@ class TestProfileAPITestCase(APITestCase):
                 "email": "",
                 "is_staff": True,
             },
-            response.data["user"],
         )
-
         # Test that api_key is in the mix and "some long string"
         self.assertIn("api_key", response.data)
         self.assertTrue(isinstance(response.data["api_key"], str))
