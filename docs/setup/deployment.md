@@ -33,14 +33,23 @@ See [Django's databases documentation](https://docs.djangoproject.com/en/4.2/ref
 
 See [HTTPS/SSL configuration](ssl.md) for information on how to secure Baby Buddy.
 
-For doing administrative work within the LSIO container, setting an environment variable may be necessary.
-For example:
+### Running commands
+
+Run administrative commands with the `/app/www/public/manage.py` script. Set
+the environment variables `DJANGO_SETTINGS_MODULE` and `SECRET_KEY` before
+running commands. For example:
 
 ```shell
 docker exec -it babybuddy /bin/bash
 export DJANGO_SETTINGS_MODULE="babybuddy.settings.base"
-python3 /app/babybuddy/manage.py clearsessions
+export SECRET_KEY="$(cat /config/.secretkey)"
+cd /app/www/public
+python manage.py --help
 ```
+
+Note: the container name (`babybuddy`) and secret key location
+(`/config/.secretkey`) may differ depending on the container configuration.
+Refer to the running containers configuration for these values.
 
 ## Home Assistant
 
