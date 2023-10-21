@@ -27,13 +27,14 @@ $info: #44c4dd;
 $light: $gray-100;
 $dark: $gray-800;
 
+// Breadcrumbs
 
-// Links
+$breadcrumb-padding-y: 0.75rem;
+$breadcrumb-padding-x: 1rem;
 
-$link-color: $info;
-$link-decoration: none;
-$link-hover-color: color.adjust($link-color, $lightness: -15%);
+// Carousels
 
+$carousel-dark-control-icon-filter: none;
 
 // Components
 
@@ -41,14 +42,14 @@ $border-color: $gray-200;
 $component-active-color: $gray-400;
 $component-active-bg: $primary;
 
+// Links
+
+$link-color: $info;
+$link-decoration: none;
+$link-hover-color: color.adjust($link-color, $lightness: -15%);
 
 // Tables
 
 $table-cell-padding-y: 0.75rem;
 $table-cell-padding-x: 0.75rem;
 $table-striped-bg: $dark;
-
-// Breadcrumbs
-
-$breadcrumb-padding-y: 0.75rem;
-$breadcrumb-padding-x: 1rem;
