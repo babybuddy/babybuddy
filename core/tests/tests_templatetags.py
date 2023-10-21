@@ -24,14 +24,32 @@ class TemplateTagsTestCase(TestCase):
         )
 
     def test_child_age_string(self):
-        date = timezone.localtime() - timezone.timedelta(days=0, hours=6)
-        self.assertEqual("6\xa0hours", duration.child_age_string(date))
-        date = timezone.localdate() - timezone.timedelta(days=1, hours=6)
-        self.assertEqual("1\xa0day", duration.child_age_string(date))
-        date = timezone.localdate() - timezone.timedelta(days=45)
-        self.assertEqual("1\xa0month", duration.child_age_string(date))
-        date = timezone.localdate() - timezone.timedelta(days=95)
-        self.assertEqual("3\xa0months", duration.child_age_string(date))
+        self.assertEqual(
+            "6\xa0hours",
+            duration.child_age_string(
+                timezone.localtime() - timezone.timedelta(days=0, hours=6)
+            ),
+        )
+        self.assertEqual(
+            "1\xa0day",
+            duration.child_age_string(
+                timezone.localdate() - timezone.timedelta(days=1, hours=6)
+            ),
+        )
+        self.assertEqual(
+            "1\xa0month",
+            duration.child_age_string(
+                timezone.localdate() - timezone.timedelta(days=45)
+            ),
+        )
+        self.assertEqual(
+            "3\xa0months",
+            duration.child_age_string(
+                timezone.localdate() - timezone.timedelta(days=95)
+            ),
+        )
+        self.assertEqual("", duration.child_age_string(None))
+        self.assertEqual("", duration.child_age_string("not a date!!"))
 
     def test_duration_duration_string(self):
         delta = timezone.timedelta(hours=1, minutes=30, seconds=15)

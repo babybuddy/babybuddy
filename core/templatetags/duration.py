@@ -22,7 +22,7 @@ def child_age_string(birth_date):
         return ""
     try:
         return timesince.timesince(birth_date, depth=1)
-    except (ValueError, TypeError):
+    except AttributeError:
         return ""
 
 
