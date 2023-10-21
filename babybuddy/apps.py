@@ -57,8 +57,5 @@ class BabyBuddyConfig(AppConfig):
     version_string = VERSION
 
     def ready(self):
-        if os.path.isfile(".git/refs/heads/master"):
-            commit = open(".git/refs/heads/master").read()
-            self.version_string += " ({})".format(commit[0:7])
         post_migrate.connect(create_read_only_group, sender=self)
         post_migrate.connect(set_default_site_settings, sender=self)
