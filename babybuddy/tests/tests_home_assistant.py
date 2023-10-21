@@ -1,14 +1,11 @@
 import json
 
-from django.test import TestCase, override_settings, tag
+from django.test import TestCase
 from django.test import Client as HttpClient
 from django.contrib.auth import get_user_model
-from django.core import mail
 from django.core.management import call_command
 
 from faker import Faker
-
-from babybuddy.views import UserUnlock
 
 
 class HomeAssistantMiddlewareTestCase(TestCase):
