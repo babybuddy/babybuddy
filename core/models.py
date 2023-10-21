@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 import re
 from datetime import timedelta
 
@@ -165,6 +166,7 @@ class Child(models.Model):
         blank=True, max_length=255, verbose_name=_("Last name")
     )
     birth_date = models.DateField(blank=False, null=False, verbose_name=_("Birth date"))
+    birth_time = models.TimeField(blank=True, null=True, verbose_name=_("Birth time"))
     slug = models.SlugField(
         allow_unicode=True,
         blank=False,
@@ -205,6 +207,13 @@ class Child(models.Model):
         if reverse:
             return "{}, {}".format(self.last_name, self.first_name)
         return "{} {}".format(self.first_name, self.last_name)
+
+    def birth_datetime(self):
+        if self.birth_time:
+            return timezone.make_aware(
+                datetime.datetime.combine(self.birth_date, self.birth_time)
+            )
+        return self.birth_date
 
     @classmethod
     def count(cls):

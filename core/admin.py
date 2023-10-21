@@ -49,10 +49,10 @@ class ChildImportExportResource(resources.ModelResource):
 
 @admin.register(models.Child)
 class ChildAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
-    list_display = ("first_name", "last_name", "birth_date", "slug")
+    list_display = ("first_name", "last_name", "birth_date", "birth_time", "slug")
     list_filter = ("last_name",)
     search_fields = ("first_name", "last_name", "birth_date")
-    fields = ["first_name", "last_name", "birth_date"]
+    fields = ["first_name", "last_name", "birth_date", "birth_time"]
     if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
         fields.append("picture")
     resource_class = ChildImportExportResource

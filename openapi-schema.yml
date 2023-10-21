@@ -1,8 +1,7 @@
 openapi: 3.0.2
 info:
-  title: Baby Buddy API
-  version: 1
-  description: API documentation for the Baby Buddy application
+  title: ''
+  version: ''
 paths:
   /api/bmi/:
     get:
@@ -119,6 +118,54 @@ paths:
         description: Which field to use when ordering the results.
         schema:
           type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BMI'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateBMI
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this BMI.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: date
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BMI'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BMI'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BMI'
       responses:
         '200':
           content:
@@ -427,6 +474,101 @@ paths:
           description: ''
       tags:
       - api
+    put:
+      operationId: updateDiaperChange
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Diaper Change.
+        schema:
+          type: string
+      - name: amount
+        required: false
+        in: query
+        description: amount
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: color
+        required: false
+        in: query
+        description: color
+        schema:
+          type: string
+          enum:
+          - black
+          - brown
+          - green
+          - yellow
+      - name: date
+        required: false
+        in: query
+        description: DateTime
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. DateTime
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. DateTime
+        schema:
+          type: string
+      - name: solid
+        required: false
+        in: query
+        description: solid
+        schema:
+          type: string
+      - name: wet
+        required: false
+        in: query
+        description: wet
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiaperChange'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DiaperChange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DiaperChange'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiaperChange'
+          description: ''
+      tags:
+      - api
     patch:
       operationId: partialUpdateDiaperChange
       description: ''
@@ -649,6 +791,12 @@ paths:
         description: birth_date
         schema:
           type: string
+      - name: birth_time
+        required: false
+        in: query
+        description: birth_time
+        schema:
+          type: string
       - name: ordering
         required: false
         in: query
@@ -747,12 +895,90 @@ paths:
         description: birth_date
         schema:
           type: string
+      - name: birth_time
+        required: false
+        in: query
+        description: birth_time
+        schema:
+          type: string
       - name: ordering
         required: false
         in: query
         description: Which field to use when ordering the results.
         schema:
           type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Child'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateChild
+      description: ''
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        required: false
+        in: query
+        description: id
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: slug
+        required: false
+        in: query
+        description: slug
+        schema:
+          type: string
+      - name: birth_date
+        required: false
+        in: query
+        description: birth_date
+        schema:
+          type: string
+      - name: birth_time
+        required: false
+        in: query
+        description: birth_time
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Child'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Child'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Child'
       responses:
         '200':
           content:
@@ -800,6 +1026,12 @@ paths:
         required: false
         in: query
         description: birth_date
+        schema:
+          type: string
+      - name: birth_time
+        required: false
+        in: query
+        description: birth_time
         schema:
           type: string
       - name: ordering
@@ -866,6 +1098,12 @@ paths:
         required: false
         in: query
         description: birth_date
+        schema:
+          type: string
+      - name: birth_time
+        required: false
+        in: query
+        description: birth_time
         schema:
           type: string
       - name: ordering
@@ -1114,6 +1352,114 @@ paths:
         description: Which field to use when ordering the results.
         schema:
           type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feeding'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateFeeding
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Feeding.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: end
+        required: false
+        in: query
+        description: End DateTime
+        schema:
+          type: string
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: method
+        required: false
+        in: query
+        description: method
+        schema:
+          type: string
+          enum:
+          - bottle
+          - left breast
+          - right breast
+          - both breasts
+          - parent fed
+          - self fed
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
+        schema:
+          type: string
+      - name: type
+        required: false
+        in: query
+        description: type
+        schema:
+          type: string
+          enum:
+          - breast milk
+          - formula
+          - fortified breast milk
+          - solid food
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feeding'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Feeding'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Feeding'
       responses:
         '200':
           content:
@@ -1448,6 +1794,54 @@ paths:
           description: ''
       tags:
       - api
+    put:
+      operationId: updateHeadCircumference
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Head Circumference.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: date
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HeadCircumference'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HeadCircumference'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HeadCircumference'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeadCircumference'
+          description: ''
+      tags:
+      - api
     patch:
       operationId: partialUpdateHeadCircumference
       description: ''
@@ -1644,6 +2038,54 @@ paths:
         description: Which field to use when ordering the results.
         schema:
           type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Height'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateHeight
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Height.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: date
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Height'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Height'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Height'
       responses:
         '200':
           content:
@@ -1885,6 +2327,72 @@ paths:
         description: Which field to use when ordering the results.
         schema:
           type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateNote
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Note.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: DateTime
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. DateTime
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. DateTime
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Note'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Note'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Note'
       responses:
         '200':
           content:
@@ -2186,6 +2694,84 @@ paths:
         description: Which field to use when ordering the results.
         schema:
           type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pumping'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updatePumping
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Pumping.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: end
+        required: false
+        in: query
+        description: End DateTime
+        schema:
+          type: string
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pumping'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pumping'
       responses:
         '200':
           content:
@@ -2532,6 +3118,90 @@ paths:
           description: ''
       tags:
       - api
+    put:
+      operationId: updateSleep
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Sleep.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: end
+        required: false
+        in: query
+        description: End DateTime
+        schema:
+          type: string
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sleep'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Sleep'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Sleep'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sleep'
+          description: ''
+      tags:
+      - api
     patch:
       operationId: partialUpdateSleep
       description: ''
@@ -2809,6 +3479,54 @@ paths:
           description: ''
       tags:
       - api
+    put:
+      operationId: updateTag
+      description: ''
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: last_used
+        required: false
+        in: query
+        description: last_used
+        schema:
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tag'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: ''
+      tags:
+      - api
     patch:
       operationId: partialUpdateTag
       description: ''
@@ -3050,6 +3768,72 @@ paths:
           description: ''
       tags:
       - api
+    put:
+      operationId: updateTemperature
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Temperature.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: DateTime
+        schema:
+          type: string
+      - name: date_max
+        required: false
+        in: query
+        description: Max. DateTime
+        schema:
+          type: string
+      - name: date_min
+        required: false
+        in: query
+        description: Min. DateTime
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Temperature'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Temperature'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Temperature'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Temperature'
+          description: ''
+      tags:
+      - api
     patch:
       operationId: partialUpdateTemperature
       description: ''
@@ -3208,6 +3992,12 @@ paths:
         description: Min. End DateTime
         schema:
           type: string
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
       - name: start
         required: false
         in: query
@@ -3324,6 +4114,12 @@ paths:
         description: Min. End DateTime
         schema:
           type: string
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
       - name: start
         required: false
         in: query
@@ -3354,6 +4150,96 @@ paths:
         description: Which field to use when ordering the results.
         schema:
           type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Timer'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateTimer
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Timer.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: end
+        required: false
+        in: query
+        description: End DateTime
+        schema:
+          type: string
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: name
+        schema:
+          type: string
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Timer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Timer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Timer'
       responses:
         '200':
           content:
@@ -3395,6 +4281,12 @@ paths:
         required: false
         in: query
         description: Min. End DateTime
+        schema:
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: name
         schema:
           type: string
       - name: start
@@ -3479,6 +4371,12 @@ paths:
         required: false
         in: query
         description: Min. End DateTime
+        schema:
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: name
         schema:
           type: string
       - name: start
@@ -3703,6 +4601,90 @@ paths:
         description: Which field to use when ordering the results.
         schema:
           type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TummyTime'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateTummyTime
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Tummy Time.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: end
+        required: false
+        in: query
+        description: End DateTime
+        schema:
+          type: string
+      - name: end_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: end_min
+        required: false
+        in: query
+        description: Min. End DateTime
+        schema:
+          type: string
+      - name: start
+        required: false
+        in: query
+        description: Start DateTime
+        schema:
+          type: string
+      - name: start_max
+        required: false
+        in: query
+        description: Max. End DateTime
+        schema:
+          type: string
+      - name: start_min
+        required: false
+        in: query
+        description: Min. Start DateTime
+        schema:
+          type: string
+      - name: tags
+        required: false
+        in: query
+        description: tag
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TummyTime'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TummyTime'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TummyTime'
       responses:
         '200':
           content:
@@ -3989,6 +4971,54 @@ paths:
           description: ''
       tags:
       - api
+    put:
+      operationId: updateWeight
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Weight.
+        schema:
+          type: string
+      - name: child
+        required: false
+        in: query
+        description: child
+        schema:
+          type: string
+      - name: date
+        required: false
+        in: query
+        description: date
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Weight'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Weight'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Weight'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Weight'
+          description: ''
+      tags:
+      - api
     patch:
       operationId: partialUpdateWeight
       description: ''
@@ -4190,6 +5220,9 @@ components:
         birth_date:
           type: string
           format: date
+        birth_time:
+          type: string
+          nullable: true
         slug:
           type: string
           readOnly: true
@@ -4313,6 +5346,10 @@ components:
           type: integer
         note:
           type: string
+        image:
+          type: string
+          format: binary
+          nullable: true
         time:
           type: string
           format: date-time

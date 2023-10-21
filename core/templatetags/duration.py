@@ -20,9 +20,6 @@ def child_age_string(birth_date):
     """
     if not birth_date:
         return ""
-    # Return "0 days" for anything under one day.
-    elif timezone.localdate() - birth_date < timezone.timedelta(days=1):
-        return _("0 days")
     try:
         return timesince.timesince(birth_date, depth=1)
     except (ValueError, TypeError):
