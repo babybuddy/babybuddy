@@ -98,20 +98,19 @@ When your instance is up and running it should respond fast.
 
 To setup the solution there is terraform code that you can use to create your instance.
 
-```.env
-# https://cloud.google.com/sql/docs/postgres/connect-run
-#DB_HOST=/cloudsql/<project_id>:<region>:<instance_id>/.s.PGSQL.5432
-DB_HOST=/cloudsql/test1-376209:europe-north1:babybuddy/.s.PGSQL.5432
-DB_PASSWORD=pFcLo)ggRHgxCG3A86i
-```
+This setup assumes that you have a [billing account](https://cloud.google.com/billing/docs/how-to/create-billing-account) setup in GCP.
+
+The terraform code isn't production ready and is meant to be a good way of getting started, for example it don't store the terraform state anywhere remote.
+You can ether set it up in gcp bucket, another option is to have a private git repo and check in the state file there.
+Not optimal, but probably good enough for your home usage.
+
+Clone the repo and copy the files in `terraform/gcp-cloud-run/`, in the folder run.
 
 ```shell
-gcloud run deploy babybuddy \
-  --image docker.io/linuxserver/babybuddy:latest \
-  --add-cloudsql-instances test1-376209:europe-north1:babybuddy \
-  --set-env-vars=DB_HOST=/cloudsql/test1-376209:europe-north1:babybuddy/.s.PGSQL.5432,DB_PASSWORD=pFcLo)ggRHgxCG3A86i
-  --project test1
-
+terraform init
+terraform apply -var project_id=<unique project-id> -var project_name=<readable-project-name> -var billing_account=<billing-account-id>
+# example
+tf apply -var project_id=test1-1234 -var project_name=test1 -var billing_account=000000-CCCCC-111111
 ```
 
 ## Manual
