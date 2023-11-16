@@ -89,9 +89,34 @@ for your instance of babybuddy.
 After that, you just have to push babybuddy code repository to the Git
 deployment URL of your Clever Cloud Python application.
 
+## GCP cloud run
+
+If you don't want to manage any servers you can host your baby buddy serverless in GCP using cloud run.
+This way you don't have to manage any server.
+To save money we will scale down the instance to zero, due to this your initial request will take a bit longer.
+When your instance is up and running it should respond fast.
+
+To setup the solution there is terraform code that you can use to create your instance.
+
+```.env
+# https://cloud.google.com/sql/docs/postgres/connect-run
+#DB_HOST=/cloudsql/<project_id>:<region>:<instance_id>/.s.PGSQL.5432
+DB_HOST=/cloudsql/test1-376209:europe-north1:babybuddy/.s.PGSQL.5432
+DB_PASSWORD=pFcLo)ggRHgxCG3A86i
+```
+
+```shell
+gcloud run deploy babybuddy \
+  --image docker.io/linuxserver/babybuddy:latest \
+  --add-cloudsql-instances test1-376209:europe-north1:babybuddy \
+  --set-env-vars=DB_HOST=/cloudsql/test1-376209:europe-north1:babybuddy/.s.PGSQL.5432,DB_PASSWORD=pFcLo)ggRHgxCG3A86i
+  --project test1
+
+```
+
 ## Manual
 
-There are many ways to deploy Baby Buddy manually to any server/VPS. The basic 
+There are many ways to deploy Baby Buddy manually to any server/VPS. The basic
 requirements are Python, a web server, an application server, and a database.
 
 ### Requirements
@@ -139,7 +164,7 @@ and any number of children).
     ```shell
     cd /var/www/babybuddy/public
     ```
-        
+
 6. Initiate and enter a Python environment with Pipenv locally.
 
     ```shell
@@ -183,7 +208,7 @@ and any number of children).
     plugins = python3
     project = babybuddy
     base_dir = /var/www/babybuddy
-    
+
     chdir = %(base_dir)/public
     virtualenv = %(chdir)/.venv
     module =  %(project).wsgi:application
@@ -191,10 +216,10 @@ and any number of children).
     master = True
     vacuum = True
     ```
-    
+
     See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
     for more advanced configuration details.
-    
+
     See [Subdirectory configuration](subdirectory.md) for additional configuration
     required if Baby Buddy will be hosted in a subdirectory of another server.
 
@@ -212,30 +237,30 @@ and any number of children).
     ```
 
     Example config:
-    
+
     ```nginx
     upstream babybuddy {
      server unix:///var/run/uwsgi/app/babybuddy/socket;
     }
-     
+
     server {
      listen 80;
      server_name babybuddy.example.com;
-     
+
      location / {
         uwsgi_pass babybuddy;
         include uwsgi_params;
      }
-              
+
      location /media {
         alias /var/www/babybuddy/data/media;
      }
     }
     ```
-    
+
     See the [nginx documentation](https://nginx.org/en/docs/) for more advanced
     configuration details.
-    
+
     See [Subdirectory configuration](subdirectory.md) for additional configuration
     required if Baby Buddy will be hosted in a subdirectory of another server.
 
