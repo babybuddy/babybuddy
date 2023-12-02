@@ -5,6 +5,4 @@
 
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">{% trans "Children" %}</a></li>
-    <li class="breadcrumb-item fw-bold"><a href="{% url 'core:child' object.slug %}">{{ object }}</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'reports:report-list' object.slug %}">{% trans "Reports" %}</a></li>
 {% endblock %}
