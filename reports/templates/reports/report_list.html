@@ -32,8 +32,8 @@
             <a href="{% url 'reports:report-temperature-change-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Temperature" %}</a>
             <a href="{% url 'reports:report-tummy-time-duration-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Tummy Time Durations (Sum)" %}</a>
             <a href="{% url 'reports:report-weight-change-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Weight" %}</a>
-            <a href="{% url 'reports:report-weight-change-child-sex' object.slug 'boy' %}" class="list-group-item list-group-item-action">{% trans "WHO Weight Percentiles for Boys in kg" %}</a>
-            <a href="{% url 'reports:report-weight-change-child-sex' object.slug 'girl' %}" class="list-group-item list-group-item-action">{% trans "WHO Weight Percentiles for Girls in kg" %}</a>
+            <a href="{% url 'reports:report-weight-change-child-boy' object.slug %}" class="list-group-item list-group-item-action">{% trans "WHO Weight Percentiles for Boys in kg" %}</a>
+            <a href="{% url 'reports:report-weight-change-child-girl' object.slug %}" class="list-group-item list-group-item-action">{% trans "WHO Weight Percentiles for Girls in kg" %}</a>
         </div>
     </div>
 {% endblock %}
