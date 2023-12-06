@@ -49,6 +49,9 @@
                 {% else %}
                     {% blocktrans with days_ago=key %}{{ days_ago }} days ago{% endblocktrans %}
                 {% endif %}
+                {% if info.changes > 0 %}
+                    ({{ info.changes|floatformat:'0' }} {% trans "changes" %})
+                {% endif %}
             </div>
         {% endif %}
     {% endfor %}
