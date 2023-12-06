@@ -70,7 +70,7 @@ def card_diaperchange_types(context, child, date=None):
     )
 
     for x in range(7):
-        stats[x] = {"wet": 0.0, "solid": 0.0, "empty": 0.0}
+        stats[x] = {"wet": 0.0, "solid": 0.0, "empty": 0.0, "changes": 0.0}
 
     instances = (
         models.DiaperChange.objects.filter(child=child)
@@ -82,6 +82,7 @@ def card_diaperchange_types(context, child, date=None):
 
     for instance in instances:
         key = (max_date - instance.time).days
+        stats[key]["changes"] += 1
         if instance.wet:
             stats[key]["wet"] += 1
         if instance.solid:
