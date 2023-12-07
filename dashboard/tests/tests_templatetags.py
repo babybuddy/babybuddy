@@ -99,6 +99,7 @@ class TemplateTagsTestCase(TestCase):
                 "solid": 1,
                 "wet": 1,
                 "empty": 0.0,
+                "changes": 2.0,
             },
             1: {
                 "wet_pct": 0.0,
@@ -107,6 +108,7 @@ class TemplateTagsTestCase(TestCase):
                 "solid": 2,
                 "wet": 0,
                 "empty": 0.0,
+                "changes": 2.0,
             },
             2: {
                 "wet_pct": 100.0,
@@ -115,6 +117,7 @@ class TemplateTagsTestCase(TestCase):
                 "solid": 0,
                 "wet": 2,
                 "empty": 0.0,
+                "changes": 2.0,
             },
             3: {
                 "wet_pct": 75.0,
@@ -123,6 +126,7 @@ class TemplateTagsTestCase(TestCase):
                 "solid": 1,
                 "wet": 3,
                 "empty": 0.0,
+                "changes": 4.0,
             },
             4: {
                 "wet_pct": 100.0,
@@ -131,6 +135,7 @@ class TemplateTagsTestCase(TestCase):
                 "solid": 0,
                 "wet": 1,
                 "empty": 0.0,
+                "changes": 1.0,
             },
             5: {
                 "wet_pct": 100.0,
@@ -139,6 +144,7 @@ class TemplateTagsTestCase(TestCase):
                 "solid": 0,
                 "wet": 2,
                 "empty": 0.0,
+                "changes": 2.0,
             },
             6: {
                 "wet_pct": 100.0,
@@ -147,6 +153,7 @@ class TemplateTagsTestCase(TestCase):
                 "solid": 0,
                 "wet": 1,
                 "empty": 0.0,
+                "changes": 1.0,
             },
         }
         self.assertEqual(data["stats"], stats)
