@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django import forms
 from django.forms import widgets
 from django.conf import settings
@@ -7,9 +9,10 @@ from django.utils.translation import gettext_lazy as _
 
 from taggit.forms import TagField
 
+from babybuddy.fields import StartEndDateField
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
-from core.widgets import TagsEditor, ChildRadioSelect
+from core.widgets import ChildRadioSelect, TagsEditor
 
 
 def set_initial_values(kwargs, form_type):
@@ -172,15 +175,32 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
 
 
 class FeedingForm(CoreModelForm, TaggableModelForm):
+    start_end = StartEndDateField()
+
     class Meta:
         model = models.Feeding
-        fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
+        fields = ["child", "type", "start", "end", "method", "amount", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
             "end": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
+
+    def __init__(self, *args, **kwargs):
+        if kwargs["instance"]:
+            kwargs["initial"]["start_end"] = (
+                kwargs["instance"].start,
+                kwargs["instance"].end,
+            )
+        else:
+            # Default to a local time _without_ the timezone for datetime-local
+            # HTML field support.
+            kwargs["initial"]["start_end"] = (
+                timezone.make_naive(timezone.localtime()).isoformat(timespec="seconds"),
+                timezone.make_naive(timezone.localtime()).isoformat(timespec="seconds"),
+            )
+        super(FeedingForm, self).__init__(*args, **kwargs)
 
 
 class NoteForm(CoreModelForm, TaggableModelForm):

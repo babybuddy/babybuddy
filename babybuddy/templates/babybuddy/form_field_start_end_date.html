@@ -1,0 +1,39 @@
+{% load i18n widget_tweaks %}
+
+{% for widget in field.subwidgets %}
+    <div class="row mb-3">
+        <label for="id_{{ field.name }}" class="col-sm-2 col-form-label">
+            {% if forloop.counter == 1 %}
+                {% trans "Start time" %}
+            {% else %}
+                {% trans "End time" %}
+            {% endif %}
+        </label>
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col-sm-10">
+                    {{ widget }}
+                </div>
+                <div class="col-sm-2">
+                    {% if forloop.counter == 1 %}
+                        <input type="button" value="{% trans "Copy from end" %}">
+                    {% else %}
+                        <input type="button" value="{% trans "Copy from start" %}">
+                    {% endif %}
+                </div>
+            </div>
+            {% if field.help_text %}
+                <div class="help-block"><small>{{ field.help_text }}</small></div>
+            {% endif %}
+            {% if field.errors %}
+                <div class="invalid-feedback">{% for error in field.errors %}{{ error }}{% endfor %}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% block javascript %}
+    <script type="application/javascript">
+        // TODO: Handle clicks.
+    </script>
+    {% endblock %}
+{% endfor %}
