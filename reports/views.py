@@ -80,7 +80,7 @@ class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
 
     model = models.Child
     permission_required = ("core.view_child",)
-    template_name = "reports/diaperchange_intervals.html"
+    template_name = "reports/diaperchange_types.html"
 
     def get_context_data(self, **kwargs):
         context = super(DiaperChangeTypesChildReport, self).get_context_data(**kwargs)
@@ -326,20 +326,38 @@ class WeightChangeChildReport(PermissionRequiredMixin, DetailView):
     Graph of weight change over time.
     """
 
-    model = models.Child
-    permission_required = ("core.view_child",)
-    template_name = "reports/weight_change.html"
+    def __init__(
+        self, sex=None, target_url="reports:report-weight-change-child"
+    ) -> None:
+        self.model = models.Child
+        self.permission_required = ("core.view_child",)
+        self.template_name = "reports/weight_change.html"
+        self.sex = sex
+        self.target_url = target_url
 
     def get_context_data(self, **kwargs):
         context = super(WeightChangeChildReport, self).get_context_data(**kwargs)
         child = context["object"]
         birthday = child.birth_date
         actual_weights = models.Weight.objects.filter(child=child)
-        percentile_weights = models.WeightPercentile.objects.filter(
-            sex=self.kwargs.get("sex")
-        )
+        percentile_weights = models.WeightPercentile.objects.filter(sex=self.sex)
+        context["target_url"] = self.target_url
         if actual_weights:
             context["html"], context["js"] = graphs.weight_change(
                 actual_weights, percentile_weights, birthday
             )
         return context
+
+
+class WeightChangeChildBoyReport(WeightChangeChildReport):
+    def __init__(self):
+        super(WeightChangeChildBoyReport, self).__init__(
+            sex="boy", target_url="reports:report-weight-change-child-boy"
+        )
+
+
+class WeightChangeChildGirlReport(WeightChangeChildReport):
+    def __init__(self):
+        super(WeightChangeChildGirlReport, self).__init__(
+            sex="girl", target_url="reports:report-weight-change-child-girl"
+        )
