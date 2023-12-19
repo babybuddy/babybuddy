@@ -203,17 +203,41 @@ class HeightChangeChildReport(PermissionRequiredMixin, DetailView):
     Graph of height change over time.
     """
 
-    model = models.Child
-    permission_required = ("core.view_child",)
-    template_name = "reports/height_change.html"
+    def __init__(
+        self, sex=None, target_url="reports:report-height-change-child"
+    ) -> None:
+        self.model = models.Child
+        self.permission_required = ("core.view_child",)
+        self.template_name = "reports/height_change.html"
+        self.sex = sex
+        self.target_url = target_url
 
     def get_context_data(self, **kwargs):
         context = super(HeightChangeChildReport, self).get_context_data(**kwargs)
         child = context["object"]
-        objects = models.Height.objects.filter(child=child)
-        if objects:
-            context["html"], context["js"] = graphs.height_change(objects)
+        birthday = child.birth_date
+        actual_heights = models.Height.objects.filter(child=child)
+        percentile_heights = models.HeightPercentile.objects.filter(sex=self.sex)
+        context["target_url"] = self.target_url
+        if actual_heights:
+            context["html"], context["js"] = graphs.height_change(
+                actual_heights, percentile_heights, birthday
+            )
         return context
+
+
+class HeightChangeChildBoyReport(HeightChangeChildReport):
+    def __init__(self):
+        super(HeightChangeChildBoyReport, self).__init__(
+            sex="boy", target_url="reports:report-height-change-child-boy"
+        )
+
+
+class HeightChangeChildGirlReport(HeightChangeChildReport):
+    def __init__(self):
+        super(HeightChangeChildGirlReport, self).__init__(
+            sex="girl", target_url="reports:report-height-change-child-girl"
+        )
 
 
 class PumpingAmounts(PermissionRequiredMixin, DetailView):

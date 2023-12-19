@@ -26,6 +26,8 @@
             <a href="{% url 'reports:report-feeding-intervals-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Feeding Intervals" %}</a>
             <a href="{% url 'reports:report-head-circumference-change-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Head Circumference" %}</a>
             <a href="{% url 'reports:report-height-change-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Height" %}</a>
+            <a href="{% url 'reports:report-height-change-child-boy' object.slug %}" class="list-group-item list-group-item-action">{% trans "WHO Height Percentiles for Boys in cm" %}</a>
+            <a href="{% url 'reports:report-height-change-child-girl' object.slug %}" class="list-group-item list-group-item-action">{% trans "WHO Height Percentiles for Girls in cm" %}</a>
             <a href="{% url 'reports:report-pumping-amounts-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Pumping Amounts" %}</a>
             <a href="{% url 'reports:report-sleep-pattern-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Sleep Pattern" %}</a>
             <a href="{% url 'reports:report-sleep-totals-child' object.slug %}" class="list-group-item list-group-item-action">{% trans "Sleep Totals" %}</a>
