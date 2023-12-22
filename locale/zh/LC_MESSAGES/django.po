@@ -1912,7 +1912,7 @@ msgstr "上一次睡眠"
 #, python-format
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleeps"
-msgstr[0] "%(counter)s 次喂食"
+msgstr[0] "%(counter)s 次睡眠"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
