@@ -1872,7 +1872,7 @@ msgstr[0] "前 %(n)s 次喂食"
 
 #: dashboard/templates/cards/feeding_recent.html:6
 msgid "Recent Feedings"
-msgstr ""
+msgstr "近期喂食"
 
 #: dashboard/templates/cards/feeding_recent.html:25
 #, python-format
@@ -1906,13 +1906,13 @@ msgstr[0] "%(count)s 小睡"
 
 #: dashboard/templates/cards/sleep_recent.html:6
 msgid "Recent Sleep"
-msgstr "上一次睡眠"
+msgstr "近期睡眠"
 
 #: dashboard/templates/cards/sleep_recent.html:25
 #, python-format
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleeps"
-msgstr[0] "%(counter)s 次喂食"
+msgstr[0] "%(counter)s 次睡眠"
 
 #: dashboard/templates/cards/statistics.html:7
 msgid "Statistics"
@@ -1930,7 +1930,7 @@ msgstr "还没有数据"
 #, python-format
 msgid "%(count)s timer"
 msgid_plural "%(count)s timers"
-msgstr[0] ""
+msgstr[0] "%(count)s个计时器"
 
 #: dashboard/templates/cards/timer_list.html:27
 #, python-format
