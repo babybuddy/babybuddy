@@ -89,28 +89,25 @@ for your instance of babybuddy.
 After that, you just have to push babybuddy code repository to the Git
 deployment URL of your Clever Cloud Python application.
 
-## GCP cloud run
+## GCP Cloud Run
 
-If you don't want to manage any servers you can host your baby buddy serverless in GCP using cloud run.
-This way you don't have to manage any server.
-To save money we will scale down the instance to zero, due to this your initial request will take a bit longer.
-When your instance is up and running it should respond fast.
+Baby Buddy can be hosted serverless in GCP Cloud Run using configuration provided at
+`terraform/gcp-cloud-run`. The configuration scales down to zero for cost effectiveness.
+With this approach initial requests to the service after a long period will be slow but
+subsequent requests will be much faster. A [billing account](https://cloud.google.com/billing/docs/how-to/create-billing-account)
+mut be configured in GCP to use the configuration.
 
-To setup the solution there is terraform code that you can use to create your instance.
+The terraform code isn't production ready and is meant to be a good way of getting started.
+No state strage is configured. See [storage options](https://cloud.google.com/run/docs/storage-options)
+for information about how to configure persistant storage.
 
-This setup assumes that you have a [billing account](https://cloud.google.com/billing/docs/how-to/create-billing-account) setup in GCP.
-
-The terraform code isn't production ready and is meant to be a good way of getting started, for example it don't store the terraform state anywhere remote.
-You can ether set it up in gcp bucket, another option is to have a private git repo and check in the state file there.
-Not optimal, but probably good enough for your home usage.
-
-Clone the repo and copy the files in `terraform/gcp-cloud-run/`, in the folder run.
+Run `terraform init` from the configurtion directory to get started:
 
 ```shell
+git clone https://github.com/babybuddy/babybuddy.git
+cd babybuddy/terraform/gcp-cloud-run
 terraform init
-terraform apply -var project_id=<unique project-id> -var project_name=<readable-project-name> -var billing_account=<billing-account-id>
-# example
-tf apply -var project_id=test1-1234 -var project_name=test1 -var billing_account=000000-CCCCC-111111
+terraform apply -var project_id=<project-id> -var project_name=<project-name> -var billing_account=<billing-account-id>
 ```
 
 ## Manual
