@@ -86,7 +86,7 @@ class Command(BaseCommand):
         self._add_weight_entry()
         last_weight_entry_time = self.time
 
-        self.height = round(uniform(8.0, 12.0), 2)
+        self.height = round(uniform(45.0, 60.0), 2)
         self._add_height_entry()
         last_height_entry_time = self.time
 
