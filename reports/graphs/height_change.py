@@ -21,12 +21,14 @@ def height_change(
     """
     actual_heights = actual_heights.order_by("-date")
 
-    weighing_dates: list[datetime] = list(actual_heights.values_list("date", flat=True))
+    measuring_dates: list[datetime] = list(
+        actual_heights.values_list("date", flat=True)
+    )
     measured_heights = list(actual_heights.values_list("height", flat=True))
 
     actual_heights_trace = go.Scatter(
         name=_("Height"),
-        x=weighing_dates,
+        x=measuring_dates,
         y=measured_heights,
         fill="tozeroy",
         mode="lines+markers",
@@ -40,9 +42,9 @@ def height_change(
             )
         )
 
-        # reduce percentile data xrange to end 1 day after last weigh in for formatting purposes
+        # reduce percentile data xrange to end 1 day after last height measurement in for formatting purposes
         # https://github.com/babybuddy/babybuddy/pull/708#discussion_r1332335789
-        last_date_for_percentiles = max(weighing_dates) + timedelta(days=2)
+        last_date_for_percentiles = max(measuring_dates) + timedelta(days=2)
         dates = dates[: dates.index(last_date_for_percentiles)]
 
         percentile_height_3_trace = go.Scatter(
@@ -89,7 +91,7 @@ def height_change(
         # zoom in on the relevant dates
         layout_args["xaxis"]["range"] = [
             birthday,
-            max(weighing_dates) + timedelta(days=1),
+            max(measuring_dates) + timedelta(days=1),
         ]
         layout_args["yaxis"]["range"] = [0, max(measured_heights) * 1.5]
         data.extend(
