@@ -38,3 +38,9 @@ The listening port for the database. The default port is 5432 for PostgreSQL.
 *Default:* `postgres`
 
 The database username utilized for the deployment.
+
+## `DB_OPTIONS`
+
+*Default:* unset
+
+Additional options to pass to the database library. Some examples can be found [here])(https://docs.djangoproject.com/en/4.0/ref/settings/#std-setting-OPTIONS). To enforce an SSL connection to the database, you can use `{'sslmode': 'require'}`.
