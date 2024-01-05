@@ -114,7 +114,6 @@ if os.getenv("DB_PORT"):
 if os.getenv("DB_OPTIONS"):
     config["OPTIONS"] = os.getenv("DB_OPTIONS")
 
-
 DATABASES = {"default": config}
 
 
