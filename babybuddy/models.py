@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import pytz
+import zoneinfo
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -63,7 +63,9 @@ class Settings(models.Model):
         verbose_name=_("Language"),
     )
     timezone = models.CharField(
-        choices=tuple(zip(pytz.common_timezones, pytz.common_timezones)),
+        choices=sorted(
+            tuple(zip(zoneinfo.available_timezones(), zoneinfo.available_timezones()))
+        ),
         default=timezone.get_default_timezone_name(),
         max_length=100,
         verbose_name=_("Timezone"),

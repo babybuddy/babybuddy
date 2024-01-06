@@ -65,8 +65,7 @@ class FormsTestCase(TestCase):
         page = self.c.post("/user/password/", params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(
-            page,
-            "form",
+            page.context["form"],
             "old_password",
             "Your old password was entered incorrectly. " "Please enter it again.",
         )
@@ -75,7 +74,9 @@ class FormsTestCase(TestCase):
         page = self.c.post("/user/password/", params)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(
-            page, "form", "new_password2", "The two password fields didn’t match."
+            page.context["form"],
+            "new_password2",
+            "The two password fields didn’t match.",
         )
 
         params["new_password2"] = "mynewpassword"
@@ -101,7 +102,7 @@ class FormsTestCase(TestCase):
 
         page = self.c.post("/users/{}/delete/".format(new_user.id))
         self.assertEqual(page.status_code, 302)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             get_user_model().objects.filter(username="username"), []
         )
 
@@ -212,7 +213,9 @@ class FormsTestCase(TestCase):
 
         page = self.c.post("/user/settings/", params)
         self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, "user_form", "email", "Enter a valid email address.")
+        self.assertFormError(
+            page.context["user_form"], "email", "Enter a valid email address."
+        )
 
     def test_user_settings_language(self):
         self.c.login(**self.credentials)

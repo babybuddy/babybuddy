@@ -202,6 +202,7 @@ function test(cb) {
     let command = [
         'run',
         'python',
+        '-Wa',
         'manage.py',
         'test',
         '--settings=babybuddy.settings.test',
