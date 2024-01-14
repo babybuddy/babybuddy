@@ -2049,11 +2049,11 @@ msgstr "Frecuencia de cambio de pañal"
 
 #: dashboard/templatetags/cards.py:509
 msgid "Feeding frequency (past 3 days)"
-msgstr "Frecuenca de tomas (últimos 3 días)"
+msgstr "Frecuencia de tomas (últimos 3 días)"
 
 #: dashboard/templatetags/cards.py:513
 msgid "Feeding frequency (past 2 weeks)"
-msgstr "Frecuenca de tomas (últimas 2 semanas)"
+msgstr "Frecuencia de tomas (últimas 2 semanas)"
 
 #: dashboard/templatetags/cards.py:519
 msgid "Feeding frequency"
