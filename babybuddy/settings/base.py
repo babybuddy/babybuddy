@@ -20,7 +20,7 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
 
 # Applications
-# https://docs.djangoproject.com/en/4.0/ref/applications/
+# https://docs.djangoproject.com/en/5.0/ref/applications/
 
 INSTALLED_APPS = [
     "api",
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 ]
 
 # Middleware
-# https://docs.djangoproject.com/en/4.0/ref/middleware/
+# https://docs.djangoproject.com/en/5.0/ref/middleware/
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -69,13 +69,13 @@ MIDDLEWARE = [
 
 
 # URL dispatcher
-# https://docs.djangoproject.com/en/4.0/topics/http/urls/
+# https://docs.djangoproject.com/en/5.0/topics/http/urls/
 
 ROOT_URLCONF = "babybuddy.urls"
 
 
 # Templates
-# https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-TEMPLATES
+# https://docs.djangoproject.com/en/5.0/ref/settings/#std:setting-TEMPLATES
 
 TEMPLATES = [
     {
@@ -95,7 +95,7 @@ TEMPLATES = [
 
 
 # Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 config = {
     "ENGINE": os.getenv("DB_ENGINE") or "django.db.backends.sqlite3",
@@ -118,7 +118,7 @@ DATABASES = {"default": config}
 
 
 # Cache
-# https://docs.djangoproject.com/en/4.0/topics/cache/
+# https://docs.djangoproject.com/en/5.0/topics/cache/
 
 CACHES = {
     "default": {
@@ -129,13 +129,13 @@ CACHES = {
 
 
 # WGSI
-# https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/
+# https://docs.djangoproject.com/en/5.0/howto/deployment/wsgi/
 
 WSGI_APPLICATION = "babybuddy.wsgi.application"
 
 
 # Authentication
-# https://docs.djangoproject.com/en/4.0/topics/auth/default/
+# https://docs.djangoproject.com/en/5.0/topics/auth/default/
 
 AUTHENTICATION_BACKENDS = [
     "axes.backends.AxesBackend",
@@ -158,14 +158,14 @@ if REVERSE_PROXY_AUTH:
 
 
 # Timezone
-# https://docs.djangoproject.com/en/4.0/topics/i18n/timezones/
+# https://docs.djangoproject.com/en/5.0/topics/i18n/timezones/
 
 USE_TZ = True
 
 TIME_ZONE = "UTC"
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
+# https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 USE_I18N = True
 
@@ -199,18 +199,26 @@ LANGUAGES = [
 
 
 # Format localization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/formatting/
-
-USE_L10N = True
+# https://docs.djangoproject.com/en/5.0/topics/i18n/formatting/
 
 FORMAT_MODULE_PATH = ["babybuddy.formats"]
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-# http://whitenoise.evans.io/en/stable/django.html
+# Storage
+# https://docs.djangoproject.com/en/5.0/ref/files/storage/
+# https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-STORAGES
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# http://whitenoise.evans.io/en/stable/django.html
 
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -225,7 +233,7 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, "static", "babybuddy", "root")
 
 
 # Media files (User uploaded content)
-# https://docs.djangoproject.com/en/4.0/topics/files/
+# https://docs.djangoproject.com/en/5.0/topics/files/
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -240,11 +248,11 @@ AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY") or None
 AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL") or None
 
 if AWS_STORAGE_BUCKET_NAME:
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STORAGES["default"]["BACKEND"] = "storages.backends.s3boto3.S3Boto3Storage"
 
 
 # Email
-# https://docs.djangoproject.com/en/4.0/topics/email/
+# https://docs.djangoproject.com/en/5.0/topics/email/
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_SUBJECT_PREFIX = "[Baby Buddy] "
@@ -263,17 +271,17 @@ if os.environ.get("EMAIL_HOST"):
 
 # Security
 
-# https://docs.djangoproject.com/en/4.0/ref/settings/#secure-proxy-ssl-header
+# https://docs.djangoproject.com/en/5.0/ref/settings/#secure-proxy-ssl-header
 if os.environ.get("SECURE_PROXY_SSL_HEADER"):
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# https://docs.djangoproject.com/en/4.0/topics/http/sessions/#settings
+# https://docs.djangoproject.com/en/5.0/topics/http/sessions/#settings
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = bool(
     strtobool(os.environ.get("SESSION_COOKIE_SECURE") or "False")
 )
 
-# https://docs.djangoproject.com/en/4.0/ref/csrf/#settings
+# https://docs.djangoproject.com/en/5.0/ref/csrf/#settings
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SECURE = bool(strtobool(os.environ.get("CSRF_COOKIE_SECURE") or "False"))
 CSRF_FAILURE_VIEW = "babybuddy.views.csrf_failure"
@@ -282,7 +290,7 @@ CSRF_TRUSTED_ORIGINS = list(
 )
 
 
-# https://docs.djangoproject.com/en/4.0/topics/auth/passwords/
+# https://docs.djangoproject.com/en/5.0/topics/auth/passwords/
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -349,7 +357,7 @@ AXES_LOCKOUT_URL = "/login/lock"
 ROLLING_SESSION_REFRESH = 86400
 
 # Set default auto field for models.
-# See https://docs.djangoproject.com/en/4.0/releases/3.2/#customizing-type-of-auto-created-primary-keys
+# See https://docs.djangoproject.com/en/5.0/releases/3.2/#customizing-type-of-auto-created-primary-keys
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 

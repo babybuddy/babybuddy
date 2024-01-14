@@ -23,8 +23,8 @@ class SleepPatternTestCase(TestCase):
 
         models.Sleep.objects.create(
             child=c,
-            start=dt.datetime(2000, 1, 1, 0, 0, tzinfo=timezone.utc),
-            end=dt.datetime(2000, 1, 1, 0, 1, tzinfo=timezone.utc),
+            start=dt.datetime(2000, 1, 1, 0, 0, tzinfo=dt.timezone.utc),
+            end=dt.datetime(2000, 1, 1, 0, 1, tzinfo=dt.timezone.utc),
         )
 
         sleep_pattern(models.Sleep.objects.order_by("start"))

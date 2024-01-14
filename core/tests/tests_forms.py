@@ -210,7 +210,7 @@ class ChildFormsTestCase(FormsTestCaseBase):
         )
         self.assertEqual(page.status_code, 200)
         self.assertFormError(
-            page, "form", "confirm_name", "Name does not match child name."
+            page.context["form"], "confirm_name", "Name does not match child name."
         )
 
         params["confirm_name"] = str(self.child)
@@ -798,7 +798,9 @@ class ValidationsTestCase(FormsTestCaseBase):
 
         page = self.c.post("/weight/{}/".format(entry.id), params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, "form", "date", "Date can not be in the future.")
+        self.assertFormError(
+            page.context["form"], "date", "Date can not be in the future."
+        )
 
     def test_validate_duration(self):
         end = timezone.localtime() - timezone.timedelta(minutes=10)
@@ -813,14 +815,14 @@ class ValidationsTestCase(FormsTestCaseBase):
         page = self.c.post("/tummy-time/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(
-            page, "form", None, "Start time must come before end time."
+            page.context["form"], None, "Start time must come before end time."
         )
 
         start = end - timezone.timedelta(weeks=53)
         params["start"] = self.localtime_string(start)
         page = self.c.post("/tummy-time/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, "form", None, "Duration too long.")
+        self.assertFormError(page.context["form"], None, "Duration too long.")
 
     def test_validate_time(self):
         future = timezone.localtime() + timezone.timedelta(hours=1)
@@ -833,7 +835,9 @@ class ValidationsTestCase(FormsTestCaseBase):
 
         page = self.c.post("/tummy-time/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertFormError(page, "form", "end", "Date/time can not be in the future.")
+        self.assertFormError(
+            page.context["form"], "end", "Date/time can not be in the future."
+        )
 
     def test_validate_unique_period(self):
         entry = models.TummyTime.objects.create(
@@ -854,7 +858,9 @@ class ValidationsTestCase(FormsTestCaseBase):
         page = self.c.post("/tummy-time/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertFormError(
-            page, "form", None, "Another entry intersects the specified time period."
+            page.context["form"],
+            None,
+            "Another entry intersects the specified time period.",
         )
 
 

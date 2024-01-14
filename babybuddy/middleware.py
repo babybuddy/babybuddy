@@ -2,7 +2,6 @@ from os import getenv
 from time import time
 from functools import wraps
 
-import pytz
 from urllib.parse import urlunsplit, urlsplit
 
 from django.conf import settings
@@ -55,8 +54,8 @@ class UserTimezoneMiddleware:
         user = request.user
         if hasattr(user, "settings") and user.settings.timezone:
             try:
-                timezone.activate(pytz.timezone(user.settings.timezone))
-            except pytz.UnknownTimeZoneError:
+                timezone.activate(user.settings.timezone)
+            except ValueError:
                 pass
         return self.get_response(request)
 
