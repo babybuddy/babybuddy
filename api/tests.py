@@ -316,8 +316,8 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             {
                 "id": 3,
                 "child": 1,
-                "start": "2017-11-18T19:00:00-05:00",
-                "end": "2017-11-18T19:15:00-05:00",
+                "start": "2017-11-18T09:00:00-05:00",
+                "end": "2017-11-18T09:15:00-05:00",
                 "duration": "00:15:00",
                 "type": "formula",
                 "method": "bottle",
@@ -335,7 +335,7 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
 
     def test_get_with_iso_filter(self):
         response = self.client.get(
-            self.endpoint, {"start_min": "2017-11-18T11:30:00-05:00"}
+            self.endpoint, {"start_min": "2017-11-18T04:00:00-05:00"}
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["count"], 3)
