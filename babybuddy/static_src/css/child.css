@@ -1,0 +1,141 @@
+:root {
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-size: 1rem;
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.5;
+  --bs-body-bg: #fff;
+
+  --boy-light-backgorund: #D6E8FC;
+  --boy-light-background-filter: invert(83%) sepia(25%) saturate(360%) hue-rotate(188deg) brightness(105%) contrast(98%);
+  --boy-background-splash: #79B7F4;
+  --boy-background-splash-filter: invert(80%) sepia(16%) saturate(5557%) hue-rotate(180deg) brightness(98%) contrast(96%);
+
+
+  --background-splash: var(--boy-background-splash);
+  --light-backround: var(--boy-light-backgorund)
+}
+
+body {
+  margin: 0;
+  font-family: var(--bs-body-font-family);
+  font-size: var(--bs-body-font-size);
+  line-height: var(--bs-body-line-height);
+  color: var(--bs-body-color);
+  text-align: var(--bs-body-text-align);
+  background-color: var(--bs-body-bg);
+}
+
+.since {
+  font-size: 12px;
+}
+
+.sizing-hack {
+  font-size: 12px;
+  visibility: hidden;
+}
+
+.page-container {
+  padding: 15px;
+}
+
+.header-element-containers {
+  flex-grow: 1;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.header-row-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  height: 100px;
+  clip-path: circle();
+  background: var(--light-backround);
+}
+
+.circle-button {
+  height: 40px;
+  width: 40px;
+  border: var(--light-backround) solid 2px;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.circle-button img,
+.avatar img {
+  filter: var(--boy-background-splash-filter)
+}
+
+.card img {
+  margin: 0 auto;
+  margin-bottom: 5px;
+  width: 40px;
+  height: 40px
+}
+
+.journal-card img {
+  height: 40px
+}
+
+.card {
+  min-height: 120px;
+  width: 80%;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.journal-card {
+  min-height: 20px;
+  width: 90%;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background: #fff;
+  display: flex;
+  padding: 10px;
+}
+
+.card .label {
+  font-weight: 700;
+  /* margin-bottom: 15px; */
+}
+
+
+
+body {
+  margin: 0px;
+}
+
+.background {
+  height: 60vh;
+  position: absolute;
+  width: 100vw;
+  background: var(--background-splash);
+  z-index: -1;
+  bottom: 0;
+}
+
+.purple {
+  filter: invert(44%) sepia(56%) saturate(3989%) hue-rotate(224deg) brightness(98%) contrast(100%);
+  color: #6e69fb;
+}
+
+.green {
+  color: #34d372;
+  filter: invert(59%) sepia(78%) saturate(401%) hue-rotate(91deg) brightness(99%) contrast(90%);
+}
+
+.yellow {
+  color: #f2b73f;
+  filter: invert(93%) sepia(54%) saturate(7488%) hue-rotate(320deg) brightness(94%) contrast(101%);
+}

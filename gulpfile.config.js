@@ -68,6 +68,7 @@ module.exports = {
     stylesConfig: {
         dest: basePath + 'css/',
         app: 'babybuddy/static_src/scss/babybuddy.scss',
+        mobile: "babybuddy/static_src/css/child.css",
         ignore: [
             'babybuddy.scss'
         ]
