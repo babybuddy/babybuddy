@@ -1,1 +1,75 @@
-Dashboard
+{% extends 'mobile-base.html' %}
+{% load static cards%}
+
+{% comment %} Object is child model {% endcomment %}
+{% block page %}
+  <div class="background">
+  </div>
+  <div class="page-container">
+    <div class="header-container">
+      <div class="header-row-container">
+        <div class="header-element-containers">
+          <div class="circle-button">
+            <img src="{% static "babybuddy/img/core/reporting.svg" %}" style="width:40px;height:40px" />
+          </div>
+        </div>
+        <div class="header-element-containers">
+          <div class="avatar">
+            <img src="{% static "babybuddy/img/core/baby-boy.svg" %}" style="height: 100%;" />
+          </div>
+        </div>
+        <div class="header-element-containers">
+          <div class="circle-button">
+            <img src="{% static "babybuddy/img/core/settings.svg" %}" style="width:40px;height:40px" />
+          </div>
+        </div>
+      </div>
+      <div class="header-row-container">
+        <div class="header-element-containers" style="flex-grow:2;font-weight:700;font-size:16px">{{ object }}</div>
+      </div>
+    </div>
+    <div class="body-container">
+      <div class="header-row-container">
+        <div class="header-element-containers">
+          {% comment %} <div class="card">
+            <img src="{% static "babybuddy/img/core/crib.svg" %}" class="purple" />
+            <span class="label">Sleep</span>
+            <span class="sizing-hack">18h 37min Ago</span>
+            <span class="since">18h 37min Ago</span>
+          </div> {% endcomment %}
+          {% include 'dashboard/favorite.html' %}
+          {% comment %} {% include 'dashboard/child_button_group.html' %} {% endcomment %}
+        </div>
+        <div class="header-element-containers">
+          <div class="card">
+            <img src="{% static "babybuddy/img/core/feeding.svg" %}" class="green" />
+            <span class="label">Feeding</span>
+            <span class="sizing-hack">18h 37min Ago</span>
+            <span class="since">18h 37min Ago</span>
+          </div>
+        </div>
+        <div class="header-element-containers">
+          <div class="card">
+            <img src="{% static "babybuddy/img/core/diaper.svg" %}" class="yellow" />
+            <span class="label">Diaper</span>
+            <span class="sizing-hack">18h 37min Ago</span>
+            <span class="since">18h 37min Ago</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-row-container">
+        <span>Today</span>
+      </div>
+      <div class="header-row-container">
+          <div class="journal-card">
+            <img src="{% static "babybuddy/img/core/diaper.svg" %}" class="yellow" />
+          </div>
+      </div>  
+      <div class="header-row-container">
+          <div class="journal-card">
+            <img src="{% static "babybuddy/img/core/feeding.svg" %}" class="green" />
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
