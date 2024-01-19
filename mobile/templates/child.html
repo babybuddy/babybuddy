@@ -37,7 +37,8 @@
             <span class="sizing-hack">18h 37min Ago</span>
             <span class="since">18h 37min Ago</span>
           </div> {% endcomment %}
-          {% include 'dashboard/favorite.html' %}
+          {% comment %} {% include 'dashboard/favorite.html' %} {% endcomment %}
+          {% favorite %}
           {% comment %} {% include 'dashboard/child_button_group.html' %} {% endcomment %}
         </div>
         <div class="header-element-containers">
