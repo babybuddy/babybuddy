@@ -66,6 +66,7 @@ module.exports = {
   stylesConfig: {
     dest: basePath + "css/",
     app: "babybuddy/static_src/scss/babybuddy.scss",
+    mobile: "babybuddy/static_src/css/child.css",
     ignore: ["babybuddy.scss"],
   },
   testsConfig: {
@@ -73,6 +74,6 @@ module.exports = {
   },
   watchConfig: {
     scriptsGlob: ["*/static_src/js/**/*.js", "!babybuddy/static/js/"],
-    stylesGlob: ["*/static_src/scss/**/*.scss"],
+    stylesGlob: ["*/static_src/scss/**/*.scss", "*/static_src/css/**/*.css"],
   },
 };
