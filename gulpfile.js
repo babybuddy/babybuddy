@@ -318,7 +318,7 @@ gulp.task("runserver", function (cb) {
     if (parameters[i] === "runserver") {
       delete parameters[i];
     } else if (parameters[i] === "--ip") {
-    /* "--ip" parameter to set the server IP address. */
+      /* "--ip" parameter to set the server IP address. */
       command.push(parameters[i + 1]);
       delete parameters[i];
       delete parameters[i + 1];
