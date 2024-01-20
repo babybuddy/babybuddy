@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-19 17:07+0000\n"
+"POT-Creation-Date: 2024-01-20 14:12+0000\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -126,88 +126,88 @@ msgstr "4 hét"
 msgid "Language"
 msgstr "Nyelv"
 
-#: babybuddy/models.py:69
+#: babybuddy/models.py:71
 msgid "Timezone"
 msgstr "Időzóna"
 
-#: babybuddy/models.py:73
+#: babybuddy/models.py:75
 #, python-brace-format
 msgid "{user}'s Settings"
 msgstr "{user} beállításai"
 
-#: babybuddy/settings/base.py:177
+#: babybuddy/settings/base.py:179
 msgid "Catalan"
 msgstr "Katalán"
 
-#: babybuddy/settings/base.py:178
+#: babybuddy/settings/base.py:180
 msgid "Czech"
 msgstr "Cheh"
 
-#: babybuddy/settings/base.py:179
+#: babybuddy/settings/base.py:181
 msgid "Chinese (simplified)"
 msgstr "Kínai (egyszerűsített)"
 
-#: babybuddy/settings/base.py:180
+#: babybuddy/settings/base.py:182
 msgid "Danish"
 msgstr "Dán"
 
-#: babybuddy/settings/base.py:181
+#: babybuddy/settings/base.py:183
 msgid "Dutch"
 msgstr "Holland"
 
-#: babybuddy/settings/base.py:182
+#: babybuddy/settings/base.py:184
 msgid "English (US)"
 msgstr "Angol (US)"
 
-#: babybuddy/settings/base.py:183
+#: babybuddy/settings/base.py:185
 msgid "English (UK)"
 msgstr "Angol (UK)"
 
-#: babybuddy/settings/base.py:184
+#: babybuddy/settings/base.py:186
 msgid "French"
 msgstr "Francia"
 
-#: babybuddy/settings/base.py:185
+#: babybuddy/settings/base.py:187
 msgid "Finnish"
 msgstr "Finn"
 
-#: babybuddy/settings/base.py:186
+#: babybuddy/settings/base.py:188
 msgid "German"
 msgstr "Német"
 
-#: babybuddy/settings/base.py:187
+#: babybuddy/settings/base.py:189
 msgid "Hungarian"
 msgstr "Magyar"
 
-#: babybuddy/settings/base.py:188
+#: babybuddy/settings/base.py:190
 msgid "Italian"
 msgstr "Olasz"
 
-#: babybuddy/settings/base.py:189
+#: babybuddy/settings/base.py:191
 msgid "Norwegian Bokmål"
 msgstr "Norvég Bokmål"
 
-#: babybuddy/settings/base.py:190
+#: babybuddy/settings/base.py:192
 msgid "Polish"
 msgstr "Lengyel"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:193
 msgid "Portuguese"
 msgstr "Portugál"
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:194
 msgid "Russian"
 msgstr "Orosz"
 
-#: babybuddy/settings/base.py:193
+#: babybuddy/settings/base.py:195
 msgid "Spanish"
 msgstr "Spanyol"
 
-#: babybuddy/settings/base.py:194
+#: babybuddy/settings/base.py:196
 msgid "Swedish"
 msgstr "Svéd"
 
-#: babybuddy/settings/base.py:195
+#: babybuddy/settings/base.py:197
 msgid "Turkish"
 msgstr "Török"
 
@@ -422,8 +422,8 @@ msgstr "Fejkörfogat bevitele"
 #: core/templates/core/height_list.html:4
 #: core/templates/core/height_list.html:7
 #: core/templates/core/height_list.html:12
-#: core/templates/core/height_list.html:29 reports/graphs/height_change.py:28
-#: reports/graphs/height_change.py:87
+#: core/templates/core/height_list.html:29 reports/graphs/height_change.py:30
+#: reports/graphs/height_change.py:89
 #: reports/templates/reports/height_change.html:4
 #: reports/templates/reports/height_change.html:9
 #: reports/templates/reports/report_list.html:28
@@ -1061,7 +1061,7 @@ msgstr ""
 #: core/fields.py:27
 #, python-format
 msgid ""
-"Nap start min. value %(min)s must be less than nap start min. value %(max)s."
+"Nap start min. value %(min)s must be less than nap start max. value %(max)s."
 msgstr ""
 
 #: core/filters.py:11 core/models.py:97 core/models.py:116
@@ -1135,7 +1135,7 @@ msgstr "Címkék"
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
 #: reports/graphs/feeding_duration.py:56 reports/graphs/feeding_intervals.py:42
 #: reports/graphs/head_circumference_change.py:28
-#: reports/graphs/height_change.py:85 reports/graphs/pumping_amounts.py:60
+#: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:157 reports/graphs/sleep_totals.py:59
 #: reports/graphs/tummytime_duration.py:51 reports/graphs/weight_change.py:85
 msgid "Date"
@@ -2153,27 +2153,27 @@ msgstr ""
 msgid "<b>Head Circumference</b>"
 msgstr "<b>Fejkörfogat</b>"
 
-#: reports/graphs/height_change.py:49 reports/graphs/weight_change.py:49
+#: reports/graphs/height_change.py:51 reports/graphs/weight_change.py:49
 msgid "P3"
 msgstr ""
 
-#: reports/graphs/height_change.py:55 reports/graphs/weight_change.py:55
+#: reports/graphs/height_change.py:57 reports/graphs/weight_change.py:55
 msgid "P15"
 msgstr ""
 
-#: reports/graphs/height_change.py:61 reports/graphs/weight_change.py:61
+#: reports/graphs/height_change.py:63 reports/graphs/weight_change.py:61
 msgid "P50"
 msgstr ""
 
-#: reports/graphs/height_change.py:67 reports/graphs/weight_change.py:67
+#: reports/graphs/height_change.py:69 reports/graphs/weight_change.py:67
 msgid "P85"
 msgstr ""
 
-#: reports/graphs/height_change.py:73 reports/graphs/weight_change.py:73
+#: reports/graphs/height_change.py:75 reports/graphs/weight_change.py:73
 msgid "P97"
 msgstr ""
 
-#: reports/graphs/height_change.py:84
+#: reports/graphs/height_change.py:86
 msgid "<b>Height</b>"
 msgstr "<b>Magasság</b>"
 
