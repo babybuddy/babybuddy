@@ -300,7 +300,7 @@ gulp.task('reset', () => {
 });
 
 gulp.task('runserver', function(cb) {
-    let command = ['run', 'python', 'manage.py', 'runserver'];
+    let command = ["run", "python", "manage.py", "runserver", "0.0.0.0:8000"];
 
     /**
      * Process any parameters. Any arguments found here will be removed from
