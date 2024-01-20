@@ -26,6 +26,18 @@ body {
   background-color: var(--bs-body-bg);
 }
 
+.favorite-actions-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.favorite-action-containers {
+  width: 30%;
+  margin-bottom: 15px;
+}
+
 .since {
   font-size: 12px;
 }
