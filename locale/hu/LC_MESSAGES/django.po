@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:12+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0000\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2330,13 +2330,6 @@ msgstr ""
 msgid "Total Tummy Time Durations"
 msgstr "Összes pocakidő"
 
-#~ msgid "0 days"
-#~ msgstr "0 nap"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "%(key)s nappal ezelőtt"
-
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
 #~ "focus."
@@ -2450,6 +2443,9 @@ msgstr "Összes pocakidő"
 #~ msgid "%(time)s ago"
 #~ msgstr "%(time)s ezelőtt"
 
+#~ msgid "%(key)s days ago"
+#~ msgstr "%(key)s nappal ezelőtt"
+
 #~ msgid "Today's Sleep"
 #~ msgstr "Mai alvás"
 
@@ -2503,6 +2499,9 @@ msgstr "Összes pocakidő"
 
 #~ msgid "Delete timer"
 #~ msgstr "Időtítő törlése"
+
+#~ msgid "0 days"
+#~ msgstr "0 nap"
 
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Tartalom: %(contents)s"

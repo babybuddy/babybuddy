@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:12+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0000\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2345,13 +2345,6 @@ msgstr ""
 msgid "Total Tummy Time Durations"
 msgstr "Celková doba polohy na bříšku"
 
-#~ msgid "0 days"
-#~ msgstr "0 dní"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "před %(key)s dny"
-
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
 #~ "focus."
@@ -2413,7 +2406,7 @@ msgstr "Celková doba polohy na bříšku"
 #~ "                two passwords did not match. Please try again.</p>"
 #~ msgstr ""
 #~ "<p class=\"mb-0\"><strong>Kruci!</strong> Zadaná\n"
-#~ "                hesla se neshodují. Zkuste to znovu.</p>"
+#~ "                hesla se neshodují. Zkuste to znovu.</p>\n"
 
 #~ msgid ""
 #~ "<p>We've emailed you instructions for setting your\n"
@@ -2470,6 +2463,9 @@ msgstr "Celková doba polohy na bříšku"
 #~ msgid "%(time)s ago"
 #~ msgstr "před %(time)s"
 
+#~ msgid "%(key)s days ago"
+#~ msgstr "před %(key)s dny"
+
 #~ msgid "Today's Sleep"
 #~ msgstr "Dnešní spánek"
 
@@ -2523,6 +2519,9 @@ msgstr "Celková doba polohy na bříšku"
 
 #~ msgid "Delete timer"
 #~ msgstr "Smazat časovač"
+
+#~ msgid "0 days"
+#~ msgstr "0 dní"
 
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Obsah: %(contents)s"

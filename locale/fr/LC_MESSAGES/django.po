@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:12+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1169,8 +1169,10 @@ msgid "Birth date"
 msgstr "Date de naissance"
 
 #: core/models.py:169
+#, fuzzy
+#| msgid "Birth date"
 msgid "Birth time"
-msgstr "Heure de naissance"
+msgstr "Date de naissance"
 
 #: core/models.py:176
 msgid "Slug"
@@ -1888,7 +1890,7 @@ msgstr "<div>il y a %(since)s</div> <small>(%(time)s)</small>"
 
 #: dashboard/templates/cards/diaperchange_types.html:14
 msgid "Past Week"
-msgstr "La semaine dernière"
+msgstr "Au cours de la semaine"
 
 #: dashboard/templates/cards/diaperchange_types.html:26
 msgid "wet"
@@ -1899,6 +1901,8 @@ msgid "solid"
 msgstr "solide"
 
 #: dashboard/templates/cards/diaperchange_types.html:53
+#, fuzzy
+#| msgid "Changes"
 msgid "changes"
 msgstr "Changements de couches"
 
@@ -2302,12 +2306,16 @@ msgid "Feeding Durations (Average)"
 msgstr "Durée des repas (moyenne)"
 
 #: reports/templates/reports/report_list.html:29
+#, fuzzy
+#| msgid "WHO Weight Percentiles for Boys in kg"
 msgid "WHO Height Percentiles for Boys in cm"
-msgstr "Percentiles de taille de l'OMS pour les garçons en cm"
+msgstr "Percentiles de poids de l'OMS pour les garçons en kg"
 
 #: reports/templates/reports/report_list.html:30
+#, fuzzy
+#| msgid "WHO Weight Percentiles for Girls in kg"
 msgid "WHO Height Percentiles for Girls in cm"
-msgstr "Percentiles de taille de l'OMS pour les filles en cm"
+msgstr "Percentiles de poids de l'OMS pour les filles en kg"
 
 #: reports/templates/reports/report_list.html:31
 msgid "Pumping Amounts"
@@ -2341,13 +2349,6 @@ msgstr "Percentiles de poids de l'OMS pour les filles en kg"
 #: reports/templates/reports/tummytime_duration.html:9
 msgid "Total Tummy Time Durations"
 msgstr "Durée totale de motricité libre"
-
-#~ msgid "0 days"
-#~ msgstr "0 jour"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "il y a %(key)s jours"
 
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
@@ -2466,6 +2467,9 @@ msgstr "Durée totale de motricité libre"
 #~ msgid "%(time)s ago"
 #~ msgstr "il y a %(time)s"
 
+#~ msgid "%(key)s days ago"
+#~ msgstr "il y a %(key)s jours"
+
 #~ msgid "Today's Sleep"
 #~ msgstr "Sommeil d'aujourd'hui"
 
@@ -2477,6 +2481,9 @@ msgstr "Durée totale de motricité libre"
 
 #~ msgid "Last Slept"
 #~ msgstr "Dernier sommeil"
+
+#~ msgid "%(count)s nap%(plural)s"
+#~ msgstr "%(count)s sieste%(plural)s"
 
 #~ msgid "%(count)s active timer%(plural)s"
 #~ msgstr "%(count)s chronomètre%(plural)s actif%(plural)s"
@@ -2518,11 +2525,8 @@ msgstr "Durée totale de motricité libre"
 #~ msgid "Delete timer"
 #~ msgstr "Supprimer l'utilisateur"
 
-#~ msgid " days ago"
-#~ msgstr " jours"
-
-#~ msgid " "
-#~ msgstr "il y a "
+#~ msgid "0 days"
+#~ msgstr "0 jour"
 
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Contenu : %(contents)s"
@@ -2551,4 +2555,7 @@ msgstr "Durée totale de motricité libre"
 #~ msgid "%(count)s active timer"
 #~ msgid_plural "%(count)s active timers"
 #~ msgstr[0] "%(count)s chronomètre actif"
-#~ msgstr[1] "%(count)s chronomètres actifs"
+#~ msgstr[1] "%(count)s chronomètre%(plural)s actifs"
+
+#~ msgid " days ago"
+#~ msgstr "il y a %(key)s jours"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:12+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1068,14 +1068,11 @@ msgstr ""
 "%(min)s."
 
 #: core/fields.py:27
-#, fuzzy, python-format
-#| msgid ""
-#| "Nap start min. value %(min)s must be less than nap start min. value "
-#| "%(max)s."
+#, python-format
 msgid ""
 "Nap start min. value %(min)s must be less than nap start max. value %(max)s."
 msgstr ""
-"Dutje start min. waarde %(min)s moet kleiner zijn dan dutje start min. "
+"Dutje start min. waarde %(min)s moet kleiner zijn dan dutje start max. "
 "waarde %(max)s."
 
 #: core/filters.py:11 core/models.py:97 core/models.py:116
@@ -2344,13 +2341,6 @@ msgstr ""
 msgid "Total Tummy Time Durations"
 msgstr "Totale tijdsduur Buikliggen"
 
-#~ msgid "0 days"
-#~ msgstr "0 dagen"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "%(key)s dagen geleden"
-
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
 #~ "focus."
@@ -2468,6 +2458,9 @@ msgstr "Totale tijdsduur Buikliggen"
 #~ msgid "%(time)s ago"
 #~ msgstr "%(time)s geleden"
 
+#~ msgid "%(key)s days ago"
+#~ msgstr "%(key)s dagen geleden"
+
 #~ msgid "Today's Sleep"
 #~ msgstr "Slaap vandaag"
 
@@ -2522,6 +2515,9 @@ msgstr "Totale tijdsduur Buikliggen"
 
 #~ msgid "Delete timer"
 #~ msgstr "Verwijder timer"
+
+#~ msgid "0 days"
+#~ msgstr "0 dagen"
 
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Inhoud: %(contents)s"

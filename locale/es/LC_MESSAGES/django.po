@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:12+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2049,11 +2049,11 @@ msgstr "Frecuencia de cambio de pañal"
 
 #: dashboard/templatetags/cards.py:509
 msgid "Feeding frequency (past 3 days)"
-msgstr "Frecuencia de tomas (últimos 3 días)"
+msgstr "Frecuenca de tomas (últimos 3 días)"
 
 #: dashboard/templatetags/cards.py:513
 msgid "Feeding frequency (past 2 weeks)"
-msgstr "Frecuencia de tomas (últimas 2 semanas)"
+msgstr "Frecuenca de tomas (últimas 2 semanas)"
 
 #: dashboard/templatetags/cards.py:519
 msgid "Feeding frequency"
@@ -2325,13 +2325,6 @@ msgstr ""
 msgid "Total Tummy Time Durations"
 msgstr "Duración Total Tiempo Boca Abajo"
 
-#~ msgid "0 days"
-#~ msgstr "0 días"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "hace %(key)s días"
-
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
 #~ "focus."
@@ -2455,6 +2448,9 @@ msgstr "Duración Total Tiempo Boca Abajo"
 #~ msgid "%(time)s ago"
 #~ msgstr "hace %(time)s"
 
+#~ msgid "%(key)s days ago"
+#~ msgstr "hace %(key)s días"
+
 #~ msgid "Today's Sleep"
 #~ msgstr "Sueño Hoy"
 
@@ -2510,6 +2506,9 @@ msgstr "Duración Total Tiempo Boca Abajo"
 
 #~ msgid "Delete timer"
 #~ msgstr "Eliminar temporizador"
+
+#~ msgid "0 days"
+#~ msgstr "0 días"
 
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Contenidos: %(contents)s"

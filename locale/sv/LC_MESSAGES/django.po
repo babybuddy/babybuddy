@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:12+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0000\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1063,10 +1063,7 @@ msgstr ""
 "start-värde %(min)s."
 
 #: core/fields.py:27
-#, fuzzy, python-format
-#| msgid ""
-#| "Nap start min. value %(min)s must be less than nap start min. value "
-#| "%(max)s."
+#, python-format
 msgid ""
 "Nap start min. value %(min)s must be less than nap start max. value %(max)s."
 msgstr ""
@@ -1286,11 +1283,11 @@ msgstr "Metod"
 
 #: core/models.py:419 core/models.py:753
 msgid "Girl"
-msgstr ""
+msgstr "Flicka"
 
 #: core/models.py:420 core/models.py:754
 msgid "Boy"
-msgstr ""
+msgstr "Pojke"
 
 #: core/models.py:442 core/templates/core/note_list.html:29
 msgid "Image"
@@ -2097,11 +2094,11 @@ msgstr "Totalt"
 
 #: reports/graphs/diaperchange_intervals.py:66
 msgid "<b>Diaper Change Intervals</b>"
-msgstr ""
+msgstr "<b>Blöjbytesintervall</b>"
 
 #: reports/graphs/diaperchange_intervals.py:69
 msgid "Interval (hours)"
-msgstr ""
+msgstr "Intervall (timmar)"
 
 #: reports/graphs/diaperchange_lifetimes.py:35
 msgid "<b>Diaper Lifetimes</b>"
@@ -2149,15 +2146,15 @@ msgstr "Antal matningar"
 
 #: reports/graphs/feeding_intervals.py:32
 msgid "Interval"
-msgstr ""
+msgstr "Intervall"
 
 #: reports/graphs/feeding_intervals.py:41
 msgid "<b>Feeding intervals</b>"
-msgstr ""
+msgstr "<b>Matnings-intervall</b>"
 
 #: reports/graphs/feeding_intervals.py:44
 msgid "Feeding interval (hours)"
-msgstr ""
+msgstr "Matnings-intervall (timmar)"
 
 #: reports/graphs/head_circumference_change.py:27
 msgid "<b>Head Circumference</b>"
@@ -2165,23 +2162,23 @@ msgstr "<b>Huvudomkrets</b>"
 
 #: reports/graphs/height_change.py:51 reports/graphs/weight_change.py:49
 msgid "P3"
-msgstr ""
+msgstr "P3"
 
 #: reports/graphs/height_change.py:57 reports/graphs/weight_change.py:55
 msgid "P15"
-msgstr ""
+msgstr "P15"
 
 #: reports/graphs/height_change.py:63 reports/graphs/weight_change.py:61
 msgid "P50"
-msgstr ""
+msgstr "P50"
 
 #: reports/graphs/height_change.py:69 reports/graphs/weight_change.py:67
 msgid "P85"
-msgstr ""
+msgstr "P85"
 
 #: reports/graphs/height_change.py:75 reports/graphs/weight_change.py:73
 msgid "P97"
-msgstr ""
+msgstr "P97"
 
 #: reports/graphs/height_change.py:86
 msgid "<b>Height</b>"
@@ -2248,7 +2245,7 @@ msgstr "Blöjmängd"
 #: reports/templates/reports/diaperchange_intervals.html:4
 #: reports/templates/reports/diaperchange_intervals.html:9
 msgid "Diaper Change Intervals"
-msgstr ""
+msgstr "Blöjbytesintervall"
 
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:9
@@ -2277,7 +2274,7 @@ msgstr "Genomsnittlig matningsvaraktighet"
 #: reports/templates/reports/feeding_intervals.html:9
 #: reports/templates/reports/report_list.html:26
 msgid "Feeding Intervals"
-msgstr ""
+msgstr "Matnings-intervall"
 
 #: reports/templates/reports/report_base.html:18
 msgid "There is not enough data to generate this report."
@@ -2293,19 +2290,23 @@ msgstr "Blöjbytesmängd"
 
 #: reports/templates/reports/report_list.html:22
 msgid "Diaper Intervals"
-msgstr ""
+msgstr "Blöj-intervall"
 
 #: reports/templates/reports/report_list.html:25
 msgid "Feeding Durations (Average)"
 msgstr "Matningstid (Genomsnittlig)"
 
 #: reports/templates/reports/report_list.html:29
+#, fuzzy
+#| msgid "WHO Weight Percentiles for Boys in kg"
 msgid "WHO Height Percentiles for Boys in cm"
-msgstr ""
+msgstr "WHO Vikt-percentiler för Pojkar i kg"
 
 #: reports/templates/reports/report_list.html:30
+#, fuzzy
+#| msgid "WHO Weight Percentiles for Girls in kg"
 msgid "WHO Height Percentiles for Girls in cm"
-msgstr ""
+msgstr "WHO Vikt-percentiler för Flickor i kg"
 
 #: reports/templates/reports/report_list.html:31
 msgid "Pumping Amounts"
@@ -2329,23 +2330,16 @@ msgstr "Magläge varaktighet (Totalt)"
 
 #: reports/templates/reports/report_list.html:37
 msgid "WHO Weight Percentiles for Boys in kg"
-msgstr ""
+msgstr "WHO Vikt-percentiler för Pojkar i kg"
 
 #: reports/templates/reports/report_list.html:38
 msgid "WHO Weight Percentiles for Girls in kg"
-msgstr ""
+msgstr "WHO Vikt-percentiler för Flickor i kg"
 
 #: reports/templates/reports/tummytime_duration.html:4
 #: reports/templates/reports/tummytime_duration.html:9
 msgid "Total Tummy Time Durations"
 msgstr "Total varaktighet för magläge"
-
-#~ msgid "0 days"
-#~ msgstr "0 dagar"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "%(key)s dagar sedan"
 
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
@@ -2460,6 +2454,9 @@ msgstr "Total varaktighet för magläge"
 #~ msgid "%(time)s ago"
 #~ msgstr "%(time)s sedan"
 
+#~ msgid "%(key)s days ago"
+#~ msgstr "%(key)s dagar sedan"
+
 #~ msgid "Today's Sleep"
 #~ msgstr "Sömn idag"
 
@@ -2515,6 +2512,9 @@ msgstr "Total varaktighet för magläge"
 
 #~ msgid "Delete timer"
 #~ msgstr "Ta bort timer"
+
+#~ msgid "0 days"
+#~ msgstr "0 dagar"
 
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Innehåll: %(contents)s"

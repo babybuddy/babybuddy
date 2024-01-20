@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:12+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2343,13 +2343,6 @@ msgstr ""
 msgid "Total Tummy Time Durations"
 msgstr "Totale Bauchzeit-Dauer"
 
-#~ msgid "0 days"
-#~ msgstr "0 Tage"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "Vor %(key)s Tagen"
-
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
 #~ "focus."
@@ -2467,6 +2460,9 @@ msgstr "Totale Bauchzeit-Dauer"
 #~ msgid "%(time)s ago"
 #~ msgstr "vor %(time)s"
 
+#~ msgid "%(key)s days ago"
+#~ msgstr "Vor %(key)s Tagen"
+
 #~ msgid "Today's Sleep"
 #~ msgstr "Schlaf heute"
 
@@ -2522,6 +2518,9 @@ msgstr "Totale Bauchzeit-Dauer"
 
 #~ msgid "Delete timer"
 #~ msgstr "Timer löschen"
+
+#~ msgid "0 days"
+#~ msgstr "0 Tage"
 
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Inhalte: %(contents)s"

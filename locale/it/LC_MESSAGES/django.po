@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:12+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,11 +30,11 @@ msgstr "Dashboard"
 
 #: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:21
 msgid "Read only"
-msgstr ""
+msgstr "Solo lettura"
 
 #: babybuddy/forms.py:16
 msgid "Restricts user to viewing data only."
-msgstr ""
+msgstr "Limita l'utente alla sola visualizzazione."
 
 #: babybuddy/models.py:19
 msgid "Refresh rate"
@@ -137,15 +137,15 @@ msgstr "Impostazioni {user}"
 
 #: babybuddy/settings/base.py:179
 msgid "Catalan"
-msgstr ""
+msgstr "Catalano"
 
 #: babybuddy/settings/base.py:180
 msgid "Czech"
-msgstr ""
+msgstr "Ceco"
 
 #: babybuddy/settings/base.py:181
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "Cinese (semplificato)"
 
 #: babybuddy/settings/base.py:182
 msgid "Danish"
@@ -177,7 +177,7 @@ msgstr "Tedesco"
 
 #: babybuddy/settings/base.py:189
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungherese"
 
 #: babybuddy/settings/base.py:190
 msgid "Italian"
@@ -185,7 +185,7 @@ msgstr "Italiano"
 
 #: babybuddy/settings/base.py:191
 msgid "Norwegian Bokmål"
-msgstr ""
+msgstr "Bokmål"
 
 #: babybuddy/settings/base.py:192
 msgid "Polish"
@@ -197,7 +197,7 @@ msgstr "Portoghese"
 
 #: babybuddy/settings/base.py:194
 msgid "Russian"
-msgstr ""
+msgstr "Russo"
 
 #: babybuddy/settings/base.py:195
 msgid "Spanish"
@@ -213,23 +213,29 @@ msgstr "Turco"
 
 #: babybuddy/site_settings.py:23
 msgid "Default minimum nap start time"
-msgstr ""
+msgstr "Orario minimo predefinito di inizio del pisolino"
 
 #: babybuddy/site_settings.py:25
 msgid ""
 "The minimum default time that a sleep entry is consider a nap. If set the "
 "nap property will be preselected if the start time is within the bounds."
 msgstr ""
+"L'ora minima predefinita in cui una voce di sonno viene considerata un "
+"pisolino. Se impostata, la proprietà pisolino verrà preselezionata se l'ora "
+"di inizio è compresa in questi limiti."
 
 #: babybuddy/site_settings.py:32
 msgid "Default maximum nap start time"
-msgstr ""
+msgstr "Orario massimo predefinito di inizio del pisolino"
 
 #: babybuddy/site_settings.py:34
 msgid ""
 "The maximum default time that a sleep entry is consider a nap. If set the "
 "nap property will be preselected if the start time is within the bounds."
 msgstr ""
+"L'ora massima predefinita in cui una voce di sonno viene considerata un "
+"pisolino. Se impostata, la proprietà pisolino verrà preselezionata se l'ora "
+"di inizio è compresa in questi limiti."
 
 #: babybuddy/templates/admin/base_site.html:4
 #: babybuddy/templates/admin/base_site.html:7
@@ -294,7 +300,7 @@ msgstr "Pasto"
 #: reports/templates/reports/pumping_amounts.html:4
 #: reports/templates/reports/pumping_amounts.html:9
 msgid "Pumping"
-msgstr ""
+msgstr "Tiralatte"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:64
 #: babybuddy/templates/babybuddy/nav-dropdown.html:140 core/models.py:437
@@ -374,7 +380,7 @@ msgstr "Note"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:154
 msgid "Measurements"
-msgstr ""
+msgstr "Misurazioni"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:162 core/models.py:140
 #: core/models.py:152 core/models.py:153 core/models.py:156
@@ -385,7 +391,7 @@ msgstr ""
 #: reports/graphs/bmi_change.py:30 reports/templates/reports/bmi_change.html:4
 #: reports/templates/reports/bmi_change.html:9
 msgid "BMI"
-msgstr ""
+msgstr "BMI"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:168
 msgid "BMI entry"
@@ -405,11 +411,11 @@ msgstr "Ingresso BMI"
 #: reports/templates/reports/head_circumference_change.html:9
 #: reports/templates/reports/report_list.html:27
 msgid "Head Circumference"
-msgstr ""
+msgstr "Circonferenza Testa"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:182
 msgid "Head Circumference entry"
-msgstr ""
+msgstr "Voce Circonferenza della Testa"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:190 core/models.py:385
 #: core/models.py:397 core/models.py:398 core/models.py:401
@@ -584,7 +590,7 @@ msgstr "Successivo"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:15
 msgid "Authentication Methods"
-msgstr ""
+msgstr "Metodi di Autenticazione"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:18
 #: babybuddy/templates/babybuddy/user_settings_form.html:81
@@ -598,7 +604,7 @@ msgstr "Rigenera"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:28
 msgid "Login QR code"
-msgstr ""
+msgstr "Codice QR per l'accesso"
 
 #: babybuddy/templates/babybuddy/user_confirm_delete.html:4
 msgid "Delete User"
@@ -678,13 +684,13 @@ msgstr "Annulla"
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:4
 msgid "Unlock User"
-msgstr ""
+msgstr "Sblocca Utente"
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:9
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:18
 #: babybuddy/templates/babybuddy/user_form.html:31
 msgid "Unlock"
-msgstr ""
+msgstr "Sblocca"
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:15
 #, python-format
@@ -720,7 +726,7 @@ msgstr "Aggiorna"
 
 #: babybuddy/templates/babybuddy/user_form.html:28
 msgid "User locked."
-msgstr ""
+msgstr "Utente bloccato."
 
 #: babybuddy/templates/babybuddy/user_form.html:35
 #: core/templates/core/bmi_form.html:23 core/templates/core/child_form.html:24
@@ -763,7 +769,7 @@ msgstr "Attivo"
 
 #: babybuddy/templates/babybuddy/user_list.html:24
 msgid "Locked"
-msgstr ""
+msgstr "Bloccato"
 
 #: babybuddy/templates/babybuddy/user_list.html:25
 #: core/templates/core/bmi_list.html:24 core/templates/core/bmi_list.html:37
@@ -865,11 +871,11 @@ msgstr "Aggiungi Figlio"
 #: babybuddy/templates/dbsettings/site_settings.html:4
 #: babybuddy/templates/dbsettings/site_settings.html:12
 msgid "Site Settings"
-msgstr ""
+msgstr "Impostazioni Sito"
 
 #: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
 msgid "Bad Request"
-msgstr ""
+msgstr "Richiesta Errata"
 
 #: babybuddy/templates/error/403.html:4 babybuddy/templates/error/403.html:7
 msgid "Permission Denied"
@@ -885,7 +891,7 @@ msgstr ""
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:15
 msgid "How to Fix"
-msgstr ""
+msgstr "Come aggiustare"
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:16
 #, python-format
@@ -893,19 +899,22 @@ msgid ""
 "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
 "environment variable. If multiple origins are required separate with commas."
 msgstr ""
+"Aggiungi <samp>%(origin)s</samp> alla variabile di sistema "
+"<code>CSRF_TRUSTED_ORIGINS</code>. Se sono richieste molteplici origini "
+"separarle con una virgola."
 
 #: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
 msgid "Page Not Found"
-msgstr ""
+msgstr "Pagina Non Trovata"
 
 #: babybuddy/templates/error/404.html:9
 #, python-format
 msgid "The path <code>%(request_path)s</code> does not exist."
-msgstr ""
+msgstr "Il percorso <code>%(request_path)s</code> non esiste."
 
 #: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
 msgid "Server Error"
-msgstr ""
+msgstr "Errore del Server"
 
 #: babybuddy/templates/error/base.html:14
 msgid "Return to Baby Buddy"
@@ -913,7 +922,7 @@ msgstr "Ritorna a Baby Buddy"
 
 #: babybuddy/templates/error/lockout.html:4
 msgid "Too Many Login Attempts"
-msgstr ""
+msgstr "Troppi Tentativi di Accesso"
 
 #: babybuddy/templates/registration/login.html:28
 msgid "Login"
@@ -979,18 +988,21 @@ msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
+"Stai ricevendo questa e-mail perché hai richiesto la reimpostazione della "
+"password per il tuo account presso %(site_name)s."
 
 #: babybuddy/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
 msgstr ""
+"Si prega di procedere alla pagina seguente e scegliere una nuova password:"
 
 #: babybuddy/templates/registration/password_reset_email.html:8
 msgid "Your username, in case you’ve forgotten:"
-msgstr ""
+msgstr "Il tuo nome utente, nel caso in cui lo avessi scordato:"
 
 #: babybuddy/templates/registration/password_reset_email.html:10
 msgid "Thanks for using Baby Buddy!"
-msgstr ""
+msgstr "Grazie per aver scelto Baby Buddy!"
 
 #: babybuddy/templates/registration/password_reset_form.html:4
 msgid "Forgot Password"
@@ -1006,11 +1018,11 @@ msgstr ""
 
 #: babybuddy/views.py:55
 msgid "Forbidden"
-msgstr ""
+msgstr "Vietato"
 
 #: babybuddy/views.py:56
 msgid "CSRF verification failed. Request aborted."
-msgstr ""
+msgstr "Verifica CSRF fallita. Richiesta annullata."
 
 #: babybuddy/views.py:114
 #, python-format
@@ -1024,7 +1036,7 @@ msgstr "Utente %(username)s modificato"
 
 #: babybuddy/views.py:140
 msgid "User unlocked."
-msgstr ""
+msgstr "Utente sbloccato."
 
 #: babybuddy/views.py:164
 #, python-brace-format
@@ -1049,16 +1061,20 @@ msgid ""
 "Nap start max. value %(max)s must be greater than nap start min. value "
 "%(min)s."
 msgstr ""
+"Il valore massimo %(max)s dell'inizio del pisolino deve essere superiore al "
+"valore minimo %(min)s dell'inizio del pisolino."
 
 #: core/fields.py:27
 #, python-format
 msgid ""
 "Nap start min. value %(min)s must be less than nap start max. value %(max)s."
 msgstr ""
+"Il valore minimo %(min)s dell'inizio del pisolino deve essere inferiore al "
+"valore massimo %(max)s dell'inizio del pisolino."
 
 #: core/filters.py:11 core/models.py:97 core/models.py:116
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 #: core/forms.py:130
 msgid "Name does not match child name."
@@ -1069,6 +1085,8 @@ msgid ""
 "Click on the tags to add (+) or remove (-) tags or use the text editor to "
 "create new tags."
 msgstr ""
+"Clicca sui tag per aggiungerli (+) o rimuoverli (-) oppure utilizza l'editor "
+"di testo per crearne di nuovi."
 
 #: core/models.py:29
 msgid "Date can not be in the future."
@@ -1111,7 +1129,7 @@ msgstr "Ultimo utilizzo"
 #: core/templates/core/tummytime_list.html:31
 #: core/templates/core/weight_list.html:30
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 #: core/models.py:142 core/models.py:357 core/models.py:387 core/models.py:721
 #: core/templates/core/bmi_list.html:25
@@ -1267,11 +1285,11 @@ msgstr "Metodo"
 
 #: core/models.py:419 core/models.py:753
 msgid "Girl"
-msgstr ""
+msgstr "Bambina"
 
 #: core/models.py:420 core/models.py:754
 msgid "Boy"
-msgstr ""
+msgstr "Bambino"
 
 #: core/models.py:442 core/templates/core/note_list.html:29
 msgid "Image"
@@ -1283,7 +1301,7 @@ msgstr "Pisolino"
 
 #: core/models.py:531
 msgid "Nap settings"
-msgstr ""
+msgstr "Impostazioni Pisolino"
 
 #: core/models.py:603 core/templates/core/timer_list.html:25
 msgid "Name"
@@ -1322,7 +1340,7 @@ msgstr "Aggiunta di una voce BMI"
 
 #: core/templates/core/bmi_list.html:15
 msgid "Add BMI"
-msgstr ""
+msgstr "Aggiungi BMI"
 
 #: core/templates/core/bmi_list.html:69
 msgid "No BMI entries found."
@@ -1362,11 +1380,11 @@ msgstr "Nessun figlio trovato."
 
 #: core/templates/core/child_quick_switch.html:6
 msgid "Switch child"
-msgstr ""
+msgstr "Cambia figlio"
 
 #: core/templates/core/child_quick_switch.html:13
 msgid "Switch to…"
-msgstr ""
+msgstr "Cambia con..."
 
 #: core/templates/core/diaperchange_confirm_delete.html:4
 msgid "Delete a Diaper Change"
@@ -1438,7 +1456,7 @@ msgstr "Aggiungi voce circonferenza testa"
 
 #: core/templates/core/head_circumference_list.html:15
 msgid "Add Head Circumference"
-msgstr ""
+msgstr "Aggiungi Circonferenza Testa"
 
 #: core/templates/core/head_circumference_list.html:69
 msgid "No head circumference entries found."
@@ -1656,41 +1674,41 @@ msgstr "Nessuna pesata trovata."
 
 #: core/templates/core/widget_tag_editor.html:22
 msgid "Tag name"
-msgstr "Nome del Cartellino"
+msgstr "Nome del Tag"
 
 #: core/templates/core/widget_tag_editor.html:26
 msgid "Recently used:"
-msgstr ""
+msgstr "Utilizzato recentemente:"
 
 #: core/templates/core/widget_tag_editor.html:45
 msgctxt "Error modal"
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: core/templates/core/widget_tag_editor.html:50
 msgctxt "Error modal"
 msgid "An error ocurred."
-msgstr ""
+msgstr "Si è verificato un errore."
 
 #: core/templates/core/widget_tag_editor.html:51
 msgctxt "Error modal"
 msgid "Invalid tag name."
-msgstr ""
+msgstr "Nome del tag non valido."
 
 #: core/templates/core/widget_tag_editor.html:52
 msgctxt "Error modal"
 msgid "Failed to create tag."
-msgstr ""
+msgstr "Impossibile creare il tag."
 
 #: core/templates/core/widget_tag_editor.html:53
 msgctxt "Error modal"
 msgid "Failed to obtain tag data."
-msgstr ""
+msgstr "Impossibile ottenere i dati del tag."
 
 #: core/templates/core/widget_tag_editor.html:58
 msgctxt "Error modal"
 msgid "Close"
-msgstr ""
+msgstr "Chiudi"
 
 #: core/templates/timeline/_timeline.html:38
 #, python-format
@@ -1705,7 +1723,7 @@ msgstr "Durata: %(duration)s"
 #: core/templates/timeline/_timeline.html:53
 #, python-format
 msgid "%(since)s since previous"
-msgstr ""
+msgstr "%(since)s dal precedente"
 
 #: core/templates/timeline/_timeline.html:61
 #: dashboard/templates/dashboard/child_button_group.html:20
@@ -1714,7 +1732,7 @@ msgstr "Modifica"
 
 #: core/templates/timeline/_timeline.html:85
 msgid "No events"
-msgstr ""
+msgstr "Nessun evento"
 
 #: core/templatetags/datetime.py:26
 msgid "Today"
@@ -1783,12 +1801,12 @@ msgstr "%(child)s ha il %(type)s pannolino da cambiare."
 #: core/timeline.py:233
 #, python-format
 msgid "Temperature: %(temperature).0f"
-msgstr ""
+msgstr "Temperatura: %(temperature).0f"
 
 #: core/timeline.py:241
 #, python-format
 msgid "%(child)s had a temperature measurement."
-msgstr ""
+msgstr "%(child)s ha misurato la temperatura."
 
 #: core/utils.py:40
 #, python-format
@@ -1903,7 +1921,7 @@ msgstr[1] "%(n)s alimentazioni fa"
 
 #: dashboard/templates/cards/feeding_recent.html:6
 msgid "Recent Feedings"
-msgstr ""
+msgstr "Pasti recenti"
 
 #: dashboard/templates/cards/feeding_recent.html:25
 #, python-format
@@ -1916,7 +1934,7 @@ msgstr[1] "%(counter)s alimentazioni"
 #: dashboard/templates/cards/sleep_recent.html:32
 #, python-format
 msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
-msgstr ""
+msgstr "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
 
 #: dashboard/templates/cards/pumping_last.html:6
 msgid "Last Pumping"
@@ -1934,7 +1952,7 @@ msgstr "Riposini di oggi"
 #, python-format
 msgid "%(count)s nap"
 msgid_plural "%(count)s naps"
-msgstr[0] "%(count)s pisolini"
+msgstr[0] "%(count)s pisolino"
 msgstr[1] "%(count)s pisolini"
 
 #: dashboard/templates/cards/sleep_recent.html:6
@@ -1964,8 +1982,8 @@ msgstr "Nessun dato"
 #, python-format
 msgid "%(count)s timer"
 msgid_plural "%(count)s timers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)s timer"
+msgstr[1] "%(count)s timers"
 
 #: dashboard/templates/cards/timer_list.html:27
 #, python-format
@@ -2079,11 +2097,11 @@ msgstr "Totale"
 
 #: reports/graphs/diaperchange_intervals.py:66
 msgid "<b>Diaper Change Intervals</b>"
-msgstr ""
+msgstr "<b>Intervalli Cambio Pannolino</b>"
 
 #: reports/graphs/diaperchange_intervals.py:69
 msgid "Interval (hours)"
-msgstr ""
+msgstr "Intervallo (ore)"
 
 #: reports/graphs/diaperchange_lifetimes.py:35
 msgid "<b>Diaper Lifetimes</b>"
@@ -2131,39 +2149,39 @@ msgstr "Numero di pasti"
 
 #: reports/graphs/feeding_intervals.py:32
 msgid "Interval"
-msgstr ""
+msgstr "Intervallo"
 
 #: reports/graphs/feeding_intervals.py:41
 msgid "<b>Feeding intervals</b>"
-msgstr ""
+msgstr "<b>Intervalli pasto</b>"
 
 #: reports/graphs/feeding_intervals.py:44
 msgid "Feeding interval (hours)"
-msgstr ""
+msgstr "Intervallo pasto (ore)"
 
 #: reports/graphs/head_circumference_change.py:27
 msgid "<b>Head Circumference</b>"
-msgstr ""
+msgstr "<b>Circonferenza della Testa</b>"
 
 #: reports/graphs/height_change.py:51 reports/graphs/weight_change.py:49
 msgid "P3"
-msgstr ""
+msgstr "P3"
 
 #: reports/graphs/height_change.py:57 reports/graphs/weight_change.py:55
 msgid "P15"
-msgstr ""
+msgstr "P15"
 
 #: reports/graphs/height_change.py:63 reports/graphs/weight_change.py:61
 msgid "P50"
-msgstr ""
+msgstr "P50"
 
 #: reports/graphs/height_change.py:69 reports/graphs/weight_change.py:67
 msgid "P85"
-msgstr ""
+msgstr "P85"
 
 #: reports/graphs/height_change.py:75 reports/graphs/weight_change.py:73
 msgid "P97"
-msgstr ""
+msgstr "P97"
 
 #: reports/graphs/height_change.py:86
 msgid "<b>Height</b>"
@@ -2230,7 +2248,7 @@ msgstr "Numero di pannolini"
 #: reports/templates/reports/diaperchange_intervals.html:4
 #: reports/templates/reports/diaperchange_intervals.html:9
 msgid "Diaper Change Intervals"
-msgstr ""
+msgstr "Intervalli Cambio Pannolino"
 
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:9
@@ -2259,7 +2277,7 @@ msgstr "Durata Media Pasti"
 #: reports/templates/reports/feeding_intervals.html:9
 #: reports/templates/reports/report_list.html:26
 msgid "Feeding Intervals"
-msgstr ""
+msgstr "Intervalli pasto"
 
 #: reports/templates/reports/report_base.html:18
 msgid "There is not enough data to generate this report."
@@ -2267,7 +2285,7 @@ msgstr "Non ci sono abbastanza dati per generare questo report."
 
 #: reports/templates/reports/report_list.html:19
 msgid "Body Mass Index (BMI)"
-msgstr ""
+msgstr "Indice di Massa Corporeo (IMC/BMI)"
 
 #: reports/templates/reports/report_list.html:20
 msgid "Diaper Change Amounts"
@@ -2275,19 +2293,23 @@ msgstr "Numero di Cambi Pannolino"
 
 #: reports/templates/reports/report_list.html:22
 msgid "Diaper Intervals"
-msgstr ""
+msgstr "Intervalli Pannolino"
 
 #: reports/templates/reports/report_list.html:25
 msgid "Feeding Durations (Average)"
 msgstr "Durata Pasti (Media)"
 
 #: reports/templates/reports/report_list.html:29
+#, fuzzy
+#| msgid "WHO Weight Percentiles for Boys in kg"
 msgid "WHO Height Percentiles for Boys in cm"
-msgstr ""
+msgstr "Percentili di peso dell'OMS per i bambini in kg"
 
 #: reports/templates/reports/report_list.html:30
+#, fuzzy
+#| msgid "WHO Weight Percentiles for Girls in kg"
 msgid "WHO Height Percentiles for Girls in cm"
-msgstr ""
+msgstr "Percentili di peso dell'OMS per le bambine in kg"
 
 #: reports/templates/reports/report_list.html:31
 msgid "Pumping Amounts"
@@ -2311,23 +2333,16 @@ msgstr "Durata totale Tummy Time"
 
 #: reports/templates/reports/report_list.html:37
 msgid "WHO Weight Percentiles for Boys in kg"
-msgstr ""
+msgstr "Percentili di peso dell'OMS per i bambini in kg"
 
 #: reports/templates/reports/report_list.html:38
 msgid "WHO Weight Percentiles for Girls in kg"
-msgstr ""
+msgstr "Percentili di peso dell'OMS per le bambine in kg"
 
 #: reports/templates/reports/tummytime_duration.html:4
 #: reports/templates/reports/tummytime_duration.html:9
 msgid "Total Tummy Time Durations"
 msgstr "Durata totale Tummy Time"
-
-#~ msgid "0 days"
-#~ msgstr "0 giorni"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "%(key)s giorni fa"
 
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
@@ -2444,6 +2459,9 @@ msgstr "Durata totale Tummy Time"
 #~ msgid "%(time)s ago"
 #~ msgstr "%(time)s fa"
 
+#~ msgid "%(key)s days ago"
+#~ msgstr "%(key)s giorni fa"
+
 #~ msgid "Today's Sleep"
 #~ msgstr "Riposi di Oggi"
 
@@ -2498,6 +2516,9 @@ msgstr "Durata totale Tummy Time"
 #~ msgid "Delete timer"
 #~ msgstr "Cancella timer"
 
+#~ msgid "0 days"
+#~ msgstr "0 giorni"
+
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Contenuti: %(contents)s"
 
@@ -2507,8 +2528,14 @@ msgstr "Durata totale Tummy Time"
 #~ msgid "%(count)s feeding entries"
 #~ msgstr "%(count)s pasti registrati"
 
+#~ msgid "Napping"
+#~ msgstr "Pisolino"
+
 #~ msgid "No bmi entries found."
 #~ msgstr "Non sono state trovate voci BMI."
+
+#~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
 
 #~ msgid "Are you sure you want to delete %(number)s inactive timer?"
 #~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
