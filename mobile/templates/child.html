@@ -29,30 +29,25 @@
       </div>
     </div>
     <div class="body-container">
-      <div class="header-row-container">
-        <div class="header-element-containers">
-          <div class="card">
-            <img src="{% static "babybuddy/img/crib.svg" %}" class="purple" />
-            <span class="label">Sleep</span>
-            <span class="sizing-hack">18h 37min Ago</span>
-            <span class="since">18h 37min Ago</span>
-          </div>
+      <div class="favorite-actions-container">
+        <div class="favorite-action-containers">
+          {% favorite "nursing" child%}
         </div>
-        <div class="header-element-containers">
-          <div class="card">
-            <img src="{% static "babybuddy/img/feeding.svg" %}" class="green" />
-            <span class="label">Feeding</span>
-            <span class="sizing-hack">18h 37min Ago</span>
-            <span class="since">18h 37min Ago</span>
-          </div>
+        <div class="favorite-action-containers">
+          {% favorite "changes" child%}
         </div>
-        <div class="header-element-containers">
-          <div class="card">
-            <img src="{% static "babybuddy/img/diaper.svg" %}" class="yellow" />
-            <span class="label">Diaper</span>
-            <span class="sizing-hack">18h 37min Ago</span>
-            <span class="since">18h 37min Ago</span>
-          </div>
+        <div class="favorite-action-containers">
+          {% favorite "bottle" child%}
+        </div>
+        <div class="favorite-action-containers">
+          {% favorite "sleep" child%}
+        </div>
+        <div class="favorite-action-containers">
+          {% favorite "pumping" child%}
+        </div>
+
+        <div class="favorite-action-containers">
+          {% favorite "tummy" child%}
         </div>
       </div>
       <div class="header-row-container">
