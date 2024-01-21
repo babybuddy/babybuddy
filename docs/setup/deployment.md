@@ -89,21 +89,42 @@ for your instance of babybuddy.
 After that, you just have to push babybuddy code repository to the Git
 deployment URL of your Clever Cloud Python application.
 
+## GCP Cloud Run
+
+Baby Buddy can be hosted serverless in GCP Cloud Run using configuration provided at
+`terraform/gcp-cloud-run`. The configuration scales down to zero for cost effectiveness.
+With this approach initial requests to the service after a long period will be slow but
+subsequent requests will be much faster. A [billing account](https://cloud.google.com/billing/docs/how-to/create-billing-account)
+mut be configured in GCP to use the configuration.
+
+The terraform code isn't production ready and is meant to be a good way of getting started.
+No state strage is configured. See [storage options](https://cloud.google.com/run/docs/storage-options)
+for information about how to configure persistant storage.
+
+Run `terraform init` from the configurtion directory to get started:
+
+```shell
+git clone https://github.com/babybuddy/babybuddy.git
+cd babybuddy/terraform/gcp-cloud-run
+terraform init
+terraform apply -var project_id=<project-id> -var project_name=<project-name> -var billing_account=<billing-account-id>
+```
+
 ## Manual
 
-There are many ways to deploy Baby Buddy manually to any server/VPS. The basic 
+There are many ways to deploy Baby Buddy manually to any server/VPS. The basic
 requirements are Python, a web server, an application server, and a database.
 
 ### Requirements
 
-- Python 3.8+, pip, pipenv
+- Python 3.10+, pip, pipenv
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database (See [Django's databases documentation](https://docs.djangoproject.com/en/4.2/ref/databases/)).
 
 ### Example deployment
 
-*This example assumes a 1 GB VPS instance with Ubuntu 20.04.* It uses Python 3.8,
+*This example assumes a 1 GB VPS instance with Ubuntu 20.04.* It uses Python 3.10,
 nginx, uwsgi and sqlite. It should be sufficient for a few users (e.g., two parents
 and any number of children).
 
@@ -139,7 +160,7 @@ and any number of children).
     ```shell
     cd /var/www/babybuddy/public
     ```
-        
+
 6. Initiate and enter a Python environment with Pipenv locally.
 
     ```shell
@@ -183,7 +204,7 @@ and any number of children).
     plugins = python3
     project = babybuddy
     base_dir = /var/www/babybuddy
-    
+
     chdir = %(base_dir)/public
     virtualenv = %(chdir)/.venv
     module =  %(project).wsgi:application
@@ -191,10 +212,10 @@ and any number of children).
     master = True
     vacuum = True
     ```
-    
+
     See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
     for more advanced configuration details.
-    
+
     See [Subdirectory configuration](subdirectory.md) for additional configuration
     required if Baby Buddy will be hosted in a subdirectory of another server.
 
@@ -212,30 +233,30 @@ and any number of children).
     ```
 
     Example config:
-    
+
     ```nginx
     upstream babybuddy {
      server unix:///var/run/uwsgi/app/babybuddy/socket;
     }
-     
+
     server {
      listen 80;
      server_name babybuddy.example.com;
-     
+
      location / {
         uwsgi_pass babybuddy;
         include uwsgi_params;
      }
-              
+
      location /media {
         alias /var/www/babybuddy/data/media;
      }
     }
     ```
-    
+
     See the [nginx documentation](https://nginx.org/en/docs/) for more advanced
     configuration details.
-    
+
     See [Subdirectory configuration](subdirectory.md) for additional configuration
     required if Baby Buddy will be hosted in a subdirectory of another server.
 

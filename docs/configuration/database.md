@@ -2,7 +2,7 @@
 
 ## `DB_ENGINE`
 
-*Default:* `django.db.backends.postgresql`
+*Default:* `django.db.backends.sqlite3`
 
 The database engine utilized for the deployment.
 
@@ -10,31 +10,37 @@ See also [Django's documentation on the ENGINE setting](https://docs.djangoproje
 
 ## `DB_HOST`
 
-*Default:* `db`
+*Default:* unset
 
 The name of the database host for the deployment.
 
 ## `DB_NAME`
 
-*Default:* `postgres`
+*Default:* `BASE_DIR/data/db.sqlite3`
 
 The name of the database table utilized for the deployment.
 
 ## `DB_PASSWORD`
 
-*Default:* `None`
+*Default:* unset
 
 The password for the database user for the deployment. In the default example,
 this is the root PostgreSQL password.
 
 ## `DB_PORT`
 
-*Default:* `5432`
+*Default:* unset
 
-The listening port for the database. The default port is 5432 for PostgreSQL.
+The listening port for the database. The default port for PostgreSQL is 5432.
 
 ## `DB_USER`
 
-*Default:* `postgres`
+*Default:* unset
 
 The database username utilized for the deployment.
+
+## `DB_OPTIONS`
+
+*Default:* unset
+
+Additional options to pass to the database library. See the [Django Databases documentation](https://docs.djangoproject.com/en/5.0/ref/databases/) for examples. To enforce an SSL connection to the database, use `{'sslmode': 'require'}`.

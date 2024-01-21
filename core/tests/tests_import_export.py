@@ -24,8 +24,9 @@ class ImportTestCase(TestCase):
         ).save()
 
     def get_dataset(self, model_name):
-        file = open(self.base_path + model_name + ".csv")
-        return tablib.Dataset().load(file.read())
+        with open(self.base_path + model_name + ".csv", "r") as f:
+            data = f.read()
+        return tablib.Dataset().load(data)
 
     def import_data(self, model, count):
         dataset = self.get_dataset(model._meta.model_name)
@@ -86,7 +87,7 @@ class ImportTestCase(TestCase):
         ]
         for pk, tags in tests:
             entry = models.Temperature.objects.get(pk=pk)
-            self.assertQuerysetEqual(entry.tags.names(), tags, ordered=False)
+            self.assertQuerySetEqual(entry.tags.names(), tags, ordered=False)
 
     def test_temperature(self):
         self.import_data(models.Temperature, 23)

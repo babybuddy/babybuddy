@@ -8,7 +8,7 @@ SECRET_KEY = ""
 ALLOWED_HOSTS = [""]
 
 # Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     "default": {
@@ -18,7 +18,7 @@ DATABASES = {
 }
 
 # Media files
-# https://docs.djangoproject.com/en/4.0/topics/files/
+# https://docs.djangoproject.com/en/5.0/topics/files/
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "../data/media")
 
@@ -26,8 +26,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "../data/media")
 # After setting up SSL, uncomment the settings below for enhanced security of
 # application cookies.
 #
-# See https://docs.djangoproject.com/en/4.0/topics/http/sessions/#settings
-# See https://docs.djangoproject.com/en/4.0/ref/csrf/#settings
+# See https://docs.djangoproject.com/en/5.0/topics/http/sessions/#settings
+# See https://docs.djangoproject.com/en/5.0/ref/csrf/#settings
 
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True

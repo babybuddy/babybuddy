@@ -24,7 +24,7 @@ class NapStartMinTimeField(forms.TimeField):
         if value > Sleep.settings.nap_start_max:
             raise forms.ValidationError(
                 _(
-                    "Nap start min. value %(min)s must be less than nap start min. value %(max)s."
+                    "Nap start min. value %(min)s must be less than nap start max. value %(max)s."
                 ),
                 code="invalid_nap_start_min",
                 params={"min": value, "max": Sleep.settings.nap_start_max},

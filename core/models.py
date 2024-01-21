@@ -404,6 +404,31 @@ class Height(models.Model):
         validate_date(self.date, "date")
 
 
+class HeightPercentile(models.Model):
+    model_name = "height percentile"
+    age_in_days = models.DurationField(null=False)
+    p3_height = models.FloatField(null=False)
+    p15_height = models.FloatField(null=False)
+    p50_height = models.FloatField(null=False)
+    p85_height = models.FloatField(null=False)
+    p97_height = models.FloatField(null=False)
+    sex = models.CharField(
+        null=False,
+        max_length=255,
+        choices=[
+            ("girl", _("Girl")),
+            ("boy", _("Boy")),
+        ],
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["age_in_days", "sex"], name="unique_age_sex_height"
+            )
+        ]
+
+
 class Note(models.Model):
     model_name = "note"
     child = models.ForeignKey(

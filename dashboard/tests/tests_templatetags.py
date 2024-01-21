@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import pytz
-
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
@@ -28,7 +26,7 @@ class TemplateTagsTestCase(TestCase):
 
         # Ensure timezone matches the one defined by fixtures.
         user_timezone = Settings.objects.first().timezone
-        timezone.activate(pytz.timezone(user_timezone))
+        timezone.activate(user_timezone)
 
         # Test file data uses a basis date of 2017-11-18.
         date = timezone.localtime().strptime("2017-11-18", "%Y-%m-%d")
@@ -160,9 +158,11 @@ class TemplateTagsTestCase(TestCase):
 
     def test_card_feeding_recent(self):
         data = cards.card_feeding_recent(self.context, self.child, self.date)
+
         self.assertEqual(data["type"], "feeding")
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
+
         # most recent day
         self.assertEqual(data["feedings"][0]["total"], 2.5)
         self.assertEqual(data["feedings"][0]["count"], 3)
@@ -273,7 +273,7 @@ class TemplateTagsTestCase(TestCase):
             },
             {
                 "type": "duration",
-                "stat": timezone.timedelta(days=1, seconds=46980),
+                "stat": timezone.timedelta(days=1, seconds=39780),
                 "title": "Feeding frequency",
             },
             {
