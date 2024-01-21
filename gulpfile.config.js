@@ -84,7 +84,8 @@ module.exports = {
             '!babybuddy/static/js/'
         ],
         stylesGlob: [
-            '*/static_src/scss/**/*.scss'
+            '*/static_src/scss/**/*.scss',
+            '*/static_src/css/**/*.css',
         ]
     }
 };
