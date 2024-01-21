@@ -9,4 +9,8 @@ urlpatterns = [
         views.MobileChildDashboard.as_view(),
         name="mobile-dashboard-child",
     ),
+    path(
+        "children/<str:slug>/changes/add",
+        views.DiaperChangeAdd.as_view(),
+    ),
 ]

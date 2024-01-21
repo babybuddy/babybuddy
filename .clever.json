@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_8efa34d4-91da-40c8-a766-a6231d7716dd",
+      "org_id": "user_e15537fa-cbfc-489c-afb0-c961d272a29c",
+      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_8efa34d4-91da-40c8-a766-a6231d7716dd.git",
+      "name": "baby-buddy",
+      "alias": "baby-buddy"
+    }
+  ]
+}
