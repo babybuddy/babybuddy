@@ -1,8 +1,13 @@
 {% extends 'mobile-base.html' %}
-{% load datetime i18n %}
+{% load datetime i18n static %}
 
 {% block page %}
-     <form role="form" method="post" enctype="multipart/form-data">
+    <div class="form-header {{ theme.color }}">
+        <img src="{% static theme.icon %}" />
+        <span>{{theme.title}}</span>
+    </div>
+    
+    <form role="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
             {{ field.widget }}

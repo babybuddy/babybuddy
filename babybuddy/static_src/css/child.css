@@ -138,16 +138,77 @@ body {
 }
 
 .purple {
-  filter: invert(44%) sepia(56%) saturate(3989%) hue-rotate(224deg) brightness(98%) contrast(100%);
   color: #6e69fb;
+}
+
+.purple img {
+  filter: invert(44%) sepia(56%) saturate(3989%) hue-rotate(224deg) brightness(98%) contrast(100%);
 }
 
 .green {
   color: #34d372;
+}
+
+.green img {
   filter: invert(59%) sepia(78%) saturate(401%) hue-rotate(91deg) brightness(99%) contrast(90%);
 }
 
 .yellow {
   color: #f2b73f;
+}
+
+.yellow img {
   filter: invert(93%) sepia(54%) saturate(7488%) hue-rotate(320deg) brightness(94%) contrast(101%);
+}
+
+
+/* FORMS */
+
+.form-header {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+
+.form-header img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+form {
+  padding: 0 20px;
+}
+/* FORM INPUTS */
+
+.btn-check {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+.btn {
+  color: #f2b73f;
+  border-radius: 5px;
+  border: 1px solid;
+  padding: 6px 12px;
+}
+
+.btn-check:checked+.btn {
+  color: #FFF;
+  background-color: #f2b73f;
+}
+
+.submit-primary {
+  display: block;
+  border-radius: 0;
+  width: 100%;
+  padding: 1rem;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
 }
