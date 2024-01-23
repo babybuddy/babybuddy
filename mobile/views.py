@@ -36,11 +36,10 @@ class DiaperChangeForm(forms.ModelForm):
 
     class Meta:
         model = DiaperChange
-        fields = ["wet", "solid"]
+        fields = ["time"]
 
 
 class DiaperChangeAdd(CoreAddView):
-
     template_name_suffix = "_mobile_form"
     model = DiaperChange
     permission_required = ("core.add_diaperchange",)

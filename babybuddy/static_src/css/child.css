@@ -141,7 +141,7 @@ body {
   color: #6e69fb;
 }
 
-.purple img {
+img.purple {
   filter: invert(44%) sepia(56%) saturate(3989%) hue-rotate(224deg) brightness(98%) contrast(100%);
 }
 
@@ -149,7 +149,7 @@ body {
   color: #34d372;
 }
 
-.green img {
+img.green {
   filter: invert(59%) sepia(78%) saturate(401%) hue-rotate(91deg) brightness(99%) contrast(90%);
 }
 
@@ -157,7 +157,7 @@ body {
   color: #f2b73f;
 }
 
-.yellow img {
+img.yellow   {
   filter: invert(93%) sepia(54%) saturate(7488%) hue-rotate(320deg) brightness(94%) contrast(101%);
 }
 
@@ -194,6 +194,20 @@ form {
   border-radius: 5px;
   border: 1px solid;
   padding: 6px 12px;
+  text-align: center;
+}
+
+.form-control {
+  color: #f2b73f;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid;
+  font-size: 16px;
+  flex-grow:1;
+}
+
+.col-sm-10 {
+  display:flex;
 }
 
 .btn-check:checked+.btn {
@@ -211,4 +225,13 @@ form {
   bottom: 0;
   left: 0;
   z-index: 1030;
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkbox-container label {
+  width: 40%;
 }

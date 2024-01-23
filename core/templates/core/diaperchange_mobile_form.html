@@ -9,12 +9,23 @@
     
     <form role="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for field in form %}
-            {{ field.widget }}
-            <div class="row">
-                {% include 'babybuddy/form_field.html' %}
-            </div>
-        {% endfor %}
+        <div class="checkbox-container">
+            <input type="checkbox" name="wet" class="btn-check" id="id_wet">
+            <label for="id_wet" class="btn btn-outline-light btn-no-hover">
+                Wet
+            </label>
+            <input type="checkbox" name="solid" class="btn-check" id="id_solid">
+            <label for="id_solid" class="btn btn-outline-light btn-no-hover">
+                Solid
+            </label>
+        </div>
+        <div class="row">
+            <label for="id_time" class="col-sm-2 col-form-label">
+                Time
+            </label>
+            <input type="datetime-local" name="time" class="form-control" required="" id="id_time">
+        </div>
+
         <button type="submit" class="submit-primary btn btn-primary btn-lg">{% trans "Submit" %}</button>
     </form> 
 {% endblock %}
