@@ -225,11 +225,21 @@ form {
   bottom: 0;
   left: 0;
   z-index: 1030;
+  background-color: #f2b73f;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
 }
 
 .checkbox-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
 }
 
 .checkbox-container label {
