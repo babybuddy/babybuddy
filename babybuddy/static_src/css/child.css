@@ -1,29 +1,60 @@
 :root {
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --bs-body-font-family: var(--bs-font-sans-serif);
-  --bs-body-font-size: 1rem;
-  --bs-body-font-weight: 400;
-  --bs-body-line-height: 1.5;
-  --bs-body-bg: #fff;
+  --font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --body-font-family: var(--font-sans-serif);
+  --body-font-size: 1rem;
+  --body-line-height: 1.5;
+  --body-bg: #fff;
 
-  --boy-light-backgorund: #D6E8FC;
+  --boy-light-background: #D6E8FC;
   --boy-light-background-filter: invert(83%) sepia(25%) saturate(360%) hue-rotate(188deg) brightness(105%) contrast(98%);
   --boy-background-splash: #79B7F4;
   --boy-background-splash-filter: invert(80%) sepia(16%) saturate(5557%) hue-rotate(180deg) brightness(98%) contrast(96%);
 
-
   --background-splash: var(--boy-background-splash);
-  --light-backround: var(--boy-light-backgorund)
+  --light-background: var(--boy-light-background);
+
+  --purple-theme-color: #6e69fb;
+  --purple-theme-filter: invert(44%) sepia(56%) saturate(3989%) hue-rotate(224deg) brightness(98%) contrast(100%);
+
+  --green-theme-color: #34d372;
+  --green-theme-filter: invert(59%) sepia(78%) saturate(401%) hue-rotate(91deg) brightness(99%) contrast(90%);
+
+  --yellow-theme-color: #f2b73f;
+  --yellow-theme-filter: invert(93%) sepia(54%) saturate(7488%) hue-rotate(320deg) brightness(94%) contrast(101%);
+}
+
+.purple {
+  color: var(--purple-theme-color);
+}
+
+img.purple {
+  filter: var(--purple-theme-filter);
+}
+
+.green {
+  color: var(--green-theme-color);
+}
+
+img.green {
+  filter: var(--green-theme-filter);
+}
+
+.yellow {
+    color: var(--yellow-theme-color);
+}
+
+img.yellow {
+  filter: var(--yellow-theme-filter);
 }
 
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
-  font-size: var(--bs-body-font-size);
-  line-height: var(--bs-body-line-height);
-  color: var(--bs-body-color);
-  text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
+  font-family: var(--body-font-family);
+  font-size: var(body-font-size);
+  line-height: var(--body-line-height);
+  color: var(--body-color);
+  text-align: var(--body-text-align);
+  background-color: var(--body-bg);
 }
 
 .favorite-actions-container {
@@ -40,11 +71,6 @@ body {
 
 .since {
   font-size: 12px;
-}
-
-.sizing-hack {
-  font-size: 12px;
-  visibility: hidden;
 }
 
 .page-container {
@@ -69,13 +95,13 @@ body {
 .avatar {
   height: 100px;
   clip-path: circle();
-  background: var(--light-backround);
+  background: var(--light-background);
 }
 
 .circle-button {
   height: 40px;
   width: 40px;
-  border: var(--light-backround) solid 2px;
+  border: var(--light-background) solid 2px;
   border-radius: 50%;
   padding: 5px;
 }
@@ -105,6 +131,12 @@ body {
   display: flex;
   flex-direction: column;
   padding: 10px;
+  text-align: center;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+  color: inherit;
 }
 
 .journal-card {
@@ -122,12 +154,6 @@ body {
   /* margin-bottom: 15px; */
 }
 
-
-
-body {
-  margin: 0px;
-}
-
 .background {
   height: 60vh;
   position: absolute;
@@ -135,19 +161,4 @@ body {
   background: var(--background-splash);
   z-index: -1;
   bottom: 0;
-}
-
-.purple {
-  filter: invert(44%) sepia(56%) saturate(3989%) hue-rotate(224deg) brightness(98%) contrast(100%);
-  color: #6e69fb;
-}
-
-.green {
-  color: #34d372;
-  filter: invert(59%) sepia(78%) saturate(401%) hue-rotate(91deg) brightness(99%) contrast(90%);
-}
-
-.yellow {
-  color: #f2b73f;
-  filter: invert(93%) sepia(54%) saturate(7488%) hue-rotate(320deg) brightness(94%) contrast(101%);
 }
