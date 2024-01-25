@@ -12,6 +12,7 @@ activities = {
         "color": "yellow",
         "title": "Diaper",
         "model": models.DiaperChange,
+        "create_url": "mobile:changes-add",
     },
     "bottle": {
         "icon": "babybuddy/img/feeding.svg",

@@ -1,0 +1,14 @@
+{% extends 'mobile-base.html' %}
+{% load datetime i18n static %}
+{% block page %}
+  <div class="{{ form.theme.color }}">
+    <div class="form-header">
+      <div class="circle-button" onclick="history.back()">
+        <img src="{% static "babybuddy/img/arrow-back-left.svg" %}" />
+      </div>
+      <img src="{% static form.theme.icon %}" />
+      <span>{{ form.theme.title }}</span>
+    </div>
+    {% include 'babybuddy/form.html' %}
+  </div>
+{% endblock %}

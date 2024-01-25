@@ -1,6 +1,6 @@
 {% load static duration i18n %}
 
-<div class="card">
+<a class="card" href="{{ url }}">
   <img src="{% static icon %}" class="{{ color }}" />
   <span class="label">{{ title }}</span>
   {% if since  %}
@@ -8,4 +8,4 @@
   {% else %}
     <span class="since">Never</span>
   {% endif %}
-</div>
+</a>

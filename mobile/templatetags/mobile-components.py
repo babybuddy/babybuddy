@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.utils.translation import gettext as _
+from django.urls import reverse
 
 from mobile.constants import activities
 
@@ -30,6 +31,13 @@ def favorite(context, activity_string, child):
     activity = activities[activity_string]
     since = since_last_instance(activity["model"], child, activity_string)
     result = activity.copy()
+    try:
+        result["url"] = reverse(
+            result["create_url"], kwargs={"slug": "billybonks-bonkers"}
+        )
+    except KeyError:
+        result["url"] = "#"
+
     result["since"] = since
     result["empty"] = not since
     return result
