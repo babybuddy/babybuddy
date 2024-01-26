@@ -38,6 +38,11 @@ urlpatterns = [
         views.DiaperChangeDelete.as_view(),
         name="diaperchange-delete",
     ),
+    path(
+        "feedings/bottle/add/",
+        views.BottleFeedingAdd.as_view(),
+        name="bottle-feeding-add",
+    ),
     path("feedings/", views.FeedingList.as_view(), name="feeding-list"),
     path("feedings/add/", views.FeedingAdd.as_view(), name="feeding-add"),
     path("feedings/<int:pk>/", views.FeedingUpdate.as_view(), name="feeding-update"),

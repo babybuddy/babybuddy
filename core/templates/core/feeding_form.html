@@ -4,6 +4,8 @@
 {% block title %}
     {% if request.resolver_match.url_name == 'feeding-update' %}
         {% trans "Update a Feeding" %}
+    {% elif request.resolver_match.url_name == 'bottle-feeding-add' %}
+        {% trans "Add a Bottle Feeding" %}
     {% else %}
         {% trans "Add a Feeding" %}
     {% endif %}
@@ -23,6 +25,8 @@
         {% blocktrans trimmed %}
             <h1>Update <span class="text-info">{{ object }}</span></h1>
         {% endblocktrans %}
+    {% elif request.resolver_match.url_name == 'bottle-feeding-add' %}
+        <h1>{% trans "Add a Bottle Feeding" %}</h1>
     {% else %}
         <h1>{% trans "Add a Feeding" %}</h1>
     {% endif %}
