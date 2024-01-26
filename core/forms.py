@@ -187,6 +187,24 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
         }
 
 
+class BottleFeedingForm(CoreModelForm, TaggableModelForm):
+    def save(self):
+        instance = super(BottleFeedingForm, self).save(commit=False)
+        instance.method = "bottle"
+        instance.end = instance.start
+        instance.save()
+        return instance
+
+    class Meta:
+        model = models.Feeding
+        fields = ["child", "start", "type", "amount", "notes", "tags"]
+        widgets = {
+            "child": ChildRadioSelect,
+            "start": DateTimeInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
 class NoteForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Note

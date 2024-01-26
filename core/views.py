@@ -192,6 +192,13 @@ class FeedingAdd(CoreAddView):
     success_url = reverse_lazy("core:feeding-list")
 
 
+class BottleFeedingAdd(CoreAddView):
+    model = models.Feeding
+    permission_required = ("core.add_feeding",)
+    form_class = forms.BottleFeedingForm
+    success_url = reverse_lazy("core:feeding-list")
+
+
 class FeedingUpdate(CoreUpdateView):
     model = models.Feeding
     permission_required = ("core.change_feeding",)

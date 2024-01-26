@@ -264,7 +264,12 @@
                                     {% trans "Feeding" %}
                                 </a>
                             {% endif %}
-
+                            {% if perms.core.add_feeding %}
+                                <a class="dropdown-item ps-5{% if request.path == '/feedings/bottle/add/' %} active{% endif %}"
+                                   href="{% url 'core:bottle-feeding-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Bottle Feeding" %}
+                                </a>
+                            {% endif %}
                             {% if perms.core.view_pumping %}
                                 <a class="dropdown-item{% if request.path == '/pumping/' %} active{% endif %}"
                                    href="{% url 'core:pumping-list' %}">
