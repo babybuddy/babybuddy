@@ -15,7 +15,7 @@ Do not include schemes ("http" or "https") with this setting.
 
 **See also**
 
-- [Django's documentation on the ALLOWED_HOSTS setting](https://docs.djangoproject.com/en/4.0/ref/settings/#allowed-hosts)
+- [Django's documentation on the ALLOWED_HOSTS setting](https://docs.djangoproject.com/en/5.0/ref/settings/#allowed-hosts)
 - [`CSRF_TRUSTED_ORIGINS`](#csrf_trusted_origins)
 - [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header)
 
@@ -26,7 +26,7 @@ Do not include schemes ("http" or "https") with this setting.
 If this is set to `True`, the browser CSRF cookie will be marked as "secure", which instructs the browser to only send the cookie over an HTTPS connection (never HTTP).
 
 **See also**
-- [Django's documentation on the `CSRF_COOKIE_SECURE` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#csrf-cookie-secure)
+- [Django's documentation on the `CSRF_COOKIE_SECURE` setting](https://docs.djangoproject.com/en/5.0/ref/settings/#csrf-cookie-secure)
 
 ## `CSRF_TRUSTED_ORIGINS`
 
@@ -43,7 +43,7 @@ Each entry must contain both the scheme (http, https) and fully-qualified domain
 
 **See also**
 
-- [Django's documentation on the `CSRF_TRUSTED_ORIGINS` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-CSRF_TRUSTED_ORIGINS)
+- [Django's documentation on the `CSRF_TRUSTED_ORIGINS` setting](https://docs.djangoproject.com/en/5.0/ref/settings/#std:setting-CSRF_TRUSTED_ORIGINS)
 - [`ALLOWED_HOSTS`](#allowed_hosts)
 - [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header)
 
@@ -62,8 +62,8 @@ Baby Buddy modifies headers in the HTTP request; HTTP headers in the request hav
     HTTP_X_AUTH_USER
 
 **See also**
-- [Django's documentation on the `REMOTE_USER` authentication method](https://docs.djangoproject.com/en/4.1/howto/auth-remote-user/)
-- [Django's documentation on the request.META object](https://docs.djangoproject.com/en/4.1/ref/request-response/#django.http.HttpRequest.META)
+- [Django's documentation on the `REMOTE_USER` authentication method](https://docs.djangoproject.com/en/5.0/howto/auth-remote-user/)
+- [Django's documentation on the request.META object](https://docs.djangoproject.com/en/5.0/ref/request-response/#django.http.HttpRequest.META)
 - [`REVERSE_PROXY_AUTH`](#reverse_proxy_auth)
 
 ## `REVERSE_PROXY_AUTH`
@@ -85,7 +85,7 @@ ensure the headers are not forwarded from sources other than your proxy.
 A random, unique string must be set as the "secret key" before Baby Buddy can
 be deployed and run.
 
-See also [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key).
+See also [Django's documentation on the SECRET_KEY setting](https://docs.djangoproject.com/en/5.0/ref/settings/#secret-key).
 
 ## `SECURE_PROXY_SSL_HEADER`
 
@@ -98,7 +98,7 @@ came in via HTTPS).
 
 **See also**
 
-- [Django's documentation on the SECURE_PROXY_SSL_HEADER setting](https://docs.djangoproject.com/en/4.0/ref/settings/#secure-proxy-ssl-header)
+- [Django's documentation on the SECURE_PROXY_SSL_HEADER setting](https://docs.djangoproject.com/en/5.0/ref/settings/#secure-proxy-ssl-header)
 - [`ALLOWED_HOSTS`](#allowed_hosts)
 - [`CSRF_TRUSTED_ORIGINS`](#csrf_trusted_origins)
 
@@ -109,4 +109,4 @@ came in via HTTPS).
 If this is set to `True`, the browser session cookie will be marked as "secure", which instructs the browser to only send the cookie over an HTTPS connection (never HTTP).
 
 **See also**
-- [Django's documentation on the `SESSION_COOKIE_SECURE` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#session-cookie-secure)
+- [Django's documentation on the `SESSION_COOKIE_SECURE` setting](https://docs.djangoproject.com/en/5.0/ref/settings/#session-cookie-secure)

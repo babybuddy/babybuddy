@@ -47,4 +47,4 @@ Once the translation is complete, commit the new files and changes to a fork
 and [create a pull request](pull-requests.md) for review.
  
 For more information on the Django translation process, see Django's 
-documentation section: [Translation](https://docs.djangoproject.com/en/4.0/topics/i18n/translation/).
+documentation section: [Translation](https://docs.djangoproject.com/en/5.0/topics/i18n/translation/).

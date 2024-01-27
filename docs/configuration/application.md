@@ -7,7 +7,7 @@
 When in debug mode, Baby Buddy will print much more detailed error information
 for exceptions. This setting should be *False* in production deployments.
 
-See also [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/4.0/ref/settings/#debug).
+See also [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/5.0/ref/settings/#debug).
 
 ## `SUB_PATH`
 

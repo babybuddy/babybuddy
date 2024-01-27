@@ -352,7 +352,7 @@ AXES_LOCKOUT_URL = "/login/lock"
 
 # Session configuration
 # Used by RollingSessionMiddleware to determine how often to reset the session.
-# See https://docs.djangoproject.com/en/4.0/topics/http/sessions/
+# See https://docs.djangoproject.com/en/5.0/topics/http/sessions/
 
 ROLLING_SESSION_REFRESH = 86400
 

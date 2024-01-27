@@ -6,7 +6,7 @@
 
 The database engine utilized for the deployment.
 
-See also [Django's documentation on the ENGINE setting](https://docs.djangoproject.com/en/4.0/ref/settings/#engine).
+See also [Django's documentation on the ENGINE setting](https://docs.djangoproject.com/en/5.0/ref/settings/#engine).
 
 ## `DB_HOST`
 

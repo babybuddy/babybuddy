@@ -49,7 +49,7 @@ Note: a `SECRET_KEY` value must be set for this command to work.
 
 ### `compilemessages`
 
-Executes Django's `compilemessages` management task. See [django-admin compilemessages](https://docs.djangoproject.com/en/4.0/ref/django-admin/#compilemessages)
+Executes Django's `compilemessages` management task. See [django-admin compilemessages](https://docs.djangoproject.com/en/5.0/ref/django-admin/#compilemessages)
 for more details about other options and functionality of this command.
 
 ### `coverage`
@@ -85,7 +85,7 @@ Executes Python and SASS linting for all relevant source files.
 
 ### `makemessages`
 
-Executes Django's `makemessages` management task. See [django-admin makemessages](https://docs.djangoproject.com/en/4.0/ref/django-admin/#makemessages)
+Executes Django's `makemessages` management task. See [django-admin makemessages](https://docs.djangoproject.com/en/5.0/ref/django-admin/#makemessages)
 for more details about other options and functionality of this command. When
 working on a single translation, the `-l` flag is useful to make message for 
 only that language, e.g. `gulp makemessages -l fr` to make only a French

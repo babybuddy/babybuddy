@@ -29,7 +29,7 @@ services:
     restart: unless-stopped
 ```
 
-See [Django's databases documentation](https://docs.djangoproject.com/en/4.2/ref/databases/) for database requirements.
+See [Django's databases documentation](https://docs.djangoproject.com/en/5.0/ref/databases/) for database requirements.
 
 See [HTTPS/SSL configuration](ssl.md) for information on how to secure Baby Buddy.
 
@@ -120,7 +120,7 @@ requirements are Python, a web server, an application server, and a database.
 - Python 3.10+, pip, pipenv
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
-- Database (See [Django's databases documentation](https://docs.djangoproject.com/en/4.2/ref/databases/)).
+- Database (See [Django's databases documentation](https://docs.djangoproject.com/en/5.0/ref/databases/)).
 
 ### Example deployment
 
