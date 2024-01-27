@@ -9,6 +9,7 @@ from taggit.forms import TagField
 
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
+from core.models import Timer
 from core.widgets import TagsEditor, ChildRadioSelect
 
 
@@ -43,10 +44,13 @@ def set_initial_values(kwargs, form_type):
     # Set start and end time based on Timer from `timer` kwarg.
     timer_id = kwargs.get("timer", None)
     if timer_id:
-        timer = models.Timer.objects.get(id=timer_id)
-        kwargs["initial"].update(
-            {"timer": timer, "start": timer.start, "end": timezone.now()}
-        )
+        try:
+            timer = models.Timer.objects.get(id=timer_id)
+            kwargs["initial"].update(
+                {"timer": timer, "start": timer.start, "end": timezone.now()}
+            )
+        except Timer.DoesNotExist:
+            pass
 
     # Set type and method values for Feeding instance based on last feed.
     if form_type == FeedingForm and "child" in kwargs["initial"]:

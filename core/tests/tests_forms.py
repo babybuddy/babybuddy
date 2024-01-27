@@ -124,10 +124,13 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertEqual(page.context["form"].initial["type"], f_three.type)
         self.assertEqual(page.context["form"].initial["method"], f_three.method)
 
-    def test_timer_form_field_set(self):
-        self.timer.stop()
+    def test_start_end_set_from_timer(self):
+        page = self.c.get("/sleep/add/?timer={}".format(self.timer.id))
+        self.assertTrue("start" in page.context["form"].initial)
+        self.assertTrue("end" in page.context["form"].initial)
 
-        page = self.c.get("/sleep/add/")
+    def test_start_end_not_set_from_invalid_timer(self):
+        page = self.c.get("/sleep/add/?timer={}".format(42))
         self.assertTrue("start" not in page.context["form"].initial)
         self.assertTrue("end" not in page.context["form"].initial)
 
