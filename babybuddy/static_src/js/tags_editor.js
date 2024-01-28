@@ -191,7 +191,7 @@
         }
 
         /**
-         * Callback called when the the "Add" button of the add-tag input is
+         * Callback called when the "Add" button of the add-tag input is
          * clicked or enter is pressed in the editor.
          */
          onCreateTagClicked() {
