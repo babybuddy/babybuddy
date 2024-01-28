@@ -13,7 +13,7 @@ def feeding_amounts(instances):
     """
     Create a graph showing daily feeding amounts over time.
     :param instances: a QuerySet of Feeding instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     feeding_types, feeding_types_desc = map(
         list, zip(*models.Feeding._meta.get_field("type").choices)

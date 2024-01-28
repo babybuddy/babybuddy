@@ -12,7 +12,7 @@ def pumping_amounts(objects):
     """
     Create a graph showing pumping amounts over time.
     :param instances: a QuerySet of Pumping instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     objects = objects.order_by("start")
 

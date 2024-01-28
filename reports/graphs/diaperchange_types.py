@@ -14,7 +14,7 @@ def diaperchange_types(changes):
     """
     Create a graph showing types of totals for diaper changes.
     :param changes: a QuerySet of Diaper Change instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     changes = (
         changes.annotate(date=TruncDate("time"))
@@ -47,6 +47,9 @@ def diaperchange_types(changes):
     layout_args["barmode"] = "stack"
     layout_args["title"] = _("<b>Diaper Change Types</b>")
     layout_args["xaxis"]["title"] = _("Date")
+    layout_args["xaxis"]["type"] = "date"
+    layout_args["xaxis"]["autorange"] = True
+    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(total_trace.x)
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Number of changes")
 

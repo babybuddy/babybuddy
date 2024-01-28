@@ -16,7 +16,7 @@ def feeding_intervals(instances):
     Create a graph showing intervals of feeding instances over time.
 
     :param instances: a QuerySet of Feeding instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     totals = instances.annotate(count=Count("id")).order_by("start")
 
@@ -40,6 +40,9 @@ def feeding_intervals(instances):
     layout_args = utils.default_graph_layout_options()
     layout_args["title"] = _("<b>Feeding intervals</b>")
     layout_args["xaxis"]["title"] = _("Date")
+    layout_args["xaxis"]["type"] = "date"
+    layout_args["xaxis"]["autorange"] = True
+    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(trace_avg.x)
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Feeding interval (hours)")
 

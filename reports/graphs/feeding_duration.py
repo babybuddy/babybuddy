@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import time
+
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
 from django.utils.translation import gettext as _
@@ -20,7 +22,7 @@ def feeding_duration(instances):
     was equal to seven.
 
     :param instances: a QuerySet of Feeding instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     totals = (
         instances.annotate(date=TruncDate("start"))
@@ -54,6 +56,9 @@ def feeding_duration(instances):
     layout_args = utils.default_graph_layout_options()
     layout_args["title"] = _("<b>Average Feeding Durations</b>")
     layout_args["xaxis"]["title"] = _("Date")
+    layout_args["xaxis"]["type"] = "date"
+    layout_args["xaxis"]["autorange"] = True
+    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(trace_avg.x)
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Average duration (minutes)")
     layout_args["yaxis2"] = dict(layout_args["yaxis"])

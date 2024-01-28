@@ -12,7 +12,7 @@ def diaperchange_amounts(instances):
     """
     Create a graph showing daily diaper change amounts over time.
     :param instances: a QuerySet of DiaperChange instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     totals = {}
     for instance in instances:

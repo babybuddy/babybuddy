@@ -16,7 +16,7 @@ def diaperchange_intervals(changes):
     """
     Create a graph showing intervals of diaper changes.
     :param changes: a QuerySet of Diaper Change instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
 
     changes = changes.order_by("time")
@@ -65,6 +65,9 @@ def diaperchange_intervals(changes):
     layout_args["barmode"] = "stack"
     layout_args["title"] = _("<b>Diaper Change Intervals</b>")
     layout_args["xaxis"]["title"] = _("Date")
+    layout_args["xaxis"]["type"] = "date"
+    layout_args["xaxis"]["autorange"] = True
+    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(trace_total.x)
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Interval (hours)")
 

@@ -14,7 +14,7 @@ def sleep_totals(instances):
     """
     Create a graph showing total time sleeping for each day.
     :param instances: a QuerySet of Sleep instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     totals = {}
     for instance in instances:
@@ -57,6 +57,9 @@ def sleep_totals(instances):
     layout_args["barmode"] = "stack"
     layout_args["title"] = _("<b>Sleep Totals</b>")
     layout_args["xaxis"]["title"] = _("Date")
+    layout_args["xaxis"]["type"] = "date"
+    layout_args["xaxis"]["autorange"] = True
+    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(trace.x)
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Hours of sleep")
 

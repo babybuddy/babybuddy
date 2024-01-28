@@ -11,7 +11,7 @@ def head_circumference_change(objects):
     """
     Create a graph showing head_circumference over time.
     :param objects: a QuerySet of Head Circumference instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     objects = objects.order_by("-date")
 

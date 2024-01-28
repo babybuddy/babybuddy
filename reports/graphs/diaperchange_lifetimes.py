@@ -11,7 +11,7 @@ def diaperchange_lifetimes(changes):
     """
     Create a graph showing how long diapers last (time between changes).
     :param changes: a QuerySet of Diaper Change instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     changes = changes.order_by("time")
     durations = []

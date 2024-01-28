@@ -17,7 +17,7 @@ def weight_change(
     :param actual_weights: a QuerySet of Weight instances.
     :param percentile_weights: a QuerySet of Weight Percentile instances.
     :param birthday: a datetime of the child's birthday
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     actual_weights = actual_weights.order_by("-date")
 

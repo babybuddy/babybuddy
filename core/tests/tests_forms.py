@@ -791,7 +791,7 @@ class TimerFormsTestCase(FormsTestCaseBase):
 
 class ValidationsTestCase(FormsTestCaseBase):
     def test_validate_date(self):
-        future = timezone.localtime() + timezone.timedelta(days=1)
+        future = timezone.localtime() + timezone.timedelta(days=10)
         params = {
             "child": self.child,
             "weight": "8.5",

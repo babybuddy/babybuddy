@@ -1,4 +1,21 @@
 # -*- coding: utf-8 -*-
+import time
+
+
+def autorangeoptions(dates, padding=10000000):
+    """
+    Default autorange mix and max for all graphs.
+    See: https://github.com/babybuddy/babybuddy/issues/706
+    :param dates: list of datetime.date objects organized latest to oldest.
+    :param padding: additional padding to add to the bounds.
+    :return: a dict of our autorange options.
+    """
+    return dict(
+        {
+            "minallowed": int(time.mktime(dates[-1].timetuple())) * 1000 - padding,
+            "maxallowed": int(time.mktime(dates[0].timetuple())) * 1000 + padding,
+        },
+    )
 
 
 def default_graph_layout_options():
@@ -73,7 +90,7 @@ def split_graph_output(output):
     """
     Split out of a Plotly graph in to html and javascript.
     :param output: a string of html and javascript comprising the graph.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     html, js = output.split("<script")
     js = "<script" + js

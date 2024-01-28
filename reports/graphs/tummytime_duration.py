@@ -16,7 +16,7 @@ def tummytime_duration(instances):
     Create a graph showing total duration of tummy time instances per day.
 
     :param instances: a QuerySet of TummyTime instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     totals = (
         instances.annotate(date=TruncDate("start"))
@@ -49,6 +49,11 @@ def tummytime_duration(instances):
     layout_args = utils.default_graph_layout_options()
     layout_args["title"] = _("<b>Total Tummy Time Durations</b>")
     layout_args["xaxis"]["title"] = _("Date")
+    layout_args["xaxis"]["type"] = "date"
+    layout_args["xaxis"]["autorange"] = True
+    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(
+        trace_avg.x, 35000000
+    )
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Total duration (minutes)")
     layout_args["yaxis2"] = dict(layout_args["yaxis"])

@@ -11,7 +11,7 @@ def bmi_change(objects):
     """
     Create a graph showing bmi over time.
     :param objects: a QuerySet of BMI instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     objects = objects.order_by("-date")
 

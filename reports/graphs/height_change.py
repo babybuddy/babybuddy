@@ -17,7 +17,7 @@ def height_change(
     :param actual_heights: a QuerySet of Height instances.
     :param percentile_heights: a QuerySet of Height Percentile instances.
     :param birthday: a datetime of the child's birthday
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     actual_heights = actual_heights.order_by("-date")
 

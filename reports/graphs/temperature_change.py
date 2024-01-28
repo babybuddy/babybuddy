@@ -25,6 +25,9 @@ def temperature_change(objects):
     layout_args["barmode"] = "stack"
     layout_args["title"] = _("<b>Temperature</b>")
     layout_args["xaxis"]["title"] = _("Time")
+    layout_args["xaxis"]["type"] = "date"
+    layout_args["xaxis"]["autorange"] = True
+    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(trace.x)
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_time()
     layout_args["yaxis"]["title"] = _("Temperature")
 

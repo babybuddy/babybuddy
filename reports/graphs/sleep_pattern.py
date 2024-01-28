@@ -21,7 +21,7 @@ def sleep_pattern(sleeps):
     """
     Create a graph showing blocked out periods of sleep during each day.
     :param sleeps: a QuerySet of Sleep instances.
-    :returns: a tuple of the the graph's html and javascript.
+    :returns: a tuple of the graph's html and javascript.
     """
     last_end_time = None
     adjustment = None
