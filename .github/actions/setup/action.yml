@@ -11,7 +11,7 @@ runs:
     - name: Install Pipenv
       shell: bash
       run: pipx install pipenv
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v5
       id: setup-python
       with:
         python-version: ${{ inputs.python-version }}
@@ -23,6 +23,6 @@ runs:
     - name: Print installed dependency versions
       shell: bash
       run: pipenv graph
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version: 18

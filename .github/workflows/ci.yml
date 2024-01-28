@@ -13,7 +13,7 @@ jobs:
       matrix:
         python-version: [ '3.10', '3.11', '3.12' ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           python-version: ${{ matrix.python-version }}
@@ -44,10 +44,10 @@ jobs:
       url: https://docs.baby-buddy.net
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v34
+        uses: tj-actions/changed-files@v42
         with:
           files: |
             docs/**
@@ -65,7 +65,7 @@ jobs:
       url: https://demo.baby-buddy.net
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Push to dokku
