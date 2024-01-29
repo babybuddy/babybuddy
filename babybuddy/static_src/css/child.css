@@ -265,6 +265,12 @@ form {
   font-size: 20px;
 }
 
+.radio-container {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
 .checkbox-container {
   display: flex;
   justify-content: space-between;
