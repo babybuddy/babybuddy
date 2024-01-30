@@ -17,8 +17,9 @@ activities = {
     "bottle": {
         "icon": "babybuddy/img/feeding.svg",
         "color": "green",
-        "title": "Feeding",
+        "title": "Bottle Feeding",
         "model": models.Feeding,
+        "create_url": "mobile:bottle-feeding-add",
     },
     "nursing": {
         "icon": "babybuddy/img/nursing.svg",

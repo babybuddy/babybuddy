@@ -17,4 +17,9 @@ urlpatterns = [
         views.MobileDiaperChangeAdd.as_view(),
         name="changes-add",
     ),
+    path(
+        "children/<str:slug>/feeding/bottle/add",
+        views.MobileBottleFeedingAdd.as_view(),
+        name="bottle-feeding-add",
+    ),
 ]

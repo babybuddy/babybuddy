@@ -18,6 +18,7 @@
 
   --green-theme-color: #34d372;
   --green-theme-filter: invert(59%) sepia(78%) saturate(401%) hue-rotate(91deg) brightness(99%) contrast(90%);
+  --green-theme-light-color: #EAFAF0;
 
   --yellow-theme-color: #f2b73f;
   --yellow-theme-light-color: #FCEAC6;
@@ -44,6 +45,8 @@ img.purple,
 
 .green {
   color: var(--green-theme-color);
+  --form-primary-color: var(--green-theme-color);
+  --form-background-color: var(--green-theme-light-color);
 }
 
 img.green,
