@@ -25,7 +25,7 @@ class MobileChildDashboard(PermissionRequiredMixin, DetailView):
 
 class MobileDiaperChangeForm(DiaperChangeForm):
     theme = activities["changes"]
-    fieldsets = {"choices": ["wet", "solid"], "required": ["time"], "hidden": ["child"]}
+    fieldsets = {"choices": ["wet", "solid"], "required": ["time", "child"]}
 
 
 class MobileDiaperChangeAdd(DiaperChangeAdd):
@@ -33,15 +33,14 @@ class MobileDiaperChangeAdd(DiaperChangeAdd):
     form_class = MobileDiaperChangeForm
 
     def get_success_url(self):
-        return reverse("mobile:mobile-dashboard-child", kwargs=self.kwargs)
+        return reverse("mobile:mobile-dashboard-child", args=[self.object.child.slug])
 
 
 class MobileBottleFeedingForm(BottleFeedingForm):
     theme = activities["bottle"]
     fieldsets = {
         "choices": ["type"],
-        "required": ["start", "amount"],
-        "hidden": ["child"],
+        "required": ["child", "start", "amount"],
     }
 
 
@@ -50,4 +49,4 @@ class MobileBottleFeedingAdd(BottleFeedingAdd):
     form_class = MobileBottleFeedingForm
 
     def get_success_url(self):
-        return reverse("mobile:mobile-dashboard-child", kwargs=self.kwargs)
+        return reverse("mobile:mobile-dashboard-child", args=[self.object.child.slug])

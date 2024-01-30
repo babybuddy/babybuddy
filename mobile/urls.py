@@ -13,12 +13,12 @@ urlpatterns = [
         name="mobile-dashboard-child",
     ),
     path(
-        "children/<str:slug>/changes/add",
+        "changes/add",
         views.MobileDiaperChangeAdd.as_view(),
         name="changes-add",
     ),
     path(
-        "children/<str:slug>/feeding/bottle/add",
+        "feeding/bottle/add",
         views.MobileBottleFeedingAdd.as_view(),
         name="bottle-feeding-add",
     ),

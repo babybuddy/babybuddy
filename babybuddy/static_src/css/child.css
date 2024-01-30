@@ -294,3 +294,7 @@ form {
 .checkbox-container label {
   width: 40%;
 }
+
+#id_child img {
+  display: none;
+}

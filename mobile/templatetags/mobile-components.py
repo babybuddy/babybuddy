@@ -32,9 +32,7 @@ def favorite(context, activity_string, child):
     since = since_last_instance(activity["model"], child, activity_string)
     result = activity.copy()
     try:
-        result["url"] = reverse(
-            result["create_url"], kwargs={"slug": "billybonks-bonkers"}
-        )
+        result["url"] = reverse(result["create_url"])
     except KeyError:
         result["url"] = "#"
 
