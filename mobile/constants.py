@@ -38,5 +38,6 @@ activities = {
         "color": "green",
         "title": "Pumping",
         "model": models.Pumping,
+        "create_url": "mobile:pumping-add",
     },
 }

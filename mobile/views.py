@@ -4,9 +4,8 @@ from babybuddy.mixins import PermissionRequiredMixin
 from core.models import Child
 from core.forms import DiaperChangeForm, BottleFeedingForm, PumpingForm
 from core.views import DiaperChangeAdd, BottleFeedingAdd, PumpingAdd
-from mobile.constants import activities
 from django.urls import reverse
-from django.forms import RadioSelect, widgets
+from mobile.constants import activities
 
 
 class MobileChildDashboard(PermissionRequiredMixin, DetailView):
@@ -23,45 +22,21 @@ class MobileChildDashboard(PermissionRequiredMixin, DetailView):
     context_object_name = "child"
 
 
-class MobileDiaperChangeForm(DiaperChangeForm):
-    theme = activities["changes"]
-    fieldsets = {"choices": ["wet", "solid"], "required": ["time", "child"]}
-
-
-class MobileDiaperChangeAdd(DiaperChangeAdd):
-    template_name_suffix = "_mobile_form"
-    form_class = MobileDiaperChangeForm
+class GenericMobileFormMixin:
+    template_name_field = "template_name"
+    template_name = "generic_mobile_form.html"
 
     def get_success_url(self):
         return reverse("mobile:mobile-dashboard-child", args=[self.object.child.slug])
 
 
-class MobileBottleFeedingForm(BottleFeedingForm):
-    theme = activities["bottle"]
-    fieldsets = {
-        "choices": ["type"],
-        "required": ["child", "start", "amount"],
-    }
+class MobileDiaperChangeAdd(GenericMobileFormMixin, DiaperChangeAdd):
+    pass
 
 
-class MobileBottleFeedingAdd(BottleFeedingAdd):
-    template_name_suffix = "_mobile_form"
-    form_class = MobileBottleFeedingForm
-
-    def get_success_url(self):
-        return reverse("mobile:mobile-dashboard-child", args=[self.object.child.slug])
+class MobileBottleFeedingAdd(GenericMobileFormMixin, BottleFeedingAdd):
+    pass
 
 
-class MobilePumpingForm(PumpingForm):
-    theme = activities["pumping"]
-    fieldsets = {
-        "required": ["child", "start", "end", "amount"],
-    }
-
-
-class MobilePumpingAdd(PumpingAdd):
-    template_name_suffix = "_mobile_form"
-    form_class = MobilePumpingForm
-
-    def get_success_url(self):
-        return reverse("mobile:mobile-dashboard-child", args=[self.object.child.slug])
+class MobilePumpingAdd(GenericMobileFormMixin, PumpingAdd):
+    pass
