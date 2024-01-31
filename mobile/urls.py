@@ -22,4 +22,9 @@ urlpatterns = [
         views.MobileBottleFeedingAdd.as_view(),
         name="bottle-feeding-add",
     ),
+    path(
+        "pumping/add",
+        views.MobilePumpingAdd.as_view(),
+        name="pumping-add",
+    ),
 ]
