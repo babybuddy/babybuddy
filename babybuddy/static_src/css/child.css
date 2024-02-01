@@ -283,6 +283,9 @@ form {
 .checkbox-container {
   display: flex;
   justify-content: space-between;
+}
+
+form > div {
   margin-bottom: 15px;
 }
 
