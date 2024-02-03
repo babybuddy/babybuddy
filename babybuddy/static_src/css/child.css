@@ -15,6 +15,7 @@
 
   --purple-theme-color: #6e69fb;
   --purple-theme-filter: invert(44%) sepia(56%) saturate(3989%) hue-rotate(224deg) brightness(98%) contrast(100%);
+  --purple-theme-light-color: #F1F0FE;
 
   --green-theme-color: #34d372;
   --green-theme-filter: invert(59%) sepia(78%) saturate(401%) hue-rotate(91deg) brightness(99%) contrast(90%);
@@ -36,6 +37,8 @@
 
 .purple {
   color: var(--purple-theme-color);
+  --form-primary-color: var(--purple-theme-color);
+  --form-background-color: var(--purple-theme-light-color);
 }
 
 img.purple,

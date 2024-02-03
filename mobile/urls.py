@@ -27,4 +27,14 @@ urlpatterns = [
         views.MobilePumpingAdd.as_view(),
         name="pumping-add",
     ),
+    path(
+        "sleep/add",
+        views.MobileSleepAdd.as_view(),
+        name="sleep-add",
+    ),
+    path(
+        "tummy-time/add",
+        views.MobileTummyAdd.as_view(),
+        name="tummy-time-add",
+    ),
 ]

@@ -2,8 +2,13 @@ from django.views.generic.detail import DetailView
 
 from babybuddy.mixins import PermissionRequiredMixin
 from core.models import Child
-from core.forms import DiaperChangeForm, BottleFeedingForm, PumpingForm
-from core.views import DiaperChangeAdd, BottleFeedingAdd, PumpingAdd
+from core.views import (
+    DiaperChangeAdd,
+    BottleFeedingAdd,
+    PumpingAdd,
+    TummyTimeAdd,
+    SleepAdd,
+)
 from django.urls import reverse
 from mobile.constants import activities
 
@@ -39,4 +44,12 @@ class MobileBottleFeedingAdd(GenericMobileFormMixin, BottleFeedingAdd):
 
 
 class MobilePumpingAdd(GenericMobileFormMixin, PumpingAdd):
+    pass
+
+
+class MobileSleepAdd(GenericMobileFormMixin, SleepAdd):
+    pass
+
+
+class MobileTummyAdd(GenericMobileFormMixin, TummyTimeAdd):
     pass

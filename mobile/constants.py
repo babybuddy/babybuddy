@@ -6,6 +6,7 @@ activities = {
         "color": "purple",
         "title": "Sleep",
         "model": models.Sleep,
+        "create_url": "mobile:sleep-add",
     },
     "changes": {
         "icon": "babybuddy/img/diaper.svg",
@@ -32,6 +33,7 @@ activities = {
         "color": "purple",
         "title": "Tummy Time",
         "model": models.TummyTime,
+        "create_url": "mobile:tummy-time-add",
     },
     "pumping": {
         "icon": "babybuddy/img/feeding.svg",
