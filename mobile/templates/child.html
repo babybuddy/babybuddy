@@ -8,9 +8,9 @@
     <div class="header-container">
       <div class="header-row-container">
         <div class="header-element-containers">
-          <div class="circle-button">
+          <a class="circle-button" onclick="setDesktopAsDefault()" href="#">
             <img src="{% static "babybuddy/img/reporting.svg" %}" style="width:40px;height:40px" />
-          </div>
+          </a>
         </div>
         <div class="header-element-containers">
           <div class="avatar">
@@ -54,4 +54,12 @@
       </div>
     </div>
   </div>
+{% endblock %}
+{% block javascript %}
+  <script type="application/javascript">
+        function setDesktopAsDefault(){
+            localStorage.setItem("useMobileSite", false);
+            window.location = "{% url 'dashboard:dashboard-child' child.slug %}"
+        }
+  </script>
 {% endblock %}
