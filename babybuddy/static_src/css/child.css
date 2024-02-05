@@ -33,6 +33,7 @@
 
   --form-label-color: var(--form-label-accent);
   --form-border-color: var(--form-label-accent);
+
 }
 
 .purple {
@@ -303,4 +304,31 @@ form > div {
 
 #id_child img {
   display: none;
+}
+
+.alert {
+  background-color: #7bbf9a;
+  width: 100%;
+  position: absolute;
+  z-index: 100;
+  padding: 5px;
+}
+
+.alert .btn-close {
+  position: absolute;
+  top: -3px;
+  right: 5px;
+  z-index: 2;
+  /* padding: 10px; */
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.5rem 0.5rem;
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+
+.alert .btn-close:after {
+  content: 'x';
 }
