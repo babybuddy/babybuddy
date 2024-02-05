@@ -8,6 +8,7 @@ from core.views import (
     PumpingAdd,
     TummyTimeAdd,
     SleepAdd,
+    FeedingAdd,
 )
 from django.urls import reverse
 from mobile.constants import activities
@@ -52,4 +53,8 @@ class MobileSleepAdd(GenericMobileFormMixin, SleepAdd):
 
 
 class MobileTummyAdd(GenericMobileFormMixin, TummyTimeAdd):
+    pass
+
+
+class MobileFeedingAdd(GenericMobileFormMixin, FeedingAdd):
     pass

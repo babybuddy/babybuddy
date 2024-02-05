@@ -37,4 +37,9 @@ urlpatterns = [
         views.MobileTummyAdd.as_view(),
         name="tummy-time-add",
     ),
+    path(
+        "feeding/add",
+        views.MobileFeedingAdd.as_view(),
+        name="feeding-add",
+    ),
 ]

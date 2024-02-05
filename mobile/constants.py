@@ -27,6 +27,14 @@ activities = {
         "color": "green",
         "title": "Nursing",
         "model": models.Feeding,
+        "create_url": "mobile:feeding-add",
+    },
+    "feeding": {
+        "icon": "babybuddy/img/nursing.svg",
+        "color": "green",
+        "title": "Feeding",
+        "model": models.Feeding,
+        "create_url": "mobile:feeding-add",
     },
     "tummy": {
         "icon": "babybuddy/img/tummy.svg",
