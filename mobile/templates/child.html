@@ -1,10 +1,8 @@
 {% extends 'mobile-base.html' %}
-{% load static mobile-components%}
-
+{% load static mobile-components %}
 {% comment %} Object is child model {% endcomment %}
 {% block page %}
-  <div class="background">
-  </div>
+  <div class="background"></div>
   <div class="page-container">
     <div class="header-container">
       <div class="header-row-container">
@@ -25,43 +23,33 @@
         </div>
       </div>
       <div class="header-row-container">
-        <div class="header-element-containers" style="flex-grow:2;font-weight:700;font-size:16px">{{ object }}</div>
+        <div class="header-element-containers"
+             style="flex-grow:2;
+                    font-weight:700;
+                    font-size:16px">{{ object }}</div>
       </div>
     </div>
     <div class="body-container">
       <div class="favorite-actions-container">
-        <div class="favorite-action-containers">
-          {% favorite "nursing" child%}
-        </div>
-        <div class="favorite-action-containers">
-          {% favorite "changes" child%}
-        </div>
-        <div class="favorite-action-containers">
-          {% favorite "bottle" child%}
-        </div>
-        <div class="favorite-action-containers">
-          {% favorite "sleep" child%}
-        </div>
-        <div class="favorite-action-containers">
-          {% favorite "pumping" child%}
-        </div>
-
-        <div class="favorite-action-containers">
-          {% favorite "tummy" child%}
-        </div>
+        <div class="favorite-action-containers">{% favorite "nursing" child %}</div>
+        <div class="favorite-action-containers">{% favorite "changes" child %}</div>
+        <div class="favorite-action-containers">{% favorite "bottle" child %}</div>
+        <div class="favorite-action-containers">{% favorite "sleep" child %}</div>
+        <div class="favorite-action-containers">{% favorite "pumping" child %}</div>
+        <div class="favorite-action-containers">{% favorite "tummy" child %}</div>
       </div>
       <div class="header-row-container">
         <span>Today</span>
       </div>
       <div class="header-row-container">
-          <div class="journal-card">
-            <img src="{% static "babybuddy/img/diaper.svg" %}" class="yellow" />
-          </div>
-      </div>  
+        <div class="journal-card">
+          <img src="{% static "babybuddy/img/diaper.svg" %}" class="yellow" />
+        </div>
+      </div>
       <div class="header-row-container">
-          <div class="journal-card">
-            <img src="{% static "babybuddy/img/feeding.svg" %}" class="green" />
-          </div>
+        <div class="journal-card">
+          <img src="{% static "babybuddy/img/feeding.svg" %}" class="green" />
+        </div>
       </div>
     </div>
   </div>
