@@ -53,8 +53,9 @@ def _add_tummy_times(min_date, max_date, events, child=None):
         events.append(
             {
                 "time": timezone.localtime(instance.start),
-                "event": _("%(child)s started tummy time!")
-                % {"child": instance.child.first_name},
+                "event": _("%(child)s started tummy time!") % {
+                    "child": instance.child.first_name
+                },
                 "details": details,
                 "edit_link": edit_link,
                 "model_name": instance.model_name,
@@ -65,8 +66,9 @@ def _add_tummy_times(min_date, max_date, events, child=None):
 
         end = {
             "time": timezone.localtime(instance.end),
-            "event": _("%(child)s finished tummy time.")
-            % {"child": instance.child.first_name},
+            "event": _("%(child)s finished tummy time.") % {
+                "child": instance.child.first_name
+            },
             "details": details,
             "edit_link": edit_link,
             "model_name": instance.model_name,
@@ -93,8 +95,9 @@ def _add_sleeps(min_date, max_date, events, child=None):
         events.append(
             {
                 "time": timezone.localtime(instance.start),
-                "event": _("%(child)s fell asleep.")
-                % {"child": instance.child.first_name},
+                "event": _("%(child)s fell asleep.") % {
+                    "child": instance.child.first_name
+                },
                 "details": details,
                 "edit_link": edit_link,
                 "model_name": instance.model_name,
@@ -148,8 +151,9 @@ def _add_feedings(min_date, max_date, events, child=None):
         events.append(
             {
                 "time": timezone.localtime(instance.start),
-                "event": _("%(child)s started feeding.")
-                % {"child": instance.child.first_name},
+                "event": _("%(child)s started feeding.") % {
+                    "child": instance.child.first_name
+                },
                 "details": details,
                 "edit_link": edit_link,
                 "time_since_prev": time_since_prev,
@@ -161,8 +165,9 @@ def _add_feedings(min_date, max_date, events, child=None):
 
         end = {
             "time": timezone.localtime(instance.end),
-            "event": _("%(child)s finished feeding.")
-            % {"child": instance.child.first_name},
+            "event": _("%(child)s finished feeding.") % {
+                "child": instance.child.first_name
+            },
             "details": details,
             "edit_link": edit_link,
             "duration": timesince.timesince(instance.start, now=instance.end),
@@ -190,8 +195,7 @@ def _add_diaper_changes(min_date, max_date, events, child):
         events.append(
             {
                 "time": timezone.localtime(instance.time),
-                "event": _("%(child)s had a %(type)s diaper change.")
-                % {
+                "event": _("%(child)s had a %(type)s diaper change.") % {
                     "child": instance.child.first_name,
                     "type": "".join(contents),
                 },
@@ -238,8 +242,7 @@ def _add_temperature_measurements(min_date, max_date, events, child):
         events.append(
             {
                 "time": timezone.localtime(instance.time),
-                "event": _("%(child)s had a temperature measurement.")
-                % {
+                "event": _("%(child)s had a temperature measurement.") % {
                     "child": instance.child.first_name,
                 },
                 "details": details,

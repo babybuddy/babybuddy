@@ -29,10 +29,12 @@ def default_graph_layout_options():
         "font": {
             "color": "rgba(255, 255, 255, 1)",
             # Bootstrap 4 font family.
-            "family": '-apple-system, BlinkMacSystemFont, "Segoe UI", '
-            'Roboto, "Helvetica Neue", Arial, sans-serif, '
-            '"Apple Color Emoji", "Segoe UI Emoji", '
-            '"Segoe UI Symbol"',
+            "family": (
+                '-apple-system, BlinkMacSystemFont, "Segoe UI", '
+                'Roboto, "Helvetica Neue", Arial, sans-serif, '
+                '"Apple Color Emoji", "Segoe UI Emoji", '
+                '"Segoe UI Symbol"'
+            ),
             "size": 14,
         },
         "margin": {"b": 80, "t": 80},

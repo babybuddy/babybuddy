@@ -293,7 +293,9 @@ CSRF_TRUSTED_ORIGINS = list(
 # https://docs.djangoproject.com/en/5.0/topics/auth/passwords/
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": (
+            "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+        ),
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
