@@ -14,6 +14,9 @@
             <a href="{% url 'core:feeding-add' %}" class="btn btn-sm btn-success">
                 <i class="icon-feeding" aria-hidden="true"></i> {% trans "Add Feeding" %}
             </a>
+            <a href="{% url 'core:bottle-feeding-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-feeding" aria-hidden="true"></i> {% trans "Add Bottle Feeding" %}
+            </a>
         {% endif %}
     </h1>
     {% include 'babybuddy/filter.html' %}
