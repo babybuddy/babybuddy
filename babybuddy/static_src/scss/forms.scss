@@ -52,3 +52,9 @@
         position: relative;
     }
 }
+
+form .row details {
+    // removing this causes slight mis-alignment between fields in the details and the rest of the fields 
+    //on the form at the left hand side of the box
+    padding-right: 0;
+}

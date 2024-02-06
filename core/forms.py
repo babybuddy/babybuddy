@@ -178,6 +178,11 @@ class TaggableModelForm(forms.ModelForm):
 
 
 class PumpingForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {"fields": ["child", "start", "end", "amount"], "layout": "required"},
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Pumping
         fields = ["child", "start", "end", "amount", "notes", "tags"]
@@ -190,6 +195,16 @@ class PumpingForm(CoreModelForm, TaggableModelForm):
 
 
 class DiaperChangeForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["wet", "solid"],
+            "layout": "choices",
+            "layout_attrs": {"label": "Contents"},
+        },
+        {"fields": ["child", "time"], "layout": "required"},
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.DiaperChange
         fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
@@ -213,6 +228,14 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
 
 
 class BottleFeedingForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "type", "start", "amount"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     def save(self):
         instance = super(BottleFeedingForm, self).save(commit=False)
         instance.method = "bottle"
