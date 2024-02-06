@@ -1,18 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks %}
-
-{% block title %}{% trans "Welcome!" %}{% endblock %}
-
+{% block title %}
+    {% trans "Welcome!" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Welcome!" %}</li>
 {% endblock %}
-
 {% block content %}
     <div class="px-2 py-5 bg rounded-3">
         <div class="container-fluid">
             <h1 class="display-3">{% trans "Welcome to Baby Buddy!" %}</h1>
             <p class="lead">
-                {% blocktrans trimmed%}
+                {% blocktrans trimmed %}
                     Learn about and predict baby's needs without (<em>as much</em>)
                     guess work by using Baby Buddy to track &mdash;
                 {% endblocktrans %}

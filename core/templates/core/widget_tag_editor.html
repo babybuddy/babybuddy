@@ -1,43 +1,46 @@
 {% load i18n %}
-
-<div data-tags-url="{% url 'api:api-root' %}tags/"
-    {% for k, v in widget.attrs.items %}
-        {{ k }}="{{ v }}"
-    {% endfor %}>
+<div data-tags-url="{% url 'api:api-root' %}tags/" {% for k, v in widget.attrs.items %}{{ k }}="{{ v }}"{% endfor %}>
     {% csrf_token %}
-    <span class="prototype-tag btn badge badge-pill cursor-pointer me-1" style="display: none;">
+    <span class="prototype-tag btn badge badge-pill cursor-pointer me-1"
+          style="display: none">
         UNINITIALIZED PROTOTYPE
         <span class="add-remove-icon ps-1 pe-1">+ or -</span>
     </span>
     <div class="current_tags" style="min-height: 2em;">
         {% for t in widget.value %}
-        <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer me-1" style="background-color: {{ t.color }};">
-            {{ t.name }}
-            <span class="add-remove-icon ps-1 pe-1">-</span>
-        </span>
+            <span data-value="{{ t.name }}"
+                  data-color="{{ t.color }}"
+                  class="tag btn badge badge-pill cursor-pointer me-1"
+                  style="background-color: {{ t.color }}">
+                {{ t.name }}
+                <span class="add-remove-icon ps-1 pe-1">-</span>
+            </span>
         {% endfor %}
     </div>
     <div class="new-tags">
         <div class="create-tag-inputs input-group">
-            <input class="form-control" type="text" name="" placeholder="{% trans "Tag name" %}">
+            <input class="form-control"
+                   type="text"
+                   name=""
+                   placeholder="{% trans "Tag name" %}">
             <button id="add-tag" class="btn btn-outline-primary bg" type="button">{% trans "Add" %}</button>
         </div>
         {% if widget.tag_suggestions.quick %}
             <span>{% trans "Recently used:" %}</span>
             {% for t in widget.tag_suggestions.quick %}
-            <span data-value="{{ t.name }}" data-color="{{ t.color }}" class="tag btn badge badge-pill cursor-pointer me-1" style="background-color: {{ t.color }};">
-                {{ t.name }}
-                <span class="add-remove-icon ps-1 pe-1">+</span>
-            </span>
+                <span data-value="{{ t.name }}"
+                      data-color="{{ t.color }}"
+                      class="tag btn badge badge-pill cursor-pointer me-1"
+                      style="background-color: {{ t.color }}">
+                    {{ t.name }}
+                    <span class="add-remove-icon ps-1 pe-1">+</span>
+                </span>
             {% endfor %}
-        {%endif%}
+        {% endif %}
     </div>
-    <input 
-        type="hidden"
-        name="{{ widget.name }}"
-        value="{% for t in widget.value %}&quot;{{ t.name }}&quot;{% if not forloop.last %},{% endif %}{% endfor %}"
-    >
-
+    <input type="hidden"
+           name="{{ widget.name }}"
+           value="{% for t in widget.value %}&quot;{{ t.name }}&quot;{% if not forloop.last %},{% endif %}{% endfor %}">
     <div class="modal fade tag-editor-error-modal">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -45,18 +48,14 @@
                     <h4 class="modal-title">{% trans "Error" context "Error modal" %}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-            
                 <div class="modal-body">
                     <span data-message="generic">{% trans "An error ocurred." context "Error modal" %}</span>
                     <span data-message="invalid-tag-name">{% trans "Invalid tag name." context "Error modal" %}</span>
                     <span data-message="tag-creation-failed">{% trans "Failed to create tag." context "Error modal" %}</span>
                     <span data-message="tag-checking-failed">{% trans "Failed to obtain tag data." context "Error modal" %}</span>
                 </div>
-                
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                        {% trans "Close" context "Error modal" %}
-                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{% trans "Close" context "Error modal" %}</button>
                 </div>
             </div>
         </div>

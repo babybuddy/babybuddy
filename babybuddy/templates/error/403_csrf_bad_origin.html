@@ -1,15 +1,10 @@
 {% extends 'error/base.html' %}
 {% load i18n %}
-
 {% block title %}403 {{ title }}{% endblock %}
-
 {% block breadcrumb_nav %}{% endblock %}
-
 {% block content %}
     <h1>403: {{ title }}</h1>
-    <div class="alert alert-danger" role="alert">
-        {{ main }} {{ reason }}
-    </div>
+    <div class="alert alert-danger" role="alert">{{ main }} {{ reason }}</div>
     <div class="px-2 py-5 bg rounded-3">
         <div class="container-fluid">
             <h2>{% trans "How to Fix" %}</h2>

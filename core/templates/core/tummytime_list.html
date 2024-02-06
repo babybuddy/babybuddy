@@ -1,12 +1,11 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime duration i18n widget_tweaks %}
-
-{% block title %}{% trans "Tummy Time" %}{% endblock %}
-
+{% block title %}
+    {% trans "Tummy Time" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Tummy Time" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "Tummy Time" %}
@@ -35,32 +34,33 @@
                 {% for tummytime in object_list %}
                     <tr>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
-
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_tummytime %}
-                                    <a href="{% url 'core:tummytime-update' tummytime.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:tummytime-update' tummytime.id %}"
+                                       class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.core.delete_tummytime %}
-                                    <a href="{% url 'core:tummytime-delete' tummytime.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:tummytime-delete' tummytime.id %}"
+                                       class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                         <th scope="row">{{ tummytime.start|datetime_short }}</th>
                         <td>{{ tummytime.end|datetime_short }}</td>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' tummytime.child.slug %}">{{ tummytime.child }}</a></td>
+                            <td>
+                                <a href="{% url 'core:child' tummytime.child.slug %}">{{ tummytime.child }}</a>
+                            </td>
                         {% endif %}
                         <td>{{ tummytime.duration|duration_string }}</td>
                         <td>{{ tummytime.milestone }}</td>
-                        <td>
-                            {% include "core/render_tag_list.html" with tags=tummytime.tags.all %}
-                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=tummytime.tags.all %}</td>
                     </tr>
                 {% empty %}
                     <tr>

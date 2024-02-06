@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
-
 <div class="row mb-3">
-    <label for="id_{{ field.name }}" class="col-sm-2 col-form-label{% if field|field_type == 'booleanfield' %} boolean-label{% endif %}">
+    <label for="id_{{ field.name }}"
+           class="col-sm-2 col-form-label{% if field|field_type == 'booleanfield' %} boolean-label{% endif %}">
         {{ field.label }}
     </label>
     <div class="col-sm-10{% if field|widget_type == 'childradioselect' %} overflow-auto"{% endif %}">
@@ -11,9 +11,7 @@
             {% else %}
                 {{ field|add_class:"btn-check" }}
             {% endif %}
-            <label for="id_{{ field.name }}" class="btn btn-outline-light btn-no-hover">
-                {{ field.label }}
-            </label>
+            <label for="id_{{ field.name }}" class="btn btn-outline-light btn-no-hover">{{ field.label }}</label>
         {% elif 'choice' in field|field_type %}
             {% if field.errors %}
                 {{ field|add_class:"form-select is-invalid" }}
@@ -28,10 +26,14 @@
             {% endif %}
         {% endif %}
         {% if field.help_text %}
-            <div class="help-block"><small>{{ field.help_text }}</small></div>
+            <div class="help-block">
+                <small>{{ field.help_text }}</small>
+            </div>
         {% endif %}
         {% if field.errors %}
-            <div class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</div>
+            <div class="invalid-feedback">
+                {% for error in  field.errors %}{{ error }}{% endfor %}
+            </div>
         {% endif %}
     </div>
 </div>

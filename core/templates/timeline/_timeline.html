@@ -1,15 +1,18 @@
 {% load i18n %}
-
 <h3 class="text-center">
     {% if date_previous %}
-        <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
+        <a class="btn btn-sm btn-default"
+           href="?date={{ date_previous|date:"Y-m-d" }}"
+           aria-label="{% trans "Previous" %}">
             <i class="icon-2x icon-angle-circled-left" aria-hidden="true"></i>
             <span class="visually-hidden">{% trans "Previous" %}</span>
         </a>
     {% endif %}
     {{ date|date }}
     {% if date_next %}
-        <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
+        <a class="btn btn-sm btn-default"
+           href="?date={{ date_next|date:"Y-m-d" }}"
+           aria-label="{% trans "Next" %}">
             <i class="icon-2x icon-angle-circled-right" aria-hidden="true"></i>
             <span class="visually-hidden">{% trans "Next" %}</span>
         </a>
@@ -18,7 +21,7 @@
 {% if timeline_objects %}
     <ul class="timeline m-auto">
         {% for object in timeline_objects %}
-            <li{% cycle "" ' class="timeline-inverted"' %}>
+            <li {% cycle "" ' class="timeline-inverted"' %}>
                 <div class="timeline-badge {% if object.type == "start" %}bg-success{% elif object.type == "end" %}bg-danger{% else %}bg-info{% endif %}">
                     <i class="icon-{{ object.model_name }}"></i>
                 </div>
@@ -26,12 +29,12 @@
                     <div class="card-body">
                         {{ object.event }}
                         {% for detail in object.details %}
-                            <div><small>{{ detail }}</small></div>
+                            <div>
+                                <small>{{ detail }}</small>
+                            </div>
                         {% endfor %}
                         {% if object.tags %}
-                            <div>
-                                {% include "core/render_tag_list.html" with tags=object.tags %}
-                            </div>
+                            <div>{% include "core/render_tag_list.html" with tags=object.tags %}</div>
                         {% endif %}
                     </div>
                     <div class="card-footer text-body-secondary">
@@ -68,14 +71,18 @@
     </ul>
     <h3 class="text-center">
         {% if date_previous %}
-            <a class="btn btn-sm btn-default" href="?date={{ date_previous|date:"Y-m-d" }}" aria-label="{% trans "Previous" %}">
+            <a class="btn btn-sm btn-default"
+               href="?date={{ date_previous|date:"Y-m-d" }}"
+               aria-label="{% trans "Previous" %}">
                 <i class="icon-2x icon-angle-circled-left" aria-hidden="true"></i>
                 <span class="visually-hidden">{% trans "Previous" %}</span>
             </a>
         {% endif %}
         {{ date|date }}
         {% if date_next %}
-            <a class="btn btn-sm btn-default" href="?date={{ date_next|date:"Y-m-d" }}" aria-label="{% trans "Next" %}">
+            <a class="btn btn-sm btn-default"
+               href="?date={{ date_next|date:"Y-m-d" }}"
+               aria-label="{% trans "Next" %}">
                 <i class="icon-2x icon-angle-circled-right" aria-hidden="true"></i>
                 <span class="visually-hidden">{% trans "Next" %}</span>
             </a>

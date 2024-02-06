@@ -1,12 +1,11 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks %}
-
-{% block title %}{% trans "BMI" %}{% endblock %}
-
+{% block title %}
+    {% trans "BMI" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "BMI" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "BMI" %}
@@ -34,34 +33,35 @@
                 {% for bmi in object_list %}
                     <tr>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
-
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_bmi %}
                                     <a href="{% url 'core:bmi-update' bmi.id %}" class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.core.delete_bmi %}
                                     <a href="{% url 'core:bmi-delete' bmi.id %}" class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                         <th scope="row">{{ bmi.date }}</th>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' bmi.child.slug %}">{{ bmi.child }}</a></td>
+                            <td>
+                                <a href="{% url 'core:child' bmi.child.slug %}">{{ bmi.child }}</a>
+                            </td>
                         {% endif %}
                         <td>{{ bmi.bmi }}</td>
-                        <td>
-                            {% include "core/render_tag_list.html" with tags=bmi.tags.all %}
-                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=bmi.tags.all %}</td>
                     </tr>
                     {% if bmi.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="5"><i class="icon-note me-2" aria-hidden="true"></i>{{ bmi.notes }}</td>
+                            <td colspan="5">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ bmi.notes }}
+                            </td>
                         </tr>
                     {% endif %}
                 {% empty %}
