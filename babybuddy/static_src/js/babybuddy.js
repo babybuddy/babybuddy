@@ -1,5 +1,5 @@
-if (typeof jQuery === 'undefined') {
-  throw new Error('Baby Buddy requires jQuery.')
+if (typeof jQuery === "undefined") {
+  throw new Error("Baby Buddy requires jQuery.");
 }
 
 /**
@@ -9,37 +9,37 @@ if (typeof jQuery === 'undefined') {
  *
  * @type {{}}
  */
-var BabyBuddy = function () {
-    return {};
-}();
+var BabyBuddy = (function () {
+  return {};
+})();
 
 /**
  * Pull to refresh.
  *
  * @type {{init: BabyBuddy.PullToRefresh.init, onRefresh: BabyBuddy.PullToRefresh.onRefresh}}
  */
-BabyBuddy.PullToRefresh = function(ptr) {
-    return {
-        init: function () {
-            ptr.init({
-                mainElement: 'body',
-                onRefresh: this.onRefresh
-            });
-        },
+BabyBuddy.PullToRefresh = (function (ptr) {
+  return {
+    init: function () {
+      ptr.init({
+        mainElement: "body",
+        onRefresh: this.onRefresh,
+      });
+    },
 
-        onRefresh: function() {
-            window.location.reload();
-        }
-    };
-}(PullToRefresh);
+    onRefresh: function () {
+      window.location.reload();
+    },
+  };
+})(PullToRefresh);
 
 /**
  * Fix for duplicate form submission from double pressing submit
  */
 function preventDoubleSubmit() {
-    return false;
+  return false;
 }
-$('form').off("submit", preventDoubleSubmit);
-$("form").on("submit", function() {
-    $(this).on("submit", preventDoubleSubmit);
+$("form").off("submit", preventDoubleSubmit);
+$("form").on("submit", function () {
+  $(this).on("submit", preventDoubleSubmit);
 });

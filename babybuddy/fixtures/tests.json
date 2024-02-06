@@ -12,8 +12,7 @@
   {
     "model": "core.child",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "first_name": "Fake",
       "last_name": "Child",
       "birth_date": "2017-11-11",
@@ -24,8 +23,7 @@
   {
     "model": "core.pumping",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "amount": 5.0,
       "start": "2017-11-17T17:52:00Z",
@@ -37,8 +35,7 @@
   {
     "model": "core.pumping",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "amount": 9.0,
       "start": "2017-11-17T20:03:00Z",
@@ -50,8 +47,7 @@
   {
     "model": "core.diaperchange",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-18T16:00:00Z",
       "wet": false,
@@ -63,8 +59,7 @@
   {
     "model": "core.diaperchange",
     "pk": 3,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-18T19:00:00Z",
       "wet": true,
@@ -77,8 +72,7 @@
   {
     "model": "core.diaperchange",
     "pk": 4,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-17T13:00:00Z",
       "wet": false,
@@ -90,8 +84,7 @@
   {
     "model": "core.diaperchange",
     "pk": 5,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-17T16:00:00Z",
       "wet": false,
@@ -103,8 +96,7 @@
   {
     "model": "core.diaperchange",
     "pk": 6,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-16T15:00:00Z",
       "wet": true,
@@ -116,8 +108,7 @@
   {
     "model": "core.diaperchange",
     "pk": 7,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-16T18:00:00Z",
       "wet": true,
@@ -129,8 +120,7 @@
   {
     "model": "core.diaperchange",
     "pk": 8,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-15T15:00:00Z",
       "wet": false,
@@ -142,8 +132,7 @@
   {
     "model": "core.diaperchange",
     "pk": 9,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-15T13:00:00Z",
       "wet": true,
@@ -155,8 +144,7 @@
   {
     "model": "core.diaperchange",
     "pk": 10,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-15T16:00:00Z",
       "wet": true,
@@ -168,8 +156,7 @@
   {
     "model": "core.diaperchange",
     "pk": 11,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-15T21:00:00Z",
       "wet": true,
@@ -181,8 +168,7 @@
   {
     "model": "core.diaperchange",
     "pk": 12,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-14T15:00:00Z",
       "wet": true,
@@ -194,8 +180,7 @@
   {
     "model": "core.diaperchange",
     "pk": 13,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-13T14:00:00Z",
       "wet": true,
@@ -207,8 +192,7 @@
   {
     "model": "core.diaperchange",
     "pk": 14,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-13T18:00:00Z",
       "wet": true,
@@ -220,8 +204,7 @@
   {
     "model": "core.diaperchange",
     "pk": 15,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-12T15:00:00Z",
       "wet": true,
@@ -233,8 +216,7 @@
   {
     "model": "core.diaperchange",
     "pk": 16,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "time": "2017-11-11T15:00:00Z",
       "wet": true,
@@ -246,8 +228,7 @@
   {
     "model": "core.feeding",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-18T09:00:00Z",
       "end": "2017-11-18T09:30:00Z",
@@ -260,8 +241,7 @@
   {
     "model": "core.feeding",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-18T11:30:00Z",
       "end": "2017-11-18T12:00:00Z",
@@ -274,8 +254,7 @@
   {
     "model": "core.feeding",
     "pk": 3,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-18T14:00:00Z",
       "end": "2017-11-18T14:15:00Z",
@@ -289,8 +268,7 @@
   {
     "model": "core.feeding",
     "pk": 4,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-17T14:00:00Z",
       "end": "2017-11-17T14:15:00Z",
@@ -304,8 +282,7 @@
   {
     "model": "core.feeding",
     "pk": 5,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-11T14:00:00Z",
       "end": "2017-11-11T14:15:00Z",
@@ -319,8 +296,7 @@
   {
     "model": "core.feeding",
     "pk": 6,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-11T05:00:00Z",
       "end": "2017-11-11T05:15:00Z",
@@ -334,8 +310,7 @@
   {
     "model": "core.note",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "note": "Fake note.",
       "time": "2017-11-18T03:45:00Z"
@@ -344,8 +319,7 @@
   {
     "model": "core.sleep",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-17T20:30:00Z",
       "end": "2017-11-18T05:30:00Z",
@@ -356,8 +330,7 @@
   {
     "model": "core.sleep",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-18T15:00:00Z",
       "end": "2017-11-18T17:00:00Z",
@@ -368,8 +341,7 @@
   {
     "model": "core.sleep",
     "pk": 3,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-18T19:00:00Z",
       "end": "2017-11-19T04:30:00Z",
@@ -380,8 +352,7 @@
   {
     "model": "core.sleep",
     "pk": 4,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-19T08:00:00Z",
       "end": "2017-11-19T09:30:00Z",
@@ -390,11 +361,10 @@
       "nap": true
     }
   },
-    {
+  {
     "model": "core.temperature",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "temperature": 98.6,
       "time": "2017-11-17T17:52:00Z",
@@ -404,8 +374,7 @@
   {
     "model": "core.timer",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "name": "Fake timer",
       "start": "2017-11-18T04:30:00Z",
       "user": 1
@@ -414,8 +383,7 @@
   {
     "model": "core.tummytime",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-18T15:00:00Z",
       "end": "2017-11-18T15:03:00Z",
@@ -426,8 +394,7 @@
   {
     "model": "core.tummytime",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-18T17:15:30Z",
       "end": "2017-11-18T17:16:45Z",
@@ -438,8 +405,7 @@
   {
     "model": "core.tummytime",
     "pk": 3,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "start": "2017-11-18T20:30:00Z",
       "end": "2017-11-18T20:30:45Z",
@@ -450,8 +416,7 @@
   {
     "model": "core.weight",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "weight": 8.5,
       "date": "2017-11-11"
@@ -460,8 +425,7 @@
   {
     "model": "core.weight",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "weight": 9.5,
       "date": "2017-11-18",
@@ -471,8 +435,7 @@
   {
     "model": "core.height",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "height": 9.5,
       "date": "2017-11-11"
@@ -481,8 +444,7 @@
   {
     "model": "core.height",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "height": 10.5,
       "date": "2017-11-18",
@@ -492,8 +454,7 @@
   {
     "model": "core.headcircumference",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "head_circumference": 5.5,
       "date": "2017-11-11"
@@ -502,8 +463,7 @@
   {
     "model": "core.headcircumference",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "head_circumference": 6.5,
       "date": "2017-11-18",
@@ -513,8 +473,7 @@
   {
     "model": "core.bmi",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "bmi": 25.5,
       "date": "2017-11-11"
@@ -523,8 +482,7 @@
   {
     "model": "core.bmi",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "child": 1,
       "bmi": 26.5,
       "date": "2017-11-18",
@@ -534,8 +492,7 @@
   {
     "model": "core.tag",
     "pk": 1,
-    "fields":
-    {
+    "fields": {
       "name": "a name",
       "slug": "a-name",
       "color": "#FF0000",
