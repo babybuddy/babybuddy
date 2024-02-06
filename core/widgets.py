@@ -104,3 +104,16 @@ class ChildRadioSelect(RadioSelect):
         if value != "":
             option["picture"] = value.instance.picture
         return option
+
+
+class PillRadioSelect(RadioSelect):
+    input_type = "radio"
+    template_name = "core/pill_radio.html"
+    option_template_name = "core/pill_radio_option.html"
+
+    attrs = {"class": "btn-check"}
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+        attrs["class"] += " btn-check"
+        return attrs

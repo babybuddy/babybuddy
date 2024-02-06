@@ -1,0 +1,3 @@
+{% include "django/forms/widgets/input.html" %}
+<label {% if widget.attrs.id %}for="{{ widget.attrs.id }}"{% endif %}
+       class="btn btn-outline-light btn-no-hover">{{ widget.label }}</label>

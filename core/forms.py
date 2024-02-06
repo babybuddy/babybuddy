@@ -10,7 +10,7 @@ from taggit.forms import TagField
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
 from core.models import Timer
-from core.widgets import TagsEditor, ChildRadioSelect
+from core.widgets import TagsEditor, ChildRadioSelect, PillRadioSelect
 
 
 def set_initial_values(kwargs, form_type):
@@ -201,6 +201,7 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
+            "type": PillRadioSelect(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
