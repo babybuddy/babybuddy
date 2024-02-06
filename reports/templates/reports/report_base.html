@@ -1,12 +1,7 @@
 {% extends 'reports/base.html' %}
 {% load i18n static %}
-
 {% block title %}{% endblock %}
-
-{% block breadcrumbs %}
-    {{ block.super }}
-{% endblock %}
-
+{% block breadcrumbs %}{{ block.super }}{% endblock %}
 {% block content %}
     <div class="container-fluid">
         {% if html %}
@@ -22,7 +17,6 @@
         {% endif %}
     </div>
 {% endblock %}
-
 {% block javascript %}
     <script src="{% static "babybuddy/js/graph.js" %}"></script>
     <script>Plotly.setPlotConfig({locale: '{{ LOCALE }}'})</script>

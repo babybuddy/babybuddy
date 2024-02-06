@@ -1,13 +1,8 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
-
 {% block header %}
-    <a href="{% url "core:tummytime-list" %}">
-        {% trans "Last Tummy Time" %}
-    </a>
+    <a href="{% url "core:tummytime-list" %}">{% trans "Last Tummy Time" %}</a>
 {% endblock %}
-
-
 {% block title %}
     {% if tummytime %}
         {% blocktrans trimmed with since=tummytime.time|deltasince|duration_string:'m' time=tummytime.time|time %}
@@ -18,12 +13,12 @@
         {% trans "Never" %}
     {% endif %}
 {% endblock %}
-
 {% block content %}
     {% if tummytime %}
         {{ tummytime.duration|duration_string }}
         {% if tummytime.milestone %}
-            <br /> {{ tummytime.milestone }}
+            <br />
+            {{ tummytime.milestone }}
         {% endif %}
     {% endif %}
 {% endblock %}

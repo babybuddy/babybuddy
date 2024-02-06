@@ -1,12 +1,8 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
-
 {% block header %}
-    <a href="{% url "core:sleep-list" %}">
-        {% trans "Last Sleep" %}
-    </a>
+    <a href="{% url "core:sleep-list" %}">{% trans "Last Sleep" %}</a>
 {% endblock %}
-
 {% block title %}
     {% if sleep %}
         {% blocktrans trimmed with since=sleep.end|deltasince|duration_string:'m' time=sleep.end|time %}
@@ -17,5 +13,4 @@
         {% trans "None" %}
     {% endif %}
 {% endblock %}
-
 {% block content %}{{ sleep.duration|duration_string }}{% endblock %}

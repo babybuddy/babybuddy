@@ -1,8 +1,8 @@
 {% extends 'reports/report_base.html' %}
 {% load i18n %}
-
-{% block title %}{% trans "Height" %} - {{ object }}{% endblock %}
-
+{% block title %}
+    {% trans "Height" %} - {{ object }}
+{% endblock %}
 {% block breadcrumbs %}
     {{ block.super }}
     {% include 'reports/breadcrumb_common_chunk.html' with target_url=target_url %}

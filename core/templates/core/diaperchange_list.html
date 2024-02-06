@@ -1,17 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load bootstrap datetime i18n widget_tweaks %}
-
-{% block title %}{% trans "Diaper Changes" %}{% endblock %}
-
+{% block title %}
+    {% trans "Diaper Changes" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Diaper Changes" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "Diaper Changes" %}
         {% if perms.core.add_diaperchange %}
-            <a href="{% url 'core:diaperchange-add' %}" class="btn btn-sm btn-success">
+            <a href="{% url 'core:diaperchange-add' %}"
+               class="btn btn-sm btn-success">
                 <i class="icon-diaperchange" aria-hidden="true"></i> {% trans "Add Diaper Change" %}
             </a>
         {% endif %}
@@ -36,39 +36,46 @@
                 {% for change in object_list %}
                     <tr>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
-
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_diaperchange %}
-                                    <a href="{% url 'core:diaperchange-update' change.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:diaperchange-update' change.id %}"
+                                       class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.core.delete_diaperchange %}
-                                    <a href="{% url 'core:diaperchange-delete' change.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:diaperchange-delete' change.id %}"
+                                       class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                         <th scope="row">{{ change.time|datetime_short }}</th>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a></td>
+                            <td>
+                                <a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a>
+                            </td>
                         {% endif %}
                         <td class="text-center">
-                            {% if change.wet %}<span title="{% trans "Wet" %}">💦</span>{% endif %}
-                            {% if change.solid %}<span title="{% trans "Solid" %}">💩</span>{% endif %}
+                            {% if change.wet %}
+                                <span title="{% trans "Wet" %}">💦</span>
+                            {% endif %}
+                            {% if change.solid %}
+                                <span title="{% trans "Solid" %}">💩</span>
+                            {% endif %}
                         </td>
                         <td>{{ change.get_color_display }}</td>
                         <td>{{ change.amount|default_if_none:"" }}</td>
-                        <td>
-                            {% include "core/render_tag_list.html" with tags=change.tags.all %}
-                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=change.tags.all %}</td>
                     </tr>
                     {% if change.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="7"><i class="icon-note me-2" aria-hidden="true"></i>{{ change.notes }}</td>
+                            <td colspan="7">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ change.notes }}
+                            </td>
                         </tr>
                     {% endif %}
                 {% empty %}

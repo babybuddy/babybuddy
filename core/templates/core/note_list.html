@@ -1,12 +1,11 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime i18n imagekit widget_tweaks %}
-
-{% block title %}{% trans "Notes" %}{% endblock %}
-
+{% block title %}
+    {% trans "Notes" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Notes" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "Notes" %}
@@ -35,44 +34,45 @@
                 {% for note in object_list %}
                     <tr>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
-
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_note %}
                                     <a href="{% url 'core:note-update' note.id %}" class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.core.delete_note %}
                                     <a href="{% url 'core:note-delete' note.id %}" class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                         <th scope="row">{{ note.time|datetime_short }}</th>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a></td>
+                            <td>
+                                <a href="{% url 'core:child' note.child.slug %}">{{ note.child }}</a>
+                            </td>
                         {% endif %}
                         <td>
                             {% if note.image %}
                                 {% thumbnail '40x40' note.image as thumb %}
-                                <a href="{{ note.image.url }}" target="_blank"><img src="{{ thumb.url }}" class="img-fluid" /></a>
-                            {% endif %}
-                        </td>
-                        <td>{{ note.note }}</td>
-                        <td>
-                            {% include "core/render_tag_list.html" with tags=note.tags.all %}
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <th colspan="5">{% trans "No notes found." %}</th>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% include 'babybuddy/paginator.html' %}
-{% endblock %}
+                                    <a href="{{ note.image.url }}" target="_blank">
+                                        <img src="{{ thumb.url }}" class="img-fluid" />
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td>{{ note.note }}</td>
+                            <td>{% include "core/render_tag_list.html" with tags=note.tags.all %}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <th colspan="5">{% trans "No notes found." %}</th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'babybuddy/paginator.html' %}
+    {% endblock %}

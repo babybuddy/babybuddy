@@ -154,6 +154,7 @@ function format() {
 function lint() {
     return all(
         _runInPipenv(['black', '.', '--check', '--diff', '--color']),
+        _runInPipenv([ 'djlint', '--check', '.']),
         gulp.src(config.watchConfig.stylesGlob)
             .pipe(styleLint({
                 reporters: [{ formatter: 'string', console: true }]

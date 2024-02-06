@@ -1,13 +1,12 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks babybuddy %}
-
-{% block title %}{% trans "User Settings" %}{% endblock %}
-
+{% block title %}
+    {% trans "User Settings" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">{% trans "User" %}</li>
     <li class="breadcrumb-item active">{% trans "Settings" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>{% trans "User Settings" %}</h1>
     <div class="container-fluid">
@@ -81,12 +80,18 @@
                     <label class="col-sm-2 col-form-label">{% trans "Key" %}</label>
                     <div class="col-sm-10">
                         <samp>{{ user.settings.api_key }}</samp>
-                        <input type="submit" name="api_key_regenerate" value="{% trans "Regenerate" %}" class="btn btn-danger btn-xs" />
+                        <input type="submit"
+                               name="api_key_regenerate"
+                               value="{% trans "Regenerate" %}"
+                               class="btn btn-danger btn-xs" />
                     </div>
                 </div>
             </fieldset>
             <input type="hidden" name="next" value="{% url 'babybuddy:user-settings' %}" />
-            <input type="submit" name="save_settings" value="{% trans "Submit" %}" class="btn btn-primary">
+            <input type="submit"
+                   name="save_settings"
+                   value="{% trans "Submit" %}"
+                   class="btn btn-primary">
         </form>
     </div>
 {% endblock %}

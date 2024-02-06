@@ -1,54 +1,57 @@
 {% load i18n %}
-
 <li class="nav-item dropdown">
-    <a id="nav-timer-menu-link"
-       class="nav-link dropdown-toggle"
-       href="#"
-       data-bs-toggle="dropdown"
-       aria-haspopup="true"
-       aria-expanded="false"><i class="icon-timer" aria-hidden="true"></i>
-        {% trans "Timers" %}
-    </a>
-    <div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
-        {% if perms.core.add_timer %}
-            <a class="dropdown-item" href="{% url 'core:timer-add' %}">
-                <i class="icon-add" aria-hidden="true"></i> {% trans "Start Timer" %}
-            </a>
-        {% endif %}
-        {% if perms.core.view_timer %}
-            <a class="dropdown-item" href="{% url 'core:timer-list' %}">
-                <i class="icon-list" aria-hidden="true"></i> {% trans "View Timers" %}
-            </a>
-        {% endif %}
-        {% if perms.core.add_timer %}
-            <form action="{% url 'core:timer-add-quick' %}" role="form" method="post" class="d-inline">
-                {% csrf_token %}
-                {% if children.count > 1 %}
-                    <div class="dropdown-divider"></div>
-                    <h6 class="dropdown-header">{% trans "Quick Start Timer For…" %}</h6>
-                    {% for child in children %}
-                        <button class="dropdown-item d-flex align-items-center" type="submit" name="child" value="{{ child.pk }}">
-                            {% include "core/child_thumbnail.html" %}
-                            <span class="text-wrap ms-2">{{ child }}</span>
-                        </button>
-                    {% endfor %}
-                {% else %}
-                    <button class="dropdown-item" type="submit">
-                        <i class="icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
+<a id="nav-timer-menu-link"
+   class="nav-link dropdown-toggle"
+   href="#"
+   data-bs-toggle="dropdown"
+   aria-haspopup="true"
+   aria-expanded="false"><i class="icon-timer" aria-hidden="true"></i>
+{% trans "Timers" %}
+</a>
+<div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
+    {% if perms.core.add_timer %}
+        <a class="dropdown-item" href="{% url 'core:timer-add' %}">
+            <i class="icon-add" aria-hidden="true"></i> {% trans "Start Timer" %}
+        </a>
+    {% endif %}
+    {% if perms.core.view_timer %}
+        <a class="dropdown-item" href="{% url 'core:timer-list' %}">
+            <i class="icon-list" aria-hidden="true"></i> {% trans "View Timers" %}
+        </a>
+    {% endif %}
+    {% if perms.core.add_timer %}
+        <form action="{% url 'core:timer-add-quick' %}"
+              role="form"
+              method="post"
+              class="d-inline">
+            {% csrf_token %}
+            {% if children.count > 1 %}
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">{% trans "Quick Start Timer For…" %}</h6>
+                {% for child in children %}
+                    <button class="dropdown-item d-flex align-items-center"
+                            type="submit"
+                            name="child"
+                            value="{{ child.pk }}">
+                        {% include "core/child_thumbnail.html" %}
+                        <span class="text-wrap ms-2">{{ child }}</span>
                     </button>
-                {% endif %}
-            </form>
-        {% endif %}
-        {% if timers %}
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">{% trans "Timers" %}</h6>
-            {% for timer in timers %}
-                <a class="dropdown-item" href="{% url 'core:timer-detail' timer.id %}">
-                    {{ timer.title_with_child }}
-                </a>
-            {% empty %}
-                <a class="dropdown-item disabled" href="#">{% trans "None" %}</a>
-            {% endfor %}
-        {% endif %}
-    </div>
+                {% endfor %}
+            {% else %}
+                <button class="dropdown-item" type="submit">
+                    <i class="icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
+                </button>
+            {% endif %}
+        </form>
+    {% endif %}
+    {% if timers %}
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">{% trans "Timers" %}</h6>
+        {% for timer in timers %}
+            <a class="dropdown-item" href="{% url 'core:timer-detail' timer.id %}">{{ timer.title_with_child }}</a>
+        {% empty %}
+            <a class="dropdown-item disabled" href="#">{% trans "None" %}</a>
+        {% endfor %}
+    {% endif %}
+</div>
 </li>

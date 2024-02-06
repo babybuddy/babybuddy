@@ -1,8 +1,8 @@
 {% extends 'error/base.html' %}
 {% load i18n %}
-
-{% block title %}403 {% trans "Permission Denied" %}{% endblock %}
-
+{% block title %}
+    403 {% trans "Permission Denied" %}
+{% endblock %}
 {% block content %}
     <h1>403 {% trans "Permission Denied" %}</h1>
     <div class="alert alert-danger" role="alert">

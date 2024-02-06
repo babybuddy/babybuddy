@@ -1,36 +1,23 @@
 {% extends "registration/base.html" %}
 {% load i18n static widget_tweaks %}
-
 {% block title %}Login{% endblock %}
 {% block content %}
     <form class="login-form" method="post" action="{% url 'babybuddy:login' %}">
         {% csrf_token %}
-
         <input type="hidden" name="next" value="{{ next }}">
-
-        <label class="visually-hidden" for="username-input-group">
-            {{ form.username.label }}
-        </label>
+        <label class="visually-hidden" for="username-input-group">{{ form.username.label }}</label>
         <div class="input-group mb-3 fade-in">
             <span class="input-group-text text-body-secondary"><i class="icon-user" aria-hidden="true"></i></span>
             {% render_field form.username name='username' class+='form-control' id='username-input-group' placeholder=form.username.label %}
         </div>
-
-        <label class="visually-hidden" for="password-input-group">
-            {{ form.password.label }}
-        </label>
+        <label class="visually-hidden" for="password-input-group">{{ form.password.label }}</label>
         <div class="input-group mb-3 fade-in">
             <span class="input-group-text text-body-secondary"><i class="icon-lock" aria-hidden="true"></i></span>
             {% render_field form.password name='password' class+='form-control' id='password-input-group' placeholder=form.password.label %}
         </div>
-
-        <button class="btn btn-primary w-100 fade-in" type="submit" name="login">
-            {% trans "Login" %}
-        </button>
+        <button class="btn btn-primary w-100 fade-in" type="submit" name="login">{% trans "Login" %}</button>
     </form>
-
     <div class="bg-faded text-center px-4 py-3 rounded-bottom">
-        <a href="{% url 'babybuddy:password_reset' %}" name="reset">
-            {% trans "Forgot your password?" %}</a>
+        <a href="{% url 'babybuddy:password_reset' %}" name="reset">{% trans "Forgot your password?" %}</a>
     </div>
 {% endblock %}

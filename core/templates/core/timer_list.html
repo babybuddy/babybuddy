@@ -1,12 +1,11 @@
 {% extends 'babybuddy/page.html' %}
 {% load bootstrap datetime duration i18n widget_tweaks %}
-
-{% block title %}{% trans "Timers" %}{% endblock %}
-
+{% block title %}
+    {% trans "Timers" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Timers" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "Timers" %}
@@ -20,34 +19,36 @@
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
-            <tr>
-                <th>{% trans "Start" %}</th>
-                <th>{% trans "Name" %}</th>
-                {% if not unique_child %}
-                    <th>{% trans "Child" %}</th>
-                {% endif %}
-                <th>{% trans "User" %}</th>
-            </tr>
+                <tr>
+                    <th>{% trans "Start" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "User" %}</th>
+                </tr>
             </thead>
             <tbody>
-            {% for timer in object_list %}
-                <tr>
-                    <th scope="row">{{ timer.start|datetime_short }}</th>
-                    <td><a href="{% url 'core:timer-detail' timer.id %}">{{ timer }}</a></td>
-                    {% if not unique_child %}
+                {% for timer in object_list %}
+                    <tr>
+                        <th scope="row">{{ timer.start|datetime_short }}</th>
                         <td>
-                            {% if timer.child %}
-                                <a href="{% url 'core:child' timer.child.slug %}">{{ timer.child }}</a>
-                            {% endif %}
+                            <a href="{% url 'core:timer-detail' timer.id %}">{{ timer }}</a>
                         </td>
-                    {% endif %}
-                    <td>{{ timer.user_username }}</td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <th colspan="7">{% trans "No timer entries found." %}</th>
-                </tr>
-            {% endfor %}
+                        {% if not unique_child %}
+                            <td>
+                                {% if timer.child %}
+                                    <a href="{% url 'core:child' timer.child.slug %}">{{ timer.child }}</a>
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        <td>{{ timer.user_username }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <th colspan="7">{% trans "No timer entries found." %}</th>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

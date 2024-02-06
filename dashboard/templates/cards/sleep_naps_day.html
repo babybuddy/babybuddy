@@ -1,12 +1,8 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
-
 {% block header %}
-    <a href="{% url "core:sleep-list" %}">
-        {% trans "Today's Naps" %}
-    </a>
+    <a href="{% url "core:sleep-list" %}">{% trans "Today's Naps" %}</a>
 {% endblock %}
-
 {% block title %}
     {% if count %}
         {% blocktrans trimmed count counter=count %}
@@ -18,7 +14,6 @@
         {% trans "None" %}
     {% endif %}
 {% endblock %}
-
 {% block content %}
     {% if total %}{{ total|duration_string }}{% endif %}
 {% endblock %}

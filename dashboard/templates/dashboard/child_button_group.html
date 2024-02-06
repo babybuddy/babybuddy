@@ -1,31 +1,34 @@
 {% load i18n %}
-
-<div class="child-actions btn-group btn-group-lg border rounded border-light bg center-block" role="group" aria-label="{% trans "Child actions" %}">
-
+<div class="child-actions btn-group btn-group-lg border rounded border-light bg center-block"
+     role="group"
+     aria-label="{% trans "Child actions" %}">
     {% if perms.core.view_child %}
-        <a href="{% url 'dashboard:dashboard-child' object.slug %}" class="btn" title="{% trans "Dashboard" %}">
+        <a href="{% url 'dashboard:dashboard-child' object.slug %}"
+           class="btn"
+           title="{% trans "Dashboard" %}">
             <i class="icon-dashboard" aria-hidden="true"></i>
         </a>
-        <a href="{% url 'core:child' object.slug %}" class="btn" title="{% trans "Timeline" %}">
+        <a href="{% url 'core:child' object.slug %}"
+           class="btn"
+           title="{% trans "Timeline" %}">
             <i class="icon-timeline" aria-hidden="true"></i>
         </a>
-        <a href="{% url 'reports:report-list' object.slug %}" class="btn" title="{% trans "Reports" %}">
+        <a href="{% url 'reports:report-list' object.slug %}"
+           class="btn"
+           title="{% trans "Reports" %}">
             <i class="icon-graph" aria-hidden="true"></i>
         </a>
     {% endif %}
-
     {% if perms.core.change_child %}
         <a class="btn d-none d-md-inline-block"
            href="{% url 'core:child-update' object.slug %}"
            title="{% trans "Edit" %}"
            role="button"><i class="icon-update" aria-hidden="true"></i></a>
     {% endif %}
-
     {% if perms.core.delete_child %}
         <a class="btn d-none d-md-inline-block"
            href="{% url 'core:child-delete' object.slug %}"
            title="{% trans "Delete" %}"
            role="button"><i class="icon-delete" aria-hidden="true"></i></a>
     {% endif %}
-
 </div>

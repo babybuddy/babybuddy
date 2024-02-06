@@ -1,12 +1,8 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
-
 {% block header %}
-    <a href="{% url "core:feeding-list" %}">
-        {% trans "Last Feeding" %}
-    </a>
+    <a href="{% url "core:feeding-list" %}">{% trans "Last Feeding" %}</a>
 {% endblock %}
-
 {% block title %}
     {% if feeding %}
         {% blocktrans trimmed with since=feeding.start|deltasince|duration_string:'m' time=feeding.start|time %}
@@ -17,12 +13,9 @@
         {% trans "None" %}
     {% endif %}
 {% endblock %}
-
 {% block content %}
     {% if feeding %}
         {{ feeding.get_type_display }}, {{ feeding.get_method_display }}
-        {% if feeding.amount %}
-            ({{ feeding.amount }})
-        {% endif %}
+        {% if feeding.amount %}({{ feeding.amount }}){% endif %}
     {% endif %}
 {% endblock %}

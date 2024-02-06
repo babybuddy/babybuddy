@@ -1,44 +1,43 @@
 {% extends 'babybuddy/page.html' %}
 {% load cards i18n imagekit static %}
-
-{% block title %}{% trans "Dashboard" %}{% endblock %}
-
+{% block title %}
+    {% trans "Dashboard" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item fw-bold">{% trans "Dashboard" %}</li>
 {% endblock %}
-
 {% block content %}
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-12">
-            {% card_timer_list %}
-        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">{% card_timer_list %}</div>
         <div class="col-lg-8 col-md-8 col-sm-12">
             <div class="row">
-            {% for object in objects %}
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-2 mb-4">
-                    <div class="card">
-                        <a class="text-center" href="{% url 'core:child' object.slug %}">
-                            {% if object.picture %}
-                                {% thumbnail '300x300' object.picture as thumb %}
-                                <img src="{{ thumb.url }}" class="child-photo img-fluid" />
-                            {% else %}
-                                <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" class="child-photo img-fluid" />
-                            {% endif %}
-                        </a>
-                        <div class="card-body text-center">
-                            <h4 class="card-title">{{ object }}</h4>
-                            <div class="card-text">
-                                <p>
-                                    {% trans "Born" %} <span class="text-secondary">{{ object.birth_date }}</span><br/>
-                                    {% trans "Age" %} <span class="text-secondary">{{ object.birth_date|timesince }}</span>
-                                </p>
-                                {% include 'dashboard/child_button_group.html' %}
+                {% for object in objects %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-2 mb-4">
+                        <div class="card">
+                            <a class="text-center" href="{% url 'core:child' object.slug %}">
+                                {% if object.picture %}
+                                    {% thumbnail '300x300' object.picture as thumb %}
+                                        <img src="{{ thumb.url }}" class="child-photo img-fluid" />
+                                    {% else %}
+                                        <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}"
+                                             class="child-photo img-fluid" />
+                                    {% endif %}
+                                </a>
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">{{ object }}</h4>
+                                    <div class="card-text">
+                                        <p>
+                                            {% trans "Born" %} <span class="text-secondary">{{ object.birth_date }}</span>
+                                            <br />
+                                            {% trans "Age" %} <span class="text-secondary">{{ object.birth_date|timesince }}</span>
+                                        </p>
+                                        {% include 'dashboard/child_button_group.html' %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
             </div>
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}

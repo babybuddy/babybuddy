@@ -1,37 +1,34 @@
 {% extends 'babybuddy/page.html' %}
 {% load breadcrumb duration i18n imagekit static %}
-
 {% block title %}{{ object }}{% endblock %}
-
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:child-list' %}">{% trans "Children" %}</a></li>
-    <li class="breadcrumb-item fw-bold">
-        {% child_quick_switch object 'core:child' %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:child-list' %}">{% trans "Children" %}</a>
     </li>
+    <li class="breadcrumb-item fw-bold">{% child_quick_switch object 'core:child' %}</li>
 {% endblock %}
-
 {% block content %}
     <div class="child-detail-column">
         <div class="row">
             <div class="col-lg-4 col-md-6 pb-3 text-center">
                 {% if object.picture %}
                     {% thumbnail '150x150' object.picture as thumb %}
-                    <img src="{{ thumb.url }}" class="child-photo img-fluid rounded-circle" />
-                {% else %}
-                    <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}" class="child-photo img-fluid rounded-circle" />
-                {% endif %}
-                <div class="child-name display-4">{{ object }}</div>
-                <p class="lead">
-                    {% trans "Born" %} <span class="text-secondary">{{ object.birth_datetime }}</span><br/>
-                    {% trans "Age" %} <span class="text-secondary">{{ object.birth_datetime|child_age_string }}</span>
-                </p>
-                {% include 'dashboard/child_button_group.html' %}
+                        <img src="{{ thumb.url }}" class="child-photo img-fluid rounded-circle" />
+                    {% else %}
+                        <img src="{% static 'babybuddy/img/core/child-placeholder.png' %}"
+                             class="child-photo img-fluid rounded-circle" />
+                    {% endif %}
+                    <div class="child-name display-4">{{ object }}</div>
+                    <p class="lead">
+                        {% trans "Born" %} <span class="text-secondary">{{ object.birth_datetime }}</span>
+                        <br />
+                        {% trans "Age" %} <span class="text-secondary">{{ object.birth_datetime|child_age_string }}</span>
+                    </p>
+                    {% include 'dashboard/child_button_group.html' %}
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8 offset-lg-4 col-md-6 offset-md-6">
-            {% include 'timeline/_timeline.html' %}
+        <div class="row">
+            <div class="col-lg-8 offset-lg-4 col-md-6 offset-md-6">{% include 'timeline/_timeline.html' %}</div>
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}

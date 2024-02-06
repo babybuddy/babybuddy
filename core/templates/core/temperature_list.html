@@ -1,17 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime i18n widget_tweaks %}
-
-{% block title %}{% trans "Temperature" %}{% endblock %}
-
+{% block title %}
+    {% trans "Temperature" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Temperature" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "Temperature" %}
         {% if perms.core.add_temperature %}
-            <a href="{% url 'core:temperature-add' %}" class="btn btn-sm btn-success">
+            <a href="{% url 'core:temperature-add' %}"
+               class="btn btn-sm btn-success">
                 <i class="icon-temperature" aria-hidden="true"></i> {% trans "Add Temperature Reading" %}
             </a>
         {% endif %}
@@ -34,34 +34,37 @@
                 {% for temperature in object_list %}
                     <tr>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
-
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_temperature %}
-                                    <a href="{% url 'core:temperature-update' temperature.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:temperature-update' temperature.id %}"
+                                       class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.core.delete_temperature %}
-                                    <a href="{% url 'core:temperature-delete' temperature.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:temperature-delete' temperature.id %}"
+                                       class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                         <th scope="row">{{ temperature.time|datetime_short }}</th>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' temperature.child.slug %}">{{ temperature.child }}</a></td>
+                            <td>
+                                <a href="{% url 'core:child' temperature.child.slug %}">{{ temperature.child }}</a>
+                            </td>
                         {% endif %}
                         <td>{{ temperature.temperature }}</td>
-                        <td>
-                            {% include "core/render_tag_list.html" with tags=temperature.tags.all %}
-                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=temperature.tags.all %}</td>
                     </tr>
                     {% if temperature.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="5"><i class="icon-note me-2" aria-hidden="true"></i>{{ temperature.notes }}</td>
+                            <td colspan="5">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ temperature.notes }}
+                            </td>
                         </tr>
                     {% endif %}
                 {% empty %}
