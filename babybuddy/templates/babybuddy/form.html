@@ -4,10 +4,18 @@
 <div class="container-fluid pb-5">
     <form role="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for field in form %}
-            {{ field.widget }}
-            <div class="row">{% include 'babybuddy/form_field.html' %}</div>
-        {% endfor %}
+        {% if form.fieldsets %}
+            {% for fieldset in form.hydrated_fielsets %}
+                {% with "forms/layouts/"|add:fieldset.layout|add:".html" as template %}
+                    {% include template %}
+                {% endwith %}
+            {% endfor %}
+        {% else %}
+            {% for field in form %}
+                {{ field.widget }}
+                <div class="row">{% include 'babybuddy/form_field.html' %}</div>
+            {% endfor %}
+        {% endif %}
         <button type="submit" class="submit-primary btn btn-primary btn-lg">{% trans "Submit" %}</button>
     </form>
 </div>

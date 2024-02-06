@@ -107,6 +107,31 @@ class CoreModelForm(forms.ModelForm):
             self.save_m2m()
         return instance
 
+    @property
+    def hydrated_fielsets(self):
+        # for some reason self.fields returns defintions and not bound fields
+        # so until i figure out a better way we can just create a dict here
+        # https://github.com/django/django/blob/main/django/forms/forms.py#L52
+
+        bound_field_dict = {}
+        for field in self:
+            bound_field_dict[field.name] = field
+
+        hydrated_fieldsets = []
+
+        for fieldset in self.fieldsets:
+            hyrdrated_fieldset = {
+                "layout": fieldset["layout"],
+                "layout_attrs": fieldset.get("layout_attrs", {}),
+                "fields": [],
+            }
+            for field_name in fieldset["fields"]:
+                hyrdrated_fieldset["fields"].append(bound_field_dict[field_name])
+
+            hydrated_fieldsets.append(hyrdrated_fieldset)
+
+        return hydrated_fieldsets
+
 
 class ChildForm(forms.ModelForm):
     class Meta:
