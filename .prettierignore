@@ -1,0 +1,8 @@
+vendor
+**/static
+*.html
+*.css
+*.md
+*.yaml
+*.yml
+*.scss
