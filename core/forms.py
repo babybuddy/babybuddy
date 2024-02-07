@@ -277,6 +277,14 @@ class NoteForm(CoreModelForm, TaggableModelForm):
 
 
 class SleepForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "start", "end", "nap"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Sleep
         fields = ["child", "start", "end", "nap", "notes", "tags"]
@@ -289,6 +297,14 @@ class SleepForm(CoreModelForm, TaggableModelForm):
 
 
 class TemperatureForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "temperature", "time"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Temperature
         fields = ["child", "temperature", "time", "notes", "tags"]
@@ -320,6 +336,14 @@ class TimerForm(CoreModelForm):
 
 
 class TummyTimeForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "start", "end", "milestone"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["tags"]},
+    ]
+
     class Meta:
         model = models.TummyTime
         fields = ["child", "start", "end", "milestone", "tags"]
@@ -331,6 +355,14 @@ class TummyTimeForm(CoreModelForm, TaggableModelForm):
 
 
 class WeightForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "weight", "date"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Weight
         fields = ["child", "weight", "date", "notes", "tags"]
@@ -342,6 +374,14 @@ class WeightForm(CoreModelForm, TaggableModelForm):
 
 
 class HeightForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "height", "date"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Height
         fields = ["child", "height", "date", "notes", "tags"]
@@ -353,6 +393,14 @@ class HeightForm(CoreModelForm, TaggableModelForm):
 
 
 class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "head_circumference", "date"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.HeadCircumference
         fields = ["child", "head_circumference", "date", "notes", "tags"]
@@ -364,6 +412,14 @@ class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
 
 
 class BMIForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "bmi", "date"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.BMI
         fields = ["child", "bmi", "date", "notes", "tags"]
