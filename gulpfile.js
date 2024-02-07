@@ -170,6 +170,7 @@ function format() {
   return all(
     _runInPipenv(["black", "."]),
     _runInPipenv(["djlint", "--reformat", "."]),
+    _runCommand("npx", ["prettier", ".", "--write"]),
   );
 }
 
