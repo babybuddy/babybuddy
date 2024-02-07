@@ -38,7 +38,7 @@ def duration_string(duration, precision="s"):
     duration = ""
     if h > 0:
         duration = ngettext("%(hours)s hour", "%(hours)s hours", h) % {"hours": h}
-    if m > 0 and precision != "h":
+    if m >= 0 and precision != "h":
         if duration != "":
             duration += ", "
         duration += ngettext("%(minutes)s minute", "%(minutes)s minutes", m) % {
