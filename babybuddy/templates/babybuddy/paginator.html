@@ -1,18 +1,17 @@
 {% load i18n babybuddy %}
-
 {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-
             {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="{% relative_url 'page' page_obj.previous_page_number %}" aria-label="Previous">
+                    <a class="page-link"
+                       href="{% relative_url 'page' page_obj.previous_page_number %}"
+                       aria-label="Previous">
                         <i class="icon-angle-circled-left" aria-hidden="true"></i>
                         <span class="visually-hidden">{% trans "Previous" %}</span>
                     </a>
                 </li>
             {% endif %}
-
             {% for num in page_obj.paginator.page_range %}
                 {% if num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
                     <li class="page-item{% if num == page_obj.number %} active{% endif %}">
@@ -20,10 +19,11 @@
                     </li>
                 {% endif %}
             {% endfor %}
-
             {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="{% relative_url 'page' page_obj.next_page_number %}" aria-label="Next">
+                    <a class="page-link"
+                       href="{% relative_url 'page' page_obj.next_page_number %}"
+                       aria-label="Next">
                         <i class="icon-angle-circled-right" aria-hidden="true"></i>
                         <span class="visually-hidden">{% trans "Next" %}</span>
                     </a>

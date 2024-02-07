@@ -1,6 +1,5 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n %}
-
 {% block title %}
     {% if object %}
         {{ object }}
@@ -8,20 +7,22 @@
         {% trans "Add a Head Circumference Entry" %}
     {% endif %}
 {% endblock %}
-
 {% block breadcrumbs %}
-    <li class="breadcrumb-item"><a href="{% url 'core:head-circumference-list' %}">{% trans "Head Circumference" %}</a></li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:head-circumference-list' %}">{% trans "Head Circumference" %}</a>
+    </li>
     {% if object %}
         <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
         <li class="breadcrumb-item active" aria-current="page">{% trans "Add a Head Circumference Entry" %}</li>
     {% endif %}
 {% endblock %}
-
 {% block content %}
     {% if object %}
         {% blocktrans trimmed %}
-            <h1>Update <span class="text-info">{{ object }}</span></h1>
+            <h1>
+                Update <span class="text-info">{{ object }}</span>
+            </h1>
         {% endblocktrans %}
     {% else %}
         <h1>{% trans "Add a Head Circumference Entry" %}</h1>

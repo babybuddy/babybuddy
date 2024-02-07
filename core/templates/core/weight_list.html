@@ -1,12 +1,11 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks %}
-
-{% block title %}{% trans "Weight" %}{% endblock %}
-
+{% block title %}
+    {% trans "Weight" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Weight" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "Weight" %}
@@ -34,34 +33,37 @@
                 {% for weight in object_list %}
                     <tr>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
-
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_weight %}
-                                    <a href="{% url 'core:weight-update' weight.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:weight-update' weight.id %}"
+                                       class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.core.delete_weight %}
-                                    <a href="{% url 'core:weight-delete' weight.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:weight-delete' weight.id %}"
+                                       class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                         <th scope="row">{{ weight.date }}</th>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' weight.child.slug %}">{{ weight.child }}</a></td>
+                            <td>
+                                <a href="{% url 'core:child' weight.child.slug %}">{{ weight.child }}</a>
+                            </td>
                         {% endif %}
                         <td>{{ weight.weight }}</td>
-                        <td>
-                            {% include "core/render_tag_list.html" with tags=weight.tags.all %}
-                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=weight.tags.all %}</td>
                     </tr>
                     {% if weight.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="5"><i class="icon-note me-2" aria-hidden="true"></i>{{ weight.notes }}</td>
+                            <td colspan="5">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ weight.notes }}
+                            </td>
                         </tr>
                     {% endif %}
                 {% empty %}

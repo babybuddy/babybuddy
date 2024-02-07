@@ -1,10 +1,11 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
-
-{% block title %}{{ title }} | {% trans "Database Admin"%}{% endblock %}
-
-{% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{% trans "Database Admin"%}</a></h1>
+{% block title %}
+    {{ title }} | {% trans "Database Admin" %}
 {% endblock %}
-
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">{% trans "Database Admin" %}</a>
+    </h1>
+{% endblock %}
 {% block nav-global %}{% endblock %}

@@ -1,8 +1,6 @@
 {% extends "babybuddy/base.html" %}
 {% load static widget_tweaks %}
-
 {% block breadcrumb_nav %}{% endblock %}
-
 {% block page %}
     <div id="view-{{ request.resolver_match.view_name }}" class="container">
         <div class="text-center pt-3">
@@ -11,10 +9,10 @@
                 <span class="text-primary">Baby</span> Buddy
             </h1>
         </a>
-        </div>
-        <div class="p-4 rounded text-light">
-            {% include 'babybuddy/messages.html' %}
-            {% block content %}{% endblock %}
-        </div>
     </div>
+    <div class="p-4 rounded text-light">
+        {% include 'babybuddy/messages.html' %}
+        {% block content %}{% endblock %}
+    </div>
+</div>
 {% endblock %}

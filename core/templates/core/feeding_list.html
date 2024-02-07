@@ -1,12 +1,11 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime duration i18n widget_tweaks %}
-
-{% block title %}{% trans "Feedings" %}{% endblock %}
-
+{% block title %}
+    {% trans "Feedings" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Feedings" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "Feedings" %}
@@ -14,7 +13,8 @@
             <a href="{% url 'core:feeding-add' %}" class="btn btn-sm btn-success">
                 <i class="icon-feeding" aria-hidden="true"></i> {% trans "Add Feeding" %}
             </a>
-            <a href="{% url 'core:bottle-feeding-add' %}" class="btn btn-sm btn-success">
+            <a href="{% url 'core:bottle-feeding-add' %}"
+               class="btn btn-sm btn-success">
                 <i class="icon-feeding" aria-hidden="true"></i> {% trans "Add Bottle Feeding" %}
             </a>
         {% endif %}
@@ -41,41 +41,42 @@
                 {% for feeding in object_list %}
                     <tr>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
-
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_feeding %}
-                                    <a href="{% url 'core:feeding-update' feeding.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:feeding-update' feeding.id %}"
+                                       class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.core.delete_feeding %}
-                                    <a href="{% url 'core:feeding-delete' feeding.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:feeding-delete' feeding.id %}"
+                                       class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                         <th scope="row">{{ feeding.start|datetime_short }}</th>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a></td>
+                            <td>
+                                <a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a>
+                            </td>
                         {% endif %}
                         <td>{{ feeding.get_method_display }}</td>
                         <td>{{ feeding.get_type_display }}</td>
                         <td>
-                            {% if feeding.amount %}
-                                {{ feeding.amount }}
-                            {% endif %}
+                            {% if feeding.amount %}{{ feeding.amount }}{% endif %}
                         </td>
                         <td>{{ feeding.duration|duration_string }}</td>
-                        <td>
-                            {% include "core/render_tag_list.html" with tags=feeding.tags.all %}
-                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=feeding.tags.all %}</td>
                     </tr>
                     {% if feeding.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="8"><i class="icon-note me-2" aria-hidden="true"></i>{{ feeding.notes }}</td>
+                            <td colspan="8">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ feeding.notes }}
+                            </td>
                         </tr>
                     {% endif %}
                 {% empty %}

@@ -1,12 +1,11 @@
 {% extends 'babybuddy/page.html' %}
 {% load babybuddy bootstrap i18n widget_tweaks %}
-
-{% block title %}{% trans "Users" %}{% endblock %}
-
+{% block title %}
+    {% trans "Users" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Users" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>Users</h1>
     {% include 'babybuddy/filter.html' %}
@@ -40,19 +39,18 @@
                         <td class="text-center">{{ is_locked|bool_icon }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-
                                 {% if perms.admin.change_user %}
-                                    <a href="{% url 'babybuddy:user-update' object.id %}" class="btn btn-warning">
+                                    <a href="{% url 'babybuddy:user-update' object.id %}"
+                                       class="btn btn-warning">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.admin.delete_user %}
-                                    <a href="{% url 'babybuddy:user-delete' object.id %}" class="btn btn-danger">
+                                    <a href="{% url 'babybuddy:user-delete' object.id %}"
+                                       class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                     </tr>
@@ -65,11 +63,9 @@
         </table>
     </div>
     {% include 'babybuddy/paginator.html' %}
-
     {% if perms.admin.add_user %}
         <a href="{% url 'babybuddy:user-add' %}" class="btn btn-sm btn-success">
             <i class="icon-add" aria-hidden="true"></i> {% trans "Create User" %}
         </a>
     {% endif %}
-
 {% endblock %}

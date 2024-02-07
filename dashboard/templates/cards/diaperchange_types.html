@@ -1,12 +1,8 @@
 {% extends 'cards/base.html' %}
 {% load i18n %}
-
 {% block header %}
-    <a href="{% url "core:diaperchange-list" %}">
-        {% trans "Diaper Changes" %}
-    </a>
+    <a href="{% url "core:diaperchange-list" %}">{% trans "Diaper Changes" %}</a>
 {% endblock %}
-
 {% block title %}
     {% if total == 0 %}
         {% trans "None" %}
@@ -14,35 +10,29 @@
         {% trans "Past Week" %}
     {% endif %}
 {% endblock %}
-
 {% block content %}
     {% for key, info in stats.items %}
         {% if info.wet > 0 or info.solid > 0 or info.empty > 0 %}
             <div class="progress mt-3" role="progressbar">
-
                 {% if info.wet_pct > 0 %}
                     <div class="progress-bar bg-primary lead"
-                         style="width: {{ info.wet_pct|safe }}%;">
+                         style="width: {{ info.wet_pct|safe }}%">
                         {{ info.wet|floatformat:'0' }}&nbsp;{% trans "wet" %}
                     </div>
                 {% endif %}
-
                 {% if info.solid_pct > 0 %}
                     <div class="progress-bar bg-secondary lead"
-                         style="width: {{ info.solid_pct|safe }}%;">
+                         style="width: {{ info.solid_pct|safe }}%">
                         {{ info.solid|floatformat:'0' }}&nbsp;{% trans "solid" %}
                     </div>
                 {% endif %}
-
                 {% if info.empty_pct > 0 %}
                     <div class="progress-bar bg-transparent lead"
-                         style="width: {{ info.empty_pct|safe }}%;">
-                        {{ info.empty|floatformat:'0' }}
-                    </div>
+                         style="width: {{ info.empty_pct|safe }}%">{{ info.empty|floatformat:'0' }}</div>
                 {% endif %}
             </div>
             <div class="text-center text-light small">
-                {% if key == 0  %}
+                {% if key == 0 %}
                     {% trans "today" %}
                 {% elif key == 1 %}
                     {% trans "yesterday" %}

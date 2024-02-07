@@ -1,12 +1,11 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks %}
-
-{% block title %}{% trans "Height" %}{% endblock %}
-
+{% block title %}
+    {% trans "Height" %}
+{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Height" %}</li>
 {% endblock %}
-
 {% block content %}
     <h1>
         {% trans "Height" %}
@@ -34,34 +33,37 @@
                 {% for height in object_list %}
                     <tr>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
-
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_height %}
-                                    <a href="{% url 'core:height-update' height.id %}" class="btn btn-primary">
+                                    <a href="{% url 'core:height-update' height.id %}"
+                                       class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                                 {% if perms.core.delete_height %}
-                                    <a href="{% url 'core:height-delete' height.id %}" class="btn btn-danger">
+                                    <a href="{% url 'core:height-delete' height.id %}"
+                                       class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </td>
                         <th scope="row">{{ height.date }}</th>
                         {% if not unique_child %}
-                            <td><a href="{% url 'core:child' height.child.slug %}">{{ height.child }}</a></td>
+                            <td>
+                                <a href="{% url 'core:child' height.child.slug %}">{{ height.child }}</a>
+                            </td>
                         {% endif %}
                         <td>{{ height.height }}</td>
-                        <td>
-                            {% include "core/render_tag_list.html" with tags=height.tags.all %}
-                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=height.tags.all %}</td>
                     </tr>
                     {% if height.notes %}
                         <tr class="{{ row_class }} row-details">
-                            <td colspan="5"><i class="icon-note me-2" aria-hidden="true"></i>{{ height.notes }}</td>
+                            <td colspan="5">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ height.notes }}
+                            </td>
                         </tr>
                     {% endif %}
                 {% empty %}
