@@ -145,7 +145,10 @@ function extras() {
  * Runs Black formatting on Python code.
  */
 function format() {
-    return _runInPipenv(['black', '.']);
+    return all(
+        _runInPipenv(['black', '.']),
+        _runInPipenv(['djlint', '--reformat', '.']),
+    );
 }
 
 /**
