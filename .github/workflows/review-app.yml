@@ -1,6 +1,6 @@
 name: "Review app"
 env:
-   DOKKU_GIT_REMOTE_URL: 'ssh://dokku@dokku.baby-buddy.net:22'
+  DOKKU_GIT_REMOTE_URL: "ssh://dokku@dokku.baby-buddy.net:22"
 on:
   pull_request:
     types: [labeled, unlabeled]

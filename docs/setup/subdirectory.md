@@ -20,10 +20,10 @@ Set this environment variable to the subdirectory of the Baby Buddy installation
 When using uWSGI and NGINX (as in the [example deployment](deployment.md#example-deployment))
 the following configurations are required.
 
-*Assume the subdirectory `babybuddy` for configuration change examples below but this
+_Assume the subdirectory `babybuddy` for configuration change examples below but this
 can be anything includes multiple subdirectories (e.g., `/my/apps/babybuddy`). Other
 paths used in these examples also assume a configuration based on the
-[example deployment](deployment.md#example-deployment).*
+[example deployment](deployment.md#example-deployment)._
 
 ### uWSGI
 
@@ -31,7 +31,7 @@ In the app configuration replace the `module` declaration with a `mount` declara
 add the `manage-script-name` declaration and [`SUB_PATH`](../configuration/application.md#sub_path)
 environment variable to the `[uwsgi]` configuration block.
 
-``` diff
+```diff
 - module = %(project).wsgi:application
 + mount = /babybuddy=%(project).wsgi:application
 + manage-script-name = true
@@ -41,21 +41,21 @@ environment variable to the `[uwsgi]` configuration block.
 ### NGINX
 
 Alter the NGINX `server` configuration to include the desired subdirectory path in the
-app (Baby Buddy root) and media `location` declarations *and* add a new declaration for
+app (Baby Buddy root) and media `location` declarations _and_ add a new declaration for
 the static `location`.
 
-``` diff
+```diff
 -    location / {
 +    location /babybuddy {
 ```
 
-``` diff
+```diff
 +    location /babybuddy/static {
 +        alias /var/www/babybuddy/public/static;
 +    }
 ```
 
-``` diff
+```diff
 -    location /media {
 +    location /babybuddy/media {
 ```

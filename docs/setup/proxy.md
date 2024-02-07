@@ -21,7 +21,7 @@ the origin must be in `CSRF_TRUSTED_ORIGINS` to pass.
 For example if Baby Buddy is configured in a container with a private network and a host
 `babybuddy` that is exposed publicly by a proxy (e.g., nginx) at the address
 `https://baby.example.com` then form submissions from browsers will have an `Origin` of
-`https://baby.example.com` that *does not match* the host `babybudy`. This will cause a
+`https://baby.example.com` that _does not match_ the host `babybudy`. This will cause a
 CSRF error and the request will be rejected with a `403 Forbidden` error. To support
 this example configuration the environment variable `CSRF_TRUSTED_ORIGINS` should be set
 to the full public address (including the scheme): `https://baby.example.com` for CSRF

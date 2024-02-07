@@ -17,7 +17,7 @@ an overview of all elements related to your child, including:
 - Last feeding is the time from the start of the last feed and how/where the milk came from (a bottle, or breast).
 - Last diaper change is the time the last diaper change was logged and includes the type of diaper.
 - Last sleep is the start of the last nap/sleep, and includes the nap duration below.
-- Last feeding method is a quick view of how the baby was last fed. This is particularly useful for nursing mothers to remember which breast they started with on the previous feed. 
+- Last feeding method is a quick view of how the baby was last fed. This is particularly useful for nursing mothers to remember which breast they started with on the previous feed.
 - Today's Feeding is a snapshot of the total numbers of daily feeds.
 - Timers let you know if you have a timer running.
 - Statistics is a snapshot of various statistics – these can be scrolled through or select Statistics from the menu bar to see more.

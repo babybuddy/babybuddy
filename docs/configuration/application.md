@@ -2,16 +2,16 @@
 
 ## `DEBUG`
 
-*Default:* `False`
+_Default:_ `False`
 
 When in debug mode, Baby Buddy will print much more detailed error information
-for exceptions. This setting should be *False* in production deployments.
+for exceptions. This setting should be _False_ in production deployments.
 
 See also [Django's documentation on the DEBUG setting](https://docs.djangoproject.com/en/5.0/ref/settings/#debug).
 
 ## `SUB_PATH`
 
-*Default:* `None`
+_Default:_ `None`
 
 If Baby Buddy is hosted in a subdirectory of another server (e.g., `http://www.example.com/babybuddy`)
 this must be set to the subdirectory path (e.g., `/babybuddy`) for correct handling of
@@ -22,7 +22,7 @@ details.
 
 ## `TIME_ZONE`
 
-*Default:* `UTC`
+_Default:_ `UTC`
 
 The default time zone to use for the instance. This value can be overridden per use from
 the user settings form.

@@ -11,7 +11,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A buddy for babies! Helps caregivers track sleep, feedings, diaper changes,
-tummy time and more to learn about and predict baby's needs without (*as much*)
+tummy time and more to learn about and predict baby's needs without (_as much_)
 guess work.
 
 ![Baby Buddy desktop view](screenshot.png)
@@ -56,7 +56,7 @@ for information about how to create/update translations.
 
 :uk: English (U.K.)
 
-:us: English (U.S.) *(base)*
+:us: English (U.S.) _(base)_
 
 :finland: Finnish
 
