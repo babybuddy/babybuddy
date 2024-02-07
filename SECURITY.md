@@ -11,7 +11,6 @@ currently being supported with security updates.
 
 ## Reporting a Vulnerability
 
-
 Baby Buddy's maintainers recommend huntr.dev as a platform for reporting
 vulnerabilities. Maintainers will do their best to verify, respond to
 and fix issues reported on the platform.

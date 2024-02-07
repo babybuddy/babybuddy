@@ -124,72 +124,72 @@ requirements are Python, a web server, an application server, and a database.
 
 ### Example deployment
 
-*This example assumes a 1 GB VPS instance with Ubuntu 20.04.* It uses Python 3.10,
+_This example assumes a 1 GB VPS instance with Ubuntu 20.04._ It uses Python 3.10,
 nginx, uwsgi and sqlite. It should be sufficient for a few users (e.g., two parents
 and any number of children).
 
 1. Install system packages
 
-    ```shell
-    sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev libpq-dev
-    ```
+   ```shell
+   sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev libpq-dev
+   ```
 
 2. Default python3 to python for this session
 
-    ```shell
-    alias python=python3
-    ```
+   ```shell
+   alias python=python3
+   ```
 
 3. Install pipenv
 
-    ```shell
-    sudo -H pip3 install pipenv
-    ```
+   ```shell
+   sudo -H pip3 install pipenv
+   ```
 
 4. Set up directories and files
 
-    ```shell
-    sudo mkdir /var/www/babybuddy
-    sudo chown $USER:$(id -gn $USER) /var/www/babybuddy
-    mkdir -p /var/www/babybuddy/data/media
-    git clone https://github.com/babybuddy/babybuddy.git /var/www/babybuddy/public
-    ```
+   ```shell
+   sudo mkdir /var/www/babybuddy
+   sudo chown $USER:$(id -gn $USER) /var/www/babybuddy
+   mkdir -p /var/www/babybuddy/data/media
+   git clone https://github.com/babybuddy/babybuddy.git /var/www/babybuddy/public
+   ```
 
 5. Move in to the application folder
 
-    ```shell
-    cd /var/www/babybuddy/public
-    ```
+   ```shell
+   cd /var/www/babybuddy/public
+   ```
 
 6. Initiate and enter a Python environment with Pipenv locally.
 
-    ```shell
-    export PIPENV_VENV_IN_PROJECT=1
-    pipenv install --three
-    pipenv shell
-    ```
+   ```shell
+   export PIPENV_VENV_IN_PROJECT=1
+   pipenv install --three
+   pipenv shell
+   ```
 
-7. Create a production settings file and set the ``SECRET_KEY`` and ``ALLOWED_HOSTS`` values
+7. Create a production settings file and set the `SECRET_KEY` and `ALLOWED_HOSTS` values
 
-    ```shell
-    cp babybuddy/settings/production.example.py babybuddy/settings/production.py
-    editor babybuddy/settings/production.py
-    ```
+   ```shell
+   cp babybuddy/settings/production.example.py babybuddy/settings/production.py
+   editor babybuddy/settings/production.py
+   ```
 
 8. Initiate the application
 
-    ```shell
-    export DJANGO_SETTINGS_MODULE=babybuddy.settings.production
-    python manage.py migrate
-    ```
+   ```shell
+   export DJANGO_SETTINGS_MODULE=babybuddy.settings.production
+   python manage.py migrate
+   ```
 
 9. Set appropriate permissions on the database and data folder
 
-    ```shell
-    sudo chown -R www-data:www-data /var/www/babybuddy/data
-    sudo chmod 640 /var/www/babybuddy/data/db.sqlite3
-    sudo chmod 750 /var/www/babybuddy/data
-    ```
+   ```shell
+   sudo chown -R www-data:www-data /var/www/babybuddy/data
+   sudo chmod 640 /var/www/babybuddy/data/db.sqlite3
+   sudo chmod 750 /var/www/babybuddy/data
+   ```
 
 10. Create and configure the uwsgi app
 
@@ -260,13 +260,13 @@ and any number of children).
     See [Subdirectory configuration](subdirectory.md) for additional configuration
     required if Baby Buddy will be hosted in a subdirectory of another server.
 
-14. Symlink config and restart NGINX:
+13. Symlink config and restart NGINX:
 
     ```shell
     sudo ln -s /etc/nginx/sites-available/babybuddy /etc/nginx/sites-enabled/babybuddy
     sudo service nginx restart
     ```
 
-15. That's it (hopefully)!
+14. That's it (hopefully)!
 
 See [HTTPS/SSL configuration](ssl.md) for information on how to secure Baby Buddy.

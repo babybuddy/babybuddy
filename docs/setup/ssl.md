@@ -82,7 +82,7 @@ SSL certificates. Other methods can be used to obtain and install a certificate 
 desired.
 
 [Certbot](https://certbot.eff.org/instructions) is used to obtain free SSL certificates
-from Let's Encrypt. 
+from Let's Encrypt.
 
 ```shell
 snap install core && snap refresh core

@@ -1,7 +1,7 @@
 # Home
 
-A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, 
-tummy time and more to learn about and predict baby's needs without (*as much*)
+A buddy for babies! Helps caregivers track sleep, feedings, diaper changes,
+tummy time and more to learn about and predict baby's needs without (_as much_)
 guess work.
 
 ## Demo

@@ -16,7 +16,7 @@ Baby Buddy as an Excel file:
 1. Click "Diaper Changes" in the list of data types.
 
 1. Click the "Export" button above the filters list on the right side of the
-screen.
+   screen.
 
 1. Select the "xlxs" format and click "Submit"
 
@@ -34,7 +34,7 @@ import screen for a particular type will list the fields generally expected to
 be present for an import. Multiple file types -- including csv, xlsx, etc. --
 are supported for the import.
 
-The import pages do not provide *detailed* information about the required data
+The import pages do not provide _detailed_ information about the required data
 and formats. All rows will be checked for errors on import and any issues will
 be reported on screen and will need to be resolved before the import can be
 performed.

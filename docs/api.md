@@ -67,17 +67,17 @@ curl -X GET 'https://[...]/api/changes/?limit=5&offset=10' -H 'Authorization: To
 
 ```json
 {
-    "count": 20,
-    "next": "https://[...]/api/changes/?limit=5&offset=15",
-    "previous": "https://[...]/api/changes/?limit=5&offset=5",
-    "results": []
+  "count": 20,
+  "next": "https://[...]/api/changes/?limit=5&offset=15",
+  "previous": "https://[...]/api/changes/?limit=5&offset=5",
+  "results": []
 }
 ```
 
 Field-based filters for specific endpoints can be found the in the `filters`
 field of the `OPTIONS` response for specific endpoints.
 
-Single entries can also be retrieved by adding the ID (or in the case of a 
+Single entries can also be retrieved by adding the ID (or in the case of a
 Child entry, the slug) of a particular entry:
 
 ```shell
@@ -86,12 +86,12 @@ curl -X GET https://[...]/api/children/gregory-hill/ -H 'Authorization: Token [.
 
 ```json
 {
-    "id":3,
-    "first_name":"Gregory",
-    "last_name":"Hill",
-    "birth_date":"2020-02-11",
-    "slug":"gregory-hill",
-    "picture":null
+  "id": 3,
+  "first_name": "Gregory",
+  "last_name": "Hill",
+  "birth_date": "2020-02-11",
+  "slug": "gregory-hill",
+  "picture": null
 }
 ```
 
@@ -101,12 +101,12 @@ curl -X GET https://[...]/api/sleep/1/ -H 'Authorization: Token [...]'
 
 ```json
 {
-    "id":480,
-    "child":3,
-    "start":"2020-03-12T21:25:28.916016-07:00",
-    "end":"2020-03-13T01:34:28.916016-07:00",
-    "duration":"04:09:00",
-    "nap":false
+  "id": 480,
+  "child": 3,
+  "start": "2020-03-12T21:25:28.916016-07:00",
+  "end": "2020-03-13T01:34:28.916016-07:00",
+  "duration": "04:09:00",
+  "nap": false
 }
 ```
 
@@ -123,7 +123,7 @@ Returns JSON data in the response body in the following format:
 }
 ```
 
-- `count`: Total number of records (*in the database*, not just the response).
+- `count`: Total number of records (_in the database_, not just the response).
 - `next`: URL for the next set of results.
 - `previous`: URL for the previous set of results.
 - `results`: An array of the results of the request.
@@ -192,7 +192,7 @@ formats.
 `POST` requests also accept a `timer` field to model endpoints supporting duration
 (Feeding, Sleep, Tummy Time). Set `timer` to a valid timer ID in a request instead of
 the `start` and `end` fields. The new entry will use the `start` and `end` values
-*from the Timer*  and if the timer is running it will be stopped by this operation.
+_from the Timer_ and if the timer is running it will be stopped by this operation.
 
 Additionally, if the Timer has a child relationship, the `child` field will be
 filled in automatically with the `child` value from the Timer.
@@ -201,7 +201,7 @@ The `timer` field will **always override** the relevant fields (`child`, `start`
 and `end`) on the request. E.g., a `POST` request with both the `timer` and `end`
 fields will ignore the `end` field value and replace it with the Timer's `end`
 value. The same applies for `start` and `child`. These fields are all **required**
-if the `timer` field is *not* set.
+if the `timer` field is _not_ set.
 
 #### Example `timer` field usage
 
@@ -218,12 +218,12 @@ Note the timer `id` in the response:
 
 ```json
 {
-    "id": 5,
-    "child": 1,
-    "name": null,
-    "start": "2022-05-28T19:59:40.013914Z",
-    "duration": null,
-    "user": 1
+  "id": 5,
+  "child": 1,
+  "name": null,
+  "start": "2022-05-28T19:59:40.013914Z",
+  "duration": null,
+  "user": 1
 }
 ```
 
@@ -240,13 +240,13 @@ Note that `child` and `start` match the timer values (and `end` is auto-populate
 
 ```json
 {
-    "id": 162,
-    "child": 1,
-    "start": "2022-05-28T19:59:40.013914Z",
-    "end": "2022-05-28T20:01:13.549099Z",
-    "duration": "00:01:33.535185",
-    "milestone": "",
-    "tags": []
+  "id": 162,
+  "child": 1,
+  "start": "2022-05-28T19:59:40.013914Z",
+  "end": "2022-05-28T20:01:13.549099Z",
+  "duration": "00:01:33.535185",
+  "milestone": "",
+  "tags": []
 }
 ```
 

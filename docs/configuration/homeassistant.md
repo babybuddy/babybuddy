@@ -2,7 +2,7 @@
 
 ## `ENABLE_HOME_ASSISTANT_SUPPORT`
 
-*Default:* `False`
+_Default:_ `False`
 
 This setting should be set to `True` if babybuddy is hosted through the [ingress
 service of home assistant](https://developers.home-assistant.io/docs/add-ons/presentation/#ingress).

@@ -32,7 +32,7 @@ Add and commit the changes to the `requirements.txt` file.
 
 If static file assets (files in a `static_src` directory) are updated the production
 static files (in the [`static` directory](https://github.com/babybuddy/babybuddy/tree/master/static))
-must also be updated *and committed*. This is done because it prevents the need for Node
+must also be updated _and committed_. This is done because it prevents the need for Node
 and related tooling in deployment environments. See [`gulp updatestatic`](gulp-command-reference.md#updatestatic)
 for more information on how to update the static files.
 
@@ -50,6 +50,6 @@ requires some extra steps. See [Translation](translation.md) for details.
 4. Updated static assets if necessary and commit the `/static` folder (see [`gulp updatestatic`](gulp-command-reference.md#updatestatic)).
 5. Open a [new pull request](https://github.com/babybuddy/babybuddy/compare) against
    the `master` branch.
-   
+
 Maintainers will review new pull requests will as soon as possible, and we will
 do our best to provide feedback and support potential contributors.

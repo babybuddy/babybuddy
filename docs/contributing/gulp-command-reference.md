@@ -2,7 +2,7 @@
 
 ## Definitions
 
-Baby Buddy's Gulp commands are defined in [`gulpfile.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.js). 
+Baby Buddy's Gulp commands are defined in [`gulpfile.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.js).
 
 Baby Buddy's management commands are defined in [`babybuddy/management/commands`](https://github.com/babybuddy/babybuddy/tree/master/babybuddy/management/commands).
 
@@ -64,8 +64,8 @@ folder.
 
 ### `fake`
 
-Adds some fake data to the database. By default, ``fake`` creates one child and
-31 days of random data. Use the  `--children` and `--days` flags to change the
+Adds some fake data to the database. By default, `fake` creates one child and
+31 days of random data. Use the `--children` and `--days` flags to change the
 default values, e.g. `gulp fake --children 5 --days 7` to generate five fake
 children and seven days of data for each.
 
@@ -87,7 +87,7 @@ Executes Python and SASS linting for all relevant source files.
 
 Executes Django's `makemessages` management task. See [django-admin makemessages](https://docs.djangoproject.com/en/5.0/ref/django-admin/#makemessages)
 for more details about other options and functionality of this command. When
-working on a single translation, the `-l` flag is useful to make message for 
+working on a single translation, the `-l` flag is useful to make message for
 only that language, e.g. `gulp makemessages -l fr` to make only a French
 language translation file.
 
@@ -104,7 +104,7 @@ non-overlapping arguments for this command.
 
 ### `reset`
 
-Resets the database to a default state *with* one fake child and 31 days of
+Resets the database to a default state _with_ one fake child and 31 days of
 fake data.
 
 ### `runserver`

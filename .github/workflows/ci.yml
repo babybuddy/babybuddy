@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.10', '3.11', '3.12' ]
+        python-version: ["3.10", "3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
@@ -71,5 +71,5 @@ jobs:
       - name: Push to dokku
         uses: dokku/github-action@master
         with:
-          git_remote_url: 'ssh://dokku@dokku.baby-buddy.net:22/demo'
+          git_remote_url: "ssh://dokku@dokku.baby-buddy.net:22/demo"
           ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
