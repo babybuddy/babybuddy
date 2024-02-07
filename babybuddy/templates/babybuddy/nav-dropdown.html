@@ -49,6 +49,10 @@
             <i class="icon-feeding" aria-hidden="true"></i>
             {% trans "Feeding" %}
         </a>
+        <a class="dropdown-item p-2" href="{% url 'core:bottle-feeding-add' %}">
+            <i class="icon-feeding" aria-hidden="true"></i>
+            {% trans "Bottle Feeding" %}
+        </a>
     {% endif %}
     {% if perms.core.add_pumping %}
         <a class="dropdown-item p-2" href="{% url 'core:pumping-add' %}">
