@@ -216,6 +216,14 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
 
 
 class FeedingForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "start", "end", "type", "method", "amount"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Feeding
         fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
@@ -223,6 +231,8 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
             "end": DateTimeInput(),
+            "type": PillRadioSelect(),
+            "method": PillRadioSelect(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
