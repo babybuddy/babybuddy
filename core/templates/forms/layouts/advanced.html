@@ -1,7 +1,10 @@
+{% load i18n %}
 <div class="row">
     <div class="row mb-3">
-        <details ontoggle="rememberAdvancedToggle(event)">
-            <summary>Advanced</summary>
+        <details ontoggle="rememberAdvancedToggle(event)" class="advanced-fields">
+            <summary class="advanced-fields__summary">
+                <h4>{% trans "Advanced Fields" %}</h4>
+            </summary>
             {% for field in fieldset.fields %}
                 <div class="row">{% include "babybuddy/form_field.html" %}</div>
             {% endfor %}
