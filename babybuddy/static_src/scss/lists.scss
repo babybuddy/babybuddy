@@ -1,0 +1,36 @@
+.card-body__primary-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-body__secondary-details {
+  display: flex;
+}
+
+
+.card-body__secondary-details--anchor-left {
+  flex-grow: 1
+}
+
+.card-body__secondary-details--anchor-right {
+  flex-grow: 0
+}
+
+.mobile-list {
+  display:none;
+}
+
+.mobile-list > .row {
+    padding: 10px;
+}
+
+@include media-breakpoint-down(md) {
+.mobile-list {
+    display: block;
+  }
+
+  .mobile-list + .table-responsive {
+    display: none;
+  }
+
+}

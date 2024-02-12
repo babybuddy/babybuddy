@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load bootstrap datetime i18n widget_tweaks %}
+{% load bootstrap datetime i18n widget_tweaks static %}
 {% block title %}
     {% trans "Diaper Changes" %}
 {% endblock %}
@@ -17,6 +17,39 @@
         {% endif %}
     </h1>
     {% include 'babybuddy/filter.html' %}
+    <div class="mobile-list">
+        {% for change in object_list %}
+            <div class="row">
+                <a class="card bg-dark"
+                   href="{% url 'core:diaperchange-update' change.id %}">
+                    <div class="card-body">
+                        <div class="card-body__primary-details">
+                            <h5>
+                                {% if change.wet and change.solid %}
+                                    {% trans "Mixed" %}
+                                {% elif change.wet %}
+                                    {% trans "Wet" %}
+                                {% elif change.solid %}
+                                    {% trans "Solid" %}
+                                {% else %}
+                                    {% trans "Clean" %}
+                                {% endif %}
+                            </h5>
+                            <h5>{{ change.color|capfirst }}</h5>
+                        </div>
+                        <div class="card-body__secondary-details">
+                            <div class="card-body__secondary-details--anchor-left">
+                                <span>{{ change.time|datetime_short }}</span>
+                            </div>
+                            <div class="card-body__secondary-details--anchor-right">
+                                {% include "core/render_tag_list.html" with tags=change.tags.all %}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
