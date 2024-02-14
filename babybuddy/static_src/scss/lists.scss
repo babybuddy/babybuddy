@@ -15,6 +15,12 @@
   flex-grow: 0
 }
 
+.card-body__notes {
+  border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
 .mobile-list {
   display:none;
 }

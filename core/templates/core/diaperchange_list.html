@@ -48,6 +48,11 @@
                                         {% include "core/render_tag_list.html" with tags=change.tags.all %}
                                     </div>
                                 </div>
+                                {% if change.notes %}
+                                    <div class="card-body__notes">
+                                        <i class="icon-note me-2" aria-hidden="true"></i>{{ change.notes }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
