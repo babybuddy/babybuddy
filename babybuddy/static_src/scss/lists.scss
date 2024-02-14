@@ -7,7 +7,6 @@
   display: flex;
 }
 
-
 .card-body__secondary-details--anchor-left {
   flex-grow: 1
 }
@@ -22,6 +21,21 @@
 
 .mobile-list > .row {
     padding: 10px;
+}
+
+.card_body__avatar-layout {
+  display: flex;
+}
+
+// create equal spacing around the image
+.avatar-layout__avatar {
+    margin-right: calc(var(--bs-card-spacer-x) + calc(var(--bs-gutter-x) * 0.5));
+    display: flex;
+    align-items: center;
+}
+
+.avatar-layout__details {
+  flex-grow: 1;
 }
 
 @include media-breakpoint-down(md) {
