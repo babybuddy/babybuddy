@@ -1,5 +1,5 @@
 {% with id=widget.attrs.id %}
-    <div {% if id %}id="{{ id }}"{% endif %} class="radio-container">
+    <div {% if id %}id="{{ id }}"{% endif %} class="pill-container">
         {% for group, options, index in widget.optgroups %}
             {% for option in options %}
                 {% if option.value != '' %}
