@@ -12120,6 +12120,10 @@ textarea.form-control-lg {
 .card-pumping .card-body .last-feeding-method {
   font-size: 2em;
 }
+.card-feeding .progress,
+.card-pumping .progress {
+  height: 2rem;
+}
 
 .card-sleep {
   border-color: #ff8f00;

@@ -1,0 +1,34 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block header %}
+    <a href="{% url "core:feeding-list" %}">{% trans "Feeding Methods" %}</a>
+{% endblock %}
+{% block title %}
+    {% if total == 0 %}
+        {% trans "None" %}
+    {% else %}
+        {% trans "Past Week" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% for key, info in stats.items %}
+        <div class="progress mt-3" role="progressbar">
+            {% for method, s in info.methods.items %}
+                <div class="progress-bar {{ s.color }} lead"
+                     style="width: {{ s.pct|safe }}%">{{ s.count }}&nbsp;{{ method }}</div>
+            {% endfor %}
+        </div>
+        <div class="text-center text-light small">
+            {% if key == 0 %}
+                {% trans "today" %}
+            {% elif key == 1 %}
+                {% trans "yesterday" %}
+            {% else %}
+                {% blocktrans with days_ago=key %}{{ days_ago }} days ago{% endblocktrans %}
+            {% endif %}
+            {% if info.count > 0 %}
+                ({{ info.count }} {% trans "feedings in" %} {{ info.duration|duration_string:'m' }})
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
