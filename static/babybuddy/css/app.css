@@ -11875,6 +11875,18 @@ textarea.form-control-lg {
   z-index: 1030;
 }
 
+.pill-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;
+}
+
+@media (max-width: 575.98px) {
+  .pill-container > label {
+    flex-grow: 1;
+  }
+}
 .help-block ul {
   padding-left: 1rem;
   padding-bottom: 0;
@@ -11890,6 +11902,19 @@ textarea.form-control-lg {
     position: relative;
   }
 }
+@media (max-width: 767.98px) {
+  .advanced-fields__summary {
+    text-align: center;
+  }
+}
+.advanced-fields__summary > * {
+  display: inline;
+}
+
+.advanced-fields {
+  padding-right: 0;
+}
+
 .breadcrumb {
   margin-bottom: 0;
 }
