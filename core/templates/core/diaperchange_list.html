@@ -23,7 +23,7 @@
                 <a class="card bg-dark"
                    href="{% url 'core:diaperchange-update' change.id %}">
                     <div class="card-body">
-                        <div class="card_body__avatar-layout">
+                        <div class="card_body__avatar-layout {% if change.notes %}card_body__avatar-layout--with-notes{% endif %}">
                             <div class="avatar-layout__avatar">{% include "core/child_thumbnail.html" with child=change.child %}</div>
                             <div class="avatar-layout__details">
                                 <div class="card-body__primary-details">

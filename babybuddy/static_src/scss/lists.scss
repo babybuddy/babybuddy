@@ -38,6 +38,15 @@
     margin-right: calc(var(--bs-card-spacer-x) + calc(var(--bs-gutter-x) * 0.5));
     display: flex;
     align-items: center;
+    //because of notes we need to make a fixed size for the avatar
+    min-width: 35px;
+    max-width: 35px;
+}
+
+// cards with notes can become all sorts of sizes so we align the image at the top of the card.
+// this ensures that the user always gets the child context
+.card_body__avatar-layout--with-notes {
+  align-items: flex-start;
 }
 
 .avatar-layout__details {
