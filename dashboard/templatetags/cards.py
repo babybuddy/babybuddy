@@ -170,15 +170,6 @@ def card_breastfeeding(context, child, date=None):
             "right_pct": 100 * right_count // (left_count + right_count),
         }
 
-    # Add a `time_pct` representing how long we fed, that day.
-    max_duration = max((stat.get("duration", timedelta()) for stat in stats.values()))
-    for stat in stats.values():
-        stat["time_pct"] = (
-            int(100 * stat.get("duration", timedelta()) / max_duration)
-            if max_duration
-            else 0
-        )
-
     return {
         "type": "feeding",
         "stats": stats,

@@ -13,9 +13,7 @@
 {% block content %}
     {% for key, info in stats.items %}
         {% if info.left_count > 0 or info.right_count > 0 %}
-            <div class="progress mt-3"
-                 role="progressbar"
-                 style="width: {{ info.time_pct|safe }}%">
+            <div class="progress mt-3" role="progressbar">
                 <div class="progress-bar bg-primary lead"
                      style="width: {{ info.left_pct|safe }}%">{{ info.left_count }}&nbsp;{% trans "left" %}</div>
                 <div class="progress-bar bg-secondary lead"
