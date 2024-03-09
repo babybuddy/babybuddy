@@ -1,7 +1,7 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
 {% block header %}
-    <a href="{% url "core:feeding-list" %}">{% trans "Feeding Methods" %}</a>
+    <a href="{% url "core:feeding-list" %}">{% trans "Breastfeeding" %}</a>
 {% endblock %}
 {% block title %}
     {% if total == 0 %}
@@ -13,10 +13,10 @@
 {% block content %}
     {% for key, info in stats.items %}
         <div class="progress mt-3" role="progressbar">
-            {% for method, s in info.methods.items %}
-                <div class="progress-bar {{ s.color }} lead"
-                     style="width: {{ s.pct|safe }}%">{{ s.count }}&nbsp;{{ method }}</div>
-            {% endfor %}
+            <div class="progress-bar bg-primary lead"
+                 style="width: {{ info.left_pct|safe }}%">{{ info.left_count }}&nbsp;{% trans "left" %}</div>
+            <div class="progress-bar bg-secondary lead"
+                 style="width: {{ info.right_pct|safe }}%">{{ info.right_count }}&nbsp;{% trans "right" %}</div>
         </div>
         <div class="text-center text-light small">
             {% if key == 0 %}

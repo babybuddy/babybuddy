@@ -108,10 +108,10 @@ def card_diaperchange_types(context, child, date=None):
     }
 
 
-@register.inclusion_tag("cards/feeding_methods.html", takes_context=True)
-def card_feeding_methods(context, child, date=None):
+@register.inclusion_tag("cards/breastfeeding.html", takes_context=True)
+def card_breastfeeding(context, child, date=None):
     """
-    Creates a break down of feeding methods for the past
+    Creates a break down of breasts used for breastfeeding, for the past
     seven days.
     :param child: an instance of the Child model.
     :param date: a Date object for the day to filter.
@@ -132,41 +132,42 @@ def card_feeding_methods(context, child, date=None):
         models.Feeding.objects.filter(child=child)
         .filter(start__gt=min_date)
         .filter(start__lt=max_date)
+        .filter(method__in=("left breast", "right breast", "both breasts"))
         .order_by("-start")
     )
 
     empty = len(instances) == 0
 
+    # Create a `stats` dictionary, keyed by day for the past 7 days.
+    stats = {}
+    for x in range(7):
+        stats[x] = collections.defaultdict(int)
+
+    # Group feedings per day.
     per_day = collections.defaultdict(list)
     for instance in instances:
         key = (max_date - instance.start).days
         per_day[key].append(instance)
 
-    stats = {}
-    for x in range(7):
-        stats[x] = collections.defaultdict(int)
-
+    # Go through each day, set the stats dictionary for that day.
     for key, day_instances in per_day.items():
-        methods_count = collections.Counter()
+        left_count = 0
+        right_count = 0
         for instance in day_instances:
-            methods_count[instance.get_method_display()] += 1
+            if instance.method in ("left breast", "both breasts"):
+                left_count += 1
+            if instance.method in ("right breast", "both breasts"):
+                right_count += 1
 
         stats[key] = {
             "count": len(day_instances),
             "duration": sum(
                 (instance.duration for instance in day_instances), start=timedelta()
             ),
-            "methods": {
-                k: {
-                    "color": color,
-                    "pct": 100 * count // len(day_instances),
-                    "count": count,
-                }
-                for color, (k, count) in zip(
-                    ["bg-primary", "bg-secondary", "bg-success"],
-                    methods_count.most_common(3),
-                )
-            },
+            "left_count": left_count,
+            "right_count": right_count,
+            "left_pct": 100 * left_count // (left_count + right_count),
+            "right_pct": 100 * right_count // (left_count + right_count),
         }
 
     return {
