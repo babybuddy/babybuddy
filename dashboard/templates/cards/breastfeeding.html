@@ -12,23 +12,27 @@
 {% endblock %}
 {% block content %}
     {% for key, info in stats.items %}
-        <div class="progress mt-3" role="progressbar">
-            <div class="progress-bar bg-primary lead"
-                 style="width: {{ info.left_pct|safe }}%">{{ info.left_count }}&nbsp;{% trans "left" %}</div>
-            <div class="progress-bar bg-secondary lead"
-                 style="width: {{ info.right_pct|safe }}%">{{ info.right_count }}&nbsp;{% trans "right" %}</div>
-        </div>
-        <div class="text-center text-light small">
-            {% if key == 0 %}
-                {% trans "today" %}
-            {% elif key == 1 %}
-                {% trans "yesterday" %}
-            {% else %}
-                {% blocktrans with days_ago=key %}{{ days_ago }} days ago{% endblocktrans %}
-            {% endif %}
-            {% if info.count > 0 %}
-                ({{ info.count }} {% trans "feedings in" %} {{ info.duration|duration_string:'m' }})
-            {% endif %}
-        </div>
+        {% if info.left_count > 0 or info.right_count > 0 %}
+            <div class="progress mt-3"
+                 role="progressbar"
+                 style="width: {{ info.time_pct|safe }}%">
+                <div class="progress-bar bg-primary lead"
+                     style="width: {{ info.left_pct|safe }}%">{{ info.left_count }}&nbsp;{% trans "left" %}</div>
+                <div class="progress-bar bg-secondary lead"
+                     style="width: {{ info.right_pct|safe }}%">{{ info.right_count }}&nbsp;{% trans "right" %}</div>
+            </div>
+            <div class="text-center text-light small">
+                {% if key == 0 %}
+                    {% trans "today" %}
+                {% elif key == 1 %}
+                    {% trans "yesterday" %}
+                {% else %}
+                    {% blocktrans with days_ago=key %}{{ days_ago }} days ago{% endblocktrans %}
+                {% endif %}
+                {% if info.count > 0 %}
+                    ({{ info.count }} {% trans "feedings in" %} {{ info.duration|duration_string:'m' }})
+                {% endif %}
+            </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}

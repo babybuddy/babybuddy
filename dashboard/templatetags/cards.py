@@ -141,7 +141,7 @@ def card_breastfeeding(context, child, date=None):
     # Create a `stats` dictionary, keyed by day for the past 7 days.
     stats = {}
     for x in range(7):
-        stats[x] = collections.defaultdict(int)
+        stats[x] = {}
 
     # Group feedings per day.
     per_day = collections.defaultdict(list)
@@ -169,6 +169,15 @@ def card_breastfeeding(context, child, date=None):
             "left_pct": 100 * left_count // (left_count + right_count),
             "right_pct": 100 * right_count // (left_count + right_count),
         }
+
+    # Add a `time_pct` representing how long we fed, that day.
+    max_duration = max((stat.get("duration", timedelta()) for stat in stats.values()))
+    for stat in stats.values():
+        stat["time_pct"] = (
+            int(100 * stat.get("duration", timedelta()) / max_duration)
+            if max_duration
+            else 0
+        )
 
     return {
         "type": "feeding",
