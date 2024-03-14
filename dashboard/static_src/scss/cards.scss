@@ -73,6 +73,10 @@
             font-size: 2em;
         }
     }
+
+    .progress {
+        height: $progress-height * 2;
+    }
 }
 
 .card-sleep {

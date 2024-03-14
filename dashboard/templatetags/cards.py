@@ -5,7 +5,8 @@ from django.db.models.functions import TruncDate
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
-from datetime import date, datetime, time
+from datetime import date, datetime, time, timedelta
+import collections
 
 from core import models
 
@@ -102,6 +103,77 @@ def card_diaperchange_types(context, child, date=None):
         "type": "diaperchange",
         "stats": stats,
         "total": week_total,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
+
+
+@register.inclusion_tag("cards/breastfeeding.html", takes_context=True)
+def card_breastfeeding(context, child, date=None):
+    """
+    Creates a break down of breasts used for breastfeeding, for the past
+    seven days.
+    :param child: an instance of the Child model.
+    :param date: a Date object for the day to filter.
+    :returns: a dictionary with the statistics.
+    """
+    if date:
+        time = timezone.datetime.combine(date, timezone.localtime().min.time())
+        time = timezone.make_aware(time)
+    else:
+        time = timezone.localtime()
+
+    max_date = (time + timezone.timedelta(days=1)).replace(hour=0, minute=0, second=0)
+    min_date = (max_date - timezone.timedelta(days=7)).replace(
+        hour=0, minute=0, second=0
+    )
+
+    instances = (
+        models.Feeding.objects.filter(child=child)
+        .filter(start__gt=min_date)
+        .filter(start__lt=max_date)
+        .filter(method__in=("left breast", "right breast", "both breasts"))
+        .order_by("-start")
+    )
+
+    empty = len(instances) == 0
+
+    # Create a `stats` dictionary, keyed by day for the past 7 days.
+    stats = {}
+    for x in range(7):
+        stats[x] = {}
+
+    # Group feedings per day.
+    per_day = collections.defaultdict(list)
+    for instance in instances:
+        key = (max_date - instance.start).days
+        per_day[key].append(instance)
+
+    # Go through each day, set the stats dictionary for that day.
+    for key, day_instances in per_day.items():
+        left_count = 0
+        right_count = 0
+        for instance in day_instances:
+            if instance.method in ("left breast", "both breasts"):
+                left_count += 1
+            if instance.method in ("right breast", "both breasts"):
+                right_count += 1
+
+        stats[key] = {
+            "count": len(day_instances),
+            "duration": sum(
+                (instance.duration for instance in day_instances), start=timedelta()
+            ),
+            "left_count": left_count,
+            "right_count": right_count,
+            "left_pct": 100 * left_count // (left_count + right_count),
+            "right_pct": 100 * right_count // (left_count + right_count),
+        }
+
+    return {
+        "type": "feeding",
+        "stats": stats,
+        "total": len(instances),
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }
