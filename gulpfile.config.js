@@ -1,6 +1,6 @@
 const basePath = "babybuddy/static/babybuddy/";
 
-module.exports = {
+const config = {
   basePath: basePath,
   extrasConfig: {
     fonts: {
@@ -76,3 +76,5 @@ module.exports = {
     stylesGlob: ["*/static_src/scss/**/*.scss"],
   },
 };
+
+export default config;

@@ -1,19 +1,21 @@
-const gulp = require("gulp");
+import all from "gulp-all";
+import child_process from "child_process";
+import concat from "gulp-concat";
+import config from "./gulpfile.config.js";
+import * as dartSass from "sass";
+import del from "del";
+import flatten from "gulp-flatten";
+import fontello from "gulp-fontello";
+import gStylelintEsm from "gulp-stylelint-esm";
+import gulp from "gulp";
+import gulpSass from "gulp-sass";
+import minify from "gulp-minify";
+import removeSourcemaps from "gulp-remove-sourcemaps";
+import sassGlob from "gulp-sass-glob";
 
-const all = require("gulp-all");
-const concat = require("gulp-concat");
-const del = require("del");
-const es = require("child_process").execSync;
-const flatten = require("gulp-flatten");
-const fontello = require("gulp-fontello");
-const minify = require("gulp-minify");
-const removeSourcemaps = require("gulp-remove-sourcemaps");
-const sass = require("gulp-sass")(require("sass"));
-const sassGlob = require("gulp-sass-glob");
-const styleLint = require("@ronilaukkarinen/gulp-stylelint");
-const spawn = require("child_process").spawn;
-
-const config = require("./gulpfile.config.js");
+const es = child_process.execSync;
+const sass = gulpSass(dartSass);
+const spawn = child_process.spawn;
 
 /**
  * Spawns a command for pipenv.
@@ -183,7 +185,7 @@ function lint() {
     _runInPipenv(["djlint", "--check", "."]),
     _runCommand("npx", ["prettier", ".", "--check"]),
     gulp.src(config.watchConfig.stylesGlob).pipe(
-      styleLint({
+      gStylelintEsm({
         reporters: [{ formatter: "string", console: true }],
       }),
     ),
