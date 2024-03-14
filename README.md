@@ -44,6 +44,8 @@ for information about how to create/update translations.
 
 ### Available languages
 
+:brazil: Brazilian Portuguese
+
 :es: Catalan
 
 :cn: Chinese (simplified)
@@ -72,7 +74,7 @@ for information about how to create/update translations.
 
 :poland: Polish
 
-:portugal: :brazil: Portuguese
+:portugal: Portuguese
 
 :ru: Russian
 
