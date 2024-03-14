@@ -10,7 +10,7 @@ from taggit.forms import TagField
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
 from core.models import Timer
-from core.widgets import TagsEditor, ChildRadioSelect
+from core.widgets import TagsEditor, ChildRadioSelect, PillRadioSelect
 
 
 def set_initial_values(kwargs, form_type):
@@ -107,6 +107,31 @@ class CoreModelForm(forms.ModelForm):
             self.save_m2m()
         return instance
 
+    @property
+    def hydrated_fielsets(self):
+        # for some reason self.fields returns defintions and not bound fields
+        # so until i figure out a better way we can just create a dict here
+        # https://github.com/django/django/blob/main/django/forms/forms.py#L52
+
+        bound_field_dict = {}
+        for field in self:
+            bound_field_dict[field.name] = field
+
+        hydrated_fieldsets = []
+
+        for fieldset in self.fieldsets:
+            hyrdrated_fieldset = {
+                "layout": fieldset["layout"],
+                "layout_attrs": fieldset.get("layout_attrs", {}),
+                "fields": [],
+            }
+            for field_name in fieldset["fields"]:
+                hyrdrated_fieldset["fields"].append(bound_field_dict[field_name])
+
+            hydrated_fieldsets.append(hyrdrated_fieldset)
+
+        return hydrated_fieldsets
+
 
 class ChildForm(forms.ModelForm):
     class Meta:
@@ -153,6 +178,11 @@ class TaggableModelForm(forms.ModelForm):
 
 
 class PumpingForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {"fields": ["child", "start", "end", "amount"], "layout": "required"},
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Pumping
         fields = ["child", "start", "end", "amount", "notes", "tags"]
@@ -165,6 +195,16 @@ class PumpingForm(CoreModelForm, TaggableModelForm):
 
 
 class DiaperChangeForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["wet", "solid"],
+            "layout": "choices",
+            "layout_attrs": {"label": "Contents"},
+        },
+        {"fields": ["child", "time"], "layout": "required"},
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.DiaperChange
         fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
@@ -176,6 +216,14 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
 
 
 class FeedingForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "start", "end", "type", "method", "amount"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Feeding
         fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
@@ -183,11 +231,21 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
             "end": DateTimeInput(),
+            "type": PillRadioSelect(),
+            "method": PillRadioSelect(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
 class BottleFeedingForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "type", "start", "amount"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     def save(self):
         instance = super(BottleFeedingForm, self).save(commit=False)
         instance.method = "bottle"
@@ -201,6 +259,7 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
+            "type": PillRadioSelect(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -218,6 +277,14 @@ class NoteForm(CoreModelForm, TaggableModelForm):
 
 
 class SleepForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "start", "end", "nap"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Sleep
         fields = ["child", "start", "end", "nap", "notes", "tags"]
@@ -230,6 +297,14 @@ class SleepForm(CoreModelForm, TaggableModelForm):
 
 
 class TemperatureForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "temperature", "time"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Temperature
         fields = ["child", "temperature", "time", "notes", "tags"]
@@ -261,6 +336,14 @@ class TimerForm(CoreModelForm):
 
 
 class TummyTimeForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "start", "end", "milestone"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["tags"]},
+    ]
+
     class Meta:
         model = models.TummyTime
         fields = ["child", "start", "end", "milestone", "tags"]
@@ -272,6 +355,14 @@ class TummyTimeForm(CoreModelForm, TaggableModelForm):
 
 
 class WeightForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "weight", "date"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Weight
         fields = ["child", "weight", "date", "notes", "tags"]
@@ -283,6 +374,14 @@ class WeightForm(CoreModelForm, TaggableModelForm):
 
 
 class HeightForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "height", "date"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.Height
         fields = ["child", "height", "date", "notes", "tags"]
@@ -294,6 +393,14 @@ class HeightForm(CoreModelForm, TaggableModelForm):
 
 
 class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "head_circumference", "date"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.HeadCircumference
         fields = ["child", "head_circumference", "date", "notes", "tags"]
@@ -305,6 +412,14 @@ class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
 
 
 class BMIForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "bmi", "date"],
+            "layout": "required",
+        },
+        {"layout": "advanced", "fields": ["notes", "tags"]},
+    ]
+
     class Meta:
         model = models.BMI
         fields = ["child", "bmi", "date", "notes", "tags"]

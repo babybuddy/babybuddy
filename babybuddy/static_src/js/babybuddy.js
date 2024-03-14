@@ -43,3 +43,19 @@ $("form").off("submit", preventDoubleSubmit);
 $("form").on("submit", function () {
   $(this).on("submit", preventDoubleSubmit);
 });
+
+BabyBuddy.RememberAdvancedToggle = function (ptr) {
+  localStorage.setItem("advancedForm", event.newState);
+};
+
+(function toggleAdvancedFields() {
+  window.addEventListener("load", function () {
+    if (localStorage.getItem("advancedForm") !== "open") {
+      return;
+    }
+
+    document.querySelectorAll(".advanced-fields").forEach(function (node) {
+      node.open = true;
+    });
+  });
+})();

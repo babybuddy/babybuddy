@@ -33,6 +33,20 @@
     z-index: 1030;
 }
 
+.pill-container {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+// Only grow pill buttons on when using a mobile
+@include media-breakpoint-down(sm) {
+    .pill-container>label {
+            flex-grow: 1;
+    }
+}
+
 // Tweak padding on form field help blocks.
 .help-block {
     ul {
@@ -51,4 +65,20 @@
         padding: 0.25rem 0.5rem;
         position: relative;
     }
+}
+
+@include media-breakpoint-down(md) {
+    .advanced-fields__summary {
+        text-align: center;
+    }
+}
+
+.advanced-fields__summary > * {
+    display: inline
+}
+
+.advanced-fields {
+    // removing this causes slight mis-alignment between fields in the details and the rest of the fields 
+    //on the form at the left hand side of the box
+    padding-right: 0;
 }

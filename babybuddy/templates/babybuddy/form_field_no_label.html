@@ -1,0 +1,31 @@
+{% load widget_tweaks %}
+{% if field|field_type == "booleanfield" %}
+    {% if field.errors %}
+        {{ field|add_class:"btn-check is-invalid" }}
+    {% else %}
+        {{ field|add_class:"btn-check" }}
+    {% endif %}
+    <label for="id_{{ field.name }}" class="btn btn-outline-light btn-no-hover">{{ field.label }}</label>
+{% elif 'choice' in field|field_type %}
+    {% if field.errors %}
+        {{ field|add_class:"form-select is-invalid" }}
+    {% else %}
+        {{ field|add_class:"form-select" }}
+    {% endif %}
+{% else %}
+    {% if field.errors %}
+        {{ field|add_class:"form-control is-invalid" }}
+    {% else %}
+        {{ field|add_class:"form-control" }}
+    {% endif %}
+{% endif %}
+{% if field.help_text %}
+    <div class="help-block">
+        <small>{{ field.help_text }}</small>
+    </div>
+{% endif %}
+{% if field.errors %}
+    <div class="invalid-feedback">
+        {% for error in  field.errors %}{{ error }}{% endfor %}
+    </div>
+{% endif %}
