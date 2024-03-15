@@ -10,7 +10,11 @@
         </div>
         <div class="card-body__secondary-details">
           <div class="card-body__secondary-details--anchor-left">
-            <span>{{ object.time|datetime_short }}</span>
+            {% if object.time %}
+              <span>{{ object.time|datetime_short }}</span>
+            {% else %}
+              <span>{{ object.start|datetime_short }}</span>
+            {% endif %}
           </div>
           <div class="card-body__secondary-details--anchor-right">
             {% include "core/render_tag_list.html" with tags=object.tags.all %}
