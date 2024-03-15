@@ -1,0 +1,5 @@
+<div class="mobile-list">
+  {% for object in object_list %}
+    <div class="row">{% include list_item_template with object=object %}</div>
+  {% endfor %}
+</div>
