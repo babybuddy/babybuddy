@@ -196,6 +196,7 @@ LANGUAGES = [
     ("es", _("Spanish")),
     ("sv", _("Swedish")),
     ("tr", _("Turkish")),
+    ("uk", _("Ukrainian")),
 ]
 
 

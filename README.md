@@ -84,6 +84,8 @@ for information about how to create/update translations.
 
 :tr: Turkish
 
+:ukraine: Ukrainian
+
 ## Baby Buddy on the Web
 
 This is a non-exhaustive list of neat projects and blog posts that either extend

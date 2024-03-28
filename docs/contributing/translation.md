@@ -12,35 +12,35 @@ to the project.
 Baby Buddy has support for translation/localization. A manual translation
 process will look something like this:
 
-1.  Set up a development environment (see [Development environment](development-environment.md)).
+1. Set up a development environment (see [Development environment](development-environment.md)).
 
-1.  Run `gulp makemessages -l xx` where `xx` is a specific locale code in the
+2. Run `gulp makemessages -l xx` where `xx` is a specific locale code in the
     [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g.,
     "il" for Italian or "es" for Spanish). This creates a new translation file at
     `locale/xx/LC_MESSAGES/django.po`, or updates one if it exists.
 
-1.  Open the created/updated `django.po` file and update the header template
+3. Open the created/updated `django.po` file and update the header template
     with license and contact info.
 
-1.  Start translating! Each translatable string will have a `msgid` value with
+4. Start translating! Each translatable string will have a `msgid` value with
     the string in English and a corresponding (empty) `msgstr` value where a
     translated string can be filled in.
 
-1.  Once all strings have been translated, run `gulp compilemessages -l xx` to
+5. Once all strings have been translated, run `gulp compilemessages -l xx` to
     compile an optimized translation file (`locale/xx/LC_MESSAGES/django.mo`).
 
-1.  To expose the new translation as a user setting, add the locale code to the
+6. To expose the new translation as a user setting, add the locale code to the
     `LANGUAGES` array in the base settings file (`babybuddy/settings/base.py`).
 
-1.  Check if Plotly offers a translation (in `node_modules/plotly.js/dist/`) for
+7. Check if Plotly offers a translation (in `node_modules/plotly.js/dist/`) for
     the language. If it does:
 
-        1. Add the Plotly translation file path to [`gulpfile.config.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.config.js)
-           in `scriptsConfig.graph`.
+    1. Add the Plotly translation file path to [`gulpfile.config.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.config.js)
+       in `scriptsConfig.graph`.
 
-        2. Build, collect, and commit the `/static` folder (see [`gulp updatestatic`](gulp-command-reference.md#updatestatic)).
+    2. Build, collect, and commit the `/static` folder (see [`gulp updatestatic`](gulp-command-reference.md#updatestatic)).
 
-1.  Run the development server, log in, and update the user language to test the
+8. Run the development server, log in, and update the user language to test the
     newly translated strings.
 
 Once the translation is complete, commit the new files and changes to a fork
