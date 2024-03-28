@@ -3,7 +3,7 @@ import child_process from "child_process";
 import concat from "gulp-concat";
 import config from "./gulpfile.config.js";
 import * as dartSass from "sass";
-import del from "del";
+import { deleteAsync } from "del";
 import flatten from "gulp-flatten";
 import fontello from "gulp-fontello";
 import gStylelintEsm from "gulp-stylelint-esm";
@@ -67,7 +67,7 @@ function _runCommand(program, command) {
  * @returns {*}
  */
 function clean() {
-  return del(["**/static", "static"]);
+  return deleteAsync(["**/static", "static"]);
 }
 
 /**
