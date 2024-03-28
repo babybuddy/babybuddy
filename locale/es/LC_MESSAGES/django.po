@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:30+0000\n"
+"POT-Creation-Date: 2024-03-28 13:01+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11,24 +11,24 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: babybuddy/admin.py:12 babybuddy/admin.py:13
-#: babybuddy/templates/babybuddy/nav-dropdown.html:331
-#: babybuddy/templates/babybuddy/nav-dropdown.html:345
+#: babybuddy/templates/babybuddy/nav-dropdown.html:320
+#: babybuddy/templates/babybuddy/nav-dropdown.html:330
 #: babybuddy/templates/babybuddy/user_settings_form.html:8
 #: babybuddy/templates/dbsettings/site_settings.html:8
 msgid "Settings"
 msgstr "Configuración"
 
-#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:94
-#: babybuddy/templates/babybuddy/user_settings_form.html:61
+#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:98
+#: babybuddy/templates/babybuddy/user_settings_form.html:60
 #: dashboard/templates/dashboard/child.html:4
 #: dashboard/templates/dashboard/child.html:11
-#: dashboard/templates/dashboard/child_button_group.html:6
+#: dashboard/templates/dashboard/child_button_group.html:8
 #: dashboard/templates/dashboard/dashboard.html:4
 #: dashboard/templates/dashboard/dashboard.html:7
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:21
+#: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:20
 msgid "Read only"
 msgstr ""
 
@@ -134,80 +134,94 @@ msgid "{user}'s Settings"
 msgstr "Configuración de {user}"
 
 #: babybuddy/settings/base.py:179
+#, fuzzy
+#| msgid "Portuguese"
+msgid "Brazilian Portuguese"
+msgstr "Portugués"
+
+#: babybuddy/settings/base.py:180
 msgid "Catalan"
 msgstr "Catalán"
 
-#: babybuddy/settings/base.py:180
+#: babybuddy/settings/base.py:181
 msgid "Czech"
 msgstr ""
 
-#: babybuddy/settings/base.py:181
+#: babybuddy/settings/base.py:182
 msgid "Chinese (simplified)"
 msgstr "Chino (simplificado)"
 
-#: babybuddy/settings/base.py:182
+#: babybuddy/settings/base.py:183
 msgid "Danish"
 msgstr "Danés"
 
-#: babybuddy/settings/base.py:183
+#: babybuddy/settings/base.py:184
 msgid "Dutch"
 msgstr "Neerlandés"
 
-#: babybuddy/settings/base.py:184
+#: babybuddy/settings/base.py:185
 msgid "English (US)"
 msgstr "Inglés (EE.UU.)"
 
-#: babybuddy/settings/base.py:185
+#: babybuddy/settings/base.py:186
 msgid "English (UK)"
 msgstr "Inglés (RU)"
 
-#: babybuddy/settings/base.py:186
+#: babybuddy/settings/base.py:187
 msgid "French"
 msgstr "Francés"
 
-#: babybuddy/settings/base.py:187
+#: babybuddy/settings/base.py:188
 msgid "Finnish"
 msgstr "Finlandés"
 
-#: babybuddy/settings/base.py:188
+#: babybuddy/settings/base.py:189
 msgid "German"
 msgstr "Alemán"
 
-#: babybuddy/settings/base.py:189
+#: babybuddy/settings/base.py:190
+msgid "Hebrew"
+msgstr ""
+
+#: babybuddy/settings/base.py:191
 msgid "Hungarian"
 msgstr ""
 
-#: babybuddy/settings/base.py:190
+#: babybuddy/settings/base.py:192
 msgid "Italian"
 msgstr "Italiano"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:193
 msgid "Norwegian Bokmål"
 msgstr ""
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:194
 msgid "Polish"
 msgstr "Polaco"
 
-#: babybuddy/settings/base.py:193
+#: babybuddy/settings/base.py:195
 msgid "Portuguese"
 msgstr "Portugués"
 
-#: babybuddy/settings/base.py:194
+#: babybuddy/settings/base.py:196
 msgid "Russian"
 msgstr ""
 
-#: babybuddy/settings/base.py:195
+#: babybuddy/settings/base.py:197
 msgid "Spanish"
 msgstr "Español"
 
-#: babybuddy/settings/base.py:196
+#: babybuddy/settings/base.py:198
 msgid "Swedish"
 msgstr "Sueco"
 
-#: babybuddy/settings/base.py:197
+#: babybuddy/settings/base.py:199
 msgid "Turkish"
 msgstr "Turco"
+
+#: babybuddy/settings/base.py:200
+msgid "Ukrainian"
+msgstr ""
 
 #: babybuddy/site_settings.py:23
 msgid "Default minimum nap start time"
@@ -230,20 +244,20 @@ msgid ""
 msgstr ""
 
 #: babybuddy/templates/admin/base_site.html:4
-#: babybuddy/templates/admin/base_site.html:7
-#: babybuddy/templates/babybuddy/nav-dropdown.html:349
+#: babybuddy/templates/admin/base_site.html:8
+#: babybuddy/templates/babybuddy/nav-dropdown.html:332
 msgid "Database Admin"
 msgstr "Administrar Base de Datos"
 
-#: babybuddy/templates/babybuddy/base.html:36
+#: babybuddy/templates/babybuddy/base.html:37
 msgid "Home"
 msgstr "Inicio"
 
-#: babybuddy/templates/babybuddy/filter.html:18
+#: babybuddy/templates/babybuddy/filter.html:20
 msgid "Filter"
 msgstr "Filtrar"
 
-#: babybuddy/templates/babybuddy/filter.html:19
+#: babybuddy/templates/babybuddy/filter.html:21
 msgid "Reset"
 msgstr "Reiniciar"
 
@@ -251,350 +265,357 @@ msgstr "Reiniciar"
 msgid "Filters"
 msgstr "Filtros"
 
-#: babybuddy/templates/babybuddy/form.html:14
-#: babybuddy/templates/babybuddy/user_settings_form.html:89
+#: babybuddy/templates/babybuddy/form.html:19
+#: babybuddy/templates/babybuddy/user_settings_form.html:93
 msgid "Submit"
 msgstr "Enviar"
 
-#: babybuddy/templates/babybuddy/messages.html:16
-#: babybuddy/templates/babybuddy/user_settings_form.html:19
+#: babybuddy/templates/babybuddy/messages.html:19
+#: babybuddy/templates/babybuddy/user_settings_form.html:18
 #, python-format
 msgid "<strong>Error:</strong> %(error)s"
 msgstr "<strong>Error:</strong> %(error)s"
 
-#: babybuddy/templates/babybuddy/messages.html:21
-#: babybuddy/templates/babybuddy/user_settings_form.html:26
+#: babybuddy/templates/babybuddy/messages.html:24
+#: babybuddy/templates/babybuddy/user_settings_form.html:25
 msgid "<strong>Error:</strong> Some fields have errors. See below for details."
 msgstr ""
 "<strong>Error:</strong> Algunos campos contienen errores. Mira más abajo "
 "para más detalles."
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:46 core/models.py:257
+#: babybuddy/templates/babybuddy/nav-dropdown.html:44 core/models.py:257
 #: core/models.py:261
 msgid "Diaper Change"
 msgstr "Cambio de Pañal"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:52
-#: babybuddy/templates/babybuddy/nav-dropdown.html:264 core/models.py:328
-#: core/models.py:332 core/templates/core/timer_detail.html:42
+#: babybuddy/templates/babybuddy/nav-dropdown.html:50
+#: babybuddy/templates/babybuddy/nav-dropdown.html:253 core/models.py:328
+#: core/models.py:332 core/templates/core/timer_detail.html:31
 msgid "Feeding"
 msgstr "Toma"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:58
-#: babybuddy/templates/babybuddy/nav-dropdown.html:272 core/models.py:492
+#: babybuddy/templates/babybuddy/nav-dropdown.html:54
+#: babybuddy/templates/babybuddy/nav-dropdown.html:259
+#, fuzzy
+#| msgid "Total feedings"
+msgid "Bottle Feeding"
+msgstr "Total de tomas"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:60
+#: babybuddy/templates/babybuddy/nav-dropdown.html:266 core/models.py:492
 #: core/models.py:493 core/models.py:496
-#: core/templates/core/pumping_confirm_delete.html:7
-#: core/templates/core/pumping_form.html:13
+#: core/templates/core/pumping_confirm_delete.html:8
+#: core/templates/core/pumping_form.html:12
 #: core/templates/core/pumping_list.html:4
 #: core/templates/core/pumping_list.html:7
-#: core/templates/core/pumping_list.html:12
-#: core/templates/core/timer_detail.html:50
+#: core/templates/core/pumping_list.html:11
+#: core/templates/core/timer_detail.html:38
 #: reports/templates/reports/pumping_amounts.html:4
 #: reports/templates/reports/pumping_amounts.html:9
 msgid "Pumping"
 msgstr "Extracciones"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:64
+#: babybuddy/templates/babybuddy/nav-dropdown.html:66
 #: babybuddy/templates/babybuddy/nav-dropdown.html:140 core/models.py:437
-#: core/models.py:451 core/models.py:455 core/templates/core/note_list.html:30
+#: core/models.py:451 core/models.py:455 core/templates/core/note_list.html:29
 msgid "Note"
 msgstr "Nota"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:70
-#: babybuddy/templates/babybuddy/nav-dropdown.html:285
-#: babybuddy/templates/babybuddy/welcome.html:48 core/models.py:536
+#: babybuddy/templates/babybuddy/nav-dropdown.html:72
+#: babybuddy/templates/babybuddy/nav-dropdown.html:278
+#: babybuddy/templates/babybuddy/welcome.html:47 core/models.py:536
 #: core/models.py:537 core/models.py:540
-#: core/templates/core/sleep_confirm_delete.html:7
-#: core/templates/core/sleep_form.html:13 core/templates/core/sleep_list.html:4
-#: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:12
-#: core/templates/core/timer_detail.html:58
+#: core/templates/core/sleep_confirm_delete.html:8
+#: core/templates/core/sleep_form.html:12 core/templates/core/sleep_list.html:4
+#: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:11
+#: core/templates/core/timer_detail.html:45
 msgid "Sleep"
 msgstr "Sueño"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:76
-#: babybuddy/templates/babybuddy/nav-dropdown.html:299
-#: babybuddy/templates/babybuddy/welcome.html:58 core/models.py:693
+#: babybuddy/templates/babybuddy/nav-dropdown.html:78
+#: babybuddy/templates/babybuddy/nav-dropdown.html:290
+#: babybuddy/templates/babybuddy/welcome.html:57 core/models.py:693
 #: core/models.py:694 core/models.py:697
-#: core/templates/core/timer_detail.html:66
-#: core/templates/core/tummytime_confirm_delete.html:7
-#: core/templates/core/tummytime_form.html:13
+#: core/templates/core/timer_detail.html:52
+#: core/templates/core/tummytime_confirm_delete.html:8
+#: core/templates/core/tummytime_form.html:12
 #: core/templates/core/tummytime_list.html:4
 #: core/templates/core/tummytime_list.html:7
-#: core/templates/core/tummytime_list.html:12
+#: core/templates/core/tummytime_list.html:11
 msgid "Tummy Time"
 msgstr "Tiempo boca abajo"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:101
+#: babybuddy/templates/babybuddy/nav-dropdown.html:104
 #: core/templates/timeline/timeline.html:4
 #: core/templates/timeline/timeline.html:7
-#: dashboard/templates/dashboard/child_button_group.html:9
+#: dashboard/templates/dashboard/child_button_group.html:13
 msgid "Timeline"
 msgstr "Cronología"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:112
-#: babybuddy/templates/babybuddy/nav-dropdown.html:120 core/models.py:190
-#: core/templates/core/child_confirm_delete.html:7
-#: core/templates/core/child_detail.html:7
-#: core/templates/core/child_form.html:13 core/templates/core/child_list.html:4
-#: core/templates/core/child_list.html:7 core/templates/core/child_list.html:12
-#: dashboard/templates/dashboard/child.html:7
-#: reports/templates/reports/base.html:7
+#: babybuddy/templates/babybuddy/nav-dropdown.html:114
+#: babybuddy/templates/babybuddy/nav-dropdown.html:121 core/models.py:190
+#: core/templates/core/child_confirm_delete.html:8
+#: core/templates/core/child_detail.html:6
+#: core/templates/core/child_form.html:12 core/templates/core/child_list.html:4
+#: core/templates/core/child_list.html:7 core/templates/core/child_list.html:11
+#: dashboard/templates/dashboard/child.html:8
+#: reports/templates/reports/base.html:6
 msgid "Children"
 msgstr "Niños"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:126 core/models.py:138
+#: babybuddy/templates/babybuddy/nav-dropdown.html:127 core/models.py:138
 #: core/models.py:189 core/models.py:230 core/models.py:283 core/models.py:351
 #: core/models.py:383 core/models.py:435 core/models.py:464 core/models.py:512
 #: core/models.py:566 core/models.py:600 core/models.py:669 core/models.py:717
-#: core/templates/core/bmi_list.html:27
+#: core/templates/core/bmi_list.html:26
 #: core/templates/core/diaperchange_list.html:27
-#: core/templates/core/feeding_list.html:27
+#: core/templates/core/feeding_list.html:30
 #: core/templates/core/head_circumference_list.html:27
-#: core/templates/core/height_list.html:27
-#: core/templates/core/note_list.html:27
-#: core/templates/core/pumping_list.html:27
-#: core/templates/core/sleep_list.html:28
+#: core/templates/core/height_list.html:26
+#: core/templates/core/note_list.html:26
+#: core/templates/core/pumping_list.html:26
+#: core/templates/core/sleep_list.html:27
 #: core/templates/core/temperature_list.html:27
-#: core/templates/core/timer_list.html:27
-#: core/templates/core/tummytime_list.html:27
-#: core/templates/core/weight_list.html:27
+#: core/templates/core/timer_list.html:26
+#: core/templates/core/tummytime_list.html:26
+#: core/templates/core/weight_list.html:26
 msgid "Child"
 msgstr "Niño"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:134 core/models.py:144
 #: core/models.py:249 core/models.py:320 core/models.py:359 core/models.py:389
 #: core/models.py:452 core/models.py:484 core/models.py:527 core/models.py:574
-#: core/models.py:723 core/templates/core/note_confirm_delete.html:7
-#: core/templates/core/note_form.html:13 core/templates/core/note_list.html:4
-#: core/templates/core/note_list.html:7 core/templates/core/note_list.html:12
+#: core/models.py:723 core/templates/core/note_confirm_delete.html:8
+#: core/templates/core/note_form.html:12 core/templates/core/note_list.html:4
+#: core/templates/core/note_list.html:7 core/templates/core/note_list.html:11
 msgid "Notes"
 msgstr "Notas"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:154
+#: babybuddy/templates/babybuddy/nav-dropdown.html:152
 msgid "Measurements"
 msgstr "Mediciones"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:162 core/models.py:140
+#: babybuddy/templates/babybuddy/nav-dropdown.html:159 core/models.py:140
 #: core/models.py:152 core/models.py:153 core/models.py:156
-#: core/templates/core/bmi_confirm_delete.html:7
-#: core/templates/core/bmi_form.html:13 core/templates/core/bmi_list.html:4
-#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:12
-#: core/templates/core/bmi_list.html:29 reports/graphs/bmi_change.py:19
+#: core/templates/core/bmi_confirm_delete.html:8
+#: core/templates/core/bmi_form.html:12 core/templates/core/bmi_list.html:4
+#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:11
+#: core/templates/core/bmi_list.html:28 reports/graphs/bmi_change.py:19
 #: reports/graphs/bmi_change.py:30 reports/templates/reports/bmi_change.html:4
 #: reports/templates/reports/bmi_change.html:9
 msgid "BMI"
 msgstr "IMC"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:168
+#: babybuddy/templates/babybuddy/nav-dropdown.html:165
 msgid "BMI entry"
 msgstr "Entrada de IMC"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:176 core/models.py:354
+#: babybuddy/templates/babybuddy/nav-dropdown.html:172 core/models.py:354
 #: core/models.py:367 core/models.py:368 core/models.py:371
-#: core/templates/core/head_circumference_confirm_delete.html:7
-#: core/templates/core/head_circumference_form.html:13
+#: core/templates/core/head_circumference_confirm_delete.html:8
+#: core/templates/core/head_circumference_form.html:12
 #: core/templates/core/head_circumference_list.html:4
 #: core/templates/core/head_circumference_list.html:7
-#: core/templates/core/head_circumference_list.html:12
+#: core/templates/core/head_circumference_list.html:11
 #: core/templates/core/head_circumference_list.html:29
 #: reports/graphs/head_circumference_change.py:19
 #: reports/graphs/head_circumference_change.py:30
 #: reports/templates/reports/head_circumference_change.html:4
 #: reports/templates/reports/head_circumference_change.html:9
-#: reports/templates/reports/report_list.html:27
+#: reports/templates/reports/report_list.html:32
 msgid "Head Circumference"
 msgstr "Perímetro craneal"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:182
+#: babybuddy/templates/babybuddy/nav-dropdown.html:178
 msgid "Head Circumference entry"
 msgstr "Entrada de perímetro craneal"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:190 core/models.py:385
+#: babybuddy/templates/babybuddy/nav-dropdown.html:185 core/models.py:385
 #: core/models.py:397 core/models.py:398 core/models.py:401
-#: core/templates/core/height_confirm_delete.html:7
-#: core/templates/core/height_form.html:13
+#: core/templates/core/height_confirm_delete.html:8
+#: core/templates/core/height_form.html:12
 #: core/templates/core/height_list.html:4
 #: core/templates/core/height_list.html:7
-#: core/templates/core/height_list.html:12
-#: core/templates/core/height_list.html:29 reports/graphs/height_change.py:30
+#: core/templates/core/height_list.html:11
+#: core/templates/core/height_list.html:28 reports/graphs/height_change.py:30
 #: reports/graphs/height_change.py:89
 #: reports/templates/reports/height_change.html:4
 #: reports/templates/reports/height_change.html:9
-#: reports/templates/reports/report_list.html:28
+#: reports/templates/reports/report_list.html:34
 msgid "Height"
 msgstr "Altura"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:196
+#: babybuddy/templates/babybuddy/nav-dropdown.html:191
 msgid "Height entry"
 msgstr "Entrada de altura"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:204 core/models.py:569
+#: babybuddy/templates/babybuddy/nav-dropdown.html:198 core/models.py:569
 #: core/models.py:582 core/models.py:583 core/models.py:586
-#: core/templates/core/temperature_confirm_delete.html:7
-#: core/templates/core/temperature_form.html:13
+#: core/templates/core/temperature_confirm_delete.html:8
+#: core/templates/core/temperature_form.html:12
 #: core/templates/core/temperature_list.html:4
 #: core/templates/core/temperature_list.html:7
-#: core/templates/core/temperature_list.html:12
+#: core/templates/core/temperature_list.html:11
 #: core/templates/core/temperature_list.html:29
 #: reports/graphs/temperature_change.py:19
-#: reports/graphs/temperature_change.py:29
-#: reports/templates/reports/report_list.html:34
+#: reports/graphs/temperature_change.py:32
+#: reports/templates/reports/report_list.html:46
 #: reports/templates/reports/temperature_change.html:4
 #: reports/templates/reports/temperature_change.html:9
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:210
+#: babybuddy/templates/babybuddy/nav-dropdown.html:204
 msgid "Temperature reading"
 msgstr "Lectura de temperatura"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:218 core/models.py:719
+#: babybuddy/templates/babybuddy/nav-dropdown.html:211 core/models.py:719
 #: core/models.py:731 core/models.py:732 core/models.py:735
-#: core/templates/core/weight_confirm_delete.html:7
-#: core/templates/core/weight_form.html:13
+#: core/templates/core/weight_confirm_delete.html:8
+#: core/templates/core/weight_form.html:12
 #: core/templates/core/weight_list.html:4
 #: core/templates/core/weight_list.html:7
-#: core/templates/core/weight_list.html:12
-#: core/templates/core/weight_list.html:29 reports/graphs/weight_change.py:28
+#: core/templates/core/weight_list.html:11
+#: core/templates/core/weight_list.html:28 reports/graphs/weight_change.py:28
 #: reports/graphs/weight_change.py:87
-#: reports/templates/reports/report_list.html:36
+#: reports/templates/reports/report_list.html:50
 #: reports/templates/reports/weight_change.html:4
-#: reports/templates/reports/weight_change.html:10
+#: reports/templates/reports/weight_change.html:9
 msgid "Weight"
 msgstr "Peso"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:224
+#: babybuddy/templates/babybuddy/nav-dropdown.html:217
 msgid "Weight entry"
 msgstr "Introducir peso"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:237
+#: babybuddy/templates/babybuddy/nav-dropdown.html:229
 msgid "Activities"
 msgstr "Actividades"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:245
+#: babybuddy/templates/babybuddy/nav-dropdown.html:235
 #: reports/graphs/diaperchange_lifetimes.py:27
 msgid "Changes"
 msgstr "Cambios"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:251
+#: babybuddy/templates/babybuddy/nav-dropdown.html:241
 msgid "Change"
 msgstr "Cambio"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:258
-#: babybuddy/templates/babybuddy/welcome.html:38 core/models.py:329
-#: core/templates/core/feeding_confirm_delete.html:7
-#: core/templates/core/feeding_form.html:13
+#: babybuddy/templates/babybuddy/nav-dropdown.html:247
+#: babybuddy/templates/babybuddy/welcome.html:37 core/models.py:329
+#: core/templates/core/feeding_confirm_delete.html:8
+#: core/templates/core/feeding_form.html:14
 #: core/templates/core/feeding_list.html:4
 #: core/templates/core/feeding_list.html:7
-#: core/templates/core/feeding_list.html:12
+#: core/templates/core/feeding_list.html:11
 msgid "Feedings"
 msgstr "Tomas"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:278
+#: babybuddy/templates/babybuddy/nav-dropdown.html:272
 msgid "Pumping entry"
 msgstr "Entrada de extracción"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:291
+#: babybuddy/templates/babybuddy/nav-dropdown.html:284
 msgid "Sleep entry"
 msgstr "Entrada de sueño"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:305
+#: babybuddy/templates/babybuddy/nav-dropdown.html:296
 msgid "Tummy Time entry"
 msgstr "Entrada de tiempo boca abajo"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:329
+#: babybuddy/templates/babybuddy/nav-dropdown.html:319
 #: babybuddy/templates/babybuddy/user_add_device.html:7
-#: babybuddy/templates/babybuddy/user_list.html:17
+#: babybuddy/templates/babybuddy/user_list.html:16
 #: babybuddy/templates/babybuddy/user_password_form.html:7
 #: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:613
-#: core/templates/core/timer_list.html:29
+#: core/templates/core/timer_list.html:28
 msgid "User"
 msgstr "Usuario"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:333
+#: babybuddy/templates/babybuddy/nav-dropdown.html:321
 msgid "Password"
 msgstr "Contraseña"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:334
+#: babybuddy/templates/babybuddy/nav-dropdown.html:322
 #: babybuddy/templates/babybuddy/user_add_device.html:4
 #: babybuddy/templates/babybuddy/user_add_device.html:8
-#: babybuddy/templates/babybuddy/user_add_device.html:12
+#: babybuddy/templates/babybuddy/user_add_device.html:11
 msgid "Add a device"
 msgstr "Agregar un dispositivo"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:338
+#: babybuddy/templates/babybuddy/nav-dropdown.html:325
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:341
+#: babybuddy/templates/babybuddy/nav-dropdown.html:327
 #: babybuddy/templates/dbsettings/site_settings.html:7
 msgid "Site"
 msgstr "Sitio"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:342
+#: babybuddy/templates/babybuddy/nav-dropdown.html:328
 msgid "API Browser"
 msgstr "Navegador API"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:347
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:7
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:7
-#: babybuddy/templates/babybuddy/user_form.html:13
+#: babybuddy/templates/babybuddy/nav-dropdown.html:331
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:8
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:8
+#: babybuddy/templates/babybuddy/user_form.html:12
 #: babybuddy/templates/babybuddy/user_list.html:4
 #: babybuddy/templates/babybuddy/user_list.html:7
 msgid "Users"
 msgstr "Usuarios"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:351
+#: babybuddy/templates/babybuddy/nav-dropdown.html:334
 msgid "Support"
 msgstr "Soporte"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:353
+#: babybuddy/templates/babybuddy/nav-dropdown.html:336
 msgid "Source Code"
 msgstr "Código Fuente"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:355
+#: babybuddy/templates/babybuddy/nav-dropdown.html:338
 msgid "Chat / Support"
 msgstr "Chat / Soporte"
 
 #: babybuddy/templates/babybuddy/paginator.html:11
-#: core/templates/timeline/_timeline.html:5
-#: core/templates/timeline/_timeline.html:7
-#: core/templates/timeline/_timeline.html:71
-#: core/templates/timeline/_timeline.html:73
-#: dashboard/templates/cards/feeding_last_method.html:37
-#: dashboard/templates/cards/feeding_recent.html:46
-#: dashboard/templates/cards/sleep_recent.html:43
-#: dashboard/templates/cards/statistics.html:37
+#: core/templates/timeline/_timeline.html:6
+#: core/templates/timeline/_timeline.html:8
+#: core/templates/timeline/_timeline.html:76
+#: core/templates/timeline/_timeline.html:78
+#: dashboard/templates/cards/feeding_last_method.html:35
+#: dashboard/templates/cards/feeding_recent.html:42
+#: dashboard/templates/cards/sleep_recent.html:42
+#: dashboard/templates/cards/statistics.html:38
 msgid "Previous"
 msgstr "Anterior"
 
 #: babybuddy/templates/babybuddy/paginator.html:28
-#: core/templates/timeline/_timeline.html:12
-#: core/templates/timeline/_timeline.html:14
-#: core/templates/timeline/_timeline.html:78
-#: core/templates/timeline/_timeline.html:80
-#: dashboard/templates/cards/feeding_last_method.html:44
-#: dashboard/templates/cards/feeding_recent.html:53
-#: dashboard/templates/cards/sleep_recent.html:47
-#: dashboard/templates/cards/statistics.html:44
+#: core/templates/timeline/_timeline.html:15
+#: core/templates/timeline/_timeline.html:17
+#: core/templates/timeline/_timeline.html:85
+#: core/templates/timeline/_timeline.html:87
+#: dashboard/templates/cards/feeding_last_method.html:42
+#: dashboard/templates/cards/feeding_recent.html:49
+#: dashboard/templates/cards/sleep_recent.html:49
+#: dashboard/templates/cards/statistics.html:45
 msgid "Next"
 msgstr "Siguiente"
 
-#: babybuddy/templates/babybuddy/user_add_device.html:15
+#: babybuddy/templates/babybuddy/user_add_device.html:13
 msgid "Authentication Methods"
 msgstr ""
 
-#: babybuddy/templates/babybuddy/user_add_device.html:18
-#: babybuddy/templates/babybuddy/user_settings_form.html:81
+#: babybuddy/templates/babybuddy/user_add_device.html:16
+#: babybuddy/templates/babybuddy/user_settings_form.html:80
 msgid "Key"
 msgstr "Clave"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:23
-#: babybuddy/templates/babybuddy/user_settings_form.html:84
+#: babybuddy/templates/babybuddy/user_settings_form.html:85
 msgid "Regenerate"
 msgstr "Regenerar"
 
-#: babybuddy/templates/babybuddy/user_add_device.html:28
+#: babybuddy/templates/babybuddy/user_add_device.html:29
 msgid "Login QR code"
 msgstr ""
 
@@ -602,75 +623,78 @@ msgstr ""
 msgid "Delete User"
 msgstr "Eliminar Usuario"
 
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:9
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:18
-#: core/templates/core/bmi_confirm_delete.html:8
-#: core/templates/core/bmi_confirm_delete.html:17
-#: core/templates/core/child_confirm_delete.html:9
-#: core/templates/core/child_confirm_delete.html:31
-#: core/templates/core/diaperchange_confirm_delete.html:8
-#: core/templates/core/diaperchange_confirm_delete.html:17
-#: core/templates/core/feeding_confirm_delete.html:8
-#: core/templates/core/feeding_confirm_delete.html:17
-#: core/templates/core/head_circumference_confirm_delete.html:8
-#: core/templates/core/head_circumference_confirm_delete.html:17
-#: core/templates/core/height_confirm_delete.html:8
-#: core/templates/core/height_confirm_delete.html:17
-#: core/templates/core/note_confirm_delete.html:8
-#: core/templates/core/note_confirm_delete.html:17
-#: core/templates/core/pumping_confirm_delete.html:8
-#: core/templates/core/pumping_confirm_delete.html:17
-#: core/templates/core/sleep_confirm_delete.html:8
-#: core/templates/core/sleep_confirm_delete.html:17
-#: core/templates/core/temperature_confirm_delete.html:8
-#: core/templates/core/temperature_confirm_delete.html:17
-#: core/templates/core/timer_confirm_delete.html:11
-#: core/templates/core/timer_confirm_delete.html:20
-#: core/templates/core/tummytime_confirm_delete.html:8
-#: core/templates/core/tummytime_confirm_delete.html:17
-#: core/templates/core/weight_confirm_delete.html:8
-#: core/templates/core/weight_confirm_delete.html:17
-#: dashboard/templates/dashboard/child_button_group.html:27
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:11
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:21
+#: core/templates/core/bmi_confirm_delete.html:10
+#: core/templates/core/bmi_confirm_delete.html:20
+#: core/templates/core/child_confirm_delete.html:13
+#: core/templates/core/child_confirm_delete.html:34
+#: core/templates/core/diaperchange_confirm_delete.html:10
+#: core/templates/core/diaperchange_confirm_delete.html:20
+#: core/templates/core/feeding_confirm_delete.html:10
+#: core/templates/core/feeding_confirm_delete.html:20
+#: core/templates/core/head_circumference_confirm_delete.html:10
+#: core/templates/core/head_circumference_confirm_delete.html:20
+#: core/templates/core/height_confirm_delete.html:10
+#: core/templates/core/height_confirm_delete.html:20
+#: core/templates/core/note_confirm_delete.html:10
+#: core/templates/core/note_confirm_delete.html:20
+#: core/templates/core/pumping_confirm_delete.html:10
+#: core/templates/core/pumping_confirm_delete.html:20
+#: core/templates/core/sleep_confirm_delete.html:10
+#: core/templates/core/sleep_confirm_delete.html:20
+#: core/templates/core/temperature_confirm_delete.html:10
+#: core/templates/core/temperature_confirm_delete.html:20
+#: core/templates/core/timer_confirm_delete.html:13
+#: core/templates/core/timer_confirm_delete.html:23
+#: core/templates/core/tummytime_confirm_delete.html:10
+#: core/templates/core/tummytime_confirm_delete.html:20
+#: core/templates/core/weight_confirm_delete.html:10
+#: core/templates/core/weight_confirm_delete.html:20
+#: dashboard/templates/dashboard/child_button_group.html:31
 msgid "Delete"
 msgstr "Eliminar"
 
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:15
-#: core/templates/core/bmi_confirm_delete.html:14
-#: core/templates/core/child_confirm_delete.html:15
-#: core/templates/core/diaperchange_confirm_delete.html:14
-#: core/templates/core/feeding_confirm_delete.html:14
-#: core/templates/core/head_circumference_confirm_delete.html:14
-#: core/templates/core/height_confirm_delete.html:14
-#: core/templates/core/note_confirm_delete.html:14
-#: core/templates/core/pumping_confirm_delete.html:14
-#: core/templates/core/sleep_confirm_delete.html:14
-#: core/templates/core/temperature_confirm_delete.html:14
-#: core/templates/core/timer_confirm_delete.html:17
-#: core/templates/core/tummytime_confirm_delete.html:14
-#: core/templates/core/weight_confirm_delete.html:14
-#, python-format
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:16
+#: core/templates/core/bmi_confirm_delete.html:15
+#: core/templates/core/child_confirm_delete.html:18
+#: core/templates/core/diaperchange_confirm_delete.html:15
+#: core/templates/core/feeding_confirm_delete.html:15
+#: core/templates/core/head_circumference_confirm_delete.html:15
+#: core/templates/core/height_confirm_delete.html:15
+#: core/templates/core/note_confirm_delete.html:15
+#: core/templates/core/pumping_confirm_delete.html:15
+#: core/templates/core/sleep_confirm_delete.html:15
+#: core/templates/core/temperature_confirm_delete.html:15
+#: core/templates/core/timer_confirm_delete.html:18
+#: core/templates/core/tummytime_confirm_delete.html:15
+#: core/templates/core/weight_confirm_delete.html:15
+#, fuzzy, python-format
+#| msgid ""
+#| "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+#| "span>?</h1>"
 msgid ""
-"<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
-"span>?</h1>"
+"<h1> Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+"span>? </h1>"
 msgstr ""
 "<h1>¿Estás seguro de querer eliminar <span class=\"text-info\">%(object)s</"
 "span>?</h1>"
 
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:19
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:19
-#: core/templates/core/bmi_confirm_delete.html:18
-#: core/templates/core/child_confirm_delete.html:32
-#: core/templates/core/diaperchange_confirm_delete.html:18
-#: core/templates/core/feeding_confirm_delete.html:18
-#: core/templates/core/head_circumference_confirm_delete.html:18
-#: core/templates/core/height_confirm_delete.html:18
-#: core/templates/core/note_confirm_delete.html:18
-#: core/templates/core/pumping_confirm_delete.html:18
-#: core/templates/core/sleep_confirm_delete.html:18
-#: core/templates/core/temperature_confirm_delete.html:18
-#: core/templates/core/timer_confirm_delete.html:21
-#: core/templates/core/tummytime_confirm_delete.html:18
-#: core/templates/core/weight_confirm_delete.html:18
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:22
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:23
+#: core/templates/core/bmi_confirm_delete.html:21
+#: core/templates/core/child_confirm_delete.html:35
+#: core/templates/core/diaperchange_confirm_delete.html:21
+#: core/templates/core/feeding_confirm_delete.html:21
+#: core/templates/core/head_circumference_confirm_delete.html:22
+#: core/templates/core/height_confirm_delete.html:21
+#: core/templates/core/note_confirm_delete.html:21
+#: core/templates/core/pumping_confirm_delete.html:21
+#: core/templates/core/sleep_confirm_delete.html:21
+#: core/templates/core/temperature_confirm_delete.html:21
+#: core/templates/core/timer_confirm_delete.html:25
+#: core/templates/core/tummytime_confirm_delete.html:21
+#: core/templates/core/weight_confirm_delete.html:21
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -678,137 +702,141 @@ msgstr "Cancelar"
 msgid "Unlock User"
 msgstr ""
 
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:9
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:18
-#: babybuddy/templates/babybuddy/user_form.html:31
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:11
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:21
+#: babybuddy/templates/babybuddy/user_form.html:28
 msgid "Unlock"
 msgstr ""
 
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:15
-#, python-format
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:16
+#, fuzzy, python-format
+#| msgid ""
+#| "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+#| "span>?</h1>"
 msgid ""
-"<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
-"span>?</h1>"
+"<h1> Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+"span>? </h1>"
 msgstr ""
 "<h1>¿Estás seguro de querer abrir <span class=\"text-info\">%(object)s</"
 "span>?</h1>"
 
-#: babybuddy/templates/babybuddy/user_form.html:8
+#: babybuddy/templates/babybuddy/user_form.html:7
 #: babybuddy/templates/babybuddy/user_form.html:18
-#: babybuddy/templates/babybuddy/user_form.html:39
-#: babybuddy/templates/babybuddy/user_list.html:71
+#: babybuddy/templates/babybuddy/user_form.html:37
+#: babybuddy/templates/babybuddy/user_list.html:68
 msgid "Create User"
 msgstr "Crear Usuario"
 
 #: babybuddy/templates/babybuddy/user_form.html:16
-#: core/templates/core/bmi_form.html:15 core/templates/core/child_form.html:16
+#: core/templates/core/bmi_form.html:15 core/templates/core/child_form.html:18
 #: core/templates/core/diaperchange_form.html:15
-#: core/templates/core/feeding_form.html:15
+#: core/templates/core/feeding_form.html:17
 #: core/templates/core/head_circumference_form.html:15
 #: core/templates/core/height_form.html:15
 #: core/templates/core/note_form.html:15
 #: core/templates/core/pumping_form.html:15
 #: core/templates/core/sleep_form.html:15
 #: core/templates/core/temperature_form.html:15
-#: core/templates/core/timer_form.html:10
+#: core/templates/core/timer_form.html:14
 #: core/templates/core/tummytime_form.html:15
 #: core/templates/core/weight_form.html:15
 msgid "Update"
 msgstr "Actualizar"
 
-#: babybuddy/templates/babybuddy/user_form.html:28
+#: babybuddy/templates/babybuddy/user_form.html:26
 msgid "User locked."
 msgstr ""
 
-#: babybuddy/templates/babybuddy/user_form.html:35
-#: core/templates/core/bmi_form.html:23 core/templates/core/child_form.html:24
-#: core/templates/core/diaperchange_form.html:23
-#: core/templates/core/feeding_form.html:23
-#: core/templates/core/head_circumference_form.html:23
-#: core/templates/core/height_form.html:23
-#: core/templates/core/note_form.html:23
-#: core/templates/core/pumping_form.html:23
-#: core/templates/core/sleep_form.html:23
-#: core/templates/core/temperature_form.html:23
-#: core/templates/core/timer_form.html:18
-#: core/templates/core/tummytime_form.html:23
-#: core/templates/core/weight_form.html:23
-#, python-format
-msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#: babybuddy/templates/babybuddy/user_form.html:31
+#: core/templates/core/bmi_form.html:22 core/templates/core/child_form.html:25
+#: core/templates/core/diaperchange_form.html:22
+#: core/templates/core/feeding_form.html:24
+#: core/templates/core/head_circumference_form.html:22
+#: core/templates/core/height_form.html:22
+#: core/templates/core/note_form.html:22
+#: core/templates/core/pumping_form.html:22
+#: core/templates/core/sleep_form.html:22
+#: core/templates/core/temperature_form.html:22
+#: core/templates/core/timer_form.html:21
+#: core/templates/core/tummytime_form.html:22
+#: core/templates/core/weight_form.html:22
+#, fuzzy, python-format
+#| msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+msgid "<h1> Update <span class=\"text-info\">%(object)s</span> </h1>"
 msgstr "<h1>Actualizar <span class=\"text-info\">%(object)s</span></h1>"
 
-#: babybuddy/templates/babybuddy/user_list.html:18
-#: core/templates/core/child_list.html:25
+#: babybuddy/templates/babybuddy/user_list.html:17
+#: core/templates/core/child_list.html:26
 msgid "First Name"
 msgstr "Nombre"
 
-#: babybuddy/templates/babybuddy/user_list.html:19
-#: core/templates/core/child_list.html:26
+#: babybuddy/templates/babybuddy/user_list.html:18
+#: core/templates/core/child_list.html:27
 msgid "Last Name"
 msgstr "Apellidos"
 
-#: babybuddy/templates/babybuddy/user_list.html:20
+#: babybuddy/templates/babybuddy/user_list.html:19
 msgid "Email"
 msgstr "Email"
 
-#: babybuddy/templates/babybuddy/user_list.html:22
+#: babybuddy/templates/babybuddy/user_list.html:21
 msgid "Staff"
 msgstr "Personal"
 
-#: babybuddy/templates/babybuddy/user_list.html:23 core/models.py:608
+#: babybuddy/templates/babybuddy/user_list.html:22 core/models.py:608
 msgid "Active"
 msgstr "Activo"
 
-#: babybuddy/templates/babybuddy/user_list.html:24
+#: babybuddy/templates/babybuddy/user_list.html:23
 msgid "Locked"
 msgstr ""
 
-#: babybuddy/templates/babybuddy/user_list.html:25
-#: core/templates/core/bmi_list.html:24 core/templates/core/bmi_list.html:37
-#: core/templates/core/child_list.html:28
-#: core/templates/core/child_list.html:47
+#: babybuddy/templates/babybuddy/user_list.html:24
+#: core/templates/core/bmi_list.html:23 core/templates/core/bmi_list.html:38
+#: core/templates/core/child_list.html:29
+#: core/templates/core/child_list.html:53
 #: core/templates/core/diaperchange_list.html:24
-#: core/templates/core/diaperchange_list.html:39
-#: core/templates/core/feeding_list.html:24
-#: core/templates/core/feeding_list.html:42
+#: core/templates/core/diaperchange_list.html:41
+#: core/templates/core/feeding_list.html:27
+#: core/templates/core/feeding_list.html:47
 #: core/templates/core/head_circumference_list.html:24
-#: core/templates/core/head_circumference_list.html:37
-#: core/templates/core/height_list.html:24
-#: core/templates/core/height_list.html:37
-#: core/templates/core/note_list.html:24 core/templates/core/note_list.html:38
-#: core/templates/core/pumping_list.html:24
-#: core/templates/core/pumping_list.html:38
-#: core/templates/core/sleep_list.html:24
-#: core/templates/core/sleep_list.html:39
+#: core/templates/core/head_circumference_list.html:39
+#: core/templates/core/height_list.html:23
+#: core/templates/core/height_list.html:38
+#: core/templates/core/note_list.html:23 core/templates/core/note_list.html:39
+#: core/templates/core/pumping_list.html:23
+#: core/templates/core/pumping_list.html:39
+#: core/templates/core/sleep_list.html:23
+#: core/templates/core/sleep_list.html:40
 #: core/templates/core/temperature_list.html:24
-#: core/templates/core/temperature_list.html:37
-#: core/templates/core/tummytime_list.html:23
-#: core/templates/core/tummytime_list.html:38
-#: core/templates/core/weight_list.html:24
-#: core/templates/core/weight_list.html:37
+#: core/templates/core/temperature_list.html:39
+#: core/templates/core/tummytime_list.html:22
+#: core/templates/core/tummytime_list.html:39
+#: core/templates/core/weight_list.html:23
+#: core/templates/core/weight_list.html:38
 msgid "Actions"
 msgstr "Acciones"
 
-#: babybuddy/templates/babybuddy/user_list.html:61
+#: babybuddy/templates/babybuddy/user_list.html:59
 msgid "No users found."
 msgstr "No se han encontrado usuarios."
 
 #: babybuddy/templates/babybuddy/user_password_form.html:4
 #: babybuddy/templates/babybuddy/user_password_form.html:8
-#: babybuddy/templates/babybuddy/user_password_form.html:12
+#: babybuddy/templates/babybuddy/user_password_form.html:11
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
 #: babybuddy/templates/babybuddy/user_settings_form.html:4
-#: babybuddy/templates/babybuddy/user_settings_form.html:12
+#: babybuddy/templates/babybuddy/user_settings_form.html:11
 msgid "User Settings"
 msgstr "Configuración del Usuario"
 
-#: babybuddy/templates/babybuddy/user_settings_form.html:33
+#: babybuddy/templates/babybuddy/user_settings_form.html:32
 msgid "User Profile"
 msgstr "Perfil del Usuario"
 
-#: babybuddy/templates/babybuddy/user_settings_form.html:79
+#: babybuddy/templates/babybuddy/user_settings_form.html:78
 msgid "API"
 msgstr "API"
 
@@ -817,11 +845,11 @@ msgstr "API"
 msgid "Welcome!"
 msgstr "¡Bienvenido!"
 
-#: babybuddy/templates/babybuddy/welcome.html:13
+#: babybuddy/templates/babybuddy/welcome.html:12
 msgid "Welcome to Baby Buddy!"
 msgstr "¡Bienvenido a Baby Buddy!"
 
-#: babybuddy/templates/babybuddy/welcome.html:15
+#: babybuddy/templates/babybuddy/welcome.html:14
 msgid ""
 "Learn about and predict baby's needs without (<em>as much</em>) guess work "
 "by using Baby Buddy to track &mdash;"
@@ -829,17 +857,17 @@ msgstr ""
 "Aprende a predecir las necesidades de tu bebé sin tener que adivinar "
 "haciendo track con Baby Buddy &mdash;"
 
-#: babybuddy/templates/babybuddy/welcome.html:28 core/models.py:258
-#: core/templates/core/diaperchange_confirm_delete.html:7
-#: core/templates/core/diaperchange_form.html:13
+#: babybuddy/templates/babybuddy/welcome.html:27 core/models.py:258
+#: core/templates/core/diaperchange_confirm_delete.html:8
+#: core/templates/core/diaperchange_form.html:12
 #: core/templates/core/diaperchange_list.html:4
 #: core/templates/core/diaperchange_list.html:7
-#: core/templates/core/diaperchange_list.html:12
-#: dashboard/templates/cards/diaperchange_types.html:6
+#: core/templates/core/diaperchange_list.html:11
+#: dashboard/templates/cards/diaperchange_types.html:4
 msgid "Diaper Changes"
 msgstr "Cambios de Pañal"
 
-#: babybuddy/templates/babybuddy/welcome.html:65
+#: babybuddy/templates/babybuddy/welcome.html:64
 msgid ""
 "As the amount of entries grows, Baby Buddy will help parents and caregivers "
 "to identify small patterns in baby's habits using the dashboard and graphs. "
@@ -854,14 +882,14 @@ msgstr ""
 "mañana. Para comenzar, haz click en el botón y añade tu primer (o segundo, o "
 "tercer) hijo!"
 
-#: babybuddy/templates/babybuddy/welcome.html:77
-#: core/templates/core/child_form.html:8 core/templates/core/child_form.html:18
-#: core/templates/core/child_form.html:28
+#: babybuddy/templates/babybuddy/welcome.html:76
+#: core/templates/core/child_form.html:7 core/templates/core/child_form.html:20
+#: core/templates/core/child_form.html:31
 msgid "Add a Child"
 msgstr "Añadir Niño"
 
 #: babybuddy/templates/dbsettings/site_settings.html:4
-#: babybuddy/templates/dbsettings/site_settings.html:12
+#: babybuddy/templates/dbsettings/site_settings.html:11
 msgid "Site Settings"
 msgstr ""
 
@@ -881,11 +909,11 @@ msgstr ""
 "No tienes permisos para acceder a este recurso. Contacta con un "
 "administrador si necesitas ayuda."
 
-#: babybuddy/templates/error/403_csrf_bad_origin.html:15
+#: babybuddy/templates/error/403_csrf_bad_origin.html:10
 msgid "How to Fix"
 msgstr "Cómo arreglarlo"
 
-#: babybuddy/templates/error/403_csrf_bad_origin.html:16
+#: babybuddy/templates/error/403_csrf_bad_origin.html:11
 #, python-format
 msgid ""
 "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
@@ -908,7 +936,7 @@ msgstr "La ruta <code>%(request_path)s</code> no existe."
 msgid "Server Error"
 msgstr "Error del servidor"
 
-#: babybuddy/templates/error/base.html:14
+#: babybuddy/templates/error/base.html:13
 msgid "Return to Baby Buddy"
 msgstr "Volver a Baby Buddy"
 
@@ -916,11 +944,11 @@ msgstr "Volver a Baby Buddy"
 msgid "Too Many Login Attempts"
 msgstr ""
 
-#: babybuddy/templates/registration/login.html:28
+#: babybuddy/templates/registration/login.html:18
 msgid "Login"
 msgstr "Iniciar Sesión"
 
-#: babybuddy/templates/registration/login.html:34
+#: babybuddy/templates/registration/login.html:21
 msgid "Forgot your password?"
 msgstr "¿Has olvidado tu contraseña?"
 
@@ -932,7 +960,7 @@ msgstr "¡Tu contraseña se ha reseteado satisfactoriamente!"
 msgid "Your password has been set. You may go ahead and log in now."
 msgstr "Se ha establecido tu contraseña. Puedes iniciar sesión."
 
-#: babybuddy/templates/registration/password_reset_complete.html:9
+#: babybuddy/templates/registration/password_reset_complete.html:10
 msgid "Log in"
 msgstr "Iniciar Sesión"
 
@@ -940,19 +968,19 @@ msgstr "Iniciar Sesión"
 msgid "Password Reset"
 msgstr "Resetear Contraseña"
 
-#: babybuddy/templates/registration/password_reset_confirm.html:13
+#: babybuddy/templates/registration/password_reset_confirm.html:12
 msgid ""
 "<strong>Oh snap!</strong> The two passwords did not match. Please try again."
 msgstr ""
 "<strong>¡Vaya!</strong> Las dos contraseñas no coinciden. Por favor, "
 "inténtalo otra vez."
 
-#: babybuddy/templates/registration/password_reset_confirm.html:22
+#: babybuddy/templates/registration/password_reset_confirm.html:20
 msgid "Enter your new password in each field below."
 msgstr "Introduce tu nueva contraseña en cada uno de los campos."
 
-#: babybuddy/templates/registration/password_reset_confirm.html:42
-#: babybuddy/templates/registration/password_reset_form.html:29
+#: babybuddy/templates/registration/password_reset_confirm.html:32
+#: babybuddy/templates/registration/password_reset_form.html:23
 msgid "Reset Password"
 msgstr "Resetear Contraseña"
 
@@ -968,7 +996,7 @@ msgstr ""
 "Te hemos enviado por email las instrucciones para establecer tu contraseña, "
 "si la cuenta que has introducido existe. Deberías recibirlo en breve."
 
-#: babybuddy/templates/registration/password_reset_done.html:15
+#: babybuddy/templates/registration/password_reset_done.html:16
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -976,7 +1004,7 @@ msgstr ""
 "Si no recibes el email, asegúrate de haber introducido la dirección de "
 "correo con la que te has registrado y comprueba tu carpeta de spam."
 
-#: babybuddy/templates/registration/password_reset_email.html:2
+#: babybuddy/templates/registration/password_reset_email.html:3
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
@@ -991,7 +1019,7 @@ msgstr ""
 msgid "Your username, in case you’ve forgotten:"
 msgstr ""
 
-#: babybuddy/templates/registration/password_reset_email.html:10
+#: babybuddy/templates/registration/password_reset_email.html:9
 msgid "Thanks for using Baby Buddy!"
 msgstr ""
 
@@ -1063,11 +1091,11 @@ msgstr ""
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: core/forms.py:130
+#: core/forms.py:159
 msgid "Name does not match child name."
 msgstr "El nombre no coincide con el nombre del niño."
 
-#: core/forms.py:146
+#: core/forms.py:175
 msgid ""
 "Click on the tags to add (+) or remove (-) tags or use the text editor to "
 "create new tags."
@@ -1104,31 +1132,31 @@ msgstr "Color"
 msgid "Last used"
 msgstr "Últimas usadas"
 
-#: core/models.py:98 core/templates/core/bmi_list.html:30
+#: core/models.py:98 core/templates/core/bmi_list.html:29
 #: core/templates/core/diaperchange_list.html:32
-#: core/templates/core/feeding_list.html:35
+#: core/templates/core/feeding_list.html:38
 #: core/templates/core/head_circumference_list.html:30
-#: core/templates/core/height_list.html:30
-#: core/templates/core/note_list.html:31
-#: core/templates/core/pumping_list.html:31
-#: core/templates/core/sleep_list.html:32
+#: core/templates/core/height_list.html:29
+#: core/templates/core/note_list.html:30
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:31
 #: core/templates/core/temperature_list.html:30
-#: core/templates/core/tummytime_list.html:31
-#: core/templates/core/weight_list.html:30
+#: core/templates/core/tummytime_list.html:30
+#: core/templates/core/weight_list.html:29
 msgid "Tags"
 msgstr "Etiquetas"
 
 #: core/models.py:142 core/models.py:357 core/models.py:387 core/models.py:721
-#: core/templates/core/bmi_list.html:25
-#: core/templates/core/feeding_list.html:25
+#: core/templates/core/bmi_list.html:24
+#: core/templates/core/feeding_list.html:28
 #: core/templates/core/head_circumference_list.html:25
-#: core/templates/core/height_list.html:25
-#: core/templates/core/pumping_list.html:25
-#: core/templates/core/weight_list.html:25 reports/graphs/bmi_change.py:28
+#: core/templates/core/height_list.html:24
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/weight_list.html:24 reports/graphs/bmi_change.py:28
 #: reports/graphs/diaperchange_amounts.py:37
 #: reports/graphs/diaperchange_intervals.py:67
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
-#: reports/graphs/feeding_duration.py:56 reports/graphs/feeding_intervals.py:42
+#: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
 #: reports/graphs/head_circumference_change.py:28
 #: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:157 reports/graphs/sleep_totals.py:59
@@ -1164,19 +1192,19 @@ msgstr "Foto"
 
 #: core/models.py:233 core/models.py:439 core/models.py:572
 #: core/templates/core/diaperchange_list.html:25
-#: core/templates/core/note_list.html:25
+#: core/templates/core/note_list.html:24
 #: core/templates/core/temperature_list.html:25
 #: reports/graphs/temperature_change.py:27
 msgid "Time"
 msgstr "Hora"
 
-#: core/models.py:235 core/templates/core/diaperchange_list.html:60
+#: core/models.py:235 core/templates/core/diaperchange_list.html:64
 #: reports/graphs/diaperchange_intervals.py:47
 #: reports/graphs/diaperchange_types.py:36
 msgid "Wet"
 msgstr "Mojado"
 
-#: core/models.py:236 core/templates/core/diaperchange_list.html:61
+#: core/models.py:236 core/templates/core/diaperchange_list.html:67
 #: reports/graphs/diaperchange_intervals.py:38
 #: reports/graphs/diaperchange_types.py:30
 msgid "Solid"
@@ -1200,8 +1228,8 @@ msgstr "Amarillo"
 
 #: core/models.py:248 core/models.py:319 core/models.py:483
 #: core/templates/core/diaperchange_list.html:31
-#: core/templates/core/pumping_list.html:29
-#: dashboard/templates/cards/pumping_last.html:23
+#: core/templates/core/pumping_list.html:28
+#: dashboard/templates/cards/pumping_last.html:18
 msgid "Amount"
 msgstr "Cantidad"
 
@@ -1215,10 +1243,10 @@ msgid "End time"
 msgstr "Tiempo fin"
 
 #: core/models.py:295 core/models.py:481 core/models.py:525 core/models.py:681
-#: core/templates/core/feeding_list.html:34
-#: core/templates/core/pumping_list.html:30
-#: core/templates/core/sleep_list.html:30
-#: core/templates/core/tummytime_list.html:29
+#: core/templates/core/feeding_list.html:37
+#: core/templates/core/pumping_list.html:29
+#: core/templates/core/sleep_list.html:29
+#: core/templates/core/tummytime_list.html:28
 msgid "Duration"
 msgstr "Duración"
 
@@ -1238,7 +1266,7 @@ msgstr "Leche de pecho fortificada"
 msgid "Solid food"
 msgstr "Comida sólida"
 
-#: core/models.py:305 core/templates/core/feeding_list.html:30
+#: core/models.py:305 core/templates/core/feeding_list.html:33
 msgid "Type"
 msgstr "Tipo"
 
@@ -1266,7 +1294,7 @@ msgstr "Comió con ayuda"
 msgid "Self fed"
 msgstr "Comió solo"
 
-#: core/models.py:317 core/templates/core/feeding_list.html:29
+#: core/models.py:317 core/templates/core/feeding_list.html:32
 msgid "Method"
 msgstr "Método"
 
@@ -1278,11 +1306,11 @@ msgstr ""
 msgid "Boy"
 msgstr ""
 
-#: core/models.py:442 core/templates/core/note_list.html:29
+#: core/models.py:442 core/templates/core/note_list.html:28
 msgid "Image"
 msgstr ""
 
-#: core/models.py:523 core/templates/core/sleep_list.html:31
+#: core/models.py:523 core/templates/core/sleep_list.html:30
 msgid "Nap"
 msgstr "Siesta"
 
@@ -1290,7 +1318,7 @@ msgstr "Siesta"
 msgid "Nap settings"
 msgstr ""
 
-#: core/models.py:603 core/templates/core/timer_list.html:25
+#: core/models.py:603 core/templates/core/timer_list.html:24
 msgid "Name"
 msgstr "Nombre"
 
@@ -1298,12 +1326,12 @@ msgstr "Nombre"
 msgid "Timer"
 msgstr "Temporizador"
 
-#: core/models.py:622 core/templates/core/timer_confirm_delete.html:9
-#: core/templates/core/timer_detail.html:8
-#: core/templates/core/timer_form.html:7 core/templates/core/timer_list.html:4
-#: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:12
-#: core/templates/core/timer_nav.html:10 core/templates/core/timer_nav.html:44
-#: dashboard/templates/cards/timer_list.html:6
+#: core/models.py:622 core/templates/core/timer_confirm_delete.html:8
+#: core/templates/core/timer_detail.html:7
+#: core/templates/core/timer_form.html:8 core/templates/core/timer_list.html:4
+#: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:11
+#: core/templates/core/timer_nav.html:9 core/templates/core/timer_nav.html:49
+#: dashboard/templates/cards/timer_list.html:4
 msgid "Timers"
 msgstr "Temporizadores"
 
@@ -1312,7 +1340,7 @@ msgstr "Temporizadores"
 msgid "Timer #{id}"
 msgstr "Temporizador #{id}"
 
-#: core/models.py:684 core/templates/core/tummytime_list.html:30
+#: core/models.py:684 core/templates/core/tummytime_list.html:29
 msgid "Milestone"
 msgstr "Hito"
 
@@ -1320,12 +1348,12 @@ msgstr "Hito"
 msgid "Delete a BMI Entry"
 msgstr "Eliminar una entrada de IMC"
 
-#: core/templates/core/bmi_form.html:8 core/templates/core/bmi_form.html:17
-#: core/templates/core/bmi_form.html:27
+#: core/templates/core/bmi_form.html:7 core/templates/core/bmi_form.html:17
+#: core/templates/core/bmi_form.html:28
 msgid "Add a BMI Entry"
 msgstr "Añadir una entrada de IMC"
 
-#: core/templates/core/bmi_list.html:15
+#: core/templates/core/bmi_list.html:14
 msgid "Add BMI"
 msgstr "Añadir IMC"
 
@@ -1337,37 +1365,37 @@ msgstr "No hay entradas de IMC."
 msgid "Delete a Child"
 msgstr "Borrar Niño"
 
-#: core/templates/core/child_confirm_delete.html:20
+#: core/templates/core/child_confirm_delete.html:25
 msgid "To confirm this action. Type the full name of the child below."
 msgstr "Para confirmar esta acción, escribe el nombre completo del niño."
 
-#: core/templates/core/child_detail.html:25
-#: dashboard/templates/dashboard/dashboard.html:32
+#: core/templates/core/child_detail.html:23
+#: dashboard/templates/dashboard/dashboard.html:30
 msgid "Born"
 msgstr "Nacimiento"
 
-#: core/templates/core/child_detail.html:26
-#: dashboard/templates/dashboard/dashboard.html:33
+#: core/templates/core/child_detail.html:25
+#: dashboard/templates/dashboard/dashboard.html:32
 msgid "Age"
 msgstr "Edad"
 
-#: core/templates/core/child_list.html:15
+#: core/templates/core/child_list.html:14
 msgid "Add Child"
 msgstr "Añadir Niño"
 
-#: core/templates/core/child_list.html:27
+#: core/templates/core/child_list.html:28
 msgid "Birth Date"
 msgstr "Fecha Nacimiento"
 
-#: core/templates/core/child_list.html:66
+#: core/templates/core/child_list.html:71
 msgid "No children found."
 msgstr "No se ha encontrado ningún niño."
 
-#: core/templates/core/child_quick_switch.html:6
+#: core/templates/core/child_quick_switch.html:9
 msgid "Switch child"
 msgstr ""
 
-#: core/templates/core/child_quick_switch.html:13
+#: core/templates/core/child_quick_switch.html:21
 msgid "Switch to…"
 msgstr ""
 
@@ -1375,20 +1403,20 @@ msgstr ""
 msgid "Delete a Diaper Change"
 msgstr "Eliminar un Cambio de Pañal"
 
-#: core/templates/core/diaperchange_form.html:6
+#: core/templates/core/diaperchange_form.html:5
 msgid "Update a Diaper Change"
 msgstr "Actualizar un Cambio de Pañal"
 
-#: core/templates/core/diaperchange_form.html:8
-#: core/templates/core/diaperchange_form.html:27
+#: core/templates/core/diaperchange_form.html:7
+#: core/templates/core/diaperchange_form.html:28
 msgid "Add a Diaper Change"
 msgstr "Añadir un Cambio de Pañal"
 
 #: core/templates/core/diaperchange_form.html:17
-#: core/templates/core/feeding_form.html:17
+#: core/templates/core/feeding_form.html:19
 #: core/templates/core/note_form.html:17 core/templates/core/sleep_form.html:17
 #: core/templates/core/tummytime_form.html:17
-#: core/templates/core/widget_tag_editor.html:23
+#: core/templates/core/widget_tag_editor.html:26
 msgid "Add"
 msgstr "Añadir"
 
@@ -1400,7 +1428,7 @@ msgstr "Añadir Cambio de Pañal"
 msgid "Contents"
 msgstr "Contenidos"
 
-#: core/templates/core/diaperchange_list.html:76
+#: core/templates/core/diaperchange_list.html:83
 msgid "No diaper changes found."
 msgstr "No se han encontrado cambios de pañal."
 
@@ -1408,24 +1436,37 @@ msgstr "No se han encontrado cambios de pañal."
 msgid "Delete a Feeding"
 msgstr "Eliminar una Toma"
 
-#: core/templates/core/feeding_form.html:6
+#: core/templates/core/feeding_form.html:5
 msgid "Update a Feeding"
 msgstr "Actualizar una Toma"
 
-#: core/templates/core/feeding_form.html:8
-#: core/templates/core/feeding_form.html:27
+#: core/templates/core/feeding_form.html:7
+#: core/templates/core/feeding_form.html:30
+#, fuzzy
+#| msgid "Add a Feeding"
+msgid "Add a Bottle Feeding"
+msgstr "Añadir una Toma"
+
+#: core/templates/core/feeding_form.html:9
+#: core/templates/core/feeding_form.html:32
 msgid "Add a Feeding"
 msgstr "Añadir una Toma"
 
-#: core/templates/core/feeding_list.html:15
+#: core/templates/core/feeding_list.html:14
 msgid "Add Feeding"
 msgstr "Añadir Toma"
 
-#: core/templates/core/feeding_list.html:33
+#: core/templates/core/feeding_list.html:18
+#, fuzzy
+#| msgid "Add a Feeding"
+msgid "Add Bottle Feeding"
+msgstr "Añadir una Toma"
+
+#: core/templates/core/feeding_list.html:36
 msgid "Amt."
 msgstr "Cant."
 
-#: core/templates/core/feeding_list.html:81
+#: core/templates/core/feeding_list.html:85
 msgid "No feedings found."
 msgstr "No se han encontrado tomas."
 
@@ -1433,9 +1474,9 @@ msgstr "No se han encontrado tomas."
 msgid "Delete a Head Circumference Entry"
 msgstr "Eliminar una entrada de perímetro craneal"
 
-#: core/templates/core/head_circumference_form.html:8
+#: core/templates/core/head_circumference_form.html:7
 #: core/templates/core/head_circumference_form.html:17
-#: core/templates/core/head_circumference_form.html:27
+#: core/templates/core/head_circumference_form.html:28
 msgid "Add a Head Circumference Entry"
 msgstr "Añadir entrada de perímetro craneal"
 
@@ -1443,7 +1484,7 @@ msgstr "Añadir entrada de perímetro craneal"
 msgid "Add Head Circumference"
 msgstr "Añadir perímetro craneal"
 
-#: core/templates/core/head_circumference_list.html:69
+#: core/templates/core/head_circumference_list.html:72
 msgid "No head circumference entries found."
 msgstr "No hay entradas de perímetro craneal."
 
@@ -1451,17 +1492,17 @@ msgstr "No hay entradas de perímetro craneal."
 msgid "Delete a Height Entry"
 msgstr "Eliminar una entrada de altura"
 
-#: core/templates/core/height_form.html:8
+#: core/templates/core/height_form.html:7
 #: core/templates/core/height_form.html:17
-#: core/templates/core/height_form.html:27
+#: core/templates/core/height_form.html:28
 msgid "Add a Height Entry"
 msgstr "Añadir una entrada de altura"
 
-#: core/templates/core/height_list.html:15
+#: core/templates/core/height_list.html:14
 msgid "Add Height"
 msgstr "Añadir altura"
 
-#: core/templates/core/height_list.html:69
+#: core/templates/core/height_list.html:71
 msgid "No height entries found."
 msgstr "No hay entradas de altura."
 
@@ -1469,15 +1510,15 @@ msgstr "No hay entradas de altura."
 msgid "Delete a Note"
 msgstr "Eliminar una Nota"
 
-#: core/templates/core/note_form.html:6
+#: core/templates/core/note_form.html:5
 msgid "Update a Note"
 msgstr "Actualizar una Nota"
 
-#: core/templates/core/note_form.html:8 core/templates/core/note_form.html:27
+#: core/templates/core/note_form.html:7 core/templates/core/note_form.html:28
 msgid "Add a Note"
 msgstr "Añadir una Nota"
 
-#: core/templates/core/note_list.html:15
+#: core/templates/core/note_list.html:14
 msgid "Add Note"
 msgstr "Añadir Nota"
 
@@ -1489,28 +1530,28 @@ msgstr "No se han encontrado notas."
 msgid "Delete a Pumping Entry"
 msgstr "Borrar una extracción"
 
-#: core/templates/core/pumping_form.html:8
+#: core/templates/core/pumping_form.html:7
 #: core/templates/core/pumping_form.html:17
-#: core/templates/core/pumping_form.html:27
+#: core/templates/core/pumping_form.html:28
 msgid "Add a Pumping Entry"
 msgstr "Añadir una extracción"
 
-#: core/templates/core/pumping_list.html:15
+#: core/templates/core/pumping_list.html:14
 msgid "Add Pumping Entry"
 msgstr "Añadir extracción"
 
-#: core/templates/core/pumping_list.html:71
+#: core/templates/core/pumping_list.html:73
 msgid "No pumping entries found."
 msgstr "No se encontraron extracciones."
 
-#: core/templates/core/quick_timer_nav.html:9
-#: core/templates/core/quick_timer_nav.html:29
-#: core/templates/core/timer_nav.html:37
+#: core/templates/core/quick_timer_nav.html:10
+#: core/templates/core/quick_timer_nav.html:33
+#: core/templates/core/timer_nav.html:42
 msgid "Quick Start Timer"
 msgstr "Iniciar Temporizador Rápido"
 
-#: core/templates/core/quick_timer_nav.html:19
-#: core/templates/core/timer_nav.html:28
+#: core/templates/core/quick_timer_nav.html:20
+#: core/templates/core/timer_nav.html:30
 msgid "Quick Start Timer For…"
 msgstr "Iniciar Temporizador Rápido"
 
@@ -1518,27 +1559,27 @@ msgstr "Iniciar Temporizador Rápido"
 msgid "Delete a Sleep Entry"
 msgstr "Eliminar Entrada de Sueño"
 
-#: core/templates/core/sleep_form.html:6
+#: core/templates/core/sleep_form.html:5
 msgid "Update a Sleep Entry"
 msgstr "Actualizar Entrada de Sueño"
 
-#: core/templates/core/sleep_form.html:8 core/templates/core/sleep_form.html:27
+#: core/templates/core/sleep_form.html:7 core/templates/core/sleep_form.html:28
 msgid "Add a Sleep Entry"
 msgstr "Añadir Entrada de Sueño"
 
-#: core/templates/core/sleep_list.html:15
+#: core/templates/core/sleep_list.html:14
 msgid "Add Sleep"
 msgstr "Añadir Sueño"
 
-#: core/templates/core/sleep_list.html:25
-#: core/templates/core/timer_form.html:12
-#: core/templates/core/timer_list.html:24
-#: core/templates/core/tummytime_list.html:24
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/timer_form.html:16
+#: core/templates/core/timer_list.html:23
+#: core/templates/core/tummytime_list.html:23
 msgid "Start"
 msgstr "Inicio"
 
-#: core/templates/core/sleep_list.html:26
-#: core/templates/core/tummytime_list.html:25
+#: core/templates/core/sleep_list.html:25
+#: core/templates/core/tummytime_list.html:24
 msgid "End"
 msgstr "Fin"
 
@@ -1550,12 +1591,12 @@ msgstr "No se han encontrado entradas de sueño."
 msgid "Delete a Temperature Reading"
 msgstr "Eliminar Lectura de Temperatura"
 
-#: core/templates/core/temperature_form.html:8
+#: core/templates/core/temperature_form.html:7
 #: core/templates/core/temperature_form.html:17
 msgid "Add a Temperature Reading"
 msgstr "Añadir Lectura de Temperatura"
 
-#: core/templates/core/temperature_form.html:27
+#: core/templates/core/temperature_form.html:28
 msgid "Add a Temperature Entry"
 msgstr "Añadir Entrada de Temperatura"
 
@@ -1563,58 +1604,59 @@ msgstr "Añadir Entrada de Temperatura"
 msgid "Add Temperature Reading"
 msgstr "Añadir Lectura de Temperatura"
 
-#: core/templates/core/temperature_list.html:69
+#: core/templates/core/temperature_list.html:72
 msgid "No temperature entries found."
 msgstr "No se han encontrada registros de temperatura."
 
-#: core/templates/core/timer_confirm_delete.html:5
+#: core/templates/core/timer_confirm_delete.html:4
 #, python-format
 msgid "Delete %(object)s"
 msgstr "Eliminar %(object)s"
 
-#: core/templates/core/timer_detail.html:29
+#: core/templates/core/timer_detail.html:20
 msgid "Started"
 msgstr "Iniciado"
 
-#: core/templates/core/timer_detail.html:32
+#: core/templates/core/timer_detail.html:22
 #, python-format
 msgid "%(timer)s created by %(user)s"
 msgstr "%(timer)s creado por %(user)s"
 
-#: core/templates/core/timer_detail.html:71
+#: core/templates/core/timer_detail.html:58
 msgid "Timer actions"
 msgstr "Acciones de temporizador"
 
-#: core/templates/core/timer_detail.html:85
+#: core/templates/core/timer_detail.html:73
 msgid "Restart timer"
 msgstr "Reiniciar temporizador"
 
-#: core/templates/core/timer_form.html:22
-#: core/templates/core/timer_list.html:15 core/templates/core/timer_nav.html:15
+#: core/templates/core/timer_form.html:27
+#: core/templates/core/timer_list.html:14 core/templates/core/timer_nav.html:14
 msgid "Start Timer"
 msgstr "Iniciar Temporizador"
 
-#: core/templates/core/timer_list.html:48
+#: core/templates/core/timer_list.html:49
 msgid "No timer entries found."
 msgstr "No se han encontrado temporizadores."
 
-#: core/templates/core/timer_nav.html:20
+#: core/templates/core/timer_nav.html:19
 msgid "View Timers"
 msgstr "Ver Temporizadores"
 
-#: core/templates/core/timer_nav.html:50
-#: dashboard/templates/cards/diaperchange_last.html:17
-#: dashboard/templates/cards/diaperchange_types.html:12
-#: dashboard/templates/cards/feeding_last.html:17
-#: dashboard/templates/cards/feeding_last_method.html:49
-#: dashboard/templates/cards/feeding_recent.html:20
-#: dashboard/templates/cards/feeding_recent.html:58
-#: dashboard/templates/cards/pumping_last.html:17
-#: dashboard/templates/cards/sleep_last.html:17
-#: dashboard/templates/cards/sleep_naps_day.html:18
-#: dashboard/templates/cards/sleep_recent.html:20
-#: dashboard/templates/cards/sleep_recent.html:52
-#: dashboard/templates/cards/tummytime_day.html:14
+#: core/templates/core/timer_nav.html:53
+#: dashboard/templates/cards/breastfeeding.html:8
+#: dashboard/templates/cards/diaperchange_last.html:13
+#: dashboard/templates/cards/diaperchange_types.html:8
+#: dashboard/templates/cards/feeding_last.html:13
+#: dashboard/templates/cards/feeding_last_method.html:47
+#: dashboard/templates/cards/feeding_recent.html:18
+#: dashboard/templates/cards/feeding_recent.html:54
+#: dashboard/templates/cards/pumping_last.html:13
+#: dashboard/templates/cards/sleep_last.html:13
+#: dashboard/templates/cards/sleep_naps_day.html:14
+#: dashboard/templates/cards/sleep_recent.html:18
+#: dashboard/templates/cards/sleep_recent.html:54
+#: dashboard/templates/cards/tummytime_day.html:10
 msgid "None"
 msgstr "Ninguno"
 
@@ -1622,16 +1664,16 @@ msgstr "Ninguno"
 msgid "Delete a Tummy Time Entry"
 msgstr "Eliminar entrada de Tiempo Boca Abajo"
 
-#: core/templates/core/tummytime_form.html:6
+#: core/templates/core/tummytime_form.html:5
 msgid "Update a Tummy Time Entry"
 msgstr "Actualizar entrada de Tiempo Boca Abajo"
 
-#: core/templates/core/tummytime_form.html:8
-#: core/templates/core/tummytime_form.html:27
+#: core/templates/core/tummytime_form.html:7
+#: core/templates/core/tummytime_form.html:28
 msgid "Add a Tummy Time Entry"
 msgstr "Añadir entrada de Tiempo Boca Abajo"
 
-#: core/templates/core/tummytime_list.html:15
+#: core/templates/core/tummytime_list.html:14
 msgid "Add Tummy Time"
 msgstr "Añadir Tiempo Boca Abajo"
 
@@ -1643,49 +1685,49 @@ msgstr "No se han encontrado entradas de tiempo boca abajo."
 msgid "Delete a Weight Entry"
 msgstr "Eliminar Entrada de Peso"
 
-#: core/templates/core/weight_form.html:8
+#: core/templates/core/weight_form.html:7
 #: core/templates/core/weight_form.html:17
-#: core/templates/core/weight_form.html:27
+#: core/templates/core/weight_form.html:28
 msgid "Add a Weight Entry"
 msgstr "Añadir Entrada de Peso"
 
-#: core/templates/core/weight_list.html:15
+#: core/templates/core/weight_list.html:14
 msgid "Add Weight"
 msgstr "Añadir Peso"
 
-#: core/templates/core/weight_list.html:69
+#: core/templates/core/weight_list.html:71
 msgid "No weight entries found."
 msgstr "No se han encontrado entradas de peso."
 
-#: core/templates/core/widget_tag_editor.html:22
+#: core/templates/core/widget_tag_editor.html:25
 msgid "Tag name"
 msgstr "Etiqueta"
 
-#: core/templates/core/widget_tag_editor.html:26
+#: core/templates/core/widget_tag_editor.html:29
 msgid "Recently used:"
 msgstr "Usadas recientemente:"
 
-#: core/templates/core/widget_tag_editor.html:45
+#: core/templates/core/widget_tag_editor.html:48
 msgctxt "Error modal"
 msgid "Error"
 msgstr "Error"
 
-#: core/templates/core/widget_tag_editor.html:50
+#: core/templates/core/widget_tag_editor.html:52
 msgctxt "Error modal"
 msgid "An error ocurred."
 msgstr "Ocurrió un error."
 
-#: core/templates/core/widget_tag_editor.html:51
+#: core/templates/core/widget_tag_editor.html:53
 msgctxt "Error modal"
 msgid "Invalid tag name."
 msgstr "Etiqueta inválida."
 
-#: core/templates/core/widget_tag_editor.html:52
+#: core/templates/core/widget_tag_editor.html:54
 msgctxt "Error modal"
 msgid "Failed to create tag."
 msgstr "No se pudo crear la etiqueta."
 
-#: core/templates/core/widget_tag_editor.html:53
+#: core/templates/core/widget_tag_editor.html:55
 msgctxt "Error modal"
 msgid "Failed to obtain tag data."
 msgstr "Fallo al obtener los datos de la etiqueta."
@@ -1695,27 +1737,31 @@ msgctxt "Error modal"
 msgid "Close"
 msgstr "Cerrar"
 
-#: core/templates/timeline/_timeline.html:38
+#: core/templates/forms/layouts/advanced.html:7
+msgid "Advanced Fields"
+msgstr ""
+
+#: core/templates/timeline/_timeline.html:41
 #, python-format
 msgid "%(since)s ago (%(time)s)"
 msgstr "hace %(since)s (%(time)s)"
 
-#: core/templates/timeline/_timeline.html:44
+#: core/templates/timeline/_timeline.html:47
 #, python-format
 msgid "Duration: %(duration)s"
 msgstr "Duración: %(duration)s"
 
-#: core/templates/timeline/_timeline.html:53
+#: core/templates/timeline/_timeline.html:56
 #, python-format
 msgid "%(since)s since previous"
 msgstr "%(since)s desde anterior"
 
-#: core/templates/timeline/_timeline.html:61
-#: dashboard/templates/dashboard/child_button_group.html:20
+#: core/templates/timeline/_timeline.html:64
+#: dashboard/templates/dashboard/child_button_group.html:25
 msgid "Edit"
 msgstr "Editar"
 
-#: core/templates/timeline/_timeline.html:85
+#: core/templates/timeline/_timeline.html:92
 msgid "No events"
 msgstr "Sin eventos"
 
@@ -1728,18 +1774,21 @@ msgid "{}, {}"
 msgstr "{}, {}"
 
 #: core/templatetags/duration.py:107
-#: dashboard/templates/cards/diaperchange_types.html:50
+#: dashboard/templates/cards/breastfeeding.html:28
+#: dashboard/templates/cards/diaperchange_types.html:40
 #, python-format
 msgid "%(days_ago)s days ago"
 msgstr "hace %(days_ago)s días"
 
 #: core/templatetags/duration.py:110
-#: dashboard/templates/cards/diaperchange_types.html:46
+#: dashboard/templates/cards/breastfeeding.html:24
+#: dashboard/templates/cards/diaperchange_types.html:36
 msgid "today"
 msgstr "hoy"
 
 #: core/templatetags/duration.py:112
-#: dashboard/templates/cards/diaperchange_types.html:48
+#: dashboard/templates/cards/breastfeeding.html:26
+#: dashboard/templates/cards/diaperchange_types.html:38
 msgid "yesterday"
 msgstr "ayer"
 
@@ -1819,12 +1868,12 @@ msgstr[1] "%(seconds)s segundos"
 msgid "%(model)s entry for %(child)s added!"
 msgstr "¡Entrada de %(model)s para %(child)s añadida!"
 
-#: core/views.py:35 core/views.py:308
+#: core/views.py:35 core/views.py:315
 #, python-format
 msgid "%(model)s entry added!"
 msgstr "¡Entrada de %(model)s añadida!"
 
-#: core/views.py:61 core/views.py:316
+#: core/views.py:61 core/views.py:323
 #, python-format
 msgid "%(model)s entry for %(child)s updated."
 msgstr "Entrada de %(model)s para %(child)s actualizada."
@@ -1844,218 +1893,242 @@ msgstr "%(model)s entradas borradas."
 msgid "%(first_name)s %(last_name)s added!"
 msgstr "¡%(first_name)s %(last_name)s añadido!"
 
-#: core/views.py:366
+#: core/views.py:373
 #, python-format
 msgid "%(model)s reading added!"
 msgstr "%(model)s lectura añadida!"
 
-#: core/views.py:374
+#: core/views.py:381
 #, python-format
 msgid "%(model)s reading for %(child)s updated."
 msgstr "%(model)s lectura para %(child)s actualizada."
 
-#: dashboard/templates/cards/diaperchange_last.html:6
+#: dashboard/templates/cards/breastfeeding.html:4
+#, fuzzy
+#| msgid "Last Feeding"
+msgid "Breastfeeding"
+msgstr "Última Toma"
+
+#: dashboard/templates/cards/breastfeeding.html:10
+#: dashboard/templates/cards/diaperchange_types.html:10
+msgid "Past Week"
+msgstr "Última semana"
+
+#: dashboard/templates/cards/breastfeeding.html:18
+msgid "left"
+msgstr ""
+
+#: dashboard/templates/cards/breastfeeding.html:20
+#, fuzzy
+#| msgid "Height"
+msgid "right"
+msgstr "Altura"
+
+#: dashboard/templates/cards/breastfeeding.html:31
+#, fuzzy
+#| msgid "Feedings"
+msgid "feedings in"
+msgstr "Tomas"
+
+#: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
 msgstr "Último Cambio Pañal"
 
-#: dashboard/templates/cards/diaperchange_last.html:12
-#: dashboard/templates/cards/feeding_last.html:12
-#: dashboard/templates/cards/pumping_last.html:12
-#: dashboard/templates/cards/sleep_last.html:12
-#: dashboard/templates/cards/tummytime_last.html:13
+#: dashboard/templates/cards/diaperchange_last.html:8
+#: dashboard/templates/cards/feeding_last.html:8
+#: dashboard/templates/cards/pumping_last.html:8
+#: dashboard/templates/cards/sleep_last.html:8
+#: dashboard/templates/cards/tummytime_last.html:8
 #, python-format
 msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
 msgstr "<div>hace %(since)s</div> <small>%(time)s</small>"
 
-#: dashboard/templates/cards/diaperchange_types.html:14
-msgid "Past Week"
-msgstr "Última semana"
-
-#: dashboard/templates/cards/diaperchange_types.html:26
+#: dashboard/templates/cards/diaperchange_types.html:20
 msgid "wet"
 msgstr "mojado"
 
-#: dashboard/templates/cards/diaperchange_types.html:33
+#: dashboard/templates/cards/diaperchange_types.html:26
 msgid "solid"
 msgstr "sólido"
 
-#: dashboard/templates/cards/diaperchange_types.html:53
+#: dashboard/templates/cards/diaperchange_types.html:43
 #, fuzzy
 #| msgid "Changes"
 msgid "changes"
 msgstr "Cambios"
 
-#: dashboard/templates/cards/feeding_last.html:6
+#: dashboard/templates/cards/feeding_last.html:4
 msgid "Last Feeding"
 msgstr "Última Toma"
 
-#: dashboard/templates/cards/feeding_last_method.html:6
+#: dashboard/templates/cards/feeding_last_method.html:4
 msgid "Last Feeding Method"
 msgstr "Último Método de Toma"
 
-#: dashboard/templates/cards/feeding_last_method.html:19
+#: dashboard/templates/cards/feeding_last_method.html:17
 msgid "most recent"
 msgstr "más reciente"
 
-#: dashboard/templates/cards/feeding_last_method.html:21
+#: dashboard/templates/cards/feeding_last_method.html:19
 #, python-format
 msgid "%(n)s feeding ago"
 msgid_plural "%(n)s feedings ago"
 msgstr[0] "hace %(n)s toma"
 msgstr[1] "hace %(n)s tomas"
 
-#: dashboard/templates/cards/feeding_recent.html:6
+#: dashboard/templates/cards/feeding_recent.html:4
 msgid "Recent Feedings"
 msgstr ""
 
-#: dashboard/templates/cards/feeding_recent.html:25
+#: dashboard/templates/cards/feeding_recent.html:23
 #, python-format
 msgid "%(counter)s feeding"
 msgid_plural "%(counter)s feedings"
 msgstr[0] "%(counter)s entradas de alimentación"
 msgstr[1] "%(counter)s entradas de alimentación"
 
-#: dashboard/templates/cards/feeding_recent.html:32
-#: dashboard/templates/cards/sleep_recent.html:32
-#, python-format
-msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
-msgstr ""
+#: dashboard/templates/cards/feeding_recent.html:30
+#: dashboard/templates/cards/sleep_recent.html:30
+#, fuzzy, python-format
+#| msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+msgid "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
+msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
 
-#: dashboard/templates/cards/pumping_last.html:6
+#: dashboard/templates/cards/pumping_last.html:4
 msgid "Last Pumping"
 msgstr "Últimas extracciones"
 
-#: dashboard/templates/cards/sleep_last.html:6
+#: dashboard/templates/cards/sleep_last.html:4
 msgid "Last Sleep"
 msgstr "Último sueño"
 
-#: dashboard/templates/cards/sleep_naps_day.html:6
+#: dashboard/templates/cards/sleep_naps_day.html:4
 msgid "Today's Naps"
 msgstr "Siestas de Hoy"
 
-#: dashboard/templates/cards/sleep_naps_day.html:12
+#: dashboard/templates/cards/sleep_naps_day.html:8
 #, python-format
 msgid "%(count)s nap"
 msgid_plural "%(count)s naps"
 msgstr[0] "%(count)s siesta"
 msgstr[1] "%(count)s siesta"
 
-#: dashboard/templates/cards/sleep_recent.html:6
+#: dashboard/templates/cards/sleep_recent.html:4
 msgid "Recent Sleep"
 msgstr "Sueño reciente"
 
-#: dashboard/templates/cards/sleep_recent.html:25
+#: dashboard/templates/cards/sleep_recent.html:23
 #, python-format
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleeps"
 msgstr[0] "%(counter)s entradas de sueño"
 msgstr[1] "%(counter)s entradas de sueño"
 
-#: dashboard/templates/cards/statistics.html:7
+#: dashboard/templates/cards/statistics.html:6
 msgid "Statistics"
 msgstr "Estadísticas"
 
-#: dashboard/templates/cards/statistics.html:25
+#: dashboard/templates/cards/statistics.html:26
 msgid "Not enough data"
 msgstr "No hay suficientes datos"
 
-#: dashboard/templates/cards/statistics.html:48
+#: dashboard/templates/cards/statistics.html:49
 msgid "No data yet"
 msgstr "No hay datos todavía"
 
-#: dashboard/templates/cards/timer_list.html:12
+#: dashboard/templates/cards/timer_list.html:8
 #, python-format
 msgid "%(count)s timer"
 msgid_plural "%(count)s timers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: dashboard/templates/cards/timer_list.html:27
+#: dashboard/templates/cards/timer_list.html:22
 #, python-format
 msgid "Started by %(user)s at %(start)s"
 msgstr "Iniciado por %(user)s el %(start)s"
 
-#: dashboard/templates/cards/tummytime_day.html:6
+#: dashboard/templates/cards/tummytime_day.html:4
 msgid "Today's Tummy Time"
 msgstr "Tiempo Boca Abajo Hoy"
 
-#: dashboard/templates/cards/tummytime_day.html:22
+#: dashboard/templates/cards/tummytime_day.html:17
 #, python-format
 msgid "%(duration)s at %(end)s"
 msgstr "%(duration)s en %(end)s"
 
-#: dashboard/templates/cards/tummytime_last.html:6
+#: dashboard/templates/cards/tummytime_last.html:4
 msgid "Last Tummy Time"
 msgstr "Último Tiempo Boca Abajo"
 
-#: dashboard/templates/cards/tummytime_last.html:18
+#: dashboard/templates/cards/tummytime_last.html:13
 msgid "Never"
 msgstr "Nunca"
 
-#: dashboard/templates/dashboard/child_button_group.html:3
+#: dashboard/templates/dashboard/child_button_group.html:4
 msgid "Child actions"
 msgstr "Acciones de niño"
 
-#: dashboard/templates/dashboard/child_button_group.html:12
-#: reports/templates/reports/breadcrumb_common_chunk.html:7
+#: dashboard/templates/dashboard/child_button_group.html:18
+#: reports/templates/reports/breadcrumb_common_chunk.html:5
 #: reports/templates/reports/report_list.html:4
-#: reports/templates/reports/report_list.html:11
+#: reports/templates/reports/report_list.html:9
 msgid "Reports"
 msgstr "Reportes"
 
-#: dashboard/templatetags/cards.py:381
+#: dashboard/templatetags/cards.py:453
 msgid "Average nap duration"
 msgstr "Duración media siesta"
 
-#: dashboard/templatetags/cards.py:388
+#: dashboard/templatetags/cards.py:460
 msgid "Average naps per day"
 msgstr "Media de siestas por día"
 
-#: dashboard/templatetags/cards.py:398
+#: dashboard/templatetags/cards.py:470
 msgid "Average sleep duration"
 msgstr "Duración media sueño"
 
-#: dashboard/templatetags/cards.py:405
+#: dashboard/templatetags/cards.py:477
 msgid "Average awake duration"
 msgstr "Duración media despierto"
 
-#: dashboard/templatetags/cards.py:415
+#: dashboard/templatetags/cards.py:487
 msgid "Weight change per week"
 msgstr "Cambio de peso por semana"
 
-#: dashboard/templatetags/cards.py:425
+#: dashboard/templatetags/cards.py:497
 msgid "Height change per week"
 msgstr "Cambio de altura por semana"
 
-#: dashboard/templatetags/cards.py:435
+#: dashboard/templatetags/cards.py:507
 msgid "Head circumference change per week"
 msgstr "Cambio de perímetro craneal por semana"
 
-#: dashboard/templatetags/cards.py:445
+#: dashboard/templatetags/cards.py:517
 msgid "BMI change per week"
 msgstr "Cambio de IMC por semana"
 
-#: dashboard/templatetags/cards.py:463
+#: dashboard/templatetags/cards.py:535
 msgid "Diaper change frequency (past 3 days)"
 msgstr "Frecuencia de pañales (últimos 3 días)"
 
-#: dashboard/templatetags/cards.py:467
+#: dashboard/templatetags/cards.py:539
 msgid "Diaper change frequency (past 2 weeks)"
 msgstr "Frecuencia de pañales (últimas 2 semanas)"
 
-#: dashboard/templatetags/cards.py:473
+#: dashboard/templatetags/cards.py:545
 msgid "Diaper change frequency"
 msgstr "Frecuencia de cambio de pañal"
 
-#: dashboard/templatetags/cards.py:509
+#: dashboard/templatetags/cards.py:581
 msgid "Feeding frequency (past 3 days)"
 msgstr "Frecuenca de tomas (últimos 3 días)"
 
-#: dashboard/templatetags/cards.py:513
+#: dashboard/templatetags/cards.py:585
 msgid "Feeding frequency (past 2 weeks)"
 msgstr "Frecuenca de tomas (últimas 2 semanas)"
 
-#: dashboard/templatetags/cards.py:519
+#: dashboard/templatetags/cards.py:591
 msgid "Feeding frequency"
 msgstr "Frecuencia de tomas"
 
@@ -2084,7 +2157,7 @@ msgstr "Total"
 msgid "<b>Diaper Change Intervals</b>"
 msgstr ""
 
-#: reports/graphs/diaperchange_intervals.py:69
+#: reports/graphs/diaperchange_intervals.py:72
 msgid "Interval (hours)"
 msgstr ""
 
@@ -2100,7 +2173,7 @@ msgstr "Tiempo entre cambios (horas)"
 msgid "<b>Diaper Change Types</b>"
 msgstr "<b>Tipo de Cambio de Pañal</b>"
 
-#: reports/graphs/diaperchange_types.py:51
+#: reports/graphs/diaperchange_types.py:54
 msgid "Number of changes"
 msgstr "Número de cambios"
 
@@ -2112,23 +2185,23 @@ msgstr "<b>Cantidad de tomas totales por tipo</b>"
 msgid "Feeding amount"
 msgstr "Cantidad toma"
 
-#: reports/graphs/feeding_duration.py:38
+#: reports/graphs/feeding_duration.py:40
 msgid "Average duration"
 msgstr "Duración media"
 
-#: reports/graphs/feeding_duration.py:46
+#: reports/graphs/feeding_duration.py:48
 msgid "Total feedings"
 msgstr "Total de tomas"
 
-#: reports/graphs/feeding_duration.py:55
+#: reports/graphs/feeding_duration.py:57
 msgid "<b>Average Feeding Durations</b>"
 msgstr "<b>Duración Media Tomas</b>"
 
-#: reports/graphs/feeding_duration.py:58
+#: reports/graphs/feeding_duration.py:63
 msgid "Average duration (minutes)"
 msgstr "Duración media (minutos)"
 
-#: reports/graphs/feeding_duration.py:60
+#: reports/graphs/feeding_duration.py:65
 msgid "Number of feedings"
 msgstr "Número de tomas"
 
@@ -2140,7 +2213,7 @@ msgstr ""
 msgid "<b>Feeding intervals</b>"
 msgstr ""
 
-#: reports/graphs/feeding_intervals.py:44
+#: reports/graphs/feeding_intervals.py:47
 msgid "Feeding interval (hours)"
 msgstr ""
 
@@ -2196,7 +2269,7 @@ msgstr "Sueño total"
 msgid "<b>Sleep Totals</b>"
 msgstr "<b>Totales de Sueño</b>"
 
-#: reports/graphs/sleep_totals.py:61
+#: reports/graphs/sleep_totals.py:64
 msgid "Hours of sleep"
 msgstr "Horas de sueño"
 
@@ -2209,7 +2282,7 @@ msgid "Total duration"
 msgstr "Duración total"
 
 #: reports/graphs/tummytime_duration.py:41
-#: reports/graphs/tummytime_duration.py:55
+#: reports/graphs/tummytime_duration.py:60
 msgid "Number of sessions"
 msgstr "Número de sesiones"
 
@@ -2217,7 +2290,7 @@ msgstr "Número de sesiones"
 msgid "<b>Total Tummy Time Durations</b>"
 msgstr "<b>Tiempo Boca Abajo Total</b>"
 
-#: reports/graphs/tummytime_duration.py:53
+#: reports/graphs/tummytime_duration.py:58
 msgid "Total duration (minutes)"
 msgstr "Duración total (minutos)"
 
@@ -2237,19 +2310,19 @@ msgstr ""
 
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:9
-#: reports/templates/reports/report_list.html:23
+#: reports/templates/reports/report_list.html:24
 msgid "Diaper Lifetimes"
 msgstr "Duración Pañal"
 
 #: reports/templates/reports/diaperchange_types.html:4
 #: reports/templates/reports/diaperchange_types.html:9
-#: reports/templates/reports/report_list.html:21
+#: reports/templates/reports/report_list.html:20
 msgid "Diaper Change Types"
 msgstr "Tipos de Cambio de Pañal"
 
 #: reports/templates/reports/feeding_amounts.html:4
 #: reports/templates/reports/feeding_amounts.html:9
-#: reports/templates/reports/report_list.html:24
+#: reports/templates/reports/report_list.html:26
 msgid "Feeding Amounts"
 msgstr "Cantidad de Tomas"
 
@@ -2260,19 +2333,19 @@ msgstr "Duración Media Tomas"
 
 #: reports/templates/reports/feeding_intervals.html:4
 #: reports/templates/reports/feeding_intervals.html:9
-#: reports/templates/reports/report_list.html:26
+#: reports/templates/reports/report_list.html:30
 msgid "Feeding Intervals"
 msgstr ""
 
-#: reports/templates/reports/report_base.html:18
+#: reports/templates/reports/report_base.html:13
 msgid "There is not enough data to generate this report."
 msgstr "No hay suficientes datos para generar este informe."
 
-#: reports/templates/reports/report_list.html:19
+#: reports/templates/reports/report_list.html:16
 msgid "Body Mass Index (BMI)"
 msgstr "Índice de Masa Corporal (IMC)"
 
-#: reports/templates/reports/report_list.html:20
+#: reports/templates/reports/report_list.html:18
 msgid "Diaper Change Amounts"
 msgstr "Cantidades de Cambio de Pañal"
 
@@ -2280,43 +2353,43 @@ msgstr "Cantidades de Cambio de Pañal"
 msgid "Diaper Intervals"
 msgstr ""
 
-#: reports/templates/reports/report_list.html:25
+#: reports/templates/reports/report_list.html:28
 msgid "Feeding Durations (Average)"
 msgstr "Duración de Tomas (Media)"
 
-#: reports/templates/reports/report_list.html:29
+#: reports/templates/reports/report_list.html:36
 msgid "WHO Height Percentiles for Boys in cm"
 msgstr ""
 
-#: reports/templates/reports/report_list.html:30
+#: reports/templates/reports/report_list.html:38
 msgid "WHO Height Percentiles for Girls in cm"
 msgstr ""
 
-#: reports/templates/reports/report_list.html:31
+#: reports/templates/reports/report_list.html:40
 msgid "Pumping Amounts"
 msgstr "Cantidad de extracciones"
 
-#: reports/templates/reports/report_list.html:32
+#: reports/templates/reports/report_list.html:42
 #: reports/templates/reports/sleep_pattern.html:4
 #: reports/templates/reports/sleep_pattern.html:9
 msgid "Sleep Pattern"
 msgstr "Patrón de Sueño"
 
-#: reports/templates/reports/report_list.html:33
+#: reports/templates/reports/report_list.html:44
 #: reports/templates/reports/sleep_totals.html:4
 #: reports/templates/reports/sleep_totals.html:9
 msgid "Sleep Totals"
 msgstr "Totales de Sueño"
 
-#: reports/templates/reports/report_list.html:35
+#: reports/templates/reports/report_list.html:48
 msgid "Tummy Time Durations (Sum)"
 msgstr "Tiempo Boca Abajo (Suma)"
 
-#: reports/templates/reports/report_list.html:37
+#: reports/templates/reports/report_list.html:52
 msgid "WHO Weight Percentiles for Boys in kg"
 msgstr ""
 
-#: reports/templates/reports/report_list.html:38
+#: reports/templates/reports/report_list.html:54
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr ""
 
@@ -2524,9 +2597,6 @@ msgstr "Duración Total Tiempo Boca Abajo"
 
 #~ msgid "No bmi entries found."
 #~ msgstr "No hay entradas de IMC."
-
-#~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
-#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
 
 #~ msgid "Are you sure you want to delete %(number)s inactive timer?"
 #~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
