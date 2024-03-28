@@ -1,0 +1,2443 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: Baby Buddy\n"
+"Language: he\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: babybuddy/admin.py:12 babybuddy/admin.py:13
+#: babybuddy/templates/babybuddy/nav-dropdown.html:331
+#: babybuddy/templates/babybuddy/nav-dropdown.html:345
+#: babybuddy/templates/babybuddy/user_settings_form.html:8
+#: babybuddy/templates/dbsettings/site_settings.html:8
+msgid "Settings"
+msgstr "הגדרות"
+
+#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:94
+#: babybuddy/templates/babybuddy/user_settings_form.html:61
+#: dashboard/templates/dashboard/child.html:4
+#: dashboard/templates/dashboard/child.html:11
+#: dashboard/templates/dashboard/child_button_group.html:6
+#: dashboard/templates/dashboard/dashboard.html:4
+#: dashboard/templates/dashboard/dashboard.html:7
+msgid "Dashboard"
+msgstr "לוח מחוונים"
+
+#: babybuddy/models.py:19
+msgid "Refresh rate"
+msgstr "זמן רענון"
+
+#: babybuddy/models.py:21
+msgid "This setting will only be used when a browser does not support refresh on focus."
+msgstr "הגדרה זו תהיה בשימוש רק כאשר הדפדפן לא תומך ברענון מפוקוס."
+
+#: babybuddy/models.py:28
+msgid "disabled"
+msgstr "לא מאופשר"
+
+#: babybuddy/models.py:29
+msgid "1 min."
+msgstr "דקה"
+
+#: babybuddy/models.py:30
+msgid "2 min."
+msgstr "2 דקות"
+
+#: babybuddy/models.py:31
+msgid "3 min."
+msgstr "3 דקות"
+
+#: babybuddy/models.py:32
+msgid "4 min."
+msgstr "4 דקות"
+
+#: babybuddy/models.py:33
+msgid "5 min."
+msgstr "5 דקות"
+
+#: babybuddy/models.py:34
+msgid "10 min."
+msgstr "10 דקות"
+
+#: babybuddy/models.py:35
+msgid "15 min."
+msgstr "15 דקות"
+
+#: babybuddy/models.py:36
+msgid "30 min."
+msgstr "30 דקות"
+
+#: babybuddy/models.py:63
+msgid "Language"
+msgstr "שפה"
+
+#: babybuddy/models.py:75
+msgid "{user}'s Settings"
+msgstr "הגדרות של {user}"
+
+#: babybuddy/settings/base.py:171
+msgid "English"
+msgstr "אנגלית"
+
+#: babybuddy/settings/base.py:186
+msgid "French"
+msgstr "צרפתית"
+
+#: babybuddy/templates/error/403.html:4 babybuddy/templates/error/403.html:7
+msgid "Permission Denied"
+msgstr "הגישה נדחתה"
+
+#: babybuddy/templates/403.html:12
+msgid "You do not have permission to access this resource.\n"
+"        Contact a site administrator for assistance."
+msgstr "אין לך הרשאה לגשת למשאב זה.\n"
+"צור קשר עם מנהל המערכת בשביל עזרה."
+
+#: babybuddy/templates/babybuddy/base.html:36
+msgid "Home"
+msgstr "בית"
+
+#: babybuddy/templates/babybuddy/filter.html:18
+msgid "Filter"
+msgstr "מסנן"
+
+#: babybuddy/templates/babybuddy/filter.html:19
+msgid "Reset"
+msgstr "איפוס"
+
+#: babybuddy/templates/babybuddy/filter.html:32
+msgid "Filters"
+msgstr "מסננים"
+
+#: babybuddy/templates/babybuddy/form.html:14
+#: babybuddy/templates/babybuddy/user_settings_form.html:89
+msgid "Submit"
+msgstr "שלח"
+
+#: babybuddy/templates/babybuddy/messages.html:16
+#: babybuddy/templates/babybuddy/user_settings_form.html:19
+msgid "<strong>Error:</strong> %(error)s"
+msgstr "<strong>שגיאה:</strong> %(error)s"
+
+#: babybuddy/templates/babybuddy/messages.html:23
+msgid "<strong>Error:</strong> Some fields have errors. See below for details. "
+msgstr "<strong>שגיאה:</strong> ישנן שגיאות בשדות מסויימים. ראה פרטים בתחתית."
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:46 core/models.py:257
+#: core/models.py:261
+msgid "Diaper Change"
+msgstr "החלפת טיטול"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:52
+#: babybuddy/templates/babybuddy/nav-dropdown.html:264 core/models.py:328
+#: core/models.py:332 core/templates/core/timer_detail.html:42
+msgid "Feeding"
+msgstr "האכלה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:64
+#: babybuddy/templates/babybuddy/nav-dropdown.html:140 core/models.py:437
+#: core/models.py:451 core/models.py:455 core/templates/core/note_list.html:30
+msgid "Note"
+msgstr "הערה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:70
+#: babybuddy/templates/babybuddy/nav-dropdown.html:285
+#: babybuddy/templates/babybuddy/welcome.html:48 core/models.py:536
+#: core/models.py:537 core/models.py:540
+#: core/templates/core/sleep_confirm_delete.html:7
+#: core/templates/core/sleep_form.html:13 core/templates/core/sleep_list.html:4
+#: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:12
+#: core/templates/core/timer_detail.html:58
+msgid "Sleep"
+msgstr "שינה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:76
+#: babybuddy/templates/babybuddy/nav-dropdown.html:299
+#: babybuddy/templates/babybuddy/welcome.html:58 core/models.py:693
+#: core/models.py:694 core/models.py:697
+#: core/templates/core/timer_detail.html:66
+#: core/templates/core/tummytime_confirm_delete.html:7
+#: core/templates/core/tummytime_form.html:13
+#: core/templates/core/tummytime_list.html:4
+#: core/templates/core/tummytime_list.html:7
+#: core/templates/core/tummytime_list.html:12
+msgid "Tummy Time"
+msgstr "זמן בטן"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:218 core/models.py:719
+#: core/models.py:731 core/models.py:732 core/models.py:735
+#: core/templates/core/weight_confirm_delete.html:7
+#: core/templates/core/weight_form.html:13
+#: core/templates/core/weight_list.html:4
+#: core/templates/core/weight_list.html:7
+#: core/templates/core/weight_list.html:12
+#: core/templates/core/weight_list.html:29 reports/graphs/weight_change.py:28
+#: reports/graphs/weight_change.py:87
+#: reports/templates/reports/report_list.html:36
+#: reports/templates/reports/weight_change.html:4
+#: reports/templates/reports/weight_change.html:10
+msgid "Weight"
+msgstr "משקל"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:112
+#: babybuddy/templates/babybuddy/nav-dropdown.html:120 core/models.py:190
+#: core/templates/core/child_confirm_delete.html:7
+#: core/templates/core/child_detail.html:7
+#: core/templates/core/child_form.html:13 core/templates/core/child_list.html:4
+#: core/templates/core/child_list.html:7 core/templates/core/child_list.html:12
+#: dashboard/templates/dashboard/child.html:7
+#: reports/templates/reports/base.html:7
+msgid "Children"
+msgstr "ילדים"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:126 core/models.py:138
+#: core/models.py:189 core/models.py:230 core/models.py:283 core/models.py:351
+#: core/models.py:383 core/models.py:435 core/models.py:464 core/models.py:512
+#: core/models.py:566 core/models.py:600 core/models.py:669 core/models.py:717
+#: core/templates/core/bmi_list.html:27
+#: core/templates/core/diaperchange_list.html:27
+#: core/templates/core/feeding_list.html:27
+#: core/templates/core/head_circumference_list.html:27
+#: core/templates/core/height_list.html:27
+#: core/templates/core/note_list.html:27
+#: core/templates/core/pumping_list.html:27
+#: core/templates/core/sleep_list.html:28
+#: core/templates/core/temperature_list.html:27
+#: core/templates/core/timer_list.html:27
+#: core/templates/core/tummytime_list.html:27
+#: core/templates/core/weight_list.html:27
+msgid "Child"
+msgstr "ילד"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:134 core/models.py:144
+#: core/models.py:249 core/models.py:320 core/models.py:359 core/models.py:389
+#: core/models.py:452 core/models.py:484 core/models.py:527 core/models.py:574
+#: core/models.py:723 core/templates/core/note_confirm_delete.html:7
+#: core/templates/core/note_form.html:13 core/templates/core/note_list.html:4
+#: core/templates/core/note_list.html:7 core/templates/core/note_list.html:12
+msgid "Notes"
+msgstr "הערות"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:224
+msgid "Weight entry"
+msgstr "רשומת משקל"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:237
+msgid "Activities"
+msgstr "פעילויות"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:245
+#: reports/graphs/diaperchange_lifetimes.py:27
+msgid "Changes"
+msgstr "החלפות"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:251
+msgid "Change"
+msgstr "החלפה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:258
+#: babybuddy/templates/babybuddy/welcome.html:38 core/models.py:329
+#: core/templates/core/feeding_confirm_delete.html:7
+#: core/templates/core/feeding_form.html:13
+#: core/templates/core/feeding_list.html:4
+#: core/templates/core/feeding_list.html:7
+#: core/templates/core/feeding_list.html:12
+msgid "Feedings"
+msgstr "האכלות"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:291
+msgid "Sleep entry"
+msgstr "רשומת שינה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:305
+msgid "Tummy Time entry"
+msgstr "רשומת זמן בטן"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:329
+#: babybuddy/templates/babybuddy/user_add_device.html:7
+#: babybuddy/templates/babybuddy/user_list.html:17
+#: babybuddy/templates/babybuddy/user_password_form.html:7
+#: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:613
+#: core/templates/core/timer_list.html:29
+msgid "User"
+msgstr "משתמש"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:333
+msgid "Password"
+msgstr "סיסמא"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:338
+msgid "Logout"
+msgstr "התנתק"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:341
+#: babybuddy/templates/dbsettings/site_settings.html:7
+msgid "Site"
+msgstr "אתר"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:342
+msgid "API Browser"
+msgstr "דפדפן API"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:347
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:7
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:7
+#: babybuddy/templates/babybuddy/user_form.html:13
+#: babybuddy/templates/babybuddy/user_list.html:4
+#: babybuddy/templates/babybuddy/user_list.html:7
+msgid "Users"
+msgstr "משתמשים"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:250
+msgid "Backend Admin"
+msgstr "ממשק מנהל מערכת"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:351
+msgid "Support"
+msgstr "תמיכה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:353
+msgid "Source Code"
+msgstr "קוד מקור"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:355
+msgid "Chat / Support"
+msgstr "צ'אט \\ תמיכה"
+
+#: babybuddy/templates/babybuddy/paginator.html:11
+#: core/templates/timeline/_timeline.html:5
+#: core/templates/timeline/_timeline.html:7
+#: core/templates/timeline/_timeline.html:71
+#: core/templates/timeline/_timeline.html:73
+#: dashboard/templates/cards/feeding_last_method.html:37
+#: dashboard/templates/cards/feeding_recent.html:46
+#: dashboard/templates/cards/sleep_recent.html:43
+#: dashboard/templates/cards/statistics.html:37
+msgid "Previous"
+msgstr "הקודם"
+
+#: babybuddy/templates/babybuddy/paginator.html:28
+#: core/templates/timeline/_timeline.html:12
+#: core/templates/timeline/_timeline.html:14
+#: core/templates/timeline/_timeline.html:78
+#: core/templates/timeline/_timeline.html:80
+#: dashboard/templates/cards/feeding_last_method.html:44
+#: dashboard/templates/cards/feeding_recent.html:53
+#: dashboard/templates/cards/sleep_recent.html:47
+#: dashboard/templates/cards/statistics.html:44
+msgid "Next"
+msgstr "הבא"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:4
+msgid "Delete User"
+msgstr "מחק משתמש"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:9
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:18
+#: core/templates/core/bmi_confirm_delete.html:8
+#: core/templates/core/bmi_confirm_delete.html:17
+#: core/templates/core/child_confirm_delete.html:9
+#: core/templates/core/child_confirm_delete.html:31
+#: core/templates/core/diaperchange_confirm_delete.html:8
+#: core/templates/core/diaperchange_confirm_delete.html:17
+#: core/templates/core/feeding_confirm_delete.html:8
+#: core/templates/core/feeding_confirm_delete.html:17
+#: core/templates/core/head_circumference_confirm_delete.html:8
+#: core/templates/core/head_circumference_confirm_delete.html:17
+#: core/templates/core/height_confirm_delete.html:8
+#: core/templates/core/height_confirm_delete.html:17
+#: core/templates/core/note_confirm_delete.html:8
+#: core/templates/core/note_confirm_delete.html:17
+#: core/templates/core/pumping_confirm_delete.html:8
+#: core/templates/core/pumping_confirm_delete.html:17
+#: core/templates/core/sleep_confirm_delete.html:8
+#: core/templates/core/sleep_confirm_delete.html:17
+#: core/templates/core/temperature_confirm_delete.html:8
+#: core/templates/core/temperature_confirm_delete.html:17
+#: core/templates/core/timer_confirm_delete.html:11
+#: core/templates/core/timer_confirm_delete.html:20
+#: core/templates/core/tummytime_confirm_delete.html:8
+#: core/templates/core/tummytime_confirm_delete.html:17
+#: core/templates/core/weight_confirm_delete.html:8
+#: core/templates/core/weight_confirm_delete.html:17
+#: dashboard/templates/dashboard/child_button_group.html:27
+msgid "Delete"
+msgstr "מחק"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:15
+#: core/templates/core/bmi_confirm_delete.html:14
+#: core/templates/core/child_confirm_delete.html:15
+#: core/templates/core/diaperchange_confirm_delete.html:14
+#: core/templates/core/feeding_confirm_delete.html:14
+#: core/templates/core/head_circumference_confirm_delete.html:14
+#: core/templates/core/height_confirm_delete.html:14
+#: core/templates/core/note_confirm_delete.html:14
+#: core/templates/core/pumping_confirm_delete.html:14
+#: core/templates/core/sleep_confirm_delete.html:14
+#: core/templates/core/temperature_confirm_delete.html:14
+#: core/templates/core/timer_confirm_delete.html:17
+#: core/templates/core/tummytime_confirm_delete.html:14
+#: core/templates/core/weight_confirm_delete.html:14
+msgid "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</span>?</h1>"
+msgstr "<h1>אתה בטוח שברצונך למחוק <span class=\"text-info\">%(object)s</span>?</h1>"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:19
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:19
+#: core/templates/core/bmi_confirm_delete.html:18
+#: core/templates/core/child_confirm_delete.html:32
+#: core/templates/core/diaperchange_confirm_delete.html:18
+#: core/templates/core/feeding_confirm_delete.html:18
+#: core/templates/core/head_circumference_confirm_delete.html:18
+#: core/templates/core/height_confirm_delete.html:18
+#: core/templates/core/note_confirm_delete.html:18
+#: core/templates/core/pumping_confirm_delete.html:18
+#: core/templates/core/sleep_confirm_delete.html:18
+#: core/templates/core/temperature_confirm_delete.html:18
+#: core/templates/core/timer_confirm_delete.html:21
+#: core/templates/core/tummytime_confirm_delete.html:18
+#: core/templates/core/weight_confirm_delete.html:18
+msgid "Cancel"
+msgstr "בטל"
+
+#: babybuddy/templates/babybuddy/user_form.html:8
+#: babybuddy/templates/babybuddy/user_form.html:18
+#: babybuddy/templates/babybuddy/user_form.html:39
+#: babybuddy/templates/babybuddy/user_list.html:71
+msgid "Create User"
+msgstr "צור משתמש"
+
+#: babybuddy/templates/babybuddy/user_form.html:16
+#: core/templates/core/bmi_form.html:15 core/templates/core/child_form.html:16
+#: core/templates/core/diaperchange_form.html:15
+#: core/templates/core/feeding_form.html:15
+#: core/templates/core/head_circumference_form.html:15
+#: core/templates/core/height_form.html:15
+#: core/templates/core/note_form.html:15
+#: core/templates/core/pumping_form.html:15
+#: core/templates/core/sleep_form.html:15
+#: core/templates/core/temperature_form.html:15
+#: core/templates/core/timer_form.html:10
+#: core/templates/core/tummytime_form.html:15
+#: core/templates/core/weight_form.html:15
+msgid "Update"
+msgstr "עדכן"
+
+#: babybuddy/templates/babybuddy/user_form.html:35
+#: core/templates/core/bmi_form.html:23 core/templates/core/child_form.html:24
+#: core/templates/core/diaperchange_form.html:23
+#: core/templates/core/feeding_form.html:23
+#: core/templates/core/head_circumference_form.html:23
+#: core/templates/core/height_form.html:23
+#: core/templates/core/note_form.html:23
+#: core/templates/core/pumping_form.html:23
+#: core/templates/core/sleep_form.html:23
+#: core/templates/core/temperature_form.html:23
+#: core/templates/core/timer_form.html:18
+#: core/templates/core/tummytime_form.html:23
+#: core/templates/core/weight_form.html:23
+msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+msgstr "<h1>עדכן<span class=\"text-info\">%(object)s</span></h1>"
+
+#: babybuddy/templates/babybuddy/user_list.html:18
+#: core/templates/core/child_list.html:25
+msgid "First Name"
+msgstr "שם פרטי"
+
+#: babybuddy/templates/babybuddy/user_list.html:19
+#: core/templates/core/child_list.html:26
+msgid "Last Name"
+msgstr "שם משפחה"
+
+#: babybuddy/templates/babybuddy/user_list.html:20
+msgid "Email"
+msgstr "דואר אלקטרוני"
+
+#: babybuddy/templates/babybuddy/user_list.html:22
+msgid "Staff"
+msgstr "צוות"
+
+#: babybuddy/templates/babybuddy/user_list.html:23 core/models.py:608
+msgid "Active"
+msgstr "פעיל"
+
+#: babybuddy/templates/babybuddy/user_list.html:25
+#: core/templates/core/bmi_list.html:24 core/templates/core/bmi_list.html:37
+#: core/templates/core/child_list.html:28
+#: core/templates/core/child_list.html:47
+#: core/templates/core/diaperchange_list.html:24
+#: core/templates/core/diaperchange_list.html:39
+#: core/templates/core/feeding_list.html:24
+#: core/templates/core/feeding_list.html:42
+#: core/templates/core/head_circumference_list.html:24
+#: core/templates/core/head_circumference_list.html:37
+#: core/templates/core/height_list.html:24
+#: core/templates/core/height_list.html:37
+#: core/templates/core/note_list.html:24 core/templates/core/note_list.html:38
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:38
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:39
+#: core/templates/core/temperature_list.html:24
+#: core/templates/core/temperature_list.html:37
+#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:38
+#: core/templates/core/weight_list.html:24
+#: core/templates/core/weight_list.html:37
+msgid "Actions"
+msgstr "פעולות"
+
+#: babybuddy/templates/babybuddy/user_list.html:61
+msgid "No users found."
+msgstr "לא נמצאו משתמשים."
+
+#: babybuddy/templates/babybuddy/user_password_form.html:4
+#: babybuddy/templates/babybuddy/user_password_form.html:8
+#: babybuddy/templates/babybuddy/user_password_form.html:12
+msgid "Change Password"
+msgstr "שנה סיסמא"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:4
+#: babybuddy/templates/babybuddy/user_settings_form.html:12
+msgid "User Settings"
+msgstr "הגדרות משתמש"
+
+#: babybuddy/templates/babybuddy/messages.html:21
+#: babybuddy/templates/babybuddy/user_settings_form.html:26
+msgid "<strong>Error:</strong> Some fields have errors. See below for details."
+msgstr "<strong>שגיאה:</strong> יש בעיה עם מספר שדות. ראה הערות מטה."
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:33
+msgid "User Profile"
+msgstr "פרופיל משתמש"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:79
+msgid "API"
+msgstr "API"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:18
+#: babybuddy/templates/babybuddy/user_settings_form.html:81
+msgid "Key"
+msgstr "מפתח"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:23
+#: babybuddy/templates/babybuddy/user_settings_form.html:84
+msgid "Regenerate"
+msgstr "צור מחדש"
+
+#: babybuddy/templates/babybuddy/welcome.html:4
+#: babybuddy/templates/babybuddy/welcome.html:7
+msgid "Welcome!"
+msgstr "ברוך הבא!"
+
+#: babybuddy/templates/babybuddy/welcome.html:13
+msgid "Welcome to Baby Buddy!"
+msgstr "ברוך הבא ל Baby Buddy!"
+
+#: babybuddy/templates/babybuddy/welcome.html:14
+msgid "Learn about and predict baby's needs without\n"
+"            (<em>as much</em>) guess work by using Baby Buddy to track &mdash;"
+msgstr "למד ותצפה את צרכי התינוק בלי\n"
+"             (<em>כמעט</em>) לנחש על ידי שימוש ב-Baby Buddy כדי לעקוב &mdash;"
+
+#: babybuddy/templates/babybuddy/welcome.html:28 core/models.py:258
+#: core/templates/core/diaperchange_confirm_delete.html:7
+#: core/templates/core/diaperchange_form.html:13
+#: core/templates/core/diaperchange_list.html:4
+#: core/templates/core/diaperchange_list.html:7
+#: core/templates/core/diaperchange_list.html:12
+#: dashboard/templates/cards/diaperchange_types.html:6
+msgid "Diaper Changes"
+msgstr "החלפת חיתול"
+
+#: babybuddy/templates/babybuddy/welcome.html:54
+msgid "As the amount of entries grows, Baby Buddy will help\n"
+"            parents and caregivers to identify small patterns in baby's habits\n"
+"            using the dashboard and graphs. Baby Buddy is mobile-friendly and\n"
+"            uses a dark theme to help weary moms and dads with 2AM feedings and\n"
+"            changings. To get started, just click the button below to add your\n"
+"            first (or second, third, etc.) child!"
+msgstr "ככל שכמות המידע תגדל, Baby Buddy יעזור\n"
+"             להורים ולמטפלים לזהות דפוסים קטנים בהרגלי התינוק\n"
+"             באמצעות לוח המחוונים והגרפים. Baby Buddy מותאם לנייד\n"
+"             נעזר בתצוגה כהה כדי לעזור לאמהות ואבות עייפים עם האכלות והחלפות 2 בלילה.\n"
+"             כדי להתחיל, פשוט לחץ על הכפתור למטה כדי להוסיף את\n"
+"             הילד ראשון (או השני, השלישי וכו') שלך!"
+
+#: babybuddy/templates/babybuddy/welcome.html:77
+#: core/templates/core/child_form.html:8 core/templates/core/child_form.html:18
+#: core/templates/core/child_form.html:28
+msgid "Add a Child"
+msgstr "הוספת ילד"
+
+#: babybuddy/templates/registration/login.html:28
+msgid "Login"
+msgstr "כניסה"
+
+#: babybuddy/templates/registration/login.html:34
+msgid "Forgot your password?"
+msgstr "שכחת סיסמה?"
+
+#: babybuddy/templates/registration/password_reset_complete.html:4
+msgid "Password Reset Successfully!"
+msgstr "איפוס סיסמה הסתיים בהצלחה!"
+
+#: babybuddy/templates/registration/password_reset_complete.html:8
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr "הסיסמה נקבעה. ניתן להיכנס כעת."
+
+#: babybuddy/templates/registration/password_reset_complete.html:9
+msgid "Log in"
+msgstr "כניסה"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:4
+msgid "Password Reset"
+msgstr "איפוס סיסמה"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:12
+msgid "<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
+"                two passwords did not match. Please try again.</p>"
+msgstr "<p class=\"mb-0\"><strong>אוי!</strong>\n"
+"                 שתי הסיסמאות לא התאימו. אנא נסה שוב.</p>"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:22
+msgid "Enter your new password in each field below."
+msgstr "הכנס סיסמה חדשה בשדות הבאים"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:42
+#: babybuddy/templates/registration/password_reset_form.html:29
+msgid "Reset Password"
+msgstr "איפוס סיסמה"
+
+#: babybuddy/templates/registration/password_reset_done.html:4
+msgid "Reset Email Sent"
+msgstr "מייל איפוס נשלח"
+
+#: babybuddy/templates/registration/password_reset_done.html:8
+msgid "<p>We've emailed you instructions for setting your\n"
+"            password, if an account exists with the email you entered. You\n"
+"            should receive them shortly.</p>\n"
+"        <p class=\"mb-0\">If you don't receive an email, please make sure you've\n"
+"            entered the address you registered with, and check your spam\n"
+"            folder.</p>"
+msgstr "<p>שלחנו לך באימייל הוראות להגדרת\n"
+"             סיסמה, אם קיים חשבון עם האימייל שהזנת. אתה\n"
+"             אמור לקבל אותם בקרוב.</p>\n"
+"         <p class=\"mb-0\">אם אינך מקבל דוא\"ל, אנא ודא שקיבלת\n"
+"             הזנת את הכתובת איתה נרשמת, ובדוק את הספאם שלך\n"
+"             תיקייה.</p>"
+
+#: babybuddy/templates/registration/password_reset_form.html:4
+msgid "Forgot Password"
+msgstr "שכחת סיסמה"
+
+#: babybuddy/templates/registration/password_reset_form.html:8
+msgid "<p class=\"mb-0\">Enter your account email address in the\n"
+"        form below. If the address is valid, you will receive instructions for\n"
+"        resetting your password.</p>"
+msgstr "<p class=\"mb-0\">הכנס את חשבון האימייל שלך\n"
+"בטופס למטה. אם הכתובת תקינה, אתה תקבל הנחיות עבור\n"
+"איפוס הסיסמה שלך.</p>"
+
+#: babybuddy/views.py:114
+msgid "User %(username)s added!"
+msgstr "המשתמש %(username)s נוסף!"
+
+#: babybuddy/views.py:125
+msgid "User %(username)s updated."
+msgstr "המשתמש %(username)s התעדכן."
+
+#: babybuddy/views.py:164
+msgid "User {user} deleted."
+msgstr "משתמש {user} נמחק."
+
+#: babybuddy/views.py:185
+msgid "Password updated."
+msgstr "סיסמה עודכנה."
+
+#: babybuddy/views.py:199
+msgid "User API key regenerated."
+msgstr "מפתח משתמש API נוצר מחדש."
+
+#: babybuddy/views.py:240
+msgid "Settings saved!"
+msgstr "ההגדרות נשמרו!"
+
+#: core/forms.py:130
+msgid "Name does not match child name."
+msgstr "השם אינו תואם לשם הילד."
+
+#: core/models.py:29
+msgid "Date can not be in the future."
+msgstr "התאריך לא יכול להיות בעתיד."
+
+#: core/models.py:43
+msgid "Start time must come before end time."
+msgstr "שעת ההתחלה חייבת להגיע לפני שעת הסיום."
+
+#: core/models.py:46
+msgid "Duration too long."
+msgstr "זמן ארוך מידי."
+
+#: core/models.py:62
+msgid "Another entry intersects the specified time period."
+msgstr "ערך אחר חוצה את פרק הזמן שצוין."
+
+#: core/models.py:76
+msgid "Date/time can not be in the future."
+msgstr "תאריך/שעה לא יכולים להיות בעתיד."
+
+#: core/models.py:164
+msgid "First name"
+msgstr "שם פרטי"
+
+#: core/models.py:166
+msgid "Last name"
+msgstr "שם משפחה"
+
+#: core/models.py:168
+msgid "Birth date"
+msgstr "תאריך לידה"
+
+#. Can I see the whole sentence to match a correct translation?
+#: core/models.py:176
+msgid "Slug"
+msgstr "כינוי"
+
+#: core/models.py:179
+msgid "Picture"
+msgstr "תמונה"
+
+#: core/models.py:233 core/models.py:439 core/models.py:572
+#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/note_list.html:25
+#: core/templates/core/temperature_list.html:25
+#: reports/graphs/temperature_change.py:27
+msgid "Time"
+msgstr "זמן"
+
+#: core/models.py:235 core/templates/core/diaperchange_list.html:60
+#: reports/graphs/diaperchange_intervals.py:47
+#: reports/graphs/diaperchange_types.py:36
+msgid "Wet"
+msgstr "רטוב"
+
+#: core/models.py:236 core/templates/core/diaperchange_list.html:61
+#: reports/graphs/diaperchange_intervals.py:38
+#: reports/graphs/diaperchange_types.py:30
+msgid "Solid"
+msgstr "מוצק"
+
+#: core/models.py:240
+msgid "Black"
+msgstr "שחור"
+
+#: core/models.py:241
+msgid "Brown"
+msgstr "חום"
+
+#: core/models.py:242
+msgid "Green"
+msgstr "ירוק"
+
+#: core/models.py:243
+msgid "Yellow"
+msgstr "צהוב"
+
+#: core/models.py:85 core/models.py:246
+#: core/templates/core/diaperchange_list.html:30
+msgid "Color"
+msgstr "צבע"
+
+#: core/models.py:180
+msgid "Wet and/or solid is required."
+msgstr "נדרש רטוב ו/או מוצק."
+
+#: core/models.py:289 core/models.py:470 core/models.py:518 core/models.py:606
+#: core/models.py:675
+msgid "Start time"
+msgstr "זמן התחלה"
+
+#: core/models.py:292 core/models.py:476 core/models.py:521 core/models.py:678
+msgid "End time"
+msgstr "זמן סיום"
+
+#: core/models.py:295 core/models.py:481 core/models.py:525 core/models.py:681
+#: core/templates/core/feeding_list.html:34
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:30
+#: core/templates/core/tummytime_list.html:29
+msgid "Duration"
+msgstr "משך זמן"
+
+#: core/models.py:299
+msgid "Breast milk"
+msgstr "חלב אם"
+
+#: core/models.py:300
+msgid "Formula"
+msgstr "תמ\"ל"
+
+#: core/models.py:305 core/templates/core/feeding_list.html:30
+msgid "Type"
+msgstr "סוג"
+
+#: core/models.py:309
+msgid "Bottle"
+msgstr "בקבוק"
+
+#: core/models.py:310
+msgid "Left breast"
+msgstr "שד שמאל"
+
+#: core/models.py:311
+msgid "Right breast"
+msgstr "שד ימין"
+
+#: core/models.py:317 core/templates/core/feeding_list.html:29
+msgid "Method"
+msgstr "סוג"
+
+#: core/models.py:248 core/models.py:319 core/models.py:483
+#: core/templates/core/diaperchange_list.html:31
+#: core/templates/core/pumping_list.html:29
+#: dashboard/templates/cards/pumping_last.html:23
+msgid "Amount"
+msgstr "כמות"
+
+#: core/models.py:243
+msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
+msgstr "רק שיטת \"בקבוק\" מותרת עם סוג \"פורמולה\"."
+
+#: core/models.py:603 core/templates/core/timer_list.html:25
+msgid "Name"
+msgstr "שם"
+
+#: core/models.py:621 core/templates/core/timer_form.html:4
+msgid "Timer"
+msgstr "טיימר"
+
+#: core/models.py:622 core/templates/core/timer_confirm_delete.html:9
+#: core/templates/core/timer_detail.html:8
+#: core/templates/core/timer_form.html:7 core/templates/core/timer_list.html:4
+#: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:12
+#: core/templates/core/timer_nav.html:10 core/templates/core/timer_nav.html:44
+#: dashboard/templates/cards/timer_list.html:6
+msgid "Timers"
+msgstr "טיימרים"
+
+#: core/models.py:625
+msgid "Timer #{id}"
+msgstr "טיימר #{id}"
+
+#: core/models.py:684 core/templates/core/tummytime_list.html:30
+msgid "Milestone"
+msgstr "ציון דרך"
+
+#: core/models.py:142 core/models.py:357 core/models.py:387 core/models.py:721
+#: core/templates/core/bmi_list.html:25
+#: core/templates/core/feeding_list.html:25
+#: core/templates/core/head_circumference_list.html:25
+#: core/templates/core/height_list.html:25
+#: core/templates/core/pumping_list.html:25
+#: core/templates/core/weight_list.html:25 reports/graphs/bmi_change.py:28
+#: reports/graphs/diaperchange_amounts.py:37
+#: reports/graphs/diaperchange_intervals.py:67
+#: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
+#: reports/graphs/feeding_duration.py:56 reports/graphs/feeding_intervals.py:42
+#: reports/graphs/head_circumference_change.py:28
+#: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
+#: reports/graphs/sleep_pattern.py:157 reports/graphs/sleep_totals.py:59
+#: reports/graphs/tummytime_duration.py:51 reports/graphs/weight_change.py:85
+msgid "Date"
+msgstr "תאריך"
+
+#: core/templates/core/child_confirm_delete.html:4
+msgid "Delete a Child"
+msgstr "מחק ילד"
+
+#: core/templates/core/child_confirm_delete.html:20
+msgid "To confirm this action. Type the full name of the child below."
+msgstr "כדי לאשר פעולה זו הקלד את השם המלא של הילד למטה."
+
+#: core/templates/core/child_detail.html:25
+#: dashboard/templates/dashboard/dashboard.html:32
+msgid "Born"
+msgstr "נולד"
+
+#: core/templates/core/child_detail.html:26
+#: dashboard/templates/dashboard/dashboard.html:33
+msgid "Age"
+msgstr "גיל"
+
+#: core/templates/timeline/_timeline.html:38
+msgid "%(since)s ago (%(time)s)"
+msgstr "לפני %(since) (%(time)s)"
+
+#: core/templates/core/child_list.html:27
+msgid "Birth Date"
+msgstr "תאריך לידה"
+
+#: core/templates/core/child_list.html:66
+msgid "No children found."
+msgstr "לא נמצאו ילדים."
+
+#: core/templates/core/diaperchange_confirm_delete.html:4
+msgid "Delete a Diaper Change"
+msgstr "מחק החלפת חיתול"
+
+#: core/templates/core/diaperchange_form.html:6
+msgid "Update a Diaper Change"
+msgstr "עדכן החלפת חיתול"
+
+#: core/templates/core/diaperchange_form.html:8
+#: core/templates/core/diaperchange_form.html:27
+msgid "Add a Diaper Change"
+msgstr "הוסף החלפת חיתול"
+
+#: core/templates/core/diaperchange_form.html:17
+#: core/templates/core/feeding_form.html:17
+#: core/templates/core/note_form.html:17 core/templates/core/sleep_form.html:17
+#: core/templates/core/tummytime_form.html:17
+#: core/templates/core/widget_tag_editor.html:23
+msgid "Add"
+msgstr "הוספה"
+
+#: core/templates/core/diaperchange_list.html:76
+msgid "No diaper changes found."
+msgstr "לא נמצאו החלפות חיתול."
+
+#: core/templates/core/diaperchange_list.html:63
+msgid "Add a Change"
+msgstr "הוסף החלפת חיתול"
+
+#: core/templates/core/feeding_confirm_delete.html:4
+msgid "Delete a Feeding"
+msgstr "מחק האכלה"
+
+#: core/templates/core/feeding_form.html:6
+msgid "Update a Feeding"
+msgstr "עדכן האכלה"
+
+#: core/templates/core/feeding_form.html:8
+#: core/templates/core/feeding_form.html:27
+msgid "Add a Feeding"
+msgstr "הוסף האכלה"
+
+#: core/templates/core/feeding_list.html:33
+msgid "Amt."
+msgstr "כמות"
+
+#: core/templates/core/feeding_list.html:81
+msgid "No feedings found."
+msgstr "לא נמצאו האכלות."
+
+#: core/templates/core/note_confirm_delete.html:4
+msgid "Delete a Note"
+msgstr "מחק הערה"
+
+#: core/templates/core/note_form.html:6
+msgid "Update a Note"
+msgstr "עדכן הערה"
+
+#: core/templates/core/note_form.html:8 core/templates/core/note_form.html:27
+msgid "Add a Note"
+msgstr "הוסף הערה"
+
+#: core/templates/core/note_list.html:71
+msgid "No notes found."
+msgstr "לא נמצאו הערות."
+
+#: core/templates/core/sleep_confirm_delete.html:4
+msgid "Delete a Sleep Entry"
+msgstr "מחק שינה"
+
+#: core/templates/core/sleep_form.html:6
+msgid "Update a Sleep Entry"
+msgstr "עדכן שינה"
+
+#: core/templates/core/sleep_form.html:8 core/templates/core/sleep_form.html:27
+msgid "Add a Sleep Entry"
+msgstr "הוסף שינה"
+
+#: core/templates/core/sleep_list.html:25
+#: core/templates/core/timer_form.html:12
+#: core/templates/core/timer_list.html:24
+#: core/templates/core/tummytime_list.html:24
+msgid "Start"
+msgstr "התחלה"
+
+#: core/templates/core/sleep_list.html:26
+#: core/templates/core/tummytime_list.html:25
+msgid "End"
+msgstr "סיום"
+
+#: core/models.py:523 core/templates/core/sleep_list.html:31
+msgid "Nap"
+msgstr "נמנום"
+
+#: core/templates/core/sleep_list.html:73
+msgid "No sleep entries found."
+msgstr "לא נמצאו שינות."
+
+#: core/templates/core/timer_confirm_delete.html:5
+msgid "Delete %(object)s"
+msgstr "מחק %(object)s"
+
+#: core/templates/core/timer_detail.html:29
+msgid "Started"
+msgstr "התחיל"
+
+#: core/templates/core/timer_detail.html:30
+msgid "Stopped"
+msgstr "הסתיים"
+
+#: core/templates/core/timer_detail.html:26
+msgid "%(timer)s created by %(object.user)s"
+msgstr "%(timer)s נוצר על ידי %(object.user)s"
+
+#: core/templates/core/timer_detail.html:71
+msgid "Timer actions"
+msgstr "פעולות טיימרים"
+
+#: core/templates/core/timer_form.html:22
+#: core/templates/core/timer_list.html:15 core/templates/core/timer_nav.html:15
+msgid "Start Timer"
+msgstr "התחל טיימר"
+
+#: core/templates/core/timer_list.html:48
+msgid "No timer entries found."
+msgstr "לא נמצאו טיימרים."
+
+#: core/templates/core/quick_timer_nav.html:9
+#: core/templates/core/quick_timer_nav.html:29
+#: core/templates/core/timer_nav.html:37
+msgid "Quick Start Timer"
+msgstr "התחל טיימר"
+
+#: core/templates/core/timer_nav.html:20
+msgid "View Timers"
+msgstr "הצג טיימרים"
+
+#: core/templates/core/timer_nav.html:44
+#: dashboard/templates/cards/timer_list.html:6
+msgid "Active Timers"
+msgstr "טיימרים פעילים"
+
+#: core/templates/core/timer_nav.html:50
+#: dashboard/templates/cards/diaperchange_last.html:17
+#: dashboard/templates/cards/diaperchange_types.html:12
+#: dashboard/templates/cards/feeding_last.html:17
+#: dashboard/templates/cards/feeding_last_method.html:49
+#: dashboard/templates/cards/feeding_recent.html:20
+#: dashboard/templates/cards/feeding_recent.html:58
+#: dashboard/templates/cards/pumping_last.html:17
+#: dashboard/templates/cards/sleep_last.html:17
+#: dashboard/templates/cards/sleep_naps_day.html:18
+#: dashboard/templates/cards/sleep_recent.html:20
+#: dashboard/templates/cards/sleep_recent.html:52
+#: dashboard/templates/cards/tummytime_day.html:14
+msgid "None"
+msgstr "כלום"
+
+#: core/templates/core/tummytime_confirm_delete.html:4
+msgid "Delete a Tummy Time Entry"
+msgstr "מחק זמן בטן"
+
+#: core/templates/core/tummytime_form.html:6
+msgid "Update a Tummy Time Entry"
+msgstr "עדכן זמן בטן"
+
+#: core/templates/core/tummytime_form.html:8
+#: core/templates/core/tummytime_form.html:27
+msgid "Add a Tummy Time Entry"
+msgstr "הוסף זמן בטן"
+
+#: core/templates/core/tummytime_list.html:67
+msgid "No tummy time entries found."
+msgstr "לא נמצאו זמני בטן."
+
+#: core/templates/core/weight_confirm_delete.html:4
+msgid "Delete a Weight Entry"
+msgstr "מחק משקל"
+
+#: core/templates/core/weight_form.html:8
+#: core/templates/core/weight_form.html:17
+#: core/templates/core/weight_form.html:27
+msgid "Add a Weight Entry"
+msgstr "הוסף משקל"
+
+#: core/templates/core/weight_list.html:69
+msgid "No weight entries found."
+msgstr "לא נמצאו רשומות משקל."
+
+#: core/timeline.py:164
+msgid "%(child)s had a diaper change."
+msgstr "ל%(child)s הוחלף טיטול."
+
+#: core/timeline.py:151
+msgid "%(child)s started feeding."
+msgstr "%(child)s התחיל לאכול."
+
+#: core/timeline.py:164
+msgid "%(child)s finished feeding."
+msgstr "%(child)s סיים לאכול."
+
+#: core/timeline.py:96
+msgid "%(child)s fell asleep."
+msgstr "%(child)s נרדם."
+
+#: core/timeline.py:108
+msgid "%(child)s woke up."
+msgstr "%(child)s התעורר."
+
+#: core/timeline.py:56
+msgid "%(child)s started tummy time!"
+msgstr "%(child)s התחיל זמן על הבטן!"
+
+#: core/timeline.py:68
+msgid "%(child)s finished tummy time."
+msgstr "%(child)s סיים להיות על הבטן."
+
+#: core/views.py:33
+msgid "%(model)s entry for %(child)s added!"
+msgstr "%(model)s נוסף עבור %(child)s!"
+
+#: core/views.py:35 core/views.py:308
+msgid "%(model)s entry added!"
+msgstr "%(model)s נוסף!"
+
+#: core/views.py:61 core/views.py:316
+msgid "%(model)s entry for %(child)s updated."
+msgstr "%(model)s עבור %(child)s התעדכן."
+
+#: core/views.py:63
+msgid "%(model)s entry updated."
+msgstr "%(model)s התעדכן."
+
+#: core/views.py:115
+msgid "%(first_name)s %(last_name)s added!"
+msgstr "%(first_name) %(last_name) נוסף!"
+
+#: core/views.py:483
+msgid "%(timer)s stopped."
+msgstr "%(timer)s נעצר."
+
+#: dashboard/templates/cards/diaperchange_last.html:6
+msgid "Last Diaper Change"
+msgstr "החלפת חיתול אחרונה"
+
+#: dashboard/templates/cards/diaperchange_last.html:8
+#: dashboard/templates/cards/feeding_last.html:8
+#: dashboard/templates/cards/sleep_last.html:8
+#: dashboard/templates/cards/tummytime_last.html:8
+msgid "%(time)s ago"
+msgstr "לפני %(time)s"
+
+#: dashboard/templates/cards/tummytime_last.html:18
+msgid "Never"
+msgstr "אף פעם"
+
+#: dashboard/templates/cards/diaperchange_types.html:14
+msgid "Past Week"
+msgstr "שבוע שעבר"
+
+#: dashboard/templates/cards/diaperchange_types.html:26
+msgid "wet"
+msgstr "רטוב"
+
+#: dashboard/templates/cards/diaperchange_types.html:33
+msgid "solid"
+msgstr "יבש"
+
+#: core/templatetags/duration.py:110
+#: dashboard/templates/cards/diaperchange_types.html:46
+msgid "today"
+msgstr "היום"
+
+#: core/templatetags/duration.py:112
+#: dashboard/templates/cards/diaperchange_types.html:48
+msgid "yesterday"
+msgstr "אתמול"
+
+#: dashboard/templates/cards/diaperchange_types.html:50
+msgid "%(key)s days ago"
+msgstr "לפני %(key)s ימים"
+
+#: dashboard/templates/cards/feeding_last.html:6
+msgid "Last Feeding"
+msgstr "האכלה אחרונה"
+
+#: dashboard/templates/cards/feeding_last_method.html:6
+msgid "Last Feeding Method"
+msgstr "דרך האכלה אחרונה"
+
+#: dashboard/templates/cards/sleep_day.html:6
+msgid "Today's Sleep"
+msgstr "שינה היום"
+
+#: dashboard/templates/cards/sleep_day.html:11
+#: dashboard/templates/cards/sleep_naps_day.html:13
+#: dashboard/templates/cards/tummytime_day.html:11
+msgid "None yet today"
+msgstr "היום עדיין לא"
+
+#: dashboard/templates/cards/sleep_day.html:20
+msgid "%(count)s sleep entries"
+msgstr "%(count)s רשומות שינה"
+
+#: dashboard/templates/cards/sleep_last.html:4
+msgid "Last Slept"
+msgstr "שינה אחרונה"
+
+#: dashboard/templates/cards/sleep_naps_day.html:6
+msgid "Today's Naps"
+msgstr "תנומות היום"
+
+#: dashboard/templates/cards/sleep_naps_day.html:12
+msgid "%(count)s nap%(plural)s"
+msgstr "%(count)s תנומות%(plural)s"
+
+#: dashboard/templates/cards/statistics.html:7
+msgid "Statistics"
+msgstr "סטטיסטיקה"
+
+#: dashboard/templates/cards/statistics.html:25
+msgid "Not enough data"
+msgstr "אין מספיק מידע"
+
+#: dashboard/templates/cards/timer_list.html:12
+msgid "%(count)s active timer%(plural)s"
+msgstr "%(count)s טיימרים פעילים%(plural)s"
+
+#: dashboard/templates/cards/timer_list.html:19
+msgid "Started by %(instance.user)s at %(start)s"
+msgstr "%(instance.user)s התחיל ב%(start)s"
+
+#: dashboard/templates/cards/tummytime_day.html:6
+msgid "Today's Tummy Time"
+msgstr "זמן בטן היום"
+
+#: dashboard/templates/cards/tummytime_day.html:22
+msgid "%(duration)s at %(end)s"
+msgstr "משך %(duration)s בעת הסיום %(end)s"
+
+#: dashboard/templates/cards/tummytime_last.html:6
+msgid "Last Tummy Time"
+msgstr "זמן בטן אחרון"
+
+#: dashboard/templates/dashboard/child_button_group.html:3
+msgid "Child actions"
+msgstr "פעולות הילד"
+
+#: reports/templates/reports/diaperchange_types.html:4
+#: reports/templates/reports/diaperchange_types.html:9
+#: reports/templates/reports/report_list.html:21
+msgid "Diaper Change Types"
+msgstr "סוגי החלפת חיתולים"
+
+#: reports/templates/reports/diaperchange_lifetimes.html:4
+#: reports/templates/reports/diaperchange_lifetimes.html:9
+#: reports/templates/reports/report_list.html:23
+msgid "Diaper Lifetimes"
+msgstr "אורך חיים של חיתול"
+
+#: reports/templates/reports/report_list.html:25
+msgid "Feeding Durations (Average)"
+msgstr "משך האכלה ממוצע"
+
+#: reports/templates/reports/report_list.html:32
+#: reports/templates/reports/sleep_pattern.html:4
+#: reports/templates/reports/sleep_pattern.html:9
+msgid "Sleep Pattern"
+msgstr "דפוס שינה"
+
+#: reports/templates/reports/report_list.html:33
+#: reports/templates/reports/sleep_totals.html:4
+#: reports/templates/reports/sleep_totals.html:9
+msgid "Sleep Totals"
+msgstr "שינה סך הכל"
+
+#: dashboard/templatetags/cards.py:473
+msgid "Diaper change frequency"
+msgstr "תדיחות החלפת חיתולים"
+
+#: dashboard/templatetags/cards.py:519
+msgid "Feeding frequency"
+msgstr "תדירות האכלה"
+
+#: dashboard/templatetags/cards.py:381
+msgid "Average nap duration"
+msgstr "אורך תנומה ממוצע"
+
+#: dashboard/templatetags/cards.py:388
+msgid "Average naps per day"
+msgstr "ממוצע תנומות ליום"
+
+#: dashboard/templatetags/cards.py:398
+msgid "Average sleep duration"
+msgstr "זמן שינה ממוצע"
+
+#: dashboard/templatetags/cards.py:405
+msgid "Average awake duration"
+msgstr "זמן עירות ממוצע"
+
+#: dashboard/templatetags/cards.py:415
+msgid "Weight change per week"
+msgstr "שינוי משקל לפי שבוע"
+
+#: reports/graphs/diaperchange_lifetimes.py:35
+msgid "<b>Diaper Lifetimes</b>"
+msgstr "<b>תקופת חיתול</b>"
+
+#: reports/graphs/diaperchange_lifetimes.py:36
+msgid "Time between changes (hours)"
+msgstr "זמן בין החלפות (שעות)"
+
+#: reports/graphs/diaperchange_intervals.py:56
+#: reports/graphs/diaperchange_types.py:41 reports/graphs/feeding_amounts.py:58
+msgid "Total"
+msgstr "סך הכל"
+
+#: reports/graphs/diaperchange_types.py:48
+msgid "<b>Diaper Change Types</b>"
+msgstr "<b>סוגי החלפת חיתולים</b>"
+
+#: reports/graphs/diaperchange_types.py:51
+msgid "Number of changes"
+msgstr "מספר החלפות"
+
+#: reports/graphs/feeding_duration.py:38
+msgid "Average duration"
+msgstr "משך זמן ממוצע"
+
+#: reports/graphs/feeding_duration.py:46
+msgid "Total feedings"
+msgstr "סך הכל האכלה"
+
+#: reports/graphs/feeding_duration.py:55
+msgid "<b>Average Feeding Durations</b>"
+msgstr "<b>משכי האכלה ממוצעים</b>"
+
+#: reports/graphs/feeding_duration.py:58
+msgid "Average duration (minutes)"
+msgstr "משך זמן ממוצע (בדקות)"
+
+#: reports/graphs/feeding_duration.py:60
+msgid "Number of feedings"
+msgstr "מספר האכלות"
+
+#: reports/graphs/sleep_pattern.py:154
+msgid "<b>Sleep Pattern</b>"
+msgstr "<b>דפוס שינה</b>"
+
+#: reports/graphs/sleep_pattern.py:171
+msgid "Time of day"
+msgstr "זמן ביום"
+
+#: reports/graphs/sleep_totals.py:48
+msgid "Total sleep"
+msgstr "סך הכל שינה"
+
+#: reports/graphs/sleep_totals.py:58
+msgid "<b>Sleep Totals</b>"
+msgstr "<b>סך הכל שינות</b>"
+
+#: reports/graphs/sleep_totals.py:61
+msgid "Hours of sleep"
+msgstr "שעות של שינה"
+
+#: reports/graphs/weight_change.py:84
+msgid "<b>Weight</b>"
+msgstr "<b>משקל</b>"
+
+#: reports/templates/reports/feeding_duration.html:4
+#: reports/templates/reports/feeding_duration.html:9
+msgid "Average Feeding Durations"
+msgstr "זמן האכלה ממוצע"
+
+#: dashboard/templates/dashboard/child_button_group.html:12
+#: reports/templates/reports/breadcrumb_common_chunk.html:7
+#: reports/templates/reports/report_list.html:4
+#: reports/templates/reports/report_list.html:11
+msgid "Reports"
+msgstr "דוחות"
+
+#: reports/templates/reports/report_base.html:19
+msgid "There is no enough data to generate this report."
+msgstr "אין מספיק מידע בשביל לייצר דוח."
+
+#: core/models.py:312
+msgid "Both breasts"
+msgstr "שני השדיים"
+
+#: babybuddy/settings/base.py:188
+msgid "German"
+msgstr "גרמנית"
+
+#: babybuddy/settings/base.py:195
+msgid "Spanish"
+msgstr "ספרדית"
+
+#: babybuddy/settings/base.py:196
+msgid "Swedish"
+msgstr "שוודית"
+
+#: babybuddy/settings/base.py:197
+msgid "Turkish"
+msgstr "טורקית"
+
+#: babybuddy/templates/error/403.html:9
+msgid "You do not have permission to access this resource. Contact a site administrator for assistance."
+msgstr "אין לך הרשאות לגשת למשאב זה. צור קשר עם מנהל השרת לעזרה."
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:204 core/models.py:569
+#: core/models.py:582 core/models.py:583 core/models.py:586
+#: core/templates/core/temperature_confirm_delete.html:7
+#: core/templates/core/temperature_form.html:13
+#: core/templates/core/temperature_list.html:4
+#: core/templates/core/temperature_list.html:7
+#: core/templates/core/temperature_list.html:12
+#: core/templates/core/temperature_list.html:29
+#: reports/graphs/temperature_change.py:19
+#: reports/graphs/temperature_change.py:29
+#: reports/templates/reports/report_list.html:34
+#: reports/templates/reports/temperature_change.html:4
+#: reports/templates/reports/temperature_change.html:9
+msgid "Temperature"
+msgstr "טמפרטורה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:210
+msgid "Temperature reading"
+msgstr "קריאת טמפרטורה"
+
+#: babybuddy/templates/babybuddy/welcome.html:15
+msgid "Learn about and predict baby's needs without (<em>as much</em>) guess work by using Baby Buddy to track &mdash;"
+msgstr "תלמד ותחזה את הצרכים של של התינוק מבלי (<em>כמעט</em>) לנחש עם תעזר בBaby Buddy &mdash;"
+
+#: babybuddy/templates/babybuddy/welcome.html:65
+msgid "As the amount of entries grows, Baby Buddy will help parents and caregivers to identify small patterns in baby's habits using the dashboard and graphs. Baby Buddy is mobile-friendly and uses a dark theme to help weary moms and dads with 2AM feedings and changings. To get started, just click the button below to add your first (or second, third, etc.) child!"
+msgstr "כשאר כמות המידע יגדל, Baby Buddy יעזור להורים ולמטפלים לזהות דפוסי התנהגות קטנים בתחביבים של התינוק בעזרת דשבורד וגרפים. Baby Buddy מתאימה לסמארטפון ידידותית ומשתמשת בעיצוב כהה בשביל לעזור לאמאות והאבות המודאגים שמאכילים או מחליפיפ 2 בלילה. בשביל להתחיל, רק תלחץ על הכפתור מתחת והכנס את הילד הראשון (או השני, השלישי וכו')!"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:13
+msgid "<strong>Oh snap!</strong> The two passwords did not match. Please try again."
+msgstr "<strongאוי ואווי!</strong> שתי הסיסמאות לא תואמות. אנא נסה שוב."
+
+#: babybuddy/templates/registration/password_reset_done.html:9
+msgid "We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
+msgstr "שלחנו לך באימייל הוראות להגדרת הסיסמה שלך, אם קיים חשבון עם האימייל שהזנת. אתה אמור לקבל אותם בקרוב."
+
+#: babybuddy/templates/registration/password_reset_done.html:15
+msgid "If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."
+msgstr "אם אינך מקבל אימייל, אנא ודא שהזנת את הכתובת איתה נרשמת, ובדוק בתיקיית הספאם שלך."
+
+#: babybuddy/templates/registration/password_reset_form.html:9
+msgid "Enter your account email address in the form below. If the address is valid, you will receive instructions for resetting your password."
+msgstr "הזן את כתובת האימייל שלך בטופס למטה. אם הכתובת תקפה, תקבל הנחיות לאיפוס הסיסמה שלך."
+
+#: core/models.py:301
+msgid "Fortified breast milk"
+msgstr "חלב אם מועשר"
+
+#: core/templates/core/temperature_confirm_delete.html:4
+msgid "Delete a Temperature Reading"
+msgstr "מחק קריאת טמפרטורה"
+
+#: core/templates/core/temperature_form.html:8
+#: core/templates/core/temperature_form.html:17
+msgid "Add a Temperature Reading"
+msgstr "הוספת קריאת טמפרטורה"
+
+#: core/templates/core/temperature_form.html:27
+msgid "Add a Temperature Entry"
+msgstr "הוספת רשומת טמפרטורה"
+
+#: core/templates/core/temperature_list.html:69
+msgid "No temperature entries found."
+msgstr "לא נמצאו רשומות טמפרטוטה."
+
+#: core/templates/core/timer_detail.html:32
+msgid "%(timer)s created by %(user)s"
+msgstr "%(timer)sנוצר על ידי %(user)s"
+
+#: core/utils.py:40
+msgid "%(hours)s hour"
+msgid_plural "%(hours)s hours"
+msgstr[0] "שעה אחת"
+msgstr[1] "%(hours)s שעות"
+
+#: core/utils.py:44
+msgid "%(minutes)s minute"
+msgid_plural "%(minutes)s minutes"
+msgstr[0] "דקה אחת"
+msgstr[1] "%(minutes)s דקות"
+
+#: core/utils.py:50
+msgid "%(seconds)s second"
+msgid_plural "%(seconds)s seconds"
+msgstr[0] "שניה אחת"
+msgstr[1] "%(seconds)s שניות"
+
+#: core/views.py:69 core/views.py:146
+msgid "%(model)s entry deleted."
+msgstr "רשומת %(model)s נמחקה."
+
+#: core/views.py:366
+msgid "%(model)s reading added!"
+msgstr "%(model)s קריאה נוסף!"
+
+#: core/views.py:374
+msgid "%(model)s reading for %(child)s updated."
+msgstr "%(model)s קריאה עבור %(child)s התעדכן."
+
+#: dashboard/templates/cards/timer_list.html:27
+msgid "Started by %(user)s at %(start)s"
+msgstr "הותחל על ידי %(user)s ב%(start)s"
+
+#: reports/templates/reports/feeding_amounts.html:4
+#: reports/templates/reports/feeding_amounts.html:9
+#: reports/templates/reports/report_list.html:24
+msgid "Feeding Amounts"
+msgstr "כמויות האכלה"
+
+#: reports/graphs/feeding_amounts.py:27
+msgid "Total feeding amount"
+msgstr "סך הכל כמות האכלה"
+
+#: reports/graphs/feeding_amounts.py:36
+msgid "<b>Total Feeding Amounts</b>"
+msgstr "<b>כמויות האכלה</b>"
+
+#: reports/graphs/feeding_amounts.py:72
+msgid "Feeding amount"
+msgstr "כמות האכלה"
+
+#: reports/templates/reports/report_base.html:18
+msgid "There is not enough data to generate this report."
+msgstr "אין מספיק מידע בשביל לייצר דוח."
+
+#: babybuddy/models.py:71
+msgid "Timezone"
+msgstr "איזור זמן"
+
+#: babybuddy/templates/admin/base_site.html:4
+#: babybuddy/templates/admin/base_site.html:7
+#: babybuddy/templates/babybuddy/nav-dropdown.html:349
+msgid "Database Admin"
+msgstr "מנהל מכרז מידע"
+
+#: core/templates/core/child_list.html:15
+msgid "Add Child"
+msgstr "הוספת ילד"
+
+#: core/templates/core/diaperchange_list.html:15
+msgid "Add Diaper Change"
+msgstr "הוספת החלפת טיטול"
+
+#: core/templates/core/feeding_list.html:15
+msgid "Add Feeding"
+msgstr "הוספת האכלה"
+
+#: core/templates/core/note_list.html:15
+msgid "Add Note"
+msgstr "הוספת הערה"
+
+#: core/templates/core/sleep_list.html:15
+msgid "Add Sleep"
+msgstr "הוספת שינה"
+
+#: core/templates/core/temperature_list.html:15
+msgid "Add Temperature Reading"
+msgstr "הוספת קריאת טמפרטורה"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:5
+msgid "Delete All Inactive Timers"
+msgstr "מחיקת כל הטיימרים שלא פעילים"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:10
+msgid "Delete Inactive"
+msgstr "מחק לא פעילים"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:17
+msgid "Are you sure you want to delete %(number)s inactive timer%(plural)s?"
+msgstr "האם אתה בטוח שאתה רוצה למחוק %(number)s טיימרים לא פעיל%(plural)s?"
+
+#: core/templates/core/timer_list.html:68
+msgid "Delete Inactive Timers"
+msgstr "מחק טיימרים לא פעילים"
+
+#: core/templates/core/tummytime_list.html:15
+msgid "Add Tummy Time"
+msgstr "הוספת זמן בטן"
+
+#: core/templates/core/weight_list.html:15
+msgid "Add Weight"
+msgstr "הוספת משקל"
+
+#: core/views.py:506
+msgid "All inactive timers deleted."
+msgstr "כל הטיימרים הלא פעילים נמחקו."
+
+#: core/views.py:516
+msgid "No inactive timers exist."
+msgstr "לא קיימים טיימרים לא פעילים."
+
+#: dashboard/templates/cards/feeding_last_method.html:19
+msgid "most recent"
+msgstr "הכי עדכני"
+
+#: dashboard/templates/cards/feeding_last_method.html:21
+msgid "%(n)s feeding%(plural)s ago"
+msgstr "%(n)s האכלות%(plural)s קודם"
+
+#: dashboard/templates/cards/sleep_last.html:6
+msgid "Last Sleep"
+msgstr "שינה אחרונה"
+
+#: reports/templates/reports/report_list.html:20
+msgid "Diaper Change Amounts"
+msgstr "כמויות החלפת טיטולים"
+
+#: reports/graphs/diaperchange_amounts.py:27
+msgid "Diaper change amount"
+msgstr "כמות החלפת טיטולים"
+
+#: reports/graphs/diaperchange_amounts.py:36
+msgid "<b>Diaper Change Amounts</b>"
+msgstr "<b>כמויות החלפת טיטולים</b>"
+
+#: reports/graphs/diaperchange_amounts.py:39
+msgid "Change amount"
+msgstr "כמות החלפה"
+
+#: reports/templates/reports/diaperchange_amounts.html:4
+#: reports/templates/reports/diaperchange_amounts.html:9
+msgid "Diaper Amounts"
+msgstr "כמות טיטולים"
+
+#: babybuddy/models.py:21
+msgid "If supported by browser, the dashboard will only refresh when visible, and also when receiving focus."
+msgstr "אם נתמך על ידי הדפדפן, לוח הניהול יתעדכן כשזמין , וכשמקבל פוקוס."
+
+#: babybuddy/models.py:40
+msgid "Hide Empty Dashboard Cards"
+msgstr "הסתר כרטיסי ניהול ריקים"
+
+#: babybuddy/models.py:43
+msgid "Hide data older than"
+msgstr "הסתר נתונים ישנים יותר מ"
+
+#: babybuddy/models.py:45
+msgid "This setting controls which data will be shown in the dashboard."
+msgstr "הגדרה זו שולטת אילו נתונים יוצגו בדשבורד."
+
+#: babybuddy/models.py:51
+msgid "show all data"
+msgstr "הצג את כל המידע"
+
+#: babybuddy/models.py:52
+msgid "1 day"
+msgstr "יום אחד"
+
+#: babybuddy/models.py:53
+msgid "2 days"
+msgstr "יומיים"
+
+#: babybuddy/models.py:54
+msgid "3 days"
+msgstr "3 ימים"
+
+#: babybuddy/models.py:55
+msgid "1 week"
+msgstr "שבוע אחד"
+
+#: babybuddy/models.py:56
+msgid "4 weeks"
+msgstr "4 שבועות"
+
+#: babybuddy/settings/base.py:183
+msgid "Dutch"
+msgstr "הולנדית"
+
+#: babybuddy/settings/base.py:187
+msgid "Finnish"
+msgstr "פינית"
+
+#: babybuddy/settings/base.py:190
+msgid "Italian"
+msgstr "איטלקית"
+
+#: babybuddy/settings/base.py:192
+msgid "Polish"
+msgstr "פולנית"
+
+#: babybuddy/settings/base.py:193
+msgid "Portuguese"
+msgstr "פורטוגזית"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:101
+#: core/templates/timeline/timeline.html:4
+#: core/templates/timeline/timeline.html:7
+#: dashboard/templates/dashboard/child_button_group.html:9
+msgid "Timeline"
+msgstr "ציר זמן"
+
+#: core/models.py:302
+msgid "Solid food"
+msgstr "מזון מוצק"
+
+#: core/models.py:313
+msgid "Parent fed"
+msgstr "הורה האכיל"
+
+#: core/models.py:314
+msgid "Self fed"
+msgstr "אכל בעצמו"
+
+#: core/templates/core/diaperchange_list.html:29
+msgid "Contents"
+msgstr "תוכן"
+
+#: core/templates/core/timer_detail.html:85
+msgid "Restart timer"
+msgstr "איפוס טיימר"
+
+#: core/templates/core/timer_detail.html:84
+msgid "Delete timer"
+msgstr "מחיקת טיימר"
+
+#: core/templatetags/datetime.py:26
+msgid "Today"
+msgstr "היום"
+
+#: core/templatetags/datetime.py:41
+msgid "{}, {}"
+msgstr "{}, {}"
+
+#: core/templatetags/duration.py:25
+msgid "0 days"
+msgstr "0 ימים"
+
+#: core/timeline.py:143
+msgid "Amount: %(amount).0f"
+msgstr "סכום: %(amount).f0"
+
+#: core/timeline.py:157
+msgid "Contents: %(contents)s"
+msgstr "תוכן: %(contents)s"
+
+#: dashboard/templates/cards/diaperchange_last.html:12
+#: dashboard/templates/cards/feeding_last.html:12
+#: dashboard/templates/cards/pumping_last.html:12
+#: dashboard/templates/cards/sleep_last.html:12
+#: dashboard/templates/cards/tummytime_last.html:13
+msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
+msgstr "<div>לפני%(since) </div> <small>%(time)s</small>"
+
+#: dashboard/templates/cards/feeding_day.html:6
+msgid "Today's Feeding"
+msgstr "האכלות היום"
+
+#: dashboard/templates/cards/feeding_day.html:20
+msgid "%(count)s feeding entries"
+msgstr "%(count)s רשומות האכלה"
+
+#: dashboard/templates/cards/statistics.html:48
+msgid "No data yet"
+msgstr "אין מידע כרגע"
+
+#: reports/templates/reports/report_list.html:35
+msgid "Tummy Time Durations (Sum)"
+msgstr "משך זמן בטן (חיבור)"
+
+#: core/templates/timeline/_timeline.html:61
+#: dashboard/templates/dashboard/child_button_group.html:20
+msgid "Edit"
+msgstr "עריכה"
+
+#: dashboard/templatetags/cards.py:509
+msgid "Feeding frequency (past 3 days)"
+msgstr "תדירות האכלה (בשלושה ימים האחרונים)"
+
+#: dashboard/templatetags/cards.py:513
+msgid "Feeding frequency (past 2 weeks)"
+msgstr "תדירות האכלה (ביומיים האחרונים)"
+
+#: reports/graphs/tummytime_duration.py:34
+msgid "Total duration"
+msgstr "משך הזמן הכולל"
+
+#: reports/graphs/tummytime_duration.py:41
+#: reports/graphs/tummytime_duration.py:55
+msgid "Number of sessions"
+msgstr "מספר מפגשים"
+
+#: reports/graphs/tummytime_duration.py:50
+msgid "<b>Total Tummy Time Durations</b>"
+msgstr "<b>משכי זמן בטן כוללים</b>"
+
+#: reports/graphs/tummytime_duration.py:53
+msgid "Total duration (minutes)"
+msgstr "משך כולל (דקות)"
+
+#: reports/templates/reports/tummytime_duration.html:4
+#: reports/templates/reports/tummytime_duration.html:9
+msgid "Total Tummy Time Durations"
+msgstr "משכי זמן בטן כוללים"
+
+#: babybuddy/settings/base.py:184
+msgid "English (US)"
+msgstr "אנגלית (ארה\"ב)"
+
+#: babybuddy/settings/base.py:185
+msgid "English (UK)"
+msgstr "אנגלית (אנגליה)"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:154
+msgid "Measurements"
+msgstr "מדידות"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:190 core/models.py:385
+#: core/models.py:397 core/models.py:398 core/models.py:401
+#: core/templates/core/height_confirm_delete.html:7
+#: core/templates/core/height_form.html:13
+#: core/templates/core/height_list.html:4
+#: core/templates/core/height_list.html:7
+#: core/templates/core/height_list.html:12
+#: core/templates/core/height_list.html:29 reports/graphs/height_change.py:30
+#: reports/graphs/height_change.py:89
+#: reports/templates/reports/height_change.html:4
+#: reports/templates/reports/height_change.html:9
+#: reports/templates/reports/report_list.html:28
+msgid "Height"
+msgstr "גובה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:196
+msgid "Height entry"
+msgstr "רשומת גובה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:176 core/models.py:354
+#: core/models.py:367 core/models.py:368 core/models.py:371
+#: core/templates/core/head_circumference_confirm_delete.html:7
+#: core/templates/core/head_circumference_form.html:13
+#: core/templates/core/head_circumference_list.html:4
+#: core/templates/core/head_circumference_list.html:7
+#: core/templates/core/head_circumference_list.html:12
+#: core/templates/core/head_circumference_list.html:29
+#: reports/graphs/head_circumference_change.py:19
+#: reports/graphs/head_circumference_change.py:30
+#: reports/templates/reports/head_circumference_change.html:4
+#: reports/templates/reports/head_circumference_change.html:9
+#: reports/templates/reports/report_list.html:27
+msgid "Head Circumference"
+msgstr "היקף ראש"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:182
+msgid "Head Circumference entry"
+msgstr "רשומת היקף ראש"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:162 core/models.py:140
+#: core/models.py:152 core/models.py:153 core/models.py:156
+#: core/templates/core/bmi_confirm_delete.html:7
+#: core/templates/core/bmi_form.html:13 core/templates/core/bmi_list.html:4
+#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:12
+#: core/templates/core/bmi_list.html:29 reports/graphs/bmi_change.py:19
+#: reports/graphs/bmi_change.py:30 reports/templates/reports/bmi_change.html:4
+#: reports/templates/reports/bmi_change.html:9
+msgid "BMI"
+msgstr "BMI"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:168
+msgid "BMI entry"
+msgstr "רשומת BMI"
+
+#: core/models.py:462
+msgid "Napping"
+msgstr "מנמנם"
+
+#: core/templates/core/bmi_confirm_delete.html:4
+msgid "Delete a BMI Entry"
+msgstr "מחיקת רשומת BMI"
+
+#: core/templates/core/bmi_form.html:8 core/templates/core/bmi_form.html:17
+#: core/templates/core/bmi_form.html:27
+msgid "Add a BMI Entry"
+msgstr "הוספת רשומת BMI"
+
+#: core/templates/core/bmi_list.html:15
+msgid "Add BMI"
+msgstr "הוספת BMI"
+
+#: core/templates/core/bmi_list.html:70
+msgid "No bmi entries found."
+msgstr "לא נמצאו רשומות BMI."
+
+#: core/templates/core/head_circumference_confirm_delete.html:4
+msgid "Delete a Head Circumference Entry"
+msgstr "מחיקת רשומת היקף ראש"
+
+#: core/templates/core/head_circumference_form.html:8
+#: core/templates/core/head_circumference_form.html:17
+#: core/templates/core/head_circumference_form.html:27
+msgid "Add a Head Circumference Entry"
+msgstr "הוספת כרך להיקף ראש"
+
+#: core/templates/core/head_circumference_list.html:15
+msgid "Add Head Circumference"
+msgstr "הוספת היקף ראש"
+
+#: core/templates/core/head_circumference_list.html:69
+msgid "No head circumference entries found."
+msgstr "לא נמצאו ערכי היקף ראש."
+
+#: core/templates/core/height_confirm_delete.html:4
+msgid "Delete a Height Entry"
+msgstr "מחיקת רשומת גובה"
+
+#: core/templates/core/height_form.html:8
+#: core/templates/core/height_form.html:17
+#: core/templates/core/height_form.html:27
+msgid "Add a Height Entry"
+msgstr "הוספת רשומת גובה"
+
+#: core/templates/core/height_list.html:15
+msgid "Add Height"
+msgstr "הוספת גובה"
+
+#: core/templates/core/height_list.html:69
+msgid "No height entries found."
+msgstr "לא נמצאו רשומות גובה."
+
+#: core/templates/timeline/_timeline.html:44
+msgid "Duration: %(duration)s"
+msgstr "משך: %(duration)s"
+
+#: core/templates/timeline/_timeline.html:53
+msgid "%(since)s since previous"
+msgstr "%(since)s מאז הקודם"
+
+#: core/templates/timeline/_timeline.html:85
+msgid "No events"
+msgstr "אין אירועים"
+
+#: core/timeline.py:193
+msgid "%(child)s had a %(type)s diaper change."
+msgstr "%(child)sהוחלף טיטול.%(type)s"
+
+#: dashboard/templatetags/cards.py:425
+msgid "Height change per week"
+msgstr "שינוי גובה לפי שבוע"
+
+#: dashboard/templatetags/cards.py:435
+msgid "Head circumference change per week"
+msgstr "שינוי היקף ראש לפי שבוע"
+
+#: dashboard/templatetags/cards.py:445
+msgid "BMI change per week"
+msgstr "שינוי BMI לפי שבוע"
+
+#: reports/graphs/bmi_change.py:27
+msgid "<b>BMI</b>"
+msgstr "<b>BMI</b>"
+
+#: reports/graphs/feeding_amounts.py:69
+msgid "<b>Total Feeding Amount by Type</b>"
+msgstr "<b>בך הכל האכלות לפי סוג</b>"
+
+#: reports/graphs/head_circumference_change.py:27
+msgid "<b>Head Circumference</b>"
+msgstr "<b>היקף ראש</b>"
+
+#: reports/graphs/height_change.py:86
+msgid "<b>Height</b>"
+msgstr "<b>גובה</b>"
+
+#: babybuddy/settings/base.py:181
+msgid "Chinese (simplified)"
+msgstr "סינית (פשוטה)"
+
+#: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
+msgid "Bad Request"
+msgstr "בקשה שגויה"
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:15
+msgid "How to Fix"
+msgstr "אין לפתור"
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:16
+msgid "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> environment variable. If multiple origins are required separate with commas."
+msgstr "הוסף את  <samp>%(origin)s</samp> אל <code>CSRF_TRUSTED_ORIGINS</code> משתנה סביבה.אם יש יותר מאחד אנא הפרד אותם עם פסיק."
+
+#: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
+msgid "Page Not Found"
+msgstr "העמוד לא נמצא"
+
+#: babybuddy/templates/error/404.html:9
+msgid "The path <code>%(request_path)s</code> does not exist."
+msgstr "הכתובת <code>%(request_path)s</code> לא קיימת."
+
+#: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
+msgid "Server Error"
+msgstr "שגיאת דרת"
+
+#: babybuddy/templates/error/base.html:14
+msgid "Return to Baby Buddy"
+msgstr "חזרה אל Baby Buddy"
+
+#: babybuddy/views.py:55
+msgid "Forbidden"
+msgstr "אסור"
+
+#: babybuddy/views.py:56
+msgid "CSRF verification failed. Request aborted."
+msgstr "אימות CSRF נכשל. הבקשה בוטלה."
+
+#: babybuddy/settings/base.py:179
+msgid "Catalan"
+msgstr "קטלאנית"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:58
+#: babybuddy/templates/babybuddy/nav-dropdown.html:272 core/models.py:492
+#: core/models.py:493 core/models.py:496
+#: core/templates/core/pumping_confirm_delete.html:7
+#: core/templates/core/pumping_form.html:13
+#: core/templates/core/pumping_list.html:4
+#: core/templates/core/pumping_list.html:7
+#: core/templates/core/pumping_list.html:12
+#: core/templates/core/timer_detail.html:50
+#: reports/templates/reports/pumping_amounts.html:4
+#: reports/templates/reports/pumping_amounts.html:9
+msgid "Pumping"
+msgstr "שאיבה"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:278
+msgid "Pumping entry"
+msgstr "רשומת שאיבה"
+
+#: core/filters.py:11 core/models.py:97 core/models.py:116
+msgid "Tag"
+msgstr "תג"
+
+#: core/forms.py:146
+msgid "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
+msgstr "תלחץ על הוספת (+) או הסרת (-) תג או שתשתמש בעורך טקסט בשביל לייצר תג חדש."
+
+#: core/models.py:91
+msgid "Last used"
+msgstr "שומש לאחרונה"
+
+#: core/models.py:98 core/templates/core/bmi_list.html:30
+#: core/templates/core/diaperchange_list.html:32
+#: core/templates/core/feeding_list.html:35
+#: core/templates/core/head_circumference_list.html:30
+#: core/templates/core/height_list.html:30
+#: core/templates/core/note_list.html:31
+#: core/templates/core/pumping_list.html:31
+#: core/templates/core/sleep_list.html:32
+#: core/templates/core/temperature_list.html:30
+#: core/templates/core/tummytime_list.html:31
+#: core/templates/core/weight_list.html:30
+msgid "Tags"
+msgstr "תגיות"
+
+#: core/templates/core/pumping_confirm_delete.html:4
+msgid "Delete a Pumping Entry"
+msgstr "מחיקת רשומת שאיבה"
+
+#: core/templates/core/pumping_form.html:8
+#: core/templates/core/pumping_form.html:17
+#: core/templates/core/pumping_form.html:27
+msgid "Add a Pumping Entry"
+msgstr "הוספת רשומת שאיבה"
+
+#: core/templates/core/pumping_list.html:15
+msgid "Add Pumping Entry"
+msgstr "הוספת רשומת שאיבה"
+
+#: core/templates/core/pumping_list.html:71
+msgid "No pumping entries found."
+msgstr "לא נמצאו עדכוני שאיבה."
+
+#: core/templates/core/widget_tag_editor.html:22
+msgid "Tag name"
+msgstr "תג שם"
+
+#: core/templates/core/widget_tag_editor.html:26
+msgid "Recently used:"
+msgstr "שומש לאחרונה:"
+
+#: core/templates/core/widget_tag_editor.html:45
+msgctxt "Error modal"
+msgid "Error"
+msgstr "שגיאה"
+
+#: core/templates/core/widget_tag_editor.html:50
+msgctxt "Error modal"
+msgid "An error ocurred."
+msgstr "חלה שגיאה."
+
+#: core/templates/core/widget_tag_editor.html:51
+msgctxt "Error modal"
+msgid "Invalid tag name."
+msgstr "תג שם לא חוקי."
+
+#: core/templates/core/widget_tag_editor.html:52
+msgctxt "Error modal"
+msgid "Failed to create tag."
+msgstr "נכשל ביצירת בתג."
+
+#: core/templates/core/widget_tag_editor.html:53
+msgctxt "Error modal"
+msgid "Failed to obtain tag data."
+msgstr "נכשל באיסוף מידע."
+
+#: core/templates/core/widget_tag_editor.html:58
+msgctxt "Error modal"
+msgid "Close"
+msgstr "סגירה"
+
+#: dashboard/templates/cards/feeding_day.html:32
+#: dashboard/templates/cards/sleep_recent.html:32
+msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
+
+#: dashboard/templatetags/cards.py:463
+msgid "Diaper change frequency (past 3 days)"
+msgstr "תדירות החלפת טיטול (שלושה ימים אחרונים)"
+
+#: dashboard/templatetags/cards.py:467
+msgid "Diaper change frequency (past 2 weeks)"
+msgstr "תדירות החלפת טיטול (ימיים אחרונים)"
+
+#: reports/graphs/pumping_amounts.py:59
+msgid "<b>Total Pumping Amount</b>"
+msgstr "<b>כמות שאיבה כוללת</b>"
+
+#: reports/graphs/pumping_amounts.py:62
+msgid "Pumping Amount"
+msgstr "כמות שאיבה"
+
+#: reports/templates/reports/report_list.html:19
+msgid "Body Mass Index (BMI)"
+msgstr "מדד מסת גוף (BMI)"
+
+#: reports/templates/reports/report_list.html:31
+msgid "Pumping Amounts"
+msgstr "כמויות שאיבה"
+
+#: core/templates/core/timer_confirm_delete_inactive.html:17
+msgid "Are you sure you want to delete %(number)s inactive timer?"
+msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+msgstr[0] "האם אתה בטוח שאתה רוצה למחוק טיימר לא פעיל?"
+msgstr[1] "האם אתה בטוח שאתה רוצה למחוק %(number)s טיימרים לא פעילים?"
+
+#: dashboard/templates/cards/feeding_recent.html:25
+msgid "%(counter)s feeding"
+msgid_plural "%(counter)s feedings"
+msgstr[0] "האכלה אחת"
+msgstr[1] "%(counter)s האכלות"
+
+#: dashboard/templates/cards/feeding_last_method.html:21
+msgid "%(n)s feeding ago"
+msgid_plural "%(n)s feedings ago"
+msgstr[0] "לפני האכלה אחת"
+msgstr[1] "לפני %(n)s האכלות"
+
+#: dashboard/templates/cards/sleep_naps_day.html:12
+msgid "%(count)s nap"
+msgid_plural "%(count)s naps"
+msgstr[0] "%(count)s תנומה"
+msgstr[1] "%(count)s תנומות"
+
+#: dashboard/templates/cards/timer_list.html:12
+msgid "%(count)s active timer"
+msgid_plural "%(count)s active timers"
+msgstr[0] "טיימר אחד פעיל"
+msgstr[1] "%(count)s טיימרים פעילים"
+
+#: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:21
+msgid "Read only"
+msgstr "לקריאה בלבד"
+
+#: babybuddy/forms.py:16
+msgid "Restricts user to viewing data only."
+msgstr "הגבלת משתמש לצפיה בנתונים בלבד."
+
+#: babybuddy/settings/base.py:180
+msgid "Czech"
+msgstr "צ'כית"
+
+#: babybuddy/settings/base.py:182
+msgid "Danish"
+msgstr "דנית"
+
+#: babybuddy/settings/base.py:189
+msgid "Hungarian"
+msgstr "הונגרית"
+
+#: babybuddy/settings/base.py:194
+msgid "Russian"
+msgstr "רוסית"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:334
+#: babybuddy/templates/babybuddy/user_add_device.html:4
+#: babybuddy/templates/babybuddy/user_add_device.html:8
+#: babybuddy/templates/babybuddy/user_add_device.html:12
+msgid "Add a device"
+msgstr "הוסף מכשיר"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:15
+msgid "Authentication Methods"
+msgstr "שיטות אימות"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:28
+msgid "Login QR code"
+msgstr "התחבר עם QR קוד"
+
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:4
+msgid "Unlock User"
+msgstr "שחרר משתמש"
+
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:9
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:18
+#: babybuddy/templates/babybuddy/user_form.html:31
+msgid "Unlock"
+msgstr "שחרור"
+
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:15
+msgid "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</span>?</h1>"
+msgstr "<h1>האם אתה בטוח שאתה רוצה לשחרר את <span class=\"text-info\">%(object)s</span>?</h1>"
+
+#: babybuddy/templates/babybuddy/user_form.html:28
+msgid "User locked."
+msgstr "משתמש נעול."
+
+#: babybuddy/templates/babybuddy/user_list.html:24
+msgid "Locked"
+msgstr "נעול"
+
+#: babybuddy/templates/error/lockout.html:4
+msgid "Too Many Login Attempts"
+msgstr "יותר מידי נסיונות התחברות"
+
+#: babybuddy/templates/registration/password_reset_email.html:2
+msgid "You're receiving this email because you requested a password reset for your user account at %(site_name)s."
+msgstr "אתה מקבל דוא\"ל זה מכיוון שביקשת איפוס סיסמה עבור חשבון המשתמש שלך בכתובת %(site_name)s."
+
+#: babybuddy/templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "אנא עברו לדף הבא ובחרו סיסמה חדשה:"
+
+#: babybuddy/templates/registration/password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr "שם המשתמש שלך, למקרה ששכחת:"
+
+#: babybuddy/templates/registration/password_reset_email.html:10
+msgid "Thanks for using Baby Buddy!"
+msgstr "תודה על השימוש בBaby Buddy!"
+
+#: babybuddy/views.py:140
+msgid "User unlocked."
+msgstr "שחרור משתמש."
+
+#: core/templates/core/bmi_list.html:69
+msgid "No BMI entries found."
+msgstr "לא נמצאו רשומות BMI."
+
+#: core/templates/core/child_quick_switch.html:6
+msgid "Switch child"
+msgstr "החלפת ילד"
+
+#: core/templates/core/child_quick_switch.html:13
+msgid "Switch to…"
+msgstr "החלף ל..."
+
+#: core/templates/core/quick_timer_nav.html:19
+#: core/templates/core/timer_nav.html:28
+msgid "Quick Start Timer For…"
+msgstr "התחלה מהירה של טיימר עבור"
+
+#: core/templatetags/duration.py:116
+msgid " days ago"
+msgstr " ימים"
+
+#: dashboard/templates/cards/sleep_recent.html:6
+msgid "Recent Sleep"
+msgstr "ישן לאחרונה"
+
+#: dashboard/templates/cards/sleep_recent.html:25
+msgid "%(counter)s sleep"
+msgid_plural "%(counter)s sleeps"
+msgstr[0] "שינה אחת"
+msgstr[1] "%(counter)s שינות"
+
+#: reports/graphs/temperature_change.py:26
+msgid "<b>Temperature</b>"
+msgstr "<b>טמפרטורה</b>"
+
+#: dashboard/templates/cards/pumping_last.html:6
+msgid "Last Pumping"
+msgstr "שאיבה אחרונה"
+
+#: babybuddy/settings/base.py:191
+msgid "Norwegian Bokmål"
+msgstr "בוקמול נורבגית"
+
+#: babybuddy/site_settings.py:23
+msgid "Default minimum nap start time"
+msgstr "ערך ברירת המחדל מיניאלי להתחלת נמנום"
+
+#: babybuddy/site_settings.py:25
+msgid "The minimum default time that a sleep entry is consider a nap. If set the nap property will be preselected if the start time is within the bounds."
+msgstr "ברירת מחדל לזמן מינימאלי להיחשב תנומה. אם הוגדר כמו שצריך מאפיין תנומה ייבחר מראש אם שעת ההתחלה היא בין הגבולות."
+
+#: babybuddy/site_settings.py:32
+msgid "Default maximum nap start time"
+msgstr "ברירת מחדל של זמן התחלה מקסימלי לתנומה"
+
+#: babybuddy/site_settings.py:34
+msgid "The maximum default time that a sleep entry is consider a nap. If set the nap property will be preselected if the start time is within the bounds."
+msgstr "ברירת מחדל לזמן מקסימאלי להיחשב תנומה. אם הוגדר כמו שצריך מאפיין תנומה ייבחר מראש אם שעת ההתחלה היא בין הגבולות."
+
+#: babybuddy/templates/dbsettings/site_settings.html:4
+#: babybuddy/templates/dbsettings/site_settings.html:12
+msgid "Site Settings"
+msgstr "הגדרות אתר"
+
+#: core/models.py:531
+msgid "Nap settings"
+msgstr "הגדרות נמנום"
+
+#: dashboard/templates/cards/timer_list.html:12
+msgid "%(count)s timer"
+msgid_plural "%(count)s timers"
+msgstr[0] "טיימר אחד"
+msgstr[1] "%(count)s טיימרים"
+
+#: core/fields.py:13
+msgid "Nap start max. value %(max)s must be greater than nap start min. value %(min)s."
+msgstr "זמן התחלת תנומה מקסימאלי %(max)s חייב להיות גדול יותר מערך זמן התחלת תנומה מיניאלי %(min)s."
+
+#: core/fields.py:27
+msgid "Nap start min. value %(min)s must be less than nap start min. value %(max)s."
+msgstr "זמן התחלת תנומה מיניאלי %(min)s חייב להיות קטן יותר מערך זמן התחלת תנומה מקסימאלי %(max)s."
+
+#: core/timeline.py:233
+msgid "Temperature: %(temperature).0f"
+msgstr "טמפרטורה: %(temperature).f0"
+
+#: core/timeline.py:241
+msgid "%(child)s had a temperature measurement."
+msgstr "בוצעה בדיקת חום ל%(child)s."
+
+#: dashboard/templates/cards/feeding_recent.html:32
+#: dashboard/templates/cards/sleep_recent.html:32
+msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+msgstr "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+
+#: dashboard/templates/cards/feeding_recent.html:6
+msgid "Recent Feedings"
+msgstr "האכלות אחרונות"
+
+#: core/models.py:419 core/models.py:753
+msgid "Girl"
+msgstr "ילדה"
+
+#: core/models.py:420 core/models.py:754
+msgid "Boy"
+msgstr "ילד"
+
+#: reports/graphs/diaperchange_intervals.py:66
+msgid "<b>Diaper Change Intervals</b>"
+msgstr "<b>מרווחי החלפת טיטול</b>"
+
+#: reports/graphs/diaperchange_intervals.py:69
+msgid "Interval (hours)"
+msgstr "מרווחים (שעות)"
+
+#: reports/graphs/feeding_intervals.py:32
+msgid "Interval"
+msgstr "מרווחים"
+
+#: reports/graphs/feeding_intervals.py:41
+msgid "<b>Feeding intervals</b>"
+msgstr "<b>מרווחי האכלה</b>"
+
+#: reports/graphs/feeding_intervals.py:44
+msgid "Feeding interval (hours)"
+msgstr "מרווחי האכלה (שעות)"
+
+#: reports/graphs/height_change.py:51 reports/graphs/weight_change.py:49
+msgid "P3"
+msgstr "אחוזון 3"
+
+#: reports/graphs/height_change.py:57 reports/graphs/weight_change.py:55
+msgid "P15"
+msgstr "אחוזון 15"
+
+#: reports/graphs/height_change.py:63 reports/graphs/weight_change.py:61
+msgid "P50"
+msgstr "אחוזון 50"
+
+#: reports/graphs/height_change.py:69 reports/graphs/weight_change.py:67
+msgid "P85"
+msgstr "אחוזון 85"
+
+#: reports/graphs/height_change.py:75 reports/graphs/weight_change.py:73
+msgid "P97"
+msgstr "אחוזון 97"
+
+#: reports/templates/reports/diaperchange_intervals.html:4
+#: reports/templates/reports/diaperchange_intervals.html:9
+msgid "Diaper Change Intervals"
+msgstr "מרווחי החלפת טיטולים"
+
+#: reports/templates/reports/feeding_intervals.html:4
+#: reports/templates/reports/feeding_intervals.html:9
+#: reports/templates/reports/report_list.html:26
+msgid "Feeding Intervals"
+msgstr "מרווחי האכלה"
+
+#: reports/templates/reports/report_list.html:22
+msgid "Diaper Intervals"
+msgstr "מרווחי טיטולים"
+
+#: reports/templates/reports/report_list.html:37
+msgid "WHO Weight Percentiles for Boys in kg"
+msgstr "אחוזי משקל של WHO לבנים בקילוגרם"
+
+#: reports/templates/reports/report_list.html:38
+msgid "WHO Weight Percentiles for Girls in kg"
+msgstr "אחוזי משקל של WHO לבנות בקילוגרם"
+
+#: core/templatetags/duration.py:107
+#: dashboard/templates/cards/diaperchange_types.html:50
+msgid "%(days_ago)s days ago"
+msgstr "לפני %(days_ago)s ימים"
+
+#: core/fields.py:27
+msgid "Nap start min. value %(min)s must be less than nap start max. value %(max)s."
+msgstr "ערך זמן התחלה מינימאלי %(min)s חייב להיות נמוך יותר מערך התחלת נמנום מקסימאלי %(max)s."
+
+#: core/models.py:169
+msgid "Birth time"
+msgstr "זמן לידה"
+
+#: core/models.py:442 core/templates/core/note_list.html:29
+msgid "Image"
+msgstr "תמונה"
+
+#: dashboard/templates/cards/diaperchange_types.html:53
+msgid "changes"
+msgstr "שינויים"
+
+#: reports/templates/reports/report_list.html:29
+msgid "WHO Height Percentiles for Boys in cm"
+msgstr "אחוזי משקל של WHO לבנים בסנטימטר"
+
+#: reports/templates/reports/report_list.html:30
+msgid "WHO Height Percentiles for Girls in cm"
+msgstr "אחוזי משקל של WHO לבנות בסנטימטר"
+

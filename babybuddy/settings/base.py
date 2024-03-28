@@ -187,6 +187,7 @@ LANGUAGES = [
     ("fr", _("French")),
     ("fi", _("Finnish")),
     ("de", _("German")),
+    ("he", _("Hebrew")),
     ("hu", _("Hungarian")),
     ("it", _("Italian")),
     ("nb", _("Norwegian Bokmål")),
