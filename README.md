@@ -66,6 +66,8 @@ for information about how to create/update translations.
 
 :de: German
 
+:israel: Hebrew
+
 :hungary: Hungarian
 
 :it: Italian
