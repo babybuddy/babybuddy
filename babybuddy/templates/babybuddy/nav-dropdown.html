@@ -318,6 +318,7 @@
                  aria-labelledby="nav-user-menu-link">
                 <h6 class="dropdown-header">{% trans "User" %}</h6>
                 <a href="{% url 'babybuddy:user-settings' %}" class="dropdown-item">{% trans "Settings" %}</a>
+                <a onclick="setMobileAsDefault()" href="#" class="dropdown-item">{% trans "Mobile Site" %}</a>
                 <a href="{% url 'babybuddy:user-password' %}" class="dropdown-item">{% trans "Password" %}</a>
                 <a href="{% url 'babybuddy:user-add-device' %}" class="dropdown-item">{% trans "Add a device" %}</a>
                 <form action="{% url 'babybuddy:logout' %}" role="form" method="post">
@@ -344,4 +345,11 @@
 </div>
 </div>
 </nav>
+{% comment %} when using the javascript block here it seems to be ignored {% endcomment %}
+<script type="application/javascript">
+    function setMobileAsDefault(){
+        localStorage.setItem("useMobileSite", "true");
+        window.location = "/"
+    }
+</script>
 {% endblock %}

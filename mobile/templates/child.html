@@ -1,0 +1,65 @@
+{% extends 'mobile-base.html' %}
+{% load static mobile-components %}
+{% comment %} Object is child model {% endcomment %}
+{% block page %}
+  {% include 'babybuddy/messages.html' %}
+  <div class="background"></div>
+  <div class="page-container">
+    <div class="header-container">
+      <div class="header-row-container">
+        <div class="header-element-containers">
+          <a class="circle-button" onclick="setDesktopAsDefault()" href="#">
+            <img src="{% static "babybuddy/img/reporting.svg" %}" style="width:40px;height:40px" />
+          </a>
+        </div>
+        <div class="header-element-containers">
+          <div class="avatar">
+            <img src="{% static "babybuddy/img/baby-boy.svg" %}" style="height: 100%;" />
+          </div>
+        </div>
+        <div class="header-element-containers">
+          <div class="circle-button">
+            <img src="{% static "babybuddy/img/settings.svg" %}" style="width:40px;height:40px" />
+          </div>
+        </div>
+      </div>
+      <div class="header-row-container">
+        <div class="header-element-containers"
+             style="flex-grow:2;
+                    font-weight:700;
+                    font-size:16px">{{ object }}</div>
+      </div>
+    </div>
+    <div class="body-container">
+      <div class="favorite-actions-container">
+        <div class="favorite-action-containers">{% favorite "nursing" child %}</div>
+        <div class="favorite-action-containers">{% favorite "changes" child %}</div>
+        <div class="favorite-action-containers">{% favorite "bottle" child %}</div>
+        <div class="favorite-action-containers">{% favorite "sleep" child %}</div>
+        <div class="favorite-action-containers">{% favorite "pumping" child %}</div>
+        <div class="favorite-action-containers">{% favorite "tummy" child %}</div>
+      </div>
+      <div class="header-row-container">
+        <span>Today</span>
+      </div>
+      <div class="header-row-container">
+        <div class="journal-card">
+          <img src="{% static "babybuddy/img/diaper.svg" %}" class="yellow" />
+        </div>
+      </div>
+      <div class="header-row-container">
+        <div class="journal-card">
+          <img src="{% static "babybuddy/img/feeding.svg" %}" class="green" />
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block javascript %}
+  <script type="application/javascript">
+        function setDesktopAsDefault(){
+            localStorage.setItem("useMobileSite", false);
+            window.location = "{% url 'dashboard:dashboard-child' child.slug %}"
+        }
+  </script>
+{% endblock %}

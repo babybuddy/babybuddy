@@ -11,6 +11,7 @@ from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
 from core.models import Timer
 from core.widgets import TagsEditor, ChildRadioSelect, PillRadioSelect
+from mobile.constants import activities
 
 
 def set_initial_values(kwargs, form_type):
@@ -178,6 +179,7 @@ class TaggableModelForm(forms.ModelForm):
 
 
 class PumpingForm(CoreModelForm, TaggableModelForm):
+    theme = activities["pumping"]
     fieldsets = [
         {"fields": ["child", "start", "end", "amount"], "layout": "required"},
         {"layout": "advanced", "fields": ["notes", "tags"]},
@@ -195,6 +197,7 @@ class PumpingForm(CoreModelForm, TaggableModelForm):
 
 
 class DiaperChangeForm(CoreModelForm, TaggableModelForm):
+    theme = activities["changes"]
     fieldsets = [
         {
             "fields": ["wet", "solid"],
@@ -216,6 +219,7 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
 
 
 class FeedingForm(CoreModelForm, TaggableModelForm):
+    theme = activities["feeding"]
     fieldsets = [
         {
             "fields": ["child", "start", "end", "type", "method", "amount"],
@@ -238,6 +242,7 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
 
 
 class BottleFeedingForm(CoreModelForm, TaggableModelForm):
+    theme = activities["bottle"]
     fieldsets = [
         {
             "fields": ["child", "type", "start", "amount"],

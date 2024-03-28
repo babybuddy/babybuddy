@@ -30,6 +30,11 @@
     </div>
 {% endblock %}
 {% block javascript %}
+    <script type="application/javascript">
+        if(localStorage.getItem("useMobileSite") == 'true'){
+            window.location = "{% url 'mobile:mobile-dashboard-child' object.slug %}"
+        }
+    </script>
     {% if user.settings.dashboard_refresh_rate %}
         <script type="application/javascript">
             BabyBuddy.Dashboard.watch('dashboard-child', {{ user.settings.dashboard_refresh_rate_milliseconds }});
