@@ -57,19 +57,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           REQUIREMENTS: docs/requirements.txt
-  deploy-demo:
-    needs: test
-    runs-on: ubuntu-latest
-    environment:
-      name: demo
-      url: https://demo.baby-buddy.net
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Push to dokku
-        uses: dokku/github-action@master
-        with:
-          git_remote_url: "ssh://dokku@dokku.baby-buddy.net:22/demo"
-          ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
