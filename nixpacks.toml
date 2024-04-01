@@ -1,0 +1,4 @@
+# https://nixpacks.com/docs/configuration/file
+
+# https://nixpacks.com/docs/guides/configuring-builds
+providers = ["python"]
