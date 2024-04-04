@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "babybuddy.apps.BabyBuddyConfig",
     "core.apps.CoreConfig",
     "dashboard",
+    "mobile",
     "reports",
     "axes",
     "django_filters",

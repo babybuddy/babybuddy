@@ -1,0 +1,11 @@
+{% load static duration i18n %}
+
+<a class="card" href="{{ url }}">
+  <img src="{% static icon %}" class="{{ color }}" />
+  <span class="label">{{ title }}</span>
+  {% if since  %}
+    <span class="since">{{ since|deltasince|duration_string:"m" }} ago</span>
+  {% else %}
+    <span class="since">Never</span>
+  {% endif %}
+</a>
