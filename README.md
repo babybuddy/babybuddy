@@ -18,7 +18,7 @@ guess work.
 
 ![Baby Buddy mobile views](screenshot_mobile.png)
 
-## Demo
+## 👾 Demo
 
 A [demo of Baby Buddy](https://demo.baby-buddy.net) is available. The demo instance
 resets every hour. Login credentials are:
@@ -26,7 +26,7 @@ resets every hour. Login credentials are:
 - Username: `admin`
 - Password: `admin`
 
-## Documentation
+## 📘 Documentation
 
 Visit [https://docs.baby-buddy.net](https://docs.baby-buddy.net) for full documentation.
 
@@ -35,7 +35,7 @@ Visit [https://docs.baby-buddy.net](https://docs.baby-buddy.net) for full docume
 - [Security](/SECURITY.md)
 - [License](/LICENSE) (BSD-2 Clause)
 
-## Languages
+## 🗺️ Languages
 
 Baby Buddy is available in a variety of languages thanks to the efforts of numerous
 translators. Language can be set on a per-user basis from the user settings page
@@ -44,51 +44,9 @@ for information about how to create/update translations.
 
 ### Available languages
 
-:brazil: Brazilian Portuguese
+:brazil: Brazilian Portuguese, :es: Catalan, :cn: Chinese (simplified), :czech_republic: Czech, :denmark: Danish, :netherlands: Dutch, :uk: English (U.K.), :us: English (U.S.) _(base)_, :finland: Finnish, :fr: French, :de: German, :israel: Hebrew, :hungary: Hungarian, :it: Italian, :norway: Norwegian Bokmål, :poland: Polish, :portugal: Portuguese, :ru: Russian, :mexico: :es: Spanish, :sweden: Swedish, :tr: Turkish, :ukraine: Ukrainian
 
-:es: Catalan
-
-:cn: Chinese (simplified)
-
-:czech_republic: Czech
-
-:denmark: Danish
-
-:netherlands: Dutch
-
-:uk: English (U.K.)
-
-:us: English (U.S.) _(base)_
-
-:finland: Finnish
-
-:fr: French
-
-:de: German
-
-:israel: Hebrew
-
-:hungary: Hungarian
-
-:it: Italian
-
-:norway: Norwegian Bokmål
-
-:poland: Polish
-
-:portugal: Portuguese
-
-:ru: Russian
-
-:mexico: :es: Spanish
-
-:sweden: Swedish
-
-:tr: Turkish
-
-:ukraine: Ukrainian
-
-## Baby Buddy on the Web
+## 🌐 Baby Buddy on the Web
 
 This is a non-exhaustive list of neat projects and blog posts that either extend
 or use Baby Buddy in fun ways. If you have a project to share please open a PR
@@ -129,7 +87,25 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
   - [part 3](https://lutzky.net/2021/10/10/software-parenting-3/)
 - [High Level Developer Documentation (AI-Generated)](https://wiki.mutable.ai/babybuddy/babybuddy)
 
-## Reporting Vulnerabilities
+## 🔐 Reporting Vulnerabilities
 
 See [SECURITY.md](SECURITY.md) for information about where and how to report
 potential Baby Buddy vulnerabilities.
+
+## ❤️ Support
+
+### Contribution and sponsorship
+
+Contribute or sponsor Baby Buddy's contributors using any of the following methods:
+
+- [Sponsor @cdubz on GitHub](https://github.com/sponsors/cdubz)
+- [Contribute on Open Collective](https://opencollective.com/babybuddy)
+
+### Tools and infrastructure
+
+The following organizations and services support Baby Buddy contributors in various ways (software licensing, service credits, etc.).
+
+_Some of the links below use referral codes -- all referral proceeds are treated as contributions to the Baby Buddy project._
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+[<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="100" alt="JetBrains Logo (Main) logo.">](https://www.jetbrains.com/community/opensource/)
