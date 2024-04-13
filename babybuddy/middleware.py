@@ -95,7 +95,7 @@ class CustomRemoteUser(RemoteUserMiddleware):
         # Exclude API paths using token authentication.
         if request.path.startswith("api/"):
             return None
-        return super().process_request(self, request)
+        return super().process_request(request)
 
 
 class HomeAssistant:
