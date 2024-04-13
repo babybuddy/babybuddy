@@ -91,11 +91,13 @@ class CustomRemoteUser(RemoteUserMiddleware):
 
     header = getenv("PROXY_HEADER", "HTTP_REMOTE_USER")
 
+    """
+    Exclude API paths using token authentication.
+    """
     def process_request(self, request):
-        if request.path.startswith("api"):
+        if request.path.startswith("api/"):
             return None
-
-        return super.process_request(self, request)
+        return super().process_request(self, request)
 
 
 class HomeAssistant:
