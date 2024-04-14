@@ -1,8 +1,19 @@
 import os
-from distutils.util import strtobool
 
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv, find_dotenv
+
+
+# Convert common string values to boolean.
+def strtobool(val):
+    val = val.lower()
+    if val in ("y", "yes", "t", "true", "on", "1"):
+        return 1
+    elif val in ("n", "no", "f", "false", "off", "0"):
+        return 0
+    else:
+        raise ValueError("invalid truth value {!r}".format(val))
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

@@ -44,7 +44,7 @@ for information about how to create/update translations.
 
 ### Available languages
 
-:brazil: Brazilian Portuguese, :es: Catalan, :cn: Chinese (simplified), :czech_republic: Czech, :denmark: Danish, :netherlands: Dutch, :uk: English (U.K.), :us: English (U.S.) _(base)_, :finland: Finnish, :fr: French, :de: German, :israel: Hebrew, :hungary: Hungarian, :it: Italian, :norway: Norwegian Bokmål, :poland: Polish, :portugal: Portuguese, :ru: Russian, :mexico: :es: Spanish, :sweden: Swedish, :tr: Turkish, :ukraine: Ukrainian
+:brazil: Brazilian Portuguese, :es: Catalan, :cn: Chinese (simplified), :czech*republic: Czech, :denmark: Danish, :netherlands: Dutch, :uk: English (U.K.), :us: English (U.S.) *(base)\_, :finland: Finnish, :fr: French, :de: German, :israel: Hebrew, :hungary: Hungarian, :it: Italian, :norway: Norwegian Bokmål, :poland: Polish, :portugal: Portuguese, :ru: Russian, :mexico: :es: Spanish, :sweden: Swedish, :tr: Turkish, :ukraine: Ukrainian
 
 ## 🌐 Baby Buddy on the Web
 

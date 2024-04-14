@@ -1,23 +1,39 @@
 {
+  "name": "babybuddy",
+  "image": "mcr.microsoft.com/devcontainers/python:3",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    },
+    "ghcr.io/devcontainers-contrib/features/gulp-cli:2": {},
+    "ghcr.io/devcontainers-contrib/features/pipenv:2": {}
+  },
   "customizations": {
     "vscode": {
       "extensions": [
-        "bbenoist.Nix",
-        "ms-python.python",
         "batisteo.vscode-django",
-        "ms-python.black-formatter"
+        "donjayamanne.python-environment-manager",
+        "ms-python.black-formatter",
+        "ms-python.python",
+        "samuelcolvin.jinjahtml"
       ],
       "settings": {
         "[python]": {
+          "defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
           "editor": {
             "defaultFormatter": "ms-python.black-formatter"
           },
           "pipenvPath": "pipenv"
-        }
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh"
       }
     }
   },
-  "image": "ghcr.io/cachix/devenv:latest",
-  "overrideCommand": false,
-  "updateContentCommand": "devenv ci"
+  "containerEnv": {
+    "DJANGO_SETTINGS_MODULE": "babybuddy.settings.development",
+    "PIPENV_VENV_IN_PROJECT": "1"
+  },
+  "postCreateCommand": "pipenv install --dev && npm install --include=dev && gulp migrate",
+  "forwardPorts": [8000]
 }
