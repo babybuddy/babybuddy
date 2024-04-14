@@ -98,6 +98,7 @@ potential Baby Buddy vulnerabilities.
 
 Contribute or sponsor Baby Buddy's contributors using any of the following methods:
 
+- [Sponsor @babybuddy on GitHub](https://github.com/sponsors/babybuddy)
 - [Sponsor @cdubz on GitHub](https://github.com/sponsors/cdubz)
 - [Contribute on Open Collective](https://opencollective.com/babybuddy)
 
