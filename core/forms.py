@@ -121,7 +121,7 @@ class CoreModelForm(forms.ModelForm):
 
         for fieldset in self.fieldsets:
             hyrdrated_fieldset = {
-                "layout": fieldset["layout"],
+                "layout": fieldset.get("layout", "default"),
                 "layout_attrs": fieldset.get("layout_attrs", {}),
                 "fields": [],
             }
@@ -179,8 +179,9 @@ class TaggableModelForm(forms.ModelForm):
 
 class PumpingForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
-        {"fields": ["child", "start", "end", "amount"], "layout": "required"},
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["child", "start", "end"], "layout": "required"},
+        {"fields": ["amount"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
@@ -196,12 +197,13 @@ class PumpingForm(CoreModelForm, TaggableModelForm):
 
 class DiaperChangeForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
+        {"fields": ["child", "time"], "layout": "required"},
         {
             "fields": ["wet", "solid"],
             "layout": "choices",
             "layout_attrs": {"label": "Contents"},
         },
-        {"fields": ["child", "time"], "layout": "required"},
+        {"fields": ["color", "amount"]},
         {"layout": "advanced", "fields": ["notes", "tags"]},
     ]
 
@@ -217,11 +219,9 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
 
 class FeedingForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
-        {
-            "fields": ["child", "start", "end", "type", "method", "amount"],
-            "layout": "required",
-        },
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["child", "start", "end", "type", "method"], "layout": "required"},
+        {"fields": ["amount"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
@@ -239,11 +239,9 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
 
 class BottleFeedingForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
-        {
-            "fields": ["child", "type", "start", "amount"],
-            "layout": "required",
-        },
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["child", "type", "start", "amount"], "layout": "required"},
+        {"fields": ["amount"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     def save(self):
@@ -282,7 +280,7 @@ class SleepForm(CoreModelForm, TaggableModelForm):
             "fields": ["child", "start", "end", "nap"],
             "layout": "required",
         },
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
@@ -302,7 +300,7 @@ class TemperatureForm(CoreModelForm, TaggableModelForm):
             "fields": ["child", "temperature", "time"],
             "layout": "required",
         },
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
@@ -337,11 +335,9 @@ class TimerForm(CoreModelForm):
 
 class TummyTimeForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
-        {
-            "fields": ["child", "start", "end", "milestone"],
-            "layout": "required",
-        },
-        {"layout": "advanced", "fields": ["tags"]},
+        {"fields": ["child", "start", "end"], "layout": "required"},
+        {"fields": ["milestone"]},
+        {"fields": ["tags"], "layout": "advanced"},
     ]
 
     class Meta:
@@ -360,7 +356,7 @@ class WeightForm(CoreModelForm, TaggableModelForm):
             "fields": ["child", "weight", "date"],
             "layout": "required",
         },
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
@@ -379,7 +375,7 @@ class HeightForm(CoreModelForm, TaggableModelForm):
             "fields": ["child", "height", "date"],
             "layout": "required",
         },
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
@@ -398,7 +394,7 @@ class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
             "fields": ["child", "head_circumference", "date"],
             "layout": "required",
         },
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
@@ -417,7 +413,7 @@ class BMIForm(CoreModelForm, TaggableModelForm):
             "fields": ["child", "bmi", "date"],
             "layout": "required",
         },
-        {"layout": "advanced", "fields": ["notes", "tags"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
