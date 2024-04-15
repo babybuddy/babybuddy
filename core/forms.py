@@ -133,6 +133,61 @@ class CoreModelForm(forms.ModelForm):
         return hydrated_fieldsets
 
 
+class TaggableModelForm(forms.ModelForm):
+    tags = TagField(
+        widget=TagsEditor,
+        required=False,
+        strip=True,
+        help_text=_(
+            "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
+        ),
+    )
+
+
+class BMIForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "bmi", "date"],
+            "layout": "required",
+        },
+        {"fields": ["notes", "tags"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.BMI
+        fields = ["child", "bmi", "date", "notes", "tags"]
+        widgets = {
+            "child": ChildRadioSelect,
+            "date": DateInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
+class BottleFeedingForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {"fields": ["child", "type", "start", "amount"], "layout": "required"},
+        {"fields": ["amount"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
+    ]
+
+    def save(self):
+        instance = super(BottleFeedingForm, self).save(commit=False)
+        instance.method = "bottle"
+        instance.end = instance.start
+        instance.save()
+        return instance
+
+    class Meta:
+        model = models.Feeding
+        fields = ["child", "start", "type", "amount", "notes", "tags"]
+        widgets = {
+            "child": ChildRadioSelect,
+            "start": DateTimeInput(),
+            "type": PillRadioSelect(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
 class ChildForm(forms.ModelForm):
     class Meta:
         model = models.Child
@@ -164,35 +219,6 @@ class ChildDeleteForm(forms.ModelForm):
         instance = self.instance
         self.instance.delete()
         return instance
-
-
-class TaggableModelForm(forms.ModelForm):
-    tags = TagField(
-        widget=TagsEditor,
-        required=False,
-        strip=True,
-        help_text=_(
-            "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
-        ),
-    )
-
-
-class PumpingForm(CoreModelForm, TaggableModelForm):
-    fieldsets = [
-        {"fields": ["child", "start", "end"], "layout": "required"},
-        {"fields": ["amount"]},
-        {"fields": ["notes", "tags"], "layout": "advanced"},
-    ]
-
-    class Meta:
-        model = models.Pumping
-        fields = ["child", "start", "end", "amount", "notes", "tags"]
-        widgets = {
-            "child": ChildRadioSelect,
-            "start": DateTimeInput(),
-            "end": DateTimeInput(),
-            "notes": forms.Textarea(attrs={"rows": 5}),
-        }
 
 
 class DiaperChangeForm(CoreModelForm, TaggableModelForm):
@@ -237,27 +263,58 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
         }
 
 
-class BottleFeedingForm(CoreModelForm, TaggableModelForm):
+class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
-        {"fields": ["child", "type", "start", "amount"], "layout": "required"},
+        {
+            "fields": ["child", "head_circumference", "date"],
+            "layout": "required",
+        },
+        {"fields": ["notes", "tags"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.HeadCircumference
+        fields = ["child", "head_circumference", "date", "notes", "tags"]
+        widgets = {
+            "child": ChildRadioSelect,
+            "date": DateInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
+class HeightForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "height", "date"],
+            "layout": "required",
+        },
+        {"fields": ["notes", "tags"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.Height
+        fields = ["child", "height", "date", "notes", "tags"]
+        widgets = {
+            "child": ChildRadioSelect,
+            "date": DateInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
+class PumpingForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {"fields": ["child", "start", "end"], "layout": "required"},
         {"fields": ["amount"]},
         {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
-    def save(self):
-        instance = super(BottleFeedingForm, self).save(commit=False)
-        instance.method = "bottle"
-        instance.end = instance.start
-        instance.save()
-        return instance
-
     class Meta:
-        model = models.Feeding
-        fields = ["child", "start", "type", "amount", "notes", "tags"]
+        model = models.Pumping
+        fields = ["child", "start", "end", "amount", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
-            "type": PillRadioSelect(),
+            "end": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -292,6 +349,11 @@ class SleepForm(CoreModelForm, TaggableModelForm):
             "end": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
+
+
+class TagAdminForm(forms.ModelForm):
+    class Meta:
+        widgets = {"color": widgets.TextInput(attrs={"type": "color"})}
 
 
 class TemperatureForm(CoreModelForm, TaggableModelForm):
@@ -367,65 +429,3 @@ class WeightForm(CoreModelForm, TaggableModelForm):
             "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
-
-
-class HeightForm(CoreModelForm, TaggableModelForm):
-    fieldsets = [
-        {
-            "fields": ["child", "height", "date"],
-            "layout": "required",
-        },
-        {"fields": ["notes", "tags"], "layout": "advanced"},
-    ]
-
-    class Meta:
-        model = models.Height
-        fields = ["child", "height", "date", "notes", "tags"]
-        widgets = {
-            "child": ChildRadioSelect,
-            "date": DateInput(),
-            "notes": forms.Textarea(attrs={"rows": 5}),
-        }
-
-
-class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
-    fieldsets = [
-        {
-            "fields": ["child", "head_circumference", "date"],
-            "layout": "required",
-        },
-        {"fields": ["notes", "tags"], "layout": "advanced"},
-    ]
-
-    class Meta:
-        model = models.HeadCircumference
-        fields = ["child", "head_circumference", "date", "notes", "tags"]
-        widgets = {
-            "child": ChildRadioSelect,
-            "date": DateInput(),
-            "notes": forms.Textarea(attrs={"rows": 5}),
-        }
-
-
-class BMIForm(CoreModelForm, TaggableModelForm):
-    fieldsets = [
-        {
-            "fields": ["child", "bmi", "date"],
-            "layout": "required",
-        },
-        {"fields": ["notes", "tags"], "layout": "advanced"},
-    ]
-
-    class Meta:
-        model = models.BMI
-        fields = ["child", "bmi", "date", "notes", "tags"]
-        widgets = {
-            "child": ChildRadioSelect,
-            "date": DateInput(),
-            "notes": forms.Textarea(attrs={"rows": 5}),
-        }
-
-
-class TagAdminForm(forms.ModelForm):
-    class Meta:
-        widgets = {"color": widgets.TextInput(attrs={"type": "color"})}
