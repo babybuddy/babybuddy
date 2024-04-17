@@ -166,7 +166,6 @@ class BMIForm(CoreModelForm, TaggableModelForm):
 class BottleFeedingForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
         {"fields": ["child", "type", "start", "amount"], "layout": "required"},
-        {"fields": ["amount"]},
         {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
