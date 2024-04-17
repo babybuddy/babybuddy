@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:30+0000\n"
+"POT-Creation-Date: 2024-03-28 13:01+0000\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11,24 +11,24 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: babybuddy/admin.py:12 babybuddy/admin.py:13
-#: babybuddy/templates/babybuddy/nav-dropdown.html:331
-#: babybuddy/templates/babybuddy/nav-dropdown.html:345
+#: babybuddy/templates/babybuddy/nav-dropdown.html:320
+#: babybuddy/templates/babybuddy/nav-dropdown.html:330
 #: babybuddy/templates/babybuddy/user_settings_form.html:8
 #: babybuddy/templates/dbsettings/site_settings.html:8
 msgid "Settings"
 msgstr "Nastavení"
 
-#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:94
-#: babybuddy/templates/babybuddy/user_settings_form.html:61
+#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:98
+#: babybuddy/templates/babybuddy/user_settings_form.html:60
 #: dashboard/templates/dashboard/child.html:4
 #: dashboard/templates/dashboard/child.html:11
-#: dashboard/templates/dashboard/child_button_group.html:6
+#: dashboard/templates/dashboard/child_button_group.html:8
 #: dashboard/templates/dashboard/dashboard.html:4
 #: dashboard/templates/dashboard/dashboard.html:7
 msgid "Dashboard"
 msgstr "Přehled"
 
-#: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:21
+#: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:20
 msgid "Read only"
 msgstr "Pouze ke čtení"
 
@@ -135,80 +135,94 @@ msgid "{user}'s Settings"
 msgstr "Nastavení pro {user}"
 
 #: babybuddy/settings/base.py:179
+#, fuzzy
+#| msgid "Portuguese"
+msgid "Brazilian Portuguese"
+msgstr "portugalština"
+
+#: babybuddy/settings/base.py:180
 msgid "Catalan"
 msgstr "katalánština"
 
-#: babybuddy/settings/base.py:180
+#: babybuddy/settings/base.py:181
 msgid "Czech"
 msgstr "čeština"
 
-#: babybuddy/settings/base.py:181
+#: babybuddy/settings/base.py:182
 msgid "Chinese (simplified)"
 msgstr "čínština (zjednodušená)"
 
-#: babybuddy/settings/base.py:182
+#: babybuddy/settings/base.py:183
 msgid "Danish"
 msgstr "dánština"
 
-#: babybuddy/settings/base.py:183
+#: babybuddy/settings/base.py:184
 msgid "Dutch"
 msgstr "holandština"
 
-#: babybuddy/settings/base.py:184
+#: babybuddy/settings/base.py:185
 msgid "English (US)"
 msgstr "angličtina (US)"
 
-#: babybuddy/settings/base.py:185
+#: babybuddy/settings/base.py:186
 msgid "English (UK)"
 msgstr "angličtina (UK)"
 
-#: babybuddy/settings/base.py:186
+#: babybuddy/settings/base.py:187
 msgid "French"
 msgstr "francouzština"
 
-#: babybuddy/settings/base.py:187
+#: babybuddy/settings/base.py:188
 msgid "Finnish"
 msgstr "finština"
 
-#: babybuddy/settings/base.py:188
+#: babybuddy/settings/base.py:189
 msgid "German"
 msgstr "němčina"
 
-#: babybuddy/settings/base.py:189
+#: babybuddy/settings/base.py:190
+msgid "Hebrew"
+msgstr ""
+
+#: babybuddy/settings/base.py:191
 msgid "Hungarian"
 msgstr "maďarština"
 
-#: babybuddy/settings/base.py:190
+#: babybuddy/settings/base.py:192
 msgid "Italian"
 msgstr "italština"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:193
 msgid "Norwegian Bokmål"
 msgstr "norština Bokmål"
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:194
 msgid "Polish"
 msgstr "polština"
 
-#: babybuddy/settings/base.py:193
+#: babybuddy/settings/base.py:195
 msgid "Portuguese"
 msgstr "portugalština"
 
-#: babybuddy/settings/base.py:194
+#: babybuddy/settings/base.py:196
 msgid "Russian"
 msgstr "ruština"
 
-#: babybuddy/settings/base.py:195
+#: babybuddy/settings/base.py:197
 msgid "Spanish"
 msgstr "španělština"
 
-#: babybuddy/settings/base.py:196
+#: babybuddy/settings/base.py:198
 msgid "Swedish"
 msgstr "švédština"
 
-#: babybuddy/settings/base.py:197
+#: babybuddy/settings/base.py:199
 msgid "Turkish"
 msgstr "turečtina"
+
+#: babybuddy/settings/base.py:200
+msgid "Ukrainian"
+msgstr ""
 
 #: babybuddy/site_settings.py:23
 msgid "Default minimum nap start time"
@@ -237,20 +251,20 @@ msgstr ""
 "před tímto časem."
 
 #: babybuddy/templates/admin/base_site.html:4
-#: babybuddy/templates/admin/base_site.html:7
-#: babybuddy/templates/babybuddy/nav-dropdown.html:349
+#: babybuddy/templates/admin/base_site.html:8
+#: babybuddy/templates/babybuddy/nav-dropdown.html:332
 msgid "Database Admin"
 msgstr "Správce databáze"
 
-#: babybuddy/templates/babybuddy/base.html:36
+#: babybuddy/templates/babybuddy/base.html:37
 msgid "Home"
 msgstr "Domů"
 
-#: babybuddy/templates/babybuddy/filter.html:18
+#: babybuddy/templates/babybuddy/filter.html:20
 msgid "Filter"
 msgstr "Filtrovat"
 
-#: babybuddy/templates/babybuddy/filter.html:19
+#: babybuddy/templates/babybuddy/filter.html:21
 msgid "Reset"
 msgstr "Resetovat"
 
@@ -258,349 +272,356 @@ msgstr "Resetovat"
 msgid "Filters"
 msgstr "Filtry"
 
-#: babybuddy/templates/babybuddy/form.html:14
-#: babybuddy/templates/babybuddy/user_settings_form.html:89
+#: babybuddy/templates/babybuddy/form.html:19
+#: babybuddy/templates/babybuddy/user_settings_form.html:93
 msgid "Submit"
 msgstr "Přidat"
 
-#: babybuddy/templates/babybuddy/messages.html:16
-#: babybuddy/templates/babybuddy/user_settings_form.html:19
+#: babybuddy/templates/babybuddy/messages.html:19
+#: babybuddy/templates/babybuddy/user_settings_form.html:18
 #, python-format
 msgid "<strong>Error:</strong> %(error)s"
 msgstr "<strong>Chyba:</strong> %(error)s"
 
-#: babybuddy/templates/babybuddy/messages.html:21
-#: babybuddy/templates/babybuddy/user_settings_form.html:26
+#: babybuddy/templates/babybuddy/messages.html:24
+#: babybuddy/templates/babybuddy/user_settings_form.html:25
 msgid "<strong>Error:</strong> Some fields have errors. See below for details."
 msgstr ""
 "<strong>Chyba:</strong> Některé kolonky jsou chybné. Podrobnosti viz níže."
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:46 core/models.py:257
+#: babybuddy/templates/babybuddy/nav-dropdown.html:44 core/models.py:257
 #: core/models.py:261
 msgid "Diaper Change"
 msgstr "Výměna plenky"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:52
-#: babybuddy/templates/babybuddy/nav-dropdown.html:264 core/models.py:328
-#: core/models.py:332 core/templates/core/timer_detail.html:42
+#: babybuddy/templates/babybuddy/nav-dropdown.html:50
+#: babybuddy/templates/babybuddy/nav-dropdown.html:253 core/models.py:328
+#: core/models.py:332 core/templates/core/timer_detail.html:31
 msgid "Feeding"
 msgstr "Krmení"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:58
-#: babybuddy/templates/babybuddy/nav-dropdown.html:272 core/models.py:492
+#: babybuddy/templates/babybuddy/nav-dropdown.html:54
+#: babybuddy/templates/babybuddy/nav-dropdown.html:259
+#, fuzzy
+#| msgid "Total feedings"
+msgid "Bottle Feeding"
+msgstr "Celkem krmení"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:60
+#: babybuddy/templates/babybuddy/nav-dropdown.html:266 core/models.py:492
 #: core/models.py:493 core/models.py:496
-#: core/templates/core/pumping_confirm_delete.html:7
-#: core/templates/core/pumping_form.html:13
+#: core/templates/core/pumping_confirm_delete.html:8
+#: core/templates/core/pumping_form.html:12
 #: core/templates/core/pumping_list.html:4
 #: core/templates/core/pumping_list.html:7
-#: core/templates/core/pumping_list.html:12
-#: core/templates/core/timer_detail.html:50
+#: core/templates/core/pumping_list.html:11
+#: core/templates/core/timer_detail.html:38
 #: reports/templates/reports/pumping_amounts.html:4
 #: reports/templates/reports/pumping_amounts.html:9
 msgid "Pumping"
 msgstr "Odsávání mléka"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:64
+#: babybuddy/templates/babybuddy/nav-dropdown.html:66
 #: babybuddy/templates/babybuddy/nav-dropdown.html:140 core/models.py:437
-#: core/models.py:451 core/models.py:455 core/templates/core/note_list.html:30
+#: core/models.py:451 core/models.py:455 core/templates/core/note_list.html:29
 msgid "Note"
 msgstr "Poznámka"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:70
-#: babybuddy/templates/babybuddy/nav-dropdown.html:285
-#: babybuddy/templates/babybuddy/welcome.html:48 core/models.py:536
+#: babybuddy/templates/babybuddy/nav-dropdown.html:72
+#: babybuddy/templates/babybuddy/nav-dropdown.html:278
+#: babybuddy/templates/babybuddy/welcome.html:47 core/models.py:536
 #: core/models.py:537 core/models.py:540
-#: core/templates/core/sleep_confirm_delete.html:7
-#: core/templates/core/sleep_form.html:13 core/templates/core/sleep_list.html:4
-#: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:12
-#: core/templates/core/timer_detail.html:58
+#: core/templates/core/sleep_confirm_delete.html:8
+#: core/templates/core/sleep_form.html:12 core/templates/core/sleep_list.html:4
+#: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:11
+#: core/templates/core/timer_detail.html:45
 msgid "Sleep"
 msgstr "Spánek"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:76
-#: babybuddy/templates/babybuddy/nav-dropdown.html:299
-#: babybuddy/templates/babybuddy/welcome.html:58 core/models.py:693
+#: babybuddy/templates/babybuddy/nav-dropdown.html:78
+#: babybuddy/templates/babybuddy/nav-dropdown.html:290
+#: babybuddy/templates/babybuddy/welcome.html:57 core/models.py:693
 #: core/models.py:694 core/models.py:697
-#: core/templates/core/timer_detail.html:66
-#: core/templates/core/tummytime_confirm_delete.html:7
-#: core/templates/core/tummytime_form.html:13
+#: core/templates/core/timer_detail.html:52
+#: core/templates/core/tummytime_confirm_delete.html:8
+#: core/templates/core/tummytime_form.html:12
 #: core/templates/core/tummytime_list.html:4
 #: core/templates/core/tummytime_list.html:7
-#: core/templates/core/tummytime_list.html:12
+#: core/templates/core/tummytime_list.html:11
 msgid "Tummy Time"
 msgstr "Doba na břiše"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:101
+#: babybuddy/templates/babybuddy/nav-dropdown.html:104
 #: core/templates/timeline/timeline.html:4
 #: core/templates/timeline/timeline.html:7
-#: dashboard/templates/dashboard/child_button_group.html:9
+#: dashboard/templates/dashboard/child_button_group.html:13
 msgid "Timeline"
 msgstr "Časová osa"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:112
-#: babybuddy/templates/babybuddy/nav-dropdown.html:120 core/models.py:190
-#: core/templates/core/child_confirm_delete.html:7
-#: core/templates/core/child_detail.html:7
-#: core/templates/core/child_form.html:13 core/templates/core/child_list.html:4
-#: core/templates/core/child_list.html:7 core/templates/core/child_list.html:12
-#: dashboard/templates/dashboard/child.html:7
-#: reports/templates/reports/base.html:7
+#: babybuddy/templates/babybuddy/nav-dropdown.html:114
+#: babybuddy/templates/babybuddy/nav-dropdown.html:121 core/models.py:190
+#: core/templates/core/child_confirm_delete.html:8
+#: core/templates/core/child_detail.html:6
+#: core/templates/core/child_form.html:12 core/templates/core/child_list.html:4
+#: core/templates/core/child_list.html:7 core/templates/core/child_list.html:11
+#: dashboard/templates/dashboard/child.html:8
+#: reports/templates/reports/base.html:6
 msgid "Children"
 msgstr "Děti"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:126 core/models.py:138
+#: babybuddy/templates/babybuddy/nav-dropdown.html:127 core/models.py:138
 #: core/models.py:189 core/models.py:230 core/models.py:283 core/models.py:351
 #: core/models.py:383 core/models.py:435 core/models.py:464 core/models.py:512
 #: core/models.py:566 core/models.py:600 core/models.py:669 core/models.py:717
-#: core/templates/core/bmi_list.html:27
+#: core/templates/core/bmi_list.html:26
 #: core/templates/core/diaperchange_list.html:27
-#: core/templates/core/feeding_list.html:27
+#: core/templates/core/feeding_list.html:30
 #: core/templates/core/head_circumference_list.html:27
-#: core/templates/core/height_list.html:27
-#: core/templates/core/note_list.html:27
-#: core/templates/core/pumping_list.html:27
-#: core/templates/core/sleep_list.html:28
+#: core/templates/core/height_list.html:26
+#: core/templates/core/note_list.html:26
+#: core/templates/core/pumping_list.html:26
+#: core/templates/core/sleep_list.html:27
 #: core/templates/core/temperature_list.html:27
-#: core/templates/core/timer_list.html:27
-#: core/templates/core/tummytime_list.html:27
-#: core/templates/core/weight_list.html:27
+#: core/templates/core/timer_list.html:26
+#: core/templates/core/tummytime_list.html:26
+#: core/templates/core/weight_list.html:26
 msgid "Child"
 msgstr "Dítě"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:134 core/models.py:144
 #: core/models.py:249 core/models.py:320 core/models.py:359 core/models.py:389
 #: core/models.py:452 core/models.py:484 core/models.py:527 core/models.py:574
-#: core/models.py:723 core/templates/core/note_confirm_delete.html:7
-#: core/templates/core/note_form.html:13 core/templates/core/note_list.html:4
-#: core/templates/core/note_list.html:7 core/templates/core/note_list.html:12
+#: core/models.py:723 core/templates/core/note_confirm_delete.html:8
+#: core/templates/core/note_form.html:12 core/templates/core/note_list.html:4
+#: core/templates/core/note_list.html:7 core/templates/core/note_list.html:11
 msgid "Notes"
 msgstr "Poznámky"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:154
+#: babybuddy/templates/babybuddy/nav-dropdown.html:152
 msgid "Measurements"
 msgstr "Míry"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:162 core/models.py:140
+#: babybuddy/templates/babybuddy/nav-dropdown.html:159 core/models.py:140
 #: core/models.py:152 core/models.py:153 core/models.py:156
-#: core/templates/core/bmi_confirm_delete.html:7
-#: core/templates/core/bmi_form.html:13 core/templates/core/bmi_list.html:4
-#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:12
-#: core/templates/core/bmi_list.html:29 reports/graphs/bmi_change.py:19
+#: core/templates/core/bmi_confirm_delete.html:8
+#: core/templates/core/bmi_form.html:12 core/templates/core/bmi_list.html:4
+#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:11
+#: core/templates/core/bmi_list.html:28 reports/graphs/bmi_change.py:19
 #: reports/graphs/bmi_change.py:30 reports/templates/reports/bmi_change.html:4
 #: reports/templates/reports/bmi_change.html:9
 msgid "BMI"
 msgstr "BMI"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:168
+#: babybuddy/templates/babybuddy/nav-dropdown.html:165
 msgid "BMI entry"
 msgstr "záznam BMI"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:176 core/models.py:354
+#: babybuddy/templates/babybuddy/nav-dropdown.html:172 core/models.py:354
 #: core/models.py:367 core/models.py:368 core/models.py:371
-#: core/templates/core/head_circumference_confirm_delete.html:7
-#: core/templates/core/head_circumference_form.html:13
+#: core/templates/core/head_circumference_confirm_delete.html:8
+#: core/templates/core/head_circumference_form.html:12
 #: core/templates/core/head_circumference_list.html:4
 #: core/templates/core/head_circumference_list.html:7
-#: core/templates/core/head_circumference_list.html:12
+#: core/templates/core/head_circumference_list.html:11
 #: core/templates/core/head_circumference_list.html:29
 #: reports/graphs/head_circumference_change.py:19
 #: reports/graphs/head_circumference_change.py:30
 #: reports/templates/reports/head_circumference_change.html:4
 #: reports/templates/reports/head_circumference_change.html:9
-#: reports/templates/reports/report_list.html:27
+#: reports/templates/reports/report_list.html:32
 msgid "Head Circumference"
 msgstr "obvod hlavy"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:182
+#: babybuddy/templates/babybuddy/nav-dropdown.html:178
 msgid "Head Circumference entry"
 msgstr "záznam obvodu hlavy"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:190 core/models.py:385
+#: babybuddy/templates/babybuddy/nav-dropdown.html:185 core/models.py:385
 #: core/models.py:397 core/models.py:398 core/models.py:401
-#: core/templates/core/height_confirm_delete.html:7
-#: core/templates/core/height_form.html:13
+#: core/templates/core/height_confirm_delete.html:8
+#: core/templates/core/height_form.html:12
 #: core/templates/core/height_list.html:4
 #: core/templates/core/height_list.html:7
-#: core/templates/core/height_list.html:12
-#: core/templates/core/height_list.html:29 reports/graphs/height_change.py:30
+#: core/templates/core/height_list.html:11
+#: core/templates/core/height_list.html:28 reports/graphs/height_change.py:30
 #: reports/graphs/height_change.py:89
 #: reports/templates/reports/height_change.html:4
 #: reports/templates/reports/height_change.html:9
-#: reports/templates/reports/report_list.html:28
+#: reports/templates/reports/report_list.html:34
 msgid "Height"
 msgstr "Výška/délka"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:196
+#: babybuddy/templates/babybuddy/nav-dropdown.html:191
 msgid "Height entry"
 msgstr "záznam výšky"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:204 core/models.py:569
+#: babybuddy/templates/babybuddy/nav-dropdown.html:198 core/models.py:569
 #: core/models.py:582 core/models.py:583 core/models.py:586
-#: core/templates/core/temperature_confirm_delete.html:7
-#: core/templates/core/temperature_form.html:13
+#: core/templates/core/temperature_confirm_delete.html:8
+#: core/templates/core/temperature_form.html:12
 #: core/templates/core/temperature_list.html:4
 #: core/templates/core/temperature_list.html:7
-#: core/templates/core/temperature_list.html:12
+#: core/templates/core/temperature_list.html:11
 #: core/templates/core/temperature_list.html:29
 #: reports/graphs/temperature_change.py:19
-#: reports/graphs/temperature_change.py:29
-#: reports/templates/reports/report_list.html:34
+#: reports/graphs/temperature_change.py:32
+#: reports/templates/reports/report_list.html:46
 #: reports/templates/reports/temperature_change.html:4
 #: reports/templates/reports/temperature_change.html:9
 msgid "Temperature"
 msgstr "Teplota"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:210
+#: babybuddy/templates/babybuddy/nav-dropdown.html:204
 msgid "Temperature reading"
 msgstr "Teplotní údaj"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:218 core/models.py:719
+#: babybuddy/templates/babybuddy/nav-dropdown.html:211 core/models.py:719
 #: core/models.py:731 core/models.py:732 core/models.py:735
-#: core/templates/core/weight_confirm_delete.html:7
-#: core/templates/core/weight_form.html:13
+#: core/templates/core/weight_confirm_delete.html:8
+#: core/templates/core/weight_form.html:12
 #: core/templates/core/weight_list.html:4
 #: core/templates/core/weight_list.html:7
-#: core/templates/core/weight_list.html:12
-#: core/templates/core/weight_list.html:29 reports/graphs/weight_change.py:28
+#: core/templates/core/weight_list.html:11
+#: core/templates/core/weight_list.html:28 reports/graphs/weight_change.py:28
 #: reports/graphs/weight_change.py:87
-#: reports/templates/reports/report_list.html:36
+#: reports/templates/reports/report_list.html:50
 #: reports/templates/reports/weight_change.html:4
-#: reports/templates/reports/weight_change.html:10
+#: reports/templates/reports/weight_change.html:9
 msgid "Weight"
 msgstr "Váha"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:224
+#: babybuddy/templates/babybuddy/nav-dropdown.html:217
 msgid "Weight entry"
 msgstr "Položka váhy"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:237
+#: babybuddy/templates/babybuddy/nav-dropdown.html:229
 msgid "Activities"
 msgstr "Aktivity"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:245
+#: babybuddy/templates/babybuddy/nav-dropdown.html:235
 #: reports/graphs/diaperchange_lifetimes.py:27
 msgid "Changes"
 msgstr "Výměny"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:251
+#: babybuddy/templates/babybuddy/nav-dropdown.html:241
 msgid "Change"
 msgstr "Výměna"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:258
-#: babybuddy/templates/babybuddy/welcome.html:38 core/models.py:329
-#: core/templates/core/feeding_confirm_delete.html:7
-#: core/templates/core/feeding_form.html:13
+#: babybuddy/templates/babybuddy/nav-dropdown.html:247
+#: babybuddy/templates/babybuddy/welcome.html:37 core/models.py:329
+#: core/templates/core/feeding_confirm_delete.html:8
+#: core/templates/core/feeding_form.html:14
 #: core/templates/core/feeding_list.html:4
 #: core/templates/core/feeding_list.html:7
-#: core/templates/core/feeding_list.html:12
+#: core/templates/core/feeding_list.html:11
 msgid "Feedings"
 msgstr "Krmení"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:278
+#: babybuddy/templates/babybuddy/nav-dropdown.html:272
 msgid "Pumping entry"
 msgstr "Záznam odsávání mléka"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:291
+#: babybuddy/templates/babybuddy/nav-dropdown.html:284
 msgid "Sleep entry"
 msgstr "Položka spánku"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:305
+#: babybuddy/templates/babybuddy/nav-dropdown.html:296
 msgid "Tummy Time entry"
 msgstr "Položka doby na břiše"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:329
+#: babybuddy/templates/babybuddy/nav-dropdown.html:319
 #: babybuddy/templates/babybuddy/user_add_device.html:7
-#: babybuddy/templates/babybuddy/user_list.html:17
+#: babybuddy/templates/babybuddy/user_list.html:16
 #: babybuddy/templates/babybuddy/user_password_form.html:7
 #: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:613
-#: core/templates/core/timer_list.html:29
+#: core/templates/core/timer_list.html:28
 msgid "User"
 msgstr "Uživatel"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:333
+#: babybuddy/templates/babybuddy/nav-dropdown.html:321
 msgid "Password"
 msgstr "Heslo"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:334
+#: babybuddy/templates/babybuddy/nav-dropdown.html:322
 #: babybuddy/templates/babybuddy/user_add_device.html:4
 #: babybuddy/templates/babybuddy/user_add_device.html:8
-#: babybuddy/templates/babybuddy/user_add_device.html:12
+#: babybuddy/templates/babybuddy/user_add_device.html:11
 msgid "Add a device"
 msgstr "Přidat zařízení"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:338
+#: babybuddy/templates/babybuddy/nav-dropdown.html:325
 msgid "Logout"
 msgstr "Odhlásit"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:341
+#: babybuddy/templates/babybuddy/nav-dropdown.html:327
 #: babybuddy/templates/dbsettings/site_settings.html:7
 msgid "Site"
 msgstr "Stránka"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:342
+#: babybuddy/templates/babybuddy/nav-dropdown.html:328
 msgid "API Browser"
 msgstr "Prohlížeč API"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:347
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:7
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:7
-#: babybuddy/templates/babybuddy/user_form.html:13
+#: babybuddy/templates/babybuddy/nav-dropdown.html:331
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:8
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:8
+#: babybuddy/templates/babybuddy/user_form.html:12
 #: babybuddy/templates/babybuddy/user_list.html:4
 #: babybuddy/templates/babybuddy/user_list.html:7
 msgid "Users"
 msgstr "Uživatelé"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:351
+#: babybuddy/templates/babybuddy/nav-dropdown.html:334
 msgid "Support"
 msgstr "Podpora"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:353
+#: babybuddy/templates/babybuddy/nav-dropdown.html:336
 msgid "Source Code"
 msgstr "Zdrojové kódy"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:355
+#: babybuddy/templates/babybuddy/nav-dropdown.html:338
 msgid "Chat / Support"
 msgstr "Chat / podpora"
 
 #: babybuddy/templates/babybuddy/paginator.html:11
-#: core/templates/timeline/_timeline.html:5
-#: core/templates/timeline/_timeline.html:7
-#: core/templates/timeline/_timeline.html:71
-#: core/templates/timeline/_timeline.html:73
-#: dashboard/templates/cards/feeding_last_method.html:37
-#: dashboard/templates/cards/feeding_recent.html:46
-#: dashboard/templates/cards/sleep_recent.html:43
-#: dashboard/templates/cards/statistics.html:37
+#: core/templates/timeline/_timeline.html:6
+#: core/templates/timeline/_timeline.html:8
+#: core/templates/timeline/_timeline.html:76
+#: core/templates/timeline/_timeline.html:78
+#: dashboard/templates/cards/feeding_last_method.html:35
+#: dashboard/templates/cards/feeding_recent.html:42
+#: dashboard/templates/cards/sleep_recent.html:42
+#: dashboard/templates/cards/statistics.html:38
 msgid "Previous"
 msgstr "Předchozí"
 
 #: babybuddy/templates/babybuddy/paginator.html:28
-#: core/templates/timeline/_timeline.html:12
-#: core/templates/timeline/_timeline.html:14
-#: core/templates/timeline/_timeline.html:78
-#: core/templates/timeline/_timeline.html:80
-#: dashboard/templates/cards/feeding_last_method.html:44
-#: dashboard/templates/cards/feeding_recent.html:53
-#: dashboard/templates/cards/sleep_recent.html:47
-#: dashboard/templates/cards/statistics.html:44
+#: core/templates/timeline/_timeline.html:15
+#: core/templates/timeline/_timeline.html:17
+#: core/templates/timeline/_timeline.html:85
+#: core/templates/timeline/_timeline.html:87
+#: dashboard/templates/cards/feeding_last_method.html:42
+#: dashboard/templates/cards/feeding_recent.html:49
+#: dashboard/templates/cards/sleep_recent.html:49
+#: dashboard/templates/cards/statistics.html:45
 msgid "Next"
 msgstr "Další"
 
-#: babybuddy/templates/babybuddy/user_add_device.html:15
+#: babybuddy/templates/babybuddy/user_add_device.html:13
 msgid "Authentication Methods"
 msgstr "Způsob ověření"
 
-#: babybuddy/templates/babybuddy/user_add_device.html:18
-#: babybuddy/templates/babybuddy/user_settings_form.html:81
+#: babybuddy/templates/babybuddy/user_add_device.html:16
+#: babybuddy/templates/babybuddy/user_settings_form.html:80
 msgid "Key"
 msgstr "Klíč"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:23
-#: babybuddy/templates/babybuddy/user_settings_form.html:84
+#: babybuddy/templates/babybuddy/user_settings_form.html:85
 msgid "Regenerate"
 msgstr "Znovu vytvořit"
 
-#: babybuddy/templates/babybuddy/user_add_device.html:28
+#: babybuddy/templates/babybuddy/user_add_device.html:29
 msgid "Login QR code"
 msgstr "Přihlášení pomocí QR kódu"
 
@@ -608,74 +629,77 @@ msgstr "Přihlášení pomocí QR kódu"
 msgid "Delete User"
 msgstr "Smazat uživatel"
 
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:9
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:18
-#: core/templates/core/bmi_confirm_delete.html:8
-#: core/templates/core/bmi_confirm_delete.html:17
-#: core/templates/core/child_confirm_delete.html:9
-#: core/templates/core/child_confirm_delete.html:31
-#: core/templates/core/diaperchange_confirm_delete.html:8
-#: core/templates/core/diaperchange_confirm_delete.html:17
-#: core/templates/core/feeding_confirm_delete.html:8
-#: core/templates/core/feeding_confirm_delete.html:17
-#: core/templates/core/head_circumference_confirm_delete.html:8
-#: core/templates/core/head_circumference_confirm_delete.html:17
-#: core/templates/core/height_confirm_delete.html:8
-#: core/templates/core/height_confirm_delete.html:17
-#: core/templates/core/note_confirm_delete.html:8
-#: core/templates/core/note_confirm_delete.html:17
-#: core/templates/core/pumping_confirm_delete.html:8
-#: core/templates/core/pumping_confirm_delete.html:17
-#: core/templates/core/sleep_confirm_delete.html:8
-#: core/templates/core/sleep_confirm_delete.html:17
-#: core/templates/core/temperature_confirm_delete.html:8
-#: core/templates/core/temperature_confirm_delete.html:17
-#: core/templates/core/timer_confirm_delete.html:11
-#: core/templates/core/timer_confirm_delete.html:20
-#: core/templates/core/tummytime_confirm_delete.html:8
-#: core/templates/core/tummytime_confirm_delete.html:17
-#: core/templates/core/weight_confirm_delete.html:8
-#: core/templates/core/weight_confirm_delete.html:17
-#: dashboard/templates/dashboard/child_button_group.html:27
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:11
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:21
+#: core/templates/core/bmi_confirm_delete.html:10
+#: core/templates/core/bmi_confirm_delete.html:20
+#: core/templates/core/child_confirm_delete.html:13
+#: core/templates/core/child_confirm_delete.html:34
+#: core/templates/core/diaperchange_confirm_delete.html:10
+#: core/templates/core/diaperchange_confirm_delete.html:20
+#: core/templates/core/feeding_confirm_delete.html:10
+#: core/templates/core/feeding_confirm_delete.html:20
+#: core/templates/core/head_circumference_confirm_delete.html:10
+#: core/templates/core/head_circumference_confirm_delete.html:20
+#: core/templates/core/height_confirm_delete.html:10
+#: core/templates/core/height_confirm_delete.html:20
+#: core/templates/core/note_confirm_delete.html:10
+#: core/templates/core/note_confirm_delete.html:20
+#: core/templates/core/pumping_confirm_delete.html:10
+#: core/templates/core/pumping_confirm_delete.html:20
+#: core/templates/core/sleep_confirm_delete.html:10
+#: core/templates/core/sleep_confirm_delete.html:20
+#: core/templates/core/temperature_confirm_delete.html:10
+#: core/templates/core/temperature_confirm_delete.html:20
+#: core/templates/core/timer_confirm_delete.html:13
+#: core/templates/core/timer_confirm_delete.html:23
+#: core/templates/core/tummytime_confirm_delete.html:10
+#: core/templates/core/tummytime_confirm_delete.html:20
+#: core/templates/core/weight_confirm_delete.html:10
+#: core/templates/core/weight_confirm_delete.html:20
+#: dashboard/templates/dashboard/child_button_group.html:31
 msgid "Delete"
 msgstr "Smazat"
 
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:15
-#: core/templates/core/bmi_confirm_delete.html:14
-#: core/templates/core/child_confirm_delete.html:15
-#: core/templates/core/diaperchange_confirm_delete.html:14
-#: core/templates/core/feeding_confirm_delete.html:14
-#: core/templates/core/head_circumference_confirm_delete.html:14
-#: core/templates/core/height_confirm_delete.html:14
-#: core/templates/core/note_confirm_delete.html:14
-#: core/templates/core/pumping_confirm_delete.html:14
-#: core/templates/core/sleep_confirm_delete.html:14
-#: core/templates/core/temperature_confirm_delete.html:14
-#: core/templates/core/timer_confirm_delete.html:17
-#: core/templates/core/tummytime_confirm_delete.html:14
-#: core/templates/core/weight_confirm_delete.html:14
-#, python-format
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:16
+#: core/templates/core/bmi_confirm_delete.html:15
+#: core/templates/core/child_confirm_delete.html:18
+#: core/templates/core/diaperchange_confirm_delete.html:15
+#: core/templates/core/feeding_confirm_delete.html:15
+#: core/templates/core/head_circumference_confirm_delete.html:15
+#: core/templates/core/height_confirm_delete.html:15
+#: core/templates/core/note_confirm_delete.html:15
+#: core/templates/core/pumping_confirm_delete.html:15
+#: core/templates/core/sleep_confirm_delete.html:15
+#: core/templates/core/temperature_confirm_delete.html:15
+#: core/templates/core/timer_confirm_delete.html:18
+#: core/templates/core/tummytime_confirm_delete.html:15
+#: core/templates/core/weight_confirm_delete.html:15
+#, fuzzy, python-format
+#| msgid ""
+#| "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+#| "span>?</h1>"
 msgid ""
-"<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
-"span>?</h1>"
+"<h1> Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+"span>? </h1>"
 msgstr ""
 "<h1>Opravdu chcete smazat <span class=\"text-info\">%(object)s</span>?</h1>"
 
-#: babybuddy/templates/babybuddy/user_confirm_delete.html:19
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:19
-#: core/templates/core/bmi_confirm_delete.html:18
-#: core/templates/core/child_confirm_delete.html:32
-#: core/templates/core/diaperchange_confirm_delete.html:18
-#: core/templates/core/feeding_confirm_delete.html:18
-#: core/templates/core/head_circumference_confirm_delete.html:18
-#: core/templates/core/height_confirm_delete.html:18
-#: core/templates/core/note_confirm_delete.html:18
-#: core/templates/core/pumping_confirm_delete.html:18
-#: core/templates/core/sleep_confirm_delete.html:18
-#: core/templates/core/temperature_confirm_delete.html:18
-#: core/templates/core/timer_confirm_delete.html:21
-#: core/templates/core/tummytime_confirm_delete.html:18
-#: core/templates/core/weight_confirm_delete.html:18
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:22
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:23
+#: core/templates/core/bmi_confirm_delete.html:21
+#: core/templates/core/child_confirm_delete.html:35
+#: core/templates/core/diaperchange_confirm_delete.html:21
+#: core/templates/core/feeding_confirm_delete.html:21
+#: core/templates/core/head_circumference_confirm_delete.html:22
+#: core/templates/core/height_confirm_delete.html:21
+#: core/templates/core/note_confirm_delete.html:21
+#: core/templates/core/pumping_confirm_delete.html:21
+#: core/templates/core/sleep_confirm_delete.html:21
+#: core/templates/core/temperature_confirm_delete.html:21
+#: core/templates/core/timer_confirm_delete.html:25
+#: core/templates/core/tummytime_confirm_delete.html:21
+#: core/templates/core/weight_confirm_delete.html:21
 msgid "Cancel"
 msgstr "Storno"
 
@@ -683,137 +707,141 @@ msgstr "Storno"
 msgid "Unlock User"
 msgstr "Odblokovat uživatele"
 
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:9
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:18
-#: babybuddy/templates/babybuddy/user_form.html:31
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:11
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:21
+#: babybuddy/templates/babybuddy/user_form.html:28
 msgid "Unlock"
 msgstr "Odblokovat"
 
-#: babybuddy/templates/babybuddy/user_confirm_unlock.html:15
-#, python-format
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:16
+#, fuzzy, python-format
+#| msgid ""
+#| "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+#| "span>?</h1>"
 msgid ""
-"<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
-"span>?</h1>"
+"<h1> Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+"span>? </h1>"
 msgstr ""
 "<h1>Opravdu chcete odblokovat <span class=\"text-info\">%(object)s</span>?</"
 "h1>"
 
-#: babybuddy/templates/babybuddy/user_form.html:8
+#: babybuddy/templates/babybuddy/user_form.html:7
 #: babybuddy/templates/babybuddy/user_form.html:18
-#: babybuddy/templates/babybuddy/user_form.html:39
-#: babybuddy/templates/babybuddy/user_list.html:71
+#: babybuddy/templates/babybuddy/user_form.html:37
+#: babybuddy/templates/babybuddy/user_list.html:68
 msgid "Create User"
 msgstr "Vytvořit uživatele"
 
 #: babybuddy/templates/babybuddy/user_form.html:16
-#: core/templates/core/bmi_form.html:15 core/templates/core/child_form.html:16
+#: core/templates/core/bmi_form.html:15 core/templates/core/child_form.html:18
 #: core/templates/core/diaperchange_form.html:15
-#: core/templates/core/feeding_form.html:15
+#: core/templates/core/feeding_form.html:17
 #: core/templates/core/head_circumference_form.html:15
 #: core/templates/core/height_form.html:15
 #: core/templates/core/note_form.html:15
 #: core/templates/core/pumping_form.html:15
 #: core/templates/core/sleep_form.html:15
 #: core/templates/core/temperature_form.html:15
-#: core/templates/core/timer_form.html:10
+#: core/templates/core/timer_form.html:14
 #: core/templates/core/tummytime_form.html:15
 #: core/templates/core/weight_form.html:15
 msgid "Update"
 msgstr "Aktualizovat"
 
-#: babybuddy/templates/babybuddy/user_form.html:28
+#: babybuddy/templates/babybuddy/user_form.html:26
 msgid "User locked."
 msgstr "Uživatel je zablokovaný."
 
-#: babybuddy/templates/babybuddy/user_form.html:35
-#: core/templates/core/bmi_form.html:23 core/templates/core/child_form.html:24
-#: core/templates/core/diaperchange_form.html:23
-#: core/templates/core/feeding_form.html:23
-#: core/templates/core/head_circumference_form.html:23
-#: core/templates/core/height_form.html:23
-#: core/templates/core/note_form.html:23
-#: core/templates/core/pumping_form.html:23
-#: core/templates/core/sleep_form.html:23
-#: core/templates/core/temperature_form.html:23
-#: core/templates/core/timer_form.html:18
-#: core/templates/core/tummytime_form.html:23
-#: core/templates/core/weight_form.html:23
-#, python-format
-msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#: babybuddy/templates/babybuddy/user_form.html:31
+#: core/templates/core/bmi_form.html:22 core/templates/core/child_form.html:25
+#: core/templates/core/diaperchange_form.html:22
+#: core/templates/core/feeding_form.html:24
+#: core/templates/core/head_circumference_form.html:22
+#: core/templates/core/height_form.html:22
+#: core/templates/core/note_form.html:22
+#: core/templates/core/pumping_form.html:22
+#: core/templates/core/sleep_form.html:22
+#: core/templates/core/temperature_form.html:22
+#: core/templates/core/timer_form.html:21
+#: core/templates/core/tummytime_form.html:22
+#: core/templates/core/weight_form.html:22
+#, fuzzy, python-format
+#| msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+msgid "<h1> Update <span class=\"text-info\">%(object)s</span> </h1>"
 msgstr "<h1>Aktualizovat <span class=\"text-info\">%(object)s</span></h1>"
 
-#: babybuddy/templates/babybuddy/user_list.html:18
-#: core/templates/core/child_list.html:25
+#: babybuddy/templates/babybuddy/user_list.html:17
+#: core/templates/core/child_list.html:26
 msgid "First Name"
 msgstr "Jméno"
 
-#: babybuddy/templates/babybuddy/user_list.html:19
-#: core/templates/core/child_list.html:26
+#: babybuddy/templates/babybuddy/user_list.html:18
+#: core/templates/core/child_list.html:27
 msgid "Last Name"
 msgstr "Příjmení"
 
-#: babybuddy/templates/babybuddy/user_list.html:20
+#: babybuddy/templates/babybuddy/user_list.html:19
 msgid "Email"
 msgstr "E-mail"
 
-#: babybuddy/templates/babybuddy/user_list.html:22
+#: babybuddy/templates/babybuddy/user_list.html:21
 msgid "Staff"
 msgstr "Personál"
 
-#: babybuddy/templates/babybuddy/user_list.html:23 core/models.py:608
+#: babybuddy/templates/babybuddy/user_list.html:22 core/models.py:608
 msgid "Active"
 msgstr "Aktivní"
 
-#: babybuddy/templates/babybuddy/user_list.html:24
+#: babybuddy/templates/babybuddy/user_list.html:23
 msgid "Locked"
 msgstr "Zablokovaný"
 
-#: babybuddy/templates/babybuddy/user_list.html:25
-#: core/templates/core/bmi_list.html:24 core/templates/core/bmi_list.html:37
-#: core/templates/core/child_list.html:28
-#: core/templates/core/child_list.html:47
+#: babybuddy/templates/babybuddy/user_list.html:24
+#: core/templates/core/bmi_list.html:23 core/templates/core/bmi_list.html:38
+#: core/templates/core/child_list.html:29
+#: core/templates/core/child_list.html:53
 #: core/templates/core/diaperchange_list.html:24
-#: core/templates/core/diaperchange_list.html:39
-#: core/templates/core/feeding_list.html:24
-#: core/templates/core/feeding_list.html:42
+#: core/templates/core/diaperchange_list.html:41
+#: core/templates/core/feeding_list.html:27
+#: core/templates/core/feeding_list.html:47
 #: core/templates/core/head_circumference_list.html:24
-#: core/templates/core/head_circumference_list.html:37
-#: core/templates/core/height_list.html:24
-#: core/templates/core/height_list.html:37
-#: core/templates/core/note_list.html:24 core/templates/core/note_list.html:38
-#: core/templates/core/pumping_list.html:24
-#: core/templates/core/pumping_list.html:38
-#: core/templates/core/sleep_list.html:24
-#: core/templates/core/sleep_list.html:39
+#: core/templates/core/head_circumference_list.html:39
+#: core/templates/core/height_list.html:23
+#: core/templates/core/height_list.html:38
+#: core/templates/core/note_list.html:23 core/templates/core/note_list.html:39
+#: core/templates/core/pumping_list.html:23
+#: core/templates/core/pumping_list.html:39
+#: core/templates/core/sleep_list.html:23
+#: core/templates/core/sleep_list.html:40
 #: core/templates/core/temperature_list.html:24
-#: core/templates/core/temperature_list.html:37
-#: core/templates/core/tummytime_list.html:23
-#: core/templates/core/tummytime_list.html:38
-#: core/templates/core/weight_list.html:24
-#: core/templates/core/weight_list.html:37
+#: core/templates/core/temperature_list.html:39
+#: core/templates/core/tummytime_list.html:22
+#: core/templates/core/tummytime_list.html:39
+#: core/templates/core/weight_list.html:23
+#: core/templates/core/weight_list.html:38
 msgid "Actions"
 msgstr "Akce"
 
-#: babybuddy/templates/babybuddy/user_list.html:61
+#: babybuddy/templates/babybuddy/user_list.html:59
 msgid "No users found."
 msgstr "Nenalezeni žádní uživatelé."
 
 #: babybuddy/templates/babybuddy/user_password_form.html:4
 #: babybuddy/templates/babybuddy/user_password_form.html:8
-#: babybuddy/templates/babybuddy/user_password_form.html:12
+#: babybuddy/templates/babybuddy/user_password_form.html:11
 msgid "Change Password"
 msgstr "Změnit heslo"
 
 #: babybuddy/templates/babybuddy/user_settings_form.html:4
-#: babybuddy/templates/babybuddy/user_settings_form.html:12
+#: babybuddy/templates/babybuddy/user_settings_form.html:11
 msgid "User Settings"
 msgstr "Nastavení uživatele"
 
-#: babybuddy/templates/babybuddy/user_settings_form.html:33
+#: babybuddy/templates/babybuddy/user_settings_form.html:32
 msgid "User Profile"
 msgstr "Uživatelský profil"
 
-#: babybuddy/templates/babybuddy/user_settings_form.html:79
+#: babybuddy/templates/babybuddy/user_settings_form.html:78
 msgid "API"
 msgstr "API"
 
@@ -822,11 +850,11 @@ msgstr "API"
 msgid "Welcome!"
 msgstr "Vítejte!"
 
-#: babybuddy/templates/babybuddy/welcome.html:13
+#: babybuddy/templates/babybuddy/welcome.html:12
 msgid "Welcome to Baby Buddy!"
 msgstr "Vítejte v Baby Buddy!"
 
-#: babybuddy/templates/babybuddy/welcome.html:15
+#: babybuddy/templates/babybuddy/welcome.html:14
 msgid ""
 "Learn about and predict baby's needs without (<em>as much</em>) guess work "
 "by using Baby Buddy to track &mdash;"
@@ -834,17 +862,17 @@ msgstr ""
 "Zjistěte a předvídejte potřeby dítěte bez (<em>přílišného</em>) hádání "
 "pomocí Baby Buddy pro sledování &mdash;"
 
-#: babybuddy/templates/babybuddy/welcome.html:28 core/models.py:258
-#: core/templates/core/diaperchange_confirm_delete.html:7
-#: core/templates/core/diaperchange_form.html:13
+#: babybuddy/templates/babybuddy/welcome.html:27 core/models.py:258
+#: core/templates/core/diaperchange_confirm_delete.html:8
+#: core/templates/core/diaperchange_form.html:12
 #: core/templates/core/diaperchange_list.html:4
 #: core/templates/core/diaperchange_list.html:7
-#: core/templates/core/diaperchange_list.html:12
-#: dashboard/templates/cards/diaperchange_types.html:6
+#: core/templates/core/diaperchange_list.html:11
+#: dashboard/templates/cards/diaperchange_types.html:4
 msgid "Diaper Changes"
 msgstr "Výměny plenek"
 
-#: babybuddy/templates/babybuddy/welcome.html:65
+#: babybuddy/templates/babybuddy/welcome.html:64
 msgid ""
 "As the amount of entries grows, Baby Buddy will help parents and caregivers "
 "to identify small patterns in baby's habits using the dashboard and graphs. "
@@ -859,14 +887,14 @@ msgstr ""
 "dvě v noci. Začít je snadné – stačí jen kliknou na tlačítko níže a přidat "
 "své první (nebo druhé, třetí, etc.) dítě!"
 
-#: babybuddy/templates/babybuddy/welcome.html:77
-#: core/templates/core/child_form.html:8 core/templates/core/child_form.html:18
-#: core/templates/core/child_form.html:28
+#: babybuddy/templates/babybuddy/welcome.html:76
+#: core/templates/core/child_form.html:7 core/templates/core/child_form.html:20
+#: core/templates/core/child_form.html:31
 msgid "Add a Child"
 msgstr "Přidat dítě"
 
 #: babybuddy/templates/dbsettings/site_settings.html:4
-#: babybuddy/templates/dbsettings/site_settings.html:12
+#: babybuddy/templates/dbsettings/site_settings.html:11
 msgid "Site Settings"
 msgstr "Nastavení stránky"
 
@@ -885,11 +913,11 @@ msgid ""
 msgstr ""
 "Nemáte přístup k tomuto prostředku. Obraťte se na správce webu o asistenci."
 
-#: babybuddy/templates/error/403_csrf_bad_origin.html:15
+#: babybuddy/templates/error/403_csrf_bad_origin.html:10
 msgid "How to Fix"
 msgstr "Jak opravit"
 
-#: babybuddy/templates/error/403_csrf_bad_origin.html:16
+#: babybuddy/templates/error/403_csrf_bad_origin.html:11
 #, python-format
 msgid ""
 "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
@@ -912,7 +940,7 @@ msgstr "Cesta <code>%(request_path)s</code> neexistuje."
 msgid "Server Error"
 msgstr "Chyba na serveru"
 
-#: babybuddy/templates/error/base.html:14
+#: babybuddy/templates/error/base.html:13
 msgid "Return to Baby Buddy"
 msgstr "Zpět na Baby Buddy"
 
@@ -920,11 +948,11 @@ msgstr "Zpět na Baby Buddy"
 msgid "Too Many Login Attempts"
 msgstr "Příliš mnoho pokusů o přihlášení"
 
-#: babybuddy/templates/registration/login.html:28
+#: babybuddy/templates/registration/login.html:18
 msgid "Login"
 msgstr "Přihlásit"
 
-#: babybuddy/templates/registration/login.html:34
+#: babybuddy/templates/registration/login.html:21
 msgid "Forgot your password?"
 msgstr "Zapomněli jste své heslo?"
 
@@ -936,7 +964,7 @@ msgstr "Heslo úspěšně vyresetováno!"
 msgid "Your password has been set. You may go ahead and log in now."
 msgstr "Vaše heslo bylo nastaveno. Můžete pokračovat na přihlášení se."
 
-#: babybuddy/templates/registration/password_reset_complete.html:9
+#: babybuddy/templates/registration/password_reset_complete.html:10
 msgid "Log in"
 msgstr "Přihlásit se"
 
@@ -944,18 +972,18 @@ msgstr "Přihlásit se"
 msgid "Password Reset"
 msgstr "Reset hesla"
 
-#: babybuddy/templates/registration/password_reset_confirm.html:13
+#: babybuddy/templates/registration/password_reset_confirm.html:12
 msgid ""
 "<strong>Oh snap!</strong> The two passwords did not match. Please try again."
 msgstr ""
 "<strong>Kruci!</strong> Zadání hesla se neshodují. Zkuste to prosím znovu."
 
-#: babybuddy/templates/registration/password_reset_confirm.html:22
+#: babybuddy/templates/registration/password_reset_confirm.html:20
 msgid "Enter your new password in each field below."
 msgstr "Nové heslo zadejte do obou kolonek níže."
 
-#: babybuddy/templates/registration/password_reset_confirm.html:42
-#: babybuddy/templates/registration/password_reset_form.html:29
+#: babybuddy/templates/registration/password_reset_confirm.html:32
+#: babybuddy/templates/registration/password_reset_form.html:23
 msgid "Reset Password"
 msgstr "Resetovat heslo"
 
@@ -971,7 +999,7 @@ msgstr ""
 "Poslali jsme vám pokyny jak si nastavit heslo, pokud existuje účet, u "
 "kterého je zadán e-mail, který jste uvedli. Měly byste je zakrátko obdržet."
 
-#: babybuddy/templates/registration/password_reset_done.html:15
+#: babybuddy/templates/registration/password_reset_done.html:16
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -979,7 +1007,7 @@ msgstr ""
 "Pokud e-mail neobdržíte, ověřte, že jste zadali adresu, pomocí které jste se "
 "zaregistrovali a podívejte se do složky s nevyžádanou poštou (spam)."
 
-#: babybuddy/templates/registration/password_reset_email.html:2
+#: babybuddy/templates/registration/password_reset_email.html:3
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
@@ -996,7 +1024,7 @@ msgstr "Prosím, pokračujte na následující stránku a nastavte nové heslo:"
 msgid "Your username, in case you’ve forgotten:"
 msgstr "Vaše uživatelské jméno pro připomenutí:"
 
-#: babybuddy/templates/registration/password_reset_email.html:10
+#: babybuddy/templates/registration/password_reset_email.html:9
 msgid "Thanks for using Baby Buddy!"
 msgstr "Děkujeme, že používáte Baby Buddy!"
 
@@ -1075,11 +1103,11 @@ msgstr ""
 msgid "Tag"
 msgstr "Značka"
 
-#: core/forms.py:130
+#: core/forms.py:159
 msgid "Name does not match child name."
 msgstr "Jméno se neshoduje se jménem dítěte."
 
-#: core/forms.py:146
+#: core/forms.py:175
 msgid ""
 "Click on the tags to add (+) or remove (-) tags or use the text editor to "
 "create new tags."
@@ -1116,31 +1144,31 @@ msgstr "Barva"
 msgid "Last used"
 msgstr "Naposledy použité"
 
-#: core/models.py:98 core/templates/core/bmi_list.html:30
+#: core/models.py:98 core/templates/core/bmi_list.html:29
 #: core/templates/core/diaperchange_list.html:32
-#: core/templates/core/feeding_list.html:35
+#: core/templates/core/feeding_list.html:38
 #: core/templates/core/head_circumference_list.html:30
-#: core/templates/core/height_list.html:30
-#: core/templates/core/note_list.html:31
-#: core/templates/core/pumping_list.html:31
-#: core/templates/core/sleep_list.html:32
+#: core/templates/core/height_list.html:29
+#: core/templates/core/note_list.html:30
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:31
 #: core/templates/core/temperature_list.html:30
-#: core/templates/core/tummytime_list.html:31
-#: core/templates/core/weight_list.html:30
+#: core/templates/core/tummytime_list.html:30
+#: core/templates/core/weight_list.html:29
 msgid "Tags"
 msgstr "Značky"
 
 #: core/models.py:142 core/models.py:357 core/models.py:387 core/models.py:721
-#: core/templates/core/bmi_list.html:25
-#: core/templates/core/feeding_list.html:25
+#: core/templates/core/bmi_list.html:24
+#: core/templates/core/feeding_list.html:28
 #: core/templates/core/head_circumference_list.html:25
-#: core/templates/core/height_list.html:25
-#: core/templates/core/pumping_list.html:25
-#: core/templates/core/weight_list.html:25 reports/graphs/bmi_change.py:28
+#: core/templates/core/height_list.html:24
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/weight_list.html:24 reports/graphs/bmi_change.py:28
 #: reports/graphs/diaperchange_amounts.py:37
 #: reports/graphs/diaperchange_intervals.py:67
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
-#: reports/graphs/feeding_duration.py:56 reports/graphs/feeding_intervals.py:42
+#: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
 #: reports/graphs/head_circumference_change.py:28
 #: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:157 reports/graphs/sleep_totals.py:59
@@ -1176,19 +1204,19 @@ msgstr "Obrázek"
 
 #: core/models.py:233 core/models.py:439 core/models.py:572
 #: core/templates/core/diaperchange_list.html:25
-#: core/templates/core/note_list.html:25
+#: core/templates/core/note_list.html:24
 #: core/templates/core/temperature_list.html:25
 #: reports/graphs/temperature_change.py:27
 msgid "Time"
 msgstr "Čas"
 
-#: core/models.py:235 core/templates/core/diaperchange_list.html:60
+#: core/models.py:235 core/templates/core/diaperchange_list.html:64
 #: reports/graphs/diaperchange_intervals.py:47
 #: reports/graphs/diaperchange_types.py:36
 msgid "Wet"
 msgstr "Mokré"
 
-#: core/models.py:236 core/templates/core/diaperchange_list.html:61
+#: core/models.py:236 core/templates/core/diaperchange_list.html:67
 #: reports/graphs/diaperchange_intervals.py:38
 #: reports/graphs/diaperchange_types.py:30
 msgid "Solid"
@@ -1212,8 +1240,8 @@ msgstr "Žlutá"
 
 #: core/models.py:248 core/models.py:319 core/models.py:483
 #: core/templates/core/diaperchange_list.html:31
-#: core/templates/core/pumping_list.html:29
-#: dashboard/templates/cards/pumping_last.html:23
+#: core/templates/core/pumping_list.html:28
+#: dashboard/templates/cards/pumping_last.html:18
 msgid "Amount"
 msgstr "Množství"
 
@@ -1227,10 +1255,10 @@ msgid "End time"
 msgstr "Okamžik ukončení"
 
 #: core/models.py:295 core/models.py:481 core/models.py:525 core/models.py:681
-#: core/templates/core/feeding_list.html:34
-#: core/templates/core/pumping_list.html:30
-#: core/templates/core/sleep_list.html:30
-#: core/templates/core/tummytime_list.html:29
+#: core/templates/core/feeding_list.html:37
+#: core/templates/core/pumping_list.html:29
+#: core/templates/core/sleep_list.html:29
+#: core/templates/core/tummytime_list.html:28
 msgid "Duration"
 msgstr "Trvání"
 
@@ -1250,7 +1278,7 @@ msgstr "Mateřské mléko s doplňkem"
 msgid "Solid food"
 msgstr "Pevná strava"
 
-#: core/models.py:305 core/templates/core/feeding_list.html:30
+#: core/models.py:305 core/templates/core/feeding_list.html:33
 msgid "Type"
 msgstr "Typ"
 
@@ -1278,7 +1306,7 @@ msgstr "Krmený rodičem"
 msgid "Self fed"
 msgstr "Najezený sám"
 
-#: core/models.py:317 core/templates/core/feeding_list.html:29
+#: core/models.py:317 core/templates/core/feeding_list.html:32
 msgid "Method"
 msgstr "Metoda"
 
@@ -1290,11 +1318,11 @@ msgstr ""
 msgid "Boy"
 msgstr ""
 
-#: core/models.py:442 core/templates/core/note_list.html:29
+#: core/models.py:442 core/templates/core/note_list.html:28
 msgid "Image"
 msgstr ""
 
-#: core/models.py:523 core/templates/core/sleep_list.html:31
+#: core/models.py:523 core/templates/core/sleep_list.html:30
 msgid "Nap"
 msgstr "Šlofík"
 
@@ -1302,7 +1330,7 @@ msgstr "Šlofík"
 msgid "Nap settings"
 msgstr "Nastavení šlofíku"
 
-#: core/models.py:603 core/templates/core/timer_list.html:25
+#: core/models.py:603 core/templates/core/timer_list.html:24
 msgid "Name"
 msgstr "Název"
 
@@ -1310,12 +1338,12 @@ msgstr "Název"
 msgid "Timer"
 msgstr "Časovač"
 
-#: core/models.py:622 core/templates/core/timer_confirm_delete.html:9
-#: core/templates/core/timer_detail.html:8
-#: core/templates/core/timer_form.html:7 core/templates/core/timer_list.html:4
-#: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:12
-#: core/templates/core/timer_nav.html:10 core/templates/core/timer_nav.html:44
-#: dashboard/templates/cards/timer_list.html:6
+#: core/models.py:622 core/templates/core/timer_confirm_delete.html:8
+#: core/templates/core/timer_detail.html:7
+#: core/templates/core/timer_form.html:8 core/templates/core/timer_list.html:4
+#: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:11
+#: core/templates/core/timer_nav.html:9 core/templates/core/timer_nav.html:49
+#: dashboard/templates/cards/timer_list.html:4
 msgid "Timers"
 msgstr "Časovače"
 
@@ -1324,7 +1352,7 @@ msgstr "Časovače"
 msgid "Timer #{id}"
 msgstr "Časovač č.{id}"
 
-#: core/models.py:684 core/templates/core/tummytime_list.html:30
+#: core/models.py:684 core/templates/core/tummytime_list.html:29
 msgid "Milestone"
 msgstr "Milník"
 
@@ -1332,12 +1360,12 @@ msgstr "Milník"
 msgid "Delete a BMI Entry"
 msgstr "Smazat záznam BMI"
 
-#: core/templates/core/bmi_form.html:8 core/templates/core/bmi_form.html:17
-#: core/templates/core/bmi_form.html:27
+#: core/templates/core/bmi_form.html:7 core/templates/core/bmi_form.html:17
+#: core/templates/core/bmi_form.html:28
 msgid "Add a BMI Entry"
 msgstr "Přidat záznam BMI"
 
-#: core/templates/core/bmi_list.html:15
+#: core/templates/core/bmi_list.html:14
 msgid "Add BMI"
 msgstr "Přidat BMI"
 
@@ -1349,37 +1377,37 @@ msgstr "Žádné položky BMI nenalezeny."
 msgid "Delete a Child"
 msgstr "Smazat dítě"
 
-#: core/templates/core/child_confirm_delete.html:20
+#: core/templates/core/child_confirm_delete.html:25
 msgid "To confirm this action. Type the full name of the child below."
 msgstr "Abyste tuto akci potvrdili, níže zadejte celé jméno dítěte."
 
-#: core/templates/core/child_detail.html:25
-#: dashboard/templates/dashboard/dashboard.html:32
+#: core/templates/core/child_detail.html:23
+#: dashboard/templates/dashboard/dashboard.html:30
 msgid "Born"
 msgstr "Narozen(a)"
 
-#: core/templates/core/child_detail.html:26
-#: dashboard/templates/dashboard/dashboard.html:33
+#: core/templates/core/child_detail.html:25
+#: dashboard/templates/dashboard/dashboard.html:32
 msgid "Age"
 msgstr "Věk"
 
-#: core/templates/core/child_list.html:15
+#: core/templates/core/child_list.html:14
 msgid "Add Child"
 msgstr "Přidat dítě"
 
-#: core/templates/core/child_list.html:27
+#: core/templates/core/child_list.html:28
 msgid "Birth Date"
 msgstr "Datum narození"
 
-#: core/templates/core/child_list.html:66
+#: core/templates/core/child_list.html:71
 msgid "No children found."
 msgstr "Nenalezeno žádné dítě."
 
-#: core/templates/core/child_quick_switch.html:6
+#: core/templates/core/child_quick_switch.html:9
 msgid "Switch child"
 msgstr "Zvolit jiné dítě"
 
-#: core/templates/core/child_quick_switch.html:13
+#: core/templates/core/child_quick_switch.html:21
 msgid "Switch to…"
 msgstr "Přepnout na"
 
@@ -1387,20 +1415,20 @@ msgstr "Přepnout na"
 msgid "Delete a Diaper Change"
 msgstr "Vymazat výměnu plenky"
 
-#: core/templates/core/diaperchange_form.html:6
+#: core/templates/core/diaperchange_form.html:5
 msgid "Update a Diaper Change"
 msgstr "Aktualizovat výměnu plenky"
 
-#: core/templates/core/diaperchange_form.html:8
-#: core/templates/core/diaperchange_form.html:27
+#: core/templates/core/diaperchange_form.html:7
+#: core/templates/core/diaperchange_form.html:28
 msgid "Add a Diaper Change"
 msgstr "Přidat výměnu plenky"
 
 #: core/templates/core/diaperchange_form.html:17
-#: core/templates/core/feeding_form.html:17
+#: core/templates/core/feeding_form.html:19
 #: core/templates/core/note_form.html:17 core/templates/core/sleep_form.html:17
 #: core/templates/core/tummytime_form.html:17
-#: core/templates/core/widget_tag_editor.html:23
+#: core/templates/core/widget_tag_editor.html:26
 msgid "Add"
 msgstr "Přidat"
 
@@ -1412,7 +1440,7 @@ msgstr "Přidat výměnu plenky"
 msgid "Contents"
 msgstr "Obsah"
 
-#: core/templates/core/diaperchange_list.html:76
+#: core/templates/core/diaperchange_list.html:83
 msgid "No diaper changes found."
 msgstr "Nenalezeny žádné výměny plenek."
 
@@ -1420,24 +1448,37 @@ msgstr "Nenalezeny žádné výměny plenek."
 msgid "Delete a Feeding"
 msgstr "Vymazat krmení"
 
-#: core/templates/core/feeding_form.html:6
+#: core/templates/core/feeding_form.html:5
 msgid "Update a Feeding"
 msgstr "Aktualizovat krmení"
 
-#: core/templates/core/feeding_form.html:8
-#: core/templates/core/feeding_form.html:27
+#: core/templates/core/feeding_form.html:7
+#: core/templates/core/feeding_form.html:30
+#, fuzzy
+#| msgid "Add a Feeding"
+msgid "Add a Bottle Feeding"
+msgstr "Přidat krmení"
+
+#: core/templates/core/feeding_form.html:9
+#: core/templates/core/feeding_form.html:32
 msgid "Add a Feeding"
 msgstr "Přidat krmení"
 
-#: core/templates/core/feeding_list.html:15
+#: core/templates/core/feeding_list.html:14
 msgid "Add Feeding"
 msgstr "Přidat krmení"
 
-#: core/templates/core/feeding_list.html:33
+#: core/templates/core/feeding_list.html:18
+#, fuzzy
+#| msgid "Add a Feeding"
+msgid "Add Bottle Feeding"
+msgstr "Přidat krmení"
+
+#: core/templates/core/feeding_list.html:36
 msgid "Amt."
 msgstr "Množ."
 
-#: core/templates/core/feeding_list.html:81
+#: core/templates/core/feeding_list.html:85
 msgid "No feedings found."
 msgstr "Nenalezena žádná krmení."
 
@@ -1445,9 +1486,9 @@ msgstr "Nenalezena žádná krmení."
 msgid "Delete a Head Circumference Entry"
 msgstr "Smazat záznam obvodu hlavy"
 
-#: core/templates/core/head_circumference_form.html:8
+#: core/templates/core/head_circumference_form.html:7
 #: core/templates/core/head_circumference_form.html:17
-#: core/templates/core/head_circumference_form.html:27
+#: core/templates/core/head_circumference_form.html:28
 msgid "Add a Head Circumference Entry"
 msgstr "Přidat záznam obvodu hlavy"
 
@@ -1455,7 +1496,7 @@ msgstr "Přidat záznam obvodu hlavy"
 msgid "Add Head Circumference"
 msgstr "Přidat obvod hlavy"
 
-#: core/templates/core/head_circumference_list.html:69
+#: core/templates/core/head_circumference_list.html:72
 msgid "No head circumference entries found."
 msgstr "Žádné záznamy obvodu hlavy nenalezeny."
 
@@ -1463,17 +1504,17 @@ msgstr "Žádné záznamy obvodu hlavy nenalezeny."
 msgid "Delete a Height Entry"
 msgstr "Smazat záznam výšky/délky"
 
-#: core/templates/core/height_form.html:8
+#: core/templates/core/height_form.html:7
 #: core/templates/core/height_form.html:17
-#: core/templates/core/height_form.html:27
+#: core/templates/core/height_form.html:28
 msgid "Add a Height Entry"
 msgstr "Přidat záznam výšky/délky"
 
-#: core/templates/core/height_list.html:15
+#: core/templates/core/height_list.html:14
 msgid "Add Height"
 msgstr "Přidat výšku/délku"
 
-#: core/templates/core/height_list.html:69
+#: core/templates/core/height_list.html:71
 msgid "No height entries found."
 msgstr "Žádné záznamy výšky/délky nenalezeny."
 
@@ -1481,15 +1522,15 @@ msgstr "Žádné záznamy výšky/délky nenalezeny."
 msgid "Delete a Note"
 msgstr "Vymazat poznámku"
 
-#: core/templates/core/note_form.html:6
+#: core/templates/core/note_form.html:5
 msgid "Update a Note"
 msgstr "Aktualizovat poznámku"
 
-#: core/templates/core/note_form.html:8 core/templates/core/note_form.html:27
+#: core/templates/core/note_form.html:7 core/templates/core/note_form.html:28
 msgid "Add a Note"
 msgstr "Přidat poznámku"
 
-#: core/templates/core/note_list.html:15
+#: core/templates/core/note_list.html:14
 msgid "Add Note"
 msgstr "Přidat poznámku"
 
@@ -1501,28 +1542,28 @@ msgstr "Nenalezeny žádné poznámky."
 msgid "Delete a Pumping Entry"
 msgstr "Smazat záznam odsátí mléka"
 
-#: core/templates/core/pumping_form.html:8
+#: core/templates/core/pumping_form.html:7
 #: core/templates/core/pumping_form.html:17
-#: core/templates/core/pumping_form.html:27
+#: core/templates/core/pumping_form.html:28
 msgid "Add a Pumping Entry"
 msgstr "Přidat záznam odsátí mléka"
 
-#: core/templates/core/pumping_list.html:15
+#: core/templates/core/pumping_list.html:14
 msgid "Add Pumping Entry"
 msgstr "Přidat záznam odsátí mléka"
 
-#: core/templates/core/pumping_list.html:71
+#: core/templates/core/pumping_list.html:73
 msgid "No pumping entries found."
 msgstr "Žádné záznamy odsávání mléka nenalezeny."
 
-#: core/templates/core/quick_timer_nav.html:9
-#: core/templates/core/quick_timer_nav.html:29
-#: core/templates/core/timer_nav.html:37
+#: core/templates/core/quick_timer_nav.html:10
+#: core/templates/core/quick_timer_nav.html:33
+#: core/templates/core/timer_nav.html:42
 msgid "Quick Start Timer"
 msgstr "Rychle spuštěný časovač"
 
-#: core/templates/core/quick_timer_nav.html:19
-#: core/templates/core/timer_nav.html:28
+#: core/templates/core/quick_timer_nav.html:20
+#: core/templates/core/timer_nav.html:30
 msgid "Quick Start Timer For…"
 msgstr "Rychlý časovač pro"
 
@@ -1530,27 +1571,27 @@ msgstr "Rychlý časovač pro"
 msgid "Delete a Sleep Entry"
 msgstr "Vymazat položku spánku"
 
-#: core/templates/core/sleep_form.html:6
+#: core/templates/core/sleep_form.html:5
 msgid "Update a Sleep Entry"
 msgstr "Aktualizovat položku spánku"
 
-#: core/templates/core/sleep_form.html:8 core/templates/core/sleep_form.html:27
+#: core/templates/core/sleep_form.html:7 core/templates/core/sleep_form.html:28
 msgid "Add a Sleep Entry"
 msgstr "Přidat položku spánku"
 
-#: core/templates/core/sleep_list.html:15
+#: core/templates/core/sleep_list.html:14
 msgid "Add Sleep"
 msgstr "Přidat spánek"
 
-#: core/templates/core/sleep_list.html:25
-#: core/templates/core/timer_form.html:12
-#: core/templates/core/timer_list.html:24
-#: core/templates/core/tummytime_list.html:24
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/timer_form.html:16
+#: core/templates/core/timer_list.html:23
+#: core/templates/core/tummytime_list.html:23
 msgid "Start"
 msgstr "Začátek"
 
-#: core/templates/core/sleep_list.html:26
-#: core/templates/core/tummytime_list.html:25
+#: core/templates/core/sleep_list.html:25
+#: core/templates/core/tummytime_list.html:24
 msgid "End"
 msgstr "Konec"
 
@@ -1562,12 +1603,12 @@ msgstr "Nenalezeny žádné položky spánku."
 msgid "Delete a Temperature Reading"
 msgstr "Smazat teplotní údaj"
 
-#: core/templates/core/temperature_form.html:8
+#: core/templates/core/temperature_form.html:7
 #: core/templates/core/temperature_form.html:17
 msgid "Add a Temperature Reading"
 msgstr "Přidat teplotní údaj"
 
-#: core/templates/core/temperature_form.html:27
+#: core/templates/core/temperature_form.html:28
 msgid "Add a Temperature Entry"
 msgstr "Přidat položku teploty"
 
@@ -1575,58 +1616,59 @@ msgstr "Přidat položku teploty"
 msgid "Add Temperature Reading"
 msgstr "Přidat teplotní údaj"
 
-#: core/templates/core/temperature_list.html:69
+#: core/templates/core/temperature_list.html:72
 msgid "No temperature entries found."
 msgstr "Nenalezeny žádné položky teplot."
 
-#: core/templates/core/timer_confirm_delete.html:5
+#: core/templates/core/timer_confirm_delete.html:4
 #, python-format
 msgid "Delete %(object)s"
 msgstr "Vymazat %(object)s"
 
-#: core/templates/core/timer_detail.html:29
+#: core/templates/core/timer_detail.html:20
 msgid "Started"
 msgstr "Zahájeno"
 
-#: core/templates/core/timer_detail.html:32
+#: core/templates/core/timer_detail.html:22
 #, python-format
 msgid "%(timer)s created by %(user)s"
 msgstr "%(timer)s vytvořil(a) %(user)s"
 
-#: core/templates/core/timer_detail.html:71
+#: core/templates/core/timer_detail.html:58
 msgid "Timer actions"
 msgstr "Akce časovače"
 
-#: core/templates/core/timer_detail.html:85
+#: core/templates/core/timer_detail.html:73
 msgid "Restart timer"
 msgstr "Restartovat časovač"
 
-#: core/templates/core/timer_form.html:22
-#: core/templates/core/timer_list.html:15 core/templates/core/timer_nav.html:15
+#: core/templates/core/timer_form.html:27
+#: core/templates/core/timer_list.html:14 core/templates/core/timer_nav.html:14
 msgid "Start Timer"
 msgstr "Spustit časovač"
 
-#: core/templates/core/timer_list.html:48
+#: core/templates/core/timer_list.html:49
 msgid "No timer entries found."
 msgstr "Nenalezeny žádné položky časovačů."
 
-#: core/templates/core/timer_nav.html:20
+#: core/templates/core/timer_nav.html:19
 msgid "View Timers"
 msgstr "Zobrazit časovače"
 
-#: core/templates/core/timer_nav.html:50
-#: dashboard/templates/cards/diaperchange_last.html:17
-#: dashboard/templates/cards/diaperchange_types.html:12
-#: dashboard/templates/cards/feeding_last.html:17
-#: dashboard/templates/cards/feeding_last_method.html:49
-#: dashboard/templates/cards/feeding_recent.html:20
-#: dashboard/templates/cards/feeding_recent.html:58
-#: dashboard/templates/cards/pumping_last.html:17
-#: dashboard/templates/cards/sleep_last.html:17
-#: dashboard/templates/cards/sleep_naps_day.html:18
-#: dashboard/templates/cards/sleep_recent.html:20
-#: dashboard/templates/cards/sleep_recent.html:52
-#: dashboard/templates/cards/tummytime_day.html:14
+#: core/templates/core/timer_nav.html:53
+#: dashboard/templates/cards/breastfeeding.html:8
+#: dashboard/templates/cards/diaperchange_last.html:13
+#: dashboard/templates/cards/diaperchange_types.html:8
+#: dashboard/templates/cards/feeding_last.html:13
+#: dashboard/templates/cards/feeding_last_method.html:47
+#: dashboard/templates/cards/feeding_recent.html:18
+#: dashboard/templates/cards/feeding_recent.html:54
+#: dashboard/templates/cards/pumping_last.html:13
+#: dashboard/templates/cards/sleep_last.html:13
+#: dashboard/templates/cards/sleep_naps_day.html:14
+#: dashboard/templates/cards/sleep_recent.html:18
+#: dashboard/templates/cards/sleep_recent.html:54
+#: dashboard/templates/cards/tummytime_day.html:10
 msgid "None"
 msgstr "Žádné"
 
@@ -1634,16 +1676,16 @@ msgstr "Žádné"
 msgid "Delete a Tummy Time Entry"
 msgstr "Smazat položku doby na břiše"
 
-#: core/templates/core/tummytime_form.html:6
+#: core/templates/core/tummytime_form.html:5
 msgid "Update a Tummy Time Entry"
 msgstr "Aktualizovat položku doby na břiše"
 
-#: core/templates/core/tummytime_form.html:8
-#: core/templates/core/tummytime_form.html:27
+#: core/templates/core/tummytime_form.html:7
+#: core/templates/core/tummytime_form.html:28
 msgid "Add a Tummy Time Entry"
 msgstr "Přidat položku doby na břiše"
 
-#: core/templates/core/tummytime_list.html:15
+#: core/templates/core/tummytime_list.html:14
 msgid "Add Tummy Time"
 msgstr "Přidat dobu na břiše"
 
@@ -1655,49 +1697,49 @@ msgstr "Nenalezeny žádné položky doby na břiše."
 msgid "Delete a Weight Entry"
 msgstr "Vymazat položku hmotnosti"
 
-#: core/templates/core/weight_form.html:8
+#: core/templates/core/weight_form.html:7
 #: core/templates/core/weight_form.html:17
-#: core/templates/core/weight_form.html:27
+#: core/templates/core/weight_form.html:28
 msgid "Add a Weight Entry"
 msgstr "Přidat položku hmotnosti"
 
-#: core/templates/core/weight_list.html:15
+#: core/templates/core/weight_list.html:14
 msgid "Add Weight"
 msgstr "Přidat váhu"
 
-#: core/templates/core/weight_list.html:69
+#: core/templates/core/weight_list.html:71
 msgid "No weight entries found."
 msgstr "Nenalezeny žádné položky hmotnosti."
 
-#: core/templates/core/widget_tag_editor.html:22
+#: core/templates/core/widget_tag_editor.html:25
 msgid "Tag name"
 msgstr "Název značky"
 
-#: core/templates/core/widget_tag_editor.html:26
+#: core/templates/core/widget_tag_editor.html:29
 msgid "Recently used:"
 msgstr "Naposledy použité:"
 
-#: core/templates/core/widget_tag_editor.html:45
+#: core/templates/core/widget_tag_editor.html:48
 msgctxt "Error modal"
 msgid "Error"
 msgstr "Chyba"
 
-#: core/templates/core/widget_tag_editor.html:50
+#: core/templates/core/widget_tag_editor.html:52
 msgctxt "Error modal"
 msgid "An error ocurred."
 msgstr "Vyskytla se chyba."
 
-#: core/templates/core/widget_tag_editor.html:51
+#: core/templates/core/widget_tag_editor.html:53
 msgctxt "Error modal"
 msgid "Invalid tag name."
 msgstr "Neplatný název značky."
 
-#: core/templates/core/widget_tag_editor.html:52
+#: core/templates/core/widget_tag_editor.html:54
 msgctxt "Error modal"
 msgid "Failed to create tag."
 msgstr "Chyba při vytváření značky."
 
-#: core/templates/core/widget_tag_editor.html:53
+#: core/templates/core/widget_tag_editor.html:55
 msgctxt "Error modal"
 msgid "Failed to obtain tag data."
 msgstr "Chyba při načítání dat značky."
@@ -1707,27 +1749,31 @@ msgctxt "Error modal"
 msgid "Close"
 msgstr "Zavřít"
 
-#: core/templates/timeline/_timeline.html:38
+#: core/templates/forms/layouts/advanced.html:7
+msgid "Advanced Fields"
+msgstr ""
+
+#: core/templates/timeline/_timeline.html:41
 #, python-format
 msgid "%(since)s ago (%(time)s)"
 msgstr "před %(since)s (%(time)s)"
 
-#: core/templates/timeline/_timeline.html:44
+#: core/templates/timeline/_timeline.html:47
 #, python-format
 msgid "Duration: %(duration)s"
 msgstr "Trvání: %(duration)s"
 
-#: core/templates/timeline/_timeline.html:53
+#: core/templates/timeline/_timeline.html:56
 #, python-format
 msgid "%(since)s since previous"
 msgstr "%(since)s od předchozího"
 
-#: core/templates/timeline/_timeline.html:61
-#: dashboard/templates/dashboard/child_button_group.html:20
+#: core/templates/timeline/_timeline.html:64
+#: dashboard/templates/dashboard/child_button_group.html:25
 msgid "Edit"
 msgstr "Upravit"
 
-#: core/templates/timeline/_timeline.html:85
+#: core/templates/timeline/_timeline.html:92
 msgid "No events"
 msgstr "Žádné události"
 
@@ -1740,18 +1786,21 @@ msgid "{}, {}"
 msgstr "{}, {}"
 
 #: core/templatetags/duration.py:107
-#: dashboard/templates/cards/diaperchange_types.html:50
+#: dashboard/templates/cards/breastfeeding.html:28
+#: dashboard/templates/cards/diaperchange_types.html:40
 #, python-format
 msgid "%(days_ago)s days ago"
 msgstr "před %(days_ago)s dny"
 
 #: core/templatetags/duration.py:110
-#: dashboard/templates/cards/diaperchange_types.html:46
+#: dashboard/templates/cards/breastfeeding.html:24
+#: dashboard/templates/cards/diaperchange_types.html:36
 msgid "today"
 msgstr "dnes"
 
 #: core/templatetags/duration.py:112
-#: dashboard/templates/cards/diaperchange_types.html:48
+#: dashboard/templates/cards/breastfeeding.html:26
+#: dashboard/templates/cards/diaperchange_types.html:38
 msgid "yesterday"
 msgstr "včera"
 
@@ -1834,12 +1883,12 @@ msgstr[2] "%(seconds)s sekund"
 msgid "%(model)s entry for %(child)s added!"
 msgstr "%(model)s položka pro %(child)s přidána!"
 
-#: core/views.py:35 core/views.py:308
+#: core/views.py:35 core/views.py:315
 #, python-format
 msgid "%(model)s entry added!"
 msgstr "%(model)s položka přidána!"
 
-#: core/views.py:61 core/views.py:316
+#: core/views.py:61 core/views.py:323
 #, python-format
 msgid "%(model)s entry for %(child)s updated."
 msgstr "%(model)s položka pro %(child)s aktualizována."
@@ -1859,60 +1908,83 @@ msgstr "%(model)s položka smazána."
 msgid "%(first_name)s %(last_name)s added!"
 msgstr "%(first_name)s %(last_name)s přidán(a)!"
 
-#: core/views.py:366
+#: core/views.py:373
 #, python-format
 msgid "%(model)s reading added!"
 msgstr "%(model)s údaj přidán!"
 
-#: core/views.py:374
+#: core/views.py:381
 #, python-format
 msgid "%(model)s reading for %(child)s updated."
 msgstr "%(model)s údaj pro %(child)s aktualizován."
 
-#: dashboard/templates/cards/diaperchange_last.html:6
+#: dashboard/templates/cards/breastfeeding.html:4
+#, fuzzy
+#| msgid "Last Feeding"
+msgid "Breastfeeding"
+msgstr "Poslední krmení"
+
+#: dashboard/templates/cards/breastfeeding.html:10
+#: dashboard/templates/cards/diaperchange_types.html:10
+msgid "Past Week"
+msgstr "Minulý týden"
+
+#: dashboard/templates/cards/breastfeeding.html:18
+msgid "left"
+msgstr ""
+
+#: dashboard/templates/cards/breastfeeding.html:20
+#, fuzzy
+#| msgid "Height"
+msgid "right"
+msgstr "Výška/délka"
+
+#: dashboard/templates/cards/breastfeeding.html:31
+#, fuzzy
+#| msgid "Feedings"
+msgid "feedings in"
+msgstr "Krmení"
+
+#: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
 msgstr "Poslední výměna plenky"
 
-#: dashboard/templates/cards/diaperchange_last.html:12
-#: dashboard/templates/cards/feeding_last.html:12
-#: dashboard/templates/cards/pumping_last.html:12
-#: dashboard/templates/cards/sleep_last.html:12
-#: dashboard/templates/cards/tummytime_last.html:13
+#: dashboard/templates/cards/diaperchange_last.html:8
+#: dashboard/templates/cards/feeding_last.html:8
+#: dashboard/templates/cards/pumping_last.html:8
+#: dashboard/templates/cards/sleep_last.html:8
+#: dashboard/templates/cards/tummytime_last.html:8
 #, python-format
 msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
 msgstr "<div>před %(since)s</div> <small>%(time)s</small>"
 
-#: dashboard/templates/cards/diaperchange_types.html:14
-msgid "Past Week"
-msgstr "Minulý týden"
-
-#: dashboard/templates/cards/diaperchange_types.html:26
+#: dashboard/templates/cards/diaperchange_types.html:20
 msgid "wet"
 msgstr "mokré"
 
-#: dashboard/templates/cards/diaperchange_types.html:33
+#: dashboard/templates/cards/diaperchange_types.html:26
 msgid "solid"
 msgstr "pevné"
 
-#: dashboard/templates/cards/diaperchange_types.html:53
+#: dashboard/templates/cards/diaperchange_types.html:43
 #, fuzzy
 #| msgid "Changes"
 msgid "changes"
 msgstr "Výměny"
 
-#: dashboard/templates/cards/feeding_last.html:6
+#: dashboard/templates/cards/feeding_last.html:4
 msgid "Last Feeding"
 msgstr "Poslední krmení"
 
-#: dashboard/templates/cards/feeding_last_method.html:6
+#: dashboard/templates/cards/feeding_last_method.html:4
 msgid "Last Feeding Method"
 msgstr "Poslední metoda krmení"
 
-#: dashboard/templates/cards/feeding_last_method.html:19
+#: dashboard/templates/cards/feeding_last_method.html:17
 msgid "most recent"
 msgstr "nejnovější"
 
-#: dashboard/templates/cards/feeding_last_method.html:21
+#: dashboard/templates/cards/feeding_last_method.html:19
 #, python-format
 msgid "%(n)s feeding ago"
 msgid_plural "%(n)s feedings ago"
@@ -1920,11 +1992,11 @@ msgstr[0] "před %(n)s krmením"
 msgstr[1] "před %(n)s krmeními"
 msgstr[2] "před %(n)s krmeními"
 
-#: dashboard/templates/cards/feeding_recent.html:6
+#: dashboard/templates/cards/feeding_recent.html:4
 msgid "Recent Feedings"
 msgstr "Nedávná krmení"
 
-#: dashboard/templates/cards/feeding_recent.html:25
+#: dashboard/templates/cards/feeding_recent.html:23
 #, python-format
 msgid "%(counter)s feeding"
 msgid_plural "%(counter)s feedings"
@@ -1932,25 +2004,25 @@ msgstr[0] "%(counter)s krmení"
 msgstr[1] "%(counter)s krmení"
 msgstr[2] "%(counter)s krmení"
 
-#: dashboard/templates/cards/feeding_recent.html:32
-#: dashboard/templates/cards/sleep_recent.html:32
+#: dashboard/templates/cards/feeding_recent.html:30
+#: dashboard/templates/cards/sleep_recent.html:30
 #, python-format
-msgid "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+msgid "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
 msgstr ""
 
-#: dashboard/templates/cards/pumping_last.html:6
+#: dashboard/templates/cards/pumping_last.html:4
 msgid "Last Pumping"
 msgstr "Poslední odsávání mléka"
 
-#: dashboard/templates/cards/sleep_last.html:6
+#: dashboard/templates/cards/sleep_last.html:4
 msgid "Last Sleep"
 msgstr "Poslední spánek"
 
-#: dashboard/templates/cards/sleep_naps_day.html:6
+#: dashboard/templates/cards/sleep_naps_day.html:4
 msgid "Today's Naps"
 msgstr "Dnešní šlofíky"
 
-#: dashboard/templates/cards/sleep_naps_day.html:12
+#: dashboard/templates/cards/sleep_naps_day.html:8
 #, python-format
 msgid "%(count)s nap"
 msgid_plural "%(count)s naps"
@@ -1958,11 +2030,11 @@ msgstr[0] "%(count)s šlofík"
 msgstr[1] "%(count)s šlofíky"
 msgstr[2] "%(count)s šlofíků"
 
-#: dashboard/templates/cards/sleep_recent.html:6
+#: dashboard/templates/cards/sleep_recent.html:4
 msgid "Recent Sleep"
 msgstr "Poslední spánek"
 
-#: dashboard/templates/cards/sleep_recent.html:25
+#: dashboard/templates/cards/sleep_recent.html:23
 #, python-format
 msgid "%(counter)s sleep"
 msgid_plural "%(counter)s sleeps"
@@ -1970,19 +2042,19 @@ msgstr[0] "%(counter)s položka spánku"
 msgstr[1] "%(counter)s položek spánku"
 msgstr[2] "%(counter)s položek spánku"
 
-#: dashboard/templates/cards/statistics.html:7
+#: dashboard/templates/cards/statistics.html:6
 msgid "Statistics"
 msgstr "Statistiky"
 
-#: dashboard/templates/cards/statistics.html:25
+#: dashboard/templates/cards/statistics.html:26
 msgid "Not enough data"
 msgstr "Nedostatek dat"
 
-#: dashboard/templates/cards/statistics.html:48
+#: dashboard/templates/cards/statistics.html:49
 msgid "No data yet"
 msgstr "Zatím žádná data"
 
-#: dashboard/templates/cards/timer_list.html:12
+#: dashboard/templates/cards/timer_list.html:8
 #, python-format
 msgid "%(count)s timer"
 msgid_plural "%(count)s timers"
@@ -1990,92 +2062,92 @@ msgstr[0] "%(count)s časovač"
 msgstr[1] "%(count)s časovačů"
 msgstr[2] "%(count)s časovačů"
 
-#: dashboard/templates/cards/timer_list.html:27
+#: dashboard/templates/cards/timer_list.html:22
 #, python-format
 msgid "Started by %(user)s at %(start)s"
 msgstr "Zahájil(a) %(user)s v %(start)s"
 
-#: dashboard/templates/cards/tummytime_day.html:6
+#: dashboard/templates/cards/tummytime_day.html:4
 msgid "Today's Tummy Time"
 msgstr "Dnešní doba na břiše"
 
-#: dashboard/templates/cards/tummytime_day.html:22
+#: dashboard/templates/cards/tummytime_day.html:17
 #, python-format
 msgid "%(duration)s at %(end)s"
 msgstr "%(duration)s v %(end)s"
 
-#: dashboard/templates/cards/tummytime_last.html:6
+#: dashboard/templates/cards/tummytime_last.html:4
 msgid "Last Tummy Time"
 msgstr "Naposledy na břiše"
 
-#: dashboard/templates/cards/tummytime_last.html:18
+#: dashboard/templates/cards/tummytime_last.html:13
 msgid "Never"
 msgstr "Nikdy"
 
-#: dashboard/templates/dashboard/child_button_group.html:3
+#: dashboard/templates/dashboard/child_button_group.html:4
 msgid "Child actions"
 msgstr "Akce dítěte"
 
-#: dashboard/templates/dashboard/child_button_group.html:12
-#: reports/templates/reports/breadcrumb_common_chunk.html:7
+#: dashboard/templates/dashboard/child_button_group.html:18
+#: reports/templates/reports/breadcrumb_common_chunk.html:5
 #: reports/templates/reports/report_list.html:4
-#: reports/templates/reports/report_list.html:11
+#: reports/templates/reports/report_list.html:9
 msgid "Reports"
 msgstr "Výkazy"
 
-#: dashboard/templatetags/cards.py:381
+#: dashboard/templatetags/cards.py:453
 msgid "Average nap duration"
 msgstr "Průměrná výdrž plenky"
 
-#: dashboard/templatetags/cards.py:388
+#: dashboard/templatetags/cards.py:460
 msgid "Average naps per day"
 msgstr "Průměrně šlofíků za den"
 
-#: dashboard/templatetags/cards.py:398
+#: dashboard/templatetags/cards.py:470
 msgid "Average sleep duration"
 msgstr "Průměrná doba spánku"
 
-#: dashboard/templatetags/cards.py:405
+#: dashboard/templatetags/cards.py:477
 msgid "Average awake duration"
 msgstr "Průměrná doba bdělosti"
 
-#: dashboard/templatetags/cards.py:415
+#: dashboard/templatetags/cards.py:487
 msgid "Weight change per week"
 msgstr "Změna váhy za týden"
 
-#: dashboard/templatetags/cards.py:425
+#: dashboard/templatetags/cards.py:497
 msgid "Height change per week"
 msgstr "Rozdíl výšky/délky za týden"
 
-#: dashboard/templatetags/cards.py:435
+#: dashboard/templatetags/cards.py:507
 msgid "Head circumference change per week"
 msgstr "Rozdíl obvodu hlavy za týden"
 
-#: dashboard/templatetags/cards.py:445
+#: dashboard/templatetags/cards.py:517
 msgid "BMI change per week"
 msgstr "Rozdíl BMI za týden"
 
-#: dashboard/templatetags/cards.py:463
+#: dashboard/templatetags/cards.py:535
 msgid "Diaper change frequency (past 3 days)"
 msgstr "Frekvence přebalování (poslední 3 dny)"
 
-#: dashboard/templatetags/cards.py:467
+#: dashboard/templatetags/cards.py:539
 msgid "Diaper change frequency (past 2 weeks)"
 msgstr "Frekvence přebalování (poslední 2 týdny)"
 
-#: dashboard/templatetags/cards.py:473
+#: dashboard/templatetags/cards.py:545
 msgid "Diaper change frequency"
 msgstr "Četnost výměn plenek"
 
-#: dashboard/templatetags/cards.py:509
+#: dashboard/templatetags/cards.py:581
 msgid "Feeding frequency (past 3 days)"
 msgstr "Frekvence krmení (poslední 3 dny)"
 
-#: dashboard/templatetags/cards.py:513
+#: dashboard/templatetags/cards.py:585
 msgid "Feeding frequency (past 2 weeks)"
 msgstr "Frekvence krmení (poslední 2 týdny)"
 
-#: dashboard/templatetags/cards.py:519
+#: dashboard/templatetags/cards.py:591
 msgid "Feeding frequency"
 msgstr "Četnost krmení"
 
@@ -2104,7 +2176,7 @@ msgstr "Celkem"
 msgid "<b>Diaper Change Intervals</b>"
 msgstr ""
 
-#: reports/graphs/diaperchange_intervals.py:69
+#: reports/graphs/diaperchange_intervals.py:72
 msgid "Interval (hours)"
 msgstr ""
 
@@ -2120,7 +2192,7 @@ msgstr "Doba mezi výměnami (hodiny)"
 msgid "<b>Diaper Change Types</b>"
 msgstr "<b>Typy výměny plenky</b>"
 
-#: reports/graphs/diaperchange_types.py:51
+#: reports/graphs/diaperchange_types.py:54
 msgid "Number of changes"
 msgstr "Počet výměn"
 
@@ -2132,23 +2204,23 @@ msgstr "<b>Celkové nakrmené množství podle typu</b>"
 msgid "Feeding amount"
 msgstr "Množství při krmení"
 
-#: reports/graphs/feeding_duration.py:38
+#: reports/graphs/feeding_duration.py:40
 msgid "Average duration"
 msgstr "Průměrné trvání"
 
-#: reports/graphs/feeding_duration.py:46
+#: reports/graphs/feeding_duration.py:48
 msgid "Total feedings"
 msgstr "Celkem krmení"
 
-#: reports/graphs/feeding_duration.py:55
+#: reports/graphs/feeding_duration.py:57
 msgid "<b>Average Feeding Durations</b>"
 msgstr "<b>Průměrná trvání krmení</b>"
 
-#: reports/graphs/feeding_duration.py:58
+#: reports/graphs/feeding_duration.py:63
 msgid "Average duration (minutes)"
 msgstr "Průměrné trvání (minuty)"
 
-#: reports/graphs/feeding_duration.py:60
+#: reports/graphs/feeding_duration.py:65
 msgid "Number of feedings"
 msgstr "Počet krmení"
 
@@ -2160,7 +2232,7 @@ msgstr ""
 msgid "<b>Feeding intervals</b>"
 msgstr ""
 
-#: reports/graphs/feeding_intervals.py:44
+#: reports/graphs/feeding_intervals.py:47
 msgid "Feeding interval (hours)"
 msgstr ""
 
@@ -2216,7 +2288,7 @@ msgstr "Celkem spánku"
 msgid "<b>Sleep Totals</b>"
 msgstr "<b>Celkem spánku</b>"
 
-#: reports/graphs/sleep_totals.py:61
+#: reports/graphs/sleep_totals.py:64
 msgid "Hours of sleep"
 msgstr "Hodin spánku"
 
@@ -2229,7 +2301,7 @@ msgid "Total duration"
 msgstr "Doba celkem"
 
 #: reports/graphs/tummytime_duration.py:41
-#: reports/graphs/tummytime_duration.py:55
+#: reports/graphs/tummytime_duration.py:60
 msgid "Number of sessions"
 msgstr "Počet událostí"
 
@@ -2237,7 +2309,7 @@ msgstr "Počet událostí"
 msgid "<b>Total Tummy Time Durations</b>"
 msgstr "<b>Celková doba polohy na bříšku</b>"
 
-#: reports/graphs/tummytime_duration.py:53
+#: reports/graphs/tummytime_duration.py:58
 msgid "Total duration (minutes)"
 msgstr "Celková doba (v minutách)"
 
@@ -2257,19 +2329,19 @@ msgstr ""
 
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:9
-#: reports/templates/reports/report_list.html:23
+#: reports/templates/reports/report_list.html:24
 msgid "Diaper Lifetimes"
 msgstr "Životnosti plenek"
 
 #: reports/templates/reports/diaperchange_types.html:4
 #: reports/templates/reports/diaperchange_types.html:9
-#: reports/templates/reports/report_list.html:21
+#: reports/templates/reports/report_list.html:20
 msgid "Diaper Change Types"
 msgstr "Typy výměny plenky"
 
 #: reports/templates/reports/feeding_amounts.html:4
 #: reports/templates/reports/feeding_amounts.html:9
-#: reports/templates/reports/report_list.html:24
+#: reports/templates/reports/report_list.html:26
 msgid "Feeding Amounts"
 msgstr "Množství při krmení"
 
@@ -2280,19 +2352,19 @@ msgstr "Průměrná trvání krmení"
 
 #: reports/templates/reports/feeding_intervals.html:4
 #: reports/templates/reports/feeding_intervals.html:9
-#: reports/templates/reports/report_list.html:26
+#: reports/templates/reports/report_list.html:30
 msgid "Feeding Intervals"
 msgstr ""
 
-#: reports/templates/reports/report_base.html:18
+#: reports/templates/reports/report_base.html:13
 msgid "There is not enough data to generate this report."
 msgstr "Pro vytvoření tohoto výkazu není dostatek dat."
 
-#: reports/templates/reports/report_list.html:19
+#: reports/templates/reports/report_list.html:16
 msgid "Body Mass Index (BMI)"
 msgstr "Body Mass Index (BMI)"
 
-#: reports/templates/reports/report_list.html:20
+#: reports/templates/reports/report_list.html:18
 msgid "Diaper Change Amounts"
 msgstr "Počty výměn plenek"
 
@@ -2300,43 +2372,43 @@ msgstr "Počty výměn plenek"
 msgid "Diaper Intervals"
 msgstr ""
 
-#: reports/templates/reports/report_list.html:25
+#: reports/templates/reports/report_list.html:28
 msgid "Feeding Durations (Average)"
 msgstr "Doba trvání krmení (průměr)"
 
-#: reports/templates/reports/report_list.html:29
+#: reports/templates/reports/report_list.html:36
 msgid "WHO Height Percentiles for Boys in cm"
 msgstr ""
 
-#: reports/templates/reports/report_list.html:30
+#: reports/templates/reports/report_list.html:38
 msgid "WHO Height Percentiles for Girls in cm"
 msgstr ""
 
-#: reports/templates/reports/report_list.html:31
+#: reports/templates/reports/report_list.html:40
 msgid "Pumping Amounts"
 msgstr "Odsátá množství"
 
-#: reports/templates/reports/report_list.html:32
+#: reports/templates/reports/report_list.html:42
 #: reports/templates/reports/sleep_pattern.html:4
 #: reports/templates/reports/sleep_pattern.html:9
 msgid "Sleep Pattern"
 msgstr "Spánkové vzorce"
 
-#: reports/templates/reports/report_list.html:33
+#: reports/templates/reports/report_list.html:44
 #: reports/templates/reports/sleep_totals.html:4
 #: reports/templates/reports/sleep_totals.html:9
 msgid "Sleep Totals"
 msgstr "Celková doba spánku"
 
-#: reports/templates/reports/report_list.html:35
+#: reports/templates/reports/report_list.html:48
 msgid "Tummy Time Durations (Sum)"
 msgstr "Celkový čas strávený na bříšku"
 
-#: reports/templates/reports/report_list.html:37
+#: reports/templates/reports/report_list.html:52
 msgid "WHO Weight Percentiles for Boys in kg"
 msgstr ""
 
-#: reports/templates/reports/report_list.html:38
+#: reports/templates/reports/report_list.html:54
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr ""
 

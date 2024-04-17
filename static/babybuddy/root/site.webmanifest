@@ -17,5 +17,31 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#37abe9",
-  "background_color": "#212529"
+  "background_color": "#212529",
+  "shortcuts": [
+    {
+      "name": "Start a timer",
+      "url": "/timers/add/"
+    },
+    {
+      "name": "Record a change",
+      "url": "/changes/add/"
+    },
+    {
+      "name": "Record a feed",
+      "url": "/feedings/add/"
+    },
+    {
+      "name": "Record a pumping",
+      "url": "/pumping/add/"
+    },
+    {
+      "name": "Record a sleep",
+      "url": "/sleep/add/"
+    },
+    {
+      "name": "Record tummy time",
+      "url": "/tummy-time/add/"
+    }
+  ]
 }
