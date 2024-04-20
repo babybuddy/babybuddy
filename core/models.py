@@ -78,6 +78,7 @@ def validate_time(time, field_name):
 
 
 class Tag(TagBase):
+    model_name = "tag"
     DARK_COLOR = "#101010"
     LIGHT_COLOR = "#EFEFEF"
 
@@ -94,6 +95,8 @@ class Tag(TagBase):
     )
 
     class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["name"]
         verbose_name = _("Tag")
         verbose_name_plural = _("Tags")
 
