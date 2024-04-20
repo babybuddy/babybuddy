@@ -357,6 +357,39 @@ class SleepDelete(CoreDeleteView):
     success_url = reverse_lazy("core:sleep-list")
 
 
+class TagAdminList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.Tag
+    template_name = "core/tag_list.html"
+    permission_required = ("core.view_tags",)
+    paginate_by = 10
+
+
+class TagAdminAdd(CoreAddView):
+    model = models.Tag
+    permission_required = ("core.add_tag",)
+    form_class = forms.TagAdminForm
+    success_url = reverse_lazy("core:tag-list")
+
+
+class TagAdminUpdate(CoreUpdateView):
+    model = models.Tag
+    permission_required = ("core.change_tag",)
+    form_class = forms.TagAdminForm
+    success_url = reverse_lazy("core:tag-list")
+
+
+class TagAdminDelete(CoreDeleteView):
+    model = models.Tag
+    permission_required = ("core.delete_tag",)
+    success_url = reverse_lazy("core:tag-list")
+
+
+class TagDelete(CoreDeleteView):
+    model = models.Tag
+    permission_required = ("core.delete_tag",)
+    success_url = reverse_lazy("core:tag-list")
+
+
 class TemperatureList(PermissionRequiredMixin, BabyBuddyFilterView):
     model = models.Temperature
     template_name = "core/temperature_list.html"

@@ -288,7 +288,6 @@ class TagImportExportResource(ImportExportResourceBase):
 @admin.register(models.Tag)
 class TagAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     form = TagAdminForm
-    inlines = [TaggedItemInline]
     list_display = ["name", "slug", "color", "last_used"]
     ordering = ["name", "slug"]
     search_fields = ["name"]
