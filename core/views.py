@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Count
 from django.forms import Form
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -363,6 +364,11 @@ class TagAdminList(PermissionRequiredMixin, BabyBuddyFilterView):
     permission_required = ("core.view_tags",)
     paginate_by = 10
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.annotate(Count("core_tagged_items"))
+        return qs
+
 
 class TagAdminAdd(CoreAddView):
     model = models.Tag
@@ -379,12 +385,6 @@ class TagAdminUpdate(CoreUpdateView):
 
 
 class TagAdminDelete(CoreDeleteView):
-    model = models.Tag
-    permission_required = ("core.delete_tag",)
-    success_url = reverse_lazy("core:tag-list")
-
-
-class TagDelete(CoreDeleteView):
     model = models.Tag
     permission_required = ("core.delete_tag",)
     success_url = reverse_lazy("core:tag-list")
