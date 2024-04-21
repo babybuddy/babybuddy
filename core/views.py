@@ -366,8 +366,7 @@ class TagAdminList(PermissionRequiredMixin, BabyBuddyFilterView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.annotate(Count("core_tagged_items"))
-        return qs
+        return qs.annotate(Count("core_tagged_items"))
 
 
 class TagAdminAdd(CoreAddView):
@@ -388,6 +387,10 @@ class TagAdminDelete(CoreDeleteView):
     model = models.Tag
     permission_required = ("core.delete_tag",)
     success_url = reverse_lazy("core:tag-list")
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.annotate(Count("core_tagged_items"))
 
 
 class TemperatureList(PermissionRequiredMixin, BabyBuddyFilterView):
