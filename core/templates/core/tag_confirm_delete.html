@@ -7,6 +7,9 @@
     <li class="breadcrumb-item">
         <a href="{% url 'core:tag-list' %}">{% trans "Tags" %}</a>
     </li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:tag-update' tag.slug %}">{{ object }}</a>
+    </li>
     <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
 {% endblock %}
 {% block content %}
@@ -17,7 +20,19 @@
                 Are you sure you want to delete <span class="text-info">{{ object }}</span>?
             </h1>
         {% endblocktrans %}
-        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
+        {% if object.core_tagged_items__count > 0 %}
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">
+                    {% blocktrans trimmed with count=object.core_tagged_items__count count counter=object.core_tagged_items__count %}
+                        There is 1 item tagged with this tag.
+                    {% plural %}
+                        There are {{ count }} items tagged with this tag.
+                    {% endblocktrans %}
+                </h4>
+                <p class="mb-0">This action will remove the tag from all items it is currently applied to.</p>
+            </div>
+        {% endif %}
+        <input type="submit" value="{% trans "Delete Tag" %}" class="btn btn-danger" />
         <a href="{% url 'core:tag-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}
