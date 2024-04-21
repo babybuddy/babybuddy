@@ -361,6 +361,7 @@ class TagAdminForm(CoreModelForm):
     class Meta:
         model = models.Tag
         fields = ["name", "color"]
+        readonly_fields = ["slug"]
         widgets = {
             "color": widgets.TextInput(
                 attrs={"type": "color", "class": "form-control-color"}

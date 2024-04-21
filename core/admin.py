@@ -280,16 +280,18 @@ class TaggedItemInline(admin.StackedInline):
     model = models.Tagged
 
 
-class TagImportExportResource(ImportExportResourceBase):
+class TagImportExportResource(resources.ModelResource):
+    id = fields.Field(attribute="id")
+
     class Meta:
         model = models.Tag
+        exclude = ("slug", "last_used")
 
 
 @admin.register(models.Tag)
 class TagAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
-    form = TagAdminForm
-    list_display = ["name", "slug", "color", "last_used"]
-    ordering = ["name", "slug"]
-    search_fields = ["name"]
+    list_display = ("name", "slug", "color", "last_used")
+    ordering = ("name", "slug")
+    search_fields = ("name", "color")
     prepopulated_fields = {"slug": ["name"]}
     resource_class = TagImportExportResource
