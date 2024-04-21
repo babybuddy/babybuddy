@@ -45,7 +45,9 @@
                                 {% endif %}
                             </div>
                         </td>
-                        <td>{{ tag.name }}</td>
+                        <td>
+                            <a href="{% url 'core:tag-detail' tag.slug %}">{{ tag.name }}</a>
+                        </td>
                         <td class="text-center">
                             <span class="badge badge-pill"
                                   style="background-color:{{ tag.color }};
