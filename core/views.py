@@ -369,6 +369,27 @@ class TagAdminList(PermissionRequiredMixin, BabyBuddyFilterView):
         return qs.annotate(Count("core_tagged_items"))
 
 
+class TagAdminDetail(PermissionRequiredMixin, DetailView):
+    model = models.Tag
+    permission_required = ("core.view_tags",)
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.annotate(
+            Count("feeding"),
+            Count("diaperchange"),
+            Count("pumping"),
+            Count("sleep"),
+            Count("tummytime"),
+            Count("bmi"),
+            Count("headcircumference"),
+            Count("height"),
+            Count("temperature"),
+            Count("weight"),
+        )
+        return qs
+
+
 class TagAdminAdd(CoreAddView):
     model = models.Tag
     permission_required = ("core.add_tag",)
