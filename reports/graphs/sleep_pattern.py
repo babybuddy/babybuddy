@@ -6,6 +6,7 @@ from django.utils.translation import gettext as _
 
 import plotly.offline as plotly
 import plotly.graph_objs as go
+import plotly.colors as colors
 
 from core.utils import duration_string
 
@@ -14,7 +15,7 @@ from reports import utils
 from datetime import timedelta
 
 ASLEEP_COLOR = "rgb(35, 110, 150)"
-AWAKE_COLOR = "rgba(255, 255, 255, 0)"
+AWAKE_COLOR = colors.DEFAULT_PLOTLY_COLORS[2]
 
 
 def sleep_pattern(sleeps):
@@ -66,21 +67,31 @@ def sleep_pattern(sleeps):
 
         if last_end_time:
             if last_end_time.date() < start_time.date():
+                # Awake across midnight
+                days[last_end_time.date().isoformat()].append(
+                    _awake_event(
+                        last_end_time,
+                        last_end_time.replace(
+                            hour=23,
+                            minute=59,
+                            second=0,
+                        ),
+                    )
+                )
+
                 last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
         if not last_end_time:
             last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
         # Awake time.
-        days[start_date].append(
-            {"time": (start_time - last_end_time).seconds / 60, "label": None}
-        )
+        days[start_date].append(_awake_event(last_end_time, start_time))
 
         # Asleep time.
         days[start_date].append(
             {
                 "time": duration.seconds / 60,
-                "label": _format_label(duration, start_time, end_time),
+                "label": _format_asleep_label(duration, start_time, end_time),
             }
         )
 
@@ -93,7 +104,7 @@ def sleep_pattern(sleeps):
             yesterday = yesterday.date().isoformat()
             days[yesterday][len(days[yesterday]) - 1] = {
                 "time": duration.seconds / 60,
-                "label": _format_label(duration, start_time, end_time),
+                "label": _format_asleep_label(duration, start_time, end_time),
             }
 
         last_end_time = end_time
@@ -205,20 +216,38 @@ def _add_adjustment(adjustment, days):
     days[column].append(
         {
             "time": adjustment["duration"].seconds / 60,
-            "label": _format_label(**adjustment),
+            "label": _format_asleep_label(**adjustment),
         }
     )
 
 
-def _format_label(duration, start_time, end_time):
+def _awake_event(last_end_time, next_start_time):
+    awake_duration = next_start_time - last_end_time
+    return {
+        "time": awake_duration.seconds / 60,
+        "label": _format_awake_label(awake_duration, last_end_time, next_start_time),
+    }
+
+
+def _format_asleep_label(duration, start_time, end_time):
+    return _format_label("Asleep", duration, start_time, end_time)
+
+
+def _format_awake_label(duration, start_time, end_time):
+    return _format_label("Awake", duration, start_time, end_time)
+
+
+def _format_label(state, duration, start_time, end_time):
     """
     Formats a time block label.
+    :param state: Asleep or awake
     :param duration: Duration.
     :param start_time: Start time.
     :param end_time: End time.
     :return: Formatted string with duration, start, and end time.
     """
-    return "Asleep {} ({} to {})".format(
+    return "{} {} ({} to {})".format(
+        state,
         duration_string(duration),
         formats.time_format(start_time, "TIME_FORMAT"),
         formats.time_format(end_time, "TIME_FORMAT"),
