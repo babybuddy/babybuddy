@@ -12,6 +12,9 @@
         <a href="{% url 'core:tag-list' %}">{% trans "Tags" %}</a>
     </li>
     {% if object %}
+        <li class="breadcrumb-item" aria-current="page">
+            <a href="{% url 'core:tag-detail' object.slug %}">{{ object }}</a>
+        </li>
         <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}
         <li class="breadcrumb-item active" aria-current="page">{% trans "Add" %}</li>

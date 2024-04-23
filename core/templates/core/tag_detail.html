@@ -11,11 +11,36 @@
     <li class="breadcrumb-item">
         <a href="{% url 'core:tag-list' %}">{% trans "Tags" %}</a>
     </li>
-    <li class="breadcrumb-item active">{{ object }}</li>
+    <li class="breadcrumb-item active text-truncate">{{ object }}</li>
 {% endblock %}
 {% block content %}
-    <h1>{{ object }}</h1>
-    <div class="container">
+    <header class="mb-4 d-flex mb-4 d-flex align-items-center">
+        <h1 class="flex-grow-1 text-break mb-0">
+            <span class="badge badge-pill mr-2"
+                  style="background-color:{{ object.color }};
+                         color:{{ object.complementary_color }}">
+                <i class="icon-tag" aria-hidden="true"></i>
+            </span>
+            {{ object }}
+        </h1>
+        <div class="btn-group btn-group-lg border rounded border-light bg center-block"
+             role="group"
+             aria-label="{% trans "Tag actions" %}">
+            {% if perms.core.change_tag %}
+                <a class="btn d-md-inline-block"
+                   href="{% url 'core:tag-update' object.slug %}"
+                   title="{% trans "Edit" %}"
+                   role="button"><i class="icon-update" aria-hidden="true"></i></a>
+            {% endif %}
+            {% if perms.core.delete_tag %}
+                <a class="btn d-md-inline-block"
+                   href="{% url 'core:tag-delete' object.slug %}"
+                   title="{% trans "Delete" %}"
+                   role="button"><i class="icon-delete" aria-hidden="true"></i></a>
+            {% endif %}
+        </div>
+    </header>
+    <main class="container">
         <div class="row gy-4">
             <div class="col-12 col-md-6">
                 <h3>{% trans "Tagged Measurements" %}</h3>
@@ -78,5 +103,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 {% endblock %}

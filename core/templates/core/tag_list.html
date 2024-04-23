@@ -49,9 +49,8 @@
                             <a href="{% url 'core:tag-detail' tag.slug %}">{{ tag.name }}</a>
                         </td>
                         <td class="text-center">
-                            <span class="badge badge-pill"
-                                  style="background-color:{{ tag.color }};
-                                         margin-right: .25rem">&nbsp;</span>
+                            <span class="badge badge-pill me-1"
+                                  style="background-color:{{ tag.color }}">&nbsp;</span>
                             <span class="font-monospace">{{ tag.color }}</span>
                         </td>
                         <td class="text-center">{{ tag.core_tagged_items__count }}</td>

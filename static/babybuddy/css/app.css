@@ -12185,8 +12185,8 @@ textarea.form-control-lg {
 
 @font-face {
   font-family: "babybuddy";
-  src: url("../font/babybuddy.eot?34831680");
-  src: url("../font/babybuddy.eot?34831680#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?34831680") format("woff2"), url("../font/babybuddy.woff?34831680") format("woff"), url("../font/babybuddy.ttf?34831680") format("truetype"), url("../font/babybuddy.svg?34831680#babybuddy") format("svg");
+  src: url("../font/babybuddy.eot?34829963");
+  src: url("../font/babybuddy.eot?34829963#iefix") format("embedded-opentype"), url("../font/babybuddy.woff2?34829963") format("woff2"), url("../font/babybuddy.woff?34829963") format("woff"), url("../font/babybuddy.ttf?34829963") format("truetype"), url("../font/babybuddy.svg?34829963#babybuddy") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -12196,7 +12196,7 @@ textarea.form-control-lg {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'babybuddy';
-    src: url('../font/babybuddy.svg?34831680#babybuddy') format('svg');
+    src: url('../font/babybuddy.svg?34829963#babybuddy') format('svg');
   }
 }
 */
@@ -12294,6 +12294,9 @@ textarea.form-control-lg {
 .icon-measurements:before {
   content: "\e815";
 } /* '' */
+.icon-tag:before {
+  content: "\e816";
+} /* '' */
 .icon-height:before {
   content: "\f044";
 } /* '' */
