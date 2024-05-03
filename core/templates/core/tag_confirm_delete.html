@@ -29,7 +29,9 @@
                         There are {{ count }} items tagged with this tag.
                     {% endblocktrans %}
                 </h4>
-                <p class="mb-0">This action will remove the tag from all items it is currently applied to.</p>
+                {% blocktrans trimmed %}
+                    <p class="mb-0">This action will remove the tag from all items it is currently applied to.</p>
+                {% endblocktrans %}
             </div>
         {% endif %}
         <input type="submit" value="{% trans "Delete Tag" %}" class="btn btn-danger" />
