@@ -237,6 +237,7 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect(),
+            "color": PillRadioSelect(),
             "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
