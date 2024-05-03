@@ -154,12 +154,12 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
 
         entry = models.Tag.objects.first()
-        page = self.c.get("/tags/{}/".format(entry.id))
+        page = self.c.get("/tags/{}/".format(entry.slug))
         self.assertEqual(page.status_code, 200)
         entry = models.Tag.objects.first()
-        page = self.c.get("/tags/{}/edit".format(entry.id))
+        page = self.c.get("/tags/{}/edit".format(entry.slug))
         self.assertEqual(page.status_code, 200)
-        page = self.c.get("/tags/{}/delete/".format(entry.id))
+        page = self.c.get("/tags/{}/delete/".format(entry.slug))
         self.assertEqual(page.status_code, 200)
 
     def test_temperature_views(self):
