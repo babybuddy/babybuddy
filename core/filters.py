@@ -63,6 +63,12 @@ class SleepFilter(TagFilter):
         fields = ["child"]
 
 
+class TagFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.Tag
+        fields = {"name": ["contains"]}
+
+
 class TemperatureFilter(TagFilter):
     class Meta:
         model = models.Temperature
