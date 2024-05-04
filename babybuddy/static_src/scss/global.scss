@@ -36,3 +36,8 @@
 .modal-content {
     color: map.get($theme-colors, 'dark');
 }
+
+// Pagination
+.page-link-icon {
+    padding: var(--bs-pagination-padding-y) calc(var(--bs-pagination-padding-x) / 1.75);
+}

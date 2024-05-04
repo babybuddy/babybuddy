@@ -24,6 +24,10 @@
 .icon-tag:before { content: '\e816'; } /* '' */
 .icon-height:before { content: '\f044'; } /* '' */
 .icon-dashboard:before { content: '\f0e4'; } /* '' */
+.icon-angle-double-left:before { content: '\f100'; } /* '' */
+.icon-angle-double-right:before { content: '\f101'; } /* '' */
+.icon-angle-left:before { content: '\f104'; } /* '' */
+.icon-angle-right:before { content: '\f105'; } /* '' */
 .icon-tummytime:before { content: '\f118'; } /* '' */
 .icon-sad:before { content: '\f119'; } /* '' */
 .icon-source:before { content: '\f126'; } /* '' */
