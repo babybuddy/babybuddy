@@ -4,31 +4,46 @@
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link"
-                       href="{% relative_url 'page' page_obj.previous_page_number %}"
-                       aria-label="Previous">
-                        <i class="icon-angle-circled-left" aria-hidden="true"></i>
-                        <span class="visually-hidden">{% trans "Previous" %}</span>
+                    <a class="page-link page-link-icon"
+                       href="{% relative_url 'page' 1 %}"
+                       aria-label="First">
+                        <i class="icon-angle-double-left" aria-hidden="true"></i>
+                        <span class="visually-hidden">{% trans "First" %}</span>
                     </a>
-                </li>
-            {% endif %}
-            {% for num in page_obj.paginator.page_range %}
-                {% if num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
-                    <li class="page-item{% if num == page_obj.number %} active{% endif %}">
-                        <a class="page-link" href="{% relative_url 'page' num %}">{{ num }}</a>
+                    <li class="page-item">
+                        <a class="page-link page-link-icon"
+                           href="{% relative_url 'page' page_obj.previous_page_number %}"
+                           aria-label="Previous">
+                            <i class="icon-angle-left" aria-hidden="true"></i>
+                            <span class="visually-hidden">{% trans "Previous" %}</span>
+                        </a>
                     </li>
                 {% endif %}
-            {% endfor %}
-            {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link"
-                       href="{% relative_url 'page' page_obj.next_page_number %}"
-                       aria-label="Next">
-                        <i class="icon-angle-circled-right" aria-hidden="true"></i>
-                        <span class="visually-hidden">{% trans "Next" %}</span>
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-{% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+                        <li class="page-item{% if num == page_obj.number %} active{% endif %}">
+                            <a class="page-link" href="{% relative_url 'page' num %}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link page-link-icon"
+                           href="{% relative_url 'page' page_obj.next_page_number %}"
+                           aria-label="Next">
+                            <i class="icon-angle-right" aria-hidden="true"></i>
+                            <span class="visually-hidden">{% trans "Next" %}</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link page-link-icon"
+                           href="{% relative_url 'page' page_obj.paginator.num_pages %}"
+                           aria-label="Last">
+                            <i class="icon-angle-double-right" aria-hidden="true"></i>
+                            <span class="visually-hidden">{% trans "Last" %}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
