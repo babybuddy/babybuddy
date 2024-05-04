@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Count
+from django.db.models.functions import Lower
 from django.forms import Form
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -355,6 +357,67 @@ class SleepDelete(CoreDeleteView):
     model = models.Sleep
     permission_required = ("core.delete_sleep",)
     success_url = reverse_lazy("core:sleep-list")
+
+
+class TagAdminList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.Tag
+    template_name = "core/tag_list.html"
+    permission_required = ("core.view_tags",)
+    paginate_by = 10
+    filterset_class = filters.TagFilter
+
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .annotate(Count("core_tagged_items"))
+            .order_by(Lower("name"))
+        )
+
+
+class TagAdminDetail(PermissionRequiredMixin, DetailView):
+    model = models.Tag
+    permission_required = ("core.view_tags",)
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.annotate(
+            Count("feeding"),
+            Count("diaperchange"),
+            Count("pumping"),
+            Count("sleep"),
+            Count("tummytime"),
+            Count("bmi"),
+            Count("headcircumference"),
+            Count("height"),
+            Count("temperature"),
+            Count("weight"),
+        )
+        return qs
+
+
+class TagAdminAdd(CoreAddView):
+    model = models.Tag
+    permission_required = ("core.add_tag",)
+    form_class = forms.TagAdminForm
+    success_url = reverse_lazy("core:tag-list")
+
+
+class TagAdminUpdate(CoreUpdateView):
+    model = models.Tag
+    permission_required = ("core.change_tag",)
+    form_class = forms.TagAdminForm
+    success_url = reverse_lazy("core:tag-list")
+
+
+class TagAdminDelete(CoreDeleteView):
+    model = models.Tag
+    permission_required = ("core.delete_tag",)
+    success_url = reverse_lazy("core:tag-list")
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.annotate(Count("core_tagged_items"))
 
 
 class TemperatureList(PermissionRequiredMixin, BabyBuddyFilterView):

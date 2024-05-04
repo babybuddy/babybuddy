@@ -1,0 +1,107 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% if request.resolver_match.url_name == 'tag-update' %}
+        {% trans "Update a Tag" %}
+    {% else %}
+        {% trans "Add a Tag" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:tag-list' %}">{% trans "Tags" %}</a>
+    </li>
+    <li class="breadcrumb-item active text-truncate">{{ object }}</li>
+{% endblock %}
+{% block content %}
+    <header class="mb-4 d-flex mb-4 d-flex align-items-center">
+        <h1 class="flex-grow-1 text-break mb-0">
+            <span class="badge badge-pill mr-2"
+                  style="background-color:{{ object.color }};
+                         color:{{ object.complementary_color }}">
+                <i class="icon-tag" aria-hidden="true"></i>
+            </span>
+            {{ object }}
+        </h1>
+        <div class="btn-group btn-group-lg border rounded border-light bg center-block"
+             role="group"
+             aria-label="{% trans "Tag actions" %}">
+            {% if perms.core.change_tag %}
+                <a class="btn d-md-inline-block"
+                   href="{% url 'core:tag-update' object.slug %}"
+                   title="{% trans "Edit" %}"
+                   role="button"><i class="icon-update" aria-hidden="true"></i></a>
+            {% endif %}
+            {% if perms.core.delete_tag %}
+                <a class="btn d-md-inline-block"
+                   href="{% url 'core:tag-delete' object.slug %}"
+                   title="{% trans "Delete" %}"
+                   role="button"><i class="icon-delete" aria-hidden="true"></i></a>
+            {% endif %}
+        </div>
+    </header>
+    <main class="container">
+        <div class="row gy-4">
+            <div class="col-12 col-md-6">
+                <h3>{% trans "Tagged Measurements" %}</h3>
+                <div class="list-group">
+                    <a href="{% url 'core:bmi-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "BMI Measurements" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.bmi__count|default:0 }}</span>
+                    </a>
+                    <a href="{% url 'core:head-circumference-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Head Circumference Measurements" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.headcircumference__count|default:0 }}</span>
+                    </a>
+                    <a href="{% url 'core:height-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Height Measurements" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.height__count|default:0 }}</span>
+                    </a>
+                    <a href="{% url 'core:temperature-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Temperature Measurements" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.temperature__count|default:0 }}</span>
+                    </a>
+                    <a href="{% url 'core:weight-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Weight Measurements" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.weight__count|default:0 }}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h3>{% trans "Tagged Activities" %}</h3>
+                <div class="list-group">
+                    <a href="{% url 'core:diaperchange-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Diaper Changes" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.diaperchange__count|default:0 }}</span>
+                    </a>
+                    <a href="{% url 'core:feeding-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Feedings" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.feeding__count|default:0 }}</span>
+                    </a>
+                    <a href="{% url 'core:pumping-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Pumpings" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.pumping__count|default:0 }}</span>
+                    </a>
+                    <a href="{% url 'core:sleep-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Sleeps" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.sleep__count|default:0 }}</span>
+                    </a>
+                    <a href="{% url 'core:tummytime-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Tummy Times" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.tummytime__count|default:0 }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
