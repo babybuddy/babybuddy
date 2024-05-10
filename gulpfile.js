@@ -149,18 +149,18 @@ function docsWatch() {
 function extras() {
   return all(
     gulp
-      .src(config.extrasConfig.fonts.files)
+      .src(config.extrasConfig.fonts.files, { encoding: false })
       .pipe(gulp.dest(config.extrasConfig.fonts.dest)),
     gulp
-      .src(config.extrasConfig.images.files)
+      .src(config.extrasConfig.images.files, { encoding: false })
       .pipe(flatten({ subPath: 3 }))
       .pipe(gulp.dest(config.extrasConfig.images.dest)),
     gulp
-      .src(config.extrasConfig.logo.files)
+      .src(config.extrasConfig.logo.files, { encoding: false })
       .pipe(flatten({ subPath: 3 }))
       .pipe(gulp.dest(config.extrasConfig.logo.dest)),
     gulp
-      .src(config.extrasConfig.root.files)
+      .src(config.extrasConfig.root.files, { encoding: false })
       .pipe(gulp.dest(config.extrasConfig.root.dest)),
   );
 }
@@ -273,7 +273,7 @@ function test(cb) {
  */
 function updateGlyphs() {
   return gulp
-    .src(config.glyphFontConfig.configFile)
+    .src(config.glyphFontConfig.configFile, { encoding: false })
     .pipe(fontello({ assetsOnly: false }))
     .pipe(gulp.dest(config.glyphFontConfig.dest));
 }

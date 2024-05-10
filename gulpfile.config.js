@@ -58,7 +58,6 @@ const config = {
     ],
     app: [
       "babybuddy/static_src/js/babybuddy.js",
-      "api/static_src/js/*.js",
       "core/static_src/js/*.js",
       "dashboard/static_src/js/*.js",
     ],

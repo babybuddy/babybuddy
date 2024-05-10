@@ -25,7 +25,7 @@ whitenoise = "*"
 django-taggit = "*"
 django-qr-code = "*"
 django-dbsettings = "*"
-django-import-export = "~=3.0"
+django-import-export = "*"
 
 [dev-packages]
 coveralls = "*"
