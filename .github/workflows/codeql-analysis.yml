@@ -26,6 +26,5 @@ jobs:
         with:
           config-file: ./.github/codeql/codeql-config.yml
           languages: ${{ matrix.language }}
-          setup-python-dependencies: false
       - uses: ./.github/actions/setup
       - uses: github/codeql-action/analyze@v3
