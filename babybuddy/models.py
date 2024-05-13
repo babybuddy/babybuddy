@@ -70,6 +70,18 @@ class Settings(models.Model):
         max_length=100,
         verbose_name=_("Timezone"),
     )
+    pagination_count = models.PositiveIntegerField(
+        choices=[
+            (10, _("%(count)d Per Page") % {"count": 10}),
+            (25, _("%(count)d Per Page") % {"count": 25}),
+            (50, _("%(count)d Per Page") % {"count": 50}),
+            (100, _("%(count)d Per Page") % {"count": 100}),
+            (250, _("%(count)d Per Page") % {"count": 250}),
+            (0, _("Show All")),
+        ],
+        default=25,
+        verbose_name=_("Items Per Page"),
+    )
 
     def __str__(self):
         return str(format_lazy(_("{user}'s Settings"), user=self.user))
