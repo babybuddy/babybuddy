@@ -90,6 +90,11 @@ class BabyBuddyFilterView(FilterView):
         return context
 
 
+class BabyBuddyPaginatedView(View):
+    def get_paginate_by(self, queryset):
+        return self.request.user.settings.pagination_count
+
+
 @method_decorator(csrf_protect, name="dispatch")
 @method_decorator(never_cache, name="dispatch")
 @method_decorator(require_POST, name="dispatch")
