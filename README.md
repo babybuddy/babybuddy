@@ -111,3 +111,4 @@ _Some of the links below use referral codes -- all referral proceeds are treated
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 [<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="100" alt="JetBrains Logo (Main) logo.">](https://www.jetbrains.com/community/opensource/)
+[![POEditor](https://poeditor.com/public/images/ui/logos/logo_dark.svg)](https://poeditor.com/)
