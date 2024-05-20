@@ -48,6 +48,7 @@ class FormsTestCase(TestCase):
             "language": "en-US",
             "timezone": "UTC",
             "next": "/user/settings/",
+            "pagination_count": 25,
         }
 
     def test_change_password(self):
@@ -258,6 +259,17 @@ class FormsTestCase(TestCase):
         self.assertEqual(
             self.user.settings.dashboard_refresh_rate, datetime.timedelta(seconds=300)
         )
+
+    def test_user_settings_pagination_count(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params["pagination_count"] = 25
+
+        page = self.c.post("/user/settings/", data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings.pagination_count, 25)
 
     def test_user_settings_dashboard_hide_age(self):
         self.c.login(**self.credentials)
