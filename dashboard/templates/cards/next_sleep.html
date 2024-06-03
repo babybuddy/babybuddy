@@ -1,0 +1,16 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block header %}
+    <a href="{% url "core:sleep-list" %}">{% trans "Next Sleep" %}</a>
+{% endblock %}
+{% block title %}
+    {% if predicted_start %}
+        {% blocktrans trimmed with start=predicted_start|deltasince|duration_string:'m' time=predicted_start|time %}
+            <div>{{ start }} from now</div>
+            <small>{{ time }}</small>
+        {% endblocktrans %}
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}{{ sleep.duration|duration_string }}{% endblock %}

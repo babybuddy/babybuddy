@@ -27,3 +27,14 @@ class DateInput(DateTimeBaseInput):
 
 class TimeInput(DateTimeBaseInput):
     input_type = "time"
+
+
+class TimeDurationInput(widgets.TimeInput):
+    def __init__(self, attrs=None, format=None):
+        super().__init__(attrs, format)
+        self.attrs.update({"step": 1, "min": "00:00:00", "max": "23:59:59"})
+
+    def format_value(self, value):
+        if isinstance(value, datetime.timedelta):
+            value = str(value)
+        return value

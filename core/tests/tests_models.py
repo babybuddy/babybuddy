@@ -69,7 +69,9 @@ class ChildTestCase(TestCase):
         models.Child.objects.create(
             first_name="First", last_name="Last", birth_date=birth_date
         )
-        self.assertEqual(models.Child.objects.last().birth_datetime(), birth_date)
+        self.assertEqual(
+            models.Child.objects.last().birth_datetime().date(), birth_date
+        )
         birth_time = datetime.datetime.now().time()
         models.Child.objects.create(
             first_name="Second",
@@ -81,6 +83,67 @@ class ChildTestCase(TestCase):
             models.Child.objects.last().birth_datetime(),
             timezone.make_aware(datetime.datetime.combine(birth_date, birth_time)),
         )
+
+    def test_number_of_naps_auto(self):
+        NumberOfNaps = models.Child.NumberOfNaps
+
+        child = models.Child.objects.create(
+            first_name="First",
+            last_name="Last",
+            birth_date=datetime.date(2020, 1, 1),
+        )
+
+        assert (
+            NumberOfNaps.auto(
+                child=child, now=child.birth_datetime() + datetime.timedelta(50)
+            )
+            == NumberOfNaps.THREE_OR_FOUR
+        )
+        assert (
+            NumberOfNaps.auto(
+                child=child, now=child.birth_datetime() + datetime.timedelta(100)
+            )
+            == NumberOfNaps.TWO_OR_THREE
+        )
+        assert (
+            NumberOfNaps.auto(
+                child=child, now=child.birth_datetime() + datetime.timedelta(300)
+            )
+            == NumberOfNaps.TWO
+        )
+        assert (
+            NumberOfNaps.auto(
+                child=child, now=child.birth_datetime() + datetime.timedelta(500)
+            )
+            == NumberOfNaps.ONE_OR_TWO
+        )
+        assert (
+            NumberOfNaps.auto(
+                child=child, now=child.birth_datetime() + datetime.timedelta(800)
+            )
+            == NumberOfNaps.ONE
+        )
+
+    def test_predict_next_sleep(self):
+        child = models.Child.objects.create(
+            first_name="First",
+            last_name="Last",
+            birth_date=datetime.date(2020, 1, 1),
+            wake_window=None,
+            number_of_naps=models.Child.NumberOfNaps.TWO,
+        )
+
+        now = child.birth_datetime() + datetime.timedelta(days=90)
+
+        sleep = models.Sleep.objects.create(
+            child=child,
+            start=now - datetime.timedelta(hours=3),
+            end=now - datetime.timedelta(hours=2),
+        )
+
+        next_sleep = child.predict_next_sleep(now=now)
+        self.assertEqual(next_sleep[0], now + datetime.timedelta(hours=1))
+        self.assertEqual(next_sleep[1], True)
 
 
 class DiaperChangeTestCase(TestCase):

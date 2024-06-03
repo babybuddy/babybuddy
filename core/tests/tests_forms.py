@@ -187,6 +187,7 @@ class ChildFormsTestCase(FormsTestCaseBase):
             "first_name": "Child",
             "last_name": "Two",
             "birth_date": timezone.localdate(),
+            "wake_window": 60,
         }
         page = self.c.post("/children/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
@@ -197,6 +198,7 @@ class ChildFormsTestCase(FormsTestCaseBase):
             "first_name": "Name",
             "last_name": "Changed",
             "birth_date": self.child.birth_date,
+            "wake_window": "",
         }
         page = self.c.post(
             "/children/{}/edit/".format(self.child.slug), params, follow=True
