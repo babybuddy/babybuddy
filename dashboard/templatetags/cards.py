@@ -770,6 +770,23 @@ def _bmi_statistics(child):
     return bmi
 
 
+@register.inclusion_tag("cards/next_sleep.html", takes_context=True)
+def card_next_sleep(context, child):
+    """
+    Predicts next sleep, and whether it is a nap or nighttime, by child.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with a prediction of the next Sleep instance.
+    """
+    predicted_start, next_sleep_is_nap = child.predict_next_sleep()
+    return {
+        "type": "next_sleep",
+        "empty": predicted_start is None,
+        "predicted_start": predicted_start,
+        "next_sleep_is_nap": next_sleep_is_nap,
+        "hide_empty": _hide_empty(context),
+    }
+
+
 @register.inclusion_tag("cards/timer_list.html", takes_context=True)
 def card_timer_list(context, child=None):
     """

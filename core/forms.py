@@ -5,9 +5,10 @@ from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from django_enumfield.forms.fields import EnumChoiceField
 from taggit.forms import TagField
 
-from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
+from babybuddy.widgets import DateInput, DateTimeInput, TimeInput, TimeDurationInput
 from core import models
 from core.models import Timer
 from core.widgets import TagsEditor, ChildRadioSelect, PillRadioSelect
@@ -188,14 +189,40 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
 
 
 class ChildForm(forms.ModelForm):
+
+    number_of_naps = EnumChoiceField(
+        models.Child.NumberOfNaps,
+        initial=models.Child.NumberOfNaps.AUTO,
+        required=False,
+    )
+
     class Meta:
         model = models.Child
-        fields = ["first_name", "last_name", "birth_date", "birth_time"]
+        fields = [
+            "first_name",
+            "last_name",
+            "birth_date",
+            "birth_time",
+            "wake_window",
+            "number_of_naps",
+        ]
         if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
             fields.append("picture")
         widgets = {
             "birth_date": DateInput(),
             "birth_time": TimeInput(),
+            "wake_window": TimeDurationInput(),
+        }
+        help_texts = {
+            "number_of_naps": _(
+                "The number of naps the child typically takes per day. "
+                "AUTO will determine the number of naps based on the child's age."
+            ),
+            "wake_window": _(
+                "The amount of time a child can stay awake "
+                "between naps. Leave blank to auto-calculate based on age "
+                "and number of naps per day."
+            ),
         }
 
 
