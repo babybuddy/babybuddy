@@ -212,6 +212,24 @@ class Child(models.Model):
             FOUR: _("4"),
         }
 
+        def as_number(self, child) -> int:
+            number_of_naps = self.auto(child) if self is self.AUTO else self
+            if number_of_naps is self.__class__.ZERO:
+                return 0
+            if number_of_naps is self.__class__.ONE:
+                return 1
+            if number_of_naps in (self.__class__.ONE_OR_TWO, self.__class__.TWO):
+                return 2
+            if number_of_naps in (
+                self.__class__.TWO_OR_THREE,
+                self.__class__.THREE,
+                self.__class__.THREE_OR_FOUR,
+            ):
+                return 3
+            if number_of_naps in (self.__class__.FOUR):
+                return 4
+            raise ValueError(f"Invalid number of naps: {number_of_naps}")
+
         @classmethod
         def auto(cls, child, now=None):
             """
@@ -274,6 +292,41 @@ class Child(models.Model):
         default=NumberOfNaps.AUTO,
         verbose_name=_("Number of Naps"),
     )
+
+    def naps_since_wake(self, now=None):
+        """
+        returns all the sleeps since the most recent sleep that was not a nap
+        """
+        now = now or timezone.localtime()
+        sleeps = self.sleep.filter(start__lte=now - timedelta(hours=24)).order_by(
+            "-start"
+        )
+        for sleep in sleeps:
+            if sleep.nap:
+                yield sleep
+            else:
+                break
+
+    def remaining_naptime_timedelta(self, now=None):
+        """
+        Guesses the amount of nap time needed as of `now` based on sleep patterns
+        over the past 24 hours
+
+        The usage of this method is to determine whether the child
+        is ahead or behind on sleep for the day. This helps to determine
+        their next sleep time.
+        """
+        now = now or timezone.localtime()
+        sleep_needed_nighttime, sleep_needed_nap = self.sleep_needed_nighttime_nap(now)
+
+        naps_today_timedelta = sum(
+            (sleep.duration for sleep in self.naps_since_wake(now) if sleep.duration),
+            timedelta(),
+        )
+
+        if naps_today_timedelta >= sleep_needed_nap:
+            return timedelta()
+        return sleep_needed_nap - naps_today_timedelta
 
     objects = models.Manager()
 
@@ -363,19 +416,55 @@ class Child(models.Model):
 
         now = now or timezone.localtime()
         last_sleep = self.sleep.order_by("-start").first()
-        sleeps_today = self.sleep.filter(start__date=now)
+        sleeps_today = self.sleep.filter(start__date=now.date())
         naps_today = sleeps_today.filter(nap=True)
         next_sleep_is_nap = not self.number_of_naps.has_hit_sleeps_for_day(
             self, sleeps_today
         )
+        sleep_needed_nighttime, sleep_needed_nap = self.sleep_needed_nighttime_nap(now)
+        remaining_naptime = self.remaining_naptime_timedelta(now)
+        wake_window_adjusted = self.wake_window_or_default
 
         if not last_sleep:
             return None, next_sleep_is_nap
         if last_sleep.end is None:
+            # currently sleeping
             return None, next_sleep_is_nap
+        if last_sleep.end.date() < now.date():
+            # last sleep ended yesterday or earlier - don't predict
+            return None, next_sleep_is_nap
+
         if last_sleep.end > now:
+            # sleeping in the future! probably a timezone issue
             return None, next_sleep_is_nap
-        return last_sleep.end + self.wake_window_or_default, next_sleep_is_nap
+
+        if last_sleep.start.date() == now.date() - timedelta(days=1):
+            # last sleep started yesterday, so let's assume it's first nap
+            return last_sleep.end + wake_window_adjusted, next_sleep_is_nap
+
+        # here is the fuzzy math. Let's try to predict the next sleep time
+        # based on how naps have been going today
+        percent_remaining_naptime = remaining_naptime / sleep_needed_nap
+        try:
+            percent_naps_today = len(naps_today) / float(
+                self.number_of_naps.as_number(child=self)
+            )
+        except ZeroDivisionError:
+            percent_naps_today = 0.0
+
+        if percent_naps_today >= 1:
+            # done with naps today, so subtract the remaining naptime for bedtime
+            wake_window_adjusted -= remaining_naptime
+            return last_sleep.end + wake_window_adjusted, False
+
+        # start adjusting after halfway through naps
+        if percent_naps_today >= 0.5:
+            if percent_remaining_naptime < 0.6:
+                wake_window_adjusted = wake_window_adjusted - timedelta(
+                    seconds=remaining_naptime.total_seconds()
+                    * percent_remaining_naptime
+                )
+        return last_sleep.end + wake_window_adjusted, next_sleep_is_nap
 
 
 class DiaperChange(models.Model):
@@ -695,6 +784,9 @@ class Sleep(models.Model):
 
     def __str__(self):
         return str(_("Sleep"))
+
+    def __repr__(self):
+        return f"<Sleep id={self.id},start={self.start},end={self.end}>"
 
     def save(self, *args, **kwargs):
         if self.nap is None:
