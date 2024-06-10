@@ -6,6 +6,7 @@ from .diaperchange_intervals import diaperchange_intervals  # NOQA
 from .feeding_amounts import feeding_amounts  # NOQA
 from .feeding_duration import feeding_duration  # NOQA
 from .feeding_intervals import feeding_intervals  # NOQA
+from .feeding_pattern import feeding_pattern  # NOQA
 from .head_circumference_change import head_circumference_change  # NOQA
 from .height_change import height_change  # NOQA
 from .pumping_amounts import pumping_amounts  # NOQA

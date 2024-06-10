@@ -175,6 +175,29 @@ class FeedingIntervalsChildReport(PermissionRequiredMixin, DetailView):
         return context
 
 
+class FeedingPatternChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of feeding pattern.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/feeding_pattern.html"
+
+    def __init__(self):
+        super(FeedingPatternChildReport, self).__init__()
+        self.html = ""
+        self.js = ""
+
+    def get_context_data(self, **kwargs):
+        context = super(FeedingPatternChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        instances = models.Feeding.objects.filter(child=child).order_by("start")
+        if instances:
+            context["html"], context["js"] = graphs.feeding_pattern(instances)
+        return context
+
+
 class HeadCircumferenceChangeChildReport(PermissionRequiredMixin, DetailView):
     """
     Graph of head circumference change over time.
