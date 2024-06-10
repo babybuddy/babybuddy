@@ -1,0 +1,10 @@
+{% extends 'reports/report_base.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans "Feeding Pattern" %} - {{ object }}
+{% endblock %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% include 'reports/breadcrumb_common_chunk.html' with target_url='reports:report-feeding-pattern-child' %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Feeding Pattern" %}</li>
+{% endblock %}
