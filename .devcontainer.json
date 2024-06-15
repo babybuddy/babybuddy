@@ -14,6 +14,7 @@
       "extensions": [
         "batisteo.vscode-django",
         "donjayamanne.python-environment-manager",
+        "mrorz.language-gettext",
         "ms-python.black-formatter",
         "ms-python.python",
         "samuelcolvin.jinjahtml"
