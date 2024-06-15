@@ -27,14 +27,14 @@
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2",
     "npm-force-resolutions": "^0.0.10",
-    "plotly.js": "^2.32.0",
-    "prettier": "3.2.5",
+    "plotly.js": "^2.33.0",
+    "prettier": "3.3.2",
     "pulltorefreshjs": "^0.1.22",
     "pump": "^3.0.0",
-    "sass": "^1.77.0",
-    "stylelint": "^16.5.0",
+    "sass": "^1.77.5",
+    "stylelint": "^16.6.1",
     "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-order": "^6.0.4",
-    "stylelint-scss": "^6.3.0"
+    "stylelint-scss": "^6.3.1"
   }
 }
