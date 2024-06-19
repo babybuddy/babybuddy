@@ -162,7 +162,7 @@ def sleep_pattern(sleeps):
     layout_args["barmode"] = "stack"
     layout_args["bargap"] = 0
     layout_args["hovermode"] = "closest"
-    layout_args["title"] = _("<b>Sleep Pattern</b>")
+    layout_args["title"] = "<b>" + _("Sleep Pattern") + "</b>"
     layout_args["height"] = 800
 
     layout_args["xaxis"]["title"] = _("Date")

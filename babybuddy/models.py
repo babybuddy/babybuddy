@@ -9,6 +9,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 
 from rest_framework.authtoken.models import Token
 
@@ -18,22 +19,53 @@ class Settings(models.Model):
     dashboard_refresh_rate = models.DurationField(
         verbose_name=_("Refresh rate"),
         help_text=_(
-            "If supported by browser, the dashboard will only refresh "
-            "when visible, and also when receiving focus."
+            "If supported by browser, the dashboard will only refresh when visible, and also when receiving focus."
         ),
         blank=True,
         null=True,
         default=timezone.timedelta(minutes=1),
         choices=[
             (None, _("disabled")),
-            (timezone.timedelta(minutes=1), _("1 min.")),
-            (timezone.timedelta(minutes=2), _("2 min.")),
-            (timezone.timedelta(minutes=3), _("3 min.")),
-            (timezone.timedelta(minutes=4), _("4 min.")),
-            (timezone.timedelta(minutes=5), _("5 min.")),
-            (timezone.timedelta(minutes=10), _("10 min.")),
-            (timezone.timedelta(minutes=15), _("15 min.")),
-            (timezone.timedelta(minutes=30), _("30 min.")),
+            (
+                timezone.timedelta(minutes=1),
+                ngettext_lazy("%(minutes)d minute", "%(minutes)d minutes", 1)
+                % {"minutes": 1},
+            ),
+            (
+                timezone.timedelta(minutes=2),
+                ngettext_lazy("%(minutes)d minute", "%(minutes)d minutes", 2)
+                % {"minutes": 2},
+            ),
+            (
+                timezone.timedelta(minutes=3),
+                ngettext_lazy("%(minutes)d minute", "%(minutes)d minutes", 3)
+                % {"minutes": 3},
+            ),
+            (
+                timezone.timedelta(minutes=4),
+                ngettext_lazy("%(minutes)d minute", "%(minutes)d minutes", 4)
+                % {"minutes": 4},
+            ),
+            (
+                timezone.timedelta(minutes=5),
+                ngettext_lazy("%(minutes)d minute", "%(minutes)d minutes", 5)
+                % {"minutes": 5},
+            ),
+            (
+                timezone.timedelta(minutes=10),
+                ngettext_lazy("%(minutes)d minute", "%(minutes)d minutes", 10)
+                % {"minutes": 10},
+            ),
+            (
+                timezone.timedelta(minutes=15),
+                ngettext_lazy("%(minutes)d minute", "%(minutes)d minutes", 15)
+                % {"minutes": 15},
+            ),
+            (
+                timezone.timedelta(minutes=30),
+                ngettext_lazy("%(minutes)d minute", "%(minutes)d minutes", 30)
+                % {"minutes": 30},
+            ),
         ],
     )
     dashboard_hide_empty = models.BooleanField(
@@ -49,11 +81,26 @@ class Settings(models.Model):
         default=None,
         choices=[
             (None, _("show all data")),
-            (timezone.timedelta(days=1), _("1 day")),
-            (timezone.timedelta(days=2), _("2 days")),
-            (timezone.timedelta(days=3), _("3 days")),
-            (timezone.timedelta(weeks=1), _("1 week")),
-            (timezone.timedelta(weeks=4), _("4 weeks")),
+            (
+                timezone.timedelta(days=1),
+                ngettext_lazy("%(days)d day", "%(days)d days", 1) % {"days": 1},
+            ),
+            (
+                timezone.timedelta(days=2),
+                ngettext_lazy("%(days)d day", "%(days)d days", 2) % {"days": 2},
+            ),
+            (
+                timezone.timedelta(days=3),
+                ngettext_lazy("%(days)d day", "%(days)d days", 3) % {"days": 3},
+            ),
+            (
+                timezone.timedelta(weeks=1),
+                ngettext_lazy("%(weeks)d week", "%(weeks)d weeks", 1) % {"weeks": 1},
+            ),
+            (
+                timezone.timedelta(weeks=4),
+                ngettext_lazy("%(weeks)d week", "%(weeks)d weeks", 4) % {"weeks": 4},
+            ),
         ],
     )
     language = models.CharField(

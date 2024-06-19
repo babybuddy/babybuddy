@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n widget_tweaks %}
+{% load babybuddy i18n widget_tweaks %}
 {% block title %}
     {% trans "Delete a Tag" %}
 {% endblock %}
@@ -15,11 +15,7 @@
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
-        {% blocktrans trimmed %}
-            <h1>
-                Are you sure you want to delete <span class="text-info">{{ object }}</span>?
-            </h1>
-        {% endblocktrans %}
+        <h1>{% confirm_delete_text object %}</h1>
         {% if object.core_tagged_items__count > 0 %}
             <div class="alert alert-warning" role="alert">
                 <h4 class="alert-heading">
@@ -29,9 +25,11 @@
                         There are {{ count }} items tagged with this tag.
                     {% endblocktrans %}
                 </h4>
-                {% blocktrans trimmed %}
-                    <p class="mb-0">This action will remove the tag from all items it is currently applied to.</p>
-                {% endblocktrans %}
+                <p class="mb-0">
+                    {% blocktrans trimmed %}
+                        This action will remove the tag from all items it is currently applied to.
+                    {% endblocktrans %}
+                </p>
             </div>
         {% endif %}
         <input type="submit" value="{% trans "Delete Tag" %}" class="btn btn-danger" />

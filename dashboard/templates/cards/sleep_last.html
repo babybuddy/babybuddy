@@ -5,10 +5,12 @@
 {% endblock %}
 {% block title %}
     {% if sleep %}
-        {% blocktrans trimmed with since=sleep.end|deltasince|duration_string:'m' time=sleep.end|time %}
-            <div>{{ since }} ago</div>
-            <small>{{ time }}</small>
-        {% endblocktrans %}
+        <div>
+            {% blocktrans trimmed with time_ago=sleep.end|deltasince|duration_string:'m' %}
+                {{ time_ago }} ago
+            {% endblocktrans %}
+        </div>
+        <small>{{ sleep.end|time }}</small>
     {% else %}
         {% trans "None" %}
     {% endif %}

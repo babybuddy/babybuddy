@@ -38,7 +38,7 @@ def datetime_short(date):
         date_string = formats.date_format(date, format="SHORT_DATETIME_FORMAT")
 
     if date_string and time_string:
-        datetime_string = _("{}, {}").format(date_string, time_string)
+        datetime_string = "{}, {}".format(date_string, time_string)
     else:
         datetime_string = date_string
 

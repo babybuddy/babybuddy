@@ -23,16 +23,14 @@
         {% user_is_locked object as is_locked %}
         {% if is_locked %}
             <div class="alert alert-danger">
-                <div class="alert-heading h4">{% blocktrans %}User locked.{% endblocktrans %}</div>
+                <div class="alert-heading h4">{% trans "User locked." %}</div>
                 <a href="{% url 'babybuddy:user-unlock' object.id %}"
-                   class="btn btn-danger">{% blocktrans %}Unlock{% endblocktrans %}</a>
+                   class="btn btn-danger">{% trans "Unlock" %}</a>
             </div>
         {% endif %}
-        {% blocktrans trimmed %}
-            <h1>
-                Update <span class="text-info">{{ object }}</span>
-            </h1>
-        {% endblocktrans %}
+        <h1>
+            {% trans "Update" %} <span class="text-info">{{ object }}</span>
+        </h1>
     {% else %}
         <h1>{% trans "Create User" %}</h1>
     {% endif %}

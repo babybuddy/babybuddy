@@ -66,7 +66,7 @@ def feeding_amounts(instances):
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args["title"] = _("<b>Total Feeding Amount by Type</b>")
+    layout_args["title"] = "<b>" + _("Total Feeding Amount by Type") + "</b>"
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Feeding amount")

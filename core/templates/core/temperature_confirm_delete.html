@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n widget_tweaks %}
+{% load babybuddy i18n widget_tweaks %}
 {% block title %}
     {% trans "Delete a Temperature Reading" %}
 {% endblock %}
@@ -12,11 +12,7 @@
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
-        {% blocktrans trimmed %}
-            <h1>
-                Are you sure you want to delete <span class="text-info">{{ object }}</span>?
-            </h1>
-        {% endblocktrans %}
+        <h1>{% confirm_delete_text object %}</h1>
         <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
         <a href="{% url 'core:temperature-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>

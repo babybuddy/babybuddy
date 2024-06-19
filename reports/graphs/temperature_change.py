@@ -23,7 +23,7 @@ def temperature_change(objects):
 
     layout_args = utils.default_graph_layout_options()
     layout_args["barmode"] = "stack"
-    layout_args["title"] = _("<b>Temperature</b>")
+    layout_args["title"] = "<b>" + _("Temperature") + "</b>"
     layout_args["xaxis"]["title"] = _("Time")
     layout_args["xaxis"]["type"] = "date"
     layout_args["xaxis"]["autorange"] = True

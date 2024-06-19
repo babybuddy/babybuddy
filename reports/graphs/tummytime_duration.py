@@ -47,7 +47,7 @@ def tummytime_duration(instances):
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args["title"] = _("<b>Total Tummy Time Durations</b>")
+    layout_args["title"] = "<b>" + _("Total Tummy Time Durations") + "</b>"
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["type"] = "date"
     layout_args["xaxis"]["autorange"] = True
