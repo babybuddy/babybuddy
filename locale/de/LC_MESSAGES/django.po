@@ -3,12 +3,15 @@ msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-15 13:37+0000\n"
+"PO-Revision-Date: 2024-06-25 09:07+0000\n"
+"Last-Translator: Fabian Berg<mail@hb9hil.org>\n"
+"Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: babybuddy/admin.py:12 babybuddy/admin.py:13
 #: babybuddy/templates/babybuddy/nav-dropdown.html:320
@@ -139,11 +142,11 @@ msgstr "%(count)s Timer"
 
 #: babybuddy/models.py:80
 msgid "Show All"
-msgstr ""
+msgstr "Zeige Alle"
 
 #: babybuddy/models.py:83
 msgid "Items Per Page"
-msgstr ""
+msgstr "Einträge pro Seite"
 
 #: babybuddy/models.py:87
 #, python-brace-format
@@ -198,7 +201,7 @@ msgstr "Deutsch"
 
 #: babybuddy/settings/base.py:201
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebräisch"
 
 #: babybuddy/settings/base.py:202
 msgid "Hungarian"
@@ -210,7 +213,7 @@ msgstr "Italienisch"
 
 #: babybuddy/settings/base.py:204
 msgid "Japanese"
-msgstr ""
+msgstr "Japanisch"
 
 #: babybuddy/settings/base.py:205
 msgid "Norwegian Bokmål"
@@ -242,7 +245,7 @@ msgstr "Türkisch"
 
 #: babybuddy/settings/base.py:212
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrainisch"
 
 #: babybuddy/site_settings.py:23
 msgid "Default minimum nap start time"
@@ -1363,15 +1366,15 @@ msgstr "Methode"
 
 #: core/models.py:423 core/models.py:757
 msgid "Girl"
-msgstr ""
+msgstr "Mädchen"
 
 #: core/models.py:424 core/models.py:758
 msgid "Boy"
-msgstr ""
+msgstr "Junge"
 
 #: core/models.py:446 core/templates/core/note_list.html:28
 msgid "Image"
-msgstr ""
+msgstr "Bild"
 
 #: core/models.py:527 core/templates/core/sleep_list.html:30
 msgid "Nap"
@@ -1663,14 +1666,16 @@ msgstr "Eine Notiz löschen"
 #, python-format
 msgid "There is 1 item tagged with this tag."
 msgid_plural "There are %(count)s items tagged with this tag."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Es ist 1 Eintrag mit diesem Tag getaggt,"
+msgstr[1] "Es sind %(count)s Einträge mit diesem Tag getaggt."
 
 #: core/templates/core/tag_confirm_delete.html:32
 msgid ""
 "<p class=\"mb-0\">This action will remove the tag from all items it is "
 "currently applied to.</p>"
 msgstr ""
+"<p class=\"mb-0\">Diese Aktion wird den Tag von allen Einträgen entfernen, "
+"bei denen er aktuell hinzugefügt ist.</p>"
 
 #: core/templates/core/tag_confirm_delete.html:37
 #, fuzzy
@@ -1771,7 +1776,7 @@ msgstr "Änderung hinzufügen"
 
 #: core/templates/core/tag_list.html:26
 msgid "Items Tagged"
-msgstr ""
+msgstr "Einträge getaggt"
 
 #: core/templates/core/tag_list.html:27
 #, fuzzy
@@ -1937,7 +1942,7 @@ msgstr "Schließen"
 
 #: core/templates/forms/layouts/advanced.html:7
 msgid "Advanced Fields"
-msgstr ""
+msgstr "Erweiterte Felder"
 
 #: core/templates/timeline/_timeline.html:41
 #, python-format
@@ -2115,7 +2120,7 @@ msgstr "Letzte Woche"
 
 #: dashboard/templates/cards/breastfeeding.html:18
 msgid "left"
-msgstr ""
+msgstr "links"
 
 #: dashboard/templates/cards/breastfeeding.html:20
 #, fuzzy
@@ -2355,11 +2360,11 @@ msgstr "Total"
 
 #: reports/graphs/diaperchange_intervals.py:66
 msgid "<b>Diaper Change Intervals</b>"
-msgstr ""
+msgstr "<b>Windel-Wechsel Intervalle</b>"
 
 #: reports/graphs/diaperchange_intervals.py:72
 msgid "Interval (hours)"
-msgstr ""
+msgstr "Intervall (Stunden)"
 
 #: reports/graphs/diaperchange_lifetimes.py:35
 msgid "<b>Diaper Lifetimes</b>"
@@ -2407,15 +2412,15 @@ msgstr "Anzahl Mahlzeiten"
 
 #: reports/graphs/feeding_intervals.py:32
 msgid "Interval"
-msgstr ""
+msgstr "Intervall"
 
 #: reports/graphs/feeding_intervals.py:41
 msgid "<b>Feeding intervals</b>"
-msgstr ""
+msgstr "<b>Fütterungs Intervalle</b>"
 
 #: reports/graphs/feeding_intervals.py:47
 msgid "Feeding interval (hours)"
-msgstr ""
+msgstr "Füttungs-Intervall (Stunden)"
 
 #: reports/graphs/feeding_pattern.py:154
 #, fuzzy
@@ -2433,23 +2438,23 @@ msgstr "<b>Kopfumfang</b>"
 
 #: reports/graphs/height_change.py:51 reports/graphs/weight_change.py:49
 msgid "P3"
-msgstr ""
+msgstr "P3"
 
 #: reports/graphs/height_change.py:57 reports/graphs/weight_change.py:55
 msgid "P15"
-msgstr ""
+msgstr "P15"
 
 #: reports/graphs/height_change.py:63 reports/graphs/weight_change.py:61
 msgid "P50"
-msgstr ""
+msgstr "P50"
 
 #: reports/graphs/height_change.py:69 reports/graphs/weight_change.py:67
 msgid "P85"
-msgstr ""
+msgstr "P85"
 
 #: reports/graphs/height_change.py:75 reports/graphs/weight_change.py:73
 msgid "P97"
-msgstr ""
+msgstr "P97"
 
 #: reports/graphs/height_change.py:86
 msgid "<b>Height</b>"
@@ -2512,7 +2517,7 @@ msgstr "Windel-Mengen"
 #: reports/templates/reports/diaperchange_intervals.html:4
 #: reports/templates/reports/diaperchange_intervals.html:9
 msgid "Diaper Change Intervals"
-msgstr ""
+msgstr "Windel-Wechsel Intervalle"
 
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:9
@@ -2541,7 +2546,7 @@ msgstr "Durchschnittliche Mahlzeitendauer"
 #: reports/templates/reports/feeding_intervals.html:9
 #: reports/templates/reports/report_list.html:30
 msgid "Feeding Intervals"
-msgstr ""
+msgstr "Füttungs-Intervalle"
 
 #: reports/templates/reports/feeding_pattern.html:4
 #: reports/templates/reports/feeding_pattern.html:9
@@ -2565,7 +2570,7 @@ msgstr "Windelwechsel-Mengen"
 
 #: reports/templates/reports/report_list.html:22
 msgid "Diaper Intervals"
-msgstr ""
+msgstr "Windel Intervalle"
 
 #: reports/templates/reports/report_list.html:28
 msgid "Feeding Durations (Average)"
@@ -2573,11 +2578,11 @@ msgstr "Mahlzeit-Dauer (Durchschnitt)"
 
 #: reports/templates/reports/report_list.html:38
 msgid "WHO Height Percentiles for Boys in cm"
-msgstr ""
+msgstr "WHO Grössen-Perzentile für Jungen in cm"
 
 #: reports/templates/reports/report_list.html:40
 msgid "WHO Height Percentiles for Girls in cm"
-msgstr ""
+msgstr "WHO Grössen-Perzentile für Mädchen in cm"
 
 #: reports/templates/reports/report_list.html:42
 msgid "Pumping Amounts"
@@ -2601,11 +2606,11 @@ msgstr "Bauchzeit-Dauer (Summe)"
 
 #: reports/templates/reports/report_list.html:54
 msgid "WHO Weight Percentiles for Boys in kg"
-msgstr ""
+msgstr "WHO Gewichts-Perzentile für Jungen in kg"
 
 #: reports/templates/reports/report_list.html:56
 msgid "WHO Weight Percentiles for Girls in kg"
-msgstr ""
+msgstr "WHO Gewichts-Perzentile für Mädchen in kg"
 
 #: reports/templates/reports/tummytime_duration.html:4
 #: reports/templates/reports/tummytime_duration.html:9
