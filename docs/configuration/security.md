@@ -4,14 +4,14 @@
 
 _Default:_ `*` (any host)
 
-Set this variable to a single host or comma-separated list of hosts without spaces.
+Set this variable to a single host or comma-separated list of hosts.
 This should _always_ be set to a specific host or hosts in production deployments.
 
 Do not include schemes ("http" or "https") with this setting.
 
 **Example value**
 
-    baby.example.test,baby.example2.test
+    baby.example.test, baby.example2.test
 
 **See also**
 
