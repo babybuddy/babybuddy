@@ -83,8 +83,8 @@ msgstr "afficher toutes les données"
 #, python-format
 msgid "%(days)d day"
 msgid_plural "%(days)d days"
-msgstr[0] "il y a %(days_ago)d jour"
-msgstr[1] "il y a %(days_ago)d jours"
+msgstr[0] "il y a %(days)d jour"
+msgstr[1] "il y a %(days)d jours"
 
 #: babybuddy/models.py:98 babybuddy/models.py:102
 #, python-format
