@@ -24,6 +24,7 @@ uritemplate = "*"
 whitenoise = "*"
 django-taggit = "*"
 django-qr-code = "*"
+django-cors-headers = "*"
 django-dbsettings = "*"
 django-import-export = "*"
 

@@ -24,8 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 load_dotenv(find_dotenv())
 
 # Required settings
-
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split(",")]
 SECRET_KEY = os.environ.get("SECRET_KEY") or None
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     "api",
     "babybuddy.apps.BabyBuddyConfig",
     "core.apps.CoreConfig",
+    "corsheaders",
     "dashboard",
     "reports",
     "axes",
@@ -64,6 +64,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "babybuddy.middleware.RollingSessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -323,6 +324,12 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# https://github.com/adamchainz/django-cors-headers
+if os.environ.get("CORS_ALLOWED_ORIGINS"):
+    CORS_ALLOWED_ORIGINS = [
+        x.strip() for x in os.environ.get("CORS_ALLOWED_ORIGINS").split(",")
+    ]
 
 # Django Rest Framework
 # https://www.django-rest-framework.org/
