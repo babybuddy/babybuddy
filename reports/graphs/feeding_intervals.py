@@ -38,7 +38,7 @@ def feeding_intervals(instances):
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args["title"] = _("<b>Feeding intervals</b>")
+    layout_args["title"] = "<b>" + _("Feeding intervals") + "</b>"
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["type"] = "date"
     layout_args["xaxis"]["autorange"] = True

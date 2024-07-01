@@ -27,9 +27,7 @@
                                 {% endblocktrans %}
                             {% endif %}
                         </div>
-                        {% blocktrans trimmed with since=feeding.date.date|dayssince %}
-                            <div class="text-center small text-body-secondary">{{ since }}</div>
-                        {% endblocktrans %}
+                        <div class="text-center small text-body-secondary">{{ feeding.date.date|dayssince }}</div>
                     </div>
                 {% endfor %}
             </div>

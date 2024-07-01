@@ -5,10 +5,12 @@
 {% endblock %}
 {% block title %}
     {% if tummytime %}
-        {% blocktrans trimmed with since=tummytime.time|deltasince|duration_string:'m' time=tummytime.time|time %}
-            <div>{{ since }} ago</div>
-            <small>{{ time }}</small>
-        {% endblocktrans %}
+        <div>
+            {% blocktrans trimmed with time_ago=tummytime.time|deltasince|duration_string:'m' %}
+                {{ time_ago }} ago
+            {% endblocktrans %}
+        </div>
+        <small>{{ tummytime.time|time }}</small>
     {% else %}
         {% trans "Never" %}
     {% endif %}

@@ -83,7 +83,7 @@ def height_change(
     ]
     layout_args = utils.default_graph_layout_options()
     layout_args["barmode"] = "stack"
-    layout_args["title"] = _("<b>Height</b>")
+    layout_args["title"] = "<b>" + _("Height") + "</b>"
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Height")

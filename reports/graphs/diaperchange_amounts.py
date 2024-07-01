@@ -33,7 +33,7 @@ def diaperchange_amounts(instances):
     )
 
     layout_args = utils.default_graph_layout_options()
-    layout_args["title"] = _("<b>Diaper Change Amounts</b>")
+    layout_args["title"] = "<b>" + _("Diaper Change Amounts") + "</b>"
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Change amount")

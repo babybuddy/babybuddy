@@ -151,7 +151,7 @@ def feeding_pattern(feedings):
     layout_args["barmode"] = "stack"
     layout_args["bargap"] = 0
     layout_args["hovermode"] = "closest"
-    layout_args["title"] = _("<b>Feeding Pattern</b>")
+    layout_args["title"] = "<b>" + _("Feeding Pattern") + "</b>"
     layout_args["height"] = 800
 
     layout_args["xaxis"]["title"] = _("Date")
