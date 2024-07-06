@@ -403,7 +403,7 @@ msgstr "BMI"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:165
 msgid "BMI entry"
-msgstr "BMI-inlägg"
+msgstr "BMI"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:172 core/models.py:358
 #: core/models.py:371 core/models.py:372 core/models.py:375
@@ -443,7 +443,7 @@ msgstr "Längd"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:191
 msgid "Height entry"
-msgstr "Längd-inlägg"
+msgstr "Längd"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:198 core/models.py:573
 #: core/models.py:586 core/models.py:587 core/models.py:590
@@ -511,7 +511,7 @@ msgstr "Matningar"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:272
 msgid "Pumping entry"
-msgstr "Pumpnings-inlägg"
+msgstr "Pumpning"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:284
 msgid "Sleep entry"
@@ -519,7 +519,7 @@ msgstr "Sömninlägg"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:296
 msgid "Tummy Time entry"
-msgstr "Magläge-inlägg"
+msgstr "Magläge"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:319
 #: babybuddy/templates/babybuddy/user_add_device.html:7
@@ -794,7 +794,7 @@ msgstr "Åtgärder"
 
 #: babybuddy/templates/babybuddy/user_list.html:59
 msgid "No users found."
-msgstr "Inga användare funna."
+msgstr "Hittade inga användare."
 
 #: babybuddy/templates/babybuddy/user_password_form.html:4
 #: babybuddy/templates/babybuddy/user_password_form.html:8
@@ -999,7 +999,7 @@ msgstr "Vänligen gå till följande sida och välj ett nytt lösenord:"
 
 #: babybuddy/templates/registration/password_reset_email.html:8
 msgid "Your username, in case you’ve forgotten:"
-msgstr "Ditt användarnamn, om du glömt:"
+msgstr "Ditt användarnamn, om du har glömt det:"
 
 #: babybuddy/templates/registration/password_reset_email.html:9
 msgid "Thanks for using Baby Buddy!"
@@ -1328,12 +1328,12 @@ msgstr "Milstolpe"
 
 #: core/templates/core/bmi_confirm_delete.html:4
 msgid "Delete a BMI Entry"
-msgstr "Radera ett BMI-inlägg"
+msgstr "Radera en BMI-mätning"
 
 #: core/templates/core/bmi_form.html:7 core/templates/core/bmi_form.html:17
 #: core/templates/core/bmi_form.html:26
 msgid "Add a BMI Entry"
-msgstr "Lägg till ett BMI-inlägg"
+msgstr "Lägg till ett BMI"
 
 #: core/templates/core/bmi_list.html:14
 msgid "Add BMI"
@@ -1341,7 +1341,7 @@ msgstr "Lägg till BMI"
 
 #: core/templates/core/bmi_list.html:69
 msgid "No BMI entries found."
-msgstr "Inga BMI-inlägg hittade."
+msgstr "Hittade inga BMI-mätningar."
 
 #: core/templates/core/child_confirm_delete.html:4
 msgid "Delete a Child"
@@ -1364,7 +1364,7 @@ msgstr "Ålder"
 
 #: core/templates/core/child_list.html:14
 msgid "Add Child"
-msgstr "Lägg till Barn"
+msgstr "Lägg till barn"
 
 #: core/templates/core/child_list.html:28
 msgid "Birth Date"
@@ -1372,7 +1372,7 @@ msgstr "Födelsedatum"
 
 #: core/templates/core/child_list.html:71
 msgid "No children found."
-msgstr "Inga barn funna."
+msgstr "Hittade inga barn."
 
 #: core/templates/core/child_quick_switch.html:9
 msgid "Switch child"
@@ -1406,7 +1406,7 @@ msgstr "Lägg till"
 
 #: core/templates/core/diaperchange_list.html:15
 msgid "Add Diaper Change"
-msgstr "Lägg till Blöjbyte"
+msgstr "Lägg till blöjbyte"
 
 #: core/templates/core/diaperchange_list.html:29
 msgid "Contents"
@@ -1414,7 +1414,7 @@ msgstr "Innehåll"
 
 #: core/templates/core/diaperchange_list.html:83
 msgid "No diaper changes found."
-msgstr "Inga blöjbyten funna."
+msgstr "Hittade inga blöjbyten."
 
 #: core/templates/core/feeding_confirm_delete.html:4
 msgid "Delete a Feeding"
@@ -1436,7 +1436,7 @@ msgstr "Lägg till matning"
 
 #: core/templates/core/feeding_list.html:14
 msgid "Add Feeding"
-msgstr "Lägg till Matning"
+msgstr "Lägg till matning"
 
 #: core/templates/core/feeding_list.html:18
 msgid "Add Bottle Feeding"
@@ -1452,13 +1452,13 @@ msgstr "Inga matningar hittades."
 
 #: core/templates/core/head_circumference_confirm_delete.html:4
 msgid "Delete a Head Circumference Entry"
-msgstr "Radera huvudomkrets-inlägg"
+msgstr "Radera huvudomkretsmätning"
 
 #: core/templates/core/head_circumference_form.html:7
 #: core/templates/core/head_circumference_form.html:17
 #: core/templates/core/head_circumference_form.html:26
 msgid "Add a Head Circumference Entry"
-msgstr "Lägg till huvudomkrets-inlägg"
+msgstr "Lägg till huvudomkrets"
 
 #: core/templates/core/head_circumference_list.html:15
 msgid "Add Head Circumference"
@@ -1466,17 +1466,17 @@ msgstr "Lägg till omkrets för huvud"
 
 #: core/templates/core/head_circumference_list.html:72
 msgid "No head circumference entries found."
-msgstr "Inga huvudomkrets-inlägg funna."
+msgstr "Hittade inga huvudomkretsmätningar."
 
 #: core/templates/core/height_confirm_delete.html:4
 msgid "Delete a Height Entry"
-msgstr "Radera längd-inlägg"
+msgstr "Radera längdmätning"
 
 #: core/templates/core/height_form.html:7
 #: core/templates/core/height_form.html:17
 #: core/templates/core/height_form.html:26
 msgid "Add a Height Entry"
-msgstr "Lägg till längd-inlägg"
+msgstr "Lägg till längd"
 
 #: core/templates/core/height_list.html:14
 msgid "Add Height"
@@ -1484,7 +1484,7 @@ msgstr "Lägg till längd"
 
 #: core/templates/core/height_list.html:71
 msgid "No height entries found."
-msgstr "Inga längd-inlägg funna."
+msgstr "Hittade inga längdmätningar."
 
 #: core/templates/core/note_confirm_delete.html:4
 msgid "Delete a Note"
@@ -1500,29 +1500,29 @@ msgstr "Lägg till anteckning"
 
 #: core/templates/core/note_list.html:14
 msgid "Add Note"
-msgstr "Lägg till Anteckning"
+msgstr "Lägg till anteckning"
 
 #: core/templates/core/note_list.html:71
 msgid "No notes found."
-msgstr "Inga anteckningar funna."
+msgstr "Hittade inga anteckningar."
 
 #: core/templates/core/pumping_confirm_delete.html:4
 msgid "Delete a Pumping Entry"
-msgstr "Radera pumpnings-inlägg"
+msgstr "Radera pumpning"
 
 #: core/templates/core/pumping_form.html:7
 #: core/templates/core/pumping_form.html:17
 #: core/templates/core/pumping_form.html:26
 msgid "Add a Pumping Entry"
-msgstr "Lägg till ett pumpnings-inlägg"
+msgstr "Lägg till ett pumpning"
 
 #: core/templates/core/pumping_list.html:14
 msgid "Add Pumping Entry"
-msgstr "Lägg till pumpnings-inlägg"
+msgstr "Lägg till pumpnings"
 
 #: core/templates/core/pumping_list.html:73
 msgid "No pumping entries found."
-msgstr "Inga pumpnings-inlägg funna."
+msgstr "Hittade inga pumpningstillfällen."
 
 #: core/templates/core/quick_timer_nav.html:10
 #: core/templates/core/quick_timer_nav.html:33
@@ -1537,19 +1537,19 @@ msgstr "Snabbstarta timer för…"
 
 #: core/templates/core/sleep_confirm_delete.html:4
 msgid "Delete a Sleep Entry"
-msgstr "Radera sömn-inlägg"
+msgstr "Radera sömn"
 
 #: core/templates/core/sleep_form.html:5
 msgid "Update a Sleep Entry"
-msgstr "Uppdatera sömn-inlägg"
+msgstr "Uppdatera sömn"
 
 #: core/templates/core/sleep_form.html:7 core/templates/core/sleep_form.html:26
 msgid "Add a Sleep Entry"
-msgstr "Lägg till sömn-inlägg"
+msgstr "Lägg till sömn"
 
 #: core/templates/core/sleep_list.html:14
 msgid "Add Sleep"
-msgstr "Lägg till Sömn"
+msgstr "Lägg till sömn"
 
 #: core/templates/core/sleep_list.html:24
 #: core/templates/core/timer_form.html:16
@@ -1565,7 +1565,7 @@ msgstr "Avslut"
 
 #: core/templates/core/sleep_list.html:73
 msgid "No sleep entries found."
-msgstr "Inga sömn-inlägg funna."
+msgstr "Hittade inga sömntillfällen."
 
 #: core/templates/core/tag_confirm_delete.html:4
 msgid "Delete a Tag"
@@ -1661,7 +1661,7 @@ msgstr "Senast använd"
 
 #: core/templates/core/tag_list.html:62
 msgid "No tags found."
-msgstr "Inga taggar funna."
+msgstr "Hittade inga taggar."
 
 #: core/templates/core/temperature_confirm_delete.html:4
 msgid "Delete a Temperature Reading"
@@ -1674,15 +1674,15 @@ msgstr "Lägg till matning"
 
 #: core/templates/core/temperature_form.html:26
 msgid "Add a Temperature Entry"
-msgstr "Lägg till sömn-inlägg"
+msgstr "Lägg till sömn"
 
 #: core/templates/core/temperature_list.html:15
 msgid "Add Temperature Reading"
-msgstr "Lägg till Temperaturavläsning"
+msgstr "Lägg till temperatur"
 
 #: core/templates/core/temperature_list.html:72
 msgid "No temperature entries found."
-msgstr "Inga timer-inlägg funna."
+msgstr "Hittade ingen temperaturavläsning."
 
 #: core/templates/core/timer_confirm_delete.html:4
 #, python-format
@@ -1713,7 +1713,7 @@ msgstr "Starta timer"
 
 #: core/templates/core/timer_list.html:49
 msgid "No timer entries found."
-msgstr "Inga timer-inlägg funna."
+msgstr "Hittade inga timers."
 
 #: core/templates/core/timer_nav.html:19
 msgid "View Timers"
@@ -1738,24 +1738,24 @@ msgstr "Inga"
 
 #: core/templates/core/tummytime_confirm_delete.html:4
 msgid "Delete a Tummy Time Entry"
-msgstr "Radera magtränings-inlägg"
+msgstr "Radera magträning"
 
 #: core/templates/core/tummytime_form.html:5
 msgid "Update a Tummy Time Entry"
-msgstr "Update magtränings-inlägg"
+msgstr "Update magträning"
 
 #: core/templates/core/tummytime_form.html:7
 #: core/templates/core/tummytime_form.html:26
 msgid "Add a Tummy Time Entry"
-msgstr "Lägg till magtränings-inlägg"
+msgstr "Lägg till magträning"
 
 #: core/templates/core/tummytime_list.html:14
 msgid "Add Tummy Time"
-msgstr "Lägg till Magläge"
+msgstr "Lägg till magläge"
 
 #: core/templates/core/tummytime_list.html:67
 msgid "No tummy time entries found."
-msgstr "Inga magtränings-inlägg funna."
+msgstr "Hittade ingen magtränging."
 
 #: core/templates/core/weight_confirm_delete.html:4
 msgid "Delete a Weight Entry"
@@ -1769,11 +1769,11 @@ msgstr "Lägg till viktinlägg"
 
 #: core/templates/core/weight_list.html:14
 msgid "Add Weight"
-msgstr "Lägg till Vikt"
+msgstr "Lägg till vikt"
 
 #: core/templates/core/weight_list.html:71
 msgid "No weight entries found."
-msgstr "Inga viktinlägg funna."
+msgstr "Hittade ingen viktmätning."
 
 #: core/templates/core/widget_tag_editor.html:26
 msgid "Tag name"
@@ -1867,7 +1867,7 @@ msgstr "%(child)s startade magträningsläge!"
 #: core/timeline.py:68
 #, python-format
 msgid "%(child)s finished tummy time."
-msgstr "%(child)s avslutade magträningsläge."
+msgstr "%(child)s avslutade magtid."
 
 #: core/timeline.py:96
 #, python-format
@@ -1912,7 +1912,7 @@ msgstr "Temperatur: %(temperature).0f"
 #: core/timeline.py:249
 #, python-format
 msgid "%(child)s had a temperature measurement."
-msgstr "%(child)s hade en temperatur-avläsning."
+msgstr "%(child)s hade en temperaturavläsning."
 
 #: core/utils.py:40
 #, python-format
