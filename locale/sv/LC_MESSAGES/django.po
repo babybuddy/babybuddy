@@ -48,7 +48,7 @@ msgid ""
 "If supported by browser, the dashboard will only refresh when visible, and "
 "also when receiving focus."
 msgstr ""
-"Om webbläsaren stöder det så kommer Översikten enbart uppdateras när den är "
+"Om webbläsaren stöder det så kommer översikten enbart uppdateras när den är "
 "synlig och när den är i fokus."
 
 #: babybuddy/models.py:28
@@ -66,7 +66,7 @@ msgstr[1] "%(minutes)d minuter"
 
 #: babybuddy/models.py:72
 msgid "Hide Empty Dashboard Cards"
-msgstr "Göm tomma kort i Översikten"
+msgstr "Göm tomma kort i översikten"
 
 #: babybuddy/models.py:75
 msgid "Hide data older than"
@@ -75,7 +75,7 @@ msgstr "Göm data äldre än"
 #: babybuddy/models.py:77
 msgid "This setting controls which data will be shown in the dashboard."
 msgstr ""
-"Den här inställningen styr vilket data som kommer att visas i Översikten."
+"Den här inställningen styr vilken data som kommer att visas i översikten."
 
 #: babybuddy/models.py:83
 msgid "show all data"
@@ -216,7 +216,7 @@ msgstr "Ukrainska"
 
 #: babybuddy/site_settings.py:23
 msgid "Default minimum nap start time"
-msgstr "Standardvärde för minsta start-tid för tupplur"
+msgstr "Standardvärde för minsta starttid för tupplur"
 
 #: babybuddy/site_settings.py:25
 msgid ""
@@ -229,7 +229,7 @@ msgstr ""
 
 #: babybuddy/site_settings.py:31
 msgid "Default maximum nap start time"
-msgstr "Standardvärde för maximal start-tid för tupplur"
+msgstr "Standardvärde för maximal starttid för tupplur"
 
 #: babybuddy/site_settings.py:33
 msgid ""
@@ -244,7 +244,7 @@ msgstr ""
 #: babybuddy/templates/admin/base_site.html:8
 #: babybuddy/templates/babybuddy/nav-dropdown.html:333
 msgid "Database Admin"
-msgstr "Databas-administratör"
+msgstr "Databasadministratör"
 
 #: babybuddy/templates/babybuddy/base.html:37
 msgid "Home"
@@ -420,11 +420,11 @@ msgstr "BMI"
 #: reports/templates/reports/head_circumference_change.html:9
 #: reports/templates/reports/report_list.html:34
 msgid "Head Circumference"
-msgstr "Omkrets Huvud"
+msgstr "Huvudomkrets"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:178
 msgid "Head Circumference entry"
-msgstr "Huvudomkrets-tillägg"
+msgstr "Huvudomkretsmätning"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:185 core/models.py:389
 #: core/models.py:401 core/models.py:402 core/models.py:405
@@ -552,7 +552,7 @@ msgstr "Sidan"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:328
 msgid "API Browser"
-msgstr "API-bläddrare"
+msgstr "API utforskare"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:331 core/models.py:102
 #: core/templates/core/bmi_list.html:29
@@ -592,7 +592,7 @@ msgstr "Källkod"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:339
 msgid "Chat / Support"
-msgstr "Chatt / Support"
+msgstr "Chatt / support"
 
 #: babybuddy/templates/babybuddy/paginator.html:11
 msgid "First"
@@ -642,7 +642,7 @@ msgstr "Återskapa"
 
 #: babybuddy/templates/babybuddy/user_add_device.html:29
 msgid "Login QR code"
-msgstr "QR-kod för Login"
+msgstr "QR-kod för inloggning"
 
 #: babybuddy/templates/babybuddy/user_confirm_delete.html:4
 msgid "Delete User"
@@ -867,7 +867,7 @@ msgstr "Lägg till barn"
 #: babybuddy/templates/dbsettings/site_settings.html:4
 #: babybuddy/templates/dbsettings/site_settings.html:11
 msgid "Site Settings"
-msgstr "Webbplats-inställningar"
+msgstr "Webbplatsinställningar"
 
 #: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
 msgid "Bad Request"
@@ -909,7 +909,7 @@ msgstr "Sökvägen %(path)s finns inte."
 
 #: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
 msgid "Server Error"
-msgstr "Server-fel"
+msgstr "Serverfel"
 
 #: babybuddy/templates/error/base.html:13
 msgid "Return to Baby Buddy"
@@ -917,7 +917,7 @@ msgstr "Tillbaka till Baby Buddy"
 
 #: babybuddy/templates/error/lockout.html:4
 msgid "Too Many Login Attempts"
-msgstr "För många inloggnings-försök"
+msgstr "För många inloggningsförsök"
 
 #: babybuddy/templates/registration/login.html:18
 msgid "Login"
@@ -982,7 +982,7 @@ msgid ""
 "you registered with, and check your spam folder."
 msgstr ""
 "Om du inte får ett e-postmeddelande, se till att du har angett adressen du "
-"registrerade med och kontrollera din skräppost-mapp."
+"registrerade med och kontrollera din skräppostmapp."
 
 #: babybuddy/templates/registration/password_reset_email.html:3
 #, python-format
@@ -1072,8 +1072,8 @@ msgid ""
 "Nap start max. value %(max)s must be greater than nap start min. value "
 "%(min)s."
 msgstr ""
-"Tupplurens max. start-värde %(max)s måste vara större än tuppluren min. "
-"start-värde %(min)s."
+"Tupplurens max. startvärde %(max)s måste vara större än tuppluren min. "
+"startvärde %(min)s."
 
 #: core/fields.py:27
 #, python-format
@@ -1297,7 +1297,7 @@ msgstr "Tupplur"
 
 #: core/models.py:535
 msgid "Nap settings"
-msgstr "Tupplurs-inställningar"
+msgstr "Tupplursinställningar"
 
 #: core/models.py:607 core/templates/core/tag_list.html:24
 #: core/templates/core/timer_list.html:24
@@ -1599,7 +1599,7 @@ msgstr "Lägg till en tagg"
 
 #: core/templates/core/tag_detail.html:28
 msgid "Tag actions"
-msgstr "Tag-åtgärder"
+msgstr "Taggåtgärder"
 
 #: core/templates/core/tag_detail.html:32
 #: core/templates/timeline/_timeline.html:64
@@ -1700,7 +1700,7 @@ msgstr "%(timer)s skapad av %(user)s"
 
 #: core/templates/core/timer_detail.html:58
 msgid "Timer actions"
-msgstr "Timer-åtgärder"
+msgstr "Timeråtgärder"
 
 #: core/templates/core/timer_detail.html:73
 msgid "Restart timer"
@@ -2053,7 +2053,7 @@ msgstr[1] "%(counter)s matningar"
 
 #: dashboard/templates/cards/pumping_last.html:4
 msgid "Last Pumping"
-msgstr "Senaste Pumpning"
+msgstr "Senaste pumpning"
 
 #: dashboard/templates/cards/sleep_last.html:4
 msgid "Last Sleep"
@@ -2233,7 +2233,7 @@ msgstr "Tid mellan byten (timmar)"
 #: reports/templates/reports/diaperchange_types.html:9
 #: reports/templates/reports/report_list.html:20
 msgid "Diaper Change Types"
-msgstr "Blöjbytes-typer"
+msgstr "Blöjbytestyper"
 
 #: reports/graphs/diaperchange_types.py:54
 msgid "Number of changes"
@@ -2376,7 +2376,7 @@ msgstr "Matningar"
 #: reports/templates/reports/feeding_intervals.html:9
 #: reports/templates/reports/report_list.html:30
 msgid "Feeding Intervals"
-msgstr "Matnings-intervall"
+msgstr "Matningsintervall"
 
 #: reports/templates/reports/report_base.html:13
 msgid "There is not enough data to generate this report."
@@ -2388,7 +2388,7 @@ msgstr "Kroppsmasseindex (BMI)"
 
 #: reports/templates/reports/report_list.html:22
 msgid "Diaper Intervals"
-msgstr "Blöj-intervall"
+msgstr "Blöjintervall"
 
 #: reports/templates/reports/report_list.html:28
 msgid "Feeding Durations (Average)"
@@ -2396,11 +2396,11 @@ msgstr "Matningstid (Genomsnittlig)"
 
 #: reports/templates/reports/report_list.html:38
 msgid "WHO Height Percentiles for Boys in cm"
-msgstr "WHO längd-percentiler för pojkar i cm"
+msgstr "WHO längdpercentiler för pojkar i cm"
 
 #: reports/templates/reports/report_list.html:40
 msgid "WHO Height Percentiles for Girls in cm"
-msgstr "WHO längd-percentiler för flickor i cm"
+msgstr "WHO längdpercentiler för flickor i cm"
 
 #: reports/templates/reports/report_list.html:42
 msgid "Pumping Amounts"
@@ -2412,11 +2412,11 @@ msgstr "Magläge varaktighet (Totalt)"
 
 #: reports/templates/reports/report_list.html:54
 msgid "WHO Weight Percentiles for Boys in kg"
-msgstr "WHO Vikt-percentiler för Pojkar i kg"
+msgstr "WHO viktpercentiler för Pojkar i kg"
 
 #: reports/templates/reports/report_list.html:56
 msgid "WHO Weight Percentiles for Girls in kg"
-msgstr "WHO Vikt-percentiler för Flickor i kg"
+msgstr "WHO viktpercentiler för Flickor i kg"
 
 #~ msgid "1 min."
 #~ msgstr "1 minut."
