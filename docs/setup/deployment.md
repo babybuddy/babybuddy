@@ -64,6 +64,18 @@ for added integrations with the base Home Assistant system.
 See also [How to Setup Baby Buddy in Home Assistant](https://smarthomescene.com/guides/how-to-setup-baby-buddy-in-home-assistant/)
 from Smart Home Scene for more detailed installation and configuration instructions.
 
+## Digital Ocean
+
+!!! info
+
+    The Digital Ocean deployment and link URLs include referal codes. All referral funds receieved are treated as donations to Baby Buddy.
+
+Use the button below to start a new deploy to [Digital Ocean](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge).
+
+Modify the app enviornment variables during the build configuration and set the `SECRET_KEY` value to something random and unique. Digital Ocean's automatic secret generator does not work with Baby Buddy.
+
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/babybuddy/babybuddy/tree/master&refcode=dd79e4cfd7b6)
+
 ## Clever Cloud
 
 To deploy on [Clever Cloud](https://www.clever-cloud.com), log in to your
