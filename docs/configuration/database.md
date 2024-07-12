@@ -1,5 +1,13 @@
 # Database
 
+## `DATABSE_URL`
+
+_Default:_ unset
+
+Database connection string. If used, all other `DB_` enviornment variables are ignored.
+
+See also [dj-database-url](https://github.com/jazzband/dj-database-url?tab=readme-ov-file#dj-database-url).
+
 ## `DB_ENGINE`
 
 _Default:_ `django.db.backends.sqlite3`

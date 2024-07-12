@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv, find_dotenv
@@ -109,24 +110,26 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-config = {
-    "ENGINE": os.getenv("DB_ENGINE") or "django.db.backends.sqlite3",
-    "NAME": os.getenv("DB_NAME") or os.path.join(BASE_DIR, "data/db.sqlite3"),
-}
-if os.getenv("DB_USER"):
-    config["USER"] = os.getenv("DB_USER")
-if os.environ.get("DB_PASSWORD") or os.environ.get("POSTGRES_PASSWORD"):
-    config["PASSWORD"] = os.environ.get("DB_PASSWORD") or os.environ.get(
-        "POSTGRES_PASSWORD"
-    )
-if os.getenv("DB_HOST"):
-    config["HOST"] = os.getenv("DB_HOST")
-if os.getenv("DB_PORT"):
-    config["PORT"] = os.getenv("DB_PORT")
-if os.getenv("DB_OPTIONS"):
-    config["OPTIONS"] = os.getenv("DB_OPTIONS")
-
-DATABASES = {"default": config}
+if os.getenv("DATABSE_URL"):
+    DATABASES = {"default": dj_database_url.config()}
+else:
+    config = {
+        "ENGINE": os.getenv("DB_ENGINE") or "django.db.backends.sqlite3",
+        "NAME": os.getenv("DB_NAME") or os.path.join(BASE_DIR, "data/db.sqlite3"),
+    }
+    if os.getenv("DB_USER"):
+        config["USER"] = os.getenv("DB_USER")
+    if os.environ.get("DB_PASSWORD") or os.environ.get("POSTGRES_PASSWORD"):
+        config["PASSWORD"] = os.environ.get("DB_PASSWORD") or os.environ.get(
+            "POSTGRES_PASSWORD"
+        )
+    if os.getenv("DB_HOST"):
+        config["HOST"] = os.getenv("DB_HOST")
+    if os.getenv("DB_PORT"):
+        config["PORT"] = os.getenv("DB_PORT")
+    if os.getenv("DB_OPTIONS"):
+        config["OPTIONS"] = os.getenv("DB_OPTIONS")
+    DATABASES = {"default": config}
 
 
 # Cache
