@@ -26,7 +26,8 @@ spec:
           type: GENERAL
           value: "babybuddy.settings.base"
         - key: SECRET_KEY
-          scope: GENERAL
+          scope: RUN_TIME
+          type: GENERAL
   databases:
     - name: db
       engine: PG
