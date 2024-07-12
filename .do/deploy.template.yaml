@@ -4,7 +4,7 @@ spec:
     - name: app
       environment_slug: python
       git:
-        branch: master
+        branch: do
         repo_clone_url: https://github.com/babybuddy/babybuddy.git
       envs:
         - key: ALLOWED_HOSTS
