@@ -21,6 +21,10 @@ spec:
           scope: BUILD_TIME
           type: GENERAL
           value: "1"
+        - key: DJANGO_SETTINGS_MODULE
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+          value: "babybuddy.settings.base"
         - key: SECRET_KEY
           scope: RUN_AND_BUILD_TIME
           type: SECRET
