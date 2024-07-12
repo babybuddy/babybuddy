@@ -2838,10 +2838,3 @@ msgstr "Percentis OMS de peso para Meninas em kg"
 
 #~ msgid " days ago"
 #~ msgstr "␣dias atrás"
-
-#~ msgid ""
-#~ "Nap start min. value %(min)s must be less than nap start min. value "
-#~ "%(max)s."
-#~ msgstr ""
-#~ "Valor min. de início de soneca %(min)s tem de ser menor que o valor max. "
-#~ "de início de soneca %(max)s."

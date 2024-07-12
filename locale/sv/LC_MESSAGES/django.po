@@ -2750,10 +2750,3 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 
 #~ msgid " days ago"
 #~ msgstr " dagar sedan"
-
-#~ msgid ""
-#~ "Nap start min. value %(min)s must be less than nap start min. value "
-#~ "%(max)s."
-#~ msgstr ""
-#~ "Tupplurens min. start-värde %(min)s måste vara mindre än tuppluren max. "
-#~ "start-värde %(max)s."

@@ -2809,13 +2809,6 @@ msgstr "女の子のWHO体重パーセンタイル（kg）"
 #~ msgstr "%(key)s 日前"
 
 #~ msgid ""
-#~ "Nap start min. value %(min)s must be less than nap start min. value "
-#~ "%(max)s."
-#~ msgstr ""
-#~ "昼寝開始の最小値%(min)sは、昼寝開始の最大値%(max)sよりも小さくなければなり"
-#~ "ません。"
-
-#~ msgid ""
 #~ "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
 #~ msgstr ""
 #~ "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"

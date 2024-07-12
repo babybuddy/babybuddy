@@ -2854,10 +2854,3 @@ msgstr "Процентилі ваги для дівчаток в кг (ВООЗ)
 
 #~ msgid " days ago"
 #~ msgstr " днів тому"
-
-#~ msgid ""
-#~ "Nap start min. value %(min)s must be less than nap start min. value "
-#~ "%(max)s."
-#~ msgstr ""
-#~ "Мінімальний час початку денного сну %(min)s  повинен бути меншим за "
-#~ "максимальний час %(max)s."
