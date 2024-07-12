@@ -117,21 +117,21 @@ requirements are Python, a web server, an application server, and a database.
 
 ### Requirements
 
-- Python 3.10+, pip, pipenv
+- Python 3.10+, pip, [pipx](https://pipx.pypa.io/), [pipenv](https://pipenv.pypa.io/)
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database (See [Django's databases documentation](https://docs.djangoproject.com/en/5.0/ref/databases/)).
 
 ### Example deployment
 
-_This example assumes a 1 GB VPS instance with Ubuntu 20.04._ It uses Python 3.10,
+_This example assumes a 1 GB VPS instance with Ubuntu 24.04._ It uses Python 3.12,
 nginx, uwsgi and sqlite. It should be sufficient for a few users (e.g., two parents
 and any number of children).
 
 1. Install system packages
 
    ```shell
-   sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev libpq-dev
+   sudo apt-get install python3 python3-pip pipx nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev libpq-dev
    ```
 
 2. Default python3 to python for this session
@@ -143,7 +143,8 @@ and any number of children).
 3. Install pipenv
 
    ```shell
-   sudo -H pip3 install pipenv
+   pipx ensurepath
+   pipx install pipenv
    ```
 
 4. Set up directories and files
@@ -165,7 +166,7 @@ and any number of children).
 
    ```shell
    export PIPENV_VENV_IN_PROJECT=1
-   pipenv install --three
+   pipenv install
    pipenv shell
    ```
 
