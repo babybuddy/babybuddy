@@ -17,6 +17,10 @@ spec:
         - key: DEBUG
           scope: RUN_TIME
           type: GENERAL
+        - key: DISABLE_COLLECTSTATIC
+          scope: BUILD_TIME
+          type: GENERAL
+          value: 1
         - key: SECRET_KEY
           scope: RUN_AND_BUILD_TIME
           type: SECRET
