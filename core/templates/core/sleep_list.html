@@ -62,8 +62,8 @@
                             <td>{{ sleep.duration|duration_string }}</td>
                             <td>
                                 {% if prev_sleep %}
-                                    {% blocktrans trimmed with since=prev_sleep.start|timesince:sleep.start %}
-                                        {{ since }} ago
+                                    {% blocktrans trimmed with time_ago=prev_sleep.start|timesince:sleep.start %}
+                                        {{ time_ago }} ago
                                     {% endblocktrans %}
                                 {% endif %}
                             </td>

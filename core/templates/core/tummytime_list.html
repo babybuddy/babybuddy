@@ -63,8 +63,8 @@
                             <td>{{ tummytime.duration|duration_string }}</td>
                             <td>
                                 {% if prev_tummytime %}
-                                    {% blocktrans trimmed with since=prev_tummytime.start|timesince:tummytime.start %}
-                                        {{ since }} ago
+                                    {% blocktrans trimmed with time_ago=prev_tummytime.start|timesince:tummytime.start %}
+                                        {{ time_ago }} ago
                                     {% endblocktrans %}
                                 {% endif %}
                             </td>
