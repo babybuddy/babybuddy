@@ -1,0 +1,25 @@
+spec:
+  name: babybuddy
+  services:
+    - name: app
+      environment_slug: python
+      git:
+        branch: master
+        repo_clone_url: https://github.com/babybuddy/babybuddy.git
+      envs:
+        - key: ALLOWED_HOSTS
+          scope: RUN_TIME
+          type: GENERAL
+          value: ${APP_DOMAIN}
+        - key: DATABASE_URL
+          scope: RUN_TIME
+          value: ${db.DATABASE_URL}
+        - key: DEBUG
+          scope: RUN_TIME
+          type: GENERAL
+        - key: SECRET_KEY
+          scope: RUN_AND_BUILD_TIME
+          type: SECRET
+  databases:
+    - name: db
+      engine: PG
