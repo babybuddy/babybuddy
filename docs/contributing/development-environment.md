@@ -17,7 +17,7 @@ information and steps below to set up a local development environment for Baby B
 
 1. Install pipenv per [Pipenv installation](https://pipenv.pypa.io/en/latest/installation.html)
 
-1. Install required Python packages, including dev packages
+2. Install required Python packages, including dev packages
 
    ```shell
    pipenv install --three --dev
@@ -25,31 +25,31 @@ information and steps below to set up a local development environment for Baby B
 
    If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
 
-1. Installed Node 18.x (if necessary)
+3. Installed Node 18.x (if necessary)
 
    ```shell
    nvm install 18
    ```
 
-1. Activate Node 18.x
+4. Activate Node 18.x
 
    ```shell
    nvm use
    ```
 
-1. Install Gulp CLI
+5. Install Gulp CLI
 
    ```shell
    npm install -g gulp-cli
    ```
 
-1. Install required Node packages
+6. Install required Node packages
 
    ```shell
    npm install
    ```
 
-1. Set, at least, the `DJANGO_SETTINGS_MODULE` environment variable
+7. Set, at least, the `DJANGO_SETTINGS_MODULE` environment variable
 
    ```shell
    export DJANGO_SETTINGS_MODULE=babybuddy.settings.development
@@ -59,13 +59,13 @@ information and steps below to set up a local development environment for Baby B
    Linux-based systems. See [Configuration](../configuration/intro.md) for other
    settings and methods for defining them.
 
-1. Migrate the database
+8. Migrate the database
 
    ```shell
    gulp migrate
    ```
 
-1. Build assets and run the server
+9. Build assets and run the server
 
    ```shell
    gulp
