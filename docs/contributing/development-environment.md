@@ -15,7 +15,7 @@ information and steps below to set up a local development environment for Baby B
 
 ## Installation
 
-1. Install pipenv per [Installing pipenv](https://pipenv.pypa.io/en/latest/installation/)
+1. Install pipenv per [Pipenv installation](https://pipenv.pypa.io/en/latest/installation.html)
 
 1. Install required Python packages, including dev packages
 
