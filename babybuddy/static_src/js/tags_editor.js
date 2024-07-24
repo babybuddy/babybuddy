@@ -51,8 +51,6 @@
   ).value;
 
   function doReq(method, uri, data, success, fail) {
-    // TODO: prefer jQuery based requests for now
-
     const req = new XMLHttpRequest();
     req.addEventListener("load", () => {
       if (req.status >= 200 && req.status < 300) {
