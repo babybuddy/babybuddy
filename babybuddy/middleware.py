@@ -14,7 +14,7 @@ from django.http import (
     HttpResponse,
     StreamingHttpResponse,
 )
-from django.urls.base import set_script_prefix
+from django.urls.base import set_script_prefix, get_script_prefix
 
 
 class UserLanguageMiddleware:
@@ -135,6 +135,7 @@ class HomeAssistant:
     def __init__(self, get_response):
         self.get_response = get_response
         self.home_assistant_support_enabled = settings.ENABLE_HOME_ASSISTANT_SUPPORT
+        self.original_script_prefix = get_script_prefix()
 
     def __call__(self, request: HttpRequest):
         if self.home_assistant_support_enabled:
@@ -153,6 +154,8 @@ class HomeAssistant:
 
         if apply_x_ingress_path:
             set_script_prefix("/" + x_ingress_path.lstrip("/"))
+        else:
+            set_script_prefix(self.original_script_prefix)
 
         response = self.get_response(request)
 
