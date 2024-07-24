@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.test import Client as HttpClient
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+from django.urls.base import set_script_prefix, get_script_prefix
 
 from faker import Faker
 
@@ -31,6 +32,14 @@ class HomeAssistantMiddlewareTestCase(TestCase):
         cls.user = get_user_model().objects.create_user(
             is_superuser=True, is_staff=True, **cls.credentials
         )
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.original_script_prefix = get_script_prefix()
+
+    def tearDown(self) -> None:
+        set_script_prefix(self.original_script_prefix)
+        super().tearDown()
 
     def test_no_ingress_request(self):
         self.c.login(**self.credentials)
