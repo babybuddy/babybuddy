@@ -8,7 +8,12 @@ from urllib.parse import urlunsplit, urlsplit
 from django.conf import settings
 from django.utils import timezone, translation
 from django.contrib.auth.middleware import RemoteUserMiddleware
-from django.http import HttpRequest, HttpResponseRedirect, HttpResponse, StreamingHttpResponse
+from django.http import (
+    HttpRequest,
+    HttpResponseRedirect,
+    HttpResponse,
+    StreamingHttpResponse,
+)
 from django.urls.base import set_script_prefix
 
 
@@ -178,18 +183,23 @@ class HomeAssistant:
                     # Filter /static and /media URLs, I did not find a better
                     # way that would be compatible with external third-party apps.
                     content = response.content.decode()
-                    content = content.replace(
-                        f'"{settings.STATIC_URL}',
-                        f'"{x_ingress_path}{settings.STATIC_URL}',
-                    ).replace(
-                        f"'{settings.STATIC_URL}",
-                        f"'{x_ingress_path}{settings.STATIC_URL}",
-                    ).replace(
-                        f'"{settings.MEDIA_URL}',
-                        f'"{x_ingress_path}{settings.MEDIA_URL}',
-                    ).replace(
-                        f"'{settings.MEDIA_URL}",
-                        f"'{x_ingress_path}{settings.MEDIA_URL}",
+                    content = (
+                        content.replace(
+                            f'"{settings.STATIC_URL}',
+                            f'"{x_ingress_path}{settings.STATIC_URL}',
+                        )
+                        .replace(
+                            f"'{settings.STATIC_URL}",
+                            f"'{x_ingress_path}{settings.STATIC_URL}",
+                        )
+                        .replace(
+                            f'"{settings.MEDIA_URL}',
+                            f'"{x_ingress_path}{settings.MEDIA_URL}',
+                        )
+                        .replace(
+                            f"'{settings.MEDIA_URL}",
+                            f"'{x_ingress_path}{settings.MEDIA_URL}",
+                        )
                     )
                     response.content = content
 
