@@ -70,6 +70,26 @@ from Smart Home Scene for more detailed installation and configuration instructi
 
     The Digital Ocean deployment and link URLs include referal codes. All referral funds receieved are treated as donations to Baby Buddy.
 
+There are two ways to deploy Baby Buddy to Digital Ocean -- as a droplet from a marketplace image or as an app.
+
+The **marketplace image** is the cheaper option ($6/month), but may require more manual configuration depending on desired features and is limited to the latest release the marketplace image has been approved for.
+
+The **app** can be de deployed from any tag or the main branch and can be managed in the Digital Ocean console via environment variables, but it costs at least $12/month.
+
+### Create droplet
+
+**Cost**: $6+/month
+
+Use the button below to create a new droplet using the Baby Buddy marketplace image.
+
+Access and configuration instructions will be provided after the droplet has been started and configured by the image.
+
+[![Create Droplet](../assets/images/do-btn-blue.svg)](https://marketplace.digitalocean.com/apps/baby-buddy?refcode=dd79e4cfd7b6&action=deploy)
+
+### Create app
+
+**Cost**: $12+/month
+
 Use the button below to start a new deploy to [Digital Ocean](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge).
 
 Modify the app enviornment variables during the build configuration and set the `SECRET_KEY` value to something random and unique. Digital Ocean's automatic secret generator does not work with Baby Buddy.
