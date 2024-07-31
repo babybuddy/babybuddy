@@ -58,10 +58,12 @@ that can be used to host and control Baby Buddy. An existing Home Assistant inst
 is required to use this method.
 
 See the community-maintained [Baby Buddy Home Assistant Addon](https://github.com/OttPeterR/addon-babybuddy)
-for installation instructions and then review the community-maintained [Baby Buddy Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant)
+for installation instructions and then review the
+community-maintained [Baby Buddy Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant)
 for added integrations with the base Home Assistant system.
 
-See also [How to Setup Baby Buddy in Home Assistant](https://smarthomescene.com/guides/how-to-setup-baby-buddy-in-home-assistant/)
+See
+also [How to Setup Baby Buddy in Home Assistant](https://smarthomescene.com/guides/how-to-setup-baby-buddy-in-home-assistant/)
 from Smart Home Scene for more detailed installation and configuration instructions.
 
 ## Digital Ocean
@@ -92,7 +94,8 @@ Access and configuration instructions will be provided after the droplet has bee
 
 Use the button below to start a new deploy to [Digital Ocean](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge).
 
-Modify the app enviornment variables during the build configuration and set the `SECRET_KEY` value to something random and unique. Digital Ocean's automatic secret generator does not work with Baby Buddy.
+Modify the app environment variables during the build configuration and set the `SECRET_KEY` value to something random
+and unique. Digital Ocean's automatic secret generator does not work with Baby Buddy.
 
 [![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/babybuddy/babybuddy/tree/master&refcode=dd79e4cfd7b6)
 
@@ -124,16 +127,17 @@ deployment URL of your Clever Cloud Python application.
 ## GCP Cloud Run
 
 Baby Buddy can be hosted serverless in GCP Cloud Run using configuration provided at
-`terraform/gcp-cloud-run`. The configuration scales down to zero for cost effectiveness.
+`terraform/gcp-cloud-run`. The configuration scales down to zero for cost-effectiveness.
 With this approach initial requests to the service after a long period will be slow but
-subsequent requests will be much faster. A [billing account](https://cloud.google.com/billing/docs/how-to/create-billing-account)
+subsequent requests will be much faster.
+A [billing account](https://cloud.google.com/billing/docs/how-to/create-billing-account)
 mut be configured in GCP to use the configuration.
 
 The terraform code isn't production ready and is meant to be a good way of getting started.
-No state strage is configured. See [storage options](https://cloud.google.com/run/docs/storage-options)
-for information about how to configure persistant storage.
+No state storage is configured. See [storage options](https://cloud.google.com/run/docs/storage-options)
+for information about how to configure persistent storage.
 
-Run `terraform init` from the configurtion directory to get started:
+Run `terraform init` from the configuration directory to get started:
 
 ```shell
 git clone https://github.com/babybuddy/babybuddy.git
