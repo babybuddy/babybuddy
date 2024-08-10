@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load datetime duration i18n widget_tweaks %}
+{% load datetime duration misc i18n widget_tweaks %}
 {% block title %}
     {% trans "Tummy Time" %}
 {% endblock %}
@@ -26,45 +26,55 @@
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Previous" %}</th>
                     <th>{% trans "Milestone" %}</th>
                     <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for tummytime in object_list %}
-                    <tr>
-                        <td>
-                            <div class="btn-group btn-group-sm"
-                                 role="group"
-                                 aria-label="{% trans "Actions" %}">
-                                {% if perms.core.change_tummytime %}
-                                    <a href="{% url 'core:tummytime-update' tummytime.id %}"
-                                       class="btn btn-primary">
-                                        <i class="icon-update" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-                                {% if perms.core.delete_tummytime %}
-                                    <a href="{% url 'core:tummytime-delete' tummytime.id %}"
-                                       class="btn btn-danger">
-                                        <i class="icon-delete" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-                            </div>
-                        </td>
-                        <th scope="row">{{ tummytime.start|datetime_short }}</th>
-                        <td>{{ tummytime.end|datetime_short }}</td>
-                        {% if not unique_child %}
+                    {% with prev_tummytime=object_list|next:forloop.counter0 %}
+                        <tr>
                             <td>
-                                <a href="{% url 'core:child' tummytime.child.slug %}">{{ tummytime.child }}</a>
+                                <div class="btn-group btn-group-sm"
+                                     role="group"
+                                     aria-label="{% trans "Actions" %}">
+                                    {% if perms.core.change_tummytime %}
+                                        <a href="{% url 'core:tummytime-update' tummytime.id %}"
+                                           class="btn btn-primary">
+                                            <i class="icon-update" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if perms.core.delete_tummytime %}
+                                        <a href="{% url 'core:tummytime-delete' tummytime.id %}"
+                                           class="btn btn-danger">
+                                            <i class="icon-delete" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </td>
-                        {% endif %}
-                        <td>{{ tummytime.duration|duration_string }}</td>
-                        <td>{{ tummytime.milestone }}</td>
-                        <td>{% include "core/render_tag_list.html" with tags=tummytime.tags.all %}</td>
-                    </tr>
+                            <th scope="row">{{ tummytime.start|datetime_short }}</th>
+                            <td>{{ tummytime.end|datetime_short }}</td>
+                            {% if not unique_child %}
+                                <td>
+                                    <a href="{% url 'core:child' tummytime.child.slug %}">{{ tummytime.child }}</a>
+                                </td>
+                            {% endif %}
+                            <td>{{ tummytime.duration|duration_string }}</td>
+                            <td>
+                                {% if prev_tummytime %}
+                                    {% blocktrans trimmed with time_ago=prev_tummytime.start|timesince:tummytime.start %}
+                                        {{ time_ago }} ago
+                                    {% endblocktrans %}
+                                {% endif %}
+                            </td>
+                            <td>{{ tummytime.milestone }}</td>
+                            <td>{% include "core/render_tag_list.html" with tags=tummytime.tags.all %}</td>
+                        </tr>
+                    {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No tummy time entries found." %}</th>
+                        <th colspan="8">{% trans "No tummy time entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,6 +1,8 @@
 extra_css:
   - css/extras.css
 markdown_extensions:
+  - admonition
+  - pymdownx.details
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.snippets

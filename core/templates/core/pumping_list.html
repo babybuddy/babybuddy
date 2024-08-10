@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load datetime duration i18n widget_tweaks %}
+{% load datetime duration misc i18n widget_tweaks %}
 {% block title %}
     {% trans "Pumping" %}
 {% endblock %}
@@ -27,50 +27,60 @@
                     {% endif %}
                     <th>{% trans "Amount" %}</th>
                     <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Previous" %}</th>
                     <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for pumping in object_list %}
-                    <tr>
-                        <td>
-                            <div class="btn-group btn-group-sm"
-                                 role="group"
-                                 aria-label="{% trans "Actions" %}">
-                                {% if perms.core.change_pumping %}
-                                    <a href="{% url 'core:pumping-update' pumping.id %}"
-                                       class="btn btn-primary">
-                                        <i class="icon-update" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-                                {% if perms.core.delete_pumping %}
-                                    <a href="{% url 'core:pumping-delete' pumping.id %}"
-                                       class="btn btn-danger">
-                                        <i class="icon-delete" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-                            </div>
-                        </td>
-                        <th scope="row">{{ pumping.start|datetime_short }}</th>
-                        {% if not unique_child %}
+                    {% with prev_pumping=object_list|next:forloop.counter0 %}
+                        <tr>
                             <td>
-                                <a href="{% url 'core:child' pumping.child.slug %}">{{ pumping.child }}</a>
+                                <div class="btn-group btn-group-sm"
+                                     role="group"
+                                     aria-label="{% trans "Actions" %}">
+                                    {% if perms.core.change_pumping %}
+                                        <a href="{% url 'core:pumping-update' pumping.id %}"
+                                           class="btn btn-primary">
+                                            <i class="icon-update" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if perms.core.delete_pumping %}
+                                        <a href="{% url 'core:pumping-delete' pumping.id %}"
+                                           class="btn btn-danger">
+                                            <i class="icon-delete" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </td>
-                        {% endif %}
-                        <td>{{ pumping.amount }}</td>
-                        <td>{{ pumping.duration|duration_string }}</td>
-                        <td>{% include "core/render_tag_list.html" with tags=pumping.tags.all %}</td>
-                    </tr>
-                    {% if pumping.notes %}
-                        <tr class="{{ row_class }} row-details">
-                            <td colspan="5">
-                                <i class="icon-note me-2" aria-hidden="true"></i>{{ pumping.notes }}
+                            <th scope="row">{{ pumping.start|datetime_short }}</th>
+                            {% if not unique_child %}
+                                <td>
+                                    <a href="{% url 'core:child' pumping.child.slug %}">{{ pumping.child }}</a>
+                                </td>
+                            {% endif %}
+                            <td>{{ pumping.amount }}</td>
+                            <td>{{ pumping.duration|duration_string }}</td>
+                            <td>
+                                {% if prev_pumping %}
+                                    {% blocktrans trimmed with time_ago=prev_pumping.start|timesince:pumping.start %}
+                                        {{ time_ago }} ago
+                                    {% endblocktrans %}
+                                {% endif %}
                             </td>
+                            <td>{% include "core/render_tag_list.html" with tags=pumping.tags.all %}</td>
                         </tr>
-                    {% endif %}
+                        {% if pumping.notes %}
+                            <tr class="{{ row_class }} row-details">
+                                <td colspan="5">
+                                    <i class="icon-note me-2" aria-hidden="true"></i>{{ pumping.notes }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No pumping entries found." %}</th>
+                        <th colspan="6">{% trans "No pumping entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

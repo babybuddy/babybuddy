@@ -2820,10 +2820,3 @@ msgstr "אחוזי משקל של WHO לבנות בקילוגרם"
 
 #~ msgid " days ago"
 #~ msgstr " ימים"
-
-#~ msgid ""
-#~ "Nap start min. value %(min)s must be less than nap start min. value "
-#~ "%(max)s."
-#~ msgstr ""
-#~ "זמן התחלת תנומה מיניאלי %(min)s חייב להיות קטן יותר מערך זמן התחלת תנומה "
-#~ "מקסימאלי %(max)s."

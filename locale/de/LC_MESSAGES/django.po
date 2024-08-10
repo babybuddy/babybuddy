@@ -1111,9 +1111,6 @@ msgstr ""
 
 #: core/fields.py:27
 #, fuzzy, python-format
-#| msgid ""
-#| "Nap start min. value %(min)s must be less than nap start min. value "
-#| "%(max)s."
 msgid ""
 "Nap start min. value %(min)s must be less than nap start max. value %(max)s."
 msgstr ""

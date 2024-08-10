@@ -87,6 +87,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
   - [part 2](https://lutzky.net/2021/10/05/software-parenting-2/)
   - [part 3](https://lutzky.net/2021/10/10/software-parenting-3/)
 - [High Level Developer Documentation (AI-Generated)](https://wiki.mutable.ai/babybuddy/babybuddy)
+- [Example custom TypeScript frontend](https://github.com/jkjustjoshing/maddie-buddy) (based on [Remix](https://remix.run/))
 
 ## 🔐 Reporting Vulnerabilities
 

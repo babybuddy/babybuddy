@@ -2858,10 +2858,3 @@ msgstr "Перцентили веса для девочек по данным В
 
 #~ msgid " days ago"
 #~ msgstr " дней тому назад"
-
-#~ msgid ""
-#~ "Nap start min. value %(min)s must be less than nap start min. value "
-#~ "%(max)s."
-#~ msgstr ""
-#~ "Минимальное время начала дневного сна. %(max)s должно быть меньше "
-#~ "максимального времени начала дневного сна. %(min)s."
