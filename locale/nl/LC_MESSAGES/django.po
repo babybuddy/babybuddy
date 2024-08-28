@@ -303,10 +303,8 @@ msgstr "Voeding"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:54
 #: babybuddy/templates/babybuddy/nav-dropdown.html:259
-#, fuzzy
-#| msgid "Total feedings"
 msgid "Bottle Feeding"
-msgstr "Totaal aantal voedingen"
+msgstr "Flessen Voeding"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:60
 #: babybuddy/templates/babybuddy/nav-dropdown.html:266 core/models.py:496
