@@ -1,31 +1,31 @@
 {% load datetime %}
 <a class="card bg-dark"
    href="{% url 'core:diaperchange-update' object.id %}">
-  <div class="card-body">
-    <div class="card_body__avatar-layout {% if object.notes %}card_body__avatar-layout--with-notes{% endif %}">
-      <div class="avatar-layout__avatar">{% include "core/child_thumbnail.html" with child=object.child %}</div>
-      <div class="avatar-layout__details">
-        <div class="card-body__primary-details">
-          {% block details %}{% endblock %}
+    <div class="card-body">
+        <div class="card_body__avatar-layout {% if object.notes %}card_body__avatar-layout--with-notes{% endif %}">
+            <div class="avatar-layout__avatar">{% include "core/child_thumbnail.html" with child=object.child %}</div>
+            <div class="avatar-layout__details">
+                <div class="card-body__primary-details">
+                    {% block details %}{% endblock %}
+                </div>
+                <div class="card-body__secondary-details">
+                    <div class="card-body__secondary-details--anchor-left">
+                        {% if object.time %}
+                            <span>{{ object.time|datetime_short }}</span>
+                        {% else %}
+                            <span>{{ object.start|datetime_short }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body__secondary-details--anchor-right">
+                        {% include "core/render_tag_list.html" with tags=object.tags.all %}
+                    </div>
+                </div>
+                {% if object.notes %}
+                    <div class="card-body__notes">
+                        <i class="icon-note me-2" aria-hidden="true"></i>{{ object.notes }}
+                    </div>
+                {% endif %}
+            </div>
         </div>
-        <div class="card-body__secondary-details">
-          <div class="card-body__secondary-details--anchor-left">
-            {% if object.time %}
-              <span>{{ object.time|datetime_short }}</span>
-            {% else %}
-              <span>{{ object.start|datetime_short }}</span>
-            {% endif %}
-          </div>
-          <div class="card-body__secondary-details--anchor-right">
-            {% include "core/render_tag_list.html" with tags=object.tags.all %}
-          </div>
-        </div>
-        {% if object.notes %}
-          <div class="card-body__notes">
-            <i class="icon-note me-2" aria-hidden="true"></i>{{ object.notes }}
-          </div>
-        {% endif %}
-      </div>
     </div>
-  </div>
 </a>
