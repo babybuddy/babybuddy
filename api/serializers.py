@@ -120,7 +120,17 @@ class BMISerializer(CoreModelSerializer, TaggableSerializer):
 class PumpingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Pumping
-        fields = ("id", "child", "amount", "start", "end", "duration", "notes", "tags", "timer")
+        fields = (
+            "id",
+            "child",
+            "amount",
+            "start",
+            "end",
+            "duration",
+            "notes",
+            "tags",
+            "timer",
+        )
 
 
 class ChildSerializer(serializers.HyperlinkedModelSerializer):
