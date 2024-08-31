@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load bootstrap datetime duration i18n widget_tweaks %}
+{% load bootstrap datetime duration misc i18n widget_tweaks %}
 {% block title %}
     {% trans "Sleep" %}
 {% endblock %}
@@ -28,50 +28,60 @@
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Previous" %}</th>
                     <th class="text-center">{% trans "Nap" %}</th>
                     <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for sleep in object_list %}
-                    <tr>
-                        <td>
-                            <div class="btn-group btn-group-sm"
-                                 role="group"
-                                 aria-label="{% trans "Actions" %}">
-                                {% if perms.core.change_sleep %}
-                                    <a href="{% url 'core:sleep-update' sleep.id %}" class="btn btn-primary">
-                                        <i class="icon-update" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-                                {% if perms.core.delete_sleep %}
-                                    <a href="{% url 'core:sleep-delete' sleep.id %}" class="btn btn-danger">
-                                        <i class="icon-delete" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-                            </div>
-                        </td>
-                        <th scope="row">{{ sleep.start|datetime_short }}</th>
-                        <td>{{ sleep.end|datetime_short }}</td>
-                        {% if not unique_child %}
+                    {% with prev_sleep=object_list|next:forloop.counter0 %}
+                        <tr>
                             <td>
-                                <a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a>
+                                <div class="btn-group btn-group-sm"
+                                     role="group"
+                                     aria-label="{% trans "Actions" %}">
+                                    {% if perms.core.change_sleep %}
+                                        <a href="{% url 'core:sleep-update' sleep.id %}" class="btn btn-primary">
+                                            <i class="icon-update" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if perms.core.delete_sleep %}
+                                        <a href="{% url 'core:sleep-delete' sleep.id %}" class="btn btn-danger">
+                                            <i class="icon-delete" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </td>
-                        {% endif %}
-                        <td>{{ sleep.duration|duration_string }}</td>
-                        <td class="text-center">{{ sleep.nap|bool_icon }}</td>
-                        <td>{% include "core/render_tag_list.html" with tags=sleep.tags.all %}</td>
-                    </tr>
-                    {% if sleep.notes %}
-                        <tr class="{{ row_class }} row-details">
-                            <td colspan="7">
-                                <i class="icon-note me-2" aria-hidden="true"></i>{{ sleep.notes }}
+                            <th scope="row">{{ sleep.start|datetime_short }}</th>
+                            <td>{{ sleep.end|datetime_short }}</td>
+                            {% if not unique_child %}
+                                <td>
+                                    <a href="{% url 'core:child' sleep.child.slug %}">{{ sleep.child }}</a>
+                                </td>
+                            {% endif %}
+                            <td>{{ sleep.duration|duration_string }}</td>
+                            <td>
+                                {% if prev_sleep %}
+                                    {% blocktrans trimmed with time_ago=prev_sleep.start|timesince:sleep.start %}
+                                        {{ time_ago }} ago
+                                    {% endblocktrans %}
+                                {% endif %}
                             </td>
+                            <td class="text-center">{{ sleep.nap|bool_icon }}</td>
+                            <td>{% include "core/render_tag_list.html" with tags=sleep.tags.all %}</td>
                         </tr>
-                    {% endif %}
+                        {% if sleep.notes %}
+                            <tr class="{{ row_class }} row-details">
+                                <td colspan="7">
+                                    <i class="icon-note me-2" aria-hidden="true"></i>{{ sleep.notes }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No sleep entries found." %}</th>
+                        <th colspan="8">{% trans "No sleep entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

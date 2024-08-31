@@ -18,11 +18,9 @@
 {% endblock %}
 {% block content %}
     {% if object %}
-        {% blocktrans trimmed %}
-            <h1>
-                Update <span class="text-info">{{ object }}</span>
-            </h1>
-        {% endblocktrans %}
+        <h1>
+            {% trans Update %} <span class="text-info">{{ object }}</span>
+        </h1>
     {% else %}
         <h1>{% trans "Start Timer" %}</h1>
     {% endif %}

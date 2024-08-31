@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load bootstrap datetime i18n widget_tweaks static %}
+{% load bootstrap datetime misc i18n widget_tweaks static %}
 {% block title %}
     {% trans "Diaper Changes" %}
 {% endblock %}
@@ -30,58 +30,68 @@
                     <th class="text-center">{% trans "Contents" %}</th>
                     <th>{% trans "Color" %}</th>
                     <th>{% trans "Amount" %}</th>
+                    <th>{% trans "Previous" %}</th>
                     <th>{% trans "Tags" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for change in object_list %}
-                    <tr>
-                        <td>
-                            <div class="btn-group btn-group-sm"
-                                 role="group"
-                                 aria-label="{% trans "Actions" %}">
-                                {% if perms.core.change_diaperchange %}
-                                    <a href="{% url 'core:diaperchange-update' change.id %}"
-                                       class="btn btn-primary">
-                                        <i class="icon-update" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-                                {% if perms.core.delete_diaperchange %}
-                                    <a href="{% url 'core:diaperchange-delete' change.id %}"
-                                       class="btn btn-danger">
-                                        <i class="icon-delete" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
-                            </div>
-                        </td>
-                        <th scope="row">{{ change.time|datetime_short }}</th>
-                        {% if not unique_child %}
+                    {% with prev_change=object_list|next:forloop.counter0 %}
+                        <tr>
                             <td>
-                                <a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a>
+                                <div class="btn-group btn-group-sm"
+                                     role="group"
+                                     aria-label="{% trans "Actions" %}">
+                                    {% if perms.core.change_diaperchange %}
+                                        <a href="{% url 'core:diaperchange-update' change.id %}"
+                                           class="btn btn-primary">
+                                            <i class="icon-update" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if perms.core.delete_diaperchange %}
+                                        <a href="{% url 'core:diaperchange-delete' change.id %}"
+                                           class="btn btn-danger">
+                                            <i class="icon-delete" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </td>
-                        {% endif %}
-                        <td class="text-center">
-                            {% if change.wet %}
-                                <span title="{% trans "Wet" %}">💦</span>
+                            <th scope="row">{{ change.time|datetime_short }}</th>
+                            {% if not unique_child %}
+                                <td>
+                                    <a href="{% url 'core:child' change.child.slug %}">{{ change.child }}</a>
+                                </td>
                             {% endif %}
-                            {% if change.solid %}
-                                <span title="{% trans "Solid" %}">💩</span>
-                            {% endif %}
-                        </td>
-                        <td>{{ change.get_color_display }}</td>
-                        <td>{{ change.amount|default_if_none:"" }}</td>
-                        <td>{% include "core/render_tag_list.html" with tags=change.tags.all %}</td>
-                    </tr>
-                    {% if change.notes %}
-                        <tr class="{{ row_class }} row-details">
-                            <td colspan="7">
-                                <i class="icon-note me-2" aria-hidden="true"></i>{{ change.notes }}
+                            <td class="text-center">
+                                {% if change.wet %}
+                                    <span title="{% trans "Wet" %}">💦</span>
+                                {% endif %}
+                                {% if change.solid %}
+                                    <span title="{% trans "Solid" %}">💩</span>
+                                {% endif %}
                             </td>
+                            <td>{{ change.get_color_display }}</td>
+                            <td>{{ change.amount|default_if_none:"" }}</td>
+                            <td>
+                                {% if prev_change %}
+                                    {% blocktrans trimmed with time_ago=prev_change.time|timesince:change.time %}
+                                        {{ time_ago }} ago
+                                    {% endblocktrans %}
+                                {% endif %}
+                            </td>
+                            <td>{% include "core/render_tag_list.html" with tags=change.tags.all %}</td>
                         </tr>
-                    {% endif %}
+                        {% if change.notes %}
+                            <tr class="{{ row_class }} row-details">
+                                <td colspan="7">
+                                    <i class="icon-note me-2" aria-hidden="true"></i>{{ change.notes }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No diaper changes found." %}</th>
+                        <th colspan="8">{% trans "No diaper changes found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

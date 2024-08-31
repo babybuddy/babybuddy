@@ -24,8 +24,10 @@ uritemplate = "*"
 whitenoise = "*"
 django-taggit = "*"
 django-qr-code = "*"
+django-cors-headers = "*"
 django-dbsettings = "*"
-django-import-export = "~=3.0"
+django-import-export = "*"
+inflection = "*"
 
 [dev-packages]
 coveralls = "*"

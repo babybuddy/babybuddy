@@ -45,6 +45,7 @@ const config = {
       "node_modules/plotly.js/dist/plotly-locale-he.js",
       "node_modules/plotly.js/dist/plotly-locale-hu.js",
       "node_modules/plotly.js/dist/plotly-locale-it.js",
+      "node_modules/plotly.js/dist/plotly-locale-ja.js",
       "node_modules/plotly.js/dist/plotly-locale-no.js",
       "node_modules/plotly.js/dist/plotly-locale-nl.js",
       "node_modules/plotly.js/dist/plotly-locale-pl.js",
@@ -58,7 +59,6 @@ const config = {
     ],
     app: [
       "babybuddy/static_src/js/babybuddy.js",
-      "api/static_src/js/*.js",
       "core/static_src/js/*.js",
       "dashboard/static_src/js/*.js",
     ],

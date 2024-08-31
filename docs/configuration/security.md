@@ -4,20 +4,38 @@
 
 _Default:_ `*` (any host)
 
-Set this variable to a single host or comma-separated list of hosts without spaces.
+Set this variable to a single host or comma-separated list of hosts.
 This should _always_ be set to a specific host or hosts in production deployments.
 
 Do not include schemes ("http" or "https") with this setting.
 
 **Example value**
 
-    baby.example.test,baby.example2.test
+    baby.example.test, baby.example2.test
 
 **See also**
 
 - [Django's documentation on the ALLOWED_HOSTS setting](https://docs.djangoproject.com/en/5.0/ref/settings/#allowed-hosts)
 - [`CSRF_TRUSTED_ORIGINS`](#csrf_trusted_origins)
 - [`SECURE_PROXY_SSL_HEADER`](#secure_proxy_ssl_header)
+
+## `CORS_ALLOWED_ORIGINS`
+
+_Default:_ `""` (no cross-origin requests allowed)
+
+Set this variable to a single origin or comma-separated list of origins. Include schemes
+("http" or "https") and any non-default ports in each origin.
+
+This allows cross-origin requests to the API from the specified origins.
+
+**Example value**
+
+    https://other-domain.example.com, http://localhost:8888
+
+**See also**
+
+- [MDN article on CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+- [Making cross origin requests using fetch()](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#making_cross-origin_requests)
 
 ## `CSRF_COOKIE_SECURE`
 

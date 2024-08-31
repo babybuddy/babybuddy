@@ -328,6 +328,7 @@
                 <a href="{% url 'api:api-root' %}" class="dropdown-item">{% trans "API Browser" %}</a>
                 {% if request.user.is_staff %}
                     <a href="{% url 'babybuddy:site_settings' %}" class="dropdown-item">{% trans "Settings" %}</a>
+                    <a href="{% url 'core:tag-list' %}" class="dropdown-item">{% trans "Tags" %}</a>
                     <a href="{% url 'babybuddy:user-list' %}" class="dropdown-item">{% trans "Users" %}</a>
                     <a href="{% url 'admin:index' %}" class="dropdown-item">{% trans "Database Admin" %}</a>
                 {% endif %}

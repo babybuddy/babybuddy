@@ -145,34 +145,42 @@ def _add_feedings(min_date, max_date, events, child=None):
                     "amount": instance.amount,
                 }
             )
-        events.append(
-            {
-                "time": timezone.localtime(instance.start),
-                "event": _("%(child)s started feeding.")
-                % {"child": instance.child.first_name},
-                "details": details,
-                "edit_link": edit_link,
-                "time_since_prev": time_since_prev,
-                "model_name": instance.model_name,
-                "type": "start",
-                "tags": instance.tags.all(),
-            }
-        )
 
-        end = {
-            "time": timezone.localtime(instance.end),
-            "event": _("%(child)s finished feeding.")
-            % {"child": instance.child.first_name},
+        base_object = {
+            "time": timezone.localtime(instance.start),
             "details": details,
             "edit_link": edit_link,
-            "duration": timesince.timesince(instance.start, now=instance.end),
             "model_name": instance.model_name,
-            "type": "end",
             "tags": instance.tags.all(),
         }
+
         if instance.duration > timedelta(seconds=0):
-            end["duration"] = duration_string(instance.duration)
-        events.append(end)
+            start_event = {
+                **base_object,
+                "event": _("%(child)s started feeding.")
+                % {"child": instance.child.first_name},
+                "time_since_prev": time_since_prev,
+                "type": "start",
+            }
+
+            end_event = {
+                **base_object,
+                "time": timezone.localtime(instance.end),
+                "event": _("%(child)s finished feeding.")
+                % {"child": instance.child.first_name},
+                "type": "end",
+                "duration": duration_string(instance.duration),
+            }
+
+            events.extend([start_event, end_event])
+        else:
+            feed_event = {
+                **base_object,
+                "event": _("%(child)s had a feeding.")
+                % {"child": instance.child.first_name},
+                "time_since_prev": time_since_prev,
+            }
+            events.append(feed_event)
 
 
 def _add_diaper_changes(min_date, max_date, events, child):

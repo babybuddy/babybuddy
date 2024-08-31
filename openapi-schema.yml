@@ -44,6 +44,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -344,6 +347,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -746,7 +752,7 @@ paths:
         - api
   /api/children/:
     get:
-      operationId: listChilds
+      operationId: listChildren
       description: ""
       parameters:
         - name: limit
@@ -809,6 +815,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -1218,6 +1227,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -1711,6 +1723,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -1964,6 +1979,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -2235,6 +2253,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -2590,6 +2611,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -2999,6 +3023,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -3396,6 +3423,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -3667,6 +3697,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -4034,6 +4067,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -4491,6 +4527,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -4888,6 +4927,9 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - count
+                  - results
                 properties:
                   count:
                     type: integer
@@ -5368,14 +5410,18 @@ components:
           readOnly: true
         child:
           type: integer
+          nullable: true
+          description: Required unless a Timer value is provided.
         amount:
           type: number
         start:
           type: string
           format: date-time
+          description: Required unless a Timer value is provided.
         end:
           type: string
           format: date-time
+          description: Required unless a Timer value is provided.
         duration:
           type: string
           readOnly: true
@@ -5387,8 +5433,12 @@ components:
           type: array
           items:
             type: string
+        timer:
+          type: integer
+          writeOnly: true
+          nullable: true
+          description: May be used in place of the Start, End, and/or Child values.
       required:
-        - child
         - amount
     Sleep:
       type: object

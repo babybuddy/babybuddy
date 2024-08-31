@@ -58,11 +58,46 @@ that can be used to host and control Baby Buddy. An existing Home Assistant inst
 is required to use this method.
 
 See the community-maintained [Baby Buddy Home Assistant Addon](https://github.com/OttPeterR/addon-babybuddy)
-for installation instructions and then review the community-maintained [Baby Buddy Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant)
+for installation instructions and then review the
+community-maintained [Baby Buddy Home Assistant integration](https://github.com/jcgoette/baby_buddy_homeassistant)
 for added integrations with the base Home Assistant system.
 
-See also [How to Setup Baby Buddy in Home Assistant](https://smarthomescene.com/guides/how-to-setup-baby-buddy-in-home-assistant/)
+See
+also [How to Setup Baby Buddy in Home Assistant](https://smarthomescene.com/guides/how-to-setup-baby-buddy-in-home-assistant/)
 from Smart Home Scene for more detailed installation and configuration instructions.
+
+## Digital Ocean
+
+!!! info
+
+    The Digital Ocean deployment and link URLs include referal codes. All referral funds receieved are treated as donations to Baby Buddy.
+
+There are two ways to deploy Baby Buddy to Digital Ocean -- as a droplet from a marketplace image or as an app.
+
+The **marketplace image** is the cheaper option ($6/month), but may require more manual configuration depending on desired features and is limited to the latest release the marketplace image has been approved for.
+
+The **app** can be de deployed from any tag or the main branch and can be managed in the Digital Ocean console via environment variables, but it costs at least $12/month.
+
+### Create droplet
+
+**Cost**: $6+/month
+
+Use the button below to create a new droplet using the Baby Buddy marketplace image.
+
+Access and configuration instructions will be provided after the droplet has been started and configured by the image.
+
+[![Create Droplet](../assets/images/do-btn-blue.svg)](https://marketplace.digitalocean.com/apps/baby-buddy?refcode=dd79e4cfd7b6&action=deploy)
+
+### Create app
+
+**Cost**: $12+/month
+
+Use the button below to start a new deploy to [Digital Ocean](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge).
+
+Modify the app environment variables during the build configuration and set the `SECRET_KEY` value to something random
+and unique. Digital Ocean's automatic secret generator does not work with Baby Buddy.
+
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/babybuddy/babybuddy/tree/master&refcode=dd79e4cfd7b6)
 
 ## Clever Cloud
 
@@ -92,16 +127,17 @@ deployment URL of your Clever Cloud Python application.
 ## GCP Cloud Run
 
 Baby Buddy can be hosted serverless in GCP Cloud Run using configuration provided at
-`terraform/gcp-cloud-run`. The configuration scales down to zero for cost effectiveness.
+`terraform/gcp-cloud-run`. The configuration scales down to zero for cost-effectiveness.
 With this approach initial requests to the service after a long period will be slow but
-subsequent requests will be much faster. A [billing account](https://cloud.google.com/billing/docs/how-to/create-billing-account)
+subsequent requests will be much faster.
+A [billing account](https://cloud.google.com/billing/docs/how-to/create-billing-account)
 mut be configured in GCP to use the configuration.
 
 The terraform code isn't production ready and is meant to be a good way of getting started.
-No state strage is configured. See [storage options](https://cloud.google.com/run/docs/storage-options)
-for information about how to configure persistant storage.
+No state storage is configured. See [storage options](https://cloud.google.com/run/docs/storage-options)
+for information about how to configure persistent storage.
 
-Run `terraform init` from the configurtion directory to get started:
+Run `terraform init` from the configuration directory to get started:
 
 ```shell
 git clone https://github.com/babybuddy/babybuddy.git
@@ -117,21 +153,21 @@ requirements are Python, a web server, an application server, and a database.
 
 ### Requirements
 
-- Python 3.10+, pip, pipenv
+- Python 3.10+, pip, [pipx](https://pipx.pypa.io/), [pipenv](https://pipenv.pypa.io/)
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database (See [Django's databases documentation](https://docs.djangoproject.com/en/5.0/ref/databases/)).
 
 ### Example deployment
 
-_This example assumes a 1 GB VPS instance with Ubuntu 20.04._ It uses Python 3.10,
+_This example assumes a 1 GB VPS instance with Ubuntu 24.04._ It uses Python 3.12,
 nginx, uwsgi and sqlite. It should be sufficient for a few users (e.g., two parents
 and any number of children).
 
 1. Install system packages
 
    ```shell
-   sudo apt-get install python3 python3-pip nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev libpq-dev
+   sudo apt-get install python3 python3-pip pipx nginx uwsgi uwsgi-plugin-python3 git libopenjp2-7-dev libpq-dev
    ```
 
 2. Default python3 to python for this session
@@ -143,7 +179,8 @@ and any number of children).
 3. Install pipenv
 
    ```shell
-   sudo -H pip3 install pipenv
+   pipx ensurepath
+   pipx install pipenv
    ```
 
 4. Set up directories and files
@@ -165,7 +202,7 @@ and any number of children).
 
    ```shell
    export PIPENV_VENV_IN_PROJECT=1
-   pipenv install --three
+   pipenv install
    pipenv shell
    ```
 

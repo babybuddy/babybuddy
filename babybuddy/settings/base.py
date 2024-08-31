@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv, find_dotenv
@@ -24,8 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 load_dotenv(find_dotenv())
 
 # Required settings
-
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split(",")]
 SECRET_KEY = os.environ.get("SECRET_KEY") or None
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "api",
     "babybuddy.apps.BabyBuddyConfig",
     "core.apps.CoreConfig",
+    "corsheaders",
     "dashboard",
     "reports",
     "axes",
@@ -64,6 +65,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "babybuddy.middleware.RollingSessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -108,24 +110,26 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-config = {
-    "ENGINE": os.getenv("DB_ENGINE") or "django.db.backends.sqlite3",
-    "NAME": os.getenv("DB_NAME") or os.path.join(BASE_DIR, "data/db.sqlite3"),
-}
-if os.getenv("DB_USER"):
-    config["USER"] = os.getenv("DB_USER")
-if os.environ.get("DB_PASSWORD") or os.environ.get("POSTGRES_PASSWORD"):
-    config["PASSWORD"] = os.environ.get("DB_PASSWORD") or os.environ.get(
-        "POSTGRES_PASSWORD"
-    )
-if os.getenv("DB_HOST"):
-    config["HOST"] = os.getenv("DB_HOST")
-if os.getenv("DB_PORT"):
-    config["PORT"] = os.getenv("DB_PORT")
-if os.getenv("DB_OPTIONS"):
-    config["OPTIONS"] = os.getenv("DB_OPTIONS")
-
-DATABASES = {"default": config}
+if os.getenv("DATABSE_URL"):
+    DATABASES = {"default": dj_database_url.config()}
+else:
+    config = {
+        "ENGINE": os.getenv("DB_ENGINE") or "django.db.backends.sqlite3",
+        "NAME": os.getenv("DB_NAME") or os.path.join(BASE_DIR, "data/db.sqlite3"),
+    }
+    if os.getenv("DB_USER"):
+        config["USER"] = os.getenv("DB_USER")
+    if os.environ.get("DB_PASSWORD") or os.environ.get("POSTGRES_PASSWORD"):
+        config["PASSWORD"] = os.environ.get("DB_PASSWORD") or os.environ.get(
+            "POSTGRES_PASSWORD"
+        )
+    if os.getenv("DB_HOST"):
+        config["HOST"] = os.getenv("DB_HOST")
+    if os.getenv("DB_PORT"):
+        config["PORT"] = os.getenv("DB_PORT")
+    if os.getenv("DB_OPTIONS"):
+        config["OPTIONS"] = os.getenv("DB_OPTIONS")
+    DATABASES = {"default": config}
 
 
 # Cache
@@ -201,6 +205,7 @@ LANGUAGES = [
     ("he", _("Hebrew")),
     ("hu", _("Hungarian")),
     ("it", _("Italian")),
+    ("ja", _("Japanese")),
     ("nb", _("Norwegian Bokmål")),
     ("pl", _("Polish")),
     ("pt", _("Portuguese")),
@@ -281,7 +286,7 @@ if os.environ.get("EMAIL_HOST"):
     EMAIL_USE_SSL = bool(strtobool(os.environ.get("EMAIL_USE_SSL") or "False"))
     EMAIL_SSL_KEYFILE = os.environ.get("EMAIL_SSL_KEYFILE") or None
     EMAIL_SSL_CERTFILE = os.environ.get("EMAIL_SSL_CERTFILE") or None
-
+    DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_FROM") or EMAIL_HOST_USER or ""
 
 # Security
 
@@ -322,6 +327,12 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# https://github.com/adamchainz/django-cors-headers
+if os.environ.get("CORS_ALLOWED_ORIGINS"):
+    CORS_ALLOWED_ORIGINS = [
+        x.strip() for x in os.environ.get("CORS_ALLOWED_ORIGINS").split(",")
+    ]
 
 # Django Rest Framework
 # https://www.django-rest-framework.org/

@@ -237,6 +237,7 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
         fields = ["child", "time", "wet", "solid", "color", "amount", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect(),
+            "color": PillRadioSelect(),
             "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
@@ -350,9 +351,23 @@ class SleepForm(CoreModelForm, TaggableModelForm):
         }
 
 
-class TagAdminForm(forms.ModelForm):
+class TagAdminForm(CoreModelForm):
+    fieldsets = [
+        {
+            "fields": ["name", "color"],
+            "layout": "required",
+        }
+    ]
+
     class Meta:
-        widgets = {"color": widgets.TextInput(attrs={"type": "color"})}
+        model = models.Tag
+        fields = ["name", "color"]
+        readonly_fields = ["slug"]
+        widgets = {
+            "color": widgets.TextInput(
+                attrs={"type": "color", "class": "form-control-color"}
+            )
+        }
 
 
 class TemperatureForm(CoreModelForm, TaggableModelForm):

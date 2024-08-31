@@ -55,6 +55,8 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         page = self.c.get("{}/feeding/intervals/".format(base_url))
         self.assertEqual(page.status_code, 200)
+        page = self.c.get("{}/feeding/pattern/".format(base_url))
+        self.assertEqual(page.status_code, 200)
 
         page = self.c.get("{}/head-circumference/head-circumference/".format(base_url))
         self.assertEqual(page.status_code, 200)

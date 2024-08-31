@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n widget_tweaks %}
+{% load babybuddy i18n widget_tweaks %}
 {% block title %}
     {% trans "Unlock User" %}
 {% endblock %}
@@ -13,11 +13,7 @@
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
-        {% blocktrans trimmed %}
-            <h1>
-                Are you sure you want to unlock <span class="text-info">{{ object }}</span>?
-            </h1>
-        {% endblocktrans %}
+        <h1>{% confirm_unlock_text object %}</h1>
         <input type="submit" value="{% trans "Unlock" %}" class="btn btn-danger" />
         <a href="{% url 'babybuddy:user-update' object.pk %}"
            class="btn btn-default">{% trans "Cancel" %}</a>

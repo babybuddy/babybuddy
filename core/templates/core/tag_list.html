@@ -1,0 +1,69 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks %}
+{% block title %}
+    {% trans "Tags" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Tags" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Tags" %}
+        {% if perms.core.add_bmi %}
+            <a href="{% url 'core:tag-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-tag" aria-hidden="true"></i> {% trans "Add Tag" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    <th class="text-center">{% trans "Color" %}</th>
+                    <th class="text-center">{% trans "Items Tagged" %}</th>
+                    <th>{% trans "Last Used" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tag in object_list %}
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_tag %}
+                                    <a href="{% url 'core:tag-update' tag.slug %}" class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.delete_tag %}
+                                    <a href="{% url 'core:tag-delete' tag.slug %}" class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{% url 'core:tag-detail' tag.slug %}">{{ tag.name }}</a>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge badge-pill me-1"
+                                  style="background-color:{{ tag.color }}">&nbsp;</span>
+                            <span class="font-monospace">{{ tag.color }}</span>
+                        </td>
+                        <td class="text-center">{{ tag.core_tagged_items__count }}</td>
+                        <td>{{ tag.last_used }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <th colspan="5">{% trans "No tags found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

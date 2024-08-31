@@ -44,7 +44,7 @@ for information about how to create/update translations.
 
 ### Available languages
 
-:brazil: Brazilian Portuguese, :es: Catalan, :cn: Chinese (simplified), :czech*republic: Czech, :denmark: Danish, :netherlands: Dutch, :uk: English (U.K.), :us: English (U.S.) *(base)\_, :finland: Finnish, :fr: French, :de: German, :israel: Hebrew, :hungary: Hungarian, :it: Italian, :norway: Norwegian Bokmål, :poland: Polish, :portugal: Portuguese, :ru: Russian, :mexico: :es: Spanish, :sweden: Swedish, :tr: Turkish, :ukraine: Ukrainian
+:brazil: Brazilian Portuguese, :es: Catalan, :cn: Chinese (simplified), :cz: Czech, :denmark: Danish, :netherlands: Dutch, :uk: English (U.K.), :us: English (U.S.) _(base)_, :finland: Finnish, :fr: French, :de: German, :israel: Hebrew, :hungary: Hungarian, :it: Italian, :jp: Japanese, :norway: Norwegian Bokmål, :poland: Polish, :portugal: Portuguese, :ru: Russian, :mexico: :es: Spanish, :sweden: Swedish, :tr: Turkish, :ukraine: Ukrainian
 
 ## 🌐 Baby Buddy on the Web
 
@@ -66,6 +66,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 - [Quick Entry Keypad (ESP8266)](https://github.com/sfgabe/OITProjects/tree/master/Baby_Buddy_Keypad)
 - [Baby Buddy Keypad (ESP32)](https://github.com/jeroenterheerdt/Baby-Buddy-Keypad)
 - [BabyScout](https://github.com/MikeSchapp/BabyScout) - Keypad for recording diaper changes, feedings and sleep to BabyBuddy
+- [BabyPod](https://www.printables.com/model/872095-babypod-a-remote-control-for-baby-buddy-for-new-pa) - A remote control for Baby Buddy for new parents (sources: [hardware](https://github.com/skjdghsdjgsdj/babypod-hardware), [software](https://github.com/skjdghsdjgsdj/babypod-software/))
 
 ### Mobile
 
@@ -86,6 +87,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
   - [part 2](https://lutzky.net/2021/10/05/software-parenting-2/)
   - [part 3](https://lutzky.net/2021/10/10/software-parenting-3/)
 - [High Level Developer Documentation (AI-Generated)](https://wiki.mutable.ai/babybuddy/babybuddy)
+- [Example custom TypeScript frontend](https://github.com/jkjustjoshing/maddie-buddy) (based on [Remix](https://remix.run/))
 
 ## 🔐 Reporting Vulnerabilities
 
@@ -110,3 +112,4 @@ _Some of the links below use referral codes -- all referral proceeds are treated
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 [<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="100" alt="JetBrains Logo (Main) logo.">](https://www.jetbrains.com/community/opensource/)
+[![POEditor](https://poeditor.com/public/images/ui/logos/logo_dark.svg)](https://poeditor.com/)

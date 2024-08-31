@@ -28,6 +28,8 @@
                class="list-group-item list-group-item-action">{% trans "Feeding Durations (Average)" %}</a>
             <a href="{% url 'reports:report-feeding-intervals-child' object.slug %}"
                class="list-group-item list-group-item-action">{% trans "Feeding Intervals" %}</a>
+            <a href="{% url 'reports:report-feeding-pattern-child' object.slug %}"
+               class="list-group-item list-group-item-action">{% trans "Feeding Pattern" %}</a>
             <a href="{% url 'reports:report-head-circumference-change-child' object.slug %}"
                class="list-group-item list-group-item-action">{% trans "Head Circumference" %}</a>
             <a href="{% url 'reports:report-height-change-child' object.slug %}"

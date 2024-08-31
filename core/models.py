@@ -7,6 +7,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models.functions import Lower
 from django.utils import timezone
 from django.utils.text import format_lazy, slugify
 from django.utils.translation import gettext_lazy as _
@@ -78,6 +79,7 @@ def validate_time(time, field_name):
 
 
 class Tag(TagBase):
+    model_name = "tag"
     DARK_COLOR = "#101010"
     LIGHT_COLOR = "#EFEFEF"
 
@@ -94,6 +96,8 @@ class Tag(TagBase):
     )
 
     class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = [Lower("name")]
         verbose_name = _("Tag")
         verbose_name_plural = _("Tags")
 

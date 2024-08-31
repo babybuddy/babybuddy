@@ -32,7 +32,7 @@ def diaperchange_lifetimes(changes):
 
     layout_args = utils.default_graph_layout_options()
     layout_args["height"] = 800
-    layout_args["title"] = _("<b>Diaper Lifetimes</b>")
+    layout_args["title"] = "<b>" + _("Diaper Lifetimes") + "</b>"
     layout_args["yaxis"]["title"] = _("Time between changes (hours)")
     layout_args["yaxis"]["zeroline"] = False
     layout_args["yaxis"]["dtick"] = 1

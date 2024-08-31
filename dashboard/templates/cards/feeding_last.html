@@ -5,10 +5,12 @@
 {% endblock %}
 {% block title %}
     {% if feeding %}
-        {% blocktrans trimmed with since=feeding.start|deltasince|duration_string:'m' time=feeding.start|time %}
-            <div>{{ since }} ago</div>
-            <small>{{ time }}</small>
-        {% endblocktrans %}
+        <div>
+            {% blocktrans trimmed with time_ago=feeding.start|deltasince|duration_string:'m' %}
+                {{ time_ago }} ago
+            {% endblocktrans %}
+        </div>
+        <small>{{ feeding.start|time }}</small>
     {% else %}
         {% trans "None" %}
     {% endif %}

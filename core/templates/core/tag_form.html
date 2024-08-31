@@ -1,0 +1,32 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}
+    {% if request.resolver_match.url_name == 'tag-update' %}
+        {% trans "Update a Tag" %}
+    {% else %}
+        {% trans "Add a Tag" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:tag-list' %}">{% trans "Tags" %}</a>
+    </li>
+    {% if object %}
+        <li class="breadcrumb-item" aria-current="page">
+            <a href="{% url 'core:tag-detail' object.slug %}">{{ object }}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add" %}</li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>
+            {% trans Update %} <span class="text-info">{{ object }}</span>
+        </h1>
+    {% else %}
+        <h1>{% trans "Add a Tag" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}

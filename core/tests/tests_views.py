@@ -147,6 +147,21 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/sleep/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
 
+    def test_tags_views(self):
+        page = self.c.get("/tags/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/tags/add/")
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.Tag.objects.first()
+        page = self.c.get("/tags/{}/".format(entry.slug))
+        self.assertEqual(page.status_code, 200)
+        entry = models.Tag.objects.first()
+        page = self.c.get("/tags/{}/edit".format(entry.slug))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/tags/{}/delete/".format(entry.slug))
+        self.assertEqual(page.status_code, 200)
+
     def test_temperature_views(self):
         page = self.c.get("/temperature/")
         self.assertEqual(page.status_code, 200)

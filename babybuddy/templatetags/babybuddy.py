@@ -4,7 +4,10 @@ from django import template
 from django.apps import apps
 from django.conf import settings
 from django.utils import timezone
-from django.utils.translation import to_locale, get_language
+from django.utils.functional import lazy
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+from django.utils.translation import to_locale, get_language, gettext_lazy as _
 
 from axes.helpers import get_lockout_message
 from axes.models import AccessAttempt
@@ -12,6 +15,7 @@ from axes.models import AccessAttempt
 from core.models import Child
 
 register = template.Library()
+mark_safe_lazy = lazy(mark_safe, str)
 
 
 @register.simple_tag
@@ -82,3 +86,23 @@ def user_is_locked(user):
 @register.simple_tag()
 def user_is_read_only(user):
     return user.groups.filter(name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]).exists()
+
+
+@register.simple_tag()
+def confirm_delete_text(object):
+    return mark_safe_lazy(
+        _("Are you sure you want to delete %(name)s?")
+        % {
+            "name": format_html('<span class="text-info">{}</span>', str(object)),
+        }
+    )
+
+
+@register.simple_tag()
+def confirm_unlock_text(object):
+    return mark_safe_lazy(
+        _("Are you sure you want to unlock %(name)s?")
+        % {
+            "name": format_html('<span class="text-info">{}</span>', str(object)),
+        }
+    )

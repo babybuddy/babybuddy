@@ -5,10 +5,12 @@
 {% endblock %}
 {% block title %}
     {% if change %}
-        {% blocktrans trimmed with since=change.time|deltasince|duration_string:'m' time=change.time|time %}
-            <div>{{ since }} ago</div>
-            <small>{{ time }}</small>
-        {% endblocktrans %}
+        <div>
+            {% blocktrans trimmed with time_ago=change.time|deltasince|duration_string:'m' %}
+                {{ time_ago }} ago
+            {% endblocktrans %}
+        </div>
+        <small>{{ change.time|time }}</small>
     {% else %}
         {% trans "None" %}
     {% endif %}
