@@ -2,16 +2,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 13:13+0000\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2024-08-31 12:53+0000\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
 
 #: babybuddy/admin.py:12 babybuddy/admin.py:13
 #: babybuddy/templates/babybuddy/nav-dropdown.html:320
@@ -122,95 +119,95 @@ msgstr "Rader per sida"
 msgid "{user}'s Settings"
 msgstr "{user}'s inställningar"
 
-#: babybuddy/settings/base.py:190
+#: babybuddy/settings/base.py:194
 msgid "Brazilian Portuguese"
 msgstr "Brasiliansk portugisiska"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:195
 msgid "Catalan"
 msgstr "Katalanska"
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:196
 msgid "Czech"
 msgstr "Tjeckiska"
 
-#: babybuddy/settings/base.py:193
+#: babybuddy/settings/base.py:197
 msgid "Chinese (simplified)"
 msgstr "Kinesiska (förenklad)"
 
-#: babybuddy/settings/base.py:194
+#: babybuddy/settings/base.py:198
 msgid "Danish"
 msgstr "Danska"
 
-#: babybuddy/settings/base.py:195
+#: babybuddy/settings/base.py:199
 msgid "Dutch"
 msgstr "Nederländska"
 
-#: babybuddy/settings/base.py:196
+#: babybuddy/settings/base.py:200
 msgid "English (US)"
 msgstr "Engelska (USA)"
 
-#: babybuddy/settings/base.py:197
+#: babybuddy/settings/base.py:201
 msgid "English (UK)"
 msgstr "Engelska (Storbritannien)"
 
-#: babybuddy/settings/base.py:198
+#: babybuddy/settings/base.py:202
 msgid "French"
 msgstr "Franska"
 
-#: babybuddy/settings/base.py:199
+#: babybuddy/settings/base.py:203
 msgid "Finnish"
 msgstr "Finska"
 
-#: babybuddy/settings/base.py:200
+#: babybuddy/settings/base.py:204
 msgid "German"
 msgstr "Tyska"
 
-#: babybuddy/settings/base.py:201
+#: babybuddy/settings/base.py:205
 msgid "Hebrew"
 msgstr "Hebreiska"
 
-#: babybuddy/settings/base.py:202
+#: babybuddy/settings/base.py:206
 msgid "Hungarian"
 msgstr "Ungerska"
 
-#: babybuddy/settings/base.py:203
+#: babybuddy/settings/base.py:207
 msgid "Italian"
 msgstr "Italienska"
 
-#: babybuddy/settings/base.py:204
+#: babybuddy/settings/base.py:208
 msgid "Japanese"
 msgstr "Japanska"
 
-#: babybuddy/settings/base.py:205
+#: babybuddy/settings/base.py:209
 msgid "Norwegian Bokmål"
 msgstr "Norskt bokmål"
 
-#: babybuddy/settings/base.py:206
+#: babybuddy/settings/base.py:210
 msgid "Polish"
 msgstr "Polska"
 
-#: babybuddy/settings/base.py:207
+#: babybuddy/settings/base.py:211
 msgid "Portuguese"
 msgstr "Portugisiska"
 
-#: babybuddy/settings/base.py:208
+#: babybuddy/settings/base.py:212
 msgid "Russian"
 msgstr "Ryska"
 
-#: babybuddy/settings/base.py:209
+#: babybuddy/settings/base.py:213
 msgid "Spanish"
 msgstr "Spanska"
 
-#: babybuddy/settings/base.py:210
+#: babybuddy/settings/base.py:214
 msgid "Swedish"
 msgstr "Svenska"
 
-#: babybuddy/settings/base.py:211
+#: babybuddy/settings/base.py:215
 msgid "Turkish"
 msgstr "Turkiska"
 
-#: babybuddy/settings/base.py:212
+#: babybuddy/settings/base.py:216
 msgid "Ukrainian"
 msgstr "Ukrainska"
 
@@ -271,6 +268,7 @@ msgstr "Skicka"
 #: babybuddy/templates/babybuddy/messages.html:24
 #: babybuddy/templates/babybuddy/user_settings_form.html:18
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
+#, fuzzy
 msgid "Error"
 msgstr "Fel"
 
@@ -362,16 +360,16 @@ msgstr "Barn"
 #: core/models.py:387 core/models.py:439 core/models.py:468 core/models.py:516
 #: core/models.py:570 core/models.py:604 core/models.py:673 core/models.py:721
 #: core/templates/core/bmi_list.html:26
-#: core/templates/core/diaperchange_list.html:27
+#: core/templates/core/diaperchange_list.html:28
 #: core/templates/core/feeding_list.html:30
 #: core/templates/core/head_circumference_list.html:27
 #: core/templates/core/height_list.html:26
 #: core/templates/core/note_list.html:26
-#: core/templates/core/pumping_list.html:26
-#: core/templates/core/sleep_list.html:27
+#: core/templates/core/pumping_list.html:27
+#: core/templates/core/sleep_list.html:28
 #: core/templates/core/temperature_list.html:27
 #: core/templates/core/timer_list.html:26
-#: core/templates/core/tummytime_list.html:26
+#: core/templates/core/tummytime_list.html:27
 #: core/templates/core/weight_list.html:26
 msgid "Child"
 msgstr "Barnet"
@@ -556,19 +554,19 @@ msgstr "API utforskare"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:331 core/models.py:102
 #: core/templates/core/bmi_list.html:29
-#: core/templates/core/diaperchange_list.html:32
-#: core/templates/core/feeding_list.html:38
+#: core/templates/core/diaperchange_list.html:34
+#: core/templates/core/feeding_list.html:39
 #: core/templates/core/head_circumference_list.html:30
 #: core/templates/core/height_list.html:29
 #: core/templates/core/note_list.html:30
-#: core/templates/core/pumping_list.html:30
-#: core/templates/core/sleep_list.html:31
+#: core/templates/core/pumping_list.html:32
+#: core/templates/core/sleep_list.html:33
 #: core/templates/core/tag_confirm_delete.html:8
 #: core/templates/core/tag_detail.html:12 core/templates/core/tag_form.html:12
 #: core/templates/core/tag_list.html:4 core/templates/core/tag_list.html:7
 #: core/templates/core/tag_list.html:11
 #: core/templates/core/temperature_list.html:30
-#: core/templates/core/tummytime_list.html:30
+#: core/templates/core/tummytime_list.html:32
 #: core/templates/core/weight_list.html:29
 msgid "Tags"
 msgstr "Märken"
@@ -599,6 +597,11 @@ msgid "First"
 msgstr "Första sidan"
 
 #: babybuddy/templates/babybuddy/paginator.html:18
+#: core/templates/core/diaperchange_list.html:33
+#: core/templates/core/feeding_list.html:38
+#: core/templates/core/pumping_list.html:31
+#: core/templates/core/sleep_list.html:31
+#: core/templates/core/tummytime_list.html:30
 #: core/templates/timeline/_timeline.html:6
 #: core/templates/timeline/_timeline.html:8
 #: core/templates/timeline/_timeline.html:76
@@ -769,24 +772,24 @@ msgstr "Låst"
 #: core/templates/core/bmi_list.html:23 core/templates/core/bmi_list.html:38
 #: core/templates/core/child_list.html:29
 #: core/templates/core/child_list.html:53
-#: core/templates/core/diaperchange_list.html:24
-#: core/templates/core/diaperchange_list.html:41
+#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/diaperchange_list.html:44
 #: core/templates/core/feeding_list.html:27
-#: core/templates/core/feeding_list.html:47
+#: core/templates/core/feeding_list.html:49
 #: core/templates/core/head_circumference_list.html:24
 #: core/templates/core/head_circumference_list.html:39
 #: core/templates/core/height_list.html:23
 #: core/templates/core/height_list.html:38
 #: core/templates/core/note_list.html:23 core/templates/core/note_list.html:39
-#: core/templates/core/pumping_list.html:23
-#: core/templates/core/pumping_list.html:39
-#: core/templates/core/sleep_list.html:23
-#: core/templates/core/sleep_list.html:40 core/templates/core/tag_list.html:23
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:42
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:43 core/templates/core/tag_list.html:23
 #: core/templates/core/tag_list.html:36
 #: core/templates/core/temperature_list.html:24
 #: core/templates/core/temperature_list.html:39
-#: core/templates/core/tummytime_list.html:22
-#: core/templates/core/tummytime_list.html:39
+#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:42
 #: core/templates/core/weight_list.html:23
 #: core/templates/core/weight_list.html:38
 msgid "Actions"
@@ -1119,7 +1122,7 @@ msgid "Date/time can not be in the future."
 msgstr "Datum / tid kan inte anges i framtiden."
 
 #: core/models.py:87 core/models.py:250
-#: core/templates/core/diaperchange_list.html:30
+#: core/templates/core/diaperchange_list.html:31
 #: core/templates/core/tag_list.html:25
 msgid "Color"
 msgstr "Färg"
@@ -1133,13 +1136,13 @@ msgstr "Senast använd"
 #: core/templates/core/feeding_list.html:28
 #: core/templates/core/head_circumference_list.html:25
 #: core/templates/core/height_list.html:24
-#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:25
 #: core/templates/core/weight_list.html:24 reports/graphs/bmi_change.py:28
 #: reports/graphs/diaperchange_amounts.py:37
 #: reports/graphs/diaperchange_intervals.py:67
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
 #: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
-#: reports/graphs/feeding_pattern.py:157
+#: reports/graphs/feeding_pattern.py:166
 #: reports/graphs/head_circumference_change.py:28
 #: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:168 reports/graphs/sleep_totals.py:59
@@ -1172,20 +1175,22 @@ msgid "Picture"
 msgstr "Bild"
 
 #: core/models.py:237 core/models.py:443 core/models.py:576
-#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/diaperchange_list.html:26
 #: core/templates/core/note_list.html:24
 #: core/templates/core/temperature_list.html:25
 #: reports/graphs/temperature_change.py:27
 msgid "Time"
 msgstr "Tid"
 
-#: core/models.py:239 core/templates/core/diaperchange_list.html:64
+#: core/models.py:239 core/templates/core/diaperchange_list.html:67
+#: core/templates/mobile/diaper_list_item.html:8
 #: reports/graphs/diaperchange_intervals.py:47
 #: reports/graphs/diaperchange_types.py:36
 msgid "Wet"
 msgstr "Våt"
 
-#: core/models.py:240 core/templates/core/diaperchange_list.html:67
+#: core/models.py:240 core/templates/core/diaperchange_list.html:70
+#: core/templates/mobile/diaper_list_item.html:10
 #: reports/graphs/diaperchange_intervals.py:38
 #: reports/graphs/diaperchange_types.py:30
 msgid "Solid"
@@ -1208,8 +1213,8 @@ msgid "Yellow"
 msgstr "Gult"
 
 #: core/models.py:252 core/models.py:323 core/models.py:487
-#: core/templates/core/diaperchange_list.html:31
-#: core/templates/core/pumping_list.html:28
+#: core/templates/core/diaperchange_list.html:32
+#: core/templates/core/pumping_list.html:29
 #: dashboard/templates/cards/pumping_last.html:20
 msgid "Amount"
 msgstr "Mängd"
@@ -1225,9 +1230,9 @@ msgstr "Sluttid"
 
 #: core/models.py:299 core/models.py:485 core/models.py:529 core/models.py:685
 #: core/templates/core/feeding_list.html:37
-#: core/templates/core/pumping_list.html:29
-#: core/templates/core/sleep_list.html:29
-#: core/templates/core/tummytime_list.html:28
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:30
+#: core/templates/core/tummytime_list.html:29
 msgid "Duration"
 msgstr "Längd"
 
@@ -1291,7 +1296,7 @@ msgstr "Pojke"
 msgid "Image"
 msgstr "Bild"
 
-#: core/models.py:527 core/templates/core/sleep_list.html:30
+#: core/models.py:527 core/templates/core/sleep_list.html:32
 msgid "Nap"
 msgstr "Tupplur"
 
@@ -1322,7 +1327,7 @@ msgstr "Timers"
 msgid "Timer #{id}"
 msgstr "Timer #{id}"
 
-#: core/models.py:688 core/templates/core/tummytime_list.html:29
+#: core/models.py:688 core/templates/core/tummytime_list.html:31
 msgid "Milestone"
 msgstr "Milstolpe"
 
@@ -1408,11 +1413,25 @@ msgstr "Lägg till"
 msgid "Add Diaper Change"
 msgstr "Lägg till blöjbyte"
 
-#: core/templates/core/diaperchange_list.html:29
+#: core/templates/core/diaperchange_list.html:30
 msgid "Contents"
 msgstr "Innehåll"
 
-#: core/templates/core/diaperchange_list.html:83
+#: core/templates/core/diaperchange_list.html:77
+#: core/templates/core/feeding_list.html:78
+#: core/templates/core/pumping_list.html:67
+#: core/templates/core/sleep_list.html:66
+#: core/templates/core/tummytime_list.html:67
+#: dashboard/templates/cards/diaperchange_last.html:9
+#: dashboard/templates/cards/feeding_last.html:9
+#: dashboard/templates/cards/pumping_last.html:9
+#: dashboard/templates/cards/sleep_last.html:9
+#: dashboard/templates/cards/tummytime_last.html:9
+#, python-format
+msgid "%(time_ago)s ago"
+msgstr "%(time_ago)s sedan"
+
+#: core/templates/core/diaperchange_list.html:94
 msgid "No diaper changes found."
 msgstr "Hittade inga blöjbyten."
 
@@ -1446,7 +1465,7 @@ msgstr "Lägg till flaskmatning"
 msgid "Amt."
 msgstr "Mängd"
 
-#: core/templates/core/feeding_list.html:85
+#: core/templates/core/feeding_list.html:95
 msgid "No feedings found."
 msgstr "Inga matningar hittades."
 
@@ -1520,7 +1539,7 @@ msgstr "Lägg till ett pumpning"
 msgid "Add Pumping Entry"
 msgstr "Lägg till pumpnings"
 
-#: core/templates/core/pumping_list.html:73
+#: core/templates/core/pumping_list.html:84
 msgid "No pumping entries found."
 msgstr "Hittade inga pumpningstillfällen."
 
@@ -1551,19 +1570,19 @@ msgstr "Lägg till sömn"
 msgid "Add Sleep"
 msgstr "Lägg till sömn"
 
-#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:25
 #: core/templates/core/timer_form.html:16
 #: core/templates/core/timer_list.html:23
-#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:24
 msgid "Start"
 msgstr "Start"
 
-#: core/templates/core/sleep_list.html:25
-#: core/templates/core/tummytime_list.html:24
+#: core/templates/core/sleep_list.html:26
+#: core/templates/core/tummytime_list.html:25
 msgid "End"
 msgstr "Avslut"
 
-#: core/templates/core/sleep_list.html:73
+#: core/templates/core/sleep_list.html:84
 msgid "No sleep entries found."
 msgstr "Hittade inga sömntillfällen."
 
@@ -1640,10 +1659,12 @@ msgid "Pumpings"
 msgstr "Pumpningar"
 
 #: core/templates/core/tag_detail.html:95
+#, fuzzy
 msgid "Sleeps"
 msgstr "Sömn"
 
 #: core/templates/core/tag_detail.html:100
+#, fuzzy
 msgid "Tummy Times"
 msgstr "Magläge"
 
@@ -1656,6 +1677,7 @@ msgid "Items Tagged"
 msgstr "Taggade objekt"
 
 #: core/templates/core/tag_list.html:27
+#, fuzzy
 msgid "Last Used"
 msgstr "Senast använd"
 
@@ -1753,7 +1775,7 @@ msgstr "Lägg till magträning"
 msgid "Add Tummy Time"
 msgstr "Lägg till magläge"
 
-#: core/templates/core/tummytime_list.html:67
+#: core/templates/core/tummytime_list.html:78
 msgid "No tummy time entries found."
 msgstr "Hittade ingen magtränging."
 
@@ -1816,6 +1838,14 @@ msgstr "Stäng"
 #: core/templates/forms/layouts/advanced.html:7
 msgid "Advanced Fields"
 msgstr "Avancerade fält"
+
+#: core/templates/mobile/diaper_list_item.html:6
+msgid "Mixed"
+msgstr ""
+
+#: core/templates/mobile/diaper_list_item.html:12
+msgid "Clean"
+msgstr ""
 
 #: core/templates/timeline/_timeline.html:41
 #, python-format
@@ -1999,15 +2029,6 @@ msgstr "matningar"
 #: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
 msgstr "Senaste blöjbyte"
-
-#: dashboard/templates/cards/diaperchange_last.html:9
-#: dashboard/templates/cards/feeding_last.html:9
-#: dashboard/templates/cards/pumping_last.html:9
-#: dashboard/templates/cards/sleep_last.html:9
-#: dashboard/templates/cards/tummytime_last.html:9
-#, python-format
-msgid "%(time_ago)s ago"
-msgstr "%(time_ago)s sedan"
 
 #: dashboard/templates/cards/diaperchange_types.html:20
 msgid "wet"
@@ -2281,14 +2302,14 @@ msgstr "Matningsintervall"
 msgid "Feeding interval (hours)"
 msgstr "Matningsintervall (timmar)"
 
-#: reports/graphs/feeding_pattern.py:154
+#: reports/graphs/feeding_pattern.py:163
 #: reports/templates/reports/feeding_pattern.html:4
 #: reports/templates/reports/feeding_pattern.html:9
 #: reports/templates/reports/report_list.html:32
 msgid "Feeding Pattern"
 msgstr "Matningsmönster"
 
-#: reports/graphs/feeding_pattern.py:171 reports/graphs/sleep_pattern.py:182
+#: reports/graphs/feeding_pattern.py:180 reports/graphs/sleep_pattern.py:182
 msgid "Time of day"
 msgstr "Tidpunkt på dygnet"
 
@@ -2418,6 +2439,13 @@ msgstr "WHO viktpercentiler för Pojkar i kg"
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr "WHO viktpercentiler för Flickor i kg"
 
+#~ msgid ""
+#~ "This setting will only be used when a browser does not support refresh on "
+#~ "focus."
+#~ msgstr ""
+#~ "Den här inställningen används endast när en webbläsare inte stöder "
+#~ "uppdatering på fokus."
+
 #~ msgid "1 min."
 #~ msgstr "1 minut."
 
@@ -2442,127 +2470,6 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 #~ msgid "30 min."
 #~ msgstr "30 minuter."
 
-#~ msgid "1 day"
-#~ msgstr "1 dag"
-
-#~ msgid "2 days"
-#~ msgstr "2 dagar"
-
-#~ msgid "3 days"
-#~ msgstr "3 dagar"
-
-#~ msgid "1 week"
-#~ msgstr "1 vecka"
-
-#~ msgid "4 weeks"
-#~ msgstr "4 veckor"
-
-#, python-format
-#~ msgid "<strong>Error:</strong> %(error)s"
-#~ msgstr "<strong>Fel:</strong> %(error)s"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<h1>Are you sure you want to delete <span class=\"text-"
-#~| "info\">%(object)s</span>?</h1>"
-#~ msgid ""
-#~ "<h1> Are you sure you want to delete <span class=\"text-"
-#~ "info\">%(object)s</span>? </h1>"
-#~ msgstr ""
-#~ "<h1>Är du säker på att du vill ta bort <span class=\"text-"
-#~ "info\">%(object)s</span>?</h1>"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<h1>Are you sure you want to unlock <span class=\"text-"
-#~| "info\">%(object)s</span>?</h1>"
-#~ msgid ""
-#~ "<h1> Are you sure you want to unlock <span class=\"text-"
-#~ "info\">%(object)s</span>? </h1>"
-#~ msgstr ""
-#~ "<h1>Är du säker på att du vill låsa upp <span class=\"text-"
-#~ "info\">%(object)s</span>?</h1>"
-
-#, fuzzy, python-format
-#~| msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
-#~ msgid "<h1> Update <span class=\"text-info\">%(object)s</span> </h1>"
-#~ msgstr "<h1>Uppdatera <span class=\"text-info\">%(object)s</span></h1>"
-
-#~ msgid ""
-#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
-#~ "again."
-#~ msgstr ""
-#~ "<strong>Ajdå!</strong> Lösenorden stämmer inte överens. Vänligen försök "
-#~ "igen."
-
-#~ msgid "{}, {}"
-#~ msgstr "{}, {}"
-
-#, python-format
-#~ msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
-#~ msgstr "<div>%(since)s sedan</div> <small>%(time)s</small>"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
-#~ msgid "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
-#~ msgstr ""
-#~ "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
-
-#~ msgid "<b>BMI</b>"
-#~ msgstr "<b>BMI</b>"
-
-#~ msgid "<b>Diaper Change Amounts</b>"
-#~ msgstr "<b>Blöjbytesmängd</b>"
-
-#~ msgid "<b>Diaper Change Intervals</b>"
-#~ msgstr "<b>Blöjbytesintervall</b>"
-
-#~ msgid "<b>Diaper Lifetimes</b>"
-#~ msgstr "<b>Blöjhållbarhet</b>"
-
-#~ msgid "<b>Diaper Change Types</b>"
-#~ msgstr "<b>Blöjbytestyper</b>"
-
-#~ msgid "<b>Average Feeding Durations</b>"
-#~ msgstr "<b>Genomsnittlig matningsvaraktighet</b>"
-
-#~ msgid "<b>Feeding intervals</b>"
-#~ msgstr "<b>Matnings-intervall</b>"
-
-#, fuzzy
-#~| msgid "<b>Sleep Pattern</b>"
-#~ msgid "<b>Feeding Pattern</b>"
-#~ msgstr "<b>Sömnmönster</b>"
-
-#~ msgid "<b>Head Circumference</b>"
-#~ msgstr "<b>Huvudomkrets</b>"
-
-#~ msgid "<b>Height</b>"
-#~ msgstr "<b>Längd</b>"
-
-#~ msgid "<b>Sleep Pattern</b>"
-#~ msgstr "<b>Sömnmönster</b>"
-
-#~ msgid "<b>Sleep Totals</b>"
-#~ msgstr "<b>Total sömn</b>"
-
-#~ msgid "<b>Temperature</b>"
-#~ msgstr "<b>Temperatur</b>"
-
-#~ msgid "<b>Total Tummy Time Durations</b>"
-#~ msgstr "<b>Total varaktighet för magläge</b>"
-
-#~ msgid "<b>Weight</b>"
-#~ msgstr "<b>Vikt</b>"
-
-#~ msgid ""
-#~ "This setting will only be used when a browser does not support refresh on "
-#~ "focus."
-#~ msgstr ""
-#~ "Den här inställningen används endast när en webbläsare inte stöder "
-#~ "uppdatering på fokus."
-
 #~ msgid "English"
 #~ msgstr "Engelska"
 
@@ -2573,6 +2480,9 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 #~ "Du har inte behörighet att komma åt den här resursen.\n"
 #~ "Kontakta webbplatsadministratören för hjälp."
 
+#~ msgid "<strong>Error:</strong> %(error)s"
+#~ msgstr "<strong>Fel:</strong> %(error)s"
+
 #~ msgid ""
 #~ "<strong>Error:</strong> Some fields have errors. See below for details. "
 #~ msgstr ""
@@ -2580,6 +2490,22 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 
 #~ msgid "Backend Admin"
 #~ msgstr "Systemadministration"
+
+#~ msgid ""
+#~ "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr ""
+#~ "<h1>Är du säker på att du vill ta bort <span class=\"text-"
+#~ "info\">%(object)s</span>?</h1>"
+
+#~ msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#~ msgstr "<h1>Uppdatera <span class=\"text-info\">%(object)s</span></h1>"
+
+#~ msgid ""
+#~ "<strong>Error:</strong> Some fields have errors. See below for details."
+#~ msgstr ""
+#~ "<strong>Fel:</strong> Vissa fält innehåller felaktigheter. Se nedan för "
+#~ "detaljer."
 
 #~ msgid ""
 #~ "Learn about and predict baby's needs without\n"
@@ -2648,6 +2574,9 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 #~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
 #~ msgstr "Endast \"Flask\" -metoden är tillåten med \"Formel\" -typ."
 
+#~ msgid "Add a Change"
+#~ msgstr "Lägg till byte"
+
 #~ msgid "Stopped"
 #~ msgstr "Stoppad"
 
@@ -2662,6 +2591,9 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 
 #~ msgid "%(timer)s stopped."
 #~ msgstr "%(timer)s stoppad."
+
+#~ msgid "%(time)s ago"
+#~ msgstr "%(time)s sedan"
 
 #~ msgid "%(key)s days ago"
 #~ msgstr "%(key)s dagar sedan"
@@ -2687,9 +2619,34 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 #~ msgid "Started by %(instance.user)s at %(start)s"
 #~ msgstr "Startad av %(instance.user)s vid %(start)s"
 
+#~ msgid "<b>Diaper Lifetimes</b>"
+#~ msgstr "<b>Blöjhållbarhet</b>"
+
+#~ msgid "<b>Diaper Change Types</b>"
+#~ msgstr "<b>Blöjbytestyper</b>"
+
+#~ msgid "<b>Average Feeding Durations</b>"
+#~ msgstr "<b>Genomsnittlig matningsvaraktighet</b>"
+
+#~ msgid "<b>Sleep Pattern</b>"
+#~ msgstr "<b>Sömnmönster</b>"
+
+#~ msgid "<b>Sleep Totals</b>"
+#~ msgstr "<b>Total sömn</b>"
+
+#~ msgid "<b>Weight</b>"
+#~ msgstr "<b>Vikt</b>"
+
 #~ msgid "There is no enough data to generate this report."
 #~ msgstr ""
 #~ "Det finns inte tillräckligt med data för att generera denna rapport."
+
+#~ msgid ""
+#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
+#~ "again."
+#~ msgstr ""
+#~ "<strong>Ajdå!</strong> Lösenorden stämmer inte överens. Vänligen försök "
+#~ "igen."
 
 #~ msgid "Total feeding amount"
 #~ msgstr "Totalt antal matningar"
@@ -2719,8 +2676,29 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 #~ msgid "%(n)s feeding%(plural)s ago"
 #~ msgstr "%(n)s matning%(plural)s sedan"
 
+#~ msgid "<b>Diaper Change Amounts</b>"
+#~ msgstr "<b>Blöjbytesmängd</b>"
+
+#~ msgid "1 day"
+#~ msgstr "1 dag"
+
+#~ msgid "2 days"
+#~ msgstr "2 dagar"
+
+#~ msgid "3 days"
+#~ msgstr "3 dagar"
+
+#~ msgid "1 week"
+#~ msgstr "1 vecka"
+
+#~ msgid "4 weeks"
+#~ msgstr "4 veckor"
+
 #~ msgid "Delete timer"
 #~ msgstr "Ta bort timer"
+
+#~ msgid "{}, {}"
+#~ msgstr "{}, {}"
 
 #~ msgid "0 days"
 #~ msgstr "0 dagar"
@@ -2728,11 +2706,17 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Innehåll: %(contents)s"
 
+#~ msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
+#~ msgstr "<div>%(since)s sedan</div> <small>%(time)s</small>"
+
 #~ msgid "Today's Feeding"
 #~ msgstr "Dagens Matning"
 
 #~ msgid "%(count)s feeding entries"
 #~ msgstr "%(count)s matnings-tillägg"
+
+#~ msgid "<b>Total Tummy Time Durations</b>"
+#~ msgstr "<b>Total varaktighet för magläge</b>"
 
 #~ msgid "Napping"
 #~ msgstr "Tupplur"
@@ -2740,13 +2724,103 @@ msgstr "WHO viktpercentiler för Flickor i kg"
 #~ msgid "No bmi entries found."
 #~ msgstr "Inga BMI-inlägg hittade."
 
+#~ msgid "<b>BMI</b>"
+#~ msgstr "<b>BMI</b>"
+
+#~ msgid "<b>Total Feeding Amount by Type</b>"
+#~ msgstr "<b>Genomsnittlig matningsvaraktighet per typ</b>"
+
+#~ msgid "<b>Head Circumference</b>"
+#~ msgstr "<b>Huvudomkrets</b>"
+
+#~ msgid "<b>Height</b>"
+#~ msgstr "<b>Längd</b>"
+
+#~ msgid ""
+#~ "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
+#~ "environment variable. If multiple origins are required separate with "
+#~ "commas."
+#~ msgstr ""
+#~ "Lägg till <samp>%(origin)s</samp> till <code>CSRF_TRUSTED_ORIGINS</code> "
+#~ "miljö-variabel. Om flera källor behövs så separera de med kommatecken."
+
+#~ msgid "The path <code>%(request_path)s</code> does not exist."
+#~ msgstr "Sökvägen <code>%(request_path)s</code> finns inte."
+
 #~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
 #~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
+
+#~ msgid "<b>Total Pumping Amount</b>"
+#~ msgstr "<b>Genomsnittlig pumpningsmängd</b>"
+
+#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
+#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+#~ msgstr[0] "Är du säker på att du vill ta bort %(number)s inaktiv timer?"
+#~ msgstr[1] "Är du säker på att du vill ta bort %(number)s inaktiva timers?"
 
 #~ msgid "%(count)s active timer"
 #~ msgid_plural "%(count)s active timers"
 #~ msgstr[0] "%(count)s aktiv timer"
 #~ msgstr[1] "%(count)s aktiva timers"
 
+#~ msgid ""
+#~ "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr ""
+#~ "<h1>Är du säker på att du vill låsa upp <span class=\"text-"
+#~ "info\">%(object)s</span>?</h1>"
+
 #~ msgid " days ago"
 #~ msgstr " dagar sedan"
+
+#~ msgid "<b>Temperature</b>"
+#~ msgstr "<b>Temperatur</b>"
+
+#~ msgid ""
+#~ "Nap start min. value %(min)s must be less than nap start min. value "
+#~ "%(max)s."
+#~ msgstr ""
+#~ "Tupplurens min. start-värde %(min)s måste vara mindre än tuppluren max. "
+#~ "start-värde %(max)s."
+
+#~ msgid ""
+#~ "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+#~ msgstr ""
+#~ "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+
+#~ msgid "<b>Diaper Change Intervals</b>"
+#~ msgstr "<b>Blöjbytesintervall</b>"
+
+#~ msgid "<b>Feeding intervals</b>"
+#~ msgstr "<b>Matnings-intervall</b>"
+
+#~ msgid ""
+#~ "<h1> Are you sure you want to delete <span class=\"text-"
+#~ "info\">%(object)s</span>? </h1>"
+#~ msgstr ""
+#~ "<h1> Är du säker på att du vill ta bort <span class=\"text-"
+#~ "info\">%(object)s</span>? </h1>"
+
+#~ msgid ""
+#~ "<h1> Are you sure you want to unlock <span class=\"text-"
+#~ "info\">%(object)s</span>? </h1>"
+#~ msgstr ""
+#~ "<h1> Är du säker på att du vill låsa upp <span class=\"text-"
+#~ "info\">%(object)s</span>? </h1>"
+
+#~ msgid "<h1> Update <span class=\"text-info\">%(object)s</span> </h1>"
+#~ msgstr "<h1> Uppdatera <span class=\"text-info\">%(object)s</span> </h1>"
+
+#~ msgid "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
+#~ msgstr ""
+#~ "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\">This action will remove the tag from all items it is "
+#~ "currently applied to.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\">Denna åtgärd kommer ta bort taggen från alla objekt som "
+#~ "den hör till.</p>"
+
+#~ msgid "<b>Feeding Pattern</b>"
+#~ msgstr "<b>Matningsmönster</b>"
