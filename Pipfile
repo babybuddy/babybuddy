@@ -27,6 +27,7 @@ django-qr-code = "*"
 django-cors-headers = "*"
 django-dbsettings = "*"
 django-import-export = "*"
+inflection = "*"
 
 [dev-packages]
 coveralls = "*"
