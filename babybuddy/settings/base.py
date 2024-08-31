@@ -193,6 +193,7 @@ LOCALE_PATHS = [
 LANGUAGES = [
     ("pt-BR", _("Brazilian Portuguese")),
     ("ca", _("Catalan")),
+    ("hr", _("Croatian")),
     ("cs", _("Czech")),
     ("zh-hans", _("Chinese (simplified)")),
     ("da", _("Danish")),
