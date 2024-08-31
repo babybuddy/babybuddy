@@ -286,7 +286,7 @@ if os.environ.get("EMAIL_HOST"):
     EMAIL_USE_SSL = bool(strtobool(os.environ.get("EMAIL_USE_SSL") or "False"))
     EMAIL_SSL_KEYFILE = os.environ.get("EMAIL_SSL_KEYFILE") or None
     EMAIL_SSL_CERTFILE = os.environ.get("EMAIL_SSL_CERTFILE") or None
-
+    DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_FROM") or EMAIL_HOST_USER or ""
 
 # Security
 

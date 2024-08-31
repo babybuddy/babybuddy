@@ -66,6 +66,15 @@ def feeding_pattern(feedings):
 
         if last_end_time:
             if last_end_time.date() < start_time.date():
+                # Not feeding across midnight
+                last_date = last_end_time.date().isoformat()
+                last_midnight = last_end_time.replace(hour=23, minute=59)
+                days[last_date].append(
+                    {
+                        "time": (last_midnight - last_end_time).seconds / 60,
+                        "label": None,
+                    }
+                )
                 last_end_time = start_time.replace(hour=0, minute=0, second=0)
 
         if not last_end_time:
