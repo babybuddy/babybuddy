@@ -160,8 +160,9 @@ class HomeAssistant:
         response = self.get_response(request)
 
         if apply_x_ingress_path:
-            if isinstance(response, HttpResponseRedirect):
-                split_url = urlsplit(response.url)
+            is_redirect_response = isinstance(response, HttpResponseRedirect) or response.status_code in [301, 307, 308]
+            if is_redirect_response:
+                split_url = urlsplit(response["Location"])
                 path_prefix = "/" + x_ingress_path.lstrip("/")
                 if not split_url.path.startswith(path_prefix):
                     new_url = urlunsplit(
@@ -186,24 +187,38 @@ class HomeAssistant:
                     # Filter /static and /media URLs, I did not find a better
                     # way that would be compatible with external third-party apps.
                     content = response.content.decode()
+                    static_trunc = settings.STATIC_URL.rstrip("/")
+                    media_trunc = settings.MEDIA_URL.rstrip("/")
+
                     content = (
                         content.replace(
-                            f'"{settings.STATIC_URL}',
-                            f'"{x_ingress_path}{settings.STATIC_URL}',
+                            f'"{static_trunc}',
+                            f'"{x_ingress_path}{static_trunc}',
                         )
                         .replace(
-                            f"'{settings.STATIC_URL}",
-                            f"'{x_ingress_path}{settings.STATIC_URL}",
+                            f"'{static_trunc}",
+                            f"'{x_ingress_path}{static_trunc}",
                         )
                         .replace(
-                            f'"{settings.MEDIA_URL}',
-                            f'"{x_ingress_path}{settings.MEDIA_URL}',
+                            f'"{media_trunc}',
+                            f'"{x_ingress_path}{media_trunc}',
                         )
                         .replace(
-                            f"'{settings.MEDIA_URL}",
-                            f"'{x_ingress_path}{settings.MEDIA_URL}",
+                            f"'{media_trunc}",
+                            f"'{x_ingress_path}{media_trunc}",
                         )
                     )
-                    response.content = content
+                    filtered_headers = {
+                        key: value
+                        for key, value in response.headers.items()
+                        if not key.lower().startswith("content-")
+                    }
+                    response = HttpResponse(
+                        content.encode(),
+                        status=response.status_code,
+                        content_type=response["Content-Type"],
+                        charset=response.charset,
+                        headers=filtered_headers,
+                    )
 
         return response

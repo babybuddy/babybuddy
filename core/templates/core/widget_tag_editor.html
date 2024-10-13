@@ -1,5 +1,6 @@
 {% load i18n %}
 <div data-tags-url="{% url 'api:api-root' %}tags/" {% for k, v in widget.attrs.items %}{{ k }}="{{ v }}"{% endfor %}>
+    <a href="{% url 'api:api-root' %}">TEST THIS</a>
     {% csrf_token %}
     <span class="prototype-tag btn badge badge-pill cursor-pointer me-1"
           style="display: none">

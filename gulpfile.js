@@ -417,9 +417,6 @@ gulp.task("watch", watch);
 
 gulp.task("build", gulp.parallel("extras", "scripts", "styles"));
 
-gulp.task(
-  "updatestatic",
-  gulp.series("lint", "clean", "build", "collectstatic"),
-);
+gulp.task("updatestatic", gulp.series("clean", "build", "collectstatic"));
 
 gulp.task("default", gulp.series("build", gulp.parallel("watch", "runserver")));
