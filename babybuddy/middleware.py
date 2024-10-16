@@ -160,7 +160,9 @@ class HomeAssistant:
         response = self.get_response(request)
 
         if apply_x_ingress_path:
-            is_redirect_response = isinstance(response, HttpResponseRedirect) or response.status_code in [301, 307, 308]
+            is_redirect_response = isinstance(
+                response, HttpResponseRedirect
+            ) or response.status_code in [301, 307, 308]
             if is_redirect_response:
                 split_url = urlsplit(response["Location"])
                 path_prefix = "/" + x_ingress_path.lstrip("/")
