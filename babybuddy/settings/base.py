@@ -28,7 +28,6 @@ load_dotenv(find_dotenv())
 ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split(",")]
 SECRET_KEY = os.environ.get("SECRET_KEY") or None
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
-APPEND_SLASH = True
 
 # Applications
 # https://docs.djangoproject.com/en/5.0/ref/applications/
