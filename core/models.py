@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import json
 import re
 from datetime import timedelta
 
@@ -224,8 +225,82 @@ class Child(models.Model):
         """Get a (cached) count of total number of Child instances."""
         return cache.get_or_set(cls.cache_key_count, Child.objects.count, None)
 
+class BabyBuddyBaseModel(models.Model):
+    mqtt_client = None
 
-class DiaperChange(models.Model):
+    class Meta:
+        abstract = True
+
+    def _get_mqtt_config(self):
+        try:
+            from babybuddy.settings.production import MQTT
+            return MQTT
+        except ImportError:
+            return None
+
+    def _connect_to_mqtt(self, mqtt_config):
+        pass
+
+    def _as_json_payload(self):
+        payload = {}
+        for field in self._meta.fields:
+            value = getattr(self, field.name)
+            if isinstance(value, datetime.datetime):
+                serialized = value.isoformat()
+            elif isinstance(value, Child):
+                serialized = value.id
+            else:
+                serialized = value
+            payload[field.name] = serialized
+
+        return json.dumps({
+            "event": "save",
+            "model": self.model_name if hasattr(self, "model_name") else None,
+            "payload": payload
+        })
+
+    def _init_mqtt_client(self, mqtt_config):
+        if self.mqtt_client is None:
+            def connect_mqtt():
+                def on_connect(client, userdata, flags, rc):
+                    if rc != 0:
+                        raise RuntimeError(f"MQTT connection failed with code {rc}")
+
+                from paho.mqtt import client as mqtt_client
+                client = mqtt_client.Client(
+                    client_id = mqtt_config["client_id"],
+                    callback_api_version = mqtt_client.CallbackAPIVersion.VERSION2
+                )
+
+                username, password = mqtt_config["username"], mqtt_config["password"]
+                client.username_pw_set(username, password)
+                client.on_connect = on_connect
+                client.connect(mqtt_config["host"], mqtt_config["port"])
+                return client
+
+            self.mqtt_client = connect_mqtt()
+
+        return self.mqtt_client
+
+    def _publish_to_mqtt(self):
+        mqtt_config = self._get_mqtt_config()
+        if mqtt_config is None:
+            return # MQTT is disabled or was not configured
+
+        payload = self._as_json_payload()
+        client = self._init_mqtt_client(mqtt_config)
+        client.publish(mqtt_config["topic"], payload)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs) # save first to get IDs and whatnot populated
+        try:
+            self._publish_to_mqtt() # does nothing if MQTT config isn't defined or is None
+        except Exception as e:
+            import traceback
+            print(e)
+            traceback.print_exception(e)
+
+class DiaperChange(BabyBuddyBaseModel):
     model_name = "diaperchange"
     child = models.ForeignKey(
         "Child",

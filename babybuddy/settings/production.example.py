@@ -31,3 +31,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "../data/media")
 
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
+
+# MQTT
+# Emit events to this MQTT configuration when adding items to Baby Buddy.
+# Set to None or omit entirely for no MQTT integration.
+
+# MQTT = {
+#     "host": "localhost",
+#     "port": 1883,
+#     "topic": "babybuddy",
+#     "client_id": "babybuddy",
+#     "username": "...", # or None
+#     "password": "..." # or None
+# }
