@@ -24,6 +24,7 @@
     "gulp-stylelint-esm": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.7.1",
+    "lefthook": "^1.8.2",
     "masonry-layout": "^4.2.2",
     "npm-force-resolutions": "^0.0.10",
     "plotly.js": "^2.35.2",

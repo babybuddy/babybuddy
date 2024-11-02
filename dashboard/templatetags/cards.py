@@ -49,7 +49,7 @@ def card_diaperchange_last(context, child):
 
 
 @register.inclusion_tag("cards/diaperchange_types.html", takes_context=True)
-def card_diaperchange_types(context, child, date = None):
+def card_diaperchange_types(context, child, date=None):
     """
     Creates a break down of wet and solid Diaper Change instances for the past
     seven days.
@@ -108,7 +108,7 @@ def card_diaperchange_types(context, child, date = None):
 
 
 @register.inclusion_tag("cards/breastfeeding.html", takes_context=True)
-def card_breastfeeding(context, child, date = None):
+def card_breastfeeding(context, child, date=None):
     """
     Creates a break down of breasts used for breastfeeding, for the past
     seven days.
@@ -159,7 +159,8 @@ def card_breastfeeding(context, child, date = None):
         stats[key] = {
             "count": len(day_instances),
             "duration": sum(
-                (instance.duration for instance in day_instances), start=timezone.timedelta()
+                (instance.duration for instance in day_instances),
+                start=timezone.timedelta(),
             ),
             "left_count": left_count,
             "right_count": right_count,
@@ -555,7 +556,9 @@ def _diaperchange_statistics(child):
             for timespan in changes:
                 last_time = timezone.localtime(last_instance.time)
                 if timespan["start"] is None or last_time > timespan["start"]:
-                    timespan["btwn_total"] += timezone.localtime(instance.time) - last_time
+                    timespan["btwn_total"] += (
+                        timezone.localtime(instance.time) - last_time
+                    )
                     timespan["btwn_count"] += 1
         last_instance = instance
 
