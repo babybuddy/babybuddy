@@ -10,7 +10,6 @@ import gStylelintEsm from "gulp-stylelint-esm";
 import gulp from "gulp";
 import gulpSass from "gulp-sass";
 import minify from "gulp-minify";
-import removeSourcemaps from "gulp-remove-sourcemaps";
 import sassGlob from "gulp-sass-glob";
 
 const es = child_process.execSync;
@@ -202,7 +201,6 @@ function scripts() {
     streams.push(
       gulp
         .src(config.scriptsConfig[type])
-        .pipe(removeSourcemaps())
         .pipe(concat(`${type}.js`))
         .pipe(
           minify({
