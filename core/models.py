@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
 import re
-from datetime import timedelta
 
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
@@ -15,7 +14,7 @@ from taggit.managers import TaggableManager as TaggitTaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
 from babybuddy.site_settings import NapSettings
-from core.utils import random_color
+from core.utils import random_color, timezone_aware_duration
 
 
 def validate_date(date, field_name):
@@ -31,7 +30,7 @@ def validate_date(date, field_name):
         )
 
 
-def validate_duration(model, max_duration=timedelta(hours=24)):
+def validate_duration(model, max_duration=datetime.timedelta(hours=24)):
     """
     Basic sanity checks for models with a duration
     :param model: a model instance with 'start' and 'end' attributes
@@ -39,11 +38,14 @@ def validate_duration(model, max_duration=timedelta(hours=24)):
     :return:
     """
     if model.start and model.end:
-        if model.start > model.end:
+        # Compare and calculate in UTC to account for DST changes between dates.
+        start = model.start.astimezone(datetime.timezone.utc)
+        end = model.end.astimezone(datetime.timezone.utc)
+        if start > end:
             raise ValidationError(
                 _("Start time must come before end time."), code="end_before_start"
             )
-        if model.end - model.start > max_duration:
+        if end - start > max_duration:
             raise ValidationError(_("Duration too long."), code="max_duration")
 
 
@@ -337,7 +339,7 @@ class Feeding(models.Model):
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
-            self.duration = self.end - self.start
+            self.duration = timezone_aware_duration(self.start, self.end)
         super(Feeding, self).save(*args, **kwargs)
 
     def clean(self):
@@ -501,7 +503,7 @@ class Pumping(models.Model):
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
-            self.duration = self.end - self.start
+            self.duration = timezone_aware_duration(self.start, self.end)
         super(Pumping, self).save(*args, **kwargs)
 
     def clean(self):
@@ -551,7 +553,7 @@ class Sleep(models.Model):
                 <= Sleep.settings.nap_start_max
             )
         if self.start and self.end:
-            self.duration = self.end - self.start
+            self.duration = timezone_aware_duration(self.start, self.end)
         super(Sleep, self).save(*args, **kwargs)
 
     def clean(self):
@@ -702,7 +704,7 @@ class TummyTime(models.Model):
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
-            self.duration = self.end - self.start
+            self.duration = timezone_aware_duration(self.start, self.end)
         super(TummyTime, self).save(*args, **kwargs)
 
     def clean(self):

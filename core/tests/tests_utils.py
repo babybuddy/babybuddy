@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.test import TestCase
 from django.utils import timezone
 
@@ -24,3 +26,10 @@ class UtilsTestCase(TestCase):
         color = utils.random_color()
         self.assertIsInstance(color, str)
         self.assertIn(color, utils.COLORS)
+
+    def test_timezone_aware_duration(self):
+        start = timezone.localtime().fromisoformat("2024-10-26T20:30:00.000000+01:00")
+        end = timezone.localtime().fromisoformat("2024-10-27T08:30:00.000000+00:00")
+        self.assertEqual(
+            datetime.timedelta(hours=13), utils.timezone_aware_duration(start, end)
+        )
