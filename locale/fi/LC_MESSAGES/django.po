@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 13:13+0000\n"
+"POT-Creation-Date: 2024-08-31 12:53+0000\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,8 +54,6 @@ msgstr "pois käytöstä"
 #: babybuddy/models.py:46 babybuddy/models.py:51 babybuddy/models.py:56
 #: babybuddy/models.py:61 babybuddy/models.py:66
 #, fuzzy, python-format
-#| msgid "%(minutes)s minute"
-#| msgid_plural "%(minutes)s minutes"
 msgid "%(minutes)d minute"
 msgid_plural "%(minutes)d minutes"
 msgstr[0] "%(minutes)s minuutti"
@@ -79,7 +77,6 @@ msgstr "näytä kaikki data"
 
 #: babybuddy/models.py:86 babybuddy/models.py:90 babybuddy/models.py:94
 #, fuzzy, python-format
-#| msgid "%(days_ago)s days ago"
 msgid "%(days)d day"
 msgid_plural "%(days)d days"
 msgstr[0] "%(days_ago)s päivää sitten"
@@ -103,8 +100,6 @@ msgstr "Aikavyöhyke"
 #: babybuddy/models.py:122 babybuddy/models.py:123 babybuddy/models.py:124
 #: babybuddy/models.py:125 babybuddy/models.py:126
 #, fuzzy, python-format
-#| msgid "%(count)s nap"
-#| msgid_plural "%(count)s naps"
 msgid "%(count)d Per Page"
 msgstr "%(count)s unimerkintä"
 
@@ -121,97 +116,96 @@ msgstr ""
 msgid "{user}'s Settings"
 msgstr "Käyttäjän {user} asetukset"
 
-#: babybuddy/settings/base.py:190
+#: babybuddy/settings/base.py:194
 #, fuzzy
-#| msgid "Portuguese"
 msgid "Brazilian Portuguese"
 msgstr "portugali"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:195
 msgid "Catalan"
 msgstr ""
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:196
 msgid "Czech"
 msgstr ""
 
-#: babybuddy/settings/base.py:193
+#: babybuddy/settings/base.py:197
 msgid "Chinese (simplified)"
 msgstr ""
 
-#: babybuddy/settings/base.py:194
+#: babybuddy/settings/base.py:198
 msgid "Danish"
 msgstr ""
 
-#: babybuddy/settings/base.py:195
+#: babybuddy/settings/base.py:199
 msgid "Dutch"
 msgstr "hollanti"
 
-#: babybuddy/settings/base.py:196
+#: babybuddy/settings/base.py:200
 msgid "English (US)"
 msgstr "englanti (Yhdysvallat)"
 
-#: babybuddy/settings/base.py:197
+#: babybuddy/settings/base.py:201
 msgid "English (UK)"
 msgstr "englanti (Yhdistynyt kuningaskunta)"
 
-#: babybuddy/settings/base.py:198
+#: babybuddy/settings/base.py:202
 msgid "French"
 msgstr "ranska"
 
-#: babybuddy/settings/base.py:199
+#: babybuddy/settings/base.py:203
 msgid "Finnish"
 msgstr "suomi"
 
-#: babybuddy/settings/base.py:200
+#: babybuddy/settings/base.py:204
 msgid "German"
 msgstr "saksa"
 
-#: babybuddy/settings/base.py:201
+#: babybuddy/settings/base.py:205
 msgid "Hebrew"
 msgstr ""
 
-#: babybuddy/settings/base.py:202
+#: babybuddy/settings/base.py:206
 msgid "Hungarian"
 msgstr ""
 
-#: babybuddy/settings/base.py:203
+#: babybuddy/settings/base.py:207
 msgid "Italian"
 msgstr "italia"
 
-#: babybuddy/settings/base.py:204
+#: babybuddy/settings/base.py:208
 msgid "Japanese"
 msgstr ""
 
-#: babybuddy/settings/base.py:205
+#: babybuddy/settings/base.py:209
 msgid "Norwegian Bokmål"
 msgstr ""
 
-#: babybuddy/settings/base.py:206
+#: babybuddy/settings/base.py:210
 msgid "Polish"
 msgstr "puola"
 
-#: babybuddy/settings/base.py:207
+#: babybuddy/settings/base.py:211
 msgid "Portuguese"
 msgstr "portugali"
 
-#: babybuddy/settings/base.py:208
+#: babybuddy/settings/base.py:212
 msgid "Russian"
 msgstr ""
 
-#: babybuddy/settings/base.py:209
+#: babybuddy/settings/base.py:213
 msgid "Spanish"
 msgstr "espanja"
 
-#: babybuddy/settings/base.py:210
+#: babybuddy/settings/base.py:214
 msgid "Swedish"
 msgstr "ruotsi"
 
-#: babybuddy/settings/base.py:211
+#: babybuddy/settings/base.py:215
 msgid "Turkish"
 msgstr "turkki"
 
-#: babybuddy/settings/base.py:212
+#: babybuddy/settings/base.py:216
 msgid "Ukrainian"
 msgstr ""
 
@@ -267,16 +261,12 @@ msgstr "Lähetä"
 #: babybuddy/templates/babybuddy/user_settings_form.html:18
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
 #, fuzzy
-#| msgctxt "Error modal"
-#| msgid "Error"
 msgid "Error"
 msgstr "Virhe"
 
 #: babybuddy/templates/babybuddy/messages.html:25
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
 #, fuzzy
-#| msgid ""
-#| "<strong>Error:</strong> Some fields have errors. See below for details."
 msgid "Some fields have errors. See below for details."
 msgstr ""
 "<strong>Virhe:</strong> Joissakin kentissä on virheitä. Tarkista ne alta."
@@ -295,7 +285,6 @@ msgstr "Syöttö"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:54
 #: babybuddy/templates/babybuddy/nav-dropdown.html:259
 #, fuzzy
-#| msgid "Total feedings"
 msgid "Bottle Feeding"
 msgstr "Syötöt yhteensä"
 
@@ -366,16 +355,16 @@ msgstr "Lapset"
 #: core/models.py:387 core/models.py:439 core/models.py:468 core/models.py:516
 #: core/models.py:570 core/models.py:604 core/models.py:673 core/models.py:721
 #: core/templates/core/bmi_list.html:26
-#: core/templates/core/diaperchange_list.html:27
+#: core/templates/core/diaperchange_list.html:28
 #: core/templates/core/feeding_list.html:30
 #: core/templates/core/head_circumference_list.html:27
 #: core/templates/core/height_list.html:26
 #: core/templates/core/note_list.html:26
-#: core/templates/core/pumping_list.html:26
-#: core/templates/core/sleep_list.html:27
+#: core/templates/core/pumping_list.html:27
+#: core/templates/core/sleep_list.html:28
 #: core/templates/core/temperature_list.html:27
 #: core/templates/core/timer_list.html:26
-#: core/templates/core/tummytime_list.html:26
+#: core/templates/core/tummytime_list.html:27
 #: core/templates/core/weight_list.html:26
 msgid "Child"
 msgstr "Lapsi"
@@ -560,19 +549,19 @@ msgstr "API-selain"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:331 core/models.py:102
 #: core/templates/core/bmi_list.html:29
-#: core/templates/core/diaperchange_list.html:32
-#: core/templates/core/feeding_list.html:38
+#: core/templates/core/diaperchange_list.html:34
+#: core/templates/core/feeding_list.html:39
 #: core/templates/core/head_circumference_list.html:30
 #: core/templates/core/height_list.html:29
 #: core/templates/core/note_list.html:30
-#: core/templates/core/pumping_list.html:30
-#: core/templates/core/sleep_list.html:31
+#: core/templates/core/pumping_list.html:32
+#: core/templates/core/sleep_list.html:33
 #: core/templates/core/tag_confirm_delete.html:8
 #: core/templates/core/tag_detail.html:12 core/templates/core/tag_form.html:12
 #: core/templates/core/tag_list.html:4 core/templates/core/tag_list.html:7
 #: core/templates/core/tag_list.html:11
 #: core/templates/core/temperature_list.html:30
-#: core/templates/core/tummytime_list.html:30
+#: core/templates/core/tummytime_list.html:32
 #: core/templates/core/weight_list.html:29
 msgid "Tags"
 msgstr ""
@@ -600,11 +589,15 @@ msgstr "Chat / tuki"
 
 #: babybuddy/templates/babybuddy/paginator.html:11
 #, fuzzy
-#| msgid "First Name"
 msgid "First"
 msgstr "Etunimi"
 
 #: babybuddy/templates/babybuddy/paginator.html:18
+#: core/templates/core/diaperchange_list.html:33
+#: core/templates/core/feeding_list.html:38
+#: core/templates/core/pumping_list.html:31
+#: core/templates/core/sleep_list.html:31
+#: core/templates/core/tummytime_list.html:30
 #: core/templates/timeline/_timeline.html:6
 #: core/templates/timeline/_timeline.html:8
 #: core/templates/timeline/_timeline.html:76
@@ -630,7 +623,6 @@ msgstr "Seuraava"
 
 #: babybuddy/templates/babybuddy/paginator.html:43
 #, fuzzy
-#| msgid "Last Name"
 msgid "Last"
 msgstr "Sukunimi"
 
@@ -777,24 +769,24 @@ msgstr "Lukittu"
 #: core/templates/core/bmi_list.html:23 core/templates/core/bmi_list.html:38
 #: core/templates/core/child_list.html:29
 #: core/templates/core/child_list.html:53
-#: core/templates/core/diaperchange_list.html:24
-#: core/templates/core/diaperchange_list.html:41
+#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/diaperchange_list.html:44
 #: core/templates/core/feeding_list.html:27
-#: core/templates/core/feeding_list.html:47
+#: core/templates/core/feeding_list.html:49
 #: core/templates/core/head_circumference_list.html:24
 #: core/templates/core/head_circumference_list.html:39
 #: core/templates/core/height_list.html:23
 #: core/templates/core/height_list.html:38
 #: core/templates/core/note_list.html:23 core/templates/core/note_list.html:39
-#: core/templates/core/pumping_list.html:23
-#: core/templates/core/pumping_list.html:39
-#: core/templates/core/sleep_list.html:23
-#: core/templates/core/sleep_list.html:40 core/templates/core/tag_list.html:23
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:42
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:43 core/templates/core/tag_list.html:23
 #: core/templates/core/tag_list.html:36
 #: core/templates/core/temperature_list.html:24
 #: core/templates/core/temperature_list.html:39
-#: core/templates/core/tummytime_list.html:22
-#: core/templates/core/tummytime_list.html:39
+#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:42
 #: core/templates/core/weight_list.html:23
 #: core/templates/core/weight_list.html:38
 msgid "Actions"
@@ -1019,15 +1011,11 @@ msgstr ""
 
 #: babybuddy/templatetags/babybuddy.py:94
 #, fuzzy, python-format
-#| msgid "Are you sure you want to delete %(number)s inactive timer?"
-#| msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
 msgid "Are you sure you want to delete %(name)s?"
 msgstr "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
 
 #: babybuddy/templatetags/babybuddy.py:104
 #, fuzzy, python-format
-#| msgid "Are you sure you want to delete %(number)s inactive timer?"
-#| msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
 msgid "Are you sure you want to unlock %(name)s?"
 msgstr "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
 
@@ -1118,7 +1106,7 @@ msgid "Date/time can not be in the future."
 msgstr "Aika ei voi olla tulevaisuudessa."
 
 #: core/models.py:87 core/models.py:250
-#: core/templates/core/diaperchange_list.html:30
+#: core/templates/core/diaperchange_list.html:31
 #: core/templates/core/tag_list.html:25
 msgid "Color"
 msgstr "Väri"
@@ -1132,13 +1120,13 @@ msgstr "Viimeksi käytetty"
 #: core/templates/core/feeding_list.html:28
 #: core/templates/core/head_circumference_list.html:25
 #: core/templates/core/height_list.html:24
-#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:25
 #: core/templates/core/weight_list.html:24 reports/graphs/bmi_change.py:28
 #: reports/graphs/diaperchange_amounts.py:37
 #: reports/graphs/diaperchange_intervals.py:67
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
 #: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
-#: reports/graphs/feeding_pattern.py:157
+#: reports/graphs/feeding_pattern.py:166
 #: reports/graphs/head_circumference_change.py:28
 #: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:168 reports/graphs/sleep_totals.py:59
@@ -1160,7 +1148,6 @@ msgstr "Syntymäpäivä"
 
 #: core/models.py:173
 #, fuzzy
-#| msgid "Birth date"
 msgid "Birth time"
 msgstr "Syntymäpäivä"
 
@@ -1173,20 +1160,22 @@ msgid "Picture"
 msgstr "Kuva"
 
 #: core/models.py:237 core/models.py:443 core/models.py:576
-#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/diaperchange_list.html:26
 #: core/templates/core/note_list.html:24
 #: core/templates/core/temperature_list.html:25
 #: reports/graphs/temperature_change.py:27
 msgid "Time"
 msgstr "Aika"
 
-#: core/models.py:239 core/templates/core/diaperchange_list.html:64
+#: core/models.py:239 core/templates/core/diaperchange_list.html:67
+#: core/templates/mobile/diaper_list_item.html:8
 #: reports/graphs/diaperchange_intervals.py:47
 #: reports/graphs/diaperchange_types.py:36
 msgid "Wet"
 msgstr "Märkä"
 
-#: core/models.py:240 core/templates/core/diaperchange_list.html:67
+#: core/models.py:240 core/templates/core/diaperchange_list.html:70
+#: core/templates/mobile/diaper_list_item.html:10
 #: reports/graphs/diaperchange_intervals.py:38
 #: reports/graphs/diaperchange_types.py:30
 msgid "Solid"
@@ -1209,8 +1198,8 @@ msgid "Yellow"
 msgstr "Keltainen"
 
 #: core/models.py:252 core/models.py:323 core/models.py:487
-#: core/templates/core/diaperchange_list.html:31
-#: core/templates/core/pumping_list.html:28
+#: core/templates/core/diaperchange_list.html:32
+#: core/templates/core/pumping_list.html:29
 #: dashboard/templates/cards/pumping_last.html:20
 msgid "Amount"
 msgstr "Määrä"
@@ -1226,9 +1215,9 @@ msgstr "Lopetus"
 
 #: core/models.py:299 core/models.py:485 core/models.py:529 core/models.py:685
 #: core/templates/core/feeding_list.html:37
-#: core/templates/core/pumping_list.html:29
-#: core/templates/core/sleep_list.html:29
-#: core/templates/core/tummytime_list.html:28
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:30
+#: core/templates/core/tummytime_list.html:29
 msgid "Duration"
 msgstr "Kesto"
 
@@ -1292,7 +1281,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: core/models.py:527 core/templates/core/sleep_list.html:30
+#: core/models.py:527 core/templates/core/sleep_list.html:32
 msgid "Nap"
 msgstr "Päiväuni"
 
@@ -1323,7 +1312,7 @@ msgstr "Ajastimet"
 msgid "Timer #{id}"
 msgstr "Ajastin {id}"
 
-#: core/models.py:688 core/templates/core/tummytime_list.html:29
+#: core/models.py:688 core/templates/core/tummytime_list.html:31
 msgid "Milestone"
 msgstr "Virstanpylväs"
 
@@ -1408,11 +1397,25 @@ msgstr "Lisää"
 msgid "Add Diaper Change"
 msgstr "Lisää vaipanvaihto"
 
-#: core/templates/core/diaperchange_list.html:29
+#: core/templates/core/diaperchange_list.html:30
 msgid "Contents"
 msgstr ""
 
-#: core/templates/core/diaperchange_list.html:83
+#: core/templates/core/diaperchange_list.html:77
+#: core/templates/core/feeding_list.html:78
+#: core/templates/core/pumping_list.html:67
+#: core/templates/core/sleep_list.html:66
+#: core/templates/core/tummytime_list.html:67
+#: dashboard/templates/cards/diaperchange_last.html:9
+#: dashboard/templates/cards/feeding_last.html:9
+#: dashboard/templates/cards/pumping_last.html:9
+#: dashboard/templates/cards/sleep_last.html:9
+#: dashboard/templates/cards/tummytime_last.html:9
+#, fuzzy, python-format
+msgid "%(time_ago)s ago"
+msgstr "%(time)s sitten"
+
+#: core/templates/core/diaperchange_list.html:94
 msgid "No diaper changes found."
 msgstr "Vaipanvaihtoja ei löytynyt."
 
@@ -1427,7 +1430,6 @@ msgstr "Päivitä syöttö"
 #: core/templates/core/feeding_form.html:7
 #: core/templates/core/feeding_form.html:28
 #, fuzzy
-#| msgid "Add a Feeding"
 msgid "Add a Bottle Feeding"
 msgstr "Lisää syöttö"
 
@@ -1442,7 +1444,6 @@ msgstr "Lisää syöttö"
 
 #: core/templates/core/feeding_list.html:18
 #, fuzzy
-#| msgid "Add a Feeding"
 msgid "Add Bottle Feeding"
 msgstr "Lisää syöttö"
 
@@ -1450,7 +1451,7 @@ msgstr "Lisää syöttö"
 msgid "Amt."
 msgstr "Määrä"
 
-#: core/templates/core/feeding_list.html:85
+#: core/templates/core/feeding_list.html:95
 msgid "No feedings found."
 msgstr "Syöttöjä ei löytynyt."
 
@@ -1524,7 +1525,7 @@ msgstr "Lisää pumppausmerkintä"
 msgid "Add Pumping Entry"
 msgstr "Lisää pumppaus"
 
-#: core/templates/core/pumping_list.html:73
+#: core/templates/core/pumping_list.html:84
 msgid "No pumping entries found."
 msgstr "Pumppausmerkintöjä ei löytynyt"
 
@@ -1555,25 +1556,24 @@ msgstr "Lisää uni"
 msgid "Add Sleep"
 msgstr "Lisää uni"
 
-#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:25
 #: core/templates/core/timer_form.html:16
 #: core/templates/core/timer_list.html:23
-#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:24
 msgid "Start"
 msgstr "Aloitus"
 
-#: core/templates/core/sleep_list.html:25
-#: core/templates/core/tummytime_list.html:24
+#: core/templates/core/sleep_list.html:26
+#: core/templates/core/tummytime_list.html:25
 msgid "End"
 msgstr "Lopetus"
 
-#: core/templates/core/sleep_list.html:73
+#: core/templates/core/sleep_list.html:84
 msgid "No sleep entries found."
 msgstr "Unia ei löytynyt."
 
 #: core/templates/core/tag_confirm_delete.html:4
 #, fuzzy
-#| msgid "Delete a Note"
 msgid "Delete a Tag"
 msgstr "Poista muistiinpano"
 
@@ -1591,26 +1591,22 @@ msgstr ""
 
 #: core/templates/core/tag_confirm_delete.html:35
 #, fuzzy
-#| msgid "Delete"
 msgid "Delete Tag"
 msgstr "Poista"
 
 #: core/templates/core/tag_detail.html:5 core/templates/core/tag_form.html:5
 #, fuzzy
-#| msgid "Update a Note"
 msgid "Update a Tag"
 msgstr "Päivitä muistiinpano"
 
 #: core/templates/core/tag_detail.html:7 core/templates/core/tag_form.html:7
 #: core/templates/core/tag_form.html:29
 #, fuzzy
-#| msgid "Add a Change"
 msgid "Add a Tag"
 msgstr "Lisää vaipanvaihto"
 
 #: core/templates/core/tag_detail.html:28
 #, fuzzy
-#| msgid "Timer actions"
 msgid "Tag actions"
 msgstr "Ajastintoiminnot"
 
@@ -1622,67 +1618,56 @@ msgstr "Muokkaa"
 
 #: core/templates/core/tag_detail.html:46
 #, fuzzy
-#| msgid "Measurements"
 msgid "Tagged Measurements"
 msgstr "Mitat"
 
 #: core/templates/core/tag_detail.html:50
 #, fuzzy
-#| msgid "Measurements"
 msgid "BMI Measurements"
 msgstr "Mitat"
 
 #: core/templates/core/tag_detail.html:55
 #, fuzzy
-#| msgid "Head Circumference entry"
 msgid "Head Circumference Measurements"
 msgstr "Päänympätysmerkintä"
 
 #: core/templates/core/tag_detail.html:60
 #, fuzzy
-#| msgid "Measurements"
 msgid "Height Measurements"
 msgstr "Mitat"
 
 #: core/templates/core/tag_detail.html:65
 #, fuzzy
-#| msgid "Temperature reading"
 msgid "Temperature Measurements"
 msgstr "Lämpötilalukema"
 
 #: core/templates/core/tag_detail.html:70
 #, fuzzy
-#| msgid "Measurements"
 msgid "Weight Measurements"
 msgstr "Mitat"
 
 #: core/templates/core/tag_detail.html:76
 #, fuzzy
-#| msgid "Activities"
 msgid "Tagged Activities"
 msgstr "Aktiviteetit"
 
 #: core/templates/core/tag_detail.html:90
 #, fuzzy
-#| msgid "Pumping"
 msgid "Pumpings"
 msgstr "Pumppaus"
 
 #: core/templates/core/tag_detail.html:95
 #, fuzzy
-#| msgid "Sleep"
 msgid "Sleeps"
 msgstr "Uni"
 
 #: core/templates/core/tag_detail.html:100
 #, fuzzy
-#| msgid "Tummy Time"
 msgid "Tummy Times"
 msgstr "Maha-aika"
 
 #: core/templates/core/tag_list.html:14
 #, fuzzy
-#| msgid "Add a Change"
 msgid "Add Tag"
 msgstr "Lisää vaipanvaihto"
 
@@ -1692,13 +1677,11 @@ msgstr ""
 
 #: core/templates/core/tag_list.html:27
 #, fuzzy
-#| msgid "Last used"
 msgid "Last Used"
 msgstr "Viimeksi käytetty"
 
 #: core/templates/core/tag_list.html:62
 #, fuzzy
-#| msgid "No notes found."
 msgid "No tags found."
 msgstr "Muistiinpanoja ei löytynyt."
 
@@ -1792,7 +1775,7 @@ msgstr "Lisää maha-aika"
 msgid "Add Tummy Time"
 msgstr "Lisää maha-aika"
 
-#: core/templates/core/tummytime_list.html:67
+#: core/templates/core/tummytime_list.html:78
 msgid "No tummy time entries found."
 msgstr "Ei maha-aikoja."
 
@@ -1854,6 +1837,14 @@ msgstr "Sulje"
 
 #: core/templates/forms/layouts/advanced.html:7
 msgid "Advanced Fields"
+msgstr ""
+
+#: core/templates/mobile/diaper_list_item.html:6
+msgid "Mixed"
+msgstr ""
+
+#: core/templates/mobile/diaper_list_item.html:12
+msgid "Clean"
 msgstr ""
 
 #: core/templates/timeline/_timeline.html:41
@@ -1935,7 +1926,6 @@ msgstr "%(child)s lopetti syömisen."
 
 #: core/timeline.py:179
 #, fuzzy, python-format
-#| msgid "%(child)s started feeding."
 msgid "%(child)s had a feeding."
 msgstr "%(child)s aloitti syömisen."
 
@@ -2017,7 +2007,6 @@ msgstr "%(model)s -lukema lapselle %(child)s päivitetty."
 
 #: dashboard/templates/cards/breastfeeding.html:4
 #, fuzzy
-#| msgid "Last Feeding"
 msgid "Breastfeeding"
 msgstr "Edellinen syöttö"
 
@@ -2032,29 +2021,17 @@ msgstr ""
 
 #: dashboard/templates/cards/breastfeeding.html:20
 #, fuzzy
-#| msgid "Height"
 msgid "right"
 msgstr "Pituus"
 
 #: dashboard/templates/cards/breastfeeding.html:31
 #, fuzzy
-#| msgid "Feedings"
 msgid "feedings in"
 msgstr "Syötöt"
 
 #: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
 msgstr "Viimeisin vaipanvaihto"
-
-#: dashboard/templates/cards/diaperchange_last.html:9
-#: dashboard/templates/cards/feeding_last.html:9
-#: dashboard/templates/cards/pumping_last.html:9
-#: dashboard/templates/cards/sleep_last.html:9
-#: dashboard/templates/cards/tummytime_last.html:9
-#, fuzzy, python-format
-#| msgid "%(time)s ago"
-msgid "%(time_ago)s ago"
-msgstr "%(time)s sitten"
 
 #: dashboard/templates/cards/diaperchange_types.html:20
 msgid "wet"
@@ -2066,7 +2043,6 @@ msgstr "kiinteä"
 
 #: dashboard/templates/cards/diaperchange_types.html:43
 #, fuzzy
-#| msgid "Changes"
 msgid "changes"
 msgstr "Vaihdot"
 
@@ -2290,7 +2266,6 @@ msgstr "Vaihtojen määrä"
 
 #: reports/graphs/feeding_amounts.py:69
 #, fuzzy
-#| msgid "<b>Total Feeding Amounts</b>"
 msgid "Total Feeding Amount by Type"
 msgstr "<b>Syöttöjen määrä yhteensä</b>"
 
@@ -2326,7 +2301,6 @@ msgstr ""
 
 #: reports/graphs/feeding_intervals.py:41
 #, fuzzy
-#| msgid "Feeding Amounts"
 msgid "Feeding intervals"
 msgstr "Syöttöjen määrä"
 
@@ -2334,16 +2308,15 @@ msgstr "Syöttöjen määrä"
 msgid "Feeding interval (hours)"
 msgstr ""
 
-#: reports/graphs/feeding_pattern.py:154
+#: reports/graphs/feeding_pattern.py:163
 #: reports/templates/reports/feeding_pattern.html:4
 #: reports/templates/reports/feeding_pattern.html:9
 #: reports/templates/reports/report_list.html:32
 #, fuzzy
-#| msgid "Sleep Pattern"
 msgid "Feeding Pattern"
 msgstr "Unikuvio"
 
-#: reports/graphs/feeding_pattern.py:171 reports/graphs/sleep_pattern.py:182
+#: reports/graphs/feeding_pattern.py:180 reports/graphs/sleep_pattern.py:182
 msgid "Time of day"
 msgstr "Ajankohta"
 
@@ -2369,7 +2342,6 @@ msgstr ""
 
 #: reports/graphs/pumping_amounts.py:59
 #, fuzzy
-#| msgid "Pumping Amount"
 msgid "Total Pumping Amount"
 msgstr "Pumppaus määrä"
 
@@ -2475,6 +2447,13 @@ msgstr ""
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr ""
 
+#~ msgid ""
+#~ "This setting will only be used when a browser does not support refresh on "
+#~ "focus."
+#~ msgstr ""
+#~ "Tätä asetusta käytetään vain, jos selain ei \"refresh on focus\" -"
+#~ "toimintoa."
+
 #~ msgid "1 min."
 #~ msgstr "1 min."
 
@@ -2499,108 +2478,6 @@ msgstr ""
 #~ msgid "30 min."
 #~ msgstr "30 min."
 
-#~ msgid "1 day"
-#~ msgstr "1 päivä"
-
-#~ msgid "2 days"
-#~ msgstr "2 päivää"
-
-#~ msgid "3 days"
-#~ msgstr "3 päivää"
-
-#~ msgid "1 week"
-#~ msgstr "1 viikko"
-
-#~ msgid "4 weeks"
-#~ msgstr "4 viikkoa"
-
-#, python-format
-#~ msgid "<strong>Error:</strong> %(error)s"
-#~ msgstr "<strong>Virhe:</strong> %(error)s"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<h1>Are you sure you want to delete <span class=\"text-"
-#~| "info\">%(object)s</span>?</h1>"
-#~ msgid ""
-#~ "<h1> Are you sure you want to delete <span class=\"text-"
-#~ "info\">%(object)s</span>? </h1>"
-#~ msgstr ""
-#~ "<h1>Haluatko varmasti poistaa <span class=\"text-info\">%(object)s</span>?"
-#~ "</h1>"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<h1>Are you sure you want to unlock <span class=\"text-"
-#~| "info\">%(object)s</span>?</h1>"
-#~ msgid ""
-#~ "<h1> Are you sure you want to unlock <span class=\"text-"
-#~ "info\">%(object)s</span>? </h1>"
-#~ msgstr ""
-#~ "<h1>Oletko varma että haluat avata <span class=\"text-info\">%(object)s</"
-#~ "span>?</h1>"
-
-#, fuzzy, python-format
-#~| msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
-#~ msgid "<h1> Update <span class=\"text-info\">%(object)s</span> </h1>"
-#~ msgstr "<h1>Päivitä <span class=\"text-info\">%(object)s</span></h1"
-
-#~ msgid ""
-#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
-#~ "again."
-#~ msgstr ""
-#~ "<strong>Oh snap!</strong> Salasanat eivät täsmänneet. Ole hyvä ja yritä "
-#~ "uudelleen."
-
-#~ msgid "<b>Diaper Change Amounts</b>"
-#~ msgstr "<b>Vaipanvaihtomäärät</b>"
-
-#~ msgid "<b>Diaper Lifetimes</b>"
-#~ msgstr "<b>Vaippojen eliniät</b>"
-
-#~ msgid "<b>Diaper Change Types</b>"
-#~ msgstr "<b>Vaipanvaihtotyypit</b>"
-
-#~ msgid "<b>Average Feeding Durations</b>"
-#~ msgstr "<b>Imetyksen kesto keskimäärin</b>"
-
-#, fuzzy
-#~| msgid "<b>Sleep Pattern</b>"
-#~ msgid "<b>Feeding Pattern</b>"
-#~ msgstr "<b>Unimallit</b>"
-
-#~ msgid "<b>Head Circumference</b>"
-#~ msgstr "<b>Päänympärys</b>"
-
-#~ msgid "<b>Height</b>"
-#~ msgstr "<b>Pituus</b>"
-
-#~ msgid "<b>Sleep Pattern</b>"
-#~ msgstr "<b>Unimallit</b>"
-
-#~ msgid "<b>Sleep Totals</b>"
-#~ msgstr "<b>Unet yhteensä</b>"
-
-#~ msgid "<b>Temperature</b>"
-#~ msgstr "<b>Lämpötila</b>"
-
-#~ msgid "<b>Weight</b>"
-#~ msgstr "<b>Paino</b>"
-
-#~ msgid "0 days"
-#~ msgstr "0 päivää"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "%(key)s päivää sitten"
-
-#~ msgid ""
-#~ "This setting will only be used when a browser does not support refresh on "
-#~ "focus."
-#~ msgstr ""
-#~ "Tätä asetusta käytetään vain, jos selain ei \"refresh on focus\" -"
-#~ "toimintoa."
-
 #~ msgid "English"
 #~ msgstr "englanti"
 
@@ -2609,6 +2486,9 @@ msgstr ""
 #~ "        Contact a site administrator for assistance."
 #~ msgstr "Sinulla ei ole oikeutta tähän resurssiin."
 
+#~ msgid "<strong>Error:</strong> %(error)s"
+#~ msgstr "<strong>Virhe:</strong> %(error)s"
+
 #~ msgid ""
 #~ "<strong>Error:</strong> Some fields have errors. See below for details. "
 #~ msgstr ""
@@ -2616,6 +2496,21 @@ msgstr ""
 
 #~ msgid "Backend Admin"
 #~ msgstr "Backend Admin"
+
+#~ msgid ""
+#~ "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr ""
+#~ "<h1>Haluatko varmasti poistaa <span class=\"text-info\">%(object)s</span>?"
+#~ "</h1>"
+
+#~ msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#~ msgstr "<h1>Päivitä <span class=\"text-info\">%(object)s</span></h1"
+
+#~ msgid ""
+#~ "<strong>Error:</strong> Some fields have errors. See below for details."
+#~ msgstr ""
+#~ "<strong>Virhe:</strong> Joissakin kentissä on virheitä. Tarkista ne alta."
 
 #~ msgid ""
 #~ "Learn about and predict baby's needs without\n"
@@ -2685,6 +2580,9 @@ msgstr ""
 #~ msgstr ""
 #~ "Vain \"pullo\"-metodi on sallittu käytettäessä äidinmaidonkorviketta."
 
+#~ msgid "Add a Change"
+#~ msgstr "Lisää vaipanvaihto"
+
 #~ msgid "Stopped"
 #~ msgstr "Pysäytetty"
 
@@ -2701,6 +2599,12 @@ msgstr ""
 
 #~ msgid "%(timer)s stopped."
 #~ msgstr "%(timer)s pysäytetty."
+
+#~ msgid "%(time)s ago"
+#~ msgstr "%(time)s sitten"
+
+#~ msgid "%(key)s days ago"
+#~ msgstr "%(key)s päivää sitten"
 
 #~ msgid "Today's Sleep"
 #~ msgstr "Uni tänään"
@@ -2723,11 +2627,39 @@ msgstr ""
 #~ msgid "Started by %(instance.user)s at %(start)s"
 #~ msgstr "%(instance.user)s aloitti %(start)s"
 
+#~ msgid "<b>Diaper Lifetimes</b>"
+#~ msgstr "<b>Vaippojen eliniät</b>"
+
+#~ msgid "<b>Diaper Change Types</b>"
+#~ msgstr "<b>Vaipanvaihtotyypit</b>"
+
+#~ msgid "<b>Average Feeding Durations</b>"
+#~ msgstr "<b>Imetyksen kesto keskimäärin</b>"
+
+#~ msgid "<b>Sleep Pattern</b>"
+#~ msgstr "<b>Unimallit</b>"
+
+#~ msgid "<b>Sleep Totals</b>"
+#~ msgstr "<b>Unet yhteensä</b>"
+
+#~ msgid "<b>Weight</b>"
+#~ msgstr "<b>Paino</b>"
+
 #~ msgid "There is no enough data to generate this report."
 #~ msgstr "Ei riittävästi dataa tämän raportin luomiseen."
 
+#~ msgid ""
+#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
+#~ "again."
+#~ msgstr ""
+#~ "<strong>Oh snap!</strong> Salasanat eivät täsmänneet. Ole hyvä ja yritä "
+#~ "uudelleen."
+
 #~ msgid "Total feeding amount"
 #~ msgstr "Syöttöjen määrä yhteensä"
+
+#~ msgid "<b>Total Feeding Amounts</b>"
+#~ msgstr "<b>Syöttöjen määrä yhteensä</b>"
 
 #~ msgid "Delete All Inactive Timers"
 #~ msgstr "Poista kaikki inaktiiviset ajastimet"
@@ -2750,8 +2682,29 @@ msgstr ""
 #~ msgid "%(n)s feeding%(plural)s ago"
 #~ msgstr "%(n)s syöttöä%(plural)s sitten"
 
+#~ msgid "<b>Diaper Change Amounts</b>"
+#~ msgstr "<b>Vaipanvaihtomäärät</b>"
+
+#~ msgid "1 day"
+#~ msgstr "1 päivä"
+
+#~ msgid "2 days"
+#~ msgstr "2 päivää"
+
+#~ msgid "3 days"
+#~ msgstr "3 päivää"
+
+#~ msgid "1 week"
+#~ msgstr "1 viikko"
+
+#~ msgid "4 weeks"
+#~ msgstr "4 viikkoa"
+
 #~ msgid "Delete timer"
 #~ msgstr "Poista ajastin"
+
+#~ msgid "0 days"
+#~ msgstr "0 päivää"
 
 #~ msgid "Today's Feeding"
 #~ msgstr "Ruokinta tänään"
@@ -2762,10 +2715,33 @@ msgstr ""
 #~ msgid "Napping"
 #~ msgstr "Päiväunet"
 
+#~ msgid "<b>Head Circumference</b>"
+#~ msgstr "<b>Päänympärys</b>"
+
+#~ msgid "<b>Height</b>"
+#~ msgstr "<b>Pituus</b>"
+
+#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
+#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+#~ msgstr[0] ""
+#~ "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
+#~ msgstr[1] ""
+#~ "Haluatko varmasti poistaa %(number)s inaktiivista timer%(plural)s?"
+
 #~ msgid "%(count)s active timer"
 #~ msgid_plural "%(count)s active timers"
 #~ msgstr[0] "%(count)s unimerkintä"
 #~ msgstr[1] "%(count)s unimerkintä"
 
+#~ msgid ""
+#~ "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr ""
+#~ "<h1>Oletko varma että haluat avata <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+
 #~ msgid " days ago"
 #~ msgstr "␣päivää sitten"
+
+#~ msgid "<b>Temperature</b>"
+#~ msgstr "<b>Lämpötila</b>"

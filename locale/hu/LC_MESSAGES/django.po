@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 13:13+0000\n"
+"POT-Creation-Date: 2024-08-31 12:53+0000\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,8 +56,6 @@ msgstr "kikapcsolva"
 #: babybuddy/models.py:46 babybuddy/models.py:51 babybuddy/models.py:56
 #: babybuddy/models.py:61 babybuddy/models.py:66
 #, fuzzy, python-format
-#| msgid "%(minutes)s minute"
-#| msgid_plural "%(minutes)s minutes"
 msgid "%(minutes)d minute"
 msgid_plural "%(minutes)d minutes"
 msgstr[0] "%(minutes)s perc"
@@ -83,7 +81,6 @@ msgstr "Minden adat megjelenítése"
 
 #: babybuddy/models.py:86 babybuddy/models.py:90 babybuddy/models.py:94
 #, fuzzy, python-format
-#| msgid "%(days_ago)s days ago"
 msgid "%(days)d day"
 msgid_plural "%(days)d days"
 msgstr[0] "%(days_ago)s nappal ezelőtt"
@@ -107,8 +104,6 @@ msgstr "Időzóna"
 #: babybuddy/models.py:122 babybuddy/models.py:123 babybuddy/models.py:124
 #: babybuddy/models.py:125 babybuddy/models.py:126
 #, fuzzy, python-format
-#| msgid "%(count)s timer"
-#| msgid_plural "%(count)s timers"
 msgid "%(count)d Per Page"
 msgstr "%(count)s időzítő"
 
@@ -125,97 +120,96 @@ msgstr ""
 msgid "{user}'s Settings"
 msgstr "{user} beállításai"
 
-#: babybuddy/settings/base.py:190
+#: babybuddy/settings/base.py:194
 #, fuzzy
-#| msgid "Portuguese"
 msgid "Brazilian Portuguese"
 msgstr "Portugál"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:195
 msgid "Catalan"
 msgstr "Katalán"
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:196
 msgid "Czech"
 msgstr "Cheh"
 
-#: babybuddy/settings/base.py:193
+#: babybuddy/settings/base.py:197
 msgid "Chinese (simplified)"
 msgstr "Kínai (egyszerűsített)"
 
-#: babybuddy/settings/base.py:194
+#: babybuddy/settings/base.py:198
 msgid "Danish"
 msgstr "Dán"
 
-#: babybuddy/settings/base.py:195
+#: babybuddy/settings/base.py:199
 msgid "Dutch"
 msgstr "Holland"
 
-#: babybuddy/settings/base.py:196
+#: babybuddy/settings/base.py:200
 msgid "English (US)"
 msgstr "Angol (US)"
 
-#: babybuddy/settings/base.py:197
+#: babybuddy/settings/base.py:201
 msgid "English (UK)"
 msgstr "Angol (UK)"
 
-#: babybuddy/settings/base.py:198
+#: babybuddy/settings/base.py:202
 msgid "French"
 msgstr "Francia"
 
-#: babybuddy/settings/base.py:199
+#: babybuddy/settings/base.py:203
 msgid "Finnish"
 msgstr "Finn"
 
-#: babybuddy/settings/base.py:200
+#: babybuddy/settings/base.py:204
 msgid "German"
 msgstr "Német"
 
-#: babybuddy/settings/base.py:201
+#: babybuddy/settings/base.py:205
 msgid "Hebrew"
 msgstr ""
 
-#: babybuddy/settings/base.py:202
+#: babybuddy/settings/base.py:206
 msgid "Hungarian"
 msgstr "Magyar"
 
-#: babybuddy/settings/base.py:203
+#: babybuddy/settings/base.py:207
 msgid "Italian"
 msgstr "Olasz"
 
-#: babybuddy/settings/base.py:204
+#: babybuddy/settings/base.py:208
 msgid "Japanese"
 msgstr ""
 
-#: babybuddy/settings/base.py:205
+#: babybuddy/settings/base.py:209
 msgid "Norwegian Bokmål"
 msgstr "Norvég Bokmål"
 
-#: babybuddy/settings/base.py:206
+#: babybuddy/settings/base.py:210
 msgid "Polish"
 msgstr "Lengyel"
 
-#: babybuddy/settings/base.py:207
+#: babybuddy/settings/base.py:211
 msgid "Portuguese"
 msgstr "Portugál"
 
-#: babybuddy/settings/base.py:208
+#: babybuddy/settings/base.py:212
 msgid "Russian"
 msgstr "Orosz"
 
-#: babybuddy/settings/base.py:209
+#: babybuddy/settings/base.py:213
 msgid "Spanish"
 msgstr "Spanyol"
 
-#: babybuddy/settings/base.py:210
+#: babybuddy/settings/base.py:214
 msgid "Swedish"
 msgstr "Svéd"
 
-#: babybuddy/settings/base.py:211
+#: babybuddy/settings/base.py:215
 msgid "Turkish"
 msgstr "Török"
 
-#: babybuddy/settings/base.py:212
+#: babybuddy/settings/base.py:216
 msgid "Ukrainian"
 msgstr ""
 
@@ -277,16 +271,12 @@ msgstr "OK"
 #: babybuddy/templates/babybuddy/user_settings_form.html:18
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
 #, fuzzy
-#| msgctxt "Error modal"
-#| msgid "Error"
 msgid "Error"
 msgstr "Hiba"
 
 #: babybuddy/templates/babybuddy/messages.html:25
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
 #, fuzzy
-#| msgid ""
-#| "<strong>Error:</strong> Some fields have errors. See below for details."
 msgid "Some fields have errors. See below for details."
 msgstr "<strong>Hiba:</strong> Néhány mező hibás. Részletek lentebb."
 
@@ -304,7 +294,6 @@ msgstr "Etetés"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:54
 #: babybuddy/templates/babybuddy/nav-dropdown.html:259
 #, fuzzy
-#| msgid "Total feedings"
 msgid "Bottle Feeding"
 msgstr "Összes etetés"
 
@@ -375,16 +364,16 @@ msgstr "Gyermekek"
 #: core/models.py:387 core/models.py:439 core/models.py:468 core/models.py:516
 #: core/models.py:570 core/models.py:604 core/models.py:673 core/models.py:721
 #: core/templates/core/bmi_list.html:26
-#: core/templates/core/diaperchange_list.html:27
+#: core/templates/core/diaperchange_list.html:28
 #: core/templates/core/feeding_list.html:30
 #: core/templates/core/head_circumference_list.html:27
 #: core/templates/core/height_list.html:26
 #: core/templates/core/note_list.html:26
-#: core/templates/core/pumping_list.html:26
-#: core/templates/core/sleep_list.html:27
+#: core/templates/core/pumping_list.html:27
+#: core/templates/core/sleep_list.html:28
 #: core/templates/core/temperature_list.html:27
 #: core/templates/core/timer_list.html:26
-#: core/templates/core/tummytime_list.html:26
+#: core/templates/core/tummytime_list.html:27
 #: core/templates/core/weight_list.html:26
 msgid "Child"
 msgstr "Gyermek"
@@ -569,19 +558,19 @@ msgstr "API kimenet megtekintése"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:331 core/models.py:102
 #: core/templates/core/bmi_list.html:29
-#: core/templates/core/diaperchange_list.html:32
-#: core/templates/core/feeding_list.html:38
+#: core/templates/core/diaperchange_list.html:34
+#: core/templates/core/feeding_list.html:39
 #: core/templates/core/head_circumference_list.html:30
 #: core/templates/core/height_list.html:29
 #: core/templates/core/note_list.html:30
-#: core/templates/core/pumping_list.html:30
-#: core/templates/core/sleep_list.html:31
+#: core/templates/core/pumping_list.html:32
+#: core/templates/core/sleep_list.html:33
 #: core/templates/core/tag_confirm_delete.html:8
 #: core/templates/core/tag_detail.html:12 core/templates/core/tag_form.html:12
 #: core/templates/core/tag_list.html:4 core/templates/core/tag_list.html:7
 #: core/templates/core/tag_list.html:11
 #: core/templates/core/temperature_list.html:30
-#: core/templates/core/tummytime_list.html:30
+#: core/templates/core/tummytime_list.html:32
 #: core/templates/core/weight_list.html:29
 msgid "Tags"
 msgstr "Címkék"
@@ -609,11 +598,15 @@ msgstr "Chat / Támogatás"
 
 #: babybuddy/templates/babybuddy/paginator.html:11
 #, fuzzy
-#| msgid "First Name"
 msgid "First"
 msgstr "Keresztnév"
 
 #: babybuddy/templates/babybuddy/paginator.html:18
+#: core/templates/core/diaperchange_list.html:33
+#: core/templates/core/feeding_list.html:38
+#: core/templates/core/pumping_list.html:31
+#: core/templates/core/sleep_list.html:31
+#: core/templates/core/tummytime_list.html:30
 #: core/templates/timeline/_timeline.html:6
 #: core/templates/timeline/_timeline.html:8
 #: core/templates/timeline/_timeline.html:76
@@ -639,7 +632,6 @@ msgstr "Következő"
 
 #: babybuddy/templates/babybuddy/paginator.html:43
 #, fuzzy
-#| msgid "Last Name"
 msgid "Last"
 msgstr "Vezetéknév"
 
@@ -786,24 +778,24 @@ msgstr "Lezárva"
 #: core/templates/core/bmi_list.html:23 core/templates/core/bmi_list.html:38
 #: core/templates/core/child_list.html:29
 #: core/templates/core/child_list.html:53
-#: core/templates/core/diaperchange_list.html:24
-#: core/templates/core/diaperchange_list.html:41
+#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/diaperchange_list.html:44
 #: core/templates/core/feeding_list.html:27
-#: core/templates/core/feeding_list.html:47
+#: core/templates/core/feeding_list.html:49
 #: core/templates/core/head_circumference_list.html:24
 #: core/templates/core/head_circumference_list.html:39
 #: core/templates/core/height_list.html:23
 #: core/templates/core/height_list.html:38
 #: core/templates/core/note_list.html:23 core/templates/core/note_list.html:39
-#: core/templates/core/pumping_list.html:23
-#: core/templates/core/pumping_list.html:39
-#: core/templates/core/sleep_list.html:23
-#: core/templates/core/sleep_list.html:40 core/templates/core/tag_list.html:23
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:42
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:43 core/templates/core/tag_list.html:23
 #: core/templates/core/tag_list.html:36
 #: core/templates/core/temperature_list.html:24
 #: core/templates/core/temperature_list.html:39
-#: core/templates/core/tummytime_list.html:22
-#: core/templates/core/tummytime_list.html:39
+#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:42
 #: core/templates/core/weight_list.html:23
 #: core/templates/core/weight_list.html:38
 msgid "Actions"
@@ -907,10 +899,6 @@ msgstr "Hogyan javítható"
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:11
 #, fuzzy, python-format
-#| msgid ""
-#| "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
-#| "environment variable. If multiple origins are required separate with "
-#| "commas."
 msgid ""
 "Add %(value)s to the %(variable)s environment variable. If multiple origins "
 "are required separate with commas."
@@ -925,7 +913,6 @@ msgstr "Az oldal nem található"
 
 #: babybuddy/templates/error/404.html:9
 #, fuzzy, python-format
-#| msgid "The path <code>%(request_path)s</code> does not exist."
 msgid "The path %(path)s does not exist."
 msgstr "A <code>%(request_path)s</code> elérési út nem létezik."
 
@@ -1041,15 +1028,11 @@ msgstr ""
 
 #: babybuddy/templatetags/babybuddy.py:94
 #, fuzzy, python-format
-#| msgid "Are you sure you want to delete %(number)s inactive timer?"
-#| msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
 msgid "Are you sure you want to delete %(name)s?"
 msgstr "Biztosan törlöd a %(number)s inaktív stoppert?"
 
 #: babybuddy/templatetags/babybuddy.py:104
 #, fuzzy, python-format
-#| msgid "Are you sure you want to delete %(number)s inactive timer?"
-#| msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
 msgid "Are you sure you want to unlock %(name)s?"
 msgstr "Biztosan törlöd a %(number)s inaktív stoppert?"
 
@@ -1142,7 +1125,7 @@ msgid "Date/time can not be in the future."
 msgstr "A dátum és idő nem lehet a jövőben."
 
 #: core/models.py:87 core/models.py:250
-#: core/templates/core/diaperchange_list.html:30
+#: core/templates/core/diaperchange_list.html:31
 #: core/templates/core/tag_list.html:25
 msgid "Color"
 msgstr "Szín"
@@ -1156,13 +1139,13 @@ msgstr "Utoljára használva"
 #: core/templates/core/feeding_list.html:28
 #: core/templates/core/head_circumference_list.html:25
 #: core/templates/core/height_list.html:24
-#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:25
 #: core/templates/core/weight_list.html:24 reports/graphs/bmi_change.py:28
 #: reports/graphs/diaperchange_amounts.py:37
 #: reports/graphs/diaperchange_intervals.py:67
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
 #: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
-#: reports/graphs/feeding_pattern.py:157
+#: reports/graphs/feeding_pattern.py:166
 #: reports/graphs/head_circumference_change.py:28
 #: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:168 reports/graphs/sleep_totals.py:59
@@ -1184,7 +1167,6 @@ msgstr "Születési idő"
 
 #: core/models.py:173
 #, fuzzy
-#| msgid "Birth date"
 msgid "Birth time"
 msgstr "Születési idő"
 
@@ -1197,20 +1179,22 @@ msgid "Picture"
 msgstr "Fénykép"
 
 #: core/models.py:237 core/models.py:443 core/models.py:576
-#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/diaperchange_list.html:26
 #: core/templates/core/note_list.html:24
 #: core/templates/core/temperature_list.html:25
 #: reports/graphs/temperature_change.py:27
 msgid "Time"
 msgstr "Idő"
 
-#: core/models.py:239 core/templates/core/diaperchange_list.html:64
+#: core/models.py:239 core/templates/core/diaperchange_list.html:67
+#: core/templates/mobile/diaper_list_item.html:8
 #: reports/graphs/diaperchange_intervals.py:47
 #: reports/graphs/diaperchange_types.py:36
 msgid "Wet"
 msgstr "Pisis"
 
-#: core/models.py:240 core/templates/core/diaperchange_list.html:67
+#: core/models.py:240 core/templates/core/diaperchange_list.html:70
+#: core/templates/mobile/diaper_list_item.html:10
 #: reports/graphs/diaperchange_intervals.py:38
 #: reports/graphs/diaperchange_types.py:30
 msgid "Solid"
@@ -1233,8 +1217,8 @@ msgid "Yellow"
 msgstr "Sárga"
 
 #: core/models.py:252 core/models.py:323 core/models.py:487
-#: core/templates/core/diaperchange_list.html:31
-#: core/templates/core/pumping_list.html:28
+#: core/templates/core/diaperchange_list.html:32
+#: core/templates/core/pumping_list.html:29
 #: dashboard/templates/cards/pumping_last.html:20
 msgid "Amount"
 msgstr "Mennyiség"
@@ -1250,9 +1234,9 @@ msgstr "Befejezési idő"
 
 #: core/models.py:299 core/models.py:485 core/models.py:529 core/models.py:685
 #: core/templates/core/feeding_list.html:37
-#: core/templates/core/pumping_list.html:29
-#: core/templates/core/sleep_list.html:29
-#: core/templates/core/tummytime_list.html:28
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:30
+#: core/templates/core/tummytime_list.html:29
 msgid "Duration"
 msgstr "Időtartam"
 
@@ -1316,7 +1300,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: core/models.py:527 core/templates/core/sleep_list.html:30
+#: core/models.py:527 core/templates/core/sleep_list.html:32
 msgid "Nap"
 msgstr "Szundi"
 
@@ -1347,7 +1331,7 @@ msgstr "Stopperek"
 msgid "Timer #{id}"
 msgstr "#{id}. stopper"
 
-#: core/models.py:688 core/templates/core/tummytime_list.html:29
+#: core/models.py:688 core/templates/core/tummytime_list.html:31
 msgid "Milestone"
 msgstr "Mérföldkő"
 
@@ -1432,11 +1416,25 @@ msgstr "Hozzáad"
 msgid "Add Diaper Change"
 msgstr "Pelenkacsere hozzáadása"
 
-#: core/templates/core/diaperchange_list.html:29
+#: core/templates/core/diaperchange_list.html:30
 msgid "Contents"
 msgstr "Tartalom"
 
-#: core/templates/core/diaperchange_list.html:83
+#: core/templates/core/diaperchange_list.html:77
+#: core/templates/core/feeding_list.html:78
+#: core/templates/core/pumping_list.html:67
+#: core/templates/core/sleep_list.html:66
+#: core/templates/core/tummytime_list.html:67
+#: dashboard/templates/cards/diaperchange_last.html:9
+#: dashboard/templates/cards/feeding_last.html:9
+#: dashboard/templates/cards/pumping_last.html:9
+#: dashboard/templates/cards/sleep_last.html:9
+#: dashboard/templates/cards/tummytime_last.html:9
+#, fuzzy, python-format
+msgid "%(time_ago)s ago"
+msgstr "%(time)s ezelőtt"
+
+#: core/templates/core/diaperchange_list.html:94
 msgid "No diaper changes found."
 msgstr "Nem található pelenkacsere."
 
@@ -1451,7 +1449,6 @@ msgstr "Etetés javítása"
 #: core/templates/core/feeding_form.html:7
 #: core/templates/core/feeding_form.html:28
 #, fuzzy
-#| msgid "Add a Feeding"
 msgid "Add a Bottle Feeding"
 msgstr "Etetés hozzáadása"
 
@@ -1466,7 +1463,6 @@ msgstr "Etetés hozzáadása"
 
 #: core/templates/core/feeding_list.html:18
 #, fuzzy
-#| msgid "Add a Feeding"
 msgid "Add Bottle Feeding"
 msgstr "Etetés hozzáadása"
 
@@ -1474,7 +1470,7 @@ msgstr "Etetés hozzáadása"
 msgid "Amt."
 msgstr "Menny."
 
-#: core/templates/core/feeding_list.html:85
+#: core/templates/core/feeding_list.html:95
 msgid "No feedings found."
 msgstr "Nem található etetés."
 
@@ -1548,7 +1544,7 @@ msgstr "Egy pumpálás bejegyzés hozzáadása"
 msgid "Add Pumping Entry"
 msgstr "Pumpálás bejegyzés hozzáadás"
 
-#: core/templates/core/pumping_list.html:73
+#: core/templates/core/pumping_list.html:84
 msgid "No pumping entries found."
 msgstr "Pumpálás bejegyzés nem található."
 
@@ -1579,25 +1575,24 @@ msgstr "Alvás bejegyzés hozzáadása"
 msgid "Add Sleep"
 msgstr "Alvás hozzáadása"
 
-#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:25
 #: core/templates/core/timer_form.html:16
 #: core/templates/core/timer_list.html:23
-#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:24
 msgid "Start"
 msgstr "Kezdés"
 
-#: core/templates/core/sleep_list.html:25
-#: core/templates/core/tummytime_list.html:24
+#: core/templates/core/sleep_list.html:26
+#: core/templates/core/tummytime_list.html:25
 msgid "End"
 msgstr "Befejezés"
 
-#: core/templates/core/sleep_list.html:73
+#: core/templates/core/sleep_list.html:84
 msgid "No sleep entries found."
 msgstr "Nem található alvás bejegyzés."
 
 #: core/templates/core/tag_confirm_delete.html:4
 #, fuzzy
-#| msgid "Delete a Note"
 msgid "Delete a Tag"
 msgstr "Megjegyzés törlése"
 
@@ -1615,26 +1610,22 @@ msgstr ""
 
 #: core/templates/core/tag_confirm_delete.html:35
 #, fuzzy
-#| msgid "Delete"
 msgid "Delete Tag"
 msgstr "Törlés"
 
 #: core/templates/core/tag_detail.html:5 core/templates/core/tag_form.html:5
 #, fuzzy
-#| msgid "Update a Note"
 msgid "Update a Tag"
 msgstr "Megjegyzés javítása"
 
 #: core/templates/core/tag_detail.html:7 core/templates/core/tag_form.html:7
 #: core/templates/core/tag_form.html:29
 #, fuzzy
-#| msgid "Add a Change"
 msgid "Add a Tag"
 msgstr "Pelenkacsere hozzáadása"
 
 #: core/templates/core/tag_detail.html:28
 #, fuzzy
-#| msgid "Timer actions"
 msgid "Tag actions"
 msgstr "Stopperbeállítások"
 
@@ -1646,67 +1637,56 @@ msgstr "Módosítás"
 
 #: core/templates/core/tag_detail.html:46
 #, fuzzy
-#| msgid "Measurements"
 msgid "Tagged Measurements"
 msgstr "Méretek"
 
 #: core/templates/core/tag_detail.html:50
 #, fuzzy
-#| msgid "Measurements"
 msgid "BMI Measurements"
 msgstr "Méretek"
 
 #: core/templates/core/tag_detail.html:55
 #, fuzzy
-#| msgid "Head Circumference entry"
 msgid "Head Circumference Measurements"
 msgstr "Fejkörfogat bevitele"
 
 #: core/templates/core/tag_detail.html:60
 #, fuzzy
-#| msgid "Measurements"
 msgid "Height Measurements"
 msgstr "Méretek"
 
 #: core/templates/core/tag_detail.html:65
 #, fuzzy
-#| msgid "Temperature reading"
 msgid "Temperature Measurements"
 msgstr "Testhőmérséklet bevitele"
 
 #: core/templates/core/tag_detail.html:70
 #, fuzzy
-#| msgid "Measurements"
 msgid "Weight Measurements"
 msgstr "Méretek"
 
 #: core/templates/core/tag_detail.html:76
 #, fuzzy
-#| msgid "Activities"
 msgid "Tagged Activities"
 msgstr "Elfoglaltságok"
 
 #: core/templates/core/tag_detail.html:90
 #, fuzzy
-#| msgid "Pumping"
 msgid "Pumpings"
 msgstr "Pumpálás"
 
 #: core/templates/core/tag_detail.html:95
 #, fuzzy
-#| msgid "Sleep"
 msgid "Sleeps"
 msgstr "Alvás"
 
 #: core/templates/core/tag_detail.html:100
 #, fuzzy
-#| msgid "Tummy Time"
 msgid "Tummy Times"
 msgstr "Pocakidő"
 
 #: core/templates/core/tag_list.html:14
 #, fuzzy
-#| msgid "Add a Change"
 msgid "Add Tag"
 msgstr "Pelenkacsere hozzáadása"
 
@@ -1716,13 +1696,11 @@ msgstr ""
 
 #: core/templates/core/tag_list.html:27
 #, fuzzy
-#| msgid "Last used"
 msgid "Last Used"
 msgstr "Utoljára használva"
 
 #: core/templates/core/tag_list.html:62
 #, fuzzy
-#| msgid "No notes found."
 msgid "No tags found."
 msgstr "Nem található megjegyzés."
 
@@ -1816,7 +1794,7 @@ msgstr "Pocakidő bejegyzés hozzáadása"
 msgid "Add Tummy Time"
 msgstr "Pocakidő hozzáadása"
 
-#: core/templates/core/tummytime_list.html:67
+#: core/templates/core/tummytime_list.html:78
 msgid "No tummy time entries found."
 msgstr "Nem található pocakidő bejegyzés."
 
@@ -1878,6 +1856,14 @@ msgstr "Bezár"
 
 #: core/templates/forms/layouts/advanced.html:7
 msgid "Advanced Fields"
+msgstr ""
+
+#: core/templates/mobile/diaper_list_item.html:6
+msgid "Mixed"
+msgstr ""
+
+#: core/templates/mobile/diaper_list_item.html:12
+msgid "Clean"
 msgstr ""
 
 #: core/templates/timeline/_timeline.html:41
@@ -1959,7 +1945,6 @@ msgstr "%(child)s befejezte az evést."
 
 #: core/timeline.py:179
 #, fuzzy, python-format
-#| msgid "%(child)s started feeding."
 msgid "%(child)s had a feeding."
 msgstr "%(child)s elkezdett enni."
 
@@ -2041,7 +2026,6 @@ msgstr "%(child)s %(model)s mérése frissítve."
 
 #: dashboard/templates/cards/breastfeeding.html:4
 #, fuzzy
-#| msgid "Last Feeding"
 msgid "Breastfeeding"
 msgstr "Utolsó etetés"
 
@@ -2056,29 +2040,17 @@ msgstr ""
 
 #: dashboard/templates/cards/breastfeeding.html:20
 #, fuzzy
-#| msgid "Height"
 msgid "right"
 msgstr "Magasság"
 
 #: dashboard/templates/cards/breastfeeding.html:31
 #, fuzzy
-#| msgid "Feedings"
 msgid "feedings in"
 msgstr "Etetések"
 
 #: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
 msgstr "Utolsó pelenkacsere"
-
-#: dashboard/templates/cards/diaperchange_last.html:9
-#: dashboard/templates/cards/feeding_last.html:9
-#: dashboard/templates/cards/pumping_last.html:9
-#: dashboard/templates/cards/sleep_last.html:9
-#: dashboard/templates/cards/tummytime_last.html:9
-#, fuzzy, python-format
-#| msgid "%(time)s ago"
-msgid "%(time_ago)s ago"
-msgstr "%(time)s ezelőtt"
 
 #: dashboard/templates/cards/diaperchange_types.html:20
 msgid "wet"
@@ -2090,7 +2062,6 @@ msgstr "kakis"
 
 #: dashboard/templates/cards/diaperchange_types.html:43
 #, fuzzy
-#| msgid "Changes"
 msgid "changes"
 msgstr "Pelenkacsere"
 
@@ -2314,7 +2285,6 @@ msgstr "Cserék száma"
 
 #: reports/graphs/feeding_amounts.py:69
 #, fuzzy
-#| msgid "<b>Total Feeding Amount by Type</b>"
 msgid "Total Feeding Amount by Type"
 msgstr "<b>Összes etetés típus szerint</b>"
 
@@ -2350,7 +2320,6 @@ msgstr ""
 
 #: reports/graphs/feeding_intervals.py:41
 #, fuzzy
-#| msgid "Feeding Amounts"
 msgid "Feeding intervals"
 msgstr "Etetési mennyiségek"
 
@@ -2358,16 +2327,15 @@ msgstr "Etetési mennyiségek"
 msgid "Feeding interval (hours)"
 msgstr ""
 
-#: reports/graphs/feeding_pattern.py:154
+#: reports/graphs/feeding_pattern.py:163
 #: reports/templates/reports/feeding_pattern.html:4
 #: reports/templates/reports/feeding_pattern.html:9
 #: reports/templates/reports/report_list.html:32
 #, fuzzy
-#| msgid "Sleep Pattern"
 msgid "Feeding Pattern"
 msgstr "Alvási minta"
 
-#: reports/graphs/feeding_pattern.py:171 reports/graphs/sleep_pattern.py:182
+#: reports/graphs/feeding_pattern.py:180 reports/graphs/sleep_pattern.py:182
 msgid "Time of day"
 msgstr "Napszak"
 
@@ -2393,7 +2361,6 @@ msgstr ""
 
 #: reports/graphs/pumping_amounts.py:59
 #, fuzzy
-#| msgid "<b>Total Pumping Amount</b>"
 msgid "Total Pumping Amount"
 msgstr "<b>Összes pumpált mennyiség</b>"
 
@@ -2499,6 +2466,13 @@ msgstr ""
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr ""
 
+#~ msgid ""
+#~ "This setting will only be used when a browser does not support refresh on "
+#~ "focus."
+#~ msgstr ""
+#~ "Ezt a beállítást csak akkor használjuk, ha a böngésző nem támogatja a "
+#~ "tartalom frissítését fókuszba kerüléskor."
+
 #~ msgid "1 min."
 #~ msgstr "1 perc"
 
@@ -2523,117 +2497,6 @@ msgstr ""
 #~ msgid "30 min."
 #~ msgstr "30 perc"
 
-#~ msgid "1 day"
-#~ msgstr "1 nap"
-
-#~ msgid "2 days"
-#~ msgstr "2 nap"
-
-#~ msgid "3 days"
-#~ msgstr "3 nap"
-
-#~ msgid "1 week"
-#~ msgstr "1 hét"
-
-#~ msgid "4 weeks"
-#~ msgstr "4 hét"
-
-#, python-format
-#~ msgid "<strong>Error:</strong> %(error)s"
-#~ msgstr "<strong>Hiba:</strong> %(error)s"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<h1>Are you sure you want to delete <span class=\"text-"
-#~| "info\">%(object)s</span>?</h1>"
-#~ msgid ""
-#~ "<h1> Are you sure you want to delete <span class=\"text-"
-#~ "info\">%(object)s</span>? </h1>"
-#~ msgstr ""
-#~ "<h1>Biztosan törlöd a következőt <span class=\"text-info\">%(object)s</"
-#~ "span>?</h1>"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<h1>Are you sure you want to unlock <span class=\"text-"
-#~| "info\">%(object)s</span>?</h1>"
-#~ msgid ""
-#~ "<h1> Are you sure you want to unlock <span class=\"text-"
-#~ "info\">%(object)s</span>? </h1>"
-#~ msgstr ""
-#~ "<h1>Biztosan fel akarod oldani <span class=\"text-info\">%(object)s</"
-#~ "span>?</h1>"
-
-#, fuzzy, python-format
-#~| msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
-#~ msgid "<h1> Update <span class=\"text-info\">%(object)s</span> </h1>"
-#~ msgstr "<h1><span class=\"text-info\">%(object)s</span> frissítése</h1>"
-
-#~ msgid ""
-#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
-#~ "again."
-#~ msgstr "<strong>Ajjaj!</strong> A két jelszó nem egyezik. Próbáld újra."
-
-#~ msgid "{}, {}"
-#~ msgstr "{}, {}"
-
-#, python-format
-#~ msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
-#~ msgstr "<div>%(since)s másodperce</div> <small>%(time)s</small>"
-
-#, fuzzy, python-format
-#~| msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
-#~ msgid "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
-#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
-
-#~ msgid "<b>BMI</b>"
-#~ msgstr "<b>BMI</b>"
-
-#~ msgid "<b>Diaper Change Amounts</b>"
-#~ msgstr "<b>Pelenkacserék száma</b>"
-
-#~ msgid "<b>Diaper Lifetimes</b>"
-#~ msgstr "<b>Pelenka élettartam</b>"
-
-#~ msgid "<b>Diaper Change Types</b>"
-#~ msgstr "<b>Elhasznált pelenkák típusa</b>"
-
-#~ msgid "<b>Average Feeding Durations</b>"
-#~ msgstr "<b>Átlagos etetési időtartam</b>"
-
-#, fuzzy
-#~| msgid "<b>Sleep Pattern</b>"
-#~ msgid "<b>Feeding Pattern</b>"
-#~ msgstr "<b>Alvási minta</b>"
-
-#~ msgid "<b>Head Circumference</b>"
-#~ msgstr "<b>Fejkörfogat</b>"
-
-#~ msgid "<b>Height</b>"
-#~ msgstr "<b>Magasság</b>"
-
-#~ msgid "<b>Sleep Pattern</b>"
-#~ msgstr "<b>Alvási minta</b>"
-
-#~ msgid "<b>Sleep Totals</b>"
-#~ msgstr "<b>Összes alvás</b>"
-
-#~ msgid "<b>Temperature</b>"
-#~ msgstr "<b>Hőmérséklet</b>"
-
-#~ msgid "<b>Total Tummy Time Durations</b>"
-#~ msgstr "<b>Teljes pocakidő</b>"
-
-#~ msgid "<b>Weight</b>"
-#~ msgstr "<b>Testtömeg</b>"
-
-#~ msgid ""
-#~ "This setting will only be used when a browser does not support refresh on "
-#~ "focus."
-#~ msgstr ""
-#~ "Ezt a beállítást csak akkor használjuk, ha a böngésző nem támogatja a "
-#~ "tartalom frissítését fókuszba kerüléskor."
-
 #~ msgid "English"
 #~ msgstr "Angol"
 
@@ -2644,12 +2507,29 @@ msgstr ""
 #~ "Nincs hozzáférése az erőforráshoz. \n"
 #~ "Keresse meg a rendszergazdát."
 
+#~ msgid "<strong>Error:</strong> %(error)s"
+#~ msgstr "<strong>Hiba:</strong> %(error)s"
+
 #~ msgid ""
 #~ "<strong>Error:</strong> Some fields have errors. See below for details. "
 #~ msgstr "<strong>Hiba:</strong> Néhány mező hibás. Részletek lentebb. "
 
 #~ msgid "Backend Admin"
 #~ msgstr "Backend Admin"
+
+#~ msgid ""
+#~ "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr ""
+#~ "<h1>Biztosan törlöd a következőt <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+
+#~ msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#~ msgstr "<h1><span class=\"text-info\">%(object)s</span> frissítése</h1>"
+
+#~ msgid ""
+#~ "<strong>Error:</strong> Some fields have errors. See below for details."
+#~ msgstr "<strong>Hiba:</strong> Néhány mező hibás. Részletek lentebb."
 
 #~ msgid ""
 #~ "Learn about and predict baby's needs without\n"
@@ -2719,6 +2599,9 @@ msgstr ""
 #~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
 #~ msgstr "A \"Tápszer\" típussal csak a \"Cumisüveg\" megengedett."
 
+#~ msgid "Add a Change"
+#~ msgstr "Pelenkacsere hozzáadása"
+
 #~ msgid "Stopped"
 #~ msgstr "Befejezve"
 
@@ -2733,6 +2616,9 @@ msgstr ""
 
 #~ msgid "%(timer)s stopped."
 #~ msgstr "A(z) %(timer)s stopper megállt."
+
+#~ msgid "%(time)s ago"
+#~ msgstr "%(time)s ezelőtt"
 
 #~ msgid "%(key)s days ago"
 #~ msgstr "%(key)s nappal ezelőtt"
@@ -2758,8 +2644,31 @@ msgstr ""
 #~ msgid "Started by %(instance.user)s at %(start)s"
 #~ msgstr "Indította %(instance.user)s %(start)s-kor"
 
+#~ msgid "<b>Diaper Lifetimes</b>"
+#~ msgstr "<b>Pelenka élettartam</b>"
+
+#~ msgid "<b>Diaper Change Types</b>"
+#~ msgstr "<b>Elhasznált pelenkák típusa</b>"
+
+#~ msgid "<b>Average Feeding Durations</b>"
+#~ msgstr "<b>Átlagos etetési időtartam</b>"
+
+#~ msgid "<b>Sleep Pattern</b>"
+#~ msgstr "<b>Alvási minta</b>"
+
+#~ msgid "<b>Sleep Totals</b>"
+#~ msgstr "<b>Összes alvás</b>"
+
+#~ msgid "<b>Weight</b>"
+#~ msgstr "<b>Testtömeg</b>"
+
 #~ msgid "There is no enough data to generate this report."
 #~ msgstr "Nincs elég adatpont az összesítéshez."
+
+#~ msgid ""
+#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
+#~ "again."
+#~ msgstr "<strong>Ajjaj!</strong> A két jelszó nem egyezik. Próbáld újra."
 
 #~ msgid "Total feeding amount"
 #~ msgstr "Összes etetési mennyiség"
@@ -2788,8 +2697,29 @@ msgstr ""
 #~ msgid "%(n)s feeding%(plural)s ago"
 #~ msgstr "%(n)s etetéssel ezelőtt"
 
+#~ msgid "<b>Diaper Change Amounts</b>"
+#~ msgstr "<b>Pelenkacserék száma</b>"
+
+#~ msgid "1 day"
+#~ msgstr "1 nap"
+
+#~ msgid "2 days"
+#~ msgstr "2 nap"
+
+#~ msgid "3 days"
+#~ msgstr "3 nap"
+
+#~ msgid "1 week"
+#~ msgstr "1 hét"
+
+#~ msgid "4 weeks"
+#~ msgstr "4 hét"
+
 #~ msgid "Delete timer"
 #~ msgstr "Időtítő törlése"
+
+#~ msgid "{}, {}"
+#~ msgstr "{}, {}"
 
 #~ msgid "0 days"
 #~ msgstr "0 nap"
@@ -2797,11 +2727,17 @@ msgstr ""
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "Tartalom: %(contents)s"
 
+#~ msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
+#~ msgstr "<div>%(since)s másodperce</div> <small>%(time)s</small>"
+
 #~ msgid "Today's Feeding"
 #~ msgstr "Mai evés"
 
 #~ msgid "%(count)s feeding entries"
 #~ msgstr "%(count)s etetési bejegyzések"
+
+#~ msgid "<b>Total Tummy Time Durations</b>"
+#~ msgstr "<b>Teljes pocakidő</b>"
 
 #~ msgid "Napping"
 #~ msgstr "Szundi"
@@ -2809,10 +2745,55 @@ msgstr ""
 #~ msgid "No bmi entries found."
 #~ msgstr "BMI-bejegyzés nem található."
 
+#~ msgid "<b>BMI</b>"
+#~ msgstr "<b>BMI</b>"
+
+#~ msgid "<b>Total Feeding Amount by Type</b>"
+#~ msgstr "<b>Összes etetés típus szerint</b>"
+
+#~ msgid "<b>Head Circumference</b>"
+#~ msgstr "<b>Fejkörfogat</b>"
+
+#~ msgid "<b>Height</b>"
+#~ msgstr "<b>Magasság</b>"
+
+#~ msgid ""
+#~ "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
+#~ "environment variable. If multiple origins are required separate with "
+#~ "commas."
+#~ msgstr ""
+#~ "<samp>%(origin)s</samp> hozzáadása a <code>CSRF_TRUSTED_ORIGINS</code> "
+#~ "környezeti változóhoz. Több eredet hozzáadása vesszővel elválasztva "
+#~ "lehetséges."
+
+#~ msgid "The path <code>%(request_path)s</code> does not exist."
+#~ msgstr "A <code>%(request_path)s</code> elérési út nem létezik."
+
+#~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
+
+#~ msgid "<b>Total Pumping Amount</b>"
+#~ msgstr "<b>Összes pumpált mennyiség</b>"
+
+#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
+#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+#~ msgstr[0] "Biztosan törlöd a %(number)s inaktív stoppert?"
+#~ msgstr[1] "Biztosan törlöd a %(number)s inaktív stoppert?"
+
 #~ msgid "%(count)s active timer"
 #~ msgid_plural "%(count)s active timers"
 #~ msgstr[0] "%(count)s aktív stopper"
 #~ msgstr[1] "%(count)s aktív stopper"
 
+#~ msgid ""
+#~ "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr ""
+#~ "<h1>Biztosan fel akarod oldani <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+
 #~ msgid " days ago"
 #~ msgstr "␣napja"
+
+#~ msgid "<b>Temperature</b>"
+#~ msgstr "<b>Hőmérséklet</b>"

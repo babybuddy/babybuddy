@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 13:13+0000\n"
+"POT-Creation-Date: 2024-08-31 12:53+0000\n"
 "Language: zh-Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,8 +54,6 @@ msgstr "禁用"
 #: babybuddy/models.py:46 babybuddy/models.py:51 babybuddy/models.py:56
 #: babybuddy/models.py:61 babybuddy/models.py:66
 #, fuzzy, python-format
-#| msgid "%(minutes)s minute"
-#| msgid_plural "%(minutes)s minutes"
 msgid "%(minutes)d minute"
 msgid_plural "%(minutes)d minutes"
 msgstr[0] "%(minutes)s 分钟"
@@ -78,7 +76,6 @@ msgstr "展示所有数据"
 
 #: babybuddy/models.py:86 babybuddy/models.py:90 babybuddy/models.py:94
 #, fuzzy, python-format
-#| msgid "%(days_ago)s days ago"
 msgid "%(days)d day"
 msgid_plural "%(days)d days"
 msgstr[0] "%(days_ago)s 天之前"
@@ -100,8 +97,6 @@ msgstr "时区"
 #: babybuddy/models.py:122 babybuddy/models.py:123 babybuddy/models.py:124
 #: babybuddy/models.py:125 babybuddy/models.py:126
 #, fuzzy, python-format
-#| msgid "%(count)s timer"
-#| msgid_plural "%(count)s timers"
 msgid "%(count)d Per Page"
 msgstr "%(count)s个计时器"
 
@@ -118,97 +113,96 @@ msgstr ""
 msgid "{user}'s Settings"
 msgstr "{user}的设置"
 
-#: babybuddy/settings/base.py:190
+#: babybuddy/settings/base.py:194
 #, fuzzy
-#| msgid "Portuguese"
 msgid "Brazilian Portuguese"
 msgstr "葡萄牙语"
 
-#: babybuddy/settings/base.py:191
+#: babybuddy/settings/base.py:195
 msgid "Catalan"
 msgstr "加泰罗尼亚语"
 
-#: babybuddy/settings/base.py:192
+#: babybuddy/settings/base.py:196
 msgid "Czech"
 msgstr ""
 
-#: babybuddy/settings/base.py:193
+#: babybuddy/settings/base.py:197
 msgid "Chinese (simplified)"
 msgstr "中文(简体)"
 
-#: babybuddy/settings/base.py:194
+#: babybuddy/settings/base.py:198
 msgid "Danish"
 msgstr ""
 
-#: babybuddy/settings/base.py:195
+#: babybuddy/settings/base.py:199
 msgid "Dutch"
 msgstr "荷兰语"
 
-#: babybuddy/settings/base.py:196
+#: babybuddy/settings/base.py:200
 msgid "English (US)"
 msgstr "英语(美国)"
 
-#: babybuddy/settings/base.py:197
+#: babybuddy/settings/base.py:201
 msgid "English (UK)"
 msgstr "英语(英国)"
 
-#: babybuddy/settings/base.py:198
+#: babybuddy/settings/base.py:202
 msgid "French"
 msgstr "法语"
 
-#: babybuddy/settings/base.py:199
+#: babybuddy/settings/base.py:203
 msgid "Finnish"
 msgstr "芬兰语"
 
-#: babybuddy/settings/base.py:200
+#: babybuddy/settings/base.py:204
 msgid "German"
 msgstr "德语"
 
-#: babybuddy/settings/base.py:201
+#: babybuddy/settings/base.py:205
 msgid "Hebrew"
 msgstr ""
 
-#: babybuddy/settings/base.py:202
+#: babybuddy/settings/base.py:206
 msgid "Hungarian"
 msgstr ""
 
-#: babybuddy/settings/base.py:203
+#: babybuddy/settings/base.py:207
 msgid "Italian"
 msgstr "意大利语"
 
-#: babybuddy/settings/base.py:204
+#: babybuddy/settings/base.py:208
 msgid "Japanese"
 msgstr ""
 
-#: babybuddy/settings/base.py:205
+#: babybuddy/settings/base.py:209
 msgid "Norwegian Bokmål"
 msgstr ""
 
-#: babybuddy/settings/base.py:206
+#: babybuddy/settings/base.py:210
 msgid "Polish"
 msgstr "波兰语"
 
-#: babybuddy/settings/base.py:207
+#: babybuddy/settings/base.py:211
 msgid "Portuguese"
 msgstr "葡萄牙语"
 
-#: babybuddy/settings/base.py:208
+#: babybuddy/settings/base.py:212
 msgid "Russian"
 msgstr ""
 
-#: babybuddy/settings/base.py:209
+#: babybuddy/settings/base.py:213
 msgid "Spanish"
 msgstr "西班牙语"
 
-#: babybuddy/settings/base.py:210
+#: babybuddy/settings/base.py:214
 msgid "Swedish"
 msgstr "瑞典语"
 
-#: babybuddy/settings/base.py:211
+#: babybuddy/settings/base.py:215
 msgid "Turkish"
 msgstr "土耳其语"
 
-#: babybuddy/settings/base.py:212
+#: babybuddy/settings/base.py:216
 msgid "Ukrainian"
 msgstr ""
 
@@ -264,16 +258,12 @@ msgstr "提交"
 #: babybuddy/templates/babybuddy/user_settings_form.html:18
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
 #, fuzzy
-#| msgctxt "Error modal"
-#| msgid "Error"
 msgid "Error"
 msgstr "错误"
 
 #: babybuddy/templates/babybuddy/messages.html:25
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
 #, fuzzy
-#| msgid ""
-#| "<strong>Error:</strong> Some fields have errors. See below for details."
 msgid "Some fields have errors. See below for details."
 msgstr "<strong>错误:</strong> 有些字段有错误。详情见下文。 "
 
@@ -291,7 +281,6 @@ msgstr "喂食"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:54
 #: babybuddy/templates/babybuddy/nav-dropdown.html:259
 #, fuzzy
-#| msgid "Total feedings"
 msgid "Bottle Feeding"
 msgstr "总喂食量"
 
@@ -362,16 +351,16 @@ msgstr "我的宝宝"
 #: core/models.py:387 core/models.py:439 core/models.py:468 core/models.py:516
 #: core/models.py:570 core/models.py:604 core/models.py:673 core/models.py:721
 #: core/templates/core/bmi_list.html:26
-#: core/templates/core/diaperchange_list.html:27
+#: core/templates/core/diaperchange_list.html:28
 #: core/templates/core/feeding_list.html:30
 #: core/templates/core/head_circumference_list.html:27
 #: core/templates/core/height_list.html:26
 #: core/templates/core/note_list.html:26
-#: core/templates/core/pumping_list.html:26
-#: core/templates/core/sleep_list.html:27
+#: core/templates/core/pumping_list.html:27
+#: core/templates/core/sleep_list.html:28
 #: core/templates/core/temperature_list.html:27
 #: core/templates/core/timer_list.html:26
-#: core/templates/core/tummytime_list.html:26
+#: core/templates/core/tummytime_list.html:27
 #: core/templates/core/weight_list.html:26
 msgid "Child"
 msgstr "宝宝"
@@ -556,19 +545,19 @@ msgstr "API浏览"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:331 core/models.py:102
 #: core/templates/core/bmi_list.html:29
-#: core/templates/core/diaperchange_list.html:32
-#: core/templates/core/feeding_list.html:38
+#: core/templates/core/diaperchange_list.html:34
+#: core/templates/core/feeding_list.html:39
 #: core/templates/core/head_circumference_list.html:30
 #: core/templates/core/height_list.html:29
 #: core/templates/core/note_list.html:30
-#: core/templates/core/pumping_list.html:30
-#: core/templates/core/sleep_list.html:31
+#: core/templates/core/pumping_list.html:32
+#: core/templates/core/sleep_list.html:33
 #: core/templates/core/tag_confirm_delete.html:8
 #: core/templates/core/tag_detail.html:12 core/templates/core/tag_form.html:12
 #: core/templates/core/tag_list.html:4 core/templates/core/tag_list.html:7
 #: core/templates/core/tag_list.html:11
 #: core/templates/core/temperature_list.html:30
-#: core/templates/core/tummytime_list.html:30
+#: core/templates/core/tummytime_list.html:32
 #: core/templates/core/weight_list.html:29
 msgid "Tags"
 msgstr "标签"
@@ -596,11 +585,15 @@ msgstr "聊天 / 支持"
 
 #: babybuddy/templates/babybuddy/paginator.html:11
 #, fuzzy
-#| msgid "First Name"
 msgid "First"
 msgstr "名"
 
 #: babybuddy/templates/babybuddy/paginator.html:18
+#: core/templates/core/diaperchange_list.html:33
+#: core/templates/core/feeding_list.html:38
+#: core/templates/core/pumping_list.html:31
+#: core/templates/core/sleep_list.html:31
+#: core/templates/core/tummytime_list.html:30
 #: core/templates/timeline/_timeline.html:6
 #: core/templates/timeline/_timeline.html:8
 #: core/templates/timeline/_timeline.html:76
@@ -626,7 +619,6 @@ msgstr "下一页"
 
 #: babybuddy/templates/babybuddy/paginator.html:43
 #, fuzzy
-#| msgid "Last Name"
 msgid "Last"
 msgstr "姓"
 
@@ -773,24 +765,24 @@ msgstr ""
 #: core/templates/core/bmi_list.html:23 core/templates/core/bmi_list.html:38
 #: core/templates/core/child_list.html:29
 #: core/templates/core/child_list.html:53
-#: core/templates/core/diaperchange_list.html:24
-#: core/templates/core/diaperchange_list.html:41
+#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/diaperchange_list.html:44
 #: core/templates/core/feeding_list.html:27
-#: core/templates/core/feeding_list.html:47
+#: core/templates/core/feeding_list.html:49
 #: core/templates/core/head_circumference_list.html:24
 #: core/templates/core/head_circumference_list.html:39
 #: core/templates/core/height_list.html:23
 #: core/templates/core/height_list.html:38
 #: core/templates/core/note_list.html:23 core/templates/core/note_list.html:39
-#: core/templates/core/pumping_list.html:23
-#: core/templates/core/pumping_list.html:39
-#: core/templates/core/sleep_list.html:23
-#: core/templates/core/sleep_list.html:40 core/templates/core/tag_list.html:23
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:42
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:43 core/templates/core/tag_list.html:23
 #: core/templates/core/tag_list.html:36
 #: core/templates/core/temperature_list.html:24
 #: core/templates/core/temperature_list.html:39
-#: core/templates/core/tummytime_list.html:22
-#: core/templates/core/tummytime_list.html:39
+#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:42
 #: core/templates/core/weight_list.html:23
 #: core/templates/core/weight_list.html:38
 msgid "Actions"
@@ -891,10 +883,6 @@ msgstr "如何修复"
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:11
 #, fuzzy, python-format
-#| msgid ""
-#| "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
-#| "environment variable. If multiple origins are required separate with "
-#| "commas."
 msgid ""
 "Add %(value)s to the %(variable)s environment variable. If multiple origins "
 "are required separate with commas."
@@ -908,7 +896,6 @@ msgstr "页面未找到"
 
 #: babybuddy/templates/error/404.html:9
 #, fuzzy, python-format
-#| msgid "The path <code>%(request_path)s</code> does not exist."
 msgid "The path %(path)s does not exist."
 msgstr "路径 <code>%(request_path)s</code> 不存在。"
 
@@ -1021,15 +1008,11 @@ msgstr ""
 
 #: babybuddy/templatetags/babybuddy.py:94
 #, fuzzy, python-format
-#| msgid "Are you sure you want to delete %(number)s inactive timer?"
-#| msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
 msgid "Are you sure you want to delete %(name)s?"
 msgstr "确定要删除%(number)s个非活动的计时器?"
 
 #: babybuddy/templatetags/babybuddy.py:104
 #, fuzzy, python-format
-#| msgid "Are you sure you want to delete %(number)s inactive timer?"
-#| msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
 msgid "Are you sure you want to unlock %(name)s?"
 msgstr "确定要删除%(number)s个非活动的计时器?"
 
@@ -1120,7 +1103,7 @@ msgid "Date/time can not be in the future."
 msgstr "不能选择未来的日期/时间。"
 
 #: core/models.py:87 core/models.py:250
-#: core/templates/core/diaperchange_list.html:30
+#: core/templates/core/diaperchange_list.html:31
 #: core/templates/core/tag_list.html:25
 msgid "Color"
 msgstr "颜色"
@@ -1134,13 +1117,13 @@ msgstr "上次使用"
 #: core/templates/core/feeding_list.html:28
 #: core/templates/core/head_circumference_list.html:25
 #: core/templates/core/height_list.html:24
-#: core/templates/core/pumping_list.html:24
+#: core/templates/core/pumping_list.html:25
 #: core/templates/core/weight_list.html:24 reports/graphs/bmi_change.py:28
 #: reports/graphs/diaperchange_amounts.py:37
 #: reports/graphs/diaperchange_intervals.py:67
 #: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
 #: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
-#: reports/graphs/feeding_pattern.py:157
+#: reports/graphs/feeding_pattern.py:166
 #: reports/graphs/head_circumference_change.py:28
 #: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
 #: reports/graphs/sleep_pattern.py:168 reports/graphs/sleep_totals.py:59
@@ -1162,7 +1145,6 @@ msgstr "出生日期"
 
 #: core/models.py:173
 #, fuzzy
-#| msgid "Birth date"
 msgid "Birth time"
 msgstr "出生日期"
 
@@ -1175,20 +1157,22 @@ msgid "Picture"
 msgstr "宝宝照片"
 
 #: core/models.py:237 core/models.py:443 core/models.py:576
-#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/diaperchange_list.html:26
 #: core/templates/core/note_list.html:24
 #: core/templates/core/temperature_list.html:25
 #: reports/graphs/temperature_change.py:27
 msgid "Time"
 msgstr "时间"
 
-#: core/models.py:239 core/templates/core/diaperchange_list.html:64
+#: core/models.py:239 core/templates/core/diaperchange_list.html:67
+#: core/templates/mobile/diaper_list_item.html:8
 #: reports/graphs/diaperchange_intervals.py:47
 #: reports/graphs/diaperchange_types.py:36
 msgid "Wet"
 msgstr "小便"
 
-#: core/models.py:240 core/templates/core/diaperchange_list.html:67
+#: core/models.py:240 core/templates/core/diaperchange_list.html:70
+#: core/templates/mobile/diaper_list_item.html:10
 #: reports/graphs/diaperchange_intervals.py:38
 #: reports/graphs/diaperchange_types.py:30
 msgid "Solid"
@@ -1211,8 +1195,8 @@ msgid "Yellow"
 msgstr "黄色"
 
 #: core/models.py:252 core/models.py:323 core/models.py:487
-#: core/templates/core/diaperchange_list.html:31
-#: core/templates/core/pumping_list.html:28
+#: core/templates/core/diaperchange_list.html:32
+#: core/templates/core/pumping_list.html:29
 #: dashboard/templates/cards/pumping_last.html:20
 msgid "Amount"
 msgstr "数量"
@@ -1228,9 +1212,9 @@ msgstr "结束时间"
 
 #: core/models.py:299 core/models.py:485 core/models.py:529 core/models.py:685
 #: core/templates/core/feeding_list.html:37
-#: core/templates/core/pumping_list.html:29
-#: core/templates/core/sleep_list.html:29
-#: core/templates/core/tummytime_list.html:28
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:30
+#: core/templates/core/tummytime_list.html:29
 msgid "Duration"
 msgstr "持续时间"
 
@@ -1294,7 +1278,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: core/models.py:527 core/templates/core/sleep_list.html:30
+#: core/models.py:527 core/templates/core/sleep_list.html:32
 msgid "Nap"
 msgstr "小睡"
 
@@ -1325,7 +1309,7 @@ msgstr "计时器"
 msgid "Timer #{id}"
 msgstr "计时器 #{id}"
 
-#: core/models.py:688 core/templates/core/tummytime_list.html:29
+#: core/models.py:688 core/templates/core/tummytime_list.html:31
 msgid "Milestone"
 msgstr "里程碑"
 
@@ -1410,11 +1394,25 @@ msgstr "添加"
 msgid "Add Diaper Change"
 msgstr "新增换尿布记录"
 
-#: core/templates/core/diaperchange_list.html:29
+#: core/templates/core/diaperchange_list.html:30
 msgid "Contents"
 msgstr "内容"
 
-#: core/templates/core/diaperchange_list.html:83
+#: core/templates/core/diaperchange_list.html:77
+#: core/templates/core/feeding_list.html:78
+#: core/templates/core/pumping_list.html:67
+#: core/templates/core/sleep_list.html:66
+#: core/templates/core/tummytime_list.html:67
+#: dashboard/templates/cards/diaperchange_last.html:9
+#: dashboard/templates/cards/feeding_last.html:9
+#: dashboard/templates/cards/pumping_last.html:9
+#: dashboard/templates/cards/sleep_last.html:9
+#: dashboard/templates/cards/tummytime_last.html:9
+#, fuzzy, python-format
+msgid "%(time_ago)s ago"
+msgstr "%(time)s 之前"
+
+#: core/templates/core/diaperchange_list.html:94
 msgid "No diaper changes found."
 msgstr "未找到换尿布记录。"
 
@@ -1429,7 +1427,6 @@ msgstr "更新一条喂食记录"
 #: core/templates/core/feeding_form.html:7
 #: core/templates/core/feeding_form.html:28
 #, fuzzy
-#| msgid "Add a Feeding"
 msgid "Add a Bottle Feeding"
 msgstr "新增一条喂食记录"
 
@@ -1444,7 +1441,6 @@ msgstr "新增喂食记录"
 
 #: core/templates/core/feeding_list.html:18
 #, fuzzy
-#| msgid "Add a Feeding"
 msgid "Add Bottle Feeding"
 msgstr "新增一条喂食记录"
 
@@ -1452,7 +1448,7 @@ msgstr "新增一条喂食记录"
 msgid "Amt."
 msgstr "数量"
 
-#: core/templates/core/feeding_list.html:85
+#: core/templates/core/feeding_list.html:95
 msgid "No feedings found."
 msgstr "未找到喂食记录。"
 
@@ -1526,7 +1522,7 @@ msgstr "新增一条吸奶记录"
 msgid "Add Pumping Entry"
 msgstr "新增吸奶记录"
 
-#: core/templates/core/pumping_list.html:73
+#: core/templates/core/pumping_list.html:84
 msgid "No pumping entries found."
 msgstr "未找到吸奶记录。"
 
@@ -1557,25 +1553,24 @@ msgstr "新增一条睡眠记录"
 msgid "Add Sleep"
 msgstr "新增睡眠记录"
 
-#: core/templates/core/sleep_list.html:24
+#: core/templates/core/sleep_list.html:25
 #: core/templates/core/timer_form.html:16
 #: core/templates/core/timer_list.html:23
-#: core/templates/core/tummytime_list.html:23
+#: core/templates/core/tummytime_list.html:24
 msgid "Start"
 msgstr "开始"
 
-#: core/templates/core/sleep_list.html:25
-#: core/templates/core/tummytime_list.html:24
+#: core/templates/core/sleep_list.html:26
+#: core/templates/core/tummytime_list.html:25
 msgid "End"
 msgstr "结束"
 
-#: core/templates/core/sleep_list.html:73
+#: core/templates/core/sleep_list.html:84
 msgid "No sleep entries found."
 msgstr "未找到睡眠记录。"
 
 #: core/templates/core/tag_confirm_delete.html:4
 #, fuzzy
-#| msgid "Delete a Note"
 msgid "Delete a Tag"
 msgstr "删除一条记录"
 
@@ -1592,26 +1587,22 @@ msgstr ""
 
 #: core/templates/core/tag_confirm_delete.html:35
 #, fuzzy
-#| msgid "Delete"
 msgid "Delete Tag"
 msgstr "删除"
 
 #: core/templates/core/tag_detail.html:5 core/templates/core/tag_form.html:5
 #, fuzzy
-#| msgid "Update a Note"
 msgid "Update a Tag"
 msgstr "更新一条记录"
 
 #: core/templates/core/tag_detail.html:7 core/templates/core/tag_form.html:7
 #: core/templates/core/tag_form.html:29
 #, fuzzy
-#| msgid "Add a Change"
 msgid "Add a Tag"
 msgstr "添加一条尿布记录"
 
 #: core/templates/core/tag_detail.html:28
 #, fuzzy
-#| msgid "Timer actions"
 msgid "Tag actions"
 msgstr "计时器操作"
 
@@ -1623,67 +1614,56 @@ msgstr "编辑"
 
 #: core/templates/core/tag_detail.html:46
 #, fuzzy
-#| msgid "Measurements"
 msgid "Tagged Measurements"
 msgstr "测量"
 
 #: core/templates/core/tag_detail.html:50
 #, fuzzy
-#| msgid "Measurements"
 msgid "BMI Measurements"
 msgstr "测量"
 
 #: core/templates/core/tag_detail.html:55
 #, fuzzy
-#| msgid "Head Circumference entry"
 msgid "Head Circumference Measurements"
 msgstr "头围记录"
 
 #: core/templates/core/tag_detail.html:60
 #, fuzzy
-#| msgid "Measurements"
 msgid "Height Measurements"
 msgstr "测量"
 
 #: core/templates/core/tag_detail.html:65
 #, fuzzy
-#| msgid "Temperature reading"
 msgid "Temperature Measurements"
 msgstr "体温读数"
 
 #: core/templates/core/tag_detail.html:70
 #, fuzzy
-#| msgid "Measurements"
 msgid "Weight Measurements"
 msgstr "测量"
 
 #: core/templates/core/tag_detail.html:76
 #, fuzzy
-#| msgid "Activities"
 msgid "Tagged Activities"
 msgstr "活动"
 
 #: core/templates/core/tag_detail.html:90
 #, fuzzy
-#| msgid "Pumping"
 msgid "Pumpings"
 msgstr "吸奶"
 
 #: core/templates/core/tag_detail.html:95
 #, fuzzy
-#| msgid "Sleep"
 msgid "Sleeps"
 msgstr "睡眠"
 
 #: core/templates/core/tag_detail.html:100
 #, fuzzy
-#| msgid "Tummy Time"
 msgid "Tummy Times"
 msgstr "趴玩时间"
 
 #: core/templates/core/tag_list.html:14
 #, fuzzy
-#| msgid "Add a Change"
 msgid "Add Tag"
 msgstr "添加一条尿布记录"
 
@@ -1693,13 +1673,11 @@ msgstr ""
 
 #: core/templates/core/tag_list.html:27
 #, fuzzy
-#| msgid "Last used"
 msgid "Last Used"
 msgstr "上次使用"
 
 #: core/templates/core/tag_list.html:62
 #, fuzzy
-#| msgid "No notes found."
 msgid "No tags found."
 msgstr "未找到记录。"
 
@@ -1793,7 +1771,7 @@ msgstr "新增一条趴玩记录"
 msgid "Add Tummy Time"
 msgstr "新增趴玩时间"
 
-#: core/templates/core/tummytime_list.html:67
+#: core/templates/core/tummytime_list.html:78
 msgid "No tummy time entries found."
 msgstr "未找到趴玩记录。"
 
@@ -1855,6 +1833,14 @@ msgstr "关闭"
 
 #: core/templates/forms/layouts/advanced.html:7
 msgid "Advanced Fields"
+msgstr ""
+
+#: core/templates/mobile/diaper_list_item.html:6
+msgid "Mixed"
+msgstr ""
+
+#: core/templates/mobile/diaper_list_item.html:12
+msgid "Clean"
 msgstr ""
 
 #: core/templates/timeline/_timeline.html:41
@@ -1936,7 +1922,6 @@ msgstr "%(child)s 喂食完成。"
 
 #: core/timeline.py:179
 #, fuzzy, python-format
-#| msgid "%(child)s started feeding."
 msgid "%(child)s had a feeding."
 msgstr "%(child)s 开始喂食。"
 
@@ -2015,7 +2000,6 @@ msgstr "%(child)s 的 %(model)s 读数已更新。"
 
 #: dashboard/templates/cards/breastfeeding.html:4
 #, fuzzy
-#| msgid "Last Feeding"
 msgid "Breastfeeding"
 msgstr "上一次喂食"
 
@@ -2030,29 +2014,17 @@ msgstr ""
 
 #: dashboard/templates/cards/breastfeeding.html:20
 #, fuzzy
-#| msgid "Height"
 msgid "right"
 msgstr "身高"
 
 #: dashboard/templates/cards/breastfeeding.html:31
 #, fuzzy
-#| msgid "Feedings"
 msgid "feedings in"
 msgstr "喂食"
 
 #: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
 msgstr "上一次换尿布"
-
-#: dashboard/templates/cards/diaperchange_last.html:9
-#: dashboard/templates/cards/feeding_last.html:9
-#: dashboard/templates/cards/pumping_last.html:9
-#: dashboard/templates/cards/sleep_last.html:9
-#: dashboard/templates/cards/tummytime_last.html:9
-#, fuzzy, python-format
-#| msgid "%(time)s ago"
-msgid "%(time_ago)s ago"
-msgstr "%(time)s 之前"
 
 #: dashboard/templates/cards/diaperchange_types.html:20
 msgid "wet"
@@ -2064,7 +2036,6 @@ msgstr "大便"
 
 #: dashboard/templates/cards/diaperchange_types.html:43
 #, fuzzy
-#| msgid "Changes"
 msgid "changes"
 msgstr "换尿布"
 
@@ -2283,7 +2254,6 @@ msgstr "换尿布次数"
 
 #: reports/graphs/feeding_amounts.py:69
 #, fuzzy
-#| msgid "<b>Total Feeding Amount by Type</b>"
 msgid "Total Feeding Amount by Type"
 msgstr "<b>按类型划分的总喂食量统计</b>"
 
@@ -2319,7 +2289,6 @@ msgstr ""
 
 #: reports/graphs/feeding_intervals.py:41
 #, fuzzy
-#| msgid "Feeding Amounts"
 msgid "Feeding intervals"
 msgstr "喂食量"
 
@@ -2327,16 +2296,15 @@ msgstr "喂食量"
 msgid "Feeding interval (hours)"
 msgstr ""
 
-#: reports/graphs/feeding_pattern.py:154
+#: reports/graphs/feeding_pattern.py:163
 #: reports/templates/reports/feeding_pattern.html:4
 #: reports/templates/reports/feeding_pattern.html:9
 #: reports/templates/reports/report_list.html:32
 #, fuzzy
-#| msgid "Sleep Pattern"
 msgid "Feeding Pattern"
 msgstr "睡眠类型"
 
-#: reports/graphs/feeding_pattern.py:171 reports/graphs/sleep_pattern.py:182
+#: reports/graphs/feeding_pattern.py:180 reports/graphs/sleep_pattern.py:182
 msgid "Time of day"
 msgstr "当日时间"
 
@@ -2362,7 +2330,6 @@ msgstr ""
 
 #: reports/graphs/pumping_amounts.py:59
 #, fuzzy
-#| msgid "<b>Total Pumping Amount</b>"
 msgid "Total Pumping Amount"
 msgstr "<b>合计吸奶量</b>"
 
@@ -2468,6 +2435,11 @@ msgstr ""
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr ""
 
+#~ msgid ""
+#~ "This setting will only be used when a browser does not support refresh on "
+#~ "focus."
+#~ msgstr "此设置仅在浏览器不支持焦点刷新时使用。"
+
 #~ msgid "1 min."
 #~ msgstr "1分钟"
 
@@ -2492,118 +2464,6 @@ msgstr ""
 #~ msgid "30 min."
 #~ msgstr "30分钟"
 
-#~ msgid "1 day"
-#~ msgstr "1天"
-
-#~ msgid "2 days"
-#~ msgstr "2天"
-
-#~ msgid "3 days"
-#~ msgstr "3天"
-
-#~ msgid "1 week"
-#~ msgstr "1周"
-
-#~ msgid "4 weeks"
-#~ msgstr "4 周"
-
-#, python-format
-#~ msgid "<strong>Error:</strong> %(error)s"
-#~ msgstr "<strong>错误:</strong> %(error)s"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<h1>Are you sure you want to delete <span class=\"text-"
-#~| "info\">%(object)s</span>?</h1>"
-#~ msgid ""
-#~ "<h1> Are you sure you want to delete <span class=\"text-"
-#~ "info\">%(object)s</span>? </h1>"
-#~ msgstr "<h1>确定要删除<span class=\"text-info\">%(object)s</span>吗？</h1>"
-
-#, fuzzy, python-format
-#~| msgid ""
-#~| "<h1>Are you sure you want to unlock <span class=\"text-"
-#~| "info\">%(object)s</span>?</h1>"
-#~ msgid ""
-#~ "<h1> Are you sure you want to unlock <span class=\"text-"
-#~ "info\">%(object)s</span>? </h1>"
-#~ msgstr "<h1>确定要删除<span class=\"text-info\">%(object)s</span>吗？</h1>"
-
-#, fuzzy, python-format
-#~| msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
-#~ msgid "<h1> Update <span class=\"text-info\">%(object)s</span> </h1>"
-#~ msgstr "<h1>更新 <span class=\"text-info\">%(object)s</span></h1>"
-
-#~ msgid ""
-#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
-#~ "again."
-#~ msgstr "<strong>糟糕！</strong> 两次密码输入的不一致，请重试。"
-
-#~ msgid "{}, {}"
-#~ msgstr "{}, {}"
-
-#, python-format
-#~ msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
-#~ msgstr "<div>%(since)s 之前</div> <small>%(time)s</small>"
-
-#, fuzzy, python-format
-#~| msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
-#~ msgid "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
-#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
-
-#~ msgid "<b>BMI</b>"
-#~ msgstr "<b>身体质量指数(BMI)</b>"
-
-#~ msgid "<b>Diaper Change Amounts</b>"
-#~ msgstr "<b>换尿布数量</b>"
-
-#~ msgid "<b>Diaper Lifetimes</b>"
-#~ msgstr "<b>换尿布时间间隔</b>"
-
-#~ msgid "<b>Diaper Change Types</b>"
-#~ msgstr "<b>换尿布类型</b>"
-
-#~ msgid "<b>Average Feeding Durations</b>"
-#~ msgstr "<b>平均喂食持续时间</b>"
-
-#, fuzzy
-#~| msgid "<b>Sleep Pattern</b>"
-#~ msgid "<b>Feeding Pattern</b>"
-#~ msgstr "<b>睡眠类型</b>"
-
-#~ msgid "<b>Head Circumference</b>"
-#~ msgstr "<b>头围</b>"
-
-#~ msgid "<b>Height</b>"
-#~ msgstr "<b>身高</b>"
-
-#~ msgid "<b>Sleep Pattern</b>"
-#~ msgstr "<b>睡眠类型</b>"
-
-#~ msgid "<b>Sleep Totals</b>"
-#~ msgstr "<b>睡眠总计</b>"
-
-#~ msgid "<b>Temperature</b>"
-#~ msgstr "<b>体温</b>"
-
-#~ msgid "<b>Total Tummy Time Durations</b>"
-#~ msgstr "<b>趴玩时光持续时间合计</b>"
-
-#~ msgid "<b>Weight</b>"
-#~ msgstr "<b>体重</b>"
-
-#~ msgid "0 days"
-#~ msgstr "0天"
-
-#, python-format
-#~ msgid "%(key)s days ago"
-#~ msgstr "%(key)s 天之前"
-
-#~ msgid ""
-#~ "This setting will only be used when a browser does not support refresh on "
-#~ "focus."
-#~ msgstr "此设置仅在浏览器不支持焦点刷新时使用。"
-
 #~ msgid "English"
 #~ msgstr "英语"
 
@@ -2614,12 +2474,27 @@ msgstr ""
 #~ "您没有访问此资源的权限。\n"
 #~ "请与站点管理员联系以获取帮助。"
 
+#~ msgid "<strong>Error:</strong> %(error)s"
+#~ msgstr "<strong>错误:</strong> %(error)s"
+
 #~ msgid ""
 #~ "<strong>Error:</strong> Some fields have errors. See below for details. "
 #~ msgstr "<strong>错误:</strong> 字段填写错误。参见具体原因。 "
 
 #~ msgid "Backend Admin"
 #~ msgstr "后台管理员"
+
+#~ msgid ""
+#~ "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr "<h1>确定要删除<span class=\"text-info\">%(object)s</span>吗？</h1>"
+
+#~ msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#~ msgstr "<h1>更新 <span class=\"text-info\">%(object)s</span></h1>"
+
+#~ msgid ""
+#~ "<strong>Error:</strong> Some fields have errors. See below for details."
+#~ msgstr "<strong>错误:</strong> 有些字段有错误。详情见下文。 "
 
 #~ msgid ""
 #~ "Learn about and predict baby's needs without\n"
@@ -2682,6 +2557,9 @@ msgstr ""
 #~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
 #~ msgstr "只有“奶瓶”方式才允许使用“配方奶”类型。"
 
+#~ msgid "Add a Change"
+#~ msgstr "添加一条尿布记录"
+
 #~ msgid "Stopped"
 #~ msgstr "已经结束"
 
@@ -2696,6 +2574,12 @@ msgstr ""
 
 #~ msgid "%(timer)s stopped."
 #~ msgstr "%(timer)s 停止。"
+
+#~ msgid "%(time)s ago"
+#~ msgstr "%(time)s 之前"
+
+#~ msgid "%(key)s days ago"
+#~ msgstr "%(key)s 天之前"
 
 #~ msgid "Today's Sleep"
 #~ msgstr "今天的睡觉"
@@ -2718,8 +2602,31 @@ msgstr ""
 #~ msgid "Started by %(instance.user)s at %(start)s"
 #~ msgstr "在 %(start)s 由 %(instance.user)s 开始"
 
+#~ msgid "<b>Diaper Lifetimes</b>"
+#~ msgstr "<b>换尿布时间间隔</b>"
+
+#~ msgid "<b>Diaper Change Types</b>"
+#~ msgstr "<b>换尿布类型</b>"
+
+#~ msgid "<b>Average Feeding Durations</b>"
+#~ msgstr "<b>平均喂食持续时间</b>"
+
+#~ msgid "<b>Sleep Pattern</b>"
+#~ msgstr "<b>睡眠类型</b>"
+
+#~ msgid "<b>Sleep Totals</b>"
+#~ msgstr "<b>睡眠总计</b>"
+
+#~ msgid "<b>Weight</b>"
+#~ msgstr "<b>体重</b>"
+
 #~ msgid "There is no enough data to generate this report."
 #~ msgstr "没有足够的数据来生成报告。"
+
+#~ msgid ""
+#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
+#~ "again."
+#~ msgstr "<strong>糟糕！</strong> 两次密码输入的不一致，请重试。"
 
 #~ msgid "Total feeding amount"
 #~ msgstr "合计喂食量"
@@ -2748,11 +2655,38 @@ msgstr ""
 #~ msgid "%(n)s feeding%(plural)s ago"
 #~ msgstr "前 %(n)s 次喂食%(plural)s"
 
+#~ msgid "<b>Diaper Change Amounts</b>"
+#~ msgstr "<b>换尿布数量</b>"
+
+#~ msgid "1 day"
+#~ msgstr "1天"
+
+#~ msgid "2 days"
+#~ msgstr "2天"
+
+#~ msgid "3 days"
+#~ msgstr "3天"
+
+#~ msgid "1 week"
+#~ msgstr "1周"
+
+#~ msgid "4 weeks"
+#~ msgstr "4 周"
+
 #~ msgid "Delete timer"
 #~ msgstr "删除计时器"
 
+#~ msgid "{}, {}"
+#~ msgstr "{}, {}"
+
+#~ msgid "0 days"
+#~ msgstr "0天"
+
 #~ msgid "Contents: %(contents)s"
 #~ msgstr "内容: %(contents)s"
+
+#~ msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
+#~ msgstr "<div>%(since)s 之前</div> <small>%(time)s</small>"
 
 #~ msgid "Today's Feeding"
 #~ msgstr "今天的喂食"
@@ -2760,15 +2694,59 @@ msgstr ""
 #~ msgid "%(count)s feeding entries"
 #~ msgstr "%(count)s 喂食条目"
 
+#~ msgid "<b>Total Tummy Time Durations</b>"
+#~ msgstr "<b>趴玩时光持续时间合计</b>"
+
 #~ msgid "Napping"
 #~ msgstr "小睡"
 
 #~ msgid "No bmi entries found."
 #~ msgstr "未找到BMI记录。"
 
+#~ msgid "<b>BMI</b>"
+#~ msgstr "<b>身体质量指数(BMI)</b>"
+
+#~ msgid "<b>Total Feeding Amount by Type</b>"
+#~ msgstr "<b>按类型划分的总喂食量统计</b>"
+
+#~ msgid "<b>Head Circumference</b>"
+#~ msgstr "<b>头围</b>"
+
+#~ msgid "<b>Height</b>"
+#~ msgstr "<b>身高</b>"
+
+#~ msgid ""
+#~ "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
+#~ "environment variable. If multiple origins are required separate with "
+#~ "commas."
+#~ msgstr ""
+#~ "添加 <samp>%(origin)s</samp> 到环境变量 <code>CSRF_TRUSTED_ORIGINS</"
+#~ "code>。用英文逗号分隔多个来源。"
+
+#~ msgid "The path <code>%(request_path)s</code> does not exist."
+#~ msgstr "路径 <code>%(request_path)s</code> 不存在。"
+
+#~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
+
+#~ msgid "<b>Total Pumping Amount</b>"
+#~ msgstr "<b>合计吸奶量</b>"
+
+#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
+#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+#~ msgstr[0] "确定要删除%(number)s个非活动的计时器?"
+
 #~ msgid "%(count)s active timer"
 #~ msgid_plural "%(count)s active timers"
 #~ msgstr[0] "%(count)s 个激活的计时器"
 
+#~ msgid ""
+#~ "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr "<h1>确定要删除<span class=\"text-info\">%(object)s</span>吗？</h1>"
+
 #~ msgid " days ago"
 #~ msgstr "%(key)s 天之前"
+
+#~ msgid "<b>Temperature</b>"
+#~ msgstr "<b>体温</b>"

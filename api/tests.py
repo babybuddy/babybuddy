@@ -179,6 +179,7 @@ class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
 class PumpingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse("api:pumping-list")
     model = models.Pumping
+    timer_test_data = {"amount": 2}
 
     def test_get(self):
         response = self.client.get(self.endpoint)

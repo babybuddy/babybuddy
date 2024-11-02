@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 boto3 = "*"
 dj-database-url = "*"
-django = "~=5.0"
+django = "~=5.1.1"
 django-axes = "*"
 django-filter = "*"
 django-imagekit = "*"
@@ -27,6 +27,7 @@ django-qr-code = "*"
 django-cors-headers = "*"
 django-dbsettings = "*"
 django-import-export = "*"
+inflection = "*"
 
 [dev-packages]
 coveralls = "*"
