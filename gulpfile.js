@@ -10,7 +10,6 @@ import gStylelintEsm from "gulp-stylelint-esm";
 import gulp from "gulp";
 import gulpSass from "gulp-sass";
 import minify from "gulp-minify";
-import removeSourcemaps from "gulp-remove-sourcemaps";
 import sassGlob from "gulp-sass-glob";
 
 const es = child_process.execSync;
@@ -202,7 +201,6 @@ function scripts() {
     streams.push(
       gulp
         .src(config.scriptsConfig[type])
-        .pipe(removeSourcemaps())
         .pipe(concat(`${type}.js`))
         .pipe(
           minify({
@@ -220,10 +218,19 @@ function scripts() {
  * Builds and copies CSS static files to configured paths.
  */
 function styles() {
+  // Silence Dart Sass deprecations until bootstrap is updated to support the changes.
+  // @see https://github.com/twbs/bootstrap/issues/40962
+  const silenceDeprecations = [
+    "color-functions",
+    "global-builtin",
+    "import",
+    "legacy-js-api",
+    "mixed-decls",
+  ];
   return gulp
     .src(config.stylesConfig.app)
     .pipe(sassGlob({ ignorePaths: config.stylesConfig.ignore }))
-    .pipe(sass().on("error", sass.logError))
+    .pipe(sass.sync({ silenceDeprecations }).on("error", sass.logError))
     .pipe(concat("app.css"))
     .pipe(gulp.dest(config.stylesConfig.dest));
 }
