@@ -218,10 +218,19 @@ function scripts() {
  * Builds and copies CSS static files to configured paths.
  */
 function styles() {
+  // Silence Dart Sass deprecations until bootstrap is updated to support the changes.
+  // @see https://github.com/twbs/bootstrap/issues/40962
+  const silenceDeprecations = [
+    "color-functions",
+    "global-builtin",
+    "import",
+    "legacy-js-api",
+    "mixed-decls",
+  ];
   return gulp
     .src(config.stylesConfig.app)
     .pipe(sassGlob({ ignorePaths: config.stylesConfig.ignore }))
-    .pipe(sass().on("error", sass.logError))
+    .pipe(sass.sync({ silenceDeprecations }).on("error", sass.logError))
     .pipe(concat("app.css"))
     .pipe(gulp.dest(config.stylesConfig.dest));
 }
