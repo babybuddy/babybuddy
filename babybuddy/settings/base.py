@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split("
 SECRET_KEY = os.environ.get("SECRET_KEY") or None
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
-
 # Applications
 # https://docs.djangoproject.com/en/5.0/ref/applications/
 
@@ -63,6 +62,7 @@ INSTALLED_APPS = [
 # https://docs.djangoproject.com/en/5.0/ref/middleware/
 
 MIDDLEWARE = [
+    "babybuddy.middleware.HomeAssistant",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -77,7 +77,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "axes.middleware.AxesMiddleware",
-    "babybuddy.middleware.HomeAssistant",
 ]
 
 

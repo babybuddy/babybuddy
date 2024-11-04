@@ -5,7 +5,6 @@ from django.db.models.functions import TruncDate
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
-from datetime import date, datetime, time, timedelta
 import collections
 
 from core import models
@@ -55,21 +54,20 @@ def card_diaperchange_types(context, child, date=None):
     Creates a break down of wet and solid Diaper Change instances for the past
     seven days.
     :param child: an instance of the Child model.
-    :param date: a Date object for the day to filter.
+    :param date: a datetime object for the day to filter.
     :returns: a dictionary with the wet/solid/empty statistics.
     """
     if not date:
-        time = timezone.localtime()
+        date = timezone.localtime()
     else:
-        time = timezone.datetime.combine(date, timezone.localtime().min.time())
-        time = timezone.make_aware(time)
-    stats = {}
-    week_total = 0
-    max_date = (time + timezone.timedelta(days=1)).replace(hour=0, minute=0, second=0)
+        date = timezone.datetime.combine(date, timezone.localtime().min.time())
+        date = timezone.make_aware(date)
+    max_date = (date + timezone.timedelta(days=1)).replace(hour=0, minute=0, second=0)
     min_date = (max_date - timezone.timedelta(days=7)).replace(
         hour=0, minute=0, second=0
     )
 
+    stats = {}
     for x in range(7):
         stats[x] = {"wet": 0.0, "solid": 0.0, "empty": 0.0, "changes": 0.0}
 
@@ -82,7 +80,7 @@ def card_diaperchange_types(context, child, date=None):
     empty = len(instances) == 0
 
     for instance in instances:
-        key = (max_date - instance.time).days
+        key = (max_date - timezone.localtime(instance.time)).days
         stats[key]["changes"] += 1
         if instance.wet:
             stats[key]["wet"] += 1
@@ -91,6 +89,7 @@ def card_diaperchange_types(context, child, date=None):
         if not instance.wet and not instance.solid:
             stats[key]["empty"] += 1
 
+    week_total = 0
     for key, info in stats.items():
         total = info["wet"] + info["solid"] + info["empty"]
         week_total += total
@@ -114,16 +113,16 @@ def card_breastfeeding(context, child, date=None):
     Creates a break down of breasts used for breastfeeding, for the past
     seven days.
     :param child: an instance of the Child model.
-    :param date: a Date object for the day to filter.
+    :param date: a datetime object for the day to filter.
     :returns: a dictionary with the statistics.
     """
     if date:
-        time = timezone.datetime.combine(date, timezone.localtime().min.time())
-        time = timezone.make_aware(time)
+        date = timezone.datetime.combine(date, timezone.localtime().min.time())
+        date = timezone.make_aware(date)
     else:
-        time = timezone.localtime()
+        date = timezone.localtime()
 
-    max_date = (time + timezone.timedelta(days=1)).replace(hour=0, minute=0, second=0)
+    max_date = (date + timezone.timedelta(days=1)).replace(hour=0, minute=0, second=0)
     min_date = (max_date - timezone.timedelta(days=7)).replace(
         hour=0, minute=0, second=0
     )
@@ -136,8 +135,6 @@ def card_breastfeeding(context, child, date=None):
         .order_by("-start")
     )
 
-    empty = len(instances) == 0
-
     # Create a `stats` dictionary, keyed by day for the past 7 days.
     stats = {}
     for x in range(7):
@@ -146,7 +143,7 @@ def card_breastfeeding(context, child, date=None):
     # Group feedings per day.
     per_day = collections.defaultdict(list)
     for instance in instances:
-        key = (max_date - instance.start).days
+        key = (max_date - timezone.localtime(instance.start)).days
         per_day[key].append(instance)
 
     # Go through each day, set the stats dictionary for that day.
@@ -162,7 +159,8 @@ def card_breastfeeding(context, child, date=None):
         stats[key] = {
             "count": len(day_instances),
             "duration": sum(
-                (instance.duration for instance in day_instances), start=timedelta()
+                (instance.duration for instance in day_instances),
+                start=timezone.timedelta(),
             ),
             "left_count": left_count,
             "right_count": right_count,
@@ -174,7 +172,7 @@ def card_breastfeeding(context, child, date=None):
         "type": "feeding",
         "stats": stats,
         "total": len(instances),
-        "empty": empty,
+        "empty": len(instances) == 0,
         "hide_empty": _hide_empty(context),
     }
 
@@ -531,17 +529,15 @@ def _diaperchange_statistics(child):
     """
     changes = [
         {
-            "start": timezone.now() - timezone.timedelta(days=3),
+            "start": timezone.localtime() - timezone.timedelta(days=3),
             "title": _("Diaper change frequency (past 3 days)"),
         },
         {
-            "start": timezone.now() - timezone.timedelta(weeks=2),
+            "start": timezone.localtime() - timezone.timedelta(weeks=2),
             "title": _("Diaper change frequency (past 2 weeks)"),
         },
         {
-            "start": timezone.make_aware(
-                datetime.combine(date.min, time(0, 0)) + timezone.timedelta(days=1)
-            ),
+            "start": None,
             "title": _("Diaper change frequency"),
         },
     ]
@@ -558,8 +554,11 @@ def _diaperchange_statistics(child):
     for instance in instances:
         if last_instance:
             for timespan in changes:
-                if last_instance.time > timespan["start"]:
-                    timespan["btwn_total"] += instance.time - last_instance.time
+                last_time = timezone.localtime(last_instance.time)
+                if timespan["start"] is None or last_time > timespan["start"]:
+                    timespan["btwn_total"] += (
+                        timezone.localtime(instance.time) - last_time
+                    )
                     timespan["btwn_count"] += 1
         last_instance = instance
 
@@ -577,17 +576,15 @@ def _feeding_statistics(child):
     """
     feedings = [
         {
-            "start": timezone.now() - timezone.timedelta(days=3),
+            "start": timezone.localtime() - timezone.timedelta(days=3),
             "title": _("Feeding frequency (past 3 days)"),
         },
         {
-            "start": timezone.now() - timezone.timedelta(weeks=2),
+            "start": timezone.localtime() - timezone.timedelta(weeks=2),
             "title": _("Feeding frequency (past 2 weeks)"),
         },
         {
-            "start": timezone.make_aware(
-                datetime.combine(date.min, time(0, 0)) + timezone.timedelta(days=1)
-            ),
+            "start": None,
             "title": _("Feeding frequency"),
         },
     ]
@@ -604,8 +601,11 @@ def _feeding_statistics(child):
     for instance in instances:
         if last_instance:
             for timespan in feedings:
-                if last_instance.start > timespan["start"]:
-                    timespan["btwn_total"] += instance.start - last_instance.end
+                start = timezone.localtime(instance.start)
+                last_start = timezone.localtime(last_instance.start)
+                last_end = timezone.localtime(last_instance.end)
+                if timespan["start"] is None or last_start > timespan["start"]:
+                    timespan["btwn_total"] += start - last_end
                     timespan["btwn_count"] += 1
         last_instance = instance
 
@@ -667,7 +667,9 @@ def _sleep_statistics(child):
     last_instance = None
     for instance in instances:
         if last_instance:
-            sleep["btwn_total"] += instance.start - last_instance.end
+            start = timezone.localtime(instance.start)
+            last_end = timezone.localtime(last_instance.end)
+            sleep["btwn_total"] += start - last_end
         last_instance = instance
 
     if sleep["count"] > 0:

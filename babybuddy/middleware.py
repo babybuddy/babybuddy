@@ -1,3 +1,4 @@
+import logging
 from os import getenv
 from time import time
 from functools import wraps
@@ -7,7 +8,13 @@ from urllib.parse import urlunsplit, urlsplit
 from django.conf import settings
 from django.utils import timezone, translation
 from django.contrib.auth.middleware import RemoteUserMiddleware
-from django.http import HttpRequest
+from django.http import (
+    HttpRequest,
+    HttpResponseRedirect,
+    HttpResponse,
+    StreamingHttpResponse,
+)
+from django.urls.base import set_script_prefix, get_script_prefix
 
 
 class UserLanguageMiddleware:
@@ -128,27 +135,7 @@ class HomeAssistant:
     def __init__(self, get_response):
         self.get_response = get_response
         self.home_assistant_support_enabled = settings.ENABLE_HOME_ASSISTANT_SUPPORT
-
-    def __wrap_build_absolute_uri(self, request: HttpRequest):
-        def wrap_x_ingress_path(org_func):
-            if not request.is_homeassistant_ingress_request:
-                return org_func
-            x_ingress_path = request.headers.get("X-Ingress-Path")
-            if x_ingress_path is None:
-                return org_func
-
-            @wraps(org_func)
-            def wrapper(*args, **kwargs):
-                url = org_func(*args, **kwargs)
-                url_parts = urlsplit(url)
-                url = urlunsplit(
-                    url_parts._replace(path=x_ingress_path + url_parts.path)
-                )
-                return url
-
-            return wrapper
-
-        request.build_absolute_uri = wrap_x_ingress_path(request.build_absolute_uri)
+        self.original_script_prefix = get_script_prefix()
 
     def __call__(self, request: HttpRequest):
         if self.home_assistant_support_enabled:
@@ -158,6 +145,82 @@ class HomeAssistant:
         else:
             request.is_homeassistant_ingress_request = False
 
-        self.__wrap_build_absolute_uri(request)
+        apply_x_ingress_path = True
+        if not request.is_homeassistant_ingress_request:
+            apply_x_ingress_path = False
+        x_ingress_path = request.headers.get("X-Ingress-Path")
+        if x_ingress_path is None:
+            apply_x_ingress_path = False
 
-        return self.get_response(request)
+        if apply_x_ingress_path:
+            set_script_prefix("/" + x_ingress_path.lstrip("/"))
+        else:
+            set_script_prefix(self.original_script_prefix)
+
+        response = self.get_response(request)
+
+        if apply_x_ingress_path:
+            is_redirect_response = isinstance(
+                response, HttpResponseRedirect
+            ) or response.status_code in [301, 307, 308]
+            if is_redirect_response:
+                split_url = urlsplit(response["Location"])
+                path_prefix = "/" + x_ingress_path.lstrip("/")
+                if not split_url.path.startswith(path_prefix):
+                    new_url = urlunsplit(
+                        (
+                            split_url.scheme,
+                            split_url.netloc,
+                            "/" + x_ingress_path.lstrip("/") + split_url.path,
+                            split_url.query,
+                            split_url.fragment,
+                        )
+                    )
+                    response["Location"] = new_url
+            elif isinstance(response, StreamingHttpResponse):
+                # Pray that the response works
+                logging.error(
+                    "HomeAssistant middleware: StreamingHttpResponse is not "
+                    "supported. Resulting URLs to home assistant ingress might "
+                    "be incorrect."
+                )
+            elif isinstance(response, HttpResponse):
+                if response["Content-Type"].lower().startswith("text/html"):
+                    # Filter /static and /media URLs, I did not find a better
+                    # way that would be compatible with external third-party apps.
+                    content = response.content.decode()
+                    static_trunc = settings.STATIC_URL.rstrip("/")
+                    media_trunc = settings.MEDIA_URL.rstrip("/")
+
+                    content = (
+                        content.replace(
+                            f'"{static_trunc}',
+                            f'"{x_ingress_path}{static_trunc}',
+                        )
+                        .replace(
+                            f"'{static_trunc}",
+                            f"'{x_ingress_path}{static_trunc}",
+                        )
+                        .replace(
+                            f'"{media_trunc}',
+                            f'"{x_ingress_path}{media_trunc}',
+                        )
+                        .replace(
+                            f"'{media_trunc}",
+                            f"'{x_ingress_path}{media_trunc}",
+                        )
+                    )
+                    filtered_headers = {
+                        key: value
+                        for key, value in response.headers.items()
+                        if not key.lower().startswith("content-")
+                    }
+                    response = HttpResponse(
+                        content.encode(),
+                        status=response.status_code,
+                        content_type=response["Content-Type"],
+                        charset=response.charset,
+                        headers=filtered_headers,
+                    )
+
+        return response

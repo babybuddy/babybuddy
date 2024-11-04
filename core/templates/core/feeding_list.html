@@ -91,7 +91,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="8">{% trans "No feedings found." %}</th>
+                        <th colspan="{% if not unique_child %} 9 {% else %} 8 {% endif %}">{% trans "No feedings found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
