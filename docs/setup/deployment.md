@@ -20,8 +20,6 @@ services:
   babybuddy:
     image: lscr.io/linuxserver/babybuddy
     container_name: babybuddy
-    environment:
-      - TZ=UTC
     volumes:
       - /path/to/appdata:/config
     ports:
