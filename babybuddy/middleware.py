@@ -143,7 +143,7 @@ class HomeAssistant:
                 request.headers.get("X-Hass-Source") == "core.ingress"
             )
         else:
-            request.is_homeassistant_ingress_request = False
+            return self.get_response(request)
 
         apply_x_ingress_path = True
         if not request.is_homeassistant_ingress_request:
