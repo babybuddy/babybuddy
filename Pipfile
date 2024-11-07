@@ -28,6 +28,7 @@ django-cors-headers = "*"
 django-dbsettings = "*"
 django-import-export = "*"
 inflection = "*"
+paho-mqtt = "*"
 
 [dev-packages]
 coveralls = "*"
@@ -38,3 +39,6 @@ tblib = "*"
 black = "*"
 djlint = "*"
 pysnooper = "*"
+
+[mqtt]
+paho-mqtt = "*"
