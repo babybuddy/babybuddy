@@ -281,7 +281,7 @@ class CoreModelBase(models.Model):
         return self.mqtt_client
 
     def _publish_to_mqtt(self):
-        if settings.MQTT:
+        if settings.MQTT["host"]:
             payload = self._as_json_payload()
             client = self._init_mqtt_client(settings.MQTT)
             client.publish(settings.MQTT["topic"], payload)
