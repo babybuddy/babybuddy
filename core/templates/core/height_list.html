@@ -42,6 +42,13 @@
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
+                                {% if perms.core.view_height %}
+                                    <a href="{% url 'core:height-history' height.id %}"
+                                       title="{% trans "Entry History" %}"
+                                       class="btn btn-secondary">
+                                        <i class="icon-history" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
                                 {% if perms.core.delete_height %}
                                     <a href="{% url 'core:height-delete' height.id %}"
                                        class="btn btn-danger">

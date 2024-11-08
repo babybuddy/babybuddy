@@ -52,6 +52,13 @@
                                             <i class="icon-update" aria-hidden="true"></i>
                                         </a>
                                     {% endif %}
+                                    {% if perms.core.view_feeding %}
+                                        <a href="{% url 'core:feeding-history' feeding.id %}"
+                                           title="{% trans "Entry History" %}"
+                                           class="btn btn-secondary">
+                                            <i class="icon-history" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
                                     {% if perms.core.delete_feeding %}
                                         <a href="{% url 'core:feeding-delete' feeding.id %}"
                                            class="btn btn-danger">

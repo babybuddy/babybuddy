@@ -42,6 +42,13 @@
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
+                                {% if perms.core.view_weight %}
+                                    <a href="{% url 'core:weight-history' weight.id %}"
+                                       title="{% trans "Entry History" %}"
+                                       class="btn btn-secondary">
+                                        <i class="icon-history" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
                                 {% if perms.core.delete_weight %}
                                     <a href="{% url 'core:weight-delete' weight.id %}"
                                        class="btn btn-danger">

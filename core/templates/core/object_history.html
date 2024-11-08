@@ -1,7 +1,7 @@
 {% extends 'babybuddy/page.html' %}
 {% load breadcrumb datetime i18n %}
 {% block title %}
-    {{ object }} {% trans "History" %}
+    {{ object }} {% trans "Entry History" %}
 {% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
@@ -10,10 +10,10 @@
     <li class="breadcrumb-item">
         <a href="{{ object.get_absolute_url }}">{{ object }}</a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">{% trans "History" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Entry History" %}</li>
 {% endblock %}
 {% block content %}
-    <h1>{{ object }} {% trans "History" %}</h1>
+    <h1>{{ object }} {% trans "Entry History" %}</h1>
     {% for entry in object.history.all %}
         <h2 class="fs-4">
             {% if entry.action == 0 %}

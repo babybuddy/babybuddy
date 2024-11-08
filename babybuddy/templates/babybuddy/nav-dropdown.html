@@ -20,7 +20,7 @@
         <div>
         <a class="text-body-secondary"
            href="{% url 'core:timeline' %}"
-           aria-expanded="false"><i class="icon-2x icon-timeline" aria-hidden="true"></i>
+           aria-expanded="false"><i class="icon-2x icon-history" aria-hidden="true"></i>
     </a>
     &nbsp;
 </div>
@@ -100,7 +100,7 @@
         </li>
         <li class="nav-item{% if request.path == '/timeline' %} active{% endif %}">
             <a class="nav-link" href="{% url 'core:timeline' %}">
-                <i class="icon-timeline" aria-hidden="true"></i>
+                <i class="icon-history" aria-hidden="true"></i>
                 {% trans "Timeline" %}
             </a>
         </li>
