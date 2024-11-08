@@ -28,6 +28,7 @@ django-cors-headers = "*"
 django-dbsettings = "*"
 django-import-export = "*"
 inflection = "*"
+django-auditlog = "*"
 
 [dev-packages]
 coveralls = "*"

@@ -2,6 +2,7 @@
 import datetime
 import re
 
+from auditlog.models import AuditlogHistoryField
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -96,6 +97,7 @@ class Tag(TagBase):
         default=timezone.now,
         blank=False,
     )
+    history = AuditlogHistoryField()
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
@@ -149,6 +151,7 @@ class BMI(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -184,6 +187,7 @@ class Child(models.Model):
     picture = models.ImageField(
         blank=True, null=True, upload_to="child/picture/", verbose_name=_("Picture")
     )
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -254,6 +258,7 @@ class DiaperChange(models.Model):
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -325,6 +330,7 @@ class Feeding(models.Model):
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -364,6 +370,7 @@ class HeadCircumference(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -394,6 +401,7 @@ class Height(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -448,6 +456,7 @@ class Note(models.Model):
         blank=True, null=True, upload_to="notes/images/", verbose_name=_("Image")
     )
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -489,6 +498,7 @@ class Pumping(models.Model):
     amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -532,6 +542,7 @@ class Sleep(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
     settings = NapSettings(_("Nap settings"))
@@ -579,6 +590,7 @@ class Temperature(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -618,6 +630,7 @@ class Timer(models.Model):
         related_name="timers",
         verbose_name=_("User"),
     )
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -690,6 +703,7 @@ class TummyTime(models.Model):
         blank=True, max_length=255, verbose_name=_("Milestone")
     )
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -728,6 +742,7 @@ class Weight(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
