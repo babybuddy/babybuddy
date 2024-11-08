@@ -8,7 +8,7 @@
         <a href="{% url 'core:tag-list' %}">{% trans "Tags" %}</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{% url 'core:tag-detail' tag.slug %}">{{ object }}</a>
+        <a href="{% url 'core:tag' tag.slug %}">{{ object }}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
 {% endblock %}

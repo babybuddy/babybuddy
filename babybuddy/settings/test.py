@@ -15,6 +15,13 @@ PASSWORD_HASHERS = [
 
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
+# Audit log configuration
+# See https://django-auditlog.readthedocs.io/en/latest/index.html
+
+AUDITLOG_EXCLUDE_TRACKING_FIELDS = ()
+
+AUDITLOG_INCLUDE_ALL_MODELS = False
+
 # Axes configuration
 # See https://django-axes.readthedocs.io/en/latest/4_configuration.html
 

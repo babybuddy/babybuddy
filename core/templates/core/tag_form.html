@@ -13,7 +13,7 @@
     </li>
     {% if object %}
         <li class="breadcrumb-item" aria-current="page">
-            <a href="{% url 'core:tag-detail' object.slug %}">{{ object }}</a>
+            <a href="{% url 'core:tag' object.slug %}">{{ object }}</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
     {% else %}

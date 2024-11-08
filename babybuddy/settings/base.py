@@ -366,12 +366,12 @@ IMPORT_EXPORT_EXPORT_PERMISSION_CODE = "change"
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
-# Audit log condfiguration
+# Audit log configuration
 # See https://django-auditlog.readthedocs.io/en/latest/index.html
 
-AUDITLOG_INCLUDE_ALL_MODELS = True
-
 AUDITLOG_EXCLUDE_TRACKING_FIELDS = ("id", "last_used")
+
+AUDITLOG_INCLUDE_ALL_MODELS = True
 
 # Axes configuration
 # See https://django-axes.readthedocs.io/en/latest/4_configuration.html

@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.functions import Lower
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.text import format_lazy, slugify
 from django.utils.translation import gettext_lazy as _
@@ -105,6 +106,12 @@ class Tag(TagBase):
         verbose_name = _("Tag")
         verbose_name_plural = _("Tags")
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:tag", kwargs={"slug": self.slug})
+
+    def get_list_url(self):
+        return reverse_lazy("core:tag-list")
+
     @property
     def complementary_color(self):
         if not self.color:
@@ -167,6 +174,12 @@ class BMI(models.Model):
     def clean(self):
         validate_date(self.date, "date")
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:bmi-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:bmi-list")
+
 
 class Child(models.Model):
     model_name = "child"
@@ -210,6 +223,12 @@ class Child(models.Model):
     def delete(self, using=None, keep_parents=False):
         super(Child, self).delete(using, keep_parents)
         cache.set(self.cache_key_count, Child.objects.count(), None)
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:child", kwargs={"slug": self.slug})
+
+    def get_list_url(self):
+        return reverse_lazy("core:child-list")
 
     def name(self, reverse=False):
         if not self.last_name:
@@ -284,6 +303,12 @@ class DiaperChange(models.Model):
     def clean(self):
         validate_time(self.time, "time")
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:diaperchange-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:diaperchange-list")
+
 
 class Feeding(models.Model):
     model_name = "feeding"
@@ -353,6 +378,12 @@ class Feeding(models.Model):
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:feeding-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:feeding-list")
+
 
 class HeadCircumference(models.Model):
     model_name = "head_circumference"
@@ -386,6 +417,12 @@ class HeadCircumference(models.Model):
     def clean(self):
         validate_date(self.date, "date")
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:head-circumference-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:head-circumference-list")
+
 
 class Height(models.Model):
     model_name = "height"
@@ -416,6 +453,12 @@ class Height(models.Model):
 
     def clean(self):
         validate_date(self.date, "date")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:height-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:height-list")
 
 
 class HeightPercentile(models.Model):
@@ -469,6 +512,12 @@ class Note(models.Model):
     def __str__(self):
         return str(_("Note"))
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:note-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:note-list")
+
 
 class Pumping(models.Model):
     model_name = "pumping"
@@ -520,6 +569,12 @@ class Pumping(models.Model):
         validate_time(self.start, "start")
         validate_duration(self)
         validate_unique_period(Pumping.objects.filter(child=self.child), self)
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:pumping-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:pumping-list")
 
 
 class Sleep(models.Model):
@@ -573,6 +628,12 @@ class Sleep(models.Model):
         validate_duration(self)
         validate_unique_period(Sleep.objects.filter(child=self.child), self)
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:sleep-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:sleep-list")
+
 
 class Temperature(models.Model):
     model_name = "temperature"
@@ -605,6 +666,12 @@ class Temperature(models.Model):
 
     def clean(self):
         validate_time(self.time, "time")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:temperature-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:temperature-list")
 
 
 class Timer(models.Model):
@@ -643,6 +710,19 @@ class Timer(models.Model):
     def __str__(self):
         return self.name or str(format_lazy(_("Timer #{id}"), id=self.id))
 
+    def save(self, *args, **kwargs):
+        self.name = self.name or None
+        super(Timer, self).save(*args, **kwargs)
+
+    def clean(self):
+        validate_time(self.start, "start")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:timer-detail", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:timer-list")
+
     @property
     def title_with_child(self):
         """Get Timer title with child name in parenthesis."""
@@ -670,13 +750,6 @@ class Timer(models.Model):
     def stop(self):
         """Stop (delete) the timer."""
         self.delete()
-
-    def save(self, *args, **kwargs):
-        self.name = self.name or None
-        super(Timer, self).save(*args, **kwargs)
-
-    def clean(self):
-        validate_time(self.start, "start")
 
 
 class TummyTime(models.Model):
@@ -727,6 +800,12 @@ class TummyTime(models.Model):
         validate_duration(self)
         validate_unique_period(TummyTime.objects.filter(child=self.child), self)
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:tummytime-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:tummytime-list")
+
 
 class Weight(models.Model):
     model_name = "weight"
@@ -757,6 +836,12 @@ class Weight(models.Model):
 
     def clean(self):
         validate_date(self.date, "date")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:weight-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:weight-list")
 
 
 class WeightPercentile(models.Model):
