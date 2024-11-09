@@ -1,12 +1,13 @@
 -i https://pypi.python.org/simple
 annotated-types==0.7.0; python_version >= '3.8'
 asgiref==3.8.1; python_version >= '3.8'
-boto3==1.35.54; python_version >= '3.8'
-botocore==1.35.54; python_version >= '3.8'
+boto3==1.35.56; python_version >= '3.8'
+botocore==1.35.56; python_version >= '3.8'
 diff-match-patch==20241021; python_version >= '3.7'
 dj-database-url==2.3.0
 django==5.1.3; python_version >= '3.10'
 django-appconf==1.0.6; python_version >= '3.7'
+django-auditlog==3.0.0; python_version >= '3.8'
 django-axes==7.0.0; python_version >= '3.7'
 django-cors-headers==4.6.0; python_version >= '3.9'
 django-dbsettings==1.3.0
