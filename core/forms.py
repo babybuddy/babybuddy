@@ -135,6 +135,7 @@ class CoreModelForm(forms.ModelForm):
 
 class TaggableModelForm(forms.ModelForm):
     tags = TagField(
+        label=_("Tags"),
         widget=TagsEditor,
         required=False,
         strip=True,
