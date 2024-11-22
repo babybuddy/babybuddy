@@ -2,11 +2,13 @@
 import datetime
 import re
 
+from auditlog.models import AuditlogHistoryField
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.functions import Lower
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.text import format_lazy, slugify
 from django.utils.translation import gettext_lazy as _
@@ -96,12 +98,19 @@ class Tag(TagBase):
         default=timezone.now,
         blank=False,
     )
+    history = AuditlogHistoryField()
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = [Lower("name")]
         verbose_name = _("Tag")
         verbose_name_plural = _("Tags")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:tag", kwargs={"slug": self.slug})
+
+    def get_list_url(self):
+        return reverse_lazy("core:tag-list")
 
     @property
     def complementary_color(self):
@@ -149,6 +158,7 @@ class BMI(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -163,6 +173,12 @@ class BMI(models.Model):
 
     def clean(self):
         validate_date(self.date, "date")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:bmi-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:bmi-list")
 
 
 class Child(models.Model):
@@ -184,6 +200,7 @@ class Child(models.Model):
     picture = models.ImageField(
         blank=True, null=True, upload_to="child/picture/", verbose_name=_("Picture")
     )
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -206,6 +223,12 @@ class Child(models.Model):
     def delete(self, using=None, keep_parents=False):
         super(Child, self).delete(using, keep_parents)
         cache.set(self.cache_key_count, Child.objects.count(), None)
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:child", kwargs={"slug": self.slug})
+
+    def get_list_url(self):
+        return reverse_lazy("core:child-list")
 
     def name(self, reverse=False):
         if not self.last_name:
@@ -254,6 +277,7 @@ class DiaperChange(models.Model):
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -278,6 +302,12 @@ class DiaperChange(models.Model):
 
     def clean(self):
         validate_time(self.time, "time")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:diaperchange-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:diaperchange-list")
 
 
 class Feeding(models.Model):
@@ -325,6 +355,7 @@ class Feeding(models.Model):
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -347,6 +378,12 @@ class Feeding(models.Model):
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:feeding-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:feeding-list")
+
 
 class HeadCircumference(models.Model):
     model_name = "head_circumference"
@@ -364,6 +401,7 @@ class HeadCircumference(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -378,6 +416,12 @@ class HeadCircumference(models.Model):
 
     def clean(self):
         validate_date(self.date, "date")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:head-circumference-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:head-circumference-list")
 
 
 class Height(models.Model):
@@ -394,6 +438,7 @@ class Height(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -408,6 +453,12 @@ class Height(models.Model):
 
     def clean(self):
         validate_date(self.date, "date")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:height-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:height-list")
 
 
 class HeightPercentile(models.Model):
@@ -448,6 +499,7 @@ class Note(models.Model):
         blank=True, null=True, upload_to="notes/images/", verbose_name=_("Image")
     )
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -459,6 +511,12 @@ class Note(models.Model):
 
     def __str__(self):
         return str(_("Note"))
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:note-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:note-list")
 
 
 class Pumping(models.Model):
@@ -489,6 +547,7 @@ class Pumping(models.Model):
     amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -511,6 +570,12 @@ class Pumping(models.Model):
         validate_duration(self)
         validate_unique_period(Pumping.objects.filter(child=self.child), self)
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:pumping-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:pumping-list")
+
 
 class Sleep(models.Model):
     model_name = "sleep"
@@ -532,6 +597,7 @@ class Sleep(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
     settings = NapSettings(_("Nap settings"))
@@ -562,6 +628,12 @@ class Sleep(models.Model):
         validate_duration(self)
         validate_unique_period(Sleep.objects.filter(child=self.child), self)
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:sleep-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:sleep-list")
+
 
 class Temperature(models.Model):
     model_name = "temperature"
@@ -579,6 +651,7 @@ class Temperature(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -593,6 +666,12 @@ class Temperature(models.Model):
 
     def clean(self):
         validate_time(self.time, "time")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:temperature-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:temperature-list")
 
 
 class Timer(models.Model):
@@ -618,6 +697,7 @@ class Timer(models.Model):
         related_name="timers",
         verbose_name=_("User"),
     )
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -629,6 +709,19 @@ class Timer(models.Model):
 
     def __str__(self):
         return self.name or str(format_lazy(_("Timer #{id}"), id=self.id))
+
+    def save(self, *args, **kwargs):
+        self.name = self.name or None
+        super(Timer, self).save(*args, **kwargs)
+
+    def clean(self):
+        validate_time(self.start, "start")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:timer-detail", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:timer-list")
 
     @property
     def title_with_child(self):
@@ -658,13 +751,6 @@ class Timer(models.Model):
         """Stop (delete) the timer."""
         self.delete()
 
-    def save(self, *args, **kwargs):
-        self.name = self.name or None
-        super(Timer, self).save(*args, **kwargs)
-
-    def clean(self):
-        validate_time(self.start, "start")
-
 
 class TummyTime(models.Model):
     model_name = "tummytime"
@@ -690,6 +776,7 @@ class TummyTime(models.Model):
         blank=True, max_length=255, verbose_name=_("Milestone")
     )
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -713,6 +800,12 @@ class TummyTime(models.Model):
         validate_duration(self)
         validate_unique_period(TummyTime.objects.filter(child=self.child), self)
 
+    def get_absolute_url(self):
+        return reverse_lazy("core:tummytime-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:tummytime-list")
+
 
 class Weight(models.Model):
     model_name = "weight"
@@ -728,6 +821,7 @@ class Weight(models.Model):
     )
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    history = AuditlogHistoryField()
 
     objects = models.Manager()
 
@@ -742,6 +836,12 @@ class Weight(models.Model):
 
     def clean(self):
         validate_date(self.date, "date")
+
+    def get_absolute_url(self):
+        return reverse_lazy("core:weight-update", kwargs={"pk": self.pk})
+
+    def get_list_url(self):
+        return reverse_lazy("core:weight-list")
 
 
 class WeightPercentile(models.Model):

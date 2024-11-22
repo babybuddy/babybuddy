@@ -41,6 +41,13 @@
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
+                                {% if perms.core.view_bmi %}
+                                    <a href="{% url 'core:bmi-history' bmi.id %}"
+                                       title="{% trans "Entry History" %}"
+                                       class="btn btn-secondary">
+                                        <i class="icon-history" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
                                 {% if perms.core.delete_bmi %}
                                     <a href="{% url 'core:bmi-delete' bmi.id %}" class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>

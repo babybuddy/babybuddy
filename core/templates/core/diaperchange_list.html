@@ -47,6 +47,13 @@
                                             <i class="icon-update" aria-hidden="true"></i>
                                         </a>
                                     {% endif %}
+                                    {% if perms.core.view_diaperchange %}
+                                        <a href="{% url 'core:diaperchange-history' change.id %}"
+                                           title="{% trans "Entry History" %}"
+                                           class="btn btn-secondary">
+                                            <i class="icon-history" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
                                     {% if perms.core.delete_diaperchange %}
                                         <a href="{% url 'core:diaperchange-delete' change.id %}"
                                            class="btn btn-danger">

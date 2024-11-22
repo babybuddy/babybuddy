@@ -39,6 +39,13 @@
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
+                                {% if perms.core.view_tag %}
+                                    <a href="{% url 'core:tag-history' tag.id %}"
+                                       title="{% trans "Entry History" %}"
+                                       class="btn btn-secondary">
+                                        <i class="icon-history" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
                                 {% if perms.core.delete_tag %}
                                     <a href="{% url 'core:tag-delete' tag.slug %}" class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
@@ -47,7 +54,7 @@
                             </div>
                         </td>
                         <td>
-                            <a href="{% url 'core:tag-detail' tag.slug %}">{{ tag.name }}</a>
+                            <a href="{% url 'core:tag' tag.slug %}">{{ tag.name }}</a>
                         </td>
                         <td class="text-center">
                             <span class="badge badge-pill me-1"

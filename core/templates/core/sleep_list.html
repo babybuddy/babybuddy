@@ -45,6 +45,13 @@
                                             <i class="icon-update" aria-hidden="true"></i>
                                         </a>
                                     {% endif %}
+                                    {% if perms.core.view_sleep %}
+                                        <a href="{% url 'core:sleep-history' sleep.id %}"
+                                           title="{% trans "Entry History" %}"
+                                           class="btn btn-secondary">
+                                            <i class="icon-history" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
                                     {% if perms.core.delete_sleep %}
                                         <a href="{% url 'core:sleep-delete' sleep.id %}" class="btn btn-danger">
                                             <i class="icon-delete" aria-hidden="true"></i>

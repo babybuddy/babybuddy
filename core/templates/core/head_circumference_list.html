@@ -43,6 +43,13 @@
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
+                                {% if perms.core.view_head_circumference %}
+                                    <a href="{% url 'core:head-circumference-history' head_circumference.id %}"
+                                       title="{% trans "Entry History" %}"
+                                       class="btn btn-secondary">
+                                        <i class="icon-history" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
                                 {% if perms.core.delete_head_circumference %}
                                     <a href="{% url 'core:head-circumference-delete' head_circumference.id %}"
                                        class="btn btn-danger">

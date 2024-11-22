@@ -53,8 +53,15 @@
                                  aria-label="{% trans "Actions" %}">
                                 {% if perms.core.change_child %}
                                     <a href="{% url 'core:child-update' child.slug %}"
-                                       class="btn btn-warning">
+                                       class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.view_child %}
+                                    <a href="{% url 'core:child-history' child.slug %}"
+                                       title="{% trans "Entry History" %}"
+                                       class="btn btn-secondary">
+                                        <i class="icon-history" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
                                 {% if perms.core.delete_child %}

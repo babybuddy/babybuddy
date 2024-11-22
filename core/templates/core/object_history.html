@@ -1,0 +1,59 @@
+{% extends 'babybuddy/page.html' %}
+{% load breadcrumb datetime i18n %}
+{% block title %}
+    {{ object }} {% trans "Entry History" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{{ object.get_absolute_url }}">{{ object|verbose_name_plural }}</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Entry History" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{{ object }} {% trans "Entry History" %}</h1>
+    {% for entry in object.history.all %}
+        <h2 class="fs-4">
+            {% if entry.action == 0 %}
+                {% trans "Entry Created" %}
+            {% elif entry.action == 1 %}
+                {% trans "Entry Updated" %}
+            {% elif entry.action == 1 %}
+                {% trans "Entry Deleted" %}
+            {% endif %}
+            <div class="fs-5 text-body-secondary">
+                {{ entry.timestamp }}
+                {% if entry.actor is not None %}
+                    {% blocktrans trimmed with actor=entry.actor %}
+                        by {{ actor }}
+                    {% endblocktrans %}
+                {% endif %}
+            </div>
+        </h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-instances table-borderless table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>{% trans "Field" %}</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "To" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in entry.changes_display_dict.items %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value.0 }}</td>
+                            <td>{{ value.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <hr />
+    {% empty %}
+        <p>{% trans "No history has been logged yet." %}</p>
+    {% endfor %}
+{% endblock %}

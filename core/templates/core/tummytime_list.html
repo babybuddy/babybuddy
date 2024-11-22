@@ -45,6 +45,13 @@
                                             <i class="icon-update" aria-hidden="true"></i>
                                         </a>
                                     {% endif %}
+                                    {% if perms.core.view_tummytime %}
+                                        <a href="{% url 'core:tummytime-history' tummytime.id %}"
+                                           title="{% trans "Entry History" %}"
+                                           class="btn btn-secondary">
+                                            <i class="icon-history" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
                                     {% if perms.core.delete_tummytime %}
                                         <a href="{% url 'core:tummytime-delete' tummytime.id %}"
                                            class="btn btn-danger">

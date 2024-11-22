@@ -14,3 +14,8 @@ def child_quick_switch(current_child, target_url):
         "current_child": current_child,
         "target_url": target_url,
     }
+
+
+@register.filter
+def verbose_name_plural(obj):
+    return obj._meta.verbose_name_plural

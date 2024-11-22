@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "dashboard",
     "reports",
     "axes",
+    "auditlog",
     "django_filters",
     "rest_framework",
     "rest_framework.authtoken",
@@ -76,6 +77,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "auditlog.middleware.AuditlogMiddleware",
     "axes.middleware.AxesMiddleware",
 ]
 
@@ -363,6 +365,13 @@ IMPORT_EXPORT_IMPORT_PERMISSION_CODE = "add"
 IMPORT_EXPORT_EXPORT_PERMISSION_CODE = "change"
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+# Audit log configuration
+# See https://django-auditlog.readthedocs.io/en/latest/index.html
+
+AUDITLOG_EXCLUDE_TRACKING_FIELDS = ("id", "last_used")
+
+AUDITLOG_INCLUDE_ALL_MODELS = True
 
 # Axes configuration
 # See https://django-axes.readthedocs.io/en/latest/4_configuration.html
