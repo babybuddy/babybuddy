@@ -1219,7 +1219,7 @@ msgstr "%(count)s активних тајмера%(plural)s"
 
 #: dashboard/templates/cards/timer_list.html:19
 msgid "Started by %(instance.user)s at %(start)s"
-msgstr "Започето од стране %(instance.user)s у %(start)s\n"
+msgstr "Започето од стране %(instance.user)s у %(start)s"
 ""
 
 #: dashboard/templates/cards/tummytime_day.html:4
@@ -2254,7 +2254,7 @@ msgstr "Превише покушаја логовања"
 
 #: babybuddy/templates/registration/password_reset_email.html:3
 msgid "You're receiving this email because you requested a password reset for your user account at %(site_name)s."
-msgstr "Добијате овај мејл зато што сте захтевали промену лозинке за свој кориснички налог на %(site_name)s.\n"
+msgstr "Добијате овај мејл зато што сте захтевали промену лозинке за свој кориснички налог на %(site_name)s."
 ""
 
 #: babybuddy/templates/registration/password_reset_email.html:4
@@ -2513,7 +2513,7 @@ msgstr "<h1> Да ли сте сигурни да желите да обрише
 
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:16
 msgid "<h1> Are you sure you want to unlock <span class=\"text-info\">%(object)s</span>? </h1>"
-msgstr "<h1> Да ли сте сигурни да желите да откључате <span class=\"text-info\">%(object)s</span>? </h1>\n"
+msgstr "<h1> Да ли сте сигурни да желите да откључате <span class=\"text-info\">%(object)s</span>? </h1>"
 ""
 
 #: babybuddy/templates/babybuddy/user_form.html:31
