@@ -210,6 +210,7 @@ LANGUAGES = [
     ("pl", _("Polish")),
     ("pt", _("Portuguese")),
     ("ru", _("Russian")),
+    ("sr", _("Serbian")),
     ("es", _("Spanish")),
     ("sv", _("Swedish")),
     ("tr", _("Turkish")),

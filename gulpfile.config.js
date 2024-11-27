@@ -53,6 +53,7 @@ const config = {
       "node_modules/plotly.js/dist/plotly-locale-pt-br.js",
       "node_modules/plotly.js/dist/plotly-locale-pt-pt.js",
       "node_modules/plotly.js/dist/plotly-locale-ru.js",
+      "node_modules/plotly.js/dist/plotly-locale-sr.js",
       "node_modules/plotly.js/dist/plotly-locale-sv.js",
       "node_modules/plotly.js/dist/plotly-locale-tr.js",
       "node_modules/plotly.js/dist/plotly-locale-uk.js",
