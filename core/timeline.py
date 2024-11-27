@@ -139,12 +139,7 @@ def _add_feedings(min_date, max_date, events, child=None):
             continue
         edit_link = reverse("core:feeding-update", args=[instance.id])
         if instance.amount:
-            details.append(
-                _("Amount: %(amount).0f")
-                % {
-                    "amount": instance.amount,
-                }
-            )
+            details.append(_("Amount") + ": " + str(instance.amount))
 
         base_object = {
             "time": timezone.localtime(instance.start),
@@ -237,12 +232,7 @@ def _add_temperature_measurements(min_date, max_date, events, child):
         if instance.notes:
             details.append(instance.notes)
         if instance.temperature:
-            details.append(
-                _("Temperature: %(temperature).0f")
-                % {
-                    "temperature": instance.temperature,
-                }
-            )
+            details.append(_("Temperature") + ": " + str(instance.temperature))
         events.append(
             {
                 "time": timezone.localtime(instance.time),

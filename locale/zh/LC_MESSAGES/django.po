@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-11 22:41+0000\n"
+"POT-Creation-Date: 2024-11-27 04:50+0000\n"
 "Language: zh-Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -194,18 +194,22 @@ msgid "Russian"
 msgstr "俄语"
 
 #: babybuddy/settings/base.py:213
+msgid "Serbian"
+msgstr ""
+
+#: babybuddy/settings/base.py:214
 msgid "Spanish"
 msgstr "西班牙语"
 
-#: babybuddy/settings/base.py:214
+#: babybuddy/settings/base.py:215
 msgid "Swedish"
 msgstr "瑞典语"
 
-#: babybuddy/settings/base.py:215
+#: babybuddy/settings/base.py:216
 msgid "Turkish"
 msgstr "土耳其语"
 
-#: babybuddy/settings/base.py:216
+#: babybuddy/settings/base.py:217
 msgid "Ukrainian"
 msgstr "乌克兰语"
 
@@ -443,7 +447,7 @@ msgstr "身高记录"
 #: core/templates/core/temperature_list.html:4
 #: core/templates/core/temperature_list.html:7
 #: core/templates/core/temperature_list.html:11
-#: core/templates/core/temperature_list.html:29
+#: core/templates/core/temperature_list.html:29 core/timeline.py:235
 #: reports/graphs/temperature_change.py:19
 #: reports/graphs/temperature_change.py:26
 #: reports/graphs/temperature_change.py:32
@@ -1191,7 +1195,7 @@ msgstr "黄色"
 
 #: core/models.py:254 core/models.py:325 core/models.py:489
 #: core/templates/core/diaperchange_list.html:31
-#: core/templates/core/pumping_list.html:28
+#: core/templates/core/pumping_list.html:28 core/timeline.py:142
 #: dashboard/templates/cards/pumping_last.html:20
 msgid "Amount"
 msgstr "数量"
@@ -1872,37 +1876,27 @@ msgstr "%(child)s 睡着了。"
 msgid "%(child)s woke up."
 msgstr "%(child)s 醒了。"
 
-#: core/timeline.py:143
-#, python-format
-msgid "Amount: %(amount).0f"
-msgstr "数量: %(amount).0f"
-
-#: core/timeline.py:160
+#: core/timeline.py:155
 #, python-format
 msgid "%(child)s started feeding."
 msgstr "%(child)s 开始喂食。"
 
-#: core/timeline.py:169
+#: core/timeline.py:164
 #, python-format
 msgid "%(child)s finished feeding."
 msgstr "%(child)s 喂食完成。"
 
-#: core/timeline.py:179
+#: core/timeline.py:174
 #, python-format
 msgid "%(child)s had a feeding."
 msgstr "%(child)s 有一次喂食记录。"
 
-#: core/timeline.py:201
+#: core/timeline.py:196
 #, python-format
 msgid "%(child)s had a %(type)s diaper change."
 msgstr "%(child)s 有一条 %(type)s 换尿裤记录."
 
-#: core/timeline.py:241
-#, python-format
-msgid "Temperature: %(temperature).0f"
-msgstr "体温：%(temperature).0f"
-
-#: core/timeline.py:249
+#: core/timeline.py:239
 #, python-format
 msgid "%(child)s had a temperature measurement."
 msgstr "%(child)s 测量了一次体温。"
@@ -2393,6 +2387,14 @@ msgstr "世界卫生组织男孩体重百分位数 （公斤）"
 #: reports/templates/reports/report_list.html:56
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr "世界卫生组织女孩体重百分位数 （公斤）"
+
+#, python-format
+#~ msgid "Amount: %(amount).0f"
+#~ msgstr "数量: %(amount).0f"
+
+#, python-format
+#~ msgid "Temperature: %(temperature).0f"
+#~ msgstr "体温：%(temperature).0f"
 
 #~ msgid ""
 #~ "This setting will only be used when a browser does not support refresh on "
