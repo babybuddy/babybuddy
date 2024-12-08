@@ -12,6 +12,12 @@
     {% else %}
         {{ field|add_class:"form-select" }}
     {% endif %}
+{% elif field|field_type == "floatfield" %}
+    {% if field.errors %}
+        {{ field|add_class:"form-control is-invalid"|attr:"inputmode:decimal" }}
+    {% else %}
+        {{ field|add_class:"form-control"|attr:"inputmode:decimal" }}
+    {% endif %}
 {% else %}
     {% if field.errors %}
         {{ field|add_class:"form-control is-invalid" }}
