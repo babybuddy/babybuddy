@@ -322,6 +322,12 @@ class Feeding(models.Model):
         max_length=255,
         verbose_name=_("Method"),
     )
+    solid_food_choice = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_("Solid Food Choice"),
+    )
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)

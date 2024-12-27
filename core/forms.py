@@ -247,15 +247,56 @@ class DiaperChangeForm(CoreModelForm, TaggableModelForm):
 
 
 class FeedingForm(CoreModelForm, TaggableModelForm):
+    SOLID_FOOD_CHOICES = [
+        ("avocado", "Avocado"),
+        ("banana", "Banana"),
+        ("apple", "Apple"),
+        ("rice_cereal", "Rice Cereal"),
+        ("sweet_potato", "Sweet Potato"),
+        ("oatmeal", "Oatmeal"),
+        ("spinach", "Spinach"),
+        ("peas", "Peas"),
+        ("carrots", "Carrots"),
+        ("green_beans", "Green Beans"),
+        ("yogurt", "Yogurt"),
+        ("broccoli", "Broccoli"),
+        ("egg", "Egg"),
+        ("strawberry", "Strawberry"),
+        ("blueberry", "Blueberry"),
+        ("peach", "Peach"),
+        ("pear", "Pear"),
+        ("plum", "Plum"),
+        ("chicken", "Chicken"),
+        ("beef", "Beef"),
+        ("turkey", "Turkey"),
+        ("shrimp", "Shrimp"),
+        ("salmon", "Salmon"),
+        ("dragon_fruit", "Dragon Fruit"),
+        ("pasta", "Pasta"),
+        ("mango", "Mango"),
+        ("kiwi", "Kiwi"),
+        ("pineapple", "Pineapple"),
+        ("orange", "Orange"),
+        ("grape", "Grape"),
+        ("potato", "Potato"),
+        ("corn", "Corn"),
+        ("peanut_butter", "Peanut Butter"),
+        ("pumpkin", "Pumpkin"),
+        ("watermelon", "Watermelon"),
+        ("cantaloupe", "Cantaloupe"),
+    ]
+    solid_food_type = forms.CharField(required=False,widget=forms.TextInput(attrs={'list': 'solid_food_choices'}))
+
     fieldsets = [
         {"fields": ["child", "start", "end", "type", "method"], "layout": "required"},
         {"fields": ["amount"]},
+        {"fields": ["solid_food_type"]},
         {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
         model = models.Feeding
-        fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
+        fields = ["child", "start", "end", "type", "method", "amount", "solid_food_type", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
