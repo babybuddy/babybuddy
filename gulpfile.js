@@ -224,7 +224,6 @@ function styles() {
     "color-functions",
     "global-builtin",
     "import",
-    "legacy-js-api",
     "mixed-decls",
   ];
   return gulp
