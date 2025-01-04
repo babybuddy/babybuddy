@@ -67,6 +67,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 - [Baby Buddy Keypad (ESP32)](https://github.com/jeroenterheerdt/Baby-Buddy-Keypad)
 - [BabyScout](https://github.com/MikeSchapp/BabyScout) - Keypad for recording diaper changes, feedings and sleep to BabyBuddy
 - [BabyPod](https://www.printables.com/model/872095-babypod-a-remote-control-for-baby-buddy-for-new-pa) - A remote control for Baby Buddy for new parents (sources: [hardware](https://github.com/skjdghsdjgsdj/babypod-hardware), [software](https://github.com/skjdghsdjgsdj/babypod-software/))
+- [MatrixPortal BabyBuddy](https://github.com/skjdghsdjgsdj/matrixportal-babybuddy)
 
 ### Mobile
 
