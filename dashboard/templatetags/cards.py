@@ -8,6 +8,7 @@ from django.utils.translation import gettext as _
 import collections
 
 from core import models
+from core.templatetags.misc import feeding_time_diff_base
 
 register = template.Library()
 
@@ -240,6 +241,7 @@ def card_feeding_last(context, child):
     return {
         "type": "feeding",
         "feeding": instance,
+        "feeding_diff_base": feeding_time_diff_base(context, instance),
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }

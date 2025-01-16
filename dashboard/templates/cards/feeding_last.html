@@ -6,7 +6,7 @@
 {% block title %}
     {% if feeding %}
         <div>
-            {% blocktrans trimmed with time_ago=feeding.end|deltasince|duration_string:'m' %}
+            {% blocktrans trimmed with time_ago=feeding_diff_base|deltasince|duration_string:'m' %}
                 {{ time_ago }} ago
             {% endblocktrans %}
         </div>

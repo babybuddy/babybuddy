@@ -74,7 +74,8 @@
                             <td>{{ feeding.duration|duration_string }}</td>
                             <td>
                                 {% if prev_feeding %}
-                                    {% blocktrans trimmed with time_ago=prev_feeding.end|timesince:feeding.start %}
+                                    {% feeding_time_diff_base prev_feeding as diff_base %}
+                                    {% blocktrans trimmed with time_ago=diff_base|timesince:feeding.start %}
                                         {{ time_ago }} ago
                                     {% endblocktrans %}
                                 {% endif %}
