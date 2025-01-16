@@ -129,6 +129,14 @@ class Settings(models.Model):
         default=25,
         verbose_name=_("Items Per Page"),
     )
+    feeding_end = models.BooleanField(
+        verbose_name=_("Use feeding end"),
+        help_text=_(
+            "Use feeding end instead of start time for displaying time between feedings"
+        ),
+        default=False,
+        editable=True,
+    )
 
     def __str__(self):
         return str(format_lazy(_("{user}'s Settings"), user=self.user))
