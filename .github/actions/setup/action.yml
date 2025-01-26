@@ -8,6 +8,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install build-essential libldap2-dev ldap-utils libsasl2-dev
     - name: Install Pipenv
       shell: bash
       run: pipx install pipenv

@@ -98,6 +98,93 @@ ensure the headers are not forwarded from sources other than your proxy.
 
 - [`PROXY_HEADER`](#proxy_header)
 
+## `LDAP_AUTH`
+
+_Default:_ `False`
+
+Enable LDAP authentication. If enabled the following variables must also be set:
+
+- AUTH_LDAP_SERVER_URI
+- AUTH_LDAP_BIND_DN
+- AUTH_LDAP_BIND_PASSWORD
+- AUTH_LDAP_USER_SEARCH_BASE_DN
+
+## `AUTH_LDAP_SERVER_URI`
+
+_Default:_ `None`
+
+URI of the LDAP server. Required if `LDAP_AUTH` is `True`.
+
+**Example value**
+
+    ldap://ldap.example.com:389
+
+## `AUTH_LDAP_BIND_DN`
+
+LDAP reader DN for the ldap server. Required if `LDAP_AUTH` is `True`.
+
+_Default:_ `None`
+
+**Example value**
+
+    uid=admin,ou=users,dc=example,dc=com
+
+## `AUTH_LDAP_BIND_PASSWORD`
+
+The password of the ldap reader DN. Required if `LDAP_AUTH` is `True`.
+
+_Default:_ `None`
+
+## `AUTH_LDAP_USER_SEARCH_BASE_DN`
+
+LDAP Base DN for user searches. Required if `LDAP_AUTH` is `True`.
+
+_Default:_ `None`
+
+**Example value**
+
+    ou=users,dc=example,dc=com
+
+## `AUTH_LDAP_USER_SEARCH_FILTER`
+
+The user search filter. In order to be valid, it must be enclosed in parentheses.
+
+_Default:_ `(uid=%(user)s)`
+
+## `AUTH_LDAP_GROUP_SEARCH_BASE_DN`
+
+LDAP Base DN for group searches.
+
+_Default:_ `None`
+
+**Example value**
+
+    ou=groups,dc=example,dc=com
+
+## `AUTH_LDAP_GROUP_SEARCH_FILTER`
+
+The group search filter. In order to be valid, it must be enclosed in parentheses.
+
+_Default:_ `(objectClass=groupOfNames)`
+
+## `AUTH_LDAP_REQUIRE_GROUP`
+
+If set, the user must be in the required LDAP group.
+
+_Default:_ `None`
+
+**Example value**
+
+    cn=babybuddy,ou=groups,dc=example,dc=com
+
+## `AUTH_LDAP_ALWAYS_UPDATE_USER`
+
+Automatically create or update the user whenever they authenticate through LDAP.
+If the user doesn’t yet exist, they will be created.
+For existing users, any LDAP attribute mapped to Django fields will be updated.
+
+_Default:_ `True`
+
 ## `SECRET_KEY`
 
 _Default:_ `None`
