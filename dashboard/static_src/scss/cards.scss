@@ -58,15 +58,15 @@
 
 .card-feeding,
 .card-pumping {
-    border-color: map.get($theme-colors, 'primary');
+    border-color: var(--bs-primary);
 
     .card-header, .card-header a {
-        background-color: map.get($theme-colors, 'primary');
-        color: map.get($theme-colors, 'light');
+        background-color: var(--bs-primary);
+        color: var(--bs-light);
     }
 
     .card-body {
-        color: map.get($theme-colors, 'primary');
+        color: var(--bs-primary);
 
         // Last feeding method header in card.
         .last-feeding-method {
