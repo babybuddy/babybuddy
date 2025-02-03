@@ -1,0 +1,62 @@
+@include color-mode("pink") {
+  --bs-body-color: #{$gray-700};
+  --bs-body-color-rgb: #{to-rgb($gray-700)};
+  --bs-body-bg: #{$pink-100};
+  --bs-body-bg-rgb: #{to-rgb($pink-100)};
+  --bs-tertiary-bg: #{$pink-300};
+  --bs-emphasis-color: #{$pink-700};
+  --bs-emphasis-color-rgb: #{to-rgb($pink-700)};
+
+  --bs-primary: #{$pink-600};
+  --bs-primary-rgb: #{to-rgb($pink-600)};
+
+  --bs-link-color: #{$pink-600};
+  --bs-link-color-rgb: #{to-rgb($pink-600)};
+
+  .btn-primary, .btn-success {
+    --bs-btn-bg: var(--bs-tertiary-bg);
+    --bs-btn-border-color: var(--bs-tertiary-bg);
+    --bs-btn-hover-bg: var(--bs-primary);
+    --bs-btn-hover-border-color: var(--bs-primary);
+  }
+
+  .form-control {
+    --bs-border-color: var(--bs-body-color);
+  }
+
+  .btn-outline-light, .btn-check {
+    --bs-btn-active-bg: var(--bs-tertiary-bg);
+    --bs-btn-active-border-color: var(--bs-tertiary-bg);
+    --bs-btn-color: var(--bs-body-color);
+    --bs-btn-border-color: var(--bs-body-color);
+  }
+
+  .dropdown-menu {
+    --bs-dropdown-bg: #{$pink-100};
+    --bs-dropdown-link-active-bg: #{$pink-700};
+  }
+
+  table {
+    --bs-table-striped-bg: #{$pink-200};
+  }
+
+  .navbar-brand {
+    img {
+      filter: hue-rotate(120deg) brightness(57%);
+    }
+  }
+
+  .text-light {
+    color: var(--bs-primary) !important;
+  }
+
+  .text-success {
+    i {
+      color: var(--bs-primary);
+    }
+  }
+
+  .navbar {
+    background-color: #{$pink-100};
+  }
+}
