@@ -24,17 +24,17 @@
     "gulp-stylelint-esm": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.7.1",
-    "lefthook": "^1.10.1",
+    "lefthook": "^1.10.11",
     "masonry-layout": "^4.2.2",
     "npm-force-resolutions": "^0.0.10",
     "plotly.js": "^2.35.3",
-    "prettier": "3.4.2",
+    "prettier": "3.5.1",
     "pulltorefreshjs": "^0.1.22",
     "pump": "^3.0.2",
-    "sass": "^1.83.1",
-    "stylelint": "^16.12.0",
+    "sass": "^1.85.0",
+    "stylelint": "^16.14.1",
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-order": "^6.0.4",
-    "stylelint-scss": "^6.10.0"
+    "stylelint-scss": "^6.11.1"
   }
 }
