@@ -1,0 +1,6 @@
+{% extends "mobile/base/list_item.html" %}
+{% load duration %}
+{% block details %}
+    <h5>{{ object.amount }}</h5>
+    <h5>{{ object.duration|duration_string }}</h5>
+{% endblock details %}
