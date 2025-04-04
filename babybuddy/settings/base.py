@@ -365,6 +365,19 @@ IMPORT_EXPORT_EXPORT_PERMISSION_CODE = "change"
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
+# MQTT configuration
+# Emit events to this MQTT configuration when adding items to Baby Buddy.
+# Set to None or omit entirely for no MQTT integration.
+
+MQTT = {
+    "host": os.environ.get("MQTT_HOST") or None,
+    "port": os.environ.get("MQTT_PORT") or 1883,
+    "topic": os.environ.get("MQTT_TOPIC") or None,
+    "client_id": os.environ.get("MQTT_CLIENT_ID") or None,
+    "username": os.environ.get("MQTT_USER") or None,
+    "password": os.environ.get("MQTT_PASSWORD") or None,
+}
+
 # Axes configuration
 # See https://django-axes.readthedocs.io/en/latest/4_configuration.html
 

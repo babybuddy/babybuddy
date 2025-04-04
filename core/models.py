@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
+import json
 import re
 
+from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -227,7 +229,69 @@ class Child(models.Model):
         return cache.get_or_set(cls.cache_key_count, Child.objects.count, None)
 
 
-class DiaperChange(models.Model):
+class CoreModelBase(models.Model):
+    mqtt_client = None
+
+    class Meta:
+        abstract = True
+
+    def _as_json_payload(self):
+        payload = {}
+        for field in self._meta.fields:
+            value = getattr(self, field.name)
+            if isinstance(value, datetime.datetime):
+                serialized = value.isoformat()
+            elif isinstance(value, Child):
+                serialized = value.id
+            else:
+                serialized = value
+            payload[field.name] = serialized
+
+        return json.dumps(
+            {
+                "event": "save",
+                "model": self.model_name if hasattr(self, "model_name") else None,
+                "payload": payload,
+            }
+        )
+
+    def _init_mqtt_client(self, mqtt_config):
+        if self.mqtt_client is None:
+
+            def connect_mqtt():
+                def on_connect(client, userdata, flags, rc):
+                    if rc != 0:
+                        raise RuntimeError(f"MQTT connection failed with code {rc}")
+
+                from paho.mqtt import client as mqtt_client
+
+                client = mqtt_client.Client(
+                    client_id=mqtt_config["client_id"],
+                    callback_api_version=mqtt_client.CallbackAPIVersion.VERSION2,
+                )
+
+                username, password = mqtt_config["username"], mqtt_config["password"]
+                client.username_pw_set(username, password)
+                client.on_connect = on_connect
+                client.connect(mqtt_config["host"], mqtt_config["port"])
+                return client
+
+            self.mqtt_client = connect_mqtt()
+
+        return self.mqtt_client
+
+    def _publish_to_mqtt(self):
+        if settings.MQTT["host"]:
+            payload = self._as_json_payload()
+            client = self._init_mqtt_client(settings.MQTT)
+            client.publish(settings.MQTT["topic"], payload)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # save first to get IDs and whatnot populated
+        self._publish_to_mqtt()  # does nothing if MQTT config isn't defined or is None
+
+
+class DiaperChange(CoreModelBase):
     model_name = "diaperchange"
     child = models.ForeignKey(
         "Child",
