@@ -11939,6 +11939,10 @@ textarea.form-control-lg {
   padding: var(--bs-pagination-padding-y) calc(var(--bs-pagination-padding-x) / 1.75);
 }
 
+.navbar {
+  background-color: var(--bs-dark);
+}
+
 #view-core\:child .child-photo {
   max-width: 150px;
 }
@@ -12122,17 +12126,17 @@ textarea.form-control-lg {
 
 .card-feeding,
 .card-pumping {
-  border-color: #37abe9;
+  border-color: var(--bs-primary);
 }
 .card-feeding .card-header, .card-feeding .card-header a,
 .card-pumping .card-header,
 .card-pumping .card-header a {
-  background-color: #37abe9;
-  color: #f8f9fa;
+  background-color: var(--bs-primary);
+  color: var(--bs-light);
 }
 .card-feeding .card-body,
 .card-pumping .card-body {
-  color: #37abe9;
+  color: var(--bs-primary);
 }
 .card-feeding .card-body .last-feeding-method,
 .card-pumping .card-body .last-feeding-method {
@@ -12370,3 +12374,50 @@ textarea.form-control-lg {
 .icon-pumping:before {
   content: "\f4a7";
 } /* '' */
+[data-bs-theme=pink] {
+  --bs-body-color: #495057;
+  --bs-body-color-rgb: 73, 80, 87;
+  --bs-body-bg: rgb(246.8, 214.2, 230.4);
+  --bs-body-bg-rgb: 247, 214, 230;
+  --bs-tertiary-bg: rgb(230.4, 132.6, 181.2);
+  --bs-emphasis-color: rgb(128.4, 30.6, 79.2);
+  --bs-emphasis-color-rgb: 128, 31, 79;
+  --bs-primary: rgb(171.2, 40.8, 105.6);
+  --bs-primary-rgb: 171, 41, 106;
+  --bs-link-color: rgb(171.2, 40.8, 105.6);
+  --bs-link-color-rgb: 171, 41, 106;
+}
+[data-bs-theme=pink] .btn-primary, [data-bs-theme=pink] .btn-success {
+  --bs-btn-bg: var(--bs-tertiary-bg);
+  --bs-btn-border-color: var(--bs-tertiary-bg);
+  --bs-btn-hover-bg: var(--bs-primary);
+  --bs-btn-hover-border-color: var(--bs-primary);
+}
+[data-bs-theme=pink] .form-control {
+  --bs-border-color: var(--bs-body-color);
+}
+[data-bs-theme=pink] .btn-outline-light, [data-bs-theme=pink] .btn-check {
+  --bs-btn-active-bg: var(--bs-tertiary-bg);
+  --bs-btn-active-border-color: var(--bs-tertiary-bg);
+  --bs-btn-color: var(--bs-body-color);
+  --bs-btn-border-color: var(--bs-body-color);
+}
+[data-bs-theme=pink] .dropdown-menu {
+  --bs-dropdown-bg: rgb(246.8, 214.2, 230.4);
+  --bs-dropdown-link-active-bg: rgb(128.4, 30.6, 79.2);
+}
+[data-bs-theme=pink] table {
+  --bs-table-striped-bg: rgb(238.6, 173.4, 205.8);
+}
+[data-bs-theme=pink] .navbar-brand img {
+  filter: hue-rotate(120deg) brightness(57%);
+}
+[data-bs-theme=pink] .text-light {
+  color: var(--bs-primary) !important;
+}
+[data-bs-theme=pink] .text-success i {
+  color: var(--bs-primary);
+}
+[data-bs-theme=pink] .navbar {
+  background-color: rgb(246.8, 214.2, 230.4);
+}
