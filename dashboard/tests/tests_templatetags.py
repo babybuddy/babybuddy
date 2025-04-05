@@ -182,6 +182,9 @@ class TemplateTagsTestCase(TestCase):
         self.assertFalse(data["hide_empty"])
         self.assertIsInstance(data["feeding"], models.Feeding)
         self.assertEqual(data["feeding"], models.Feeding.objects.first())
+        self.assertEqual(
+            data["feeding_diff_base"], models.Feeding.objects.first().start
+        )
 
     def test_card_feeding_last_method(self):
         data = cards.card_feeding_last_method(self.context, self.child)
