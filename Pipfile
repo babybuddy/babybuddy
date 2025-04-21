@@ -7,6 +7,7 @@ name = "pypi"
 boto3 = "*"
 dj-database-url = "*"
 django = "~=5.1.1"
+django-allauth = {extras = ["socialaccount"], version = "*"}
 django-axes = "*"
 django-filter = "*"
 django-imagekit = "*"

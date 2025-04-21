@@ -6,6 +6,7 @@ botocore==1.36.26; python_version >= '3.8'
 diff-match-patch==20241021; python_version >= '3.7'
 dj-database-url==2.3.0
 django==5.1.6; python_version >= '3.10'
+django-allauth[socialaccount]==65.7.0
 django-appconf==1.1.0; python_version >= '3.9'
 django-axes==7.0.2; python_version >= '3.7'
 django-cors-headers==4.7.0; python_version >= '3.9'
