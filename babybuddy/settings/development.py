@@ -18,6 +18,31 @@ STORAGES["staticfiles"][
     "BACKEND"
 ] = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
+# INSTALLED_APPS = [
+#    "allauth.socialaccount",
+#    "allauth.socialaccount.providers.openid_connect",
+# ]
+
+os.environ["SSL_CERT_FILE"] = "/etc/ssl/certs/ca-certificates.crt"
+os.environ["REQUESTS_CA_BUNDLE"] = "/etc/ssl/certs/ca-certificates.crt"
+
+SOCIALACCOUNT_PROVIDERS = {
+    "openid_connect": {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        "APP": {
+            "provider_id": "keycloak",
+            "name": "keycloak",
+            "client_id": "babybuddy",
+            "secret": "m0iaJ5og5Dd5bNdd8Oljb2M5z49FAB4o",
+            "settings": {
+                "server_url": "https://auth.lan:8443/realms/zuhause/.well-known/openid-configuration"
+            },
+        }
+    }
+}
+
 
 # Logging
 # https://docs.djangoproject.com/en/5.0/ref/logging/
