@@ -1,5 +1,5 @@
 {% extends "registration/base.html" %}
-{% load i18n static widget_tweaks %}
+{% load i18n static widget_tweaks socialaccount %}
 {% block title %}Login{% endblock %}
 {% block content %}
     <form class="login-form" method="post" action="{% url 'babybuddy:login' %}">
@@ -17,6 +17,20 @@
         </div>
         <button class="btn btn-primary w-100 fade-in" type="submit" name="login">{% trans "Login" %}</button>
     </form>
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+        <div class="row" style="margin-top: 2vh">
+            <div class="col-sm-12 col-lg-6 col-md-6 offset-lg-3 offset-md-3">
+                <h5>{% trans "Social Login" %}</h5>
+                <span>{% trans 'You can use any of the following providers to sign in.' %}</span>
+                <br />
+                <br />
+                <ul class="socialaccount_providers list-unstyled">
+                    {% include "socialaccount/provider_list.html" with process="login" %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
     <div class="bg-faded text-center px-4 py-3 rounded-bottom">
         <a href="{% url 'babybuddy:password_reset' %}" name="reset">{% trans "Forgot your password?" %}</a>
     </div>
