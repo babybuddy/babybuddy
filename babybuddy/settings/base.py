@@ -73,7 +73,6 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     "babybuddy.middleware.UserLanguageMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "axes.middleware.AxesMiddleware",
