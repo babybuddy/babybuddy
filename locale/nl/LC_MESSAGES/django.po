@@ -2426,24 +2426,24 @@ msgid "WHO Weight Percentiles for Girls in kg"
 msgstr "WHO Gewichtspercentiel voor meisjes in kg"
 
 #: reports/utils.py:61
-msgid "graph_1w"
-msgstr "1w"
+#msgid "graph_1w"
+#msgstr "1w"
 
 #: reports/utils.py:62
-msgid "graph_2w"
-msgstr "2w"
+#msgid "graph_2w"
+#msgstr "2w"
 
 #: reports/utils.py:63
-msgid "graph_1m"
-msgstr "1m"
+#msgid "graph_1m"
+#msgstr "1m"
 
 #: reports/utils.py:64
-msgid "graph_3m"
-msgstr "3m"
+#msgid "graph_3m"
+#msgstr "3m"
 
 #: reports/utils.py:65
-msgid "graph_all"
-msgstr "Alles"
+#msgid "graph_all"
+#msgstr "Alles"
 
 #, python-format
 #~ msgid "Amount: %(amount).0f"
