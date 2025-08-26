@@ -276,7 +276,6 @@ msgstr "Opslaan"
 #: babybuddy/templates/babybuddy/messages.html:24
 #: babybuddy/templates/babybuddy/user_settings_form.html:18
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
-#, fuzzy
 msgid "Error"
 msgstr "Fout"
 
@@ -301,9 +300,8 @@ msgstr "Voeding"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:54
 #: babybuddy/templates/babybuddy/nav-dropdown.html:259
-#, fuzzy
 msgid "Bottle Feeding"
-msgstr "Flessen Voeding"
+msgstr "Flesvoeding"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:60
 #: babybuddy/templates/babybuddy/nav-dropdown.html:266 core/models.py:498
@@ -605,7 +603,6 @@ msgid "Chat / Support"
 msgstr "Chat / Hulp"
 
 #: babybuddy/templates/babybuddy/paginator.html:11
-#, fuzzy
 msgid "First"
 msgstr "Voornaam"
 
@@ -639,7 +636,6 @@ msgid "Next"
 msgstr "Volgende"
 
 #: babybuddy/templates/babybuddy/paginator.html:43
-#, fuzzy
 msgid "Last"
 msgstr "Achternaam"
 
@@ -2025,7 +2021,6 @@ msgid "%(model)s reading for %(child)s updated."
 msgstr "%(model)s meting voor %(child)s bijgewerkt."
 
 #: dashboard/templates/cards/breastfeeding.html:4
-#, fuzzy
 msgid "Breastfeeding"
 msgstr "Borstvoeding"
 
@@ -2039,12 +2034,10 @@ msgid "left"
 msgstr "links"
 
 #: dashboard/templates/cards/breastfeeding.html:20
-#, fuzzy
 msgid "right"
 msgstr "rechts"
 
 #: dashboard/templates/cards/breastfeeding.html:31
-#, fuzzy
 msgid "feedings in"
 msgstr "voedingen in"
 
