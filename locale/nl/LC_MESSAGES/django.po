@@ -129,7 +129,7 @@ msgstr "Catalaans"
 
 #: babybuddy/settings/base.py:195
 msgid "Croatian"
-msgstr ""
+msgstr "Kroatisch"
 
 #: babybuddy/settings/base.py:196
 msgid "Czech"
@@ -201,7 +201,7 @@ msgstr "Russisch"
 
 #: babybuddy/settings/base.py:213
 msgid "Serbian"
-msgstr ""
+msgstr "Servisch"
 
 #: babybuddy/settings/base.py:214
 msgid "Spanish"
@@ -323,7 +323,7 @@ msgstr "Afkolven"
 #: babybuddy/templates/babybuddy/nav-dropdown.html:140 core/models.py:443
 #: core/models.py:457 core/models.py:461 core/templates/core/note_list.html:29
 msgid "Note"
-msgstr "Notitie"
+msgstr "Opmerking"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:72
 #: babybuddy/templates/babybuddy/nav-dropdown.html:278
@@ -393,7 +393,7 @@ msgstr "Kind"
 #: core/templates/core/note_form.html:12 core/templates/core/note_list.html:4
 #: core/templates/core/note_list.html:7 core/templates/core/note_list.html:11
 msgid "Notes"
-msgstr "Notities"
+msgstr "Opmerkingen"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:152
 msgid "Measurements"
@@ -1527,23 +1527,23 @@ msgstr "Geen lengte gegevens gevonden."
 
 #: core/templates/core/note_confirm_delete.html:4
 msgid "Delete a Note"
-msgstr "Verwijder een notitie"
+msgstr "Verwijder een opmerking"
 
 #: core/templates/core/note_form.html:5
 msgid "Update a Note"
-msgstr "Pas een notitie aan"
+msgstr "Pas een opmerking aan"
 
 #: core/templates/core/note_form.html:7 core/templates/core/note_form.html:26
 msgid "Add a Note"
-msgstr "Voeg een notitie toe"
+msgstr "Voeg een opmerking toe"
 
 #: core/templates/core/note_list.html:14
 msgid "Add Note"
-msgstr "Voeg notitie toe"
+msgstr "Voeg opmerking toe"
 
 #: core/templates/core/note_list.html:71
 msgid "No notes found."
-msgstr "Geen notities gevonden."
+msgstr "Geen opmerkingen gevonden."
 
 #: core/templates/core/pumping_confirm_delete.html:4
 msgid "Delete a Pumping Entry"
@@ -1609,7 +1609,7 @@ msgstr "Geen slaap gegevens gevonden."
 #: core/templates/core/tag_confirm_delete.html:4
 #, fuzzy
 msgid "Delete a Tag"
-msgstr "Verwijder een notitie"
+msgstr "Verwijder een opmerking"
 
 #: core/templates/core/tag_confirm_delete.html:22
 #, fuzzy, python-format
@@ -1634,13 +1634,13 @@ msgstr "Verwijder"
 #: core/templates/core/tag_detail.html:5 core/templates/core/tag_form.html:5
 #, fuzzy
 msgid "Update a Tag"
-msgstr "Pas een notitie aan"
+msgstr "Pas een opmerking aan"
 
 #: core/templates/core/tag_detail.html:7 core/templates/core/tag_form.html:7
 #: core/templates/core/tag_form.html:29
 #, fuzzy
 msgid "Add a Tag"
-msgstr "Voeg een verversing toe"
+msgstr "Voeg een verschoning toe"
 
 #: core/templates/core/tag_detail.html:28
 #, fuzzy
@@ -1706,7 +1706,7 @@ msgstr "Buikliggen"
 #: core/templates/core/tag_list.html:14
 #, fuzzy
 msgid "Add Tag"
-msgstr "Voeg een verversing toe"
+msgstr "Voeg een verschoning toe"
 
 #: core/templates/core/tag_list.html:26
 msgid "Items Tagged"
@@ -1720,7 +1720,7 @@ msgstr "Laatst gebruikt"
 #: core/templates/core/tag_list.html:62
 #, fuzzy
 msgid "No tags found."
-msgstr "Geen notities gevonden."
+msgstr "Geen opmerkingen gevonden."
 
 #: core/templates/core/temperature_confirm_delete.html:4
 msgid "Delete a Temperature Reading"
@@ -2027,12 +2027,12 @@ msgstr "%(model)s meting voor %(child)s bijgewerkt."
 #: dashboard/templates/cards/breastfeeding.html:4
 #, fuzzy
 msgid "Breastfeeding"
-msgstr "Laatste maaltijd"
+msgstr "Borstvoeding"
 
 #: dashboard/templates/cards/breastfeeding.html:10
 #: dashboard/templates/cards/diaperchange_types.html:10
 msgid "Past Week"
-msgstr "Vorige week"
+msgstr "Afgelopen week"
 
 #: dashboard/templates/cards/breastfeeding.html:18
 msgid "left"
@@ -2041,12 +2041,12 @@ msgstr "links"
 #: dashboard/templates/cards/breastfeeding.html:20
 #, fuzzy
 msgid "right"
-msgstr "Lengte"
+msgstr "rechts"
 
 #: dashboard/templates/cards/breastfeeding.html:31
 #, fuzzy
 msgid "feedings in"
-msgstr "Voedingen"
+msgstr "voedingen in"
 
 #: dashboard/templates/cards/diaperchange_last.html:4
 msgid "Last Diaper Change"
@@ -2067,11 +2067,11 @@ msgstr "Verschoningen"
 
 #: dashboard/templates/cards/feeding_last.html:4
 msgid "Last Feeding"
-msgstr "Laatste maaltijd"
+msgstr "Laatste voeding"
 
 #: dashboard/templates/cards/feeding_last_method.html:4
 msgid "Last Feeding Method"
-msgstr "Laatste maaltijd methode"
+msgstr "Laatste voeding methode"
 
 #: dashboard/templates/cards/feeding_last_method.html:17
 msgid "most recent"
@@ -2081,8 +2081,8 @@ msgstr "meest recente"
 #, python-format
 msgid "%(n)s feeding ago"
 msgid_plural "%(n)s feedings ago"
-msgstr[0] "%(n)s maaltijd geleden"
-msgstr[1] "%(n)s maaltijden geleden"
+msgstr[0] "%(n)s voeding geleden"
+msgstr[1] "%(n)s voedingen geleden"
 
 #: dashboard/templates/cards/feeding_recent.html:4
 msgid "Recent Feedings"
@@ -2175,7 +2175,7 @@ msgstr "Kind acties"
 #: reports/templates/reports/report_list.html:4
 #: reports/templates/reports/report_list.html:9
 msgid "Reports"
-msgstr "Rapporten"
+msgstr "Rapportages"
 
 #: dashboard/templatetags/cards.py:451
 msgid "Average nap duration"
@@ -2286,7 +2286,7 @@ msgstr "Aantal verschoningen"
 #: reports/graphs/feeding_amounts.py:69
 #, fuzzy
 msgid "Total Feeding Amount by Type"
-msgstr "<b>Totaal hoeveelheid voeding per type</b>"
+msgstr "Totaal hoeveelheid voeding per type"
 
 #: reports/graphs/feeding_amounts.py:72
 msgid "Feeding amount"
@@ -2333,7 +2333,7 @@ msgstr "Voedingsinterval (uren)"
 #: reports/templates/reports/report_list.html:32
 #, fuzzy
 msgid "Feeding Pattern"
-msgstr "Slaappatroon"
+msgstr "Voedingspatroon"
 
 #: reports/graphs/feeding_pattern.py:180 reports/graphs/sleep_pattern.py:182
 msgid "Time of day"
@@ -2384,7 +2384,7 @@ msgstr "Totale slaap"
 #: reports/templates/reports/sleep_totals.html:4
 #: reports/templates/reports/sleep_totals.html:9
 msgid "Sleep Totals"
-msgstr "Totaal Slaap"
+msgstr "Slaap totalen"
 
 #: reports/graphs/sleep_totals.py:64
 msgid "Hours of sleep"
@@ -2610,7 +2610,7 @@ msgstr "WHO Gewichtspercentiel voor meisjes in kg"
 #~ msgstr "Alleen \"Fles\" methode is toegestaan met type \"melkpoeder\"."
 
 #~ msgid "Add a Change"
-#~ msgstr "Voeg een verversing toe"
+#~ msgstr "Voeg een verschoning toe"
 
 #~ msgid "Stopped"
 #~ msgstr "Gestopt"
