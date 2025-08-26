@@ -55,11 +55,11 @@ msgstr "uitgeschakeld"
 #: babybuddy/models.py:31 babybuddy/models.py:36 babybuddy/models.py:41
 #: babybuddy/models.py:46 babybuddy/models.py:51 babybuddy/models.py:56
 #: babybuddy/models.py:61 babybuddy/models.py:66
-#, fuzzy, python-format
+#, python-format
 msgid "%(minutes)d minute"
 msgid_plural "%(minutes)d minutes"
-msgstr[0] "%(minutes)s minuut"
-msgstr[1] "%(minutes)s minuten"
+msgstr[0] "%(minutes)d minuut"
+msgstr[1] "%(minutes)d minuten"
 
 #: babybuddy/models.py:72
 msgid "Hide Empty Dashboard Cards"
@@ -78,11 +78,11 @@ msgid "show all data"
 msgstr "laat alle data zien"
 
 #: babybuddy/models.py:86 babybuddy/models.py:90 babybuddy/models.py:94
-#, fuzzy, python-format
+#, python-format
 msgid "%(days)d day"
 msgid_plural "%(days)d days"
-msgstr[0] "%(days_ago)s dagen geleden"
-msgstr[1] "%(days_ago)s dagen geleden"
+msgstr[0] "%(days)d dagen geleden"
+msgstr[1] "%(days)d dagen geleden"
 
 #: babybuddy/models.py:98 babybuddy/models.py:102
 #, python-format
@@ -101,9 +101,8 @@ msgstr "Tijdzone"
 
 #: babybuddy/models.py:122 babybuddy/models.py:123 babybuddy/models.py:124
 #: babybuddy/models.py:125 babybuddy/models.py:126
-#, fuzzy, python-format
 msgid "%(count)d Per Page"
-msgstr "%(count)s timer"
+msgstr "%(count)s per pagina"
 
 #: babybuddy/models.py:127
 msgid "Show All"
@@ -119,9 +118,8 @@ msgid "{user}'s Settings"
 msgstr "{user}'s instellingen"
 
 #: babybuddy/settings/base.py:193
-#, fuzzy
 msgid "Brazilian Portuguese"
-msgstr "Portugees"
+msgstr "Braziliaans Portugees"
 
 #: babybuddy/settings/base.py:194
 msgid "Catalan"
@@ -281,7 +279,6 @@ msgstr "Fout"
 
 #: babybuddy/templates/babybuddy/messages.html:25
 #: babybuddy/templates/babybuddy/user_settings_form.html:23
-#, fuzzy
 msgid "Some fields have errors. See below for details."
 msgstr ""
 "<strong>Fout:</strong> Sommige velden bevatten fouten. Kijk hieronder voor "
@@ -905,23 +902,18 @@ msgid "How to Fix"
 msgstr "Hoe op te lossen"
 
 #: babybuddy/templates/error/403_csrf_bad_origin.html:11
-#, fuzzy, python-format
-msgid ""
-"Add %(value)s to the %(variable)s environment variable. If multiple origins "
-"are required separate with commas."
-msgstr ""
-"Voeg <samp>%(origin)s</samp> toe aan de  <code>CSRF_TRUSTED_ORIGINS</code> "
-"omgevingsvariable. Indien meerdere 'origins' nodig zijn, gebruik dan een "
-"komma als scheidingsteken."
+#, python-format
+msgid "Add %(value)s to the %(variable)s environment variable. If multiple origins are required separate with commas."
+msgstr "Voeg <samp>%(value)s</samp> toe aan de <code>%(variable)s</code> omgevingsvariable. Indien meerdere 'origins' nodig zijn, gebruik dan een komma als scheidingsteken."
 
 #: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
 msgid "Page Not Found"
 msgstr "Pagina niet gevonden"
 
 #: babybuddy/templates/error/404.html:9
-#, fuzzy, python-format
+#, python-format
 msgid "The path %(path)s does not exist."
-msgstr "Het pad <code>%(request_path)s</code> bestaat niet."
+msgstr "Het pad <code>%(path)s</code> bestaat niet."
 
 #: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
 msgid "Server Error"
@@ -1036,14 +1028,14 @@ msgstr ""
 "wachtwoord."
 
 #: babybuddy/templatetags/babybuddy.py:94
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete %(name)s?"
-msgstr "Weet je zeker dat je %(number)s inactieve timer wilt verwijderen?"
+msgstr "Weet je zeker dat je %(name)s wilt verwijderen?"
 
 #: babybuddy/templatetags/babybuddy.py:104
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to unlock %(name)s?"
-msgstr "Weet je zeker dat je %(number)s inactieve timer wilt verwijderen?"
+msgstr "Weet je zeker dat je %(name)s wilt ontgrendelen?"
 
 #: babybuddy/views.py:55
 msgid "Forbidden"
@@ -1179,9 +1171,8 @@ msgid "Birth date"
 msgstr "Geboortedatum"
 
 #: core/models.py:175
-#, fuzzy
 msgid "Birth time"
-msgstr "Geboortedatum"
+msgstr "Geboortetijd"
 
 #: core/models.py:182
 msgid "Slug"
@@ -1441,9 +1432,9 @@ msgstr "Inhoud"
 #: dashboard/templates/cards/pumping_last.html:9
 #: dashboard/templates/cards/sleep_last.html:9
 #: dashboard/templates/cards/tummytime_last.html:9
-#, fuzzy, python-format
+#, python-format
 msgid "%(time_ago)s ago"
-msgstr "%(time)s geleden"
+msgstr "%(time_ago)s geleden"
 
 #: core/templates/core/diaperchange_list.html:93
 msgid "No diaper changes found."
@@ -1459,23 +1450,21 @@ msgstr "Update een maaltijd"
 
 #: core/templates/core/feeding_form.html:7
 #: core/templates/core/feeding_form.html:28
-#, fuzzy
 msgid "Add a Bottle Feeding"
-msgstr "Voeg een maaltijd toe"
+msgstr "Voeg een flesvoeding toe"
 
 #: core/templates/core/feeding_form.html:9
 #: core/templates/core/feeding_form.html:30
 msgid "Add a Feeding"
-msgstr "Voeg een maaltijd toe"
+msgstr "Voeg een voeding toe"
 
 #: core/templates/core/feeding_list.html:14
 msgid "Add Feeding"
-msgstr "Voeg voedingsmoment toe"
+msgstr "Voeg een voeding toe"
 
 #: core/templates/core/feeding_list.html:18
-#, fuzzy
 msgid "Add Bottle Feeding"
-msgstr "Voeg een maaltijd toe"
+msgstr "Voeg een voeding toe"
 
 #: core/templates/core/feeding_list.html:36
 msgid "Amt."
@@ -1603,18 +1592,17 @@ msgid "No sleep entries found."
 msgstr "Geen slaap gegevens gevonden."
 
 #: core/templates/core/tag_confirm_delete.html:4
-#, fuzzy
 msgid "Delete a Tag"
-msgstr "Verwijder een opmerking"
+msgstr "Verwijder een label"
 
 #: core/templates/core/tag_confirm_delete.html:22
-#, fuzzy, python-format
+#, python-format
 #| msgid "There is 1 item tagged with this tag."
 #| msgid_plural "There are %(count)s items tagged with this tag."
 msgid "There is 1 item tagged with this tag."
 msgid_plural "There are %(count)s items tagged with this tag."
-msgstr[0] "Er is %(count) item getagged met deze tag."
-msgstr[1] "Er zijn %(count) items getagged met deze tag."
+msgstr[0] "Er is %(count)s item getagged met deze tag."
+msgstr[1] "Er zijn %(count)s items getagged met deze tag."
 
 #: core/templates/core/tag_confirm_delete.html:29
 msgid ""
@@ -1623,25 +1611,21 @@ msgstr ""
 "Deze actie zal het label van alle items verwijderen waarop deze is toegepast."
 
 #: core/templates/core/tag_confirm_delete.html:35
-#, fuzzy
 msgid "Delete Tag"
-msgstr "Verwijder"
+msgstr "Verwijder label"
 
 #: core/templates/core/tag_detail.html:5 core/templates/core/tag_form.html:5
-#, fuzzy
 msgid "Update a Tag"
-msgstr "Pas een opmerking aan"
+msgstr "Pas een label aan"
 
 #: core/templates/core/tag_detail.html:7 core/templates/core/tag_form.html:7
 #: core/templates/core/tag_form.html:29
-#, fuzzy
 msgid "Add a Tag"
-msgstr "Voeg een verschoning toe"
+msgstr "Voeg een label toe"
 
 #: core/templates/core/tag_detail.html:28
-#, fuzzy
 msgid "Tag actions"
-msgstr "Timer acties"
+msgstr "Label acties"
 
 #: core/templates/core/tag_detail.html:32
 #: core/templates/timeline/_timeline.html:64
@@ -1650,73 +1634,60 @@ msgid "Edit"
 msgstr "Aanpassen"
 
 #: core/templates/core/tag_detail.html:46
-#, fuzzy
 msgid "Tagged Measurements"
-msgstr "Metingen"
+msgstr "Gelabelde etingen"
 
 #: core/templates/core/tag_detail.html:50
-#, fuzzy
 msgid "BMI Measurements"
-msgstr "Metingen"
+msgstr "BMI Metingen"
 
 #: core/templates/core/tag_detail.html:55
-#, fuzzy
 msgid "Head Circumference Measurements"
-msgstr "Hoofd omtrek invoer"
+msgstr "Hoofdomtrek Metingen"
 
 #: core/templates/core/tag_detail.html:60
-#, fuzzy
 msgid "Height Measurements"
-msgstr "Metingen"
+msgstr "Lengte Metingen"
 
 #: core/templates/core/tag_detail.html:65
-#, fuzzy
 msgid "Temperature Measurements"
-msgstr "Temperatuurmeting"
+msgstr "Temperatuurmetingen"
 
 #: core/templates/core/tag_detail.html:70
-#, fuzzy
 msgid "Weight Measurements"
-msgstr "Metingen"
+msgstr "Gewichtsmetingen"
 
 #: core/templates/core/tag_detail.html:76
-#, fuzzy
 msgid "Tagged Activities"
-msgstr "Activiteiten"
+msgstr "Gelabelde Activiteiten"
 
 #: core/templates/core/tag_detail.html:90
-#, fuzzy
 msgid "Pumpings"
 msgstr "Afkolven"
 
 #: core/templates/core/tag_detail.html:95
-#, fuzzy
 msgid "Sleeps"
 msgstr "Slaap"
 
 #: core/templates/core/tag_detail.html:100
-#, fuzzy
 msgid "Tummy Times"
 msgstr "Buikliggen"
 
 #: core/templates/core/tag_list.html:14
-#, fuzzy
 msgid "Add Tag"
-msgstr "Voeg een verschoning toe"
+msgstr "Voeg een label toe"
 
 #: core/templates/core/tag_list.html:26
 msgid "Items Tagged"
 msgstr "Gelabelde Items"
 
 #: core/templates/core/tag_list.html:27
-#, fuzzy
 msgid "Last Used"
 msgstr "Laatst gebruikt"
 
 #: core/templates/core/tag_list.html:62
-#, fuzzy
 msgid "No tags found."
-msgstr "Geen opmerkingen gevonden."
+msgstr "Geen labels gevonden."
 
 #: core/templates/core/temperature_confirm_delete.html:4
 msgid "Delete a Temperature Reading"
@@ -1945,9 +1916,9 @@ msgid "%(child)s finished feeding."
 msgstr "%(child)s is gestopt met eten."
 
 #: core/timeline.py:174
-#, fuzzy, python-format
+#, python-format
 msgid "%(child)s had a feeding."
-msgstr "%(child)s is begonnen met eten."
+msgstr "%(child)s heeft een voeding gehad."
 
 #: core/timeline.py:196
 #, python-format
@@ -2054,7 +2025,6 @@ msgid "solid"
 msgstr "vast"
 
 #: dashboard/templates/cards/diaperchange_types.html:43
-#, fuzzy
 msgid "changes"
 msgstr "Verschoningen"
 
@@ -2277,7 +2247,6 @@ msgid "Number of changes"
 msgstr "Aantal verschoningen"
 
 #: reports/graphs/feeding_amounts.py:69
-#, fuzzy
 msgid "Total Feeding Amount by Type"
 msgstr "Totaal hoeveelheid voeding per type"
 
@@ -2312,7 +2281,6 @@ msgid "Interval"
 msgstr "Interval"
 
 #: reports/graphs/feeding_intervals.py:41
-#, fuzzy
 msgid "Feeding intervals"
 msgstr "Hoeveelheid voedingen"
 
@@ -2324,7 +2292,6 @@ msgstr "Voedingsinterval (uren)"
 #: reports/templates/reports/feeding_pattern.html:4
 #: reports/templates/reports/feeding_pattern.html:9
 #: reports/templates/reports/report_list.html:32
-#, fuzzy
 msgid "Feeding Pattern"
 msgstr "Voedingspatroon"
 
@@ -2353,9 +2320,8 @@ msgid "P97"
 msgstr "P97"
 
 #: reports/graphs/pumping_amounts.py:59
-#, fuzzy
 msgid "Total Pumping Amount"
-msgstr "<b>Totale Afkolf Hoeveelheid</b>"
+msgstr "Totale Afkolf Hoeveelheid"
 
 #: reports/graphs/pumping_amounts.py:62
 msgid "Pumping Amount"
