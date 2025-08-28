@@ -2753,7 +2753,7 @@ msgstr "Deze actie zal het label van alle items verwijderen waarop deze is toege
 #: dashboard/templates/cards/sleep_last.html:9
 #: dashboard/templates/cards/tummytime_last.html:9
 msgid "%(time_ago)s ago"
-msgstr "%(time)s geleden"
+msgstr "%(time_ago)s geleden"
 
 #: reports/graphs/feeding_amounts.py:69
 msgid "Total Feeding Amount by Type"
