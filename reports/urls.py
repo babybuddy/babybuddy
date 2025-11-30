@@ -92,6 +92,11 @@ urlpatterns = [
         name="report-sleep-totals-child",
     ),
     path(
+        "children/<str:slug>/reports/sleep/awake-times/",
+        views.AwakeTimesChildReport.as_view(),
+        name="report-awake-times-child",
+    ),
+    path(
         "children/<str:slug>/reports/temperature/temperature/",
         views.TemperatureChangeChildReport.as_view(),
         name="report-temperature-change-child",
