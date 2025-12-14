@@ -246,6 +246,8 @@ class DiaperChange(models.Model):
             ("black", _("Black")),
             ("brown", _("Brown")),
             ("green", _("Green")),
+            ("red", _("Red")),
+            ("white", _("White")),
             ("yellow", _("Yellow")),
         ],
         max_length=255,

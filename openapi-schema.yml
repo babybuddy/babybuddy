@@ -298,6 +298,8 @@ paths:
               - black
               - brown
               - green
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -428,6 +430,8 @@ paths:
               - black
               - brown
               - green
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -512,6 +516,8 @@ paths:
               - black
               - brown
               - green
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -607,6 +613,8 @@ paths:
               - black
               - brown
               - green
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -702,6 +710,8 @@ paths:
               - black
               - brown
               - green
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -5231,6 +5241,8 @@ components:
             - black
             - brown
             - green
+            - red
+            - white
             - yellow
           type: string
         amount:
