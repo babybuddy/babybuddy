@@ -245,7 +245,9 @@ class DiaperChange(models.Model):
         choices=[
             ("black", _("Black")),
             ("brown", _("Brown")),
+            ("gray", _("Gray")),
             ("green", _("Green")),
+            ("orange", _("Orange")),
             ("red", _("Red")),
             ("white", _("White")),
             ("yellow", _("Yellow")),

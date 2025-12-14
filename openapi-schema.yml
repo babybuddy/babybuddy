@@ -297,7 +297,9 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
               - red
               - white
               - yellow
@@ -429,7 +431,9 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
               - red
               - white
               - yellow
@@ -515,7 +519,9 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
               - red
               - white
               - yellow
@@ -612,7 +618,9 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
               - red
               - white
               - yellow
@@ -709,7 +717,9 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
               - red
               - white
               - yellow
@@ -5240,7 +5250,9 @@ components:
           enum:
             - black
             - brown
+            - gray
             - green
+            - orange
             - red
             - white
             - yellow
