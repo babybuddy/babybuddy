@@ -46,3 +46,6 @@ devenv.local.nix
 .pre-commit-config.yaml
 
 .vscode
+
+# Local planning files
+.plans
