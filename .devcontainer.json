@@ -36,7 +36,8 @@
   "runArgs": ["--name", "babybuddy"],
   "containerEnv": {
     "DJANGO_SETTINGS_MODULE": "babybuddy.settings.development",
-    "BB_PORT": "8282"
+    "BB_PORT": "8282",
+    "UV_LINK_MODE": "copy"
   },
   "postCreateCommand": "pip install uv && uv sync && npm install --include=dev && npx lefthook install && gulp build && gulp migrate",
   "postAttachCommand": "gulp",
