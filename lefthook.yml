@@ -3,7 +3,7 @@ pre-commit:
   commands:
     black:
       glob: "*.py"
-      run: pipenv run black --check --diff --color {staged_files}
+      run: uv run black --check --diff --color {staged_files}
     ruff:
       glob: "*.py"
-      run: pipenv run ruff check {staged_files}
+      run: uv run ruff check {staged_files}
