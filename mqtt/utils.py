@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Shared helpers for the mqtt app."""
 
-from babybuddy.site_settings import mqtt as _mqtt_settings
+from mqtt.settings import mqtt_settings as _mqtt_settings
 
 
 def get_mqtt_settings():

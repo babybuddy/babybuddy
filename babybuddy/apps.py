@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 import os
+import uuid
 
 from django.apps import AppConfig
 from django.conf import settings
@@ -24,7 +25,7 @@ def set_default_site_settings(sender, **kwargs):
     Based on `dbsettings.utils.set_defaults` which no longer seem to work in
     the latest versions of Django.
     """
-    from babybuddy.settings.base import strtobool
+    from babybuddy.config import config
     from core import models
 
     # Removed `NAP_START_MIN` and `NAP_START_MAX` values are referenced here
@@ -51,31 +52,39 @@ def set_default_site_settings(sender, **kwargs):
             set_setting_value("core.models", class_name, attribute_name, value)
 
     # Seed MQTT settings from environment variables (first run only).
-    # The module/class used here must match the registration in site_settings.py
+    # The module/class used here must match the registration in mqtt/settings.py
     # where the MqttSettings group is instantiated at module level.
-    mqtt_module = "babybuddy.site_settings"
+    mqtt_module = "mqtt.settings"
     mqtt_class = ""  # module-level group, no owning model class
     mqtt_defaults = (
-        (
-            "enabled",
-            bool(strtobool(os.environ.get("MQTT_ENABLED") or "False")),
-        ),
-        ("broker_host", os.environ.get("MQTT_BROKER_HOST", "localhost")),
-        (
-            "broker_port",
-            int(os.environ.get("MQTT_BROKER_PORT", "1883")),
-        ),
-        ("username", os.environ.get("MQTT_USERNAME", "")),
-        ("password", os.environ.get("MQTT_PASSWORD", "")),
-        ("topic_prefix", os.environ.get("MQTT_TOPIC_PREFIX", "babybuddy")),
-        (
-            "use_tls",
-            bool(strtobool(os.environ.get("MQTT_TLS") or "False")),
-        ),
+        ("enabled", config.mqtt_enabled),
+        ("broker_host", config.mqtt_broker_host),
+        ("broker_port", config.mqtt_broker_port),
+        ("username", config.mqtt_username),
+        ("password", config.mqtt_password),
+        ("topic_prefix", config.mqtt_topic_prefix),
+        ("use_tls", config.mqtt_tls),
     )
     for attribute_name, value in mqtt_defaults:
         if not setting_in_db(mqtt_module, mqtt_class, attribute_name):
             set_setting_value(mqtt_module, mqtt_class, attribute_name, value)
+
+    # Seed Zeroconf / mDNS settings from environment variables (first run only).
+    # Module is "babybuddy.zeroconf" (not site_settings) to avoid attribute
+    # name collisions with MQTT settings in dbsettings storage.
+    zc_module = "babybuddy.zeroconf"
+    zc_class = ""
+    zc_defaults = (
+        ("enabled", config.zeroconf_enabled),
+        ("advertised_port", config.zeroconf_port),
+    )
+    for attribute_name, value in zc_defaults:
+        if not setting_in_db(zc_module, zc_class, attribute_name):
+            set_setting_value(zc_module, zc_class, attribute_name, value)
+
+    # Generate a stable instance_id (UUID4) on first run.
+    if not setting_in_db(zc_module, zc_class, "instance_id"):
+        set_setting_value(zc_module, zc_class, "instance_id", str(uuid.uuid4()))
 
 
 class BabyBuddyConfig(AppConfig):
@@ -87,3 +96,31 @@ class BabyBuddyConfig(AppConfig):
     def ready(self):
         post_migrate.connect(create_read_only_group, sender=self)
         post_migrate.connect(set_default_site_settings, sender=self)
+
+        # Start Zeroconf mDNS advertising in a background thread, but
+        # only when actually serving HTTP (runserver or gunicorn), not
+        # during management commands like migrate, check, etc.
+        if self._is_serving():
+            try:
+                from babybuddy.zeroconf import zeroconf_service
+
+                zeroconf_service.start_in_background()
+            except Exception as exc:
+                import logging
+
+                logging.getLogger("babybuddy.zeroconf").warning(
+                    "Failed to start Zeroconf service: %s", exc
+                )
+
+    @staticmethod
+    def _is_serving():
+        """Return True if Django is starting as an HTTP server."""
+        import sys
+
+        # Django's runserver sets RUN_MAIN=true in the reloaded process.
+        if os.environ.get("RUN_MAIN") == "true":
+            return True
+        # Gunicorn / uWSGI workers.
+        if "gunicorn" in sys.modules or "uwsgi" in sys.modules:
+            return True
+        return False
