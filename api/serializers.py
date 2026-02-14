@@ -230,6 +230,12 @@ class TagSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class MedicationSerializer(CoreModelSerializer, TaggableSerializer):
+    medication_schedule = serializers.PrimaryKeyRelatedField(
+        allow_null=True,
+        queryset=models.MedicationSchedule.objects.all(),
+        required=False,
+    )
+
     class Meta:
         model = models.Medication
         fields = (
