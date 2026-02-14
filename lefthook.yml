@@ -1,5 +1,9 @@
 pre-commit:
   parallel: true
   commands:
-    lint:
-      run: gulp lint
+    black:
+      glob: "*.py"
+      run: pipenv run black --check --diff --color {staged_files}
+    ruff:
+      glob: "*.py"
+      run: pipenv run ruff check {staged_files}
