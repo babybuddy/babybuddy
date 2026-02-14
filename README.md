@@ -14,9 +14,9 @@ A buddy for babies! Helps caregivers track sleep, feedings, diaper changes,
 tummy time and more to learn about and predict baby's needs without (_as much_)
 guess work.
 
-![Baby Buddy desktop view](screenshot.png)
+![Baby Buddy desktop view](assets/screenshot.png)
 
-![Baby Buddy mobile views](screenshot_mobile.png)
+![Baby Buddy mobile views](assets/screenshot_mobile.png)
 
 ## 👾 Demo
 
