@@ -6,6 +6,7 @@ from dotenv import load_dotenv, find_dotenv
 
 
 # Convert common string values to boolean (1/0).
+# Kept for backwards-compatibility; new code should use config._bool().
 def strtobool(val):
     val = str(val).lower()
     if val in ("y", "yes", "t", "true", "on", "1"):
@@ -21,13 +22,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 # Environment variables
 # Check for and load environment variables from a .env file.
+# IMPORTANT: load_dotenv must run BEFORE the config import so that .env
+# values are visible to os.environ when Config() is instantiated.
 
 load_dotenv(find_dotenv())
 
+from babybuddy.config import config  # noqa: E402  (must be after load_dotenv)
+
 # Required settings
-ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split(",")]
-SECRET_KEY = os.environ.get("SECRET_KEY") or None
-DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
+ALLOWED_HOSTS = config.allowed_hosts_list
+SECRET_KEY = config.secret_key or None
+DEBUG = config.debug
+
+# Default port — single source of truth for runserver, gunicorn, Zeroconf, etc.
+BB_PORT = config.bb_port
 
 # Applications
 # https://docs.djangoproject.com/en/5.0/ref/applications/
@@ -113,23 +121,23 @@ TEMPLATES = [
 if os.getenv("DATABASE_URL"):
     DATABASES = {"default": dj_database_url.config()}
 else:
-    config = {
+    db_config = {
         "ENGINE": os.getenv("DB_ENGINE") or "django.db.backends.sqlite3",
         "NAME": os.getenv("DB_NAME") or os.path.join(BASE_DIR, "data/db.sqlite3"),
     }
     if os.getenv("DB_USER"):
-        config["USER"] = os.getenv("DB_USER")
+        db_config["USER"] = os.getenv("DB_USER")
     if os.environ.get("DB_PASSWORD") or os.environ.get("POSTGRES_PASSWORD"):
-        config["PASSWORD"] = os.environ.get("DB_PASSWORD") or os.environ.get(
+        db_config["PASSWORD"] = os.environ.get("DB_PASSWORD") or os.environ.get(
             "POSTGRES_PASSWORD"
         )
     if os.getenv("DB_HOST"):
-        config["HOST"] = os.getenv("DB_HOST")
+        db_config["HOST"] = os.getenv("DB_HOST")
     if os.getenv("DB_PORT"):
-        config["PORT"] = os.getenv("DB_PORT")
+        db_config["PORT"] = os.getenv("DB_PORT")
     if os.getenv("DB_OPTIONS"):
-        config["OPTIONS"] = os.getenv("DB_OPTIONS")
-    DATABASES = {"default": config}
+        db_config["OPTIONS"] = os.getenv("DB_OPTIONS")
+    DATABASES = {"default": db_config}
 
 
 # Cache
@@ -163,7 +171,7 @@ LOGIN_URL = "babybuddy:login"
 
 LOGOUT_REDIRECT_URL = "babybuddy:login"
 
-REVERSE_PROXY_AUTH = bool(strtobool(os.environ.get("REVERSE_PROXY_AUTH") or "False"))
+REVERSE_PROXY_AUTH = config.reverse_proxy_auth
 
 # Use remote user middleware when reverse proxy auth is enabled.
 if REVERSE_PROXY_AUTH:
@@ -246,7 +254,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATIC_URL = os.path.join(os.environ.get("SUB_PATH") or "", "static/")
+STATIC_URL = os.path.join(config.sub_path, "static/")
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
@@ -392,15 +400,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # See https://docs.baby-buddy.net/ for details about these settings.
 
 BABY_BUDDY = {
-    "ALLOW_UPLOADS": bool(strtobool(os.environ.get("ALLOW_UPLOADS") or "True")),
+    "ALLOW_UPLOADS": config.allow_uploads,
     "READ_ONLY_GROUP_NAME": "read_only",
 }
 
 # Home assistant specific configuration
 
-ENABLE_HOME_ASSISTANT_SUPPORT = bool(
-    strtobool(os.environ.get("ENABLE_HOME_ASSISTANT_SUPPORT") or "False")
-)
+ENABLE_HOME_ASSISTANT_SUPPORT = config.enable_home_assistant
 
 # MQTT Publishing (for Home Assistant integration)
 #

@@ -1,5 +1,7 @@
+from babybuddy.config import config
+
 # Server mechanics
-bind = "0.0.0.0:8000"
+bind = f"0.0.0.0:{config.bb_port}"
 backlog = 2048
 daemon = False
 pidfile = None
@@ -111,7 +113,9 @@ def worker_int(worker):
     worker.log.info("worker received INT or QUIT signal")
 
     # get traceback info
-    import threading, sys, traceback
+    import sys
+    import threading
+    import traceback
 
     id2name = dict([(th.ident, th.name) for th in threading.enumerate()])
     code = []

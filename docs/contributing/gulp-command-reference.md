@@ -113,7 +113,7 @@ Executes Django's `runserver` management task. Gulp passes non-overlapping
 arguments for this command.
 
 A special parameter, `--ip`, is also available to set the IP for the server.
-E.g., execute `gulp runserver --ip 0.0.0.0:8000` to make the server available to
+E.g., execute `gulp runserver --ip 0.0.0.0:8282` to make the server available to
 other devices on your local network.
 
 ### `scripts`

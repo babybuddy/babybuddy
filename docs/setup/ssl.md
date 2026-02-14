@@ -42,7 +42,7 @@ be used if desired.
 
 If Baby Buddy is running from Docker a new NGINX site will need to be created to send
 traffic to Docker. The configuration below uses the example domain `babybuddy.example.com`
-and assumes Docker has exposed Baby Buddy on port `8000` (the default configuration).
+and assumes Docker has exposed Baby Buddy on port `8282` (the default configuration).
 
 ```shell
 editor /etc/nginx/sites-available/babybuddy
@@ -58,7 +58,7 @@ error_log                   /var/log/nginx/babybuddy.error.log;
 server {
   server_name               babybuddy.example.com;
   location / {
-    proxy_pass              http://localhost:8000;
+    proxy_pass              http://localhost:8282;
     proxy_set_header        Host $host;
   }
 }
@@ -113,7 +113,7 @@ error_log                   /var/log/nginx/babybuddy.error.log;
 server {
   server_name               babybuddy.example.com;
   location / {
-    proxy_pass              http://localhost:8000;
+    proxy_pass              http://localhost:8282;
     proxy_set_header        Host $host;
   }
 
@@ -172,7 +172,7 @@ server {
     ssl_certificate     /certs/babybuddy.example.com.crt;
     ssl_certificate_key /certs/babybuddy.example.com.key;
     location / {
-        proxy_pass              http://babybuddy:8000;
+        proxy_pass              http://babybuddy:8282;
         proxy_set_header        Host $host;
     }
 }

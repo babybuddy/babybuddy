@@ -3,7 +3,6 @@ from __future__ import annotations
 import subprocess
 import urllib.error
 import urllib.request
-from pathlib import Path
 from typing import Any
 
 from fastmcp import FastMCP
@@ -54,7 +53,7 @@ def register(mcp: FastMCP) -> None:
         )
         # Start runserver in background
         proc = subprocess.Popen(
-            get_django_cmd(["runserver", str(port)]),
+            get_django_cmd(["runserver", f"0.0.0.0:{port}"]),
             cwd=root,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
