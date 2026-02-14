@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import datetime
-
 from django import template
 from django.db.models import Avg, Count, Q, Sum
 from django.db.models.functions import TruncDate
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -941,11 +940,101 @@ def card_medication_last(context, child):
 def medication_overdue_alert(child):
     """
     Alert banner for overdue medications, shown above dashboard cards.
+    Uses the shared _expiry_alert.html template via the wrapper.
     :param child: an instance of the Child model.
-    :returns: a dictionary with overdue medication items.
+    :returns: a dictionary for the shared _expiry_alert.html template.
     """
     pending = _medication_pending(child)
     overdue = [item for item in pending if item["overdue"]]
+    if not overdue:
+        return {"items": []}
+
+    count = len(overdue)
+    title = (
+        _("%(counter)s medication overdue") % {"counter": count}
+        if count == 1
+        else _("%(counter)s medications overdue") % {"counter": count}
+    )
+
+    items = []
+    for item in overdue:
+        detail = (
+            item["due_time"].strftime("%H:%M") if item.get("has_specific_time") else ""
+        )
+        items.append(
+            {
+                "label": item["schedule"].name,
+                "detail": detail,
+                "action_url": reverse(
+                    "core:medication-give", args=[item["schedule"].id]
+                ),
+                "action_label": _("Give"),
+            }
+        )
+
     return {
-        "overdue": overdue,
+        "items": items,
+        "alert_level": "warning",
+        "icon_class": "icon-medication",
+        "title": title,
+    }
+
+
+@register.inclusion_tag("cards/_expiry_alert.html")
+def expirable_alert(child):
+    """
+    Alert banner for expiring/expired items, shown above dashboard cards.
+    Uses the shared _expiry_alert.html template.
+    :param child: an instance of the Child model.
+    :returns: a dictionary for the shared _expiry_alert.html template.
+    """
+    now = timezone.localtime()
+    active = models.Expirable.objects.filter(child=child, discarded=False)
+
+    items = []
+    worst_level = None  # track the most urgent alert level
+
+    for exp in active:
+        remaining = exp.expiry_time - now
+        days_left = remaining.total_seconds() / 86400
+
+        if days_left <= 0:
+            level = "danger"
+            detail = _("expired")
+        elif days_left <= 1:
+            level = "danger"
+            detail = _("less than 1 day left")
+        elif days_left <= 2:
+            level = "warning"
+            detail = _("%(days)s days left") % {"days": round(days_left, 1)}
+        else:
+            continue  # not yet alerting
+
+        items.append(
+            {
+                "label": exp.name,
+                "detail": detail,
+                "action_url": reverse("core:expirable-discard", args=[exp.pk]),
+                "action_label": _("Discard"),
+            }
+        )
+
+        # Escalate: danger > warning
+        if worst_level != "danger":
+            worst_level = level
+
+    if not items:
+        return {"items": []}
+
+    count = len(items)
+    if count == 1:
+        title = _("%(counter)s item expiring") % {"counter": count}
+    else:
+        title = _("%(counter)s items expiring") % {"counter": count}
+
+    return {
+        "items": items,
+        "alert_level": worst_level or "warning",
+        "icon_class": "icon-expirable",
+        "title": title,
     }

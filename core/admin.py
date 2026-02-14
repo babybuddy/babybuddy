@@ -81,6 +81,29 @@ class PumpingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     resource_class = PumpingImportExportResource
 
 
+class ExpirableImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.Expirable
+
+
+@admin.register(models.Expirable)
+class ExpirableAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        "child",
+        "name",
+        "time",
+        "expiry_days",
+        "discarded",
+    )
+    list_filter = ("child", "discarded", "tags")
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "name",
+    )
+    resource_class = ExpirableImportExportResource
+
+
 class DiaperChangeImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.DiaperChange

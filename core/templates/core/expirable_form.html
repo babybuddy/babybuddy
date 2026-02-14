@@ -1,0 +1,29 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}
+    {% if object %}
+        {{ object }}
+    {% else %}
+        {% trans "Add an Expirable" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:expirable-list' %}">{% trans "Expirables" %}</a>
+    </li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add an Expirable" %}</li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>
+            {% trans "Update" %} <span class="text-info">{{ object }}</span>
+        </h1>
+    {% else %}
+        <h1>{% trans "Add an Expirable" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}

@@ -160,6 +160,23 @@ urlpatterns = [
         views.MedicationGive.as_view(),
         name="medication-give",
     ),
+    path("expirables/", views.ExpirableList.as_view(), name="expirable-list"),
+    path("expirables/add/", views.ExpirableAdd.as_view(), name="expirable-add"),
+    path(
+        "expirables/<int:pk>/",
+        views.ExpirableUpdate.as_view(),
+        name="expirable-update",
+    ),
+    path(
+        "expirables/<int:pk>/delete/",
+        views.ExpirableDelete.as_view(),
+        name="expirable-delete",
+    ),
+    path(
+        "expirables/<int:pk>/discard/",
+        views.ExpirableDiscardToggle.as_view(),
+        name="expirable-discard",
+    ),
     path("bmi/", views.BMIList.as_view(), name="bmi-list"),
     path("bmi/add/", views.BMIAdd.as_view(), name="bmi-add"),
     path("bmi/<int:pk>/", views.BMIUpdate.as_view(), name="bmi-update"),

@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 
 from core.models import (
     DiaperChange,
+    Expirable,
     Feeding,
     Medication,
     Note,
@@ -29,6 +30,7 @@ def get_objects(date, child=None):
     events = []
 
     _add_diaper_changes(min_date, max_date, events, child)
+    _add_expirables(min_date, max_date, events, child)
     _add_feedings(min_date, max_date, events, child)
     _add_sleeps(min_date, max_date, events, child)
     _add_tummy_times(min_date, max_date, events, child)
@@ -208,6 +210,34 @@ def _add_diaper_changes(min_date, max_date, events, child):
                     "type": "".join(contents),
                 },
                 "edit_link": reverse("core:diaperchange-update", args=[instance.id]),
+                "model_name": instance.model_name,
+                "tags": instance.tags.all(),
+            }
+        )
+
+
+def _add_expirables(min_date, max_date, events, child):
+    instances = Expirable.objects.filter(time__range=(min_date, max_date)).order_by(
+        "-time"
+    )
+    if child:
+        instances = instances.filter(child=child)
+    for instance in instances:
+        details = []
+        if instance.notes:
+            details.append(instance.notes)
+        status = _("discarded") if instance.discarded else _("open")
+        details.append(_("Status") + ": " + status)
+        events.append(
+            {
+                "time": timezone.localtime(instance.time),
+                "event": _("%(child)s opened %(name)s.")
+                % {
+                    "child": instance.child.first_name,
+                    "name": instance.name,
+                },
+                "details": details,
+                "edit_link": reverse("core:expirable-update", args=[instance.id]),
                 "model_name": instance.model_name,
                 "tags": instance.tags.all(),
             }

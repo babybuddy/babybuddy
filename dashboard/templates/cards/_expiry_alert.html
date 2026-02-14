@@ -1,0 +1,35 @@
+{% load i18n %}
+{% if items %}
+    <div class="alert alert-{{ alert_level }} alert-dismissible fade show"
+         role="alert">
+        <div class="d-flex align-items-center mb-1">
+            <i class="{{ icon_class }}" aria-hidden="true"></i>
+            <strong class="ms-1">{{ title }}</strong>
+            <button type="button"
+                    class="btn-close ms-auto"
+                    data-bs-dismiss="alert"
+                    aria-label="{% trans "Close" %}"></button>
+        </div>
+        {% for item in items %}
+            <div class="d-flex align-items-center{% if not forloop.last %} mb-1{% endif %}">
+                <span class="me-auto">
+                    {{ item.label }}
+                    {% if item.detail %}
+                        <span class="opacity-75">({{ item.detail }})</span>
+                    {% endif %}
+                </span>
+                <form method="post"
+                      action="{{ item.action_url }}"
+                      class="d-inline ms-2">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="btn btn-sm btn-{{ alert_level }}"
+                            title="{{ item.action_label }}: {{ item.label }}">
+                        <i class="icon-true" aria-hidden="true"></i>
+                        {{ item.action_label }} {{ item.label }}
+                    </button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

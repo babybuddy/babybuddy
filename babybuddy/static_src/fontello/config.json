@@ -287,6 +287,12 @@
       "css": "medication",
       "code": 61690,
       "src": "fontawesome"
+    },
+    {
+      "uid": "bc9b0a766409e4ddeb2e9745c3e8130c",
+      "css": "expirable",
+      "code": 59415,
+      "src": "fontawesome"
     }
   ]
 }

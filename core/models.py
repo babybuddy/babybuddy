@@ -348,6 +348,58 @@ class Feeding(models.Model):
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
 
+class Expirable(models.Model):
+    model_name = "expirable"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="expirables",
+        verbose_name=_("Child"),
+    )
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_("Name"),
+        help_text=_("E.g. Formula, Breast milk, Pedialyte."),
+    )
+    time = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Opened at"),
+    )
+    expiry_days = models.PositiveIntegerField(
+        default=30,
+        verbose_name=_("Expires after (days)"),
+        help_text=_(
+            "Number of days after opening before the item should be discarded."
+        ),
+    )
+    discarded = models.BooleanField(default=False, verbose_name=_("Discarded"))
+    discarded_at = models.DateTimeField(
+        blank=True, null=True, verbose_name=_("Discarded at")
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-time"]
+        verbose_name = _("Expirable")
+        verbose_name_plural = _("Expirables")
+
+    def __str__(self):
+        return str(self.name)
+
+    @property
+    def expiry_time(self):
+        return self.time + datetime.timedelta(days=self.expiry_days)
+
+    def clean(self):
+        validate_time(self.time, "time")
+
+
 class HeadCircumference(models.Model):
     model_name = "head_circumference"
     child = models.ForeignKey(

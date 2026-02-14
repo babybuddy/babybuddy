@@ -1,0 +1,109 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n widget_tweaks %}
+{% block title %}
+    {% trans "Expirables" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Expirables" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Expirables" %}
+        {% if perms.core.add_expirable %}
+            <a href="{% url 'core:expirable-add' %}"
+               class="btn btn-sm btn-success">
+                <i class="icon-expirable" aria-hidden="true"></i> {% trans "Add Expirable" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Opened at" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Expires" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Tags" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expirable in object_list %}
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_expirable %}
+                                    <a href="{% url 'core:expirable-update' expirable.id %}"
+                                       class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.delete_expirable %}
+                                    <a href="{% url 'core:expirable-delete' expirable.id %}"
+                                       class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.change_expirable %}
+                                    <form method="post"
+                                          action="{% url 'core:expirable-discard' expirable.id %}"
+                                          class="d-inline">
+                                        {% csrf_token %}
+                                        {% if not expirable.discarded %}
+                                            <button type="submit"
+                                                    class="btn btn-warning"
+                                                    title="{% trans "Mark as discarded" %}">
+                                                <i class="icon-delete" aria-hidden="true"></i> {% trans "Discard" %}
+                                            </button>
+                                        {% else %}
+                                            <button type="submit"
+                                                    class="btn btn-success"
+                                                    title="{% trans "Mark as open again" %}">
+                                                <i class="icon-true" aria-hidden="true"></i> {% trans "Reopen" %}
+                                            </button>
+                                        {% endif %}
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <th scope="row">{{ expirable.time|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td>
+                                <a href="{% url 'core:child' expirable.child.slug %}">{{ expirable.child }}</a>
+                            </td>
+                        {% endif %}
+                        <td>{{ expirable.name }}</td>
+                        <td>{{ expirable.expiry_time|datetime_short }}</td>
+                        <td>
+                            {% if expirable.discarded %}
+                                <span class="badge bg-secondary">{% trans "Discarded" %}</span>
+                            {% else %}
+                                <span class="badge bg-success">{% trans "Open" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=expirable.tags.all %}</td>
+                    </tr>
+                    {% if expirable.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="7">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ expirable.notes }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="7">{% trans "No expirable entries found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

@@ -148,6 +148,25 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
         lookup_field = "slug"
 
 
+class ExpirableSerializer(CoreModelSerializer, TaggableSerializer):
+    expiry_time = serializers.DateTimeField(read_only=True)
+
+    class Meta:
+        model = models.Expirable
+        fields = (
+            "id",
+            "child",
+            "name",
+            "time",
+            "expiry_days",
+            "expiry_time",
+            "discarded",
+            "discarded_at",
+            "notes",
+            "tags",
+        )
+
+
 class DiaperChangeSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.DiaperChange

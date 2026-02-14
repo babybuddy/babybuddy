@@ -62,6 +62,12 @@ class StartEndFieldFilter(ChildFieldFilter):
         )
 
 
+class ExpirableFilter(TimeFieldFilter, TagsFieldFilter):
+    class Meta(TimeFieldFilter.Meta):
+        model = models.Expirable
+        fields = sorted(TimeFieldFilter.Meta.fields + ["name", "discarded"])
+
+
 class DiaperChangeFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.DiaperChange

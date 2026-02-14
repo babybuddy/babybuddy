@@ -325,6 +325,18 @@
 {% trans "Tummy Time entry" %}
 </a>
 {% endif %}
+{% if perms.core.view_expirable %}
+<a class="dropdown-item{% if request.path == '/expirables/' %} active{% endif %}"
+   href="{% url 'core:expirable-list' %}"><i class="icon-expirable" aria-hidden="true"></i>
+{% trans "Expirables" %}
+</a>
+{% endif %}
+{% if perms.core.add_expirable %}
+<a class="dropdown-item ps-5{% if request.path == '/expirables/add/' %} active{% endif %}"
+   href="{% url 'core:expirable-add' %}"><i class="icon-add" aria-hidden="true"></i>
+{% trans "Expirable entry" %}
+</a>
+{% endif %}
 </div>
 </li>
 {% if perms.core.view_timer %}

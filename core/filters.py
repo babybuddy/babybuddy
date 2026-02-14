@@ -21,6 +21,12 @@ class BMIFilter(TagFilter):
         fields = ["child"]
 
 
+class ExpirableFilter(TagFilter):
+    class Meta:
+        model = models.Expirable
+        fields = ["child", "name", "discarded"]
+
+
 class DiaperChangeFilter(TagFilter):
     class Meta:
         model = models.DiaperChange

@@ -223,6 +223,26 @@ class ChildDeleteForm(forms.ModelForm):
         return instance
 
 
+class ExpirableForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {
+            "fields": ["child", "name", "time"],
+            "layout": "required",
+        },
+        {"fields": ["expiry_days"]},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.Expirable
+        fields = ["child", "name", "time", "expiry_days", "notes", "tags"]
+        widgets = {
+            "child": ChildRadioSelect,
+            "time": DateTimeInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
 class DiaperChangeForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
         {"fields": ["child", "time"], "layout": "required"},

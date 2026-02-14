@@ -12,6 +12,7 @@
 {% endblock %}
 {% block content %}
     {% medication_overdue_alert object %}
+    {% expirable_alert object %}
     <div id="dashboard-child"
          class="row"
          data-masonry='{"percentPosition": true }'>

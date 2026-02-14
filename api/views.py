@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
 from rest_framework import viewsets, views
 from rest_framework.decorators import action
@@ -51,6 +52,23 @@ class ChildViewSet(viewsets.ModelViewSet):
         """Return daily aggregate stats for a child, including overdue medications."""
         child = self.get_object()
         return Response(compute_stats(child))
+
+
+class ExpirableViewSet(viewsets.ModelViewSet):
+    queryset = models.Expirable.objects.all()
+    serializer_class = serializers.ExpirableSerializer
+    filterset_class = filters.ExpirableFilter
+    ordering_fields = ("name", "time")
+    ordering = "-time"
+
+    @action(detail=True, methods=["post"])
+    def discard(self, request, pk=None):
+        """Toggle an Expirable's discarded status."""
+        instance = self.get_object()
+        instance.discarded = not instance.discarded
+        instance.discarded_at = timezone.localtime() if instance.discarded else None
+        instance.save()
+        return Response(self.get_serializer(instance).data)
 
 
 class DiaperChangeViewSet(viewsets.ModelViewSet):

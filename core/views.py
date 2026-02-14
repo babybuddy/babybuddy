@@ -3,15 +3,15 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
 from django.db.models.functions import Lower
-from django.forms import Form
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views import View
 from django.views.generic.base import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from babybuddy.views import BabyBuddyFilterView, BabyBuddyPaginatedView
@@ -148,6 +148,55 @@ class ChildDelete(CoreUpdateView):
             "model": self.model._meta.verbose_name.title()
         }
         return success_message % cleaned_data
+
+
+class ExpirableList(
+    PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilterView
+):
+    model = models.Expirable
+    template_name = "core/expirable_list.html"
+    permission_required = ("core.view_expirable",)
+    filterset_class = filters.ExpirableFilter
+
+
+class ExpirableAdd(CoreAddView):
+    model = models.Expirable
+    permission_required = ("core.add_expirable",)
+    form_class = forms.ExpirableForm
+    success_url = reverse_lazy("core:expirable-list")
+
+
+class ExpirableUpdate(CoreUpdateView):
+    model = models.Expirable
+    permission_required = ("core.change_expirable",)
+    form_class = forms.ExpirableForm
+    success_url = reverse_lazy("core:expirable-list")
+
+
+class ExpirableDelete(CoreDeleteView):
+    model = models.Expirable
+    permission_required = ("core.delete_expirable",)
+    success_url = reverse_lazy("core:expirable-list")
+
+
+class ExpirableDiscardToggle(PermissionRequiredMixin, View):
+    """Toggle an Expirable's discarded status and redirect back."""
+
+    permission_required = ("core.change_expirable",)
+
+    def post(self, request, pk):
+        instance = get_object_or_404(models.Expirable, pk=pk)
+        instance.discarded = not instance.discarded
+        instance.discarded_at = timezone.localtime() if instance.discarded else None
+        instance.save()
+        if instance.discarded:
+            msg = _("%(name)s marked as discarded.")
+        else:
+            msg = _("%(name)s marked as open.")
+        messages.success(request, msg % {"name": instance.name})
+        return HttpResponseRedirect(
+            request.META.get("HTTP_REFERER", reverse("core:expirable-list"))
+        )
 
 
 class DiaperChangeList(
