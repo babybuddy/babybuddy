@@ -9,7 +9,7 @@
             <label for="id_{{ field.name }}"
                    class="col-xs-2 col-sm-auto col-form-label col-form-label-sm">{{ field.label }}</label>
             <div class="col-xs-10 col-sm-auto">
-                {% if 'choice' or 'boolean' in field|field_type %}
+                {% if 'choice' in field|field_type or 'boolean' in field|field_type %}
                     {{ field|add_class:"form-select form-select-sm" }}
                 {% else %}
                     {{ field|add_class:"form-control form-control-sm" }}

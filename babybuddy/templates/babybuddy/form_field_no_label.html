@@ -1,5 +1,5 @@
 {% load widget_tweaks %}
-{% if field|field_type == "booleanfield" %}
+{% if field|field_type == "booleanfield" or field|widget_type == "checkboxinput" %}
     {% if field.errors %}
         {{ field|add_class:"btn-check d-none is-invalid" }}
     {% else %}
