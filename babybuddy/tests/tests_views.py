@@ -6,7 +6,6 @@ from django.test import TestCase, override_settings, tag
 from django.test import Client as HttpClient
 from django.contrib.auth import get_user_model
 from django.core import mail
-from django.core.management import call_command
 
 from faker import Faker
 
@@ -14,24 +13,22 @@ from babybuddy.views import UserUnlock
 
 
 class ViewsTestCase(TestCase):
-    @classmethod
-    def setUpClass(cls):
-        super(ViewsTestCase, cls).setUpClass()
+    def setUp(self):
+        super().setUp()
         fake = Faker()
-        call_command("migrate", verbosity=0)
 
-        cls.c = HttpClient()
+        self.c = HttpClient()
 
         fake_user = fake.simple_profile()
-        cls.credentials = {
+        self.credentials = {
             "username": fake_user["username"],
             "password": fake.password(),
         }
-        cls.user = get_user_model().objects.create_user(
-            is_superuser=True, email="admin@admin.admin", **cls.credentials
+        self.user = get_user_model().objects.create_user(
+            is_superuser=True, email="admin@admin.admin", **self.credentials
         )
 
-        cls.c.login(**cls.credentials)
+        self.c.login(**self.credentials)
 
     def test_root_router(self):
         page = self.c.get("/")
