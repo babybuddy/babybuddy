@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "babybuddy-dev": {
+      "command": "python",
+      "args": ["-m", "mcp_server"],
+      "env": {
+        "PYTHONPATH": "scripts"
+      },
+      "cwd": "/workspaces/babybuddy"
+    }
+  }
+}
