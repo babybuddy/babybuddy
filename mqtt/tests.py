@@ -15,16 +15,13 @@ from django.test import TestCase
 from django.utils import timezone
 
 from core.models import (
-    BMI,
     Child,
     DiaperChange,
     Feeding,
     Medication,
     MedicationSchedule,
-    Sleep,
     Temperature,
     Timer,
-    Weight,
 )
 
 from mqtt.client import MqttClient
@@ -503,3 +500,211 @@ class MqttDisabledTests(TestCase):
         client = MqttClient()
         # Should not raise
         client.publish("test/topic", "payload")
+
+
+# -----------------------------------------------------------------------
+# Test HA discovery toggle (ha_discovery setting)
+# -----------------------------------------------------------------------
+
+
+class HADiscoveryToggleTests(TestCase):
+    def setUp(self):
+        self.child = _create_child()
+
+    @patch("mqtt.discovery.get_topic_prefix", return_value="babybuddy")
+    @patch("mqtt.discovery.get_mqtt_settings")
+    @patch("mqtt.discovery.mqtt_client")
+    def test_toggle_off_suppresses_publish_child_discovery(
+        self, mock_client, mock_get_settings, mock_get_prefix
+    ):
+        """When ha_discovery is False, publish_child_discovery is a no-op."""
+        settings = _mock_mqtt_settings(enabled=True)
+        settings.ha_discovery = False
+        mock_get_settings.return_value = settings
+
+        publish_child_discovery(self.child)
+        mock_client.publish.assert_not_called()
+
+    @patch("mqtt.discovery.get_topic_prefix", return_value="babybuddy")
+    @patch("mqtt.discovery.get_mqtt_settings")
+    @patch("mqtt.discovery.mqtt_client")
+    def test_toggle_off_suppresses_publish_all_discovery(
+        self, mock_client, mock_get_settings, mock_get_prefix
+    ):
+        """When ha_discovery is False, publish_all_discovery is a no-op."""
+        settings = _mock_mqtt_settings(enabled=True)
+        settings.ha_discovery = False
+        mock_get_settings.return_value = settings
+
+        publish_all_discovery()
+        mock_client.publish.assert_not_called()
+
+    @patch("mqtt.discovery.get_topic_prefix", return_value="babybuddy")
+    @patch("mqtt.discovery.get_mqtt_settings")
+    @patch("mqtt.discovery.mqtt_client")
+    def test_toggle_on_publishes_discovery(
+        self, mock_client, mock_get_settings, mock_get_prefix
+    ):
+        """When ha_discovery is True (default), discovery publishes normally."""
+        settings = _mock_mqtt_settings(enabled=True)
+        settings.ha_discovery = True
+        mock_get_settings.return_value = settings
+
+        publish_child_discovery(self.child)
+        self.assertEqual(mock_client.publish.call_count, len(DISCOVERY_ENTITIES))
+
+    @patch("mqtt.discovery.mqtt_client")
+    def test_remove_discovery_always_runs(self, mock_client):
+        """remove_child_discovery runs even when ha_discovery is False."""
+        remove_child_discovery(self.child)
+        self.assertEqual(mock_client.publish.call_count, len(DISCOVERY_ENTITIES))
+
+    @patch("mqtt.publisher.get_topic_prefix", return_value="babybuddy")
+    @patch("mqtt.publisher.get_mqtt_settings")
+    @patch("mqtt.publisher.mqtt_client")
+    def test_toggle_off_does_not_affect_data_publishing(
+        self, mock_client, mock_get_settings, mock_get_prefix
+    ):
+        """ha_discovery=False should not affect data topic publishing."""
+        settings = _mock_mqtt_settings(enabled=True)
+        settings.ha_discovery = False
+        mock_get_settings.return_value = settings
+        mock_client.is_started = True
+
+        now = timezone.now()
+        feeding = Feeding.objects.create(
+            child=self.child,
+            start=now - datetime.timedelta(minutes=30),
+            end=now,
+            type="breast milk",
+            method="bottle",
+        )
+        on_model_save(Feeding, feeding, created=True)
+
+        # Data topics should still publish
+        call_topics = [call[0][0] for call in mock_client.publish.call_args_list]
+        self.assertIn(f"babybuddy/{self.child.slug}/feeding/state", call_topics)
+        self.assertIn(f"babybuddy/{self.child.slug}/stats/state", call_topics)
+
+
+# -----------------------------------------------------------------------
+# Test HA Discovery API endpoint
+# -----------------------------------------------------------------------
+
+
+class HADiscoveryEndpointTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpass", is_superuser=True
+        )
+        self.client.force_login(self.user)
+
+    def test_returns_200_and_expected_structure(self):
+        response = self.client.get("/api/ha/discovery")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+
+        # Top-level keys
+        self.assertEqual(data["version"], 1)
+        self.assertEqual(data["stats_endpoint"], "/api/children/{slug}/stats/")
+        self.assertIn("mqtt", data)
+        self.assertIn("sensors", data)
+        self.assertIn("stats_sensors", data)
+        self.assertIn("binary_sensors", data)
+        self.assertIn("selects", data)
+
+    def test_mqtt_section(self):
+        response = self.client.get("/api/ha/discovery")
+        mqtt = response.json()["mqtt"]
+
+        self.assertEqual(mqtt["default_topic_prefix"], "babybuddy")
+        self.assertIn("topics", mqtt)
+        topics = mqtt["topics"]
+        # Spot-check key mappings
+        self.assertEqual(topics["feeding"], "feedings")
+        self.assertEqual(topics["diaper_change"], "changes")
+        self.assertEqual(topics["sleep"], "sleep")
+        self.assertEqual(topics["tummy_time"], "tummy-times")
+
+    def test_sensors_keys_match_api_endpoints(self):
+        response = self.client.get("/api/ha/discovery")
+        sensors = response.json()["sensors"]
+
+        # All sensor keys should be valid API endpoint prefixes
+        from api.urls import router
+
+        registered_prefixes = {prefix for prefix, _, _ in router.registry}
+        for sensor in sensors:
+            self.assertIn(
+                sensor["key"],
+                registered_prefixes,
+                f"Sensor key '{sensor['key']}' is not a registered API route prefix",
+            )
+
+    def test_sensors_have_required_fields(self):
+        response = self.client.get("/api/ha/discovery")
+        sensors = response.json()["sensors"]
+
+        self.assertEqual(len(sensors), 13)
+        for sensor in sensors:
+            self.assertIn("key", sensor)
+            self.assertIn("name", sensor)
+            self.assertIn("state_key", sensor)
+
+    def test_stats_sensors_have_required_fields(self):
+        response = self.client.get("/api/ha/discovery")
+        stats_sensors = response.json()["stats_sensors"]
+
+        self.assertEqual(len(stats_sensors), 6)
+        for sensor in stats_sensors:
+            self.assertIn("key", sensor)
+            self.assertIn("name", sensor)
+            self.assertIn("stats_field", sensor)
+
+    def test_binary_sensors(self):
+        response = self.client.get("/api/ha/discovery")
+        binary_sensors = response.json()["binary_sensors"]
+
+        self.assertEqual(len(binary_sensors), 1)
+        med = binary_sensors[0]
+        self.assertEqual(med["key"], "medication_overdue")
+        self.assertEqual(med["device_class"], "problem")
+        self.assertEqual(med["stats_field"], "medications_overdue_count")
+        self.assertEqual(med["condition"], "greater_than_zero")
+        self.assertIn("attributes", med)
+
+    def test_selects_options_from_models(self):
+        response = self.client.get("/api/ha/discovery")
+        selects = response.json()["selects"]
+
+        selects_by_key = {s["key"]: s for s in selects}
+
+        # Diaper color options should match the model choices
+        diaper_colors = selects_by_key["diaper_color"]["options"]
+        expected_colors = [
+            str(label) for _, label in DiaperChange._meta.get_field("color").choices
+        ]
+        self.assertEqual(diaper_colors, expected_colors)
+
+        # Feeding method
+        feeding_methods = selects_by_key["feeding_method"]["options"]
+        expected_methods = [
+            str(label) for _, label in Feeding._meta.get_field("method").choices
+        ]
+        self.assertEqual(feeding_methods, expected_methods)
+
+        # Feeding type
+        feeding_types = selects_by_key["feeding_type"]["options"]
+        expected_types = [
+            str(label) for _, label in Feeding._meta.get_field("type").choices
+        ]
+        self.assertEqual(feeding_types, expected_types)
+
+        # Change type (hardcoded)
+        change_types = selects_by_key["change_type"]["options"]
+        self.assertEqual(change_types, ["Wet", "Solid", "Wet and Solid"])
+
+    def test_unauthenticated_returns_error(self):
+        self.client.logout()
+        response = self.client.get("/api/ha/discovery")
+        self.assertIn(response.status_code, [401, 403])

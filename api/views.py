@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets, views
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.schemas.openapi import AutoSchema
 
@@ -186,3 +187,239 @@ class ProfileView(views.APIView):
         )
         serializer = self.serializer_class(settings)
         return Response(serializer.data)
+
+
+def _get_choice_labels(model_class, field_name):
+    """Return the display labels for a model choice field."""
+    field = model_class._meta.get_field(field_name)
+    return [str(label) for _value, label in field.choices]
+
+
+class HADiscoveryView(views.APIView):
+    """Metadata endpoint consumed by the Home Assistant integration.
+
+    Returns a JSON object describing all entities, MQTT topics, and select
+    options that Baby Buddy exposes.  This is a pure HTTP endpoint with zero
+    dependency on the MQTT subsystem -- it works whether MQTT is enabled or not.
+    """
+
+    schema = AutoSchema(operation_id_base="HADiscovery")
+    permission_classes = [IsAuthenticated]
+
+    # -- static entity definitions (no mqtt imports) ----------------------
+
+    MQTT_TOPICS = {
+        "feeding": "feedings",
+        "diaper_change": "changes",
+        "sleep": "sleep",
+        "pumping": "pumping",
+        "tummy_time": "tummy-times",
+        "temperature": "temperature",
+        "weight": "weight",
+        "height": "height",
+        "head_circumference": "head-circumference",
+        "bmi": "bmi",
+        "note": "notes",
+        "medication": "medications",
+        "medication_schedule": "medication_schedules",
+        "timer": "timers",
+    }
+
+    SENSORS = [
+        {
+            "key": "bmi",
+            "name": "Last BMI",
+            "state_key": "bmi",
+            "state_class": "measurement",
+            "icon": "mdi:human",
+        },
+        {
+            "key": "changes",
+            "name": "Last Diaper Change",
+            "state_key": "time",
+            "device_class": "timestamp",
+            "icon": "mdi:paper-roll-outline",
+        },
+        {
+            "key": "feedings",
+            "name": "Last Feeding",
+            "state_key": "start",
+            "device_class": "timestamp",
+            "icon": "mdi:baby-bottle-outline",
+        },
+        {
+            "key": "head-circumference",
+            "name": "Last Head Circumference",
+            "state_key": "head_circumference",
+            "state_class": "measurement",
+            "icon": "mdi:tape-measure",
+        },
+        {
+            "key": "height",
+            "name": "Last Height",
+            "state_key": "height",
+            "state_class": "measurement",
+            "icon": "mdi:human-male-height",
+        },
+        {
+            "key": "medications",
+            "name": "Last Medication",
+            "state_key": "time",
+            "device_class": "timestamp",
+            "icon": "mdi:pill",
+        },
+        {
+            "key": "notes",
+            "name": "Last Note",
+            "state_key": "time",
+            "device_class": "timestamp",
+            "icon": "mdi:note-text",
+        },
+        {
+            "key": "pumping",
+            "name": "Last Pumping",
+            "state_key": "amount",
+            "state_class": "measurement",
+            "icon": "mdi:water-pump",
+        },
+        {
+            "key": "sleep",
+            "name": "Last Sleep",
+            "state_key": "duration",
+            "transform": "duration_to_minutes",
+            "state_class": "measurement",
+            "unit_of_measurement": "min",
+            "icon": "mdi:sleep",
+        },
+        {
+            "key": "temperature",
+            "name": "Last Temperature",
+            "state_key": "temperature",
+            "device_class": "temperature",
+            "state_class": "measurement",
+            "icon": "mdi:thermometer",
+        },
+        {
+            "key": "timers",
+            "name": "Last Timer",
+            "state_key": "start",
+            "device_class": "timestamp",
+            "icon": "mdi:timer-outline",
+        },
+        {
+            "key": "tummy-times",
+            "name": "Last Tummy Time",
+            "state_key": "duration",
+            "transform": "duration_to_minutes",
+            "state_class": "measurement",
+            "unit_of_measurement": "min",
+            "icon": "mdi:human-child",
+        },
+        {
+            "key": "weight",
+            "name": "Last Weight",
+            "state_key": "weight",
+            "state_class": "measurement",
+            "icon": "mdi:scale-bathroom",
+        },
+    ]
+
+    STATS_SENSORS = [
+        {
+            "key": "feedings_today",
+            "name": "Feedings Today",
+            "stats_field": "feedings_today",
+            "state_class": "measurement",
+            "icon": "mdi:counter",
+        },
+        {
+            "key": "diaper_changes_today",
+            "name": "Diaper Changes Today",
+            "stats_field": "diaper_changes_today",
+            "state_class": "measurement",
+            "icon": "mdi:counter",
+        },
+        {
+            "key": "sleep_total_today_minutes",
+            "name": "Sleep Total Today",
+            "stats_field": "sleep_total_today_minutes",
+            "state_class": "measurement",
+            "unit_of_measurement": "min",
+            "icon": "mdi:sleep",
+        },
+        {
+            "key": "last_feeding_minutes_ago",
+            "name": "Minutes Since Last Feeding",
+            "stats_field": "last_feeding_minutes_ago",
+            "unit_of_measurement": "min",
+            "icon": "mdi:clock-outline",
+        },
+        {
+            "key": "last_diaper_change_minutes_ago",
+            "name": "Minutes Since Last Diaper Change",
+            "stats_field": "last_diaper_change_minutes_ago",
+            "unit_of_measurement": "min",
+            "icon": "mdi:clock-outline",
+        },
+        {
+            "key": "medications_overdue_count",
+            "name": "Medications Overdue",
+            "stats_field": "medications_overdue_count",
+            "state_class": "measurement",
+            "icon": "mdi:pill",
+        },
+    ]
+
+    BINARY_SENSORS = [
+        {
+            "key": "medication_overdue",
+            "name": "Medication Overdue",
+            "device_class": "problem",
+            "stats_field": "medications_overdue_count",
+            "condition": "greater_than_zero",
+            "attributes": {
+                "overdue_names": "medications_overdue",
+                "overdue_count": "medications_overdue_count",
+            },
+        },
+    ]
+
+    def get(self, request):
+        data = {
+            "version": 1,
+            "stats_endpoint": "/api/children/{slug}/stats/",
+            "mqtt": {
+                "default_topic_prefix": "babybuddy",
+                "topics": self.MQTT_TOPICS,
+            },
+            "sensors": self.SENSORS,
+            "stats_sensors": self.STATS_SENSORS,
+            "binary_sensors": self.BINARY_SENSORS,
+            "selects": [
+                {
+                    "key": "diaper_color",
+                    "name": "Diaper Color",
+                    "icon": "mdi:paper-roll-outline",
+                    "options": _get_choice_labels(models.DiaperChange, "color"),
+                },
+                {
+                    "key": "change_type",
+                    "name": "Change Type",
+                    "icon": "mdi:paper-roll-outline",
+                    "options": ["Wet", "Solid", "Wet and Solid"],
+                },
+                {
+                    "key": "feeding_method",
+                    "name": "Feeding Method",
+                    "icon": "mdi:baby-bottle-outline",
+                    "options": _get_choice_labels(models.Feeding, "method"),
+                },
+                {
+                    "key": "feeding_type",
+                    "name": "Feeding Type",
+                    "icon": "mdi:baby-bottle-outline",
+                    "options": _get_choice_labels(models.Feeding, "type"),
+                },
+            ],
+        }
+        return Response(data)

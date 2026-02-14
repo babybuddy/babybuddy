@@ -65,6 +65,11 @@ router.register(r"weight", views.WeightViewSet)
 
 router.add_detail_path("profile", "profile", views.ProfileView.as_view())
 router.add_detail_path(
+    "ha/discovery",
+    "ha-discovery",
+    views.HADiscoveryView.as_view(),
+)
+router.add_detail_path(
     "schema",
     "openapi-schema",
     get_schema_view(

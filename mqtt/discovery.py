@@ -11,7 +11,7 @@ import logging
 from core.models import Child
 
 from .client import mqtt_client
-from .utils import get_topic_prefix
+from .utils import get_mqtt_settings, get_topic_prefix
 
 logger = logging.getLogger(__name__)
 
@@ -189,7 +189,13 @@ def _build_device(child):
 
 
 def publish_child_discovery(child):
-    """Publish all HA Discovery configs for a single *child* (retained)."""
+    """Publish all HA Discovery configs for a single *child* (retained).
+
+    Respects the ``ha_discovery`` site setting -- if disabled, this is a no-op.
+    """
+    if not get_mqtt_settings().ha_discovery:
+        return
+
     prefix = get_topic_prefix()
     device = _build_device(child)
 
@@ -230,6 +236,12 @@ def remove_child_discovery(child):
 
 
 def publish_all_discovery():
-    """Publish HA Discovery configs for all children."""
+    """Publish HA Discovery configs for all children.
+
+    Respects the ``ha_discovery`` site setting -- if disabled, this is a no-op.
+    """
+    if not get_mqtt_settings().ha_discovery:
+        return
+
     for child in Child.objects.all():
         publish_child_discovery(child)

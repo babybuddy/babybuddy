@@ -95,6 +95,17 @@ class MqttSettings(dbsettings.Group):
             "Changing this requires a server restart."
         ),
     )
+    ha_discovery = dbsettings.BooleanValue(
+        default=True,
+        description=_("Publish Home Assistant MQTT discovery configs"),
+        help_text=_(
+            "When enabled, Baby Buddy publishes MQTT discovery config messages "
+            "to homeassistant/sensor/... and homeassistant/binary_sensor/... "
+            "topics so Home Assistant auto-creates entities. Disable this if "
+            "you use the Baby Buddy HA integration (which reads "
+            "/api/ha/discovery/ instead). Data topics are not affected."
+        ),
+    )
 
 
 # Module-level instances — dbsettings auto-discovers these and renders
