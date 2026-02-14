@@ -17,7 +17,7 @@ const sass = gulpSass(dartSass);
 const spawn = child_process.spawn;
 
 /**
- * Spawns a command for pipenv.
+ * Spawns a command via uv run.
  *
  * @param command
  *   Command and arguments.
@@ -26,11 +26,11 @@ const spawn = child_process.spawn;
  *
  * @private
  */
-function _runInPipenv(command) {
+function _runInUv(command) {
   command.unshift("run");
   command = command.concat(process.argv.splice(3));
   return new Promise((resolve, reject) => {
-    spawn("pipenv", command, { stdio: "inherit" }).on("exit", function (code) {
+    spawn("uv", command, { stdio: "inherit" }).on("exit", function (code) {
       if (code) {
         reject();
       }
@@ -76,11 +76,11 @@ function clean() {
  */
 function coverage(cb) {
   // Erase any previous coverage results.
-  es("pipenv run coverage erase", { stdio: "inherit" });
+  es("uv run coverage erase", { stdio: "inherit" });
 
   // Run tests with coverage.
   spawn(
-    "pipenv",
+    "uv",
     [
       "run",
       "coverage",
@@ -101,7 +101,7 @@ function coverage(cb) {
       try {
         config.testsConfig.isolated.forEach(function (test_name) {
           es(
-            "pipenv run coverage run manage.py test --settings=babybuddy.settings.test " +
+            "uv run coverage run manage.py test --settings=babybuddy.settings.test " +
               test_name,
             { stdio: "inherit" },
           );
@@ -113,7 +113,7 @@ function coverage(cb) {
       }
 
       // Combine coverage results.
-      es("pipenv run coverage combine", { stdio: "inherit" });
+      es("uv run coverage combine", { stdio: "inherit" });
     }
 
     cb();
@@ -125,21 +125,21 @@ function coverage(cb) {
  * Builds the documentation site locally.
  */
 function docsBuild() {
-  return _runInPipenv(["mkdocs", "build"]);
+  return _runInUv(["mkdocs", "build"]);
 }
 
 /**
  * Deploys the documentation site to GitHub Pages.
  */
 function docsDeploy() {
-  return _runInPipenv(["mkdocs", "gh-deploy"]);
+  return _runInUv(["mkdocs", "gh-deploy"]);
 }
 
 /**
  * Serves the documentation site, watching for changes.
  */
 function docsWatch() {
-  return _runInPipenv(["mkdocs", "serve"]);
+  return _runInUv(["mkdocs", "serve"]);
 }
 
 /**
@@ -169,8 +169,8 @@ function extras() {
  */
 function format() {
   return all(
-    _runInPipenv(["black", "."]),
-    _runInPipenv(["djlint", "--reformat", "."]),
+    _runInUv(["black", "."]),
+    _runInUv(["djlint", "--reformat", "."]),
     _runCommand("npx", ["prettier", ".", "--write"]),
   );
 }
@@ -180,8 +180,8 @@ function format() {
  */
 function lint() {
   return all(
-    _runInPipenv(["black", ".", "--check", "--diff", "--color"]),
-    _runInPipenv(["djlint", "--check", "."]),
+    _runInUv(["black", ".", "--check", "--diff", "--color"]),
+    _runInUv(["djlint", "--check", "."]),
     _runCommand("npx", ["prettier", ".", "--check"]),
     gulp.src(config.watchConfig.stylesGlob).pipe(
       gStylelintEsm({
@@ -252,13 +252,13 @@ function test(cb) {
     "isolate",
   ];
   command = command.concat(process.argv.splice(3));
-  spawn("pipenv", command, { stdio: "inherit" }).on("exit", function (code) {
+  spawn("uv", command, { stdio: "inherit" }).on("exit", function (code) {
     if (code === 0) {
       // Run isolated tests.
       config.testsConfig.isolated.forEach(function (test_name) {
         try {
           es(
-            "pipenv run python manage.py test --settings=babybuddy.settings.test " +
+            "uv run python manage.py test --settings=babybuddy.settings.test " +
               test_name,
             { stdio: "inherit" },
           );
@@ -313,35 +313,36 @@ gulp.task("collectstatic", function (cb) {
   }
 
   command = command.concat(parameters);
-  spawn("pipenv", command, { stdio: "inherit" }).on("exit", cb);
+  spawn("uv", command, { stdio: "inherit" }).on("exit", cb);
 });
 
 gulp.task("compilemessages", () => {
-  return _runInPipenv(["python", "manage.py", "compilemessages"]);
+  return _runInUv(["python", "manage.py", "compilemessages"]);
 });
 
 gulp.task("fake", () => {
-  return _runInPipenv(["python", "manage.py", "fake"]);
+  return _runInUv(["python", "manage.py", "fake"]);
 });
 
 gulp.task("migrate", () => {
-  return _runInPipenv(["python", "manage.py", "migrate"]);
+  return _runInUv(["python", "manage.py", "migrate"]);
 });
 
 gulp.task("makemessages", () => {
-  return _runInPipenv(["python", "manage.py", "makemessages"]);
+  return _runInUv(["python", "manage.py", "makemessages"]);
 });
 
 gulp.task("makemigrations", () => {
-  return _runInPipenv(["python", "manage.py", "makemigrations"]);
+  return _runInUv(["python", "manage.py", "makemigrations"]);
 });
 
 gulp.task("reset", () => {
-  return _runInPipenv(["python", "manage.py", "reset", "--no-input"]);
+  return _runInUv(["python", "manage.py", "reset", "--no-input"]);
 });
 
 gulp.task("runserver", function (cb) {
-  let command = ["run", "python", "manage.py", "runserver"];
+  const port = process.env.BB_PORT || "8282";
+  let command = ["run", "python", "manage.py", "runserver", `0.0.0.0:${port}`];
 
   /**
    * Process any parameters. Any arguments found here will be removed from
@@ -365,11 +366,11 @@ gulp.task("runserver", function (cb) {
   /* Add parameters to command, removing empty values. */
   command = command.concat(parameters.filter(String));
 
-  spawn("pipenv", command, { stdio: "inherit" }).on("exit", cb);
+  spawn("uv", command, { stdio: "inherit" }).on("exit", cb);
 });
 
 gulp.task("generateschema", () => {
-  return _runInPipenv([
+  return _runInUv([
     "python",
     "manage.py",
     "generateschema",

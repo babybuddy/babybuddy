@@ -5,7 +5,7 @@
 # Environment configuration file.
 .env
 
-# Virtual environment files (pipenv may use this convention).
+# Virtual environment files.
 .venv
 
 # IDE configuration files.
@@ -22,12 +22,6 @@
 
 # Django media root directory.
 /media
-
-# Pipfile.lock.
-# Committing this file makes it difficult to support multiple Python versions as
-# requirements can different between versions, but the Pipfile only supports
-# locking to one version.
-Pipfile.lock
 
 # Documentation
 /site

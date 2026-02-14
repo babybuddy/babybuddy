@@ -5,16 +5,16 @@ Create or fetch an API token for MCP / dev use.
 Safety: Only run in a trusted environment. Anyone who can run manage.py can
 get a token. The token is printed to stdout (terminal history, logs, or
 copy-paste can leak it). Use -q to print only the token when capturing, e.g.:
-  export BB_API_TOKEN=$(pipenv run python manage.py create_mcp_token -q)
+  export BB_API_TOKEN=$(uv run python manage.py create_mcp_token -q)
 
 Best practice: run once, set BB_API_TOKEN in your environment (e.g. Cursor MCP
 server env or .env), then restart the MCP server. Never commit the token.
 
 Example:
 
-  pipenv run python manage.py create_mcp_token
-  pipenv run python manage.py create_mcp_token --username admin
-  pipenv run python manage.py create_mcp_token -q   # token only, for capture
+  uv run python manage.py create_mcp_token
+  uv run python manage.py create_mcp_token --username admin
+  uv run python manage.py create_mcp_token -q   # token only, for capture
 """
 
 from django.contrib.auth import get_user_model

@@ -23,7 +23,7 @@ services:
     volumes:
       - /path/to/appdata:/config
     ports:
-      - 8000:8000
+      - 8282:8282
     restart: unless-stopped
 ```
 
@@ -150,7 +150,7 @@ requirements are Python, a web server, an application server, and a database.
 
 ### Requirements
 
-- Python 3.10+, pip, [pipx](https://pipx.pypa.io/), [pipenv](https://pipenv.pypa.io/)
+- Python 3.10+, pip, [uv](https://docs.astral.sh/uv/)
 - Web server ([nginx](http://nginx.org/), [Apache](http://httpd.apache.org/), etc.)
 - Application server ([uwsgi](http://projects.unbit.it/uwsgi), [gunicorn](http://gunicorn.org/), etc.)
 - Database (See [Django's databases documentation](https://docs.djangoproject.com/en/5.0/ref/databases/)).
@@ -173,11 +173,10 @@ and any number of children).
    alias python=python3
    ```
 
-3. Install pipenv
+3. Install uv
 
    ```shell
-   pipx ensurepath
-   pipx install pipenv
+   pip install uv
    ```
 
 4. Set up directories and files
@@ -195,12 +194,10 @@ and any number of children).
    cd /var/www/babybuddy/public
    ```
 
-6. Initiate and enter a Python environment with Pipenv locally.
+6. Install Python dependencies with uv
 
    ```shell
-   export PIPENV_VENV_IN_PROJECT=1
-   pipenv install
-   pipenv shell
+   uv sync --no-dev
    ```
 
 7. Create a production settings file and set the `SECRET_KEY` and `ALLOWED_HOSTS` values

@@ -7,7 +7,6 @@
       "version": "18"
     },
     "ghcr.io/devcontainers-contrib/features/gulp-cli:2": {},
-    "ghcr.io/devcontainers-contrib/features/pipenv:2": {},
     "ghcr.io/devcontainers-contrib/features/apt-packages:1": {
       "packages": "gettext,libpq-dev"
     }
@@ -28,8 +27,7 @@
           "defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
           "editor": {
             "defaultFormatter": "ms-python.black-formatter"
-          },
-          "pipenvPath": "pipenv"
+          }
         },
         "terminal.integrated.defaultProfile.linux": "zsh"
       }
@@ -38,8 +36,15 @@
   "runArgs": ["--name", "babybuddy"],
   "containerEnv": {
     "DJANGO_SETTINGS_MODULE": "babybuddy.settings.development",
-    "PIPENV_VENV_IN_PROJECT": "1"
+    "BB_PORT": "8282"
   },
-  "postCreateCommand": "pipenv install --dev && npm install --include=dev && npx lefthook install && gulp build && gulp migrate",
-  "forwardPorts": [8000]
+  "postCreateCommand": "pip install uv && uv sync && npm install --include=dev && npx lefthook install && gulp build && gulp migrate",
+  "postAttachCommand": "gulp",
+  "forwardPorts": [8282],
+  "portsAttributes": {
+    "8282": {
+      "label": "Baby Buddy",
+      "onAutoForward": "notify"
+    }
+  }
 }

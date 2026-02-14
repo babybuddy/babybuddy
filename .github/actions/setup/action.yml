@@ -8,21 +8,21 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install Pipenv
+    - name: Install uv
       shell: bash
-      run: pipx install pipenv
+      run: pip install uv
     - uses: actions/setup-python@v5
       id: setup-python
       with:
         python-version: ${{ inputs.python-version }}
-        cache: "pipenv"
+        cache: "pip"
         cache-dependency-path: "requirements.txt"
     - name: Install Python dependencies
       shell: bash
-      run: pipenv install --dev
+      run: uv sync
     - name: Print installed dependency versions
       shell: bash
-      run: pipenv graph
+      run: uv tree
     - uses: actions/setup-node@v4
       with:
         node-version: 18

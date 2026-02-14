@@ -7,7 +7,7 @@ information and steps below to set up a local development environment for Baby B
 
 ## Requirements
 
-- Python 3.10+, pip, pipenv
+- Python 3.10+, pip, [uv](https://docs.astral.sh/uv/)
 - NodeJS 18.x and NPM 8.x (NVM recommended)
 - Gulp
 - Possibly `libpq-dev`
@@ -15,12 +15,12 @@ information and steps below to set up a local development environment for Baby B
 
 ## Installation
 
-1. Install pipenv per [Pipenv installation](https://pipenv.pypa.io/en/latest/installation.html)
+1. Install uv per [uv installation](https://docs.astral.sh/uv/getting-started/installation/)
 
 2. Install required Python packages, including dev packages
 
    ```shell
-   pipenv install --three --dev
+   uv sync
    ```
 
    If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
@@ -74,7 +74,7 @@ information and steps below to set up a local development environment for Baby B
    This command will also watch for file system changes to rebuild assets and
    restart the server as needed.
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
+Open [http://127.0.0.1:8282](http://127.0.0.1:8282) and log in with the default
 username and password (`admin`/`admin`).
 
 ## Alternative: [Dev Container](https://containers.dev/)

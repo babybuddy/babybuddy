@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "babybuddy-dev": {
-      "command": "python",
-      "args": ["-m", "mcp_server"],
+      "command": "uv",
+      "args": ["run", "python", "-m", "mcp_server"],
       "env": {
         "PYTHONPATH": "scripts"
       },

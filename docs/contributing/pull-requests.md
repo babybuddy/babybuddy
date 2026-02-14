@@ -14,16 +14,16 @@ for icons used throughout the application. See [`babybuddy/static_src/fontello`]
 for further documentation about using the config file with Fontello and license
 information for fonts used by this application.
 
-### Pipfile
+### Dependencies
 
-If the [Pipfile](https://github.com/babybuddy/babybuddy/tree/master/Pipfile) is changed
+If the [pyproject.toml](https://github.com/babybuddy/babybuddy/tree/master/pyproject.toml) is changed
 the [requirements.txt](https://github.com/babybuddy/babybuddy/tree/master/requirements.txt)
-must also be updated to reflect the change. This is necessary because hosting environments
-do not provide adequate support for pipenv. To update the `requirements.txt` file to be in
-sync with the `Pipenv` file run:
+must also be updated to reflect the change. This is necessary because some hosting environments
+do not support uv natively. To update the `requirements.txt` file to be in
+sync with the `pyproject.toml` run:
 
 ```shell
-pipenv requirements > requirements.txt
+uv export --no-dev --no-hashes > requirements.txt
 ```
 
 Add and commit the changes to the `requirements.txt` file.

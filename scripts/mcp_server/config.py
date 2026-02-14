@@ -13,9 +13,20 @@ def get_workspace_root() -> Path:
     return Path.cwd()
 
 
+def _get_port() -> int:
+    """Single source of truth for the Baby Buddy port."""
+    try:
+        from babybuddy.config import config
+
+        return config.bb_port
+    except ImportError:
+        return int(os.environ.get("BB_PORT", "8282"))
+
+
 def get_base_url() -> str:
     """Baby Buddy base URL for API and status checks."""
-    return os.environ.get("BB_BASE_URL", "http://127.0.0.1:8000").rstrip("/")
+    default = f"http://127.0.0.1:{_get_port()}"
+    return os.environ.get("BB_BASE_URL", default).rstrip("/")
 
 
 def get_api_token() -> str:
@@ -128,22 +139,25 @@ def get_log_file() -> Path | None:
 
 
 def get_runserver_port() -> int:
-    try:
-        return int(os.environ.get("BB_RUNSERVER_PORT", "8000"))
-    except ValueError:
-        return 8000
+    override = os.environ.get("BB_RUNSERVER_PORT")
+    if override:
+        try:
+            return int(override)
+        except ValueError:
+            pass
+    return _get_port()
 
 
 def get_django_python() -> str:
     """Return path to the Python that has Django (the project venv).
 
-    Checks .venv/bin/python under workspace root (pipenv with
-    PIPENV_VENV_IN_PROJECT=1), then falls back to 'pipenv run python'.
+    Checks .venv/bin/python under workspace root, then falls back to
+    'uv run python'.
     """
     venv_python = get_workspace_root() / ".venv" / "bin" / "python"
     if venv_python.exists():
         return str(venv_python)
-    return "pipenv"
+    return "uv"
 
 
 def get_django_cmd(manage_args: list[str]) -> list[str]:
@@ -153,6 +167,6 @@ def get_django_cmd(manage_args: list[str]) -> list[str]:
     Returns e.g. ["/workspaces/babybuddy/.venv/bin/python", "manage.py", "shell", "-c", code]
     """
     py = get_django_python()
-    if py == "pipenv":
-        return ["pipenv", "run", "python", "manage.py"] + manage_args
+    if py == "uv":
+        return ["uv", "run", "python", "manage.py"] + manage_args
     return [py, "manage.py"] + manage_args

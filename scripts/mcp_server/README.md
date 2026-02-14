@@ -22,15 +22,16 @@ You can override with `BB_API_TOKEN` env if needed, but normally you don't have 
 
 All optional. Sensible defaults work in the dev container.
 
-| Variable                      | Default                 | Description                                    |
-| ----------------------------- | ----------------------- | ---------------------------------------------- |
-| `BB_BASE_URL`                 | `http://127.0.0.1:8000` | Baby Buddy base URL                            |
-| `BB_API_TOKEN`                | (from DB)               | Override: API token for REST auth              |
-| `BB_WORKSPACE_ROOT`           | cwd                     | Project root for DB/template paths             |
-| `DATABASE_URL`                | (none)                  | Postgres URL; if unset, SQLite is used         |
-| `DB_NAME`                     | `data/db.sqlite3`       | SQLite path (relative to workspace)            |
-| `MQTT_HOST`                   | `localhost`             | MQTT broker host                               |
-| `MQTT_PORT`                   | `1883`                  | MQTT broker port                               |
-| `MQTT_USER` / `MQTT_PASSWORD` | (none)                  | Optional broker auth                           |
-| `BB_LOG_FILE`                 | (none)                  | Optional path to server log file for `bb_logs` |
-| `BB_RUNSERVER_PORT`           | `8000`                  | Port for `bb_restart` / status                 |
+| Variable                      | Default                        | Description                                    |
+| ----------------------------- | ------------------------------ | ---------------------------------------------- |
+| `BB_PORT`                     | `8282`                         | Baby Buddy port (single source of truth)       |
+| `BB_BASE_URL`                 | `http://127.0.0.1:${BB_PORT}` | Baby Buddy base URL (derived from BB_PORT)     |
+| `BB_API_TOKEN`                | (from DB)                      | Override: API token for REST auth              |
+| `BB_WORKSPACE_ROOT`           | cwd                            | Project root for DB/template paths             |
+| `DATABASE_URL`                | (none)                         | Postgres URL; if unset, SQLite is used         |
+| `DB_NAME`                     | `data/db.sqlite3`              | SQLite path (relative to workspace)            |
+| `MQTT_HOST`                   | `localhost`                    | MQTT broker host                               |
+| `MQTT_PORT`                   | `1883`                         | MQTT broker port                               |
+| `MQTT_USER` / `MQTT_PASSWORD` | (none)                         | Optional broker auth                           |
+| `BB_LOG_FILE`                 | (none)                         | Optional path to server log file for `bb_logs` |
+| `BB_RUNSERVER_PORT`           | (from `BB_PORT`)               | Override port for `bb_restart` / status        |

@@ -2,13 +2,15 @@ tasks:
   - init: >
       sudo apt update &&
       sudo apt -y install gettext &&
-      pipenv install --three &&
+      pip install uv &&
+      uv sync &&
       npm install -g gulp-cli &&
       npm install &&
       gulp migrate
     env:
       DJANGO_SETTINGS_MODULE: babybuddy.settings.gitpod
+      BB_PORT: "8282"
     command: gulp
 
 ports:
-  - port: 8000
+  - port: 8282

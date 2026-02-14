@@ -3,7 +3,7 @@
 
 All tests mock the paho-mqtt client so no real broker is needed.
 Run with:
-    DJANGO_SETTINGS_MODULE=babybuddy.settings.test pipenv run python manage.py test mqtt
+    DJANGO_SETTINGS_MODULE=babybuddy.settings.test uv run python manage.py test mqtt
 """
 
 import datetime

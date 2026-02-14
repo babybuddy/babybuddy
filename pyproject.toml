@@ -1,0 +1,48 @@
+[project]
+name = "babybuddy"
+version = "0.0.0"
+description = "A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and more."
+license = "BSD-2-Clause"
+requires-python = ">=3.10"
+dependencies = [
+    "boto3",
+    "dj-database-url",
+    "django~=5.1.1",
+    "django-axes",
+    "django-cors-headers",
+    "django-dbsettings",
+    "django-filter",
+    "django-imagekit",
+    "django-import-export",
+    "django-qr-code",
+    "django-storages",
+    "django-taggit",
+    "django-widget-tweaks",
+    "djangorestframework",
+    "faker",
+    "gunicorn",
+    "inflection",
+    "paho-mqtt",
+    "pillow",
+    "plotly~=5.24",
+    "psycopg2-binary",
+    "python-dotenv",
+    "pyyaml",
+    "uritemplate",
+    "whitenoise",
+    "zeroconf",
+]
+
+[dependency-groups]
+dev = [
+    "black",
+    "coveralls",
+    "djlint",
+    "fastmcp",
+    "ipaddress",
+    "mkdocs",
+    "mkdocs-material",
+    "pysnooper",
+    "ruff",
+    "tblib",
+]
