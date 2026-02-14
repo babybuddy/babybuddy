@@ -42,4 +42,8 @@ typing-extensions==4.12.2; python_version >= '3.8'
 tzdata==2025.1; python_version >= '2'
 uritemplate==4.1.1; python_version >= '3.6'
 urllib3==2.3.0; python_version >= '3.10'
+paho-mqtt>=2.1.0; python_version >= '3.8'
 whitenoise==6.9.0; python_version >= '3.9'
+
+# MCP dev server (optional; install with: pip install fastmcp)
+# fastmcp

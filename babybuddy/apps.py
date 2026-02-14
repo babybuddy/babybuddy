@@ -24,6 +24,7 @@ def set_default_site_settings(sender, **kwargs):
     Based on `dbsettings.utils.set_defaults` which no longer seem to work in
     the latest versions of Django.
     """
+    from babybuddy.settings.base import strtobool
     from core import models
 
     # Removed `NAP_START_MIN` and `NAP_START_MAX` values are referenced here
@@ -48,6 +49,33 @@ def set_default_site_settings(sender, **kwargs):
     for class_name, attribute_name, value in defaults:
         if not setting_in_db("core.models", class_name, attribute_name):
             set_setting_value("core.models", class_name, attribute_name, value)
+
+    # Seed MQTT settings from environment variables (first run only).
+    # The module/class used here must match the registration in site_settings.py
+    # where the MqttSettings group is instantiated at module level.
+    mqtt_module = "babybuddy.site_settings"
+    mqtt_class = ""  # module-level group, no owning model class
+    mqtt_defaults = (
+        (
+            "enabled",
+            bool(strtobool(os.environ.get("MQTT_ENABLED") or "False")),
+        ),
+        ("broker_host", os.environ.get("MQTT_BROKER_HOST", "localhost")),
+        (
+            "broker_port",
+            int(os.environ.get("MQTT_BROKER_PORT", "1883")),
+        ),
+        ("username", os.environ.get("MQTT_USERNAME", "")),
+        ("password", os.environ.get("MQTT_PASSWORD", "")),
+        ("topic_prefix", os.environ.get("MQTT_TOPIC_PREFIX", "babybuddy")),
+        (
+            "use_tls",
+            bool(strtobool(os.environ.get("MQTT_TLS") or "False")),
+        ),
+    )
+    for attribute_name, value in mqtt_defaults:
+        if not setting_in_db(mqtt_module, mqtt_class, attribute_name):
+            set_setting_value(mqtt_module, mqtt_class, attribute_name, value)
 
 
 class BabyBuddyConfig(AppConfig):

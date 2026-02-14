@@ -8,6 +8,7 @@ from rest_framework.schemas.openapi import AutoSchema
 
 from core import models
 from babybuddy import models as babybuddy_models
+from mqtt.stats import compute_stats
 
 from . import serializers, filters
 
@@ -43,6 +44,12 @@ class ChildViewSet(viewsets.ModelViewSet):
     )
     ordering_fields = ("birth_date", "birth_time", "first_name", "last_name", "slug")
     ordering = ["-birth_date", "-birth_time"]
+
+    @action(detail=True, methods=["get"])
+    def stats(self, request, slug=None):
+        """Return daily aggregate stats for a child, including overdue medications."""
+        child = self.get_object()
+        return Response(compute_stats(child))
 
 
 class DiaperChangeViewSet(viewsets.ModelViewSet):

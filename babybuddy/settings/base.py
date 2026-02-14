@@ -5,9 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv, find_dotenv
 
 
-# Convert common string values to boolean.
+# Convert common string values to boolean (1/0).
 def strtobool(val):
-    val = val.lower()
+    val = str(val).lower()
     if val in ("y", "yes", "t", "true", "on", "1"):
         return 1
     elif val in ("n", "no", "f", "false", "off", "0"):
@@ -33,6 +33,7 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 # https://docs.djangoproject.com/en/5.0/ref/applications/
 
 INSTALLED_APPS = [
+    "mqtt",
     "api",
     "babybuddy.apps.BabyBuddyConfig",
     "core.apps.CoreConfig",
@@ -400,3 +401,11 @@ BABY_BUDDY = {
 ENABLE_HOME_ASSISTANT_SUPPORT = bool(
     strtobool(os.environ.get("ENABLE_HOME_ASSISTANT_SUPPORT") or "False")
 )
+
+# MQTT Publishing (for Home Assistant integration)
+#
+# All MQTT settings are now managed via Site Settings (dbsettings) in the
+# admin UI at /settings/.  Environment variables are only used as *initial*
+# seed values the first time the database is set up (see babybuddy/apps.py).
+# Supported env vars for seeding: MQTT_ENABLED, MQTT_BROKER_HOST,
+# MQTT_BROKER_PORT, MQTT_USERNAME, MQTT_PASSWORD, MQTT_TOPIC_PREFIX, MQTT_TLS.
