@@ -1106,6 +1106,75 @@ class TestHADiscoveryView(APITestCase):
         self.assertEqual(delete["method"], "DELETE")
         self.assertIsNone(delete["endpoint"])
 
+    def test_field_name_and_description(self):
+        """Every service field should have name and description."""
+        response = self.client.get(self.endpoint)
+        for svc in response.data["services"]:
+            for field_key, field_def in svc["fields"].items():
+                self.assertIn(
+                    "name",
+                    field_def,
+                    f"Service {svc['key']}, field {field_key} missing 'name'",
+                )
+                self.assertIn(
+                    "description",
+                    field_def,
+                    f"Service {svc['key']}, field {field_key} missing 'description'",
+                )
+
+    def test_field_selector_hints(self):
+        """Number fields should have selector_hints with appropriate ranges."""
+        response = self.client.get(self.endpoint)
+        services = response.data["services"]
+        temp = next(s for s in services if s["key"] == "add_temperature")
+        hints = temp["fields"]["temperature"]["selector_hints"]
+        self.assertEqual(hints["min"], 35.0)
+        self.assertEqual(hints["max"], 150.0)
+        self.assertEqual(hints["step"], 0.1)
+
+        bmi = next(s for s in services if s["key"] == "add_bmi")
+        hints = bmi["fields"]["bmi"]["selector_hints"]
+        self.assertEqual(hints["min"], 0.1)
+        self.assertEqual(hints["max"], 100.0)
+
+        weight = next(s for s in services if s["key"] == "add_weight")
+        hints = weight["fields"]["weight"]["selector_hints"]
+        self.assertNotIn("max", hints)
+
+        give_med = next(s for s in services if s["key"] == "give_medication")
+        hints = give_med["fields"]["schedule_id"]["selector_hints"]
+        self.assertEqual(hints["min"], 1)
+
+    def test_field_multiline(self):
+        """String fields for notes/milestone should have multiline: True."""
+        response = self.client.get(self.endpoint)
+        services = response.data["services"]
+        feeding = next(s for s in services if s["key"] == "add_feeding")
+        self.assertTrue(feeding["fields"]["notes"]["multiline"])
+
+        note_svc = next(s for s in services if s["key"] == "add_note")
+        self.assertTrue(note_svc["fields"]["note"]["multiline"])
+
+        tummy = next(s for s in services if s["key"] == "add_tummy_time")
+        self.assertTrue(tummy["fields"]["milestone"]["multiline"])
+
+        # Non-multiline string fields should not have the key
+        child_svc = next(s for s in services if s["key"] == "add_child")
+        self.assertNotIn("multiline", child_svc["fields"]["first_name"])
+
+    def test_field_entity_domain(self):
+        """entity_id fields should specify entity_domain."""
+        response = self.client.get(self.endpoint)
+        services = response.data["services"]
+        delete = next(s for s in services if s["key"] == "delete_last_entry")
+        self.assertEqual(delete["fields"]["entity_id"]["entity_domain"], "sensor")
+
+        start_timer = next(s for s in services if s["key"] == "start_timer")
+        self.assertEqual(start_timer["fields"]["child"]["entity_domain"], "switch")
+
+        give_med = next(s for s in services if s["key"] == "give_medication")
+        self.assertEqual(give_med["fields"]["child"]["entity_domain"], "sensor")
+
     def test_requires_auth(self):
         self.client.logout()
         response = self.client.get(self.endpoint)

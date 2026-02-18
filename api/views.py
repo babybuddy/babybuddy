@@ -463,9 +463,25 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": False,
             "fields": {
-                "birth_date": {"type": "date", "required": True, "default": "today"},
-                "first_name": {"type": "string", "required": True},
-                "last_name": {"type": "string", "required": True},
+                "birth_date": {
+                    "type": "date",
+                    "required": True,
+                    "default": "today",
+                    "name": "Birth Date",
+                    "description": "Child's date of birth",
+                },
+                "first_name": {
+                    "type": "string",
+                    "required": True,
+                    "name": "First Name",
+                    "description": "Child's first name",
+                },
+                "last_name": {
+                    "type": "string",
+                    "required": True,
+                    "name": "Last Name",
+                    "description": "Child's last name",
+                },
             },
         },
         {
@@ -476,8 +492,19 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": True,
             "fields": {
-                "bmi": {"type": "float", "required": True},
-                "date": {"type": "date", "required": False},
+                "bmi": {
+                    "type": "float",
+                    "required": True,
+                    "name": "BMI",
+                    "description": "Body mass index value",
+                    "selector_hints": {"min": 0.1, "max": 100.0, "step": 0.1},
+                },
+                "date": {
+                    "type": "date",
+                    "required": False,
+                    "name": "Date",
+                    "description": "Date of measurement",
+                },
             },
         },
         {
@@ -488,18 +515,33 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": True,
             "fields": {
-                "time": {"type": "datetime", "required": False},
+                "time": {
+                    "type": "datetime",
+                    "required": False,
+                    "name": "Time",
+                    "description": "Date and time of the diaper change",
+                },
                 "type": {
                     "type": "select",
                     "select_key": "change_type",
                     "required": False,
+                    "name": "Type",
+                    "description": "Diaper change type",
                 },
                 "color": {
                     "type": "select",
                     "select_key": "diaper_color",
                     "required": False,
+                    "name": "Color",
+                    "description": "Diaper contents color",
                 },
-                "amount": {"type": "float", "required": False},
+                "amount": {
+                    "type": "float",
+                    "required": False,
+                    "name": "Amount",
+                    "description": "Amount of diaper contents",
+                    "selector_hints": {"min": 0.0, "max": 500.0, "step": 0.1},
+                },
             },
             "transforms": {
                 "type": "diaper_type_to_booleans",
@@ -518,14 +560,30 @@ class HADiscoveryView(views.APIView):
                     "type": "select",
                     "select_key": "feeding_type",
                     "required": True,
+                    "name": "Type",
+                    "description": "Type of feeding",
                 },
                 "method": {
                     "type": "select",
                     "select_key": "feeding_method",
                     "required": True,
+                    "name": "Method",
+                    "description": "Feeding method",
                 },
-                "amount": {"type": "float", "required": False},
-                "notes": {"type": "string", "required": False},
+                "amount": {
+                    "type": "float",
+                    "required": False,
+                    "name": "Amount",
+                    "description": "Amount consumed",
+                    "selector_hints": {"min": 0.0, "max": 500.0, "step": 0.1},
+                },
+                "notes": {
+                    "type": "string",
+                    "required": False,
+                    "name": "Notes",
+                    "description": "Additional notes",
+                    "multiline": True,
+                },
             },
             "transforms": {
                 "type": "lowercase",
@@ -540,8 +598,19 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": True,
             "fields": {
-                "head_circumference": {"type": "float", "required": True},
-                "date": {"type": "date", "required": False},
+                "head_circumference": {
+                    "type": "float",
+                    "required": True,
+                    "name": "Head Circumference",
+                    "description": "Head circumference measurement",
+                    "selector_hints": {"min": 0.1, "step": 0.1},
+                },
+                "date": {
+                    "type": "date",
+                    "required": False,
+                    "name": "Date",
+                    "description": "Date of measurement",
+                },
             },
         },
         {
@@ -552,8 +621,19 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": True,
             "fields": {
-                "height": {"type": "float", "required": True},
-                "date": {"type": "date", "required": False},
+                "height": {
+                    "type": "float",
+                    "required": True,
+                    "name": "Height",
+                    "description": "Height measurement",
+                    "selector_hints": {"min": 0.1, "step": 0.1},
+                },
+                "date": {
+                    "type": "date",
+                    "required": False,
+                    "name": "Date",
+                    "description": "Date of measurement",
+                },
             },
         },
         {
@@ -564,10 +644,32 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": False,
             "fields": {
-                "child": {"type": "entity_id", "required": True},
-                "note": {"type": "string", "required": True},
-                "time": {"type": "datetime", "required": False},
-                "tags": {"type": "string_list", "required": False},
+                "child": {
+                    "type": "entity_id",
+                    "required": True,
+                    "name": "Child",
+                    "description": "Child to add the note for",
+                    "entity_domain": "sensor",
+                },
+                "note": {
+                    "type": "string",
+                    "required": True,
+                    "name": "Note",
+                    "description": "Note text",
+                    "multiline": True,
+                },
+                "time": {
+                    "type": "datetime",
+                    "required": False,
+                    "name": "Time",
+                    "description": "Date and time of the note",
+                },
+                "tags": {
+                    "type": "string_list",
+                    "required": False,
+                    "name": "Tags",
+                    "description": "Tags to associate with the note",
+                },
             },
         },
         {
@@ -578,8 +680,20 @@ class HADiscoveryView(views.APIView):
             "uses_timer": True,
             "common_fields": True,
             "fields": {
-                "amount": {"type": "float", "required": False},
-                "notes": {"type": "string", "required": False},
+                "amount": {
+                    "type": "float",
+                    "required": False,
+                    "name": "Amount",
+                    "description": "Amount pumped",
+                    "selector_hints": {"min": 0.0, "max": 500.0, "step": 0.1},
+                },
+                "notes": {
+                    "type": "string",
+                    "required": False,
+                    "name": "Notes",
+                    "description": "Additional notes",
+                    "multiline": True,
+                },
             },
         },
         {
@@ -590,8 +704,19 @@ class HADiscoveryView(views.APIView):
             "uses_timer": True,
             "common_fields": True,
             "fields": {
-                "nap": {"type": "boolean", "required": False},
-                "notes": {"type": "string", "required": False},
+                "nap": {
+                    "type": "boolean",
+                    "required": False,
+                    "name": "Nap",
+                    "description": "Was this a nap (not overnight sleep)?",
+                },
+                "notes": {
+                    "type": "string",
+                    "required": False,
+                    "name": "Notes",
+                    "description": "Additional notes",
+                    "multiline": True,
+                },
             },
         },
         {
@@ -602,8 +727,19 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": True,
             "fields": {
-                "temperature": {"type": "float", "required": True},
-                "time": {"type": "datetime", "required": False},
+                "temperature": {
+                    "type": "float",
+                    "required": True,
+                    "name": "Temperature",
+                    "description": "Temperature reading",
+                    "selector_hints": {"min": 35.0, "max": 150.0, "step": 0.1},
+                },
+                "time": {
+                    "type": "datetime",
+                    "required": False,
+                    "name": "Time",
+                    "description": "Date and time of the reading",
+                },
             },
         },
         {
@@ -614,7 +750,13 @@ class HADiscoveryView(views.APIView):
             "uses_timer": True,
             "common_fields": True,
             "fields": {
-                "milestone": {"type": "string", "required": False},
+                "milestone": {
+                    "type": "string",
+                    "required": False,
+                    "name": "Milestone",
+                    "description": "Milestone achieved during tummy time",
+                    "multiline": True,
+                },
             },
         },
         {
@@ -625,8 +767,19 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": True,
             "fields": {
-                "weight": {"type": "float", "required": True},
-                "date": {"type": "date", "required": False},
+                "weight": {
+                    "type": "float",
+                    "required": True,
+                    "name": "Weight",
+                    "description": "Weight measurement",
+                    "selector_hints": {"min": 0.1, "step": 0.1},
+                },
+                "date": {
+                    "type": "date",
+                    "required": False,
+                    "name": "Date",
+                    "description": "Date of measurement",
+                },
             },
         },
         {
@@ -637,14 +790,32 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": True,
             "fields": {
-                "name": {"type": "string", "required": True},
-                "amount": {"type": "float", "required": True},
+                "name": {
+                    "type": "string",
+                    "required": True,
+                    "name": "Medication Name",
+                    "description": "Name of the medication",
+                },
+                "amount": {
+                    "type": "float",
+                    "required": True,
+                    "name": "Amount",
+                    "description": "Medication dosage amount",
+                    "selector_hints": {"min": 0.0, "max": 500.0, "step": 0.1},
+                },
                 "amount_unit": {
                     "type": "select",
                     "select_key": "medication_units",
                     "required": True,
+                    "name": "Amount Unit",
+                    "description": "Unit for the dosage amount",
                 },
-                "time": {"type": "datetime", "required": False},
+                "time": {
+                    "type": "datetime",
+                    "required": False,
+                    "name": "Time",
+                    "description": "Date and time the medication was given",
+                },
             },
         },
         {
@@ -655,14 +826,39 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": False,
             "fields": {
-                "child": {"type": "entity_id", "required": True},
-                "schedule_id": {"type": "int", "required": True},
-                "name": {"type": "string", "required": True},
-                "amount": {"type": "float", "required": True},
+                "child": {
+                    "type": "entity_id",
+                    "required": True,
+                    "name": "Child",
+                    "description": "Child to give medication to",
+                    "entity_domain": "sensor",
+                },
+                "schedule_id": {
+                    "type": "int",
+                    "required": True,
+                    "name": "Schedule ID",
+                    "description": "Medication schedule to give from",
+                    "selector_hints": {"min": 1},
+                },
+                "name": {
+                    "type": "string",
+                    "required": True,
+                    "name": "Medication Name",
+                    "description": "Name of the medication",
+                },
+                "amount": {
+                    "type": "float",
+                    "required": True,
+                    "name": "Amount",
+                    "description": "Medication dosage amount",
+                    "selector_hints": {"min": 0.0, "max": 500.0, "step": 0.1},
+                },
                 "amount_unit": {
                     "type": "select",
                     "select_key": "medication_units",
                     "required": True,
+                    "name": "Amount Unit",
+                    "description": "Unit for the dosage amount",
                 },
             },
             "extra_data": {
@@ -678,7 +874,13 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": False,
             "fields": {
-                "entity_id": {"type": "entity_id", "required": True},
+                "entity_id": {
+                    "type": "entity_id",
+                    "required": True,
+                    "name": "Entity",
+                    "description": "Baby Buddy sensor entity to delete from",
+                    "entity_domain": "sensor",
+                },
             },
         },
         {
@@ -689,9 +891,25 @@ class HADiscoveryView(views.APIView):
             "uses_timer": False,
             "common_fields": False,
             "fields": {
-                "child": {"type": "entity_id", "required": True},
-                "start": {"type": "datetime", "required": False},
-                "name": {"type": "string", "required": False},
+                "child": {
+                    "type": "entity_id",
+                    "required": True,
+                    "name": "Child",
+                    "description": "Child to start the timer for",
+                    "entity_domain": "switch",
+                },
+                "start": {
+                    "type": "datetime",
+                    "required": False,
+                    "name": "Start Time",
+                    "description": "Timer start time (defaults to now)",
+                },
+                "name": {
+                    "type": "string",
+                    "required": False,
+                    "name": "Timer Name",
+                    "description": "Optional name for the timer",
+                },
             },
         },
     ]
