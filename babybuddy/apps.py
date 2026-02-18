@@ -72,6 +72,10 @@ def set_default_site_settings(sender, **kwargs):
     # Seed Zeroconf / mDNS settings from environment variables (first run only).
     # Module is "babybuddy.zeroconf" (not site_settings) to avoid attribute
     # name collisions with MQTT settings in dbsettings storage.
+    # Import the module so dbsettings registers the ZeroconfSettings group
+    # before we attempt to read/write its keys.
+    import babybuddy.zeroconf  # noqa: F401
+
     zc_module = "babybuddy.zeroconf"
     zc_class = ""
     zc_defaults = (

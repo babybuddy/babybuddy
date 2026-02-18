@@ -402,12 +402,311 @@ class HADiscoveryView(views.APIView):
         },
     ]
 
+    TRANSFORMS = {
+        "diaper_type_to_booleans": {
+            "type": "mapping",
+            "removes_field": True,
+            "mapping": {
+                "Wet": {"wet": True, "solid": False},
+                "Solid": {"wet": False, "solid": True},
+                "Wet and Solid": {"wet": True, "solid": True},
+            },
+        },
+        "lowercase": {
+            "type": "value_transform",
+            "operation": "lowercase",
+        },
+    }
+
+    API_META = {
+        "list_response_format": {
+            "count_field": "count",
+            "results_field": "results",
+        },
+        "child_filter_param": "child",
+        "limit_param": "limit",
+        "stats_endpoint": "/api/children/{slug}/stats/",
+    }
+
+    CHILD_META = {
+        "icon": "mdi:baby-face-outline",
+        "device_class": "babybuddy_child",
+        "name_template": "{first_name} {last_name}",
+        "state_field": "birth_date",
+        "picture_field": "picture",
+        "dashboard_path": "/children/{slug}/dashboard/",
+        "fields": [
+            "id",
+            "first_name",
+            "last_name",
+            "slug",
+            "birth_date",
+            "picture",
+        ],
+    }
+
+    TIMER_META = {
+        "endpoint": "timers",
+        "name": "Timer",
+        "icon": "mdi:timer-sand",
+        "start_fields": {"child": "child_id", "start": "datetime"},
+        "active_detection": "presence",
+        "id_field": "id",
+    }
+
+    SERVICES = [
+        {
+            "key": "add_child",
+            "endpoint": "children",
+            "name": "Add Child",
+            "description": "Add a new child to Baby Buddy",
+            "uses_timer": False,
+            "common_fields": False,
+            "fields": {
+                "birth_date": {"type": "date", "required": True, "default": "today"},
+                "first_name": {"type": "string", "required": True},
+                "last_name": {"type": "string", "required": True},
+            },
+        },
+        {
+            "key": "add_bmi",
+            "endpoint": "bmi",
+            "name": "Add BMI",
+            "description": "Record a BMI measurement",
+            "uses_timer": False,
+            "common_fields": True,
+            "fields": {
+                "bmi": {"type": "float", "required": True},
+                "date": {"type": "date", "required": False},
+            },
+        },
+        {
+            "key": "add_diaper_change",
+            "endpoint": "changes",
+            "name": "Add Diaper Change",
+            "description": "Record a diaper change",
+            "uses_timer": False,
+            "common_fields": True,
+            "fields": {
+                "time": {"type": "datetime", "required": False},
+                "type": {
+                    "type": "select",
+                    "select_key": "change_type",
+                    "required": False,
+                },
+                "color": {
+                    "type": "select",
+                    "select_key": "diaper_color",
+                    "required": False,
+                },
+                "amount": {"type": "float", "required": False},
+            },
+            "transforms": {
+                "type": "diaper_type_to_booleans",
+                "color": "lowercase",
+            },
+        },
+        {
+            "key": "add_feeding",
+            "endpoint": "feedings",
+            "name": "Add Feeding",
+            "description": "Record a feeding",
+            "uses_timer": True,
+            "common_fields": True,
+            "fields": {
+                "type": {
+                    "type": "select",
+                    "select_key": "feeding_type",
+                    "required": True,
+                },
+                "method": {
+                    "type": "select",
+                    "select_key": "feeding_method",
+                    "required": True,
+                },
+                "amount": {"type": "float", "required": False},
+                "notes": {"type": "string", "required": False},
+            },
+            "transforms": {
+                "type": "lowercase",
+                "method": "lowercase",
+            },
+        },
+        {
+            "key": "add_head_circumference",
+            "endpoint": "head-circumference",
+            "name": "Add Head Circumference",
+            "description": "Record a head circumference measurement",
+            "uses_timer": False,
+            "common_fields": True,
+            "fields": {
+                "head_circumference": {"type": "float", "required": True},
+                "date": {"type": "date", "required": False},
+            },
+        },
+        {
+            "key": "add_height",
+            "endpoint": "height",
+            "name": "Add Height",
+            "description": "Record a height measurement",
+            "uses_timer": False,
+            "common_fields": True,
+            "fields": {
+                "height": {"type": "float", "required": True},
+                "date": {"type": "date", "required": False},
+            },
+        },
+        {
+            "key": "add_note",
+            "endpoint": "notes",
+            "name": "Add Note",
+            "description": "Add a note for a child",
+            "uses_timer": False,
+            "common_fields": False,
+            "fields": {
+                "child": {"type": "entity_id", "required": True},
+                "note": {"type": "string", "required": True},
+                "time": {"type": "datetime", "required": False},
+                "tags": {"type": "string_list", "required": False},
+            },
+        },
+        {
+            "key": "add_pumping",
+            "endpoint": "pumping",
+            "name": "Add Pumping",
+            "description": "Record a pumping session",
+            "uses_timer": True,
+            "common_fields": True,
+            "fields": {
+                "amount": {"type": "float", "required": False},
+                "notes": {"type": "string", "required": False},
+            },
+        },
+        {
+            "key": "add_sleep",
+            "endpoint": "sleep",
+            "name": "Add Sleep",
+            "description": "Record a sleep session",
+            "uses_timer": True,
+            "common_fields": True,
+            "fields": {
+                "nap": {"type": "boolean", "required": False},
+                "notes": {"type": "string", "required": False},
+            },
+        },
+        {
+            "key": "add_temperature",
+            "endpoint": "temperature",
+            "name": "Add Temperature",
+            "description": "Record a temperature measurement",
+            "uses_timer": False,
+            "common_fields": True,
+            "fields": {
+                "temperature": {"type": "float", "required": True},
+                "time": {"type": "datetime", "required": False},
+            },
+        },
+        {
+            "key": "add_tummy_time",
+            "endpoint": "tummy-times",
+            "name": "Add Tummy Time",
+            "description": "Record a tummy time session",
+            "uses_timer": True,
+            "common_fields": True,
+            "fields": {
+                "milestone": {"type": "string", "required": False},
+            },
+        },
+        {
+            "key": "add_weight",
+            "endpoint": "weight",
+            "name": "Add Weight",
+            "description": "Record a weight measurement",
+            "uses_timer": False,
+            "common_fields": True,
+            "fields": {
+                "weight": {"type": "float", "required": True},
+                "date": {"type": "date", "required": False},
+            },
+        },
+        {
+            "key": "add_medication",
+            "endpoint": "medications",
+            "name": "Add Medication",
+            "description": "Record a medication entry",
+            "uses_timer": False,
+            "common_fields": True,
+            "fields": {
+                "name": {"type": "string", "required": True},
+                "amount": {"type": "float", "required": True},
+                "amount_unit": {
+                    "type": "select",
+                    "select_key": "medication_units",
+                    "required": True,
+                },
+                "time": {"type": "datetime", "required": False},
+            },
+        },
+        {
+            "key": "give_medication",
+            "endpoint": "medications",
+            "name": "Give Scheduled Medication",
+            "description": "Give a medication from an existing schedule",
+            "uses_timer": False,
+            "common_fields": False,
+            "fields": {
+                "child": {"type": "entity_id", "required": True},
+                "schedule_id": {"type": "int", "required": True},
+                "name": {"type": "string", "required": True},
+                "amount": {"type": "float", "required": True},
+                "amount_unit": {
+                    "type": "select",
+                    "select_key": "medication_units",
+                    "required": True,
+                },
+            },
+            "extra_data": {
+                "medication_schedule": {"from_field": "schedule_id"},
+            },
+        },
+        {
+            "key": "delete_last_entry",
+            "endpoint": None,
+            "name": "Delete Last Entry",
+            "description": "Delete the last entry for a sensor",
+            "method": "DELETE",
+            "uses_timer": False,
+            "common_fields": False,
+            "fields": {
+                "entity_id": {"type": "entity_id", "required": True},
+            },
+        },
+        {
+            "key": "start_timer",
+            "endpoint": "timers",
+            "name": "Start Timer",
+            "description": "Start a new timer for a child",
+            "uses_timer": False,
+            "common_fields": False,
+            "fields": {
+                "child": {"type": "entity_id", "required": True},
+                "start": {"type": "datetime", "required": False},
+                "name": {"type": "string", "required": False},
+            },
+        },
+    ]
+
     def get(self, request):
         data = {
-            "version": 1,
-            "stats_endpoint": "/api/children/{slug}/stats/",
+            "version": 2,
+            "api": self.API_META,
+            "child": self.CHILD_META,
+            "timer": self.TIMER_META,
+            "transforms": self.TRANSFORMS,
             "mqtt": {
                 "default_topic_prefix": "babybuddy",
+                "topic_pattern": "{prefix}/{child_slug}/{data_type}/state",
+                "stats_topic_pattern": "{prefix}/{child_slug}/stats/state",
                 "topics": self.MQTT_TOPICS,
             },
             "sensors": self.SENSORS,
@@ -417,7 +716,7 @@ class HADiscoveryView(views.APIView):
                 {
                     "key": "diaper_color",
                     "name": "Diaper Color",
-                    "icon": "mdi:paper-roll-outline",
+                    "icon": "mdi:palette",
                     "options": _get_choice_labels(models.DiaperChange, "color"),
                 },
                 {
@@ -438,6 +737,16 @@ class HADiscoveryView(views.APIView):
                     "icon": "mdi:baby-bottle-outline",
                     "options": _get_choice_labels(models.Feeding, "type"),
                 },
+                {
+                    "key": "medication_units",
+                    "name": "Medication Unit",
+                    "icon": "mdi:pill",
+                    "options": _get_choice_labels(
+                        models.MedicationSchedule, "amount_unit"
+                    ),
+                    "entity": False,
+                },
             ],
+            "services": self.SERVICES,
         }
         return Response(data)

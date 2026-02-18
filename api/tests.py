@@ -996,3 +996,117 @@ class TestProfileAPITestCase(APITestCase):
         self.assertIn("api_key", response.data)
         self.assertTrue(isinstance(response.data["api_key"], str))
         self.assertGreater(len(response.data["api_key"]), 30)
+
+
+class TestHADiscoveryView(APITestCase):
+    endpoint = reverse("api:ha-discovery")
+
+    def setUp(self):
+        self.client.login(username="admin", password="admin")
+
+    def test_version(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["version"], 2)
+
+    def test_top_level_keys(self):
+        response = self.client.get(self.endpoint)
+        expected_keys = {
+            "version",
+            "api",
+            "child",
+            "timer",
+            "transforms",
+            "mqtt",
+            "sensors",
+            "stats_sensors",
+            "binary_sensors",
+            "selects",
+            "services",
+        }
+        self.assertEqual(set(response.data.keys()), expected_keys)
+
+    def test_api_section(self):
+        response = self.client.get(self.endpoint)
+        api = response.data["api"]
+        self.assertEqual(api["child_filter_param"], "child")
+        self.assertEqual(api["limit_param"], "limit")
+        self.assertIn("list_response_format", api)
+        self.assertIn("stats_endpoint", api)
+
+    def test_child_section(self):
+        response = self.client.get(self.endpoint)
+        child = response.data["child"]
+        self.assertEqual(child["icon"], "mdi:baby-face-outline")
+        self.assertEqual(child["state_field"], "birth_date")
+        self.assertIn("fields", child)
+        self.assertIn("slug", child["fields"])
+
+    def test_timer_section(self):
+        response = self.client.get(self.endpoint)
+        timer = response.data["timer"]
+        self.assertEqual(timer["endpoint"], "timers")
+        self.assertEqual(timer["active_detection"], "presence")
+
+    def test_transforms_section(self):
+        response = self.client.get(self.endpoint)
+        transforms = response.data["transforms"]
+        self.assertIn("diaper_type_to_booleans", transforms)
+        self.assertIn("lowercase", transforms)
+        self.assertEqual(transforms["lowercase"]["operation"], "lowercase")
+        mapping = transforms["diaper_type_to_booleans"]
+        self.assertTrue(mapping["removes_field"])
+        self.assertIn("Wet", mapping["mapping"])
+
+    def test_mqtt_topic_patterns(self):
+        response = self.client.get(self.endpoint)
+        mqtt = response.data["mqtt"]
+        self.assertIn("topic_pattern", mqtt)
+        self.assertIn("stats_topic_pattern", mqtt)
+        self.assertEqual(
+            mqtt["topic_pattern"],
+            "{prefix}/{child_slug}/{data_type}/state",
+        )
+        self.assertIn("topics", mqtt)
+
+    def test_selects_includes_medication_units(self):
+        response = self.client.get(self.endpoint)
+        selects = response.data["selects"]
+        self.assertEqual(len(selects), 5)
+        med_units = next(s for s in selects if s["key"] == "medication_units")
+        self.assertFalse(med_units["entity"])
+        self.assertIn("ml", med_units["options"])
+
+    def test_services_count_and_structure(self):
+        response = self.client.get(self.endpoint)
+        services = response.data["services"]
+        self.assertEqual(len(services), 16)
+        keys = [s["key"] for s in services]
+        self.assertIn("add_child", keys)
+        self.assertIn("add_feeding", keys)
+        self.assertIn("delete_last_entry", keys)
+        self.assertIn("start_timer", keys)
+        self.assertIn("give_medication", keys)
+
+    def test_service_add_feeding_detail(self):
+        response = self.client.get(self.endpoint)
+        services = response.data["services"]
+        feeding = next(s for s in services if s["key"] == "add_feeding")
+        self.assertTrue(feeding["uses_timer"])
+        self.assertTrue(feeding["common_fields"])
+        self.assertIn("type", feeding["fields"])
+        self.assertEqual(feeding["fields"]["type"]["select_key"], "feeding_type")
+        self.assertIn("transforms", feeding)
+        self.assertEqual(feeding["transforms"]["type"], "lowercase")
+
+    def test_service_delete_last_entry(self):
+        response = self.client.get(self.endpoint)
+        services = response.data["services"]
+        delete = next(s for s in services if s["key"] == "delete_last_entry")
+        self.assertEqual(delete["method"], "DELETE")
+        self.assertIsNone(delete["endpoint"])
+
+    def test_requires_auth(self):
+        self.client.logout()
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
