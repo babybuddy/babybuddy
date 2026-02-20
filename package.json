@@ -1,11 +1,11 @@
 {
   "name": "babybuddy",
   "type": "module",
-  "version": "",
+  "version": "2.10.0",
   "license": "BSD-2-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/babybuddy/babybuddy.git"
+    "url": "https://github.com/eyalmichon/babybuddy.git"
   },
   "devDependencies": {
     "@popperjs/core": "^2.11.8",
