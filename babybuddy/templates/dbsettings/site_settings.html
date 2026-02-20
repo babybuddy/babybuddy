@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n static %}
+{% load i18n static widget_tweaks %}
 {% block title %}
     {% trans "Site Settings" %}
 {% endblock %}
@@ -9,7 +9,34 @@
 {% endblock %}
 {% block content %}
     <h1>{% trans "Site Settings" %}</h1>
-    {% include 'babybuddy/form.html' %}
+    {{ form.media.js }}
+    <div class="container-fluid pb-5">
+        <form role="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% regroup form by verbose_name as sections %}
+            {% for section in sections %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">{{ section.grouper }}</h5>
+                </div>
+                <div class="card-body">
+                    {% for field in section.list %}
+                    <div class="row mb-3">
+                        <label for="id_{{ field.name }}"
+                               class="col-sm-3 col-form-label{% if field|field_type == 'booleanfield' or field|widget_type == 'checkboxinput' %} boolean-label{% endif %}">
+                            {{ field.label }}
+                        </label>
+                        <div class="col-sm-9">
+                            {% include 'babybuddy/form_field_no_label.html' %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-primary btn btn-primary btn-lg">{% trans "Submit" %}</button>
+        </form>
+    </div>
 {% endblock %}
 {% block javascript %}
     <script src="{% static 'babybuddy/js/mqtt_discover.js' %}"></script>

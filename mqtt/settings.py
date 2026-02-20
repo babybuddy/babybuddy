@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-"""MQTT site-wide settings (dbsettings group).
+"""MQTT site-wide settings (dbsettings groups).
 
 Defined here so the mqtt app owns its own configuration. The module-level
-instance is auto-discovered by dbsettings and rendered on the Site Settings
+instances are auto-discovered by dbsettings and rendered on the Site Settings
 page (/settings/).
+
+Split into two groups so the Site Settings page renders them as separate
+sections: one for broker connection details and one for Home Assistant
+integration options.
 """
 
 from django.utils.translation import gettext_lazy as _
@@ -11,7 +15,7 @@ from django.utils.translation import gettext_lazy as _
 import dbsettings
 
 
-class MqttSettings(dbsettings.Group):
+class MqttConnectionSettings(dbsettings.Group):
     enabled = dbsettings.BooleanValue(
         default=False,
         description=_("Enable MQTT publishing"),
@@ -54,6 +58,9 @@ class MqttSettings(dbsettings.Group):
         description=_("Use TLS"),
         help_text=_("Enable TLS/SSL encryption for the broker connection."),
     )
+
+
+class MqttHASettings(dbsettings.Group):
     ha_discovery = dbsettings.BooleanValue(
         default=True,
         description=_("Publish Home Assistant MQTT discovery configs"),
@@ -67,5 +74,6 @@ class MqttSettings(dbsettings.Group):
     )
 
 
-# Module-level instance — dbsettings auto-discovers this.
-mqtt_settings = MqttSettings(_("MQTT"))
+# Module-level instances — dbsettings auto-discovers these.
+mqtt_settings = MqttConnectionSettings(_("MQTT — Connection"))
+mqtt_ha_settings = MqttHASettings(_("MQTT — Home Assistant"))

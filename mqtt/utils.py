@@ -2,11 +2,17 @@
 """Shared helpers for the mqtt app."""
 
 from mqtt.settings import mqtt_settings as _mqtt_settings
+from mqtt.settings import mqtt_ha_settings as _mqtt_ha_settings
 
 
 def get_mqtt_settings():
-    """Return the MqttSettings dbsettings group instance."""
+    """Return the MqttConnectionSettings dbsettings group instance."""
     return _mqtt_settings
+
+
+def get_mqtt_ha_settings():
+    """Return the MqttHASettings dbsettings group instance."""
+    return _mqtt_ha_settings
 
 
 def get_topic_prefix():

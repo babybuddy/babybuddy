@@ -11,7 +11,7 @@ import logging
 from core.models import Child
 
 from .client import mqtt_client
-from .utils import get_mqtt_settings, get_topic_prefix
+from .utils import get_mqtt_ha_settings, get_mqtt_settings, get_topic_prefix
 
 logger = logging.getLogger(__name__)
 
@@ -193,7 +193,7 @@ def publish_child_discovery(child):
 
     Respects the ``ha_discovery`` site setting -- if disabled, this is a no-op.
     """
-    if not get_mqtt_settings().ha_discovery:
+    if not get_mqtt_ha_settings().ha_discovery:
         return
 
     prefix = get_topic_prefix()
@@ -235,12 +235,37 @@ def remove_child_discovery(child):
     logger.info("Removed HA Discovery for child %s", child.slug)
 
 
+def remove_all_discovery():
+    """Publish empty retained payloads to remove all HA Discovery configs.
+
+    Ensures the MQTT client is connected before publishing so that cleanup
+    works even when called from a context where the client hasn't been
+    lazily started yet (e.g. the PATCH /api/ha/settings/ endpoint).
+    """
+    if not get_mqtt_settings().enabled:
+        logger.info("MQTT is disabled — skipping discovery cleanup")
+        return
+
+    if not mqtt_client.is_started:
+        mqtt_client.start()
+
+    children = list(Child.objects.all())
+    if not children:
+        logger.info("No children — nothing to clean up")
+        return
+
+    for child in children:
+        remove_child_discovery(child)
+
+    logger.info("Cleared HA Discovery configs for %d child(ren)", len(children))
+
+
 def publish_all_discovery():
     """Publish HA Discovery configs for all children.
 
     Respects the ``ha_discovery`` site setting -- if disabled, this is a no-op.
     """
-    if not get_mqtt_settings().ha_discovery:
+    if not get_mqtt_ha_settings().ha_discovery:
         return
 
     for child in Child.objects.all():

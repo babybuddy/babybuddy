@@ -53,7 +53,7 @@ def set_default_site_settings(sender, **kwargs):
 
     # Seed MQTT settings from environment variables (first run only).
     # The module/class used here must match the registration in mqtt/settings.py
-    # where the MqttSettings group is instantiated at module level.
+    # where MqttConnectionSettings is instantiated at module level.
     mqtt_module = "mqtt.settings"
     mqtt_class = ""  # module-level group, no owning model class
     mqtt_defaults = (

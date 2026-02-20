@@ -29,6 +29,7 @@ from mqtt.discovery import (
     DISCOVERY_ENTITIES,
     publish_all_discovery,
     publish_child_discovery,
+    remove_all_discovery,
     remove_child_discovery,
 )
 from mqtt.publisher import (
@@ -512,43 +513,43 @@ class HADiscoveryToggleTests(TestCase):
         self.child = _create_child()
 
     @patch("mqtt.discovery.get_topic_prefix", return_value="babybuddy")
-    @patch("mqtt.discovery.get_mqtt_settings")
+    @patch("mqtt.discovery.get_mqtt_ha_settings")
     @patch("mqtt.discovery.mqtt_client")
     def test_toggle_off_suppresses_publish_child_discovery(
-        self, mock_client, mock_get_settings, mock_get_prefix
+        self, mock_client, mock_get_ha_settings, mock_get_prefix
     ):
         """When ha_discovery is False, publish_child_discovery is a no-op."""
         settings = _mock_mqtt_settings(enabled=True)
         settings.ha_discovery = False
-        mock_get_settings.return_value = settings
+        mock_get_ha_settings.return_value = settings
 
         publish_child_discovery(self.child)
         mock_client.publish.assert_not_called()
 
     @patch("mqtt.discovery.get_topic_prefix", return_value="babybuddy")
-    @patch("mqtt.discovery.get_mqtt_settings")
+    @patch("mqtt.discovery.get_mqtt_ha_settings")
     @patch("mqtt.discovery.mqtt_client")
     def test_toggle_off_suppresses_publish_all_discovery(
-        self, mock_client, mock_get_settings, mock_get_prefix
+        self, mock_client, mock_get_ha_settings, mock_get_prefix
     ):
         """When ha_discovery is False, publish_all_discovery is a no-op."""
         settings = _mock_mqtt_settings(enabled=True)
         settings.ha_discovery = False
-        mock_get_settings.return_value = settings
+        mock_get_ha_settings.return_value = settings
 
         publish_all_discovery()
         mock_client.publish.assert_not_called()
 
     @patch("mqtt.discovery.get_topic_prefix", return_value="babybuddy")
-    @patch("mqtt.discovery.get_mqtt_settings")
+    @patch("mqtt.discovery.get_mqtt_ha_settings")
     @patch("mqtt.discovery.mqtt_client")
     def test_toggle_on_publishes_discovery(
-        self, mock_client, mock_get_settings, mock_get_prefix
+        self, mock_client, mock_get_ha_settings, mock_get_prefix
     ):
         """When ha_discovery is True (default), discovery publishes normally."""
         settings = _mock_mqtt_settings(enabled=True)
         settings.ha_discovery = True
-        mock_get_settings.return_value = settings
+        mock_get_ha_settings.return_value = settings
 
         publish_child_discovery(self.child)
         self.assertEqual(mock_client.publish.call_count, len(DISCOVERY_ENTITIES))
@@ -558,6 +559,35 @@ class HADiscoveryToggleTests(TestCase):
         """remove_child_discovery runs even when ha_discovery is False."""
         remove_child_discovery(self.child)
         self.assertEqual(mock_client.publish.call_count, len(DISCOVERY_ENTITIES))
+
+    @patch("mqtt.discovery.get_mqtt_settings")
+    @patch("mqtt.discovery.mqtt_client")
+    def test_remove_all_starts_client_if_needed(
+        self, mock_client, mock_get_conn_settings
+    ):
+        """remove_all_discovery starts the MQTT client when not already started."""
+        conn_settings = _mock_mqtt_settings(enabled=True)
+        mock_get_conn_settings.return_value = conn_settings
+        mock_client.is_started = False
+
+        remove_all_discovery()
+
+        mock_client.start.assert_called_once()
+        self.assertEqual(mock_client.publish.call_count, len(DISCOVERY_ENTITIES))
+
+    @patch("mqtt.discovery.get_mqtt_settings")
+    @patch("mqtt.discovery.mqtt_client")
+    def test_remove_all_skips_when_mqtt_disabled(
+        self, mock_client, mock_get_conn_settings
+    ):
+        """remove_all_discovery is a no-op when MQTT is globally disabled."""
+        conn_settings = _mock_mqtt_settings(enabled=False)
+        mock_get_conn_settings.return_value = conn_settings
+
+        remove_all_discovery()
+
+        mock_client.start.assert_not_called()
+        mock_client.publish.assert_not_called()
 
     @patch("mqtt.publisher.get_topic_prefix", return_value="babybuddy")
     @patch("mqtt.publisher.get_mqtt_settings")
@@ -723,9 +753,11 @@ class MqttSettingsReconnectTests(TestCase):
 
         self._apps = apps_module
         self._apps._mqtt_settings_dirty = False
+        self._apps._ha_discovery_disabled = False
 
     def tearDown(self):
         self._apps._mqtt_settings_dirty = False
+        self._apps._ha_discovery_disabled = False
 
     def _make_sender(self, module_name, attribute_name):
         sender = MagicMock()
@@ -805,3 +837,50 @@ class MqttSettingsReconnectTests(TestCase):
             self._apps._on_request_finished(sender=None)
 
         mock_client.reconnect.assert_not_called()
+
+    @patch("mqtt.discovery.remove_all_discovery")
+    def test_ha_discovery_disabled_triggers_cleanup(self, mock_remove):
+        """Toggling ha_discovery off via UI triggers retained-topic cleanup."""
+        self._apps._on_mqtt_setting_changed(
+            self._make_sender("mqtt.settings", "ha_discovery"),
+            value=False,
+        )
+        self.assertTrue(self._apps._ha_discovery_disabled)
+
+        with patch("mqtt.client.mqtt_client") as mock_client:
+            mock_client.is_started = True
+            self._apps._on_request_finished(sender=None)
+
+        mock_client.reconnect.assert_called_once()
+        mock_remove.assert_called_once()
+        self.assertFalse(self._apps._ha_discovery_disabled)
+
+    @patch("mqtt.discovery.remove_all_discovery")
+    def test_ha_discovery_enabled_does_not_trigger_cleanup(self, mock_remove):
+        """Toggling ha_discovery on does not trigger cleanup."""
+        self._apps._on_mqtt_setting_changed(
+            self._make_sender("mqtt.settings", "ha_discovery"),
+            value=True,
+        )
+        self.assertFalse(self._apps._ha_discovery_disabled)
+
+        with patch("mqtt.client.mqtt_client") as mock_client:
+            mock_client.is_started = True
+            self._apps._on_request_finished(sender=None)
+
+        mock_remove.assert_not_called()
+
+    @patch("mqtt.discovery.remove_all_discovery")
+    def test_non_discovery_change_does_not_trigger_cleanup(self, mock_remove):
+        """Changing broker_host does not trigger discovery cleanup."""
+        self._apps._on_mqtt_setting_changed(
+            self._make_sender("mqtt.settings", "broker_host"),
+            value="192.168.1.1",
+        )
+        self.assertFalse(self._apps._ha_discovery_disabled)
+
+        with patch("mqtt.client.mqtt_client") as mock_client:
+            mock_client.is_started = True
+            self._apps._on_request_finished(sender=None)
+
+        mock_remove.assert_not_called()
