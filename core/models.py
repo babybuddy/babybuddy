@@ -13,6 +13,8 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
+from django.db.models.signals import post_delete, post_save
+
 from babybuddy.site_settings import NapSettings
 from core.utils import random_color, timezone_aware_duration
 
@@ -201,11 +203,9 @@ class Child(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self, allow_unicode=True)
         super(Child, self).save(*args, **kwargs)
-        cache.set(self.cache_key_count, Child.objects.count(), None)
 
     def delete(self, using=None, keep_parents=False):
         super(Child, self).delete(using, keep_parents)
-        cache.set(self.cache_key_count, Child.objects.count(), None)
 
     def name(self, reverse=False):
         if not self.last_name:
@@ -225,6 +225,14 @@ class Child(models.Model):
     def count(cls):
         """Get a (cached) count of total number of Child instances."""
         return cache.get_or_set(cls.cache_key_count, Child.objects.count, None)
+
+
+def _invalidate_child_count(sender, **kwargs):
+    cache.set(Child.cache_key_count, Child.objects.count(), None)
+
+
+post_save.connect(_invalidate_child_count, sender=Child)
+post_delete.connect(_invalidate_child_count, sender=Child)
 
 
 class DiaperChange(models.Model):
