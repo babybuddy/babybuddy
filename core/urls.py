@@ -181,4 +181,9 @@ urlpatterns = [
     path("bmi/add/", views.BMIAdd.as_view(), name="bmi-add"),
     path("bmi/<int:pk>/", views.BMIUpdate.as_view(), name="bmi-update"),
     path("bmi/<int:pk>/delete/", views.BMIDelete.as_view(), name="bmi-delete"),
+    path(
+        "last-entry-banner/<str:model_name>/<int:child_id>/",
+        views.LastEntryBannerView.as_view(),
+        name="last-entry-banner",
+    ),
 ]

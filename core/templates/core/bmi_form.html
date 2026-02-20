@@ -25,5 +25,6 @@
     {% else %}
         <h1>{% trans "Add a BMI Entry" %}</h1>
     {% endif %}
+    {% include 'core/last_entry_banner.html' %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

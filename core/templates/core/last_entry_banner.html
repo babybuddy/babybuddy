@@ -1,0 +1,55 @@
+{% load duration i18n misc %}
+<div id="last-entry-banner"
+     {% if model_name %}data-banner-url="{% url 'core:last-entry-banner' model_name=model_name child_id=0 %}"{% endif %}>
+{% if last_entry %}
+<div class="alert alert-info py-2 px-3 mb-3 d-flex align-items-center small">
+    <i class="icon-{{ last_entry.model_name }} me-2" aria-hidden="true"></i>
+    <div>
+        <strong>{% trans "Last" %} {{ last_entry|verbose_name }}:</strong>
+        {% if last_entry_time|is_datetime %}
+            {% blocktrans trimmed with time_ago=last_entry_time|deltasince|duration_string:'m' time=last_entry_time|time %}
+                {{ time_ago }} ago ({{ time }})
+            {% endblocktrans %}
+        {% else %}
+            {{ last_entry_time }}
+        {% endif %}
+        {% if last_entry_summary %}
+            <span class="text-body-secondary ms-1">· {{ last_entry_summary }}</span>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+</div>
+<script>
+(function() {
+    function init() {
+        var container = document.getElementById("last-entry-banner");
+        if (!container) return;
+        var radios = document.querySelectorAll('input[name="child"]');
+        if (!radios.length) return;
+        var baseUrl = container.getAttribute("data-banner-url");
+        if (!baseUrl) return;
+        function bannerUrl(childId) {
+            return baseUrl.replace("/0/", "/" + childId + "/");
+        }
+        radios.forEach(function(radio) {
+            radio.addEventListener("change", function() {
+                if (!this.value) return;
+                fetch(bannerUrl(this.value), {credentials: "same-origin"})
+                    .then(function(r) { return r.ok ? r.text() : ""; })
+                    .then(function(html) {
+                        var tmp = document.createElement("div");
+                        tmp.innerHTML = html;
+                        var inner = tmp.querySelector("#last-entry-banner");
+                        container.innerHTML = inner ? inner.innerHTML : "";
+                    });
+            });
+        });
+    }
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();
+</script>

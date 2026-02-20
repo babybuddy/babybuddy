@@ -25,6 +25,7 @@
     {% else %}
         <h1>{% trans "Add a Medication Schedule" %}</h1>
     {% endif %}
+    {% include 'core/last_entry_banner.html' %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}
 {% block javascript %}

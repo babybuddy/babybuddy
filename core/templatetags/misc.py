@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django import template
 
 register = template.Library()
@@ -28,3 +30,15 @@ def prev(some_list, current_index):
     if not some_list or current_index <= 0:
         return ""
     return some_list[current_index - 1]
+
+
+@register.filter
+def verbose_name(instance):
+    """Return the model's verbose_name for display."""
+    return instance._meta.verbose_name.title()
+
+
+@register.filter
+def is_datetime(value):
+    """Return True if the value is a datetime (not a plain date)."""
+    return isinstance(value, datetime.datetime)

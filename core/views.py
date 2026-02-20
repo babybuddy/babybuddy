@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
 from django.db.models.functions import Lower
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
@@ -27,6 +27,122 @@ def _prepare_timeline_context_data(context, date, child=None):
     if date.date() < timezone.localdate():
         context["date_next"] = date + timezone.timedelta(days=1)
     pass
+
+
+def get_entry_time(entry):
+    """Return the most relevant timestamp from a model entry."""
+    for field in ("end", "start", "time", "date"):
+        val = getattr(entry, field, None)
+        if val is not None:
+            return val
+    return None
+
+
+_SUMMARY_SKIP_FIELDS = frozenset(
+    {
+        "id",
+        "child",
+        "child_id",
+        "start",
+        "end",
+        "time",
+        "date",
+        "notes",
+        "tags",
+        "objects",
+        "model_name",
+        "medication_schedule",
+        "medication_schedule_id",
+        "image",
+    }
+)
+
+
+def build_entry_summary(entry):
+    """Build a concise, human-readable summary string by introspecting model fields."""
+    from django.db import models as db_models
+    from core.utils import duration_string
+
+    parts = []
+    for field in entry._meta.get_fields():
+        if not hasattr(field, "attname") and not hasattr(field, "column"):
+            continue
+        name = field.name
+        if name in _SUMMARY_SKIP_FIELDS:
+            continue
+
+        value = getattr(entry, name, None)
+        if value is None:
+            continue
+
+        if isinstance(field, db_models.DurationField):
+            if value:
+                parts.append(duration_string(value, "m"))
+        elif isinstance(field, db_models.BooleanField):
+            if value:
+                parts.append(str(field.verbose_name).capitalize())
+        elif field.choices:
+            display_fn = getattr(entry, f"get_{name}_display", None)
+            if display_fn:
+                parts.append(str(display_fn()))
+        elif isinstance(field, (db_models.FloatField, db_models.DecimalField)):
+            parts.append(str(value))
+        elif isinstance(field, (db_models.CharField, db_models.TextField)):
+            if value:
+                parts.append(str(value)[:50])
+        elif isinstance(field, db_models.PositiveIntegerField):
+            parts.append(str(value))
+
+    return " · ".join(parts) if parts else ""
+
+
+CHILD_MODELS = {
+    m.model_name: m
+    for m in [
+        models.BMI,
+        models.DiaperChange,
+        models.Feeding,
+        models.HeadCircumference,
+        models.Height,
+        models.Medication,
+        models.MedicationSchedule,
+        models.Note,
+        models.Pumping,
+        models.Sleep,
+        models.Temperature,
+        models.TummyTime,
+        models.Weight,
+        models.Expirable,
+    ]
+}
+
+
+class LastEntryBannerView(LoginRequiredMixin, TemplateView):
+    """Return the last-entry banner as an HTML fragment for a given model and child."""
+
+    template_name = "core/last_entry_banner.html"
+
+    def get(self, request, *args, **kwargs):
+        model_name = kwargs["model_name"]
+        if model_name not in CHILD_MODELS:
+            return HttpResponseNotFound()
+        try:
+            self.child = models.Child.objects.get(pk=kwargs["child_id"])
+        except models.Child.DoesNotExist:
+            return HttpResponseNotFound()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        model_name = kwargs["model_name"]
+        context["model_name"] = model_name
+        last = CHILD_MODELS[model_name].objects.filter(child=self.child).first()
+        if not last:
+            return context
+        context["last_entry"] = last
+        context["last_entry_time"] = get_entry_time(last)
+        context["last_entry_summary"] = build_entry_summary(last)
+        return context
 
 
 class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -55,6 +171,26 @@ class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
             if value:
                 kwargs.update({parameter: value})
         return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["model_name"] = self.model.model_name
+
+        if not hasattr(self.model, "child"):
+            return context
+
+        child = context["form"].initial.get("child")
+        if not child:
+            return context
+
+        last = self.model.objects.filter(child=child).first()
+        if not last:
+            return context
+
+        context["last_entry"] = last
+        context["last_entry_time"] = get_entry_time(last)
+        context["last_entry_summary"] = build_entry_summary(last)
+        return context
 
 
 class CoreUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
