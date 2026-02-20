@@ -32,6 +32,28 @@ class BMIViewSet(viewsets.ModelViewSet):
         return name
 
 
+LAST_ACTIVITY_MODELS = [
+    ("feedings", models.Feeding, serializers.FeedingSerializer, "end"),
+    ("changes", models.DiaperChange, serializers.DiaperChangeSerializer, "time"),
+    ("sleep", models.Sleep, serializers.SleepSerializer, "end"),
+    ("pumping", models.Pumping, serializers.PumpingSerializer, "end"),
+    ("tummy-times", models.TummyTime, serializers.TummyTimeSerializer, "end"),
+    ("temperature", models.Temperature, serializers.TemperatureSerializer, "time"),
+    ("weight", models.Weight, serializers.WeightSerializer, "date"),
+    ("height", models.Height, serializers.HeightSerializer, "date"),
+    (
+        "head-circumference",
+        models.HeadCircumference,
+        serializers.HeadCircumferenceSerializer,
+        "date",
+    ),
+    ("bmi", models.BMI, serializers.BMISerializer, "date"),
+    ("notes", models.Note, serializers.NoteSerializer, "time"),
+    ("medications", models.Medication, serializers.MedicationSerializer, "time"),
+    ("timers", models.Timer, serializers.TimerSerializer, "start"),
+]
+
+
 class ChildViewSet(viewsets.ModelViewSet):
     queryset = models.Child.objects.all()
     serializer_class = serializers.ChildSerializer
@@ -52,6 +74,23 @@ class ChildViewSet(viewsets.ModelViewSet):
         """Return daily aggregate stats for a child, including overdue medications."""
         child = self.get_object()
         return Response(compute_stats(child))
+
+    @action(detail=True, methods=["get"], url_path="last-activities")
+    def last_activities(self, request, slug=None):
+        """Return the last entry for every sensor type plus daily stats."""
+        child = self.get_object()
+        data = {}
+        for key, model, serializer_cls, order_field in LAST_ACTIVITY_MODELS:
+            entry = (
+                model.objects.filter(child=child).order_by(f"-{order_field}").first()
+            )
+            data[key] = (
+                serializer_cls(entry, context={"request": request}).data
+                if entry
+                else None
+            )
+        data["stats"] = compute_stats(child)
+        return Response(data)
 
 
 class ExpirableViewSet(viewsets.ModelViewSet):
@@ -426,6 +465,7 @@ class HADiscoveryView(views.APIView):
         "child_filter_param": "child",
         "limit_param": "limit",
         "stats_endpoint": "/api/children/{slug}/stats/",
+        "last_activities_endpoint": "/api/children/{slug}/last-activities/",
     }
 
     CHILD_META = {

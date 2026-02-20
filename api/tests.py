@@ -962,6 +962,81 @@ class WeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.data, entry)
 
 
+class TestLastActivitiesView(APITestCase):
+    fixtures = ["tests.json"]
+
+    def setUp(self):
+        self.client.login(username="admin", password="admin")
+        self.child = models.Child.objects.first()
+        self.endpoint = reverse(
+            "api:child-last-activities", kwargs={"slug": self.child.slug}
+        )
+
+    def test_returns_all_expected_keys(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        expected_keys = {
+            "feedings",
+            "changes",
+            "sleep",
+            "pumping",
+            "tummy-times",
+            "temperature",
+            "weight",
+            "height",
+            "head-circumference",
+            "bmi",
+            "notes",
+            "medications",
+            "timers",
+            "stats",
+        }
+        self.assertEqual(set(response.data.keys()), expected_keys)
+
+    def test_null_for_empty_sensor_types(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNone(response.data["medications"])
+
+    def test_returns_data_for_existing_entries(self):
+        now = timezone.now()
+        models.Feeding.objects.create(
+            child=self.child,
+            start=now - timezone.timedelta(hours=1),
+            end=now,
+            type="breast milk",
+            method="left breast",
+        )
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNotNone(response.data["feedings"])
+        self.assertIn("type", response.data["feedings"])
+        self.assertEqual(response.data["feedings"]["type"], "breast milk")
+
+    def test_includes_stats(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        stats = response.data["stats"]
+        self.assertIn("feedings_today", stats)
+        self.assertIn("diaper_changes_today", stats)
+        self.assertIn("sleep_total_today_minutes", stats)
+        self.assertIn("medications_overdue_count", stats)
+
+    def test_requires_auth(self):
+        self.client.logout()
+        response = self.client.get(self.endpoint)
+        self.assertIn(response.status_code, [401, 403])
+
+    def test_returns_latest_entry(self):
+        now = timezone.now()
+        models.Temperature.objects.create(
+            child=self.child, temperature=36.5, time=now - timezone.timedelta(hours=2)
+        )
+        models.Temperature.objects.create(child=self.child, temperature=37.1, time=now)
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.data["temperature"]["temperature"], 37.1)
+
+
 class TestProfileAPITestCase(APITestCase):
     endpoint = reverse("api:profile")
 
