@@ -1179,3 +1179,28 @@ class TestHADiscoveryView(APITestCase):
         self.client.logout()
         response = self.client.get(self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class TestMQTTDiscoverView(APITestCase):
+    endpoint = reverse("api:mqtt-discover")
+
+    def setUp(self):
+        self.client.login(username="admin", password="admin")
+
+    def test_returns_list(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.data, list)
+
+    def test_broker_entry_structure(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        for broker in response.data:
+            self.assertIn("host", broker)
+            self.assertIn("port", broker)
+            self.assertIn("source", broker)
+
+    def test_requires_auth(self):
+        self.client.logout()
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

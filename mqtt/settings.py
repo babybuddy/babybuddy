@@ -23,52 +23,36 @@ class MqttSettings(dbsettings.Group):
     broker_host = dbsettings.StringValue(
         default="localhost",
         description=_("MQTT broker host"),
-        help_text=_(
-            "Hostname or IP address of the MQTT broker. "
-            "Changing this requires a server restart."
-        ),
+        help_text=_("Hostname or IP address of the MQTT broker."),
     )
     broker_port = dbsettings.PositiveIntegerValue(
         default=1883,
         description=_("MQTT broker port"),
-        help_text=_(
-            "Port number for the MQTT broker (usually 1883, or 8883 for TLS). "
-            "Changing this requires a server restart."
-        ),
+        help_text=_("Port number for the MQTT broker (usually 1883, or 8883 for TLS)."),
     )
     username = dbsettings.StringValue(
         default="",
         required=False,
         description=_("MQTT username"),
         help_text=_(
-            "Username for broker authentication (leave empty if not required). "
-            "Changing this requires a server restart."
+            "Username for broker authentication (leave empty if not required)."
         ),
     )
     password = dbsettings.PasswordValue(
         default="",
         required=False,
         description=_("MQTT password"),
-        help_text=_(
-            "Password for broker authentication. "
-            "Changing this requires a server restart."
-        ),
+        help_text=_("Password for broker authentication."),
     )
     topic_prefix = dbsettings.StringValue(
         default="babybuddy",
         description=_("MQTT topic prefix"),
-        help_text=_(
-            "Prefix for all MQTT topics (e.g. 'babybuddy'). "
-            "Changing this requires a server restart."
-        ),
+        help_text=_("Prefix for all MQTT topics (e.g. 'babybuddy')."),
     )
     use_tls = dbsettings.BooleanValue(
         default=False,
         description=_("Use TLS"),
-        help_text=_(
-            "Enable TLS/SSL encryption for the broker connection. "
-            "Changing this requires a server restart."
-        ),
+        help_text=_("Enable TLS/SSL encryption for the broker connection."),
     )
     ha_discovery = dbsettings.BooleanValue(
         default=True,

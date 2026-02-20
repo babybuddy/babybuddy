@@ -89,6 +89,14 @@ class MqttClient:
         finally:
             self._started = False
 
+    def reconnect(self):
+        """Tear down the current connection and start fresh with current
+        dbsettings values.  Safe to call even if not currently connected."""
+        logger.info("MQTT client reconnecting with updated settings")
+        self.stop()
+        self._client = None
+        self.start()
+
     def publish(self, topic, payload, retain=True, qos=1):
         """Publish a message. *payload* should be a string or bytes."""
         if not self._started or self._client is None:

@@ -71,6 +71,11 @@ router.add_detail_path(
     views.HADiscoveryView.as_view(),
 )
 router.add_detail_path(
+    "mqtt/discover",
+    "mqtt-discover",
+    views.MQTTDiscoverView.as_view(),
+)
+router.add_detail_path(
     "schema",
     "openapi-schema",
     get_schema_view(

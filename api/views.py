@@ -968,3 +968,16 @@ class HADiscoveryView(views.APIView):
             "services": self.SERVICES,
         }
         return Response(data)
+
+
+class MQTTDiscoverView(views.APIView):
+    """Scan the network for reachable MQTT brokers via mDNS and well-known
+    hostnames. Returns a JSON list of discovered brokers."""
+
+    schema = AutoSchema(operation_id_base="MQTTDiscover")
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        from mqtt.discover import discover_brokers
+
+        return Response(discover_brokers())

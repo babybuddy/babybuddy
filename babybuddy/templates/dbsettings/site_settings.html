@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}
     {% trans "Site Settings" %}
 {% endblock %}
@@ -10,4 +10,7 @@
 {% block content %}
     <h1>{% trans "Site Settings" %}</h1>
     {% include 'babybuddy/form.html' %}
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'babybuddy/js/mqtt_discover.js' %}"></script>
 {% endblock %}

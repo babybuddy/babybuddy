@@ -604,14 +604,14 @@ class HADiscoveryEndpointTests(TestCase):
         self.assertEqual(response.status_code, 200)
         data = response.json()
 
-        # Top-level keys
-        self.assertEqual(data["version"], 1)
-        self.assertEqual(data["stats_endpoint"], "/api/children/{slug}/stats/")
+        self.assertEqual(data["version"], 2)
+        self.assertIn("api", data)
         self.assertIn("mqtt", data)
         self.assertIn("sensors", data)
         self.assertIn("stats_sensors", data)
         self.assertIn("binary_sensors", data)
         self.assertIn("selects", data)
+        self.assertIn("services", data)
 
     def test_mqtt_section(self):
         response = self.client.get("/api/ha/discovery")
@@ -708,3 +708,100 @@ class HADiscoveryEndpointTests(TestCase):
         self.client.logout()
         response = self.client.get("/api/ha/discovery")
         self.assertIn(response.status_code, [401, 403])
+
+
+# -----------------------------------------------------------------------
+# Test MQTT auto-reconnect on settings change
+# -----------------------------------------------------------------------
+
+
+class MqttSettingsReconnectTests(TestCase):
+    """Test that changing MQTT settings triggers exactly one reconnect."""
+
+    def setUp(self):
+        import mqtt.apps as apps_module
+
+        self._apps = apps_module
+        self._apps._mqtt_settings_dirty = False
+
+    def tearDown(self):
+        self._apps._mqtt_settings_dirty = False
+
+    def _make_sender(self, module_name, attribute_name):
+        sender = MagicMock()
+        sender.module_name = module_name
+        sender.attribute_name = attribute_name
+        return sender
+
+    def test_single_setting_change_triggers_reconnect(self):
+        """One MQTT setting change + request_finished = one reconnect."""
+        self._apps._on_mqtt_setting_changed(
+            self._make_sender("mqtt.settings", "broker_host")
+        )
+        self.assertTrue(self._apps._mqtt_settings_dirty)
+
+        with patch("mqtt.client.mqtt_client") as mock_client:
+            mock_client.is_started = True
+            self._apps._on_request_finished(sender=None)
+
+        mock_client.reconnect.assert_called_once()
+        self.assertFalse(self._apps._mqtt_settings_dirty)
+
+    def test_multiple_changes_trigger_single_reconnect(self):
+        """Three MQTT settings changed in one request = one reconnect."""
+        for attr in ("broker_host", "broker_port", "username"):
+            self._apps._on_mqtt_setting_changed(
+                self._make_sender("mqtt.settings", attr)
+            )
+
+        self.assertTrue(self._apps._mqtt_settings_dirty)
+
+        with patch("mqtt.client.mqtt_client") as mock_client:
+            mock_client.is_started = True
+            self._apps._on_request_finished(sender=None)
+
+        mock_client.reconnect.assert_called_once()
+
+    def test_non_mqtt_setting_ignored(self):
+        """Changes to non-MQTT settings should not flag a reconnect."""
+        self._apps._on_mqtt_setting_changed(
+            self._make_sender("babybuddy.zeroconf", "enabled")
+        )
+        self.assertFalse(self._apps._mqtt_settings_dirty)
+
+    def test_no_reconnect_when_client_not_started(self):
+        """If the MQTT client hasn't been started, skip the reconnect."""
+        self._apps._on_mqtt_setting_changed(
+            self._make_sender("mqtt.settings", "broker_host")
+        )
+
+        with patch("mqtt.client.mqtt_client") as mock_client:
+            mock_client.is_started = False
+            self._apps._on_request_finished(sender=None)
+
+        mock_client.reconnect.assert_not_called()
+        self.assertFalse(self._apps._mqtt_settings_dirty)
+
+    def test_flag_resets_after_reconnect(self):
+        """After reconnect, the next request_finished is a no-op."""
+        self._apps._on_mqtt_setting_changed(
+            self._make_sender("mqtt.settings", "use_tls")
+        )
+
+        with patch("mqtt.client.mqtt_client") as mock_client:
+            mock_client.is_started = True
+            self._apps._on_request_finished(sender=None)
+            mock_client.reconnect.reset_mock()
+
+            # Second request_finished without any new setting changes
+            self._apps._on_request_finished(sender=None)
+
+        mock_client.reconnect.assert_not_called()
+
+    def test_request_finished_without_changes_is_noop(self):
+        """request_finished on a normal request does nothing."""
+        with patch("mqtt.client.mqtt_client") as mock_client:
+            mock_client.is_started = True
+            self._apps._on_request_finished(sender=None)
+
+        mock_client.reconnect.assert_not_called()
