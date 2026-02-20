@@ -915,8 +915,15 @@ class HADiscoveryView(views.APIView):
     ]
 
     def get(self, request):
+        from babybuddy import VERSION
+        from mqtt.utils import get_mqtt_ha_settings
+
         data = {
             "version": 2,
+            "babybuddy_version": VERSION,
+            "settings": {
+                "mqtt_discovery_enabled": bool(get_mqtt_ha_settings().ha_discovery),
+            },
             "api": self.API_META,
             "child": self.CHILD_META,
             "timer": self.TIMER_META,
@@ -968,6 +975,37 @@ class HADiscoveryView(views.APIView):
             "services": self.SERVICES,
         }
         return Response(data)
+
+
+class HASettingsView(views.APIView):
+    """Read and update Home Assistant-related settings."""
+
+    schema = AutoSchema(operation_id_base="HASettings")
+    permission_classes = [IsAuthenticated]
+
+    @staticmethod
+    def _get_settings():
+        from mqtt.utils import get_mqtt_ha_settings
+
+        return {"mqtt_discovery_enabled": bool(get_mqtt_ha_settings().ha_discovery)}
+
+    def get(self, request):
+        return Response(self._get_settings())
+
+    def patch(self, request):
+        from mqtt.utils import get_mqtt_ha_settings
+        from mqtt.discovery import remove_all_discovery
+
+        s = get_mqtt_ha_settings()
+        if "mqtt_discovery_enabled" in request.data:
+            new_val = bool(request.data["mqtt_discovery_enabled"])
+            old_val = bool(s.ha_discovery)
+            if new_val != old_val:
+                s.ha_discovery = new_val
+                if not new_val:
+                    remove_all_discovery()
+
+        return Response(self._get_settings())
 
 
 class MQTTDiscoverView(views.APIView):

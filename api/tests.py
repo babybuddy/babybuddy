@@ -1013,6 +1013,8 @@ class TestHADiscoveryView(APITestCase):
         response = self.client.get(self.endpoint)
         expected_keys = {
             "version",
+            "babybuddy_version",
+            "settings",
             "api",
             "child",
             "timer",
@@ -1025,6 +1027,18 @@ class TestHADiscoveryView(APITestCase):
             "services",
         }
         self.assertEqual(set(response.data.keys()), expected_keys)
+
+    def test_babybuddy_version(self):
+        from babybuddy import VERSION
+
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.data["babybuddy_version"], VERSION)
+
+    def test_settings_section(self):
+        response = self.client.get(self.endpoint)
+        settings = response.data["settings"]
+        self.assertIn("mqtt_discovery_enabled", settings)
+        self.assertIsInstance(settings["mqtt_discovery_enabled"], bool)
 
     def test_api_section(self):
         response = self.client.get(self.endpoint)
@@ -1203,4 +1217,70 @@ class TestMQTTDiscoverView(APITestCase):
     def test_requires_auth(self):
         self.client.logout()
         response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class TestHASettingsView(APITestCase):
+    endpoint = reverse("api:ha-settings")
+
+    def setUp(self):
+        self.client.login(username="admin", password="admin")
+
+    def test_get_returns_settings(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("mqtt_discovery_enabled", response.data)
+        self.assertIsInstance(response.data["mqtt_discovery_enabled"], bool)
+
+    def test_patch_disable_mqtt_discovery(self):
+        response = self.client.patch(
+            self.endpoint,
+            {"mqtt_discovery_enabled": False},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data["mqtt_discovery_enabled"])
+
+    def test_patch_enable_mqtt_discovery(self):
+        self.client.patch(
+            self.endpoint,
+            {"mqtt_discovery_enabled": False},
+            format="json",
+        )
+        response = self.client.patch(
+            self.endpoint,
+            {"mqtt_discovery_enabled": True},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data["mqtt_discovery_enabled"])
+
+    def test_patch_idempotent(self):
+        self.client.patch(
+            self.endpoint,
+            {"mqtt_discovery_enabled": False},
+            format="json",
+        )
+        response = self.client.patch(
+            self.endpoint,
+            {"mqtt_discovery_enabled": False},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data["mqtt_discovery_enabled"])
+
+    def test_patch_no_fields_is_noop(self):
+        response = self.client.patch(self.endpoint, {}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("mqtt_discovery_enabled", response.data)
+
+    def test_requires_auth(self):
+        self.client.logout()
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        response = self.client.patch(
+            self.endpoint,
+            {"mqtt_discovery_enabled": False},
+            format="json",
+        )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

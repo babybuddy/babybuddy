@@ -5,6 +5,7 @@ from typing import NamedTuple, List, Any
 
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.schemas import get_schema_view
 
 from . import views
@@ -71,6 +72,11 @@ router.add_detail_path(
     views.HADiscoveryView.as_view(),
 )
 router.add_detail_path(
+    "ha/settings",
+    "ha-settings",
+    views.HASettingsView.as_view(),
+)
+router.add_detail_path(
     "mqtt/discover",
     "mqtt-discover",
     views.MQTTDiscoverView.as_view(),
@@ -82,6 +88,7 @@ router.add_detail_path(
         title="Baby Buddy API",
         version=1,
         description="API documentation for the Baby Buddy application",
+        permission_classes=[IsAuthenticated],
     ),
 )
 
