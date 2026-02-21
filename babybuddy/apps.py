@@ -14,26 +14,35 @@ from babybuddy import VERSION
 
 logger = logging.getLogger(__name__)
 
-_zc_settings_dirty = False
+_ZC_DIRTY_CACHE_KEY = "zc_settings_dirty"
 
 
 def _on_zc_setting_changed(sender, **kwargs):
-    """Flag that a Zeroconf setting changed during this request."""
-    global _zc_settings_dirty
+    """Flag that a Zeroconf setting changed (visible to all workers via cache)."""
     if getattr(sender, "module_name", None) != "babybuddy.zeroconf":
         return
-    _zc_settings_dirty = True
+    from django.core.cache import cache
+
+    cache.set(_ZC_DIRTY_CACHE_KEY, True, timeout=300)
     logger.debug("Zeroconf setting '%s' changed", sender.attribute_name)
 
 
 def _on_zc_request_finished(sender, **kwargs):
-    """Re-register the Zeroconf mDNS service after settings change."""
-    global _zc_settings_dirty
-    if not _zc_settings_dirty:
-        return
-    _zc_settings_dirty = False
+    """Re-register the Zeroconf mDNS service after settings change.
 
+    Only the worker that owns the Zeroconf service (is_started) acts.
+    The dirty flag lives in the cache so ANY worker's POST can set it.
+    """
     from babybuddy.zeroconf import zeroconf_service
+
+    if not zeroconf_service.is_started:
+        return
+
+    from django.core.cache import cache
+
+    if not cache.get(_ZC_DIRTY_CACHE_KEY):
+        return
+    cache.delete(_ZC_DIRTY_CACHE_KEY)
 
     zeroconf_service.stop()
     zeroconf_service.start()
@@ -138,12 +147,13 @@ class BabyBuddyConfig(AppConfig):
         if self._is_serving():
             self._check_uwsgi_threads()
 
-            try:
-                from babybuddy.zeroconf import zeroconf_service
+            if self._is_zeroconf_worker():
+                try:
+                    from babybuddy.zeroconf import zeroconf_service
 
-                zeroconf_service.start_in_background()
-            except Exception as exc:
-                logger.warning("Failed to start Zeroconf service: %s", exc)
+                    zeroconf_service.start_in_background()
+                except Exception as exc:
+                    logger.warning("Failed to start Zeroconf service: %s", exc)
 
     @staticmethod
     def _is_serving():
@@ -157,6 +167,20 @@ class BabyBuddyConfig(AppConfig):
         if "gunicorn" in sys.modules or "uwsgi" in sys.modules:
             return True
         return False
+
+    @staticmethod
+    def _is_zeroconf_worker():
+        """Return True if this process should own the Zeroconf service.
+
+        Under uWSGI with multiple workers, only worker 1 runs Zeroconf
+        to avoid duplicate mDNS registrations that race against each other.
+        """
+        try:
+            import uwsgi
+
+            return uwsgi.worker_id() == 1
+        except (ImportError, AttributeError):
+            return True
 
     @staticmethod
     def _check_uwsgi_threads():
