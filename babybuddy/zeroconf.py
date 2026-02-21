@@ -39,8 +39,7 @@ class ZeroconfSettings(dbsettings.Group):
         description=_("Enable mDNS service advertising"),
         help_text=_(
             "Advertise Baby Buddy on the local network via mDNS (Zeroconf) "
-            "so Home Assistant can auto-discover this instance. "
-            "Changing this requires a server restart."
+            "so Home Assistant can auto-discover this instance."
         ),
     )
     advertised_port = dbsettings.PositiveIntegerValue(
@@ -48,8 +47,7 @@ class ZeroconfSettings(dbsettings.Group):
         description=_("Advertised port"),
         help_text=_(
             "The port that Home Assistant should connect to. If Baby Buddy "
-            "is behind a reverse proxy, set this to the proxy's port. "
-            "Changing this requires a server restart."
+            "is behind a reverse proxy, set this to the proxy's port."
         ),
     )
     instance_id = dbsettings.StringValue(

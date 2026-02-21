@@ -14,6 +14,30 @@ from babybuddy import VERSION
 
 logger = logging.getLogger(__name__)
 
+_zc_settings_dirty = False
+
+
+def _on_zc_setting_changed(sender, **kwargs):
+    """Flag that a Zeroconf setting changed during this request."""
+    global _zc_settings_dirty
+    if getattr(sender, "module_name", None) != "babybuddy.zeroconf":
+        return
+    _zc_settings_dirty = True
+    logger.debug("Zeroconf setting '%s' changed", sender.attribute_name)
+
+
+def _on_zc_request_finished(sender, **kwargs):
+    """Re-register the Zeroconf mDNS service after settings change."""
+    global _zc_settings_dirty
+    if not _zc_settings_dirty:
+        return
+    _zc_settings_dirty = False
+
+    from babybuddy.zeroconf import zeroconf_service
+
+    zeroconf_service.stop()
+    zeroconf_service.start()
+
 
 def create_read_only_group(sender, **kwargs):
     from django.contrib.auth.models import Group
@@ -101,8 +125,15 @@ class BabyBuddyConfig(AppConfig):
     version_string = VERSION
 
     def ready(self):
+        from django.core.signals import request_finished
+
+        from dbsettings.signals import setting_changed
+
         post_migrate.connect(create_read_only_group, sender=self)
         post_migrate.connect(set_default_site_settings, sender=self)
+
+        setting_changed.connect(_on_zc_setting_changed)
+        request_finished.connect(_on_zc_request_finished)
 
         if self._is_serving():
             self._check_uwsgi_threads()
