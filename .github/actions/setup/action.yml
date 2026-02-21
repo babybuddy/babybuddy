@@ -16,7 +16,7 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
         cache: "pip"
-        cache-dependency-path: "requirements.txt"
+        cache-dependency-path: "pyproject.toml"
     - name: Install Python dependencies
       shell: bash
       run: uv sync

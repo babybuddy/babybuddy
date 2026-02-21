@@ -21,8 +21,7 @@ WELL_KNOWN_HOSTS = [
 DEFAULT_PORT = 1883
 MDNS_TIMEOUT = 3
 TCP_TIMEOUT = 2
-SUBNET_SCAN_MAX = 20
-
+SUBNET_SCAN_MAX = 254
 # Minimal MQTT CONNECT packet (protocol level 4 = MQTT 3.1.1, clean session)
 _MQTT_CONNECT = (
     b"\x10"  # CONNECT packet type
@@ -35,18 +34,17 @@ _MQTT_CONNECT = (
 )
 
 
-def _mqtt_probe(host, port=DEFAULT_PORT):
+def _mqtt_probe(host, port=DEFAULT_PORT, timeout=TCP_TIMEOUT):
     """TCP connect and send a minimal MQTT CONNECT to verify the broker
     actually speaks MQTT (not just has an open port). Returns True on
     CONNACK, False otherwise."""
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.settimeout(TCP_TIMEOUT)
+    s.settimeout(timeout)
     try:
         s.connect((host, port))
         s.sendall(_MQTT_CONNECT)
         resp = s.recv(4)
         s.close()
-        # CONNACK is 0x20, length >= 2, then connect return code
         if len(resp) >= 4 and resp[0] == 0x20:
             return_code = resp[3]
             return return_code == 0
@@ -155,8 +153,8 @@ def _get_local_subnet():
 
 
 def _scan_subnet():
-    """Probe the first few IPs on the local /24 subnet. Returns a list of
-    dicts for any that respond to MQTT CONNECT."""
+    """Scan the full local /24 for MQTT brokers. Uses a short timeout since
+    all hosts are on the LAN — responsive hosts reply in <10ms."""
     local_ip, network = _get_local_subnet()
     if network is None:
         return []
@@ -165,11 +163,15 @@ def _scan_subnet():
         str(ip) for ip in list(network.hosts())[:SUBNET_SCAN_MAX] if str(ip) != local_ip
     ]
 
+    LAN_TIMEOUT = 0.5
     results = []
     with concurrent.futures.ThreadPoolExecutor(
-        max_workers=min(len(candidates), 10)
+        max_workers=min(len(candidates), 50)
     ) as pool:
-        futures = {pool.submit(_mqtt_probe, ip): ip for ip in candidates}
+        futures = {
+            pool.submit(_mqtt_probe, ip, DEFAULT_PORT, LAN_TIMEOUT): ip
+            for ip in candidates
+        }
         for future in concurrent.futures.as_completed(futures):
             ip = futures[future]
             if future.result():
