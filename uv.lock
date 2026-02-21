@@ -87,7 +87,7 @@ wheels = [
 
 [[package]]
 name = "babybuddy"
-version = "2.10.1"
+version = "2.10.3"
 source = { virtual = "." }
 dependencies = [
     { name = "boto3" },

@@ -242,7 +242,11 @@ and any number of children).
     env = DJANGO_SETTINGS_MODULE=%(project).settings.production
     master = True
     vacuum = True
+    enable-threads = True
     ```
+
+    !!! warning
+        `enable-threads` is required for MQTT publishing, broker discovery, and Zeroconf mDNS advertising. Without it, these features will silently fail.
 
     See the [uWSGI documentation](http://uwsgi-docs.readthedocs.io/en/latest/)
     for more advanced configuration details.

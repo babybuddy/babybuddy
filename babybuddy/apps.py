@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import logging
 import os
 import uuid
 
@@ -10,6 +11,8 @@ from django.db.models.signals import post_migrate
 from dbsettings.loading import set_setting_value, setting_in_db
 
 from babybuddy import VERSION
+
+logger = logging.getLogger(__name__)
 
 
 def create_read_only_group(sender, **kwargs):
@@ -101,20 +104,15 @@ class BabyBuddyConfig(AppConfig):
         post_migrate.connect(create_read_only_group, sender=self)
         post_migrate.connect(set_default_site_settings, sender=self)
 
-        # Start Zeroconf mDNS advertising in a background thread, but
-        # only when actually serving HTTP (runserver or gunicorn), not
-        # during management commands like migrate, check, etc.
         if self._is_serving():
+            self._check_uwsgi_threads()
+
             try:
                 from babybuddy.zeroconf import zeroconf_service
 
                 zeroconf_service.start_in_background()
             except Exception as exc:
-                import logging
-
-                logging.getLogger("babybuddy.zeroconf").warning(
-                    "Failed to start Zeroconf service: %s", exc
-                )
+                logger.warning("Failed to start Zeroconf service: %s", exc)
 
     @staticmethod
     def _is_serving():
@@ -128,3 +126,19 @@ class BabyBuddyConfig(AppConfig):
         if "gunicorn" in sys.modules or "uwsgi" in sys.modules:
             return True
         return False
+
+    @staticmethod
+    def _check_uwsgi_threads():
+        """Warn loudly if running under uWSGI without enable-threads."""
+        try:
+            import uwsgi
+
+            if not uwsgi.opt.get(b"enable-threads"):
+                logger.warning(
+                    "uWSGI is running WITHOUT 'enable-threads'. "
+                    "MQTT publishing, broker discovery, and Zeroconf "
+                    "will NOT work. Add 'enable-threads = true' to "
+                    "your uWSGI config and restart."
+                )
+        except ImportError:
+            pass
