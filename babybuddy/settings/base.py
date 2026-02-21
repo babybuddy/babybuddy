@@ -408,6 +408,29 @@ BABY_BUDDY = {
 
 ENABLE_HOME_ASSISTANT_SUPPORT = config.enable_home_assistant
 
+# Logging
+# https://docs.djangoproject.com/en/5.0/ref/logging/
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "babybuddy": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+        "mqtt": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    },
+}
+
 # MQTT Publishing (for Home Assistant integration)
 #
 # All MQTT settings are now managed via Site Settings (dbsettings) in the

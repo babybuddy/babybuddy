@@ -158,15 +158,7 @@ class ZeroconfService:
             )
 
             self._zc = ZC()
-
-            # Unregister any stale record left by a previous process that
-            # was killed without cleanup (e.g. SIGKILL).
-            try:
-                self._zc.unregister_service(self._info)
-            except Exception:
-                pass
-
-            self._zc.register_service(self._info, allow_name_change=True)
+            self._zc.register_service(self._info, cooperating_responders=True)
             self._started = True
 
             # Register cleanup via atexit (clean interpreter exit) AND
