@@ -28,24 +28,29 @@ def _on_zc_setting_changed(sender, **kwargs):
 
 
 def _on_zc_request_finished(sender, **kwargs):
-    """Re-register the Zeroconf mDNS service after settings change.
+    """Apply Zeroconf settings changes.
 
-    Only the worker that owns the Zeroconf service (is_started) acts.
-    The dirty flag lives in the cache so ANY worker's POST can set it.
+    Under uWSGI, Zeroconf runs in the master process.  A graceful
+    reload (uwsgi.reload) restarts all workers and re-initialises
+    the master, picking up the new settings cleanly.  For runserver
+    (single process), stop + start directly.
     """
-    from babybuddy.zeroconf import zeroconf_service
-
-    if not zeroconf_service.is_started:
-        return
-
     from django.core.cache import cache
 
     if not cache.get(_ZC_DIRTY_CACHE_KEY):
         return
     cache.delete(_ZC_DIRTY_CACHE_KEY)
 
-    zeroconf_service.stop()
-    zeroconf_service.start()
+    try:
+        import uwsgi
+
+        logger.info("Zeroconf settings changed — triggering graceful reload")
+        uwsgi.reload()
+    except ImportError:
+        from babybuddy.zeroconf import zeroconf_service
+
+        zeroconf_service.stop()
+        zeroconf_service.start()
 
 
 def create_read_only_group(sender, **kwargs):
@@ -146,7 +151,13 @@ class BabyBuddyConfig(AppConfig):
 
         if self._is_serving():
             self._check_uwsgi_threads()
-            self._start_zeroconf()
+
+            try:
+                from babybuddy.zeroconf import zeroconf_service
+
+                zeroconf_service.start_in_background()
+            except Exception as exc:
+                logger.warning("Failed to start Zeroconf service: %s", exc)
 
     @staticmethod
     def _is_serving():
@@ -160,35 +171,6 @@ class BabyBuddyConfig(AppConfig):
         if "gunicorn" in sys.modules or "uwsgi" in sys.modules:
             return True
         return False
-
-    @staticmethod
-    def _start_zeroconf():
-        """Start Zeroconf in exactly one process.
-
-        Under uWSGI preforking, ready() runs in the master (worker_id=0)
-        before workers are forked. We register a postfork hook so that
-        only worker 1 starts the service after forking.  For runserver /
-        gunicorn (no postfork API), start immediately.
-        """
-
-        def _do_start():
-            try:
-                from babybuddy.zeroconf import zeroconf_service
-
-                zeroconf_service.start_in_background()
-            except Exception as exc:
-                logger.warning("Failed to start Zeroconf service: %s", exc)
-
-        try:
-            import uwsgi
-
-            @uwsgi.postfork
-            def _postfork_zeroconf():
-                if uwsgi.worker_id() == 1:
-                    _do_start()
-
-        except ImportError:
-            _do_start()
 
     @staticmethod
     def _check_uwsgi_threads():
