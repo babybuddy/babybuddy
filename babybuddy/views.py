@@ -284,9 +284,6 @@ class UserSettings(LoginRequiredMixin, View):
         )
 
     def post(self, request):
-        if handle_api_regenerate_request(request):
-            return redirect("babybuddy:user-settings")
-
         form_user = self.form_user_class(instance=request.user, data=request.POST)
         form_settings = self.form_settings_class(
             instance=request.user.settings, data=request.POST

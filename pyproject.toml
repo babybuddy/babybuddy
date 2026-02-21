@@ -1,6 +1,6 @@
 [project]
 name = "babybuddy"
-version = "2.10.5"
+version = "2.10.6"
 description = "A buddy for babies! Helps caregivers track sleep, feedings, diaper changes, and more."
 license = "BSD-2-Clause"
 requires-python = ">=3.10"

@@ -378,7 +378,16 @@
                     <i class="icon-source" aria-hidden="true"></i> {% trans "Source Code" %}</a>
                 <a href="https://github.com/eyalmichon/babybuddy/discussions" class="dropdown-item">
                     <i class="icon-chat" aria-hidden="true"></i> {% trans "Chat / Support" %}</a>
-                <h6 class="dropdown-header">v{% version_string %}</h6>
+                <h6 class="dropdown-header">v{% version_string %}
+                    {% if request.user.is_staff %}
+                        {% latest_version as new_ver %}
+                        {% if new_ver %}
+                            <a href="https://github.com/eyalmichon/babybuddy/releases/tag/v{{ new_ver }}"
+                               class="badge bg-info text-white text-decoration-none"
+                               target="_blank">v{{ new_ver }} {% trans "available" %}</a>
+                        {% endif %}
+                    {% endif %}
+                </h6>
             </div>
         </li>
     </ul>

@@ -164,7 +164,7 @@ class BabyBuddyConfig(AppConfig):
         try:
             import uwsgi
 
-            if not uwsgi.opt.get(b"enable-threads"):
+            if b"enable-threads" not in uwsgi.opt:
                 logger.warning(
                     "uWSGI is running WITHOUT 'enable-threads'. "
                     "MQTT publishing, broker discovery, and Zeroconf "

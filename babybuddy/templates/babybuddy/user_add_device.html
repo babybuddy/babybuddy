@@ -17,7 +17,12 @@
                 <div class="col-sm-10">
                     <form method="post">
                         {% csrf_token %}
-                        <samp>{{ user.settings.api_key }}</samp>
+                        <samp id="api-key-value">{{ user.settings.api_key }}</samp>
+                        <button type="button"
+                                class="btn btn-secondary btn-xs"
+                                onclick="navigator.clipboard.writeText(document.getElementById('api-key-value').textContent.trim()).then(function(){var b=event.target;b.textContent='{% trans "Copied!" %}';setTimeout(function(){b.textContent='{% trans "Copy" %}'},1500)})">
+                            {% trans "Copy" %}
+                        </button>
                         <input type="submit"
                                name="api_key_regenerate"
                                value="{% trans "Regenerate" %}"
