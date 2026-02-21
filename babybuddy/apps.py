@@ -146,14 +146,7 @@ class BabyBuddyConfig(AppConfig):
 
         if self._is_serving():
             self._check_uwsgi_threads()
-
-            if self._is_zeroconf_worker():
-                try:
-                    from babybuddy.zeroconf import zeroconf_service
-
-                    zeroconf_service.start_in_background()
-                except Exception as exc:
-                    logger.warning("Failed to start Zeroconf service: %s", exc)
+            self._start_zeroconf()
 
     @staticmethod
     def _is_serving():
@@ -169,18 +162,33 @@ class BabyBuddyConfig(AppConfig):
         return False
 
     @staticmethod
-    def _is_zeroconf_worker():
-        """Return True if this process should own the Zeroconf service.
+    def _start_zeroconf():
+        """Start Zeroconf in exactly one process.
 
-        Under uWSGI with multiple workers, only worker 1 runs Zeroconf
-        to avoid duplicate mDNS registrations that race against each other.
+        Under uWSGI preforking, ready() runs in the master (worker_id=0)
+        before workers are forked. We register a postfork hook so that
+        only worker 1 starts the service after forking.  For runserver /
+        gunicorn (no postfork API), start immediately.
         """
+
+        def _do_start():
+            try:
+                from babybuddy.zeroconf import zeroconf_service
+
+                zeroconf_service.start_in_background()
+            except Exception as exc:
+                logger.warning("Failed to start Zeroconf service: %s", exc)
+
         try:
             import uwsgi
 
-            return uwsgi.worker_id() == 1
-        except (ImportError, AttributeError):
-            return True
+            @uwsgi.postfork
+            def _postfork_zeroconf():
+                if uwsgi.worker_id() == 1:
+                    _do_start()
+
+        except ImportError:
+            _do_start()
 
     @staticmethod
     def _check_uwsgi_threads():
