@@ -46,11 +46,21 @@ def _on_request_finished(sender, **kwargs):
     _ha_discovery_disabled = False
 
     from .client import mqtt_client
+    from .utils import get_mqtt_settings
 
-    if not mqtt_client.is_started:
-        return
-    logger.info("MQTT settings changed, reconnecting")
-    mqtt_client.reconnect()
+    s = get_mqtt_settings()
+
+    if s.enabled:
+        if mqtt_client.is_started:
+            logger.info("MQTT settings changed, reconnecting")
+            mqtt_client.reconnect()
+        else:
+            logger.info("MQTT enabled, starting client")
+            mqtt_client.start()
+    else:
+        if mqtt_client.is_started:
+            logger.info("MQTT disabled, stopping client")
+            mqtt_client.stop()
 
     if need_discovery_cleanup:
         from .discovery import remove_all_discovery

@@ -45,10 +45,9 @@ def _mqtt_probe(host, port=DEFAULT_PORT, timeout=TCP_TIMEOUT):
         s.sendall(_MQTT_CONNECT)
         resp = s.recv(4)
         s.close()
-        if len(resp) >= 4 and resp[0] == 0x20:
-            return_code = resp[3]
-            return return_code == 0
-        return False
+        # Any valid CONNACK (0x20) proves it's an MQTT broker, regardless
+        # of return code (0=accepted, 4=bad credentials, 5=not authorized).
+        return len(resp) >= 4 and resp[0] == 0x20
     except (socket.gaierror, socket.timeout, OSError, struct.error):
         return False
 

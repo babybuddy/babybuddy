@@ -11,6 +11,7 @@ from django.core.exceptions import BadRequest
 from django.forms import Form
 from django.http import HttpResponseForbidden
 from django.middleware.csrf import REASON_BAD_ORIGIN
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.urls import reverse, reverse_lazy
@@ -40,6 +41,9 @@ from django_filters.views import FilterView
 from babybuddy import forms
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin, StaffOnlyMixin
 
+from dbsettings import loading as dbsettings_loading, forms as dbsettings_forms
+from dbsettings.signals import setting_changed
+
 
 def csrf_failure(request, reason=""):
     """
@@ -61,6 +65,57 @@ def csrf_failure(request, reason=""):
         return HttpResponseForbidden(template.render(context), content_type="text/html")
 
     return csrf.csrf_failure(request, reason, "403_csrf.html")
+
+
+@staff_member_required
+def site_settings(request):
+    """Site Settings view that wraps dbsettings' editor and fires
+    ``setting_changed`` for each modified value so that other apps
+    (e.g. MQTT) can react to configuration changes."""
+    settings = dbsettings_loading.get_all_settings()
+    editor = dbsettings_forms.customized_editor(request.user, settings)
+    template = "dbsettings/site_settings.html"
+
+    if request.method == "POST":
+        form = editor(request.POST.copy(), request.FILES)
+        if form.is_valid():
+            form.full_clean()
+            for name, value in form.cleaned_data.items():
+                key = dbsettings_forms.RE_FIELD_NAME.match(name).groups()
+                setting = dbsettings_loading.get_setting(*key)
+                try:
+                    storage = dbsettings_loading.get_setting_storage(*key)
+                    current_value = setting.to_python(storage.value)
+                except Exception:
+                    current_value = None
+
+                new_value = setting.to_python(value)
+                if current_value != new_value:
+                    args = key + (value,)
+                    dbsettings_loading.set_setting_value(*args)
+
+                    setting_changed.send(
+                        sender=setting,
+                        value=new_value,
+                    )
+
+                    location = setting.class_name or setting.module_name
+                    messages.add_message(
+                        request,
+                        messages.INFO,
+                        _("Updated %(desc)s on %(location)s")
+                        % {"desc": str(setting.description), "location": location},
+                    )
+
+            return redirect(request.path)
+    else:
+        form = editor()
+
+    return render(
+        request,
+        template,
+        {"title": _("Site settings"), "no_settings": len(settings) == 0, "form": form},
+    )
 
 
 class RootRouter(LoginRequiredMixin, RedirectView):

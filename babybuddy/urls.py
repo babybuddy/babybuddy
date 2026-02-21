@@ -44,7 +44,7 @@ app_patterns = [
     path("user/password/", views.UserPassword.as_view(), name="user-password"),
     path("user/settings/", views.UserSettings.as_view(), name="user-settings"),
     path("user/add-device/", views.UserAddDevice.as_view(), name="user-add-device"),
-    path("settings/", include("dbsettings.urls")),
+    path("settings/", views.site_settings, name="site_settings"),
 ]
 
 urlpatterns = [

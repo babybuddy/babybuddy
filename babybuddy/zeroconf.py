@@ -135,10 +135,13 @@ class ZeroconfService:
 
             instance_id = s.instance_id or ""
             if not instance_id:
-                logger.warning(
-                    "Zeroconf instance_id is empty — skipping mDNS registration"
-                )
-                return
+                import uuid
+
+                from dbsettings.loading import set_setting_value
+
+                instance_id = str(uuid.uuid4())
+                set_setting_value("babybuddy.zeroconf", "", "instance_id", instance_id)
+                logger.info("Auto-generated Zeroconf instance_id: %s", instance_id)
 
             port = s.advertised_port or config.bb_port
             path = config.sub_path
