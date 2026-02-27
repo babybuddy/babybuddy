@@ -860,10 +860,17 @@ class ValidationsTestCase(FormsTestCaseBase):
 
         page = self.c.post("/tummy-time/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertFormError(
-            page.context["form"],
-            None,
+        self.assertContains(
+            page,
             "Another entry intersects the specified time period.",
+        )
+        self.assertContains(
+            page,
+            "Conflicting entry:",
+        )
+        self.assertContains(
+            page,
+            "/tummy-time/{}/".format(entry.id),
         )
 
 
