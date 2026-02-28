@@ -7,7 +7,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.functions import Lower
-from django.utils import timezone
+from django.urls import reverse
+from django.utils import formats, timezone
+from django.utils.safestring import mark_safe
 from django.utils.text import format_lazy, slugify
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
@@ -49,6 +51,10 @@ def validate_duration(model, max_duration=datetime.timedelta(hours=24)):
             raise ValidationError(_("Duration too long."), code="max_duration")
 
 
+def _format_dt(dt):
+    return formats.date_format(timezone.localtime(dt), "SHORT_DATETIME_FORMAT")
+
+
 def validate_unique_period(queryset, model):
     """
     Confirm that model's start and end date do not intersect with other
@@ -60,9 +66,22 @@ def validate_unique_period(queryset, model):
     if model.id:
         queryset = queryset.exclude(id=model.id)
     if model.start and model.end:
-        if queryset.filter(start__lt=model.end, end__gt=model.start):
+        conflicting = queryset.filter(start__lt=model.end, end__gt=model.start).first()
+        if conflicting:
+            url = reverse(
+                f"core:{conflicting.model_name}-update",
+                args=[conflicting.id],
+            )
+            link = (
+                f'<a href="{url}">{conflicting} '
+                f"({_format_dt(conflicting.start)} - "
+                f"{_format_dt(conflicting.end)})</a>"
+            )
             raise ValidationError(
-                _("Another entry intersects the specified time period."),
+                mark_safe(
+                    f'{_("Another entry intersects the specified time period.")} '
+                    f'{_("Conflicting entry")}: {link}'
+                ),
                 code="period_intersection",
             )
 

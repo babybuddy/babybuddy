@@ -170,6 +170,12 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
         {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if "start" in cleaned_data:
+            self.instance.end = cleaned_data["start"]
+        return cleaned_data
+
     def save(self, commit=True):
         instance = super(BottleFeedingForm, self).save(commit=False)
         instance.method = "bottle"
