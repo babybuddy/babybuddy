@@ -114,3 +114,84 @@ _Some of the links below use referral codes -- all referral proceeds are treated
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 [<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="100" alt="JetBrains Logo (Main) logo.">](https://www.jetbrains.com/community/opensource/)
 [![POEditor](https://poeditor.com/public/images/ui/logos/logo_dark.svg)](https://poeditor.com/)
+
+## MCP (Model Context Protocol)
+
+Baby Buddy includes a built-in [MCP](https://modelcontextprotocol.io/) server
+that allows AI agents and MCP-compatible clients to interact with Baby Buddy
+data using the streamable HTTP transport.
+
+### Endpoint
+
+The MCP server is available at `/api/mcp`.
+
+### Authentication
+
+The MCP endpoint uses the same
+[TokenAuthentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
+as the REST API. Include the token in the `Authorization` header:
+
+    Authorization: Token <user-key>
+
+### Available Tools
+
+The MCP server exposes the following tools:
+
+| Category           | Tools                                                                                                           |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| **Children**       | `list_children`, `get_child`, `create_child`, `update_child`, `delete_child`                                    |
+| **Feedings**       | `list_feedings`, `get_feeding`, `log_feeding`, `update_feeding`, `delete_feeding`                               |
+| **Diaper Changes** | `list_diaper_changes`, `get_diaper_change`, `log_diaper_change`, `update_diaper_change`, `delete_diaper_change` |
+| **Sleep**          | `list_sleep`, `get_sleep`, `log_sleep`, `update_sleep`, `delete_sleep`                                          |
+| **Temperature**    | `list_temperatures`, `get_temperature`, `log_temperature`, `update_temperature`, `delete_temperature`           |
+| **Weight**         | `list_weights`, `get_weight`, `log_weight`, `update_weight`, `delete_weight`                                    |
+| **Tummy Time**     | `list_tummy_times`, `get_tummy_time`, `log_tummy_time`, `update_tummy_time`, `delete_tummy_time`                |
+| **Notes**          | `list_notes`, `get_note`, `create_note`, `update_note`, `delete_note`                                           |
+| **Timers**         | `list_timers`, `get_timer`, `start_timer`, `stop_timer`, `restart_timer`, `delete_timer`                        |
+| **Summary**        | `get_daily_summary`                                                                                             |
+
+### Client Configuration
+
+To connect an MCP client (e.g., Claude Desktop, Cursor) to Baby Buddy:
+
+```json
+{
+  "mcpServers": {
+    "babybuddy": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://your-babybuddy-instance/api/mcp",
+        "--header",
+        "Authorization:${BABYBUDDY_TOKEN}"
+      ],
+      "env": {
+        "BABYBUDDY_TOKEN": "Token <your-api-key>"
+      }
+    }
+  }
+}
+```
+
+### Python MCP Client Example
+
+```python
+from mcp.client.streamable_http import streamablehttp_client
+from mcp import ClientSession
+import asyncio
+
+async def main():
+    headers = {"Authorization": "Token <your-api-key>"}
+    async with streamablehttp_client(
+        "https://your-babybuddy-instance/api/mcp", headers=headers
+    ) as (read, write, _):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+            result = await session.call_tool(
+                "list_children", {}
+            )
+            print(result)
+
+asyncio.run(main())
+```

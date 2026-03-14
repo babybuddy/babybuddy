@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework",
     "rest_framework.authtoken",
+    "mcp_server",
     "widget_tweaks",
     "imagekit",
     "storages",
@@ -389,6 +390,21 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Baby Buddy configuration
 # See https://docs.baby-buddy.net/ for details about these settings.
+
+# Django MCP Server
+# https://github.com/gts360/django-mcp-server
+
+DJANGO_MCP_GLOBAL_SERVER_CONFIG = {
+    "name": "babybuddy",
+    "instructions": "Baby Buddy MCP Server for tracking baby care activities.",
+    "stateless": True,
+}
+
+DJANGO_MCP_AUTHENTICATION_CLASSES = [
+    "rest_framework.authentication.TokenAuthentication",
+]
+
+DJANGO_MCP_ENDPOINT = "mcp"
 
 BABY_BUDDY = {
     "ALLOW_UPLOADS": bool(strtobool(os.environ.get("ALLOW_UPLOADS") or "True")),
