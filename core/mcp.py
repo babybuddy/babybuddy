@@ -7,6 +7,17 @@ from django.utils import timezone
 
 from mcp_server import MCPToolset
 
+from api.serializers import (
+    ChildSerializer,
+    DiaperChangeSerializer,
+    FeedingSerializer,
+    NoteSerializer,
+    SleepSerializer,
+    TemperatureSerializer,
+    TimerSerializer,
+    TummyTimeSerializer,
+    WeightSerializer,
+)
 from core.models import (
     Child,
     DiaperChange,
@@ -20,105 +31,14 @@ from core.models import (
 )
 
 
-def _child_to_dict(child):
-    return {
-        "id": child.id,
-        "first_name": child.first_name,
-        "last_name": child.last_name,
-        "birth_date": str(child.birth_date),
-        "slug": child.slug,
-    }
+def _serialize(serializer_class, instance):
+    """Serialize a model instance using the corresponding DRF serializer."""
+    return serializer_class(instance).data
 
 
-def _diaperchange_to_dict(dc):
-    return {
-        "id": dc.id,
-        "child": dc.child_id,
-        "time": dc.time.isoformat(),
-        "wet": dc.wet,
-        "solid": dc.solid,
-        "color": dc.color,
-        "amount": dc.amount,
-        "notes": dc.notes,
-    }
-
-
-def _feeding_to_dict(f):
-    return {
-        "id": f.id,
-        "child": f.child_id,
-        "start": f.start.isoformat(),
-        "end": f.end.isoformat(),
-        "duration": str(f.duration) if f.duration else None,
-        "type": f.type,
-        "method": f.method,
-        "amount": f.amount,
-        "notes": f.notes,
-    }
-
-
-def _sleep_to_dict(s):
-    return {
-        "id": s.id,
-        "child": s.child_id,
-        "start": s.start.isoformat(),
-        "end": s.end.isoformat(),
-        "duration": str(s.duration) if s.duration else None,
-        "nap": s.nap,
-        "notes": s.notes,
-    }
-
-
-def _note_to_dict(n):
-    return {
-        "id": n.id,
-        "child": n.child_id,
-        "note": n.note,
-        "time": n.time.isoformat(),
-    }
-
-
-def _temperature_to_dict(t):
-    return {
-        "id": t.id,
-        "child": t.child_id,
-        "temperature": t.temperature,
-        "time": t.time.isoformat(),
-        "notes": t.notes,
-    }
-
-
-def _timer_to_dict(t):
-    return {
-        "id": t.id,
-        "child": t.child_id,
-        "name": t.name,
-        "start": t.start.isoformat(),
-        "duration": str(t.duration()) if t.active else None,
-        "active": t.active,
-        "user": t.user_id,
-    }
-
-
-def _tummytime_to_dict(tt):
-    return {
-        "id": tt.id,
-        "child": tt.child_id,
-        "start": tt.start.isoformat(),
-        "end": tt.end.isoformat(),
-        "duration": str(tt.duration) if tt.duration else None,
-        "milestone": tt.milestone,
-    }
-
-
-def _weight_to_dict(w):
-    return {
-        "id": w.id,
-        "child": w.child_id,
-        "weight": w.weight,
-        "date": str(w.date),
-        "notes": w.notes,
-    }
+def _serialize_many(serializer_class, queryset):
+    """Serialize a queryset using the corresponding DRF serializer."""
+    return serializer_class(queryset, many=True).data
 
 
 def _get_child(slug):
@@ -150,11 +70,11 @@ class ChildTools(MCPToolset):
 
     def list_children(self) -> list[dict]:
         """List all children."""
-        return [_child_to_dict(c) for c in Child.objects.all()]
+        return _serialize_many(ChildSerializer, Child.objects.all())
 
     def get_child(self, slug: str) -> dict:
         """Get a child by slug."""
-        return _child_to_dict(_get_child(slug))
+        return _serialize(ChildSerializer, _get_child(slug))
 
     def create_child(self, first_name: str, last_name: str, birth_date: str) -> dict:
         """Create a new child. birth_date format: YYYY-MM-DD."""
@@ -165,7 +85,7 @@ class ChildTools(MCPToolset):
         )
         child.full_clean()
         child.save()
-        return _child_to_dict(child)
+        return _serialize(ChildSerializer, child)
 
     def update_child(
         self,
@@ -184,7 +104,7 @@ class ChildTools(MCPToolset):
             child.birth_date = _parse_date(birth_date)
         child.full_clean()
         child.save()
-        return _child_to_dict(child)
+        return _serialize(ChildSerializer, child)
 
     def delete_child(self, slug: str) -> str:
         """Delete a child by slug."""
@@ -209,12 +129,12 @@ class FeedingTools(MCPToolset):
         if date:
             d = _parse_date(date)
             qs = qs.filter(start__date=d)
-        return [_feeding_to_dict(f) for f in qs[:limit]]
+        return _serialize_many(FeedingSerializer, qs[:limit])
 
     def get_feeding(self, id: int) -> dict:
         """Get a feeding by ID."""
         try:
-            return _feeding_to_dict(Feeding.objects.get(id=id))
+            return _serialize(FeedingSerializer, Feeding.objects.get(id=id))
         except Feeding.DoesNotExist:
             raise ValueError(f"Feeding with id {id} not found.")
 
@@ -243,7 +163,7 @@ class FeedingTools(MCPToolset):
         )
         feeding.full_clean()
         feeding.save()
-        return _feeding_to_dict(feeding)
+        return _serialize(FeedingSerializer, feeding)
 
     def update_feeding(
         self,
@@ -277,7 +197,7 @@ class FeedingTools(MCPToolset):
             feeding.notes = notes
         feeding.full_clean()
         feeding.save()
-        return _feeding_to_dict(feeding)
+        return _serialize(FeedingSerializer, feeding)
 
     def delete_feeding(self, id: int) -> str:
         """Delete a feeding by ID."""
@@ -311,12 +231,12 @@ class DiaperChangeTools(MCPToolset):
             qs = qs.filter(wet=wet)
         if solid is not None:
             qs = qs.filter(solid=solid)
-        return [_diaperchange_to_dict(dc) for dc in qs[:limit]]
+        return _serialize_many(DiaperChangeSerializer, qs[:limit])
 
     def get_diaper_change(self, id: int) -> dict:
         """Get a diaper change by ID."""
         try:
-            return _diaperchange_to_dict(DiaperChange.objects.get(id=id))
+            return _serialize(DiaperChangeSerializer, DiaperChange.objects.get(id=id))
         except DiaperChange.DoesNotExist:
             raise ValueError(f"DiaperChange with id {id} not found.")
 
@@ -345,7 +265,7 @@ class DiaperChangeTools(MCPToolset):
         )
         dc.full_clean()
         dc.save()
-        return _diaperchange_to_dict(dc)
+        return _serialize(DiaperChangeSerializer, dc)
 
     def update_diaper_change(
         self,
@@ -379,7 +299,7 @@ class DiaperChangeTools(MCPToolset):
             dc.notes = notes
         dc.full_clean()
         dc.save()
-        return _diaperchange_to_dict(dc)
+        return _serialize(DiaperChangeSerializer, dc)
 
     def delete_diaper_change(self, id: int) -> str:
         """Delete a diaper change by ID."""
@@ -407,12 +327,12 @@ class SleepTools(MCPToolset):
         if date:
             d = _parse_date(date)
             qs = qs.filter(start__date=d)
-        return [_sleep_to_dict(s) for s in qs[:limit]]
+        return _serialize_many(SleepSerializer, qs[:limit])
 
     def get_sleep(self, id: int) -> dict:
         """Get a sleep record by ID. Includes nap detection."""
         try:
-            return _sleep_to_dict(Sleep.objects.get(id=id))
+            return _serialize(SleepSerializer, Sleep.objects.get(id=id))
         except Sleep.DoesNotExist:
             raise ValueError(f"Sleep with id {id} not found.")
 
@@ -434,7 +354,7 @@ class SleepTools(MCPToolset):
         )
         sleep.full_clean()
         sleep.save()
-        return _sleep_to_dict(sleep)
+        return _serialize(SleepSerializer, sleep)
 
     def update_sleep(
         self,
@@ -459,7 +379,7 @@ class SleepTools(MCPToolset):
             sleep.notes = notes
         sleep.full_clean()
         sleep.save()
-        return _sleep_to_dict(sleep)
+        return _serialize(SleepSerializer, sleep)
 
     def delete_sleep(self, id: int) -> str:
         """Delete a sleep record by ID."""
@@ -487,12 +407,12 @@ class TemperatureTools(MCPToolset):
         if date:
             d = _parse_date(date)
             qs = qs.filter(time__date=d)
-        return [_temperature_to_dict(t) for t in qs[:limit]]
+        return _serialize_many(TemperatureSerializer, qs[:limit])
 
     def get_temperature(self, id: int) -> dict:
         """Get a temperature record by ID."""
         try:
-            return _temperature_to_dict(Temperature.objects.get(id=id))
+            return _serialize(TemperatureSerializer, Temperature.objects.get(id=id))
         except Temperature.DoesNotExist:
             raise ValueError(f"Temperature with id {id} not found.")
 
@@ -513,7 +433,7 @@ class TemperatureTools(MCPToolset):
         )
         temp.full_clean()
         temp.save()
-        return _temperature_to_dict(temp)
+        return _serialize(TemperatureSerializer, temp)
 
     def update_temperature(
         self,
@@ -538,7 +458,7 @@ class TemperatureTools(MCPToolset):
             temp.notes = notes
         temp.full_clean()
         temp.save()
-        return _temperature_to_dict(temp)
+        return _serialize(TemperatureSerializer, temp)
 
     def delete_temperature(self, id: int) -> str:
         """Delete a temperature record by ID."""
@@ -562,12 +482,12 @@ class WeightTools(MCPToolset):
         qs = Weight.objects.all()
         if child_slug:
             qs = qs.filter(child=_get_child(child_slug))
-        return [_weight_to_dict(w) for w in qs[:limit]]
+        return _serialize_many(WeightSerializer, qs[:limit])
 
     def get_weight(self, id: int) -> dict:
         """Get a weight record by ID."""
         try:
-            return _weight_to_dict(Weight.objects.get(id=id))
+            return _serialize(WeightSerializer, Weight.objects.get(id=id))
         except Weight.DoesNotExist:
             raise ValueError(f"Weight with id {id} not found.")
 
@@ -588,7 +508,7 @@ class WeightTools(MCPToolset):
         )
         w.full_clean()
         w.save()
-        return _weight_to_dict(w)
+        return _serialize(WeightSerializer, w)
 
     def update_weight(
         self,
@@ -613,7 +533,7 @@ class WeightTools(MCPToolset):
             w.notes = notes
         w.full_clean()
         w.save()
-        return _weight_to_dict(w)
+        return _serialize(WeightSerializer, w)
 
     def delete_weight(self, id: int) -> str:
         """Delete a weight record by ID."""
@@ -641,12 +561,12 @@ class TummyTimeTools(MCPToolset):
         if date:
             d = _parse_date(date)
             qs = qs.filter(start__date=d)
-        return [_tummytime_to_dict(tt) for tt in qs[:limit]]
+        return _serialize_many(TummyTimeSerializer, qs[:limit])
 
     def get_tummy_time(self, id: int) -> dict:
         """Get a tummy time record by ID."""
         try:
-            return _tummytime_to_dict(TummyTime.objects.get(id=id))
+            return _serialize(TummyTimeSerializer, TummyTime.objects.get(id=id))
         except TummyTime.DoesNotExist:
             raise ValueError(f"TummyTime with id {id} not found.")
 
@@ -667,7 +587,7 @@ class TummyTimeTools(MCPToolset):
         )
         tt.full_clean()
         tt.save()
-        return _tummytime_to_dict(tt)
+        return _serialize(TummyTimeSerializer, tt)
 
     def update_tummy_time(
         self,
@@ -692,7 +612,7 @@ class TummyTimeTools(MCPToolset):
             tt.milestone = milestone
         tt.full_clean()
         tt.save()
-        return _tummytime_to_dict(tt)
+        return _serialize(TummyTimeSerializer, tt)
 
     def delete_tummy_time(self, id: int) -> str:
         """Delete a tummy time record by ID."""
@@ -716,12 +636,12 @@ class NoteTools(MCPToolset):
         qs = Note.objects.all()
         if child_slug:
             qs = qs.filter(child=_get_child(child_slug))
-        return [_note_to_dict(n) for n in qs[:limit]]
+        return _serialize_many(NoteSerializer, qs[:limit])
 
     def get_note(self, id: int) -> dict:
         """Get a note by ID."""
         try:
-            return _note_to_dict(Note.objects.get(id=id))
+            return _serialize(NoteSerializer, Note.objects.get(id=id))
         except Note.DoesNotExist:
             raise ValueError(f"Note with id {id} not found.")
 
@@ -735,7 +655,7 @@ class NoteTools(MCPToolset):
         n = Note(child=child, note=note)
         n.full_clean()
         n.save()
-        return _note_to_dict(n)
+        return _serialize(NoteSerializer, n)
 
     def update_note(
         self,
@@ -754,7 +674,7 @@ class NoteTools(MCPToolset):
             n.note = note
         n.full_clean()
         n.save()
-        return _note_to_dict(n)
+        return _serialize(NoteSerializer, n)
 
     def delete_note(self, id: int) -> str:
         """Delete a note by ID."""
@@ -781,12 +701,12 @@ class TimerTools(MCPToolset):
             qs = qs.filter(active=active)
         if child_slug:
             qs = qs.filter(child=_get_child(child_slug))
-        return [_timer_to_dict(t) for t in qs[:limit]]
+        return _serialize_many(TimerSerializer, qs[:limit])
 
     def get_timer(self, id: int) -> dict:
         """Get a timer by ID."""
         try:
-            return _timer_to_dict(Timer.objects.get(id=id))
+            return _serialize(TimerSerializer, Timer.objects.get(id=id))
         except Timer.DoesNotExist:
             raise ValueError(f"Timer with id {id} not found.")
 
@@ -804,7 +724,7 @@ class TimerTools(MCPToolset):
         )
         timer.full_clean()
         timer.save()
-        return _timer_to_dict(timer)
+        return _serialize(TimerSerializer, timer)
 
     def stop_timer(self, id: int) -> dict:
         """Stop an active timer by ID. Returns the timer's details before stopping.
@@ -815,7 +735,7 @@ class TimerTools(MCPToolset):
             raise ValueError(f"Timer with id {id} not found.")
         if not timer.active:
             raise ValueError(f"Timer {id} is already stopped.")
-        result = _timer_to_dict(timer)
+        result = _serialize(TimerSerializer, timer)
         result["active"] = False
         result["duration"] = str(timezone.now() - timer.start)
         timer.stop()
@@ -828,7 +748,7 @@ class TimerTools(MCPToolset):
         except Timer.DoesNotExist:
             raise ValueError(f"Timer with id {id} not found.")
         timer.restart()
-        return _timer_to_dict(timer)
+        return _serialize(TimerSerializer, timer)
 
     def delete_timer(self, id: int) -> str:
         """Delete a timer by ID."""
@@ -887,24 +807,34 @@ class DailySummaryTools(MCPToolset):
         last_sleep = Sleep.objects.filter(child=child).first()
 
         return {
-            "child": _child_to_dict(child),
+            "child": _serialize(ChildSerializer, child),
             "date": str(d),
             "feeding": {
                 "count": feeding_count,
                 "total_amount": feeding_amount,
-                "last": _feeding_to_dict(last_feeding) if last_feeding else None,
+                "last": (
+                    _serialize(FeedingSerializer, last_feeding)
+                    if last_feeding
+                    else None
+                ),
             },
             "diaper_changes": {
                 "count": diaper_count,
                 "wet": diaper_wet,
                 "solid": diaper_solid,
-                "last": _diaperchange_to_dict(last_change) if last_change else None,
+                "last": (
+                    _serialize(DiaperChangeSerializer, last_change)
+                    if last_change
+                    else None
+                ),
             },
             "sleep": {
                 "total_duration": str(sleep_total),
                 "nap_count": nap_count,
                 "nap_duration": str(nap_total),
-                "last": _sleep_to_dict(last_sleep) if last_sleep else None,
+                "last": (
+                    _serialize(SleepSerializer, last_sleep) if last_sleep else None
+                ),
             },
             "tummy_time": {
                 "count": tummy_count,
