@@ -942,3 +942,150 @@ class MCPToolCallTests(TestCase):
         )
         self.assertIn("result", data)
         self.assertFalse(data["result"].get("isError", False))
+
+
+class MCPSerializerFieldTests(TestCase):
+    """Tests that MCP tools return the expected DRF serializer fields."""
+
+    fixtures = ["tests.json"]
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.first()
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
+        self._post_mcp(
+            _mcp_request(
+                "initialize",
+                {
+                    "protocolVersion": "2025-03-26",
+                    "capabilities": {},
+                    "clientInfo": {"name": "test", "version": "1.0"},
+                },
+            )
+        )
+
+    def _post_mcp(self, data):
+        return self.client.post(
+            MCP_ENDPOINT,
+            data=json.dumps(data),
+            content_type="application/json",
+            HTTP_ACCEPT="application/json",
+        )
+
+    def _call_tool(self, name, arguments=None):
+        params = {"name": name}
+        if arguments:
+            params["arguments"] = arguments
+        response = self._post_mcp(_mcp_request("tools/call", params))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        return response.json()
+
+    def _get_tool_result(self, name, arguments=None):
+        """Call a tool and return the parsed JSON content."""
+        data = self._call_tool(name, arguments)
+        self.assertFalse(data["result"].get("isError", False))
+        return json.loads(data["result"]["content"][0]["text"])
+
+    def test_child_fields(self):
+        """get_child returns DRF ChildSerializer fields."""
+        result = self._get_tool_result("get_child", {"slug": "fake-child"})
+        expected = {"id", "first_name", "last_name", "birth_date", "birth_time", "slug", "picture"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_feeding_fields(self):
+        """get_feeding returns DRF FeedingSerializer fields."""
+        feeding = models.Feeding.objects.first()
+        result = self._get_tool_result("get_feeding", {"id": feeding.id})
+        expected = {"id", "child", "start", "end", "timer", "duration", "type", "method", "amount", "notes", "tags"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_diaper_change_fields(self):
+        """get_diaper_change returns DRF DiaperChangeSerializer fields."""
+        dc = models.DiaperChange.objects.first()
+        result = self._get_tool_result("get_diaper_change", {"id": dc.id})
+        expected = {"id", "child", "time", "wet", "solid", "color", "amount", "notes", "tags"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_sleep_fields(self):
+        """get_sleep returns DRF SleepSerializer fields."""
+        sleep = models.Sleep.objects.first()
+        result = self._get_tool_result("get_sleep", {"id": sleep.id})
+        expected = {"id", "child", "start", "end", "timer", "duration", "nap", "notes", "tags"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_temperature_fields(self):
+        """get_temperature returns DRF TemperatureSerializer fields."""
+        temp = models.Temperature.objects.first()
+        result = self._get_tool_result("get_temperature", {"id": temp.id})
+        expected = {"id", "child", "temperature", "time", "notes", "tags"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_weight_fields(self):
+        """get_weight returns DRF WeightSerializer fields."""
+        weight = models.Weight.objects.first()
+        result = self._get_tool_result("get_weight", {"id": weight.id})
+        expected = {"id", "child", "weight", "date", "notes", "tags"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_tummy_time_fields(self):
+        """get_tummy_time returns DRF TummyTimeSerializer fields."""
+        tt = models.TummyTime.objects.first()
+        result = self._get_tool_result("get_tummy_time", {"id": tt.id})
+        expected = {"id", "child", "start", "end", "timer", "duration", "milestone", "tags"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_note_fields(self):
+        """get_note returns DRF NoteSerializer fields."""
+        note = models.Note.objects.first()
+        result = self._get_tool_result("get_note", {"id": note.id})
+        expected = {"id", "child", "note", "image", "time", "tags"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_timer_fields(self):
+        """get_timer returns DRF TimerSerializer fields."""
+        timer = models.Timer.objects.first()
+        result = self._get_tool_result("get_timer", {"id": timer.id})
+        expected = {"id", "child", "name", "start", "duration", "user"}
+        self.assertEqual(set(result.keys()), expected)
+
+    def test_daily_summary_uses_serializer_fields(self):
+        """get_daily_summary nested objects use DRF serializer fields."""
+        result = self._get_tool_result(
+            "get_daily_summary",
+            {"child_slug": "fake-child", "date": "2017-11-18"},
+        )
+        # Child nested object should have DRF ChildSerializer fields
+        child_keys = set(result["child"].keys())
+        self.assertIn("birth_time", child_keys)
+        self.assertIn("picture", child_keys)
+
+        # Feeding last entry should have DRF FeedingSerializer fields
+        if result["feeding"]["last"]:
+            self.assertIn("tags", result["feeding"]["last"])
+            self.assertIn("duration", result["feeding"]["last"])
+
+        # Diaper change last entry
+        if result["diaper_changes"]["last"]:
+            self.assertIn("tags", result["diaper_changes"]["last"])
+
+        # Sleep last entry
+        if result["sleep"]["last"]:
+            self.assertIn("tags", result["sleep"]["last"])
+            self.assertIn("nap", result["sleep"]["last"])
+
+    def test_list_children_fields(self):
+        """list_children returns list with DRF serializer fields."""
+        result = self._get_tool_result("list_children")
+        self.assertIsInstance(result, list)
+        self.assertTrue(len(result) > 0)
+        expected = {"id", "first_name", "last_name", "birth_date", "birth_time", "slug", "picture"}
+        self.assertEqual(set(result[0].keys()), expected)
+
+    def test_list_feedings_fields(self):
+        """list_feedings returns list with DRF serializer fields."""
+        result = self._get_tool_result("list_feedings")
+        self.assertIsInstance(result, list)
+        self.assertTrue(len(result) > 0)
+        expected = {"id", "child", "start", "end", "timer", "duration", "type", "method", "amount", "notes", "tags"}
+        self.assertEqual(set(result[0].keys()), expected)
