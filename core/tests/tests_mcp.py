@@ -987,6 +987,16 @@ class MCPSerializerFieldTests(TestCase):
         self.assertFalse(data["result"].get("isError", False))
         return json.loads(data["result"]["content"][0]["text"])
 
+    def _get_tool_result_list(self, name, arguments=None):
+        """Call a list tool and return a list by collecting all content blocks.
+
+        The MCP SDK creates one content block per list item when a tool returns
+        a list, so this helper assembles them back into a Python list.
+        """
+        data = self._call_tool(name, arguments)
+        self.assertFalse(data["result"].get("isError", False))
+        return [json.loads(block["text"]) for block in data["result"]["content"]]
+
     def test_child_fields(self):
         """get_child returns DRF ChildSerializer fields."""
         result = self._get_tool_result("get_child", {"slug": "fake-child"})
@@ -1122,7 +1132,7 @@ class MCPSerializerFieldTests(TestCase):
 
     def test_list_children_fields(self):
         """list_children returns list with DRF serializer fields."""
-        result = self._get_tool_result("list_children")
+        result = self._get_tool_result_list("list_children")
         self.assertIsInstance(result, list)
         self.assertTrue(len(result) > 0)
         expected = {
@@ -1138,7 +1148,7 @@ class MCPSerializerFieldTests(TestCase):
 
     def test_list_feedings_fields(self):
         """list_feedings returns list with DRF serializer fields."""
-        result = self._get_tool_result("list_feedings")
+        result = self._get_tool_result_list("list_feedings")
         self.assertIsInstance(result, list)
         self.assertTrue(len(result) > 0)
         expected = {
