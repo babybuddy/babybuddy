@@ -4,6 +4,7 @@ from typing import Optional
 
 from django.db.models import Sum
 from django.utils import timezone
+from rest_framework.renderers import JSONRenderer
 
 from mcp_server import MCPToolset
 
@@ -37,8 +38,13 @@ def _serialize(serializer_class, instance):
 
 
 def _serialize_many(serializer_class, queryset):
-    """Serialize a queryset using the corresponding DRF serializer."""
-    return serializer_class(queryset, many=True).data
+    """Serialize a queryset using the corresponding DRF serializer.
+
+    Returns a JSON string (not a list) to prevent the MCP SDK from splitting
+    the result into per-item content blocks.
+    """
+    data = serializer_class(queryset, many=True).data
+    return JSONRenderer().render(data).decode("utf-8")
 
 
 def _get_child(slug):
