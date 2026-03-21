@@ -990,28 +990,68 @@ class MCPSerializerFieldTests(TestCase):
     def test_child_fields(self):
         """get_child returns DRF ChildSerializer fields."""
         result = self._get_tool_result("get_child", {"slug": "fake-child"})
-        expected = {"id", "first_name", "last_name", "birth_date", "birth_time", "slug", "picture"}
+        expected = {
+            "id",
+            "first_name",
+            "last_name",
+            "birth_date",
+            "birth_time",
+            "slug",
+            "picture",
+        }
         self.assertEqual(set(result.keys()), expected)
 
     def test_feeding_fields(self):
         """get_feeding returns DRF FeedingSerializer fields."""
         feeding = models.Feeding.objects.first()
         result = self._get_tool_result("get_feeding", {"id": feeding.id})
-        expected = {"id", "child", "start", "end", "timer", "duration", "type", "method", "amount", "notes", "tags"}
+        expected = {
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "type",
+            "method",
+            "amount",
+            "notes",
+            "tags",
+        }
         self.assertEqual(set(result.keys()), expected)
 
     def test_diaper_change_fields(self):
         """get_diaper_change returns DRF DiaperChangeSerializer fields."""
         dc = models.DiaperChange.objects.first()
         result = self._get_tool_result("get_diaper_change", {"id": dc.id})
-        expected = {"id", "child", "time", "wet", "solid", "color", "amount", "notes", "tags"}
+        expected = {
+            "id",
+            "child",
+            "time",
+            "wet",
+            "solid",
+            "color",
+            "amount",
+            "notes",
+            "tags",
+        }
         self.assertEqual(set(result.keys()), expected)
 
     def test_sleep_fields(self):
         """get_sleep returns DRF SleepSerializer fields."""
         sleep = models.Sleep.objects.first()
         result = self._get_tool_result("get_sleep", {"id": sleep.id})
-        expected = {"id", "child", "start", "end", "timer", "duration", "nap", "notes", "tags"}
+        expected = {
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "nap",
+            "notes",
+            "tags",
+        }
         self.assertEqual(set(result.keys()), expected)
 
     def test_temperature_fields(self):
@@ -1032,7 +1072,16 @@ class MCPSerializerFieldTests(TestCase):
         """get_tummy_time returns DRF TummyTimeSerializer fields."""
         tt = models.TummyTime.objects.first()
         result = self._get_tool_result("get_tummy_time", {"id": tt.id})
-        expected = {"id", "child", "start", "end", "timer", "duration", "milestone", "tags"}
+        expected = {
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "milestone",
+            "tags",
+        }
         self.assertEqual(set(result.keys()), expected)
 
     def test_note_fields(self):
@@ -1079,7 +1128,15 @@ class MCPSerializerFieldTests(TestCase):
         result = self._get_tool_result("list_children")
         self.assertIsInstance(result, list)
         self.assertTrue(len(result) > 0)
-        expected = {"id", "first_name", "last_name", "birth_date", "birth_time", "slug", "picture"}
+        expected = {
+            "id",
+            "first_name",
+            "last_name",
+            "birth_date",
+            "birth_time",
+            "slug",
+            "picture",
+        }
         self.assertEqual(set(result[0].keys()), expected)
 
     def test_list_feedings_fields(self):
@@ -1087,5 +1144,17 @@ class MCPSerializerFieldTests(TestCase):
         result = self._get_tool_result("list_feedings")
         self.assertIsInstance(result, list)
         self.assertTrue(len(result) > 0)
-        expected = {"id", "child", "start", "end", "timer", "duration", "type", "method", "amount", "notes", "tags"}
+        expected = {
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "type",
+            "method",
+            "amount",
+            "notes",
+            "tags",
+        }
         self.assertEqual(set(result[0].keys()), expected)
