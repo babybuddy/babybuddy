@@ -292,6 +292,44 @@ def card_pumping_last(context, child):
     }
 
 
+@register.inclusion_tag("cards/pumping_recent.html", takes_context=True)
+def card_pumping_recent(context, child, end_date=None):
+    """
+    Filters Pumping instances to get total amount for a specific date and for 7 days before.
+    :param child: an instance of the Child model.
+    :param end_date: a Date object for the day to filter.
+    :returns: a dict with count and total amount for the Pumping instances.
+    """
+    if not end_date:
+        end_date = timezone.localtime()
+
+    end_date = end_date.replace(hour=23, minute=59, second=59, microsecond=9999)
+    start_date = end_date - timezone.timedelta(days=8)
+
+    instances = models.Pumping.objects.filter(child=child).filter(
+        start__range=[start_date, end_date]
+    )
+
+    dates = [end_date - timezone.timedelta(days=i) for i in range(8)]
+    results = [{"date": d, "total": 0, "count": 0} for d in dates]
+
+    for instance in instances:
+        pump_date = timezone.localtime(instance.end).replace(
+            hour=23, minute=59, second=59, microsecond=9999
+        )
+        idx = (end_date - pump_date).days
+        result = results[idx]
+        result["total"] += instance.amount if instance.amount is not None else 0
+        result["count"] += 1
+
+    return {
+        "pumpings": results,
+        "type": "pumping",
+        "empty": len(instances) == 0,
+        "hide_empty": _hide_empty(context),
+    }
+
+
 @register.inclusion_tag("cards/sleep_last.html", takes_context=True)
 def card_sleep_last(context, child):
     """
