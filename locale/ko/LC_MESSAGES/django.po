@@ -1,0 +1,524 @@
+# Korean translations for Baby Buddy.
+# Copyright (C) 2024 Baby Buddy Contributors
+# This file is distributed under the same license as the Baby Buddy package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Baby Buddy\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: babybuddy/admin.py:12 babybuddy/admin.py:13
+msgid "Settings"
+msgstr "설정"
+
+#: babybuddy/admin.py:17
+msgid "Dashboard"
+msgstr "대시보드"
+
+#: babybuddy/models.py
+msgid "Children"
+msgstr "아이"
+
+#: babybuddy/models.py
+msgid "Child"
+msgstr "아이"
+
+msgid "Add Child"
+msgstr "아이 추가"
+
+msgid "First name"
+msgstr "이름"
+
+msgid "Last name"
+msgstr "성"
+
+msgid "Birth date"
+msgstr "생년월일"
+
+msgid "Slug"
+msgstr "슬러그"
+
+msgid "Picture"
+msgstr "사진"
+
+# Navigation
+msgid "Feedings"
+msgstr "수유"
+
+msgid "Feeding"
+msgstr "수유"
+
+msgid "Add Feeding"
+msgstr "수유 추가"
+
+msgid "Sleep"
+msgstr "수면"
+
+msgid "Add Sleep"
+msgstr "수면 추가"
+
+msgid "Diaper Changes"
+msgstr "기저귀 교체"
+
+msgid "Diaper Change"
+msgstr "기저귀 교체"
+
+msgid "Add Diaper Change"
+msgstr "기저귀 교체 추가"
+
+msgid "Tummy Time"
+msgstr "터미 타임"
+
+msgid "Add Tummy Time"
+msgstr "터미 타임 추가"
+
+msgid "Weight"
+msgstr "체중"
+
+msgid "Add Weight"
+msgstr "체중 추가"
+
+msgid "Height"
+msgstr "키"
+
+msgid "Add Height"
+msgstr "키 추가"
+
+msgid "Temperature"
+msgstr "체온"
+
+msgid "Add Temperature"
+msgstr "체온 추가"
+
+msgid "Notes"
+msgstr "메모"
+
+msgid "Note"
+msgstr "메모"
+
+msgid "Add Note"
+msgstr "메모 추가"
+
+msgid "BMI"
+msgstr "체질량지수"
+
+msgid "Add BMI"
+msgstr "체질량지수 추가"
+
+msgid "Head Circumference"
+msgstr "머리 둘레"
+
+msgid "Add Head Circumference"
+msgstr "머리 둘레 추가"
+
+msgid "Pumping"
+msgstr "유축"
+
+msgid "Add Pumping"
+msgstr "유축 추가"
+
+msgid "Timers"
+msgstr "타이머"
+
+msgid "Timer"
+msgstr "타이머"
+
+msgid "Add Timer"
+msgstr "타이머 추가"
+
+msgid "Tags"
+msgstr "태그"
+
+msgid "Tag"
+msgstr "태그"
+
+# Forms
+msgid "Start"
+msgstr "시작"
+
+msgid "End"
+msgstr "종료"
+
+msgid "Duration"
+msgstr "지속 시간"
+
+msgid "Time"
+msgstr "시간"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Amount"
+msgstr "양"
+
+msgid "Type"
+msgstr "유형"
+
+msgid "Method"
+msgstr "방법"
+
+msgid "Color"
+msgstr "색상"
+
+msgid "Solid"
+msgstr "고형"
+
+msgid "Wet"
+msgstr "소변"
+
+msgid "Wet and Solid"
+msgstr "소변+대변"
+
+msgid "Black"
+msgstr "검정"
+
+msgid "Brown"
+msgstr "갈색"
+
+msgid "Green"
+msgstr "초록"
+
+msgid "Yellow"
+msgstr "노랑"
+
+msgid "Breast milk"
+msgstr "모유"
+
+msgid "Formula"
+msgstr "분유"
+
+msgid "Fortified breast milk"
+msgstr "강화 모유"
+
+msgid "Solid food"
+msgstr "이유식"
+
+msgid "Bottle"
+msgstr "젖병"
+
+msgid "Left breast"
+msgstr "왼쪽 유방"
+
+msgid "Right breast"
+msgstr "오른쪽 유방"
+
+msgid "Both breasts"
+msgstr "양쪽 유방"
+
+msgid "Self fed"
+msgstr "자가 수유"
+
+msgid "Parent fed"
+msgstr "부모 수유"
+
+msgid "Nap"
+msgstr "낮잠"
+
+msgid "Milestone"
+msgstr "발달 이정표"
+
+# Actions
+msgid "Save"
+msgstr "저장"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Edit"
+msgstr "편집"
+
+msgid "Add"
+msgstr "추가"
+
+msgid "Submit"
+msgstr "제출"
+
+msgid "Back"
+msgstr "뒤로"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Filter"
+msgstr "필터"
+
+msgid "Export"
+msgstr "내보내기"
+
+msgid "Import"
+msgstr "가져오기"
+
+# Reports
+msgid "Reports"
+msgstr "보고서"
+
+msgid "Sleep Pattern"
+msgstr "수면 패턴"
+
+msgid "Sleep Totals"
+msgstr "수면 합계"
+
+msgid "Feeding Duration"
+msgstr "수유 지속 시간"
+
+msgid "Feeding Amounts"
+msgstr "수유량"
+
+msgid "Feeding Patterns"
+msgstr "수유 패턴"
+
+# Time
+msgid "Today"
+msgstr "오늘"
+
+msgid "Yesterday"
+msgstr "어제"
+
+msgid "Last 7 days"
+msgstr "최근 7일"
+
+msgid "Last 30 days"
+msgstr "최근 30일"
+
+msgid "All time"
+msgstr "전체 기간"
+
+msgid "second"
+msgstr "초"
+
+msgid "seconds"
+msgstr "초"
+
+msgid "minute"
+msgstr "분"
+
+msgid "minutes"
+msgstr "분"
+
+msgid "hour"
+msgstr "시간"
+
+msgid "hours"
+msgstr "시간"
+
+msgid "day"
+msgstr "일"
+
+msgid "days"
+msgstr "일"
+
+msgid "week"
+msgstr "주"
+
+msgid "weeks"
+msgstr "주"
+
+msgid "month"
+msgstr "개월"
+
+msgid "months"
+msgstr "개월"
+
+msgid "year"
+msgstr "년"
+
+msgid "years"
+msgstr "년"
+
+msgid "ago"
+msgstr "전"
+
+msgid "since"
+msgstr "이후"
+
+# User settings
+msgid "Language"
+msgstr "언어"
+
+msgid "Timezone"
+msgstr "시간대"
+
+msgid "API Key"
+msgstr "API 키"
+
+msgid "Change Password"
+msgstr "비밀번호 변경"
+
+msgid "Logout"
+msgstr "로그아웃"
+
+msgid "Login"
+msgstr "로그인"
+
+msgid "Username"
+msgstr "사용자명"
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Email"
+msgstr "이메일"
+
+# Language names (for settings dropdown)
+msgid "Brazilian Portuguese"
+msgstr "브라질 포르투갈어"
+
+msgid "Catalan"
+msgstr "카탈루냐어"
+
+msgid "Chinese (simplified)"
+msgstr "중국어 (간체)"
+
+msgid "Croatian"
+msgstr "크로아티아어"
+
+msgid "Czech"
+msgstr "체코어"
+
+msgid "Danish"
+msgstr "덴마크어"
+
+msgid "Dutch"
+msgstr "네덜란드어"
+
+msgid "English (US)"
+msgstr "영어 (미국)"
+
+msgid "English (UK)"
+msgstr "영어 (영국)"
+
+msgid "Finnish"
+msgstr "핀란드어"
+
+msgid "French"
+msgstr "프랑스어"
+
+msgid "German"
+msgstr "독일어"
+
+msgid "Hebrew"
+msgstr "히브리어"
+
+msgid "Hungarian"
+msgstr "헝가리어"
+
+msgid "Italian"
+msgstr "이탈리아어"
+
+msgid "Japanese"
+msgstr "일본어"
+
+msgid "Korean"
+msgstr "한국어"
+
+msgid "Norwegian Bokmål"
+msgstr "노르웨이어 (복말)"
+
+msgid "Polish"
+msgstr "폴란드어"
+
+msgid "Portuguese"
+msgstr "포르투갈어"
+
+msgid "Russian"
+msgstr "러시아어"
+
+msgid "Serbian"
+msgstr "세르비아어"
+
+msgid "Spanish"
+msgstr "스페인어"
+
+msgid "Swedish"
+msgstr "스웨덴어"
+
+msgid "Turkish"
+msgstr "터키어"
+
+msgid "Ukrainian"
+msgstr "우크라이나어"
+
+# Misc
+msgid "Name"
+msgstr "이름"
+
+msgid "Active"
+msgstr "활성"
+
+msgid "Inactive"
+msgstr "비활성"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니오"
+
+msgid "None"
+msgstr "없음"
+
+msgid "All"
+msgstr "전체"
+
+msgid "Total"
+msgstr "합계"
+
+msgid "Average"
+msgstr "평균"
+
+msgid "Last"
+msgstr "마지막"
+
+msgid "Next"
+msgstr "다음"
+
+msgid "Previous"
+msgstr "이전"
+
+msgid "Page"
+msgstr "페이지"
+
+msgid "per page"
+msgstr "페이지당"
+
+msgid "Results"
+msgstr "결과"
+
+msgid "No results found."
+msgstr "결과가 없습니다."
+
+msgid "Are you sure?"
+msgstr "정말로 삭제하시겠습니까?"
+
+msgid "This action cannot be undone."
+msgstr "이 작업은 취소할 수 없습니다."
+
+msgid "Database Admin"
+msgstr "데이터베이스 관리"
+
+msgid "Site Settings"
+msgstr "사이트 설정"
+
+msgid "User Settings"
+msgstr "사용자 설정"
+
+msgid "Welcome"
+msgstr "환영합니다"
+
+msgid "Add a child to get started!"
+msgstr "시작하려면 아이를 추가해주세요!"
