@@ -902,3 +902,19 @@ msgstr "양"
 
 msgid "Birth Date"
 msgstr "탄생일"
+
+# === 대시보드 추가 카드 ===
+
+msgid "Feeding frequency (past 3 days)"
+msgstr "수유 빈도 (최근 3일)"
+
+msgid "Sleep frequency (past 3 days)"
+msgstr "수면 빈도 (최근 3일)"
+
+msgid "Tummy time frequency (past 3 days)"
+msgstr "터미 타임 빈도 (최근 3일)"
+
+# === 태그 도움말 ===
+
+msgid "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
+msgstr "태그를 클릭해서 추가(+) 또는 제거(-) 하거나, 텍스트 에디터로 새 태그를 만드세요."
