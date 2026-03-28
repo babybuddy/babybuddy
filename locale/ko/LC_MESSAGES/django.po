@@ -918,3 +918,11 @@ msgstr "터미 타임 빈도 (최근 3일)"
 
 msgid "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
 msgstr "태그를 클릭해서 추가(+) 또는 제거(-) 하거나, 텍스트 에디터로 새 태그를 만드세요."
+
+# === 아이 프로필 ===
+
+msgid "Born"
+msgstr "탄생일"
+
+msgid "Age"
+msgstr "나이"
