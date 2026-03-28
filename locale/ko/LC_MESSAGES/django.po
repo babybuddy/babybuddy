@@ -746,3 +746,159 @@ msgstr "수면 기록이 낮잠으로 간주되는 최소 시작 시간입니다
 
 msgid "The maximum default time that a sleep entry is consider a nap. If set the nap property will be preselected if the start time is within the bounds."
 msgstr "수면 기록이 낮잠으로 간주되는 최대 시작 시간입니다. 설정 시 시작 시간이 범위 안에 있으면 낮잠이 자동 선택됩니다."
+
+msgid "Switch child"
+msgstr "아이 변경"
+
+msgid "most recent"
+msgstr "최근"
+
+msgid "Not enough data"
+msgstr "데이터가 부족합니다"
+
+msgid "Diaper change frequency (past 3 days)"
+msgstr "기저귀 교체 빈도 (최근 3일)"
+
+msgid "Past Week"
+msgstr "지난 1주일"
+
+msgid "wet"
+msgstr "소변"
+
+msgid "dry"
+msgstr "없음"
+
+msgid "solid"
+msgstr "대변"
+
+msgid "feeding"
+msgstr "수유"
+
+msgid "feedings"
+msgstr "수유"
+
+msgid "change"
+msgstr "교체"
+
+msgid "changes"
+msgstr "교체"
+
+msgid "sleep"
+msgstr "수면"
+
+msgid "timer"
+msgstr "타이머"
+
+msgid "timers"
+msgstr "타이머"
+
+msgid "0 timers"
+msgstr "타이머 없음"
+
+msgid "No timers"
+msgstr "타이머 없음"
+
+msgid "%(count)s feeding"
+msgstr "수유 %(count)s회"
+
+msgid "%(count)s feedings"
+msgstr "수유 %(count)s회"
+
+msgid "%(count)s change"
+msgstr "교체 %(count)s회"
+
+msgid "%(count)s changes"
+msgstr "교체 %(count)s회"
+
+msgid "%(count)s wet"
+msgstr "소변 %(count)s회"
+
+msgid "%(count)s dry"
+msgstr "없음 %(count)s회"
+
+msgid "%(count)s solid"
+msgstr "대변 %(count)s회"
+
+msgid "%(count)s timer"
+msgstr "타이머 %(count)s개"
+
+msgid "%(count)s timers"
+msgstr "타이머 %(count)s개"
+
+# === Timeline 이벤트 문자열 ===
+
+msgid "%(child)s started feeding."
+msgstr "%(child)s 수유를 시작했어요."
+
+msgid "%(child)s finished feeding."
+msgstr "%(child)s 수유를 마쳤어요."
+
+msgid "%(child)s had a feeding."
+msgstr "%(child)s 수유를 했어요."
+
+msgid "%(child)s fell asleep."
+msgstr "%(child)s 잠들었어요."
+
+msgid "%(child)s woke up."
+msgstr "%(child)s 일어났어요."
+
+msgid "%(child)s started tummy time!"
+msgstr "%(child)s 터미 타임을 시작했어요!"
+
+msgid "%(child)s finished tummy time."
+msgstr "%(child)s 터미 타임을 마쳤어요."
+
+msgid "%(child)s had a %(type)s diaper change."
+msgstr "%(child)s %(type)s 기저귀를 교체했어요."
+
+msgid "%(child)s had a temperature measurement."
+msgstr "%(child)s 체온을 측정했어요."
+
+# === Timeline 템플릿 라벨 ===
+
+msgid "since previous"
+msgstr "이전으로부터"
+
+# === 수유/기록 추가 폼 ===
+
+msgid "Add a Feeding"
+msgstr "수유 추가"
+
+msgid "Add a Bottle Feeding"
+msgstr "젖병 수유 추가"
+
+msgid "Add a Temperature Entry"
+msgstr "체온 기록 추가"
+
+msgid "Add a Tummy Time Entry"
+msgstr "터미 타임 추가"
+
+msgid "Add a Diaper Change"
+msgstr "기저귀 교체 추가"
+
+msgid "Add a Weight Entry"
+msgstr "체중 기록 추가"
+
+msgid "Add a Sleep Entry"
+msgstr "수면 기록 추가"
+
+msgid "Add a Head Circumference Entry"
+msgstr "머리 둘레 기록 추가"
+
+msgid "Add a Height Entry"
+msgstr "키 기록 추가"
+
+msgid "Add a BMI Entry"
+msgstr "BMI 기록 추가"
+
+msgid "Add a Note"
+msgstr "메모 추가"
+
+msgid "Advanced Fields"
+msgstr "고급 항목"
+
+msgid "Amt."
+msgstr "양"
+
+msgid "Birth Date"
+msgstr "탄생일"
