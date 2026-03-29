@@ -67,3 +67,24 @@ class HomeAssistantMiddlewareTestCase(TestCase):
         self.assertEqual(
             json_response["profile"], "http://testserver/magic/sub/url/api/profile"
         )
+
+    def test_ingress_html_preserves_response_cookies(self):
+        """
+        Ingress rewrites text/html; rebuilt HttpResponse must copy response.cookies
+        so Set-Cookie (CSRF, session) is not dropped. Uses the real middleware stack
+        (same as production) so behavior matches Client requests with ingress headers.
+        """
+        response = self.c.get(
+            "/login/",
+            headers={
+                "X-Hass-Source": "core.ingress",
+                "X-Ingress-Path": "/hassio/ingress/baby_buddy",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("text/html", response.get("Content-Type", ""))
+        self.assertIn(
+            "csrftoken",
+            response.cookies,
+            "Ingress HTML rewrite must preserve CSRF Set-Cookie",
+        )
