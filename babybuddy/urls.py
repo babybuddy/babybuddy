@@ -55,6 +55,7 @@ urlpatterns = [
     path("", include("core.urls", namespace="core")),
     path("", include("dashboard.urls", namespace="dashboard")),
     path("", include("reports.urls", namespace="reports")),
+    path("accounts/", include("allauth.urls")),
 ]
 
 if settings.DEBUG:  # pragma: no cover
