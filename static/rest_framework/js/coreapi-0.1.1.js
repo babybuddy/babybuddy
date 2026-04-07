@@ -1310,6 +1310,17 @@ URL.prototype.toString = function toString(stringify) {
     result += url.username;
     if (url.password) result += ':'+ url.password;
     result += '@';
+  } else if (
+    url.protocol !== 'file:' &&
+    isSpecial(url.protocol) &&
+    !url.host &&
+    url.pathname !== '/'
+  ) {
+    //
+    // Add back the empty userinfo, otherwise the original invalid URL
+    // might be transformed into a valid one with `url.pathname` as host.
+    //
+    result += '@';
   }
 
   result += url.host + url.pathname;
