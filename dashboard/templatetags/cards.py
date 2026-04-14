@@ -772,6 +772,29 @@ def _bmi_statistics(child):
     return bmi
 
 
+@register.inclusion_tag("cards/note_last.html", takes_context=True)
+def card_note_last(context, child):
+    """
+    Information about the most recent note.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Note instance.
+    """
+    instance = (
+        models.Note.objects.filter(child=child)
+        .filter(**_filter_data_age(context, "time"))
+        .order_by("-time")
+        .first()
+    )
+    empty = not instance
+
+    return {
+        "type": "note",
+        "note": instance,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
+
+
 @register.inclusion_tag("cards/timer_list.html", takes_context=True)
 def card_timer_list(context, child=None):
     """

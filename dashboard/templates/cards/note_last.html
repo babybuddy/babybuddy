@@ -1,0 +1,22 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block header %}
+    <a href="{% url "core:note-list" %}">{% trans "Last Note" %}</a>
+{% endblock %}
+{% block title %}
+    {% if note %}
+        <div>
+            {% blocktrans trimmed with time_ago=note.time|deltasince|duration_string:'m' %}
+                {{ time_ago }} ago
+            {% endblocktrans %}
+        </div>
+        <small>{{ note.time|time }}</small>
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if note %}
+        <a href="{% url "core:note-update" note.pk %}">{{ note.note|truncatechars:256 }}</a>
+    {% endif %}
+{% endblock %}
