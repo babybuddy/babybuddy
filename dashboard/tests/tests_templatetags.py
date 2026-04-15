@@ -203,6 +203,31 @@ class TemplateTagsTestCase(TestCase):
         self.assertIsInstance(data["pumping"], models.Pumping)
         self.assertEqual(data["pumping"], models.Pumping.objects.first())
 
+    def test_card_pumping_recent(self):
+        data = cards.card_pumping_recent(self.context, self.child, self.date)
+        self.assertEqual(data["type"], "pumping")
+        self.assertFalse(data["empty"])
+        self.assertFalse(data["hide_empty"])
+
+        # 8 days of data returned
+        self.assertEqual(len(data["pumpings"]), 8)
+
+        # Fixture has 2 pumpings on 2017-11-17 (amounts 5.0 and 9.0).
+        # self.date is 2017-11-18, so 2017-11-17 is index 1 (yesterday).
+        self.assertEqual(data["pumpings"][1]["total"], 14.0)
+        self.assertEqual(data["pumpings"][1]["count"], 2)
+
+        # Today (2017-11-18) should have no pumpings.
+        self.assertEqual(data["pumpings"][0]["total"], 0)
+        self.assertEqual(data["pumpings"][0]["count"], 0)
+
+    def test_card_pumping_recent_empty(self):
+        models.Pumping.objects.all().delete()
+        data = cards.card_pumping_recent(self.context, self.child, self.date)
+        self.assertEqual(data["type"], "pumping")
+        self.assertTrue(data["empty"])
+        self.assertFalse(data["hide_empty"])
+
     def test_card_sleep_last(self):
         data = cards.card_sleep_last(self.context, self.child)
         self.assertEqual(data["type"], "sleep")
