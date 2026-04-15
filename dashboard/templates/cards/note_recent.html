@@ -1,0 +1,73 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block header %}
+    <a href="{% url "core:note-list" %}">{% trans "Recent Notes" %}</a>
+{% endblock %}
+{% block title %}
+    {% if notes|length > 0 %}
+        <div id="notes-carousel"
+             class="carousel slide"
+             data-bs-interval="false">
+            <div class="carousel-inner">
+                {% for note in notes %}
+                    <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}" style="padding: 0 2.5em;">
+                        <div class="text-center">
+                            {% blocktrans trimmed with time_ago=note.time|deltasince|duration_string:'m' %}
+                                {{ time_ago }} ago
+                            {% endblocktrans %}
+                        </div>
+                        <div class="text-center"><small>{{ note.time|time }}</small></div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if notes|length > 1 %}
+                <a class="carousel-control-prev"
+                   href="#notes-carousel"
+                   role="button"
+                   data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{% trans "Previous" %}</span>
+                </a>
+                <a class="carousel-control-next"
+                   href="#notes-carousel"
+                   role="button"
+                   data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{% trans "Next" %}</span>
+                </a>
+            {% endif %}
+        </div>
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if notes|length > 0 %}
+        <div class="note-text-container">
+            {% for note in notes %}
+                <div class="note-text-item{% if forloop.counter == 1 %} active{% endif %}"
+                     data-note-index="{{ forloop.counter0 }}">
+                    <a href="{% url "core:note-update" note.pk %}">{{ note.note|truncatechars:1024|linebreaksbr }}</a>
+                </div>
+            {% endfor %}
+        </div>
+        <script>
+            (function() {
+                var el = document.getElementById('notes-carousel');
+                if (el) {
+                    el.addEventListener('slid.bs.carousel', function(e) {
+                        var items = el.closest('.card-note').querySelectorAll('.note-text-item');
+                        items.forEach(function(item) { item.classList.remove('active'); });
+                        var target = el.closest('.card-note').querySelector('.note-text-item[data-note-index="' + e.to + '"]');
+                        if (target) target.classList.add('active');
+                        var grid = document.getElementById('dashboard-child');
+                        if (grid && window.Masonry) {
+                            var msnry = Masonry.data(grid);
+                            if (msnry) msnry.layout();
+                        }
+                    });
+                }
+            })();
+        </script>
+    {% endif %}
+{% endblock %}

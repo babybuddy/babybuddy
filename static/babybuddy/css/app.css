@@ -12179,6 +12179,23 @@ textarea.form-control-lg {
   color: #239556;
 }
 
+.card-note {
+  border-color: #0dcaf0;
+}
+.card-note .card-header, .card-note .card-header a {
+  background-color: #0dcaf0;
+  color: #f8f9fa;
+}
+.card-note .card-body .note-text-container {
+  position: relative;
+}
+.card-note .card-body .note-text-item {
+  display: none;
+}
+.card-note .card-body .note-text-item.active {
+  display: block;
+}
+
 .child-actions {
   flex-wrap: wrap;
 }

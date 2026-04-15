@@ -15,6 +15,7 @@
          class="row"
          data-masonry='{"percentPosition": true }'>
         <div class="col-sm-6 col-lg-4">{% card_timer_list object %}</div>
+        <div class="col-sm-6 col-lg-4">{% card_note_recent object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_feeding_last object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_diaperchange_last object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_pumping_last object %}</div>
@@ -27,7 +28,6 @@
         <div class="col-sm-6 col-lg-4">{% card_tummytime_day object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_diaperchange_types object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_note_last object %}</div>
     </div>
 {% endblock %}
 {% block javascript %}
