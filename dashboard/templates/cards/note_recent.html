@@ -5,18 +5,19 @@
 {% endblock %}
 {% block title %}
     {% if notes|length > 0 %}
-        <div id="notes-carousel"
-             class="carousel slide"
-             data-bs-interval="false">
+        <div id="notes-carousel" class="carousel slide" data-bs-interval="false">
             <div class="carousel-inner">
                 {% for note in notes %}
-                    <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}" style="padding: 0 2.5em;">
+                    <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}"
+                         style="padding: 0 2.5em">
                         <div class="text-center">
                             {% blocktrans trimmed with time_ago=note.time|deltasince|duration_string:'m' %}
                                 {{ time_ago }} ago
                             {% endblocktrans %}
                         </div>
-                        <div class="text-center"><small>{{ note.time|time }}</small></div>
+                        <div class="text-center">
+                            <small>{{ note.time|time }}</small>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
