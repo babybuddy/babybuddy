@@ -49,6 +49,54 @@ Note: the container name (`babybuddy`) and secret key location
 (`/config/.secretkey`) may differ depending on the container configuration.
 Refer to the running containers configuration for these values.
 
+### Building from source
+
+Baby Buddy also includes a Dockerfile in the repository for building a container
+image directly from source. This is useful for running a custom branch, testing
+changes, or deployments that don't need the LinuxServer.io infrastructure.
+
+The image uses a multi-stage build (Node for frontend assets, Python for the
+application) and supports both PostgreSQL and MySQL/MariaDB databases.
+
+```shell
+git clone https://github.com/babybuddy/babybuddy.git
+cd babybuddy
+docker build -t babybuddy .
+```
+
+Example Docker Compose configuration:
+
+```yaml
+version: "3.8"
+services:
+  babybuddy:
+    build: .
+    container_name: babybuddy
+    volumes:
+      - data:/app/data
+      - media:/app/media
+    ports:
+      - 8000:80
+    environment:
+      - SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
+      - DJANGO_SETTINGS_MODULE=babybuddy.settings.base
+      - ALLOWED_HOSTS=*
+    restart: unless-stopped
+
+volumes:
+  data:
+  media:
+```
+
+The default database is SQLite stored at `/app/data/db.sqlite3`. To use
+PostgreSQL or MySQL, set the `DATABASE_URL` environment variable or the
+individual `DB_ENGINE`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, and `DB_HOST`
+variables. See [Database configuration](../configuration/database.md) for
+details.
+
+Uploaded media (e.g., child photos) is stored at `/app/media`. Mount a volume
+at this path to persist uploads across container recreations.
+
 ## Home Assistant
 
 [Home Assistant](https://www.home-assistant.io/) is an open source home automation tool
