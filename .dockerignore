@@ -1,0 +1,6 @@
+node_modules
+.kiro
+data
+*.tar
+*.tar.gz
+.git

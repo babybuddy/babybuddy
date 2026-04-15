@@ -1,3 +1,11 @@
+FROM node:20-slim AS assets
+
+WORKDIR /build
+COPY package.json package-lock.json gulpfile.js gulpfile.config.js ./
+RUN npm install --ignore-scripts
+COPY . .
+RUN npx gulp build
+
 FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -14,6 +22,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+COPY --from=assets /build/babybuddy/static/babybuddy/ /app/babybuddy/static/babybuddy/
 
 RUN python manage.py collectstatic --noinput
 
