@@ -6,8 +6,8 @@
     "ghcr.io/devcontainers/features/node:1": {
       "version": "18"
     },
-    "ghcr.io/devcontainers-contrib/features/gulp-cli:2": {},
-    "ghcr.io/devcontainers-contrib/features/pipenv:2": {}
+    "ghcr.io/devcontainers-extras/features/gulp-cli:2": {},
+    "ghcr.io/devcontainers-extras/features/pipenv:2": {}
   },
   "customizations": {
     "vscode": {
