@@ -7,6 +7,18 @@
     "type": "git",
     "url": "https://github.com/babybuddy/babybuddy.git"
   },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24.0.0",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": "^11.0.0",
+      "onFail": "error"
+    }
+  },
   "devDependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.8",

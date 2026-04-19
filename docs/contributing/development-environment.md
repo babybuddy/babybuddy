@@ -20,7 +20,7 @@ To debug in devenv + vscode/codespaces:
 ### Requirements
 
 - Python 3.10+, pip, pipenv
-- NodeJS 20.x and NPM 10.x (NVM recommended)
+- NodeJS 24.x and NPM 10.x (NVM recommended)
 - Gulp
 - Possibly `libpq-dev`
   - This is necessary if `psycopg2` can't find an appropriate prebuilt binary.
@@ -37,13 +37,13 @@ To debug in devenv + vscode/codespaces:
 
    If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
 
-3. Installed Node 20.x (if necessary)
+3. Installed Node 24.x (if necessary)
 
    ```shell
-   nvm install 20
+   nvm install 24
    ```
 
-4. Activate Node 20.x
+4. Activate Node 24.x
 
    ```shell
    nvm use
