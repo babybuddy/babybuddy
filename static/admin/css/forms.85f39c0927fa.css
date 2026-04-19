@@ -1,4 +1,4 @@
-@import url('widgets.css');
+@import url("widgets.22dbdba6917a.css");
 
 /* FORM ROWS */
 
@@ -484,7 +484,7 @@ body.popup .submit-row {
 .related-lookup {
     width: 1rem;
     height: 1rem;
-    background-image: url(../img/search.svg);
+    background-image: url("../img/search.7cf54ff789c6.svg");
 }
 
 form .related-widget-wrapper ul {
