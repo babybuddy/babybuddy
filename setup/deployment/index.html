@@ -1,0 +1,1232 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.baby-buddy.net/setup/deployment/">
+      
+      <link rel="icon" href="../../assets/images/favicon.svg">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.15">
+    
+    
+      
+        <title>Deployment - Baby Buddy Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.c382b1dc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extras.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deployment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Baby Buddy Documentation" class="md-header__button md-logo" aria-label="Baby Buddy Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Baby Buddy Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deployment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/babybuddy/babybuddy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    babybuddy/babybuddy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Baby Buddy Documentation" class="md-nav__button md-logo" aria-label="Baby Buddy Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Baby Buddy Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/babybuddy/babybuddy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    babybuddy/babybuddy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Deployment
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Deployment
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    Docker
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-commands" class="md-nav__link">
+    Running commands
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#home-assistant" class="md-nav__link">
+    Home Assistant
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#digital-ocean" class="md-nav__link">
+    Digital Ocean
+  </a>
+  
+    <nav class="md-nav" aria-label="Digital Ocean">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-droplet" class="md-nav__link">
+    Create droplet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-app" class="md-nav__link">
+    Create app
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clever-cloud" class="md-nav__link">
+    Clever Cloud
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gcp-cloud-run" class="md-nav__link">
+    GCP Cloud Run
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual" class="md-nav__link">
+    Manual
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-deployment" class="md-nav__link">
+    Example deployment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssl/" class="md-nav__link">
+        HTTPS/SSL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subdirectory/" class="md-nav__link">
+        Subdirectory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxy/" class="md-nav__link">
+        Proxy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Configuration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Configuration" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/intro/" class="md-nav__link">
+        Customization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/application/" class="md-nav__link">
+        Application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/database/" class="md-nav__link">
+        Database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/email/" class="md-nav__link">
+        Email
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/homeassistant/" class="md-nav__link">
+        Home Assistant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/storage/" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/managing-users/" class="md-nav__link">
+        Managing Users
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/adding-entries/" class="md-nav__link">
+        Adding Entries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/using-timers/" class="md-nav__link">
+        Using Timers
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Contributing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Contributing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Contributing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/development-environment/" class="md-nav__link">
+        Development environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/translation/" class="md-nav__link">
+        Translation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/pull-requests/" class="md-nav__link">
+        Pull requests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/gulp-command-reference/" class="md-nav__link">
+        Gulp command reference
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../import-export/" class="md-nav__link">
+        Import/Export
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    Docker
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-commands" class="md-nav__link">
+    Running commands
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#home-assistant" class="md-nav__link">
+    Home Assistant
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#digital-ocean" class="md-nav__link">
+    Digital Ocean
+  </a>
+  
+    <nav class="md-nav" aria-label="Digital Ocean">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-droplet" class="md-nav__link">
+    Create droplet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-app" class="md-nav__link">
+    Create app
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clever-cloud" class="md-nav__link">
+    Clever Cloud
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gcp-cloud-run" class="md-nav__link">
+    GCP Cloud Run
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual" class="md-nav__link">
+    Manual
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-deployment" class="md-nav__link">
+    Example deployment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/babybuddy/babybuddy/edit/master/docs/setup/deployment.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="deployment">Deployment</h1>
+<p>The default username and password for Baby Buddy is <code>admin</code>/<code>admin</code>. For any
+deployment, <strong>log in and change the default password immediately</strong>.</p>
+<p>Many of Baby Buddy's configuration settings can be controlled using environment
+variables - see <a href="../../configuration/intro/">Configuration</a> for detailed information.</p>
+<h2 id="docker">Docker</h2>
+<p>Baby Buddy relies on the <a href="https://www.linuxserver.io/">LinuxServer.io</a> community
+for a multi-architecture container with strong support. See
+<a href="https://github.com/linuxserver/docker-babybuddy">linuxserver/docker-babybuddy</a>
+for detailed information about the container or use the following Docker Compose
+configuration as a template to get started quickly:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.1&quot;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">babybuddy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lscr.io/linuxserver/babybuddy</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">babybuddy</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/appdata:/config</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000:8000</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+</code></pre></div>
+<p>See <a href="https://docs.djangoproject.com/en/5.0/ref/databases/">Django's databases documentation</a> for database requirements.</p>
+<p>See <a href="../ssl/">HTTPS/SSL configuration</a> for information on how to secure Baby Buddy.</p>
+<h3 id="running-commands">Running commands</h3>
+<p>Run administrative commands with the <code>/app/www/public/manage.py</code> script. Set
+the environment variables <code>DJANGO_SETTINGS_MODULE</code> and <code>SECRET_KEY</code> before
+running commands. For example:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>babybuddy<span class="w"> </span>/bin/bash
+<span class="nb">export</span><span class="w"> </span><span class="nv">DJANGO_SETTINGS_MODULE</span><span class="o">=</span><span class="s2">&quot;babybuddy.settings.base&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span>/config/.secretkey<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>/app/www/public
+python<span class="w"> </span>manage.py<span class="w"> </span>--help
+</code></pre></div>
+<p>Note: the container name (<code>babybuddy</code>) and secret key location
+(<code>/config/.secretkey</code>) may differ depending on the container configuration.
+Refer to the running containers configuration for these values.</p>
+<h2 id="home-assistant">Home Assistant</h2>
+<p><a href="https://www.home-assistant.io/">Home Assistant</a> is an open source home automation tool
+that can be used to host and control Baby Buddy. An existing Home Assistant installation
+is required to use this method.</p>
+<p>See the community-maintained <a href="https://github.com/OttPeterR/addon-babybuddy">Baby Buddy Home Assistant Addon</a>
+for installation instructions and then review the
+community-maintained <a href="https://github.com/jcgoette/baby_buddy_homeassistant">Baby Buddy Home Assistant integration</a>
+for added integrations with the base Home Assistant system.</p>
+<p>See
+also <a href="https://smarthomescene.com/guides/how-to-setup-baby-buddy-in-home-assistant/">How to Setup Baby Buddy in Home Assistant</a>
+from Smart Home Scene for more detailed installation and configuration instructions.</p>
+<h2 id="digital-ocean">Digital Ocean</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The Digital Ocean deployment and link URLs include referal codes. All referral funds receieved are treated as donations to Baby Buddy.</p>
+</div>
+<p>There are two ways to deploy Baby Buddy to Digital Ocean -- as a droplet from a marketplace image or as an app.</p>
+<p>The <strong>marketplace image</strong> is the cheaper option ($6/month), but may require more manual configuration depending on desired features and is limited to the latest release the marketplace image has been approved for.</p>
+<p>The <strong>app</strong> can be de deployed from any tag or the main branch and can be managed in the Digital Ocean console via environment variables, but it costs at least $12/month.</p>
+<h3 id="create-droplet">Create droplet</h3>
+<p><strong>Cost</strong>: $6+/month</p>
+<p>Use the button below to create a new droplet using the Baby Buddy marketplace image.</p>
+<p>Access and configuration instructions will be provided after the droplet has been started and configured by the image.</p>
+<p><a href="https://marketplace.digitalocean.com/apps/baby-buddy?refcode=dd79e4cfd7b6&amp;action=deploy"><img alt="Create Droplet" src="../../assets/images/do-btn-blue.svg" /></a></p>
+<h3 id="create-app">Create app</h3>
+<p><strong>Cost</strong>: $12+/month</p>
+<p>Use the button below to start a new deploy to <a href="https://www.digitalocean.com/?refcode=dd79e4cfd7b6&amp;utm_campaign=Referral_Invite&amp;utm_medium=Referral_Program&amp;utm_source=badge">Digital Ocean</a>.</p>
+<p>Modify the app environment variables during the build configuration and set the <code>SECRET_KEY</code> value to something random
+and unique. Digital Ocean's automatic secret generator does not work with Baby Buddy.</p>
+<p><a href="https://cloud.digitalocean.com/apps/new?repo=https://github.com/babybuddy/babybuddy/tree/master&amp;refcode=dd79e4cfd7b6"><img alt="Deploy to DO" src="https://www.deploytodo.com/do-btn-blue.svg" /></a></p>
+<h2 id="clever-cloud">Clever Cloud</h2>
+<p>To deploy on <a href="https://www.clever-cloud.com">Clever Cloud</a>, log in to your
+<a href="https://console.clever-cloud.com/">Clever Cloud console</a>, create a Python
+application, link it to a PostgreSQL addon and optionally a Cellar S3 Storage
+addon (only if you want file storage for child picture in particular).
+Then make sure to set the following environment variables in your Python
+application before pushing the babybuddy source code:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">CC_PYTHON_BACKEND</span><span class="o">=</span>uwsgi
+<span class="nv">CC_PYTHON_MANAGE_TASKS</span><span class="o">=</span>migrate
+<span class="nv">CC_PYTHON_MODULE</span><span class="o">=</span>babybuddy.wsgi:application
+<span class="nv">DJANGO_SETTINGS_MODULE</span><span class="o">=</span>babybuddy.settings.clever-cloud
+<span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;CHANGE<span class="w"> </span>TO<span class="w"> </span>SOMETHING<span class="w"> </span>RANDOM&gt;
+<span class="nv">AWS_STORAGE_BUCKET_NAME</span><span class="o">=</span>&lt;DESIRED<span class="w"> </span>BUCKET<span class="w"> </span>NAME&gt;<span class="w"> </span><span class="c1"># only if file storage is needed</span>
+</code></pre></div>
+<p>See <a href="../../configuration/intro/">Configuration</a> for other environment variables available
+for your instance of babybuddy.</p>
+<p>After that, you just have to push babybuddy code repository to the Git
+deployment URL of your Clever Cloud Python application.</p>
+<h2 id="gcp-cloud-run">GCP Cloud Run</h2>
+<p>Baby Buddy can be hosted serverless in GCP Cloud Run using configuration provided at
+<code>terraform/gcp-cloud-run</code>. The configuration scales down to zero for cost-effectiveness.
+With this approach initial requests to the service after a long period will be slow but
+subsequent requests will be much faster.
+A <a href="https://cloud.google.com/billing/docs/how-to/create-billing-account">billing account</a>
+mut be configured in GCP to use the configuration.</p>
+<p>The terraform code isn't production ready and is meant to be a good way of getting started.
+No state storage is configured. See <a href="https://cloud.google.com/run/docs/storage-options">storage options</a>
+for information about how to configure persistent storage.</p>
+<p>Run <code>terraform init</code> from the configuration directory to get started:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/babybuddy/babybuddy.git
+<span class="nb">cd</span><span class="w"> </span>babybuddy/terraform/gcp-cloud-run
+terraform<span class="w"> </span>init
+terraform<span class="w"> </span>apply<span class="w"> </span>-var<span class="w"> </span><span class="nv">project_id</span><span class="o">=</span>&lt;project-id&gt;<span class="w"> </span>-var<span class="w"> </span><span class="nv">project_name</span><span class="o">=</span>&lt;project-name&gt;<span class="w"> </span>-var<span class="w"> </span><span class="nv">billing_account</span><span class="o">=</span>&lt;billing-account-id&gt;
+</code></pre></div>
+<h2 id="manual">Manual</h2>
+<p>There are many ways to deploy Baby Buddy manually to any server/VPS. The basic
+requirements are Python, a web server, an application server, and a database.</p>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li>Python 3.10+, pip, <a href="https://pipx.pypa.io/">pipx</a>, <a href="https://pipenv.pypa.io/">pipenv</a></li>
+<li>Web server (<a href="http://nginx.org/">nginx</a>, <a href="http://httpd.apache.org/">Apache</a>, etc.)</li>
+<li>Application server (<a href="http://projects.unbit.it/uwsgi">uwsgi</a>, <a href="http://gunicorn.org/">gunicorn</a>, etc.)</li>
+<li>Database (See <a href="https://docs.djangoproject.com/en/5.0/ref/databases/">Django's databases documentation</a>).</li>
+</ul>
+<h3 id="example-deployment">Example deployment</h3>
+<p><em>This example assumes a 1 GB VPS instance with Ubuntu 24.04.</em> It uses Python 3.12,
+nginx, uwsgi and sqlite. It should be sufficient for a few users (e.g., two parents
+and any number of children).</p>
+<ol>
+<li>Install system packages</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>pipx<span class="w"> </span>nginx<span class="w"> </span>uwsgi<span class="w"> </span>uwsgi-plugin-python3<span class="w"> </span>git<span class="w"> </span>libopenjp2-7-dev<span class="w"> </span>libpq-dev
+</code></pre></div>
+<ol>
+<li>Default python3 to python for this session</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">python</span><span class="o">=</span>python3
+</code></pre></div>
+<ol>
+<li>Install pipenv</li>
+</ol>
+<div class="highlight"><pre><span></span><code>pipx<span class="w"> </span>ensurepath
+pipx<span class="w"> </span>install<span class="w"> </span>pipenv
+</code></pre></div>
+<ol>
+<li>Set up directories and files</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>/var/www/babybuddy
+sudo<span class="w"> </span>chown<span class="w"> </span><span class="nv">$USER</span>:<span class="k">$(</span>id<span class="w"> </span>-gn<span class="w"> </span><span class="nv">$USER</span><span class="k">)</span><span class="w"> </span>/var/www/babybuddy
+mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/babybuddy/data/media
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/babybuddy/babybuddy.git<span class="w"> </span>/var/www/babybuddy/public
+</code></pre></div>
+<ol>
+<li>Move in to the application folder</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/var/www/babybuddy/public
+</code></pre></div>
+<ol>
+<li>Initiate and enter a Python environment with Pipenv locally.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PIPENV_VENV_IN_PROJECT</span><span class="o">=</span><span class="m">1</span>
+pipenv<span class="w"> </span>install
+pipenv<span class="w"> </span>shell
+</code></pre></div>
+<ol>
+<li>Create a production settings file and set the <code>SECRET_KEY</code> and <code>ALLOWED_HOSTS</code> values</li>
+</ol>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>babybuddy/settings/production.example.py<span class="w"> </span>babybuddy/settings/production.py
+editor<span class="w"> </span>babybuddy/settings/production.py
+</code></pre></div>
+<ol>
+<li>Initiate the application</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">DJANGO_SETTINGS_MODULE</span><span class="o">=</span>babybuddy.settings.production
+python<span class="w"> </span>manage.py<span class="w"> </span>migrate
+</code></pre></div>
+<ol>
+<li>Set appropriate permissions on the database and data folder</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/babybuddy/data
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</span><span class="w"> </span>/var/www/babybuddy/data/db.sqlite3
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>/var/www/babybuddy/data
+</code></pre></div>
+<ol>
+<li>
+<p>Create and configure the uwsgi app</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>editor<span class="w"> </span>/etc/uwsgi/apps-available/babybuddy.ini
+</code></pre></div>
+<p>Example config:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[uwsgi]</span>
+<span class="na">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">python3</span>
+<span class="na">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">babybuddy</span>
+<span class="na">base_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/var/www/babybuddy</span>
+
+<span class="na">chdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">%(base_dir)/public</span>
+<span class="na">virtualenv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">%(chdir)/.venv</span>
+<span class="na">module</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">%(project).wsgi:application</span>
+<span class="na">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">DJANGO_SETTINGS_MODULE=%(project).settings.production</span>
+<span class="na">master</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">vacuum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+</code></pre></div>
+<p>See the <a href="http://uwsgi-docs.readthedocs.io/en/latest/">uWSGI documentation</a>
+for more advanced configuration details.</p>
+<p>See <a href="../subdirectory/">Subdirectory configuration</a> for additional configuration
+required if Baby Buddy will be hosted in a subdirectory of another server.</p>
+</li>
+<li>
+<p>Symlink config and restart uWSGI:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/uwsgi/apps-available/babybuddy.ini<span class="w"> </span>/etc/uwsgi/apps-enabled/babybuddy.ini
+sudo<span class="w"> </span>service<span class="w"> </span>uwsgi<span class="w"> </span>restart
+</code></pre></div>
+</li>
+<li>
+<p>Create and configure the nginx server</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>editor<span class="w"> </span>/etc/nginx/sites-available/babybuddy
+</code></pre></div>
+<p>Example config:</p>
+<div class="highlight"><pre><span></span><code><span class="k">upstream</span><span class="w"> </span><span class="s">babybuddy</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="kn">server</span><span class="w"> </span><span class="s">unix:///var/run/uwsgi/app/babybuddy/socket</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+<span class="w"> </span><span class="kn">server_name</span><span class="w"> </span><span class="s">babybuddy.example.com</span><span class="p">;</span>
+
+<span class="w"> </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">uwsgi_pass</span><span class="w"> </span><span class="s">babybuddy</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">include</span><span class="w"> </span><span class="s">uwsgi_params</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+
+<span class="w"> </span><span class="kn">location</span><span class="w"> </span><span class="s">/media</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">alias</span><span class="w"> </span><span class="s">/var/www/babybuddy/data/media</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>See the <a href="https://nginx.org/en/docs/">nginx documentation</a> for more advanced
+configuration details.</p>
+<p>See <a href="../subdirectory/">Subdirectory configuration</a> for additional configuration
+required if Baby Buddy will be hosted in a subdirectory of another server.</p>
+</li>
+<li>
+<p>Symlink config and restart NGINX:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/babybuddy<span class="w"> </span>/etc/nginx/sites-enabled/babybuddy
+sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>restart
+</code></pre></div>
+</li>
+<li>
+<p>That's it (hopefully)!</p>
+</li>
+</ol>
+<p>See <a href="../ssl/">HTTPS/SSL configuration</a> for information on how to secure Baby Buddy.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ssl/" class="md-footer__link md-footer__link--next" aria-label="Next: HTTPS/SSL" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              HTTPS/SSL
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.instant", "navigation.tracking", "search.share", "search.suggest"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a6c66575.min.js"></script>
+      
+    
+  </body>
+</html>
