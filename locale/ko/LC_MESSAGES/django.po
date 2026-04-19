@@ -1,0 +1,928 @@
+# Korean translations for Baby Buddy.
+# Copyright (C) 2024 Baby Buddy Contributors
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Baby Buddy\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-27 04:50+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "Dashboard"
+msgstr "대시보드"
+
+msgid "Read only"
+msgstr "읽기 전용"
+
+msgid "Restricts user to viewing data only."
+msgstr "데이터 조회만 허용합니다."
+
+msgid "Refresh rate"
+msgstr "새로고침 간격"
+
+msgid "disabled"
+msgstr "비활성"
+
+msgid "Hide Empty Dashboard Cards"
+msgstr "빈 대시보드 카드 숨기기"
+
+msgid "Hide data older than"
+msgstr "이전 데이터 숨기기"
+
+msgid "show all data"
+msgstr "전체 데이터 표시"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "Timezone"
+msgstr "시간대"
+
+msgid "Show All"
+msgstr "전체 보기"
+
+msgid "Items Per Page"
+msgstr "페이지당 항목 수"
+
+msgid "Brazilian Portuguese"
+msgstr "브라질 포르투갈어"
+
+msgid "Catalan"
+msgstr "카탈루냐어"
+
+msgid "Croatian"
+msgstr "크로아티아어"
+
+msgid "Czech"
+msgstr "체코어"
+
+msgid "Chinese (simplified)"
+msgstr "중국어 (간체)"
+
+msgid "Danish"
+msgstr "덴마크어"
+
+msgid "Dutch"
+msgstr "네덜란드어"
+
+msgid "English (US)"
+msgstr "영어 (미국)"
+
+msgid "English (UK)"
+msgstr "영어 (영국)"
+
+msgid "French"
+msgstr "프랑스어"
+
+msgid "Finnish"
+msgstr "핀란드어"
+
+msgid "German"
+msgstr "독일어"
+
+msgid "Hebrew"
+msgstr "히브리어"
+
+msgid "Hungarian"
+msgstr "헝가리어"
+
+msgid "Italian"
+msgstr "이탈리아어"
+
+msgid "Japanese"
+msgstr "일본어"
+
+msgid "Korean"
+msgstr "한국어"
+
+msgid "Norwegian Bokmål"
+msgstr "노르웨이어"
+
+msgid "Polish"
+msgstr "폴란드어"
+
+msgid "Portuguese"
+msgstr "포르투갈어"
+
+msgid "Russian"
+msgstr "러시아어"
+
+msgid "Serbian"
+msgstr "세르비아어"
+
+msgid "Spanish"
+msgstr "스페인어"
+
+msgid "Swedish"
+msgstr "스웨덴어"
+
+msgid "Turkish"
+msgstr "터키어"
+
+msgid "Ukrainian"
+msgstr "우크라이나어"
+
+msgid "Default minimum nap start time"
+msgstr "낮잠 시작 최소 시간 기본값"
+
+msgid "Default maximum nap start time"
+msgstr "낮잠 시작 최대 시간 기본값"
+
+msgid "Database Admin"
+msgstr "데이터베이스 관리"
+
+msgid "Home"
+msgstr "홈"
+
+msgid "Filter"
+msgstr "필터"
+
+msgid "Reset"
+msgstr "초기화"
+
+msgid "Filters"
+msgstr "필터"
+
+msgid "Submit"
+msgstr "저장"
+
+msgid "Error"
+msgstr "오류"
+
+msgid "Some fields have errors. See below for details."
+msgstr "일부 항목에 오류가 있습니다. 아래에서 확인하세요."
+
+msgid "Diaper Change"
+msgstr "기저귀 교체"
+
+msgid "Feeding"
+msgstr "수유"
+
+msgid "Bottle Feeding"
+msgstr "젖병 수유"
+
+msgid "Pumping"
+msgstr "유축"
+
+msgid "Note"
+msgstr "메모"
+
+msgid "Sleep"
+msgstr "수면"
+
+msgid "Tummy Time"
+msgstr "터미 타임"
+
+msgid "Timeline"
+msgstr "타임라인"
+
+msgid "Children"
+msgstr "아이 목록"
+
+msgid "Child"
+msgstr "아이"
+
+msgid "Notes"
+msgstr "메모 목록"
+
+msgid "Measurements"
+msgstr "측정"
+
+msgid "BMI"
+msgstr "BMI"
+
+msgid "BMI entry"
+msgstr "BMI 추가"
+
+msgid "Head Circumference"
+msgstr "머리 둘레"
+
+msgid "Head Circumference entry"
+msgstr "머리 둘레 추가"
+
+msgid "Height"
+msgstr "키"
+
+msgid "Height entry"
+msgstr "키 추가"
+
+msgid "Temperature"
+msgstr "체온"
+
+msgid "Temperature reading"
+msgstr "체온 추가"
+
+msgid "Weight"
+msgstr "체중"
+
+msgid "Weight entry"
+msgstr "체중 추가"
+
+msgid "Activities"
+msgstr "활동"
+
+msgid "Changes"
+msgstr "기저귀 교체 목록"
+
+msgid "Change"
+msgstr "기저귀 교체 추가"
+
+msgid "Feedings"
+msgstr "수유 목록"
+
+msgid "Pumping entry"
+msgstr "유축 추가"
+
+msgid "Sleep entry"
+msgstr "수면 추가"
+
+msgid "Tummy Time entry"
+msgstr "터미 타임 추가"
+
+msgid "User"
+msgstr "사용자"
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Add a device"
+msgstr "기기 추가"
+
+msgid "Logout"
+msgstr "로그아웃"
+
+msgid "Site"
+msgstr "사이트"
+
+msgid "API Browser"
+msgstr "API 브라우저"
+
+msgid "Tags"
+msgstr "태그 목록"
+
+msgid "Users"
+msgstr "사용자 목록"
+
+msgid "Support"
+msgstr "지원"
+
+msgid "Source Code"
+msgstr "소스 코드"
+
+msgid "Chat / Support"
+msgstr "채팅 / 지원"
+
+msgid "First"
+msgstr "처음"
+
+msgid "Previous"
+msgstr "이전"
+
+msgid "Next"
+msgstr "다음"
+
+msgid "Last"
+msgstr "마지막"
+
+msgid "Authentication Methods"
+msgstr "인증 방법"
+
+msgid "Key"
+msgstr "키"
+
+msgid "Regenerate"
+msgstr "재발급"
+
+msgid "Login QR code"
+msgstr "로그인 QR 코드"
+
+msgid "Delete User"
+msgstr "사용자 삭제"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Unlock User"
+msgstr "사용자 잠금 해제"
+
+msgid "Unlock"
+msgstr "잠금 해제"
+
+msgid "Create User"
+msgstr "사용자 추가"
+
+msgid "Update"
+msgstr "수정"
+
+msgid "User locked."
+msgstr "사용자가 잠겼습니다."
+
+msgid "First Name"
+msgstr "이름"
+
+msgid "Last Name"
+msgstr "성"
+
+msgid "Email"
+msgstr "이메일"
+
+msgid "Staff"
+msgstr "관리자"
+
+msgid "Active"
+msgstr "활성"
+
+msgid "Locked"
+msgstr "잠김"
+
+msgid "Actions"
+msgstr "작업"
+
+msgid "No users found."
+msgstr "사용자가 없습니다."
+
+msgid "Change Password"
+msgstr "비밀번호 변경"
+
+msgid "User Settings"
+msgstr "사용자 설정"
+
+msgid "User Profile"
+msgstr "사용자 프로필"
+
+msgid "API"
+msgstr "API"
+
+msgid "Welcome!"
+msgstr "환영합니다!"
+
+msgid "Welcome to Baby Buddy!"
+msgstr "Baby Buddy에 오신 걸 환영합니다!"
+
+msgid "Diaper Changes"
+msgstr "기저귀 교체 목록"
+
+msgid "Add a Child"
+msgstr "아이 추가"
+
+msgid "Site Settings"
+msgstr "사이트 설정"
+
+msgid "Bad Request"
+msgstr "잘못된 요청"
+
+msgid "Permission Denied"
+msgstr "접근 권한 없음"
+
+msgid "How to Fix"
+msgstr "해결 방법"
+
+msgid "Page Not Found"
+msgstr "페이지를 찾을 수 없음"
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "Return to Baby Buddy"
+msgstr "Baby Buddy로 돌아가기"
+
+msgid "Too Many Login Attempts"
+msgstr "로그인 시도 횟수 초과"
+
+msgid "Login"
+msgstr "로그인"
+
+msgid "Forgot your password?"
+msgstr "비밀번호를 잊으셨나요?"
+
+msgid "Password Reset Successfully!"
+msgstr "비밀번호가 재설정되었습니다!"
+
+msgid "Log in"
+msgstr "로그인"
+
+msgid "Password Reset"
+msgstr "비밀번호 재설정"
+
+msgid "Reset Password"
+msgstr "비밀번호 재설정"
+
+msgid "Timers"
+msgstr "타이머 목록"
+
+msgid "Timer"
+msgstr "타이머"
+
+msgid "Add Timer"
+msgstr "타이머 추가"
+
+msgid "Tag"
+msgstr "태그"
+
+msgid "Start"
+msgstr "시작"
+
+msgid "End"
+msgstr "종료"
+
+msgid "Duration"
+msgstr "지속 시간"
+
+msgid "Time"
+msgstr "시간"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Amount"
+msgstr "양"
+
+msgid "Type"
+msgstr "종류"
+
+msgid "Method"
+msgstr "방법"
+
+msgid "Color"
+msgstr "색깔"
+
+msgid "Solid"
+msgstr "대변"
+
+msgid "Wet"
+msgstr "소변"
+
+msgid "Wet and Solid"
+msgstr "소변+대변"
+
+msgid "Black"
+msgstr "검정"
+
+msgid "Brown"
+msgstr "갈색"
+
+msgid "Green"
+msgstr "초록"
+
+msgid "Yellow"
+msgstr "노랑"
+
+msgid "Breast milk"
+msgstr "모유"
+
+msgid "Formula"
+msgstr "분유"
+
+msgid "Fortified breast milk"
+msgstr "강화 모유"
+
+msgid "Solid food"
+msgstr "이유식"
+
+msgid "Bottle"
+msgstr "젖병"
+
+msgid "Left breast"
+msgstr "왼쪽"
+
+msgid "Right breast"
+msgstr "오른쪽"
+
+msgid "Both breasts"
+msgstr "양쪽"
+
+msgid "Self fed"
+msgstr "혼자 먹기"
+
+msgid "Parent fed"
+msgstr "먹여주기"
+
+msgid "Nap"
+msgstr "낮잠"
+
+msgid "Milestone"
+msgstr "발달 이정표"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "Add"
+msgstr "추가"
+
+msgid "Back"
+msgstr "뒤로"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Export"
+msgstr "내보내기"
+
+msgid "Import"
+msgstr "가져오기"
+
+msgid "Reports"
+msgstr "통계"
+
+msgid "Sleep Pattern"
+msgstr "수면 패턴"
+
+msgid "Sleep Totals"
+msgstr "수면 합계"
+
+msgid "Feeding Duration"
+msgstr "수유 시간"
+
+msgid "Feeding Amounts"
+msgstr "수유량"
+
+msgid "Feeding Patterns"
+msgstr "수유 패턴"
+
+msgid "Today"
+msgstr "오늘"
+
+msgid "Yesterday"
+msgstr "어제"
+
+msgid "Last 7 days"
+msgstr "최근 7일"
+
+msgid "Last 30 days"
+msgstr "최근 30일"
+
+msgid "All time"
+msgstr "전체"
+
+msgid "second"
+msgstr "초"
+
+msgid "seconds"
+msgstr "초"
+
+msgid "minute"
+msgstr "분"
+
+msgid "minutes"
+msgstr "분"
+
+msgid "hour"
+msgstr "시간"
+
+msgid "hours"
+msgstr "시간"
+
+msgid "day"
+msgstr "일"
+
+msgid "days"
+msgstr "일"
+
+msgid "week"
+msgstr "주"
+
+msgid "weeks"
+msgstr "주"
+
+msgid "month"
+msgstr "개월"
+
+msgid "months"
+msgstr "개월"
+
+msgid "year"
+msgstr "년"
+
+msgid "years"
+msgstr "년"
+
+msgid "ago"
+msgstr "전"
+
+msgid "since"
+msgstr "이후"
+
+msgid "Name"
+msgstr "이름"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니오"
+
+msgid "None"
+msgstr "없음"
+
+msgid "All"
+msgstr "전체"
+
+msgid "Total"
+msgstr "합계"
+
+msgid "Average"
+msgstr "평균"
+
+msgid "Page"
+msgstr "페이지"
+
+msgid "per page"
+msgstr "페이지당"
+
+msgid "Results"
+msgstr "결과"
+
+msgid "No results found."
+msgstr "결과가 없습니다."
+
+msgid "Are you sure?"
+msgstr "정말 삭제하시겠습니까?"
+
+msgid "This action cannot be undone."
+msgstr "이 작업은 되돌릴 수 없습니다."
+
+msgid "Add a child to get started!"
+msgstr "아이를 추가하면 기록을 시작할 수 있어요!"
+
+msgid "Statistics"
+msgstr "통계"
+
+msgid "No data yet"
+msgstr "아직 데이터가 없어요"
+
+msgid "Last Feeding"
+msgstr "마지막 수유"
+
+msgid "Last Diaper Change"
+msgstr "마지막 기저귀 교체"
+
+msgid "Last Pumping"
+msgstr "마지막 유축"
+
+msgid "Last Sleep"
+msgstr "마지막 수면"
+
+msgid "Last Feeding Method"
+msgstr "마지막 수유 방법"
+
+msgid "Recent Feedings"
+msgstr "최근 수유"
+
+msgid "Recent Sleep"
+msgstr "최근 수면"
+
+msgid "Today's Naps"
+msgstr "오늘의 낮잠"
+
+msgid "Today's Tummy Time"
+msgstr "오늘의 터미 타임"
+
+msgid "Breastfeeding"
+msgstr "모유 수유"
+
+msgid "Birth date"
+msgstr "생년월일"
+
+msgid "Picture"
+msgstr "사진"
+
+msgid "Slug"
+msgstr "슬러그"
+
+msgid "Username"
+msgstr "아이디"
+
+msgid "First name"
+msgstr "이름"
+
+msgid "Last name"
+msgstr "성"
+
+msgid "Birth time"
+msgstr "출생 시간"
+
+msgid "Add Child"
+msgstr "아이 추가"
+
+msgid "Add Note"
+msgstr "메모 추가"
+
+msgid "Start Timer"
+msgstr "타이머 시작"
+
+msgid "View Timers"
+msgstr "타이머 목록"
+
+msgid "Quick Start Timer"
+msgstr "빠른 타이머 시작"
+
+msgid "If supported by browser, the dashboard will only refresh when visible, and also when receiving focus."
+msgstr "브라우저가 지원하는 경우, 대시보드는 화면에 보일 때와 포커스를 받을 때만 새로고침됩니다."
+
+msgid "This setting controls which data will be shown in the dashboard."
+msgstr "이 설정은 대시보드에 표시할 데이터 범위를 조정합니다."
+
+msgid "The minimum default time that a sleep entry is consider a nap. If set the nap property will be preselected if the start time is within the bounds."
+msgstr "수면 기록이 낮잠으로 간주되는 최소 시작 시간입니다. 설정 시 시작 시간이 범위 안에 있으면 낮잠이 자동 선택됩니다."
+
+msgid "The maximum default time that a sleep entry is consider a nap. If set the nap property will be preselected if the start time is within the bounds."
+msgstr "수면 기록이 낮잠으로 간주되는 최대 시작 시간입니다. 설정 시 시작 시간이 범위 안에 있으면 낮잠이 자동 선택됩니다."
+
+msgid "Switch child"
+msgstr "아이 변경"
+
+msgid "most recent"
+msgstr "최근"
+
+msgid "Not enough data"
+msgstr "데이터가 부족합니다"
+
+msgid "Diaper change frequency (past 3 days)"
+msgstr "기저귀 교체 빈도 (최근 3일)"
+
+msgid "Past Week"
+msgstr "지난 1주일"
+
+msgid "wet"
+msgstr "소변"
+
+msgid "dry"
+msgstr "없음"
+
+msgid "solid"
+msgstr "대변"
+
+msgid "feeding"
+msgstr "수유"
+
+msgid "feedings"
+msgstr "수유"
+
+msgid "change"
+msgstr "교체"
+
+msgid "changes"
+msgstr "교체"
+
+msgid "sleep"
+msgstr "수면"
+
+msgid "timer"
+msgstr "타이머"
+
+msgid "timers"
+msgstr "타이머"
+
+msgid "0 timers"
+msgstr "타이머 없음"
+
+msgid "No timers"
+msgstr "타이머 없음"
+
+msgid "%(count)s feeding"
+msgstr "수유 %(count)s회"
+
+msgid "%(count)s feedings"
+msgstr "수유 %(count)s회"
+
+msgid "%(count)s change"
+msgstr "교체 %(count)s회"
+
+msgid "%(count)s changes"
+msgstr "교체 %(count)s회"
+
+msgid "%(count)s wet"
+msgstr "소변 %(count)s회"
+
+msgid "%(count)s dry"
+msgstr "없음 %(count)s회"
+
+msgid "%(count)s solid"
+msgstr "대변 %(count)s회"
+
+msgid "%(count)s timer"
+msgstr "타이머 %(count)s개"
+
+msgid "%(count)s timers"
+msgstr "타이머 %(count)s개"
+
+# === Timeline 이벤트 문자열 ===
+
+msgid "%(child)s started feeding."
+msgstr "%(child)s 수유를 시작했어요."
+
+msgid "%(child)s finished feeding."
+msgstr "%(child)s 수유를 마쳤어요."
+
+msgid "%(child)s had a feeding."
+msgstr "%(child)s 수유를 했어요."
+
+msgid "%(child)s fell asleep."
+msgstr "%(child)s 잠들었어요."
+
+msgid "%(child)s woke up."
+msgstr "%(child)s 일어났어요."
+
+msgid "%(child)s started tummy time!"
+msgstr "%(child)s 터미 타임을 시작했어요!"
+
+msgid "%(child)s finished tummy time."
+msgstr "%(child)s 터미 타임을 마쳤어요."
+
+msgid "%(child)s had a %(type)s diaper change."
+msgstr "%(child)s %(type)s 기저귀를 교체했어요."
+
+msgid "%(child)s had a temperature measurement."
+msgstr "%(child)s 체온을 측정했어요."
+
+# === Timeline 템플릿 라벨 ===
+
+msgid "since previous"
+msgstr "이전으로부터"
+
+# === 수유/기록 추가 폼 ===
+
+msgid "Add a Feeding"
+msgstr "수유 추가"
+
+msgid "Add a Bottle Feeding"
+msgstr "젖병 수유 추가"
+
+msgid "Add a Temperature Entry"
+msgstr "체온 기록 추가"
+
+msgid "Add a Tummy Time Entry"
+msgstr "터미 타임 추가"
+
+msgid "Add a Diaper Change"
+msgstr "기저귀 교체 추가"
+
+msgid "Add a Weight Entry"
+msgstr "체중 기록 추가"
+
+msgid "Add a Sleep Entry"
+msgstr "수면 기록 추가"
+
+msgid "Add a Head Circumference Entry"
+msgstr "머리 둘레 기록 추가"
+
+msgid "Add a Height Entry"
+msgstr "키 기록 추가"
+
+msgid "Add a BMI Entry"
+msgstr "BMI 기록 추가"
+
+msgid "Add a Note"
+msgstr "메모 추가"
+
+msgid "Advanced Fields"
+msgstr "고급 항목"
+
+msgid "Amt."
+msgstr "양"
+
+msgid "Birth Date"
+msgstr "탄생일"
+
+# === 대시보드 추가 카드 ===
+
+msgid "Feeding frequency (past 3 days)"
+msgstr "수유 빈도 (최근 3일)"
+
+msgid "Sleep frequency (past 3 days)"
+msgstr "수면 빈도 (최근 3일)"
+
+msgid "Tummy time frequency (past 3 days)"
+msgstr "터미 타임 빈도 (최근 3일)"
+
+# === 태그 도움말 ===
+
+msgid "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
+msgstr "태그를 클릭해서 추가(+) 또는 제거(-) 하거나, 텍스트 에디터로 새 태그를 만드세요."
+
+# === 아이 프로필 ===
+
+msgid "Born"
+msgstr "탄생일"
+
+msgid "Age"
+msgstr "나이"
