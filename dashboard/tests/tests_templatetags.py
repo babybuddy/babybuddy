@@ -369,6 +369,24 @@ class TemplateTagsTestCase(TestCase):
         self.assertTrue(timers["child_two"] in data["instances"])
         self.assertFalse(timers["child"] in data["instances"])
 
+    def test_card_note_recent(self):
+        data = cards.card_note_recent(self.context, self.child)
+        self.assertEqual(data["type"], "note")
+        self.assertFalse(data["empty"])
+        self.assertFalse(data["hide_empty"])
+
+        # Fixture has 1 note for the child.
+        self.assertEqual(len(data["notes"]), 1)
+        self.assertIsInstance(data["notes"][0], models.Note)
+        self.assertEqual(data["notes"][0].note, "Fake note.")
+
+    def test_card_note_recent_empty(self):
+        models.Note.objects.all().delete()
+        data = cards.card_note_recent(self.context, self.child)
+        self.assertEqual(data["type"], "note")
+        self.assertTrue(data["empty"])
+        self.assertFalse(data["hide_empty"])
+
     def test_card_tummytime_last(self):
         data = cards.card_tummytime_last(self.context, self.child)
         self.assertEqual(data["type"], "tummytime")

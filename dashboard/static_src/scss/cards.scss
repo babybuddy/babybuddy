@@ -121,3 +121,26 @@
         color: map.get($theme-colors, 'success');
     }
 }
+
+.card-note {
+    border-color: map.get($theme-colors, 'info');
+
+    .card-header, .card-header a {
+        background-color: map.get($theme-colors, 'info');
+        color: map.get($theme-colors, 'light');
+    }
+
+    .card-body {
+        .note-text-container {
+            position: relative;
+        }
+
+        .note-text-item {
+            display: none;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
+}
