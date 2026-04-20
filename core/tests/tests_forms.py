@@ -324,6 +324,30 @@ class FeedingFormsTestCase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Feeding entry deleted")
 
+    def test_bottle_feeding_no_overlap_with_past_entry(self):
+        """Bottle feeding logged late should not overlap with later feedings."""
+        # Create an existing feeding 30 minutes ago
+        existing = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime() - timezone.timedelta(minutes=15),
+            type="breast milk",
+            method="left breast",
+        )
+        # Add a bottle feeding from 60 minutes ago (before the existing one).
+        # Without the fix, end would default to "now" and overlap.
+        start = timezone.localtime() - timezone.timedelta(minutes=60)
+        params = {
+            "child": self.child.id,
+            "start": self.localtime_string(start),
+            "type": "formula",
+            "amount": 4,
+        }
+        page = self.c.post("/feedings/bottle/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Feeding entry for {} added".format(str(self.child)))
+        self.assertNotContains(page, "intersects the specified time period")
+
 
 class HeadCircumferenceFormsTestCase(FormsTestCaseBase):
     @classmethod
@@ -860,10 +884,17 @@ class ValidationsTestCase(FormsTestCaseBase):
 
         page = self.c.post("/tummy-time/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertFormError(
-            page.context["form"],
-            None,
+        self.assertContains(
+            page,
             "Another entry intersects the specified time period.",
+        )
+        self.assertContains(
+            page,
+            "Conflicting entry:",
+        )
+        self.assertContains(
+            page,
+            "/tummy-time/{}/".format(entry.id),
         )
 
 

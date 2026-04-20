@@ -1,19 +1,31 @@
 # Development environment
 
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/babybuddy/babybuddy)
+## [Dev Container](https://containers.dev/)
 
-Click the Gitpod badge to open a new development environment in Gitpod or use the
-information and steps below to set up a local development environment for Baby Buddy.
+1. Add Dev Container support to your preferred IDE: https://containers.dev/supporting
+2. Clone the Baby Buddy repo
+3. Open the cloned repo in the dev container
 
-## Requirements
+Run `gulp` to start the Baby Buddy development server.
+
+### Debugging in VSCode
+
+To debug in devenv + vscode/codespaces:
+
+1. Copy `.vscode/launch.template.json` as `.vscode/launch.json` file like this:
+2. Click Run -> Start Debugging (F5) and set your breakpoints in the python as desired
+
+## Alternative: Manual
+
+### Requirements
 
 - Python 3.10+, pip, pipenv
-- NodeJS 18.x and NPM 8.x (NVM recommended)
+- NodeJS 24.x and NPM 10.x (NVM recommended)
 - Gulp
 - Possibly `libpq-dev`
   - This is necessary if `psycopg2` can't find an appropriate prebuilt binary.
 
-## Installation
+### Installation
 
 1. Install pipenv per [Pipenv installation](https://pipenv.pypa.io/en/latest/installation.html)
 
@@ -25,13 +37,13 @@ information and steps below to set up a local development environment for Baby B
 
    If this fails, install `libpq-dev` (e.g. `sudo apt install libpq-dev`) and try again.
 
-3. Installed Node 18.x (if necessary)
+3. Installed Node 24.x (if necessary)
 
    ```shell
-   nvm install 18
+   nvm install 24
    ```
 
-4. Activate Node 18.x
+4. Activate Node 24.x
 
    ```shell
    nvm use
@@ -76,18 +88,3 @@ information and steps below to set up a local development environment for Baby B
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and log in with the default
 username and password (`admin`/`admin`).
-
-## Alternative: [Dev Container](https://containers.dev/)
-
-1. Add Dev Container support to your preferred IDE: https://containers.dev/supporting
-2. Clone the Baby Buddy repo
-3. Open the cloned repo in the dev container
-
-Run `gulp` to start the Baby Buddy development server.
-
-### Debugging in VSCode
-
-To debug in devenv + vscode/codespaces:
-
-1. Copy `.vscode/launch.template.json` as `.vscode/launch.json` file like this:
-2. Click Run -> Start Debugging (F5) and set your breakpoints in the python as desired

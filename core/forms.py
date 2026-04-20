@@ -135,6 +135,7 @@ class CoreModelForm(forms.ModelForm):
 
 class TaggableModelForm(forms.ModelForm):
     tags = TagField(
+        label=_("Tags"),
         widget=TagsEditor,
         required=False,
         strip=True,
@@ -169,11 +170,19 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
         {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
-    def save(self):
+    def clean(self):
+        cleaned_data = super().clean()
+        if "start" in cleaned_data:
+            self.instance.end = cleaned_data["start"]
+        return cleaned_data
+
+    def save(self, commit=True):
         instance = super(BottleFeedingForm, self).save(commit=False)
         instance.method = "bottle"
         instance.end = instance.start
-        instance.save()
+        if commit:
+            instance.save()
+            self.save_m2m()
         return instance
 
     class Meta:

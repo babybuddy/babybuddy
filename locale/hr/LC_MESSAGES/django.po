@@ -1,0 +1,2824 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Baby Buddy\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-27 04:50+0000\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: babybuddy/admin.py:12 babybuddy/admin.py:13
+#: babybuddy/templates/babybuddy/nav-dropdown.html:320
+#: babybuddy/templates/babybuddy/nav-dropdown.html:330
+#: babybuddy/templates/babybuddy/user_settings_form.html:8
+#: babybuddy/templates/dbsettings/site_settings.html:8
+msgid "Settings"
+msgstr "Postavke"
+
+#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:98
+#: babybuddy/templates/babybuddy/user_settings_form.html:60
+#: dashboard/templates/dashboard/child.html:4
+#: dashboard/templates/dashboard/child.html:11
+#: dashboard/templates/dashboard/child_button_group.html:8
+#: dashboard/templates/dashboard/dashboard.html:4
+#: dashboard/templates/dashboard/dashboard.html:7
+msgid "Dashboard"
+msgstr "Pregledna ploča"
+
+#: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:20
+msgid "Read only"
+msgstr "Samo-za-čitanje"
+
+#: babybuddy/forms.py:16
+msgid "Restricts user to viewing data only."
+msgstr "Ograničava korisnika samo na prikaz podataka."
+
+#: babybuddy/models.py:20
+msgid "Refresh rate"
+msgstr "Frekvencija aktualiziranja"
+
+#: babybuddy/models.py:22
+msgid ""
+"If supported by browser, the dashboard will only refresh when visible, and "
+"also when receiving focus."
+msgstr ""
+"Ako preglednik to podržava, pregledna ploča će se aktualizirati samo kada je "
+"vidljiva i kada je aktivna."
+
+#: babybuddy/models.py:28
+msgid "disabled"
+msgstr "deaktivirano"
+
+#: babybuddy/models.py:31 babybuddy/models.py:36 babybuddy/models.py:41
+#: babybuddy/models.py:46 babybuddy/models.py:51 babybuddy/models.py:56
+#: babybuddy/models.py:61 babybuddy/models.py:66
+#, python-format
+msgid "%(minutes)d minute"
+msgid_plural "%(minutes)d minutes"
+msgstr[0] "%(minutes)d minuta"
+msgstr[1] "%(minutes)d minute"
+msgstr[2] "%(minutes)d minuta"
+
+#: babybuddy/models.py:72
+msgid "Hide Empty Dashboard Cards"
+msgstr "Sakrij prazne kartice pregledne ploče"
+
+#: babybuddy/models.py:75
+msgid "Hide data older than"
+msgstr "Sakrij podatke starije od"
+
+#: babybuddy/models.py:77
+msgid "This setting controls which data will be shown in the dashboard."
+msgstr ""
+"Ova postavka kontrolira koji će se podaci prikazati na preglednoj ploči."
+
+#: babybuddy/models.py:83
+msgid "show all data"
+msgstr "pokaži sve podatke"
+
+#: babybuddy/models.py:86 babybuddy/models.py:90 babybuddy/models.py:94
+#, python-format
+msgid "%(days)d day"
+msgid_plural "%(days)d days"
+msgstr[0] "%(days)d dan"
+msgstr[1] "%(days)d dana"
+msgstr[2] "%(days)d dana"
+
+#: babybuddy/models.py:98 babybuddy/models.py:102
+#, python-format
+msgid "%(weeks)d week"
+msgid_plural "%(weeks)d weeks"
+msgstr[0] "%(weeks)d tjedan"
+msgstr[1] "%(weeks)d tjedna"
+msgstr[2] "%(weeks)d tjedana"
+
+#: babybuddy/models.py:110
+msgid "Language"
+msgstr "Jezik"
+
+#: babybuddy/models.py:118
+msgid "Timezone"
+msgstr "Vremenska zona"
+
+#: babybuddy/models.py:122 babybuddy/models.py:123 babybuddy/models.py:124
+#: babybuddy/models.py:125 babybuddy/models.py:126
+#, fuzzy, python-format
+#| msgid "%(count)d Per Page"
+msgid "%(count)d Per Page"
+msgstr "%(count)s po stranici"
+
+#: babybuddy/models.py:127
+msgid "Show All"
+msgstr "Pokaži sve"
+
+#: babybuddy/models.py:130
+msgid "Items Per Page"
+msgstr "Broj stavki po stranici"
+
+#: babybuddy/models.py:134
+#, python-brace-format
+msgid "{user}'s Settings"
+msgstr "Postavke korisnika {user}"
+
+#: babybuddy/settings/base.py:193
+msgid "Brazilian Portuguese"
+msgstr "Brazilski portugalski"
+
+#: babybuddy/settings/base.py:194
+msgid "Catalan"
+msgstr "Katalonski"
+
+#: babybuddy/settings/base.py:195
+msgid "Croatian"
+msgstr ""
+
+#: babybuddy/settings/base.py:196
+msgid "Czech"
+msgstr "Češki"
+
+#: babybuddy/settings/base.py:197
+msgid "Chinese (simplified)"
+msgstr "Kineski (pojednostavljeni)"
+
+#: babybuddy/settings/base.py:198
+msgid "Danish"
+msgstr "Danski"
+
+#: babybuddy/settings/base.py:199
+msgid "Dutch"
+msgstr "Nizozemski"
+
+#: babybuddy/settings/base.py:200
+msgid "English (US)"
+msgstr "Engleski (SAD)"
+
+#: babybuddy/settings/base.py:201
+msgid "English (UK)"
+msgstr "Engleski (UK)"
+
+#: babybuddy/settings/base.py:202
+msgid "French"
+msgstr "Francuski"
+
+#: babybuddy/settings/base.py:203
+msgid "Finnish"
+msgstr "Finski"
+
+#: babybuddy/settings/base.py:204
+msgid "German"
+msgstr "Njemački"
+
+#: babybuddy/settings/base.py:205
+msgid "Hebrew"
+msgstr "Hebrejski"
+
+#: babybuddy/settings/base.py:206
+msgid "Hungarian"
+msgstr "Mađarski"
+
+#: babybuddy/settings/base.py:207
+msgid "Italian"
+msgstr "Talijanski"
+
+#: babybuddy/settings/base.py:208
+msgid "Japanese"
+msgstr "Japanski"
+
+#: babybuddy/settings/base.py:209
+msgid "Norwegian Bokmål"
+msgstr "Norveški bokmål"
+
+#: babybuddy/settings/base.py:210
+msgid "Polish"
+msgstr "Poljski"
+
+#: babybuddy/settings/base.py:211
+msgid "Portuguese"
+msgstr "Portugalski"
+
+#: babybuddy/settings/base.py:212
+msgid "Russian"
+msgstr "Ruski"
+
+#: babybuddy/settings/base.py:213
+msgid "Serbian"
+msgstr ""
+
+#: babybuddy/settings/base.py:214
+msgid "Spanish"
+msgstr "Španjolski"
+
+#: babybuddy/settings/base.py:215
+msgid "Swedish"
+msgstr "Švedski"
+
+#: babybuddy/settings/base.py:216
+msgid "Turkish"
+msgstr "Turski"
+
+#: babybuddy/settings/base.py:217
+msgid "Ukrainian"
+msgstr "Ukrajinski"
+
+#: babybuddy/site_settings.py:23
+msgid "Default minimum nap start time"
+msgstr "Standardno minimalno vrijeme početka drijemanja"
+
+#: babybuddy/site_settings.py:25
+msgid ""
+"The minimum default time that a sleep entry is consider a nap. If set the "
+"nap property will be preselected if the start time is within the bounds."
+msgstr ""
+"Minimalno standardno vrijeme unosa spavanja koje se smatra drijemanjem. Ako "
+"je postavljeno, svojstvo drijemanja će se unaprijed odabrati ako je vrijeme "
+"početka unutar granica."
+
+#: babybuddy/site_settings.py:31
+msgid "Default maximum nap start time"
+msgstr "Standardno maksimalno vrijeme početka drijemanja"
+
+#: babybuddy/site_settings.py:33
+msgid ""
+"The maximum default time that a sleep entry is consider a nap. If set the "
+"nap property will be preselected if the start time is within the bounds."
+msgstr ""
+"Maksimalno standardno vrijeme unosa spavanja koje se smatra drijemanjem. Ako "
+"je postavljeno, svojstvo drijemanja će se unaprijed odabrati ako je vrijeme "
+"početka unutar granica."
+
+#: babybuddy/templates/admin/base_site.html:4
+#: babybuddy/templates/admin/base_site.html:8
+#: babybuddy/templates/babybuddy/nav-dropdown.html:333
+msgid "Database Admin"
+msgstr "Administrator baze podataka"
+
+#: babybuddy/templates/babybuddy/base.html:37
+msgid "Home"
+msgstr "Početna"
+
+#: babybuddy/templates/babybuddy/filter.html:20
+msgid "Filter"
+msgstr "Filtar"
+
+#: babybuddy/templates/babybuddy/filter.html:21
+msgid "Reset"
+msgstr "Resetiraj"
+
+#: babybuddy/templates/babybuddy/filter.html:32
+msgid "Filters"
+msgstr "Filtri"
+
+#: babybuddy/templates/babybuddy/form.html:19
+#: babybuddy/templates/babybuddy/user_settings_form.html:93
+msgid "Submit"
+msgstr "Pošalji"
+
+#: babybuddy/templates/babybuddy/messages.html:19
+#: babybuddy/templates/babybuddy/messages.html:24
+#: babybuddy/templates/babybuddy/user_settings_form.html:18
+#: babybuddy/templates/babybuddy/user_settings_form.html:23
+msgid "Error"
+msgstr "Greška"
+
+#: babybuddy/templates/babybuddy/messages.html:25
+#: babybuddy/templates/babybuddy/user_settings_form.html:23
+msgid "Some fields have errors. See below for details."
+msgstr "Neka polja sadrže greške. Pogledaj detalje niže dolje."
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:44 core/models.py:263
+#: core/models.py:267
+msgid "Diaper Change"
+msgstr "Mijenjanje pelene"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:50
+#: babybuddy/templates/babybuddy/nav-dropdown.html:253 core/models.py:334
+#: core/models.py:338 core/templates/core/timer_detail.html:31
+msgid "Feeding"
+msgstr "Hranjenje"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:54
+#: babybuddy/templates/babybuddy/nav-dropdown.html:259
+msgid "Bottle Feeding"
+msgstr "Hranjenje bočicom"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:60
+#: babybuddy/templates/babybuddy/nav-dropdown.html:266 core/models.py:498
+#: core/models.py:499 core/models.py:502
+#: core/templates/core/pumping_confirm_delete.html:8
+#: core/templates/core/pumping_form.html:12
+#: core/templates/core/pumping_list.html:4
+#: core/templates/core/pumping_list.html:7
+#: core/templates/core/pumping_list.html:11
+#: core/templates/core/timer_detail.html:38
+#: reports/templates/reports/pumping_amounts.html:4
+#: reports/templates/reports/pumping_amounts.html:9
+msgid "Pumping"
+msgstr "Dojenje"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:66
+#: babybuddy/templates/babybuddy/nav-dropdown.html:140 core/models.py:443
+#: core/models.py:457 core/models.py:461 core/templates/core/note_list.html:29
+msgid "Note"
+msgstr "Bilješka"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:72
+#: babybuddy/templates/babybuddy/nav-dropdown.html:278
+#: babybuddy/templates/babybuddy/welcome.html:47 core/models.py:542
+#: core/models.py:543 core/models.py:546
+#: core/templates/core/sleep_confirm_delete.html:8
+#: core/templates/core/sleep_form.html:12 core/templates/core/sleep_list.html:4
+#: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:11
+#: core/templates/core/timer_detail.html:45
+msgid "Sleep"
+msgstr "Spavanje"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:78
+#: babybuddy/templates/babybuddy/nav-dropdown.html:290
+#: babybuddy/templates/babybuddy/welcome.html:57 core/models.py:699
+#: core/models.py:700 core/models.py:703
+#: core/templates/core/timer_detail.html:52
+#: core/templates/core/tummytime_confirm_delete.html:8
+#: core/templates/core/tummytime_form.html:12
+#: core/templates/core/tummytime_list.html:4
+#: core/templates/core/tummytime_list.html:7
+#: core/templates/core/tummytime_list.html:11
+msgid "Tummy Time"
+msgstr "Vrijeme na trbuhu"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:104
+#: core/templates/timeline/timeline.html:4
+#: core/templates/timeline/timeline.html:7
+#: dashboard/templates/dashboard/child_button_group.html:13
+msgid "Timeline"
+msgstr "Kronologija"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:114
+#: babybuddy/templates/babybuddy/nav-dropdown.html:121 core/models.py:196
+#: core/templates/core/child_confirm_delete.html:8
+#: core/templates/core/child_detail.html:6
+#: core/templates/core/child_form.html:12 core/templates/core/child_list.html:4
+#: core/templates/core/child_list.html:7 core/templates/core/child_list.html:11
+#: dashboard/templates/dashboard/child.html:8
+#: reports/templates/reports/base.html:6
+msgid "Children"
+msgstr "Djeca"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:127 core/models.py:144
+#: core/models.py:195 core/models.py:236 core/models.py:289 core/models.py:357
+#: core/models.py:389 core/models.py:441 core/models.py:470 core/models.py:518
+#: core/models.py:572 core/models.py:606 core/models.py:675 core/models.py:723
+#: core/templates/core/bmi_list.html:26
+#: core/templates/core/diaperchange_list.html:27
+#: core/templates/core/feeding_list.html:30
+#: core/templates/core/head_circumference_list.html:27
+#: core/templates/core/height_list.html:26
+#: core/templates/core/note_list.html:26
+#: core/templates/core/pumping_list.html:26
+#: core/templates/core/sleep_list.html:27
+#: core/templates/core/temperature_list.html:27
+#: core/templates/core/timer_list.html:26
+#: core/templates/core/tummytime_list.html:26
+#: core/templates/core/weight_list.html:26
+msgid "Child"
+msgstr "Dijete"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:134 core/models.py:150
+#: core/models.py:255 core/models.py:326 core/models.py:365 core/models.py:395
+#: core/models.py:458 core/models.py:490 core/models.py:533 core/models.py:580
+#: core/models.py:729 core/templates/core/note_confirm_delete.html:8
+#: core/templates/core/note_form.html:12 core/templates/core/note_list.html:4
+#: core/templates/core/note_list.html:7 core/templates/core/note_list.html:11
+msgid "Notes"
+msgstr "Bilješke"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:152
+msgid "Measurements"
+msgstr "Mjerenja"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:159 core/models.py:146
+#: core/models.py:158 core/models.py:159 core/models.py:162
+#: core/templates/core/bmi_confirm_delete.html:8
+#: core/templates/core/bmi_form.html:12 core/templates/core/bmi_list.html:4
+#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:11
+#: core/templates/core/bmi_list.html:28 reports/graphs/bmi_change.py:19
+#: reports/graphs/bmi_change.py:27 reports/graphs/bmi_change.py:30
+#: reports/templates/reports/bmi_change.html:4
+#: reports/templates/reports/bmi_change.html:9
+msgid "BMI"
+msgstr "BMI"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:165
+msgid "BMI entry"
+msgstr "Unos BMI-a"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:172 core/models.py:360
+#: core/models.py:373 core/models.py:374 core/models.py:377
+#: core/templates/core/head_circumference_confirm_delete.html:8
+#: core/templates/core/head_circumference_form.html:12
+#: core/templates/core/head_circumference_list.html:4
+#: core/templates/core/head_circumference_list.html:7
+#: core/templates/core/head_circumference_list.html:11
+#: core/templates/core/head_circumference_list.html:29
+#: reports/graphs/head_circumference_change.py:19
+#: reports/graphs/head_circumference_change.py:27
+#: reports/graphs/head_circumference_change.py:30
+#: reports/templates/reports/head_circumference_change.html:4
+#: reports/templates/reports/head_circumference_change.html:9
+#: reports/templates/reports/report_list.html:34
+msgid "Head Circumference"
+msgstr "Opseg glave"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:178
+msgid "Head Circumference entry"
+msgstr "Unos opsega glave"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:185 core/models.py:391
+#: core/models.py:403 core/models.py:404 core/models.py:407
+#: core/templates/core/height_confirm_delete.html:8
+#: core/templates/core/height_form.html:12
+#: core/templates/core/height_list.html:4
+#: core/templates/core/height_list.html:7
+#: core/templates/core/height_list.html:11
+#: core/templates/core/height_list.html:28 reports/graphs/height_change.py:30
+#: reports/graphs/height_change.py:86 reports/graphs/height_change.py:89
+#: reports/templates/reports/height_change.html:4
+#: reports/templates/reports/height_change.html:9
+#: reports/templates/reports/report_list.html:36
+msgid "Height"
+msgstr "Veličina"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:191
+msgid "Height entry"
+msgstr "Unos veličine"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:198 core/models.py:575
+#: core/models.py:588 core/models.py:589 core/models.py:592
+#: core/templates/core/temperature_confirm_delete.html:8
+#: core/templates/core/temperature_form.html:12
+#: core/templates/core/temperature_list.html:4
+#: core/templates/core/temperature_list.html:7
+#: core/templates/core/temperature_list.html:11
+#: core/templates/core/temperature_list.html:29 core/timeline.py:235
+#: reports/graphs/temperature_change.py:19
+#: reports/graphs/temperature_change.py:26
+#: reports/graphs/temperature_change.py:32
+#: reports/templates/reports/report_list.html:48
+#: reports/templates/reports/temperature_change.html:4
+#: reports/templates/reports/temperature_change.html:9
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:204
+msgid "Temperature reading"
+msgstr "Odčitavanje temperature"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:211 core/models.py:725
+#: core/models.py:737 core/models.py:738 core/models.py:741
+#: core/templates/core/weight_confirm_delete.html:8
+#: core/templates/core/weight_form.html:12
+#: core/templates/core/weight_list.html:4
+#: core/templates/core/weight_list.html:7
+#: core/templates/core/weight_list.html:11
+#: core/templates/core/weight_list.html:28 reports/graphs/weight_change.py:28
+#: reports/graphs/weight_change.py:84 reports/graphs/weight_change.py:87
+#: reports/templates/reports/report_list.html:52
+#: reports/templates/reports/weight_change.html:4
+#: reports/templates/reports/weight_change.html:9
+msgid "Weight"
+msgstr "Težina"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:217
+msgid "Weight entry"
+msgstr "Unos težine"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:229
+msgid "Activities"
+msgstr "Aktivnosti"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:235
+#: reports/graphs/diaperchange_lifetimes.py:27
+msgid "Changes"
+msgstr "Mijenjanja"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:241
+msgid "Change"
+msgstr "Mijenjanje"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:247
+#: babybuddy/templates/babybuddy/welcome.html:37 core/models.py:335
+#: core/templates/core/feeding_confirm_delete.html:8
+#: core/templates/core/feeding_form.html:14
+#: core/templates/core/feeding_list.html:4
+#: core/templates/core/feeding_list.html:7
+#: core/templates/core/feeding_list.html:11
+#: core/templates/core/tag_detail.html:85
+msgid "Feedings"
+msgstr "Hranjenja"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:272
+msgid "Pumping entry"
+msgstr "Unos dojenja"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:284
+msgid "Sleep entry"
+msgstr "Unos spavanja"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:296
+msgid "Tummy Time entry"
+msgstr "Unos vremena na trbuhu"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:319
+#: babybuddy/templates/babybuddy/user_add_device.html:7
+#: babybuddy/templates/babybuddy/user_list.html:16
+#: babybuddy/templates/babybuddy/user_password_form.html:7
+#: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:619
+#: core/templates/core/timer_list.html:28
+msgid "User"
+msgstr "Korisnik"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:321
+msgid "Password"
+msgstr "Lozinka"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:322
+#: babybuddy/templates/babybuddy/user_add_device.html:4
+#: babybuddy/templates/babybuddy/user_add_device.html:8
+#: babybuddy/templates/babybuddy/user_add_device.html:11
+msgid "Add a device"
+msgstr "Dodaj uređaj"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:325
+msgid "Logout"
+msgstr "Odjava"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:327
+#: babybuddy/templates/dbsettings/site_settings.html:7
+msgid "Site"
+msgstr "Web-stranica"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:328
+msgid "API Browser"
+msgstr "API preglednik"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:331 core/forms.py:138
+#: core/models.py:104 core/templates/core/bmi_list.html:29
+#: core/templates/core/diaperchange_list.html:33
+#: core/templates/core/feeding_list.html:39
+#: core/templates/core/head_circumference_list.html:30
+#: core/templates/core/height_list.html:29
+#: core/templates/core/note_list.html:30
+#: core/templates/core/pumping_list.html:31
+#: core/templates/core/sleep_list.html:32
+#: core/templates/core/tag_confirm_delete.html:8
+#: core/templates/core/tag_detail.html:12 core/templates/core/tag_form.html:12
+#: core/templates/core/tag_list.html:4 core/templates/core/tag_list.html:7
+#: core/templates/core/tag_list.html:11
+#: core/templates/core/temperature_list.html:30
+#: core/templates/core/tummytime_list.html:31
+#: core/templates/core/weight_list.html:29
+msgid "Tags"
+msgstr "Oznake"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:332
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:8
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:8
+#: babybuddy/templates/babybuddy/user_form.html:12
+#: babybuddy/templates/babybuddy/user_list.html:4
+#: babybuddy/templates/babybuddy/user_list.html:7
+msgid "Users"
+msgstr "Korisnici"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:335
+msgid "Support"
+msgstr "Podrška"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:337
+msgid "Source Code"
+msgstr "Izvorni kod"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:339
+msgid "Chat / Support"
+msgstr "Chat / podrška"
+
+#: babybuddy/templates/babybuddy/paginator.html:11
+msgid "First"
+msgstr "Prvo"
+
+#: babybuddy/templates/babybuddy/paginator.html:18
+#: core/templates/core/diaperchange_list.html:32
+#: core/templates/core/feeding_list.html:38
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:30
+#: core/templates/core/tummytime_list.html:29
+#: core/templates/timeline/_timeline.html:6
+#: core/templates/timeline/_timeline.html:8
+#: core/templates/timeline/_timeline.html:76
+#: core/templates/timeline/_timeline.html:78
+#: dashboard/templates/cards/feeding_last_method.html:35
+#: dashboard/templates/cards/feeding_recent.html:40
+#: dashboard/templates/cards/sleep_recent.html:40
+#: dashboard/templates/cards/statistics.html:38
+msgid "Previous"
+msgstr "Natrag"
+
+#: babybuddy/templates/babybuddy/paginator.html:35
+#: core/templates/timeline/_timeline.html:15
+#: core/templates/timeline/_timeline.html:17
+#: core/templates/timeline/_timeline.html:85
+#: core/templates/timeline/_timeline.html:87
+#: dashboard/templates/cards/feeding_last_method.html:42
+#: dashboard/templates/cards/feeding_recent.html:47
+#: dashboard/templates/cards/sleep_recent.html:47
+#: dashboard/templates/cards/statistics.html:45
+msgid "Next"
+msgstr "Dalje"
+
+#: babybuddy/templates/babybuddy/paginator.html:43
+msgid "Last"
+msgstr "Zadnje"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:13
+msgid "Authentication Methods"
+msgstr "Načini autentifikacije"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:16
+#: babybuddy/templates/babybuddy/user_settings_form.html:80
+msgid "Key"
+msgstr "Ključ"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:23
+#: babybuddy/templates/babybuddy/user_settings_form.html:85
+msgid "Regenerate"
+msgstr "Generiraj ponovo"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:29
+msgid "Login QR code"
+msgstr "QR kod za prijavu"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:4
+msgid "Delete User"
+msgstr "Izbriši korisnika"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:11
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:17
+#: core/templates/core/bmi_confirm_delete.html:10
+#: core/templates/core/bmi_confirm_delete.html:16
+#: core/templates/core/child_confirm_delete.html:13
+#: core/templates/core/child_confirm_delete.html:30
+#: core/templates/core/diaperchange_confirm_delete.html:10
+#: core/templates/core/diaperchange_confirm_delete.html:16
+#: core/templates/core/feeding_confirm_delete.html:10
+#: core/templates/core/feeding_confirm_delete.html:16
+#: core/templates/core/head_circumference_confirm_delete.html:10
+#: core/templates/core/head_circumference_confirm_delete.html:16
+#: core/templates/core/height_confirm_delete.html:10
+#: core/templates/core/height_confirm_delete.html:16
+#: core/templates/core/note_confirm_delete.html:10
+#: core/templates/core/note_confirm_delete.html:16
+#: core/templates/core/pumping_confirm_delete.html:10
+#: core/templates/core/pumping_confirm_delete.html:16
+#: core/templates/core/sleep_confirm_delete.html:10
+#: core/templates/core/sleep_confirm_delete.html:16
+#: core/templates/core/tag_confirm_delete.html:13
+#: core/templates/core/tag_detail.html:38
+#: core/templates/core/temperature_confirm_delete.html:10
+#: core/templates/core/temperature_confirm_delete.html:16
+#: core/templates/core/timer_confirm_delete.html:13
+#: core/templates/core/timer_confirm_delete.html:19
+#: core/templates/core/tummytime_confirm_delete.html:10
+#: core/templates/core/tummytime_confirm_delete.html:16
+#: core/templates/core/weight_confirm_delete.html:10
+#: core/templates/core/weight_confirm_delete.html:16
+#: dashboard/templates/dashboard/child_button_group.html:31
+msgid "Delete"
+msgstr "Izbriži"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:18
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:19
+#: core/templates/core/bmi_confirm_delete.html:17
+#: core/templates/core/child_confirm_delete.html:31
+#: core/templates/core/diaperchange_confirm_delete.html:17
+#: core/templates/core/feeding_confirm_delete.html:17
+#: core/templates/core/head_circumference_confirm_delete.html:18
+#: core/templates/core/height_confirm_delete.html:17
+#: core/templates/core/note_confirm_delete.html:17
+#: core/templates/core/pumping_confirm_delete.html:17
+#: core/templates/core/sleep_confirm_delete.html:17
+#: core/templates/core/tag_confirm_delete.html:36
+#: core/templates/core/temperature_confirm_delete.html:17
+#: core/templates/core/timer_confirm_delete.html:21
+#: core/templates/core/tummytime_confirm_delete.html:17
+#: core/templates/core/weight_confirm_delete.html:17
+msgid "Cancel"
+msgstr "Odustani"
+
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:4
+msgid "Unlock User"
+msgstr "Otključaj korisnika"
+
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:11
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:17
+#: babybuddy/templates/babybuddy/user_form.html:28
+msgid "Unlock"
+msgstr "Otključaj"
+
+#: babybuddy/templates/babybuddy/user_form.html:7
+#: babybuddy/templates/babybuddy/user_form.html:18
+#: babybuddy/templates/babybuddy/user_form.html:35
+#: babybuddy/templates/babybuddy/user_list.html:68
+msgid "Create User"
+msgstr "Stvori korisnika"
+
+#: babybuddy/templates/babybuddy/user_form.html:16
+#: babybuddy/templates/babybuddy/user_form.html:32
+#: core/templates/core/bmi_form.html:15 core/templates/core/child_form.html:18
+#: core/templates/core/diaperchange_form.html:15
+#: core/templates/core/feeding_form.html:17
+#: core/templates/core/head_circumference_form.html:15
+#: core/templates/core/height_form.html:15
+#: core/templates/core/note_form.html:15
+#: core/templates/core/pumping_form.html:15
+#: core/templates/core/sleep_form.html:15 core/templates/core/tag_form.html:18
+#: core/templates/core/temperature_form.html:15
+#: core/templates/core/timer_form.html:14
+#: core/templates/core/tummytime_form.html:15
+#: core/templates/core/weight_form.html:15
+msgid "Update"
+msgstr "Aktualiziraj"
+
+#: babybuddy/templates/babybuddy/user_form.html:26
+msgid "User locked."
+msgstr "Korisnik je zaključan."
+
+#: babybuddy/templates/babybuddy/user_list.html:17
+#: core/templates/core/child_list.html:26
+msgid "First Name"
+msgstr "Ime"
+
+#: babybuddy/templates/babybuddy/user_list.html:18
+#: core/templates/core/child_list.html:27
+msgid "Last Name"
+msgstr "Prezime"
+
+#: babybuddy/templates/babybuddy/user_list.html:19
+msgid "Email"
+msgstr "E-mail"
+
+#: babybuddy/templates/babybuddy/user_list.html:21
+msgid "Staff"
+msgstr "Osoblje"
+
+#: babybuddy/templates/babybuddy/user_list.html:22 core/models.py:614
+msgid "Active"
+msgstr "Aktivno"
+
+#: babybuddy/templates/babybuddy/user_list.html:23
+msgid "Locked"
+msgstr "Zaključano"
+
+#: babybuddy/templates/babybuddy/user_list.html:24
+#: core/templates/core/bmi_list.html:23 core/templates/core/bmi_list.html:38
+#: core/templates/core/child_list.html:29
+#: core/templates/core/child_list.html:53
+#: core/templates/core/diaperchange_list.html:24
+#: core/templates/core/diaperchange_list.html:43
+#: core/templates/core/feeding_list.html:27
+#: core/templates/core/feeding_list.html:49
+#: core/templates/core/head_circumference_list.html:24
+#: core/templates/core/head_circumference_list.html:39
+#: core/templates/core/height_list.html:23
+#: core/templates/core/height_list.html:38
+#: core/templates/core/note_list.html:23 core/templates/core/note_list.html:39
+#: core/templates/core/pumping_list.html:23
+#: core/templates/core/pumping_list.html:41
+#: core/templates/core/sleep_list.html:23
+#: core/templates/core/sleep_list.html:42 core/templates/core/tag_list.html:23
+#: core/templates/core/tag_list.html:36
+#: core/templates/core/temperature_list.html:24
+#: core/templates/core/temperature_list.html:39
+#: core/templates/core/tummytime_list.html:22
+#: core/templates/core/tummytime_list.html:41
+#: core/templates/core/weight_list.html:23
+#: core/templates/core/weight_list.html:38
+msgid "Actions"
+msgstr "Radnje"
+
+#: babybuddy/templates/babybuddy/user_list.html:59
+msgid "No users found."
+msgstr "Nije pronađen nijedan korisnik."
+
+#: babybuddy/templates/babybuddy/user_password_form.html:4
+#: babybuddy/templates/babybuddy/user_password_form.html:8
+#: babybuddy/templates/babybuddy/user_password_form.html:11
+msgid "Change Password"
+msgstr "Promijeni lozinku"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:4
+#: babybuddy/templates/babybuddy/user_settings_form.html:11
+msgid "User Settings"
+msgstr "Korisničke postavke"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:27
+msgid "User Profile"
+msgstr "Korisnički profil"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:78
+msgid "API"
+msgstr "API"
+
+#: babybuddy/templates/babybuddy/welcome.html:4
+#: babybuddy/templates/babybuddy/welcome.html:7
+msgid "Welcome!"
+msgstr "Zdravo!"
+
+#: babybuddy/templates/babybuddy/welcome.html:12
+msgid "Welcome to Baby Buddy!"
+msgstr "Pozdrav u Baby Buddy!"
+
+#: babybuddy/templates/babybuddy/welcome.html:14
+msgid ""
+"Learn about and predict baby's needs without (<em>as much</em>) guess work "
+"by using Baby Buddy to track &mdash;"
+msgstr ""
+"Nauči i predvidi bebine potrebe bez (<em>previše</em>) nagađanja pomoću Baby "
+"Buddy &ndash;"
+
+#: babybuddy/templates/babybuddy/welcome.html:27 core/models.py:264
+#: core/templates/core/diaperchange_confirm_delete.html:8
+#: core/templates/core/diaperchange_form.html:12
+#: core/templates/core/diaperchange_list.html:4
+#: core/templates/core/diaperchange_list.html:7
+#: core/templates/core/diaperchange_list.html:11
+#: core/templates/core/tag_detail.html:80
+#: dashboard/templates/cards/diaperchange_types.html:4
+msgid "Diaper Changes"
+msgstr "Mijenjanja pelena"
+
+#: babybuddy/templates/babybuddy/welcome.html:64
+msgid ""
+"As the amount of entries grows, Baby Buddy will help parents and caregivers "
+"to identify small patterns in baby's habits using the dashboard and graphs. "
+"Baby Buddy is mobile-friendly and uses a dark theme to help weary moms and "
+"dads with 2AM feedings and changings. To get started, just click the button "
+"below to add your first (or second, third, etc.) child!"
+msgstr ""
+"Kako broj unosa raste, Baby Buddy će pomoći roditeljima i skrbnicima da "
+"identificiraju male promjene u navikama bebe pomoću pregledne ploče i "
+"grafikona. Baby Buddy je prilagođen za mobilne uređaje i koristi tamnu temu "
+"kako bi pomogao umornim mamama i tatama pri hranjenju i mijenjanju pelena u "
+"2 ujutro. Započni pritiskom donjeg gumba za dodavanje tvog prvog (ili "
+"drugog, trećeg, itd.) djeteta!"
+
+#: babybuddy/templates/babybuddy/welcome.html:76
+#: core/templates/core/child_form.html:7 core/templates/core/child_form.html:20
+#: core/templates/core/child_form.html:29
+msgid "Add a Child"
+msgstr "Dodaj dijete"
+
+#: babybuddy/templates/dbsettings/site_settings.html:4
+#: babybuddy/templates/dbsettings/site_settings.html:11
+msgid "Site Settings"
+msgstr "Postavke web-stranice"
+
+#: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
+msgid "Bad Request"
+msgstr "Neispravan zahtjev"
+
+#: babybuddy/templates/error/403.html:4 babybuddy/templates/error/403.html:7
+msgid "Permission Denied"
+msgstr "Dozvola je odbijena"
+
+#: babybuddy/templates/error/403.html:9
+msgid ""
+"You do not have permission to access this resource. Contact a site "
+"administrator for assistance."
+msgstr ""
+"Nemaš dozvolu za pristup ovom resursu. Za pomoć se obrati administratoru web-"
+"stranice."
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:10
+msgid "How to Fix"
+msgstr "Kako ispraviti"
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:11
+#, python-format
+msgid ""
+"Add %(value)s to the %(variable)s environment variable. If multiple origins "
+"are required separate with commas."
+msgstr ""
+"Dodaj %(value)s varijabli okruženja %(variable)s.  Ako je potrebno više "
+"izvora, odvoji ih zarezima."
+
+#: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
+msgid "Page Not Found"
+msgstr "Stranica nije pronađena"
+
+#: babybuddy/templates/error/404.html:9
+#, python-format
+msgid "The path %(path)s does not exist."
+msgstr "Putanja %(path)s ne postoji."
+
+#: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
+msgid "Server Error"
+msgstr "Greška servera"
+
+#: babybuddy/templates/error/base.html:13
+msgid "Return to Baby Buddy"
+msgstr "Natrag na Baby Buddy"
+
+#: babybuddy/templates/error/lockout.html:4
+msgid "Too Many Login Attempts"
+msgstr "Previše pokušaja prijave"
+
+#: babybuddy/templates/registration/login.html:18
+msgid "Login"
+msgstr "Prijava"
+
+#: babybuddy/templates/registration/login.html:21
+msgid "Forgot your password?"
+msgstr "Ne sjećaš se lozinke?"
+
+#: babybuddy/templates/registration/password_reset_complete.html:4
+msgid "Password Reset Successfully!"
+msgstr "Ponovno postavljanje lozinke je uspjelo!"
+
+#: babybuddy/templates/registration/password_reset_complete.html:8
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr "Tvoja je lozinka postavljena. Sada možeš nastaviti s prijavom."
+
+#: babybuddy/templates/registration/password_reset_complete.html:10
+msgid "Log in"
+msgstr "Prijavi se"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:4
+msgid "Password Reset"
+msgstr "Ponovno postavljanje lozinke"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:12
+msgid "Oh no!"
+msgstr "O, ne!"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:12
+msgid "The two passwords did not match."
+msgstr "Lozinke se ne poklapaju."
+
+#: babybuddy/templates/registration/password_reset_confirm.html:12
+msgid "Please try again."
+msgstr "Pokuüaj ponovo."
+
+#: babybuddy/templates/registration/password_reset_confirm.html:17
+msgid "Enter your new password in each field below."
+msgstr "Upiši tvoju novu lozinku u svako donje polje."
+
+#: babybuddy/templates/registration/password_reset_confirm.html:29
+#: babybuddy/templates/registration/password_reset_form.html:23
+msgid "Reset Password"
+msgstr "Ponovo postavi lozinku"
+
+#: babybuddy/templates/registration/password_reset_done.html:4
+msgid "Reset Email Sent"
+msgstr "E-mail za ponovno postavljanje je poslan"
+
+#: babybuddy/templates/registration/password_reset_done.html:9
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+"Poslali smo ti e-mail s uputama za postavljanje lozinke, ako postoji račun s "
+"e-mail adresom koju si upisao/la. Uskoro bi ih trebao/la primiti."
+
+#: babybuddy/templates/registration/password_reset_done.html:16
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Ako ne primiš e-mail, provjeri je li e-mail adresa odgovara adresi s kojom "
+"si se registrirao/la i provjeri mapu neželjene pošte."
+
+#: babybuddy/templates/registration/password_reset_email.html:3
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Primaš ovaj e-mail jer si zatražio/la ponovno postavljanje lozinke za tvoj "
+"korisnički račun na %(site_name)s."
+
+#: babybuddy/templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Idi na sljedeću stranicu i odaberi novu lozinku:"
+
+#: babybuddy/templates/registration/password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr "Tvoje korisničko ime, u slučaju da ga se ne sjećaš:"
+
+#: babybuddy/templates/registration/password_reset_email.html:9
+msgid "Thanks for using Baby Buddy!"
+msgstr "Hvala što koristiš Baby Buddy!"
+
+#: babybuddy/templates/registration/password_reset_form.html:4
+msgid "Forgot Password"
+msgstr "Zaboravljena lozinka"
+
+#: babybuddy/templates/registration/password_reset_form.html:9
+msgid ""
+"Enter your account email address in the form below. If the address is valid, "
+"you will receive instructions for resetting your password."
+msgstr ""
+"Upiši tvoju e-mail adresu za račun u donji obrazac. Ako je adresa valjana "
+"dobit ćeš upute za ponovno postavljanje lozinke."
+
+#: babybuddy/templatetags/babybuddy.py:94
+#, python-format
+msgid "Are you sure you want to delete %(name)s?"
+msgstr "Stvarno želiš izbrisati %(name)s?"
+
+#: babybuddy/templatetags/babybuddy.py:104
+#, python-format
+msgid "Are you sure you want to unlock %(name)s?"
+msgstr "Stvarno želiš otključati %(name)s?"
+
+#: babybuddy/views.py:55
+msgid "Forbidden"
+msgstr "Zabranjeno"
+
+#: babybuddy/views.py:56
+msgid "CSRF verification failed. Request aborted."
+msgstr "CSRF verifikacija nije uspjela. Zahtjev je prekinut."
+
+#: babybuddy/views.py:119
+#, python-format
+msgid "User %(username)s added!"
+msgstr "Korisnik %(username)s je dodan!"
+
+#: babybuddy/views.py:130
+#, python-format
+msgid "User %(username)s updated."
+msgstr "Korisnik %(username)s je aktualiziran."
+
+#: babybuddy/views.py:145
+msgid "User unlocked."
+msgstr "Korisnik je otključan."
+
+#: babybuddy/views.py:169
+#, python-brace-format
+msgid "User {user} deleted."
+msgstr "Korisnik {user} je izbrisan."
+
+#: babybuddy/views.py:190
+msgid "Password updated."
+msgstr "Lozinka je aktualizirana."
+
+#: babybuddy/views.py:204
+msgid "User API key regenerated."
+msgstr "Korisnički API ključ je ponovo generiran."
+
+#: babybuddy/views.py:245
+msgid "Settings saved!"
+msgstr "Postavke su spremljene!"
+
+#: core/fields.py:13
+#, python-format
+msgid ""
+"Nap start max. value %(max)s must be greater than nap start min. value "
+"%(min)s."
+msgstr ""
+"Maksimalna vrijednost početka drijemanja %(max)s mora biti veća od minimalne "
+"vrijedonsti početka drijemanja %(min)s."
+
+#: core/fields.py:27
+#, python-format
+msgid ""
+"Nap start min. value %(min)s must be less than nap start max. value %(max)s."
+msgstr ""
+"Minimalna vrijednost početka drijemanja %(min)s mora biti manja od "
+"maksimalne vrijedonsti početka drijemanja %(max)s."
+
+#: core/filters.py:11 core/models.py:103 core/models.py:122
+msgid "Tag"
+msgstr "Oznaka"
+
+#: core/forms.py:143
+msgid ""
+"Click on the tags to add (+) or remove (-) tags or use the text editor to "
+"create new tags."
+msgstr ""
+"Pritisni oznake za dodavanje (+) ili uklanjanje (-) oznaka ili koristi "
+"uređivač teksta za stvaranje novih oznaka."
+
+#: core/forms.py:216
+msgid "Name does not match child name."
+msgstr "Ime se ne poklapa s imenom djeteta."
+
+#: core/models.py:29
+msgid "Date can not be in the future."
+msgstr "Datum ne može biti u budućnosti."
+
+#: core/models.py:46
+msgid "Start time must come before end time."
+msgstr "Vrijeme početka mora biti prije kraja."
+
+#: core/models.py:49
+msgid "Duration too long."
+msgstr "Trajanje je predugo."
+
+#: core/models.py:65
+msgid "Another entry intersects the specified time period."
+msgstr "Jedan drugi unos presijeca navedeno vremensko razdoblje."
+
+#: core/models.py:79
+msgid "Date/time can not be in the future."
+msgstr "Datum/vrijeme ne može biti u budućnosti."
+
+#: core/models.py:89 core/models.py:252
+#: core/templates/core/diaperchange_list.html:30
+#: core/templates/core/tag_list.html:25
+msgid "Color"
+msgstr "Boja"
+
+#: core/models.py:95
+msgid "Last used"
+msgstr "Zadnje korišteno"
+
+#: core/models.py:148 core/models.py:363 core/models.py:393 core/models.py:727
+#: core/templates/core/bmi_list.html:24
+#: core/templates/core/feeding_list.html:28
+#: core/templates/core/head_circumference_list.html:25
+#: core/templates/core/height_list.html:24
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/weight_list.html:24 reports/graphs/bmi_change.py:28
+#: reports/graphs/diaperchange_amounts.py:37
+#: reports/graphs/diaperchange_intervals.py:67
+#: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
+#: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
+#: reports/graphs/feeding_pattern.py:166
+#: reports/graphs/head_circumference_change.py:28
+#: reports/graphs/height_change.py:87 reports/graphs/pumping_amounts.py:60
+#: reports/graphs/sleep_pattern.py:168 reports/graphs/sleep_totals.py:59
+#: reports/graphs/tummytime_duration.py:51 reports/graphs/weight_change.py:85
+msgid "Date"
+msgstr "Datum"
+
+#: core/models.py:170
+msgid "First name"
+msgstr "Ime"
+
+#: core/models.py:172
+msgid "Last name"
+msgstr "Prezime"
+
+#: core/models.py:174
+msgid "Birth date"
+msgstr "Datum rođenja"
+
+#: core/models.py:175
+msgid "Birth time"
+msgstr "Vrijeme rođenja"
+
+#: core/models.py:182
+msgid "Slug"
+msgstr "Identifikator"
+
+#: core/models.py:185
+msgid "Picture"
+msgstr "Slika"
+
+#: core/models.py:239 core/models.py:445 core/models.py:578
+#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/note_list.html:24
+#: core/templates/core/temperature_list.html:25
+#: reports/graphs/temperature_change.py:27
+msgid "Time"
+msgstr "Vrijeme"
+
+#: core/models.py:241 core/templates/core/diaperchange_list.html:66
+#: reports/graphs/diaperchange_intervals.py:47
+#: reports/graphs/diaperchange_types.py:36
+msgid "Wet"
+msgstr "Mokra"
+
+#: core/models.py:242 core/templates/core/diaperchange_list.html:69
+#: reports/graphs/diaperchange_intervals.py:38
+#: reports/graphs/diaperchange_types.py:30
+msgid "Solid"
+msgstr "Tvrda"
+
+#: core/models.py:246
+msgid "Black"
+msgstr "Crna"
+
+#: core/models.py:247
+msgid "Brown"
+msgstr "Smeđa"
+
+#: core/models.py:248
+msgid "Green"
+msgstr "Zelena"
+
+#: core/models.py:249
+msgid "Yellow"
+msgstr "Žuta"
+
+#: core/models.py:254 core/models.py:325 core/models.py:489
+#: core/templates/core/diaperchange_list.html:31
+#: core/templates/core/pumping_list.html:28 core/timeline.py:142
+#: dashboard/templates/cards/pumping_last.html:20
+msgid "Amount"
+msgstr "Količina"
+
+#: core/models.py:295 core/models.py:476 core/models.py:524 core/models.py:612
+#: core/models.py:681
+msgid "Start time"
+msgstr "Vrijeme početka"
+
+#: core/models.py:298 core/models.py:482 core/models.py:527 core/models.py:684
+msgid "End time"
+msgstr "Vrijeme završetka"
+
+#: core/models.py:301 core/models.py:487 core/models.py:531 core/models.py:687
+#: core/templates/core/feeding_list.html:37
+#: core/templates/core/pumping_list.html:29
+#: core/templates/core/sleep_list.html:29
+#: core/templates/core/tummytime_list.html:28
+msgid "Duration"
+msgstr "Trajanje"
+
+#: core/models.py:305
+msgid "Breast milk"
+msgstr "Majčino mlijeko"
+
+#: core/models.py:306
+msgid "Formula"
+msgstr "Formula"
+
+#: core/models.py:307
+msgid "Fortified breast milk"
+msgstr "Obogaćeno majčino mlijeko"
+
+#: core/models.py:308
+msgid "Solid food"
+msgstr "Čvrsta hrana"
+
+#: core/models.py:311 core/templates/core/feeding_list.html:33
+msgid "Type"
+msgstr "Vrsta"
+
+#: core/models.py:315
+msgid "Bottle"
+msgstr "Bočica"
+
+#: core/models.py:316
+msgid "Left breast"
+msgstr "Lijeva dojka"
+
+#: core/models.py:317
+msgid "Right breast"
+msgstr "Desna dojka"
+
+#: core/models.py:318
+msgid "Both breasts"
+msgstr "Obje dojke"
+
+#: core/models.py:319
+msgid "Parent fed"
+msgstr "Roditelj hrani"
+
+#: core/models.py:320
+msgid "Self fed"
+msgstr "Jede samostalno"
+
+#: core/models.py:323 core/templates/core/feeding_list.html:32
+msgid "Method"
+msgstr "Način"
+
+#: core/models.py:425 core/models.py:759
+msgid "Girl"
+msgstr "Djevojčica"
+
+#: core/models.py:426 core/models.py:760
+msgid "Boy"
+msgstr "Dječak"
+
+#: core/models.py:448 core/templates/core/note_list.html:28
+msgid "Image"
+msgstr "Slika"
+
+#: core/models.py:529 core/templates/core/sleep_list.html:31
+msgid "Nap"
+msgstr "Drijemanje"
+
+#: core/models.py:537
+msgid "Nap settings"
+msgstr "Postavke drijemanja"
+
+#: core/models.py:609 core/templates/core/tag_list.html:24
+#: core/templates/core/timer_list.html:24
+msgid "Name"
+msgstr "Ime"
+
+#: core/models.py:627 core/templates/core/timer_form.html:4
+msgid "Timer"
+msgstr "Timer"
+
+#: core/models.py:628 core/templates/core/timer_confirm_delete.html:8
+#: core/templates/core/timer_detail.html:7
+#: core/templates/core/timer_form.html:8 core/templates/core/timer_list.html:4
+#: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:11
+#: core/templates/core/timer_nav.html:9 core/templates/core/timer_nav.html:49
+#: dashboard/templates/cards/timer_list.html:4
+msgid "Timers"
+msgstr "Timeri"
+
+#: core/models.py:631
+#, python-brace-format
+msgid "Timer #{id}"
+msgstr "Timer #{id}"
+
+#: core/models.py:690 core/templates/core/tummytime_list.html:30
+msgid "Milestone"
+msgstr "Etapa"
+
+#: core/templates/core/bmi_confirm_delete.html:4
+msgid "Delete a BMI Entry"
+msgstr "Izbriši unos BMI-a"
+
+#: core/templates/core/bmi_form.html:7 core/templates/core/bmi_form.html:17
+#: core/templates/core/bmi_form.html:26
+msgid "Add a BMI Entry"
+msgstr "Dodaj unos BMI-a"
+
+#: core/templates/core/bmi_list.html:14
+msgid "Add BMI"
+msgstr "Dodaj BMI"
+
+#: core/templates/core/bmi_list.html:69
+msgid "No BMI entries found."
+msgstr "Nije pronađen nijedan unos BMI-a."
+
+#: core/templates/core/child_confirm_delete.html:4
+msgid "Delete a Child"
+msgstr "Izbriši dijete"
+
+#: core/templates/core/child_confirm_delete.html:21
+msgid "To confirm this action. Type the full name of the child below."
+msgstr "Za potvrdu ove radnje. Dolje upiši potpuno ime djeteta."
+
+#: core/templates/core/child_detail.html:23
+#: dashboard/templates/dashboard/dashboard.html:30
+msgid "Born"
+msgstr "Rođen/a"
+
+#: core/templates/core/child_detail.html:25
+#: dashboard/templates/dashboard/dashboard.html:32
+msgid "Age"
+msgstr "Dob"
+
+#: core/templates/core/child_list.html:14
+msgid "Add Child"
+msgstr "Dodaj dijete"
+
+#: core/templates/core/child_list.html:28
+msgid "Birth Date"
+msgstr "Datum rođenja"
+
+#: core/templates/core/child_list.html:71
+msgid "No children found."
+msgstr "Nije pronađeno nijedno dijete."
+
+#: core/templates/core/child_quick_switch.html:9
+msgid "Switch child"
+msgstr "Promijeni dijete"
+
+#: core/templates/core/child_quick_switch.html:21
+msgid "Switch to…"
+msgstr "Prijeđi na …"
+
+#: core/templates/core/diaperchange_confirm_delete.html:4
+msgid "Delete a Diaper Change"
+msgstr "Izbriši mijenjanje pelene"
+
+#: core/templates/core/diaperchange_form.html:5
+msgid "Update a Diaper Change"
+msgstr "Aktualiziraj mijenjanje pelene"
+
+#: core/templates/core/diaperchange_form.html:7
+#: core/templates/core/diaperchange_form.html:26
+msgid "Add a Diaper Change"
+msgstr "Dodaj mijenjanje pelene"
+
+#: core/templates/core/diaperchange_form.html:17
+#: core/templates/core/feeding_form.html:19
+#: core/templates/core/note_form.html:17 core/templates/core/sleep_form.html:17
+#: core/templates/core/tag_form.html:20
+#: core/templates/core/tummytime_form.html:17
+#: core/templates/core/widget_tag_editor.html:32
+msgid "Add"
+msgstr "Dodaj"
+
+#: core/templates/core/diaperchange_list.html:15
+msgid "Add Diaper Change"
+msgstr "Dodaj mijenjanje pelene"
+
+#: core/templates/core/diaperchange_list.html:29
+msgid "Contents"
+msgstr "Sadržaj"
+
+#: core/templates/core/diaperchange_list.html:76
+#: core/templates/core/feeding_list.html:78
+#: core/templates/core/pumping_list.html:66
+#: core/templates/core/sleep_list.html:65
+#: core/templates/core/tummytime_list.html:66
+#: dashboard/templates/cards/diaperchange_last.html:9
+#: dashboard/templates/cards/feeding_last.html:9
+#: dashboard/templates/cards/pumping_last.html:9
+#: dashboard/templates/cards/sleep_last.html:9
+#: dashboard/templates/cards/tummytime_last.html:9
+#, python-format
+msgid "%(time_ago)s ago"
+msgstr "prije %(time_ago)s"
+
+#: core/templates/core/diaperchange_list.html:93
+msgid "No diaper changes found."
+msgstr "Nije pronađeno nijedno mijenjanje pelene."
+
+#: core/templates/core/feeding_confirm_delete.html:4
+msgid "Delete a Feeding"
+msgstr "Izbriši hranjenje"
+
+#: core/templates/core/feeding_form.html:5
+msgid "Update a Feeding"
+msgstr "Aktualiziraj hranjenje"
+
+#: core/templates/core/feeding_form.html:7
+#: core/templates/core/feeding_form.html:28
+msgid "Add a Bottle Feeding"
+msgstr "Dodaj hranjenje bočicom"
+
+#: core/templates/core/feeding_form.html:9
+#: core/templates/core/feeding_form.html:30
+msgid "Add a Feeding"
+msgstr "Dodaj hranjenje"
+
+#: core/templates/core/feeding_list.html:14
+msgid "Add Feeding"
+msgstr "Dodaj hranjenje"
+
+#: core/templates/core/feeding_list.html:18
+msgid "Add Bottle Feeding"
+msgstr "Dodaj hranjenje bočicom"
+
+#: core/templates/core/feeding_list.html:36
+msgid "Amt."
+msgstr "Količina"
+
+#: core/templates/core/feeding_list.html:95
+msgid "No feedings found."
+msgstr "Nije pronađeno nijedno hranjenje."
+
+#: core/templates/core/head_circumference_confirm_delete.html:4
+msgid "Delete a Head Circumference Entry"
+msgstr "Izbriši unos opsega glave"
+
+#: core/templates/core/head_circumference_form.html:7
+#: core/templates/core/head_circumference_form.html:17
+#: core/templates/core/head_circumference_form.html:26
+msgid "Add a Head Circumference Entry"
+msgstr "Dodaj unos opsega glave"
+
+#: core/templates/core/head_circumference_list.html:15
+msgid "Add Head Circumference"
+msgstr "Dodaj opseg glave"
+
+#: core/templates/core/head_circumference_list.html:72
+msgid "No head circumference entries found."
+msgstr "Nisu pronađeni nikoji unosi opsega glave."
+
+#: core/templates/core/height_confirm_delete.html:4
+msgid "Delete a Height Entry"
+msgstr "Izbriši unos veličine"
+
+#: core/templates/core/height_form.html:7
+#: core/templates/core/height_form.html:17
+#: core/templates/core/height_form.html:26
+msgid "Add a Height Entry"
+msgstr "Dodaj unos veličine"
+
+#: core/templates/core/height_list.html:14
+msgid "Add Height"
+msgstr "Dodaj veličinu"
+
+#: core/templates/core/height_list.html:71
+msgid "No height entries found."
+msgstr "Nije pronađen nijedan unos veličine."
+
+#: core/templates/core/note_confirm_delete.html:4
+msgid "Delete a Note"
+msgstr "Izbriši bilješku"
+
+#: core/templates/core/note_form.html:5
+msgid "Update a Note"
+msgstr "Aktualiziraj bilješku"
+
+#: core/templates/core/note_form.html:7 core/templates/core/note_form.html:26
+msgid "Add a Note"
+msgstr "Dodaj bilješku"
+
+#: core/templates/core/note_list.html:14
+msgid "Add Note"
+msgstr "Dodaj bilješku"
+
+#: core/templates/core/note_list.html:71
+msgid "No notes found."
+msgstr "Nema bilješki."
+
+#: core/templates/core/pumping_confirm_delete.html:4
+msgid "Delete a Pumping Entry"
+msgstr "Izbriši unos dojenja"
+
+#: core/templates/core/pumping_form.html:7
+#: core/templates/core/pumping_form.html:17
+#: core/templates/core/pumping_form.html:26
+msgid "Add a Pumping Entry"
+msgstr "Dodaj unos dojenja"
+
+#: core/templates/core/pumping_list.html:14
+msgid "Add Pumping Entry"
+msgstr "Dodaj unos dojenja"
+
+#: core/templates/core/pumping_list.html:83
+msgid "No pumping entries found."
+msgstr "Nije pronađen nijedan unos dojenja."
+
+#: core/templates/core/quick_timer_nav.html:10
+#: core/templates/core/quick_timer_nav.html:33
+#: core/templates/core/timer_nav.html:42
+msgid "Quick Start Timer"
+msgstr "Pokreni timer"
+
+#: core/templates/core/quick_timer_nav.html:20
+#: core/templates/core/timer_nav.html:30
+msgid "Quick Start Timer For…"
+msgstr "Pokreni timer za …"
+
+#: core/templates/core/sleep_confirm_delete.html:4
+msgid "Delete a Sleep Entry"
+msgstr "Izbriši unos spavanja"
+
+#: core/templates/core/sleep_form.html:5
+msgid "Update a Sleep Entry"
+msgstr "Aktualiziraj unos spavanja"
+
+#: core/templates/core/sleep_form.html:7 core/templates/core/sleep_form.html:26
+msgid "Add a Sleep Entry"
+msgstr "Dodaj unos spavanja"
+
+#: core/templates/core/sleep_list.html:14
+msgid "Add Sleep"
+msgstr "Dodaj spavanje"
+
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/timer_form.html:16
+#: core/templates/core/timer_list.html:23
+#: core/templates/core/tummytime_list.html:23
+msgid "Start"
+msgstr "Početak"
+
+#: core/templates/core/sleep_list.html:25
+#: core/templates/core/tummytime_list.html:24
+msgid "End"
+msgstr "Kraj"
+
+#: core/templates/core/sleep_list.html:83
+msgid "No sleep entries found."
+msgstr "Nije pronađen nijedan unos spavanja."
+
+#: core/templates/core/tag_confirm_delete.html:4
+msgid "Delete a Tag"
+msgstr "Izbriši oznaku"
+
+#: core/templates/core/tag_confirm_delete.html:22
+#, fuzzy, python-format
+#| msgid "There is 1 item tagged with this tag."
+#| msgid_plural "There are %(count)s items tagged with this tag."
+msgid "There is 1 item tagged with this tag."
+msgid_plural "There are %(count)s items tagged with this tag."
+msgstr[0] "Postoji 1 stavka koja je označena s ovom oznakom."
+msgstr[1] "Postoje %(count)s koje su stavke označene s ovom oznakom."
+msgstr[2] "Postoji %(count)s stavki koje su označene s ovom oznakom."
+
+#: core/templates/core/tag_confirm_delete.html:29
+msgid ""
+"This action will remove the tag from all items it is currently applied to."
+msgstr ""
+"Ova će radnja ukloniti oznaku iz svih stavki na koje se trenutačno "
+"primijenjuje."
+
+#: core/templates/core/tag_confirm_delete.html:35
+msgid "Delete Tag"
+msgstr "Izbriši oznaku"
+
+#: core/templates/core/tag_detail.html:5 core/templates/core/tag_form.html:5
+msgid "Update a Tag"
+msgstr "Aktualiziraj oznaku"
+
+#: core/templates/core/tag_detail.html:7 core/templates/core/tag_form.html:7
+#: core/templates/core/tag_form.html:29
+msgid "Add a Tag"
+msgstr "Dodaj oznaku"
+
+#: core/templates/core/tag_detail.html:28
+msgid "Tag actions"
+msgstr "Radnje oznake"
+
+#: core/templates/core/tag_detail.html:32
+#: core/templates/timeline/_timeline.html:64
+#: dashboard/templates/dashboard/child_button_group.html:25
+msgid "Edit"
+msgstr "Uredi"
+
+#: core/templates/core/tag_detail.html:46
+msgid "Tagged Measurements"
+msgstr "Označena mjerenja"
+
+#: core/templates/core/tag_detail.html:50
+msgid "BMI Measurements"
+msgstr "Mjerenja BMI-a"
+
+#: core/templates/core/tag_detail.html:55
+msgid "Head Circumference Measurements"
+msgstr "Mjerenja opsega glave"
+
+#: core/templates/core/tag_detail.html:60
+msgid "Height Measurements"
+msgstr "Mjerenja veličine"
+
+#: core/templates/core/tag_detail.html:65
+msgid "Temperature Measurements"
+msgstr "Mjerenja temperature"
+
+#: core/templates/core/tag_detail.html:70
+msgid "Weight Measurements"
+msgstr "Mjerenja težine"
+
+#: core/templates/core/tag_detail.html:76
+msgid "Tagged Activities"
+msgstr "Označene aktivnosti"
+
+#: core/templates/core/tag_detail.html:90
+msgid "Pumpings"
+msgstr "Dojenja"
+
+#: core/templates/core/tag_detail.html:95
+msgid "Sleeps"
+msgstr "Spavanja"
+
+#: core/templates/core/tag_detail.html:100
+msgid "Tummy Times"
+msgstr "Vremena na trbuhu"
+
+#: core/templates/core/tag_list.html:14
+msgid "Add Tag"
+msgstr "Dodaj oznaku"
+
+#: core/templates/core/tag_list.html:26
+msgid "Items Tagged"
+msgstr "Označene stavke"
+
+#: core/templates/core/tag_list.html:27
+msgid "Last Used"
+msgstr "Zadnje korišteno"
+
+#: core/templates/core/tag_list.html:62
+msgid "No tags found."
+msgstr "Nije pronađena nijedna oznaka."
+
+#: core/templates/core/temperature_confirm_delete.html:4
+msgid "Delete a Temperature Reading"
+msgstr "Izbriši odčitavanje temperature"
+
+#: core/templates/core/temperature_form.html:7
+#: core/templates/core/temperature_form.html:17
+msgid "Add a Temperature Reading"
+msgstr "Dodaj odčitavanje temperature"
+
+#: core/templates/core/temperature_form.html:26
+msgid "Add a Temperature Entry"
+msgstr "Dodaj unos temperature"
+
+#: core/templates/core/temperature_list.html:15
+msgid "Add Temperature Reading"
+msgstr "Dodaj odčitavanje temperature"
+
+#: core/templates/core/temperature_list.html:72
+msgid "No temperature entries found."
+msgstr "Nije pronađen nijedan unos temparature."
+
+#: core/templates/core/timer_confirm_delete.html:4
+#, python-format
+msgid "Delete %(object)s"
+msgstr "Izbriši %(object)s"
+
+#: core/templates/core/timer_detail.html:20
+msgid "Started"
+msgstr "Pokrenuto"
+
+#: core/templates/core/timer_detail.html:22
+#, python-format
+msgid "%(timer)s created by %(user)s"
+msgstr "%(timer)s stvoren od %(user)s"
+
+#: core/templates/core/timer_detail.html:58
+msgid "Timer actions"
+msgstr "Radnje timera"
+
+#: core/templates/core/timer_detail.html:73
+msgid "Restart timer"
+msgstr "Ponovo pokreni timer"
+
+#: core/templates/core/timer_form.html:25
+#: core/templates/core/timer_list.html:14 core/templates/core/timer_nav.html:14
+msgid "Start Timer"
+msgstr "Pokreni timer"
+
+#: core/templates/core/timer_list.html:49
+msgid "No timer entries found."
+msgstr "Nije pronađen nijedan unos timera."
+
+#: core/templates/core/timer_nav.html:19
+msgid "View Timers"
+msgstr "Prikaži timere"
+
+#: core/templates/core/timer_nav.html:53
+#: dashboard/templates/cards/breastfeeding.html:8
+#: dashboard/templates/cards/diaperchange_last.html:15
+#: dashboard/templates/cards/diaperchange_types.html:8
+#: dashboard/templates/cards/feeding_last.html:15
+#: dashboard/templates/cards/feeding_last_method.html:47
+#: dashboard/templates/cards/feeding_recent.html:18
+#: dashboard/templates/cards/feeding_recent.html:52
+#: dashboard/templates/cards/pumping_last.html:15
+#: dashboard/templates/cards/sleep_last.html:15
+#: dashboard/templates/cards/sleep_naps_day.html:14
+#: dashboard/templates/cards/sleep_recent.html:18
+#: dashboard/templates/cards/sleep_recent.html:52
+#: dashboard/templates/cards/tummytime_day.html:10
+msgid "None"
+msgstr "Nema"
+
+#: core/templates/core/tummytime_confirm_delete.html:4
+msgid "Delete a Tummy Time Entry"
+msgstr "Izbriši unos vremena na trbuhu"
+
+#: core/templates/core/tummytime_form.html:5
+msgid "Update a Tummy Time Entry"
+msgstr "AKtualiziraj unos vremena na trbuhu"
+
+#: core/templates/core/tummytime_form.html:7
+#: core/templates/core/tummytime_form.html:26
+msgid "Add a Tummy Time Entry"
+msgstr "Dodaj unos vremena na trbuhu"
+
+#: core/templates/core/tummytime_list.html:14
+msgid "Add Tummy Time"
+msgstr "Dodaj vrijeme na trbuhu"
+
+#: core/templates/core/tummytime_list.html:77
+msgid "No tummy time entries found."
+msgstr "Nije pronađen nijedan unos vremena na trbuhu."
+
+#: core/templates/core/weight_confirm_delete.html:4
+msgid "Delete a Weight Entry"
+msgstr "Izbriši unos težine"
+
+#: core/templates/core/weight_form.html:7
+#: core/templates/core/weight_form.html:17
+#: core/templates/core/weight_form.html:26
+msgid "Add a Weight Entry"
+msgstr "Dodaj unos težine"
+
+#: core/templates/core/weight_list.html:14
+msgid "Add Weight"
+msgstr "Dodaj težinu"
+
+#: core/templates/core/weight_list.html:71
+msgid "No weight entries found."
+msgstr "Nije pronađen nijedan unos težine."
+
+#: core/templates/core/widget_tag_editor.html:26
+msgid "Tag name"
+msgstr "Ime oznake"
+
+#: core/templates/core/widget_tag_editor.html:35
+msgid "Recently used:"
+msgstr "Nedavno korišteno:"
+
+#: core/templates/core/widget_tag_editor.html:54
+msgctxt "Error modal"
+msgid "Error"
+msgstr "Greška"
+
+#: core/templates/core/widget_tag_editor.html:58
+msgctxt "Error modal"
+msgid "An error ocurred."
+msgstr "Dogodila se greška."
+
+#: core/templates/core/widget_tag_editor.html:59
+msgctxt "Error modal"
+msgid "Invalid tag name."
+msgstr "Neispravno ime oznake."
+
+#: core/templates/core/widget_tag_editor.html:60
+msgctxt "Error modal"
+msgid "Failed to create tag."
+msgstr "Neuspjelo stvaranje oznake."
+
+#: core/templates/core/widget_tag_editor.html:61
+msgctxt "Error modal"
+msgid "Failed to obtain tag data."
+msgstr "Neuspjelo dohvaćanje podataka oznake."
+
+#: core/templates/core/widget_tag_editor.html:64
+msgctxt "Error modal"
+msgid "Close"
+msgstr "Zatvori"
+
+#: core/templates/forms/layouts/advanced.html:7
+msgid "Advanced Fields"
+msgstr "Napredna polja"
+
+#: core/templates/timeline/_timeline.html:41
+#, python-format
+msgid "%(since)s ago (%(time)s)"
+msgstr "Prije %(since)s (%(time)s)"
+
+#: core/templates/timeline/_timeline.html:47
+#, python-format
+msgid "Duration: %(duration)s"
+msgstr "Trajanje: %(duration)s"
+
+#: core/templates/timeline/_timeline.html:56
+#, python-format
+msgid "%(since)s since previous"
+msgstr "%(since)s od prethodnog"
+
+#: core/templates/timeline/_timeline.html:92
+msgid "No events"
+msgstr "Nema događaja"
+
+#: core/templatetags/datetime.py:26
+msgid "Today"
+msgstr "Danas"
+
+#: core/templatetags/duration.py:107
+#: dashboard/templates/cards/breastfeeding.html:28
+#: dashboard/templates/cards/diaperchange_types.html:40
+#, python-format
+msgid "%(days_ago)s days ago"
+msgstr "prije %(days_ago)s dana"
+
+#: core/templatetags/duration.py:110
+#: dashboard/templates/cards/breastfeeding.html:24
+#: dashboard/templates/cards/diaperchange_types.html:36
+msgid "today"
+msgstr "danas"
+
+#: core/templatetags/duration.py:112
+#: dashboard/templates/cards/breastfeeding.html:26
+#: dashboard/templates/cards/diaperchange_types.html:38
+msgid "yesterday"
+msgstr "jučer"
+
+#: core/timeline.py:56
+#, python-format
+msgid "%(child)s started tummy time!"
+msgstr "%(child)s početak vremena na trbuhu!"
+
+#: core/timeline.py:68
+#, python-format
+msgid "%(child)s finished tummy time."
+msgstr "%(child)s kraj vremena na trbuhu."
+
+#: core/timeline.py:96
+#, python-format
+msgid "%(child)s fell asleep."
+msgstr "%(child)s zaspao/la."
+
+#: core/timeline.py:108
+#, python-format
+msgid "%(child)s woke up."
+msgstr "%(child)s se probudio/la."
+
+#: core/timeline.py:155
+#, python-format
+msgid "%(child)s started feeding."
+msgstr "%(child)s početak hranjenja."
+
+#: core/timeline.py:164
+#, python-format
+msgid "%(child)s finished feeding."
+msgstr "%(child)s kraj hranjenja."
+
+#: core/timeline.py:174
+#, python-format
+msgid "%(child)s had a feeding."
+msgstr "%(child)s nahranjen/a."
+
+#: core/timeline.py:196
+#, python-format
+msgid "%(child)s had a %(type)s diaper change."
+msgstr "%(child)s mijenjanje pelene, %(type)s."
+
+#: core/timeline.py:239
+#, python-format
+msgid "%(child)s had a temperature measurement."
+msgstr "%(child)s izmjerena temeratura."
+
+#: core/utils.py:41
+#, python-format
+msgid "%(hours)s hour"
+msgid_plural "%(hours)s hours"
+msgstr[0] "%(hours)s sat"
+msgstr[1] "%(hours)s sata"
+msgstr[2] "%(hours)s sati"
+
+#: core/utils.py:45
+#, python-format
+msgid "%(minutes)s minute"
+msgid_plural "%(minutes)s minutes"
+msgstr[0] "%(minutes)s minuta"
+msgstr[1] "%(minutes)s minute"
+msgstr[2] "%(minutes)s minuta"
+
+#: core/utils.py:51
+#, python-format
+msgid "%(seconds)s second"
+msgid_plural "%(seconds)s seconds"
+msgstr[0] "%(seconds)s sekunda"
+msgstr[1] "%(seconds)s sekunde"
+msgstr[2] "%(seconds)s sekundi"
+
+#: core/views.py:35
+#, python-format
+msgid "%(model)s entry for %(child)s added!"
+msgstr "Unos za %(model)s za %(child)s je dodan!"
+
+#: core/views.py:37 core/views.py:313
+#, python-format
+msgid "%(model)s entry added!"
+msgstr "Unos za %(model)s je dodan!"
+
+#: core/views.py:63 core/views.py:321
+#, python-format
+msgid "%(model)s entry for %(child)s updated."
+msgstr "Unos za %(model)s za %(child)s je aktualiziran."
+
+#: core/views.py:65
+#, python-format
+msgid "%(model)s entry updated."
+msgstr "Unos za %(model)s je aktualiziran."
+
+#: core/views.py:71 core/views.py:146
+#, python-format
+msgid "%(model)s entry deleted."
+msgstr "%(model)s unos izbrisan."
+
+#: core/views.py:115
+#, python-format
+msgid "%(first_name)s %(last_name)s added!"
+msgstr "%(first_name)s %(last_name)s je dodano!"
+
+#: core/views.py:433
+#, python-format
+msgid "%(model)s reading added!"
+msgstr "Odčitavanje %(model)s dodano!"
+
+#: core/views.py:441
+#, python-format
+msgid "%(model)s reading for %(child)s updated."
+msgstr "Odčitavanje %(model)s za %(child)s aktualizirano."
+
+#: dashboard/templates/cards/breastfeeding.html:4
+msgid "Breastfeeding"
+msgstr "Dojenje"
+
+#: dashboard/templates/cards/breastfeeding.html:10
+#: dashboard/templates/cards/diaperchange_types.html:10
+msgid "Past Week"
+msgstr "Prošli tjedan"
+
+#: dashboard/templates/cards/breastfeeding.html:18
+msgid "left"
+msgstr "lijevo"
+
+#: dashboard/templates/cards/breastfeeding.html:20
+msgid "right"
+msgstr "desno"
+
+#: dashboard/templates/cards/breastfeeding.html:31
+msgid "feedings in"
+msgstr "hranjenja u"
+
+#: dashboard/templates/cards/diaperchange_last.html:4
+msgid "Last Diaper Change"
+msgstr "Zadnje mijenjanje pelene"
+
+#: dashboard/templates/cards/diaperchange_types.html:20
+msgid "wet"
+msgstr "mokra"
+
+#: dashboard/templates/cards/diaperchange_types.html:26
+msgid "solid"
+msgstr "tvrda"
+
+#: dashboard/templates/cards/diaperchange_types.html:43
+msgid "changes"
+msgstr "mijenjanja"
+
+#: dashboard/templates/cards/feeding_last.html:4
+msgid "Last Feeding"
+msgstr "Zadnje hranjenje"
+
+#: dashboard/templates/cards/feeding_last_method.html:4
+msgid "Last Feeding Method"
+msgstr "Način zadnjeg hranjenja"
+
+#: dashboard/templates/cards/feeding_last_method.html:17
+msgid "most recent"
+msgstr "najnedavnije"
+
+#: dashboard/templates/cards/feeding_last_method.html:19
+#, python-format
+msgid "%(n)s feeding ago"
+msgid_plural "%(n)s feedings ago"
+msgstr[0] "prije %(n)s hranjenja"
+msgstr[1] "prije %(n)s hranjenja"
+msgstr[2] "prije %(n)s hranjenja"
+
+#: dashboard/templates/cards/feeding_recent.html:4
+msgid "Recent Feedings"
+msgstr "Nedavna hranjenja"
+
+#: dashboard/templates/cards/feeding_recent.html:23
+#, python-format
+msgid "%(counter)s feeding"
+msgid_plural "%(counter)s feedings"
+msgstr[0] "%(counter)s hranjenje"
+msgstr[1] "%(counter)s hranjenja"
+msgstr[2] "%(counter)s hranjenja"
+
+#: dashboard/templates/cards/pumping_last.html:4
+msgid "Last Pumping"
+msgstr "Zadnje dojenja"
+
+#: dashboard/templates/cards/sleep_last.html:4
+msgid "Last Sleep"
+msgstr "Zadnje spavanje"
+
+#: dashboard/templates/cards/sleep_naps_day.html:4
+msgid "Today's Naps"
+msgstr "Današnja drijemanja"
+
+#: dashboard/templates/cards/sleep_naps_day.html:8
+#, python-format
+msgid "%(count)s nap"
+msgid_plural "%(count)s naps"
+msgstr[0] "%(count)s drijemanje"
+msgstr[1] "%(count)s drijemanja"
+msgstr[2] "%(count)s drijemanja"
+
+#: dashboard/templates/cards/sleep_recent.html:4
+msgid "Recent Sleep"
+msgstr "Nedavno spavanje"
+
+#: dashboard/templates/cards/sleep_recent.html:23
+#, python-format
+msgid "%(counter)s sleep"
+msgid_plural "%(counter)s sleeps"
+msgstr[0] "%(counter)s spavanje"
+msgstr[1] "%(counter)s spavanja"
+msgstr[2] "%(counter)s spavanja"
+
+#: dashboard/templates/cards/statistics.html:6
+msgid "Statistics"
+msgstr "Statistika"
+
+#: dashboard/templates/cards/statistics.html:26
+msgid "Not enough data"
+msgstr "Nema dovoljno podataka"
+
+#: dashboard/templates/cards/statistics.html:49
+msgid "No data yet"
+msgstr "Još nema podataka"
+
+#: dashboard/templates/cards/timer_list.html:8
+#, python-format
+msgid "%(count)s timer"
+msgid_plural "%(count)s timers"
+msgstr[0] "%(count)s timer"
+msgstr[1] "%(count)s timera"
+msgstr[2] "%(count)s timera"
+
+#: dashboard/templates/cards/timer_list.html:22
+#, python-format
+msgid "Started by %(user)s at %(start)s"
+msgstr "Pokrenuto od %(user)s u %(start)s"
+
+#: dashboard/templates/cards/tummytime_day.html:4
+msgid "Today's Tummy Time"
+msgstr "Današnje vrijeme na trbuhu"
+
+#: dashboard/templates/cards/tummytime_day.html:17
+#, python-format
+msgid "%(duration)s at %(end)s"
+msgstr "%(duration)s na %(end)s"
+
+#: dashboard/templates/cards/tummytime_last.html:4
+msgid "Last Tummy Time"
+msgstr "Zadnje vrijeme na trbuhu"
+
+#: dashboard/templates/cards/tummytime_last.html:15
+msgid "Never"
+msgstr "Nikada"
+
+#: dashboard/templates/dashboard/child_button_group.html:4
+msgid "Child actions"
+msgstr "Radnje djeteta"
+
+#: dashboard/templates/dashboard/child_button_group.html:18
+#: reports/templates/reports/breadcrumb_common_chunk.html:5
+#: reports/templates/reports/report_list.html:4
+#: reports/templates/reports/report_list.html:9
+msgid "Reports"
+msgstr "Izvještaji"
+
+#: dashboard/templatetags/cards.py:451
+msgid "Average nap duration"
+msgstr "Prosječno trajanje drijemanja"
+
+#: dashboard/templatetags/cards.py:458
+msgid "Average naps per day"
+msgstr "Prosječni broj drijemanja na dan"
+
+#: dashboard/templatetags/cards.py:468
+msgid "Average sleep duration"
+msgstr "Prosječno trajanje spavanja"
+
+#: dashboard/templatetags/cards.py:475
+msgid "Average awake duration"
+msgstr "Prosječno trajanje budnosti"
+
+#: dashboard/templatetags/cards.py:485
+msgid "Weight change per week"
+msgstr "Promjena težine tjedno"
+
+#: dashboard/templatetags/cards.py:495
+msgid "Height change per week"
+msgstr "Promjena veličine tjedno"
+
+#: dashboard/templatetags/cards.py:505
+msgid "Head circumference change per week"
+msgstr "Promjena opsega glave tjedno"
+
+#: dashboard/templatetags/cards.py:515
+msgid "BMI change per week"
+msgstr "Promjena BMI-a na tjedan"
+
+#: dashboard/templatetags/cards.py:533
+msgid "Diaper change frequency (past 3 days)"
+msgstr "Učestalost mijenjanja pelena (zadnja 3 dana)"
+
+#: dashboard/templatetags/cards.py:537
+msgid "Diaper change frequency (past 2 weeks)"
+msgstr "Učestalost mijenjanja pelena (zadnja 2 tjedna)"
+
+#: dashboard/templatetags/cards.py:541
+msgid "Diaper change frequency"
+msgstr "Učestalost mijenjanja pelena"
+
+#: dashboard/templatetags/cards.py:580
+msgid "Feeding frequency (past 3 days)"
+msgstr "Učestalost hranjenja (zadnja 3 dana)"
+
+#: dashboard/templatetags/cards.py:584
+msgid "Feeding frequency (past 2 weeks)"
+msgstr "Učestalost hranjenja (zadnja 2 tjedna)"
+
+#: dashboard/templatetags/cards.py:588
+msgid "Feeding frequency"
+msgstr "Učestalost hranjenja"
+
+#: reports/graphs/diaperchange_amounts.py:27
+msgid "Diaper change amount"
+msgstr "Količina mijenjanja pelene"
+
+#: reports/graphs/diaperchange_amounts.py:36
+#: reports/templates/reports/report_list.html:18
+msgid "Diaper Change Amounts"
+msgstr "Količine mijenjanja pelene"
+
+#: reports/graphs/diaperchange_amounts.py:39
+msgid "Change amount"
+msgstr "Količina mijenjanja"
+
+#: reports/graphs/diaperchange_intervals.py:56
+#: reports/graphs/diaperchange_types.py:41 reports/graphs/feeding_amounts.py:58
+msgid "Total"
+msgstr "Ukupno"
+
+#: reports/graphs/diaperchange_intervals.py:66
+#: reports/templates/reports/diaperchange_intervals.html:4
+#: reports/templates/reports/diaperchange_intervals.html:9
+msgid "Diaper Change Intervals"
+msgstr "Intervali mijenjanja pelene"
+
+#: reports/graphs/diaperchange_intervals.py:72
+msgid "Interval (hours)"
+msgstr "Interval (sati)"
+
+#: reports/graphs/diaperchange_lifetimes.py:35
+#: reports/templates/reports/diaperchange_lifetimes.html:4
+#: reports/templates/reports/diaperchange_lifetimes.html:9
+#: reports/templates/reports/report_list.html:24
+msgid "Diaper Lifetimes"
+msgstr "Životni vijek pelena"
+
+#: reports/graphs/diaperchange_lifetimes.py:36
+msgid "Time between changes (hours)"
+msgstr "Vrijeme između mijenjanja (sati)"
+
+#: reports/graphs/diaperchange_types.py:48
+#: reports/templates/reports/diaperchange_types.html:4
+#: reports/templates/reports/diaperchange_types.html:9
+#: reports/templates/reports/report_list.html:20
+msgid "Diaper Change Types"
+msgstr "Vrste mijenjanja pelene"
+
+#: reports/graphs/diaperchange_types.py:54
+msgid "Number of changes"
+msgstr "Broj mijenjanja"
+
+#: reports/graphs/feeding_amounts.py:69
+msgid "Total Feeding Amount by Type"
+msgstr "Ukupno hranjenje prema vrsti"
+
+#: reports/graphs/feeding_amounts.py:72
+msgid "Feeding amount"
+msgstr "Količina hranjenja"
+
+#: reports/graphs/feeding_duration.py:40
+msgid "Average duration"
+msgstr "Prosječno trajanje"
+
+#: reports/graphs/feeding_duration.py:48
+msgid "Total feedings"
+msgstr "Ukupno hranjenja"
+
+#: reports/graphs/feeding_duration.py:57
+#: reports/templates/reports/feeding_duration.html:4
+#: reports/templates/reports/feeding_duration.html:9
+msgid "Average Feeding Durations"
+msgstr "Prosječno trajanje hranjenja"
+
+#: reports/graphs/feeding_duration.py:63
+msgid "Average duration (minutes)"
+msgstr "Prosječno trajanje (minute)"
+
+#: reports/graphs/feeding_duration.py:65
+msgid "Number of feedings"
+msgstr "Broj hranjenja"
+
+#: reports/graphs/feeding_intervals.py:32
+msgid "Interval"
+msgstr "Interval"
+
+#: reports/graphs/feeding_intervals.py:41
+msgid "Feeding intervals"
+msgstr "Intervali hranjenja"
+
+#: reports/graphs/feeding_intervals.py:47
+msgid "Feeding interval (hours)"
+msgstr "Interval hranjenja (sati)"
+
+#: reports/graphs/feeding_pattern.py:163
+#: reports/templates/reports/feeding_pattern.html:4
+#: reports/templates/reports/feeding_pattern.html:9
+#: reports/templates/reports/report_list.html:32
+msgid "Feeding Pattern"
+msgstr "Ritam hranjenja"
+
+#: reports/graphs/feeding_pattern.py:180 reports/graphs/sleep_pattern.py:182
+msgid "Time of day"
+msgstr "Doba dana"
+
+#: reports/graphs/height_change.py:51 reports/graphs/weight_change.py:49
+msgid "P3"
+msgstr "P3"
+
+#: reports/graphs/height_change.py:57 reports/graphs/weight_change.py:55
+msgid "P15"
+msgstr "P15"
+
+#: reports/graphs/height_change.py:63 reports/graphs/weight_change.py:61
+msgid "P50"
+msgstr "P50"
+
+#: reports/graphs/height_change.py:69 reports/graphs/weight_change.py:67
+msgid "P85"
+msgstr "P85"
+
+#: reports/graphs/height_change.py:75 reports/graphs/weight_change.py:73
+msgid "P97"
+msgstr "P97"
+
+#: reports/graphs/pumping_amounts.py:59
+msgid "Total Pumping Amount"
+msgstr "Ukupna količina dojenja"
+
+#: reports/graphs/pumping_amounts.py:62
+msgid "Pumping Amount"
+msgstr "Količina dojenja"
+
+#: reports/graphs/sleep_pattern.py:165
+#: reports/templates/reports/report_list.html:44
+#: reports/templates/reports/sleep_pattern.html:4
+#: reports/templates/reports/sleep_pattern.html:9
+msgid "Sleep Pattern"
+msgstr "Ritam spavanja"
+
+#: reports/graphs/sleep_totals.py:48
+msgid "Total sleep"
+msgstr "Ukupno spavanje"
+
+#: reports/graphs/sleep_totals.py:58
+#: reports/templates/reports/report_list.html:46
+#: reports/templates/reports/sleep_totals.html:4
+#: reports/templates/reports/sleep_totals.html:9
+msgid "Sleep Totals"
+msgstr "Ukupni broj spavanja"
+
+#: reports/graphs/sleep_totals.py:64
+msgid "Hours of sleep"
+msgstr "Sati spavanja"
+
+#: reports/graphs/tummytime_duration.py:34
+msgid "Total duration"
+msgstr "Ukupno trajanje"
+
+#: reports/graphs/tummytime_duration.py:41
+#: reports/graphs/tummytime_duration.py:60
+msgid "Number of sessions"
+msgstr "Broj sesija"
+
+#: reports/graphs/tummytime_duration.py:50
+#: reports/templates/reports/tummytime_duration.html:4
+#: reports/templates/reports/tummytime_duration.html:9
+msgid "Total Tummy Time Durations"
+msgstr "Ukupno trajanje vremena na trbuhu"
+
+#: reports/graphs/tummytime_duration.py:58
+msgid "Total duration (minutes)"
+msgstr "Ukupno trajanje (minute)"
+
+#: reports/templates/reports/diaperchange_amounts.html:4
+#: reports/templates/reports/diaperchange_amounts.html:9
+msgid "Diaper Amounts"
+msgstr "Količine pelena"
+
+#: reports/templates/reports/feeding_amounts.html:4
+#: reports/templates/reports/feeding_amounts.html:9
+#: reports/templates/reports/report_list.html:26
+msgid "Feeding Amounts"
+msgstr "Količine hranjenja"
+
+#: reports/templates/reports/feeding_intervals.html:4
+#: reports/templates/reports/feeding_intervals.html:9
+#: reports/templates/reports/report_list.html:30
+msgid "Feeding Intervals"
+msgstr "Intervali hranjenja"
+
+#: reports/templates/reports/report_base.html:13
+msgid "There is not enough data to generate this report."
+msgstr "Nema dovoljno podataka za generiranje ovog izvještaja."
+
+#: reports/templates/reports/report_list.html:16
+msgid "Body Mass Index (BMI)"
+msgstr "Indeks tjelesne mase (BMI)"
+
+#: reports/templates/reports/report_list.html:22
+msgid "Diaper Intervals"
+msgstr "Intervali mijenjanja pelene"
+
+#: reports/templates/reports/report_list.html:28
+msgid "Feeding Durations (Average)"
+msgstr "Trajanje hranjenja (prosječno)"
+
+#: reports/templates/reports/report_list.html:38
+msgid "WHO Height Percentiles for Boys in cm"
+msgstr "WHO postotak veličine za dječake u cm"
+
+#: reports/templates/reports/report_list.html:40
+msgid "WHO Height Percentiles for Girls in cm"
+msgstr "WHO postotak veličine za djevojčice u cm"
+
+#: reports/templates/reports/report_list.html:42
+msgid "Pumping Amounts"
+msgstr "Količine dojenja"
+
+#: reports/templates/reports/report_list.html:50
+msgid "Tummy Time Durations (Sum)"
+msgstr "Trajanje vremena na trbuhu (zbroj)"
+
+#: reports/templates/reports/report_list.html:54
+msgid "WHO Weight Percentiles for Boys in kg"
+msgstr "WHO postotak težine za dječake u kg"
+
+#: reports/templates/reports/report_list.html:56
+msgid "WHO Weight Percentiles for Girls in kg"
+msgstr "WHO postotak težine za djevojčice u kg"
+
+#, python-format
+#~ msgid "Amount: %(amount).0f"
+#~ msgstr "Količina: %(amount).0f"
+
+#, python-format
+#~ msgid "Temperature: %(temperature).0f"
+#~ msgstr "Temperatura: %(temperature).0f"
+
+#~ msgid ""
+#~ "This setting will only be used when a browser does not support refresh on "
+#~ "focus."
+#~ msgstr ""
+#~ "Ova će se postavka koristiti samo kada preglednik ne podržava "
+#~ "aktualiziranje pri fokusu."
+
+#~ msgid "1 min."
+#~ msgstr "1 min"
+
+#~ msgid "2 min."
+#~ msgstr "2 min"
+
+#~ msgid "3 min."
+#~ msgstr "3 min"
+
+#~ msgid "4 min."
+#~ msgstr "4 min"
+
+#~ msgid "5 min."
+#~ msgstr "5 min"
+
+#~ msgid "10 min."
+#~ msgstr "10 min"
+
+#~ msgid "15 min."
+#~ msgstr "15 min"
+
+#~ msgid "30 min."
+#~ msgstr "30 min"
+
+#~ msgid "English"
+#~ msgstr "Engleski"
+
+#~ msgid ""
+#~ "You do not have permission to access this resource.\n"
+#~ "        Contact a site administrator for assistance."
+#~ msgstr ""
+#~ "Nemaš dozvolu za pristup ovom resursu.\n"
+#~ "        Za pomoć se obrati administratoru web-stranice."
+
+#~ msgid "<strong>Error:</strong> %(error)s"
+#~ msgstr "<strong>Greška:</strong> %(error)s"
+
+#~ msgid ""
+#~ "<strong>Error:</strong> Some fields have errors. See below for details. "
+#~ msgstr ""
+#~ "<strong>Greška:</strong> Neka polja sadrže greške. Pogledaj detalje niže "
+#~ "dolje. "
+
+#~ msgid "Backend Admin"
+#~ msgstr "Administrator pozadinskog sustava"
+
+#~ msgid ""
+#~ "<h1>Are you sure you want to delete <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr ""
+#~ "<h1>Stvarno želiš izbrisati <span class=\"text-info\">%(object)s</span>?</"
+#~ "h1>"
+
+#~ msgid "<h1>Update <span class=\"text-info\">%(object)s</span></h1>"
+#~ msgstr "<h1>Aktualiziraj <span class=\"text-info\">%(object)s</span></h1>"
+
+#~ msgid ""
+#~ "<strong>Error:</strong> Some fields have errors. See below for details."
+#~ msgstr ""
+#~ "<strong>Greška:</strong> Neka polja sadrže greške. Pogledaj detalje niže "
+#~ "dolje."
+
+#~ msgid ""
+#~ "Learn about and predict baby's needs without\n"
+#~ "            (<em>as much</em>) guess work by using Baby Buddy to track "
+#~ "&mdash;"
+#~ msgstr ""
+#~ "Nauči i predvidi bebine potrebe bez\n"
+#~ "            (<em>previše</em>) nagađanja pomoću Baby Buddy &ndash;"
+
+#~ msgid ""
+#~ "As the amount of entries grows, Baby Buddy will help\n"
+#~ "            parents and caregivers to identify small patterns in baby's "
+#~ "habits\n"
+#~ "            using the dashboard and graphs. Baby Buddy is mobile-friendly "
+#~ "and\n"
+#~ "            uses a dark theme to help weary moms and dads with 2AM "
+#~ "feedings and\n"
+#~ "            changings. To get started, just click the button below to add "
+#~ "your\n"
+#~ "            first (or second, third, etc.) child!"
+#~ msgstr ""
+#~ "Kako broj unosa raste, Baby Buddy će pomoći roditeljima i skrbnicima da "
+#~ "identificiraju male promjene u navikama bebe pomoću pregledne ploče i "
+#~ "grafikona. Baby Buddy je prilagođen za mobilne uređaje i koristi tamnu "
+#~ "temu kako bi pomogao umornim mamama i tatama pri hranjenju i mijenjanju "
+#~ "pelena u 2 ujutro. Započni pritiskom donjeg gumba za dodavanje tvog prvog "
+#~ "(ili drugog, trećeg, itd.) djeteta!"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\"><strong>Oh snap!</strong> The\n"
+#~ "                two passwords did not match. Please try again.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\"><strong>Joj!</strong> \n"
+#~ "                Lozinke se ne poklapaju. Pokušaj ponovo.</p>"
+
+#~ msgid ""
+#~ "<p>We've emailed you instructions for setting your\n"
+#~ "            password, if an account exists with the email you entered. "
+#~ "You\n"
+#~ "            should receive them shortly.</p>\n"
+#~ "        <p class=\"mb-0\">If you don't receive an email, please make sure "
+#~ "you've\n"
+#~ "            entered the address you registered with, and check your spam\n"
+#~ "            folder.</p>"
+#~ msgstr ""
+#~ "<p>Poslali smo ti e-mail s uputama za postavljanje lozinke,\n"
+#~ "             ako postoji račun s e-mail adresom koju si upisao/la.\n"
+#~ "             Uskoro bi ih trebao/la primiti.</p>\n"
+#~ "         <p class=\"mb-0\">Ako ne dobiješ e-mail, provjeri jesi li\n"
+#~ "             upisao adresu s kojom si se registrirao/la i provjeri "
+#~ "sandučić\n"
+#~ "             neželjene pošte.</p>"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\">Enter your account email address in the\n"
+#~ "        form below. If the address is valid, you will receive "
+#~ "instructions for\n"
+#~ "        resetting your password.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\">Upiši tvoju e-mail adresu za račun u\n"
+#~ "       donji obrazac. Ako je adresa valjana dobit ćeš upute za\n"
+#~ "       ponovno postavljanje lozinke.</p>"
+
+#~ msgid "Wet and/or solid is required."
+#~ msgstr "Mora se navesti mokro i/ili tvrdo."
+
+#~ msgid "Only \"Bottle\" method is allowed with \"Formula\" type."
+#~ msgstr "Samo način „Bočica“ smije korisiti vrstu „Formula“."
+
+#~ msgid "Add a Change"
+#~ msgstr "Dodaj mijenjanje"
+
+#~ msgid "Stopped"
+#~ msgstr "Prekinuto"
+
+#~ msgid "%(timer)s created by %(object.user)s"
+#~ msgstr "%(timer)s stvoren od %(object.user)s"
+
+#~ msgid "Active Timers"
+#~ msgstr "Aktivni timeri"
+
+#~ msgid "%(child)s had a diaper change."
+#~ msgstr "%(child)s promijenjena pelena."
+
+#~ msgid "%(timer)s stopped."
+#~ msgstr "%(timer)s zaustavljen."
+
+#~ msgid "%(time)s ago"
+#~ msgstr "Prije %(time)s"
+
+#~ msgid "%(key)s days ago"
+#~ msgstr "Prije %(key)s dana"
+
+#~ msgid "Today's Sleep"
+#~ msgstr "Današnje spavanje"
+
+#~ msgid "None yet today"
+#~ msgstr "Danas još bez"
+
+#~ msgid "%(count)s sleep entries"
+#~ msgstr "%(count)s unosa spavanja"
+
+#~ msgid "Last Slept"
+#~ msgstr "Zadnje spavanje"
+
+#~ msgid "Started by %(instance.user)s at %(start)s"
+#~ msgstr "Pokrenuto od %(instance.user)s u %(start)s"
+
+#~ msgid "<b>Diaper Lifetimes</b>"
+#~ msgstr "<b>Životni vijek pelene</b>"
+
+#~ msgid "<b>Diaper Change Types</b>"
+#~ msgstr "<b>Vrste mijenjanja pelene</b>"
+
+#~ msgid "<b>Average Feeding Durations</b>"
+#~ msgstr "<b>Prosječno trajanje hranjenja</b>"
+
+#~ msgid "<b>Sleep Pattern</b>"
+#~ msgstr "<b>Ritam spavanja</b>"
+
+#~ msgid "<b>Sleep Totals</b>"
+#~ msgstr "<b>Ukupni broj spavanja</b>"
+
+#~ msgid "<b>Weight</b>"
+#~ msgstr "<b>Težina</b>"
+
+#~ msgid "There is no enough data to generate this report."
+#~ msgstr "Nema dovoljno podataka za generiranje ovog izvještaja."
+
+#~ msgid ""
+#~ "<strong>Oh snap!</strong> The two passwords did not match. Please try "
+#~ "again."
+#~ msgstr "<strong>Joj!</strong> Lozinke se ne poklapaju. Pokušaj ponovo."
+
+#~ msgid "Total feeding amount"
+#~ msgstr "Ukupna količina hranjenja"
+
+#~ msgid "<b>Total Feeding Amounts</b>"
+#~ msgstr "<b>Ukupna količina hranjenja</b>"
+
+#~ msgid "Delete All Inactive Timers"
+#~ msgstr "Izbriši sve neaktivne timere"
+
+#~ msgid "Delete Inactive"
+#~ msgstr "Izbriši neaktivne"
+
+#~ msgid "Delete Inactive Timers"
+#~ msgstr "Izbriši neaktivne timere"
+
+#~ msgid "All inactive timers deleted."
+#~ msgstr "Svi neaktivni timeri su izbrisani."
+
+#~ msgid "No inactive timers exist."
+#~ msgstr "Ne postoje neaktivni timeri."
+
+#~ msgid "<b>Diaper Change Amounts</b>"
+#~ msgstr "<b>Količine mijenjanja pelene</b>"
+
+#~ msgid "1 day"
+#~ msgstr "1 dan"
+
+#~ msgid "2 days"
+#~ msgstr "2 dana"
+
+#~ msgid "3 days"
+#~ msgstr "3 dana"
+
+#~ msgid "1 week"
+#~ msgstr "1 tjedan"
+
+#~ msgid "4 weeks"
+#~ msgstr "4 tjedna"
+
+#~ msgid "Delete timer"
+#~ msgstr "Izbriši timer"
+
+#~ msgid "{}, {}"
+#~ msgstr "{}, {}"
+
+#~ msgid "0 days"
+#~ msgstr "0 dana"
+
+#~ msgid "Contents: %(contents)s"
+#~ msgstr "Sadržaj: %(contents)s"
+
+#~ msgid "<div>%(since)s ago</div> <small>%(time)s</small>"
+#~ msgstr "Prije <div>%(since)s </div> <small>%(time)s</small>"
+
+#~ msgid "Today's Feeding"
+#~ msgstr "Današnje hranjenje"
+
+#~ msgid "%(count)s feeding entries"
+#~ msgstr "%(count)s unosa hranjenja"
+
+#~ msgid "<b>Total Tummy Time Durations</b>"
+#~ msgstr "<b>Ukupno trajanje vremena na trbuhu</b>"
+
+#~ msgid "Napping"
+#~ msgstr "Drijemajnje"
+
+#~ msgid "No bmi entries found."
+#~ msgstr "Nije pronađen nijedan unos BMI-a."
+
+#~ msgid "<b>BMI</b>"
+#~ msgstr "<b>BMI</b>"
+
+#~ msgid "<b>Total Feeding Amount by Type</b>"
+#~ msgstr "<b>Ukupna količina hranjenja po vrsti</b>"
+
+#~ msgid "<b>Head Circumference</b>"
+#~ msgstr "<b>Opseg glave</b>"
+
+#~ msgid "<b>Height</b>"
+#~ msgstr "<b>Veličina</b>"
+
+#~ msgid ""
+#~ "Add <samp>%(origin)s</samp> to the <code>CSRF_TRUSTED_ORIGINS</code> "
+#~ "environment variable. If multiple origins are required separate with "
+#~ "commas."
+#~ msgstr ""
+#~ "Dodaj <samp>%(origin)s</samp> varijabli okruženja "
+#~ "<code>CSRF_TRUSTED_ORIGINS</code>. Ako je potrebno više izvora, odvoji ih "
+#~ "zarezima."
+
+#~ msgid "The path <code>%(request_path)s</code> does not exist."
+#~ msgstr "Putanja <code>%(request_path)s</code> ne postoji."
+
+#~ msgid "<div class=\"text-center small text-muted\"> %(since)s </div>"
+#~ msgstr "<div class=\"text-center small text-muted\"> %(since)s </div>"
+
+#~ msgid "<b>Total Pumping Amount</b>"
+#~ msgstr "<b>Ukupna količina dojenja</b>"
+
+#~ msgid "Are you sure you want to delete %(number)s inactive timer?"
+#~ msgid_plural "Are you sure you want to delete %(number)s inactive timers?"
+#~ msgstr[0] "Stvarno želiš izbrisati %(number)s neaktivni timer?"
+#~ msgstr[1] "Stvarno želiš izbrisati %(number)s neaktivna timera?"
+#~ msgstr[2] "Stvarno želiš izbrisati %(number)s neaktivnih timera?"
+
+#~ msgid "%(count)s active timer"
+#~ msgid_plural "%(count)s active timers"
+#~ msgstr[0] "%(count)s aktivni timer"
+#~ msgstr[1] "%(count)s aktivna timera"
+#~ msgstr[2] "%(count)s aktivnih timera"
+
+#~ msgid ""
+#~ "<h1>Are you sure you want to unlock <span class=\"text-info\">%(object)s</"
+#~ "span>?</h1>"
+#~ msgstr ""
+#~ "<h1>Stvarno želiš otključati <span class=\"text-info\">%(object)s</span>?"
+#~ "</h1>"
+
+#~ msgid " days ago"
+#~ msgstr " dana prije"
+
+#~ msgid "<b>Temperature</b>"
+#~ msgstr "<b>Temperatura</b>"
+
+#~ msgid ""
+#~ "Nap start min. value %(min)s must be less than nap start min. value "
+#~ "%(max)s."
+#~ msgstr ""
+#~ "Minimalna vrijednost početka drijemanja %(min)s mora biti manja od "
+#~ "minimalna vrijedonsti početka drijemanja %(max)s."
+
+#~ msgid ""
+#~ "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+#~ msgstr ""
+#~ "<div class=\"text-center small text-body-secondary\"> %(since)s </div>"
+
+#~ msgid "<b>Diaper Change Intervals</b>"
+#~ msgstr "<b>Intervali mijenjanja pelene</b>"
+
+#~ msgid "<b>Feeding intervals</b>"
+#~ msgstr "<b>Intervali hranjenja</b>"
+
+#~ msgid ""
+#~ "<h1> Are you sure you want to delete <span class=\"text-"
+#~ "info\">%(object)s</span>? </h1>"
+#~ msgstr ""
+#~ "<h1> Stvarno želiš izbrisati <span class=\"text-info\">%(object)s</span>? "
+#~ "</h1>"
+
+#~ msgid ""
+#~ "<h1> Are you sure you want to unlock <span class=\"text-"
+#~ "info\">%(object)s</span>? </h1>"
+#~ msgstr ""
+#~ "<h1> Stvarno želiš otključati <span class=\"text-info\">%(object)s</"
+#~ "span>? </h1>"
+
+#~ msgid "<h1> Update <span class=\"text-info\">%(object)s</span> </h1>"
+#~ msgstr "<h1> Aktualiziraj <span class=\"text-info\">%(object)s</span> </h1>"
+
+#~ msgid "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
+#~ msgstr ""
+#~ "<div class=\"text-center small text-body-secondary\">%(since)s</div>"
+
+#~ msgid ""
+#~ "<p class=\"mb-0\">This action will remove the tag from all items it is "
+#~ "currently applied to.</p>"
+#~ msgstr ""
+#~ "<p class=\"mb-0\">Ova će radnja ukloniti oznaku iz svih stavki na koje je "
+#~ "trenutačno primijenjena.</p>"
+
+#~ msgid "<b>Feeding Pattern</b>"
+#~ msgstr "<b>Ritam hranjenja</b>"

@@ -6,7 +6,6 @@ from import_export import fields, resources
 from import_export.admin import ImportExportMixin, ExportActionMixin
 
 from core import models
-from core.forms import TagAdminForm
 
 
 class ImportExportResourceBase(resources.ModelResource):
@@ -18,6 +17,7 @@ class ImportExportResourceBase(resources.ModelResource):
     class Meta:
         clean_model_instances = True
         exclude = ("duration",)
+        export_order = ("id", "child_id", "child_first_name", "child_last_name")
 
 
 class BMIImportExportResource(ImportExportResourceBase):

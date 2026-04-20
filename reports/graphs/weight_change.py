@@ -42,8 +42,8 @@ def weight_change(
 
         # reduce percentile data xrange to end 1 day after last weigh in for formatting purposes
         # https://github.com/babybuddy/babybuddy/pull/708#discussion_r1332335789
-        last_date_for_percentiles = max(weighing_dates) + timedelta(days=2)
-        dates = dates[: dates.index(last_date_for_percentiles)]
+        last_date_for_percentiles = min(max(dates), max(weighing_dates))
+        dates = dates[: dates.index(last_date_for_percentiles) + 1]
 
         percentile_weight_3_trace = go.Scatter(
             name=_("P3"),

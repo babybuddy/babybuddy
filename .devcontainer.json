@@ -1,19 +1,20 @@
 {
   "name": "babybuddy",
-  "image": "mcr.microsoft.com/devcontainers/python:3",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/node:1": {
-      "version": "18"
+      "version": "24"
     },
-    "ghcr.io/devcontainers-contrib/features/gulp-cli:2": {},
-    "ghcr.io/devcontainers-contrib/features/pipenv:2": {}
+    "ghcr.io/devcontainers-extras/features/gulp-cli:2": {},
+    "ghcr.io/devcontainers-extras/features/pipenv:2": {}
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "batisteo.vscode-django",
         "donjayamanne.python-environment-manager",
+        "mhutchie.git-graph",
         "mrorz.language-gettext",
         "ms-python.black-formatter",
         "ms-python.python",

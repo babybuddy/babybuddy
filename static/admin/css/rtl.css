@@ -151,6 +151,7 @@ form ul.inline li {
 
 form .aligned p.help,
 form .aligned div.help {
+    margin-left: 0;
     margin-right: 160px;
     padding-right: 10px;
 }
@@ -164,17 +165,11 @@ form .aligned p.time div.help.timezonewarning {
     padding-right: 0;
 }
 
-form .wide p.help, form .wide div.help {
+form .wide p.help,
+form .wide ul.errorlist,
+form .wide div.help {
     padding-left: 0;
     padding-right: 50px;
-}
-
-form .wide p,
-form .wide ul.errorlist,
-form .wide input + p.help,
-form .wide input + div.help {
-    margin-right: 200px;
-    margin-left: 0px;
 }
 
 .submit-row {
@@ -202,12 +197,7 @@ fieldset .fieldBox {
     top: 0;
     left: auto;
     right: 10px;
-    background: url(../img/calendar-icons.svg) 0 -30px no-repeat;
-}
-
-.calendarbox .calendarnav-previous:focus,
-.calendarbox .calendarnav-previous:hover {
-    background-position: 0 -45px;
+    background: url(../img/calendar-icons.svg) 0 -15px no-repeat;
 }
 
 .calendarnav-next {
@@ -215,11 +205,6 @@ fieldset .fieldBox {
     right: auto;
     left: 10px;
     background: url(../img/calendar-icons.svg) 0 0 no-repeat;
-}
-
-.calendarbox .calendarnav-next:focus,
-.calendarbox .calendarnav-next:hover {
-    background-position: 0 -15px;
 }
 
 .calendar caption, .calendarbox h2 {
@@ -235,34 +220,36 @@ fieldset .fieldBox {
 }
 
 .selector-add {
-  background: url(../img/selector-icons.svg) 0 -64px no-repeat;
+    background: url(../img/selector-icons.svg) 0 -96px no-repeat;
+    background-size: 24px auto;
 }
 
-.active.selector-add:focus, .active.selector-add:hover {
-  background-position: 0 -80px;
+:enabled.selector-add:focus, :enabled.selector-add:hover {
+    background-position: 0 -120px;
 }
 
 .selector-remove {
-  background: url(../img/selector-icons.svg) 0 -96px no-repeat;
+    background: url(../img/selector-icons.svg) 0 -144px no-repeat;
+    background-size: 24px auto;
 }
 
-.active.selector-remove:focus, .active.selector-remove:hover {
-  background-position: 0 -112px;
+:enabled.selector-remove:focus, :enabled.selector-remove:hover {
+    background-position: 0 -168px;
 }
 
-a.selector-chooseall {
+.selector-chooseall {
     background: url(../img/selector-icons.svg) right -128px no-repeat;
 }
 
-a.active.selector-chooseall:focus, a.active.selector-chooseall:hover {
+:enabled.selector-chooseall:focus, :enabled.selector-chooseall:hover {
     background-position: 100% -144px;
 }
 
-a.selector-clearall {
+.selector-clearall {
     background: url(../img/selector-icons.svg) 0 -160px no-repeat;
 }
 
-a.active.selector-clearall:focus, a.active.selector-clearall:hover {
+:enabled.selector-clearall:focus, :enabled.selector-clearall:hover {
     background-position: 0 -176px;
 }
 
@@ -295,6 +282,10 @@ form .form-row p.datetime {
 .inline-related h3 span.delete label {
     margin-left: inherit;
     margin-right: 2px;
+}
+
+.inline-group .tabular td.original p {
+    right: 0;
 }
 
 .selector .selector-chooser {

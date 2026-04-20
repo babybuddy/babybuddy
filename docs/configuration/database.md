@@ -1,6 +1,6 @@
 # Database
 
-## `DATABSE_URL`
+## `DATABASE_URL`
 
 _Default:_ unset
 

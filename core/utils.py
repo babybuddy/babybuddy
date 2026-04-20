@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 import random
 
 from django.utils import timezone
@@ -66,3 +67,13 @@ def duration_parts(duration):
 
 def random_color():
     return COLORS[random.randrange(0, len(COLORS))]
+
+
+def timezone_aware_duration(
+    start: timezone.datetime, end: timezone.datetime
+) -> datetime.timedelta:
+    """
+    Calculate a duration between timezone aware dates in UTC. This accounts for DST changes between dates.
+    """
+    utc = datetime.timezone.utc
+    return end.astimezone(utc) - start.astimezone(utc)

@@ -1,9 +1,9 @@
 {% load widget_tweaks %}
 {% if field|field_type == "booleanfield" %}
     {% if field.errors %}
-        {{ field|add_class:"btn-check is-invalid" }}
+        {{ field|add_class:"btn-check d-none is-invalid" }}
     {% else %}
-        {{ field|add_class:"btn-check" }}
+        {{ field|add_class:"btn-check d-none" }}
     {% endif %}
     <label for="id_{{ field.name }}" class="btn btn-outline-light btn-no-hover">{{ field.label }}</label>
 {% elif 'choice' in field|field_type %}
@@ -11,6 +11,12 @@
         {{ field|add_class:"form-select is-invalid" }}
     {% else %}
         {{ field|add_class:"form-select" }}
+    {% endif %}
+{% elif field|field_type == "floatfield" %}
+    {% if field.errors %}
+        {{ field|add_class:"form-control is-invalid"|attr:"inputmode:decimal" }}
+    {% else %}
+        {{ field|add_class:"form-control"|attr:"inputmode:decimal" }}
     {% endif %}
 {% else %}
     {% if field.errors %}

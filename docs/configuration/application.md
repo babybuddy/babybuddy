@@ -19,18 +19,3 @@ application configuration.
 
 Additional steps are required! See [Subdirectory configuration](../setup/subdirectory.md) for
 details.
-
-## `TIME_ZONE`
-
-_Default:_ `UTC`
-
-The default time zone to use for the instance. This value can be overridden per use from
-the user settings form.
-
-**Example value**
-
-    America/Los_Angeles
-
-**See also**
-
-[List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)

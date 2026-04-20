@@ -1,3 +1,0 @@
-name: "CodeQL Config"
-paths-ignore:
-  - static

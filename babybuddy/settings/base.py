@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split("
 SECRET_KEY = os.environ.get("SECRET_KEY") or None
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
-
 # Applications
 # https://docs.djangoproject.com/en/5.0/ref/applications/
 
@@ -63,6 +62,7 @@ INSTALLED_APPS = [
 # https://docs.djangoproject.com/en/5.0/ref/middleware/
 
 MIDDLEWARE = [
+    "babybuddy.middleware.HomeAssistant",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -77,7 +77,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "axes.middleware.AxesMiddleware",
-    "babybuddy.middleware.HomeAssistant",
 ]
 
 
@@ -110,7 +109,7 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if os.getenv("DATABSE_URL"):
+if os.getenv("DATABASE_URL"):
     DATABASES = {"default": dj_database_url.config()}
 else:
     config = {
@@ -193,6 +192,7 @@ LOCALE_PATHS = [
 LANGUAGES = [
     ("pt-BR", _("Brazilian Portuguese")),
     ("ca", _("Catalan")),
+    ("hr", _("Croatian")),
     ("cs", _("Czech")),
     ("zh-hans", _("Chinese (simplified)")),
     ("da", _("Danish")),
@@ -205,11 +205,13 @@ LANGUAGES = [
     ("he", _("Hebrew")),
     ("hu", _("Hungarian")),
     ("it", _("Italian")),
+    ("ko", _("Korean")),
     ("ja", _("Japanese")),
     ("nb", _("Norwegian Bokmål")),
     ("pl", _("Polish")),
     ("pt", _("Portuguese")),
     ("ru", _("Russian")),
+    ("sr", _("Serbian")),
     ("es", _("Spanish")),
     ("sv", _("Swedish")),
     ("tr", _("Turkish")),

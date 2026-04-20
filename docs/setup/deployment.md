@@ -20,8 +20,6 @@ services:
   babybuddy:
     image: lscr.io/linuxserver/babybuddy
     container_name: babybuddy
-    environment:
-      - TZ=UTC
     volumes:
       - /path/to/appdata:/config
     ports:
@@ -114,7 +112,6 @@ CC_PYTHON_MANAGE_TASKS=migrate
 CC_PYTHON_MODULE=babybuddy.wsgi:application
 DJANGO_SETTINGS_MODULE=babybuddy.settings.clever-cloud
 SECRET_KEY=<CHANGE TO SOMETHING RANDOM>
-TIME_ZONE=<DESIRED DEFAULT TIMEZONE>
 AWS_STORAGE_BUCKET_NAME=<DESIRED BUCKET NAME> # only if file storage is needed
 ```
 

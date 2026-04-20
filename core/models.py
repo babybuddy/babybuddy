@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 import datetime
 import re
-from datetime import timedelta
 
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.functions import Lower
-from django.utils import timezone
+from django.urls import reverse
+from django.utils import formats, timezone
+from django.utils.safestring import mark_safe
 from django.utils.text import format_lazy, slugify
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
 from babybuddy.site_settings import NapSettings
-from core.utils import random_color
+from core.utils import random_color, timezone_aware_duration
 
 
 def validate_date(date, field_name):
@@ -31,7 +32,7 @@ def validate_date(date, field_name):
         )
 
 
-def validate_duration(model, max_duration=timedelta(hours=24)):
+def validate_duration(model, max_duration=datetime.timedelta(hours=24)):
     """
     Basic sanity checks for models with a duration
     :param model: a model instance with 'start' and 'end' attributes
@@ -39,12 +40,19 @@ def validate_duration(model, max_duration=timedelta(hours=24)):
     :return:
     """
     if model.start and model.end:
-        if model.start > model.end:
+        # Compare and calculate in UTC to account for DST changes between dates.
+        start = model.start.astimezone(datetime.timezone.utc)
+        end = model.end.astimezone(datetime.timezone.utc)
+        if start > end:
             raise ValidationError(
                 _("Start time must come before end time."), code="end_before_start"
             )
-        if model.end - model.start > max_duration:
+        if end - start > max_duration:
             raise ValidationError(_("Duration too long."), code="max_duration")
+
+
+def _format_dt(dt):
+    return formats.date_format(timezone.localtime(dt), "SHORT_DATETIME_FORMAT")
 
 
 def validate_unique_period(queryset, model):
@@ -58,9 +66,22 @@ def validate_unique_period(queryset, model):
     if model.id:
         queryset = queryset.exclude(id=model.id)
     if model.start and model.end:
-        if queryset.filter(start__lt=model.end, end__gt=model.start):
+        conflicting = queryset.filter(start__lt=model.end, end__gt=model.start).first()
+        if conflicting:
+            url = reverse(
+                f"core:{conflicting.model_name}-update",
+                args=[conflicting.id],
+            )
+            link = (
+                f'<a href="{url}">{conflicting} '
+                f"({_format_dt(conflicting.start)} - "
+                f"{_format_dt(conflicting.end)})</a>"
+            )
             raise ValidationError(
-                _("Another entry intersects the specified time period."),
+                mark_safe(
+                    f'{_("Another entry intersects the specified time period.")} '
+                    f'{_("Conflicting entry")}: {link}'
+                ),
                 code="period_intersection",
             )
 
@@ -152,7 +173,7 @@ class BMI(models.Model):
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
+        ordering = ["-date", "-id"]
         verbose_name = _("BMI")
         verbose_name_plural = _("BMI")
 
@@ -337,7 +358,7 @@ class Feeding(models.Model):
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
-            self.duration = self.end - self.start
+            self.duration = timezone_aware_duration(self.start, self.end)
         super(Feeding, self).save(*args, **kwargs)
 
     def clean(self):
@@ -367,7 +388,7 @@ class HeadCircumference(models.Model):
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
+        ordering = ["-date", "-id"]
         verbose_name = _("Head Circumference")
         verbose_name_plural = _("Head Circumference")
 
@@ -397,7 +418,7 @@ class Height(models.Model):
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
+        ordering = ["-date", "-id"]
         verbose_name = _("Height")
         verbose_name_plural = _("Height")
 
@@ -501,7 +522,7 @@ class Pumping(models.Model):
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
-            self.duration = self.end - self.start
+            self.duration = timezone_aware_duration(self.start, self.end)
         super(Pumping, self).save(*args, **kwargs)
 
     def clean(self):
@@ -551,7 +572,7 @@ class Sleep(models.Model):
                 <= Sleep.settings.nap_start_max
             )
         if self.start and self.end:
-            self.duration = self.end - self.start
+            self.duration = timezone_aware_duration(self.start, self.end)
         super(Sleep, self).save(*args, **kwargs)
 
     def clean(self):
@@ -702,7 +723,7 @@ class TummyTime(models.Model):
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
-            self.duration = self.end - self.start
+            self.duration = timezone_aware_duration(self.start, self.end)
         super(TummyTime, self).save(*args, **kwargs)
 
     def clean(self):
@@ -731,7 +752,7 @@ class Weight(models.Model):
 
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
-        ordering = ["-date"]
+        ordering = ["-date", "-id"]
         verbose_name = _("Weight")
         verbose_name_plural = _("Weight")
 

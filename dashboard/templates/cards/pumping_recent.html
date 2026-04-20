@@ -1,0 +1,54 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block header %}
+    <a href="{% url "core:pumping-list" %}">{% trans "Recent Pumpings" %}</a>
+{% endblock %}
+{% block title %}
+    {% if pumpings|length > 0 %}
+        <div id="pumping-days-carousel"
+             class="carousel slide"
+             data-bs-interval="false">
+            <div class="carousel-inner">
+                {% for pumping in pumpings %}
+                    <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
+                        <div class="last-feeding-method text-center">
+                            {% if pumping.total %}
+                                {{ pumping.total|floatformat }}
+                            {% else %}
+                                {% trans "None" %}
+                            {% endif %}
+                        </div>
+                        <div class="text-center small">
+                            {% if pumping.count > 0 %}
+                                {% blocktrans trimmed count counter=pumping.count %}
+                                    {{ counter }} pumping
+                                {% plural %}
+                                    {{ counter }} pumpings
+                                {% endblocktrans %}
+                            {% endif %}
+                        </div>
+                        <div class="text-center small text-body-secondary">{{ pumping.date.date|dayssince }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if pumpings|length > 1 %}
+                <a class="carousel-control-prev"
+                   href="#pumping-days-carousel"
+                   role="button"
+                   data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{% trans "Previous" %}</span>
+                </a>
+                <a class="carousel-control-next"
+                   href="#pumping-days-carousel"
+                   role="button"
+                   data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{% trans "Next" %}</span>
+                </a>
+            {% endif %}
+        </div>
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
