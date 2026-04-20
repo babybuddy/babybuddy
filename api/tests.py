@@ -473,6 +473,87 @@ class HeightAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.data, entry)
 
 
+class MedicationAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:medication-list")
+    model = models.Medication
+
+    def test_delete(self):
+        # Create a medication entry first, then delete it
+        data = {
+            "child": 1,
+            "name": "Test Medication for Delete",
+            "dosage": "5.0",
+            "dosage_unit": "ml",
+            "time": "2017-11-18T12:00:00-05:00",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        delete_id = response.data["id"]
+
+        # Test the delete functionality
+        endpoint = f"{self.endpoint}{delete_id}/"
+        response = self.client.get(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(endpoint)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Test basic structure - we'll need fixture data for specific content
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "name": "Tylenol",
+            "dosage": "5.0",
+            "dosage_unit": "ml",
+            "time": "2017-11-18T12:00:00-05:00",
+            "next_dose_interval": "04:00:00",
+            "notes": "For fever",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.name, data["name"])
+        self.assertEqual(str(obj.dosage), data["dosage"])
+        self.assertEqual(obj.dosage_unit, data["dosage_unit"])
+        self.assertEqual(obj.notes, data["notes"])
+        self.assertEqual(obj.next_dose_interval.total_seconds(), 4 * 3600)
+
+    def test_post_null_time(self):
+        data = {
+            "child": 1,
+            "name": "Vitamin D",
+            "dosage": "1",
+            "dosage_unit": "drops",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.name, data["name"])
+
+    def test_patch(self):
+        # First create a medication entry to patch
+        data = {
+            "child": 1,
+            "name": "Test Medication",
+            "dosage": "2.5",
+            "dosage_unit": "ml",
+            "time": "2017-11-18T12:00:00-05:00",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # Now patch it
+        endpoint = "{}{}/".format(self.endpoint, response.data["id"])
+        patch_data = {"dosage": "5.0", "notes": "Updated dosage"}
+        response = self.client.patch(endpoint, patch_data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(str(response.data["dosage"]), patch_data["dosage"])
+        self.assertEqual(response.data["notes"], patch_data["notes"])
+
+
 class NoteAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse("api:note-list")
     model = models.Note

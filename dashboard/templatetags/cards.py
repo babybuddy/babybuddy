@@ -884,3 +884,26 @@ def card_tummytime_day(context, child, date=None):
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }
+
+
+@register.inclusion_tag("cards/medication_last.html", takes_context=True)
+def card_medication_last(context, child):
+    """
+    Information about the most recent medication administration.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Medication instance.
+    """
+    instance = (
+        models.Medication.objects.filter(child=child)
+        .filter(**_filter_data_age(context, "time"))
+        .select_related("child")
+        .order_by("-time")
+        .first()
+    )
+
+    return {
+        "type": "medication",
+        "medication": instance,
+        "empty": not instance,
+        "hide_empty": _hide_empty(context),
+    }

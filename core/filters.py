@@ -45,6 +45,12 @@ class HeightFilter(TagFilter):
         fields = ["child"]
 
 
+class MedicationFilter(TagFilter):
+    class Meta:
+        model = models.Medication
+        fields = ["child", "name", "dosage_unit"]
+
+
 class NoteFilter(TagFilter):
     class Meta:
         model = models.Note
