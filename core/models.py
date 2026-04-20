@@ -364,7 +364,7 @@ class Feeding(models.Model):
     def clean(self):
         validate_time(self.start, "start")
         validate_duration(self)
-        validate_unique_period(Feeding.objects.filter(child=self.child), self)
+        validate_unique_period(Feeding.objects.filter(child=self.child_id), self)
 
 
 class HeadCircumference(models.Model):
@@ -528,7 +528,7 @@ class Pumping(models.Model):
     def clean(self):
         validate_time(self.start, "start")
         validate_duration(self)
-        validate_unique_period(Pumping.objects.filter(child=self.child), self)
+        validate_unique_period(Pumping.objects.filter(child=self.child_id), self)
 
 
 class Sleep(models.Model):
@@ -579,7 +579,7 @@ class Sleep(models.Model):
         validate_time(self.start, "start")
         validate_time(self.end, "end")
         validate_duration(self)
-        validate_unique_period(Sleep.objects.filter(child=self.child), self)
+        validate_unique_period(Sleep.objects.filter(child=self.child_id), self)
 
 
 class Temperature(models.Model):
@@ -730,7 +730,7 @@ class TummyTime(models.Model):
         validate_time(self.start, "start")
         validate_time(self.end, "end")
         validate_duration(self)
-        validate_unique_period(TummyTime.objects.filter(child=self.child), self)
+        validate_unique_period(TummyTime.objects.filter(child=self.child_id), self)
 
 
 class Weight(models.Model):
