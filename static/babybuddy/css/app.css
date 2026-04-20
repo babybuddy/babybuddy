@@ -12121,17 +12121,22 @@ textarea.form-control-lg {
   color: #fff;
 }
 
-.card-diaperchange {
+.card-diaperchange,
+.card-medication {
   border-color: #a72431;
 }
-.card-diaperchange .card-header, .card-diaperchange .card-header a {
+.card-diaperchange .card-header, .card-diaperchange .card-header a,
+.card-medication .card-header,
+.card-medication .card-header a {
   background-color: #a72431;
   color: #f8f9fa;
 }
-.card-diaperchange .card-body {
+.card-diaperchange .card-body,
+.card-medication .card-body {
   color: #a72431;
 }
-.card-diaperchange .progress {
+.card-diaperchange .progress,
+.card-medication .progress {
   height: 2rem;
 }
 
@@ -12192,6 +12197,40 @@ textarea.form-control-lg {
 }
 .card-tummytime .card-body {
   color: #239556;
+}
+
+.card-medication-status {
+  border-color: #37abe9;
+}
+.card-medication-status .card-header, .card-medication-status .card-header a {
+  background-color: #37abe9;
+  color: #f8f9fa;
+}
+.card-medication-status .medication-status-item:last-child {
+  border-bottom: none !important;
+}
+.card-medication-status .medication-status-item .medication-name {
+  font-weight: 600;
+  color: #37abe9;
+}
+.card-medication-status .medication-status-item .medication-actions {
+  display: flex;
+  gap: 0.25rem;
+  flex-direction: column;
+}
+.card-medication-status .medication-status-item .medication-actions .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+@media (max-width: 576px) {
+  .card-medication-status .medication-status-item .medication-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.card-medication-status .medication-status-item .badge {
+  font-size: 0.75rem;
 }
 
 .child-actions {
