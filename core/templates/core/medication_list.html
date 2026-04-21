@@ -1,0 +1,88 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n widget_tweaks %}
+{% block title %}
+    {% trans "Medication" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Medication" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Medication" %}
+        {% if perms.core.add_medication %}
+            <a href="{% url 'core:medication-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-medication" aria-hidden="true"></i> {% trans "Add Medication" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Date" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Medication Name" %}</th>
+                    <th>{% trans "Dosage" %}</th>
+                    <th>{% trans "Next Dose Interval" %}</th>
+                    <th>{% trans "Tags" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medication in object_list %}
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_medication %}
+                                    <a href="{% url 'core:medication-update' medication.id %}"
+                                       class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.delete_medication %}
+                                    <a href="{% url 'core:medication-delete' medication.id %}"
+                                       class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <th scope="row">{{ medication.time|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td>
+                                <a href="{% url 'core:child' medication.child.slug %}">{{ medication.child }}</a>
+                            </td>
+                        {% endif %}
+                        <td>{{ medication.name }}</td>
+                        <td>{{ medication.dosage }} {{ medication.get_dosage_unit_display }}</td>
+                        <td>
+                            {% if medication.next_dose_interval %}
+                                {{ medication.next_dose_interval }}
+                            {% else %}
+                                <span class="text-muted">{% trans "No interval set" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=medication.tags.all %}</td>
+                    </tr>
+                    {% if medication.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="7">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ medication.notes }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="7">{% trans "No medication entries found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

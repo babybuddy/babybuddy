@@ -5,7 +5,15 @@ from django.urls import reverse
 from django.utils import timezone, timesince
 from django.utils.translation import gettext as _
 
-from core.models import DiaperChange, Feeding, Note, Sleep, TummyTime, Temperature
+from core.models import (
+    DiaperChange,
+    Feeding,
+    Note,
+    Sleep,
+    TummyTime,
+    Temperature,
+    Medication,
+)
 from core.utils import duration_string
 
 
@@ -22,6 +30,7 @@ def get_objects(date, child=None):
 
     _add_diaper_changes(min_date, max_date, events, child)
     _add_feedings(min_date, max_date, events, child)
+    _add_medication(min_date, max_date, events, child)
     _add_sleeps(min_date, max_date, events, child)
     _add_tummy_times(min_date, max_date, events, child)
     _add_notes(min_date, max_date, events, child)
@@ -203,6 +212,59 @@ def _add_diaper_changes(min_date, max_date, events, child):
                 "tags": instance.tags.all(),
             }
         )
+
+
+def _add_medication(min_date, max_date, events, child):
+    instances = Medication.objects.filter(time__range=(min_date, max_date)).order_by(
+        "-time"
+    )
+    if child:
+        instances = instances.filter(child=child)
+    for instance in instances:
+        details = []
+        if instance.dosage:
+            details.append(
+                _("Dosage")
+                + ": "
+                + str(instance.dosage)
+                + " "
+                + instance.get_dosage_unit_display()
+            )
+        if instance.notes:
+            details.append(instance.notes)
+        edit_link = reverse("core:medication-update", args=[instance.id])
+
+        events.append(
+            {
+                "time": timezone.localtime(instance.time),
+                "event": _("%(child)s took %(medication)s.")
+                % {
+                    "child": instance.child.first_name,
+                    "medication": instance.name,
+                },
+                "details": details,
+                "edit_link": edit_link,
+                "model_name": instance.model_name,
+                "type": "start" if instance.next_dose_time else None,
+                "tags": instance.tags.all(),
+            }
+        )
+        if instance.next_dose_time:
+            events.append(
+                {
+                    "time": timezone.localtime(instance.next_dose_time),
+                    "event": _("%(child)s's %(medication)s dose wore off.")
+                    % {
+                        "child": instance.child.first_name,
+                        "medication": instance.name,
+                    },
+                    "details": [],
+                    "edit_link": edit_link,
+                    "model_name": instance.model_name,
+                    "type": "end",
+                    "tags": instance.tags.all(),
+                }
+            )
 
 
 def _add_notes(min_date, max_date, events, child):

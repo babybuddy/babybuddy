@@ -39,7 +39,8 @@
     }
 }
 
-.card-diaperchange {
+.card-diaperchange,
+.card-medication {
     border-color: map.get($theme-colors, 'danger');
 
     .card-header, .card-header a {
@@ -119,5 +120,47 @@
 
     .card-body {
         color: map.get($theme-colors, 'success');
+    }
+}
+
+// Medication Status Card
+.card-medication-status {
+    border-color: map.get($theme-colors, 'primary');
+
+    .card-header, .card-header a {
+        background-color: map.get($theme-colors, 'primary');
+        color: map.get($theme-colors, 'light');
+    }
+
+    .medication-status-item {
+        &:last-child {
+            border-bottom: none !important;
+        }
+
+        .medication-name {
+            font-weight: 600;
+            color: map.get($theme-colors, 'primary');
+        }
+
+        .medication-actions {
+            display: flex;
+            gap: 0.25rem;
+            flex-direction: column;
+
+            .btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.875rem;
+                line-height: 1.2;
+            }
+
+            @media (max-width: 576px) {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .badge {
+            font-size: 0.75rem;
+        }
     }
 }

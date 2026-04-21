@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2024 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2026 by original authors @ fontello.com</metadata>
 <defs>
 <font id="babybuddy" horiz-adv-x="1000" >
 <font-face font-family="babybuddy" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -55,6 +55,8 @@
 <glyph glyph-name="height" unicode="&#xf044;" d="M0 144q0-31 22-54l180-180q20-20 46-22t50 12l-96 96 41 41 97-97 42 41-98 97 41 41 97-96 42 40-97 98 40 40 98-96 39 39-98 96 42 42 97-97 41 41-97 97 41 41 97-97 41 41-97 97 41 41 97-97 41 41-97 98 41 40 98-97 41 42-98 97 41 41 96-95q13 22 10 48t-21 45l-180 180q-23 22-54 22t-55-23l-589-590q-23-22-23-54z" horiz-adv-x="922.9" />
 
 <glyph glyph-name="dashboard" unicode="&#xf0e4;" d="M214 207q0 30-21 51t-50 21-51-21-21-51 21-50 51-21 50 21 21 50z m107 250q0 30-20 51t-51 21-50-21-21-51 21-50 50-21 51 21 20 50z m239-268l57 213q3 14-5 27t-21 16-27-3-17-22l-56-213q-33-3-60-25t-35-55q-11-43 11-81t66-50 81 11 50 66q9 33-4 65t-40 51z m369 18q0 30-21 51t-51 21-50-21-21-51 21-50 50-21 51 21 21 50z m-358 357q0 30-20 51t-51 21-50-21-21-51 21-50 50-21 51 21 20 50z m250-107q0 30-20 51t-51 21-50-21-21-51 21-50 50-21 51 21 20 50z m179-250q0-145-79-269-10-17-30-17h-782q-20 0-30 17-79 123-79 269 0 102 40 194t106 160 160 107 194 39 194-39 160-107 106-160 40-194z" horiz-adv-x="1000" />
+
+<glyph glyph-name="medication" unicode="&#xf0fa;" d="M714 225v107q0 8-5 13t-13 5h-125v125q0 8-5 13t-12 5h-108q-7 0-12-5t-5-13v-125h-125q-8 0-13-5t-5-13v-107q0-8 5-13t13-5h125v-125q0-8 5-13t12-5h108q7 0 12 5t5 13v125h125q8 0 13 5t5 13z m-357 411h286v71h-286v-71z m-214 0v-715h-18q-51 0-88 37t-37 88v465q0 51 37 88t88 37h18z m661 0v-715h-608v715h90v89q0 22 15 38t38 16h322q22 0 38-16t15-38v-89h90z m196-125v-465q0-51-37-88t-88-37h-18v715h18q51 0 88-37t37-88z" horiz-adv-x="1000" />
 
 <glyph glyph-name="angle-double-left" unicode="&#xf100;" d="M350 82q0-7-6-13l-28-28q-5-5-12-5t-13 5l-260 261q-6 5-6 12t6 13l260 260q5 6 13 6t12-6l28-28q6-5 6-13t-6-12l-219-220 219-219q6-6 6-13z m214 0q0-7-5-13l-28-28q-6-5-13-5t-13 5l-260 261q-6 5-6 12t6 13l260 260q6 6 13 6t13-6l28-28q5-5 5-13t-5-12l-220-220 220-219q5-6 5-13z" horiz-adv-x="571.4" />
 

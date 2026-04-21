@@ -408,3 +408,39 @@ class WeightChangeChildGirlReport(WeightChangeChildReport):
         super(WeightChangeChildGirlReport, self).__init__(
             sex="girl", target_url="reports:report-weight-change-child-girl"
         )
+
+
+class MedicationFrequencyChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of medication frequency over time.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/medication_frequency.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(MedicationFrequencyChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        instances = models.Medication.objects.filter(child=child)
+        if instances:
+            context["html"], context["js"] = graphs.medication_frequency(instances)
+        return context
+
+
+class MedicationIntervalsChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of medication intervals over time.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/medication_intervals.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(MedicationIntervalsChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        instances = models.Medication.objects.filter(child=child)
+        if instances:
+            context["html"], context["js"] = graphs.medication_intervals(instances)
+        return context
