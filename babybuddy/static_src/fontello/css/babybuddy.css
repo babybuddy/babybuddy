@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'babybuddy';
-  src: url('../font/babybuddy.eot?67957580');
-  src: url('../font/babybuddy.eot?67957580#iefix') format('embedded-opentype'),
-       url('../font/babybuddy.woff2?67957580') format('woff2'),
-       url('../font/babybuddy.woff?67957580') format('woff'),
-       url('../font/babybuddy.ttf?67957580') format('truetype'),
-       url('../font/babybuddy.svg?67957580#babybuddy') format('svg');
+  src: url('../font/babybuddy.eot?42677879');
+  src: url('../font/babybuddy.eot?42677879#iefix') format('embedded-opentype'),
+       url('../font/babybuddy.woff2?42677879') format('woff2'),
+       url('../font/babybuddy.woff?42677879') format('woff'),
+       url('../font/babybuddy.ttf?42677879') format('truetype'),
+       url('../font/babybuddy.svg?42677879#babybuddy') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'babybuddy';
-    src: url('../font/babybuddy.svg?67957580#babybuddy') format('svg');
+    src: url('../font/babybuddy.svg?42677879#babybuddy') format('svg');
   }
 }
 */
@@ -79,6 +79,7 @@
 .icon-tag:before { content: '\e816'; } /* '' */
 .icon-height:before { content: '\f044'; } /* '' */
 .icon-dashboard:before { content: '\f0e4'; } /* '' */
+.icon-medication:before { content: '\f0fa'; } /* '' */
 .icon-angle-double-left:before { content: '\f100'; } /* '' */
 .icon-angle-double-right:before { content: '\f101'; } /* '' */
 .icon-angle-left:before { content: '\f104'; } /* '' */

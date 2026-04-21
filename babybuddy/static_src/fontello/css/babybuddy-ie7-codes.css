@@ -24,6 +24,7 @@
 .icon-tag { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe816;&nbsp;'); }
 .icon-height { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf044;&nbsp;'); }
 .icon-dashboard { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e4;&nbsp;'); }
+.icon-medication { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0fa;&nbsp;'); }
 .icon-angle-double-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf100;&nbsp;'); }
 .icon-angle-double-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf101;&nbsp;'); }
 .icon-angle-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf104;&nbsp;'); }

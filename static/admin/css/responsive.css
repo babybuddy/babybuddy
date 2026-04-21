@@ -170,7 +170,6 @@ input[type="submit"], button {
 
     /* Forms */
 
-    legend,
     label {
         font-size: 1rem;
     }
@@ -338,8 +337,16 @@ input[type="submit"], button {
     /* Messages */
 
     ul.messagelist li {
-        padding: 10px 10px 10px 55px;
-        background-position-x: 30px;
+        padding-left: 55px;
+        background-position: 30px 12px;
+    }
+
+    ul.messagelist li.error {
+        background-position: 30px 12px;
+    }
+
+    ul.messagelist li.warning {
+        background-position: 30px 14px;
     }
 
     /* Login */
@@ -410,13 +417,9 @@ input[type="submit"], button {
 
     /* Changelist */
 
-    #changelist .changelist-form-container {
+    #changelist {
+        align-items: stretch;
         flex-direction: column;
-    }
-
-    #changelist .changelist-form-container:has(#changelist-filter) > div {
-        max-width: 100%;
-        width: 100%;
     }
 
     #toolbar {
@@ -441,12 +444,25 @@ input[type="submit"], button {
     }
 
     #changelist-filter {
-        width: 100%;
+        position: static;
+        width: auto;
         margin-top: 30px;
     }
 
     .object-tools {
-        text-align: left;
+        float: none;
+        margin: 0 0 15px;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .object-tools li {
+        height: auto;
+        margin-left: 0;
+    }
+
+    .object-tools li + li {
+        margin-left: 15px;
     }
 
     /* Forms */
@@ -485,7 +501,6 @@ input[type="submit"], button {
         padding-top: 15px;
     }
 
-    .aligned legend,
     .aligned label {
         width: 100%;
         min-width: auto;
@@ -558,10 +573,6 @@ input[type="submit"], button {
 
     form .aligned div.radiolist:not(.inline) div + div {
         margin-top: 5px;
-    }
-
-    form .aligned fieldset div.flex-container {
-        display: unset;
     }
 
     /* Related widget */
@@ -728,8 +739,16 @@ input[type="submit"], button {
     /* Messages */
 
     ul.messagelist li {
-        padding: 10px 10px 10px 40px;
-        background-position-x: 15px;
+        padding-left: 40px;
+        background-position: 15px 12px;
+    }
+
+    ul.messagelist li.error {
+        background-position: 15px 12px;
+    }
+
+    ul.messagelist li.warning {
+        background-position: 15px 14px;
     }
 
     /* Paginator */
