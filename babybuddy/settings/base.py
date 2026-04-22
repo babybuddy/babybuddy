@@ -377,6 +377,13 @@ AXES_LOCKOUT_TEMPLATE = "error/lockout.html"
 
 AXES_LOCKOUT_URL = "/login/lock"
 
+AXES_IPWARE_META_PRECEDENCE_ORDER = [
+    "HTTP_CF_CONNECTING_IP",
+    "HTTP_X_FORWARDED_FOR",
+    "HTTP_X_REAL_IP",
+    "REMOTE_ADDR",
+]
+
 # Session configuration
 # Used by RollingSessionMiddleware to determine how often to reset the session.
 # See https://docs.djangoproject.com/en/5.0/topics/http/sessions/
