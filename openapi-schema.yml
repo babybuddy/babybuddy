@@ -297,7 +297,11 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -427,7 +431,11 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -511,7 +519,11 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -606,7 +618,11 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -701,7 +717,11 @@ paths:
             enum:
               - black
               - brown
+              - gray
               - green
+              - orange
+              - red
+              - white
               - yellow
         - name: date
           required: false
@@ -5230,7 +5250,11 @@ components:
           enum:
             - black
             - brown
+            - gray
             - green
+            - orange
+            - red
+            - white
             - yellow
           type: string
         amount:
