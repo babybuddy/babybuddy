@@ -408,3 +408,21 @@ class WeightChangeChildGirlReport(WeightChangeChildReport):
         super(WeightChangeChildGirlReport, self).__init__(
             sex="girl", target_url="reports:report-weight-change-child-girl"
         )
+
+
+class AwakeTimesChildReport(PermissionRequiredMixin, DetailView):
+    """
+    Graph of average awake times by day.
+    """
+
+    model = models.Child
+    permission_required = ("core.view_child",)
+    template_name = "reports/awake_times.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(AwakeTimesChildReport, self).get_context_data(**kwargs)
+        child = context["object"]
+        instances = models.Sleep.objects.filter(child=child).order_by("start")
+        if instances:
+            context["html"], context["js"] = graphs.awake_times(instances)
+        return context
