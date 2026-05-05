@@ -763,6 +763,96 @@ class Weight(models.Model):
         validate_date(self.date, "date")
 
 
+class Medication(models.Model):
+    model_name = "medication"
+
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="medication",
+        verbose_name=_("Child"),
+        blank=False,
+        null=False,
+    )
+    name = models.CharField(
+        max_length=255,
+        blank=False,
+        null=False,
+        verbose_name=_("Medication Name"),
+        help_text=_("Name of the medication administered"),
+        db_index=True,
+    )
+    dosage = models.FloatField(
+        blank=True,
+        null=True,
+        verbose_name=_("Dosage"),
+        help_text=_("Amount of medication given"),
+    )
+    dosage_unit = models.CharField(
+        max_length=20,
+        choices=[
+            ("mg", _("MG")),
+            ("ml", _("ML")),
+            ("tablets", _("Tablets")),
+            ("drops", _("Drops")),
+        ],
+        blank=True,
+        null=False,
+        default="",
+        verbose_name=_("Dosage Unit"),
+    )
+    time = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Time Taken"),
+        db_index=True,
+    )
+    next_dose_interval = models.DurationField(
+        blank=True,
+        null=True,
+        verbose_name=_("Next Dose Interval"),
+        help_text=_("Time until next dose can be given"),
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ["-time"]
+        verbose_name = _("Medication")
+        verbose_name_plural = _("Medications")
+        default_permissions = ("view", "add", "change", "delete")
+
+    @property
+    def next_dose_time(self):
+        """
+        Calculate when the next dose can be given based on the time this dose
+        was administered and the configured interval.
+        :returns: a DateTime instance or None if no interval is set.
+        """
+        if self.next_dose_interval:
+            return self.time + self.next_dose_interval
+        return None
+
+    @property
+    def next_dose_ready(self):
+        """
+        Whether the next dose can be given (current time >= next_dose_time).
+        :returns: True if next dose is ready, False otherwise, None if no interval set.
+        """
+        if self.next_dose_time:
+            return timezone.now() >= self.next_dose_time
+        return None
+
+    def clean(self):
+        validate_time(self.time, "time")
+
+    def __str__(self):
+        return str(_("Medication"))
+
+
 class WeightPercentile(models.Model):
     model_name = "weight percentile"
     age_in_days = models.DurationField(null=False)

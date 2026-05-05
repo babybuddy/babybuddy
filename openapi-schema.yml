@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: ""
+  title: Baby Buddy API
   version: ""
 paths:
   /api/bmi/:
@@ -2181,6 +2181,437 @@ paths:
           required: false
           in: query
           description: date
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags:
+        - api
+  /api/medication/:
+    get:
+      operationId: listMedications
+      description: ""
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: date
+          required: false
+          in: query
+          description: DateTime
+          schema:
+            type: string
+        - name: date_max
+          required: false
+          in: query
+          description: Max. DateTime
+          schema:
+            type: string
+        - name: date_min
+          required: false
+          in: query
+          description: Min. DateTime
+          schema:
+            type: string
+        - name: dosage_unit
+          required: false
+          in: query
+          description: dosage_unit
+          schema:
+            type: string
+            enum:
+              - mg
+              - ml
+              - tablets
+              - drops
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Medication"
+          description: ""
+      tags:
+        - api
+    post:
+      operationId: createMedication
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Medication"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Medication"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Medication"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medication"
+          description: ""
+      tags:
+        - api
+  /api/medication/{id}/:
+    get:
+      operationId: retrieveMedication
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Medication.
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: date
+          required: false
+          in: query
+          description: DateTime
+          schema:
+            type: string
+        - name: date_max
+          required: false
+          in: query
+          description: Max. DateTime
+          schema:
+            type: string
+        - name: date_min
+          required: false
+          in: query
+          description: Min. DateTime
+          schema:
+            type: string
+        - name: dosage_unit
+          required: false
+          in: query
+          description: dosage_unit
+          schema:
+            type: string
+            enum:
+              - mg
+              - ml
+              - tablets
+              - drops
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medication"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateMedication
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Medication.
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: date
+          required: false
+          in: query
+          description: DateTime
+          schema:
+            type: string
+        - name: date_max
+          required: false
+          in: query
+          description: Max. DateTime
+          schema:
+            type: string
+        - name: date_min
+          required: false
+          in: query
+          description: Min. DateTime
+          schema:
+            type: string
+        - name: dosage_unit
+          required: false
+          in: query
+          description: dosage_unit
+          schema:
+            type: string
+            enum:
+              - mg
+              - ml
+              - tablets
+              - drops
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Medication"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Medication"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Medication"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medication"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateMedication
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Medication.
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: date
+          required: false
+          in: query
+          description: DateTime
+          schema:
+            type: string
+        - name: date_max
+          required: false
+          in: query
+          description: Max. DateTime
+          schema:
+            type: string
+        - name: date_min
+          required: false
+          in: query
+          description: Min. DateTime
+          schema:
+            type: string
+        - name: dosage_unit
+          required: false
+          in: query
+          description: dosage_unit
+          schema:
+            type: string
+            enum:
+              - mg
+              - ml
+              - tablets
+              - drops
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Medication"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Medication"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Medication"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medication"
+          description: ""
+      tags:
+        - api
+    delete:
+      operationId: destroyMedication
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Medication.
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: date
+          required: false
+          in: query
+          description: DateTime
+          schema:
+            type: string
+        - name: date_max
+          required: false
+          in: query
+          description: Max. DateTime
+          schema:
+            type: string
+        - name: date_min
+          required: false
+          in: query
+          description: Min. DateTime
+          schema:
+            type: string
+        - name: dosage_unit
+          required: false
+          in: query
+          description: dosage_unit
+          schema:
+            type: string
+            enum:
+              - mg
+              - ml
+              - tablets
+              - drops
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
           schema:
             type: string
         - name: ordering
@@ -5378,6 +5809,46 @@ components:
       required:
         - child
         - height
+    Medication:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+        name:
+          type: string
+          description: Name of the medication administered
+          maxLength: 255
+        dosage:
+          type: number
+          nullable: true
+          description: Amount of medication given
+        dosage_unit:
+          enum:
+            - mg
+            - ml
+            - tablets
+            - drops
+          type: string
+        time:
+          type: string
+          format: date-time
+        next_dose_interval:
+          type: string
+          nullable: true
+          description: Time until next dose can be given
+        notes:
+          type: string
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+        - child
+        - name
     Note:
       type: object
       properties:

@@ -77,6 +77,22 @@ class HeightViewSet(viewsets.ModelViewSet):
     ordering = "-date"
 
 
+class MedicationViewSet(viewsets.ModelViewSet):
+    queryset = models.Medication.objects.all()
+    serializer_class = serializers.MedicationSerializer
+    filterset_class = filters.MedicationFilter
+    ordering_fields = ("time", "name", "dosage")
+    ordering = "-time"
+
+    def get_view_name(self):
+        # Use model's verbose_name for consistency with user-facing strings
+        name = self.queryset.model._meta.verbose_name
+        suffix = getattr(self, "suffix", None)
+        if suffix:
+            name = f"{name} {suffix}"
+        return name
+
+
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = models.Note.objects.all()
     serializer_class = serializers.NoteSerializer

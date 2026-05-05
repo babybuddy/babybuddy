@@ -1,0 +1,43 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block header %}
+    <a href="{% url "core:medication-list" %}">{% trans "Last Medication" %}</a>
+{% endblock %}
+{% block title %}
+    {% if medication %}
+        <div>
+            {% blocktrans trimmed with time_ago=medication.time|deltasince|duration_string:'m' %}
+                {{ time_ago }} ago
+            {% endblocktrans %}
+        </div>
+        <small>{{ medication.time|time }}</small>
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if medication %}
+        <div>
+            <strong>{{ medication.name }}</strong>
+        </div>
+        <div>{{ medication.dosage }} {{ medication.get_dosage_unit_display }}</div>
+        {% if medication.next_dose_time %}
+            <div class="mt-1">
+                {% if medication.next_dose_ready %}
+                    <span class="badge bg-success">{% trans "Next dose ready" %}</span>
+                {% else %}
+                    <small class="text-muted">
+                        {% blocktrans trimmed with next_time=medication.next_dose_time|time %}
+                            Next dose at {{ next_time }}
+                        {% endblocktrans %}
+                    </small>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if medication.notes %}
+            <div class="mt-1">
+                <small class="text-muted">{{ medication.notes|truncatechars:50 }}</small>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -116,4 +116,14 @@ urlpatterns = [
         views.WeightChangeChildGirlReport.as_view(),
         name="report-weight-change-child-girl",
     ),
+    path(
+        "children/<str:slug>/reports/medication/frequency/",
+        views.MedicationFrequencyChildReport.as_view(),
+        name="report-medication-frequency-child",
+    ),
+    path(
+        "children/<str:slug>/reports/medication/intervals/",
+        views.MedicationIntervalsChildReport.as_view(),
+        name="report-medication-intervals-child",
+    ),
 ]

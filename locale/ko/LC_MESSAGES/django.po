@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 04:50+0000\n"
+"POT-Creation-Date: 2026-04-20 03:28+0000\n"
 "PO-Revision-Date: 2024-01-01 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
@@ -15,914 +15,2979 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: babybuddy/admin.py:12 babybuddy/admin.py:13
+#: babybuddy/templates/babybuddy/nav-dropdown.html:342
+#: babybuddy/templates/babybuddy/nav-dropdown.html:352
+#: babybuddy/templates/babybuddy/user_settings_form.html:8
+#: babybuddy/templates/dbsettings/site_settings.html:8
 msgid "Settings"
 msgstr "설정"
 
+#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:108
+#: babybuddy/templates/babybuddy/user_settings_form.html:60
+#: dashboard/templates/dashboard/child.html:4
+#: dashboard/templates/dashboard/child.html:11
+#: dashboard/templates/dashboard/child_button_group.html:8
+#: dashboard/templates/dashboard/dashboard.html:4
+#: dashboard/templates/dashboard/dashboard.html:7
 msgid "Dashboard"
 msgstr "대시보드"
 
+#: babybuddy/forms.py:15 babybuddy/templates/babybuddy/user_list.html:20
 msgid "Read only"
 msgstr "읽기 전용"
 
+#: babybuddy/forms.py:16
 msgid "Restricts user to viewing data only."
 msgstr "데이터 조회만 허용합니다."
 
+#: babybuddy/models.py:20
 msgid "Refresh rate"
 msgstr "새로고침 간격"
 
+#: babybuddy/models.py:22
+msgid ""
+"If supported by browser, the dashboard will only refresh when visible, and "
+"also when receiving focus."
+msgstr ""
+"브라우저가 지원하는 경우, 대시보드는 화면에 보일 때와 포커스를 받을 때만 새로"
+"고침됩니다."
+
+#: babybuddy/models.py:28
 msgid "disabled"
 msgstr "비활성"
 
+#: babybuddy/models.py:31 babybuddy/models.py:36 babybuddy/models.py:41
+#: babybuddy/models.py:46 babybuddy/models.py:51 babybuddy/models.py:56
+#: babybuddy/models.py:61 babybuddy/models.py:66
+#, python-format
+msgid "%(minutes)d minute"
+msgid_plural "%(minutes)d minutes"
+msgstr[0] ""
+
+#: babybuddy/models.py:72
 msgid "Hide Empty Dashboard Cards"
 msgstr "빈 대시보드 카드 숨기기"
 
+#: babybuddy/models.py:75
 msgid "Hide data older than"
 msgstr "이전 데이터 숨기기"
 
-msgid "show all data"
-msgstr "전체 데이터 표시"
-
-msgid "Language"
-msgstr "언어"
-
-msgid "Timezone"
-msgstr "시간대"
-
-msgid "Show All"
-msgstr "전체 보기"
-
-msgid "Items Per Page"
-msgstr "페이지당 항목 수"
-
-msgid "Brazilian Portuguese"
-msgstr "브라질 포르투갈어"
-
-msgid "Catalan"
-msgstr "카탈루냐어"
-
-msgid "Croatian"
-msgstr "크로아티아어"
-
-msgid "Czech"
-msgstr "체코어"
-
-msgid "Chinese (simplified)"
-msgstr "중국어 (간체)"
-
-msgid "Danish"
-msgstr "덴마크어"
-
-msgid "Dutch"
-msgstr "네덜란드어"
-
-msgid "English (US)"
-msgstr "영어 (미국)"
-
-msgid "English (UK)"
-msgstr "영어 (영국)"
-
-msgid "French"
-msgstr "프랑스어"
-
-msgid "Finnish"
-msgstr "핀란드어"
-
-msgid "German"
-msgstr "독일어"
-
-msgid "Hebrew"
-msgstr "히브리어"
-
-msgid "Hungarian"
-msgstr "헝가리어"
-
-msgid "Italian"
-msgstr "이탈리아어"
-
-msgid "Japanese"
-msgstr "일본어"
-
-msgid "Korean"
-msgstr "한국어"
-
-msgid "Norwegian Bokmål"
-msgstr "노르웨이어"
-
-msgid "Polish"
-msgstr "폴란드어"
-
-msgid "Portuguese"
-msgstr "포르투갈어"
-
-msgid "Russian"
-msgstr "러시아어"
-
-msgid "Serbian"
-msgstr "세르비아어"
-
-msgid "Spanish"
-msgstr "스페인어"
-
-msgid "Swedish"
-msgstr "스웨덴어"
-
-msgid "Turkish"
-msgstr "터키어"
-
-msgid "Ukrainian"
-msgstr "우크라이나어"
-
-msgid "Default minimum nap start time"
-msgstr "낮잠 시작 최소 시간 기본값"
-
-msgid "Default maximum nap start time"
-msgstr "낮잠 시작 최대 시간 기본값"
-
-msgid "Database Admin"
-msgstr "데이터베이스 관리"
-
-msgid "Home"
-msgstr "홈"
-
-msgid "Filter"
-msgstr "필터"
-
-msgid "Reset"
-msgstr "초기화"
-
-msgid "Filters"
-msgstr "필터"
-
-msgid "Submit"
-msgstr "저장"
-
-msgid "Error"
-msgstr "오류"
-
-msgid "Some fields have errors. See below for details."
-msgstr "일부 항목에 오류가 있습니다. 아래에서 확인하세요."
-
-msgid "Diaper Change"
-msgstr "기저귀 교체"
-
-msgid "Feeding"
-msgstr "수유"
-
-msgid "Bottle Feeding"
-msgstr "젖병 수유"
-
-msgid "Pumping"
-msgstr "유축"
-
-msgid "Note"
-msgstr "메모"
-
-msgid "Sleep"
-msgstr "수면"
-
-msgid "Tummy Time"
-msgstr "터미 타임"
-
-msgid "Timeline"
-msgstr "타임라인"
-
-msgid "Children"
-msgstr "아이 목록"
-
-msgid "Child"
-msgstr "아이"
-
-msgid "Notes"
-msgstr "메모 목록"
-
-msgid "Measurements"
-msgstr "측정"
-
-msgid "BMI"
-msgstr "BMI"
-
-msgid "BMI entry"
-msgstr "BMI 추가"
-
-msgid "Head Circumference"
-msgstr "머리 둘레"
-
-msgid "Head Circumference entry"
-msgstr "머리 둘레 추가"
-
-msgid "Height"
-msgstr "키"
-
-msgid "Height entry"
-msgstr "키 추가"
-
-msgid "Temperature"
-msgstr "체온"
-
-msgid "Temperature reading"
-msgstr "체온 추가"
-
-msgid "Weight"
-msgstr "체중"
-
-msgid "Weight entry"
-msgstr "체중 추가"
-
-msgid "Activities"
-msgstr "활동"
-
-msgid "Changes"
-msgstr "기저귀 교체 목록"
-
-msgid "Change"
-msgstr "기저귀 교체 추가"
-
-msgid "Feedings"
-msgstr "수유 목록"
-
-msgid "Pumping entry"
-msgstr "유축 추가"
-
-msgid "Sleep entry"
-msgstr "수면 추가"
-
-msgid "Tummy Time entry"
-msgstr "터미 타임 추가"
-
-msgid "User"
-msgstr "사용자"
-
-msgid "Password"
-msgstr "비밀번호"
-
-msgid "Add a device"
-msgstr "기기 추가"
-
-msgid "Logout"
-msgstr "로그아웃"
-
-msgid "Site"
-msgstr "사이트"
-
-msgid "API Browser"
-msgstr "API 브라우저"
-
-msgid "Tags"
-msgstr "태그 목록"
-
-msgid "Users"
-msgstr "사용자 목록"
-
-msgid "Support"
-msgstr "지원"
-
-msgid "Source Code"
-msgstr "소스 코드"
-
-msgid "Chat / Support"
-msgstr "채팅 / 지원"
-
-msgid "First"
-msgstr "처음"
-
-msgid "Previous"
-msgstr "이전"
-
-msgid "Next"
-msgstr "다음"
-
-msgid "Last"
-msgstr "마지막"
-
-msgid "Authentication Methods"
-msgstr "인증 방법"
-
-msgid "Key"
-msgstr "키"
-
-msgid "Regenerate"
-msgstr "재발급"
-
-msgid "Login QR code"
-msgstr "로그인 QR 코드"
-
-msgid "Delete User"
-msgstr "사용자 삭제"
-
-msgid "Delete"
-msgstr "삭제"
-
-msgid "Cancel"
-msgstr "취소"
-
-msgid "Unlock User"
-msgstr "사용자 잠금 해제"
-
-msgid "Unlock"
-msgstr "잠금 해제"
-
-msgid "Create User"
-msgstr "사용자 추가"
-
-msgid "Update"
-msgstr "수정"
-
-msgid "User locked."
-msgstr "사용자가 잠겼습니다."
-
-msgid "First Name"
-msgstr "이름"
-
-msgid "Last Name"
-msgstr "성"
-
-msgid "Email"
-msgstr "이메일"
-
-msgid "Staff"
-msgstr "관리자"
-
-msgid "Active"
-msgstr "활성"
-
-msgid "Locked"
-msgstr "잠김"
-
-msgid "Actions"
-msgstr "작업"
-
-msgid "No users found."
-msgstr "사용자가 없습니다."
-
-msgid "Change Password"
-msgstr "비밀번호 변경"
-
-msgid "User Settings"
-msgstr "사용자 설정"
-
-msgid "User Profile"
-msgstr "사용자 프로필"
-
-msgid "API"
-msgstr "API"
-
-msgid "Welcome!"
-msgstr "환영합니다!"
-
-msgid "Welcome to Baby Buddy!"
-msgstr "Baby Buddy에 오신 걸 환영합니다!"
-
-msgid "Diaper Changes"
-msgstr "기저귀 교체 목록"
-
-msgid "Add a Child"
-msgstr "아이 추가"
-
-msgid "Site Settings"
-msgstr "사이트 설정"
-
-msgid "Bad Request"
-msgstr "잘못된 요청"
-
-msgid "Permission Denied"
-msgstr "접근 권한 없음"
-
-msgid "How to Fix"
-msgstr "해결 방법"
-
-msgid "Page Not Found"
-msgstr "페이지를 찾을 수 없음"
-
-msgid "Server Error"
-msgstr "서버 오류"
-
-msgid "Return to Baby Buddy"
-msgstr "Baby Buddy로 돌아가기"
-
-msgid "Too Many Login Attempts"
-msgstr "로그인 시도 횟수 초과"
-
-msgid "Login"
-msgstr "로그인"
-
-msgid "Forgot your password?"
-msgstr "비밀번호를 잊으셨나요?"
-
-msgid "Password Reset Successfully!"
-msgstr "비밀번호가 재설정되었습니다!"
-
-msgid "Log in"
-msgstr "로그인"
-
-msgid "Password Reset"
-msgstr "비밀번호 재설정"
-
-msgid "Reset Password"
-msgstr "비밀번호 재설정"
-
-msgid "Timers"
-msgstr "타이머 목록"
-
-msgid "Timer"
-msgstr "타이머"
-
-msgid "Add Timer"
-msgstr "타이머 추가"
-
-msgid "Tag"
-msgstr "태그"
-
-msgid "Start"
-msgstr "시작"
-
-msgid "End"
-msgstr "종료"
-
-msgid "Duration"
-msgstr "지속 시간"
-
-msgid "Time"
-msgstr "시간"
-
-msgid "Date"
-msgstr "날짜"
-
-msgid "Amount"
-msgstr "양"
-
-msgid "Type"
-msgstr "종류"
-
-msgid "Method"
-msgstr "방법"
-
-msgid "Color"
-msgstr "색깔"
-
-msgid "Solid"
-msgstr "대변"
-
-msgid "Wet"
-msgstr "소변"
-
-msgid "Wet and Solid"
-msgstr "소변+대변"
-
-msgid "Black"
-msgstr "검정"
-
-msgid "Brown"
-msgstr "갈색"
-
-msgid "Green"
-msgstr "초록"
-
-msgid "Yellow"
-msgstr "노랑"
-
-msgid "Breast milk"
-msgstr "모유"
-
-msgid "Formula"
-msgstr "분유"
-
-msgid "Fortified breast milk"
-msgstr "강화 모유"
-
-msgid "Solid food"
-msgstr "이유식"
-
-msgid "Bottle"
-msgstr "젖병"
-
-msgid "Left breast"
-msgstr "왼쪽"
-
-msgid "Right breast"
-msgstr "오른쪽"
-
-msgid "Both breasts"
-msgstr "양쪽"
-
-msgid "Self fed"
-msgstr "혼자 먹기"
-
-msgid "Parent fed"
-msgstr "먹여주기"
-
-msgid "Nap"
-msgstr "낮잠"
-
-msgid "Milestone"
-msgstr "발달 이정표"
-
-msgid "Save"
-msgstr "저장"
-
-msgid "Edit"
-msgstr "수정"
-
-msgid "Add"
-msgstr "추가"
-
-msgid "Back"
-msgstr "뒤로"
-
-msgid "Close"
-msgstr "닫기"
-
-msgid "Search"
-msgstr "검색"
-
-msgid "Export"
-msgstr "내보내기"
-
-msgid "Import"
-msgstr "가져오기"
-
-msgid "Reports"
-msgstr "통계"
-
-msgid "Sleep Pattern"
-msgstr "수면 패턴"
-
-msgid "Sleep Totals"
-msgstr "수면 합계"
-
-msgid "Feeding Duration"
-msgstr "수유 시간"
-
-msgid "Feeding Amounts"
-msgstr "수유량"
-
-msgid "Feeding Patterns"
-msgstr "수유 패턴"
-
-msgid "Today"
-msgstr "오늘"
-
-msgid "Yesterday"
-msgstr "어제"
-
-msgid "Last 7 days"
-msgstr "최근 7일"
-
-msgid "Last 30 days"
-msgstr "최근 30일"
-
-msgid "All time"
-msgstr "전체"
-
-msgid "second"
-msgstr "초"
-
-msgid "seconds"
-msgstr "초"
-
-msgid "minute"
-msgstr "분"
-
-msgid "minutes"
-msgstr "분"
-
-msgid "hour"
-msgstr "시간"
-
-msgid "hours"
-msgstr "시간"
-
-msgid "day"
-msgstr "일"
-
-msgid "days"
-msgstr "일"
-
-msgid "week"
-msgstr "주"
-
-msgid "weeks"
-msgstr "주"
-
-msgid "month"
-msgstr "개월"
-
-msgid "months"
-msgstr "개월"
-
-msgid "year"
-msgstr "년"
-
-msgid "years"
-msgstr "년"
-
-msgid "ago"
-msgstr "전"
-
-msgid "since"
-msgstr "이후"
-
-msgid "Name"
-msgstr "이름"
-
-msgid "Yes"
-msgstr "예"
-
-msgid "No"
-msgstr "아니오"
-
-msgid "None"
-msgstr "없음"
-
-msgid "All"
-msgstr "전체"
-
-msgid "Total"
-msgstr "합계"
-
-msgid "Average"
-msgstr "평균"
-
-msgid "Page"
-msgstr "페이지"
-
-msgid "per page"
-msgstr "페이지당"
-
-msgid "Results"
-msgstr "결과"
-
-msgid "No results found."
-msgstr "결과가 없습니다."
-
-msgid "Are you sure?"
-msgstr "정말 삭제하시겠습니까?"
-
-msgid "This action cannot be undone."
-msgstr "이 작업은 되돌릴 수 없습니다."
-
-msgid "Add a child to get started!"
-msgstr "아이를 추가하면 기록을 시작할 수 있어요!"
-
-msgid "Statistics"
-msgstr "통계"
-
-msgid "No data yet"
-msgstr "아직 데이터가 없어요"
-
-msgid "Last Feeding"
-msgstr "마지막 수유"
-
-msgid "Last Diaper Change"
-msgstr "마지막 기저귀 교체"
-
-msgid "Last Pumping"
-msgstr "마지막 유축"
-
-msgid "Last Sleep"
-msgstr "마지막 수면"
-
-msgid "Last Feeding Method"
-msgstr "마지막 수유 방법"
-
-msgid "Recent Feedings"
-msgstr "최근 수유"
-
-msgid "Recent Sleep"
-msgstr "최근 수면"
-
-msgid "Today's Naps"
-msgstr "오늘의 낮잠"
-
-msgid "Today's Tummy Time"
-msgstr "오늘의 터미 타임"
-
-msgid "Breastfeeding"
-msgstr "모유 수유"
-
-msgid "Birth date"
-msgstr "생년월일"
-
-msgid "Picture"
-msgstr "사진"
-
-msgid "Slug"
-msgstr "슬러그"
-
-msgid "Username"
-msgstr "아이디"
-
-msgid "First name"
-msgstr "이름"
-
-msgid "Last name"
-msgstr "성"
-
-msgid "Birth time"
-msgstr "출생 시간"
-
-msgid "Add Child"
-msgstr "아이 추가"
-
-msgid "Add Note"
-msgstr "메모 추가"
-
-msgid "Start Timer"
-msgstr "타이머 시작"
-
-msgid "View Timers"
-msgstr "타이머 목록"
-
-msgid "Quick Start Timer"
-msgstr "빠른 타이머 시작"
-
-msgid "If supported by browser, the dashboard will only refresh when visible, and also when receiving focus."
-msgstr "브라우저가 지원하는 경우, 대시보드는 화면에 보일 때와 포커스를 받을 때만 새로고침됩니다."
-
+#: babybuddy/models.py:77
 msgid "This setting controls which data will be shown in the dashboard."
 msgstr "이 설정은 대시보드에 표시할 데이터 범위를 조정합니다."
 
-msgid "The minimum default time that a sleep entry is consider a nap. If set the nap property will be preselected if the start time is within the bounds."
-msgstr "수면 기록이 낮잠으로 간주되는 최소 시작 시간입니다. 설정 시 시작 시간이 범위 안에 있으면 낮잠이 자동 선택됩니다."
+#: babybuddy/models.py:83
+msgid "show all data"
+msgstr "전체 데이터 표시"
 
-msgid "The maximum default time that a sleep entry is consider a nap. If set the nap property will be preselected if the start time is within the bounds."
-msgstr "수면 기록이 낮잠으로 간주되는 최대 시작 시간입니다. 설정 시 시작 시간이 범위 안에 있으면 낮잠이 자동 선택됩니다."
+#: babybuddy/models.py:86 babybuddy/models.py:90 babybuddy/models.py:94
+#, python-format
+msgid "%(days)d day"
+msgid_plural "%(days)d days"
+msgstr[0] ""
 
-msgid "Switch child"
-msgstr "아이 변경"
+#: babybuddy/models.py:98 babybuddy/models.py:102
+#, python-format
+msgid "%(weeks)d week"
+msgid_plural "%(weeks)d weeks"
+msgstr[0] ""
 
-msgid "most recent"
-msgstr "최근"
+#: babybuddy/models.py:110
+msgid "Language"
+msgstr "언어"
 
-msgid "Not enough data"
-msgstr "데이터가 부족합니다"
+#: babybuddy/models.py:118
+msgid "Timezone"
+msgstr "시간대"
 
-msgid "Diaper change frequency (past 3 days)"
-msgstr "기저귀 교체 빈도 (최근 3일)"
+#: babybuddy/models.py:122 babybuddy/models.py:123 babybuddy/models.py:124
+#: babybuddy/models.py:125 babybuddy/models.py:126
+#, fuzzy, python-format
+#| msgid "%(count)s change"
+msgid "%(count)d Per Page"
+msgstr "교체 %(count)s회"
 
-msgid "Past Week"
-msgstr "지난 1주일"
+#: babybuddy/models.py:127
+msgid "Show All"
+msgstr "전체 보기"
 
-msgid "wet"
-msgstr "소변"
+#: babybuddy/models.py:130
+msgid "Items Per Page"
+msgstr "페이지당 항목 수"
 
-msgid "dry"
-msgstr "없음"
+#: babybuddy/models.py:134
+#, fuzzy, python-brace-format
+#| msgid "User Settings"
+msgid "{user}'s Settings"
+msgstr "사용자 설정"
 
-msgid "solid"
-msgstr "대변"
+#: babybuddy/settings/base.py:193
+msgid "Brazilian Portuguese"
+msgstr "브라질 포르투갈어"
 
-msgid "feeding"
+#: babybuddy/settings/base.py:194
+msgid "Catalan"
+msgstr "카탈루냐어"
+
+#: babybuddy/settings/base.py:195
+msgid "Croatian"
+msgstr "크로아티아어"
+
+#: babybuddy/settings/base.py:196
+msgid "Czech"
+msgstr "체코어"
+
+#: babybuddy/settings/base.py:197
+msgid "Chinese (simplified)"
+msgstr "중국어 (간체)"
+
+#: babybuddy/settings/base.py:198
+msgid "Danish"
+msgstr "덴마크어"
+
+#: babybuddy/settings/base.py:199
+msgid "Dutch"
+msgstr "네덜란드어"
+
+#: babybuddy/settings/base.py:200
+msgid "English (US)"
+msgstr "영어 (미국)"
+
+#: babybuddy/settings/base.py:201
+msgid "English (UK)"
+msgstr "영어 (영국)"
+
+#: babybuddy/settings/base.py:202
+msgid "French"
+msgstr "프랑스어"
+
+#: babybuddy/settings/base.py:203
+msgid "Finnish"
+msgstr "핀란드어"
+
+#: babybuddy/settings/base.py:204
+msgid "German"
+msgstr "독일어"
+
+#: babybuddy/settings/base.py:205
+msgid "Hebrew"
+msgstr "히브리어"
+
+#: babybuddy/settings/base.py:206
+msgid "Hungarian"
+msgstr "헝가리어"
+
+#: babybuddy/settings/base.py:207
+msgid "Italian"
+msgstr "이탈리아어"
+
+#: babybuddy/settings/base.py:208
+msgid "Korean"
+msgstr "한국어"
+
+#: babybuddy/settings/base.py:209
+msgid "Japanese"
+msgstr "일본어"
+
+#: babybuddy/settings/base.py:210
+msgid "Norwegian Bokmål"
+msgstr "노르웨이어"
+
+#: babybuddy/settings/base.py:211
+msgid "Polish"
+msgstr "폴란드어"
+
+#: babybuddy/settings/base.py:212
+msgid "Portuguese"
+msgstr "포르투갈어"
+
+#: babybuddy/settings/base.py:213
+msgid "Russian"
+msgstr "러시아어"
+
+#: babybuddy/settings/base.py:214
+msgid "Serbian"
+msgstr "세르비아어"
+
+#: babybuddy/settings/base.py:215
+msgid "Spanish"
+msgstr "스페인어"
+
+#: babybuddy/settings/base.py:216
+msgid "Swedish"
+msgstr "스웨덴어"
+
+#: babybuddy/settings/base.py:217
+msgid "Turkish"
+msgstr "터키어"
+
+#: babybuddy/settings/base.py:218
+msgid "Ukrainian"
+msgstr "우크라이나어"
+
+#: babybuddy/site_settings.py:23
+msgid "Default minimum nap start time"
+msgstr "낮잠 시작 최소 시간 기본값"
+
+#: babybuddy/site_settings.py:25
+msgid ""
+"The minimum default time that a sleep entry is consider a nap. If set the "
+"nap property will be preselected if the start time is within the bounds."
+msgstr ""
+"수면 기록이 낮잠으로 간주되는 최소 시작 시간입니다. 설정 시 시작 시간이 범위 "
+"안에 있으면 낮잠이 자동 선택됩니다."
+
+#: babybuddy/site_settings.py:31
+msgid "Default maximum nap start time"
+msgstr "낮잠 시작 최대 시간 기본값"
+
+#: babybuddy/site_settings.py:33
+msgid ""
+"The maximum default time that a sleep entry is consider a nap. If set the "
+"nap property will be preselected if the start time is within the bounds."
+msgstr ""
+"수면 기록이 낮잠으로 간주되는 최대 시작 시간입니다. 설정 시 시작 시간이 범위 "
+"안에 있으면 낮잠이 자동 선택됩니다."
+
+#: babybuddy/templates/admin/base_site.html:4
+#: babybuddy/templates/admin/base_site.html:8
+#: babybuddy/templates/babybuddy/nav-dropdown.html:355
+msgid "Database Admin"
+msgstr "데이터베이스 관리"
+
+#: babybuddy/templates/babybuddy/base.html:46
+msgid "Home"
+msgstr "홈"
+
+#: babybuddy/templates/babybuddy/filter.html:20
+msgid "Filter"
+msgstr "필터"
+
+#: babybuddy/templates/babybuddy/filter.html:21
+msgid "Reset"
+msgstr "초기화"
+
+#: babybuddy/templates/babybuddy/filter.html:32
+msgid "Filters"
+msgstr "필터"
+
+#: babybuddy/templates/babybuddy/form.html:19
+#: babybuddy/templates/babybuddy/user_settings_form.html:93
+msgid "Submit"
+msgstr "저장"
+
+#: babybuddy/templates/babybuddy/messages.html:19
+#: babybuddy/templates/babybuddy/messages.html:24
+#: babybuddy/templates/babybuddy/user_settings_form.html:18
+#: babybuddy/templates/babybuddy/user_settings_form.html:23
+msgid "Error"
+msgstr "오류"
+
+#: babybuddy/templates/babybuddy/messages.html:25
+#: babybuddy/templates/babybuddy/user_settings_form.html:23
+msgid "Some fields have errors. See below for details."
+msgstr "일부 항목에 오류가 있습니다. 아래에서 확인하세요."
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:48 core/models.py:282
+#: core/models.py:286
+msgid "Diaper Change"
+msgstr "기저귀 교체"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:54
+#: babybuddy/templates/babybuddy/nav-dropdown.html:263 core/models.py:353
+#: core/models.py:357 core/templates/core/timer_detail.html:31
+msgid "Feeding"
 msgstr "수유"
 
-msgid "feedings"
-msgstr "수유"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:58
+#: babybuddy/templates/babybuddy/nav-dropdown.html:269
+msgid "Bottle Feeding"
+msgstr "젖병 수유"
 
-msgid "change"
-msgstr "교체"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:64
+#: babybuddy/templates/babybuddy/nav-dropdown.html:275
+#: babybuddy/templates/babybuddy/nav-dropdown.html:281 core/models.py:824
+#: core/models.py:853 core/templates/core/medication_confirm_delete.html:8
+#: core/templates/core/medication_form.html:12
+#: core/templates/core/medication_list.html:4
+#: core/templates/core/medication_list.html:7
+#: core/templates/core/medication_list.html:11
+#, fuzzy
+#| msgid "Feeding Duration"
+msgid "Medication"
+msgstr "수유 시간"
 
-msgid "changes"
-msgstr "교체"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:70
+#: babybuddy/templates/babybuddy/nav-dropdown.html:288 core/models.py:517
+#: core/models.py:518 core/models.py:521
+#: core/templates/core/pumping_confirm_delete.html:8
+#: core/templates/core/pumping_form.html:12
+#: core/templates/core/pumping_list.html:4
+#: core/templates/core/pumping_list.html:7
+#: core/templates/core/pumping_list.html:11
+#: core/templates/core/timer_detail.html:38
+#: reports/templates/reports/pumping_amounts.html:4
+#: reports/templates/reports/pumping_amounts.html:9
+msgid "Pumping"
+msgstr "유축"
 
-msgid "sleep"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:76
+#: babybuddy/templates/babybuddy/nav-dropdown.html:150 core/models.py:462
+#: core/models.py:476 core/models.py:480 core/templates/core/note_list.html:29
+msgid "Note"
+msgstr "메모"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:82
+#: babybuddy/templates/babybuddy/nav-dropdown.html:300
+#: babybuddy/templates/babybuddy/welcome.html:47 core/models.py:561
+#: core/models.py:562 core/models.py:565
+#: core/templates/core/sleep_confirm_delete.html:8
+#: core/templates/core/sleep_form.html:12 core/templates/core/sleep_list.html:4
+#: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:11
+#: core/templates/core/timer_detail.html:45
+msgid "Sleep"
 msgstr "수면"
 
-msgid "timer"
-msgstr "타이머"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:88
+#: babybuddy/templates/babybuddy/nav-dropdown.html:312
+#: babybuddy/templates/babybuddy/welcome.html:57 core/models.py:718
+#: core/models.py:719 core/models.py:722
+#: core/templates/core/timer_detail.html:52
+#: core/templates/core/tummytime_confirm_delete.html:8
+#: core/templates/core/tummytime_form.html:12
+#: core/templates/core/tummytime_list.html:4
+#: core/templates/core/tummytime_list.html:7
+#: core/templates/core/tummytime_list.html:11
+msgid "Tummy Time"
+msgstr "터미 타임"
 
-msgid "timers"
-msgstr "타이머"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:114
+#: core/templates/timeline/timeline.html:4
+#: core/templates/timeline/timeline.html:7
+#: dashboard/templates/dashboard/child_button_group.html:13
+msgid "Timeline"
+msgstr "타임라인"
 
-msgid "0 timers"
-msgstr "타이머 없음"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:124
+#: babybuddy/templates/babybuddy/nav-dropdown.html:131 core/models.py:215
+#: core/templates/core/child_confirm_delete.html:8
+#: core/templates/core/child_detail.html:6
+#: core/templates/core/child_form.html:12 core/templates/core/child_list.html:4
+#: core/templates/core/child_list.html:7 core/templates/core/child_list.html:11
+#: dashboard/templates/dashboard/child.html:8
+#: reports/templates/reports/base.html:6
+msgid "Children"
+msgstr "아이 목록"
 
-msgid "No timers"
-msgstr "타이머 없음"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:137 core/models.py:163
+#: core/models.py:214 core/models.py:255 core/models.py:308 core/models.py:376
+#: core/models.py:408 core/models.py:460 core/models.py:489 core/models.py:537
+#: core/models.py:591 core/models.py:625 core/models.py:694 core/models.py:742
+#: core/models.py:773 core/templates/core/bmi_list.html:26
+#: core/templates/core/diaperchange_list.html:27
+#: core/templates/core/feeding_list.html:30
+#: core/templates/core/head_circumference_list.html:27
+#: core/templates/core/height_list.html:26
+#: core/templates/core/medication_list.html:26
+#: core/templates/core/note_list.html:26
+#: core/templates/core/pumping_list.html:26
+#: core/templates/core/sleep_list.html:27
+#: core/templates/core/temperature_list.html:27
+#: core/templates/core/timer_list.html:26
+#: core/templates/core/tummytime_list.html:26
+#: core/templates/core/weight_list.html:26
+msgid "Child"
+msgstr "아이"
 
-msgid "%(count)s feeding"
-msgstr "수유 %(count)s회"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:144 core/models.py:169
+#: core/models.py:274 core/models.py:345 core/models.py:384 core/models.py:414
+#: core/models.py:477 core/models.py:509 core/models.py:552 core/models.py:599
+#: core/models.py:748 core/models.py:817
+#: core/templates/core/note_confirm_delete.html:8
+#: core/templates/core/note_form.html:12 core/templates/core/note_list.html:4
+#: core/templates/core/note_list.html:7 core/templates/core/note_list.html:11
+msgid "Notes"
+msgstr "메모 목록"
 
-msgid "%(count)s feedings"
-msgstr "수유 %(count)s회"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:162
+msgid "Measurements"
+msgstr "측정"
 
-msgid "%(count)s change"
-msgstr "교체 %(count)s회"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:169 core/models.py:165
+#: core/models.py:177 core/models.py:178 core/models.py:181
+#: core/templates/core/bmi_confirm_delete.html:8
+#: core/templates/core/bmi_form.html:12 core/templates/core/bmi_list.html:4
+#: core/templates/core/bmi_list.html:7 core/templates/core/bmi_list.html:11
+#: core/templates/core/bmi_list.html:28 reports/graphs/bmi_change.py:19
+#: reports/graphs/bmi_change.py:27 reports/graphs/bmi_change.py:30
+#: reports/templates/reports/bmi_change.html:4
+#: reports/templates/reports/bmi_change.html:9
+msgid "BMI"
+msgstr "BMI"
 
-msgid "%(count)s changes"
-msgstr "교체 %(count)s회"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:175
+msgid "BMI entry"
+msgstr "BMI 추가"
 
-msgid "%(count)s wet"
-msgstr "소변 %(count)s회"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:182 core/models.py:379
+#: core/models.py:392 core/models.py:393 core/models.py:396
+#: core/templates/core/head_circumference_confirm_delete.html:8
+#: core/templates/core/head_circumference_form.html:12
+#: core/templates/core/head_circumference_list.html:4
+#: core/templates/core/head_circumference_list.html:7
+#: core/templates/core/head_circumference_list.html:11
+#: core/templates/core/head_circumference_list.html:29
+#: reports/graphs/head_circumference_change.py:19
+#: reports/graphs/head_circumference_change.py:27
+#: reports/graphs/head_circumference_change.py:30
+#: reports/templates/reports/head_circumference_change.html:4
+#: reports/templates/reports/head_circumference_change.html:9
+#: reports/templates/reports/report_list.html:34
+msgid "Head Circumference"
+msgstr "머리 둘레"
 
-msgid "%(count)s dry"
-msgstr "없음 %(count)s회"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:188
+msgid "Head Circumference entry"
+msgstr "머리 둘레 추가"
 
-msgid "%(count)s solid"
-msgstr "대변 %(count)s회"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:195 core/models.py:410
+#: core/models.py:422 core/models.py:423 core/models.py:426
+#: core/templates/core/height_confirm_delete.html:8
+#: core/templates/core/height_form.html:12
+#: core/templates/core/height_list.html:4
+#: core/templates/core/height_list.html:7
+#: core/templates/core/height_list.html:11
+#: core/templates/core/height_list.html:28 reports/graphs/height_change.py:30
+#: reports/graphs/height_change.py:86 reports/graphs/height_change.py:89
+#: reports/templates/reports/height_change.html:4
+#: reports/templates/reports/height_change.html:9
+#: reports/templates/reports/report_list.html:36
+msgid "Height"
+msgstr "키"
 
-msgid "%(count)s timer"
-msgstr "타이머 %(count)s개"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:201
+msgid "Height entry"
+msgstr "키 추가"
 
-msgid "%(count)s timers"
-msgstr "타이머 %(count)s개"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:208 core/models.py:594
+#: core/models.py:607 core/models.py:608 core/models.py:611
+#: core/templates/core/temperature_confirm_delete.html:8
+#: core/templates/core/temperature_form.html:12
+#: core/templates/core/temperature_list.html:4
+#: core/templates/core/temperature_list.html:7
+#: core/templates/core/temperature_list.html:11
+#: core/templates/core/temperature_list.html:29 core/timeline.py:297
+#: reports/graphs/temperature_change.py:19
+#: reports/graphs/temperature_change.py:26
+#: reports/graphs/temperature_change.py:32
+#: reports/templates/reports/report_list.html:52
+#: reports/templates/reports/temperature_change.html:4
+#: reports/templates/reports/temperature_change.html:9
+msgid "Temperature"
+msgstr "체온"
 
-# === Timeline 이벤트 문자열 ===
+#: babybuddy/templates/babybuddy/nav-dropdown.html:214
+msgid "Temperature reading"
+msgstr "체온 추가"
 
-msgid "%(child)s started feeding."
-msgstr "%(child)s 수유를 시작했어요."
+#: babybuddy/templates/babybuddy/nav-dropdown.html:221 core/models.py:744
+#: core/models.py:756 core/models.py:757 core/models.py:760
+#: core/templates/core/weight_confirm_delete.html:8
+#: core/templates/core/weight_form.html:12
+#: core/templates/core/weight_list.html:4
+#: core/templates/core/weight_list.html:7
+#: core/templates/core/weight_list.html:11
+#: core/templates/core/weight_list.html:28 reports/graphs/weight_change.py:28
+#: reports/graphs/weight_change.py:84 reports/graphs/weight_change.py:87
+#: reports/templates/reports/report_list.html:56
+#: reports/templates/reports/weight_change.html:4
+#: reports/templates/reports/weight_change.html:9
+msgid "Weight"
+msgstr "체중"
 
-msgid "%(child)s finished feeding."
-msgstr "%(child)s 수유를 마쳤어요."
+#: babybuddy/templates/babybuddy/nav-dropdown.html:227
+msgid "Weight entry"
+msgstr "체중 추가"
 
-msgid "%(child)s had a feeding."
-msgstr "%(child)s 수유를 했어요."
+#: babybuddy/templates/babybuddy/nav-dropdown.html:239
+msgid "Activities"
+msgstr "활동"
 
-msgid "%(child)s fell asleep."
-msgstr "%(child)s 잠들었어요."
+#: babybuddy/templates/babybuddy/nav-dropdown.html:245
+#: reports/graphs/diaperchange_lifetimes.py:27
+msgid "Changes"
+msgstr "기저귀 교체 목록"
 
-msgid "%(child)s woke up."
-msgstr "%(child)s 일어났어요."
-
-msgid "%(child)s started tummy time!"
-msgstr "%(child)s 터미 타임을 시작했어요!"
-
-msgid "%(child)s finished tummy time."
-msgstr "%(child)s 터미 타임을 마쳤어요."
-
-msgid "%(child)s had a %(type)s diaper change."
-msgstr "%(child)s %(type)s 기저귀를 교체했어요."
-
-msgid "%(child)s had a temperature measurement."
-msgstr "%(child)s 체온을 측정했어요."
-
-# === Timeline 템플릿 라벨 ===
-
-msgid "since previous"
-msgstr "이전으로부터"
-
-# === 수유/기록 추가 폼 ===
-
-msgid "Add a Feeding"
-msgstr "수유 추가"
-
-msgid "Add a Bottle Feeding"
-msgstr "젖병 수유 추가"
-
-msgid "Add a Temperature Entry"
-msgstr "체온 기록 추가"
-
-msgid "Add a Tummy Time Entry"
-msgstr "터미 타임 추가"
-
-msgid "Add a Diaper Change"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:251
+msgid "Change"
 msgstr "기저귀 교체 추가"
 
-msgid "Add a Weight Entry"
-msgstr "체중 기록 추가"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:257
+#: babybuddy/templates/babybuddy/welcome.html:37 core/models.py:354
+#: core/templates/core/feeding_confirm_delete.html:8
+#: core/templates/core/feeding_form.html:14
+#: core/templates/core/feeding_list.html:4
+#: core/templates/core/feeding_list.html:7
+#: core/templates/core/feeding_list.html:11
+#: core/templates/core/tag_detail.html:85
+msgid "Feedings"
+msgstr "수유 목록"
 
-msgid "Add a Sleep Entry"
-msgstr "수면 기록 추가"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:294
+msgid "Pumping entry"
+msgstr "유축 추가"
 
-msgid "Add a Head Circumference Entry"
-msgstr "머리 둘레 기록 추가"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:306
+msgid "Sleep entry"
+msgstr "수면 추가"
 
-msgid "Add a Height Entry"
-msgstr "키 기록 추가"
+#: babybuddy/templates/babybuddy/nav-dropdown.html:318
+msgid "Tummy Time entry"
+msgstr "터미 타임 추가"
 
+#: babybuddy/templates/babybuddy/nav-dropdown.html:341
+#: babybuddy/templates/babybuddy/user_add_device.html:7
+#: babybuddy/templates/babybuddy/user_list.html:16
+#: babybuddy/templates/babybuddy/user_password_form.html:7
+#: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:638
+#: core/templates/core/timer_list.html:28
+msgid "User"
+msgstr "사용자"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:343
+msgid "Password"
+msgstr "비밀번호"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:344
+#: babybuddy/templates/babybuddy/user_add_device.html:4
+#: babybuddy/templates/babybuddy/user_add_device.html:8
+#: babybuddy/templates/babybuddy/user_add_device.html:11
+msgid "Add a device"
+msgstr "기기 추가"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:347
+msgid "Logout"
+msgstr "로그아웃"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:349
+#: babybuddy/templates/dbsettings/site_settings.html:7
+msgid "Site"
+msgstr "사이트"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:350
+msgid "API Browser"
+msgstr "API 브라우저"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:353 core/forms.py:138
+#: core/models.py:123 core/templates/core/bmi_list.html:29
+#: core/templates/core/diaperchange_list.html:33
+#: core/templates/core/feeding_list.html:39
+#: core/templates/core/head_circumference_list.html:30
+#: core/templates/core/height_list.html:29
+#: core/templates/core/medication_list.html:31
+#: core/templates/core/note_list.html:30
+#: core/templates/core/pumping_list.html:31
+#: core/templates/core/sleep_list.html:32
+#: core/templates/core/tag_confirm_delete.html:8
+#: core/templates/core/tag_detail.html:12 core/templates/core/tag_form.html:12
+#: core/templates/core/tag_list.html:4 core/templates/core/tag_list.html:7
+#: core/templates/core/tag_list.html:11
+#: core/templates/core/temperature_list.html:30
+#: core/templates/core/tummytime_list.html:31
+#: core/templates/core/weight_list.html:29
+msgid "Tags"
+msgstr "태그 목록"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:354
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:8
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:8
+#: babybuddy/templates/babybuddy/user_form.html:12
+#: babybuddy/templates/babybuddy/user_list.html:4
+#: babybuddy/templates/babybuddy/user_list.html:7
+msgid "Users"
+msgstr "사용자 목록"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:357
+msgid "Support"
+msgstr "지원"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:359
+msgid "Source Code"
+msgstr "소스 코드"
+
+#: babybuddy/templates/babybuddy/nav-dropdown.html:361
+msgid "Chat / Support"
+msgstr "채팅 / 지원"
+
+#: babybuddy/templates/babybuddy/paginator.html:11
+msgid "First"
+msgstr "처음"
+
+#: babybuddy/templates/babybuddy/paginator.html:18
+#: core/templates/core/diaperchange_list.html:32
+#: core/templates/core/feeding_list.html:38
+#: core/templates/core/pumping_list.html:30
+#: core/templates/core/sleep_list.html:30
+#: core/templates/core/tummytime_list.html:29
+#: core/templates/timeline/_timeline.html:6
+#: core/templates/timeline/_timeline.html:8
+#: core/templates/timeline/_timeline.html:76
+#: core/templates/timeline/_timeline.html:78
+#: dashboard/templates/cards/feeding_last_method.html:35
+#: dashboard/templates/cards/feeding_recent.html:40
+#: dashboard/templates/cards/pumping_recent.html:40
+#: dashboard/templates/cards/sleep_recent.html:40
+#: dashboard/templates/cards/statistics.html:38
+msgid "Previous"
+msgstr "이전"
+
+#: babybuddy/templates/babybuddy/paginator.html:35
+#: core/templates/timeline/_timeline.html:15
+#: core/templates/timeline/_timeline.html:17
+#: core/templates/timeline/_timeline.html:85
+#: core/templates/timeline/_timeline.html:87
+#: dashboard/templates/cards/feeding_last_method.html:42
+#: dashboard/templates/cards/feeding_recent.html:47
+#: dashboard/templates/cards/pumping_recent.html:47
+#: dashboard/templates/cards/sleep_recent.html:47
+#: dashboard/templates/cards/statistics.html:45
+msgid "Next"
+msgstr "다음"
+
+#: babybuddy/templates/babybuddy/paginator.html:43
+msgid "Last"
+msgstr "마지막"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:13
+msgid "Authentication Methods"
+msgstr "인증 방법"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:16
+#: babybuddy/templates/babybuddy/user_settings_form.html:80
+msgid "Key"
+msgstr "키"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:23
+#: babybuddy/templates/babybuddy/user_settings_form.html:85
+msgid "Regenerate"
+msgstr "재발급"
+
+#: babybuddy/templates/babybuddy/user_add_device.html:29
+msgid "Login QR code"
+msgstr "로그인 QR 코드"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:4
+msgid "Delete User"
+msgstr "사용자 삭제"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:11
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:17
+#: core/templates/core/bmi_confirm_delete.html:10
+#: core/templates/core/bmi_confirm_delete.html:16
+#: core/templates/core/child_confirm_delete.html:13
+#: core/templates/core/child_confirm_delete.html:30
+#: core/templates/core/diaperchange_confirm_delete.html:10
+#: core/templates/core/diaperchange_confirm_delete.html:16
+#: core/templates/core/feeding_confirm_delete.html:10
+#: core/templates/core/feeding_confirm_delete.html:16
+#: core/templates/core/head_circumference_confirm_delete.html:10
+#: core/templates/core/head_circumference_confirm_delete.html:16
+#: core/templates/core/height_confirm_delete.html:10
+#: core/templates/core/height_confirm_delete.html:16
+#: core/templates/core/medication_confirm_delete.html:10
+#: core/templates/core/medication_confirm_delete.html:16
+#: core/templates/core/note_confirm_delete.html:10
+#: core/templates/core/note_confirm_delete.html:16
+#: core/templates/core/pumping_confirm_delete.html:10
+#: core/templates/core/pumping_confirm_delete.html:16
+#: core/templates/core/sleep_confirm_delete.html:10
+#: core/templates/core/sleep_confirm_delete.html:16
+#: core/templates/core/tag_confirm_delete.html:13
+#: core/templates/core/tag_detail.html:38
+#: core/templates/core/temperature_confirm_delete.html:10
+#: core/templates/core/temperature_confirm_delete.html:16
+#: core/templates/core/timer_confirm_delete.html:13
+#: core/templates/core/timer_confirm_delete.html:19
+#: core/templates/core/tummytime_confirm_delete.html:10
+#: core/templates/core/tummytime_confirm_delete.html:16
+#: core/templates/core/weight_confirm_delete.html:10
+#: core/templates/core/weight_confirm_delete.html:16
+#: dashboard/templates/dashboard/child_button_group.html:31
+msgid "Delete"
+msgstr "삭제"
+
+#: babybuddy/templates/babybuddy/user_confirm_delete.html:18
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:19
+#: core/templates/core/bmi_confirm_delete.html:17
+#: core/templates/core/child_confirm_delete.html:31
+#: core/templates/core/diaperchange_confirm_delete.html:17
+#: core/templates/core/feeding_confirm_delete.html:17
+#: core/templates/core/head_circumference_confirm_delete.html:18
+#: core/templates/core/height_confirm_delete.html:17
+#: core/templates/core/medication_confirm_delete.html:17
+#: core/templates/core/note_confirm_delete.html:17
+#: core/templates/core/pumping_confirm_delete.html:17
+#: core/templates/core/sleep_confirm_delete.html:17
+#: core/templates/core/tag_confirm_delete.html:36
+#: core/templates/core/temperature_confirm_delete.html:17
+#: core/templates/core/timer_confirm_delete.html:21
+#: core/templates/core/tummytime_confirm_delete.html:17
+#: core/templates/core/weight_confirm_delete.html:17
+msgid "Cancel"
+msgstr "취소"
+
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:4
+msgid "Unlock User"
+msgstr "사용자 잠금 해제"
+
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:11
+#: babybuddy/templates/babybuddy/user_confirm_unlock.html:17
+#: babybuddy/templates/babybuddy/user_form.html:28
+msgid "Unlock"
+msgstr "잠금 해제"
+
+#: babybuddy/templates/babybuddy/user_form.html:7
+#: babybuddy/templates/babybuddy/user_form.html:18
+#: babybuddy/templates/babybuddy/user_form.html:35
+#: babybuddy/templates/babybuddy/user_list.html:68
+msgid "Create User"
+msgstr "사용자 추가"
+
+#: babybuddy/templates/babybuddy/user_form.html:16
+#: babybuddy/templates/babybuddy/user_form.html:32
+#: core/templates/core/bmi_form.html:15 core/templates/core/child_form.html:18
+#: core/templates/core/diaperchange_form.html:15
+#: core/templates/core/feeding_form.html:17
+#: core/templates/core/head_circumference_form.html:15
+#: core/templates/core/height_form.html:15
+#: core/templates/core/medication_form.html:15
+#: core/templates/core/medication_form.html:23
+#: core/templates/core/note_form.html:15
+#: core/templates/core/pumping_form.html:15
+#: core/templates/core/sleep_form.html:15 core/templates/core/tag_form.html:18
+#: core/templates/core/temperature_form.html:15
+#: core/templates/core/timer_form.html:14
+#: core/templates/core/tummytime_form.html:15
+#: core/templates/core/weight_form.html:15
+msgid "Update"
+msgstr "수정"
+
+#: babybuddy/templates/babybuddy/user_form.html:26
+msgid "User locked."
+msgstr "사용자가 잠겼습니다."
+
+#: babybuddy/templates/babybuddy/user_list.html:17
+#: core/templates/core/child_list.html:26
+msgid "First Name"
+msgstr "이름"
+
+#: babybuddy/templates/babybuddy/user_list.html:18
+#: core/templates/core/child_list.html:27
+msgid "Last Name"
+msgstr "성"
+
+#: babybuddy/templates/babybuddy/user_list.html:19
+msgid "Email"
+msgstr "이메일"
+
+#: babybuddy/templates/babybuddy/user_list.html:21
+msgid "Staff"
+msgstr "관리자"
+
+#: babybuddy/templates/babybuddy/user_list.html:22 core/models.py:633
+msgid "Active"
+msgstr "활성"
+
+#: babybuddy/templates/babybuddy/user_list.html:23
+msgid "Locked"
+msgstr "잠김"
+
+#: babybuddy/templates/babybuddy/user_list.html:24
+#: core/templates/core/bmi_list.html:23 core/templates/core/bmi_list.html:38
+#: core/templates/core/child_list.html:29
+#: core/templates/core/child_list.html:53
+#: core/templates/core/diaperchange_list.html:24
+#: core/templates/core/diaperchange_list.html:43
+#: core/templates/core/feeding_list.html:27
+#: core/templates/core/feeding_list.html:49
+#: core/templates/core/head_circumference_list.html:24
+#: core/templates/core/head_circumference_list.html:39
+#: core/templates/core/height_list.html:23
+#: core/templates/core/height_list.html:38
+#: core/templates/core/medication_list.html:23
+#: core/templates/core/medication_list.html:40
+#: core/templates/core/note_list.html:23 core/templates/core/note_list.html:39
+#: core/templates/core/pumping_list.html:23
+#: core/templates/core/pumping_list.html:41
+#: core/templates/core/sleep_list.html:23
+#: core/templates/core/sleep_list.html:42 core/templates/core/tag_list.html:23
+#: core/templates/core/tag_list.html:36
+#: core/templates/core/temperature_list.html:24
+#: core/templates/core/temperature_list.html:39
+#: core/templates/core/tummytime_list.html:22
+#: core/templates/core/tummytime_list.html:41
+#: core/templates/core/weight_list.html:23
+#: core/templates/core/weight_list.html:38
+msgid "Actions"
+msgstr "작업"
+
+#: babybuddy/templates/babybuddy/user_list.html:59
+msgid "No users found."
+msgstr "사용자가 없습니다."
+
+#: babybuddy/templates/babybuddy/user_password_form.html:4
+#: babybuddy/templates/babybuddy/user_password_form.html:8
+#: babybuddy/templates/babybuddy/user_password_form.html:11
+msgid "Change Password"
+msgstr "비밀번호 변경"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:4
+#: babybuddy/templates/babybuddy/user_settings_form.html:11
+msgid "User Settings"
+msgstr "사용자 설정"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:27
+msgid "User Profile"
+msgstr "사용자 프로필"
+
+#: babybuddy/templates/babybuddy/user_settings_form.html:78
+msgid "API"
+msgstr "API"
+
+#: babybuddy/templates/babybuddy/welcome.html:4
+#: babybuddy/templates/babybuddy/welcome.html:7
+msgid "Welcome!"
+msgstr "환영합니다!"
+
+#: babybuddy/templates/babybuddy/welcome.html:12
+msgid "Welcome to Baby Buddy!"
+msgstr "Baby Buddy에 오신 걸 환영합니다!"
+
+#: babybuddy/templates/babybuddy/welcome.html:14
+msgid ""
+"Learn about and predict baby's needs without (<em>as much</em>) guess work "
+"by using Baby Buddy to track &mdash;"
+msgstr ""
+
+#: babybuddy/templates/babybuddy/welcome.html:27 core/models.py:283
+#: core/templates/core/diaperchange_confirm_delete.html:8
+#: core/templates/core/diaperchange_form.html:12
+#: core/templates/core/diaperchange_list.html:4
+#: core/templates/core/diaperchange_list.html:7
+#: core/templates/core/diaperchange_list.html:11
+#: core/templates/core/tag_detail.html:80
+#: dashboard/templates/cards/diaperchange_types.html:4
+msgid "Diaper Changes"
+msgstr "기저귀 교체 목록"
+
+#: babybuddy/templates/babybuddy/welcome.html:64
+msgid ""
+"As the amount of entries grows, Baby Buddy will help parents and caregivers "
+"to identify small patterns in baby's habits using the dashboard and graphs. "
+"Baby Buddy is mobile-friendly and uses a dark theme to help weary moms and "
+"dads with 2AM feedings and changings. To get started, just click the button "
+"below to add your first (or second, third, etc.) child!"
+msgstr ""
+
+#: babybuddy/templates/babybuddy/welcome.html:76
+#: core/templates/core/child_form.html:7 core/templates/core/child_form.html:20
+#: core/templates/core/child_form.html:29
+msgid "Add a Child"
+msgstr "아이 추가"
+
+#: babybuddy/templates/dbsettings/site_settings.html:4
+#: babybuddy/templates/dbsettings/site_settings.html:11
+msgid "Site Settings"
+msgstr "사이트 설정"
+
+#: babybuddy/templates/error/400.html:4 babybuddy/templates/error/400.html:7
+msgid "Bad Request"
+msgstr "잘못된 요청"
+
+#: babybuddy/templates/error/403.html:4 babybuddy/templates/error/403.html:7
+msgid "Permission Denied"
+msgstr "접근 권한 없음"
+
+#: babybuddy/templates/error/403.html:9
+msgid ""
+"You do not have permission to access this resource. Contact a site "
+"administrator for assistance."
+msgstr ""
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:10
+msgid "How to Fix"
+msgstr "해결 방법"
+
+#: babybuddy/templates/error/403_csrf_bad_origin.html:11
+#, python-format
+msgid ""
+"Add %(value)s to the %(variable)s environment variable. If multiple origins "
+"are required separate with commas."
+msgstr ""
+
+#: babybuddy/templates/error/404.html:4 babybuddy/templates/error/404.html:7
+msgid "Page Not Found"
+msgstr "페이지를 찾을 수 없음"
+
+#: babybuddy/templates/error/404.html:9
+#, python-format
+msgid "The path %(path)s does not exist."
+msgstr ""
+
+#: babybuddy/templates/error/500.html:4 babybuddy/templates/error/500.html:7
+msgid "Server Error"
+msgstr "서버 오류"
+
+#: babybuddy/templates/error/base.html:16
+msgid "Return to Baby Buddy"
+msgstr "Baby Buddy로 돌아가기"
+
+#: babybuddy/templates/error/lockout.html:4
+msgid "Too Many Login Attempts"
+msgstr "로그인 시도 횟수 초과"
+
+#: babybuddy/templates/registration/login.html:18
+msgid "Login"
+msgstr "로그인"
+
+#: babybuddy/templates/registration/login.html:21
+msgid "Forgot your password?"
+msgstr "비밀번호를 잊으셨나요?"
+
+#: babybuddy/templates/registration/password_reset_complete.html:4
+msgid "Password Reset Successfully!"
+msgstr "비밀번호가 재설정되었습니다!"
+
+#: babybuddy/templates/registration/password_reset_complete.html:8
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_complete.html:10
+msgid "Log in"
+msgstr "로그인"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:4
+msgid "Password Reset"
+msgstr "비밀번호 재설정"
+
+#: babybuddy/templates/registration/password_reset_confirm.html:12
+msgid "Oh no!"
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_confirm.html:12
+msgid "The two passwords did not match."
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_confirm.html:12
+msgid "Please try again."
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_confirm.html:17
+msgid "Enter your new password in each field below."
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_confirm.html:29
+#: babybuddy/templates/registration/password_reset_form.html:23
+msgid "Reset Password"
+msgstr "비밀번호 재설정"
+
+#: babybuddy/templates/registration/password_reset_done.html:4
+msgid "Reset Email Sent"
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_done.html:9
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_done.html:16
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_email.html:3
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_email.html:9
+msgid "Thanks for using Baby Buddy!"
+msgstr ""
+
+#: babybuddy/templates/registration/password_reset_form.html:4
+#, fuzzy
+#| msgid "Forgot your password?"
+msgid "Forgot Password"
+msgstr "비밀번호를 잊으셨나요?"
+
+#: babybuddy/templates/registration/password_reset_form.html:9
+msgid ""
+"Enter your account email address in the form below. If the address is valid, "
+"you will receive instructions for resetting your password."
+msgstr ""
+
+#: babybuddy/templatetags/babybuddy.py:94
+#, python-format
+msgid "Are you sure you want to delete %(name)s?"
+msgstr ""
+
+#: babybuddy/templatetags/babybuddy.py:104
+#, python-format
+msgid "Are you sure you want to unlock %(name)s?"
+msgstr ""
+
+#: babybuddy/views.py:55
+msgid "Forbidden"
+msgstr ""
+
+#: babybuddy/views.py:56
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: babybuddy/views.py:119
+#, python-format
+msgid "User %(username)s added!"
+msgstr ""
+
+#: babybuddy/views.py:130
+#, python-format
+msgid "User %(username)s updated."
+msgstr ""
+
+#: babybuddy/views.py:145
+#, fuzzy
+#| msgid "User locked."
+msgid "User unlocked."
+msgstr "사용자가 잠겼습니다."
+
+#: babybuddy/views.py:169
+#, python-brace-format
+msgid "User {user} deleted."
+msgstr ""
+
+#: babybuddy/views.py:190
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password updated."
+msgstr "비밀번호 재설정"
+
+#: babybuddy/views.py:204
+msgid "User API key regenerated."
+msgstr ""
+
+#: babybuddy/views.py:245
+#, fuzzy
+#| msgid "Settings"
+msgid "Settings saved!"
+msgstr "설정"
+
+#: core/fields.py:13
+#, python-format
+msgid ""
+"Nap start max. value %(max)s must be greater than nap start min. value "
+"%(min)s."
+msgstr ""
+
+#: core/fields.py:27
+#, python-format
+msgid ""
+"Nap start min. value %(min)s must be less than nap start max. value %(max)s."
+msgstr ""
+
+#: core/filters.py:11 core/models.py:122 core/models.py:141
+msgid "Tag"
+msgstr "태그"
+
+# === 태그 도움말 ===
+#: core/forms.py:143
+msgid ""
+"Click on the tags to add (+) or remove (-) tags or use the text editor to "
+"create new tags."
+msgstr ""
+"태그를 클릭해서 추가(+) 또는 제거(-) 하거나, 텍스트 에디터로 새 태그를 만드세"
+"요."
+
+#: core/forms.py:222
+msgid "Name does not match child name."
+msgstr ""
+
+#: core/forms.py:315
+msgid "Time Until Next Dosage"
+msgstr ""
+
+#: core/forms.py:319
+msgid "Optional: Hours until next dose can be given"
+msgstr ""
+
+#: core/models.py:31
+msgid "Date can not be in the future."
+msgstr ""
+
+#: core/models.py:48
+msgid "Start time must come before end time."
+msgstr ""
+
+#: core/models.py:51
+#, fuzzy
+#| msgid "Duration"
+msgid "Duration too long."
+msgstr "지속 시간"
+
+#: core/models.py:82
+msgid "Another entry intersects the specified time period."
+msgstr ""
+
+#: core/models.py:83
+#, fuzzy
+#| msgid "Pumping entry"
+msgid "Conflicting entry"
+msgstr "유축 추가"
+
+#: core/models.py:98
+msgid "Date/time can not be in the future."
+msgstr ""
+
+#: core/models.py:108 core/models.py:271
+#: core/templates/core/diaperchange_list.html:30
+#: core/templates/core/tag_list.html:25
+msgid "Color"
+msgstr "색깔"
+
+#: core/models.py:114
+#, fuzzy
+#| msgid "Last Name"
+msgid "Last used"
+msgstr "성"
+
+#: core/models.py:167 core/models.py:382 core/models.py:412 core/models.py:746
+#: core/templates/core/bmi_list.html:24
+#: core/templates/core/feeding_list.html:28
+#: core/templates/core/head_circumference_list.html:25
+#: core/templates/core/height_list.html:24
+#: core/templates/core/medication_list.html:24
+#: core/templates/core/pumping_list.html:24
+#: core/templates/core/weight_list.html:24 reports/graphs/bmi_change.py:28
+#: reports/graphs/diaperchange_amounts.py:37
+#: reports/graphs/diaperchange_intervals.py:67
+#: reports/graphs/diaperchange_types.py:49 reports/graphs/feeding_amounts.py:70
+#: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
+#: reports/graphs/feeding_pattern.py:181
+#: reports/graphs/head_circumference_change.py:28
+#: reports/graphs/height_change.py:87 reports/graphs/medication_frequency.py:39
+#: reports/graphs/medication_intervals.py:47
+#: reports/graphs/pumping_amounts.py:60 reports/graphs/sleep_pattern.py:168
+#: reports/graphs/sleep_totals.py:59 reports/graphs/tummytime_duration.py:51
+#: reports/graphs/weight_change.py:85
+msgid "Date"
+msgstr "날짜"
+
+#: core/models.py:189
+msgid "First name"
+msgstr "이름"
+
+#: core/models.py:191
+msgid "Last name"
+msgstr "성"
+
+#: core/models.py:193
+msgid "Birth date"
+msgstr "생년월일"
+
+#: core/models.py:194
+msgid "Birth time"
+msgstr "출생 시간"
+
+#: core/models.py:201
+msgid "Slug"
+msgstr "슬러그"
+
+#: core/models.py:204
+msgid "Picture"
+msgstr "사진"
+
+#: core/models.py:258 core/models.py:464 core/models.py:597
+#: core/templates/core/diaperchange_list.html:25
+#: core/templates/core/note_list.html:24
+#: core/templates/core/temperature_list.html:25
+#: reports/graphs/temperature_change.py:27
+msgid "Time"
+msgstr "시간"
+
+#: core/models.py:260 core/templates/core/diaperchange_list.html:66
+#: reports/graphs/diaperchange_intervals.py:47
+#: reports/graphs/diaperchange_types.py:36
+msgid "Wet"
+msgstr "소변"
+
+#: core/models.py:261 core/templates/core/diaperchange_list.html:69
+#: reports/graphs/diaperchange_intervals.py:38
+#: reports/graphs/diaperchange_types.py:30
+msgid "Solid"
+msgstr "대변"
+
+#: core/models.py:265
+msgid "Black"
+msgstr "검정"
+
+#: core/models.py:266
+msgid "Brown"
+msgstr "갈색"
+
+#: core/models.py:267
+msgid "Green"
+msgstr "초록"
+
+#: core/models.py:268
+msgid "Yellow"
+msgstr "노랑"
+
+#: core/models.py:273 core/models.py:344 core/models.py:508
+#: core/templates/core/diaperchange_list.html:31
+#: core/templates/core/pumping_list.html:28 core/timeline.py:151
+#: dashboard/templates/cards/pumping_last.html:20
+msgid "Amount"
+msgstr "양"
+
+#: core/models.py:314 core/models.py:495 core/models.py:543 core/models.py:631
+#: core/models.py:700
+#, fuzzy
+#| msgid "Start Timer"
+msgid "Start time"
+msgstr "타이머 시작"
+
+#: core/models.py:317 core/models.py:501 core/models.py:546 core/models.py:703
+#, fuzzy
+#| msgid "All time"
+msgid "End time"
+msgstr "전체"
+
+#: core/models.py:320 core/models.py:506 core/models.py:550 core/models.py:706
+#: core/templates/core/feeding_list.html:37
+#: core/templates/core/pumping_list.html:29
+#: core/templates/core/sleep_list.html:29
+#: core/templates/core/tummytime_list.html:28
+msgid "Duration"
+msgstr "지속 시간"
+
+#: core/models.py:324
+msgid "Breast milk"
+msgstr "모유"
+
+#: core/models.py:325
+msgid "Formula"
+msgstr "분유"
+
+#: core/models.py:326
+msgid "Fortified breast milk"
+msgstr "강화 모유"
+
+#: core/models.py:327
+msgid "Solid food"
+msgstr "이유식"
+
+#: core/models.py:330 core/templates/core/feeding_list.html:33
+msgid "Type"
+msgstr "종류"
+
+#: core/models.py:334
+msgid "Bottle"
+msgstr "젖병"
+
+#: core/models.py:335
+msgid "Left breast"
+msgstr "왼쪽"
+
+#: core/models.py:336
+msgid "Right breast"
+msgstr "오른쪽"
+
+#: core/models.py:337
+msgid "Both breasts"
+msgstr "양쪽"
+
+#: core/models.py:338
+msgid "Parent fed"
+msgstr "먹여주기"
+
+#: core/models.py:339
+msgid "Self fed"
+msgstr "혼자 먹기"
+
+#: core/models.py:342 core/templates/core/feeding_list.html:32
+msgid "Method"
+msgstr "방법"
+
+#: core/models.py:444 core/models.py:868
+msgid "Girl"
+msgstr ""
+
+#: core/models.py:445 core/models.py:869
+msgid "Boy"
+msgstr ""
+
+#: core/models.py:467 core/templates/core/note_list.html:28
+msgid "Image"
+msgstr ""
+
+#: core/models.py:548 core/templates/core/sleep_list.html:31
+msgid "Nap"
+msgstr "낮잠"
+
+#: core/models.py:556
+#, fuzzy
+#| msgid "Settings"
+msgid "Nap settings"
+msgstr "설정"
+
+#: core/models.py:628 core/templates/core/tag_list.html:24
+#: core/templates/core/timer_list.html:24
+msgid "Name"
+msgstr "이름"
+
+#: core/models.py:646 core/templates/core/timer_form.html:4
+msgid "Timer"
+msgstr "타이머"
+
+#: core/models.py:647 core/templates/core/timer_confirm_delete.html:8
+#: core/templates/core/timer_detail.html:7
+#: core/templates/core/timer_form.html:8 core/templates/core/timer_list.html:4
+#: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:11
+#: core/templates/core/timer_nav.html:9 core/templates/core/timer_nav.html:49
+#: dashboard/templates/cards/timer_list.html:4
+msgid "Timers"
+msgstr "타이머 목록"
+
+#: core/models.py:650
+#, fuzzy, python-brace-format
+#| msgid "Timer"
+msgid "Timer #{id}"
+msgstr "타이머"
+
+#: core/models.py:709 core/templates/core/tummytime_list.html:30
+msgid "Milestone"
+msgstr "발달 이정표"
+
+#: core/models.py:781 core/templates/core/medication_list.html:28
+msgid "Medication Name"
+msgstr ""
+
+#: core/models.py:782
+msgid "Name of the medication administered"
+msgstr ""
+
+#: core/models.py:788 core/templates/core/medication_list.html:29
+#: core/timeline.py:227
+msgid "Dosage"
+msgstr ""
+
+#: core/models.py:789
+msgid "Amount of medication given"
+msgstr ""
+
+#: core/models.py:794
+msgid "MG"
+msgstr ""
+
+#: core/models.py:795
+msgid "ML"
+msgstr ""
+
+#: core/models.py:796
+msgid "Tablets"
+msgstr ""
+
+#: core/models.py:797
+msgid "Drops"
+msgstr ""
+
+#: core/models.py:802
+msgid "Dosage Unit"
+msgstr ""
+
+#: core/models.py:808
+msgid "Time Taken"
+msgstr ""
+
+#: core/models.py:814 core/templates/core/medication_list.html:30
+msgid "Next Dose Interval"
+msgstr ""
+
+#: core/models.py:815
+msgid "Time until next dose can be given"
+msgstr ""
+
+#: core/models.py:825
+#, fuzzy
+#| msgid "Actions"
+msgid "Medications"
+msgstr "작업"
+
+#: core/templates/core/bmi_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a BMI Entry"
+msgid "Delete a BMI Entry"
+msgstr "BMI 기록 추가"
+
+#: core/templates/core/bmi_form.html:7 core/templates/core/bmi_form.html:17
+#: core/templates/core/bmi_form.html:26
 msgid "Add a BMI Entry"
 msgstr "BMI 기록 추가"
 
-msgid "Add a Note"
-msgstr "메모 추가"
+#: core/templates/core/bmi_list.html:14
+#, fuzzy
+#| msgid "Add a BMI Entry"
+msgid "Add BMI"
+msgstr "BMI 기록 추가"
 
-msgid "Advanced Fields"
-msgstr "고급 항목"
+#: core/templates/core/bmi_list.html:69
+#, fuzzy
+#| msgid "No users found."
+msgid "No BMI entries found."
+msgstr "사용자가 없습니다."
 
-msgid "Amt."
-msgstr "양"
+#: core/templates/core/child_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a Child"
+msgid "Delete a Child"
+msgstr "아이 추가"
 
-msgid "Birth Date"
-msgstr "탄생일"
-
-# === 대시보드 추가 카드 ===
-
-msgid "Feeding frequency (past 3 days)"
-msgstr "수유 빈도 (최근 3일)"
-
-msgid "Sleep frequency (past 3 days)"
-msgstr "수면 빈도 (최근 3일)"
-
-msgid "Tummy time frequency (past 3 days)"
-msgstr "터미 타임 빈도 (최근 3일)"
-
-# === 태그 도움말 ===
-
-msgid "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
-msgstr "태그를 클릭해서 추가(+) 또는 제거(-) 하거나, 텍스트 에디터로 새 태그를 만드세요."
+#: core/templates/core/child_confirm_delete.html:21
+msgid "To confirm this action. Type the full name of the child below."
+msgstr ""
 
 # === 아이 프로필 ===
-
+#: core/templates/core/child_detail.html:23
+#: dashboard/templates/dashboard/dashboard.html:30
 msgid "Born"
 msgstr "탄생일"
 
+#: core/templates/core/child_detail.html:25
+#: dashboard/templates/dashboard/dashboard.html:32
 msgid "Age"
 msgstr "나이"
+
+#: core/templates/core/child_list.html:14
+msgid "Add Child"
+msgstr "아이 추가"
+
+#: core/templates/core/child_list.html:28
+msgid "Birth Date"
+msgstr "탄생일"
+
+#: core/templates/core/child_list.html:71
+#, fuzzy
+#| msgid "No results found."
+msgid "No children found."
+msgstr "결과가 없습니다."
+
+#: core/templates/core/child_quick_switch.html:9
+msgid "Switch child"
+msgstr "아이 변경"
+
+#: core/templates/core/child_quick_switch.html:21
+msgid "Switch to…"
+msgstr ""
+
+#: core/templates/core/diaperchange_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a Diaper Change"
+msgid "Delete a Diaper Change"
+msgstr "기저귀 교체 추가"
+
+#: core/templates/core/diaperchange_form.html:5
+#, fuzzy
+#| msgid "Add a Diaper Change"
+msgid "Update a Diaper Change"
+msgstr "기저귀 교체 추가"
+
+#: core/templates/core/diaperchange_form.html:7
+#: core/templates/core/diaperchange_form.html:26
+msgid "Add a Diaper Change"
+msgstr "기저귀 교체 추가"
+
+#: core/templates/core/diaperchange_form.html:17
+#: core/templates/core/feeding_form.html:19
+#: core/templates/core/note_form.html:17 core/templates/core/sleep_form.html:17
+#: core/templates/core/tag_form.html:20
+#: core/templates/core/tummytime_form.html:17
+#: core/templates/core/widget_tag_editor.html:33
+msgid "Add"
+msgstr "추가"
+
+#: core/templates/core/diaperchange_list.html:15
+#, fuzzy
+#| msgid "Add a Diaper Change"
+msgid "Add Diaper Change"
+msgstr "기저귀 교체 추가"
+
+#: core/templates/core/diaperchange_list.html:29
+msgid "Contents"
+msgstr ""
+
+#: core/templates/core/diaperchange_list.html:76
+#: core/templates/core/feeding_list.html:78
+#: core/templates/core/pumping_list.html:66
+#: core/templates/core/sleep_list.html:65
+#: core/templates/core/tummytime_list.html:66
+#: dashboard/templates/cards/diaperchange_last.html:9
+#: dashboard/templates/cards/feeding_last.html:9
+#: dashboard/templates/cards/medication_last.html:9
+#: dashboard/templates/cards/pumping_last.html:9
+#: dashboard/templates/cards/sleep_last.html:9
+#: dashboard/templates/cards/tummytime_last.html:9
+#, python-format
+msgid "%(time_ago)s ago"
+msgstr ""
+
+#: core/templates/core/diaperchange_list.html:93
+#, fuzzy
+#| msgid "No users found."
+msgid "No diaper changes found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/feeding_confirm_delete.html:4
+#, fuzzy
+#| msgid "Recent Feedings"
+msgid "Delete a Feeding"
+msgstr "최근 수유"
+
+# === 수유/기록 추가 폼 ===
+#: core/templates/core/feeding_form.html:5
+#, fuzzy
+#| msgid "Add a Feeding"
+msgid "Update a Feeding"
+msgstr "수유 추가"
+
+#: core/templates/core/feeding_form.html:7
+#: core/templates/core/feeding_form.html:28
+msgid "Add a Bottle Feeding"
+msgstr "젖병 수유 추가"
+
+# === 수유/기록 추가 폼 ===
+#: core/templates/core/feeding_form.html:9
+#: core/templates/core/feeding_form.html:30
+msgid "Add a Feeding"
+msgstr "수유 추가"
+
+# === 수유/기록 추가 폼 ===
+#: core/templates/core/feeding_list.html:14
+#, fuzzy
+#| msgid "Add a Feeding"
+msgid "Add Feeding"
+msgstr "수유 추가"
+
+#: core/templates/core/feeding_list.html:18
+#, fuzzy
+#| msgid "Add a Bottle Feeding"
+msgid "Add Bottle Feeding"
+msgstr "젖병 수유 추가"
+
+#: core/templates/core/feeding_list.html:36
+msgid "Amt."
+msgstr "양"
+
+#: core/templates/core/feeding_list.html:95
+#, fuzzy
+#| msgid "No users found."
+msgid "No feedings found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/head_circumference_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a Head Circumference Entry"
+msgid "Delete a Head Circumference Entry"
+msgstr "머리 둘레 기록 추가"
+
+#: core/templates/core/head_circumference_form.html:7
+#: core/templates/core/head_circumference_form.html:17
+#: core/templates/core/head_circumference_form.html:26
+msgid "Add a Head Circumference Entry"
+msgstr "머리 둘레 기록 추가"
+
+#: core/templates/core/head_circumference_list.html:15
+#, fuzzy
+#| msgid "Head Circumference"
+msgid "Add Head Circumference"
+msgstr "머리 둘레"
+
+#: core/templates/core/head_circumference_list.html:72
+#, fuzzy
+#| msgid "Head Circumference entry"
+msgid "No head circumference entries found."
+msgstr "머리 둘레 추가"
+
+#: core/templates/core/height_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a Height Entry"
+msgid "Delete a Height Entry"
+msgstr "키 기록 추가"
+
+#: core/templates/core/height_form.html:7
+#: core/templates/core/height_form.html:17
+#: core/templates/core/height_form.html:26
+msgid "Add a Height Entry"
+msgstr "키 기록 추가"
+
+#: core/templates/core/height_list.html:14
+#, fuzzy
+#| msgid "Height"
+msgid "Add Height"
+msgstr "키"
+
+#: core/templates/core/height_list.html:71
+#, fuzzy
+#| msgid "No users found."
+msgid "No height entries found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/medication_confirm_delete.html:4
+msgid "Delete a Medication Entry"
+msgstr ""
+
+#: core/templates/core/medication_form.html:7
+#: core/templates/core/medication_form.html:17
+#: core/templates/core/medication_form.html:26
+#, fuzzy
+#| msgid "Add a Weight Entry"
+msgid "Add a Medication Entry"
+msgstr "체중 기록 추가"
+
+#: core/templates/core/medication_list.html:14
+msgid "Add Medication"
+msgstr ""
+
+#: core/templates/core/medication_list.html:67
+msgid "No interval set"
+msgstr ""
+
+#: core/templates/core/medication_list.html:81
+#, fuzzy
+#| msgid "No users found."
+msgid "No medication entries found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/note_confirm_delete.html:4
+#, fuzzy
+#| msgid "Delete User"
+msgid "Delete a Note"
+msgstr "사용자 삭제"
+
+#: core/templates/core/note_form.html:5
+#, fuzzy
+#| msgid "Add a Note"
+msgid "Update a Note"
+msgstr "메모 추가"
+
+#: core/templates/core/note_form.html:7 core/templates/core/note_form.html:26
+msgid "Add a Note"
+msgstr "메모 추가"
+
+#: core/templates/core/note_list.html:14
+msgid "Add Note"
+msgstr "메모 추가"
+
+#: core/templates/core/note_list.html:71
+#, fuzzy
+#| msgid "No users found."
+msgid "No notes found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/pumping_confirm_delete.html:4
+#, fuzzy
+#| msgid "Pumping entry"
+msgid "Delete a Pumping Entry"
+msgstr "유축 추가"
+
+#: core/templates/core/pumping_form.html:7
+#: core/templates/core/pumping_form.html:17
+#: core/templates/core/pumping_form.html:26
+#, fuzzy
+#| msgid "Add a Weight Entry"
+msgid "Add a Pumping Entry"
+msgstr "체중 기록 추가"
+
+#: core/templates/core/pumping_list.html:14
+#, fuzzy
+#| msgid "Pumping entry"
+msgid "Add Pumping Entry"
+msgstr "유축 추가"
+
+#: core/templates/core/pumping_list.html:83
+#, fuzzy
+#| msgid "No users found."
+msgid "No pumping entries found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/quick_timer_nav.html:10
+#: core/templates/core/quick_timer_nav.html:33
+#: core/templates/core/timer_nav.html:42
+msgid "Quick Start Timer"
+msgstr "빠른 타이머 시작"
+
+#: core/templates/core/quick_timer_nav.html:20
+#: core/templates/core/timer_nav.html:30
+#, fuzzy
+#| msgid "Quick Start Timer"
+msgid "Quick Start Timer For…"
+msgstr "빠른 타이머 시작"
+
+#: core/templates/core/sleep_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a Sleep Entry"
+msgid "Delete a Sleep Entry"
+msgstr "수면 기록 추가"
+
+#: core/templates/core/sleep_form.html:5
+#, fuzzy
+#| msgid "Add a Sleep Entry"
+msgid "Update a Sleep Entry"
+msgstr "수면 기록 추가"
+
+#: core/templates/core/sleep_form.html:7 core/templates/core/sleep_form.html:26
+msgid "Add a Sleep Entry"
+msgstr "수면 기록 추가"
+
+#: core/templates/core/sleep_list.html:14
+#, fuzzy
+#| msgid "Sleep"
+msgid "Add Sleep"
+msgstr "수면"
+
+#: core/templates/core/sleep_list.html:24
+#: core/templates/core/timer_form.html:16
+#: core/templates/core/timer_list.html:23
+#: core/templates/core/tummytime_list.html:23
+msgid "Start"
+msgstr "시작"
+
+#: core/templates/core/sleep_list.html:25
+#: core/templates/core/tummytime_list.html:24
+msgid "End"
+msgstr "종료"
+
+#: core/templates/core/sleep_list.html:83
+#, fuzzy
+#| msgid "No users found."
+msgid "No sleep entries found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/tag_confirm_delete.html:4
+#, fuzzy
+#| msgid "Delete"
+msgid "Delete a Tag"
+msgstr "삭제"
+
+#: core/templates/core/tag_confirm_delete.html:22
+#, python-format
+msgid "There is 1 item tagged with this tag."
+msgid_plural "There are %(count)s items tagged with this tag."
+msgstr[0] ""
+
+#: core/templates/core/tag_confirm_delete.html:29
+msgid ""
+"This action will remove the tag from all items it is currently applied to."
+msgstr ""
+
+#: core/templates/core/tag_confirm_delete.html:35
+#, fuzzy
+#| msgid "Delete"
+msgid "Delete Tag"
+msgstr "삭제"
+
+#: core/templates/core/tag_detail.html:5 core/templates/core/tag_form.html:5
+#, fuzzy
+#| msgid "Update"
+msgid "Update a Tag"
+msgstr "수정"
+
+# === 수유/기록 추가 폼 ===
+#: core/templates/core/tag_detail.html:7 core/templates/core/tag_form.html:7
+#: core/templates/core/tag_form.html:29
+#, fuzzy
+#| msgid "Add a Feeding"
+msgid "Add a Tag"
+msgstr "수유 추가"
+
+#: core/templates/core/tag_detail.html:28
+#, fuzzy
+#| msgid "Actions"
+msgid "Tag actions"
+msgstr "작업"
+
+#: core/templates/core/tag_detail.html:32
+#: core/templates/timeline/_timeline.html:64
+#: dashboard/templates/dashboard/child_button_group.html:25
+msgid "Edit"
+msgstr "수정"
+
+#: core/templates/core/tag_detail.html:46
+#, fuzzy
+#| msgid "Measurements"
+msgid "Tagged Measurements"
+msgstr "측정"
+
+#: core/templates/core/tag_detail.html:50
+#, fuzzy
+#| msgid "Measurements"
+msgid "BMI Measurements"
+msgstr "측정"
+
+#: core/templates/core/tag_detail.html:55
+#, fuzzy
+#| msgid "Head Circumference entry"
+msgid "Head Circumference Measurements"
+msgstr "머리 둘레 추가"
+
+#: core/templates/core/tag_detail.html:60
+#, fuzzy
+#| msgid "Measurements"
+msgid "Height Measurements"
+msgstr "측정"
+
+#: core/templates/core/tag_detail.html:65
+#, fuzzy
+#| msgid "Temperature reading"
+msgid "Temperature Measurements"
+msgstr "체온 추가"
+
+#: core/templates/core/tag_detail.html:70
+#, fuzzy
+#| msgid "Measurements"
+msgid "Weight Measurements"
+msgstr "측정"
+
+#: core/templates/core/tag_detail.html:76
+#, fuzzy
+#| msgid "Activities"
+msgid "Tagged Activities"
+msgstr "활동"
+
+#: core/templates/core/tag_detail.html:90
+#, fuzzy
+#| msgid "Pumping"
+msgid "Pumpings"
+msgstr "유축"
+
+#: core/templates/core/tag_detail.html:95
+#, fuzzy
+#| msgid "Sleep"
+msgid "Sleeps"
+msgstr "수면"
+
+#: core/templates/core/tag_detail.html:100
+#, fuzzy
+#| msgid "Tummy Time"
+msgid "Tummy Times"
+msgstr "터미 타임"
+
+#: core/templates/core/tag_list.html:14
+#, fuzzy
+#| msgid "Add Timer"
+msgid "Add Tag"
+msgstr "타이머 추가"
+
+#: core/templates/core/tag_list.html:26
+#, fuzzy
+#| msgid "Items Per Page"
+msgid "Items Tagged"
+msgstr "페이지당 항목 수"
+
+#: core/templates/core/tag_list.html:27
+#, fuzzy
+#| msgid "Last Name"
+msgid "Last Used"
+msgstr "성"
+
+#: core/templates/core/tag_list.html:62
+#, fuzzy
+#| msgid "No results found."
+msgid "No tags found."
+msgstr "결과가 없습니다."
+
+#: core/templates/core/temperature_confirm_delete.html:4
+#, fuzzy
+#| msgid "Temperature reading"
+msgid "Delete a Temperature Reading"
+msgstr "체온 추가"
+
+#: core/templates/core/temperature_form.html:7
+#: core/templates/core/temperature_form.html:17
+#, fuzzy
+#| msgid "Temperature reading"
+msgid "Add a Temperature Reading"
+msgstr "체온 추가"
+
+#: core/templates/core/temperature_form.html:26
+msgid "Add a Temperature Entry"
+msgstr "체온 기록 추가"
+
+#: core/templates/core/temperature_list.html:15
+#, fuzzy
+#| msgid "Temperature reading"
+msgid "Add Temperature Reading"
+msgstr "체온 추가"
+
+#: core/templates/core/temperature_list.html:72
+#, fuzzy
+#| msgid "No users found."
+msgid "No temperature entries found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/timer_confirm_delete.html:4
+#, python-format
+msgid "Delete %(object)s"
+msgstr ""
+
+#: core/templates/core/timer_detail.html:20
+#, fuzzy
+#| msgid "Start"
+msgid "Started"
+msgstr "시작"
+
+#: core/templates/core/timer_detail.html:22
+#, python-format
+msgid "%(timer)s created by %(user)s"
+msgstr ""
+
+#: core/templates/core/timer_detail.html:58
+#, fuzzy
+#| msgid "Timers"
+msgid "Timer actions"
+msgstr "타이머 목록"
+
+#: core/templates/core/timer_detail.html:73
+#, fuzzy
+#| msgid "Start Timer"
+msgid "Restart timer"
+msgstr "타이머 시작"
+
+#: core/templates/core/timer_form.html:25
+#: core/templates/core/timer_list.html:14 core/templates/core/timer_nav.html:14
+msgid "Start Timer"
+msgstr "타이머 시작"
+
+#: core/templates/core/timer_list.html:49
+#, fuzzy
+#| msgid "No results found."
+msgid "No timer entries found."
+msgstr "결과가 없습니다."
+
+#: core/templates/core/timer_nav.html:19
+msgid "View Timers"
+msgstr "타이머 목록"
+
+#: core/templates/core/timer_nav.html:53
+#: dashboard/templates/cards/breastfeeding.html:8
+#: dashboard/templates/cards/diaperchange_last.html:15
+#: dashboard/templates/cards/diaperchange_types.html:8
+#: dashboard/templates/cards/feeding_last.html:15
+#: dashboard/templates/cards/feeding_last_method.html:47
+#: dashboard/templates/cards/feeding_recent.html:18
+#: dashboard/templates/cards/feeding_recent.html:52
+#: dashboard/templates/cards/medication_last.html:15
+#: dashboard/templates/cards/pumping_last.html:15
+#: dashboard/templates/cards/pumping_recent.html:18
+#: dashboard/templates/cards/pumping_recent.html:52
+#: dashboard/templates/cards/sleep_last.html:15
+#: dashboard/templates/cards/sleep_naps_day.html:14
+#: dashboard/templates/cards/sleep_recent.html:18
+#: dashboard/templates/cards/sleep_recent.html:52
+#: dashboard/templates/cards/tummytime_day.html:10
+msgid "None"
+msgstr "없음"
+
+#: core/templates/core/tummytime_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a Tummy Time Entry"
+msgid "Delete a Tummy Time Entry"
+msgstr "터미 타임 추가"
+
+#: core/templates/core/tummytime_form.html:5
+#, fuzzy
+#| msgid "Add a Tummy Time Entry"
+msgid "Update a Tummy Time Entry"
+msgstr "터미 타임 추가"
+
+#: core/templates/core/tummytime_form.html:7
+#: core/templates/core/tummytime_form.html:26
+msgid "Add a Tummy Time Entry"
+msgstr "터미 타임 추가"
+
+#: core/templates/core/tummytime_list.html:14
+#, fuzzy
+#| msgid "Tummy Time"
+msgid "Add Tummy Time"
+msgstr "터미 타임"
+
+#: core/templates/core/tummytime_list.html:77
+#, fuzzy
+#| msgid "No users found."
+msgid "No tummy time entries found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/weight_confirm_delete.html:4
+#, fuzzy
+#| msgid "Add a Weight Entry"
+msgid "Delete a Weight Entry"
+msgstr "체중 기록 추가"
+
+#: core/templates/core/weight_form.html:7
+#: core/templates/core/weight_form.html:17
+#: core/templates/core/weight_form.html:26
+msgid "Add a Weight Entry"
+msgstr "체중 기록 추가"
+
+#: core/templates/core/weight_list.html:14
+#, fuzzy
+#| msgid "Weight"
+msgid "Add Weight"
+msgstr "체중"
+
+#: core/templates/core/weight_list.html:71
+#, fuzzy
+#| msgid "No users found."
+msgid "No weight entries found."
+msgstr "사용자가 없습니다."
+
+#: core/templates/core/widget_tag_editor.html:27
+#, fuzzy
+#| msgid "Last name"
+msgid "Tag name"
+msgstr "성"
+
+#: core/templates/core/widget_tag_editor.html:36
+#, fuzzy
+#| msgid "Recent Feedings"
+msgid "Recently used:"
+msgstr "최근 수유"
+
+#: core/templates/core/widget_tag_editor.html:55
+#, fuzzy
+#| msgid "Error"
+msgctxt "Error modal"
+msgid "Error"
+msgstr "오류"
+
+#: core/templates/core/widget_tag_editor.html:59
+msgctxt "Error modal"
+msgid "An error ocurred."
+msgstr ""
+
+#: core/templates/core/widget_tag_editor.html:60
+msgctxt "Error modal"
+msgid "Invalid tag name."
+msgstr ""
+
+#: core/templates/core/widget_tag_editor.html:61
+msgctxt "Error modal"
+msgid "Failed to create tag."
+msgstr ""
+
+#: core/templates/core/widget_tag_editor.html:62
+msgctxt "Error modal"
+msgid "Failed to obtain tag data."
+msgstr ""
+
+#: core/templates/core/widget_tag_editor.html:65
+#, fuzzy
+#| msgid "Close"
+msgctxt "Error modal"
+msgid "Close"
+msgstr "닫기"
+
+#: core/templates/forms/layouts/advanced.html:7
+msgid "Advanced Fields"
+msgstr "고급 항목"
+
+#: core/templates/timeline/_timeline.html:41
+#, python-format
+msgid "%(since)s ago (%(time)s)"
+msgstr ""
+
+#: core/templates/timeline/_timeline.html:47
+#, python-format
+msgid "Duration: %(duration)s"
+msgstr ""
+
+# === Timeline 템플릿 라벨 ===
+#: core/templates/timeline/_timeline.html:56
+#, fuzzy, python-format
+#| msgid "since previous"
+msgid "%(since)s since previous"
+msgstr "이전으로부터"
+
+#: core/templates/timeline/_timeline.html:92
+msgid "No events"
+msgstr ""
+
+#: core/templatetags/datetime.py:26
+msgid "Today"
+msgstr "오늘"
+
+#: core/templatetags/duration.py:106
+#: dashboard/templates/cards/breastfeeding.html:28
+#: dashboard/templates/cards/diaperchange_types.html:40
+#, python-format
+msgid "%(days_ago)s days ago"
+msgstr ""
+
+#: core/templatetags/duration.py:109
+#: dashboard/templates/cards/breastfeeding.html:24
+#: dashboard/templates/cards/diaperchange_types.html:36
+#, fuzzy
+#| msgid "Today"
+msgid "today"
+msgstr "오늘"
+
+#: core/templatetags/duration.py:111
+#: dashboard/templates/cards/breastfeeding.html:26
+#: dashboard/templates/cards/diaperchange_types.html:38
+#, fuzzy
+#| msgid "Yesterday"
+msgid "yesterday"
+msgstr "어제"
+
+#: core/timeline.py:65
+#, python-format
+msgid "%(child)s started tummy time!"
+msgstr "%(child)s 터미 타임을 시작했어요!"
+
+#: core/timeline.py:77
+#, python-format
+msgid "%(child)s finished tummy time."
+msgstr "%(child)s 터미 타임을 마쳤어요."
+
+#: core/timeline.py:105
+#, python-format
+msgid "%(child)s fell asleep."
+msgstr "%(child)s 잠들었어요."
+
+#: core/timeline.py:117
+#, python-format
+msgid "%(child)s woke up."
+msgstr "%(child)s 일어났어요."
+
+# === Timeline 이벤트 문자열 ===
+#: core/timeline.py:164
+#, python-format
+msgid "%(child)s started feeding."
+msgstr "%(child)s 수유를 시작했어요."
+
+#: core/timeline.py:173
+#, python-format
+msgid "%(child)s finished feeding."
+msgstr "%(child)s 수유를 마쳤어요."
+
+#: core/timeline.py:183
+#, python-format
+msgid "%(child)s had a feeding."
+msgstr "%(child)s 수유를 했어요."
+
+#: core/timeline.py:205
+#, python-format
+msgid "%(child)s had a %(type)s diaper change."
+msgstr "%(child)s %(type)s 기저귀를 교체했어요."
+
+# === Timeline 이벤트 문자열 ===
+#: core/timeline.py:240
+#, fuzzy, python-format
+#| msgid "%(child)s started feeding."
+msgid "%(child)s took %(medication)s."
+msgstr "%(child)s 수유를 시작했어요."
+
+#: core/timeline.py:256
+#, python-format
+msgid "%(child)s's %(medication)s dose wore off."
+msgstr ""
+
+#: core/timeline.py:301
+#, python-format
+msgid "%(child)s had a temperature measurement."
+msgstr "%(child)s 체온을 측정했어요."
+
+#: core/utils.py:41
+#, python-format
+msgid "%(hours)s hour"
+msgid_plural "%(hours)s hours"
+msgstr[0] ""
+
+#: core/utils.py:45
+#, python-format
+msgid "%(minutes)s minute"
+msgid_plural "%(minutes)s minutes"
+msgstr[0] ""
+
+#: core/utils.py:51
+#, fuzzy, python-format
+#| msgid "%(count)s solid"
+msgid "%(seconds)s second"
+msgid_plural "%(seconds)s seconds"
+msgstr[0] "대변 %(count)s회"
+
+#: core/views.py:35
+#, python-format
+msgid "%(model)s entry for %(child)s added!"
+msgstr ""
+
+#: core/views.py:37 core/views.py:342
+#, python-format
+msgid "%(model)s entry added!"
+msgstr ""
+
+#: core/views.py:63 core/views.py:350
+#, python-format
+msgid "%(model)s entry for %(child)s updated."
+msgstr ""
+
+#: core/views.py:65
+#, python-format
+msgid "%(model)s entry updated."
+msgstr ""
+
+#: core/views.py:71 core/views.py:146
+#, python-format
+msgid "%(model)s entry deleted."
+msgstr ""
+
+#: core/views.py:115
+#, python-format
+msgid "%(first_name)s %(last_name)s added!"
+msgstr ""
+
+#: core/views.py:462
+#, python-format
+msgid "%(model)s reading added!"
+msgstr ""
+
+#: core/views.py:470
+#, python-format
+msgid "%(model)s reading for %(child)s updated."
+msgstr ""
+
+#: dashboard/templates/cards/breastfeeding.html:4
+msgid "Breastfeeding"
+msgstr "모유 수유"
+
+#: dashboard/templates/cards/breastfeeding.html:10
+#: dashboard/templates/cards/diaperchange_types.html:10
+msgid "Past Week"
+msgstr "지난 1주일"
+
+#: dashboard/templates/cards/breastfeeding.html:18
+msgid "left"
+msgstr ""
+
+#: dashboard/templates/cards/breastfeeding.html:20
+#, fuzzy
+#| msgid "Height"
+msgid "right"
+msgstr "키"
+
+#: dashboard/templates/cards/breastfeeding.html:31
+#, fuzzy
+#| msgid "feedings"
+msgid "feedings in"
+msgstr "수유"
+
+#: dashboard/templates/cards/diaperchange_last.html:4
+msgid "Last Diaper Change"
+msgstr "마지막 기저귀 교체"
+
+#: dashboard/templates/cards/diaperchange_types.html:20
+msgid "wet"
+msgstr "소변"
+
+#: dashboard/templates/cards/diaperchange_types.html:26
+msgid "solid"
+msgstr "대변"
+
+#: dashboard/templates/cards/diaperchange_types.html:43
+msgid "changes"
+msgstr "교체"
+
+#: dashboard/templates/cards/feeding_last.html:4
+msgid "Last Feeding"
+msgstr "마지막 수유"
+
+#: dashboard/templates/cards/feeding_last_method.html:4
+msgid "Last Feeding Method"
+msgstr "마지막 수유 방법"
+
+#: dashboard/templates/cards/feeding_last_method.html:17
+msgid "most recent"
+msgstr "최근"
+
+#: dashboard/templates/cards/feeding_last_method.html:19
+#, fuzzy, python-format
+#| msgid "%(count)s feeding"
+msgid "%(n)s feeding ago"
+msgid_plural "%(n)s feedings ago"
+msgstr[0] "수유 %(count)s회"
+
+#: dashboard/templates/cards/feeding_recent.html:4
+msgid "Recent Feedings"
+msgstr "최근 수유"
+
+#: dashboard/templates/cards/feeding_recent.html:23
+#, fuzzy, python-format
+#| msgid "%(count)s feeding"
+msgid "%(counter)s feeding"
+msgid_plural "%(counter)s feedings"
+msgstr[0] "수유 %(count)s회"
+
+#: dashboard/templates/cards/medication_last.html:4
+#, fuzzy
+#| msgid "Last Feeding"
+msgid "Last Medication"
+msgstr "마지막 수유"
+
+#: dashboard/templates/cards/medication_last.html:27
+msgid "Next dose ready"
+msgstr ""
+
+#: dashboard/templates/cards/medication_last.html:30
+#, python-format
+msgid "Next dose at %(next_time)s"
+msgstr ""
+
+#: dashboard/templates/cards/pumping_last.html:4
+msgid "Last Pumping"
+msgstr "마지막 유축"
+
+#: dashboard/templates/cards/pumping_recent.html:4
+#, fuzzy
+#| msgid "Recent Feedings"
+msgid "Recent Pumpings"
+msgstr "최근 수유"
+
+#: dashboard/templates/cards/pumping_recent.html:23
+#, fuzzy, python-format
+#| msgid "%(count)s feeding"
+msgid "%(counter)s pumping"
+msgid_plural "%(counter)s pumpings"
+msgstr[0] "수유 %(count)s회"
+
+#: dashboard/templates/cards/sleep_last.html:4
+msgid "Last Sleep"
+msgstr "마지막 수면"
+
+#: dashboard/templates/cards/sleep_naps_day.html:4
+msgid "Today's Naps"
+msgstr "오늘의 낮잠"
+
+#: dashboard/templates/cards/sleep_naps_day.html:8
+#, fuzzy, python-format
+#| msgid "%(count)s wet"
+msgid "%(count)s nap"
+msgid_plural "%(count)s naps"
+msgstr[0] "소변 %(count)s회"
+
+#: dashboard/templates/cards/sleep_recent.html:4
+msgid "Recent Sleep"
+msgstr "최근 수면"
+
+#: dashboard/templates/cards/sleep_recent.html:23
+#, fuzzy, python-format
+#| msgid "%(count)s solid"
+msgid "%(counter)s sleep"
+msgid_plural "%(counter)s sleeps"
+msgstr[0] "대변 %(count)s회"
+
+#: dashboard/templates/cards/statistics.html:6
+msgid "Statistics"
+msgstr "통계"
+
+#: dashboard/templates/cards/statistics.html:26
+msgid "Not enough data"
+msgstr "데이터가 부족합니다"
+
+#: dashboard/templates/cards/statistics.html:49
+msgid "No data yet"
+msgstr "아직 데이터가 없어요"
+
+#: dashboard/templates/cards/timer_list.html:8
+#, fuzzy, python-format
+#| msgid "%(count)s timer"
+msgid "%(count)s timer"
+msgid_plural "%(count)s timers"
+msgstr[0] "타이머 %(count)s개"
+
+#: dashboard/templates/cards/timer_list.html:22
+#, python-format
+msgid "Started by %(user)s at %(start)s"
+msgstr ""
+
+#: dashboard/templates/cards/tummytime_day.html:4
+msgid "Today's Tummy Time"
+msgstr "오늘의 터미 타임"
+
+#: dashboard/templates/cards/tummytime_day.html:17
+#, python-format
+msgid "%(duration)s at %(end)s"
+msgstr ""
+
+#: dashboard/templates/cards/tummytime_last.html:4
+#, fuzzy
+#| msgid "Tummy Time"
+msgid "Last Tummy Time"
+msgstr "터미 타임"
+
+#: dashboard/templates/cards/tummytime_last.html:15
+msgid "Never"
+msgstr ""
+
+#: dashboard/templates/dashboard/child_button_group.html:4
+#, fuzzy
+#| msgid "Actions"
+msgid "Child actions"
+msgstr "작업"
+
+#: dashboard/templates/dashboard/child_button_group.html:18
+#: reports/templates/reports/breadcrumb_common_chunk.html:5
+#: reports/templates/reports/report_list.html:4
+#: reports/templates/reports/report_list.html:9
+msgid "Reports"
+msgstr "통계"
+
+#: dashboard/templatetags/cards.py:489
+#, fuzzy
+#| msgid "Feeding Duration"
+msgid "Average nap duration"
+msgstr "수유 시간"
+
+#: dashboard/templatetags/cards.py:496
+msgid "Average naps per day"
+msgstr ""
+
+#: dashboard/templatetags/cards.py:506
+msgid "Average sleep duration"
+msgstr ""
+
+#: dashboard/templatetags/cards.py:513
+msgid "Average awake duration"
+msgstr ""
+
+#: dashboard/templatetags/cards.py:523
+msgid "Weight change per week"
+msgstr ""
+
+#: dashboard/templatetags/cards.py:533
+msgid "Height change per week"
+msgstr ""
+
+#: dashboard/templatetags/cards.py:543
+#, fuzzy
+#| msgid "Head Circumference entry"
+msgid "Head circumference change per week"
+msgstr "머리 둘레 추가"
+
+#: dashboard/templatetags/cards.py:553
+msgid "BMI change per week"
+msgstr ""
+
+#: dashboard/templatetags/cards.py:571
+msgid "Diaper change frequency (past 3 days)"
+msgstr "기저귀 교체 빈도 (최근 3일)"
+
+#: dashboard/templatetags/cards.py:575
+#, fuzzy
+#| msgid "Diaper change frequency (past 3 days)"
+msgid "Diaper change frequency (past 2 weeks)"
+msgstr "기저귀 교체 빈도 (최근 3일)"
+
+#: dashboard/templatetags/cards.py:579
+#, fuzzy
+#| msgid "Diaper change frequency (past 3 days)"
+msgid "Diaper change frequency"
+msgstr "기저귀 교체 빈도 (최근 3일)"
+
+# === 대시보드 추가 카드 ===
+#: dashboard/templatetags/cards.py:618
+msgid "Feeding frequency (past 3 days)"
+msgstr "수유 빈도 (최근 3일)"
+
+# === 대시보드 추가 카드 ===
+#: dashboard/templatetags/cards.py:622
+#, fuzzy
+#| msgid "Feeding frequency (past 3 days)"
+msgid "Feeding frequency (past 2 weeks)"
+msgstr "수유 빈도 (최근 3일)"
+
+# === 대시보드 추가 카드 ===
+#: dashboard/templatetags/cards.py:626
+#, fuzzy
+#| msgid "Feeding frequency (past 3 days)"
+msgid "Feeding frequency"
+msgstr "수유 빈도 (최근 3일)"
+
+#: reports/graphs/diaperchange_amounts.py:27
+#, fuzzy
+#| msgid "Diaper Change"
+msgid "Diaper change amount"
+msgstr "기저귀 교체"
+
+#: reports/graphs/diaperchange_amounts.py:36
+#: reports/templates/reports/report_list.html:18
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Change Amounts"
+msgstr "기저귀 교체 목록"
+
+#: reports/graphs/diaperchange_amounts.py:39
+#, fuzzy
+#| msgid "Change Password"
+msgid "Change amount"
+msgstr "비밀번호 변경"
+
+#: reports/graphs/diaperchange_intervals.py:56
+#: reports/graphs/diaperchange_types.py:41 reports/graphs/feeding_amounts.py:58
+msgid "Total"
+msgstr "합계"
+
+#: reports/graphs/diaperchange_intervals.py:66
+#: reports/templates/reports/diaperchange_intervals.html:4
+#: reports/templates/reports/diaperchange_intervals.html:9
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Change Intervals"
+msgstr "기저귀 교체 목록"
+
+#: reports/graphs/diaperchange_intervals.py:72
+msgid "Interval (hours)"
+msgstr ""
+
+#: reports/graphs/diaperchange_lifetimes.py:35
+#: reports/templates/reports/diaperchange_lifetimes.html:4
+#: reports/templates/reports/diaperchange_lifetimes.html:9
+#: reports/templates/reports/report_list.html:24
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Lifetimes"
+msgstr "기저귀 교체 목록"
+
+#: reports/graphs/diaperchange_lifetimes.py:36
+msgid "Time between changes (hours)"
+msgstr ""
+
+#: reports/graphs/diaperchange_types.py:48
+#: reports/templates/reports/diaperchange_types.html:4
+#: reports/templates/reports/diaperchange_types.html:9
+#: reports/templates/reports/report_list.html:20
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Change Types"
+msgstr "기저귀 교체 목록"
+
+#: reports/graphs/diaperchange_types.py:54
+msgid "Number of changes"
+msgstr ""
+
+#: reports/graphs/feeding_amounts.py:69
+#, fuzzy
+#| msgid "Feeding Amounts"
+msgid "Total Feeding Amount by Type"
+msgstr "수유량"
+
+#: reports/graphs/feeding_amounts.py:72
+#, fuzzy
+#| msgid "Feeding Amounts"
+msgid "Feeding amount"
+msgstr "수유량"
+
+#: reports/graphs/feeding_duration.py:40
+#, fuzzy
+#| msgid "Feeding Duration"
+msgid "Average duration"
+msgstr "수유 시간"
+
+#: reports/graphs/feeding_duration.py:48
+#, fuzzy
+#| msgid "feedings"
+msgid "Total feedings"
+msgstr "수유"
+
+#: reports/graphs/feeding_duration.py:57
+#: reports/templates/reports/feeding_duration.html:4
+#: reports/templates/reports/feeding_duration.html:9
+#, fuzzy
+#| msgid "Feeding Duration"
+msgid "Average Feeding Durations"
+msgstr "수유 시간"
+
+#: reports/graphs/feeding_duration.py:63
+msgid "Average duration (minutes)"
+msgstr ""
+
+#: reports/graphs/feeding_duration.py:65
+#, fuzzy
+#| msgid "feedings"
+msgid "Number of feedings"
+msgstr "수유"
+
+#: reports/graphs/feeding_intervals.py:32
+#: reports/graphs/medication_intervals.py:37
+msgid "Interval"
+msgstr ""
+
+#: reports/graphs/feeding_intervals.py:41
+#, fuzzy
+#| msgid "Feeding Patterns"
+msgid "Feeding intervals"
+msgstr "수유 패턴"
+
+#: reports/graphs/feeding_intervals.py:47
+#, fuzzy
+#| msgid "Feeding Patterns"
+msgid "Feeding interval (hours)"
+msgstr "수유 패턴"
+
+#: reports/graphs/feeding_pattern.py:178
+#: reports/templates/reports/feeding_pattern.html:4
+#: reports/templates/reports/feeding_pattern.html:9
+#: reports/templates/reports/report_list.html:32
+#, fuzzy
+#| msgid "Feeding Patterns"
+msgid "Feeding Pattern"
+msgstr "수유 패턴"
+
+#: reports/graphs/feeding_pattern.py:195 reports/graphs/sleep_pattern.py:182
+msgid "Time of day"
+msgstr ""
+
+#: reports/graphs/height_change.py:51 reports/graphs/weight_change.py:49
+msgid "P3"
+msgstr ""
+
+#: reports/graphs/height_change.py:57 reports/graphs/weight_change.py:55
+msgid "P15"
+msgstr ""
+
+#: reports/graphs/height_change.py:63 reports/graphs/weight_change.py:61
+msgid "P50"
+msgstr ""
+
+#: reports/graphs/height_change.py:69 reports/graphs/weight_change.py:67
+msgid "P85"
+msgstr ""
+
+#: reports/graphs/height_change.py:75 reports/graphs/weight_change.py:73
+msgid "P97"
+msgstr ""
+
+#: reports/graphs/medication_frequency.py:30
+msgid "Frequency"
+msgstr ""
+
+#: reports/graphs/medication_frequency.py:38
+msgid "Medication frequency"
+msgstr ""
+
+#: reports/graphs/medication_frequency.py:44
+msgid "Number of medications"
+msgstr ""
+
+#: reports/graphs/medication_intervals.py:46
+msgid "Medication intervals"
+msgstr ""
+
+#: reports/graphs/medication_intervals.py:52
+msgid "Medication interval (hours)"
+msgstr ""
+
+#: reports/graphs/pumping_amounts.py:59
+#, fuzzy
+#| msgid "Pumping entry"
+msgid "Total Pumping Amount"
+msgstr "유축 추가"
+
+#: reports/graphs/pumping_amounts.py:62
+#, fuzzy
+#| msgid "Pumping entry"
+msgid "Pumping Amount"
+msgstr "유축 추가"
+
+#: reports/graphs/sleep_pattern.py:165
+#: reports/templates/reports/report_list.html:48
+#: reports/templates/reports/sleep_pattern.html:4
+#: reports/templates/reports/sleep_pattern.html:9
+msgid "Sleep Pattern"
+msgstr "수면 패턴"
+
+#: reports/graphs/sleep_totals.py:48
+#, fuzzy
+#| msgid "Total"
+msgid "Total sleep"
+msgstr "합계"
+
+#: reports/graphs/sleep_totals.py:58
+#: reports/templates/reports/report_list.html:50
+#: reports/templates/reports/sleep_totals.html:4
+#: reports/templates/reports/sleep_totals.html:9
+msgid "Sleep Totals"
+msgstr "수면 합계"
+
+#: reports/graphs/sleep_totals.py:64
+msgid "Hours of sleep"
+msgstr ""
+
+#: reports/graphs/tummytime_duration.py:34
+#, fuzzy
+#| msgid "Duration"
+msgid "Total duration"
+msgstr "지속 시간"
+
+#: reports/graphs/tummytime_duration.py:41
+#: reports/graphs/tummytime_duration.py:60
+msgid "Number of sessions"
+msgstr ""
+
+#: reports/graphs/tummytime_duration.py:50
+#: reports/templates/reports/tummytime_duration.html:4
+#: reports/templates/reports/tummytime_duration.html:9
+#, fuzzy
+#| msgid "Today's Tummy Time"
+msgid "Total Tummy Time Durations"
+msgstr "오늘의 터미 타임"
+
+#: reports/graphs/tummytime_duration.py:58
+msgid "Total duration (minutes)"
+msgstr ""
+
+#: reports/templates/reports/diaperchange_amounts.html:4
+#: reports/templates/reports/diaperchange_amounts.html:9
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Amounts"
+msgstr "기저귀 교체 목록"
+
+#: reports/templates/reports/feeding_amounts.html:4
+#: reports/templates/reports/feeding_amounts.html:9
+#: reports/templates/reports/report_list.html:26
+msgid "Feeding Amounts"
+msgstr "수유량"
+
+#: reports/templates/reports/feeding_intervals.html:4
+#: reports/templates/reports/feeding_intervals.html:9
+#: reports/templates/reports/report_list.html:30
+#, fuzzy
+#| msgid "Feeding Patterns"
+msgid "Feeding Intervals"
+msgstr "수유 패턴"
+
+#: reports/templates/reports/medication_frequency.html:4
+#: reports/templates/reports/medication_frequency.html:9
+#: reports/templates/reports/report_list.html:42
+msgid "Medication Frequency"
+msgstr ""
+
+#: reports/templates/reports/medication_intervals.html:4
+#: reports/templates/reports/medication_intervals.html:9
+#: reports/templates/reports/report_list.html:44
+msgid "Medication Intervals"
+msgstr ""
+
+#: reports/templates/reports/report_base.html:13
+msgid "There is not enough data to generate this report."
+msgstr ""
+
+#: reports/templates/reports/report_list.html:16
+msgid "Body Mass Index (BMI)"
+msgstr ""
+
+#: reports/templates/reports/report_list.html:22
+#, fuzzy
+#| msgid "Diaper Changes"
+msgid "Diaper Intervals"
+msgstr "기저귀 교체 목록"
+
+#: reports/templates/reports/report_list.html:28
+#, fuzzy
+#| msgid "Feeding Duration"
+msgid "Feeding Durations (Average)"
+msgstr "수유 시간"
+
+#: reports/templates/reports/report_list.html:38
+msgid "WHO Height Percentiles for Boys in cm"
+msgstr ""
+
+#: reports/templates/reports/report_list.html:40
+msgid "WHO Height Percentiles for Girls in cm"
+msgstr ""
+
+#: reports/templates/reports/report_list.html:46
+#, fuzzy
+#| msgid "Feeding Amounts"
+msgid "Pumping Amounts"
+msgstr "수유량"
+
+#: reports/templates/reports/report_list.html:54
+msgid "Tummy Time Durations (Sum)"
+msgstr ""
+
+#: reports/templates/reports/report_list.html:58
+msgid "WHO Weight Percentiles for Boys in kg"
+msgstr ""
+
+#: reports/templates/reports/report_list.html:60
+msgid "WHO Weight Percentiles for Girls in kg"
+msgstr ""
+
+#~ msgid "Wet and Solid"
+#~ msgstr "소변+대변"
+
+#~ msgid "Save"
+#~ msgstr "저장"
+
+#~ msgid "Back"
+#~ msgstr "뒤로"
+
+#~ msgid "Search"
+#~ msgstr "검색"
+
+#~ msgid "Export"
+#~ msgstr "내보내기"
+
+#~ msgid "Import"
+#~ msgstr "가져오기"
+
+#~ msgid "Last 7 days"
+#~ msgstr "최근 7일"
+
+#~ msgid "Last 30 days"
+#~ msgstr "최근 30일"
+
+#~ msgid "second"
+#~ msgstr "초"
+
+#~ msgid "seconds"
+#~ msgstr "초"
+
+#~ msgid "minute"
+#~ msgstr "분"
+
+#~ msgid "minutes"
+#~ msgstr "분"
+
+#~ msgid "hour"
+#~ msgstr "시간"
+
+#~ msgid "hours"
+#~ msgstr "시간"
+
+#~ msgid "day"
+#~ msgstr "일"
+
+#~ msgid "days"
+#~ msgstr "일"
+
+#~ msgid "week"
+#~ msgstr "주"
+
+#~ msgid "weeks"
+#~ msgstr "주"
+
+#~ msgid "month"
+#~ msgstr "개월"
+
+#~ msgid "months"
+#~ msgstr "개월"
+
+#~ msgid "year"
+#~ msgstr "년"
+
+#~ msgid "years"
+#~ msgstr "년"
+
+#~ msgid "ago"
+#~ msgstr "전"
+
+#~ msgid "since"
+#~ msgstr "이후"
+
+#~ msgid "Yes"
+#~ msgstr "예"
+
+#~ msgid "No"
+#~ msgstr "아니오"
+
+#~ msgid "All"
+#~ msgstr "전체"
+
+#~ msgid "Average"
+#~ msgstr "평균"
+
+#~ msgid "Page"
+#~ msgstr "페이지"
+
+#~ msgid "per page"
+#~ msgstr "페이지당"
+
+#~ msgid "Results"
+#~ msgstr "결과"
+
+#~ msgid "Are you sure?"
+#~ msgstr "정말 삭제하시겠습니까?"
+
+#~ msgid "This action cannot be undone."
+#~ msgstr "이 작업은 되돌릴 수 없습니다."
+
+#~ msgid "Add a child to get started!"
+#~ msgstr "아이를 추가하면 기록을 시작할 수 있어요!"
+
+#~ msgid "Username"
+#~ msgstr "아이디"
+
+#~ msgid "dry"
+#~ msgstr "없음"
+
+#~ msgid "feeding"
+#~ msgstr "수유"
+
+#~ msgid "change"
+#~ msgstr "교체"
+
+#~ msgid "sleep"
+#~ msgstr "수면"
+
+#~ msgid "timer"
+#~ msgstr "타이머"
+
+#~ msgid "timers"
+#~ msgstr "타이머"
+
+#~ msgid "0 timers"
+#~ msgstr "타이머 없음"
+
+#~ msgid "No timers"
+#~ msgstr "타이머 없음"
+
+#~ msgid "%(count)s feedings"
+#~ msgstr "수유 %(count)s회"
+
+#~ msgid "%(count)s changes"
+#~ msgstr "교체 %(count)s회"
+
+#~ msgid "%(count)s dry"
+#~ msgstr "없음 %(count)s회"
+
+#~ msgid "%(count)s timers"
+#~ msgstr "타이머 %(count)s개"
+
+#~ msgid "Sleep frequency (past 3 days)"
+#~ msgstr "수면 빈도 (최근 3일)"
+
+#~ msgid "Tummy time frequency (past 3 days)"
+#~ msgstr "터미 타임 빈도 (최근 3일)"

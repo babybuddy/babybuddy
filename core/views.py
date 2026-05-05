@@ -271,6 +271,35 @@ class HeightDelete(CoreDeleteView):
     success_url = reverse_lazy("core:height-list")
 
 
+class MedicationList(
+    PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilterView
+):
+    model = models.Medication
+    template_name = "core/medication_list.html"
+    permission_required = ("core.view_medication",)
+    filterset_class = filters.MedicationFilter
+
+
+class MedicationAdd(CoreAddView):
+    model = models.Medication
+    permission_required = ("core.add_medication",)
+    form_class = forms.MedicationForm
+    success_url = reverse_lazy("core:medication-list")
+
+
+class MedicationUpdate(CoreUpdateView):
+    model = models.Medication
+    permission_required = ("core.change_medication",)
+    form_class = forms.MedicationForm
+    success_url = reverse_lazy("core:medication-list")
+
+
+class MedicationDelete(CoreDeleteView):
+    model = models.Medication
+    permission_required = ("core.delete_medication",)
+    success_url = reverse_lazy("core:medication-list")
+
+
 class NoteList(PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilterView):
     model = models.Note
     template_name = "core/note_list.html"
