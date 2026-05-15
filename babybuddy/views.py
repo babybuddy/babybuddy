@@ -199,7 +199,7 @@ def handle_api_regenerate_request(request) -> bool:
     Returns True, if the API-key regenerate request was detected and handled.
     """
 
-    if request.POST.get("api_key_regenerate"):
+    if "api_key_regenerate" in request.POST:
         request.user.settings.api_key(reset=True)
         messages.success(request, _("User API key regenerated."))
         return True
