@@ -34,6 +34,7 @@ process will look something like this:
 
 7. Check if Plotly offers a translation (in `node_modules/plotly.js/dist/`) for
    the language. If it does:
+
    1. Add the Plotly translation file path to [`gulpfile.config.js`](https://github.com/babybuddy/babybuddy/tree/master/gulpfile.config.js)
       in `scriptsConfig.graph`.
 

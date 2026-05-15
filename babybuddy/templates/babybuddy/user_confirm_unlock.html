@@ -14,7 +14,7 @@
     <form role="form" method="post">
         {% csrf_token %}
         <h1>{% confirm_unlock_text object %}</h1>
-        <input type="submit" value="{% trans "Unlock" %}" class="btn btn-danger" />
+        <button type="submit" class="btn btn-danger">{% trans "Unlock" %}</button>
         <a href="{% url 'babybuddy:user-update' object.pk %}"
            class="btn btn-default">{% trans "Cancel" %}</a>
     </form>

@@ -34,15 +34,22 @@ BabyBuddy.PullToRefresh = (function (ptr) {
 })(PullToRefresh);
 
 /**
- * Fix for duplicate form submission from double pressing submit
+ * Show a loading spinner on the submit button when a form is submitted and
+ * prevent double-submission.
  */
-function preventDoubleSubmit() {
-  return false;
-}
-$("form").off("submit", preventDoubleSubmit);
-$("form").on("submit", function () {
-  $(this).on("submit", preventDoubleSubmit);
-});
+(function handleFormSubmit() {
+  $("form").on("submit", function (event) {
+    var submitter =
+      (event.originalEvent && event.originalEvent.submitter) ||
+      $(this).find('[type="submit"]')[0];
+    if (!submitter || $(submitter).prop("disabled")) return;
+    $(submitter)
+      .prop("disabled", true)
+      .prepend(
+        '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>',
+      );
+  });
+})();
 
 BabyBuddy.RememberAdvancedToggle = function (ptr) {
   localStorage.setItem("advancedForm", event.newState);
