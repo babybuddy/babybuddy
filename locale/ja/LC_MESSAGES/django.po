@@ -1616,7 +1616,6 @@ msgstr "睡眠記録を削除"
 #: core/templates/core/medication_form.html:7
 #: core/templates/core/medication_form.html:17
 #: core/templates/core/medication_form.html:26
-#, fuzzy
 #| msgid "Add a Sleep Entry"
 msgid "Add a Medication Entry"
 msgstr "睡眠記録を追加"
@@ -1634,7 +1633,6 @@ msgid "No interval set"
 msgstr "間隔"
 
 #: core/templates/core/medication_list.html:81
-#, fuzzy
 #| msgid "No bmi entries found."
 msgid "No medication entries found."
 msgstr "BMI記録が見つかりませんでした。"
@@ -2194,7 +2192,6 @@ msgid_plural "%(counter)s feedings"
 msgstr[0] "%(counter)s 回の授乳"
 
 #: dashboard/templates/cards/medication_last.html:4
-#, fuzzy
 #| msgid "Last Feeding"
 msgid "Last Medication"
 msgstr "最近の授乳"
@@ -2213,7 +2210,6 @@ msgid "Last Pumping"
 msgstr "最後の搾乳"
 
 #: dashboard/templates/cards/pumping_recent.html:4
-#, fuzzy
 #| msgid "Recent Feedings"
 msgid "Recent Pumpings"
 msgstr "最近の授乳"
@@ -2482,31 +2478,26 @@ msgid "P97"
 msgstr "P97"
 
 #: reports/graphs/medication_frequency.py:30
-#, fuzzy
 #| msgid "Feeding frequency"
 msgid "Frequency"
 msgstr "授乳頻度"
 
 #: reports/graphs/medication_frequency.py:38
-#, fuzzy
 #| msgid "Feeding frequency"
 msgid "Medication frequency"
 msgstr "授乳頻度"
 
 #: reports/graphs/medication_frequency.py:44
-#, fuzzy
 #| msgid "Number of feedings"
 msgid "Number of medications"
 msgstr "授乳回数"
 
 #: reports/graphs/medication_intervals.py:46
-#, fuzzy
 #| msgid "Feeding Intervals"
 msgid "Medication intervals"
 msgstr "授乳間隔"
 
 #: reports/graphs/medication_intervals.py:52
-#, fuzzy
 #| msgid "Feeding interval (hours)"
 msgid "Medication interval (hours)"
 msgstr "授乳間隔（時間）"
@@ -2580,7 +2571,6 @@ msgstr "授乳間隔"
 #: reports/templates/reports/medication_frequency.html:4
 #: reports/templates/reports/medication_frequency.html:9
 #: reports/templates/reports/report_list.html:42
-#, fuzzy
 #| msgid "Feeding frequency"
 msgid "Medication Frequency"
 msgstr "授乳頻度"
@@ -2588,7 +2578,6 @@ msgstr "授乳頻度"
 #: reports/templates/reports/medication_intervals.html:4
 #: reports/templates/reports/medication_intervals.html:9
 #: reports/templates/reports/report_list.html:44
-#, fuzzy
 #| msgid "Feeding Intervals"
 msgid "Medication Intervals"
 msgstr "授乳間隔"
