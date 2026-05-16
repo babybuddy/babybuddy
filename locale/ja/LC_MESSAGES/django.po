@@ -306,10 +306,9 @@ msgstr "ボトルフィーディング"
 #: core/templates/core/medication_list.html:4
 #: core/templates/core/medication_list.html:7
 #: core/templates/core/medication_list.html:11
-#, fuzzy
 #| msgid "Add Feeding"
 msgid "Medication"
-msgstr "授乳記録を追加"
+msgstr "投薬記録を追加"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:70
 #: babybuddy/templates/babybuddy/nav-dropdown.html:288 core/models.py:517
@@ -1418,10 +1417,9 @@ msgid "Time Taken"
 msgstr "タイマー操作"
 
 #: core/models.py:814 core/templates/core/medication_list.html:30
-#, fuzzy
 #| msgid "Diaper Intervals"
 msgid "Next Dose Interval"
-msgstr "おむつ間隔"
+msgstr "次回の投与間隔"
 
 #: core/models.py:815
 msgid "Time until next dose can be given"
@@ -1431,7 +1429,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Actions"
 msgid "Medications"
-msgstr "操作"
+msgstr "投薬記録"
 
 #: core/templates/core/bmi_confirm_delete.html:4
 msgid "Delete a BMI Entry"
@@ -1611,20 +1609,19 @@ msgstr "身長記録が見つかりませんでした。"
 #, fuzzy
 #| msgid "Delete a Sleep Entry"
 msgid "Delete a Medication Entry"
-msgstr "睡眠記録を削除"
+msgstr "投薬記録を削除"
 
 #: core/templates/core/medication_form.html:7
 #: core/templates/core/medication_form.html:17
 #: core/templates/core/medication_form.html:26
 #| msgid "Add a Sleep Entry"
 msgid "Add a Medication Entry"
-msgstr "睡眠記録を追加"
+msgstr "投薬記録を追加"
 
 #: core/templates/core/medication_list.html:14
-#, fuzzy
 #| msgid "Add Feeding"
 msgid "Add Medication"
-msgstr "授乳記録を追加"
+msgstr "投薬記録を追加"
 
 #: core/templates/core/medication_list.html:67
 #, fuzzy
@@ -1635,7 +1632,7 @@ msgstr "間隔"
 #: core/templates/core/medication_list.html:81
 #| msgid "No bmi entries found."
 msgid "No medication entries found."
-msgstr "BMI記録が見つかりませんでした。"
+msgstr "投薬記録が見つかりませんでした。"
 
 #: core/templates/core/note_confirm_delete.html:4
 msgid "Delete a Note"
@@ -2055,13 +2052,13 @@ msgstr "%(child)sが%(type)sのおむつ交換されました。"
 #, fuzzy, python-format
 #| msgid "%(child)s started feeding."
 msgid "%(child)s took %(medication)s."
-msgstr "%(child)sの授乳が始まりました。"
+msgstr "%(child)sの投薬が始まりました。"
 
 #: core/timeline.py:256
 #, fuzzy, python-format
 #| msgid "%(child)s started feeding."
 msgid "%(child)s's %(medication)s dose wore off."
-msgstr "%(child)sの授乳が始まりました。"
+msgstr "%(child)sの投薬が始まりました。"
 
 #: core/timeline.py:301
 #, python-format
@@ -2194,7 +2191,7 @@ msgstr[0] "%(counter)s 回の授乳"
 #: dashboard/templates/cards/medication_last.html:4
 #| msgid "Last Feeding"
 msgid "Last Medication"
-msgstr "最近の授乳"
+msgstr "最近の投薬"
 
 #: dashboard/templates/cards/medication_last.html:27
 msgid "Next dose ready"
@@ -2480,27 +2477,27 @@ msgstr "P97"
 #: reports/graphs/medication_frequency.py:30
 #| msgid "Feeding frequency"
 msgid "Frequency"
-msgstr "授乳頻度"
+msgstr "投薬頻度"
 
 #: reports/graphs/medication_frequency.py:38
 #| msgid "Feeding frequency"
 msgid "Medication frequency"
-msgstr "授乳頻度"
+msgstr "投薬頻度"
 
 #: reports/graphs/medication_frequency.py:44
 #| msgid "Number of feedings"
 msgid "Number of medications"
-msgstr "授乳回数"
+msgstr "投薬回数"
 
 #: reports/graphs/medication_intervals.py:46
 #| msgid "Feeding Intervals"
 msgid "Medication intervals"
-msgstr "授乳間隔"
+msgstr "投薬間隔"
 
 #: reports/graphs/medication_intervals.py:52
 #| msgid "Feeding interval (hours)"
 msgid "Medication interval (hours)"
-msgstr "授乳間隔（時間）"
+msgstr "投薬間隔（時間）"
 
 #: reports/graphs/pumping_amounts.py:59
 msgid "Total Pumping Amount"
@@ -2573,14 +2570,14 @@ msgstr "授乳間隔"
 #: reports/templates/reports/report_list.html:42
 #| msgid "Feeding frequency"
 msgid "Medication Frequency"
-msgstr "授乳頻度"
+msgstr "投薬頻度"
 
 #: reports/templates/reports/medication_intervals.html:4
 #: reports/templates/reports/medication_intervals.html:9
 #: reports/templates/reports/report_list.html:44
 #| msgid "Feeding Intervals"
 msgid "Medication Intervals"
-msgstr "授乳間隔"
+msgstr "投薬間隔"
 
 #: reports/templates/reports/report_base.html:13
 msgid "There is not enough data to generate this report."
