@@ -205,6 +205,7 @@ LANGUAGES = [
     ("he", _("Hebrew")),
     ("hu", _("Hungarian")),
     ("it", _("Italian")),
+    ("ko", _("Korean")),
     ("ja", _("Japanese")),
     ("nb", _("Norwegian Bokmål")),
     ("pl", _("Polish")),

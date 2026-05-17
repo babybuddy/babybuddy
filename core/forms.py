@@ -170,6 +170,12 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
         {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if "start" in cleaned_data:
+            self.instance.end = cleaned_data["start"]
+        return cleaned_data
+
     def save(self, commit=True):
         instance = super(BottleFeedingForm, self).save(commit=False)
         instance.method = "bottle"
@@ -302,6 +308,63 @@ class HeightForm(CoreModelForm, TaggableModelForm):
             "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
+
+
+class MedicationForm(CoreModelForm, TaggableModelForm):
+    next_dose_interval = forms.DecimalField(
+        label=_("Time Until Next Dosage"),
+        required=False,
+        min_value=0,
+        initial=0,
+        help_text=_("Optional: Hours until next dose can be given"),
+    )
+
+    fieldsets = [
+        {
+            "fields": [
+                "child",
+                "time",
+                "next_dose_interval",
+                "name",
+                "dosage",
+                "dosage_unit",
+            ],
+            "layout": "required",
+        },
+        {"fields": ["notes", "tags"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.Medication
+        fields = [
+            "child",
+            "name",
+            "dosage",
+            "dosage_unit",
+            "time",
+            "next_dose_interval",
+            "notes",
+            "tags",
+        ]
+        widgets = {
+            "child": ChildRadioSelect,
+            "dosage_unit": PillRadioSelect(),
+            "time": DateTimeInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Convert existing timedelta to hours for display
+        if self.instance and self.instance.next_dose_interval:
+            total_seconds = self.instance.next_dose_interval.total_seconds()
+            self.initial["next_dose_interval"] = total_seconds / 3600
+
+    def clean_next_dose_interval(self):
+        hours = self.cleaned_data.get("next_dose_interval")
+        if hours is not None and hours > 0:
+            return timezone.timedelta(hours=float(hours))
+        return None
 
 
 class PumpingForm(CoreModelForm, TaggableModelForm):

@@ -174,6 +174,18 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/temperature/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
 
+    def test_medication_views(self):
+        page = self.c.get("/medication/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/medication/add/")
+        self.assertEqual(page.status_code, 200)
+
+        entry = models.Medication.objects.first()
+        page = self.c.get("/medication/{}/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/medication/{}/delete/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
     def test_timer_views(self):
         page = self.c.get("/timers/")
         self.assertEqual(page.status_code, 200)

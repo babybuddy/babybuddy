@@ -15,3 +15,5 @@ from .sleep_totals import sleep_totals  # NOQA
 from .temperature_change import temperature_change  # NOQA
 from .tummytime_duration import tummytime_duration  # NOQA
 from .weight_change import weight_change  # NOQA
+from .medication_frequency import medication_frequency  # NOQA
+from .medication_intervals import medication_intervals  # NOQA

@@ -8,6 +8,7 @@ Example usage:
           --username test     \
           --email test@test.test \
 """
+
 import sys
 import getpass
 
