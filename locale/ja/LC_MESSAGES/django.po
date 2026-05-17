@@ -306,7 +306,6 @@ msgstr "ボトルフィーディング"
 #: core/templates/core/medication_list.html:4
 #: core/templates/core/medication_list.html:7
 #: core/templates/core/medication_list.html:11
-#| msgid "Add Feeding"
 msgid "Medication"
 msgstr "投薬記録を追加"
 
@@ -1153,7 +1152,6 @@ msgid "Another entry intersects the specified time period."
 msgstr "別の記録が指定された時間帯と重複しています。"
 
 #: core/models.py:83
-#| msgid "Pumping entry"
 msgid "Conflicting entry"
 msgstr "矛盾するエントリ"
 
@@ -1410,12 +1408,10 @@ msgid "Dosage Unit"
 msgstr "投与単位"
 
 #: core/models.py:808
-#| msgid "Timer actions"
 msgid "Time Taken"
 msgstr "所要時間"
 
 #: core/models.py:814 core/templates/core/medication_list.html:30
-#| msgid "Diaper Intervals"
 msgid "Next Dose Interval"
 msgstr "次回の投与間隔"
 
@@ -1424,7 +1420,6 @@ msgid "Time until next dose can be given"
 msgstr ""
 
 #: core/models.py:825
-#| msgid "Actions"
 msgid "Medications"
 msgstr "投薬記録"
 
@@ -1603,29 +1598,24 @@ msgid "No height entries found."
 msgstr "身長記録が見つかりませんでした。"
 
 #: core/templates/core/medication_confirm_delete.html:4
-#| msgid "Delete a Sleep Entry"
 msgid "Delete a Medication Entry"
 msgstr "投薬記録を削除"
 
 #: core/templates/core/medication_form.html:7
 #: core/templates/core/medication_form.html:17
 #: core/templates/core/medication_form.html:26
-#| msgid "Add a Sleep Entry"
 msgid "Add a Medication Entry"
 msgstr "投薬記録を追加"
 
 #: core/templates/core/medication_list.html:14
-#| msgid "Add Feeding"
 msgid "Add Medication"
 msgstr "投薬記録を追加"
 
 #: core/templates/core/medication_list.html:67
-#| msgid "Interval"
 msgid "No interval set"
 msgstr "間隔がセットされていない"
 
 #: core/templates/core/medication_list.html:81
-#| msgid "No bmi entries found."
 msgid "No medication entries found."
 msgstr "投薬記録が見つかりませんでした。"
 
@@ -2045,13 +2035,11 @@ msgstr "%(child)sが%(type)sのおむつ交換されました。"
 
 #: core/timeline.py:240
 #, python-format
-#| msgid "%(child)s started feeding."
 msgid "%(child)s took %(medication)s."
 msgstr "%(child)sが%(medication)sを飲みました"
 
 #: core/timeline.py:256
 #, python-format
-#| msgid "%(child)s started feeding."
 msgid "%(child)s's %(medication)s dose wore off."
 msgstr "%(child)sの%(medication)sの効き目が切れました"
 
@@ -2184,7 +2172,6 @@ msgid_plural "%(counter)s feedings"
 msgstr[0] "%(counter)s 回の授乳"
 
 #: dashboard/templates/cards/medication_last.html:4
-#| msgid "Last Feeding"
 msgid "Last Medication"
 msgstr "最近の投薬"
 
@@ -2202,14 +2189,11 @@ msgid "Last Pumping"
 msgstr "最後の搾乳"
 
 #: dashboard/templates/cards/pumping_recent.html:4
-#| msgid "Recent Feedings"
 msgid "Recent Pumpings"
 msgstr "最近の搾乳"
 
 #: dashboard/templates/cards/pumping_recent.html:23
 #, python-format
-#| msgid "%(counter)s feeding"
-#| msgid_plural "%(counter)s feedings"
 msgid "%(counter)s pumping"
 msgid_plural "%(counter)s pumpings"
 msgstr[0] "%(counter)s 回の搾乳"
@@ -2470,27 +2454,22 @@ msgid "P97"
 msgstr "P97"
 
 #: reports/graphs/medication_frequency.py:30
-#| msgid "Feeding frequency"
 msgid "Frequency"
 msgstr "投薬頻度"
 
 #: reports/graphs/medication_frequency.py:38
-#| msgid "Feeding frequency"
 msgid "Medication frequency"
 msgstr "投薬頻度"
 
 #: reports/graphs/medication_frequency.py:44
-#| msgid "Number of feedings"
 msgid "Number of medications"
 msgstr "投薬回数"
 
 #: reports/graphs/medication_intervals.py:46
-#| msgid "Feeding Intervals"
 msgid "Medication intervals"
 msgstr "投薬間隔"
 
 #: reports/graphs/medication_intervals.py:52
-#| msgid "Feeding interval (hours)"
 msgid "Medication interval (hours)"
 msgstr "投薬間隔（時間）"
 
@@ -2563,14 +2542,12 @@ msgstr "授乳間隔"
 #: reports/templates/reports/medication_frequency.html:4
 #: reports/templates/reports/medication_frequency.html:9
 #: reports/templates/reports/report_list.html:42
-#| msgid "Feeding frequency"
 msgid "Medication Frequency"
 msgstr "投薬頻度"
 
 #: reports/templates/reports/medication_intervals.html:4
 #: reports/templates/reports/medication_intervals.html:9
 #: reports/templates/reports/report_list.html:44
-#| msgid "Feeding Intervals"
 msgid "Medication Intervals"
 msgstr "投薬間隔"
 
