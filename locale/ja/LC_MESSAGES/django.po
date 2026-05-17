@@ -1153,10 +1153,9 @@ msgid "Another entry intersects the specified time period."
 msgstr "別の記録が指定された時間帯と重複しています。"
 
 #: core/models.py:83
-#, fuzzy
 #| msgid "Pumping entry"
 msgid "Conflicting entry"
-msgstr "搾乳記録"
+msgstr "矛盾するエントリ"
 
 #: core/models.py:98
 msgid "Date/time can not be in the future."
@@ -1604,7 +1603,6 @@ msgid "No height entries found."
 msgstr "身長記録が見つかりませんでした。"
 
 #: core/templates/core/medication_confirm_delete.html:4
-#, fuzzy
 #| msgid "Delete a Sleep Entry"
 msgid "Delete a Medication Entry"
 msgstr "投薬記録を削除"
@@ -1622,10 +1620,9 @@ msgid "Add Medication"
 msgstr "投薬記録を追加"
 
 #: core/templates/core/medication_list.html:67
-#, fuzzy
 #| msgid "Interval"
 msgid "No interval set"
-msgstr "間隔"
+msgstr "間隔がセットされていない"
 
 #: core/templates/core/medication_list.html:81
 #| msgid "No bmi entries found."
@@ -2047,16 +2044,16 @@ msgid "%(child)s had a %(type)s diaper change."
 msgstr "%(child)sが%(type)sのおむつ交換されました。"
 
 #: core/timeline.py:240
-#, fuzzy, python-format
+#, python-format
 #| msgid "%(child)s started feeding."
 msgid "%(child)s took %(medication)s."
-msgstr "%(child)sの投薬が始まりました。"
+msgstr "%(child)sが%(medication)sを飲みました"
 
 #: core/timeline.py:256
-#, fuzzy, python-format
+#, python-format
 #| msgid "%(child)s started feeding."
 msgid "%(child)s's %(medication)s dose wore off."
-msgstr "%(child)sの投薬が始まりました。"
+msgstr "%(child)sの%(medication)sの効き目が切れました"
 
 #: core/timeline.py:301
 #, python-format
