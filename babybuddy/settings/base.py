@@ -127,7 +127,8 @@ else:
     if os.getenv("DB_PORT"):
         config["PORT"] = os.getenv("DB_PORT")
     if os.getenv("DB_OPTIONS"):
-        config["OPTIONS"] = os.getenv("DB_OPTIONS")
+        import ast
+        config["OPTIONS"] = ast.literal_eval(os.getenv("DB_OPTIONS"))
     DATABASES = {"default": config}
 
 
