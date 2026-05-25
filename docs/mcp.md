@@ -31,9 +31,10 @@ API token. Generate a token from the User Settings page of the user the assistan
 should act as (see [Authentication](api.md#authentication)).
 
 !!! note
-Installation and configuration — including Docker (`http` transport) and Claude
-Desktop (`stdio` transport) setups and the `BABYBUDDY_URL` / `BABYBUDDY_TOKEN`
-environment variables — are documented in the
-[babybuddy/babybuddy-mcp](https://github.com/babybuddy/babybuddy-mcp) repository.
-Because the server is maintained there, that repository is the source of truth
-for setup steps.
+
+    Installation and configuration — including Docker (`http` transport) and Claude
+    Desktop (`stdio` transport) setups and the `BABYBUDDY_URL` / `BABYBUDDY_TOKEN`
+    environment variables — are documented in the
+    [babybuddy/babybuddy-mcp](https://github.com/babybuddy/babybuddy-mcp) repository.
+    Because the server is maintained there, that repository is the source of truth
+    for setup steps.
