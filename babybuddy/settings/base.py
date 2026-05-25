@@ -373,14 +373,6 @@ AXES_COOLOFF_TIME = 1
 
 AXES_FAILURE_LIMIT = 5
 
-AXES_LOCKOUT_TEMPLATE = "error/lockout.html"
-
-AXES_LOCKOUT_URL = "/login/lock"
-
-AXES_COOLOFF_TIME = 1
-
-AXES_FAILURE_LIMIT = 5
-
 # `None` makes Axes use the default precedence order set by django-ipware.
 # See: https://github.com/un33k/django-ipware#precedence-order
 AXES_IPWARE_META_PRECEDENCE_ORDER = None
