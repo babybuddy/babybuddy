@@ -34,6 +34,7 @@ nav:
       - "contributing/gulp-command-reference.md"
   - "import-export.md"
   - "api.md"
+  - "mcp.md"
 theme:
   name: material
   favicon: assets/images/favicon.svg
