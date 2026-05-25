@@ -1,3 +1,4 @@
+import json
 import os
 import dj_database_url
 
@@ -127,7 +128,7 @@ else:
     if os.getenv("DB_PORT"):
         config["PORT"] = os.getenv("DB_PORT")
     if os.getenv("DB_OPTIONS"):
-        config["OPTIONS"] = os.getenv("DB_OPTIONS")
+        config["OPTIONS"] = json.loads(os.getenv("DB_OPTIONS", "{}"))
     DATABASES = {"default": config}
 
 
