@@ -398,3 +398,60 @@ class WeightTestCase(TestCase):
         self.assertEqual(self.weight, models.Weight.objects.first())
         self.assertEqual(str(self.weight), "Weight")
         self.assertEqual(self.weight.weight, 23)
+
+
+class MedicationTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.medication = models.Medication.objects.create(
+            child=self.child,
+            name="Tylenol",
+            dosage=5.0,
+            dosage_unit="ml",
+            time=timezone.localtime() - timezone.timedelta(hours=1),
+            next_dose_interval=timezone.timedelta(hours=4),
+        )
+
+    def test_medication_create(self):
+        self.assertEqual(self.medication, models.Medication.objects.first())
+        self.assertEqual(str(self.medication), "Medication")
+        self.assertEqual(self.medication.name, "Tylenol")
+        self.assertEqual(self.medication.dosage, 5.0)
+        self.assertEqual(self.medication.dosage_unit, "ml")
+
+    def test_medication_with_interval(self):
+        self.assertEqual(
+            self.medication.next_dose_interval, timezone.timedelta(hours=4)
+        )
+
+    def test_medication_without_dosage(self):
+        # Dosage is optional
+        medication = models.Medication.objects.create(
+            child=self.child,
+            name="Vitamin D",
+            time=timezone.localtime(),
+        )
+        self.assertIsNone(medication.dosage)
+        self.assertEqual(medication.dosage_unit, "")
+
+    def test_medication_with_tags(self):
+        self.medication.tags.add("fever", "morning")
+        self.assertEqual(self.medication.tags.count(), 2)
+        self.assertTrue(self.medication.tags.filter(name="fever").exists())
+
+    def test_medication_validation_future_time(self):
+        from django.core.exceptions import ValidationError
+
+        future_time = timezone.localtime() + timezone.timedelta(hours=1)
+        medication = models.Medication(
+            child=self.child,
+            name="Future Medication",
+            dosage=5.0,
+            dosage_unit="ml",
+            time=future_time,
+        )
+        with self.assertRaises(ValidationError):
+            medication.full_clean()

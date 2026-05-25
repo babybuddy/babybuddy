@@ -7,7 +7,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.functions import Lower
-from django.utils import timezone
+from django.urls import reverse
+from django.utils import formats, timezone
+from django.utils.safestring import mark_safe
 from django.utils.text import format_lazy, slugify
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
@@ -49,6 +51,10 @@ def validate_duration(model, max_duration=datetime.timedelta(hours=24)):
             raise ValidationError(_("Duration too long."), code="max_duration")
 
 
+def _format_dt(dt):
+    return formats.date_format(timezone.localtime(dt), "SHORT_DATETIME_FORMAT")
+
+
 def validate_unique_period(queryset, model):
     """
     Confirm that model's start and end date do not intersect with other
@@ -60,9 +66,22 @@ def validate_unique_period(queryset, model):
     if model.id:
         queryset = queryset.exclude(id=model.id)
     if model.start and model.end:
-        if queryset.filter(start__lt=model.end, end__gt=model.start):
+        conflicting = queryset.filter(start__lt=model.end, end__gt=model.start).first()
+        if conflicting:
+            url = reverse(
+                f"core:{conflicting.model_name}-update",
+                args=[conflicting.id],
+            )
+            link = (
+                f'<a href="{url}">{conflicting} '
+                f"({_format_dt(conflicting.start)} - "
+                f"{_format_dt(conflicting.end)})</a>"
+            )
             raise ValidationError(
-                _("Another entry intersects the specified time period."),
+                mark_safe(
+                    f'{_("Another entry intersects the specified time period.")} '
+                    f'{_("Conflicting entry")}: {link}'
+                ),
                 code="period_intersection",
             )
 
@@ -742,6 +761,96 @@ class Weight(models.Model):
 
     def clean(self):
         validate_date(self.date, "date")
+
+
+class Medication(models.Model):
+    model_name = "medication"
+
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="medication",
+        verbose_name=_("Child"),
+        blank=False,
+        null=False,
+    )
+    name = models.CharField(
+        max_length=255,
+        blank=False,
+        null=False,
+        verbose_name=_("Medication Name"),
+        help_text=_("Name of the medication administered"),
+        db_index=True,
+    )
+    dosage = models.FloatField(
+        blank=True,
+        null=True,
+        verbose_name=_("Dosage"),
+        help_text=_("Amount of medication given"),
+    )
+    dosage_unit = models.CharField(
+        max_length=20,
+        choices=[
+            ("mg", _("MG")),
+            ("ml", _("ML")),
+            ("tablets", _("Tablets")),
+            ("drops", _("Drops")),
+        ],
+        blank=True,
+        null=False,
+        default="",
+        verbose_name=_("Dosage Unit"),
+    )
+    time = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Time Taken"),
+        db_index=True,
+    )
+    next_dose_interval = models.DurationField(
+        blank=True,
+        null=True,
+        verbose_name=_("Next Dose Interval"),
+        help_text=_("Time until next dose can be given"),
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ["-time"]
+        verbose_name = _("Medication")
+        verbose_name_plural = _("Medications")
+        default_permissions = ("view", "add", "change", "delete")
+
+    @property
+    def next_dose_time(self):
+        """
+        Calculate when the next dose can be given based on the time this dose
+        was administered and the configured interval.
+        :returns: a DateTime instance or None if no interval is set.
+        """
+        if self.next_dose_interval:
+            return self.time + self.next_dose_interval
+        return None
+
+    @property
+    def next_dose_ready(self):
+        """
+        Whether the next dose can be given (current time >= next_dose_time).
+        :returns: True if next dose is ready, False otherwise, None if no interval set.
+        """
+        if self.next_dose_time:
+            return timezone.now() >= self.next_dose_time
+        return None
+
+    def clean(self):
+        validate_time(self.time, "time")
+
+    def __str__(self):
+        return str(_("Medication"))
 
 
 class WeightPercentile(models.Model):

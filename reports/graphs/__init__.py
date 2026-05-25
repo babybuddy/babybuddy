@@ -1,3 +1,4 @@
+from .awake_times import awake_times # NOQA
 from .bmi_change import bmi_change  # NOQA
 from .diaperchange_amounts import diaperchange_amounts  # NOQA
 from .diaperchange_lifetimes import diaperchange_lifetimes  # NOQA
@@ -9,10 +10,11 @@ from .feeding_intervals import feeding_intervals  # NOQA
 from .feeding_pattern import feeding_pattern  # NOQA
 from .head_circumference_change import head_circumference_change  # NOQA
 from .height_change import height_change  # NOQA
+from .medication_frequency import medication_frequency  # NOQA
+from .medication_intervals import medication_intervals  # NOQA
 from .pumping_amounts import pumping_amounts  # NOQA
 from .sleep_pattern import sleep_pattern  # NOQA
 from .sleep_totals import sleep_totals  # NOQA
 from .temperature_change import temperature_change  # NOQA
 from .tummytime_duration import tummytime_duration  # NOQA
 from .weight_change import weight_change  # NOQA
-from .awake_times import awake_times # NOQA

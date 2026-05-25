@@ -1,0 +1,29 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% if object %}
+        {{ object }}
+    {% else %}
+        {% trans "Add a Medication Entry" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:medication-list' %}">{% trans "Medication" %}</a>
+    </li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add a Medication Entry" %}</li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>
+            {% trans "Update" %} <span class="text-info">{{ object }}</span>
+        </h1>
+    {% else %}
+        <h1>{% trans "Add a Medication Entry" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}
