@@ -51,4 +51,4 @@ The database username utilized for the deployment.
 
 _Default:_ unset
 
-Additional options to pass to the database library. See the [Django Databases documentation](https://docs.djangoproject.com/en/5.0/ref/databases/) for examples. To enforce an SSL connection to the database, use `{'sslmode': 'require'}`.
+Additional options to pass to the database library. See the [Django Databases documentation](https://docs.djangoproject.com/en/5.0/ref/databases/) for examples. To enforce an SSL connection to the database, use `{"sslmode": "require"}`.
