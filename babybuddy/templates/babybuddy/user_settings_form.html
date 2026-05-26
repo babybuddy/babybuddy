@@ -80,18 +80,12 @@
                     <label class="col-sm-2 col-form-label">{% trans "Key" %}</label>
                     <div class="col-sm-10">
                         <samp>{{ user.settings.api_key }}</samp>
-                        <input type="submit"
-                               name="api_key_regenerate"
-                               value="{% trans "Regenerate" %}"
-                               class="btn btn-danger btn-xs" />
+                        <button type="submit" name="api_key_regenerate" class="btn btn-danger btn-xs">{% trans "Regenerate" %}</button>
                     </div>
                 </div>
             </fieldset>
             <input type="hidden" name="next" value="{% url 'babybuddy:user-settings' %}" />
-            <input type="submit"
-                   name="save_settings"
-                   value="{% trans "Submit" %}"
-                   class="btn btn-primary">
+            <button type="submit" name="save_settings" class="btn btn-primary">{% trans "Submit" %}</button>
         </form>
     </div>
 {% endblock %}

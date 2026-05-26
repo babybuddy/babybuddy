@@ -32,7 +32,7 @@
                 </p>
             </div>
         {% endif %}
-        <input type="submit" value="{% trans "Delete Tag" %}" class="btn btn-danger" />
+        <button type="submit" class="btn btn-danger">{% trans "Delete Tag" %}</button>
         <a href="{% url 'core:tag-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}

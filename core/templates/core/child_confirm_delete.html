@@ -27,7 +27,7 @@
             {% endif %}
             {% if form.confirm_name.errors %}<div class="invalid-feedback">{{ form.confirm_name.errors.0 }}</div>{% endif %}
         </div>
-        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
+        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
         <a href="{% url 'core:child-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}
