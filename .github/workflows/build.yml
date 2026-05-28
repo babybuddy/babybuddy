@@ -1,24 +1,21 @@
 name: Build and Publish Rootless Image
 
-# Triggers the workflow on pushes to the main branch or manually via the GitHub UI
 on:
   push:
-    branches: [ "master", "main" ]
-  workflow_dispatch: 
+    branches: ["master", "main"]
+  workflow_dispatch:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   REGISTRY: ghcr.io
-  # This will automatically use your GitHub username (e.g., ghcr.io/your-username/babybuddy)
-  IMAGE_NAME: ${{ github.repository }} 
-  
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write # Grants permission to push to your GHCR
+      packages: write
 
     steps:
       - name: Checkout repository
@@ -29,7 +26,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }} # Automatically provided by GitHub
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels)
         id: meta
