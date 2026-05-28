@@ -7,9 +7,11 @@ on:
   workflow_dispatch: 
 
 env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   REGISTRY: ghcr.io
   # This will automatically use your GitHub username (e.g., ghcr.io/your-username/babybuddy)
   IMAGE_NAME: ${{ github.repository }} 
+  
 
 jobs:
   build-and-push:
