@@ -15,7 +15,6 @@ RUN groupadd -g 1000 babybuddy && \
 WORKDIR /app
 
 # Install system dependencies required for PostgreSQL (CNPG) compatibility
-# (DEBIAN_FRONTEND=noninteractive silences the Dialog/Teletype warnings)
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gcc libpq-dev && \
     rm -rf /var/lib/apt/lists/*
@@ -27,9 +26,25 @@ RUN pip install --no-cache-dir -r requirements.txt gunicorn psycopg2-binary
 # Copy the rest of the application code
 COPY . .
 
-# CREATE THE MISSING SETTINGS FILE
-# Copies the example settings file so Django can actually find the production settings
-RUN cp babybuddy/settings/production.example.py babybuddy/settings/production.py
+# CREATE A PROPER PRODUCTION SETTINGS FILE
+# Instead of copying the manual example file (which hardcodes an empty SECRET_KEY and SQLite),
+# we dynamically generate a settings file that explicitly tells Django to read the 
+# configuration variables injected by our cluster environment.
+RUN echo 'import os' > babybuddy/settings/production.py && \
+    echo 'from .base import *' >> babybuddy/settings/production.py && \
+    echo 'SECRET_KEY = os.environ.get("SECRET_KEY")' >> babybuddy/settings/production.py && \
+    echo 'ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")' >> babybuddy/settings/production.py && \
+    echo 'CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")' >> babybuddy/settings/production.py && \
+    echo 'DATABASES = {' >> babybuddy/settings/production.py && \
+    echo '    "default": {' >> babybuddy/settings/production.py && \
+    echo '        "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),' >> babybuddy/settings/production.py && \
+    echo '        "NAME": os.environ.get("DB_NAME", "babybuddy"),' >> babybuddy/settings/production.py && \
+    echo '        "USER": os.environ.get("DB_USER", "babybuddy"),' >> babybuddy/settings/production.py && \
+    echo '        "PASSWORD": os.environ.get("DB_PASSWORD", ""),' >> babybuddy/settings/production.py && \
+    echo '        "HOST": os.environ.get("DB_HOST", "babybuddy-db-rw"),' >> babybuddy/settings/production.py && \
+    echo '        "PORT": os.environ.get("DB_PORT", "5432"),' >> babybuddy/settings/production.py && \
+    echo '    }' >> babybuddy/settings/production.py && \
+    echo '}' >> babybuddy/settings/production.py
 
 # Create the data directory (for media uploads like baby pictures) 
 # and transfer ownership to our non-root user
