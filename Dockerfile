@@ -22,7 +22,7 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt gunicorn psycopg2-binary
 
-# Copy the rest of the application code
+# Copy the rest of the application code (This will copy your new entrypoint.sh into /app)
 COPY . .
 
 # Create the production settings file dynamically
@@ -42,16 +42,13 @@ RUN echo 'import os' > babybuddy/settings/production.py && \
     echo '    }' >> babybuddy/settings/production.py && \
     echo '}' >> babybuddy/settings/production.py
 
-# Make the entrypoint executable, create media folders, and set strict ownership
+# Make the entrypoint executable, ensure media folders exist, and set strict ownership
 RUN chmod +x /app/entrypoint.sh && \
     mkdir -p /app/data/media /app/static && \
     chown -R babybuddy:babybuddy /app
 
 # SWITCH TO NON-ROOT USER
 USER 1000:1000
-
-# Collect static files
-RUN SECRET_KEY="dummy-key-for-build" python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
