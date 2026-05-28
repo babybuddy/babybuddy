@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: babybuddy-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=babybuddy
+      - POSTGRES_USER=babybuddy
+      - POSTGRES_PASSWORD=babybuddy_db_password
+    volumes:
+      - babybuddy-db-data:/var/lib/postgresql/data
+    networks:
+      - babybuddy_internal
+
+  app:
+    image: ghcr.io/YOUR-GITHUB-USERNAME/babybuddy:latest
+    container_name: babybuddy-app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - TZ=America/Los_Angeles
+      - SECRET_KEY=change-this-to-a-secure-random-string
+      - ALLOWED_HOSTS=*
+      - CSRF_TRUSTED_ORIGINS=https://babybuddy.yourdomain.com # Update to your domain
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=babybuddy
+      - DB_USER=babybuddy
+      - DB_PASSWORD=babybuddy_db_password
+    volumes:
+      - babybuddy-app-data:/app/data
+    networks:
+      - proxy # Assumes Traefik is running on a Docker network named 'proxy'
+      - babybuddy_internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.babybuddy.rule=Host(`babybuddy.yourdomain.com`)"
+      - "traefik.http.routers.babybuddy.entrypoints=websecure"
+      - "traefik.http.routers.babybuddy.tls.certresolver=letsencrypt" # Adjust to your Traefik resolver name
+      - "traefik.http.services.babybuddy.loadbalancer.server.port=8000"
+
+networks:
+  proxy:
+    external: true
+  babybuddy_internal:
+
+volumes:
+  babybuddy-db-data:
+  babybuddy-app-data:

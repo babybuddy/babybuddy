@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - postgres.yaml
+  - deployment.yaml
+
+# Automatically generates a ConfigMap for standard variables
+configMapGenerator:
+  - name: babybuddy-config
+    literals:
+      - TZ=America/Los_Angeles
+      - ALLOWED_HOSTS="*"
+      - CSRF_TRUSTED_ORIGINS="https://babybuddy.yourdomain.com"
+      - DB_ENGINE="django.db.backends.postgresql"
+      - DB_HOST="babybuddy-db"
+      - DB_PORT="5432"
+      - DB_NAME="babybuddy"
+      - DB_USER="babybuddy"
+
+# Automatically generates a Secret (Users should change these before applying!)
+secretGenerator:
+  - name: babybuddy-secrets
+    literals:
+      - SECRET_KEY="change-this-to-a-secure-random-string"
+      - DB_PASSWORD="babybuddy_db_password"
