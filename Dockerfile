@@ -15,17 +15,21 @@ RUN groupadd -g 1000 babybuddy && \
 WORKDIR /app
 
 # Install system dependencies required for PostgreSQL (CNPG) compatibility
+# (DEBIAN_FRONTEND=noninteractive silences the Dialog/Teletype warnings)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc libpq-dev && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gcc libpq-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file and install dependencies
 COPY requirements.txt .
-# We explicitly add gunicorn (web server) and psycopg2 (Postgres driver) 
 RUN pip install --no-cache-dir -r requirements.txt gunicorn psycopg2-binary
 
 # Copy the rest of the application code
 COPY . .
+
+# CREATE THE MISSING SETTINGS FILE
+# Copies the example settings file so Django can actually find the production settings
+RUN cp babybuddy/settings/production.example.py babybuddy/settings/production.py
 
 # Create the data directory (for media uploads like baby pictures) 
 # and transfer ownership to our non-root user
