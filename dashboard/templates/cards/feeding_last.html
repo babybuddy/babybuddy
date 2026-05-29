@@ -6,11 +6,13 @@
 {% block title %}
     {% if feeding %}
         <div>
-            {% blocktrans trimmed with time_ago=feeding.start|deltasince|duration_string:'m' %}
+            {% blocktrans trimmed with time_ago=feeding_diff_base|deltasince|duration_string:'m' %}
                 {{ time_ago }} ago
             {% endblocktrans %}
         </div>
-        <small>{{ feeding.start|time }}</small>
+        <small>{{ feeding.start|time }}
+            {% if feeding.end != feeding.start %}- {{ feeding.end|time }}{% endif %}
+        </small>
     {% else %}
         {% trans "None" %}
     {% endif %}
