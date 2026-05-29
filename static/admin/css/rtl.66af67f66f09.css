@@ -197,14 +197,14 @@ fieldset .fieldBox {
     top: 0;
     left: auto;
     right: 10px;
-    background: url(../img/calendar-icons.svg) 0 -15px no-repeat;
+    background: url("../img/calendar-icons.93ab098d1ac1.svg") 0 -15px no-repeat;
 }
 
 .calendarnav-next {
     top: 0;
     right: auto;
     left: 10px;
-    background: url(../img/calendar-icons.svg) 0 0 no-repeat;
+    background: url("../img/calendar-icons.93ab098d1ac1.svg") 0 0 no-repeat;
 }
 
 .calendar caption, .calendarbox h2 {
@@ -220,7 +220,7 @@ fieldset .fieldBox {
 }
 
 .selector-add {
-    background: url(../img/selector-icons.svg) 0 -96px no-repeat;
+    background: url("../img/selector-icons.b4555096cea2.svg") 0 -96px no-repeat;
     background-size: 24px auto;
 }
 
@@ -229,7 +229,7 @@ fieldset .fieldBox {
 }
 
 .selector-remove {
-    background: url(../img/selector-icons.svg) 0 -144px no-repeat;
+    background: url("../img/selector-icons.b4555096cea2.svg") 0 -144px no-repeat;
     background-size: 24px auto;
 }
 
@@ -238,7 +238,7 @@ fieldset .fieldBox {
 }
 
 .selector-chooseall {
-    background: url(../img/selector-icons.svg) right -128px no-repeat;
+    background: url("../img/selector-icons.b4555096cea2.svg") right -128px no-repeat;
 }
 
 :enabled.selector-chooseall:focus, :enabled.selector-chooseall:hover {
@@ -246,7 +246,7 @@ fieldset .fieldBox {
 }
 
 .selector-clearall {
-    background: url(../img/selector-icons.svg) 0 -160px no-repeat;
+    background: url("../img/selector-icons.b4555096cea2.svg") 0 -160px no-repeat;
 }
 
 :enabled.selector-clearall:focus, :enabled.selector-clearall:hover {
