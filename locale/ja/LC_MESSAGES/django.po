@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-20 03:28+0000\n"
+"POT-Creation-Date: 2026-05-17 05:11+0000\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -108,7 +108,7 @@ msgstr ""
 
 #: babybuddy/models.py:130
 msgid "Items Per Page"
-msgstr ""
+msgstr "1ページあたりの件数"
 
 #: babybuddy/models.py:134
 #, python-brace-format
@@ -306,10 +306,8 @@ msgstr "ボトルフィーディング"
 #: core/templates/core/medication_list.html:4
 #: core/templates/core/medication_list.html:7
 #: core/templates/core/medication_list.html:11
-#, fuzzy
-#| msgid "Add Feeding"
 msgid "Medication"
-msgstr "授乳記録を追加"
+msgstr "投薬記録を追加"
 
 #: babybuddy/templates/babybuddy/nav-dropdown.html:70
 #: babybuddy/templates/babybuddy/nav-dropdown.html:288 core/models.py:517
@@ -1131,11 +1129,11 @@ msgstr "指定した名前は赤ちゃんの名前と一致しません。"
 
 #: core/forms.py:315
 msgid "Time Until Next Dosage"
-msgstr ""
+msgstr "次の服用までの時間"
 
 #: core/forms.py:319
 msgid "Optional: Hours until next dose can be given"
-msgstr ""
+msgstr "オプション: 次の投与まであと何時間か"
 
 #: core/models.py:31
 msgid "Date can not be in the future."
@@ -1154,10 +1152,8 @@ msgid "Another entry intersects the specified time period."
 msgstr "別の記録が指定された時間帯と重複しています。"
 
 #: core/models.py:83
-#, fuzzy
-#| msgid "Pumping entry"
 msgid "Conflicting entry"
-msgstr "搾乳記録"
+msgstr "矛盾するエントリ"
 
 #: core/models.py:98
 msgid "Date/time can not be in the future."
@@ -1213,7 +1209,7 @@ msgstr "出生時刻"
 
 #: core/models.py:201
 msgid "Slug"
-msgstr "少量"
+msgstr "スラグ"
 
 #: core/models.py:204
 msgid "Picture"
@@ -1376,20 +1372,20 @@ msgstr "マイルストーン"
 
 #: core/models.py:781 core/templates/core/medication_list.html:28
 msgid "Medication Name"
-msgstr ""
+msgstr "薬名"
 
 #: core/models.py:782
 msgid "Name of the medication administered"
-msgstr ""
+msgstr "投与された薬剤名"
 
 #: core/models.py:788 core/templates/core/medication_list.html:29
 #: core/timeline.py:227
 msgid "Dosage"
-msgstr ""
+msgstr "投与量"
 
 #: core/models.py:789
 msgid "Amount of medication given"
-msgstr ""
+msgstr "投与された薬の量"
 
 #: core/models.py:794
 msgid "MG"
@@ -1401,37 +1397,31 @@ msgstr ""
 
 #: core/models.py:796
 msgid "Tablets"
-msgstr ""
+msgstr "錠剤"
 
 #: core/models.py:797
 msgid "Drops"
-msgstr ""
+msgstr "ドロップ"
 
 #: core/models.py:802
 msgid "Dosage Unit"
-msgstr ""
+msgstr "投与単位"
 
 #: core/models.py:808
-#, fuzzy
-#| msgid "Timer actions"
 msgid "Time Taken"
-msgstr "タイマー操作"
+msgstr "所要時間"
 
 #: core/models.py:814 core/templates/core/medication_list.html:30
-#, fuzzy
-#| msgid "Diaper Intervals"
 msgid "Next Dose Interval"
-msgstr "おむつ間隔"
+msgstr "次回の投与間隔"
 
 #: core/models.py:815
 msgid "Time until next dose can be given"
 msgstr ""
 
 #: core/models.py:825
-#, fuzzy
-#| msgid "Actions"
 msgid "Medications"
-msgstr "操作"
+msgstr "投薬記録"
 
 #: core/templates/core/bmi_confirm_delete.html:4
 msgid "Delete a BMI Entry"
@@ -1531,7 +1521,7 @@ msgstr "内容"
 #: dashboard/templates/cards/tummytime_last.html:9
 #, python-format
 msgid "%(time_ago)s ago"
-msgstr ""
+msgstr "%(time_ago)s経過"
 
 #: core/templates/core/diaperchange_list.html:93
 msgid "No diaper changes found."
@@ -1608,36 +1598,26 @@ msgid "No height entries found."
 msgstr "身長記録が見つかりませんでした。"
 
 #: core/templates/core/medication_confirm_delete.html:4
-#, fuzzy
-#| msgid "Delete a Sleep Entry"
 msgid "Delete a Medication Entry"
-msgstr "睡眠記録を削除"
+msgstr "投薬記録を削除"
 
 #: core/templates/core/medication_form.html:7
 #: core/templates/core/medication_form.html:17
 #: core/templates/core/medication_form.html:26
-#, fuzzy
-#| msgid "Add a Sleep Entry"
 msgid "Add a Medication Entry"
-msgstr "睡眠記録を追加"
+msgstr "投薬記録を追加"
 
 #: core/templates/core/medication_list.html:14
-#, fuzzy
-#| msgid "Add Feeding"
 msgid "Add Medication"
-msgstr "授乳記録を追加"
+msgstr "投薬記録を追加"
 
 #: core/templates/core/medication_list.html:67
-#, fuzzy
-#| msgid "Interval"
 msgid "No interval set"
-msgstr "間隔"
+msgstr "間隔がセットされていない"
 
 #: core/templates/core/medication_list.html:81
-#, fuzzy
-#| msgid "No bmi entries found."
 msgid "No medication entries found."
-msgstr "BMI記録が見つかりませんでした。"
+msgstr "投薬記録が見つかりませんでした。"
 
 #: core/templates/core/note_confirm_delete.html:4
 msgid "Delete a Note"
@@ -1737,7 +1717,7 @@ msgstr ""
 
 #: core/templates/core/tag_confirm_delete.html:35
 msgid "Delete Tag"
-msgstr ""
+msgstr "タグを削除"
 
 #: core/templates/core/tag_detail.html:5 core/templates/core/tag_form.html:5
 msgid "Update a Tag"
@@ -1746,7 +1726,7 @@ msgstr ""
 #: core/templates/core/tag_detail.html:7 core/templates/core/tag_form.html:7
 #: core/templates/core/tag_form.html:29
 msgid "Add a Tag"
-msgstr ""
+msgstr "タグを追加"
 
 #: core/templates/core/tag_detail.html:28
 msgid "Tag actions"
@@ -1760,59 +1740,59 @@ msgstr "編集"
 
 #: core/templates/core/tag_detail.html:46
 msgid "Tagged Measurements"
-msgstr ""
+msgstr "タグ付き測定値"
 
 #: core/templates/core/tag_detail.html:50
 msgid "BMI Measurements"
-msgstr ""
+msgstr "BMI記録"
 
 #: core/templates/core/tag_detail.html:55
 msgid "Head Circumference Measurements"
-msgstr ""
+msgstr "頭囲記録"
 
 #: core/templates/core/tag_detail.html:60
 msgid "Height Measurements"
-msgstr ""
+msgstr "身長記録"
 
 #: core/templates/core/tag_detail.html:65
 msgid "Temperature Measurements"
-msgstr ""
+msgstr "温度記録"
 
 #: core/templates/core/tag_detail.html:70
 msgid "Weight Measurements"
-msgstr ""
+msgstr "体重記録"
 
 #: core/templates/core/tag_detail.html:76
 msgid "Tagged Activities"
-msgstr ""
+msgstr "タグ付きアクティビティ"
 
 #: core/templates/core/tag_detail.html:90
 msgid "Pumpings"
-msgstr ""
+msgstr "搾乳"
 
 #: core/templates/core/tag_detail.html:95
 msgid "Sleeps"
-msgstr ""
+msgstr "睡眠"
 
 #: core/templates/core/tag_detail.html:100
 msgid "Tummy Times"
-msgstr ""
+msgstr "うつぶせ遊び"
 
 #: core/templates/core/tag_list.html:14
 msgid "Add Tag"
-msgstr ""
+msgstr "タグを追加"
 
 #: core/templates/core/tag_list.html:26
 msgid "Items Tagged"
-msgstr ""
+msgstr "タグが付けられているアイテム"
 
 #: core/templates/core/tag_list.html:27
 msgid "Last Used"
-msgstr ""
+msgstr "最後に使用された"
 
 #: core/templates/core/tag_list.html:62
 msgid "No tags found."
-msgstr ""
+msgstr "タグが見つかりませんでした"
 
 #: core/templates/core/temperature_confirm_delete.html:4
 msgid "Delete a Temperature Reading"
@@ -2054,16 +2034,14 @@ msgid "%(child)s had a %(type)s diaper change."
 msgstr "%(child)sが%(type)sのおむつ交換されました。"
 
 #: core/timeline.py:240
-#, fuzzy, python-format
-#| msgid "%(child)s started feeding."
+#, python-format
 msgid "%(child)s took %(medication)s."
-msgstr "%(child)sの授乳が始まりました。"
+msgstr "%(child)sが%(medication)sを飲みました"
 
 #: core/timeline.py:256
-#, fuzzy, python-format
-#| msgid "%(child)s started feeding."
+#, python-format
 msgid "%(child)s's %(medication)s dose wore off."
-msgstr "%(child)sの授乳が始まりました。"
+msgstr "%(child)sの%(medication)sの効き目が切れました"
 
 #: core/timeline.py:301
 #, python-format
@@ -2194,37 +2172,31 @@ msgid_plural "%(counter)s feedings"
 msgstr[0] "%(counter)s 回の授乳"
 
 #: dashboard/templates/cards/medication_last.html:4
-#, fuzzy
-#| msgid "Last Feeding"
 msgid "Last Medication"
-msgstr "最近の授乳"
+msgstr "最近の投薬"
 
 #: dashboard/templates/cards/medication_last.html:27
 msgid "Next dose ready"
-msgstr ""
+msgstr "次の投与準備完了"
 
 #: dashboard/templates/cards/medication_last.html:30
 #, python-format
 msgid "Next dose at %(next_time)s"
-msgstr ""
+msgstr "次回の投薬は %(next_time)s"
 
 #: dashboard/templates/cards/pumping_last.html:4
 msgid "Last Pumping"
 msgstr "最後の搾乳"
 
 #: dashboard/templates/cards/pumping_recent.html:4
-#, fuzzy
-#| msgid "Recent Feedings"
 msgid "Recent Pumpings"
-msgstr "最近の授乳"
+msgstr "最近の搾乳"
 
 #: dashboard/templates/cards/pumping_recent.html:23
-#, fuzzy, python-format
-#| msgid "%(counter)s feeding"
-#| msgid_plural "%(counter)s feedings"
+#, python-format
 msgid "%(counter)s pumping"
 msgid_plural "%(counter)s pumpings"
-msgstr[0] "%(counter)s 回の授乳"
+msgstr[0] "%(counter)s 回の搾乳"
 
 #: dashboard/templates/cards/sleep_last.html:4
 msgid "Last Sleep"
@@ -2482,34 +2454,24 @@ msgid "P97"
 msgstr "P97"
 
 #: reports/graphs/medication_frequency.py:30
-#, fuzzy
-#| msgid "Feeding frequency"
 msgid "Frequency"
-msgstr "授乳頻度"
+msgstr "投薬頻度"
 
 #: reports/graphs/medication_frequency.py:38
-#, fuzzy
-#| msgid "Feeding frequency"
 msgid "Medication frequency"
-msgstr "授乳頻度"
+msgstr "投薬頻度"
 
 #: reports/graphs/medication_frequency.py:44
-#, fuzzy
-#| msgid "Number of feedings"
 msgid "Number of medications"
-msgstr "授乳回数"
+msgstr "投薬回数"
 
 #: reports/graphs/medication_intervals.py:46
-#, fuzzy
-#| msgid "Feeding Intervals"
 msgid "Medication intervals"
-msgstr "授乳間隔"
+msgstr "投薬間隔"
 
 #: reports/graphs/medication_intervals.py:52
-#, fuzzy
-#| msgid "Feeding interval (hours)"
 msgid "Medication interval (hours)"
-msgstr "授乳間隔（時間）"
+msgstr "投薬間隔（時間）"
 
 #: reports/graphs/pumping_amounts.py:59
 msgid "Total Pumping Amount"
@@ -2580,18 +2542,14 @@ msgstr "授乳間隔"
 #: reports/templates/reports/medication_frequency.html:4
 #: reports/templates/reports/medication_frequency.html:9
 #: reports/templates/reports/report_list.html:42
-#, fuzzy
-#| msgid "Feeding frequency"
 msgid "Medication Frequency"
-msgstr "授乳頻度"
+msgstr "投薬頻度"
 
 #: reports/templates/reports/medication_intervals.html:4
 #: reports/templates/reports/medication_intervals.html:9
 #: reports/templates/reports/report_list.html:44
-#, fuzzy
-#| msgid "Feeding Intervals"
 msgid "Medication Intervals"
-msgstr "授乳間隔"
+msgstr "投薬間隔"
 
 #: reports/templates/reports/report_base.html:13
 msgid "There is not enough data to generate this report."
@@ -2795,7 +2753,7 @@ msgstr "女の子のWHO体重パーセンタイル（kg）"
 #~ msgstr "%(timer)sが停止しました。"
 
 #~ msgid "%(time)s ago"
-#~ msgstr "%(time)s前"
+#~ msgstr "%(time)s"
 
 #~ msgid "%(key)s days ago"
 #~ msgstr "%(key)s日前"

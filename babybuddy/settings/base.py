@@ -1,3 +1,4 @@
+import json
 import os
 import dj_database_url
 
@@ -127,7 +128,7 @@ else:
     if os.getenv("DB_PORT"):
         config["PORT"] = os.getenv("DB_PORT")
     if os.getenv("DB_OPTIONS"):
-        config["OPTIONS"] = os.getenv("DB_OPTIONS")
+        config["OPTIONS"] = json.loads(os.getenv("DB_OPTIONS", "{}"))
     DATABASES = {"default": config}
 
 
@@ -372,6 +373,10 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 AXES_COOLOFF_TIME = 1
 
 AXES_FAILURE_LIMIT = 5
+
+# `None` makes Axes use the default precedence order set by django-ipware.
+# See: https://github.com/un33k/django-ipware#precedence-order
+AXES_IPWARE_META_PRECEDENCE_ORDER = None
 
 AXES_LOCKOUT_TEMPLATE = "error/lockout.html"
 

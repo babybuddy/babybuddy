@@ -220,36 +220,34 @@ fieldset .fieldBox {
 }
 
 .selector-add {
-    background: url(../img/selector-icons.svg) 0 -96px no-repeat;
-    background-size: 24px auto;
+  background: url(../img/selector-icons.svg) 0 -64px no-repeat;
 }
 
-:enabled.selector-add:focus, :enabled.selector-add:hover {
-    background-position: 0 -120px;
+.active.selector-add:focus, .active.selector-add:hover {
+  background-position: 0 -80px;
 }
 
 .selector-remove {
-    background: url(../img/selector-icons.svg) 0 -144px no-repeat;
-    background-size: 24px auto;
+  background: url(../img/selector-icons.svg) 0 -96px no-repeat;
 }
 
-:enabled.selector-remove:focus, :enabled.selector-remove:hover {
-    background-position: 0 -168px;
+.active.selector-remove:focus, .active.selector-remove:hover {
+  background-position: 0 -112px;
 }
 
-.selector-chooseall {
+a.selector-chooseall {
     background: url(../img/selector-icons.svg) right -128px no-repeat;
 }
 
-:enabled.selector-chooseall:focus, :enabled.selector-chooseall:hover {
+a.active.selector-chooseall:focus, a.active.selector-chooseall:hover {
     background-position: 100% -144px;
 }
 
-.selector-clearall {
+a.selector-clearall {
     background: url(../img/selector-icons.svg) 0 -160px no-repeat;
 }
 
-:enabled.selector-clearall:focus, :enabled.selector-clearall:hover {
+a.active.selector-clearall:focus, a.active.selector-clearall:hover {
     background-position: 0 -176px;
 }
 

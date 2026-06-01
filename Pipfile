@@ -7,7 +7,6 @@ name = "pypi"
 boto3 = "~=1.0"
 dj-database-url = "~=2.0"
 django = "~=5.0"
-django-axes = "~=7.0"
 django-filter = "~=25.0"
 django-imagekit = "~=5.0"
 django-storages = "~=1.0"
@@ -28,6 +27,7 @@ django-cors-headers = "~=4.0"
 django-dbsettings = "~=1.0"
 django-import-export = "~=4.0"
 inflection = "*"
+django-axes = {extras = ["ipware"], version = "~=7.0"}
 
 [dev-packages]
 coveralls = "~=4.0"

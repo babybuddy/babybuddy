@@ -51,6 +51,10 @@ This is a non-exhaustive list of neat projects and blog posts that either extend
 or use Baby Buddy in fun ways. If you have a project to share please open a PR
 adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 
+### AI
+
+- [Baby Buddy MCP server](https://github.com/babybuddy/babybuddy-mcp) - A [Model Context Protocol](https://modelcontextprotocol.io) server for logging and querying Baby Buddy data with AI assistants. See the [MCP documentation](https://docs.baby-buddy.net/mcp/).
+
 ### Smart home
 
 - [Home Assistant Addon](https://github.com/OttPeterR/addon-babybuddy) (host Baby Buddy on Home Assistant)
