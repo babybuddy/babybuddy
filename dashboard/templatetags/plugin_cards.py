@@ -27,22 +27,24 @@ def plugin_cards(context, child):
     rendered = []
 
     for plugin in get_installed_plugins():
-        if not plugin.babybuddy_has_dashboard_card:
-            continue
-
-        template_name = f"{plugin.label}/cards/summary.html"
         try:
-            hide_empty = (
-                request.user.settings.dashboard_hide_empty if request else False
-            )
+            if not plugin.babybuddy_has_dashboard_card:
+                continue
+
+            template_name = f"{plugin.label}/cards/summary.html"
+            hide_empty = False
+            if (
+                request
+                and hasattr(request, "user")
+                and hasattr(request.user, "settings")
+            ):
+                hide_empty = request.user.settings.dashboard_hide_empty
             html = render_to_string(
                 template_name,
                 {"child": child, "request": request, "hide_empty": hide_empty},
                 request=request,
             )
-            rendered.append(
-                f'<div class="col-sm-6 col-lg-4">{html}</div>'
-            )
+            rendered.append(f'<div class="col-sm-6 col-lg-4">{html}</div>')
         except Exception as exc:
             logger.error(
                 "Plugin %r: dashboard card %r failed to render: %s",
@@ -50,18 +52,5 @@ def plugin_cards(context, child):
                 template_name,
                 exc,
             )
-            # In debug mode surface a visible placeholder so developers
-            # know something went wrong without crashing the page.
-            from django.conf import settings
-
-            if settings.DEBUG:
-                rendered.append(
-                    f'<div class="col-sm-6 col-lg-4">'
-                    f'<div class="card border-danger">'
-                    f'<div class="card-body text-danger small">'
-                    f"<strong>Plugin card error ({plugin.name}):</strong><br>"
-                    f"<code>{exc}</code>"
-                    f"</div></div></div>"
-                )
 
     return mark_safe("".join(rendered))

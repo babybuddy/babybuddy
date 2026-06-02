@@ -61,7 +61,6 @@ urlpatterns = [
 # Plugins provide a urls.py with app_name set; they are included here
 # under namespace=<app_label> so their url names work as "myplugin:view".
 # Failures are logged and skipped — a broken plugin never takes down routing.
-import importlib
 import logging
 
 from babybuddy.plugins import get_installed_plugins
@@ -70,7 +69,6 @@ _plugin_logger = logging.getLogger("babybuddy.plugins")
 
 for _plugin in get_installed_plugins():
     try:
-        importlib.import_module(f"{_plugin.name}.urls")
         urlpatterns.append(
             path("", include(f"{_plugin.name}.urls", namespace=_plugin.label))
         )

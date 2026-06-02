@@ -61,10 +61,18 @@ class BabyBuddyPluginConfig(AppConfig):
     """
 
     # --- Nav ---
-    # Set both to add a top-level nav item.
+    # Set both to add a nav item.
     babybuddy_nav_label = None  # e.g. "Books"
     babybuddy_nav_url_name = None  # e.g. "books:book-list"
     babybuddy_nav_icon = "icon-note"  # CSS class from babybuddy icon font
+    # Set to "activities" to nest under the Activities dropdown instead of top-level.
+    babybuddy_nav_group = None
+    # If set, renders an indented "+ add" link in the Activities dropdown (like core activities).
+    # babybuddy_nav_url_name is used for the list link; this for the add link.
+    babybuddy_activity_url_name = None
+    # Label for the add link (e.g. "Reading" when nav_label is "Readings").
+    # Defaults to babybuddy_nav_label if not set.
+    babybuddy_activity_label = None
 
     # --- Dashboard ---
     # Set True and provide templates/<app_label>/cards/summary.html
@@ -90,9 +98,7 @@ def get_installed_plugins():
     from django.apps import apps
 
     return [
-        cfg
-        for cfg in apps.get_app_configs()
-        if isinstance(cfg, BabyBuddyPluginConfig)
+        cfg for cfg in apps.get_app_configs() if isinstance(cfg, BabyBuddyPluginConfig)
     ]
 
 
@@ -107,21 +113,25 @@ def plugin_context(request):
 
     logger = logging.getLogger("babybuddy.plugins")
     nav_items = []
+    activity_nav_items = []
     timer_activities = []
     for plugin in get_installed_plugins():
         try:
             if plugin.babybuddy_nav_label and plugin.babybuddy_nav_url_name:
-                nav_items.append(
-                    {
-                        "label": plugin.babybuddy_nav_label,
-                        "url_name": plugin.babybuddy_nav_url_name,
-                        "icon": plugin.babybuddy_nav_icon,
-                    }
-                )
+                item = {
+                    "label": plugin.babybuddy_nav_label,
+                    "url_name": plugin.babybuddy_nav_url_name,
+                    "icon": plugin.babybuddy_nav_icon,
+                    "add_url_name": plugin.babybuddy_activity_url_name,
+                    "add_label": plugin.babybuddy_activity_label
+                    or plugin.babybuddy_nav_label,
+                }
+                if plugin.babybuddy_nav_group == "activities":
+                    activity_nav_items.append(item)
+                else:
+                    nav_items.append(item)
         except Exception as exc:
-            logger.error(
-                "Plugin %r: failed to build nav item: %s", plugin.name, exc
-            )
+            logger.error("Plugin %r: failed to build nav item: %s", plugin.name, exc)
         try:
             for activity in plugin.babybuddy_timer_activities or []:
                 perm = activity.get("permission")
@@ -146,5 +156,6 @@ def plugin_context(request):
             )
     return {
         "babybuddy_plugin_nav_items": nav_items,
+        "babybuddy_plugin_activity_nav_items": activity_nav_items,
         "babybuddy_plugin_timer_activities": timer_activities,
     }
