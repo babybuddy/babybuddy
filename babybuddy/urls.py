@@ -57,5 +57,21 @@ urlpatterns = [
     path("", include("reports.urls", namespace="reports")),
 ]
 
+# Auto-include URLs from installed plugins.
+# Plugins provide a urls.py with app_name set; they are included here
+# under namespace=<app_label> so their url names work as "myplugin:view".
+import importlib
+
+from babybuddy.plugins import get_installed_plugins
+
+for _plugin in get_installed_plugins():
+    try:
+        importlib.import_module(f"{_plugin.name}.urls")
+        urlpatterns.append(
+            path("", include(f"{_plugin.name}.urls", namespace=_plugin.label))
+        )
+    except ModuleNotFoundError:
+        pass
+
 if settings.DEBUG:  # pragma: no cover
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

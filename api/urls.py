@@ -62,6 +62,21 @@ router.register(r"timers", views.TimerViewSet)
 router.register(r"tummy-times", views.TummyTimeViewSet)
 router.register(r"weight", views.WeightViewSet)
 
+# Auto-register API viewsets from installed plugins.
+# Plugins set babybuddy_has_api = True and provide an api.py module
+# with a register_api(router) function.
+import importlib
+
+from babybuddy.plugins import get_installed_plugins
+
+for _plugin in get_installed_plugins():
+    if _plugin.babybuddy_has_api:
+        try:
+            _api_module = importlib.import_module(f"{_plugin.name}.api")
+            _api_module.register_api(router)
+        except (ModuleNotFoundError, AttributeError):
+            pass
+
 router.add_detail_path("profile", "profile", views.ProfileView.as_view())
 router.add_detail_path(
     "schema",

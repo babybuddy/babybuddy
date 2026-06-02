@@ -30,6 +30,26 @@ ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split("
 SECRET_KEY = os.environ.get("SECRET_KEY") or None
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
+# Plugin discovery
+# Plugins installed via pip declare themselves via the "babybuddy.plugins"
+# entry point group. They are automatically added to INSTALLED_APPS here.
+# See babybuddy/plugins.py for authoring guidance.
+
+
+def _discover_pip_plugins():
+    try:
+        from importlib.metadata import entry_points
+
+        # Entry points use "module:Class" notation; Django INSTALLED_APPS
+        # expects "module.Class" (dots only).
+        return [
+            ep.value.replace(":", ".")
+            for ep in entry_points(group="babybuddy.plugins")
+        ]
+    except Exception:
+        return []
+
+
 # Applications
 # https://docs.djangoproject.com/en/5.0/ref/applications/
 
@@ -57,6 +77,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    *_discover_pip_plugins(),
 ]
 
 # Middleware
@@ -101,6 +122,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "babybuddy.plugins.plugin_context",
             ],
         },
     },

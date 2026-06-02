@@ -114,6 +114,14 @@
                 {% trans "Timeline" %}
             </a>
         </li>
+        {% for plugin_nav_item in babybuddy_plugin_nav_items %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url plugin_nav_item.url_name %}">
+                    <i class="{{ plugin_nav_item.icon }}" aria-hidden="true"></i>
+                    {{ plugin_nav_item.label }}
+                </a>
+            </li>
+        {% endfor %}
         <li class="nav-item dropdown">
         <a id="nav-children-menu-link"
            class="nav-link dropdown-toggle"
