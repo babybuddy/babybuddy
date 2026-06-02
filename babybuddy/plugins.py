@@ -94,16 +94,25 @@ def plugin_context(request):
     """
     Context processor that injects plugin nav items into every template.
 
-    Add to ``TEMPLATES[0]["OPTIONS"]["context_processors"]`` in settings.
+    Failures for individual plugins are logged and skipped so a broken
+    plugin never prevents page rendering.
     """
+    import logging
+
+    logger = logging.getLogger("babybuddy.plugins")
     nav_items = []
     for plugin in get_installed_plugins():
-        if plugin.babybuddy_nav_label and plugin.babybuddy_nav_url_name:
-            nav_items.append(
-                {
-                    "label": plugin.babybuddy_nav_label,
-                    "url_name": plugin.babybuddy_nav_url_name,
-                    "icon": plugin.babybuddy_nav_icon,
-                }
+        try:
+            if plugin.babybuddy_nav_label and plugin.babybuddy_nav_url_name:
+                nav_items.append(
+                    {
+                        "label": plugin.babybuddy_nav_label,
+                        "url_name": plugin.babybuddy_nav_url_name,
+                        "icon": plugin.babybuddy_nav_icon,
+                    }
+                )
+        except Exception as exc:
+            logger.error(
+                "Plugin %r: failed to build nav item: %s", plugin.name, exc
             )
     return {"babybuddy_plugin_nav_items": nav_items}

@@ -37,17 +37,34 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
 
 def _discover_pip_plugins():
+    """
+    Discover Baby Buddy plugins installed via pip.
+
+    Each discovered plugin is added to INSTALLED_APPS. Failures for
+    individual plugins are logged and skipped so a bad plugin never
+    prevents Baby Buddy from starting.
+    """
+    import logging
+
+    logger = logging.getLogger("babybuddy.plugins")
+    results = []
     try:
         from importlib.metadata import entry_points
 
-        # Entry points use "module:Class" notation; Django INSTALLED_APPS
-        # expects "module.Class" (dots only).
-        return [
-            ep.value.replace(":", ".")
-            for ep in entry_points(group="babybuddy.plugins")
-        ]
-    except Exception:
-        return []
+        for ep in entry_points(group="babybuddy.plugins"):
+            try:
+                # Entry points use "module:Class" notation; Django
+                # INSTALLED_APPS expects "module.Class" (dots only).
+                results.append(ep.value.replace(":", "."))
+            except Exception as exc:
+                logger.error(
+                    "Failed to load Baby Buddy plugin entry point %r: %s",
+                    ep.name,
+                    exc,
+                )
+    except Exception as exc:
+        logger.error("Failed to read babybuddy.plugins entry points: %s", exc)
+    return results
 
 
 # Applications
