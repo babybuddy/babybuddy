@@ -78,6 +78,12 @@ class BabyBuddyPluginConfig(AppConfig):
     # Dotted path to a handler class. Wired up when quick-entry is in main.
     babybuddy_quick_entry_handler = None
 
+    # --- Timer activities ---
+    # List of dicts shown as buttons on the timer detail page.
+    # Each dict: {"permission": "app.add_model", "url_name": "app:add", "label": "...", "icon": "icon-..."}
+    # "permission" is required; activities without it are skipped.
+    babybuddy_timer_activities = None
+
 
 def get_installed_plugins():
     """Return all installed ``BabyBuddyPluginConfig`` instances."""
@@ -101,6 +107,7 @@ def plugin_context(request):
 
     logger = logging.getLogger("babybuddy.plugins")
     nav_items = []
+    timer_activities = []
     for plugin in get_installed_plugins():
         try:
             if plugin.babybuddy_nav_label and plugin.babybuddy_nav_url_name:
@@ -115,4 +122,29 @@ def plugin_context(request):
             logger.error(
                 "Plugin %r: failed to build nav item: %s", plugin.name, exc
             )
-    return {"babybuddy_plugin_nav_items": nav_items}
+        try:
+            for activity in plugin.babybuddy_timer_activities or []:
+                perm = activity.get("permission")
+                if not perm:
+                    logger.warning(
+                        "Plugin %r: timer activity %r has no 'permission' key — skipped",
+                        plugin.name,
+                        activity.get("label"),
+                    )
+                    continue
+                if not activity.get("url_name") or not activity.get("label"):
+                    logger.warning(
+                        "Plugin %r: timer activity missing required 'url_name' or 'label' key — skipped",
+                        plugin.name,
+                    )
+                    continue
+                if request.user.has_perm(perm):
+                    timer_activities.append(activity)
+        except Exception as exc:
+            logger.error(
+                "Plugin %r: failed to build timer activities: %s", plugin.name, exc
+            )
+    return {
+        "babybuddy_plugin_nav_items": nav_items,
+        "babybuddy_plugin_timer_activities": timer_activities,
+    }

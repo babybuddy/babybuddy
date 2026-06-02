@@ -92,7 +92,7 @@ class ChildRadioSelect(RadioSelect):
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs["class"] += " btn-check d-none"
+        attrs["class"] = (attrs.get("class", "") + " btn-check d-none").strip()
         return attrs
 
     def create_option(
@@ -115,5 +115,5 @@ class PillRadioSelect(RadioSelect):
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs["class"] += " btn-check d-none"
+        attrs["class"] = (attrs.get("class", "") + " btn-check d-none").strip()
         return attrs
