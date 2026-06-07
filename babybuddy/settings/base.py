@@ -196,6 +196,8 @@ LANGUAGES = [
     ("hr", _("Croatian")),
     ("cs", _("Czech")),
     ("zh-hans", _("Chinese (simplified)")),
+    ("zh-hant", _("Chinese (traditional)")),
+    ("zh-tw", _("Chinese (Taiwan)")),
     ("da", _("Danish")),
     ("nl", _("Dutch")),
     ("en-US", _("English (US)")),

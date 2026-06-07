@@ -59,6 +59,8 @@ const config = {
       "node_modules/plotly.js/dist/plotly-locale-tr.js",
       "node_modules/plotly.js/dist/plotly-locale-uk.js",
       "node_modules/plotly.js/dist/plotly-locale-zh-cn.js",
+      "node_modules/plotly.js/dist/plotly-locale-zh-hk.js",
+      "node_modules/plotly.js/dist/plotly-locale-zh-tw.js",
     ],
     app: [
       "babybuddy/static_src/js/babybuddy.js",
