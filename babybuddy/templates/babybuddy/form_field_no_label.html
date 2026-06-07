@@ -31,7 +31,5 @@
     </div>
 {% endif %}
 {% if field.errors %}
-    <div class="invalid-feedback">
-        {% for error in  field.errors %}{{ error }}{% endfor %}
-    </div>
+    <div class="invalid-feedback">{% for error in  field.errors %}{{ error }}{% endfor %}</div>
 {% endif %}
