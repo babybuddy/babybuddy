@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import template
 
+from core.models import Feeding
+
 register = template.Library()
 
 
@@ -28,3 +30,11 @@ def prev(some_list, current_index):
     if not some_list or current_index <= 0:
         return ""
     return some_list[current_index - 1]
+
+
+@register.simple_tag(takes_context=True)
+def feeding_time_diff_base(context, feeding):
+    if feeding:
+        return feeding.end if Feeding.settings.feeding_diff_end else feeding.start
+    else:
+        return None

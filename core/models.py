@@ -15,7 +15,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager as TaggitTaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
-from babybuddy.site_settings import NapSettings
+from babybuddy.site_settings import NapSettings, FeedingSettings
 from core.utils import random_color, timezone_aware_duration
 
 
@@ -344,6 +344,8 @@ class Feeding(models.Model):
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+
+    settings = FeedingSettings()
 
     objects = models.Manager()
 
