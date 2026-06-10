@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load breadcrumb cards i18n %}
+{% load breadcrumb cards plugin_cards i18n %}
 {% block title %}
     {% trans "Dashboard" %} - {{ object }}
 {% endblock %}
@@ -29,6 +29,7 @@
         <div class="col-sm-6 col-lg-4">{% card_tummytime_day object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_diaperchange_types object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
+        {% plugin_cards object %}
     </div>
 {% endblock %}
 {% block javascript %}

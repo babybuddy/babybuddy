@@ -52,6 +52,13 @@
 {% trans "Tummy Time" %}
 </a>
 {% endif %}
+{% for activity in babybuddy_plugin_timer_activities %}
+<a class="btn btn-success btn-lg"
+   href="{% instance_add_url activity.url_name %}"
+   role="button"><i class="{{ activity.icon }}" aria-hidden="true"></i>
+{{ activity.label }}
+</a>
+{% endfor %}
 </div>
 <div class="center-block"
      role="group"

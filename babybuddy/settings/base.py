@@ -30,6 +30,51 @@ ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split("
 SECRET_KEY = os.environ.get("SECRET_KEY") or None
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
+# Plugin discovery
+# Plugins installed via pip declare themselves via the "babybuddy.plugins"
+# entry point group. They are automatically added to INSTALLED_APPS here.
+# See babybuddy/plugins.py for authoring guidance.
+
+
+def _discover_pip_plugins():
+    """
+    Discover Baby Buddy plugins installed via pip.
+
+    Each discovered plugin is added to INSTALLED_APPS. Failures for
+    individual plugins are logged and skipped so a bad plugin never
+    prevents Baby Buddy from starting.
+    """
+    import logging
+
+    logger = logging.getLogger("babybuddy.plugins")
+    results = []
+    try:
+        from importlib.metadata import entry_points
+
+        for ep in entry_points(group="babybuddy.plugins"):
+            try:
+                # Entry points use "module:Class" notation; Django
+                # INSTALLED_APPS expects "module.Class" (dots only).
+                if ep.value.count(":") != 1:
+                    logger.warning(
+                        "Plugin entry point %r has invalid value %r "
+                        "(expected 'module:ClassName') — skipped",
+                        ep.name,
+                        ep.value,
+                    )
+                    continue
+                results.append(ep.value.replace(":", "."))
+            except Exception as exc:
+                logger.error(
+                    "Failed to load Baby Buddy plugin entry point %r: %s",
+                    ep.name,
+                    exc,
+                )
+    except Exception as exc:
+        logger.error("Failed to read babybuddy.plugins entry points: %s", exc)
+    return results
+
+
 # Applications
 # https://docs.djangoproject.com/en/5.0/ref/applications/
 
@@ -57,6 +102,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    *_discover_pip_plugins(),
 ]
 
 # Middleware
@@ -101,6 +147,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "babybuddy.plugins.plugin_context",
             ],
         },
     },
