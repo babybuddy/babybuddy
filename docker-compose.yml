@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: babybuddy-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=babybuddy
+      - POSTGRES_USER=babybuddy
+      - POSTGRES_PASSWORD=babybuddy_db_password # Change this in production
+    volumes:
+      - babybuddy-db-data:/var/lib/postgresql/data
+
+  app:
+    image: ghcr.io/YOUR-GITHUB-USERNAME/babybuddy:latest
+    container_name: babybuddy-app
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    environment:
+      - TZ=America/Los_Angeles
+      - SECRET_KEY=change-this-to-a-secure-random-string
+      - ALLOWED_HOSTS=*
+      - CSRF_TRUSTED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=babybuddy
+      - DB_USER=babybuddy
+      - DB_PASSWORD=babybuddy_db_password # Must match the DB container
+    volumes:
+      - babybuddy-app-data:/app/data
+
+volumes:
+  babybuddy-db-data:
+  babybuddy-app-data:
