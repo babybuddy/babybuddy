@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/babybuddy-babybuddy-badge.png)](https://mseep.ai/app/babybuddy-babybuddy)
+
 <img src="babybuddy/static_src/logo/icon.png" height="150" align="left">
 
 # Baby Buddy
