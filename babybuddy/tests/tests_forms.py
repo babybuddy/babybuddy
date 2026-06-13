@@ -49,6 +49,7 @@ class FormsTestCase(TestCase):
             "timezone": "UTC",
             "next": "/user/settings/",
             "pagination_count": 25,
+            "theme": "dark",
         }
 
     def test_change_password(self):
@@ -283,6 +284,17 @@ class FormsTestCase(TestCase):
         self.assertEqual(
             self.user.settings.dashboard_hide_age, datetime.timedelta(days=1)
         )
+
+    def test_user_settings_theme(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params["theme"] = "light"
+
+        page = self.c.post("/user/settings/", data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings.theme, "light")
 
     def test_csrf_error_handling(self):
         c = HttpClient(enforce_csrf_checks=True)
