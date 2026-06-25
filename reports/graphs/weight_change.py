@@ -33,6 +33,7 @@ def weight_change(
     )
 
     if percentile_weights:
+        percentile_weights = percentile_weights.order_by("age_in_days")
         dates = list(
             map(
                 lambda timedelta: birthday + timedelta,
@@ -43,36 +44,37 @@ def weight_change(
         # reduce percentile data xrange to end 1 day after last weigh in for formatting purposes
         # https://github.com/babybuddy/babybuddy/pull/708#discussion_r1332335789
         last_date_for_percentiles = min(max(dates), max(weighing_dates))
-        dates = dates[: dates.index(last_date_for_percentiles) + 1]
+        end_index = dates.index(last_date_for_percentiles) + 1
+        dates = dates[:end_index]
 
         percentile_weight_3_trace = go.Scatter(
             name=_("P3"),
             x=dates,
-            y=list(percentile_weights.values_list("p3_weight", flat=True)),
+            y=list(percentile_weights.values_list("p3_weight", flat=True))[:end_index],
             line={"color": "red"},
         )
         percentile_weight_15_trace = go.Scatter(
             name=_("P15"),
             x=dates,
-            y=list(percentile_weights.values_list("p15_weight", flat=True)),
+            y=list(percentile_weights.values_list("p15_weight", flat=True))[:end_index],
             line={"color": "orange"},
         )
         percentile_weight_50_trace = go.Scatter(
             name=_("P50"),
             x=dates,
-            y=list(percentile_weights.values_list("p50_weight", flat=True)),
+            y=list(percentile_weights.values_list("p50_weight", flat=True))[:end_index],
             line={"color": "green"},
         )
         percentile_weight_85_trace = go.Scatter(
             name=_("P85"),
             x=dates,
-            y=list(percentile_weights.values_list("p85_weight", flat=True)),
+            y=list(percentile_weights.values_list("p85_weight", flat=True))[:end_index],
             line={"color": "orange"},
         )
         percentile_weight_97_trace = go.Scatter(
             name=_("P97"),
             x=dates,
-            y=list(percentile_weights.values_list("p97_weight", flat=True)),
+            y=list(percentile_weights.values_list("p97_weight", flat=True))[:end_index],
             line={"color": "red"},
         )
 
