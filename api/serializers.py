@@ -142,6 +142,7 @@ class ChildSerializer(serializers.HyperlinkedModelSerializer):
             "last_name",
             "birth_date",
             "birth_time",
+            "due_date",
             "slug",
             "picture",
         )

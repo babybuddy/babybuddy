@@ -140,6 +140,7 @@ class ChildAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "last_name": "Child",
                 "birth_date": "2017-11-11",
                 "birth_time": None,
+                "due_date": None,
                 "slug": "fake-child",
                 "picture": None,
             },

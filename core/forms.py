@@ -199,12 +199,13 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = models.Child
-        fields = ["first_name", "last_name", "birth_date", "birth_time"]
+        fields = ["first_name", "last_name", "birth_date", "birth_time", "due_date"]
         if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
             fields.append("picture")
         widgets = {
             "birth_date": DateInput(),
             "birth_time": TimeInput(),
+            "due_date": DateInput(),
         }
 
 
