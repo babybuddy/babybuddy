@@ -192,6 +192,16 @@ class Child(models.Model):
     )
     birth_date = models.DateField(blank=False, null=False, verbose_name=_("Birth date"))
     birth_time = models.TimeField(blank=True, null=True, verbose_name=_("Birth time"))
+    due_date = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name=_("Due date"),
+        help_text=_(
+            "Estimated due date. When set and later than the birth date (i.e. "
+            "the child was born preterm), growth percentiles are plotted "
+            "against corrected age."
+        ),
+    )
     slug = models.SlugField(
         allow_unicode=True,
         blank=False,

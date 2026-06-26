@@ -244,7 +244,7 @@ class HeightChangeChildReport(PermissionRequiredMixin, DetailView):
         context["target_url"] = self.target_url
         if actual_heights:
             context["html"], context["js"] = graphs.height_change(
-                actual_heights, percentile_heights, birthday
+                actual_heights, percentile_heights, birthday, child.due_date
             )
         return context
 
@@ -391,7 +391,7 @@ class WeightChangeChildReport(PermissionRequiredMixin, DetailView):
         context["target_url"] = self.target_url
         if actual_weights:
             context["html"], context["js"] = graphs.weight_change(
-                actual_weights, percentile_weights, birthday
+                actual_weights, percentile_weights, birthday, child.due_date
             )
         return context
 
