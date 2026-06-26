@@ -41,6 +41,25 @@ class ChildTestCase(TestCase):
         self.assertEqual(child.name(), "First Last")
         self.assertEqual(child.name(reverse=True), "Last, First")
 
+    def test_child_due_date_optional(self):
+        # Due date is optional and defaults to None.
+        child = models.Child.objects.create(
+            first_name="No", last_name="Duedate", birth_date=timezone.localdate()
+        )
+        self.assertIsNone(child.due_date)
+
+    def test_child_due_date_stored(self):
+        birth_date = datetime.date(2025, 6, 1)
+        due_date = datetime.date(2025, 6, 24)
+        child = models.Child.objects.create(
+            first_name="Preterm",
+            last_name="Child",
+            birth_date=birth_date,
+            due_date=due_date,
+        )
+        child.refresh_from_db()
+        self.assertEqual(child.due_date, due_date)
+
     def test_child_create_without_last_name(self):
         child = models.Child.objects.create(
             first_name="Nolastname", birth_date=timezone.localdate()
