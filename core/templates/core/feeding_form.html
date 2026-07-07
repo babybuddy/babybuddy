@@ -26,8 +26,18 @@
         </h1>
     {% elif request.resolver_match.url_name == 'bottle-feeding-add' %}
         <h1>{% trans "Add a Bottle Feeding" %}</h1>
+        <p class="text-muted mb-3">
+            {% blocktrans trimmed %}
+                Use this form to quickly record a bottle feeding with a single time and amount.
+            {% endblocktrans %}
+        </p>
     {% else %}
         <h1>{% trans "Add a Feeding" %}</h1>
+        <p class="text-muted mb-3">
+            {% blocktrans trimmed %}
+                Use this form to record a full feeding session with start time, end time, type, method, amount, notes, and tags.
+            {% endblocktrans %}
+        </p>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}
