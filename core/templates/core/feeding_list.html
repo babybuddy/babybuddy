@@ -19,7 +19,6 @@
             </a>
         {% endif %}
     </h1>
-
     {% if perms.core.add_feeding %}
         <p class="text-muted small mt-1 mb-3">
             {% blocktrans trimmed %}
@@ -27,7 +26,6 @@
             {% endblocktrans %}
         </p>
     {% endif %}
-
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
