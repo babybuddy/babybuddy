@@ -19,6 +19,15 @@
             </a>
         {% endif %}
     </h1>
+
+    {% if perms.core.add_feeding %}
+        <p class="text-muted small mt-1 mb-3">
+            {% blocktrans trimmed %}
+                Add Feeding is for full sessions. Add Bottle Feeding is for quick bottle-only entries.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
     {% include 'babybuddy/filter.html' %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
