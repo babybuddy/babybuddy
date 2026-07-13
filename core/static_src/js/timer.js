@@ -77,23 +77,44 @@ BabyBuddy.Timer = (function ($) {
       h.text(hours + 1);
     },
 
+    handleStoppedTimer: function () {
+      clearInterval(runIntervalId);
+
+      $("#timer-stopped-message").removeClass("d-none");
+
+      $("#timer-actions")
+        .find("a, button")
+        .addClass("disabled")
+        .prop("disabled", true);
+    },
+
     update: function () {
-      $.get("/api/timers/" + timerId + "/", function (data) {
-        if (data && "duration" in data) {
-          clearInterval(runIntervalId);
-          var duration = data.duration.split(/[\s:.]/);
-          if (duration.length === 5) {
-            duration[0] = parseInt(duration[0]) * 24 + parseInt(duration[1]);
-            duration[1] = duration[2];
-            duration[2] = duration[3];
+      $.get("/api/timers/" + timerId + "/")
+        .done(function (data) {
+          if (data && "duration" in data) {
+            clearInterval(runIntervalId);
+
+            var duration = data.duration.split(/[\s:.]/);
+
+            if (duration.length === 5) {
+              duration[0] = parseInt(duration[0]) * 24 + parseInt(duration[1]);
+              duration[1] = duration[2];
+              duration[2] = duration[3];
+            }
+
+            timerElement.find(".timer-hours").text(parseInt(duration[0]));
+            timerElement.find(".timer-minutes").text(parseInt(duration[1]));
+            timerElement.find(".timer-seconds").text(parseInt(duration[2]));
+
+            lastUpdate = new Date();
+            runIntervalId = setInterval(Timer.tick, 1000);
           }
-          timerElement.find(".timer-hours").text(parseInt(duration[0]));
-          timerElement.find(".timer-minutes").text(parseInt(duration[1]));
-          timerElement.find(".timer-seconds").text(parseInt(duration[2]));
-          lastUpdate = new Date();
-          runIntervalId = setInterval(Timer.tick, 1000);
-        }
-      });
+        })
+        .fail(function (xhr) {
+          if (xhr.status === 404) {
+            Timer.handleStoppedTimer();
+          }
+        });
     },
   };
 
