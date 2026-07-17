@@ -5,6 +5,9 @@ from django.urls import reverse
 from django.utils import timezone, timesince
 from django.utils.translation import gettext as _
 
+from core.timeline_builder import TimelineEventBuilder
+from core.timeline_strategies import SleepTimelineStrategy
+
 from core.models import (
     DiaperChange,
     Feeding,
@@ -31,7 +34,14 @@ def get_objects(date, child=None):
     _add_diaper_changes(min_date, max_date, events, child)
     _add_feedings(min_date, max_date, events, child)
     _add_medication(min_date, max_date, events, child)
-    _add_sleeps(min_date, max_date, events, child)
+
+    SleepTimelineStrategy(duration_string).add_events(
+        min_date,
+        max_date,
+        events,
+        child,
+    )
+
     _add_tummy_times(min_date, max_date, events, child)
     _add_notes(min_date, max_date, events, child)
     _add_temperature_measurements(min_date, max_date, events, child)
@@ -54,76 +64,42 @@ def _add_tummy_times(min_date, max_date, events, child=None):
     )
     if child:
         instances = instances.filter(child=child)
+
     for instance in instances:
         details = []
         if instance.milestone:
             details.append(instance.milestone)
-        edit_link = reverse("core:tummytime-update", args=[instance.id])
-        events.append(
-            {
-                "time": timezone.localtime(instance.start),
-                "event": _("%(child)s started tummy time!")
-                % {"child": instance.child.first_name},
-                "details": details,
-                "edit_link": edit_link,
-                "model_name": instance.model_name,
-                "type": "start",
-                "tags": instance.tags.all(),
-            }
+
+        start_event = (
+            TimelineEventBuilder(instance)
+            .with_time(instance.start)
+            .with_message(
+                _("%(child)s started tummy time!")
+                % {"child": instance.child.first_name}
+            )
+            .with_details(details)
+            .with_edit_link("core:tummytime-update")
+            .with_type("start")
+            .build()
+        )
+        events.append(start_event)
+
+        end_builder = (
+            TimelineEventBuilder(instance)
+            .with_time(instance.end)
+            .with_message(
+                _("%(child)s finished tummy time.")
+                % {"child": instance.child.first_name}
+            )
+            .with_details(details)
+            .with_edit_link("core:tummytime-update")
+            .with_type("end")
         )
 
-        end = {
-            "time": timezone.localtime(instance.end),
-            "event": _("%(child)s finished tummy time.")
-            % {"child": instance.child.first_name},
-            "details": details,
-            "edit_link": edit_link,
-            "model_name": instance.model_name,
-            "type": "end",
-            "tags": instance.tags.all(),
-        }
         if instance.duration > timedelta(seconds=0):
-            end["duration"] = duration_string(instance.duration)
+            end_builder.with_duration(duration_string(instance.duration))
 
-        events.append(end)
-
-
-def _add_sleeps(min_date, max_date, events, child=None):
-    instances = Sleep.objects.filter(start__range=(min_date, max_date)).order_by(
-        "-start"
-    )
-    if child:
-        instances = instances.filter(child=child)
-    for instance in instances:
-        details = []
-        if instance.notes:
-            details.append(instance.notes)
-        edit_link = reverse("core:sleep-update", args=[instance.id])
-        events.append(
-            {
-                "time": timezone.localtime(instance.start),
-                "event": _("%(child)s fell asleep.")
-                % {"child": instance.child.first_name},
-                "details": details,
-                "edit_link": edit_link,
-                "model_name": instance.model_name,
-                "type": "start",
-                "tags": instance.tags.all(),
-            }
-        )
-
-        end = {
-            "time": timezone.localtime(instance.end),
-            "event": _("%(child)s woke up.") % {"child": instance.child.first_name},
-            "details": details,
-            "edit_link": edit_link,
-            "model_name": instance.model_name,
-            "type": "end",
-            "tags": instance.tags.all(),
-        }
-        if instance.duration > timedelta(seconds=0):
-            end["duration"] = duration_string(instance.duration)
-        events.append(end)
+        events.append(end_builder.build())
 
 
 def _add_feedings(min_date, max_date, events, child=None):
@@ -136,55 +112,68 @@ def _add_feedings(min_date, max_date, events, child=None):
     )
     if child:
         instances = instances.filter(child=child)
+
     for instance in instances:
         details = []
         if instance.notes:
             details.append(instance.notes)
+
         time_since_prev = None
         if prev_start:
             time_since_prev = timesince.timesince(prev_start, now=instance.start)
+
         prev_start = instance.start
+
         if instance.start < min_date:
             continue
-        edit_link = reverse("core:feeding-update", args=[instance.id])
+
         if instance.amount:
             details.append(_("Amount") + ": " + str(instance.amount))
 
-        base_object = {
-            "time": timezone.localtime(instance.start),
-            "details": details,
-            "edit_link": edit_link,
-            "model_name": instance.model_name,
-            "tags": instance.tags.all(),
-        }
-
         if instance.duration > timedelta(seconds=0):
-            start_event = {
-                **base_object,
-                "event": _("%(child)s started feeding.")
-                % {"child": instance.child.first_name},
-                "time_since_prev": time_since_prev,
-                "type": "start",
-            }
+            start_event = (
+                TimelineEventBuilder(instance)
+                .with_time(instance.start)
+                .with_message(
+                    _("%(child)s started feeding.")
+                    % {"child": instance.child.first_name}
+                )
+                .with_details(details)
+                .with_edit_link("core:feeding-update")
+                .with_type("start")
+                .with_value("time_since_prev", time_since_prev)
+                .build()
+            )
 
-            end_event = {
-                **base_object,
-                "time": timezone.localtime(instance.end),
-                "event": _("%(child)s finished feeding.")
-                % {"child": instance.child.first_name},
-                "type": "end",
-                "duration": duration_string(instance.duration),
-            }
+            end_event = (
+                TimelineEventBuilder(instance)
+                .with_time(instance.end)
+                .with_message(
+                    _("%(child)s finished feeding.")
+                    % {"child": instance.child.first_name}
+                )
+                .with_details(details)
+                .with_edit_link("core:feeding-update")
+                .with_type("end")
+                .with_duration(duration_string(instance.duration))
+                .build()
+            )
 
             events.extend([start_event, end_event])
         else:
-            feed_event = {
-                **base_object,
-                "event": _("%(child)s had a feeding.")
-                % {"child": instance.child.first_name},
-                "time_since_prev": time_since_prev,
-            }
-            events.append(feed_event)
+            feeding_event = (
+                TimelineEventBuilder(instance)
+                .with_time(instance.start)
+                .with_message(
+                    _("%(child)s had a feeding.") % {"child": instance.child.first_name}
+                )
+                .with_details(details)
+                .with_edit_link("core:feeding-update")
+                .with_value("time_since_prev", time_since_prev)
+                .build()
+            )
+
+            events.append(feeding_event)
 
 
 def _add_diaper_changes(min_date, max_date, events, child):
