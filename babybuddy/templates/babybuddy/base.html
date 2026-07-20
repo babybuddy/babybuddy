@@ -4,7 +4,9 @@
 {% get_current_locale as LOCALE %}
 {% get_current_timezone as TIMEZONE %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" data-bs-theme="dark" dir="{{ LANGUAGE_BIDI|yesno:"rtl,ltr" }}">
+<html lang="{{ LANGUAGE_CODE }}"
+      data-bs-theme="dark"
+      dir="{{ LANGUAGE_BIDI|yesno:"rtl,ltr" }}">
     <head>
         <meta charset="utf-8" />
         <title>
