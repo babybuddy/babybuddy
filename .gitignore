@@ -7,7 +7,7 @@
 
 # Virtual environment files (pipenv may use this convention).
 .venv
-
+venv
 # IDE configuration files.
 /.idea
 

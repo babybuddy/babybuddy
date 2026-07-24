@@ -17,6 +17,14 @@ def _hide_empty(context):
     return context["request"].user.settings.dashboard_hide_empty
 
 
+def _show_card(context, card):
+    return getattr(
+        context["request"].user.settings,
+        f"dashboard_show_{card}",
+        True,
+    )
+
+
 def _filter_data_age(context, keyword="end"):
     filter = {}
     if context["request"].user.settings.dashboard_hide_age:
@@ -33,6 +41,13 @@ def card_diaperchange_last(context, child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Diaper Change instance.
     """
+    if not _show_card(context, "diaperchange"):
+        return {
+            "type": "diaperchange",
+            "change": None,
+            "empty": True,
+            "hide_empty": True,
+        }
     instance = (
         models.DiaperChange.objects.filter(child=child)
         .filter(**_filter_data_age(context, "time"))
@@ -58,6 +73,15 @@ def card_diaperchange_types(context, child, date=None):
     :param date: a datetime object for the day to filter.
     :returns: a dictionary with the wet/solid/empty statistics.
     """
+    if not _show_card(context, "diaperchange"):
+        return {
+            "type": "diaperchange",
+            "stats": {},
+            "total": 0,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     if not date:
         date = timezone.localtime()
     else:
@@ -117,6 +141,15 @@ def card_breastfeeding(context, child, date=None):
     :param date: a datetime object for the day to filter.
     :returns: a dictionary with the statistics.
     """
+    if not _show_card(context, "feeding"):
+        return {
+            "type": "feeding",
+            "stats": {},
+            "total": 0,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     if date:
         date = timezone.datetime.combine(date, timezone.localtime().min.time())
         date = timezone.make_aware(date)
@@ -186,6 +219,14 @@ def card_feeding_recent(context, child, end_date=None):
     :param end_date: a Date object for the day to filter.
     :returns: a dict with count and total amount for the Feeding instances.
     """
+    if not _show_card(context, "feeding"):
+        return {
+            "feedings": [],
+            "type": "feeding",
+            "empty": True,
+            "hide_empty": True,
+        }
+
     if not end_date:
         end_date = timezone.localtime()
 
@@ -230,6 +271,15 @@ def card_feeding_last(context, child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Feeding instance.
     """
+    if not _show_card(context, "feeding"):
+        return {
+            "type": "feeding",
+            "feeding": None,
+            "feeding_diff_base": None,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     instance = (
         models.Feeding.objects.filter(child=child)
         .filter(**_filter_data_age(context))
@@ -254,6 +304,14 @@ def card_feeding_last_method(context, child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Feeding instances.
     """
+    if not _show_card(context, "feeding"):
+        return {
+            "type": "feeding",
+            "feedings": [],
+            "empty": True,
+            "hide_empty": True,
+        }
+
     instances = (
         models.Feeding.objects.filter(child=child)
         .filter(**_filter_data_age(context))
@@ -278,6 +336,14 @@ def card_pumping_last(context, child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Pumping instance.
     """
+    if not _show_card(context, "pumping"):
+        return {
+            "type": "pumping",
+            "pumping": None,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     instance = (
         models.Pumping.objects.filter(child=child)
         .filter(**_filter_data_age(context))
@@ -302,6 +368,14 @@ def card_pumping_recent(context, child, end_date=None):
     :param end_date: a Date object for the day to filter.
     :returns: a dict with count and total amount for the Pumping instances.
     """
+    if not _show_card(context, "pumping"):
+        return {
+            "pumpings": [],
+            "type": "pumping",
+            "empty": True,
+            "hide_empty": True,
+        }
+
     if not end_date:
         end_date = timezone.localtime()
 
@@ -339,6 +413,14 @@ def card_sleep_last(context, child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Sleep instance.
     """
+    if not _show_card(context, "sleep"):
+        return {
+            "type": "sleep",
+            "sleep": None,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     instance = (
         models.Sleep.objects.filter(child=child)
         .filter(**_filter_data_age(context))
@@ -363,6 +445,14 @@ def card_sleep_recent(context, child, end_date=None):
     :param end_date: a Date object for the day to filter.
     :returns: a dict with count and total amount for the sleeping instances.
     """
+    if not _show_card(context, "sleep"):
+        return {
+            "sleeps": [],
+            "type": "sleep",
+            "empty": True,
+            "hide_empty": True,
+        }
+
     if not end_date:
         end_date = timezone.localtime()
 
@@ -433,6 +523,15 @@ def card_sleep_naps_day(context, child, date=None):
     :param date: a Date object for the day to filter.
     :returns: a dictionary of nap data statistics.
     """
+    if not _show_card(context, "sleep"):
+        return {
+            "type": "sleep",
+            "total": None,
+            "count": 0,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     if not date:
         date = timezone.localtime().date()
     instances = models.Sleep.objects.filter(child=child, nap=True).filter(
@@ -458,6 +557,9 @@ def card_statistics(context, child):
     :param child: an instance of the Child model.
     :returns: a list of dictionaries with "type", "stat" and "title" entries.
     """
+    if not _show_card(context, "statistics"):
+        return {"stats": [], "empty": True, "hide_empty": True}
+
     stats = []
 
     changes = _diaperchange_statistics(child)
@@ -843,6 +945,14 @@ def card_tummytime_last(context, child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Tummy Time instance.
     """
+    if not _show_card(context, "tummytime"):
+        return {
+            "type": "tummytime",
+            "tummytime": None,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     instance = (
         models.TummyTime.objects.filter(child=child)
         .filter(**_filter_data_age(context))
@@ -867,6 +977,16 @@ def card_tummytime_day(context, child, date=None):
     :param date: a Date object for the day to filter.
     :returns: a dictionary of all Tummy Time instances and stats for date.
     """
+    if not _show_card(context, "tummytime"):
+        return {
+            "type": "tummytime",
+            "stats": {"total": timezone.timedelta(seconds=0), "count": 0},
+            "instances": [],
+            "last": None,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     if not date:
         date = timezone.localtime().date()
     instances = models.TummyTime.objects.filter(
@@ -895,6 +1015,14 @@ def card_medication_last(context, child):
     :param child: an instance of the Child model.
     :returns: a dictionary with the most recent Medication instance.
     """
+    if not _show_card(context, "medication"):
+        return {
+            "type": "medication",
+            "medication": None,
+            "empty": True,
+            "hide_empty": True,
+        }
+
     instance = (
         models.Medication.objects.filter(child=child)
         .filter(**_filter_data_age(context, "time"))

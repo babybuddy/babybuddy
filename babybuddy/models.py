@@ -71,6 +71,34 @@ class Settings(models.Model):
     dashboard_hide_empty = models.BooleanField(
         verbose_name=_("Hide Empty Dashboard Cards"), default=False, editable=True
     )
+
+    dashboard_show_feeding = models.BooleanField(
+        verbose_name=_("Show Feeding on Dashboard"), default=True
+    )
+
+    dashboard_show_diaperchange = models.BooleanField(
+        verbose_name=_("Show Diaper Changes on Dashboard"), default=True
+    )
+
+    dashboard_show_pumping = models.BooleanField(
+        verbose_name=_("Show Pumping on Dashboard"), default=True
+    )
+
+    dashboard_show_sleep = models.BooleanField(
+        verbose_name=_("Show Sleep on Dashboard"), default=True
+    )
+
+    dashboard_show_medication = models.BooleanField(
+        verbose_name=_("Show Medication on Dashboard"), default=True
+    )
+
+    dashboard_show_tummytime = models.BooleanField(
+        verbose_name=_("Show Tummy Time on Dashboard"), default=True
+    )
+
+    dashboard_show_statistics = models.BooleanField(
+        verbose_name=_("Show Statistics on Dashboard"), default=True
+    )
     dashboard_hide_age = models.DurationField(
         verbose_name=_("Hide data older than"),
         help_text=_(
