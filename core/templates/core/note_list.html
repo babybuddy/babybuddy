@@ -68,7 +68,7 @@
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <th colspan="5">{% trans "No notes found." %}</th>
+                                    <th colspan="{% if not unique_child %} 6 {% else %} 5 {% endif %}">{% trans "No notes found." %}</th>
                                 </tr>
                             {% endfor %}
                         </tbody>
