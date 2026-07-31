@@ -256,12 +256,22 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
         {"fields": ["child", "start", "end", "type", "method"], "layout": "required"},
         {"fields": ["amount"]},
-        {"fields": ["notes", "tags"], "layout": "advanced"},
+        {"fields": ["previous_feeding", "notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
         model = models.Feeding
-        fields = ["child", "start", "end", "type", "method", "amount", "notes", "tags"]
+        fields = [
+            "child",
+            "start",
+            "end",
+            "type",
+            "method",
+            "amount",
+            "previous_feeding",
+            "notes",
+            "tags",
+        ]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
@@ -270,6 +280,26 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
             "method": PillRadioSelect(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Populate previous_feeding dropdown with recent feedings
+        recent = models.Feeding.objects.order_by("-end")[:15]
+        pf_choices = [("", _("---------"))]
+        for f in recent:
+            if self.instance and self.instance.pk == f.pk:
+                continue  # Don't let a feeding link to itself
+            local_start = timezone.localtime(f.start)
+            local_end = timezone.localtime(f.end)
+            if local_start.strftime("%m/%d") == local_end.strftime("%m/%d"):
+                label = f"{local_start.strftime('%m/%d %I:%M %p')} - {local_end.strftime('%I:%M %p')} — {f.get_method_display()}"
+            else:
+                label = f"{local_start.strftime('%m/%d %I:%M %p')} - {local_end.strftime('%m/%d %I:%M %p')} — {f.get_method_display()}"
+            if f.amount:
+                label += f" ({f.amount}ml)"
+            pf_choices.append((f.id, label))
+        self.fields["previous_feeding"].choices = pf_choices
 
 
 class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):

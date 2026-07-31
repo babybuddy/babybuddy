@@ -177,6 +177,7 @@ class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "type",
             "method",
             "amount",
+            "previous_feeding",
             "notes",
             "tags",
         )
