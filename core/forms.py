@@ -301,6 +301,22 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
             pf_choices.append((f.id, label))
         self.fields["previous_feeding"].choices = pf_choices
 
+        # Auto-link previous_feeding if this is a new feeding and the most
+        # recent feeding ended within 30 minutes of this one's start time
+        if not (self.instance and self.instance.pk):
+            last_feeding = models.Feeding.objects.order_by("-end").first()
+            if last_feeding:
+                # Check the form's initial start time, or default to now
+                start_val = (
+                    self.initial.get("start") if hasattr(self, "initial") else None
+                )
+                if start_val:
+                    from datetime import timedelta
+
+                    gap = abs(start_val - last_feeding.end)
+                    if gap <= timedelta(minutes=30):
+                        self.fields["previous_feeding"].initial = last_feeding.id
+
 
 class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
