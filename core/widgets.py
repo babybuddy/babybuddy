@@ -1,7 +1,7 @@
 import datetime
 from typing import Any, Dict, Optional
 
-from django.forms import RadioSelect, widgets
+from django.forms import CheckboxSelectMultiple, RadioSelect, widgets
 
 from . import models
 
@@ -117,3 +117,36 @@ class PillRadioSelect(RadioSelect):
         attrs = super().build_attrs(base_attrs, extra_attrs)
         attrs["class"] += " btn-check d-none"
         return attrs
+
+
+class FoodMultiCheckboxSelect(CheckboxSelectMultiple):
+    template_name = "core/widget_food_multicheck.html"
+    recent_by_child = None
+    can_add_food = False
+
+    def __init__(self, attrs=None, choices=()):
+        attrs = {
+            **(attrs or {}),
+            "class": "form-check-input me-2",
+            "style": "width: 1.15em; height: 1.15em;",
+        }
+        super().__init__(attrs=attrs, choices=choices)
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+        classes = attrs.get("class", "").split()
+        attrs["class"] = " ".join(
+            css_class
+            for css_class in classes
+            if css_class not in {"form-control", "form-select"}
+        )
+        return attrs
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context["widget"]["recent_by_child"] = self.recent_by_child or {}
+        context["widget"]["can_add_food"] = self.can_add_food
+        context["widget"]["food_categories"] = models.Food._meta.get_field(
+            "category"
+        ).choices
+        return context

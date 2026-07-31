@@ -17,4 +17,12 @@
 {% endblock %}
 {% block content %}
     {% if change %}{{ change.attributes|join:', ' }}{% endif %}
+    {% if can_add %}
+        <div class="mt-2">
+            <a class="btn btn-sm btn-dashboard-add-link p-0 text-decoration-none"
+               href="{% url 'core:diaperchange-add' %}?child={{ child.slug }}">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add Diaper Change" %}
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}
+    {% trans "Meals" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Meals" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Meals" %}
+        {% if perms.core.add_meal %}
+            <a href="{% url 'core:meal-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add meal" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Date" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Meal type" %}</th>
+                    <th>{% trans "Foods" %}</th>
+                    <th>{% trans "Approximate quantity" %}</th>
+                    <th>{% trans "Preparation" %}</th>
+                    <th>{% trans "Tags" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% regroup object_list by local_date as meal_days %}
+                {% for day in meal_days %}
+                    <tr class="table-group-divider">
+                        <th colspan="{% if not unique_child %}8{% else %}7{% endif %}">
+                            {{ day.grouper|date:"DATE_FORMAT" }}
+                        </th>
+                    </tr>
+                    {% with summary=day.list.0.day_summary %}
+                        <tr class="row-details">
+                            <td colspan="{% if not unique_child %}8{% else %}7{% endif %}">
+                                <strong>{% trans "Daily summary" %}:</strong>
+                                {% blocktrans with total=summary.meal_count %}Meals: {{ total }}{% endblocktrans %}
+                                · {% blocktrans with total=summary.food_count %}Different foods: {{ total }}{% endblocktrans %}
+                                {% if summary.category_counts %}
+                                    <div>
+                                        <small>
+                                            {% trans "Categories" %}:
+                                            {% for category, count in summary.category_counts %}
+                                                {{ category }} ({{ count }}){% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        </small>
+                                    </div>
+                                {% endif %}
+                                {% if summary.new_foods %}
+                                    <div>
+                                        <small>
+                                            {% trans "First introductions" %}:
+                                            {% for food in summary.new_foods %}{{ food }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                                        </small>
+                                    </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endwith %}
+                    {% for meal in day.list %}
+                        <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_meal %}
+                                    <a href="{% url 'core:meal-update' meal.id %}"
+                                       class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.delete_meal %}
+                                    <a href="{% url 'core:meal-delete' meal.id %}"
+                                       class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <th scope="row">{{ meal.time|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td>
+                                <a href="{% url 'core:child' meal.child.slug %}">{{ meal.child }}</a>
+                            </td>
+                        {% endif %}
+                        <td>{{ meal.get_meal_type_display }}</td>
+                        <td>
+                            {% for meal_food in meal.mealfood_set.all %}
+                                {{ meal_food.food.name }}
+                                {% if meal_food.is_first_introduction %}
+                                    <span class="badge bg-info text-dark">{% trans "New" %}</span>
+                                {% endif %}
+                                {% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ meal.get_quantity_display }}</td>
+                        <td>{{ meal.get_preparation_display }}</td>
+                        <td>{% include "core/render_tag_list.html" with tags=meal.tags.all %}</td>
+                        </tr>
+                        {% if meal.notes %}
+                            <tr class="row-details">
+                                <td colspan="{% if not unique_child %}8{% else %}7{% endif %}">
+                                    <i class="icon-note me-2" aria-hidden="true"></i>{{ meal.notes }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% empty %}
+                    <tr>
+                        <th colspan="{% if not unique_child %}8{% else %}7{% endif %}">{% trans "No meals found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

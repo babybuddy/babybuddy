@@ -628,6 +628,7 @@ class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "end": "2017-11-19T04:30:00-05:00",
                 "duration": "01:30:00",
                 "nap": True,
+                "wakeups": 0,
                 "notes": "lots of squirming",
                 "tags": [],
             },
@@ -638,11 +639,13 @@ class SleepAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
             "child": 1,
             "start": "2017-11-21T19:30:00-05:00",
             "end": "2017-11-21T23:00:00-05:00",
+            "wakeups": 2,
             "notes": "used new swaddle",
         }
         response = self.client.post(self.endpoint, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.Sleep.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.wakeups, 2)
         self.assertEqual(str(obj.duration), "3:30:00")
         self.assertEqual(obj.notes, data["notes"])
 

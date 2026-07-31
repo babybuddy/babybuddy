@@ -1,0 +1,35 @@
+{% extends 'cards/base.html' %}
+{% load i18n %}
+{% block header %}
+    <a href="{% url 'core:meal-list' %}?child={{ child.pk }}">{% trans "Meals" %}</a>
+{% endblock %}
+{% block title %}
+    {% if meal %}
+        <div>{{ meal.get_meal_type_display }}</div>
+        <small>{{ meal.time|date:"SHORT_DATETIME_FORMAT" }}</small>
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if meal %}<div>{{ meal.foods.all|join:", " }}</div>{% endif %}
+    <div class="mt-2">
+        <strong>{% trans "Today" %}:</strong>
+        {% blocktrans with total=meal_count %}Meals: {{ total }}{% endblocktrans %}
+        · {% blocktrans with total=food_count %}Different foods: {{ total }}{% endblocktrans %}
+    </div>
+    {% if first_introductions %}
+        <div class="mt-1">
+            <strong>{% trans "First introductions" %}:</strong>
+            {{ first_introductions|join:", " }}
+        </div>
+    {% endif %}
+    {% if can_add %}
+        <div class="mt-2">
+                <a class="btn btn-sm btn-dashboard-add-link p-0 text-decoration-none"
+               href="{% url 'core:meal-add' %}?child={{ child.slug }}">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add meal" %}
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

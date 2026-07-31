@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404
+from django.db.models.deletion import ProtectedError
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework import viewsets, views
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.schemas.openapi import AutoSchema
 
@@ -59,6 +62,41 @@ class FeedingViewSet(viewsets.ModelViewSet):
     filterset_class = filters.FeedingFilter
     ordering_fields = ("amount", "duration", "end", "start")
     ordering = "-end"
+
+
+class FoodViewSet(viewsets.ModelViewSet):
+    queryset = models.Food.objects.all()
+    serializer_class = serializers.FoodSerializer
+    filterset_class = filters.FoodFilter
+    ordering_fields = ("name", "category", "active")
+    ordering = "name"
+
+    def perform_destroy(self, instance):
+        try:
+            instance.delete()
+        except ProtectedError as error:
+            raise ValidationError(
+                _(
+                    "This food is already in the meal history. "
+                    "Deactivate it instead of deleting it."
+                )
+            ) from error
+
+
+class MealViewSet(viewsets.ModelViewSet):
+    queryset = models.Meal.objects.prefetch_related("foods", "tags")
+    serializer_class = serializers.MealSerializer
+    filterset_class = filters.MealFilter
+    ordering_fields = ("time", "meal_type", "quantity")
+    ordering = "-time"
+
+
+class ChildFoodProfileViewSet(viewsets.ModelViewSet):
+    queryset = models.ChildFoodProfile.objects.select_related("child", "food")
+    serializer_class = serializers.ChildFoodProfileSerializer
+    filterset_class = filters.ChildFoodProfileFilter
+    ordering_fields = ("updated", "child", "food")
+    ordering = "-updated"
 
 
 class HeadCircumferenceViewSet(viewsets.ModelViewSet):

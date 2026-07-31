@@ -369,6 +369,225 @@ class Feeding(models.Model):
         validate_unique_period(Feeding.objects.filter(child=self.child), self)
 
 
+class Food(models.Model):
+    model_name = "food"
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    category = models.CharField(
+        choices=[
+            ("fruit", _("Fruit")),
+            ("vegetable", _("Vegetable")),
+            ("meat", _("Meat")),
+            ("fish", _("Fish")),
+            ("egg", _("Egg")),
+            ("dairy", _("Dairy")),
+            ("cereal", _("Cereal")),
+            ("legume", _("Legume")),
+            ("nuts", _("Nuts")),
+            ("other", _("Other")),
+        ],
+        max_length=32,
+        verbose_name=_("Category"),
+    )
+    allergen = models.BooleanField(default=False, verbose_name=_("Allergen"))
+    notes = models.TextField(blank=True, verbose_name=_("Notes"))
+    active = models.BooleanField(default=True, verbose_name=_("Active"))
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = [Lower("name")]
+        constraints = [
+            models.UniqueConstraint(
+                Lower("name"),
+                name="core_food_name_ci_unique",
+                violation_error_message=_(
+                    "A food with this name already exists."
+                ),
+            )
+        ]
+        indexes = [
+            models.Index(fields=["active", "category"], name="core_food_active_cat_idx")
+        ]
+        verbose_name = _("Food")
+        verbose_name_plural = _("Foods")
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.strip()
+        super().save(*args, **kwargs)
+
+
+class Meal(models.Model):
+    model_name = "meal"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="meals",
+        verbose_name=_("Child"),
+    )
+    time = models.DateTimeField(
+        default=timezone.localtime, verbose_name=_("Time")
+    )
+    meal_type = models.CharField(
+        choices=[
+            ("breakfast", _("Breakfast")),
+            ("morning snack", _("Morning snack")),
+            ("lunch", _("Lunch")),
+            ("afternoon snack", _("Afternoon snack")),
+            ("dinner", _("Dinner")),
+            ("snack", _("Snack")),
+            ("other", _("Other")),
+        ],
+        max_length=32,
+        verbose_name=_("Meal type"),
+    )
+    foods = models.ManyToManyField(
+        Food,
+        related_name="meals",
+        through="MealFood",
+        verbose_name=_("Foods"),
+    )
+    quantity = models.CharField(
+        blank=True,
+        choices=[
+            ("", _("Not specified")),
+            ("tasted", _("Tasted only")),
+            ("little", _("A little")),
+            ("normal", _("Normal")),
+            ("plenty", _("Plenty")),
+            ("all", _("All")),
+        ],
+        default="",
+        max_length=16,
+        verbose_name=_("Approximate quantity"),
+    )
+    preparation = models.CharField(
+        blank=True,
+        choices=[
+            ("blended", _("Blended")),
+            ("puree", _("Puree")),
+            ("pieces", _("Pieces")),
+            ("baby-led weaning", _("Baby-led weaning (BLW)")),
+            ("liquid", _("Liquid")),
+            ("other", _("Other")),
+        ],
+        max_length=32,
+        verbose_name=_("Preparation"),
+    )
+    notes = models.TextField(blank=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-time", "-id"]
+        indexes = [
+            models.Index(fields=["child", "-time"], name="core_meal_child_time_idx")
+        ]
+        verbose_name = _("Meal")
+        verbose_name_plural = _("Meals")
+
+    def __str__(self):
+        return str(_("Meal"))
+
+    def clean(self):
+        validate_time(self.time, "time")
+
+
+class MealFood(models.Model):
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    food = models.ForeignKey(Food, on_delete=models.PROTECT)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["meal", "food"], name="core_meal_food_unique"
+            )
+        ]
+        verbose_name = _("Meal food")
+        verbose_name_plural = _("Meal foods")
+
+    @property
+    def is_first_introduction(self):
+        if hasattr(self, "previously_consumed"):
+            return not self.previously_consumed
+        return not MealFood.objects.filter(
+            food=self.food,
+            meal__child=self.meal.child,
+        ).filter(
+            models.Q(meal__time__lt=self.meal.time)
+            | models.Q(
+                meal__time=self.meal.time,
+                meal_id__lt=self.meal_id,
+            )
+        ).exists()
+
+
+class ChildFoodProfile(models.Model):
+    model_name = "child_food_profile"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="food_profiles",
+        verbose_name=_("Child"),
+    )
+    food = models.ForeignKey(
+        Food,
+        on_delete=models.PROTECT,
+        related_name="child_profiles",
+        verbose_name=_("Food"),
+    )
+    taste = models.CharField(
+        blank=True,
+        choices=[
+            ("", _("Not rated")),
+            ("likes very much", _("Likes very much")),
+            ("likes", _("Likes")),
+            ("indifferent", _("Indifferent")),
+            ("dislikes", _("Dislikes")),
+            ("dislikes very much", _("Dislikes very much")),
+        ],
+        default="",
+        max_length=32,
+        verbose_name=_("Taste"),
+    )
+    tolerance = models.CharField(
+        blank=True,
+        choices=[
+            ("", _("Not rated")),
+            ("well tolerated", _("Well tolerated")),
+            ("poorly tolerated", _("Poorly tolerated")),
+            ("possible allergy", _("Possible allergy")),
+            ("confirmed allergy", _("Confirmed allergy")),
+        ],
+        default="",
+        max_length=32,
+        verbose_name=_("Tolerance"),
+    )
+    notes = models.TextField(blank=True, verbose_name=_("Notes"))
+    updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["child", "food"], name="core_child_food_profile_unique"
+            )
+        ]
+        ordering = ["child", "food__name"]
+        verbose_name = _("Child food profile")
+        verbose_name_plural = _("Child food profiles")
+
+    def __str__(self):
+        return f"{self.child} — {self.food}"
+
+
 class HeadCircumference(models.Model):
     model_name = "head_circumference"
     child = models.ForeignKey(
@@ -548,6 +767,7 @@ class Sleep(models.Model):
         blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
     )
     nap = models.BooleanField(null=False, blank=True, verbose_name=_("Nap"))
+    wakeups = models.PositiveIntegerField(default=0, verbose_name=_("Wake-ups"))
     duration = models.DurationField(
         editable=False, null=True, verbose_name=_("Duration")
     )
@@ -617,6 +837,8 @@ class Temperature(models.Model):
 
 
 class Timer(models.Model):
+    SLEEP_NAME = "__sleep__"
+
     model_name = "timer"
     child = models.ForeignKey(
         "Child",
@@ -649,6 +871,8 @@ class Timer(models.Model):
         verbose_name_plural = _("Timers")
 
     def __str__(self):
+        if self.name == self.SLEEP_NAME:
+            return str(_("Sleep"))
         return self.name or str(format_lazy(_("Timer #{id}"), id=self.id))
 
     @property

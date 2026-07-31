@@ -1,0 +1,20 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% if object %}{% trans "Update food profile" %}{% else %}{% trans "Add food profile" %}{% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:child-food-profile-list' %}">{% trans "Food profiles" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if object %}{% trans "Update" %}{% else %}{% trans "Add" %}{% endif %}
+    </li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% if object %}{% trans "Update food profile" %}{% else %}{% trans "Add food profile" %}{% endif %}
+    </h1>
+    <p class="text-muted">{% trans "Taste and tolerance are independent for each child." %}</p>
+    {% include 'babybuddy/form.html' %}
+{% endblock %}

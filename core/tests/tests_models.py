@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 import datetime
+from unittest import mock
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.core.management import call_command
+from django.db import IntegrityError, transaction
+from django.db.models import ProtectedError
 from django.test import TestCase
 from django.utils import timezone
 
@@ -144,6 +148,173 @@ class FeedingTestCase(TestCase):
         self.assertEqual(feeding.method, "both breasts")
 
 
+class FoodTestCase(TestCase):
+    def test_food_create_and_normalize_name(self):
+        food = models.Food.objects.create(name="  Banana  ", category="fruit")
+
+        self.assertEqual(food.name, "Banana")
+        self.assertEqual(str(food), "Banana")
+        self.assertTrue(food.active)
+        self.assertFalse(food.allergen)
+
+    def test_food_name_is_unique_case_insensitively(self):
+        models.Food.objects.create(name="Banana", category="fruit")
+
+        duplicate = models.Food(name="banana", category="fruit")
+        with self.assertRaises(ValidationError):
+            duplicate.validate_constraints()
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                models.Food.objects.create(name="BANANA", category="fruit")
+
+
+class MealTestCase(TestCase):
+    def setUp(self):
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.banana = models.Food.objects.create(name="Banana", category="fruit")
+        self.oats = models.Food.objects.create(name="Oats", category="cereal")
+
+    def test_meal_create_with_multiple_foods_and_tags(self):
+        meal = models.Meal.objects.create(
+            child=self.child,
+            time=timezone.localtime() - timezone.timedelta(hours=1),
+            meal_type="breakfast",
+            quantity="normal",
+            preparation="pieces",
+        )
+        meal.foods.add(self.banana, self.oats)
+        meal.tags.add("morning")
+
+        self.assertEqual(str(meal), "Meal")
+        self.assertCountEqual(meal.foods.all(), [self.banana, self.oats])
+        self.assertEqual(meal.tags.get().name, "morning")
+
+    def test_meals_are_ordered_most_recent_first(self):
+        older = models.Meal.objects.create(
+            child=self.child,
+            time=timezone.localtime() - timezone.timedelta(hours=2),
+            meal_type="breakfast",
+        )
+        newer = models.Meal.objects.create(
+            child=self.child,
+            time=timezone.localtime() - timezone.timedelta(hours=1),
+            meal_type="lunch",
+        )
+
+        self.assertEqual(list(models.Meal.objects.all()), [newer, older])
+
+    def test_deleting_child_deletes_meals(self):
+        models.Meal.objects.create(
+            child=self.child,
+            time=timezone.localtime() - timezone.timedelta(hours=1),
+            meal_type="lunch",
+        )
+
+        self.child.delete()
+
+        self.assertFalse(models.Meal.objects.exists())
+
+    def test_used_food_is_protected_from_deletion(self):
+        meal = models.Meal.objects.create(
+            child=self.child,
+            time=timezone.localtime() - timezone.timedelta(hours=1),
+            meal_type="lunch",
+        )
+        meal.foods.add(self.banana)
+
+        with self.assertRaises(ProtectedError):
+            self.banana.delete()
+
+        self.banana.active = False
+        self.banana.save()
+        self.assertTrue(meal.foods.filter(pk=self.banana.pk).exists())
+
+
+class ChildFoodProfileTestCase(TestCase):
+    def setUp(self):
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.food = models.Food.objects.create(name="Banana", category="fruit")
+
+    def test_profile_keeps_taste_and_tolerance_separate(self):
+        profile = models.ChildFoodProfile.objects.create(
+            child=self.child,
+            food=self.food,
+            taste="likes very much",
+            tolerance="poorly tolerated",
+            notes="Observe the next time.",
+        )
+
+        self.assertEqual(profile.taste, "likes very much")
+        self.assertEqual(profile.tolerance, "poorly tolerated")
+        self.assertEqual(profile.notes, "Observe the next time.")
+        self.assertIsNotNone(profile.updated)
+        self.assertEqual(str(profile), "First Last — Banana")
+
+        first_updated = profile.updated
+        profile.notes = "Updated observation."
+        with mock.patch(
+            "django.utils.timezone.now",
+            return_value=first_updated + datetime.timedelta(minutes=1),
+        ):
+            profile.save()
+        self.assertGreater(profile.updated, first_updated)
+
+    def test_profile_defaults_to_not_rated(self):
+        profile = models.ChildFoodProfile.objects.create(
+            child=self.child,
+            food=self.food,
+        )
+
+        self.assertEqual(profile.taste, "")
+        self.assertEqual(profile.tolerance, "")
+        self.assertEqual(profile.get_taste_display(), "Not rated")
+        self.assertEqual(profile.get_tolerance_display(), "Not rated")
+
+    def test_only_one_profile_exists_per_child_and_food(self):
+        models.ChildFoodProfile.objects.create(child=self.child, food=self.food)
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                models.ChildFoodProfile.objects.create(
+                    child=self.child,
+                    food=self.food,
+                    taste="likes",
+                )
+
+    def test_same_food_can_have_different_profiles_for_each_child(self):
+        other_child = models.Child.objects.create(
+            first_name="Second", birth_date=timezone.localdate()
+        )
+        first_profile = models.ChildFoodProfile.objects.create(
+            child=self.child,
+            food=self.food,
+            taste="likes",
+        )
+        second_profile = models.ChildFoodProfile.objects.create(
+            child=other_child,
+            food=self.food,
+            taste="dislikes",
+        )
+
+        self.assertNotEqual(first_profile.taste, second_profile.taste)
+
+    def test_deleting_child_deletes_profile_and_food_is_protected(self):
+        models.ChildFoodProfile.objects.create(child=self.child, food=self.food)
+
+        with self.assertRaises(ProtectedError):
+            self.food.delete()
+
+        self.child.delete()
+
+        self.assertFalse(models.ChildFoodProfile.objects.exists())
+        self.assertTrue(models.Food.objects.filter(pk=self.food.pk).exists())
+
+
 class HeadCircumferenceTestCase(TestCase):
     def setUp(self):
         call_command("migrate", verbosity=0)
@@ -232,6 +403,16 @@ class SleepTestCase(TestCase):
         self.assertEqual(sleep, models.Sleep.objects.first())
         self.assertEqual(str(sleep), "Sleep")
         self.assertEqual(sleep.duration, sleep.end - sleep.start)
+        self.assertEqual(sleep.wakeups, 0)
+
+    def test_sleep_wakeups(self):
+        sleep = models.Sleep.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(hours=8),
+            end=timezone.localtime(),
+            wakeups=2,
+        )
+        self.assertEqual(sleep.wakeups, 2)
 
     def test_sleep_nap(self):
         models.Sleep.settings.nap_start_min = datetime.time(0, 0, 0)

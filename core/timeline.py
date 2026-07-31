@@ -13,11 +13,12 @@ from core.models import (
     TummyTime,
     Temperature,
     Medication,
+    Meal,
 )
 from core.utils import duration_string
 
 
-def get_objects(date, child=None):
+def get_objects(date, child=None, include_meals=True, can_edit_meals=True):
     """
     Create a time-sorted dictionary of all events for a child.
     :param date: a DateTime instance for the day to be summarized.
@@ -35,6 +36,8 @@ def get_objects(date, child=None):
     _add_tummy_times(min_date, max_date, events, child)
     _add_notes(min_date, max_date, events, child)
     _add_temperature_measurements(min_date, max_date, events, child)
+    if include_meals:
+        _add_meals(min_date, max_date, events, child, can_edit_meals)
 
     explicit_type_ordering = {"start": 0, "end": 1}
     events.sort(
@@ -46,6 +49,46 @@ def get_objects(date, child=None):
     )
 
     return events
+
+
+def _add_meals(min_date, max_date, events, child=None, can_edit=True):
+    instances = (
+        Meal.objects.filter(time__range=(min_date, max_date))
+        .select_related("child")
+        .prefetch_related("foods", "tags")
+        .order_by("-time")
+    )
+    if child:
+        instances = instances.filter(child=child)
+    for instance in instances:
+        details = [", ".join(food.name for food in instance.foods.all())]
+        if instance.quantity:
+            details.append(
+                _("Approximate quantity")
+                + ": "
+                + instance.get_quantity_display()
+            )
+        if instance.preparation:
+            details.append(
+                _("Preparation") + ": " + instance.get_preparation_display()
+            )
+        if instance.notes:
+            details.append(instance.notes)
+        event = {
+            "time": timezone.localtime(instance.time),
+            "event": _("%(child)s had %(meal_type)s.")
+            % {
+                "child": instance.child.first_name,
+                "meal_type": instance.get_meal_type_display().lower(),
+            },
+            "details": details,
+            "model_name": instance.model_name,
+            "icon": "feeding",
+            "tags": instance.tags.all(),
+        }
+        if can_edit:
+            event["edit_link"] = reverse("core:meal-update", args=[instance.id])
+        events.append(event)
 
 
 def _add_tummy_times(min_date, max_date, events, child=None):

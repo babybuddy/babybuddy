@@ -227,6 +227,18 @@
 {% trans "Weight entry" %}
 </a>
 {% endif %}
+{% if perms.core.view_childfoodprofile %}
+<a class="dropdown-item{% if request.path == '/food-profiles/' %} active{% endif %}"
+   href="{% url 'core:child-food-profile-list' %}"><i class="icon-child" aria-hidden="true"></i>
+{% trans "Food profiles" %}
+</a>
+{% endif %}
+{% if perms.core.add_childfoodprofile %}
+<a class="dropdown-item ps-5{% if request.path == '/food-profiles/add/' %} active{% endif %}"
+   href="{% url 'core:child-food-profile-add' %}"><i class="icon-add" aria-hidden="true"></i>
+{% trans "Food profile" %}
+</a>
+{% endif %}
 </div>
 </li>
 <li class="nav-item dropdown">
@@ -267,6 +279,30 @@
 <a class="dropdown-item ps-5{% if request.path == '/feedings/bottle/add/' %} active{% endif %}"
    href="{% url 'core:bottle-feeding-add' %}"><i class="icon-add" aria-hidden="true"></i>
 {% trans "Bottle Feeding" %}
+</a>
+{% endif %}
+{% if perms.core.view_food %}
+<a class="dropdown-item{% if request.path == '/foods/' %} active{% endif %}"
+   href="{% url 'core:food-list' %}"><i class="icon-feeding" aria-hidden="true"></i>
+{% trans "Food catalog" %}
+</a>
+{% endif %}
+{% if perms.core.add_food %}
+<a class="dropdown-item ps-5{% if request.path == '/foods/add/' %} active{% endif %}"
+   href="{% url 'core:food-add' %}"><i class="icon-add" aria-hidden="true"></i>
+{% trans "Food" %}
+</a>
+{% endif %}
+{% if perms.core.view_meal %}
+<a class="dropdown-item{% if request.path == '/meals/' %} active{% endif %}"
+   href="{% url 'core:meal-list' %}"><i class="icon-feeding" aria-hidden="true"></i>
+{% trans "Meals" %}
+</a>
+{% endif %}
+{% if perms.core.add_meal %}
+<a class="dropdown-item ps-5{% if request.path == '/meals/add/' %} active{% endif %}"
+   href="{% url 'core:meal-add' %}"><i class="icon-add" aria-hidden="true"></i>
+{% trans "Meal" %}
 </a>
 {% endif %}
 {% if perms.core.view_medication %}

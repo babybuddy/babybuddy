@@ -1,0 +1,34 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% if object %}
+        {% trans "Update food" %}
+    {% else %}
+        {% trans "Add food" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:food-list' %}">{% trans "Food catalog" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if object %}
+            {% trans "Update" %}
+        {% else %}
+            {% trans "Add" %}
+        {% endif %}
+    </li>
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>
+            {% trans "Update" %} <span class="text-info">{{ object }}</span>
+        </h1>
+        <p class="text-muted">
+            {% trans "Deactivate this food to hide it from new meals without losing its history." %}
+        </p>
+    {% else %}
+        <h1>{% trans "Add food" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}

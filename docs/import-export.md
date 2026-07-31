@@ -41,3 +41,28 @@ performed.
 
 See the [example import files](https://github.com/babybuddy/babybuddy/tree/master/core/tests/import)
 used for tests to get an idea of the expected data format.
+
+## Solid food data
+
+Food catalog entries, meals, and child food profiles use the same Database
+Admin import/export workflow as other Baby Buddy data. Exported option values
+are stable technical values (for example `lunch`, `normal`, and `pieces`) so
+that files can be imported again regardless of the display language.
+
+For a complete transfer, import the files in this order:
+
+1. Children.
+2. Tags, if meals use tags.
+3. Foods.
+4. Meals.
+5. Child food profiles.
+
+Meal exports contain `food_ids`, with multiple food IDs separated by commas.
+The referenced foods must exist before importing meals. The `food_names`,
+`child_first_name`, and `child_last_name` columns are included for readability
+and are ignored during import. Child food profiles similarly use `food_id` and
+include a read-only `food_name` column.
+
+Keep the exported IDs when transferring related files. Imports are previewed
+and validated before being committed, and a failed transactional import does
+not leave partially imported rows.

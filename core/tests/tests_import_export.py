@@ -6,6 +6,7 @@ import tablib
 
 from django.core.management import call_command
 from django.test import TestCase
+from django.utils import timezone
 
 from core import admin, models
 
@@ -97,3 +98,98 @@ class ImportTestCase(TestCase):
 
     def test_weight(self):
         self.import_data(models.Weight, 5)
+
+
+class FoodImportExportTestCase(TestCase):
+    def setUp(self):
+        self.child = models.Child.objects.create(
+            first_name="Lucía",
+            last_name="Pruebas",
+            birth_date=datetime.date(2025, 1, 1),
+        )
+        self.food = models.Food.objects.create(
+            name="Alimento exportable",
+            category="vegetable",
+            notes="Datos ficticios",
+        )
+
+    def assert_import_succeeded(self, result):
+        self.assertFalse(result.has_validation_errors(), result.invalid_rows)
+        self.assertFalse(result.has_errors(), result.row_errors())
+
+    def test_food_export_can_be_reimported(self):
+        resource = admin.FoodImportExportResource()
+        dataset = resource.export(models.Food.objects.filter(pk=self.food.pk))
+        self.assertEqual(
+            dataset.headers,
+            ["id", "name", "category", "allergen", "notes", "active"],
+        )
+        self.assertEqual(dataset.dict[0]["category"], "vegetable")
+
+        food_id = self.food.pk
+        self.food.delete()
+        result = resource.import_data(dataset, dry_run=False)
+        self.assert_import_succeeded(result)
+        self.assertTrue(
+            models.Food.objects.filter(pk=food_id, name="Alimento exportable").exists()
+        )
+
+    def test_meal_export_preserves_foods_and_tags_when_reimported(self):
+        second_food = models.Food.objects.create(name="Segundo alimento", category="fruit")
+        meal = models.Meal.objects.create(
+            child=self.child,
+            time=timezone.now() - datetime.timedelta(hours=1),
+            meal_type="lunch",
+            quantity="normal",
+            preparation="pieces",
+            notes="Comida ficticia",
+        )
+        meal.foods.add(self.food, second_food)
+        meal.tags.add("favorita", "prueba")
+        resource = admin.MealImportExportResource()
+        dataset = resource.export(models.Meal.objects.filter(pk=meal.pk))
+
+        row = dataset.dict[0]
+        self.assertEqual(str(row["child_id"]), str(self.child.pk))
+        self.assertEqual(row["meal_type"], "lunch")
+        self.assertCountEqual(
+            row["food_ids"].split(","),
+            [str(self.food.pk), str(second_food.pk)],
+        )
+        self.assertEqual(row["food_names"], "Alimento exportable; Segundo alimento")
+
+        meal_id = meal.pk
+        meal.delete()
+        result = resource.import_data(dataset, dry_run=False)
+        self.assert_import_succeeded(result)
+        imported = models.Meal.objects.get(pk=meal_id)
+        self.assertCountEqual(
+            imported.foods.values_list("pk", flat=True),
+            [self.food.pk, second_food.pk],
+        )
+        self.assertCountEqual(imported.tags.names(), ["favorita", "prueba"])
+
+    def test_food_profile_export_can_be_reimported(self):
+        profile = models.ChildFoodProfile.objects.create(
+            child=self.child,
+            food=self.food,
+            taste="likes",
+            tolerance="well tolerated",
+            notes="Sin incidencias",
+        )
+        resource = admin.ChildFoodProfileImportExportResource()
+        dataset = resource.export(
+            models.ChildFoodProfile.objects.filter(pk=profile.pk)
+        )
+        row = dataset.dict[0]
+        self.assertEqual(row["food_id"], str(self.food.pk))
+        self.assertEqual(row["food_name"], self.food.name)
+
+        profile_id = profile.pk
+        profile.delete()
+        result = resource.import_data(dataset, dry_run=False)
+        self.assert_import_succeeded(result)
+        imported = models.ChildFoodProfile.objects.get(pk=profile_id)
+        self.assertEqual(imported.child, self.child)
+        self.assertEqual(imported.food, self.food)
+        self.assertEqual(imported.taste, "likes")

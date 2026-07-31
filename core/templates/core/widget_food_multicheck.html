@@ -1,0 +1,175 @@
+{% load i18n %}
+<div class="food-multicheck border rounded bg-body p-3" data-food-multicheck>
+    <div class="food-multicheck__panel"
+         style="max-height: 24rem; overflow-x: hidden; overflow-y: auto">
+        <label class="visually-hidden" for="{{ widget.attrs.id }}_search">{% translate "Search foods" %}</label>
+        <input id="{{ widget.attrs.id }}_search"
+               class="form-control mb-3"
+               type="search"
+               autocomplete="off"
+               placeholder="{% translate "Search foods" %}"
+               data-food-search>
+        {% if widget.can_add_food %}
+            <button class="btn btn-sm btn-outline-success mb-3"
+                    type="button"
+                    data-food-quick-add-open>
+                <i class="icon-add" aria-hidden="true"></i>
+                {% translate "Create food without leaving the meal" %}
+            </button>
+        {% endif %}
+        <div class="food-multicheck__options row g-2 mx-0" data-food-options>
+            {% for group_name, group_options, group_index in widget.optgroups %}
+                {% for option in group_options %}
+                    <div class="food-multicheck__option col-12 col-md-6 col-lg-4 fs-6"
+                         data-food-option
+                         data-food-name="{{ option.label|lower }}">
+                        {% include option.template_name with widget=option %}
+                        <span class="badge bg-secondary ms-1"
+                              data-food-recent-badge
+                              hidden>{% translate "Recent" %}</span>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <p class="food-multicheck__no-results mb-0"
+           data-food-no-results
+           hidden>{% translate "No matching foods found." %}</p>
+    </div>
+</div>
+{% if widget.can_add_food %}
+    <div class="modal fade" tabindex="-1" data-food-quick-add-modal>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5">{% translate "Create food" %}</h2>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="{% translate "Close" %}"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" data-food-quick-add-errors hidden></div>
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ widget.attrs.id }}_new_name">{% translate "Name" %}</label>
+                        <input class="form-control"
+                               id="{{ widget.attrs.id }}_new_name"
+                               type="text"
+                               maxlength="255"
+                               data-food-new-name>
+                    </div>
+                    <div>
+                        <label class="form-label" for="{{ widget.attrs.id }}_new_category">{% translate "Category" %}</label>
+                        <select class="form-select"
+                                id="{{ widget.attrs.id }}_new_category"
+                                data-food-new-category>
+                            {% for value, label in widget.food_categories %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Cancel" %}</button>
+                    <button type="button" class="btn btn-success" data-food-quick-add-submit>{% translate "Create and select" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+<script>
+    (() => {
+        const script = document.currentScript;
+        const widget = script.previousElementSibling{% if widget.can_add_food %}.previousElementSibling{% endif %};
+        const search = widget.querySelector("[data-food-search]");
+        const options = Array.from(widget.querySelectorAll("[data-food-option]"));
+        const noResults = widget.querySelector("[data-food-no-results]");
+        const recentByChild = {
+            {% for child_id, food_ids in widget.recent_by_child.items %}
+                "{{ child_id }}": [{% for food_id in food_ids %}{{ food_id }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+            {% endfor %}
+        };
+        const normalize = (value) => value
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLocaleLowerCase();
+
+        search.addEventListener("input", () => {
+            const query = normalize(search.value.trim());
+            let visible = 0;
+            options.forEach((option) => {
+                const matches = normalize(option.dataset.foodName).includes(query);
+                option.hidden = !matches;
+                visible += matches ? 1 : 0;
+            });
+            noResults.hidden = visible !== 0;
+        });
+
+        const updateRecentFoods = () => {
+            const selectedChild = document.querySelector('input[name="child"]:checked, select[name="child"]');
+            const recentIds = selectedChild ? (recentByChild[selectedChild.value] || []) : [];
+            options.forEach((option) => {
+                const checkbox = option.querySelector('input[type="checkbox"]');
+                const position = recentIds.indexOf(Number(checkbox.value));
+                option.style.order = position === -1 ? 1000 : position;
+                const badge = option.querySelector("[data-food-recent-badge]");
+                if (badge) badge.hidden = position === -1;
+            });
+        };
+        document.querySelectorAll('input[name="child"], select[name="child"]').forEach((field) => {
+            field.addEventListener("change", updateRecentFoods);
+        });
+        updateRecentFoods();
+
+        {% if widget.can_add_food %}
+            const modalElement = widget.nextElementSibling;
+            const errorBox = modalElement.querySelector("[data-food-quick-add-errors]");
+            const nameInput = modalElement.querySelector("[data-food-new-name]");
+            const categoryInput = modalElement.querySelector("[data-food-new-category]");
+            let modal;
+            widget.querySelector("[data-food-quick-add-open]").addEventListener("click", () => {
+                errorBox.hidden = true;
+                modal = modal || new bootstrap.Modal(modalElement);
+                modal.show();
+                modalElement.addEventListener("shown.bs.modal", () => nameInput.focus(), { once: true });
+            });
+            modalElement.querySelector("[data-food-quick-add-submit]").addEventListener("click", async () => {
+                const data = new FormData();
+                data.append("name", nameInput.value);
+                data.append("category", categoryInput.value);
+                data.append("active", "on");
+                const response = await fetch("{% url 'core:food-quick-add' %}", {
+                    method: "POST",
+                    headers: { "X-CSRFToken": document.querySelector('[name="csrfmiddlewaretoken"]').value },
+                    body: data,
+                });
+                const result = await response.json();
+                if (!response.ok) {
+                    errorBox.textContent = Object.values(result.errors)
+                        .flat()
+                        .map((error) => error.message)
+                        .join(" ");
+                    errorBox.hidden = false;
+                    return;
+                }
+                const option = document.createElement("div");
+                option.className = "food-multicheck__option col-12 col-md-6 col-lg-4 fs-6";
+                option.dataset.foodOption = "";
+                option.dataset.foodName = result.name.toLocaleLowerCase();
+                option.style.order = 1000;
+                const label = document.createElement("label");
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "{{ widget.name }}";
+                checkbox.value = result.id;
+                checkbox.checked = true;
+                checkbox.className = "form-check-input me-2";
+                checkbox.style.width = "1.15em";
+                checkbox.style.height = "1.15em";
+                label.append(checkbox, document.createTextNode(` ${result.name}`));
+                option.append(label);
+                widget.querySelector("[data-food-options]").append(option);
+                options.push(option);
+                nameInput.value = "";
+                modal.hide();
+            });
+        {% endif %}
+    })();
+</script>

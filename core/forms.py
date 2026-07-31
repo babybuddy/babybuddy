@@ -2,6 +2,7 @@
 from django import forms
 from django.forms import widgets
 from django.conf import settings
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -10,7 +11,12 @@ from taggit.forms import TagField
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
 from core.models import Timer
-from core.widgets import TagsEditor, ChildRadioSelect, PillRadioSelect
+from core.widgets import (
+    ChildRadioSelect,
+    FoodMultiCheckboxSelect,
+    PillRadioSelect,
+    TagsEditor,
+)
 
 
 def set_initial_values(kwargs, form_type):
@@ -272,6 +278,121 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
         }
 
 
+class FoodForm(CoreModelForm):
+    fieldsets = [
+        {"fields": ["name", "category"], "layout": "required"},
+        {"fields": ["allergen", "active"]},
+        {"fields": ["notes"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.Food
+        fields = ["name", "category", "allergen", "active", "notes"]
+        widgets = {
+            "category": PillRadioSelect(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+    def clean_name(self):
+        name = self.cleaned_data["name"].strip()
+        queryset = models.Food.objects.exclude(pk=self.instance.pk)
+        existing_names = queryset.values_list("name", flat=True)
+        if any(existing.casefold() == name.casefold() for existing in existing_names):
+            raise forms.ValidationError(
+                _("A food with this name already exists."),
+                code="duplicate",
+            )
+        return name
+
+
+class MealForm(CoreModelForm, TaggableModelForm):
+    foods = forms.ModelMultipleChoiceField(
+        queryset=models.Food.objects.none(),
+        label=_("Foods"),
+        widget=FoodMultiCheckboxSelect(),
+    )
+
+    fieldsets = [
+        {
+            "fields": ["child", "time", "meal_type", "foods", "quantity"],
+            "layout": "required",
+        },
+        {"fields": ["preparation", "tags"]},
+        {"fields": ["notes"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.Meal
+        fields = [
+            "child",
+            "time",
+            "meal_type",
+            "foods",
+            "quantity",
+            "preparation",
+            "notes",
+            "tags",
+        ]
+        widgets = {
+            "child": ChildRadioSelect,
+            "time": DateTimeInput(),
+            "meal_type": PillRadioSelect(),
+            "quantity": PillRadioSelect(),
+            "preparation": PillRadioSelect(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+        available = Q(active=True)
+        if self.instance.pk:
+            available |= Q(meals=self.instance)
+        self.fields["foods"].queryset = (
+            models.Food.objects.filter(available).distinct()
+        )
+        widget = self.fields["foods"].widget
+        widget.can_add_food = bool(user and user.has_perm("core.add_food"))
+        recent_by_child = {}
+        recent_foods = models.MealFood.objects.order_by(
+            "meal__child_id",
+            "-meal__time",
+            "-meal_id",
+        ).values_list("meal__child_id", "food_id")
+        for child_id, food_id in recent_foods:
+            child_foods = recent_by_child.setdefault(child_id, [])
+            if food_id not in child_foods and len(child_foods) < 8:
+                child_foods.append(food_id)
+        widget.recent_by_child = recent_by_child
+
+
+class ChildFoodProfileForm(CoreModelForm):
+    fieldsets = [
+        {"fields": ["child", "food"], "layout": "required"},
+        {"fields": ["taste", "tolerance"]},
+        {"fields": ["notes"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.ChildFoodProfile
+        fields = ["child", "food", "taste", "tolerance", "notes"]
+        widgets = {
+            "child": ChildRadioSelect(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        available = Q(active=True)
+        if self.instance.pk:
+            available |= Q(pk=self.instance.food_id)
+            self.fields["child"].disabled = True
+            self.fields["food"].disabled = True
+        self.fields["food"].queryset = models.Food.objects.filter(
+            available
+        ).distinct()
+
+
 class HeadCircumferenceForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
         {
@@ -400,7 +521,7 @@ class NoteForm(CoreModelForm, TaggableModelForm):
 class SleepForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
         {
-            "fields": ["child", "start", "end", "nap"],
+            "fields": ["child", "start", "end", "nap", "wakeups"],
             "layout": "required",
         },
         {"fields": ["notes", "tags"], "layout": "advanced"},
@@ -408,7 +529,7 @@ class SleepForm(CoreModelForm, TaggableModelForm):
 
     class Meta:
         model = models.Sleep
-        fields = ["child", "start", "end", "nap", "notes", "tags"]
+        fields = ["child", "start", "end", "nap", "wakeups", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),

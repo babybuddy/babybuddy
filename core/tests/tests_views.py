@@ -196,8 +196,16 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 405)
         page = self.c.post("/timers/add/quick/", follow=True)
         self.assertEqual(page.status_code, 200)
-
         entry = models.Timer.objects.first()
+        page = self.c.post(
+            "/timers/add/quick/",
+            {"child": models.Child.objects.first().pk, "kind": "sleep"},
+            follow=True,
+        )
+        self.assertEqual(page.status_code, 200)
+        self.assertTrue(
+            models.Timer.objects.filter(name=models.Timer.SLEEP_NAME).exists()
+        )
         page = self.c.get("/timers/{}/".format(entry.id))
         self.assertEqual(page.status_code, 200)
         page = self.c.get("/timers/{}/edit/".format(entry.id))

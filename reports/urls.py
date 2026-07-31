@@ -42,6 +42,11 @@ urlpatterns = [
         name="report-feeding-amounts-child",
     ),
     path(
+        "children/<str:slug>/reports/foods/tried/",
+        views.FoodsTriedChildReport.as_view(),
+        name="report-foods-tried-child",
+    ),
+    path(
         "children/<str:slug>/reports/head-circumference/head-circumference/",
         views.HeadCircumferenceChangeChildReport.as_view(),
         name="report-head-circumference-change-child",

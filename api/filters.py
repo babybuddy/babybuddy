@@ -76,6 +76,48 @@ class FeedingFilter(StartEndFieldFilter, TagsFieldFilter):
         fields = sorted(StartEndFieldFilter.Meta.fields + ["type", "method"])
 
 
+class FoodFilter(filters.FilterSet):
+    name = filters.CharFilter(field_name="name", lookup_expr="icontains")
+
+    class Meta:
+        model = models.Food
+        fields = ["name", "category", "allergen", "active"]
+
+
+class MealFilter(TimeFieldFilter, TagsFieldFilter):
+    food = filters.ModelChoiceFilter(
+        field_name="foods",
+        queryset=models.Food.objects.all(),
+        distinct=True,
+    )
+    category = filters.ChoiceFilter(
+        field_name="foods__category",
+        choices=models.Food._meta.get_field("category").choices,
+        distinct=True,
+    )
+
+    class Meta(TimeFieldFilter.Meta):
+        model = models.Meal
+        fields = sorted(
+            TimeFieldFilter.Meta.fields
+            + ["meal_type", "quantity", "preparation", "food", "category"]
+        )
+
+
+class ChildFoodProfileFilter(ChildFieldFilter):
+    category = filters.ChoiceFilter(
+        field_name="food__category",
+        choices=models.Food._meta.get_field("category").choices,
+    )
+
+    class Meta(ChildFieldFilter.Meta):
+        model = models.ChildFoodProfile
+        fields = sorted(
+            ChildFieldFilter.Meta.fields
+            + ["food", "category", "taste", "tolerance"]
+        )
+
+
 class MedicationFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.Medication

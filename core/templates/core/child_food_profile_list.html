@@ -1,0 +1,63 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}{% trans "Food profiles" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Food profiles" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Food profiles" %}
+        {% if perms.core.add_childfoodprofile %}
+            <a href="{% url 'core:child-food-profile-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add food profile" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Child" %}</th>
+                    <th>{% trans "Food" %}</th>
+                    <th>{% trans "Taste" %}</th>
+                    <th>{% trans "Tolerance" %}</th>
+                    <th>{% trans "First intake" %}</th>
+                    <th>{% trans "Last intake" %}</th>
+                    <th>{% trans "Times consumed" %}</th>
+                    <th>{% trans "Updated" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profile in object_list %}
+                    <tr>
+                        <td>
+                            {% if perms.core.change_childfoodprofile %}
+                                <a href="{% url 'core:child-food-profile-update' profile.pk %}" class="btn btn-sm btn-primary">
+                                    <i class="icon-update" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>{{ profile.child }}</td>
+                        <th scope="row">{{ profile.food }}</th>
+                        <td>{{ profile.get_taste_display }}</td>
+                        <td>{{ profile.get_tolerance_display }}</td>
+                        <td>{% if profile.first_consumed %}{{ profile.first_consumed|datetime_short }}{% else %}—{% endif %}</td>
+                        <td>{% if profile.last_consumed %}{{ profile.last_consumed|datetime_short }}{% else %}—{% endif %}</td>
+                        <td>{{ profile.consumption_count }}</td>
+                        <td>{{ profile.updated|datetime_short }}</td>
+                    </tr>
+                    {% if profile.notes %}
+                        <tr class="row-details">
+                            <td colspan="9"><i class="icon-note me-2" aria-hidden="true"></i>{{ profile.notes }}</td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr><th colspan="9">{% trans "No food profiles found." %}</th></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

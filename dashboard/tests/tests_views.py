@@ -3,10 +3,12 @@ from django.test import TestCase
 from django.test import Client as HttpClient
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+from django.utils import timezone
+from django.urls import reverse
 
 from faker import Faker
 
-from core.models import Child
+from core.models import Child, Food, Meal
 
 
 class ViewsTestCase(TestCase):
@@ -44,6 +46,42 @@ class ViewsTestCase(TestCase):
         # TODO: Test cards more granularly.
         page = self.c.get("/children/{}/dashboard/".format(child.slug))
         self.assertEqual(page.status_code, 200)
+
+        meal = Meal.objects.create(
+            child=child,
+            time=timezone.now(),
+            meal_type="lunch",
+            quantity="normal",
+        )
+        meal.foods.add(Food.objects.get(name="Plátano"))
+        page = self.c.get("/children/{}/dashboard/".format(child.slug))
+        self.assertContains(page, "Plátano")
+        self.assertContains(page, "Meals: 1")
+        for route in (
+            "core:diaperchange-add",
+            "core:medication-add",
+            "core:pumping-add",
+        ):
+            self.assertContains(
+                page,
+                "{}?child={}".format(reverse(route), child.slug),
+            )
+        self.assertContains(
+            page,
+            "{}?child={}".format(reverse("core:feeding-list"), child.pk),
+        )
+        self.assertContains(page, "btn-dashboard-add-link", count=5)
+        self.assertContains(page, "btn-dashboard-sleep", count=1)
+        card_order = (
+            'data-dashboard-card="feeding-last"',
+            'data-dashboard-card="diaper-change-last"',
+            'data-dashboard-card="meal-summary"',
+            'data-dashboard-card="sleep-last"',
+            'data-dashboard-card="medication-last"',
+        )
+        card_positions = [page.content.find(card.encode()) for card in card_order]
+        self.assertNotIn(-1, card_positions)
+        self.assertEqual(card_positions, sorted(card_positions))
 
         Child.objects.create(
             first_name="Second", last_name="Child", birth_date="2000-01-01"

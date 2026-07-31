@@ -39,6 +39,8 @@
     }
 }
 
+// A distinct action color that is not used by any dashboard card category.
+
 .card-diaperchange,
 .card-medication {
     border-color: map.get($theme-colors, 'danger');
@@ -163,4 +165,22 @@
             font-size: 0.75rem;
         }
     }
+}
+.btn-dashboard-add-link {
+    --bs-btn-color: #c9a7ff;
+    --bs-btn-hover-color: #e1ceff;
+    --bs-btn-focus-shadow-rgb: 155, 109, 222;
+    border: 0;
+}
+
+.btn-dashboard-sleep {
+    --bs-btn-color: #c9a7ff;
+    --bs-btn-border-color: #9b6dde;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #7b45bd;
+    --bs-btn-hover-border-color: #7b45bd;
+    --bs-btn-focus-shadow-rgb: 155, 109, 222;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #6935a8;
+    --bs-btn-active-border-color: #6935a8;
 }

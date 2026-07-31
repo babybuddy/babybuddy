@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from taggit.serializers import TagListSerializerField, TaggitSerializer
 
@@ -182,6 +183,90 @@ class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
         )
 
 
+class FoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Food
+        fields = ("id", "name", "category", "allergen", "notes", "active")
+
+    def validate_name(self, value):
+        value = value.strip()
+        queryset = models.Food.objects.filter(name__iexact=value)
+        if self.instance:
+            queryset = queryset.exclude(pk=self.instance.pk)
+        if queryset.exists():
+            raise serializers.ValidationError(
+                _("A food with this name already exists.")
+            )
+        return value
+
+
+class MealSerializer(CoreModelSerializer, TaggableSerializer):
+    foods = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=models.Food.objects.all(),
+    )
+
+    class Meta:
+        model = models.Meal
+        fields = (
+            "id",
+            "child",
+            "time",
+            "meal_type",
+            "foods",
+            "quantity",
+            "preparation",
+            "notes",
+            "tags",
+        )
+
+    def validate_foods(self, foods):
+        if not foods:
+            raise serializers.ValidationError(_("Select at least one food."))
+        existing_food_ids = set()
+        if self.instance:
+            existing_food_ids = set(self.instance.foods.values_list("id", flat=True))
+        inactive = [
+            food
+            for food in foods
+            if not food.active and food.id not in existing_food_ids
+        ]
+        if inactive:
+            raise serializers.ValidationError(
+                _("Inactive foods cannot be added to a meal.")
+            )
+        return foods
+
+    def validate(self, attrs):
+        # CoreModelSerializer validates concrete model fields with clean().
+        # Many-to-many values must be kept aside until DRF saves them.
+        related = {
+            field: attrs.pop(field)
+            for field in ("foods", "tags")
+            if field in attrs
+        }
+        attrs = super().validate(attrs)
+        attrs.update(related)
+        return attrs
+
+
+class ChildFoodProfileSerializer(CoreModelSerializer):
+    food = serializers.PrimaryKeyRelatedField(queryset=models.Food.objects.all())
+
+    class Meta:
+        model = models.ChildFoodProfile
+        fields = (
+            "id",
+            "child",
+            "food",
+            "taste",
+            "tolerance",
+            "notes",
+            "updated",
+        )
+        read_only_fields = ("updated",)
+
+
 class HeadCircumferenceSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.HeadCircumference
@@ -229,6 +314,7 @@ class SleepSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "timer",
             "duration",
             "nap",
+            "wakeups",
             "notes",
             "tags",
         )

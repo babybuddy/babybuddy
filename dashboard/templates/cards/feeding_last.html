@@ -22,4 +22,12 @@
         {{ feeding.get_type_display }}, {{ feeding.get_method_display }}
         {% if feeding.amount %}({{ feeding.amount }}){% endif %}
     {% endif %}
+    {% if can_add %}
+        <div class="mt-2">
+            <a class="btn btn-sm btn-dashboard-add-link p-0 text-decoration-none"
+               href="{% url 'core:feeding-list' %}?child={{ child.pk }}">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add Feeding" %}
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}

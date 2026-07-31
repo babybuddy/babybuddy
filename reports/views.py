@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.detail import DetailView
+from django.db.models import Count, Max, Min, Q
+from django.db.models.functions import TruncWeek
+from django.utils.dateparse import parse_date
 
 from babybuddy.mixins import PermissionRequiredMixin
 from core import models
@@ -33,6 +36,81 @@ class ChildReportList(PermissionRequiredMixin, DetailView):
     model = models.Child
     permission_required = ("core.view_child",)
     template_name = "reports/report_list.html"
+
+
+class FoodsTriedChildReport(PermissionRequiredMixin, DetailView):
+    """Foods consumed by a child with first, last and frequency statistics."""
+
+    model = models.Child
+    permission_required = ("core.view_child", "core.view_meal")
+    template_name = "reports/foods_tried.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        child = context["object"]
+        category = self.request.GET.get("category", "")
+        date_from = parse_date(self.request.GET.get("date_from", ""))
+        date_to = parse_date(self.request.GET.get("date_to", ""))
+        valid_categories = dict(models.Food._meta.get_field("category").choices)
+        if category not in valid_categories:
+            category = ""
+        consumed = Q(mealfood__meal__child=child)
+        period_consumed = consumed
+        meal_foods = models.MealFood.objects.filter(meal__child=child)
+        if date_from:
+            period_consumed &= Q(mealfood__meal__time__date__gte=date_from)
+            meal_foods = meal_foods.filter(meal__time__date__gte=date_from)
+        if date_to:
+            period_consumed &= Q(mealfood__meal__time__date__lte=date_to)
+            meal_foods = meal_foods.filter(meal__time__date__lte=date_to)
+        if category:
+            meal_foods = meal_foods.filter(food__category=category)
+        foods = models.Food.objects.annotate(
+            first_intake=Min("mealfood__meal__time", filter=consumed),
+            last_intake=Max("mealfood__meal__time", filter=consumed),
+            times_consumed=Count(
+                "mealfood__meal",
+                filter=period_consumed,
+                distinct=True,
+            ),
+        ).filter(times_consumed__gt=0)
+        if category:
+            foods = foods.filter(category=category)
+        weekly_variety = list(
+            meal_foods.annotate(week=TruncWeek("meal__time"))
+            .values("week")
+            .annotate(total=Count("food_id", distinct=True))
+            .order_by("week")
+        )
+        category_distribution = list(
+            meal_foods.values("food__category")
+            .annotate(total=Count("food_id", distinct=True))
+            .order_by("food__category")
+        )
+        for item in category_distribution:
+            item["label"] = valid_categories[item["food__category"]]
+        introductions = models.Food.objects.annotate(
+            first_intake=Min("mealfood__meal__time", filter=consumed)
+        ).filter(first_intake__isnull=False)
+        if date_from:
+            introductions = introductions.filter(first_intake__date__gte=date_from)
+        if date_to:
+            introductions = introductions.filter(first_intake__date__lte=date_to)
+        if category:
+            introductions = introductions.filter(category=category)
+        context.update(
+            {
+                "foods": foods.order_by("name"),
+                "categories": valid_categories.items(),
+                "selected_category": category,
+                "date_from": date_from,
+                "date_to": date_to,
+                "weekly_variety": weekly_variety,
+                "category_distribution": category_distribution,
+                "introductions": introductions.order_by("first_intake", "name"),
+            }
+        )
+        return context
 
 
 class DiaperChangeAmounts(PermissionRequiredMixin, DetailView):

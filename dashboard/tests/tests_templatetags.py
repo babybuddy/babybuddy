@@ -75,6 +75,32 @@ class TemplateTagsTestCase(TestCase):
         self.assertIsInstance(data["change"], models.DiaperChange)
         self.assertEqual(data["change"], models.DiaperChange.objects.first())
 
+    def test_card_meal_summary(self):
+        first_food = models.Food.objects.get(name="Plátano")
+        second_food = models.Food.objects.get(name="Avena")
+        meal = models.Meal.objects.create(
+            child=self.child,
+            time=timezone.now(),
+            meal_type="breakfast",
+        )
+        meal.foods.add(first_food, second_food)
+
+        data = cards.card_meal_summary(self.context, self.child)
+
+        self.assertTrue(data["permitted"])
+        self.assertEqual(data["meal"], meal)
+        self.assertEqual(data["meal_count"], 1)
+        self.assertEqual(data["food_count"], 2)
+        self.assertCountEqual(data["first_introductions"], ["Plátano", "Avena"])
+
+    def test_card_meal_summary_requires_permission(self):
+        user = get_user_model().objects.create_user(username="no-meal-access")
+        context = {"request": MockUserRequest(user)}
+
+        data = cards.card_meal_summary(context, self.child)
+
+        self.assertFalse(data["permitted"])
+
     @mock.patch("dashboard.templatetags.cards.timezone")
     def test_card_diaperchange_last_filter_age(self, mocked_timezone):
         request = MockUserRequest(get_user_model().objects.first())
@@ -238,6 +264,15 @@ class TemplateTagsTestCase(TestCase):
         self.assertFalse(data["hide_empty"])
         self.assertIsInstance(data["sleep"], models.Sleep)
         self.assertEqual(data["sleep"], models.Sleep.objects.first())
+        self.assertIsNone(data["timer"])
+
+        timer = models.Timer.objects.create(
+            child=self.child,
+            user=self.context["request"].user,
+            name=models.Timer.SLEEP_NAME,
+        )
+        data = cards.card_sleep_last(self.context, self.child)
+        self.assertEqual(data["timer"], timer)
 
     def test_card_sleep_last_empty(self):
         models.Sleep.objects.all().delete()

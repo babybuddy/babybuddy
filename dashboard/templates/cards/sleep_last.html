@@ -4,7 +4,14 @@
     <a href="{% url "core:sleep-list" %}">{% trans "Last Sleep" %}</a>
 {% endblock %}
 {% block title %}
-    {% if sleep %}
+    {% if timer %}
+        <div>{% trans "Sleeping" %}</div>
+        <small>
+            {% blocktrans trimmed with start=timer.start|time %}
+                Since {{ start }}
+            {% endblocktrans %}
+        </small>
+    {% elif sleep %}
         <div>
             {% blocktrans trimmed with time_ago=sleep.end|deltasince|duration_string:'m' %}
                 {{ time_ago }} ago
@@ -15,4 +22,30 @@
         {% trans "None" %}
     {% endif %}
 {% endblock %}
-{% block content %}{{ sleep.duration|duration_string }}{% endblock %}
+{% block content %}
+    {% if timer %}
+        <div>{{ timer.duration|duration_string }}</div>
+        {% if can_finish %}
+            <div class="mt-2">
+                <a class="btn btn-sm btn-dashboard-sleep"
+                   href="{% url 'core:sleep-add' %}?timer={{ timer.pk }}&child={{ child.slug }}">
+                    {% trans "Woke up" %}
+                </a>
+            </div>
+        {% endif %}
+    {% else %}
+        {% if sleep %}{{ sleep.duration|duration_string }}{% endif %}
+        {% if can_start %}
+            <form action="{% url 'core:timer-add-quick' %}?next={{ next|urlencode }}"
+                  method="post"
+                  class="mt-2">
+                {% csrf_token %}
+                <input type="hidden" name="child" value="{{ child.pk }}">
+                <input type="hidden" name="kind" value="sleep">
+                <button type="submit" class="btn btn-sm btn-dashboard-sleep">
+                    {% trans "Fell asleep" %}
+                </button>
+            </form>
+        {% endif %}
+    {% endif %}
+{% endblock %}

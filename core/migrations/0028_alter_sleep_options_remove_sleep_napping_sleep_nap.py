@@ -5,16 +5,16 @@ from django.utils import timezone
 
 
 def set_sleep_nap_values(apps, schema_editor):
-    # The model must be imported to ensure its overridden `save` method is run.
-    from core.models import Sleep
+    from core.models import Sleep as CurrentSleep
 
+    Sleep = apps.get_model("core", "Sleep")
     for sleep in Sleep.objects.all():
         sleep.nap = (
-            Sleep.settings.nap_start_min
+            CurrentSleep.settings.nap_start_min
             <= timezone.localtime(sleep.start).time()
-            <= Sleep.settings.nap_start_max
+            <= CurrentSleep.settings.nap_start_max
         )
-        sleep.save()
+        Sleep.objects.filter(pk=sleep.pk).update(nap=sleep.nap)
 
 
 class Migration(migrations.Migration):

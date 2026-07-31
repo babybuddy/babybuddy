@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.conf import settings
 
-from import_export import fields, resources
+from import_export import fields, resources, widgets
 from import_export.admin import ImportExportMixin, ExportActionMixin
 
 from core import models
@@ -128,6 +128,109 @@ class FeedingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     resource_class = FeedingImportExportResource
 
 
+class FoodImportExportResource(resources.ModelResource):
+    id = fields.Field(attribute="id")
+
+    class Meta:
+        model = models.Food
+        clean_model_instances = True
+        export_order = ("id", "name", "category", "allergen", "notes", "active")
+
+
+@admin.register(models.Food)
+class FoodAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("name", "category", "allergen", "active")
+    list_filter = ("category", "allergen", "active")
+    search_fields = ("name", "notes")
+    resource_class = FoodImportExportResource
+
+
+class MealFoodInline(admin.TabularInline):
+    model = models.MealFood
+    autocomplete_fields = ("food",)
+    extra = 1
+
+
+class MealImportExportResource(ImportExportResourceBase):
+    food_ids = fields.Field(
+        attribute="foods",
+        column_name="food_ids",
+        widget=widgets.ManyToManyWidget(models.Food, field="id", separator=","),
+    )
+    food_names = fields.Field(readonly=True)
+
+    class Meta:
+        model = models.Meal
+        clean_model_instances = True
+        export_order = (
+            "id",
+            "child",
+            "child_first_name",
+            "child_last_name",
+            "time",
+            "meal_type",
+            "food_ids",
+            "food_names",
+            "quantity",
+            "preparation",
+            "notes",
+            "tags",
+        )
+
+    def dehydrate_food_names(self, meal):
+        return "; ".join(meal.foods.order_by("name").values_list("name", flat=True))
+
+
+@admin.register(models.Meal)
+class MealAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("time", "child", "meal_type", "quantity", "preparation")
+    list_filter = ("child", "meal_type", "quantity", "preparation", "tags")
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "foods__name",
+        "notes",
+    )
+    inlines = (MealFoodInline,)
+    resource_class = MealImportExportResource
+
+
+class ChildFoodProfileImportExportResource(ImportExportResourceBase):
+    food_id = fields.Field(attribute="food_id", column_name="food_id")
+    food_name = fields.Field(attribute="food__name", readonly=True)
+
+    class Meta:
+        model = models.ChildFoodProfile
+        clean_model_instances = True
+        export_order = (
+            "id",
+            "child",
+            "child_first_name",
+            "child_last_name",
+            "food_id",
+            "food_name",
+            "taste",
+            "tolerance",
+            "notes",
+            "updated",
+        )
+
+
+@admin.register(models.ChildFoodProfile)
+class ChildFoodProfileAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("child", "food", "taste", "tolerance", "updated")
+    list_filter = ("taste", "tolerance", "food__category")
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "food__name",
+        "notes",
+    )
+    autocomplete_fields = ("child", "food")
+    readonly_fields = ("updated",)
+    resource_class = ChildFoodProfileImportExportResource
+
+
 class HeadCircumferenceImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.HeadCircumference
@@ -218,7 +321,7 @@ class SleepImportExportResource(ImportExportResourceBase):
 
 @admin.register(models.Sleep)
 class SleepAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
-    list_display = ("start", "end", "duration", "child", "nap")
+    list_display = ("start", "end", "duration", "child", "nap", "wakeups")
     list_filter = ("child", "tags")
     search_fields = (
         "child__first_name",

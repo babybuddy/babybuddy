@@ -554,11 +554,13 @@ class SleepFormsTestCase(FormsTestCaseBase):
             "child": self.child.id,
             "start": self.localtime_string(start),
             "end": self.localtime_string(end),
+            "wakeups": 2,
         }
 
         page = self.c.post("/sleep/add/", params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Sleep entry for {} added".format(str(self.child)))
+        self.assertEqual(models.Sleep.objects.get().wakeups, 2)
 
     def test_edit(self):
         end = timezone.localtime()
@@ -567,6 +569,7 @@ class SleepFormsTestCase(FormsTestCaseBase):
             "child": self.sleep.child.id,
             "start": self.localtime_string(start),
             "end": self.localtime_string(end),
+            "wakeups": 0,
         }
         page = self.c.post("/sleep/{}/".format(self.sleep.id), params, follow=True)
         self.assertEqual(page.status_code, 200)

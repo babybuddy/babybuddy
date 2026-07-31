@@ -1,0 +1,87 @@
+{% extends 'reports/base.html' %}
+{% load breadcrumb i18n %}
+{% block title %}{% trans "Foods tried" %} - {{ object }}{% endblock %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="breadcrumb-item">{% child_quick_switch object 'reports:report-foods-tried-child' %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Foods tried" %}</li>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <h1>{% trans "Foods tried" %}</h1>
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-sm-6 col-md-4">
+                <label for="food-category" class="form-label">{% trans "Category" %}</label>
+                <select id="food-category" name="category" class="form-select">
+                    <option value="">{% trans "All" %}</option>
+                    {% for value, label in categories %}
+                        <option value="{{ value }}"{% if value == selected_category %} selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="food-date-from" class="form-label">{% trans "From date" %}</label>
+                <input id="food-date-from" class="form-control" type="date" name="date_from" value="{{ date_from|date:'Y-m-d' }}" />
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label for="food-date-to" class="form-label">{% trans "To date" %}</label>
+                <input id="food-date-to" class="form-control" type="date" name="date_to" value="{{ date_to|date:'Y-m-d' }}" />
+            </div>
+            <div class="col-auto"><button class="btn btn-primary" type="submit">{% trans "Filter" %}</button></div>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead><tr>
+                    <th>{% trans "Food" %}</th>
+                    <th>{% trans "Category" %}</th>
+                    <th>{% trans "First intake" %}</th>
+                    <th>{% trans "Last intake" %}</th>
+                    <th>{% trans "Times consumed" %}</th>
+                </tr></thead>
+                <tbody>
+                    {% for food in foods %}
+                        <tr>
+                            <td>{{ food.name }}</td>
+                            <td>{{ food.get_category_display }}</td>
+                            <td>{{ food.first_intake|date:"SHORT_DATETIME_FORMAT" }}</td>
+                            <td>{{ food.last_intake|date:"SHORT_DATETIME_FORMAT" }}</td>
+                            <td>{{ food.times_consumed }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><th colspan="5">{% trans "No foods found." %}</th></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <h2 class="h4">{% trans "Weekly variety" %}</h2>
+                <table class="table table-sm">
+                    <thead><tr><th>{% trans "Week" %}</th><th>{% trans "Different foods" %}</th></tr></thead>
+                    <tbody>
+                        {% for item in weekly_variety %}
+                            <tr><td>{{ item.week|date:"SHORT_DATE_FORMAT" }}</td><td>{{ item.total }}</td></tr>
+                        {% empty %}<tr><td colspan="2">{% trans "No foods found." %}</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2 class="h4">{% trans "Categories" %}</h2>
+                <table class="table table-sm">
+                    <thead><tr><th>{% trans "Category" %}</th><th>{% trans "Different foods" %}</th></tr></thead>
+                    <tbody>
+                        {% for item in category_distribution %}
+                            <tr><td>{{ item.label }}</td><td>{{ item.total }}</td></tr>
+                        {% empty %}<tr><td colspan="2">{% trans "No foods found." %}</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2 class="h4">{% trans "First introductions" %}</h2>
+        <ul>
+            {% for food in introductions %}
+                <li>{{ food.name }} · {{ food.first_intake|date:"SHORT_DATETIME_FORMAT" }}</li>
+            {% empty %}<li>{% trans "No foods found." %}</li>{% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import template
-from django.db.models import Avg, Count, Q, Sum
+from django.db.models import Avg, Count, Exists, OuterRef, Q, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -43,6 +43,8 @@ def card_diaperchange_last(context, child):
 
     return {
         "type": "diaperchange",
+        "child": child,
+        "can_add": context["request"].user.has_perm("core.add_diaperchange"),
         "change": instance,
         "empty": empty,
         "hide_empty": _hide_empty(context),
@@ -240,6 +242,8 @@ def card_feeding_last(context, child):
 
     return {
         "type": "feeding",
+        "child": child,
+        "can_add": context["request"].user.has_perm("core.add_feeding"),
         "feeding": instance,
         "feeding_diff_base": feeding_time_diff_base(context, instance),
         "empty": empty,
@@ -288,6 +292,8 @@ def card_pumping_last(context, child):
 
     return {
         "type": "pumping",
+        "child": child,
+        "can_add": context["request"].user.has_perm("core.add_pumping"),
         "pumping": instance,
         "empty": empty,
         "hide_empty": _hide_empty(context),
@@ -346,10 +352,20 @@ def card_sleep_last(context, child):
         .first()
     )
     empty = not instance
+    timer = models.Timer.objects.filter(
+        child=child, name=models.Timer.SLEEP_NAME
+    ).first()
+    user = context["request"].user
 
     return {
         "type": "sleep",
         "sleep": instance,
+        "timer": timer,
+        "child": child,
+        "can_start": user.has_perm("core.add_timer")
+        and user.has_perm("core.add_sleep"),
+        "can_finish": user.has_perm("core.add_sleep"),
+        "next": getattr(context["request"], "path", ""),
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }
@@ -905,7 +921,60 @@ def card_medication_last(context, child):
 
     return {
         "type": "medication",
+        "child": child,
+        "can_add": context["request"].user.has_perm("core.add_medication"),
         "medication": instance,
         "empty": not instance,
+        "hide_empty": _hide_empty(context),
+    }
+
+
+@register.inclusion_tag("cards/meal_summary.html", takes_context=True)
+def card_meal_summary(context, child):
+    """Summary of the child's latest meal and today's solid food activity."""
+    user = context["request"].user
+    if not user.has_perm("core.view_meal"):
+        return {"empty": True, "hide_empty": True, "permitted": False}
+
+    now = timezone.localtime()
+    day_start = timezone.make_aware(
+        timezone.datetime.combine(now.date(), timezone.datetime.min.time())
+    )
+    day_end = day_start + timezone.timedelta(days=1)
+    today_meals = models.Meal.objects.filter(
+        child=child,
+        time__gte=day_start,
+        time__lt=day_end,
+    )
+    latest = (
+        models.Meal.objects.filter(child=child)
+        .filter(**_filter_data_age(context, "time"))
+        .prefetch_related("foods")
+        .first()
+    )
+    today_foods = models.MealFood.objects.filter(meal__in=today_meals)
+    previous_consumption = models.MealFood.objects.filter(
+        meal__child=child,
+        meal__time__lt=day_start,
+        food_id=OuterRef("food_id"),
+    )
+    first_introductions = list(
+        today_foods.annotate(previously_consumed=Exists(previous_consumption))
+        .filter(previously_consumed=False)
+        .order_by("food__name")
+        .values_list("food__name", flat=True)
+        .distinct()
+    )
+
+    return {
+        "type": "feeding",
+        "permitted": True,
+        "child": child,
+        "meal": latest,
+        "meal_count": today_meals.count(),
+        "food_count": today_foods.values("food_id").distinct().count(),
+        "first_introductions": first_introductions,
+        "can_add": user.has_perm("core.add_meal"),
+        "empty": latest is None,
         "hide_empty": _hide_empty(context),
     }

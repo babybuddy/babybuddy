@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Count
-from django.db.models.functions import Lower
+from django.db.models import Count, Exists, F, Max, Min, OuterRef, Prefetch, Q
+from django.db.models.functions import Lower, TruncDate
 from django.forms import Form
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext as _
+from django.views import View
 from django.views.generic.base import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
@@ -17,10 +18,15 @@ from babybuddy.views import BabyBuddyFilterView, BabyBuddyPaginatedView
 from core import filters, forms, models, timeline
 
 
-def _prepare_timeline_context_data(context, date, child=None):
+def _prepare_timeline_context_data(context, date, child=None, user=None):
     date = timezone.datetime.strptime(date, "%Y-%m-%d")
     date = timezone.localtime(timezone.make_aware(date))
-    context["timeline_objects"] = timeline.get_objects(date, child)
+    context["timeline_objects"] = timeline.get_objects(
+        date,
+        child,
+        include_meals=user is None or user.has_perm("core.view_meal"),
+        can_edit_meals=user is None or user.has_perm("core.change_meal"),
+    )
     context["date"] = date
     context["date_previous"] = date - timezone.timedelta(days=1)
     if date.date() < timezone.localdate():
@@ -122,7 +128,7 @@ class ChildDetail(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(ChildDetail, self).get_context_data(**kwargs)
         date = self.request.GET.get("date", str(timezone.localdate()))
-        _prepare_timeline_context_data(context, date, self.object)
+        _prepare_timeline_context_data(context, date, self.object, self.request.user)
         return context
 
 
@@ -210,6 +216,211 @@ class FeedingDelete(CoreDeleteView):
     model = models.Feeding
     permission_required = ("core.delete_feeding",)
     success_url = reverse_lazy("core:feeding-list")
+
+
+class FoodList(PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilterView):
+    model = models.Food
+    template_name = "core/food_list.html"
+    permission_required = ("core.view_food",)
+    filterset_class = filters.FoodFilter
+
+
+class FoodAdd(CoreAddView):
+    model = models.Food
+    permission_required = ("core.add_food",)
+    form_class = forms.FoodForm
+    success_url = reverse_lazy("core:food-list")
+
+
+class FoodUpdate(CoreUpdateView):
+    model = models.Food
+    permission_required = ("core.change_food",)
+    form_class = forms.FoodForm
+    success_url = reverse_lazy("core:food-list")
+
+
+class FoodQuickAdd(PermissionRequiredMixin, View):
+    permission_required = ("core.add_food",)
+
+    def post(self, request, *args, **kwargs):
+        form = forms.FoodForm(request.POST)
+        if not form.is_valid():
+            return JsonResponse(
+                {"errors": form.errors.get_json_data()},
+                status=400,
+            )
+        food = form.save()
+        return JsonResponse(
+            {
+                "id": food.pk,
+                "name": food.name,
+                "category": food.get_category_display(),
+            },
+            status=201,
+        )
+
+
+class MealList(PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilterView):
+    model = models.Meal
+    template_name = "core/meal_list.html"
+    permission_required = ("core.view_meal",)
+    filterset_class = filters.MealFilter
+
+    @staticmethod
+    def meal_foods_with_introduction_status():
+        previous_consumption = models.MealFood.objects.filter(
+            food_id=OuterRef("food_id"),
+            meal__child_id=OuterRef("meal__child_id"),
+        ).filter(
+            Q(meal__time__lt=OuterRef("meal__time"))
+            | Q(
+                meal__time=OuterRef("meal__time"),
+                meal_id__lt=OuterRef("meal_id"),
+            )
+        )
+        return models.MealFood.objects.select_related("food").annotate(
+            previously_consumed=Exists(previous_consumption)
+        )
+
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .annotate(
+                local_date=TruncDate(
+                    "time",
+                    tzinfo=timezone.get_current_timezone(),
+                )
+            )
+            .select_related("child")
+            .prefetch_related(
+                Prefetch(
+                    "mealfood_set",
+                    queryset=self.meal_foods_with_introduction_status(),
+                ),
+                "tags",
+            )
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        visible_meals = list(context["object_list"])
+        visible_dates = {meal.local_date for meal in visible_meals}
+        category_labels = dict(models.Food._meta.get_field("category").choices)
+
+        for local_date in visible_dates:
+            day_meals = self.object_list.filter(local_date=local_date)
+            day_meal_foods = self.meal_foods_with_introduction_status().filter(
+                meal__in=day_meals
+            )
+            foods = {}
+            category_counts = {}
+            new_foods = set()
+            for meal_food in day_meal_foods:
+                foods[meal_food.food_id] = meal_food.food.name
+                category = meal_food.food.category
+                category_counts[category] = category_counts.get(category, 0) + 1
+                if meal_food.is_first_introduction:
+                    new_foods.add(meal_food.food.name)
+            summary = {
+                "meal_count": day_meals.count(),
+                "food_count": len(foods),
+                "category_counts": [
+                    (category_labels[category], count)
+                    for category, count in sorted(category_counts.items())
+                ],
+                "new_foods": sorted(new_foods),
+            }
+            for meal in visible_meals:
+                if meal.local_date == local_date:
+                    meal.day_summary = summary
+        return context
+
+
+class MealAdd(CoreAddView):
+    model = models.Meal
+    permission_required = ("core.add_meal",)
+    form_class = forms.MealForm
+    success_url = reverse_lazy("core:meal-list")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+
+class MealUpdate(CoreUpdateView):
+    model = models.Meal
+    permission_required = ("core.change_meal",)
+    form_class = forms.MealForm
+    success_url = reverse_lazy("core:meal-list")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+
+class MealDelete(CoreDeleteView):
+    model = models.Meal
+    permission_required = ("core.delete_meal",)
+    success_url = reverse_lazy("core:meal-list")
+
+
+class ChildFoodProfileList(
+    PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilterView
+):
+    model = models.ChildFoodProfile
+    template_name = "core/child_food_profile_list.html"
+    permission_required = ("core.view_childfoodprofile",)
+    filterset_class = filters.ChildFoodProfileFilter
+
+    def get_queryset(self):
+        matching_child = Q(food__meals__child=F("child"))
+        return (
+            super()
+            .get_queryset()
+            .select_related("child", "food")
+            .annotate(
+                first_consumed=Min(
+                    "food__meals__time",
+                    filter=matching_child,
+                ),
+                last_consumed=Max(
+                    "food__meals__time",
+                    filter=matching_child,
+                ),
+                consumption_count=Count(
+                    "food__meals",
+                    filter=matching_child,
+                    distinct=True,
+                ),
+            )
+            .order_by("child__first_name", "food__name", "pk")
+        )
+
+
+class ChildFoodProfileAdd(CoreAddView):
+    model = models.ChildFoodProfile
+    template_name = "core/child_food_profile_form.html"
+    permission_required = ("core.add_childfoodprofile",)
+    form_class = forms.ChildFoodProfileForm
+    success_url = reverse_lazy("core:child-food-profile-list")
+
+    def get_initial(self):
+        initial = super().get_initial()
+        food_id = self.request.GET.get("food")
+        if food_id:
+            initial["food"] = models.Food.objects.filter(pk=food_id).first()
+        return initial
+
+
+class ChildFoodProfileUpdate(CoreUpdateView):
+    model = models.ChildFoodProfile
+    template_name = "core/child_food_profile_form.html"
+    permission_required = ("core.change_childfoodprofile",)
+    form_class = forms.ChildFoodProfileForm
+    success_url = reverse_lazy("core:child-food-profile-list")
 
 
 class HeadCircumferenceList(
@@ -491,7 +702,7 @@ class Timeline(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Timeline, self).get_context_data(**kwargs)
         date = self.request.GET.get("date", str(timezone.localdate()))
-        _prepare_timeline_context_data(context, date)
+        _prepare_timeline_context_data(context, date, user=self.request.user)
         return context
 
 
@@ -542,7 +753,12 @@ class TimerAddQuick(PermissionRequiredMixin, RedirectView):
     permission_required = ("core.add_timer",)
 
     def post(self, request, *args, **kwargs):
-        instance = models.Timer.objects.create(user=request.user)
+        name = (
+            models.Timer.SLEEP_NAME
+            if request.POST.get("kind") == "sleep"
+            else None
+        )
+        instance = models.Timer.objects.create(user=request.user, name=name)
         # Find child from child pk in POST
         child_id = request.POST.get("child", False)
         child = models.Child.objects.get(pk=child_id) if child_id else None

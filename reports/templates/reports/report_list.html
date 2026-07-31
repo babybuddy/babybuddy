@@ -10,8 +10,12 @@
 {% endblock %}
 {% block content %}
     <div class="container-fluid">
-        <h1>Reports</h1>
+        <h1>{% trans "Reports" %}</h1>
         <div class="reports-list list-group">
+            {% if perms.core.view_meal %}
+                <a href="{% url 'reports:report-foods-tried-child' object.slug %}"
+                   class="list-group-item list-group-item-action">{% trans "Foods tried" %}</a>
+            {% endif %}
             <a href="{% url 'reports:report-bmi-change-child' object.slug %}"
                class="list-group-item list-group-item-action">{% trans "Body Mass Index (BMI)" %}</a>
             <a href="{% url 'reports:report-diaperchange-amounts-child' object.slug %}"

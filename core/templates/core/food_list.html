@@ -1,0 +1,75 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans "Food catalog" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Food catalog" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Food catalog" %}
+        {% if perms.core.add_food %}
+            <a href="{% url 'core:food-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add food" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Category" %}</th>
+                    <th>{% trans "Allergen" %}</th>
+                    <th>{% trans "Status" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for food in object_list %}
+                    <tr>
+                        <td>
+                            {% if perms.core.change_food %}
+                                <a href="{% url 'core:food-update' food.id %}"
+                                   class="btn btn-sm btn-primary"
+                                   aria-label="{% blocktrans with name=food.name %}Edit {{ name }}{% endblocktrans %}">
+                                    <i class="icon-update" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                        <th scope="row">{{ food.name }}</th>
+                        <td>{{ food.get_category_display }}</td>
+                        <td>
+                            {% if food.allergen %}
+                                {% trans "Yes" %}
+                            {% else %}
+                                {% trans "No" %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if food.active %}
+                                <span class="badge bg-success">{% trans "Active" %}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{% trans "Inactive" %}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% if food.notes %}
+                        <tr class="row-details">
+                            <td colspan="5">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ food.notes }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="5">{% trans "No foods found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}
