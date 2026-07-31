@@ -358,6 +358,15 @@ class Feeding(models.Model):
     amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
+    previous_feeding = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="continuations",
+        verbose_name=_("Previous feeding"),
+        help_text=_("Link to a feeding this continues (back-to-back sessions)."),
+    )
 
     settings = FeedingSettings()
 
