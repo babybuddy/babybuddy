@@ -11,7 +11,7 @@ django-axes[ipware]==7.1.0; python_version >= '3.9'
 django-cors-headers==4.9.0; python_version >= '3.9'
 django-dbsettings==1.4.0
 django-filter==25.2; python_version >= '3.10'
-django-imagekit==5.0.0
+django-imagekit==6.1.0
 django-import-export==4.4.1; python_version >= '3.9'
 django-ipware==7.0.1; python_version >= '3.8'
 django-qr-code==4.2.0; python_version >= '3.10'
