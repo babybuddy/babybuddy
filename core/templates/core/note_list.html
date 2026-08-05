@@ -62,17 +62,17 @@
                                         <img src="{{ thumb.url }}" class="img-fluid" />
                                     </a>
                                 {% endif %}
-                            </td>
+                                </td>
                             <td>{{ note.note }}</td>
                             <td>{% include "core/render_tag_list.html" with tags=note.tags.all %}</td>
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <th colspan="5">{% trans "No notes found." %}</th>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        {% include 'babybuddy/paginator.html' %}
-    {% endblock %}
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <th colspan="5">{% trans "No notes found." %}</th>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                {% include 'babybuddy/paginator.html' %}
+            {% endblock %}
