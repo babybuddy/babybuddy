@@ -47,9 +47,7 @@
             {% endfor %}
         {% endif %}
     </div>
-    <input type="hidden"
-           name="{{ widget.name }}"
-           value="{% for t in widget.value %}&quot;{{ t.name }}&quot;{% if not forloop.last %},{% endif %}{% endfor %}">
+    <input type="hidden" name="{{ widget.name }}" value="{% for t in widget.value %}&quot;{{ t.name }}&quot;{% if not forloop.last %},{% endif %}{% endfor %}">
     <div class="modal fade tag-editor-error-modal">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
