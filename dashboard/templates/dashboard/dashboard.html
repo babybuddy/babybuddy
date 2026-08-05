@@ -23,21 +23,21 @@
                                              class="child-photo img-fluid" />
                                     {% endif %}
                                     </a>
-                                <div class="card-body text-center">
-                                    <h4 class="card-title">{{ object }}</h4>
-                                    <div class="card-text">
-                                        <p>
-                                            {% trans "Born" %} <span class="text-secondary">{{ object.birth_date }}</span>
-                                            <br />
-                                            {% trans "Age" %} <span class="text-secondary">{{ object.birth_date|timesince }}</span>
-                                        </p>
-                                        {% include 'dashboard/child_button_group.html' %}
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">{{ object }}</h4>
+                                        <div class="card-text">
+                                            <p>
+                                                {% trans "Born" %} <span class="text-secondary">{{ object.birth_date }}</span>
+                                                <br />
+                                                {% trans "Age" %} <span class="text-secondary">{{ object.birth_date|timesince }}</span>
+                                            </p>
+                                            {% include 'dashboard/child_button_group.html' %}
+                                        </div>
                                     </div>
                                     </div>
                                     </div>
-                                    </div>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                    </div>
-            {% endblock %}
+                {% endblock %}
