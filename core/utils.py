@@ -58,7 +58,7 @@ def duration_string(duration, precision="s"):
 def duration_parts(duration):
     """Get hours, minutes and seconds from a timedelta."""
     if not isinstance(duration, timezone.timedelta):
-        raise TypeError("Duration provided must be a timedetla")
+        raise TypeError("Duration provided must be a timedelta")
     h, remainder = divmod(duration.seconds, 3600)
     h += duration.days * 24
     m, s = divmod(remainder, 60)
