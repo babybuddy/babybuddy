@@ -63,8 +63,8 @@
                                     </a>
                                 {% endif %}
                                 </td>
-                            <td>{{ note.note }}</td>
-                            <td>{% include "core/render_tag_list.html" with tags=note.tags.all %}</td>
+                                <td>{{ note.note }}</td>
+                                <td>{% include "core/render_tag_list.html" with tags=note.tags.all %}</td>
                                 </tr>
                             {% empty %}
                                 <tr>
@@ -74,5 +74,5 @@
                         </tbody>
                     </table>
                     </div>
-                {% include 'babybuddy/paginator.html' %}
-            {% endblock %}
+                    {% include 'babybuddy/paginator.html' %}
+                {% endblock %}
