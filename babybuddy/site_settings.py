@@ -52,3 +52,13 @@ class FeedingSettings(dbsettings.Group):
         ),
         widget=CheckboxInput,
     )
+    continuation_threshold_minutes = dbsettings.PositiveIntegerValue(
+        default=30,
+        description=_("Continuation auto-link threshold (minutes)"),
+        help_text=_(
+            "When logging a new feeding, the most recent feeding is pre-selected "
+            "as a continuation if it ended within this many minutes of the new "
+            "feeding's start. Also used by the Recent Consumption card to group "
+            "feedings into sessions."
+        ),
+    )
