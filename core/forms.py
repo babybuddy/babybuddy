@@ -324,7 +324,8 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
         self.fields["previous_feeding"].choices = pf_choices
 
         # Auto-link previous_feeding if this is a new feeding and the most
-        # recent feeding ended within 30 minutes of this one's start time
+        # recent feeding ended within the configured threshold of this one's
+        # start time (site setting: FeedingSettings.continuation_threshold_minutes)
         if not (self.instance and self.instance.pk):
             last_feeding = models.Feeding.objects.order_by("-end").first()
             if last_feeding:
@@ -335,8 +336,9 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
                 if start_val:
                     from datetime import timedelta
 
+                    threshold = models.Feeding.settings.continuation_threshold_minutes
                     gap = abs(start_val - last_feeding.end)
-                    if gap <= timedelta(minutes=30):
+                    if gap <= timedelta(minutes=threshold):
                         self.fields["previous_feeding"].initial = last_feeding.id
 
 
