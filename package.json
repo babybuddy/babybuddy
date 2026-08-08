@@ -39,7 +39,7 @@
     "lefthook": "^1.13.6",
     "masonry-layout": "^4.2.2",
     "npm-force-resolutions": "^0.0.10",
-    "plotly.js": "^2.35.3",
+    "plotly.js": "^3.6.0",
     "prettier": "3.8.3",
     "pulltorefreshjs": "^0.1.22",
     "pump": "^3.0.4",
