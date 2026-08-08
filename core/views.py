@@ -59,7 +59,7 @@ class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
 class CoreUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_success_message(self, cleaned_data):
         cleaned_data["model"] = self.model._meta.verbose_name.title()
-        if "child" in cleaned_data:
+        if cleaned_data.get("child"):
             self.success_message = _("%(model)s entry for %(child)s updated.")
         else:
             self.success_message = _("%(model)s entry updated.")
