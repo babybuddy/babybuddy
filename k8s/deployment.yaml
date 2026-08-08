@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: babybuddy-app
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: babybuddy-app
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: babybuddy-app-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: babybuddy-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: babybuddy-app
+  template:
+    metadata:
+      labels:
+        app: babybuddy-app
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      volumes:
+        - name: app-data
+          persistentVolumeClaim:
+            claimName: babybuddy-app-data
+      containers:
+        - name: babybuddy
+          image: ghcr.io/YOUR-GITHUB-USERNAME/babybuddy:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: app-data
+              mountPath: /app/data
+          envFrom:
+            - configMapRef:
+                name: babybuddy-config
+            - secretRef:
+                name: babybuddy-secrets
