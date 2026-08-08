@@ -1,0 +1,16 @@
+{% extends "mobile/base/list_item.html" %}
+{% load i18n %}
+{% block details %}
+    <h5>
+        {% if object.wet and object.solid %}
+            {% trans "Mixed" %}
+        {% elif object.wet %}
+            {% trans "Wet" %}
+        {% elif object.solid %}
+            {% trans "Solid" %}
+        {% else %}
+            {% trans "Clean" %}
+        {% endif %}
+    </h5>
+    <h5>{{ object.color|capfirst }}</h5>
+{% endblock details %}

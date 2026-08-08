@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load bootstrap datetime misc i18n widget_tweaks %}
+{% load bootstrap datetime misc i18n widget_tweaks static %}
 {% block title %}
     {% trans "Diaper Changes" %}
 {% endblock %}
@@ -17,6 +17,7 @@
         {% endif %}
     </h1>
     {% include 'babybuddy/filter.html' %}
+    {% include "mobile/base/list.html" with list_item_template="mobile/diaper_list_item.html" object_list=object_list %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
