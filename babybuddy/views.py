@@ -183,11 +183,13 @@ class UserPassword(LoginRequiredMixin, View):
         )
 
     def post(self, request):
-        form = PasswordChangeForm(request.user, request.POST)
+        form = self.form_class(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
             messages.success(request, _("Password updated."))
+            return redirect("babybuddy:user-settings")
+        messages.error(request, _("Please correct the errors below."))
         return render(request, self.template_name, {"form": form})
 
 
