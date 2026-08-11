@@ -10,4 +10,24 @@
             {% endfor %}
         {% endfor %}
     </div>
+<script>
+(function() {
+    var container = document.querySelector({% if id %}"#{{ id }}"{% else %}".btn-group-toggle"{% endif %});
+    if (!container || container.dataset.deselectInit) return;
+    container.dataset.deselectInit = "true";
+
+    container.addEventListener("click", function(e) {
+        var label = e.target.closest("label");
+        if (!label) return;
+        var input = document.getElementById(label.getAttribute("for"));
+        if (!input || input.type !== "radio") return;
+        if (input.checked) {
+            e.preventDefault();
+            e.stopPropagation();
+            input.checked = false;
+            input.dispatchEvent(new Event("change", {bubbles: true}));
+        }
+    }, true);
+})();
+</script>
 {% endwith %}
