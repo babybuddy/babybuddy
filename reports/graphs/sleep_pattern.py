@@ -11,6 +11,7 @@ import plotly.colors as colors
 from core.utils import duration_string
 
 from reports import utils
+from babybuddy.models import Settings
 
 from datetime import timedelta
 
@@ -171,13 +172,14 @@ def sleep_pattern(sleeps):
     layout_args["xaxis"]["ticklabelmode"] = "period"
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
 
-    start = timezone.localtime().strptime("12:00 AM", "%I:%M %p")
+    use_24h = Settings.objects.filter(hour_format=True).exists()
+    time_format = "H:i" if use_24h else "TIME_FORMAT"
+
+    start = timezone.localtime().replace(hour=0, minute=0, second=0, microsecond=0)
     ticks = OrderedDict()
-    ticks[0] = start.strftime("%I:%M %p")
     for i in range(0, 60 * 24, 30):
-        ticks[i] = formats.time_format(
-            start + timezone.timedelta(minutes=i), "TIME_FORMAT"
-        )
+        tick_time = start + timezone.timedelta(minutes=i)
+        ticks[i] = formats.time_format(tick_time, time_format)
 
     layout_args["yaxis"]["title"] = _("Time of day")
     layout_args["yaxis"]["range"] = [24 * 60, 0]
@@ -246,9 +248,11 @@ def _format_label(state, duration, start_time, end_time):
     :param end_time: End time.
     :return: Formatted string with duration, start, and end time.
     """
+    use_24h = Settings.objects.filter(hour_format=True).exists()
+    time_format = "H:i" if use_24h else "TIME_FORMAT"
     return "{} {} ({} to {})".format(
         state,
         duration_string(duration),
-        formats.time_format(start_time, "TIME_FORMAT"),
-        formats.time_format(end_time, "TIME_FORMAT"),
+        formats.time_format(start_time, time_format),
+        formats.time_format(end_time, time_format),
     )

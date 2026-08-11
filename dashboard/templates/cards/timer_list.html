@@ -1,5 +1,5 @@
 {% extends 'cards/base.html' %}
-{% load i18n %}
+{% load i18n time_filters %}
 {% block header %}
     <a href="{% url "core:timer-list" %}">{% trans "Timers" %}</a>
 {% endblock %}
@@ -19,7 +19,7 @@
                class="list-group-item list-group-item-action">
                 <strong>{{ timer.title_with_child }}</strong>
                 <p class="text-body-secondary small m-0">
-                    {% blocktrans trimmed with start=timer.start|time user=timer.user_username %}
+                    {% blocktrans trimmed with start=timer.start|hour_format user=timer.user_username %}
                         Started by {{ user }} at {{ start }}
                     {% endblocktrans %}
                 </p>

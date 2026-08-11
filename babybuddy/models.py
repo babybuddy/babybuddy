@@ -129,6 +129,9 @@ class Settings(models.Model):
         default=25,
         verbose_name=_("Items Per Page"),
     )
+    hour_format = models.BooleanField(
+        verbose_name=_("Use 24-hour format"), default=False, editable=True
+    )
 
     def __str__(self):
         return str(format_lazy(_("{user}'s Settings"), user=self.user))

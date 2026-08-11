@@ -1,5 +1,5 @@
 {% extends 'cards/base.html' %}
-{% load duration i18n %}
+{% load duration i18n time_filters %}
 {% block header %}
     <a href="{% url "core:pumping-list" %}">{% trans "Last Pumping" %}</a>
 {% endblock %}
@@ -10,7 +10,7 @@
                 {{ time_ago }} ago
             {% endblocktrans %}
         </div>
-        <small>{{ pumping.start|time }}</small>
+        <small>{{ pumping.start|hour_format }}</small>
     {% else %}
         {% trans "None" %}
     {% endif %}
