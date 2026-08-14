@@ -70,5 +70,5 @@ RUN \
 
 COPY docker/root/ /
 
-EXPOSE 80 443 8000
+EXPOSE 8000
 VOLUME /config

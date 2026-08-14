@@ -15,4 +15,5 @@
 
 - Add a linuxserver/babybuddy-compatible `Dockerfile` that installs this
   repository (PUID/PGID/TZ/CSRF_TRUSTED_ORIGINS, `/config`, port 8000,
-  default `admin`/`admin`).
+  default `admin`/`admin`). The image uses the same s6-overlay service
+  wiring as `lscr.io/linuxserver/babybuddy` so gunicorn starts on boot.
