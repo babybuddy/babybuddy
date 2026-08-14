@@ -284,12 +284,7 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Populate previous_feeding dropdown with recent feedings
-        recent = models.Feeding.objects.order_by("-end")[:15]
-        pf_choices = [("", _("---------"))]
-        for f in recent:
-            if self.instance and self.instance.pk == f.pk:
-                continue  # Don't let a feeding link to itself
+        def _feeding_label(f):
             local_start = timezone.localtime(f.start)
             local_end = timezone.localtime(f.end)
             if local_start.strftime("%m/%d") == local_end.strftime("%m/%d"):
@@ -298,7 +293,34 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
                 label = f"{local_start.strftime('%m/%d %I:%M %p')} - {local_end.strftime('%m/%d %I:%M %p')} — {f.get_method_display()}"
             if f.amount:
                 label += f" ({f.amount}ml)"
-            pf_choices.append((f.id, label))
+            return label
+
+        # Build previous_feeding choices:
+        # - New record: show 15 most recent feedings + auto-link if within threshold
+        # - Existing record: show feedings within +/-6h of this feeding's start,
+        #   so the currently-linked feeding stays selectable when editing old entries
+        pf_choices = [("", _("---------"))]
+        if self.instance and self.instance.pk and self.instance.start:
+            ref_time = self.instance.start
+            window = timezone.timedelta(hours=6)
+            feedings = list(
+                models.Feeding.objects.filter(
+                    end__range=(ref_time - window, ref_time + window)
+                ).order_by("-end")
+            )
+            # Always include currently-selected previous_feeding even if outside window
+            if self.instance.previous_feeding_id:
+                selected_id = self.instance.previous_feeding_id
+                if not any(f.id == selected_id for f in feedings):
+                    feedings.insert(0, self.instance.previous_feeding)
+            for f in feedings:
+                if f.pk == self.instance.pk:
+                    continue
+                pf_choices.append((f.id, _feeding_label(f)))
+        else:
+            for f in models.Feeding.objects.order_by("-end")[:15]:
+                pf_choices.append((f.id, _feeding_label(f)))
+
         self.fields["previous_feeding"].choices = pf_choices
 
         # Auto-link previous_feeding if this is a new feeding and the most
