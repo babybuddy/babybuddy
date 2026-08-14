@@ -14,7 +14,18 @@ BabyBuddy.Timer = (function ($) {
   var hidden = null;
 
   var Timer = {
+    stop: function () {
+      if (runIntervalId) {
+        clearInterval(runIntervalId);
+        runIntervalId = null;
+      }
+      window.removeEventListener("focus", Timer.handleVisibilityChange, false);
+      timerId = null;
+      timerElement = null;
+    },
+
     run: function (timer_id, element_id) {
+      this.stop();
       timerId = timer_id;
       timerElement = $("#" + element_id);
 

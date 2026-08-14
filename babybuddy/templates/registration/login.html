@@ -2,7 +2,10 @@
 {% load i18n static widget_tweaks %}
 {% block title %}Login{% endblock %}
 {% block content %}
-    <form class="login-form" method="post" action="{% url 'babybuddy:login' %}">
+    <form class="login-form"
+          method="post"
+          action="{% url 'babybuddy:login' %}"
+          data-turbo="false">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         <label class="visually-hidden" for="username-input-group">{{ form.username.label }}</label>

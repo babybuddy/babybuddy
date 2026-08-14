@@ -57,6 +57,7 @@ const config = {
   },
   scriptsConfig: {
     dest: basePath + "js/",
+    turbo: ["node_modules/@hotwired/turbo/dist/turbo.es2017-umd.js"],
     vendor: [
       "node_modules/pulltorefreshjs/dist/index.umd.js",
       "node_modules/jquery/dist/jquery.js",

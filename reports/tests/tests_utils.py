@@ -12,7 +12,7 @@ class SplitGraphOutputTestCase(SimpleTestCase):
         )
         html, js = split_graph_output(output)
         self.assertEqual(html, '<div id="chart"></div>')
-        self.assertIn("DOMContentLoaded", js)
+        self.assertIn("BabyBuddyReady", js)
         self.assertIn('Plotly.newPlot("chart", []);', js)
         self.assertTrue(js.startswith("<script"))
         self.assertTrue(js.endswith("</script>"))

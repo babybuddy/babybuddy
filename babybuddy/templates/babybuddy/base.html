@@ -29,6 +29,17 @@
         <link rel="shortcut icon"
               href="{% static "babybuddy/root/favicon.ico" %}?v=20211218" />
         <link rel="stylesheet" href="{% static "babybuddy/css/app.css" %}" />
+        <meta name="csrf-token" content="{{ csrf_token }}" />
+        <script>
+            window.BabyBuddyReady = function(fn) {
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", fn);
+                } else {
+                    fn();
+                }
+            };
+        </script>
+        <script src="{% static "babybuddy/js/turbo.js" %}" defer></script>
         <script src="{% static "babybuddy/js/vendor.js" %}" defer></script>
         <script src="{% static "babybuddy/js/app.js" %}" defer></script>
         {% block javascript_head %}{% endblock %}
@@ -44,7 +55,7 @@
         <meta name="viewport"
               content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     </head>
-    <body>
+    <body{% if user.is_authenticated %} data-authenticated="true"{% endif %}>
         {% block nav %}{% endblock %}
         {% block breadcrumb_nav %}
             <nav aria-label="breadcrumb" role="navigation">
@@ -57,13 +68,6 @@
             </nav>
         {% endblock %}
         {% block page %}{% endblock %}
-        {% if user.is_authenticated %}
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    BabyBuddy.PullToRefresh.init();
-                });
-            </script>
-        {% endif %}
         {% block javascript %}{% endblock %}
     </body>
 </html>

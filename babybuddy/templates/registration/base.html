@@ -2,7 +2,9 @@
 {% load static widget_tweaks %}
 {% block breadcrumb_nav %}{% endblock %}
 {% block page %}
-    <div id="view-{{ request.resolver_match.view_name }}" class="container">
+    <div id="view-{{ request.resolver_match.view_name }}"
+         class="container"
+         data-turbo="false">
         <div class="text-center pt-3">
             <img src="{% static "babybuddy/logo/icon-brand.png" %}"
                  width="65"

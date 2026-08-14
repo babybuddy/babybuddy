@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Changed
+
+- In-app navigation now uses Hotwire Turbo Drive so clicking nav, cards, and
+  links swaps the page without a full browser reload. Prefetch on hover/touch
+  is enabled. Login, logout, file uploads, the API browser, and Django admin
+  still do a full reload.
+
 ### Performance
 
 - Load Plotly only on report pages, and only the current language locale instead

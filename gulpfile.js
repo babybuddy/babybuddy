@@ -214,6 +214,13 @@ function scripts() {
         .pipe(gulp.dest(config.scriptsConfig.dest)),
     );
   });
+  // Turbo's UMD build is already compact; gulp-minify cannot parse it.
+  streams.push(
+    gulp
+      .src(config.scriptsConfig.turbo)
+      .pipe(concat("turbo.js"))
+      .pipe(gulp.dest(config.scriptsConfig.dest)),
+  );
   return all(streams);
 }
 

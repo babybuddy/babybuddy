@@ -11,7 +11,7 @@
 {% block content %}
     <div class="p-5 mb-4 bg rounded-3 text-center">
         <div class="container-fluid py-1">
-            <h1 id="timer-status" class="display-1">
+            <h1 id="timer-status" class="display-1" data-timer-id="{{ timer.id }}">
                 <span class="timer-hours">{{ object.duration|hours }}</span>h
                 <span class="timer-minutes">{{ object.duration|minutes }}</span>m
                 <span class="timer-seconds">{{ object.duration|seconds }}</span>s
@@ -79,11 +79,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-{% block javascript %}
-    <script type="application/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');
-        });
-    </script>
 {% endblock %}
