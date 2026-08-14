@@ -37,6 +37,32 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/")
         self.assertEqual(page.url, "/dashboard/")
 
+    def test_base_template_includes_turbo(self):
+        page = self.c.get("/welcome/")
+        self.assertEqual(page.status_code, 200)
+        html = page.content.decode()
+        self.assertIn("babybuddy/js/turbo", html)
+        self.assertIn("BabyBuddyReady", html)
+        self.assertIn('data-authenticated="true"', html)
+
+    def test_login(self):
+        self.c.logout()
+        page = self.c.get("/login/")
+        self.assertEqual(page.status_code, 200)
+        html = page.content.decode()
+        self.assertIn("babybuddy/js/turbo", html)
+        self.assertIn('data-turbo="false"', html)
+        page = self.c.post(
+            "/login/",
+            {
+                "username": self.credentials["username"],
+                "password": self.credentials["password"],
+            },
+            follow=True,
+        )
+        self.assertEqual(page.status_code, 200)
+        self.assertTrue(page.wsgi_request.user.is_authenticated)
+
     @override_settings(ROLLING_SESSION_REFRESH=1)
     def test_rolling_sessions(self):
         self.c.get("/")

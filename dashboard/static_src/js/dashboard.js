@@ -9,7 +9,21 @@ BabyBuddy.Dashboard = (function ($) {
   var hidden = null;
 
   var Dashboard = {
+    stop: function () {
+      if (runIntervalId) {
+        clearInterval(runIntervalId);
+        runIntervalId = null;
+      }
+      window.removeEventListener(
+        "focus",
+        Dashboard.handleVisibilityChange,
+        false,
+      );
+      dashboardElement = null;
+    },
+
     watch: function (element_id, refresh_rate) {
+      this.stop();
       dashboardElement = $("#" + element_id);
 
       if (dashboardElement.length == 0) {
@@ -54,8 +68,11 @@ BabyBuddy.Dashboard = (function ($) {
     },
 
     update: function () {
-      // TODO: Someday maybe update in place?
-      location.reload();
+      if (window.Turbo) {
+        Turbo.visit(window.location.href, { action: "replace" });
+      } else {
+        location.reload();
+      }
     },
   };
 

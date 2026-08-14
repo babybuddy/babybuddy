@@ -80,7 +80,7 @@ class ViewsTestCase(TestCase):
         html = page.content.decode()
         self.assertIn("babybuddy/js/graph", html)
         self.assertNotIn("plotly-locale-de.js", html)
-        self.assertIn("DOMContentLoaded", html)
+        self.assertIn("BabyBuddyReady", html)
 
         page = self.c.get("{}/weight/weight/".format(base_url))
         self.assertEqual(page.status_code, 200)

@@ -13,7 +13,9 @@
 {% block content %}
     <div id="dashboard-child"
          class="row"
-         data-masonry='{"percentPosition": true }'>
+         data-masonry='{"percentPosition": true }'
+         data-dashboard-watch
+         {% if user.settings.dashboard_refresh_rate %}data-refresh-rate="{{ user.settings.dashboard_refresh_rate_milliseconds }}"{% endif %}>
         <div class="col-sm-6 col-lg-4">{% card_timer_list object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_feeding_last object %}</div>
         <div class="col-sm-6 col-lg-4">{% card_diaperchange_last object %}</div>
@@ -33,19 +35,4 @@
 {% endblock %}
 {% block javascript_head %}
     <script src="{% static "babybuddy/js/masonry.js" %}" defer></script>
-{% endblock %}
-{% block javascript %}
-    {% if user.settings.dashboard_refresh_rate %}
-        <script type="application/javascript">
-            document.addEventListener("DOMContentLoaded", function() {
-                BabyBuddy.Dashboard.watch('dashboard-child', {{ user.settings.dashboard_refresh_rate_milliseconds }});
-            });
-        </script>
-    {% else %}
-        <script type="application/javascript">
-            document.addEventListener("DOMContentLoaded", function() {
-                BabyBuddy.Dashboard.watch('dashboard-child', false);
-            });
-        </script>
-    {% endif %}
 {% endblock %}

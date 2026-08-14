@@ -369,9 +369,20 @@
     }
   }
 
-  window.addEventListener("load", () => {
+  function initTagsEditors() {
     for (const el of document.querySelectorAll(".babybuddy-tags-editor")) {
+      if (el.dataset.tagsEditorReady) {
+        continue;
+      }
+      el.dataset.tagsEditorReady = "1";
       new TagsEditor(el);
     }
-  });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTagsEditors);
+  } else {
+    initTagsEditors();
+  }
+  document.addEventListener("turbo:load", initTagsEditors);
 })();

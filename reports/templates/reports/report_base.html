@@ -23,7 +23,7 @@
 {% endblock %}
 {% block javascript %}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        BabyBuddyReady(function() {
             Plotly.setPlotConfig({
                 locale: '{{ LOCALE }}'
             });

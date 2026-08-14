@@ -18,6 +18,12 @@
     left: auto; // Reset the default from `.dropdown-menu`
 }
 
+// Turbo Drive progress bar — same primary as the existing theme, no extra chrome.
+.turbo-progress-bar {
+    background-color: map.get($theme-colors, 'primary');
+    height: 2px;
+}
+
 // PullToRefresh elements.
 .ptr--ptr {
     background: map.get($theme-colors, 'dark');

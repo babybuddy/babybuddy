@@ -27,9 +27,10 @@ resets every hour. Login credentials are:
 
 ## ⚡ Performance and Docker
 
-This fork keeps the same screens and features, but loads Plotly only on report
-pages, defers non-critical JavaScript, and trims dashboard/timeline database
-work so the UI is snappier.
+This fork keeps the same screens and features, but the UI now navigates like a
+single-page app (Hotwire Turbo Drive: no full reload when clicking around).
+It also loads Plotly only on report pages, defers non-critical JavaScript, and
+trims dashboard/timeline database work so the UI is snappier.
 
 It also ships a [linuxserver/babybuddy](https://docs.linuxserver.io/images/docker-babybuddy/)-compatible
 `Dockerfile`. Build this repository and point an existing compose file at the

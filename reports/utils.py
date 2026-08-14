@@ -102,12 +102,7 @@ def split_graph_output(output):
     if body.endswith("</script>"):
         body = body[: -len("</script>")]
         closing = "</script>"
-    # graph.js is deferred; wait until it has executed before calling Plotly.
-    js = (
-        opening
-        + "document.addEventListener('DOMContentLoaded',function(){"
-        + body
-        + "});"
-        + closing
-    )
+    # graph.js is deferred on first load; after a Turbo visit the document is
+    # already ready so BabyBuddyReady runs the plot immediately.
+    js = opening + "BabyBuddyReady(function(){" + body + "});" + closing
     return html, js
