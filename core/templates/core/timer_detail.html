@@ -81,5 +81,9 @@
     </div>
 {% endblock %}
 {% block javascript %}
-    <script type="application/javascript">BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');</script>
+    <script type="application/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');
+        });
+    </script>
 {% endblock %}

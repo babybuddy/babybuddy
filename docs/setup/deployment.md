@@ -11,8 +11,32 @@ variables - see [Configuration](../configuration/intro.md) for detailed informat
 Baby Buddy relies on the [LinuxServer.io](https://www.linuxserver.io/) community
 for a multi-architecture container with strong support. See
 [linuxserver/docker-babybuddy](https://github.com/linuxserver/docker-babybuddy)
-for detailed information about the container or use the following Docker Compose
-configuration as a template to get started quickly:
+for detailed information about the container.
+
+This repository also includes a drop-in `Dockerfile` compatible with that image
+(`PUID`, `PGID`, `TZ`, `CSRF_TRUSTED_ORIGINS`, `/config`, port `8000`, default
+`admin`/`admin`). Build it from the repo root and replace
+`lscr.io/linuxserver/babybuddy` with the local image:
+
+```yaml
+services:
+  babybuddy:
+    build: .
+    image: babybuddy:local
+    container_name: babybuddy
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - CSRF_TRUSTED_ORIGINS=http://127.0.0.1:8000
+    volumes:
+      - /path/to/appdata:/config
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+```
+
+Or use the upstream image as a template to get started quickly:
 
 ```yaml
 version: "2.1"

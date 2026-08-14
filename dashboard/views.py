@@ -14,12 +14,12 @@ class Dashboard(LoginRequiredMixin, TemplateView):
 
     # Show the overall dashboard or a child dashboard if one Child instance.
     def get(self, request, *args, **kwargs):
-        children = Child.objects.count()
-        if children == 0:
+        children = list(Child.objects.all()[:2])
+        if not children:
             return HttpResponseRedirect(reverse("babybuddy:welcome"))
-        elif children == 1:
+        elif len(children) == 1:
             return HttpResponseRedirect(
-                reverse("dashboard:dashboard-child", args={Child.objects.first().slug})
+                reverse("dashboard:dashboard-child", args={children[0].slug})
             )
         return super(Dashboard, self).get(request, *args, **kwargs)
 

@@ -2,8 +2,9 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import timezone
+from django.utils.translation import override
 
 from core.models import Child
 from babybuddy.templatetags import babybuddy
@@ -30,3 +31,28 @@ class TemplateTagsTestCase(TestCase):
         group = Group.objects.get(name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"])
         user.groups.add(group)
         self.assertTrue(babybuddy.user_is_read_only(user))
+
+    def test_plotly_locale_code(self):
+        self.assertEqual(babybuddy.plotly_locale_code("de"), "de")
+        self.assertEqual(babybuddy.plotly_locale_code("pt-br"), "pt-br")
+        self.assertEqual(babybuddy.plotly_locale_code("pt-BR"), "pt-br")
+        self.assertEqual(babybuddy.plotly_locale_code("zh-hans"), "zh-cn")
+        self.assertEqual(babybuddy.plotly_locale_code("nb"), "no")
+        self.assertIsNone(babybuddy.plotly_locale_code("en-US"))
+        self.assertIsNone(babybuddy.plotly_locale_code("en-us"))
+
+    @override_settings(
+        STORAGES={
+            "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+            "staticfiles": {
+                "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+            },
+        }
+    )
+    def test_plotly_locale_script_omits_english(self):
+        with override("en-US"):
+            self.assertEqual(babybuddy.plotly_locale_script(), "")
+        with override("fr"):
+            html = babybuddy.plotly_locale_script()
+            self.assertIn("plotly-locale-fr.js", html)
+            self.assertIn("defer", html)

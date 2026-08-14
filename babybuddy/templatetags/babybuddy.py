@@ -3,6 +3,7 @@
 from django import template
 from django.apps import apps
 from django.conf import settings
+from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.functional import lazy
 from django.utils.html import format_html
@@ -59,6 +60,62 @@ def get_current_locale():
     :return: locale code (e.g. 'de', 'fr', etc.).
     """
     return to_locale(get_language())
+
+
+# Django language codes -> Plotly locale file suffixes (plotly-locale-<code>.js).
+# English uses Plotly's built-in locale and does not need an extra file.
+PLOTLY_LOCALES = {
+    "ca": "ca",
+    "cs": "cs",
+    "da": "da",
+    "de": "de",
+    "es": "es",
+    "fi": "fi",
+    "fr": "fr",
+    "he": "he",
+    "hr": "hr",
+    "hu": "hu",
+    "it": "it",
+    "ja": "ja",
+    "ko": "ko",
+    "nb": "no",
+    "nl": "nl",
+    "pl": "pl",
+    "pt": "pt-pt",
+    "pt-br": "pt-br",
+    "ru": "ru",
+    "sr": "sr",
+    "sv": "sv",
+    "tr": "tr",
+    "uk": "uk",
+    "zh-hans": "zh-cn",
+    "zh-hant": "zh-hk",
+    "zh-tw": "zh-tw",
+}
+
+
+def plotly_locale_code(language=None):
+    """
+    Map a Django language code to a Plotly locale file suffix, or None.
+    """
+    lang = (language if language is not None else get_language() or "").lower()
+    if not lang:
+        return None
+    if lang in PLOTLY_LOCALES:
+        return PLOTLY_LOCALES[lang]
+    return PLOTLY_LOCALES.get(lang.split("-")[0])
+
+
+@register.simple_tag()
+def plotly_locale_script():
+    """
+    Emit a deferred script tag for the current language's Plotly locale.
+    """
+    locale = plotly_locale_code()
+    if not locale:
+        return ""
+    url = static(f"babybuddy/js/plotly-locale/plotly-locale-{locale}.js")
+    return mark_safe(f'<script src="{url}" defer></script>')
 
 
 @register.simple_tag()

@@ -92,6 +92,22 @@ def split_graph_output(output):
     :param output: a string of html and javascript comprising the graph.
     :returns: a tuple of the graph's html and javascript.
     """
-    html, js = output.split("<script")
-    js = "<script" + js
+    html, rest = output.split("<script", 1)
+    gt = rest.find(">")
+    if gt == -1:
+        return html, "<script" + rest
+    opening = "<script" + rest[: gt + 1]
+    body = rest[gt + 1 :]
+    closing = ""
+    if body.endswith("</script>"):
+        body = body[: -len("</script>")]
+        closing = "</script>"
+    # graph.js is deferred; wait until it has executed before calling Plotly.
+    js = (
+        opening
+        + "document.addEventListener('DOMContentLoaded',function(){"
+        + body
+        + "});"
+        + closing
+    )
     return html, js

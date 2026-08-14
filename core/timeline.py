@@ -48,10 +48,17 @@ def get_objects(date, child=None):
     return events
 
 
-def _add_tummy_times(min_date, max_date, events, child=None):
-    instances = TummyTime.objects.filter(start__range=(min_date, max_date)).order_by(
-        "-start"
+def _timeline_queryset(model, **filters):
+    """Filter timeline events and avoid per-row child/tag queries."""
+    return (
+        model.objects.filter(**filters).select_related("child").prefetch_related("tags")
     )
+
+
+def _add_tummy_times(min_date, max_date, events, child=None):
+    instances = _timeline_queryset(
+        TummyTime, start__range=(min_date, max_date)
+    ).order_by("-start")
     if child:
         instances = instances.filter(child=child)
     for instance in instances:
@@ -89,7 +96,7 @@ def _add_tummy_times(min_date, max_date, events, child=None):
 
 
 def _add_sleeps(min_date, max_date, events, child=None):
-    instances = Sleep.objects.filter(start__range=(min_date, max_date)).order_by(
+    instances = _timeline_queryset(Sleep, start__range=(min_date, max_date)).order_by(
         "-start"
     )
     if child:
@@ -131,9 +138,9 @@ def _add_feedings(min_date, max_date, events, child=None):
     yesterday = min_date - timedelta(days=1)
     prev_start = None
 
-    instances = Feeding.objects.filter(start__range=(yesterday, max_date)).order_by(
-        "start"
-    )
+    instances = _timeline_queryset(
+        Feeding, start__range=(yesterday, max_date)
+    ).order_by("start")
     if child:
         instances = instances.filter(child=child)
     for instance in instances:
@@ -188,9 +195,9 @@ def _add_feedings(min_date, max_date, events, child=None):
 
 
 def _add_diaper_changes(min_date, max_date, events, child):
-    instances = DiaperChange.objects.filter(time__range=(min_date, max_date)).order_by(
-        "-time"
-    )
+    instances = _timeline_queryset(
+        DiaperChange, time__range=(min_date, max_date)
+    ).order_by("-time")
     if child:
         instances = instances.filter(child=child)
     for instance in instances:
@@ -215,9 +222,9 @@ def _add_diaper_changes(min_date, max_date, events, child):
 
 
 def _add_medication(min_date, max_date, events, child):
-    instances = Medication.objects.filter(time__range=(min_date, max_date)).order_by(
-        "-time"
-    )
+    instances = _timeline_queryset(
+        Medication, time__range=(min_date, max_date)
+    ).order_by("-time")
     if child:
         instances = instances.filter(child=child)
     for instance in instances:
@@ -268,7 +275,9 @@ def _add_medication(min_date, max_date, events, child):
 
 
 def _add_notes(min_date, max_date, events, child):
-    instances = Note.objects.filter(time__range=(min_date, max_date)).order_by("-time")
+    instances = _timeline_queryset(Note, time__range=(min_date, max_date)).order_by(
+        "-time"
+    )
     if child:
         instances = instances.filter(child=child)
     for instance in instances:
@@ -284,9 +293,9 @@ def _add_notes(min_date, max_date, events, child):
 
 
 def _add_temperature_measurements(min_date, max_date, events, child):
-    instances = Temperature.objects.filter(time__range=(min_date, max_date)).order_by(
-        "-time"
-    )
+    instances = _timeline_queryset(
+        Temperature, time__range=(min_date, max_date)
+    ).order_by("-time")
     if child:
         instances = instances.filter(child=child)
     for instance in instances:
