@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load breadcrumb cards i18n %}
+{% load breadcrumb cards i18n static %}
 {% block title %}
     {% trans "Dashboard" %} - {{ object }}
 {% endblock %}
@@ -31,12 +31,21 @@
         <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
     </div>
 {% endblock %}
+{% block javascript_head %}
+    <script src="{% static "babybuddy/js/masonry.js" %}" defer></script>
+{% endblock %}
 {% block javascript %}
     {% if user.settings.dashboard_refresh_rate %}
         <script type="application/javascript">
-            BabyBuddy.Dashboard.watch('dashboard-child', {{ user.settings.dashboard_refresh_rate_milliseconds }});
+            document.addEventListener("DOMContentLoaded", function() {
+                BabyBuddy.Dashboard.watch('dashboard-child', {{ user.settings.dashboard_refresh_rate_milliseconds }});
+            });
         </script>
     {% else %}
-        <script type="application/javascript">BabyBuddy.Dashboard.watch('dashboard-child', false);</script>
+        <script type="application/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                BabyBuddy.Dashboard.watch('dashboard-child', false);
+            });
+        </script>
     {% endif %}
 {% endblock %}

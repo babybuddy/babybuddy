@@ -29,6 +29,9 @@
         <link rel="shortcut icon"
               href="{% static "babybuddy/root/favicon.ico" %}?v=20211218" />
         <link rel="stylesheet" href="{% static "babybuddy/css/app.css" %}" />
+        <script src="{% static "babybuddy/js/vendor.js" %}" defer></script>
+        <script src="{% static "babybuddy/js/app.js" %}" defer></script>
+        {% block javascript_head %}{% endblock %}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="Baby Buddy" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -54,9 +57,13 @@
             </nav>
         {% endblock %}
         {% block page %}{% endblock %}
-        <script src="{% static "babybuddy/js/vendor.js" %}"></script>
-        <script src="{% static "babybuddy/js/app.js" %}"></script>
-        {% if user.is_authenticated %}<script>BabyBuddy.PullToRefresh.init()</script>{% endif %}
+        {% if user.is_authenticated %}
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    BabyBuddy.PullToRefresh.init();
+                });
+            </script>
+        {% endif %}
         {% block javascript %}{% endblock %}
     </body>
 </html>

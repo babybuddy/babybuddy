@@ -1,5 +1,5 @@
 {% extends 'reports/base.html' %}
-{% load i18n static %}
+{% load babybuddy i18n static %}
 {% block title %}{% endblock %}
 {% block breadcrumbs %}{{ block.super }}{% endblock %}
 {% block content %}
@@ -17,8 +17,17 @@
         {% endif %}
     </div>
 {% endblock %}
+{% block javascript_head %}
+    <script src="{% static "babybuddy/js/graph.js" %}" defer></script>
+    {% plotly_locale_script %}
+{% endblock %}
 {% block javascript %}
-    <script src="{% static "babybuddy/js/graph.js" %}"></script>
-    <script>Plotly.setPlotConfig({locale: '{{ LOCALE }}'})</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Plotly.setPlotConfig({
+                locale: '{{ LOCALE }}'
+            });
+        });
+    </script>
     {{ js|safe }}
 {% endblock %}

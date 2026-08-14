@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Upgrade Required!</title>
+        <style>
+        body{
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .message{
+            width:440px;
+            padding:20px 40px;
+            margin:0 auto;
+            background-color:#f9f9f9;
+            border:1px solid #ddd;
+            color: #1e3d62;
+        }
+        center{
+            margin:40px 0;
+        }
+        h1{
+            font-size: 18px;
+            line-height: 26px;
+        }
+        p{
+            font-size: 12px;
+        }
+        a{
+            color: rgb(207, 48, 139);
+        }
+        </style>
+    </head>
+    <body>
+        <div class="message">
+            <h1>Upgrade Required!</h1>
+            <p>The application inside this image has been moved to a new folder.</p>
+            <p>You will need to update your <strong>/config/nginx/nginx.conf</strong> and <strong>/config/nginx/site-confs/default.conf</strong> in order for the application to work.</p>
+            <p>New config samples are located at <strong>/config/nginx/nginx.conf.sample</strong> and <strong>/config/nginx/site-confs/default.conf.sample</strong></p>
+            <p>Please review our announcement: <a target="_blank" href="https://info.linuxserver.io/issues/2022-08-20-nginx-base/">Significant changes to nginx based images</a></p>
+        </div>
+    </body>
+</html>

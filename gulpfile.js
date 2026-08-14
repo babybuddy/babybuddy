@@ -161,6 +161,9 @@ function extras() {
     gulp
       .src(config.extrasConfig.root.files, { encoding: false })
       .pipe(gulp.dest(config.extrasConfig.root.dest)),
+    gulp
+      .src(config.extrasConfig.plotlyLocales.files, { encoding: false })
+      .pipe(gulp.dest(config.extrasConfig.plotlyLocales.dest)),
   );
 }
 
@@ -196,7 +199,7 @@ function lint() {
  */
 function scripts() {
   const streams = [];
-  const types = ["vendor", "graph", "app", "tags_editor"];
+  const types = ["vendor", "masonry", "graph", "app", "tags_editor"];
   types.forEach((type) => {
     streams.push(
       gulp

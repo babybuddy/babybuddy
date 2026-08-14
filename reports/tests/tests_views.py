@@ -77,6 +77,10 @@ class ViewsTestCase(TestCase):
 
         page = self.c.get("{}/tummy-time/duration/".format(base_url))
         self.assertEqual(page.status_code, 200)
+        html = page.content.decode()
+        self.assertIn("babybuddy/js/graph", html)
+        self.assertNotIn("plotly-locale-de.js", html)
+        self.assertIn("DOMContentLoaded", html)
 
         page = self.c.get("{}/weight/weight/".format(base_url))
         self.assertEqual(page.status_code, 200)

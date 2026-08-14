@@ -44,6 +44,11 @@ class ViewsTestCase(TestCase):
         # TODO: Test cards more granularly.
         page = self.c.get("/children/{}/dashboard/".format(child.slug))
         self.assertEqual(page.status_code, 200)
+        html = page.content.decode()
+        self.assertIn("babybuddy/js/masonry", html)
+        self.assertIn("babybuddy/js/vendor", html)
+        self.assertRegex(html, r"babybuddy/js/vendor[^\"']*[\"']\s+defer")
+        self.assertNotIn("babybuddy/js/graph", html)
 
         Child.objects.create(
             first_name="Second", last_name="Child", birth_date="2000-01-01"

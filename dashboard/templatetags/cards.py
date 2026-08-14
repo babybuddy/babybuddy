@@ -436,17 +436,16 @@ def card_sleep_naps_day(context, child, date=None):
     if not date:
         date = timezone.localtime().date()
     instances = models.Sleep.objects.filter(child=child, nap=True).filter(
-        start__year=date.year, start__month=date.month, start__day=date.day
-    ) | models.Sleep.objects.filter(child=child, nap=True).filter(
-        end__year=date.year, end__month=date.month, end__day=date.day
+        Q(start__year=date.year, start__month=date.month, start__day=date.day)
+        | Q(end__year=date.year, end__month=date.month, end__day=date.day)
     )
-    empty = len(instances) == 0
+    stats = instances.aggregate(total=Sum("duration"), count=Count("id"))
 
     return {
         "type": "sleep",
-        "total": instances.aggregate(Sum("duration"))["duration__sum"],
-        "count": len(instances),
-        "empty": empty,
+        "total": stats["total"],
+        "count": stats["count"],
+        "empty": stats["count"] == 0,
         "hide_empty": _hide_empty(context),
     }
 
@@ -586,21 +585,24 @@ def _diaperchange_statistics(child):
         timespan["btwn_count"] = 0
         timespan["btwn_average"] = 0.0
 
-    instances = models.DiaperChange.objects.filter(child=child).order_by("time")
-    if len(instances) == 0:
+    times = list(
+        models.DiaperChange.objects.filter(child=child)
+        .order_by("time")
+        .values_list("time", flat=True)
+    )
+    if not times:
         return False
-    last_instance = None
+    last_time_raw = None
 
-    for instance in instances:
-        if last_instance:
+    for time in times:
+        if last_time_raw is not None:
+            last_time = timezone.localtime(last_time_raw)
+            current_time = timezone.localtime(time)
             for timespan in changes:
-                last_time = timezone.localtime(last_instance.time)
                 if timespan["start"] is None or last_time > timespan["start"]:
-                    timespan["btwn_total"] += (
-                        timezone.localtime(instance.time) - last_time
-                    )
+                    timespan["btwn_total"] += current_time - last_time
                     timespan["btwn_count"] += 1
-        last_instance = instance
+        last_time_raw = time
 
     for timespan in changes:
         if timespan["btwn_count"] > 0:
@@ -633,21 +635,27 @@ def _feeding_statistics(child):
         timespan["btwn_count"] = 0
         timespan["btwn_average"] = 0.0
 
-    instances = models.Feeding.objects.filter(child=child).order_by("start")
-    if len(instances) == 0:
+    rows = list(
+        models.Feeding.objects.filter(child=child)
+        .order_by("start")
+        .values_list("start", "end")
+    )
+    if not rows:
         return False
-    last_instance = None
+    last_start_raw = None
+    last_end_raw = None
 
-    for instance in instances:
-        if last_instance:
+    for start_raw, end_raw in rows:
+        if last_start_raw is not None:
+            start = timezone.localtime(start_raw)
+            last_start = timezone.localtime(last_start_raw)
+            last_end = timezone.localtime(last_end_raw)
             for timespan in feedings:
-                start = timezone.localtime(instance.start)
-                last_start = timezone.localtime(last_instance.start)
-                last_end = timezone.localtime(last_instance.end)
                 if timespan["start"] is None or last_start > timespan["start"]:
                     timespan["btwn_total"] += start - last_end
                     timespan["btwn_count"] += 1
-        last_instance = instance
+        last_start_raw = start_raw
+        last_end_raw = end_raw
 
     for timespan in feedings:
         if timespan["btwn_count"] > 0:
@@ -661,15 +669,12 @@ def _nap_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    instances = models.Sleep.objects.filter(child=child, nap=True).order_by("start")
-    if len(instances) == 0:
+    instances = models.Sleep.objects.filter(child=child, nap=True)
+    naps = instances.aggregate(total=Sum("duration"), count=Count("id"))
+    if not naps["count"]:
         return False
-    naps = {
-        "total": instances.aggregate(Sum("duration"))["duration__sum"],
-        "count": instances.count(),
-        "average": 0.0,
-        "avg_per_day": 0.0,
-    }
+    naps["average"] = 0.0
+    naps["avg_per_day"] = 0.0
     if naps["count"] > 0:
         naps["average"] = naps["total"] / naps["count"]
 
@@ -691,26 +696,35 @@ def _sleep_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    instances = models.Sleep.objects.filter(child=child).order_by("start")
-    if len(instances) == 0:
+    rows = list(
+        models.Sleep.objects.filter(child=child)
+        .order_by("start")
+        .values_list("start", "end", "duration")
+    )
+    if not rows:
         return False
 
+    total = timezone.timedelta(0)
+    for _start, _end, duration in rows:
+        if duration:
+            total += duration
+
     sleep = {
-        "total": instances.aggregate(Sum("duration"))["duration__sum"],
-        "count": instances.count(),
+        "total": total,
+        "count": len(rows),
         "average": 0.0,
         "btwn_total": timezone.timedelta(0),
-        "btwn_count": instances.count() - 1,
+        "btwn_count": len(rows) - 1,
         "btwn_average": 0.0,
     }
 
-    last_instance = None
-    for instance in instances:
-        if last_instance:
-            start = timezone.localtime(instance.start)
-            last_end = timezone.localtime(last_instance.end)
+    last_end_raw = None
+    for start_raw, end_raw, _duration in rows:
+        if last_end_raw is not None:
+            start = timezone.localtime(start_raw)
+            last_end = timezone.localtime(last_end_raw)
             sleep["btwn_total"] += start - last_end
-        last_instance = instance
+        last_end_raw = end_raw
 
     if sleep["count"] > 0:
         sleep["average"] = sleep["total"] / sleep["count"]
@@ -728,12 +742,11 @@ def _weight_statistics(child):
     """
     weight = {"change_weekly": 0.0}
 
-    instances = models.Weight.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
+    newest = models.Weight.objects.filter(child=child).order_by("-date").first()
+    if not newest:
         return False
 
-    newest = instances.first()
-    oldest = instances.last()
+    oldest = models.Weight.objects.filter(child=child).order_by("date").first()
 
     if newest != oldest:
         weight_change = newest.weight - oldest.weight
@@ -751,12 +764,11 @@ def _height_statistics(child):
     """
     height = {"change_weekly": 0.0}
 
-    instances = models.Height.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
+    newest = models.Height.objects.filter(child=child).order_by("-date").first()
+    if not newest:
         return False
 
-    newest = instances.first()
-    oldest = instances.last()
+    oldest = models.Height.objects.filter(child=child).order_by("date").first()
 
     if newest != oldest:
         height_change = newest.height - oldest.height
@@ -774,12 +786,15 @@ def _head_circumference_statistics(child):
     """
     head_circumference = {"change_weekly": 0.0}
 
-    instances = models.HeadCircumference.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
+    newest = (
+        models.HeadCircumference.objects.filter(child=child).order_by("-date").first()
+    )
+    if not newest:
         return False
 
-    newest = instances.first()
-    oldest = instances.last()
+    oldest = (
+        models.HeadCircumference.objects.filter(child=child).order_by("date").first()
+    )
 
     if newest != oldest:
         hc_change = newest.head_circumference - oldest.head_circumference
@@ -797,12 +812,11 @@ def _bmi_statistics(child):
     """
     bmi = {"change_weekly": 0.0}
 
-    instances = models.BMI.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
+    newest = models.BMI.objects.filter(child=child).order_by("-date").first()
+    if not newest:
         return False
 
-    newest = instances.first()
-    oldest = instances.last()
+    oldest = models.BMI.objects.filter(child=child).order_by("date").first()
 
     if newest != oldest:
         bmi_change = newest.bmi - oldest.bmi
@@ -819,13 +833,12 @@ def card_timer_list(context, child=None):
     :param child: an instance of the Child model.
     :returns: a dictionary with a list of active Timer instances.
     """
+    instances = models.Timer.objects.select_related("child", "user")
     if child:
         # Get active instances for the selected child _or_ None (no child).
-        instances = models.Timer.objects.filter(
-            Q(child=child) | Q(child=None)
-        ).order_by("-start")
-    else:
-        instances = models.Timer.objects.order_by("-start")
+        instances = instances.filter(Q(child=child) | Q(child=None))
+    instances = instances.order_by("-start")
+    instances = list(instances)
     empty = len(instances) == 0
 
     return {
