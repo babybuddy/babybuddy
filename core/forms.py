@@ -337,6 +337,8 @@ class FeedingForm(CoreModelForm, TaggableModelForm):
                     from datetime import timedelta
 
                     threshold = models.Feeding.settings.continuation_threshold_minutes
+                    if threshold is None:
+                        threshold = 30  # default; setting was never saved
                     gap = abs(start_val - last_feeding.end)
                     if gap <= timedelta(minutes=threshold):
                         self.fields["previous_feeding"].initial = last_feeding.id
