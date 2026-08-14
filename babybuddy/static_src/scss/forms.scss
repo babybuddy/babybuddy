@@ -82,3 +82,13 @@
     //on the form at the left hand side of the box
     padding-right: 0;
 }
+
+// Real <button> chips. cursor-pointer was in the markup but never compiled,
+// so iOS/Safari did not synthesize click from a tap on the old <span> chips.
+.babybuddy-tags-editor {
+    .tag,
+    .prototype-tag {
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+}

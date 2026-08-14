@@ -11919,6 +11919,12 @@ textarea.form-control-lg {
   padding-right: 0;
 }
 
+.babybuddy-tags-editor .tag,
+.babybuddy-tags-editor .prototype-tag {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
 .breadcrumb {
   margin-bottom: 0;
 }

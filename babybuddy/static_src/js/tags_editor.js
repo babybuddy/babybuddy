@@ -44,11 +44,27 @@
     return yiq >= 128 ? "#101010" : "#EFEFEF";
   }
 
-  // CSRF token should always be present because it is auto-included with
-  // every tag-editor widget
-  const CSRF_TOKEN = document.querySelector(
-    'input[name="csrfmiddlewaretoken"]',
-  ).value;
+  // Read when the request is sent. A missing token must not throw here:
+  // that would skip every tag binding and make taps appear to do nothing.
+  function getCsrfToken() {
+    const scoped = document.querySelector(
+      ".babybuddy-tags-editor input[name='csrfmiddlewaretoken']",
+    );
+    if (scoped && scoped.value) {
+      return scoped.value;
+    }
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    if (meta && meta.content) {
+      return meta.content;
+    }
+    const fallback = document.querySelector(
+      'input[name="csrfmiddlewaretoken"]',
+    );
+    return fallback ? fallback.value : "";
+  }
+
+  // Ignore the click that follows a handled touch/pointer tap.
+  let suppressClickUntil = 0;
 
   function doReq(method, uri, data, success, fail) {
     const req = new XMLHttpRequest();
@@ -69,7 +85,7 @@
     req.open(method, uri);
     req.setRequestHeader("Content-Type", "application/json");
     req.setRequestHeader("Accept", "application/json");
-    req.setRequestHeader("X-CSRFTOKEN", CSRF_TOKEN);
+    req.setRequestHeader("X-CSRFTOKEN", getCsrfToken());
     req.send(data);
   }
 
@@ -130,7 +146,12 @@
       color = color || tag.getAttribute("data-color");
       actionSymbol = actionSymbol || actionTextNode.textContent;
 
-      tag.childNodes[0].textContent = name;
+      const nameNode = Array.from(tag.childNodes).find(function (node) {
+        return node.nodeType === Node.TEXT_NODE;
+      });
+      if (nameNode) {
+        nameNode.textContent = name;
+      }
       tag.setAttribute("data-value", name);
       tag.setAttribute("data-color", color);
 
@@ -305,7 +326,7 @@
     insertNewTag(tag) {
       const name = tag.getAttribute("data-value");
 
-      const oldTag = this.widget.querySelector(`span[data-value="${name}"]`);
+      const oldTag = this.widget.querySelector(`.tag[data-value="${name}"]`);
       if (oldTag) {
         oldTag.parentNode.removeChild(oldTag);
       }
@@ -315,20 +336,45 @@
     }
 
     /**
-     * Registeres a click-callback for a given node.
+     * Bind add/remove on a chip.
      *
-     * The callback chain-calls another callback "onClicked" after
-     * moving the clicked tag from the old tag-list to a new tag list.
+     * Mobile Safari often never fires click on non-button chips. These are
+     * real buttons, but pointerup is still handled in case click is swallowed
+     * (for example by pull-to-refresh). The following click is ignored so a
+     * tap does not add and immediately remove the same tag.
      */
     registerNewCallback(tag, newParent, onClicked) {
-      function callback(event) {
-        tag.parentNode.removeChild(tag);
-        this.taggingBase.insertTag(newParent, tag);
+      const editor = this;
 
-        tag.removeEventListener("click", callback);
+      function activate(event) {
+        if (event.type === "click" && Date.now() < suppressClickUntil) {
+          event.preventDefault();
+          return;
+        }
+        if (event.type === "pointerup") {
+          if (event.pointerType === "mouse") {
+            return;
+          }
+          if (typeof event.button === "number" && event.button !== 0) {
+            return;
+          }
+          suppressClickUntil = Date.now() + 500;
+        }
+        if (event.cancelable) {
+          event.preventDefault();
+        }
+        if (!tag.parentNode) {
+          return;
+        }
+        tag.parentNode.removeChild(tag);
+        editor.taggingBase.insertTag(newParent, tag);
+        tag.removeEventListener("click", activate);
+        tag.removeEventListener("pointerup", activate);
         onClicked(tag);
       }
-      tag.addEventListener("click", callback.bind(this));
+
+      tag.addEventListener("click", activate);
+      tag.addEventListener("pointerup", activate);
     }
 
     /**
@@ -379,10 +425,17 @@
     }
   }
 
+  function resetTagsEditorFlags() {
+    for (const el of document.querySelectorAll(".babybuddy-tags-editor")) {
+      delete el.dataset.tagsEditorReady;
+    }
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initTagsEditors);
   } else {
     initTagsEditors();
   }
   document.addEventListener("turbo:load", initTagsEditors);
+  document.addEventListener("turbo:before-cache", resetTagsEditorFlags);
 })();

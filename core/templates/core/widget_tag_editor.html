@@ -2,20 +2,22 @@
 <div data-tags-url="{% url 'api:api-root' %}tags/"
      {% for k, v in widget.attrs.items %}{{ k }}="{{ v }}"{% endfor %}>
     {% csrf_token %}
-    <span class="prototype-tag btn badge badge-pill cursor-pointer me-1"
-          style="display: none">
+    <button type="button"
+            class="prototype-tag btn badge badge-pill me-1"
+            style="display: none">
         UNINITIALIZED PROTOTYPE
         <span class="add-remove-icon ps-1 pe-1">+ or -</span>
-    </span>
+    </button>
     <div class="current_tags" style="min-height: 2em;">
         {% for t in widget.value %}
-            <span data-value="{{ t.name }}"
-                  data-color="{{ t.color }}"
-                  class="tag btn badge badge-pill cursor-pointer me-1"
-                  style="background-color: {{ t.color }}">
+            <button type="button"
+                    data-value="{{ t.name }}"
+                    data-color="{{ t.color }}"
+                    class="tag btn badge badge-pill me-1"
+                    style="background-color: {{ t.color }}">
                 {{ t.name }}
                 <span class="add-remove-icon ps-1 pe-1">-</span>
-            </span>
+            </button>
         {% endfor %}
     </div>
     <div class="new-tags">
@@ -37,13 +39,14 @@
         {% if widget.tag_suggestions.quick %}
             <span>{% trans "Recently used:" %}</span>
             {% for t in widget.tag_suggestions.quick %}
-                <span data-value="{{ t.name }}"
-                      data-color="{{ t.color }}"
-                      class="tag btn badge badge-pill cursor-pointer me-1"
-                      style="background-color: {{ t.color }}">
+                <button type="button"
+                        data-value="{{ t.name }}"
+                        data-color="{{ t.color }}"
+                        class="tag btn badge badge-pill me-1"
+                        style="background-color: {{ t.color }}">
                     {{ t.name }}
                     <span class="add-remove-icon ps-1 pe-1">+</span>
-                </span>
+                </button>
             {% endfor %}
         {% endif %}
     </div>

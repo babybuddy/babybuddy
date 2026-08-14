@@ -686,6 +686,34 @@ class TaggedFormsTestCase(FormsTestCaseBase):
 
         self.assertLess(old_tag_last_used, self.oldtag.last_used)
 
+    def test_tags_editor_widget_markup(self):
+        """Tag chips must be buttons so a phone tap becomes a click."""
+        add_page = self.c.get("/notes/add/")
+        self.assertEqual(add_page.status_code, 200)
+        self.assertContains(add_page, "babybuddy-tags-editor")
+        self.assertContains(add_page, "data-tags-url")
+        self.assertContains(add_page, "prototype-tag")
+        self.assertContains(add_page, "current_tags")
+        self.assertContains(add_page, "new-tags")
+        self.assertContains(add_page, "create-tag-inputs")
+        self.assertContains(add_page, 'id="add-tag"')
+        self.assertContains(add_page, "add-remove-icon")
+        self.assertContains(add_page, "tag-editor-error-modal")
+        self.assertContains(add_page, 'name="csrfmiddlewaretoken"')
+        self.assertContains(add_page, "babybuddy/js/tags_editor")
+        self.assertContains(add_page, 'data-value="oldtag"')
+        self.assertContains(add_page, 'type="button"')
+        self.assertContains(add_page, 'class="tag btn badge badge-pill me-1"')
+        self.assertNotContains(add_page, '<span data-value="oldtag"')
+
+        edit_page = self.c.get("/notes/{}/".format(self.note.id))
+        self.assertEqual(edit_page.status_code, 200)
+        self.assertContains(edit_page, "babybuddy-tags-editor")
+        self.assertContains(edit_page, 'data-value="oldtag"')
+        self.assertContains(edit_page, "current_tags")
+        self.assertContains(edit_page, 'name="tags"')
+        self.assertContains(edit_page, 'type="button"')
+
     def test_delete(self):
         page = self.c.post("/notes/{}/delete/".format(self.note.id), follow=True)
         self.assertEqual(page.status_code, 200)

@@ -186,12 +186,35 @@ BabyBuddy.teardownPage = function () {
  */
 BabyBuddy.PullToRefresh = (function (ptr) {
   var instance = null;
+  var lastPointerTarget = null;
+  document.addEventListener(
+    "pointerdown",
+    function (event) {
+      lastPointerTarget = event.target;
+    },
+    true,
+  );
   return {
     init: function () {
       this.destroy();
       instance = ptr.init({
         mainElement: "body",
         onRefresh: this.onRefresh,
+        shouldPullToRefresh: function () {
+          if (window.scrollY) {
+            return false;
+          }
+          if (
+            lastPointerTarget &&
+            lastPointerTarget.closest &&
+            lastPointerTarget.closest(
+              ".babybuddy-tags-editor, button, a, input, textarea, select, label",
+            )
+          ) {
+            return false;
+          }
+          return true;
+        },
       });
     },
 
