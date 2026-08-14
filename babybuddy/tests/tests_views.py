@@ -46,13 +46,13 @@ class ViewsTestCase(TestCase):
         self.assertIn('data-authenticated="true"', html)
 
     def test_login(self):
-        self.c.logout()
-        page = self.c.get("/login/")
+        client = HttpClient()
+        page = client.get("/login/")
         self.assertEqual(page.status_code, 200)
         html = page.content.decode()
         self.assertIn("babybuddy/js/turbo", html)
         self.assertIn('data-turbo="false"', html)
-        page = self.c.post(
+        page = client.post(
             "/login/",
             {
                 "username": self.credentials["username"],
