@@ -25,38 +25,6 @@ resets every hour. Login credentials are:
 - Username: `admin`
 - Password: `admin`
 
-## ⚡ Performance and Docker
-
-This fork keeps the same screens and features, but the UI now navigates like a
-single-page app (Hotwire Turbo Drive: no full reload when clicking around).
-It also loads Plotly only on report pages, defers non-critical JavaScript, and
-trims dashboard/timeline database work so the UI is snappier.
-
-It also ships a [linuxserver/babybuddy](https://docs.linuxserver.io/images/docker-babybuddy/)-compatible
-`Dockerfile`. Build this repository and point an existing compose file at the
-local image (same `PUID`/`PGID`/`TZ`/`CSRF_TRUSTED_ORIGINS`, `/config`, and
-`:8000`):
-
-```yaml
-services:
-  babybuddy:
-    build: .
-    image: babybuddy:local
-    container_name: babybuddy
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-      - CSRF_TRUSTED_ORIGINS=http://127.0.0.1:8000
-    volumes:
-      - /path/to/babybuddy/config:/config
-    ports:
-      - 8000:8000
-    restart: unless-stopped
-```
-
-Default login remains `admin` / `admin`.
-
 ## 📘 Documentation
 
 Visit [https://docs.baby-buddy.net](https://docs.baby-buddy.net) for full documentation.

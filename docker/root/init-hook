@@ -1,7 +1,0 @@
-#!/usr/bin/with-contenv bash
-# shellcheck shell=bash
-
-# Disable php-fpm; Baby Buddy is served by gunicorn + nginx.
-rm -rf /etc/s6-overlay/s6-rc.d/user/contents.d/svc-php-fpm
-
-exec /docker-mods
