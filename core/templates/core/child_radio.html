@@ -10,7 +10,7 @@
             {% endfor %}
         {% endfor %}
     </div>
-<script>
+    <script>
 (function() {
     var container = document.querySelector({% if id %}"#{{ id }}"{% else %}".btn-group-toggle"{% endif %});
     if (!container || container.dataset.deselectInit) return;
@@ -29,5 +29,5 @@
         }
     }, true);
 })();
-</script>
+    </script>
 {% endwith %}

@@ -8,7 +8,7 @@
             {% endfor %}
         {% endfor %}
     </div>
-<script>
+    <script>
 (function() {
     var container = document.querySelector({% if id %}"#{{ id }}"{% else %}".pill-container"{% endif %});
     if (!container || container.dataset.deselectInit) return;
@@ -27,5 +27,5 @@
         }
     }, true);
 })();
-</script>
+    </script>
 {% endwith %}
