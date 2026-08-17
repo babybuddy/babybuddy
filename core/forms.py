@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.db.models import Max
 from django.forms import widgets
 from django.conf import settings
 from django.utils import timezone
@@ -10,7 +11,12 @@ from taggit.forms import TagField
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
 from core.models import Timer
-from core.widgets import TagsEditor, ChildRadioSelect, PillRadioSelect
+from core.widgets import (
+    TagsEditor,
+    ChildRadioSelect,
+    PillRadioSelect,
+    DatalistTextInput,
+)
 
 
 def set_initial_values(kwargs, form_type):
@@ -359,6 +365,19 @@ class MedicationForm(CoreModelForm, TaggableModelForm):
         if self.instance and self.instance.next_dose_interval:
             total_seconds = self.instance.next_dose_interval.total_seconds()
             self.initial["next_dose_interval"] = total_seconds / 3600
+
+        # Offer previously-used medication names as free-text autocomplete
+        # suggestions. Names are global across all children (medications
+        # recur between siblings) and ordered by most-recent use.
+        suggestions = list(
+            models.Medication.objects.values("name")
+            .annotate(last_used=Max("time"))
+            .order_by("-last_used")
+            .values_list("name", flat=True)
+        )
+        self.fields["name"].widget = DatalistTextInput(
+            suggestions=suggestions, datalist_id="medication-name-list"
+        )
 
     def clean_next_dose_interval(self):
         hours = self.cleaned_data.get("next_dose_interval")
