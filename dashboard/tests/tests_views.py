@@ -50,3 +50,72 @@ class ViewsTestCase(TestCase):
         )
         page = self.c.get("/dashboard/")
         self.assertEqual(page.status_code, 200)
+
+    def test_customize_cards_page(self):
+        """The combined customize page should return 200."""
+        call_command("fake", verbosity=0, children=1, days=1)
+        page = self.c.get("/dashboard/cards/")
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Customize Dashboard")
+        # Should contain the breast_activity_time_mode toggle
+        self.assertContains(page, "breast_activity_time_mode")
+        self.assertContains(page, "Start time")
+
+    def test_reorder_redirects_to_cards(self):
+        """The old reorder URL should redirect to the combined page."""
+        call_command("fake", verbosity=0, children=1, days=1)
+        page = self.c.get("/dashboard/reorder/")
+        self.assertEqual(page.status_code, 302)
+        self.assertEqual(page.url, "/dashboard/cards/")
+
+    def test_customize_cards_post_saves_visibility_and_order(self):
+        """POST to customize page should save both visibility and order."""
+        call_command("fake", verbosity=0, children=1, days=1)
+        # Toggle some cards, set an order
+        response = self.c.post("/dashboard/cards/", {
+            "card_timer_list": "on",
+            "card_feeding_last": "on",
+            "card_breast_activity": "on",
+            "card_order": ["breast_activity", "feeding_last", "timer_list"],
+            "breast_activity_time_mode": "start",
+        })
+        self.assertEqual(response.status_code, 302)
+        # Verify saved
+        from babybuddy.models import Settings
+        settings = Settings.objects.get(user=self.user)
+        config = settings.dashboard_card_config
+        self.assertEqual(config["_card_order"], ["breast_activity", "feeding_last", "timer_list"])
+        self.assertEqual(settings.breast_activity_time_mode, "start")
+        # Hidden card should be saved as not visible
+        self.assertFalse(config.get("sleep_last", {}).get("visible", True))
+
+    def test_customize_cards_post_breast_mode_end(self):
+        """POST with end mode should save correctly."""
+        call_command("fake", verbosity=0, children=1, days=1)
+        response = self.c.post("/dashboard/cards/", {
+            "card_timer_list": "on",
+            "card_order": ["timer_list"],
+            "breast_activity_time_mode": "end",
+        })
+        self.assertEqual(response.status_code, 302)
+        from babybuddy.models import Settings
+        settings = Settings.objects.get(user=self.user)
+        self.assertEqual(settings.breast_activity_time_mode, "end")
+
+    def test_customize_cards_invalid_breast_mode_defaults_to_end(self):
+        """Invalid mode value should not corrupt the setting."""
+        call_command("fake", verbosity=0, children=1, days=1)
+        # Set to a valid value first
+        from babybuddy.models import Settings
+        settings = Settings.objects.get(user=self.user)
+        settings.breast_activity_time_mode = "end"
+        settings.save()
+        # POST with invalid value (should be ignored, keep "end")
+        response = self.c.post("/dashboard/cards/", {
+            "card_timer_list": "on",
+            "card_order": ["timer_list"],
+            "breast_activity_time_mode": "invalid",
+        })
+        self.assertEqual(response.status_code, 302)
+        settings.refresh_from_db()
+        self.assertEqual(settings.breast_activity_time_mode, "end")

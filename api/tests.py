@@ -190,6 +190,9 @@ class PumpingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "id": 2,
                 "child": 1,
                 "amount": 9.0,
+                "amount_unit": "ml",
+                "amount_normalized": None,
+                "method": "",
                 "start": "2017-11-17T15:03:00-05:00",
                 "end": "2017-11-17T15:22:00-05:00",
                 "duration": "00:19:00",
@@ -217,6 +220,7 @@ class PumpingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         response = self.client.get(endpoint)
         entry = response.data
         entry["amount"] = 41
+        entry["amount_normalized"] = 41.0
         response = self.client.patch(
             endpoint,
             {
@@ -245,6 +249,12 @@ class DiaperChangeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "solid": False,
                 "color": "",
                 "amount": 2.25,
+                "wet_amount": "",
+                "solid_amount": "",
+                "blowout": "",
+                "blowout_direction": "",
+                "diaper_size": "",
+                "diaper_brand": "",
                 "notes": "stinky",
                 "tags": [],
             },
@@ -323,6 +333,17 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "type": "formula",
                 "method": "bottle",
                 "amount": 2.5,
+                "amount_unit": "ml",
+                "amount_normalized": None,
+                "breastfeeding_modifier": "none",
+                "sns_amount": None,
+                "sns_milk_type": "",
+                "nipple_size": "",
+                "formula_brand": "",
+                "bottle_brand": "",
+                "bottle_model": "",
+                "previous_feeding": None,
+                "amount_mixed": None,
                 "notes": "forgot vitamins :(",
                 "tags": [],
             },
@@ -363,6 +384,7 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         entry["type"] = "breast milk"
         entry["method"] = "left breast"
         entry["amount"] = 0
+        entry["amount_normalized"] = 0.0
         response = self.client.patch(
             endpoint,
             {

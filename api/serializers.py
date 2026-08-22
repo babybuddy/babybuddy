@@ -124,6 +124,9 @@ class PumpingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "id",
             "child",
             "amount",
+            "amount_unit",
+            "amount_normalized",
+            "method",
             "start",
             "end",
             "duration",
@@ -159,12 +162,27 @@ class DiaperChangeSerializer(CoreModelSerializer, TaggableSerializer):
             "solid",
             "color",
             "amount",
+            "wet_amount",
+            "solid_amount",
+            "blowout",
+            "blowout_direction",
+            "diaper_size",
+            "diaper_brand",
             "notes",
             "tags",
         )
 
 
 class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
+    # HyperlinkedModelSerializer would auto-generate a HyperlinkedRelatedField
+    # for this self-FK, reversing the bare name "feeding-detail" — which fails
+    # because api urls are namespaced (api:feeding-detail). Explicit PK field.
+    previous_feeding = serializers.PrimaryKeyRelatedField(
+        queryset=models.Feeding.objects.all(),
+        required=False,
+        allow_null=True,
+    )
+
     class Meta(CoreModelWithDurationSerializer.Meta):
         model = models.Feeding
         fields = (
@@ -177,6 +195,17 @@ class FeedingSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "type",
             "method",
             "amount",
+            "amount_unit",
+            "amount_normalized",
+            "breastfeeding_modifier",
+            "sns_amount",
+            "sns_milk_type",
+            "nipple_size",
+            "formula_brand",
+            "bottle_brand",
+            "bottle_model",
+            "previous_feeding",
+            "amount_mixed",
             "notes",
             "tags",
         )
@@ -205,6 +234,7 @@ class MedicationSerializer(CoreModelSerializer, TaggableSerializer):
             "dosage_unit",
             "time",
             "next_dose_interval",
+            "doctor_visit",
             "notes",
             "tags",
         )
@@ -301,6 +331,45 @@ class WeightSerializer(CoreModelSerializer, TaggableSerializer):
         fields = ("id", "child", "weight", "date", "notes", "tags")
 
 
+class FeedInventorySerializer(CoreModelSerializer, TaggableSerializer):
+    child = serializers.PrimaryKeyRelatedField(
+        allow_null=True,
+        queryset=models.Child.objects.all(),
+        required=False,
+        help_text="Optional. Leave blank for household milk pool.",
+    )
+    pumping_session = serializers.PrimaryKeyRelatedField(
+        allow_null=True,
+        queryset=models.Pumping.objects.all(),
+        required=False,
+    )
+
+    class Meta:
+        model = models.FeedInventory
+        fields = (
+            "id",
+            "child",
+            "pumping_session",
+            "type",
+            "amount",
+            "amount_unit",
+            "amount_normalized",
+            "amount_remaining",
+            "storage_location",
+            "status",
+            "expressed_at",
+            "fridge_entered_at",
+            "freezer_entered_at",
+            "thaw_started_at",
+            "thaw_completed_at",
+            "warmed_at",
+            "room_temp_since",
+            "cooler_entered_at",
+            "notes",
+            "tags",
+        )
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
@@ -331,3 +400,164 @@ class ProfileSerializer(serializers.ModelSerializer):
             "api_key",
         )
         extra_kwargs = {k: {"read_only": True} for k in fields}
+
+
+class ProductLineSerializer(CoreModelSerializer):
+    class Meta:
+        model = models.ProductLine
+        fields = (
+            "id",
+            "item_type",
+            "brand",
+            "line",
+        )
+
+
+class SupplyItemSerializer(CoreModelSerializer):
+    product_line = serializers.PrimaryKeyRelatedField(queryset=models.ProductLine.objects.all())
+
+    class Meta:
+        model = models.SupplyItem
+        fields = (
+            "id",
+            "child",
+            "product_line",
+            "size",
+            "quantity",
+            "purchase_date",
+            "notes",
+        )
+
+
+class SpitUpSerializer(CoreModelSerializer):
+    # Same namespaced-reverse issue as previous_feeding — explicit PK field.
+    related_feeding = serializers.PrimaryKeyRelatedField(
+        queryset=models.Feeding.objects.all(),
+        required=False,
+        allow_null=True,
+    )
+
+    class Meta:
+        model = models.SpitUp
+        fields = (
+            "id",
+            "child",
+            "time",
+            "amount",
+            "appearance",
+            "related_feeding",
+            "notes",
+        )
+
+
+class EquipmentItemSerializer(CoreModelSerializer):
+    # Same namespaced-reverse issue — explicit PK field (pattern from
+    # SupplyItemSerializer.product_line).
+    product_line = serializers.PrimaryKeyRelatedField(
+        queryset=models.ProductLine.objects.all(),
+    )
+
+    class Meta:
+        model = models.EquipmentItem
+        fields = (
+            "id", "child", "product_line", "size", "quantity",
+            "acquired_date", "source", "disposal_status", "disposal_date", "notes",
+        )
+
+
+class FeedInventorySerializer(CoreModelSerializer, TaggableSerializer):
+    child = serializers.PrimaryKeyRelatedField(
+        allow_null=True,
+        queryset=models.Child.objects.all(),
+        required=False,
+        help_text="Optional. Leave blank for household milk pool.",
+    )
+    pumping_session = serializers.PrimaryKeyRelatedField(
+        allow_null=True,
+        queryset=models.Pumping.objects.all(),
+        required=False,
+    )
+
+    class Meta:
+        model = models.FeedInventory
+        fields = (
+            "id",
+            "child",
+            "pumping_session",
+            "type",
+            "amount",
+            "amount_unit",
+            "amount_normalized",
+            "amount_remaining",
+            "storage_location",
+            "status",
+            "expressed_at",
+            "fridge_entered_at",
+            "freezer_entered_at",
+            "thaw_started_at",
+            "thaw_completed_at",
+            "warmed_at",
+            "room_temp_since",
+            "cooler_entered_at",
+            "notes",
+            "tags",
+        )
+
+
+class DoctorVisitSerializer(CoreModelSerializer):
+    class Meta:
+        model = models.DoctorVisit
+        fields = (
+            "id", "child", "date_time", "appointment_type",
+            "doctor_name", "practice", "reason", "symptoms_notes",
+            "diagnosis", "action_items", "weight_measured", "notes",
+        )
+
+
+class FormulaStockSerializer(CoreModelSerializer):
+    product_line = serializers.PrimaryKeyRelatedField(queryset=models.ProductLine.objects.all())
+
+    class Meta:
+        model = models.FormulaStock
+        fields = (
+            "id",
+            "product_line",
+            "form",
+            "container_size",
+            "quantity",
+            "expiry_date",
+            "opened_at",
+            "grams_remaining",
+            "ml_remaining",
+            "usage_eligible",
+            "drain_priority",
+            "is_reserve",
+            "notes",
+        )
+
+
+class PreparedFeedSerializer(CoreModelSerializer):
+    source_pool = serializers.PrimaryKeyRelatedField(
+        queryset=models.FormulaStock.objects.all(), allow_null=True, required=False
+    )
+    source_inventory = serializers.PrimaryKeyRelatedField(
+        queryset=models.FeedInventory.objects.all(), allow_null=True, required=False
+    )
+
+    class Meta:
+        model = models.PreparedFeed
+        fields = (
+            "id",
+            "source_pool",
+            "source_inventory",
+            "prepared_from",
+            "amount",
+            "amount_remaining",
+            "grams_used",
+            "prepared_at",
+            "fridge_entered_at",
+            "first_fed_at",
+            "status",
+            "notes",
+        )
+

@@ -1,0 +1,60 @@
+{% extends 'babybuddy/page.html' %}
+{% load babybuddy i18n widget_tweaks %}
+{% block title %}{% trans "Combine Entries" %}{% endblock title %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:feedinventory-list' %}">{% trans "Milk Inventory" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Combine" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Combine Entries" %}</h1>
+    <p class="text-muted">
+        {% blocktranslate with type=object.get_type_display remaining=object.amount_remaining %}
+            {{ type }} — <strong>{{ remaining }} ml</strong> currently in this entry.
+            Check <strong>Merge</strong> on each unit to absorb, and pick which unit
+            <strong>Survives</strong> (keeps its label). Absorbed units are zeroed and
+            preserved in the event ledger.
+        {% endblocktranslate %}
+    </p>
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% if form.entries.errors %}<div class="alert alert-danger">{{ form.entries.errors }}</div>{% endif %}
+        {% if form.survivor.errors %}<div class="alert alert-danger">{{ form.survivor.errors }}</div>{% endif %}
+        <div class="mb-2 text-muted small">
+            {% trans "Oldest unit is pre-selected as the survivor. Storage clocks always min-merge to the oldest regardless of this choice." %}
+        </div>
+        <div class="mb-3">
+            {% for u in form.survivor.field.queryset %}
+                <div class="card mb-2">
+                    <div class="card-body d-flex flex-wrap align-items-center gap-3 py-2">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input" type="checkbox" name="entries" value="{{ u.pk }}" id="entry-{{ u.pk }}" {% if u.pk == object.pk %}disabled title="{% trans 'This entry' %}"{% endif %}>
+                            <label class="form-check-label" for="entry-{{ u.pk }}">{% trans "Merge" %}</label>
+                        </div>
+                        <div class="form-check mb-0">
+                            <input class="form-check-input" type="radio" name="survivor" value="{{ u.pk }}" id="surv-{{ u.pk }}"
+                                   {% if form.survivor.initial and u.pk == form.survivor.initial.pk %}checked{% endif %}>
+                            <label class="form-check-label" for="surv-{{ u.pk }}">{% trans "Survives" %}</label>
+                        </div>
+                        <a href="{% url 'core:feedinventory-update' u.pk %}" class="fw-bold text-decoration-none">{{ u.label|default:u.pk }}</a>
+                        <span>{{ u.amount_remaining|floatformat:1 }} ml</span>
+                        <span class="text-muted">{{ u.get_type_display }}</span>
+                        <span class="badge bg-secondary">{{ u.get_storage_location_display }}</span>
+                        <span class="badge bg-{% if u.status == 'fresh' %}success{% elif u.status == 'thawed' %}info{% elif u.status == 'used' %}secondary{% elif u.status == 'discarded' %}danger{% else %}warning{% endif %}">
+                            {{ u.get_status_display }}
+                        </span>
+                        {% if u.pk == object.pk %}<span class="badge bg-dark">{% trans "This entry" %}</span>{% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted">{% trans "No combinable entries." %}</p>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans "Combine" %}</button>
+        <a href="{% url 'core:feedinventory-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

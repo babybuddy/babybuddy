@@ -1,0 +1,42 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}{% trans "Product Lines" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:supplyitem-list' %}">{% trans "Supplies" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Products" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Product Lines" %}
+        <a href="{% url 'core:productline-add' %}" class="btn btn-sm btn-success">
+            <i class="icon-add" aria-hidden="true"></i> {% trans "Add Product" %}
+        </a>
+    </h1>
+    {% if grouped_products %}
+        {% for type_label, products in grouped_products.items %}
+            <h4 class="mt-4 mb-2 text-muted">{{ type_label }}</h4>
+            <div class="table-responsive">
+                <table class="table table-instances table-borderless table-striped table-hover align-middle">
+                    <thead><tr>
+                        <th>{% trans "Actions" %}</th>
+                        <th>{% trans "Brand" %}</th>
+                        <th>{% trans "Line" %}</th>
+                    </tr></thead>
+                    <tbody>
+                        {% for pl in products %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'core:productline-update' pl.id %}" class="btn btn-sm btn-primary"><i class="icon-update"></i></a>
+                                <a href="{% url 'core:productline-delete' pl.id %}" class="btn btn-sm btn-danger"><i class="icon-trash"></i></a>
+                            </td>
+                            <td>{{ pl.brand }}</td>
+                            <td>{{ pl.line|default:"—" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted my-5">{% trans "No product lines yet." %}</p>
+    {% endif %}
+{% endblock %}

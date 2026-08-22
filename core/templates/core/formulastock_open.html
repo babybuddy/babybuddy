@@ -1,0 +1,20 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans "Open a Container" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:formulastock-list' %}">{% trans "Formula Stock" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Open" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Open a container of" %} <span class="text-info">{{ object }}</span></h1>
+    <p class="text-muted">
+        {% if object.form == 'powder' %}
+            {% blocktrans %}Opening starts the one-month powder clock (use-by = min(expiry, opened + 1 month)). Store cool and dry — never refrigerate.{% endblocktrans %}
+        {% else %}
+            {% blocktrans %}Opening starts the 48-hour fridge clock. Room-temp stints max 1 h per stint; return to the fridge between pours until the 48 h cap.{% endblocktrans %}
+        {% endif %}
+    </p>
+    {% include 'babybuddy/form.html' %}
+{% endblock %}

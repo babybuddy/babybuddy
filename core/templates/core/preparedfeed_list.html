@@ -1,0 +1,79 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime misc i18n %}
+{% block title %}
+    {% trans "Prepared Feeds" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Prepared Feeds" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Prepared Feeds" %}
+        {% if perms.core.add_preparedfeed %}
+            <a href="{% url 'core:preparedfeed-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add" %}
+            </a>
+        {% endif %}
+    </h1>
+
+    {% if object_list %}
+        <div class="card mb-3">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless table-striped mb-0 align-middle">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Prepared from" %}</th>
+                                <th>{% trans "Source pool" %}</th>
+                                <th class="text-end">{% trans "Amount" %}</th>
+                                <th class="text-end">{% trans "Remaining" %}</th>
+                                <th>{% trans "Prepared at" %}</th>
+                                <th>{% trans "Use by" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th>{% trans "Actions" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in object_list %}
+                                <tr{% if item.is_reserve %} class="table-warning"{% endif %}>
+                                    <td>{{ item.get_prepared_from_display }}</td>
+                                    <td>{{ item.source_pool|default:'—' }}</td>
+                                    <td class="text-end">{{ item.amount|floatformat:0 }} ml</td>
+                                    <td class="text-end">{{ item.amount_remaining|floatformat:0 }} ml</td>
+                                    <td>{{ item.prepared_at|date:'Y-m-d H:i' }}</td>
+                                    <td>
+                                        {% with item.use_by_info as info %}
+                                            {% if info %}
+                                                <span class="badge {{ info.css_class }} use-by-badge"
+                                                      tabindex="0" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                      title="{{ item.use_by_tooltip }}">
+                                                    {{ info.primary_text }}</span>
+                                            {% else %}
+                                                <span class="text-muted">—</span>
+                                            {% endif %}
+                                        {% endwith %}
+                                    </td>
+                                    <td>{{ item.get_status_display }}</td>
+                                    <td>
+                                        {% if perms.core.change_preparedfeed %}
+                                            <a href="{% url 'core:preparedfeed-update' item.id %}" class="btn btn-default btn-sm" title="{% trans 'Edit' %}">
+                                                <i class="icon-update" aria-hidden="true"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if perms.core.delete_preparedfeed %}
+                                            <a href="{% url 'core:preparedfeed-delete' item.id %}" class="btn btn-danger btn-sm" title="{% trans 'Delete' %}">
+                                                <i class="icon-delete" aria-hidden="true"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="text-muted">{% trans "No formula stock yet." %}</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}
+    {% if object %}
+        {{ object }}
+    {% else %}
+        {% trans "Add Prepared Feed" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:preparedfeed-list' %}">{% trans "Prepared Feed" %}</a></li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add Prepared Feed" %}</li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>{% trans "Update" %} <span class="text-info">{{ object }}</span></h1>
+    {% else %}
+        <h1>{% trans "Add Prepared Feed" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+
+    <script>
+    (function() {
+      // B6 (2026-08-21): grams_used only applies to powder mixes — an
+      // RTF pour never consumes powder, so hide the field (and its
+      // auto-compute placeholder) when prepared_from is rtf_pour.
+      var radios = document.querySelectorAll('input[name="prepared_from"]');
+      function update() {
+        var checked = document.querySelector(
+          'input[name="prepared_from"]:checked'
+        );
+        var isRtf = checked && checked.value === "rtf_pour";
+        var input = document.getElementById("id_grams_used");
+        if (input && input.closest) {
+          var wrap = input.closest(".row.mb-3");
+          if (wrap) wrap.style.display = isRtf ? "none" : "";
+        }
+      }
+      if (radios.length) {
+        radios.forEach(function(inp) {
+          inp.addEventListener("change", update);
+        });
+        update();
+      }
+    })();
+    </script>
+{% endblock %}

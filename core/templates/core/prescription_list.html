@@ -1,0 +1,104 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n widget_tweaks %}
+{% block title %}
+    {% trans "Prescriptions" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Prescriptions" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Prescriptions" %}
+        {% if perms.core.add_prescription %}
+            <a href="{% url 'core:prescription-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add Prescription" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Medication" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Dosage" %}</th>
+                    <th>{% trans "Frequency" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Start" %}</th>
+                    <th>{% trans "End" %}</th>
+                    <th>{% trans "Tags" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rx in object_list %}
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_prescription %}
+                                    <a href="{% url 'core:prescription-update' rx.id %}"
+                                       class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.delete_prescription %}
+                                    <a href="{% url 'core:prescription-delete' rx.id %}"
+                                       class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>{{ rx.medication_name }}</td>
+                        {% if not unique_child %}
+                            <td>
+                                <a href="{% url 'core:child' rx.child.slug %}">{{ rx.child }}</a>
+                            </td>
+                        {% endif %}
+                        <td>
+                            {% if rx.dosage %}
+                                {{ rx.dosage }} {{ rx.get_dosage_unit_display }}
+                            {% else %}
+                                <span class="text-muted">—</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ rx.frequency|default:"—" }}</td>
+                        <td>
+                            {% if rx.active %}
+                                <span class="badge bg-success">{% trans "Active" %}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{% trans "Inactive" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ rx.start_date|date:"M j, Y" }}</td>
+                        <td>
+                            {% if rx.end_date %}
+                                {{ rx.end_date|date:"M j, Y" }}
+                            {% else %}
+                                <span class="text-muted">—</span>
+                            {% endif %}
+                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=rx.tags.all %}</td>
+                    </tr>
+                    {% if rx.notes %}
+                        <tr class="row-details">
+                            <td colspan="9">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ rx.notes }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="9">{% trans "No prescriptions found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

@@ -27,4 +27,6 @@ class CoreConfig(AppConfig):
     name = "core"
 
     def ready(self):
+        import core.signals  # noqa: F401
+
         post_migrate.connect(add_read_only_group_permissions, sender=self)

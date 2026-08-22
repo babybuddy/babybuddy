@@ -1,0 +1,11 @@
+node_modules
+.venv
+__pycache__
+*.pyc
+.git
+.gitignore
+*.md
+test-docker
+.vscode
+.idea
+.DS_Store

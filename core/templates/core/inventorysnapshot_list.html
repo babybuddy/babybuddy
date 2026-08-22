@@ -1,0 +1,85 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime misc i18n widget_tweaks %}
+{% block title %}
+    {% trans "Inventory Snapshots" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Inventory Snapshots" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Inventory Snapshots" %}
+        {% if perms.core.add_inventorysnapshot %}
+            <a href="{% url 'core:inventorysnapshot-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "New Count" %}
+            </a>
+        {% endif %}
+    </h1>
+    <p class="text-muted">
+        {% trans "Physical diaper counts used to reconcile against system-tracked inventory and detect missed change logs or unlogged acquisitions." %}
+    </p>
+
+    {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-instances table-borderless table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>{% trans "Actions" %}</th>
+                        <th>{% trans "Count Time" %}</th>
+                        <th>{% trans "Size" %}</th>
+                        <th>{% trans "Brand" %}</th>
+                        <th>{% trans "Physical" %}</th>
+                        <th>{% trans "Expected" %}</th>
+                        <th>{% trans "Discrepancy" %}</th>
+                        <th>{% trans "Notes" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for snap in object_list %}
+                        <tr>
+                            <td>
+                                {% if perms.core.delete_inventorysnapshot %}
+                                    <a href="{% url 'core:inventorysnapshot-delete' snap.id %}" class="btn btn-danger btn-sm">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <th scope="row">{{ snap.count_time|datetime_short }}</th>
+                            <td>{{ snap.size }}</td>
+                            <td>{% if snap.brand %}{{ snap.brand }} {{ snap.line }}{% else %}<span class="text-muted">{% trans "(all brands)" %}</span>{% endif %}</td>
+                            <td><strong>{{ snap.physical_count }}</strong></td>
+                            <td>
+                                {% if snap.expected_from_system is not None %}
+                                    {{ snap.expected_from_system }}
+                                {% else %}
+                                    <span class="text-muted">—</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if snap.discrepancy is not None %}
+                                    {% if snap.discrepancy < 0 %}
+                                        <span class="text-danger" title="{% trans 'Fewer than expected — possible missed diaper changes' %}">
+                                            {{ snap.discrepancy }}
+                                        </span>
+                                    {% elif snap.discrepancy > 0 %}
+                                        <span class="text-warning" title="{% trans 'More than expected — possible unlogged acquisition' %}">
+                                            +{{ snap.discrepancy }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-success">✓ 0</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-muted">—</span>
+                                {% endif %}
+                            </td>
+                            <td><small class="text-muted">{{ snap.notes|truncatechars:40 }}</small></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'babybuddy/paginator.html' %}
+    {% else %}
+        <p class="text-muted">{% trans "No inventory snapshots yet. Click 'New Count' to enter a physical diaper count." %}</p>
+    {% endif %}
+{% endblock %}

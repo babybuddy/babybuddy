@@ -1,0 +1,124 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime misc i18n %}
+{% block title %}
+    {% trans "Wipes" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:supplyitem-list' %}">{% trans "Supplies" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Wipes" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Wipes Inventory" %}
+        {% if perms.core.add_supplyitem %}
+            <a href="{% url 'core:supplyitem-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add" %}
+            </a>
+        {% endif %}
+    </h1>
+
+    {% if grouped_supplies %}
+        {% for type_label, brands in grouped_supplies.items %}
+            {% for brand, lines in brands.items %}
+                {% for line, items in lines.items %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <strong>{{ brand }}</strong>
+                            {% if line %} — {{ line }}{% endif %}
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-borderless table-striped mb-0 align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-muted">#</th>
+                                            <th>{% trans "Size" %}</th>
+                                            <th>{% trans "On Hand" %}</th>
+                                            <th>{% trans "Initial" %}</th>
+                                            <th>{% trans "Eligible" %}</th>
+                                            <th>{% trans "Priority" %}</th>
+                                            <th>{% trans "Actions" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in items %}
+                                            <tr{% if item.quantity <= 0 %} class="table-danger"{% endif %}>
+                                                <td class="text-muted font-monospace">{{ item.id }}</td>
+                                                <td>{{ item.size|default:"—" }}</td>
+                                                <td>
+                                                    <strong>{{ item.quantity }}</strong>
+                                                    {% if item.adjustments.count %}
+                                                        <span class="badge bg-info" title="{% trans 'Has adjustment anchor' %}">adj</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ item.initial_quantity }}</td>
+                                                <td>
+                                                    {% if item.usage_eligible %}
+                                                        {{ item.usage_eligible|date:"Y-m-d" }}
+                                                    {% else %}
+                                                        <span class="text-muted">{% trans "Sealed" %}</span>
+                                                    {% endif %}
+                                                    {% if item.is_reserve %}
+                                                        <span class="badge bg-secondary">{% trans "Reserve" %}</span>
+                                                    {% endif %}
+                                                    {% if item.is_retired %}
+                                                        <span class="badge bg-warning">{% trans "Retired" %}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if item.drain_priority > 0 %}
+                                                        <span class="badge bg-warning">{{ item.drain_priority }}</span>
+                                                    {% else %}
+                                                        <span class="text-muted">0</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if perms.core.change_supplyitem %}
+                                                        <a href="{% url 'core:supplyitem-update' item.id %}" class="btn btn-default btn-sm" title="{% trans 'Edit' %}">
+                                                            <i class="icon-update" aria-hidden="true"></i>
+                                                        </a>
+                                                        <form method="post" action="{% url 'core:supplyitem-retire' item.id %}" style="display:inline">
+                                                            {% csrf_token %}
+                                                            {% if item.is_retired %}
+                                                                <button type="submit" class="btn btn-outline-success btn-sm" title="{% trans 'Restore to active stock' %}" name="mode" value="unretire">
+                                                                    <i class="icon-archive" aria-hidden="true"></i>
+                                                                </button>
+                                                            {% else %}
+                                                                <button type="submit" class="btn btn-outline-warning btn-sm" title="{% trans 'Retire pool (hide from pickers, stop decrements)' %}">
+                                                                    <i class="icon-archive" aria-hidden="true"></i>
+                                                                </button>
+                                                            {% endif %}
+                                                        </form>
+                                                        <a href="{% url 'core:supplyitem-adjust' item.id %}" class="btn btn-primary btn-sm" title="{% trans 'Adjust quantity' %}">
+                                                            <i class="icon-graph" aria-hidden="true"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                    {% if perms.core.delete_supplyitem %}
+                                                        <a href="{% url 'core:supplyitem-delete' item.id %}" class="btn btn-danger btn-sm" title="{% trans 'Delete' %}">
+                                                            <i class="icon-delete" aria-hidden="true"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                    <a href="{% url 'core:inventorytransaction-list' %}?pool={{ item.id }}" class="btn btn-info btn-sm" title="{% trans 'Transaction history' %}">
+                                                        <i class="icon-list" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            {% trans "No wipes tracked yet. Add a wipes product line from the Supplies page." %}
+        </div>
+    {% endif %}
+
+    {% if is_paginated %}
+        {% include 'babybuddy/pagination.html' %}
+    {% endif %}
+{% endblock %}

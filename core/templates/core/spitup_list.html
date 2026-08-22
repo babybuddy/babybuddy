@@ -1,0 +1,58 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime duration misc i18n widget_tweaks %}
+{% block title %}
+    {% trans "Spit-Up" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Spit-Up" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Spit-Up" %}
+        {% if perms.core.add_spitup %}
+            <a href="{% url 'core:spitup-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add Entry" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-instances table-borderless table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>{% trans "Actions" %}</th>
+                        <th>{% trans "Time" %}</th>
+                        <th>{% trans "Amount" %}</th>
+                        <th>{% trans "Appearance" %}</th>
+                        <th>{% trans "After Feeding" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in object_list %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'core:spitup-update' entry.id %}"
+                                   class="btn btn-sm btn-primary"><i class="icon-update"></i></a>
+                                <a href="{% url 'core:spitup-delete' entry.id %}"
+                                   class="btn btn-sm btn-danger"><i class="icon-trash"></i></a>
+                            </td>
+                            <td>{{ entry.time|datetime_short }}</td>
+                            <td>{{ entry.get_amount_display|default:"—" }}</td>
+                            <td>{{ entry.appearance|default:"—" }}</td>
+                            <td>
+                                {% if entry.related_feeding %}
+                                    {{ entry.related_feeding.end|time }} · {{ entry.related_feeding.get_method_display }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'babybuddy/paginator.html' %}
+    {% else %}
+        <p class="text-muted my-5">{% trans "No spit-up entries yet." %}</p>
+    {% endif %}
+{% endblock %}

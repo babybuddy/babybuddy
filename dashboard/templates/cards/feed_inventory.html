@@ -1,0 +1,43 @@
+{% extends 'cards/base.html' %}
+{% load i18n %}
+{% block header %}
+    <a href="{% url 'core:feedinventory-list' %}">{% trans "Milk Inventory" %}</a>
+{% endblock %}
+{% block title %}
+    {% if not empty %}
+        <div>
+            {{ total_ml }} ml
+            <small class="text-muted">(~{{ total_oz }} oz)</small>
+        </div>
+    {% else %}
+        <div class="text-muted">{% trans "No stored feed" %}</div>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if not empty %}
+        <table class="table table-sm table-borderless mb-0">
+            <tbody>
+                {% for type_label, type_data in types %}
+                    <tr>
+                        <td><strong>{{ type_label }}</strong></td>
+                        <td class="text-end">
+                            <strong>{{ type_data.ml }} ml</strong>
+                            <small class="text-muted">({{ type_data.count }})</small>
+                        </td>
+                    </tr>
+                    {% for location, data in type_data.locations %}
+                        <tr>
+                            <td class="ps-4">{{ location }}</td>
+                            <td class="text-end">
+                                {{ data.ml }} ml
+                                <small class="text-muted">({{ data.count }})</small>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <small class="text-muted">{% trans "Add stored feed to track inventory" %}</small>
+    {% endif %}
+{% endblock %}

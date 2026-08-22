@@ -1,0 +1,46 @@
+{% extends 'cards/base.html' %}
+{% load i18n %}
+{% block header %}
+    <a href="{% url 'core:preparedfeed-list' %}">{% trans "Active Bottles" %}</a>
+{% endblock %}
+{% block title %}
+    {% if not empty %}
+        <div>
+            {{ rows|length }} <small class="text-muted">{% trans "bottle" %}{{ rows|length|pluralize }} {% trans "in use" %}</div>
+    {% else %}
+        <div class="text-muted">{% trans "No active bottles" %}</div>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if not empty %}
+        <div class="table-responsive">
+            <table class="table table-sm table-borderless mb-0">
+                <thead>
+                    <tr>
+                        <th>{% trans "Bottle" %}</th>
+                        <th class="text-end">{% trans "Left" %}</th>
+                        <th class="text-end">{% trans "Use by" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr {% if row.info.css_class == 'text-bg-danger' %}class="table-danger"{% endif %}>
+                            <td>
+                                <a href="{% url 'core:preparedfeed-update' row.unit.pk %}">{{ row.prepared_from }}</a>
+                                {% if row.info %}<small class="text-muted">{{ row.info.state_label }}</small>{% endif %}
+                            </td>
+                            <td class="text-end">{{ row.remaining }} ml</td>
+{% if row.info %}
+                            <td class="text-end"><span class="badge {{ row.info.css_class }}">{{ row.info.primary_text }}</span></td>
+{% else %}
+                            <td class="text-end"><span class="badge text-bg-secondary">{% trans "—" %}</span>
+{% endif %}
+                        </tr>
+{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <small class="text-muted">{% trans "Prepared bottles appear here with use-by countdowns." %}</small>
+    {% endif %}
+{% endblock %}

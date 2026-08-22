@@ -1,0 +1,58 @@
+{% extends 'babybuddy/page.html' %}
+{% load babybuddy i18n widget_tweaks %}
+{% block title %}{% trans "Split Entry" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:feedinventory-list' %}">{% trans "Milk Inventory" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Split" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Split Entry" %}</h1>
+    <p class="text-muted">
+        {% blocktranslate with type=object.get_type_display remaining=object.amount_remaining %}
+            {{ type }} — <strong>{{ remaining }} ml</strong> currently in this entry.
+        {% endblocktranslate %}
+    </p>
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="id_amount" class="form-label">{{ form.amount.label }}</label>
+            {{ form.amount|add_class:"form-control" }}
+            <small class="form-text text-muted">{{ form.amount.help_text }}</small>
+            {% if form.amount.errors %}<div class="text-danger">{{ form.amount.errors }}</div>{% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_storage_location" class="form-label">{{ form.storage_location.label }}</label>
+            {{ form.storage_location|add_class:"form-select" }}
+            <small class="form-text text-muted">{{ form.storage_location.help_text }}</small>
+        </div>
+        <div class="mb-3">
+            <label for="id_status" class="form-label">{{ form.status.label }}</label>
+            {{ form.status|add_class:"form-select" }}
+            <small class="form-text text-muted">{{ form.status.help_text }}</small>
+            {% if form.status.errors %}<div class="text-danger">{{ form.status.errors }}</div>{% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans "Split" %}</button>
+        <a href="{% url 'core:feedinventory-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+    <script>
+        (function () {
+            var src = "{{ object.status }}";
+            var locSel = document.getElementById("id_storage_location");
+            var stSel = document.getElementById("id_status");
+            if (!locSel || !stSel) { return; }
+            function derive(d) {
+                if (src === "frozen") {
+                    return (d === "freezer" || d === "deep_freeze") ? "frozen" : "thawed";
+                }
+                if (src === "thawed") { return "thawed"; }
+                return "fresh";
+            }
+            locSel.addEventListener("change", function () { stSel.value = derive(locSel.value); });
+        })();
+    </script>
+{% endblock %}

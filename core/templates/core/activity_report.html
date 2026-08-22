@@ -1,0 +1,261 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime duration misc i18n %}
+{% block title %}{% trans "Activity Report" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Activity Report" %}</li>
+{% endblock %}
+{% block content %}
+<div class="visit-summary">
+    <div class="d-flex justify-content-between align-items-center mb-3 no-print">
+        <h1>{% trans "Activity Report" %}</h1>
+        <div class="d-flex gap-2">
+            <a href="?days=7" class="btn btn-sm {% if days == 7 %}btn-primary{% else %}btn-outline-light{% endif %}">7d</a>
+            <a href="?days=14" class="btn btn-sm {% if days == 14 %}btn-primary{% else %}btn-outline-light{% endif %}">14d</a>
+            <a href="?days=30" class="btn btn-sm {% if days == 30 %}btn-primary{% else %}btn-outline-light{% endif %}">30d</a>
+            <a href="?days=60" class="btn btn-sm {% if days == 60 %}btn-primary{% else %}btn-outline-light{% endif %}">60d</a>
+            <button onclick="window.print()" class="btn btn-sm btn-success no-print">{% trans "Print" %}</button>
+        </div>
+    </div>
+
+    <div class="text-center mb-4 print-header">
+        <h2>{{ child.first_name }} {{ child.last_name }}</h2>
+        <p class="text-muted">
+            {% trans "Born" %} {{ child.birth_date }}
+            · {% trans "Report period" %}: {{ start_date }} — {{ end_date }}
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Feedings -->
+        <div class="col-md-6 col-print-6">
+            <div class="card summary-card">
+                <div class="card-header"><h5>{% trans "Feedings" %}</h5></div>
+                <div class="card-body">
+                    <table class="table table-sm mb-0">
+                        <tr><td>{% trans "Total feedings" %}</td><td class="text-end"><strong>{{ feeding_summary.count }}</strong>
+                            {% if feeding_summary.trend_count.0 == "↑" %}<span class="text-success">{{ feeding_summary.trend_count.0 }}{{ feeding_summary.trend_count.1 }}%</span>
+                            {% elif feeding_summary.trend_count.0 == "↓" %}<span class="text-danger">{{ feeding_summary.trend_count.0 }}{{ feeding_summary.trend_count.1 }}%</span>
+                            {% elif feeding_summary.trend_count.0 == "→" %}<span class="text-muted">→</span>{% endif %}
+                        </td></tr>
+                        <tr><td>{% trans "Avg per day" %}</td><td class="text-end">{{ feeding_summary.avg_per_day }}</td></tr>
+                        <tr><td>{% trans "Total volume" %}</td><td class="text-end"><strong>{{ feeding_summary.total_ml }} ml / {{ feeding_summary.total_oz }} oz</strong>
+                            {% if feeding_summary.trend_volume.0 == "↑" %}<span class="text-success">{{ feeding_summary.trend_volume.0 }}{{ feeding_summary.trend_volume.1 }}%</span>
+                            {% elif feeding_summary.trend_volume.0 == "↓" %}<span class="text-danger">{{ feeding_summary.trend_volume.0 }}{{ feeding_summary.trend_volume.1 }}%</span>
+                            {% elif feeding_summary.trend_volume.0 == "→" %}<span class="text-muted">→</span>{% endif %}
+                        </td></tr>
+                        <tr><td>{% trans "Avg volume/day" %}</td><td class="text-end">{{ feeding_summary.avg_ml_per_day }} ml / {{ feeding_summary.avg_oz_per_day }} oz</td></tr>
+                        {% if feeding_summary.methods %}
+                        <tr><td colspan="2" class="pt-2"><small class="text-muted">{% trans "Methods" %}:</small></td></tr>
+                        {% for method, count in feeding_summary.methods.items %}
+                        <tr><td class="ps-4"><small>{{ method }}</small></td><td class="text-end"><small>{{ count }}</small></td></tr>
+                        {% endfor %}
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapers -->
+        <div class="col-md-6 col-print-6">
+            <div class="card summary-card">
+                <div class="card-header"><h5>{% trans "Diaper Changes" %}</h5></div>
+                <div class="card-body">
+                    <table class="table table-sm mb-0">
+                        <tr><td>{% trans "Total changes" %}</td><td class="text-end"><strong>{{ diaper_summary.total }}</strong>
+                            {% if diaper_summary.trend_total.0 == "↑" %}<span class="text-success">{{ diaper_summary.trend_total.0 }}{{ diaper_summary.trend_total.1 }}%</span>
+                            {% elif diaper_summary.trend_total.0 == "↓" %}<span class="text-danger">{{ diaper_summary.trend_total.0 }}{{ diaper_summary.trend_total.1 }}%</span>
+                            {% elif diaper_summary.trend_total.0 == "→" %}<span class="text-muted">→</span>{% endif %}
+                        </td></tr>
+                        <tr><td>{% trans "Avg per day" %}</td><td class="text-end">{{ diaper_summary.avg_per_day }}</td></tr>
+                        <tr><td class="ps-4"><small>{% trans "Avg wet/day" %}</small></td><td class="text-end"><small>{{ diaper_summary.avg_wet_per_day }}</small></td></tr>
+                        <tr><td class="ps-4"><small>{% trans "Avg solid/day" %}</small></td><td class="text-end"><small>{{ diaper_summary.avg_solid_per_day }}</small></td></tr>
+                        <tr><td>{% trans "Wet" %}</td><td class="text-end">{{ diaper_summary.wet }}</td></tr>
+                        <tr><td>{% trans "Solid" %}</td><td class="text-end">{{ diaper_summary.solid }}</td></tr>
+                        {% if diaper_summary.both %}
+                        <tr><td class="ps-4"><small class="text-muted">{% trans "Both wet & solid" %}</small></td><td class="text-end"><small class="text-muted">{{ diaper_summary.both }}</small></td></tr>
+                        {% endif %}
+                        {% if diaper_summary.blowouts %}
+                        <tr><td>{% trans "Blowouts" %}</td><td class="text-end">{{ diaper_summary.blowouts }}</td></tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sleep -->
+        <div class="col-md-6 col-print-6">
+            <div class="card summary-card">
+                <div class="card-header"><h5>{% trans "Sleep" %}</h5></div>
+                <div class="card-body">
+                    <table class="table table-sm mb-0">
+                        <tr><td>{% trans "Total sessions" %}</td><td class="text-end"><strong>{{ sleep_summary.sessions }}</strong></td></tr>
+                        <tr><td>{% trans "Total sleep" %}</td><td class="text-end"><strong>{{ sleep_summary.total_hours }} hrs</strong>
+                            {% if sleep_summary.trend_hours.0 == "↑" %}<span class="text-success">{{ sleep_summary.trend_hours.0 }}{{ sleep_summary.trend_hours.1 }}%</span>
+                            {% elif sleep_summary.trend_hours.0 == "↓" %}<span class="text-danger">{{ sleep_summary.trend_hours.0 }}{{ sleep_summary.trend_hours.1 }}%</span>
+                            {% elif sleep_summary.trend_hours.0 == "→" %}<span class="text-muted">→</span>{% endif %}
+                        </td></tr>
+                        <tr><td>{% trans "Avg per day" %}</td><td class="text-end">{{ sleep_summary.avg_hours_day }} hrs</td></tr>
+                        {% if sleep_summary.naps %}
+                        <tr><td>{% trans "Naps" %}</td><td class="text-end">{{ sleep_summary.naps }}</td></tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pumping -->
+        <div class="col-md-6 col-print-6">
+            <div class="card summary-card">
+                <div class="card-header"><h5>{% trans "Pumping" %}</h5></div>
+                <div class="card-body">
+                    {% if pumping_summary.count > 0 %}
+                    <table class="table table-sm mb-0">
+                        <tr><td>{% trans "Sessions" %}</td><td class="text-end"><strong>{{ pumping_summary.count }}</strong>
+                            {% if pumping_summary.trend_count.0 == "↑" %}<span class="text-success">{{ pumping_summary.trend_count.0 }}{{ pumping_summary.trend_count.1 }}%</span>
+                            {% elif pumping_summary.trend_count.0 == "↓" %}<span class="text-danger">{{ pumping_summary.trend_count.0 }}{{ pumping_summary.trend_count.1 }}%</span>
+                            {% elif pumping_summary.trend_count.0 == "→" %}<span class="text-muted">→</span>{% endif %}
+                        </td></tr>
+                        <tr><td>{% trans "Total volume" %}</td><td class="text-end"><strong>{{ pumping_summary.total_ml }} ml / {{ pumping_summary.total_oz }} oz</strong>
+                            {% if pumping_summary.trend_volume.0 == "↑" %}<span class="text-success">{{ pumping_summary.trend_volume.0 }}{{ pumping_summary.trend_volume.1 }}%</span>
+                            {% elif pumping_summary.trend_volume.0 == "↓" %}<span class="text-danger">{{ pumping_summary.trend_volume.0 }}{{ pumping_summary.trend_volume.1 }}%</span>
+                            {% elif pumping_summary.trend_volume.0 == "→" %}<span class="text-muted">→</span>{% endif %}
+                        </td></tr>
+                        <tr><td>{% trans "Avg per session" %}</td><td class="text-end">{{ pumping_summary.avg_ml_per_session }} ml / {{ pumping_summary.avg_oz_per_session }} oz</td></tr>
+                        <tr><td>{% trans "Avg sessions/day" %}</td><td class="text-end">{{ pumping_summary.avg_per_day }}</td></tr>
+                    </table>
+                    {% else %}
+                    <p class="text-muted text-center">{% trans "No pumping data for this period" %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Weight -->
+        {% if weight_summary.entries %}
+        <div class="col-md-6 col-print-6">
+            <div class="card summary-card">
+                <div class="card-header"><h5>{% trans "Weight" %}</h5></div>
+                <div class="card-body">
+                    <table class="table table-sm mb-0">
+                        {% for w in weight_summary.entries %}
+                        <tr>
+                            <td>{{ w.date }}</td>
+                            <td class="text-end"><strong>{{ w.weight }} kg</strong></td>
+                        </tr>
+                        {% endfor %}
+                        {% if weight_summary.change %}
+                        <tr class="table-success">
+                            <td>{% trans "Change" %}</td>
+                            <td class="text-end">{% if weight_summary.change > 0 %}+{% endif %}{{ weight_summary.change }} kg</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Tummy Time -->
+        {% if tummytime_summary.count > 0 %}
+        <div class="col-md-6 col-print-6">
+            <div class="card summary-card">
+                <div class="card-header"><h5>{% trans "Tummy Time" %}</h5></div>
+                <div class="card-body">
+                    <table class="table table-sm mb-0">
+                        <tr><td>{% trans "Sessions" %}</td><td class="text-end">{{ tummytime_summary.count }}</td></tr>
+                        <tr><td>{% trans "Total time" %}</td><td class="text-end">{{ tummytime_summary.total_minutes }} min</td></tr>
+                        <tr><td>{% trans "Avg per day" %}</td><td class="text-end">{{ tummytime_summary.avg_minutes_day }} min</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Spit-Up -->
+        <div class="col-md-6 col-print-6">
+            <div class="card summary-card">
+                <div class="card-header"><h5>{% trans "Spit-Up" %}</h5></div>
+                <div class="card-body">
+                    {% if spitup_summary.count > 0 %}
+                    <table class="table table-sm mb-0">
+                        <tr><td>{% trans "Total episodes" %}</td><td class="text-end"><strong>{{ spitup_summary.count }}</strong></td></tr>
+                        <tr><td>{% trans "Avg per day" %}</td><td class="text-end">{{ spitup_summary.avg_per_day }}</td></tr>
+                        {% if spitup_summary.first_episode %}
+                        <tr><td>{% trans "First episode" %}</td><td class="text-end">{{ spitup_summary.first_episode|date:"m/d" }} {{ spitup_summary.first_episode|time:"g:i A" }}</td></tr>
+                        {% endif %}
+                        {% if spitup_summary.last_episode %}
+                        <tr><td>{% trans "Last episode" %}</td><td class="text-end">{{ spitup_summary.last_episode|date:"m/d" }} {{ spitup_summary.last_episode|time:"g:i A" }}</td></tr>
+                        {% endif %}
+                        {% if spitup_summary.by_amount_breakdown %}
+                        <tr><td colspan="2" class="pt-2"><small class="text-muted">{% trans "By amount" %}:</small></td></tr>
+                        {% for item in spitup_summary.by_amount_breakdown %}
+                        <tr><td class="ps-4"><small>{{ item.amount }}</small></td><td class="text-end"><small>{{ item.count }} ({{ item.percent }}%)</small></td></tr>
+                        {% endfor %}
+                        {% endif %}
+                    </table>
+                    {% else %}
+                    <p class="text-muted text-center">{% trans "No spit-up data for this period" %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Medications -->
+        {% if medication_summary.count > 0 %}
+        <div class="col-md-6 col-print-6">
+            <div class="card summary-card">
+                <div class="card-header"><h5>{% trans "Medications" %}</h5></div>
+                <div class="card-body">
+                    <table class="table table-sm mb-0">
+                        <tr><td>{% trans "Doses given" %}</td><td class="text-end"><strong>{{ medication_summary.count }}</strong></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Recent feedings detail -->
+    {% if recent_feedings %}
+    <div class="mt-4">
+        <h5>{% trans "Recent Feedings" %}</h5>
+        <table class="table table-sm table-striped">
+            <thead><tr>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Time" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Method" %}</th>
+                <th class="text-end">{% trans "Amount" %}</th>
+            </tr></thead>
+            <tbody>
+                {% for f in recent_feedings %}
+                <tr>
+                    <td>{{ f.end|date:"m/d" }}</td>
+                    <td>{{ f.end|time:"g:i A" }}</td>
+                    <td>{{ f.get_type_display }}</td>
+                    <td>{{ f.get_method_display }}</td>
+                    <td class="text-end">
+                        {% if f.amount %}{{ f.amount }}{% if f.amount_unit == "oz" %}oz{% else %}ml{% endif %}{% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+@media print {
+    .no-print { display: none !important; }
+    .navbar, .breadcrumb, footer { display: none !important; }
+    .print-header { display: block !important; }
+    body { font-size: 12pt; color: #000; }
+    .summary-card { break-inside: avoid; border: 1px solid #ccc; }
+    .card-header { background: #f5f5f5 !important; }
+    .col-print-6 { width: 50%; float: left; }
+    table { width: 100%; }
+}
+.col-print-6 { }
+</style>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'cards/base.html' %}
+{% load i18n %}
+{% block header %}
+    <a href="{% url 'core:supplyitem-list' %}">{% trans "Diaper Stock Alerts" %}</a>
+{% endblock %}
+{% block title %}
+    {% if alerts %}
+        <div class="text-warning">{{ alerts|length }} <small class="text-muted">{% trans "size" %}{{ alerts|length|pluralize }} {% trans "need attention" %}</small></div>
+    {% else %}
+        <div class="text-success"><i class="icon-check"></i> {% trans "All stocked" %}</div>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if no_inventory %}
+        <small class="text-muted">{% trans "No supply inventory yet — add stock on the supplies page." %}</small>
+    {% elif rows %}
+        <div class="table-responsive">
+            <table class="table table-sm table-borderless mb-0">
+                <thead>
+                    <tr>
+                        <th>{% trans "Size" %}</th>
+                        <th class="text-end">{% trans "On Hand" %}</th>
+                        <th class="text-end">{% trans "Days Left" %}</th>
+                        <th class="text-end">{% trans "Burn" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr {% if row.alert == 'out' or row.alert == 'open_reserve' %}class="table-danger"{% elif row.alert == 'low' %}class="table-warning"{% endif %}>
+                            <td>{{ row.size }}{% if row.next_size_up %} <small class="text-muted">→ {{ row.next_size_up }}</small>{% endif %}</td>
+                            <td class="text-end"><strong>{{ row.on_hand }}</strong></td>
+                            <td class="text-end">
+                                {% if row.days_remaining is not None %}
+                                    {{ row.days_remaining }}d
+                                {% elif row.alert == 'out' %}
+                                    <span class="text-danger">{% trans "OUT" %}</span>
+                                {% elif row.alert == 'open_reserve' %}
+                                    <span class="text-warning">{% trans "Open reserve" %}</span>
+                                {% elif row.on_hand > 0 and not row.has_usage %}
+                                    <span class="text-muted">∞</span>
+                                {% else %}
+                                    <span class="text-muted">—</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end{% if row.alert == 'out' or row.alert == 'open_reserve' or row.alert == 'low' %}{% else %} text-muted{% endif %}">{{ row.daily_rate|floatformat:1 }}{% if row.daily_rate %}/{% trans "day" %}{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <small class="text-muted d-block mt-1">{% blocktrans %}7-day burn window · alerts ≤ {{ threshold_days }}d{% endblocktrans %}</small>
+    {% else %}
+        <small class="text-muted">{% trans "No diaper sizes tracked yet." %}</small>
+    {% endif %}
+{% endblock %}

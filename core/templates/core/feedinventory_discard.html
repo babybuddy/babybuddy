@@ -1,0 +1,28 @@
+{% extends 'babybuddy/page.html' %}
+{% load babybuddy i18n %}
+{% block title %}
+    {% trans "Discard Entry" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:feedinventory-list' %}">{% trans "Milk Inventory" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Discard" %}</li>
+{% endblock %}
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        <h1>{% trans "Discard Entry" %}</h1>
+        <p class="text-danger">
+            {% if object.amount_remaining is not None %}
+                {% blocktranslate with remaining=object.amount_remaining %}
+                    This will discard the remaining <strong>{{ remaining }} ml</strong> of milk.
+                {% endblocktranslate %}
+            {% else %}
+                {% trans "This will mark the entry as discarded." %}
+            {% endif %}
+        </p>
+        <button type="submit" class="btn btn-danger">{% trans "Discard" %}</button>
+        <a href="{% url 'core:feedinventory-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans "Inventory Transactions" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:supplyitem-list' %}">{% trans "Supplies" %}</a></li>
+    <li class="breadcrumb-item active">{% trans "Transaction History" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Inventory Transaction History" %}</h1>
+    {% if pool %}
+        <p class="text-muted">
+            {% trans "Pool:" %} <strong>{{ pool }}</strong>
+            ({% trans "Current quantity:" %} {{ pool.quantity }})
+        </p>
+    {% endif %}
+
+    {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-borderless table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>{% trans "Time" %}</th>
+                        <th>{% trans "Pool" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Delta" %}</th>
+                        <th>{% trans "Qty After" %}</th>
+                        <th>{% trans "Note" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for txn in object_list %}
+                        <tr>
+                            <td><small>{{ txn.created_at|date:"Y-m-d H:i:s" }}</small></td>
+                            <td>
+                                <a href="{% url 'core:inventorytransaction-list' %}?pool={{ txn.supply_item_id }}">
+                                    {{ txn.supply_item }}
+                                </a>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary">{{ txn.get_transaction_type_display }}</span>
+                            </td>
+                            <td>
+                                {% if txn.delta > 0 %}
+                                    <span class="text-success">+{{ txn.delta }}</span>
+                                {% elif txn.delta < 0 %}
+                                    <span class="text-danger">{{ txn.delta }}</span>
+                                {% else %}
+                                    {{ txn.delta }}
+                                {% endif %}
+                            </td>
+                            <td><strong>{{ txn.quantity_after }}</strong></td>
+                            <td><small class="text-muted">{{ txn.note }}</small></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'babybuddy/paginator.html' %}
+    {% else %}
+        <p class="text-muted">{% trans "No transactions yet." %}</p>
+    {% endif %}
+{% endblock %}

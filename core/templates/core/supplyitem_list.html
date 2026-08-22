@@ -1,0 +1,213 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime misc i18n %}
+{% block title %}
+    {% trans "Supplies" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Supplies" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Diaper & Supply Inventory" %}
+        {% if perms.core.add_supplyitem %}
+            <a href="{% url 'core:supplyitem-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add" %}
+            </a>
+        {% endif %}
+        {% if perms.core.change_supplyitem %}
+            <a href="{% url 'core:physical-count' %}" class="btn btn-sm btn-primary">
+                <i class="icon-note" aria-hidden="true"></i> {% trans "Count" %}
+            </a>
+            <a href="{% url 'core:supplyitem-recalculate' %}" class="btn btn-sm btn-warning">
+                <i class="icon-refresh" aria-hidden="true"></i> {% trans "Recalculate" %}
+            </a>
+        {% endif %}
+    </h1>
+
+    {% if diaper_burn_rate %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="card-title mb-0">{% trans "Diaper Inventory Summary" %}</h5>
+                    <div class="d-flex align-items-center flex-wrap gap-2">
+                        <div class="btn-group btn-group-sm" role="group">
+                            {% for days in burn_period_options %}
+                                <a href="?burn_days={{ days }}{% if request.GET.page %}&page={{ request.GET.page }}{% endif %}"
+                                   class="btn {% if burn_days == days and not burn_all_time and not burn_custom %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                                    {{ days }}d
+                                </a>
+                            {% endfor %}
+                            <a href="?burn_days=all{% if request.GET.page %}&page={{ request.GET.page }}{% endif %}"
+                               class="btn {% if burn_all_time %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                                {% trans "All Time" %}
+                            </a>
+                        </div>
+                        <form method="get" action="" class="d-flex align-items-center gap-1">
+                            <input type="date" name="burn_from" class="form-control form-control-sm" style="width: 9rem;"
+                                   value="{{ burn_from }}" title="{% trans 'Custom range start' %}" aria-label="{% trans 'Used from date' %}">
+                            <span class="text-muted small">&rarr;</span>
+                            <input type="date" name="burn_to" class="form-control form-control-sm" style="width: 9rem;"
+                                   value="{{ burn_to }}" title="{% trans 'Custom range end' %}" aria-label="{% trans 'Used to date' %}">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary">{% trans "Apply" %}</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Size" %}</th>
+                                <th class="text-end">{% trans "On Hand" %}</th>
+                                <th class="text-end">{% trans "Usable" %}</th>
+                                <th class="text-end">{% trans "Reserve" %}</th>
+                                <th class="text-end">{% trans "Used" %}</th>
+                                <th class="text-end">{% trans "Burn Rate" %}</th>
+                                <th class="text-end">{% trans "Days Left" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for br in diaper_burn_rate %}
+                                <tr{% if br.days_remaining and br.days_remaining <= stock_threshold %} class="table-warning"{% elif br.on_hand == 0 and br.has_usage %} class="table-danger"{% endif %}>
+                                    <td>{{ br.size }}</td>
+                                    <td class="text-end"><strong>{{ br.on_hand }}</strong></td>
+                                    <td class="text-end text-muted">{{ br.usable }}</td>
+                                    <td class="text-end text-muted">{{ br.reserve }}</td>
+                                    <td class="text-end">{{ br.consumed }}</td>
+                                    <td class="text-end">{{ br.daily_rate|floatformat:1 }}/day</td>
+                                    <td class="text-end">
+                                        {% if br.days_remaining is not None %}
+                                            {% if br.days_remaining <= stock_threshold %}<span class="text-danger">{{ br.days_remaining }}d</span>{% else %}{{ br.days_remaining }}d{% endif %}
+                                        {% elif br.on_hand > 0 and not br.has_usage %}
+                                            <span class="text-muted">∞</span>
+                                        {% elif br.usable == 0 and br.reserve > 0 and br.has_usage %}
+                                            <span class="text-warning" title="{% trans 'Rotation exhausted - open a reserve box' %}">{% trans "Open reserve" %}</span>
+                                        {% elif br.on_hand == 0 and br.has_usage %}
+                                            <span class="text-danger">{% trans "Out" %}</span>
+                                        {% else %}
+                                            <span class="text-muted">—</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-muted small mt-2 mb-0">
+                    {% if burn_all_time %}
+                        {% blocktrans with days=span_days %}Burn rate based on all-time usage ({{ days }} days).{% endblocktrans %}
+                    {% elif burn_custom %}
+                        {% blocktrans with days=span_days from=burn_from to=burn_to %}Burn rate based on usage {{ from }} &rarr; {{ to }} ({{ days }} days).{% endblocktrans %}
+                    {% else %}
+                        {% blocktrans with days=burn_days %}Burn rate based on {{ days }}-day usage.{% endblocktrans %}
+                    {% endif %}
+                    On Hand = all physical stock (reserve included); Usable = On Hand minus reserve; Days Left is based on Usable.
+                </p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if grouped_supplies %}
+        {% for type_label, brands in grouped_supplies.items %}
+            <h3 class="mt-4">{{ type_label }}</h3>
+            {% for brand, lines in brands.items %}
+                {% for line, items in lines.items %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <strong>{{ brand }}</strong>
+                            {% if line %} — {{ line }}{% endif %}
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-borderless table-striped mb-0 align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-muted">#</th>
+                                            <th>{% trans "Size" %}</th>
+                                            <th>{% trans "On Hand" %}</th>
+                                            <th>{% trans "Initial" %}</th>
+                                            <th>{% trans "Eligible" %}</th>
+                                            <th>{% trans "Priority" %}</th>
+                                            <th>{% trans "Actions" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in items %}
+                                            <tr{% if item.quantity <= 0 %} class="table-danger"{% endif %}>
+                                                <td class="text-muted font-monospace">{{ item.id }}</td>
+                                                <td>{{ item.size|default:"—" }}</td>
+                                                <td>
+                                                    <strong>{{ item.quantity }}</strong>
+                                                    {% if item.adjustments.count %}
+                                                        <span class="badge bg-info" title="{% trans 'Has adjustment anchor' %}">adj</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ item.initial_quantity }}</td>
+                                                <td>
+                                                    {% if item.usage_eligible %}
+                                                        {{ item.usage_eligible|date:"Y-m-d" }}
+                                                    {% else %}
+                                                        <span class="text-muted">{% trans "Sealed" %}</span>
+                                                    {% endif %}
+                                                    {% if item.is_reserve %}
+                                                        <span class="badge bg-secondary">{% trans "Reserve" %}</span>
+                                                    {% endif %}
+                                                    {% if item.is_retired %}
+                                                        <span class="badge bg-warning">{% trans "Retired" %}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if item.drain_priority > 0 %}
+                                                        <span class="badge bg-warning">{{ item.drain_priority }}</span>
+                                                    {% else %}
+                                                        <span class="text-muted">0</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if perms.core.change_supplyitem %}
+                                                        <a href="{% url 'core:supplyitem-update' item.id %}" class="btn btn-default btn-sm" title="{% trans 'Edit' %}">
+                                                            <i class="icon-update" aria-hidden="true"></i>
+                                                        </a>
+                                                        <form method="post" action="{% url 'core:supplyitem-retire' item.id %}" style="display:inline">
+                                                            {% csrf_token %}
+                                                            {% if item.is_retired %}
+                                                                <button type="submit" class="btn btn-outline-success btn-sm" title="{% trans 'Restore to active stock' %}" name="mode" value="unretire">
+                                                                    <i class="icon-archive" aria-hidden="true"></i>
+                                                                </button>
+                                                            {% else %}
+                                                                <button type="submit" class="btn btn-outline-warning btn-sm" title="{% trans 'Retire pool (hide from pickers, stop decrements)' %}">
+                                                                    <i class="icon-archive" aria-hidden="true"></i>
+                                                                </button>
+                                                            {% endif %}
+                                                        </form>
+                                                        <a href="{% url 'core:supplyitem-adjust' item.id %}" class="btn btn-primary btn-sm" title="{% trans 'Adjust quantity' %}">
+                                                            <i class="icon-graph" aria-hidden="true"></i>
+                                                        </a>
+                                                        {% if not item.usage_eligible and not item.is_reserve %}
+                                                            <a href="{% url 'core:supplyitem-open' item.id %}" class="btn btn-success btn-sm" title="{% trans 'Open package' %}">
+                                                                <i class="icon-lock" aria-hidden="true"></i>
+                                                            </a>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {% if perms.core.delete_supplyitem %}
+                                                        <a href="{% url 'core:supplyitem-delete' item.id %}" class="btn btn-danger btn-sm" title="{% trans 'Delete' %}">
+                                                            <i class="icon-delete" aria-hidden="true"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                    <a href="{% url 'core:inventorytransaction-list' %}?pool={{ item.id }}" class="btn btn-info btn-sm" title="{% trans 'Transaction history' %}">
+                                                        <i class="icon-list" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p class="text-muted">{% trans "No supply items yet." %}</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime misc i18n %}
+{% block title %}
+    {% trans "Formula Stock" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Formula Stock" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Formula Stock" %}
+        {% if perms.core.add_formulastock %}
+            <a href="{% url 'core:formulastock-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add" %}
+            </a>
+        {% endif %}
+    </h1>
+
+    {% include 'babybuddy/filter.html' %}
+
+    {% if formula_opened or formula_sealed %}
+        {% if formula_opened %}
+            <h2 class="h5 mt-3 mb-2">{% trans "Opened containers" %}</h2>
+            <div class="card mb-3">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless table-striped mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Actions" %}</th>
+                                    <th>{% trans "Product" %}</th>
+                                    <th>{% trans "Form" %}</th>
+                                    <th class="text-end">{% trans "Remaining" %}</th>
+                                    <th>{% trans "Opened" %}</th>
+                                    <th>{% trans "Use by" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in formula_opened %}
+                                    <tr{% if item.is_reserve %} class="table-warning"{% endif %}>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
+                                                {% if perms.core.change_formulastock %}
+                                                    <a href="{% url 'core:formulastock-update' item.id %}" class="btn btn-primary" title="{% trans 'Edit' %}">
+                                                        <i class="icon-update" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href="{% url 'core:formulastock-adjust' item.id %}" class="btn btn-secondary" title="{% trans 'Adjust' %}">
+                                                        <i class="icon-graph" aria-hidden="true"></i>
+                                                    </a>
+                                                {% endif %}
+                                                {% if perms.core.delete_formulastock %}
+                                                    <a href="{% url 'core:formulastock-delete' item.id %}" class="btn btn-danger" title="{% trans 'Delete' %}">
+                                                        <i class="icon-delete" aria-hidden="true"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>{{ item.product_line }}</td>
+                                        <td>{{ item.get_form_display }}</td>
+                                        <td class="text-end">
+                                            {% if item.form == 'powder' %}
+                                                {{ item.grams_remaining|floatformat:1 }} g
+                                            {% else %}
+                                                {{ item.ml_remaining|floatformat:0 }} ml
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ item.opened_at|datetime_short }}</td>
+                                        <td>
+                                            {% with item.use_by_info as info %}
+                                                {% if info %}
+                                                    <span class="badge {{ info.css_class }} use-by-badge"
+                                                          tabindex="0" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                          title="{{ item.use_by_tooltip }}">
+                                                        {{ info.primary_text }}</span>
+                                                    {% if info.stint_warning %}
+                                                        <span class="badge text-bg-light border"
+                                                              title="{% trans 'Room-temp stints max 1 h per stint' %}">
+                                                            {% trans "1h RT stints" %}</span>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <span class="text-muted">—</span>
+                                                {% endif %}
+                                            {% endwith %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if formula_sealed %}
+            <h2 class="h5 mt-3 mb-2">{% trans "Sealed pools" %}</h2>
+            <div class="card mb-3">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless table-striped mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Actions" %}</th>
+                                    <th>{% trans "Product" %}</th>
+                                    <th>{% trans "Form" %}</th>
+                                    <th class="text-end">{% trans "Containers" %}</th>
+                                    <th class="text-end">{% trans "Size" %}</th>
+                                    <th>{% trans "Expiry" %}</th>
+                                    <th>{% trans "Use by" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in formula_sealed %}
+                                    <tr{% if item.is_reserve %} class="table-warning"{% endif %}>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="{% trans "Actions" %}">
+                                                {% if perms.core.change_formulastock %}
+                                                    <a href="{% url 'core:formulastock-update' item.id %}" class="btn btn-primary" title="{% trans 'Edit' %}">
+                                                        <i class="icon-update" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href="{% url 'core:formulastock-open' item.id %}" class="btn btn-success" title="{% trans 'Open a container' %}">
+                                                        <i class="icon-unlock" aria-hidden="true"></i>
+                                                    </a>
+                                                {% endif %}
+                                                {% if perms.core.delete_formulastock %}
+                                                    <a href="{% url 'core:formulastock-delete' item.id %}" class="btn btn-danger" title="{% trans 'Delete' %}">
+                                                        <i class="icon-delete" aria-hidden="true"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>{{ item.product_line }}</td>
+                                        <td>{{ item.get_form_display }}</td>
+                                        <td class="text-end">×{{ item.quantity }}</td>
+                                        <td class="text-end">
+                                            {{ item.container_size|floatformat:-1 }}{% if item.form == 'powder' %} g{% else %} ml{% endif %}
+                                        </td>
+                                        <td>{{ item.expiry_date|default:'—' }}</td>
+                                        <td>
+                                            {% with item.use_by_info as info %}
+                                                {% if info %}
+                                                    <span class="badge {{ info.css_class }} use-by-badge"
+                                                          tabindex="0" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                          title="{{ item.use_by_tooltip }}">
+                                                        {{ info.primary_text }}</span>
+                                                {% else %}
+                                                    <span class="text-muted">{% trans "No bound (no expiry set)" %}</span>
+                                                {% endif %}
+                                            {% endwith %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        <p class="text-muted">{% trans "No formula stock yet." %}</p>
+    {% endif %}
+
+    {% include 'babybuddy/paginator.html' %}
+    <script nonce="{{ request.csp_nonce }}">
+        document.querySelectorAll('.use-by-badge[data-bs-toggle="tooltip"]').forEach((el) => {
+            new bootstrap.Tooltip(el, {container: 'body'});
+        });
+    </script>
+{% endblock %}

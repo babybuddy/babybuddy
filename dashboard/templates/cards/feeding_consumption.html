@@ -1,0 +1,42 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block header %}
+    <a href="{% url "core:feeding-list" %}">{% trans "Recent Consumption" %}</a>
+{% endblock %}
+{% block title %}
+    <div>{{ totals.3h.total }} <small class="text-muted">ml / 3h</small>{% if has_unquantified %}<sup class="text-warning">*</sup>{% endif %}</div>
+    <small class="text-muted">
+        {{ totals.6h.total }}ml / 6h · {{ totals.12h.total }}ml / 12h
+    </small>
+{% endblock %}
+{% block content %}
+    {% if feedings %}
+        {% for f in feedings %}
+            <div class="d-flex justify-content-between align-items-center {% if f.is_continuation %}border-start border-info border-3 ps-2{% endif %} py-1" {% if f.is_continuation %}title="Continuation of previous feeding"{% endif %}>
+                <div>
+                    <small class="text-muted">{{ f.end|time }}</small>
+                    {{ f.get_method_display }}
+                    {% if f.amount %}
+                        · {{ f.amount }}{% if f.amount_unit == "oz" %}oz{% else %}ml{% endif %}
+                    {% else %}
+                        {% if f.is_breastfeeding %}<sup class="text-warning">*</sup>{% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        {% if has_unquantified %}
+            <small class="text-muted fst-italic mt-1 d-block">
+                <sup class="text-warning">*</sup> {% trans "Breastfeeding without logged amount — totals may be understated." %}
+            </small>
+        {% endif %}
+        {% if has_continuation %}
+            <small class="text-muted fst-italic mt-1 d-block">
+                <span class="border-start border-info border-3 d-inline-block" style="padding-left: .35rem;">
+                    {% trans "Blue bar = continuation of previous feeding" %}
+                </span>
+            </small>
+        {% endif %}
+    {% else %}
+        {% trans "No recent feedings" %}
+    {% endif %}
+{% endblock %}

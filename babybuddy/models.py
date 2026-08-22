@@ -103,6 +103,60 @@ class Settings(models.Model):
             ),
         ],
     )
+    dashboard_card_config = models.JSONField(
+        blank=True,
+        default=dict,
+        help_text=_(
+            "Per-card visibility and ordering. Keys are card names, "
+            "values are dicts with 'visible' (bool) and 'order' (int)."
+        ),
+        verbose_name=_("Dashboard card configuration"),
+    )
+    dashboard_show_feeding = models.BooleanField(
+        default=True, verbose_name=_("Show Feeding on Dashboard")
+    )
+    dashboard_show_diaperchange = models.BooleanField(
+        default=True, verbose_name=_("Show Diaper Changes on Dashboard")
+    )
+    dashboard_show_pumping = models.BooleanField(
+        default=True, verbose_name=_("Show Pumping on Dashboard")
+    )
+    dashboard_show_sleep = models.BooleanField(
+        default=True, verbose_name=_("Show Sleep on Dashboard")
+    )
+    dashboard_show_medication = models.BooleanField(
+        default=True, verbose_name=_("Show Medication on Dashboard")
+    )
+    dashboard_show_tummytime = models.BooleanField(
+        default=True, verbose_name=_("Show Tummy Time on Dashboard")
+    )
+    dashboard_show_statistics = models.BooleanField(
+        default=True, verbose_name=_("Show Statistics on Dashboard")
+    )
+    dashboard_card_order = models.CharField(
+        blank=True,
+        default="",
+        max_length=512,
+        help_text=_(
+            "Comma-separated list of card names in display order. "
+            "Cards not listed appear after, in their default order."
+        ),
+        verbose_name=_("Dashboard Card Order"),
+    )
+    breast_activity_time_mode = models.CharField(
+        blank=True,
+        default="end",
+        max_length=5,
+        choices=[
+            ("end", _("End time (current behavior)")),
+            ("start", _("Start time")),
+        ],
+        help_text=_(
+            "Controls whether the Last Breast Activity card compares and "
+            "displays the START or END time of activities. Defaults to END."
+        ),
+        verbose_name=_("Breast Activity Time Mode"),
+    )
     language = models.CharField(
         choices=settings.LANGUAGES,
         default=settings.LANGUAGE_CODE,

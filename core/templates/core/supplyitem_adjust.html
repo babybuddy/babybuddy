@@ -1,0 +1,50 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks %}
+{% block title %}
+    {% trans "Adjust Quantity" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:supplyitem-list' %}">{% trans "Supplies" %}</a></li>
+    <li class="breadcrumb-item active">{% trans "Adjust" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Adjust Pool Quantity" %}</h1>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ object }}</h5>
+            <p class="card-text">
+                <strong>{% trans "Current quantity:" %}</strong> {{ object.quantity }}<br>
+                <strong>{% trans "Initial quantity:" %}</strong> {{ object.initial_quantity }}
+                {% if object.usage_eligible %}
+                    <br><strong>{% trans "Eligible from:" %}</strong> {{ object.usage_eligible|date:"Y-m-d H:i" }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <p class="text-muted">
+        {% trans "Enter the actual number of items on hand. This creates an adjustment record that becomes the new baseline for this pool — future recalcs compute from this point forward." %}
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">{{ form.physical_count.label }}</label>
+            {{ form.physical_count|add_class:"form-control" }}
+            <small class="form-text text-muted">{{ form.physical_count.help_text }}</small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">{{ form.count_time.label }}</label>
+            {{ form.count_time|add_class:"form-control" }}
+            <small class="form-text text-muted">{{ form.count_time.help_text }}</small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">{{ form.reason.label }}</label>
+            {{ form.reason|add_class:"form-control" }}
+        </div>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">{% trans "Apply Adjustment" %}</button>
+            <a href="{% url 'core:supplyitem-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+{% endblock %}

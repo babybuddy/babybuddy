@@ -389,3 +389,126 @@ class TemplateTagsTestCase(TestCase):
         self.assertIsInstance(data["last"], models.TummyTime)
         stats = {"count": 3, "total": timezone.timedelta(0, 300)}
         self.assertEqual(data["stats"], stats)
+
+    def test_card_breast_activity_pumping_only(self):
+        # No breast feedings — card must show pumping as the latest activity.
+        models.Feeding.objects.filter(
+            method__in=["left breast", "right breast", "both breasts"]
+        ).delete()
+        data = cards.card_breast_activity(self.context, self.child)
+        self.assertEqual(data["latest_type"], "pumping")
+        self.assertEqual(data["type"], "pumping")
+        self.assertFalse(data["empty"])
+        self.assertIsInstance(data["latest"], models.Pumping)
+        self.assertIsNone(data["feeding"])
+        self.assertIsNotNone(data["pumping"])
+
+    def test_card_breast_activity_feeding_only(self):
+        # No pumpings — card must show breastfeeding as the latest activity.
+        models.Pumping.objects.all().delete()
+        data = cards.card_breast_activity(self.context, self.child)
+        self.assertEqual(data["latest_type"], "feeding")
+        self.assertEqual(data["type"], "feeding")
+        self.assertFalse(data["empty"])
+        self.assertIsInstance(data["latest"], models.Feeding)
+        self.assertIsNotNone(data["feeding"])
+        self.assertIsNone(data["pumping"])
+
+    def test_card_breast_activity_pumping_more_recent(self):
+        # Add a pumping after the last breast feeding — pumping must win.
+        models.Pumping.objects.create(
+            child=self.child,
+            start=timezone.make_aware(
+                timezone.localtime().strptime("2017-11-18 12:30", "%Y-%m-%d %H:%M")
+            ),
+            end=timezone.make_aware(
+                timezone.localtime().strptime("2017-11-18 12:45", "%Y-%m-%d %H:%M")
+            ),
+            amount=6.0,
+            amount_unit="oz",
+        )
+        data = cards.card_breast_activity(self.context, self.child)
+        self.assertEqual(data["latest_type"], "pumping")
+        self.assertEqual(data["type"], "pumping")
+        self.assertIsInstance(data["latest"], models.Pumping)
+        # Both branches still carry data for the footer.
+        self.assertIsNotNone(data["feeding"])
+        self.assertIsNotNone(data["pumping"])
+
+    def test_card_breast_activity_feeding_more_recent(self):
+        # Fixture default: breast feeding (Nov 18 12:00) is newer than
+        # last pumping (Nov 17 20:22) — feeding must win.
+        data = cards.card_breast_activity(self.context, self.child)
+        self.assertEqual(data["latest_type"], "feeding")
+        self.assertEqual(data["type"], "feeding")
+        self.assertIsInstance(data["latest"], models.Feeding)
+        self.assertIsNotNone(data["feeding"])
+        self.assertIsNotNone(data["pumping"])
+
+    # ── breast_activity_time_mode setting tests ──
+
+    def test_card_breast_activity_time_mode_default_end(self):
+        """Default time_mode should be 'end' (backward compatible)."""
+        data = cards.card_breast_activity(self.context, self.child)
+        self.assertEqual(data["time_mode"], "end")
+
+    def test_card_breast_activity_time_mode_start(self):
+        """When setting is 'start', compare by start times."""
+        user = get_user_model().objects.first()
+        user.settings.breast_activity_time_mode = "start"
+        user.settings.save()
+        context = {"request": MockUserRequest(user)}
+        data = cards.card_breast_activity(context, self.child)
+        self.assertEqual(data["time_mode"], "start")
+
+    def test_card_breast_activity_start_mode_changes_winner(self):
+        """In 'start' mode, the activity that STARTED more recently wins.
+
+        Scenario: feeding ends later but pumping starts later.
+        With END mode: feeding wins (it ends later).
+        With START mode: pumping wins (it starts later).
+        """
+        # Clean slate
+        models.Feeding.objects.all().delete()
+        models.Pumping.objects.all().delete()
+
+        # Feeding: starts early, ends late
+        models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.make_aware(
+                timezone.localtime().strptime("2017-11-18 10:00", "%Y-%m-%d %H:%M")
+            ),
+            end=timezone.make_aware(
+                timezone.localtime().strptime("2017-11-18 11:00", "%Y-%m-%d %H:%M")
+            ),
+            method="left breast",
+        )
+        # Pumping: starts later, ends earlier
+        models.Pumping.objects.create(
+            child=self.child,
+            start=timezone.make_aware(
+                timezone.localtime().strptime("2017-11-18 10:30", "%Y-%m-%d %H:%M")
+            ),
+            end=timezone.make_aware(
+                timezone.localtime().strptime("2017-11-18 10:40", "%Y-%m-%d %H:%M")
+            ),
+            amount=4.0,
+            amount_unit="oz",
+        )
+
+        # END mode: feeding wins (ends at 11:00 > pumping 10:40)
+        user = get_user_model().objects.first()
+        user.settings.breast_activity_time_mode = "end"
+        user.settings.save()
+        context = {"request": MockUserRequest(user)}
+        data = cards.card_breast_activity(context, self.child)
+        self.assertEqual(data["time_mode"], "end")
+        self.assertEqual(data["latest_type"], "feeding")
+
+        # START mode: pumping wins (starts at 10:30 > feeding 10:00)
+        user.settings.breast_activity_time_mode = "start"
+        user.settings.save()
+        context = {"request": MockUserRequest(user)}
+        data = cards.card_breast_activity(context, self.child)
+        self.assertEqual(data["time_mode"], "start")
+        self.assertEqual(data["latest_type"], "pumping")

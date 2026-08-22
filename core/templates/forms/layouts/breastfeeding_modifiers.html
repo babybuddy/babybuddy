@@ -1,0 +1,49 @@
+{% load i18n %}
+<div class="row"
+     id="breastfeeding-modifiers-section"
+     style="display: none">
+    <div class="row mb-3">
+        <h4>{% trans "Breastfeeding Modifiers" %}</h4>
+        {% for field in fieldset.fields %}
+            <div class="row">{% include "babybuddy/form_field.html" %}</div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+(function() {
+  var BREAST_METHODS = ["left breast", "right breast", "both breasts"];
+
+  function update() {
+    var methodField = document.querySelector('input[name="method"]:checked');
+    var methodValue = methodField ? methodField.value : "";
+    var showModifiers = BREAST_METHODS.indexOf(methodValue) >= 0;
+
+    var section = document.getElementById("breastfeeding-modifiers-section");
+    if (section) {
+      section.style.display = showModifiers ? "" : "none";
+    }
+
+    var modField = document.querySelector('input[name="breastfeeding_modifier"]:checked');
+    var modValue = modField ? modField.value : "";
+    var showSns = showModifiers && modValue === "nipple_shield_sns";
+
+    section.querySelectorAll("[name='sns_amount'], [name='sns_milk_type']").forEach(function(el) {
+      var wrapper = el.closest(".row.mb-3");
+      if (wrapper) wrapper.style.display = showSns ? "" : "none";
+    });
+  }
+
+  function init() {
+    document.querySelectorAll('input[name="method"]').forEach(function(input) {
+      input.addEventListener("change", update);
+    });
+    document.querySelectorAll('input[name="breastfeeding_modifier"]').forEach(function(input) {
+      input.addEventListener("change", update);
+    });
+    update();
+  }
+
+  if (document.readyState !== "loading") init();
+  else document.addEventListener("DOMContentLoaded", init);
+})();
+</script>

@@ -1,0 +1,164 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime misc i18n widget_tweaks %}
+{% block title %}
+    {% trans "Milk Inventory" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Milk Inventory" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Milk Inventory" %}
+        {% if perms.core.add_feedinventory %}
+            <a href="{% url 'core:feedinventory-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add Entry" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    {% include "core/use_by_legend.html" with collapsed="False" %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Label" %}</th>
+                    <th>{% trans "Expressed" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Amount" %}</th>
+                    <th>{% trans "Remaining" %}</th>
+                    <th>{% trans "Location" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Use within" %}</th>
+                    <th>{% trans "Tags" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in object_list %}
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_feedinventory %}
+                                    <a href="{% url 'core:feedinventory-update' item.id %}"
+                                       class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                    {% if item.amount_remaining and item.status != 'discarded' and item.status != 'used' %}
+                                        <a href="{% url 'core:feedinventory-warm' item.id %}"
+                                           class="btn btn-outline-warning"
+                                           title="{% trans 'Mark warmed' %}"
+                                           {% if item.warmed_at %}disabled{% endif %}>
+                                            <i class="icon-temperature" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{% url 'core:feedinventory-consume' item.id %}"
+                                           class="btn btn-success"
+                                           title="{% trans "Consume" %}">
+                                            <i class="icon-feeding" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{% url 'core:feedinventory-discard' item.id %}"
+                                           class="btn btn-warning"
+                                           title="{% trans "Discard" %}">
+                                            <i class="icon-delete" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{% url 'core:feedinventory-split' item.id %}"
+                                           class="btn btn-info"
+                                           title="{% trans "Split" %}">
+                                            <i class="icon-note" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{% url 'core:feedinventory-combine' item.id %}"
+                                           class="btn btn-secondary"
+                                           title="{% trans "Combine" %}">
+                                            <i class="icon-add" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{% url 'core:feedinventory-combine-into' item.id %}"
+                                           class="btn btn-outline-secondary"
+                                           title="{% trans "Combine into…" %}">
+                                            <i class="icon-add" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                                {% if perms.core.delete_feedinventory %}
+                                    <a href="{% url 'core:feedinventory-delete' item.id %}"
+                                       class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <th scope="row"><a href="{% url 'core:feedinventory-update' item.id %}">{% if item.label %}{{ item.label }}{% else %}#{{ item.id }}{% endif %}</a></th>
+                        <th scope="row">{{ item.expressed_at|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td>
+                                {% if item.child %}
+                                    <a href="{% url 'core:child' item.child.slug %}">{{ item.child }}</a>
+                                {% else %}
+                                    <span class="text-muted">{% trans "Household" %}</span>
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        <td>{{ item.get_type_display }}</td>
+                        <td>{{ item.amount }}{{ item.amount_unit }}</td>
+                        <td>
+                            {% if item.amount_remaining is not None %}
+                                {{ item.amount_remaining|floatformat:1 }} ml
+                            {% else %}
+                                <span class="text-muted">—</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ item.get_storage_location_display }}</td>
+                        <td>{{ item.get_status_display }}</td>
+                        <td>
+                            {% with item.use_by_info as info %}
+                                {% if info %}
+                                    <span class="badge {{ info.css_class }} use-by-badge"
+                                          tabindex="0" data-bs-toggle="tooltip" data-bs-placement="top"
+                                          title="{{ item.use_by_tooltip }}">
+                                        {{ info.primary_text }}</span>
+                                    {% if info.secondary_text %}
+                                        <span class="badge text-bg-light border use-by-secondary"
+                                              title="{% trans 'Acceptable window ceiling' %}">
+                                            {{ info.secondary_text }}</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-muted">—</span>
+                                {% endif %}
+                            {% endwith %}
+                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=item.tags.all %}</td>
+                    </tr>
+                    {% if item.notes %}
+                        <tr class="row-details">
+                            <td colspan="10">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ item.notes }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="10">{% trans "No milk & RTD formula inventory entries found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+    <script nonce="{{ request.csp_nonce }}">
+        document.querySelectorAll('.use-by-badge[data-bs-toggle="tooltip"]').forEach((el) => {
+            new bootstrap.Tooltip(el, {container: 'body'});
+        });
+    </script>
+{% endblock %}
+{% block js %}
+    <script nonce="{{ request.csp_nonce }}">
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.use-by-badge[data-bs-toggle="tooltip"]').forEach((el) => {
+                new bootstrap.Tooltip(el, {container: 'body'});
+            });
+        });
+    </script>
+{% endblock %}

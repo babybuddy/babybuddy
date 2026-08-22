@@ -1,0 +1,42 @@
+{% extends 'babybuddy/page.html' %}
+{% load babybuddy i18n widget_tweaks %}
+{% block title %}
+    {% trans "Consume Entry" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:feedinventory-list' %}">{% trans "Milk Inventory" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Consume" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Consume Entry" %}</h1>
+    <p class="text-muted">
+        {% blocktranslate with type=object.get_type_display amount=object.amount unit=object.amount_unit %}
+            {{ type }} — {{ amount }}{{ unit }} originally stored.
+        {% endblocktranslate %}
+        {% if object.amount_remaining is not None %}
+            {% blocktranslate with remaining=object.amount_remaining %}
+                <strong>{{ remaining }} ml</strong> currently remaining.
+            {% endblocktranslate %}
+        {% endif %}
+    </p>
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="id_amount" class="form-label">{{ form.amount.label }}</label>
+            {{ form.amount|add_class:"form-control" }}
+            {% if form.amount.help_text %}
+                <small class="form-text text-muted">{{ form.amount.help_text }}</small>
+            {% endif %}
+            {% if form.amount.errors %}
+                <div class="text-danger">{{ form.amount.errors }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans "Consume" %}</button>
+        <a href="{% url 'core:feedinventory-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

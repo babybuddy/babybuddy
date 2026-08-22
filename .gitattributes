@@ -1,3 +1,21 @@
 # Do not count these files for repository language
 # See https://github.com/github/linguist/blob/master/docs/overrides.md
 /static/** linguist-generated
+# Byte-faithful line endings: these files are CRLF in upstream babybuddy.
+# Do NOT let editors/git normalize them; keep PR diffs content-only.
+babybuddy/migrations/0031_alter_settings_timezone.py -text
+babybuddy/templates/babybuddy/nav-dropdown.html -text
+babybuddy/templates/babybuddy/paginator.html -text
+core/admin.py -text
+core/filters.py -text
+core/forms.py -text
+core/migrations/0034_alter_tag_options.py -text
+core/models.py -text
+core/templates/core/tag_confirm_delete.html -text
+core/templates/core/tag_detail.html -text
+core/templates/core/tag_form.html -text
+core/templates/core/tag_list.html -text
+core/tests/tests_views.py -text
+core/timeline.py -text
+core/urls.py -text
+core/views.py -text

@@ -1,0 +1,136 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks %}
+{% block title %}
+    {% trans "Physical Count" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:supplyitem-list' %}">{% trans "Supplies" %}</a></li>
+    <li class="breadcrumb-item active">{% trans "Physical Count" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Physical Diaper Count" %}</h1>
+    <p class="text-muted">
+        {% trans "Count the diapers you have on hand. Enter one line per brand+size, or use size-only for a quick total count. Only eligible (non-reserve) pools are affected." %}
+    </p>
+
+    {% if results %}
+        <div class="card mb-3 {% if dry_run %}border-warning{% else %}border-success{% endif %}">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {% if dry_run %}
+                        🔍 {% trans "Preview — nothing was changed" %}
+                    {% else %}
+                        ✅ {% trans "Count Applied" %}
+                    {% endif %}
+                </h5>
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Pool</th>
+                            <th>Before</th>
+                            <th>After</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in results %}
+                            <tr>
+                                <td>{{ r.pool }}</td>
+                                <td>{{ r.before }}</td>
+                                <td><strong>{{ r.after }}</strong></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ header_form.management_form }}
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label class="form-label">{{ header_form.count_time.label }}</label>
+                {{ header_form.count_time|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">{{ header_form.notes.label }}</label>
+                {{ header_form.notes|add_class:"form-control" }}
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <div class="form-check">
+                    {{ header_form.dry_run|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="{{ header_form.dry_run.id_for_label }}">
+                        {{ header_form.dry_run.label }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <h6 class="mt-3">{% trans "Count Lines" %}</h6>
+        {{ line_formset.management_form }}
+        <table class="table table-sm" id="count-lines">
+            <thead>
+                <tr>
+                    <th>{% trans "Product" %}</th>
+                    <th>{% trans "Size" %}</th>
+                    <th>{% trans "Count" %}</th>
+                    <th>{% trans "Delete" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in line_formset %}
+                    <tr class="count-line">
+                        <td>{{ form.product }}</td>
+                        <td>{{ form.size }}</td>
+                        <td style="width: 120px;">{{ form.physical_count }}</td>
+                        <td style="width: 50px;">{{ form.DELETE }} {{ form.id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="mb-3">
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="add-line-btn">+ {% trans "Add line" %}</button>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">
+                {% if header_form.dry_run.value %}
+                    {% trans "Run Preview" %}
+                {% else %}
+                    {% trans "Apply Count" %}
+                {% endif %}
+            </button>
+            <a href="{% url 'core:supplyitem-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+
+    <script>
+    // Add line button — clones the last row
+    document.getElementById('add-line-btn').addEventListener('click', function() {
+        var tbody = document.querySelector('#count-lines tbody');
+        var lastRow = tbody.querySelector('.count-line:last-of-type');
+        var clone = lastRow.cloneNode(true);
+
+        // Increment form index
+        var totalForms = document.getElementById('id_form-TOTAL_FORMS');
+        var newIdx = parseInt(totalForms.value);
+        totalForms.value = newIdx + 1;
+
+        // Update field names and IDs
+        clone.querySelectorAll('input, select').forEach(function(field) {
+            var name = field.name.replace(/form-(\d+)-/, 'form-' + newIdx + '-');
+            var id = field.id.replace(/id_form-(\d+)-/, 'id_form-' + newIdx + '-');
+            field.name = name;
+            field.id = id;
+            field.value = '';
+            field.checked = false;
+        });
+
+        tbody.appendChild(clone);
+    });
+    </script>
+{% endblock %}

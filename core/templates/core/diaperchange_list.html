@@ -27,8 +27,10 @@
                         <th>{% trans "Child" %}</th>
                     {% endif %}
                     <th class="text-center">{% trans "Contents" %}</th>
+                    <th>{% trans "Diaper" %}</th>
                     <th>{% trans "Color" %}</th>
-                    <th>{% trans "Amount" %}</th>
+                    <th class="text-center">{% trans "Wet" %}</th>
+                    <th class="text-center">{% trans "Solid" %}</th>
                     <th>{% trans "Previous" %}</th>
                     <th>{% trans "Tags" %}</th>
                 </tr>
@@ -69,12 +71,30 @@
                                     <span title="{% trans "Solid" %}">💩</span>
                                 {% endif %}
                             </td>
+                            <td>
+                                {% if change.diaper_brand %}
+                                    {{ change.diaper_brand }}{% if change.diaper_line %} {{ change.diaper_line }}{% endif %}
+                                {% endif %}
+                                {% if change.diaper_size %}
+                                    <span class="badge bg-secondary">{{ change.diaper_size }}</span>
+                                {% endif %}
+                            </td>
                             <td>{{ change.get_color_display }}</td>
-                            <td>{{ change.amount|default_if_none:"" }}</td>
+                            <td class="text-center">
+                                {% if change.wet_amount %}
+                                    <span title="{{ change.get_wet_amount_display }}">{{ change.get_wet_amount_display|slice:":1" }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if change.solid_amount %}
+                                    <span title="{{ change.get_solid_amount_display }}">{{ change.get_solid_amount_display|slice:":1" }}</span>
+                                {% endif %}
+                            </td>
                             <td>
                                 {% if prev_change %}
-                                    {% blocktrans trimmed with time_ago=prev_change.time|timesince:change.time %}
-                                        {{ time_ago }} ago
+                                    {% prev_word as prev_word_var %}
+{% blocktrans trimmed with time_ago=prev_change.time|timesince:change.time %}
+                                        {{ time_ago }} {{ prev_word_var }}
                                     {% endblocktrans %}
                                 {% endif %}
                             </td>
@@ -82,7 +102,7 @@
                         </tr>
                         {% if change.notes %}
                             <tr class="{{ row_class }} row-details">
-                                <td colspan="8">
+                                <td colspan="10">
                                     <i class="icon-note me-2" aria-hidden="true"></i>{{ change.notes }}
                                 </td>
                             </tr>
@@ -90,7 +110,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="8">{% trans "No diaper changes found." %}</th>
+                        <th colspan="10">{% trans "No diaper changes found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

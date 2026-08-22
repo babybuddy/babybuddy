@@ -1,0 +1,48 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block header %}
+    {% if latest_type == "pumping" %}
+        <a href="{% url 'core:pumping-list' %}">{% trans "Last Breast Activity" %}</a>
+    {% else %}
+        <a href="{% url 'core:feeding-list' %}">{% trans "Last Breast Activity" %}</a>
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if latest %}
+        <div>
+            {% blocktrans trimmed with time_ago=time_since|duration_string:'m' %}
+                {{ time_ago }} ago
+            {% endblocktrans %}
+        </div>
+        <small>
+            {% if latest_type == "feeding" %}
+                {{ latest.get_method_display }}
+                {% if latest.start and latest.end %}
+                    ({{ latest.start|time }}{% if latest.end != latest.start %}-{{ latest.end|time }}{% endif %})
+                {% endif %}
+            {% else %}
+                {% trans "Pumping" %}
+                {% if latest.start and latest.end %}
+                    ({{ latest.start|time }}{% if latest.end != latest.start %}-{{ latest.end|time }}{% endif %})
+                {% endif %}
+                {% if latest.amount %}· {{ latest.amount }}{% if latest.amount_unit == "oz" %}oz{% else %}ml{% endif %}{% endif %}
+            {% endif %}
+        </small>
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if feeding and pumping %}
+        <small class="text-muted d-block">
+            {% trans "Last feeding" %}: {% if time_mode == "start" %}{{ feeding.start|time }}{% else %}{{ feeding.end|time }}{% endif %}
+            · {% trans "Last pumping" %}: {% if time_mode == "start" %}{{ pumping.start|time }}{% else %}{{ pumping.end|time }}{% endif %}
+            <br>
+            <span class="text-muted">({% if time_mode == "start" %}{% trans "showing start times" %}{% else %}{% trans "showing end times" %}{% endif %})</span>
+        </small>
+    {% elif feeding %}
+        <small class="text-muted d-block">{% trans "No pumping logged" %}</small>
+    {% elif pumping %}
+        <small class="text-muted d-block">{% trans "No breastfeeding logged" %}</small>
+    {% endif %}
+{% endblock %}

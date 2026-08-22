@@ -27,6 +27,9 @@ nav:
       - "user-guide/managing-users.md"
       - "user-guide/adding-entries.md"
       - "user-guide/using-timers.md"
+      - "user-guide/supplies.md"
+      - "user-guide/milk-inventory.md"
+      - "user-guide/formula-inventory.md"
   - "Contributing":
       - "contributing/development-environment.md"
       - "contributing/translation.md"
@@ -35,6 +38,11 @@ nav:
   - "import-export.md"
   - "api.md"
   - "mcp.md"
+  - "Fork Reference":
+      - "milk-inventory.md"
+      - "formula-inventory.md"
+      - "development-workflow.md"
+      - "dev-release-notes.md"
 theme:
   name: material
   favicon: assets/images/favicon.svg
@@ -47,7 +55,7 @@ theme:
   logo: assets/images/logo.svg
   palette:
     scheme: slate
-repo_name: babybuddy/babybuddy
-repo_url: https://github.com/babybuddy/babybuddy
+repo_name: coachdruns-code/babybuddy
+repo_url: https://gitea.mctmedia.duckdns.org/coachdruns-code/babybuddy
 site_name: Baby Buddy Documentation
-site_url: https://docs.baby-buddy.net
+site_url: https://bb-docs.mctmedia.duckdns.org

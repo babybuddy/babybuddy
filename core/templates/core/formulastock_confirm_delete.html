@@ -1,0 +1,15 @@
+{% extends 'babybuddy/page.html' %}
+{% load babybuddy i18n %}
+{% block title %}{% trans "Delete Formula Stock" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:formulastock-list' %}">{% trans "Formula Stock" %}</a></li>
+    <li class="breadcrumb-item active">{% trans "Delete" %}</li>
+{% endblock %}
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        <h1>{% confirm_delete_text object %}</h1>
+        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+        <a href="{% url 'core:formulastock-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

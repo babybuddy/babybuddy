@@ -61,6 +61,15 @@ router.register(r"temperature", views.TemperatureViewSet)
 router.register(r"timers", views.TimerViewSet)
 router.register(r"tummy-times", views.TummyTimeViewSet)
 router.register(r"weight", views.WeightViewSet)
+router.register(r"product-lines", views.ProductLineViewSet, basename="productline")
+router.register(r"supply-items", views.SupplyItemViewSet, basename="supplyitem")
+router.register(r"spit-up", views.SpitUpViewSet, basename="spitup")
+router.register(r"equipment", views.EquipmentItemViewSet, basename="equipment")
+router.register(r"feed-inventory", views.FeedInventoryViewSet, basename="feedinventory")
+router.register(r"doctor-visits", views.DoctorVisitViewSet, basename="doctorvisit")
+router.register(r"formula-stock", views.FormulaStockViewSet, basename="formulastock")
+router.register(r"prepared-feeds", views.PreparedFeedViewSet, basename="preparedfeed")
+
 
 router.add_detail_path("profile", "profile", views.ProfileView.as_view())
 router.add_detail_path(

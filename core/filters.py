@@ -91,3 +91,28 @@ class WeightFilter(TagFilter):
     class Meta:
         model = models.Weight
         fields = ["child"]
+
+
+class SupplyItemFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.SupplyItem
+        fields = ["product_line__item_type", "product_line__brand", "size"]
+
+
+class FeedInventoryFilter(TagFilter):
+    class Meta:
+        model = models.FeedInventory
+        fields = ["child", "storage_location", "status"]
+
+
+class FormulaStockFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.FormulaStock
+        fields = ["product_line__brand", "form", "is_reserve"]
+
+
+class PreparedFeedFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.PreparedFeed
+        fields = ["prepared_from", "status"]
+

@@ -212,7 +212,7 @@ def card_feeding_recent(context, child, end_date=None):
         )
         idx = (end_date - feed_date).days
         result = results[idx]
-        result["total"] += instance.amount if instance.amount is not None else 0
+        result["total"] += instance.amount_normalized if instance.amount_normalized is not None else (instance.amount if instance.amount is not None else 0)
         result["count"] += 1
 
     return {
@@ -246,6 +246,257 @@ def card_feeding_last(context, child):
         "hide_empty": _hide_empty(context),
     }
 
+
+
+
+
+
+@register.inclusion_tag("cards/breast_activity.html", takes_context=True)
+def card_breast_activity(context, child):
+    """
+    Last breast activity — the most recent of breastfeeding or pumping.
+    Solves the problem where "last pumping" doesn't update after breastfeeding.
+
+    A per-user setting (breast_activity_time_mode) controls whether
+    activities are compared and displayed by their START time ('start')
+    or END time ('end', the default / current behavior).
+    """
+    BREAST_METHODS = ("left breast", "right breast", "both breasts")
+
+    # Determine whether to compare by start or end time.
+    user_settings = context["request"].user.settings
+    time_mode = getattr(user_settings, "breast_activity_time_mode", "end") or "end"
+    if time_mode not in ("start", "end"):
+        time_mode = "end"
+    order_field = "-start" if time_mode == "start" else "-end"
+
+    last_feeding = (
+        models.Feeding.objects.filter(child=child, method__in=BREAST_METHODS)
+        .filter(**_filter_data_age(context, keyword=time_mode))
+        .order_by(order_field)
+        .first()
+    )
+    last_pumping = (
+        models.Pumping.objects.filter(child=child)
+        .filter(**_filter_data_age(context, keyword=time_mode))
+        .order_by(order_field)
+        .first()
+    )
+
+    # Determine which is more recent using the selected time field.
+    latest = None
+    latest_type = None
+    if last_feeding and last_pumping:
+        feed_time = getattr(last_feeding, time_mode)
+        pump_time = getattr(last_pumping, time_mode)
+        if feed_time >= pump_time:
+            latest = last_feeding
+            latest_type = "feeding"
+        else:
+            latest = last_pumping
+            latest_type = "pumping"
+    elif last_feeding:
+        latest = last_feeding
+        latest_type = "feeding"
+    elif last_pumping:
+        latest = last_pumping
+        latest_type = "pumping"
+
+    # Calculate time since the selected reference time (start or end).
+    now = timezone.now()
+    time_since = None
+    if latest and hasattr(latest, time_mode):
+        time_since = now - getattr(latest, time_mode)
+
+    empty = not latest
+
+    return {
+        "type": latest_type or "feeding",
+        "latest": latest,
+        "latest_type": latest_type,
+        "time_since": time_since,
+        "time_mode": time_mode,
+        "feeding": last_feeding,
+        "pumping": last_pumping,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
+
+
+
+@register.inclusion_tag("cards/spitup.html", takes_context=True)
+def card_spitup(context, child):
+    """
+    Recent spit-up summary: count in last 24h, last episode, and
+    frequency by amount severity.
+    """
+    from datetime import timedelta
+    from collections import Counter
+
+    now = timezone.now()
+    cutoff_24h = now - timedelta(hours=24)
+
+    recent = (
+        models.SpitUp.objects.filter(child=child)
+        .order_by("-time")[:10]
+    )
+
+    last_24h = [s for s in recent if s.time >= cutoff_24h]
+    count_24h = len(last_24h)
+
+    # Count by severity in last 24h
+    by_amount = Counter(s.get_amount_display() for s in last_24h if s.amount)
+
+    # Most recent episode
+    latest = recent[0] if recent else None
+
+    empty = len(recent) == 0
+
+    return {
+        "type": "note",
+        "recent": list(reversed(recent))[:5],  # newest first for display
+        "count_24h": count_24h,
+        "by_amount": dict(by_amount),
+        "latest": latest,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
+
+
+
+
+
+@register.inclusion_tag("cards/low_stock.html", takes_context=True)
+def card_low_stock(context, child):
+    """
+    Diaper Stock Alerts card: a compact burn table for diaper sizes,
+    pulled from the same math as the /supplies page (core.inventory).
+    Alert rows (out / open reserve / low) are highlighted; when a size
+    is within the threshold the next stocked size up is noted so a
+    switch-up is on the radar. Sizes used in the last two weeks keep
+    their rows even if the burn window shows no usage.
+    """
+    from core.inventory import compute_diaper_burn_table, next_size_up
+
+    # Burn numbers use the /supplies default window so the card always
+    # matches the page; rows also cover anything used in the last 2 weeks.
+    table = compute_diaper_burn_table(
+        child, period_days=7, include_usage_days=14
+    )
+
+    no_inventory = not models.SupplyItem.objects.filter(
+        Q(child=child) | Q(child=None)
+    ).exists()
+
+    rows = table["rows"]
+    for row in rows:
+        if row["alert"]:
+            row["next_size_up"] = next_size_up(row["size"], table["stocked_sizes"])
+
+    alerts = [r for r in rows if r["alert"]]
+
+    return {
+        "type": "note",
+        "rows": rows,
+        "alerts": alerts,
+        "threshold_days": table["threshold_days"],
+        "no_inventory": no_inventory,
+        "empty": len(alerts) == 0 and not no_inventory,
+        "hide_empty": _hide_empty(context),
+    }
+
+@register.inclusion_tag("cards/notes_recent.html", takes_context=True)
+def card_notes_recent(context, child):
+    """
+    Recent notes for the child dashboard — shows last 4 notes with
+    time and text so caregivers can see what's been recorded without
+    navigating to the notes list.
+    """
+    recent = (
+        models.Note.objects.filter(child=child)
+        .order_by("-time")[:4]
+    )
+
+    empty = len(recent) == 0
+
+    return {
+        "type": "note",
+        "notes": list(recent),
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
+
+@register.inclusion_tag("cards/feeding_consumption.html", takes_context=True)
+def card_feeding_consumption(context, child):
+    """
+    Recent feeding summary: last few feedings with rolling totals.
+    Shows total consumed in last 3, 6, and 24 hours.
+    """
+    from datetime import timedelta
+
+    now = timezone.now()
+    recent = (
+        models.Feeding.objects.filter(child=child)
+        .filter(**_filter_data_age(context))
+        .order_by("-end")[:5]
+    )
+
+    # Rolling totals using amount_normalized (falls back to amount)
+    def total_since(hours):
+        cutoff = now - timedelta(hours=hours)
+        total = 0
+        count = 0
+        for f in models.Feeding.objects.filter(child=child, end__gte=cutoff):
+            val = f.amount_normalized if f.amount_normalized is not None else (f.amount or 0)
+            total += val
+            count += 1
+        return {"total": round(total), "count": count}
+
+    totals = {
+        "3h": total_since(3),
+        "6h": total_since(6),
+        "12h": total_since(12),
+    }
+
+    # Flag feedings as continuations: either explicitly linked via
+    # previous_feeding FK, or close together (< 1 hour gap)
+    feedings_list = list(reversed(recent))  # chronological for gap calc
+    for i, f in enumerate(feedings_list):
+        f.is_continuation = False
+        # Explicit link
+        if f.previous_feeding_id and any(
+            pf.id == f.previous_feeding_id for pf in feedings_list
+        ):
+            f.is_continuation = True
+        # Auto-detect close feedings using the configurable
+        # FeedingSettings.continuation_threshold_minutes threshold
+        elif i > 0:
+            gap = feedings_list[i - 1].end - f.end
+            threshold_minutes = models.Feeding.settings.continuation_threshold_minutes
+            if gap and abs(gap.total_seconds()) < threshold_minutes * 60:
+                f.is_continuation = True
+
+    # Flag breast feedings and detect unquantified breast feedings
+    breast_methods = {"left breast", "right breast", "both breasts"}
+    feedings_out = list(recent)
+    has_unquantified = False
+    has_continuation = False
+    for f in feedings_out:
+        f.is_breastfeeding = f.method in breast_methods
+        if f.is_breastfeeding and not f.amount:
+            has_unquantified = True
+        if getattr(f, "is_continuation", False):
+            has_continuation = True
+
+    return {
+        "type": "feeding",
+        "feedings": feedings_out,  # newest-first (queryset is order_by("-end"))
+        "totals": totals,
+        "has_unquantified": has_unquantified,
+        "has_continuation": has_continuation,
+        "empty": len(recent) == 0,
+        "hide_empty": _hide_empty(context),
+    }
 
 @register.inclusion_tag("cards/feeding_last_method.html", takes_context=True)
 def card_feeding_last_method(context, child):
@@ -321,7 +572,7 @@ def card_pumping_recent(context, child, end_date=None):
         )
         idx = (end_date - pump_date).days
         result = results[idx]
-        result["total"] += instance.amount if instance.amount is not None else 0
+        result["total"] += instance.amount_normalized if instance.amount_normalized is not None else (instance.amount if instance.amount is not None else 0)
         result["count"] += 1
 
     return {
@@ -907,5 +1158,71 @@ def card_medication_last(context, child):
         "type": "medication",
         "medication": instance,
         "empty": not instance,
+        "hide_empty": _hide_empty(context),
+    }
+
+
+@register.inclusion_tag("cards/feed_inventory.html", takes_context=True)
+def card_feed_inventory(context, child):
+    """Feed inventory summary by type and storage location."""
+    from core.models import FeedInventory
+    from django.db.models.query_utils import Q
+
+    # Show household + current child items
+    items = FeedInventory.objects.filter(
+        Q(child=child) | Q(child=None)
+    ).exclude(status__in=["used", "discarded"])
+
+    types = {}
+    total = 0
+    for item in items:
+        type_label = item.get_type_display()
+        type_data = types.setdefault(
+            type_label, {"locations": {}, "ml": 0, "count": 0}
+        )
+        type_data["ml"] += item.amount_normalized or 0
+        type_data["count"] += 1
+        loc = item.get_storage_location_display()
+        loc_data = type_data["locations"].setdefault(loc, {"ml": 0, "count": 0})
+        loc_data["ml"] += item.amount_normalized or 0
+        loc_data["count"] += 1
+        total += item.amount_normalized or 0
+
+    # Convert nested location dicts to sorted lists for template iteration
+    type_list = []
+    for type_label, type_data in types.items():
+        type_data["locations"] = sorted(type_data["locations"].items())
+        type_list.append((type_label, type_data))
+
+    return {
+        "types": type_list,
+        "total_ml": round(total),
+        "total_oz": round(total / 29.5735, 1),
+        "empty": len(items) == 0,
+        "hide_empty": _hide_empty(context),
+    }
+
+
+@register.inclusion_tag("cards/active_bottles.html", takes_context=True)
+def card_active_bottles(context, child):
+    """Active PreparedFeed units with per-bottle use-by countdown."""
+    from core.models import PreparedFeed
+
+    units = (
+        PreparedFeed.objects.filter(status="active")
+        .order_by("prepared_at")
+    )
+    rows = []
+    for unit in units:
+        info = unit.use_by_info()
+        rows.append({
+            "unit": unit,
+            "info": info,
+            "remaining": unit.amount_remaining or 0,
+            "prepared_from": unit.get_prepared_from_display(),
+        })
+    return {
+        "rows": rows,
+        "empty": len(rows) == 0,
         "hide_empty": _hide_empty(context),
     }

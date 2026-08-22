@@ -3,6 +3,10 @@
 {% block title %}
     {% if request.resolver_match.url_name == 'feeding-update' %}
         {% trans "Update a Feeding" %}
+    {% elif request.resolver_match.url_name == 'breast-feeding-add' %}
+        {% trans "Add a Breast Feeding" %}
+    {% elif request.resolver_match.url_name == 'solid-feeding-add' %}
+        {% trans "Add a Solid Food Feeding" %}
     {% elif request.resolver_match.url_name == 'bottle-feeding-add' %}
         {% trans "Add a Bottle Feeding" %}
     {% else %}
@@ -24,10 +28,83 @@
         <h1>
             {% trans Update %} <span class="text-info">{{ object }}</span>
         </h1>
+    {% elif request.resolver_match.url_name == 'breast-feeding-add' %}
+        <h1>{% trans "Add a Breast Feeding" %}</h1>
+    {% elif request.resolver_match.url_name == 'solid-feeding-add' %}
+        <h1>{% trans "Add a Solid Food Feeding" %}</h1>
     {% elif request.resolver_match.url_name == 'bottle-feeding-add' %}
         <h1>{% trans "Add a Bottle Feeding" %}</h1>
     {% else %}
         <h1>{% trans "Add a Feeding" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
+{% endblock %}
+{% block javascript %}
+    <script type="application/javascript">
+    (function() {
+        // Hide "Fortified breast milk" type option when method is not "bottle".
+        // Fortification (adding HMF powder) only applies to bottle feeding —
+        // it's a serving-time action, not applicable to direct breastfeeding.
+        var methodRadios = document.querySelectorAll('input[name="method"]');
+        var fortifiedLabel = null;
+
+        function findFortifiedLabel() {
+            // PillRadioSelect renders as radio inputs with labels
+            var typeInputs = document.querySelectorAll('input[name="type"]');
+            for (var i = 0; i < typeInputs.length; i++) {
+                if (typeInputs[i].value === 'fortified breast milk') {
+                    // The label is the parent <label> element
+                    var el = typeInputs[i].closest('label');
+                    if (el) return el;
+                    // Or the parent of the parent (depending on rendering)
+                    el = typeInputs[i].parentElement;
+                    if (el && el.tagName === 'LABEL') return el;
+                }
+            }
+            return null;
+        }
+
+        function updateFortifiedVisibility() {
+            var selectedMethod = '';
+            for (var i = 0; i < methodRadios.length; i++) {
+                if (methodRadios[i].checked) {
+                    selectedMethod = methodRadios[i].value;
+                    break;
+                }
+            }
+
+            fortifiedLabel = fortifiedLabel || findFortifiedLabel();
+            if (!fortifiedLabel) return;
+
+            if (selectedMethod === 'bottle') {
+                fortifiedLabel.style.display = '';
+            } else {
+                fortifiedLabel.style.display = 'none';
+                // If fortified was selected, switch to breast milk
+                var typeInputs = document.querySelectorAll('input[name="type"]');
+                for (var i = 0; i < typeInputs.length; i++) {
+                    if (typeInputs[i].value === 'fortified breast milk' && typeInputs[i].checked) {
+                        typeInputs[i].checked = false;
+                        // Select "breast milk" instead
+                        for (var j = 0; j < typeInputs.length; j++) {
+                            if (typeInputs[j].value === 'breast milk') {
+                                typeInputs[j].checked = true;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Listen for method changes
+        for (var i = 0; i < methodRadios.length; i++) {
+            methodRadios[i].addEventListener('change', updateFortifiedVisibility);
+        }
+
+        // Run on load
+        updateFortifiedVisibility();
+    })();
+    </script>
 {% endblock %}

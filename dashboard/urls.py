@@ -12,4 +12,6 @@ urlpatterns = [
         views.ChildDashboard.as_view(),
         name="dashboard-child",
     ),
+    path("dashboard/cards/", views.CustomizeCards.as_view(), name="dashboard-cards"),
+    path("dashboard/reorder/", views.ReorderCards.as_view(), name="dashboard-reorder"),
 ]

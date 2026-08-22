@@ -1,0 +1,25 @@
+{% extends 'cards/base.html' %}
+{% load datetime i18n %}
+{% block header %}
+    <a href="{% url 'core:note-list' %}">{% trans "Recent Notes" %}</a>
+{% endblock %}
+{% block title %}
+    {% if notes %}
+        <div>{{ notes|length }} <small class="text-muted">{% trans "recent" %}</small></div>
+        <small class="text-muted">{{ notes.0.time|time }} — {{ notes.0.note|truncatechars:40 }}</small>
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if notes %}
+        {% for note in notes %}
+            <div class="py-1 border-bottom">
+                <small class="text-muted">{{ note.time|datetime_short }}</small>
+                <div>{{ note.note|truncatechars:120 }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% trans "No notes" %}
+    {% endif %}
+{% endblock %}

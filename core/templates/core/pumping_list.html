@@ -56,15 +56,20 @@
                             <th scope="row">{{ pumping.start|datetime_short }}</th>
                             {% if not unique_child %}
                                 <td>
-                                    <a href="{% url 'core:child' pumping.child.slug %}">{{ pumping.child }}</a>
+                                    {% if pumping.child %}
+                                        <a href="{% url 'core:child' pumping.child.slug %}">{{ pumping.child }}</a>
+                                    {% else %}
+                                        <span class="text-muted">{% trans "Household" %}</span>
+                                    {% endif %}
                                 </td>
                             {% endif %}
                             <td>{{ pumping.amount }}</td>
                             <td>{{ pumping.duration|duration_string }}</td>
                             <td>
                                 {% if prev_pumping %}
-                                    {% blocktrans trimmed with time_ago=prev_pumping.start|timesince:pumping.start %}
-                                        {{ time_ago }} ago
+                                    {% prev_word as prev_word_var %}
+{% blocktrans trimmed with time_ago=prev_pumping.start|timesince:pumping.start %}
+                                        {{ time_ago }} {{ prev_word_var }}
                                     {% endblocktrans %}
                                 {% endif %}
                             </td>

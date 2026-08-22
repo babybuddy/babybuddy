@@ -26,4 +26,210 @@
         <h1>{% trans "Add a Pumping Entry" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
+    {% if not object %}
+    {{ form.combine_mode }}
+    <div class="card mt-3" id="combine-at-creation">
+        <div class="card-header">
+            <i class="icon-add" aria-hidden="true"></i>
+            {% trans "Inventory handling" %}
+        </div>
+        <div class="card-body">
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="combine_mode_display" id="cm-discrete" value="discrete" checked>
+                <label class="form-check-label" for="cm-discrete">
+                    {% trans "Create a new inventory unit (default)" %}
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="combine_mode_display" id="cm-into" value="into">
+                <label class="form-check-label" for="cm-into">
+                    {% trans "Combine into existing unit" %}
+                </label>
+            </div>
+            <div id="combine-target-block" class="ms-4 mt-2" style="display:none">
+                {{ form.combine_target }}
+                <div id="combine-warn" class="alert alert-warning py-1 px-2 mt-2 small" style="display:none"></div>
+                <div class="form-text">
+                    {% trans "Fresh-pumped milk is merged into the chosen unit; the target keeps its label and clocks min-merge (oldest wins)." %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if not object or not object.source_inventory.exists %}
+    <div class="card mt-3" id="inventory-preview" style="display:none">
+        <div class="card-header">
+            <i class="icon-feeding" aria-hidden="true"></i>
+            {% trans "Inventory unit that will be created" %}
+        </div>
+        <div class="card-body py-2">
+            <span class="fw-bold" id="pv-label">—</span>
+            <span>·</span>
+            <span id="pv-amount">—</span>
+            <span>·</span>
+            <span id="pv-status">Fresh</span>
+            <span class="badge bg-secondary" id="pv-location">Room temperature</span>
+            <div class="form-text mb-0">
+                {% trans "Defaults: fresh / room temperature. Adjust on the inventory page after saving if needed." %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if inventory_items %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="icon-pumping" aria-hidden="true"></i>
+                {% trans "Milk Inventory" %}
+            </div>
+            <div class="card-body">
+                <p class="text-muted">
+                    {% trans "This pumping session auto-created the following Milk Inventory item(s)." %}
+                </p>
+                {% include "core/use_by_legend.html" %}
+                <div class="table-responsive">
+                    <table class="table table-instances table-borderless table-striped table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Type" %}</th>
+                                <th>{% trans "Amount" %}</th>
+                                <th>{% trans "Remaining" %}</th>
+                                <th>{% trans "Storage location" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th>{% trans "Use within" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in inventory_items %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'core:feedinventory-update' item.pk %}">{{ item.label }} · {{ item.get_type_display }}</a>
+                                    </td>
+                                    <td>{{ item.amount|floatformat:1 }} {{ item.amount_unit }}</td>
+                                    <td>
+                                        {% if item.amount_remaining is not None %}
+                                            {{ item.amount_remaining|floatformat:1 }} ml
+                                        {% else %}
+                                            —
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ item.get_storage_location_display }}</td>
+                                    <td>{{ item.get_status_display }}</td>
+                                    <td>
+                                        {% with item.use_by_info as info %}
+                                            {% if info %}
+                                                <span class="badge {{ info.css_class }} use-by-badge"
+                                                      tabindex="0" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                      title="{{ item.use_by_tooltip }}">{{ info.primary_text }}</span>
+                                                {% if info.secondary_text %}
+                                                    <span class="badge text-bg-light border use-by-secondary"
+                                                          title="{% trans 'Acceptable window ceiling' %}">{{ info.secondary_text }}</span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="text-muted">—</span>
+                                            {% endif %}
+                                        {% endwith %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+<script>
+(function () {
+    // Place the Inventory handling + preview cards above the Advanced
+    // Fields collapsible (they render after the form include, which
+    // emits Advanced last) — visibility without template surgery on the
+    // shared layout partial. Runs before the init script below.
+    var adv = document.querySelector(".advanced-fields");
+    var anchor = adv ? adv.closest(".row.mb-3") : null;
+    var ids = ["combine-at-creation", "inventory-preview"];
+    ids.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el && anchor && anchor.parentNode) {
+            anchor.parentNode.insertBefore(el, anchor);
+        }
+    });
+})();
+</script>
+<script>
+(function () {
+    var card = document.getElementById("inventory-preview");
+    if (!card) return;
+    function q(id) { return document.getElementById(id); }
+    function amtEl() { return document.getElementById("id_amount"); }
+    function unitEl() { return document.getElementById("id_amount_unit"); }
+    function endEl() { return document.getElementById("id_end"); }
+
+    function nextLabel(dtLocal) {
+        // YYMMDD-NN from the form's end time (server assigns the real
+        // label; this preview mirrors _next_label logic).
+        var d = dtLocal ? new Date(dtLocal) : new Date();
+        if (isNaN(d)) d = new Date();
+        var yy = String(d.getFullYear()).slice(2);
+        var mm = String(d.getMonth() + 1).padStart(2, "0");
+        var dd = String(d.getDate()).padStart(2, "0");
+        return yy + mm + dd + "-NN";
+    }
+    function toMl(amount, unit) {
+        if (unit === "oz") return amount * 29.5735;
+        return amount;
+    }
+    function update() {
+        var a = parseFloat(amtEl() && amtEl().value);
+        if (isNaN(a) || a <= 0) { card.style.display = "none"; return; }
+        card.style.display = "";
+        var unit = unitEl() && unitEl().value || "ml";
+        q("pv-amount").textContent = (unit === "oz" ? (toMl(a, unit).toFixed(1) + " ml (" + a + " oz)") : (a + " ml"));
+        q("pv-label").textContent = nextLabel(endEl() && endEl().value);
+    }
+    ["id_amount", "id_amount_unit", "id_end"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener("input", update);
+    });
+    update();
+})();
+</script>
+
+<script>
+(function () {
+    var modeRadios = document.querySelectorAll('input[name="combine_mode_display"]');
+    var hidden = document.getElementById("id_combine_mode");
+    var block = document.getElementById("combine-target-block");
+    var warn = document.getElementById("combine-warn");
+    var sel = document.getElementById("id_combine_target");
+    if (!modeRadios.length || !hidden || !block) return;
+
+    var STATUS = {};
+    {% for u in form.combine_target.field.queryset %}
+    STATUS[{{ u.pk }}] = ["{{ u.status }}", "{{ u.storage_location }}", {{ u.amount_remaining|floatformat:"0"|default:"0" }}];
+    {% endfor %}
+    function setMode(m) {
+        hidden.value = m;
+        block.style.display = (m === "into") ? "" : "none";
+        if (m === "into") warnCheck();
+    }
+    function warnCheck() {
+        if (!sel || !sel.value || !warn) return;
+        var t = STATUS[sel.value];
+        if (!t) { warn.style.display = "none"; return; }
+        var msgs = [];
+        if (t[0] === "thawed") msgs.push("Target is thawed — combined unit becomes thawed (24h clock, most-perishable state wins).");
+        if (msgs.length) { warn.textContent = msgs.join(" "); warn.style.display = ""; }
+        else { warn.style.display = "none"; }
+    }
+    modeRadios.forEach(function (r) {
+        r.addEventListener("change", function () { setMode(this.value); });
+    });
+    if (sel) sel.addEventListener("change", warnCheck);
+    setMode(hidden.value || "discrete");
+})();
+    document.querySelectorAll('.use-by-badge[data-bs-toggle="tooltip"]').forEach((el) => {
+        new bootstrap.Tooltip(el, {container: 'body'});
+    });
+</script>
 {% endblock %}

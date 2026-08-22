@@ -1,0 +1,87 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n widget_tweaks %}
+{% block title %}
+    {% trans "Doctor Visits" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Doctor Visits" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Doctor Visits" %}
+        {% if perms.core.add_doctorvisit %}
+            <a href="{% url 'core:doctorvisit-add' %}"
+               class="btn btn-sm btn-success">
+                <i class="icon-note" aria-hidden="true"></i> {% trans "Add Doctor Visit" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Date/Time" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Doctor" %}</th>
+                    <th>{% trans "Reason" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for visit in object_list %}
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_doctorvisit %}
+                                    <a href="{% url 'core:doctorvisit-update' visit.id %}"
+                                       class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.delete_doctorvisit %}
+                                    <a href="{% url 'core:doctorvisit-delete' visit.id %}"
+                                       class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <th scope="row">{{ visit.date_time|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td>
+                                <a href="{% url 'core:child' visit.child.slug %}">{{ visit.child }}</a>
+                            </td>
+                        {% endif %}
+                        <td>{{ visit.get_appointment_type_display }}</td>
+                        <td>{{ visit.doctor_name }}</td>
+                        <td>{{ visit.reason }}</td>
+                    </tr>
+                    {% if visit.diagnosis or visit.notes %}
+                        <tr class="row-details">
+                            <td colspan="6">
+                                {% if visit.diagnosis %}
+                                    <i class="icon-note me-2" aria-hidden="true"></i><strong>{% trans "Diagnosis" %}:</strong> {{ visit.diagnosis }}
+                                {% endif %}
+                                {% if visit.notes %}
+                                    {% if visit.diagnosis %}<br>{% endif %}
+                                    <i class="icon-note me-2" aria-hidden="true"></i>{{ visit.notes }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="6">{% trans "No doctor visit entries found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

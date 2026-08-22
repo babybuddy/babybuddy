@@ -1,0 +1,28 @@
+{% load i18n %}
+<div class="row">
+    <div class="row mb-3">
+        <details ontoggle="BabyBuddy.RememberAdvancedToggle(event)"
+                 class="advanced-fields">
+            <summary class="advanced-fields__summary">
+                <h4>
+                    {% if fieldset.layout_attrs.label %}
+                        {% trans fieldset.layout_attrs.label %}
+                    {% else %}
+                        {% trans "Advanced Fields" %}
+                    {% endif %}
+                </h4>
+            </summary>
+            {% for field in fieldset.fields %}
+                <div class="row">{% include "babybuddy/form_field.html" %}</div>
+            {% endfor %}
+            <!-- Datalist elements for autocomplete from ProductLine -->
+            {% for field in fieldset.fields %}
+                {% if field.field.widget.attrs.list %}
+                    <datalist id="{{ field.field.widget.attrs.list }}">
+                        {{ field.field.widget.attrs.data_datalist_options|safe }}
+                    </datalist>
+                {% endif %}
+            {% endfor %}
+        </details>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans "Delete Snapshot" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:inventorysnapshot-list' %}">{% trans "Inventory Snapshots" %}</a></li>
+    <li class="breadcrumb-item active">{% trans "Delete" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Delete Inventory Snapshot" %}</h1>
+    <p>
+        {% blocktrans with time=object.count_time size=object.size count=object.physical_count %}
+            Delete the snapshot from {{ time }} ({{ count }}ct size {{ size }})?
+        {% endblocktrans %}
+    </p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+        <a href="{% url 'core:inventorysnapshot-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

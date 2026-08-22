@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+import os
+
 from django import template
 from django.apps import apps
 from django.conf import settings
@@ -49,6 +52,43 @@ def version_string():
     """
     config = apps.get_app_config("babybuddy")
     return config.version_string
+
+
+@register.simple_tag()
+def dev_build_banner():
+    """
+    Dev deployment build banner (fork-only; feat/dev-tools lane).
+
+    Reads BB_BUILD_TAG / BB_BUILD_TIME baked into the image as ENV by CI
+    (see test-docker/Dockerfile and .gitea/workflows/ci.yml). Returns an
+    empty string when unset — bare test runs and upstream source trees —
+    so the user menu renders identically to stock Baby Buddy.
+
+    BB_BUILD_TIME is baked as a UTC string ("2026-08-20 22:28 UTC").
+    Localize it to the user's timezone at render (UserTimezoneMiddleware
+    has already activated it for the request) — never display UTC to the
+    user. Unparseable values pass through untouched.
+    """
+    tag = os.environ.get("BB_BUILD_TAG", "").strip()
+    built = os.environ.get("BB_BUILD_TIME", "").strip()
+    if not tag:
+        return ""
+    if built:
+        return "{} · {}".format(tag, _localize_build_time(built))
+    return tag
+
+
+def _localize_build_time(raw: str) -> str:
+    """UTC build-time env -> user's wall clock, format 'YYYY-MM-DD HH:MM'."""
+    try:
+        naive = datetime.datetime.strptime(
+            raw.replace(" UTC", "").strip(), "%Y-%m-%d %H:%M"
+        )
+        built_utc = naive.replace(tzinfo=datetime.timezone.utc)
+        local = timezone.localtime(built_utc)
+        return local.strftime("%Y-%m-%d %H:%M")
+    except ValueError:
+        return raw
 
 
 @register.simple_tag()

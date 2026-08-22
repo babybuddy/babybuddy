@@ -1,0 +1,111 @@
+{% load i18n %}
+<div class="row" id="bottle-attrs-section" style="display: none;">
+    <div class="row mb-3">
+        <h4>{% trans "Bottle Details" %}</h4>
+        {% for field in fieldset.fields %}
+            <div class="row feeding-managed-field" {% if field.name == "formula_brand" or field.name == "formula_product" %}id="formula-brand-wrapper" style="display: none;"{% endif %}{% if field.name == "feed_inventory" %}id="feed-inventory-wrapper" style="display: none;"{% endif %}{% if field.name == "formula_source" %}id="formula-source-wrapper" style="display: none;"{% endif %}{% if field.name == "amount_mixed" %}id="amount-mixed-wrapper" style="display: none;"{% endif %}>
+                {% include "babybuddy/form_field.html" %}
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Datalist elements for autocomplete on free-text fields -->
+    {% for field in fieldset.fields %}
+        {% if field.field.widget.attrs.list %}
+            <datalist id="{{ field.field.widget.attrs.list }}">
+                {{ field.field.widget.attrs.data_datalist_options|safe }}
+            </datalist>
+        {% endif %}
+    {% endfor %}
+</div>
+<script>
+(function() {
+  // Only show for bottle method — NOT parent fed / self fed (solid food)
+  var BOTTLE_METHODS = ["bottle"];
+
+  function update() {
+    var methodInputs = document.querySelectorAll('input[name="method"]');
+    var methodField = document.querySelector('input[name="method"]:checked');
+    var methodValue = methodField ? methodField.value : "";
+    // No method field at all means this is a bottle-only form
+    // (BottleFeedingForm has no method field; it is always bottle),
+    // so always show the bottle details section.
+    var show = methodInputs.length === 0 || BOTTLE_METHODS.indexOf(methodValue) >= 0;
+    var section = document.getElementById("bottle-attrs-section");
+    if (section) {
+      section.style.display = show ? "" : "none";
+    }
+
+    // Formula brand + formula source picker show when type=formula AND
+    // method=bottle
+    if (show) {
+      var typeField = document.querySelector('input[name="type"]:checked');
+      var typeValue = typeField ? typeField.value : "";
+      var isFormula = (typeValue === "formula");
+      var formulaWrapper = document.getElementById("formula-brand-wrapper");
+      if (formulaWrapper) {
+        formulaWrapper.style.display = isFormula ? "" : "none";
+      }
+      // Formula source picker (prepared / RTF / powder) — formula only
+      var sourceWrapper = document.getElementById("formula-source-wrapper");
+      if (sourceWrapper) {
+        sourceWrapper.style.display = isFormula ? "" : "none";
+      }
+      // T6 inline prep — "amount mixed" shows only when the selected
+      // formula source is a powder pool ("powder:<pk>"). Autofills with
+      // the fed amount (in ml) unless the user typed their own value.
+      var mixedWrapper = document.getElementById("amount-mixed-wrapper");
+      if (mixedWrapper) {
+        var sourceSelect = document.querySelector("select[name=\"formula_source\"]");
+        var isPowder = false;
+        if (sourceSelect) {
+          var v = sourceSelect.value || "";
+          isPowder = v.indexOf("powder:") === 0;
+        }
+        mixedWrapper.style.display = (isFormula && isPowder) ? "" : "none";
+        var mixedInput = document.getElementById("id_amount_mixed");
+        var amountInput = document.querySelector("input[name=\"amount\"]");
+        if (isPowder && isFormula && mixedInput && !mixedInput.value && amountInput) {
+          // Autofill default = amount fed, converted to ml.
+          var fed = parseFloat(amountInput.value);
+          if (!isNaN(fed)) {
+            var unitSel = document.querySelector("select[name=\"amount_unit\"], input[name=\"amount_unit\"]:checked");
+            var unit = unitSel ? (unitSel.value || "ml") : "ml";
+            var ml = fed;
+            if (unit === "oz") { ml = fed * 29.5735; }
+            else if (unit === "tsp") { ml = fed * 5; }
+            else if (unit === "tbsp") { ml = fed * 15; }
+            mixedInput.value = Math.round(ml * 10) / 10;
+          }
+        }
+      }
+      // Milk inventory picker: breast milk (+ fortified) selects from
+      // inventory; formula does not. Only relevant on forms that have
+      // the field at all.
+      var milkTypes = ["breast milk", "fortified breast milk"];
+      var inventoryWrapper = document.getElementById("feed-inventory-wrapper");
+      if (inventoryWrapper) {
+        inventoryWrapper.style.display =
+          (milkTypes.indexOf(typeValue) >= 0) ? "" : "none";
+      }
+    }
+  }
+
+  function init() {
+    document.querySelectorAll('input[name="method"]').forEach(function(input) {
+      input.addEventListener("change", update);
+    });
+    document.querySelectorAll('input[name="type"]').forEach(function(input) {
+      input.addEventListener("change", update);
+    });
+    // T6: source pick changes amount-mixed visibility — listen too.
+    var sourceSelect = document.querySelector('select[name="formula_source"]');
+    if (sourceSelect) {
+      sourceSelect.addEventListener("change", update);
+    }
+    update();
+  }
+
+  if (document.readyState !== "loading") init();
+  else document.addEventListener("DOMContentLoaded", init);
+})();
+</script>

@@ -24,6 +24,15 @@ Feeding. If necessary, modify the child, or start/end time for the feeding.
 Select the type of food, feeding method, amount, and any notes. When complete,
 select Submit.
 
+For formula and breast milk bottle feedings, this fork adds an inventory
+source picker: choosing a source (a pre-mixed bottle, an open ready-to-feed
+container, or an open powder container) fills in the brand automatically and
+subtracts the amount fed from that source. Formula feedings also gain an
+optional *amount mixed* field — if you mixed more than you fed, the leftover
+becomes a tracked prepared bottle. See the
+[Milk Inventory](milk-inventory.md) and
+[Formula Inventory](formula-inventory.md) guides for details.
+
 ### Note
 
 <video style="max-width: 320px;" autoplay controls loop muted playsinline>

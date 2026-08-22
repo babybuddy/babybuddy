@@ -1,0 +1,34 @@
+{% extends 'cards/base.html' %}
+{% load datetime duration i18n %}
+{% block header %}
+    <a href="{% url 'core:spitup-list' %}">{% trans "Spit-Up" %}</a>
+{% endblock %}
+{% block title %}
+    {% if latest %}
+        <div>{{ count_24h }} <small class="text-muted">{% trans "episodes / 24h" %}</small></div>
+        {% if by_amount %}
+        <small class="text-muted">
+            {% for amount, count in by_amount.items %}
+                {{ count }}× {{ amount }}{% if not forloop.last %} · {% endif %}
+            {% endfor %}
+        </small>
+        {% endif %}
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if recent %}
+        {% for s in recent %}
+            <div class="d-flex justify-content-between align-items-center py-1">
+                <div>
+                    <small class="text-muted">{{ s.time|time }}</small>
+                    {{ s.get_amount_display|default:"—" }}
+                    {% if s.appearance %}<small class="text-muted">· {{ s.appearance }}</small>{% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% trans "No spit-up logged" %}
+    {% endif %}
+{% endblock %}

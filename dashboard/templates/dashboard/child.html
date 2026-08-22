@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load breadcrumb cards i18n %}
+{% load breadcrumb cards dashboard_config i18n %}
 {% block title %}
     {% trans "Dashboard" %} - {{ object }}
 {% endblock %}
@@ -11,24 +11,36 @@
     <li class="breadcrumb-item active" aria-current="page">{% trans "Dashboard" %}</li>
 {% endblock %}
 {% block content %}
+    <div class="d-flex justify-content-end mb-2 gap-2">
+        <a href="{% url 'dashboard:dashboard-cards' %}" class="btn btn-sm btn-outline-light">
+            <i class="icon-settings" aria-hidden="true"></i> {% trans "Customize Dashboard" %}
+        </a>
+    </div>
     <div id="dashboard-child"
          class="row"
          data-masonry='{"percentPosition": true }'>
-        <div class="col-sm-6 col-lg-4">{% card_timer_list object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_diaperchange_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_pumping_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_pumping_recent object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_medication_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_last_method object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_recent object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_statistics object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_recent object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_naps_day object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_tummytime_day object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_diaperchange_types object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
+        {% card_visible 'timer_list' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="timer_list">{% card_timer_list object %}</div>{% endif %}
+        {% card_visible 'feeding_last' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="feeding_last">{% card_feeding_last object %}</div>{% endif %}
+        {% card_visible 'feeding_consumption' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="feeding_consumption">{% card_feeding_consumption object %}</div>{% endif %}
+        {% card_visible 'breast_activity' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="breast_activity">{% card_breast_activity object %}</div>{% endif %}
+        {% card_visible 'spitup' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="spitup">{% card_spitup object %}</div>{% endif %}
+        {% card_visible 'notes_recent' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="notes_recent">{% card_notes_recent object %}</div>{% endif %}
+        {% card_visible 'low_stock' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="low_stock">{% card_low_stock object %}</div>{% endif %}
+        {% card_visible 'feed_inventory' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="feed_inventory">{% card_feed_inventory object %}</div>{% endif %}
+        {% card_visible 'active_bottles' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="active_bottles">{% card_active_bottles object %}</div>{% endif %}
+        {% card_visible 'diaperchange_last' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="diaperchange_last">{% card_diaperchange_last object %}</div>{% endif %}
+        {% card_visible 'pumping_last' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="pumping_last">{% card_pumping_last object %}</div>{% endif %}
+        {% card_visible 'pumping_recent' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="pumping_recent">{% card_pumping_recent object %}</div>{% endif %}
+        {% card_visible 'sleep_last' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="sleep_last">{% card_sleep_last object %}</div>{% endif %}
+        {% card_visible 'medication_last' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="medication_last">{% card_medication_last object %}</div>{% endif %}
+        {% card_visible 'feeding_last_method' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="feeding_last_method">{% card_feeding_last_method object %}</div>{% endif %}
+        {% card_visible 'feeding_recent' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="feeding_recent">{% card_feeding_recent object %}</div>{% endif %}
+        {% card_visible 'statistics' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="statistics">{% card_statistics object %}</div>{% endif %}
+        {% card_visible 'sleep_recent' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="sleep_recent">{% card_sleep_recent object %}</div>{% endif %}
+        {% card_visible 'sleep_naps_day' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="sleep_naps_day">{% card_sleep_naps_day object %}</div>{% endif %}
+        {% card_visible 'tummytime_day' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="tummytime_day">{% card_tummytime_day object %}</div>{% endif %}
+        {% card_visible 'diaperchange_types' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="diaperchange_types">{% card_diaperchange_types object %}</div>{% endif %}
+        {% card_visible 'breastfeeding' as show %}{% if show %}<div class="col-sm-6 col-lg-4" data-card="breastfeeding">{% card_breastfeeding object %}</div>{% endif %}
     </div>
 {% endblock %}
 {% block javascript %}
@@ -38,5 +50,26 @@
         </script>
     {% else %}
         <script type="application/javascript">BabyBuddy.Dashboard.watch('dashboard-child', false);</script>
+    {% endif %}
+    {% card_order_json as order_json %}
+    {% if order_json != "[]" %}
+        <script type="application/javascript">
+            (function() {
+                var order = {{ order_json|safe }};
+                if (!Array.isArray(order)) return;
+                var container = document.getElementById("dashboard-child");
+                if (!container) return;
+                var cards = {};
+                container.querySelectorAll("[data-card]").forEach(function(el) {
+                    cards[el.dataset.card] = el;
+                });
+                order.forEach(function(name) {
+                    name = (name || "").trim();
+                    if (cards[name]) {
+                        container.appendChild(cards[name]);
+                    }
+                });
+            })();
+        </script>
     {% endif %}
 {% endblock %}

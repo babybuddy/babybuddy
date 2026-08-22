@@ -108,7 +108,31 @@ class DiaperChangeTestCase(TestCase):
         self.assertEqual(self.change.amount, 1.25)
 
     def test_diaperchange_attributes(self):
-        self.assertListEqual(self.change.attributes(), ["Wet", "Solid", "Black"])
+        self.assertListEqual(
+            self.change.attributes(),
+            ["Wet", "Solid Black"],
+        )  # color inlined into solid since wet/solid_amount split
+
+    def test_diaperchange_color_choices(self):
+        colors = [
+            choice[0] for choice in models.DiaperChange._meta.get_field("color").choices
+        ]
+        # Create a fresh child so the setUp fixture's DiaperChange doesn't
+        # interfere with the count.
+        child = models.Child.objects.create(
+            first_name="Color", last_name="Test", birth_date=timezone.localdate()
+        )
+        for color in colors:
+            models.DiaperChange.objects.create(
+                child=child,
+                time=timezone.localtime(),
+                wet=False,
+                solid=False,
+                color=color,
+            )
+        self.assertEqual(
+            models.DiaperChange.objects.filter(child=child).count(), len(colors)
+        )
 
 
 class FeedingTestCase(TestCase):
@@ -142,6 +166,79 @@ class FeedingTestCase(TestCase):
         self.assertEqual(feeding, models.Feeding.objects.first())
         self.assertEqual(str(feeding), "Feeding")
         self.assertEqual(feeding.method, "both breasts")
+
+    def test_method_tube(self):
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime(),
+            type="breast milk",
+            method="tube",
+            amount=15,
+        )
+        self.assertEqual(feeding.method, "tube")
+        self.assertEqual(feeding.get_method_display(), "Tube feeding")
+
+    def test_method_cup_feeding(self):
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime(),
+            type="breast milk",
+            method="cup feeding",
+        )
+        self.assertEqual(feeding.method, "cup feeding")
+        self.assertEqual(feeding.get_method_display(), "Cup feeding")
+
+    def test_method_finger_feeding(self):
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime(),
+            type="breast milk",
+            method="finger feeding",
+        )
+        self.assertEqual(feeding.method, "finger feeding")
+        self.assertEqual(feeding.get_method_display(), "Finger feeding")
+
+    def test_breastfeeding_modifier_default(self):
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime(),
+            type="breast milk",
+            method="left breast",
+        )
+        self.assertEqual(feeding.breastfeeding_modifier, "none")
+        self.assertIsNone(feeding.sns_amount)
+        self.assertEqual(feeding.sns_milk_type, "")
+
+    def test_breastfeeding_modifier_nipple_shield(self):
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime(),
+            type="breast milk",
+            method="left breast",
+            breastfeeding_modifier="nipple_shield",
+        )
+        self.assertEqual(feeding.breastfeeding_modifier, "nipple_shield")
+        self.assertEqual(feeding.get_breastfeeding_modifier_display(), "Nipple shield")
+
+    def test_breastfeeding_modifier_nipple_shield_sns(self):
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime(),
+            type="breast milk",
+            method="left breast",
+            breastfeeding_modifier="nipple_shield_sns",
+            sns_amount=20,
+            sns_milk_type="formula",
+        )
+        self.assertEqual(feeding.breastfeeding_modifier, "nipple_shield_sns")
+        self.assertEqual(feeding.sns_amount, 20)
+        self.assertEqual(feeding.sns_milk_type, "formula")
 
 
 class HeadCircumferenceTestCase(TestCase):
@@ -212,8 +309,44 @@ class PumpingTestCase(TestCase):
 
     def test_pumping_create(self):
         self.assertEqual(self.pumping, models.Pumping.objects.first())
-        self.assertEqual(str(self.pumping), "Pumping")
+        self.assertIn("98.6", str(self.pumping))
         self.assertEqual(self.pumping.amount, 98.6)
+
+    def test_pumping_method_default(self):
+        self.assertEqual(self.pumping.method, "")
+
+    def test_pumping_method_electric_pump(self):
+        pumping = models.Pumping.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=20),
+            end=timezone.localtime(),
+            amount=50,
+            method="electric pump",
+        )
+        self.assertEqual(pumping.method, "electric pump")
+        self.assertEqual(pumping.get_method_display(), "Electric pump")
+
+    def test_pumping_method_hand_expression(self):
+        pumping = models.Pumping.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=10),
+            end=timezone.localtime(),
+            amount=15,
+            method="hand expression",
+        )
+        self.assertEqual(pumping.method, "hand expression")
+        self.assertEqual(pumping.get_method_display(), "Hand expression")
+
+    def test_pumping_method_wearable_pump(self):
+        pumping = models.Pumping.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=25),
+            end=timezone.localtime(),
+            amount=40,
+            method="wearable pump",
+        )
+        self.assertEqual(pumping.method, "wearable pump")
+        self.assertEqual(pumping.get_method_display(), "Wearable pump")
 
 
 class SleepTestCase(TestCase):
@@ -455,3 +588,101 @@ class MedicationTestCase(TestCase):
         )
         with self.assertRaises(ValidationError):
             medication.full_clean()
+
+
+class PumpingInventoryWiringTestCase(TestCase):
+    """FR-5: Pumping session auto-creates a FeedInventory entry on save."""
+
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+
+    def test_pumping_creates_feed_inventory(self):
+        """Creating a Pumping record auto-creates a linked FeedInventory."""
+        start = timezone.localtime() - timezone.timedelta(minutes=20)
+        end = timezone.localtime() - timezone.timedelta(minutes=5)
+        pumping = models.Pumping.objects.create(
+            child=self.child,
+            start=start,
+            end=end,
+            amount=100.0,
+        )
+        fi = models.FeedInventory.objects.filter(pumping_session=pumping)
+        self.assertTrue(fi.exists(), "FeedInventory was not auto-created")
+        entry = fi.first()
+        self.assertEqual(entry.child, self.child)
+        self.assertEqual(entry.type, "breast_milk")
+        self.assertEqual(entry.amount, 100.0)
+        self.assertEqual(entry.amount_unit, "ml")
+        self.assertEqual(entry.amount_remaining, 100.0)
+
+    def test_pumping_update_does_not_duplicate_feed_inventory(self):
+        """Updating a Pumping record should NOT create a second FeedInventory."""
+        start = timezone.localtime() - timezone.timedelta(minutes=30)
+        end = timezone.localtime() - timezone.timedelta(minutes=15)
+        pumping = models.Pumping.objects.create(
+            child=self.child,
+            start=start,
+            end=end,
+            amount=50.0,
+        )
+        self.assertEqual(
+            models.FeedInventory.objects.filter(pumping_session=pumping).count(), 1
+        )
+        # Now update the pumping record
+        pumping.amount = 60.0
+        pumping.save()
+        self.assertEqual(
+            models.FeedInventory.objects.filter(pumping_session=pumping).count(), 1
+        )
+
+    def test_pumping_oz_normalizes_feed_inventory_amount(self):
+        """Pumping in oz normalizes amount to ml in the FeedInventory entry."""
+        start = timezone.localtime() - timezone.timedelta(minutes=15)
+        end = timezone.localtime() - timezone.timedelta(minutes=10)
+        pumping = models.Pumping.objects.create(
+            child=self.child,
+            start=start,
+            end=end,
+            amount=3.0,
+            amount_unit="oz",
+        )
+        entry = models.FeedInventory.objects.get(pumping_session=pumping)
+        # 3 oz * 29.5735 = 88.7 (rounded to 1 decimal)
+        self.assertAlmostEqual(entry.amount, 88.7, places=1)
+        self.assertEqual(entry.amount_unit, "ml")
+
+    def test_milk_product_line_get_or_create(self):
+        """B5 (2026-08-21): pumping no longer creates a sentinel milk
+        ProductLine — FeedInventory rows stand alone."""
+        start = timezone.localtime() - timezone.timedelta(minutes=10)
+        end = timezone.localtime() - timezone.timedelta(minutes=5)
+        models.Pumping.objects.create(
+            child=self.child,
+            start=start,
+            end=end,
+            amount=20.0,
+        )
+        self.assertFalse(
+            models.ProductLine.objects.filter(item_type="milk").exists(),
+            "sentinel milk ProductLine should not exist",
+        )
+        self.assertTrue(
+            models.FeedInventory.objects.filter(pumping_session__isnull=False).exists()
+        )
+
+    def test_pumping_zero_amount_no_feed_inventory(self):
+        """Pumping with amount=0 should not create a FeedInventory (edge case)."""
+        # amount is FloatField null=False, so 0 is valid but falsy.
+        start = timezone.localtime() - timezone.timedelta(minutes=5)
+        end = timezone.localtime()
+        models.Pumping.objects.create(
+            child=self.child,
+            start=start,
+            end=end,
+            amount=0.0,
+        )
+        # amount_normalized is 0 which is falsy, so no FeedInventory created
+        self.assertEqual(models.FeedInventory.objects.count(), 0)

@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "capture_cmd": "apps.get_app_configs() -> concrete_fields + many_to_many per model",
+    "captured": "2026-08-14",
+    "regenerate": "ssh -F /opt/machine-id/ssh_config root@babybuddy.teleport, dump schema, keep core.*/babybuddy.* keys",
+    "source": "official production at babybuddy.teleport (babybuddy.settings.production)"
+  },
+  "babybuddy.settings": [
+    "dashboard_hide_age",
+    "dashboard_hide_empty",
+    "dashboard_refresh_rate",
+    "language",
+    "pagination_count",
+    "timezone",
+    "user"
+  ],
+  "core.bmi": [
+    "bmi",
+    "child",
+    "date",
+    "notes",
+    "tags"
+  ],
+  "core.child": [
+    "birth_date",
+    "birth_time",
+    "first_name",
+    "last_name",
+    "picture",
+    "slug"
+  ],
+  "core.diaperchange": [
+    "amount",
+    "child",
+    "color",
+    "notes",
+    "solid",
+    "tags",
+    "time",
+    "wet"
+  ],
+  "core.feeding": [
+    "amount",
+    "child",
+    "duration",
+    "end",
+    "method",
+    "notes",
+    "start",
+    "tags",
+    "type"
+  ],
+  "core.headcircumference": [
+    "child",
+    "date",
+    "head_circumference",
+    "notes",
+    "tags"
+  ],
+  "core.height": [
+    "child",
+    "date",
+    "height",
+    "notes",
+    "tags"
+  ],
+  "core.heightpercentile": [
+    "age_in_days",
+    "p15_height",
+    "p3_height",
+    "p50_height",
+    "p85_height",
+    "p97_height",
+    "sex"
+  ],
+  "core.medication": [
+    "child",
+    "dosage",
+    "dosage_unit",
+    "name",
+    "next_dose_interval",
+    "notes",
+    "tags",
+    "time"
+  ],
+  "core.note": [
+    "child",
+    "image",
+    "note",
+    "tags",
+    "time"
+  ],
+  "core.pumping": [
+    "amount",
+    "child",
+    "duration",
+    "end",
+    "notes",
+    "start",
+    "tags"
+  ],
+  "core.sleep": [
+    "child",
+    "duration",
+    "end",
+    "nap",
+    "notes",
+    "start",
+    "tags"
+  ],
+  "core.tag": [
+    "color",
+    "last_used",
+    "name",
+    "slug"
+  ],
+  "core.tagged": [
+    "content_type",
+    "object_id",
+    "tag"
+  ],
+  "core.temperature": [
+    "child",
+    "notes",
+    "tags",
+    "temperature",
+    "time"
+  ],
+  "core.timer": [
+    "active",
+    "child",
+    "name",
+    "start",
+    "user"
+  ],
+  "core.tummytime": [
+    "child",
+    "duration",
+    "end",
+    "milestone",
+    "start",
+    "tags"
+  ],
+  "core.weight": [
+    "child",
+    "date",
+    "notes",
+    "tags",
+    "weight"
+  ],
+  "core.weightpercentile": [
+    "age_in_days",
+    "p15_weight",
+    "p3_weight",
+    "p50_weight",
+    "p85_weight",
+    "p97_weight",
+    "sex"
+  ]
+}

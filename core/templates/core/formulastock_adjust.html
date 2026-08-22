@@ -1,0 +1,16 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}
+    {% trans "Adjust Stock" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:formulastock-list' %}">{% trans "Formula Stock" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Adjust" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Adjust" %} <span class="text-info">{{ object }}</span></h1>
+    <p class="text-muted">
+        {% blocktrans %}Enter the amount actually left in the container. The difference is recorded in the ledger with your reason.{% endblocktrans %}
+    </p>
+    {% include 'babybuddy/form.html' %}
+{% endblock %}

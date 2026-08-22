@@ -1,32 +1,7 @@
-# Coverage testing files.
-.coverage
-/htmlcov
-
-# Environment configuration file.
-.env
-
-# Virtual environment files (pipenv may use this convention).
-.venv
-
-# IDE configuration files.
-/.idea
-
-# Node development dependencies.
-/node_modules
-
-# Python files.
-*.pyc
-
-# App static file directories.
-/*/static
-
-# Django media root directory.
-/media
-
-# Pipfile.lock.
-# Committing this file makes it difficult to support multiple Python versions as
-# requirements can different between versions, but the Pipfile only supports
-# locking to one version.
+backups/
+*.sqlite3
+.vscode/
+node_modules/
 Pipfile.lock
 
 # Documentation
@@ -45,4 +20,30 @@ devenv.local.nix
 # pre-commit
 .pre-commit-config.yaml
 
+.vscodebackups/
+__pycache__/
+*.pyc
+tmp/
+tmp/
+# Coverage testing files.
+.coverage
+/htmlcov
+# Environment configuration file.
+.env
+# Virtual environment files (pipenv may use this convention).
+.venv
+# IDE configuration files.
+/.idea
+# Node development dependencies.
+/node_modules
+# Python files.
+# App static file directories.
+/*/static
+# Django media root directory.
+/media
+# Pipfile.lock.
+# Committing this file makes it difficult to support multiple Python versions as
+# requirements can different between versions, but the Pipfile only supports
+# locking to one version.
 .vscode
+# Database backups

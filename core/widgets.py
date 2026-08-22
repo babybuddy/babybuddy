@@ -1,7 +1,7 @@
 import datetime
 from typing import Any, Dict, Optional
 
-from django.forms import RadioSelect, widgets
+from django.forms import CheckboxSelectMultiple, RadioSelect, widgets
 
 from . import models
 
@@ -12,8 +12,8 @@ class TagsEditor(widgets.Widget):
     taggit library.
 
     The widget makes use of bootstrap v4 and its badge/pill feature and renders
-    a list of tags as badges that can be clicked to remove or add a tag to
-    the list of set tags. In addition, a user can dynamically add new, custom
+    a list of tags as badges that can be clicked to remove or add a tag to the
+    list of set tags. In addition, a user can dynamically add new, custom
     tags, using a text editor.
     """
 
@@ -62,7 +62,7 @@ class TagsEditor(widgets.Widget):
         - Query a list if "recently used" tags (max 256 to not cause
           DoS issues) from the database to be used for auto-completion. ("most")
         - Query a smaller list of 5 tags to be made available from a quick
-          selection widget ("quick").
+          selection widget ("quick")
         """
         most_tags = models.Tag.objects.order_by("-last_used").all()[:256]
 
@@ -90,9 +90,9 @@ class ChildRadioSelect(RadioSelect):
     option_template_name = "core/child_radio_option.html"
     attrs = {"class": "btn-check d-none"}
 
-    def build_attrs(self, base_attrs, extra_attrs=None):
+    def build_attrs(self, base_attrs=None, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs["class"] += " btn-check d-none"
+        attrs["class"] = (attrs.get("class", "") + " btn-check d-none").strip()
         return attrs
 
     def create_option(
@@ -113,7 +113,37 @@ class PillRadioSelect(RadioSelect):
 
     attrs = {"class": "btn-check d-none"}
 
+    def build_attrs(self, base_attrs=None, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+        attrs["class"] = (attrs.get("class", "") + " btn-check d-none").strip()
+        return attrs
+
+
+class RequiredPillRadioSelect(PillRadioSelect):
+    """PillRadioSelect with focusable hidden inputs.
+
+    ``d-none`` inputs cannot receive browser validation focus: when the
+    radio group is required and nothing is selected, Chrome blocks form
+    submission with no visible cue. ``visually-hidden`` keeps the input
+    in the layout (focusable) while staying invisible.
+    """
+
+    def build_attrs(self, base_attrs=None, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+        attrs["class"] = attrs["class"].replace("d-none", "visually-hidden")
+        return attrs
+
+
+class PillCheckboxSelect(CheckboxSelectMultiple):
+    """
+    Multi-select version of PillRadioSelect — renders checkboxes as
+    Bootstrap pill buttons (same visual style as the Contents wet/solid field).
+    """
+    input_type = "checkbox"
+    template_name = "core/pill_radio.html"
+    option_template_name = "core/pill_radio_option.html"
+
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs["class"] += " btn-check d-none"
+        attrs["class"] = (attrs.get("class", "") + " btn-check d-none").strip()
         return attrs

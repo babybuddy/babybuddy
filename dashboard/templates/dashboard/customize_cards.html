@@ -1,0 +1,363 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans "Customize Dashboard" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'dashboard:dashboard-child' object.slug %}">{% trans "Dashboard" %}</a></li>
+    <li class="breadcrumb-item active">{% trans "Customize Dashboard" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Customize Dashboard" %}</h1>
+    <p class="text-muted">
+        {% trans "Toggle entire categories or individual cards. Drag the ⠿ handle to reorder. Hidden cards are removed from the dashboard but your data is preserved." %}
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {# ── Breast Activity card: start vs end time setting ── #}
+        <div class="card mb-3">
+            <div class="card-body">
+                <strong>{% trans "Last Breast Activity card" %}</strong>
+                <p class="text-muted small mb-2">
+                    {% trans "Choose whether the card shows the START time or END time of the last activity." %}
+                </p>
+                <div class="btn-group" role="group" aria-label="{% trans 'Breast activity time mode' %}">
+                    <input type="radio" class="btn-check" name="breast_activity_time_mode"
+                           id="breast_mode_end" value="end"
+                           {% if breast_activity_mode != "start" %}checked{% endif %}>
+                    <label class="btn btn-outline-primary" for="breast_mode_end">{% trans "End time" %}</label>
+
+                    <input type="radio" class="btn-check" name="breast_activity_time_mode"
+                           id="breast_mode_start" value="start"
+                           {% if breast_activity_mode == "start" %}checked{% endif %}>
+                    <label class="btn btn-outline-primary" for="breast_mode_start">{% trans "Start time" %}</label>
+                </div>
+            </div>
+        </div>
+
+        {# ── Section 1: Category visibility toggles ── #}
+        <h5 class="mt-3">{% trans "Show / Hide Categories" %}</h5>
+        <p class="text-muted small mb-2">
+            {% trans "Toggle entire categories on or off. Individual cards can also be toggled within each category." %}
+        </p>
+        <div class="mb-4">
+            {% for cat in categories %}
+                <div class="card mb-2 category-section" data-category="{{ cat.name }}">
+                    <div class="card-body py-2">
+                        <div class="d-flex align-items-center mb-{% if cat.cards|length > 1 %}2{% else %}0{% endif %}">
+                            <strong class="flex-grow-1">{{ cat.name }}</strong>
+                            <span class="badge bg-secondary rounded-pill me-2">{{ cat.cards|length }}</span>
+                            <div class="form-check form-switch mb-0">
+                                <input class="form-check-input category-toggle"
+                                       type="checkbox"
+                                       name="category_{{ cat.name }}"
+                                       id="cat_{{ forloop.counter }}_switch"
+                                       data-category="{{ cat.name }}"
+                                       {% if cat.all_visible %}checked{% endif %}>
+                                <label class="form-check-label visually-hidden" for="cat_{{ forloop.counter }}_switch">
+                                    {{ cat.name }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="ps-3">
+                            {% for card in cat.cards %}
+                                <div class="d-flex align-items-center py-1{% if not forloop.last %} border-bottom{% endif %}">
+                                    <span class="flex-grow-1 small">{{ card.label }}</span>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input card-toggle"
+                                               type="checkbox"
+                                               name="card_{{ card.name }}"
+                                               id="card_{{ card.name }}_switch"
+                                               data-category="{{ card.category }}"
+                                               {% if card.visible %}checked{% endif %}>
+                                        <label class="form-check-label visually-hidden" for="card_{{ card.name }}_switch">
+                                            {{ card.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {# ── Section 2: Card reordering (flat list) ── #}
+        <h5>{% trans "Reorder Cards" %}</h5>
+        <p class="text-muted small mb-2">
+            <i class="icon-grip-vertical" aria-hidden="true"></i>
+            {% trans "Drag the ⠿ handle to reorder cards on the dashboard." %}
+        </p>
+        <ul id="card-order-list" class="list-group mb-3">
+            {% for card in cards %}
+            <li class="list-group-item d-flex align-items-center card-sort-item"
+                data-card-name="{{ card.name }}">
+                <i class="card-grip-handle icon-grip me-3" style="cursor: grab; user-select: none; touch-action: none;">⠿</i>
+                <div class="flex-grow-1">
+                    <strong>{{ card.label }}</strong>
+                    <span class="badge bg-light text-dark rounded-pill ms-2 small">{{ card.category }}</span>
+                </div>
+                <input type="hidden" name="card_order" value="{{ card.name }}">
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+            <a href="{% url 'dashboard:dashboard-child' object.slug %}"
+               class="btn btn-default">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+
+    {# ── Drag-and-drop reorder with mobile touch support ── #}
+    <style>
+    .card-sort-item.dragging {
+        opacity: 0.5;
+    }
+    .card-sort-item.drag-over-top {
+        border-top: 3px solid #0d6efd;
+    }
+    .card-sort-item.drag-over-bottom {
+        border-bottom: 3px solid #0d6efd;
+    }
+    .card-grip-handle:active {
+        cursor: grabbing;
+    }
+    .card-toggle:disabled {
+        opacity: 0.35;
+    }
+    .category-section .card-toggle:disabled ~ * {
+        opacity: 0.5;
+    }
+    @media (max-width: 576px) {
+        .card-sort-item {
+            min-height: 60px;
+            padding: 12px 8px;
+        }
+        .card-grip-handle {
+            font-size: 1.5rem;
+            padding: 8px;
+        }
+        .form-check.form-switch .form-check-input {
+            width: 3em;
+            height: 1.5em;
+        }
+    }
+    </style>
+
+    <script>
+    (function() {
+        // ── Category toggle cascade (visibility section) ──
+        document.querySelectorAll('.category-toggle').forEach(catToggle => {
+            const catName = catToggle.dataset.category;
+            const section = catToggle.closest('.category-section');
+            const cardToggles = section
+                ? section.querySelectorAll('.card-toggle')
+                : document.querySelectorAll(`.card-toggle[data-category="${catName}"]`);
+
+            function updateCards() {
+                cardToggles.forEach(toggle => {
+                    if (catToggle.checked) {
+                        toggle.disabled = false;
+                        if (toggle.dataset.wasChecked === 'true') {
+                            toggle.checked = true;
+                        }
+                    } else {
+                        toggle.dataset.wasChecked = toggle.checked;
+                        toggle.checked = false;
+                        toggle.disabled = true;
+                    }
+                });
+            }
+
+            catToggle.addEventListener('change', updateCards);
+
+            // Update category toggle when individual cards change
+            cardToggles.forEach(toggle => {
+                toggle.addEventListener('change', () => {
+                    if (!toggle.disabled) {
+                        const allOn = [...cardToggles].every(t => !t.disabled && t.checked);
+                        catToggle.checked = allOn;
+                    }
+                });
+            });
+        });
+
+        // ── Drag-and-drop reorder (flat list section) ──
+        const list = document.getElementById('card-order-list');
+        if (!list) return;
+
+        let draggedItem = null;
+
+        function getDragAfterElement(container, y) {
+            const elements = [...container.querySelectorAll('.card-sort-item:not(.dragging)')];
+            return elements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                }
+                return closest;
+            }, { offset: -Infinity }).element;
+        }
+
+        function clearIndicators() {
+            list.querySelectorAll('.card-sort-item').forEach(el => {
+                el.classList.remove('drag-over-top', 'drag-over-bottom');
+            });
+        }
+
+        list.querySelectorAll('.card-sort-item').forEach(item => {
+            const grip = item.querySelector('.card-grip-handle');
+            item.draggable = false;
+
+            if (grip) {
+                grip.addEventListener('mousedown', () => { item.draggable = true; });
+                grip.addEventListener('mouseup', () => { item.draggable = false; });
+            }
+
+            item.addEventListener('dragstart', (e) => {
+                draggedItem = item;
+                item.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+                item.draggable = false;
+                draggedItem = null;
+                clearIndicators();
+                syncHiddenInputs();
+            });
+        });
+
+        list.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (!draggedItem) return;
+            const afterElement = getDragAfterElement(list, e.clientY);
+            clearIndicators();
+            if (afterElement) {
+                const box = afterElement.getBoundingClientRect();
+                const midpoint = box.top + box.height / 2;
+                if (e.clientY < midpoint) {
+                    afterElement.classList.add('drag-over-top');
+                } else {
+                    afterElement.classList.add('drag-over-bottom');
+                }
+                if (afterElement === draggedItem.nextSibling) return;
+                if (e.clientY < midpoint) {
+                    list.insertBefore(draggedItem, afterElement);
+                } else {
+                    list.insertBefore(draggedItem, afterElement.nextSibling);
+                }
+            } else {
+                list.appendChild(draggedItem);
+            }
+        });
+
+        // ── Mobile/Touch drag ──
+        function setupTouchDrag(item) {
+            const grip = item.querySelector('.card-grip-handle');
+            if (!grip) return;
+
+            let touchDragging = false;
+            let placeholder = null;
+            let touchOffsetY = 0;
+
+            grip.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                touchDragging = true;
+                draggedItem = item;
+
+                const rect = item.getBoundingClientRect();
+                const touch = e.touches[0];
+                touchOffsetY = touch.clientY - rect.top;
+
+                placeholder = item.cloneNode(true);
+                placeholder.style.visibility = 'hidden';
+                item.parentNode.insertBefore(placeholder, item.nextSibling);
+
+                item.classList.add('dragging');
+                item.style.position = 'fixed';
+                item.style.width = rect.width + 'px';
+                item.style.zIndex = '1000';
+                item.style.pointerEvents = 'none';
+                item.style.top = (touch.clientY - touchOffsetY) + 'px';
+                item.style.left = rect.left + 'px';
+                item.style.opacity = '0.85';
+            }, { passive: false });
+
+            grip.addEventListener('touchmove', (e) => {
+                if (!touchDragging) return;
+                e.preventDefault();
+                const touch = e.touches[0];
+                const y = touch.clientY;
+                item.style.top = (y - touchOffsetY) + 'px';
+
+                const afterElement = getDragAfterElement(list, y);
+                clearIndicators();
+                if (afterElement && afterElement !== placeholder) {
+                    const box = afterElement.getBoundingClientRect();
+                    const midpoint = box.top + box.height / 2;
+                    if (y < midpoint) {
+                        if (placeholder.nextSibling !== afterElement) {
+                            list.insertBefore(placeholder, afterElement);
+                        }
+                    } else {
+                        if (placeholder !== afterElement.nextSibling) {
+                            list.insertBefore(placeholder, afterElement.nextSibling);
+                        }
+                    }
+                } else if (!afterElement && placeholder !== list.lastChild) {
+                    list.appendChild(placeholder);
+                }
+            }, { passive: false });
+
+            grip.addEventListener('touchend', (e) => {
+                if (!touchDragging) return;
+                touchDragging = false;
+
+                item.classList.remove('dragging');
+                item.style.position = '';
+                item.style.width = '';
+                item.style.zIndex = '';
+                item.style.pointerEvents = '';
+                item.style.top = '';
+                item.style.left = '';
+                item.style.opacity = '';
+
+                if (placeholder && placeholder.parentNode) {
+                    list.insertBefore(item, placeholder);
+                    placeholder.remove();
+                }
+                placeholder = null;
+                draggedItem = null;
+                clearIndicators();
+                syncHiddenInputs();
+            }, { passive: false });
+        }
+
+        list.querySelectorAll('.card-sort-item').forEach(setupTouchDrag);
+
+        // ── Sync hidden inputs to current DOM order before submit ──
+        function syncHiddenInputs() {
+            const items = list.querySelectorAll('.card-sort-item');
+            items.forEach((li) => {
+                const input = li.querySelector('input[name="card_order"]');
+                if (input) {
+                    input.value = li.dataset.cardName;
+                }
+            });
+        }
+
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', syncHiddenInputs);
+        }
+
+        syncHiddenInputs();
+    })();
+    </script>
+{% endblock %}

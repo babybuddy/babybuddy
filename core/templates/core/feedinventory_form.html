@@ -1,0 +1,96 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% if object %}
+        {{ object }}
+    {% else %}
+        {% trans "Add an Entry" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:feedinventory-list' %}">{% trans "Milk Inventory" %}</a>
+    </li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add an Entry" %}</li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>
+            {% trans "Update" %} <span class="text-info">{{ object }}</span>
+        </h1>
+    {% else %}
+        <h1>{% trans "Add an Entry" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}
+{% block javascript %}
+    <script>
+        (function() {
+            // Formula has no source pumping session — hide the field.
+            function update() {
+                var typeField = document.querySelector('input[name="type"]:checked');
+                var typeValue = typeField ? typeField.value : "";
+                var showPumping = typeValue !== "formula";
+
+                var label = document.querySelector('label[for="id_pumping_session"]');
+                var wrapper = label ? label.closest(".row.mb-3") : null;
+                if (wrapper) {
+                    wrapper.style.display = showPumping ? "" : "none";
+                }
+            }
+
+            // Location → status derivation preview (physical-state
+            // convention, mirrors server-side clean()). Highlights the
+            // status field when it disagrees with the chosen location.
+            function updateStatusHint() {
+                var locField = document.querySelector('input[name="storage_location"]:checked');
+                var stField = document.querySelector('input[name="status"]:checked');
+                if (!locField || !stField) return;
+                var loc = locField.value, st = stField.value;
+                var derived;
+                if (loc === "freezer" || loc === "deep_freeze") {
+                    derived = "frozen";
+                } else if (st === "frozen" || st === "thawed") {
+                    derived = "thawed";
+                } else {
+                    derived = "fresh";
+                }
+                var stLabel = document.querySelector('label[for="id_status"]');
+                var stWrapper = stLabel ? stLabel.closest(".row.mb-3") : null;
+                var hintId = "status-derivation-hint";
+                var hint = document.getElementById(hintId);
+                if (derived !== st) {
+                    if (!hint && stWrapper) {
+                        hint = document.createElement("div");
+                        hint.id = hintId;
+                        hint.className = "form-text text-warning";
+                        stWrapper.appendChild(hint);
+                    }
+                    if (hint) {
+                        hint.textContent = "Location “" + loc + "” implies status “" + derived + "”.";
+                    }
+                } else if (hint) {
+                    hint.remove();
+                }
+            }
+
+            function init() {
+                document.querySelectorAll('input[name="type"]').forEach(function(input) {
+                    input.addEventListener("change", update);
+                });
+                document.querySelectorAll('input[name="storage_location"], input[name="status"]').forEach(function(input) {
+                    input.addEventListener("change", updateStatusHint);
+                });
+                update();
+                updateStatusHint();
+            }
+
+            if (document.readyState !== "loading") init();
+            else document.addEventListener("DOMContentLoaded", init);
+        })();
+    </script>
+{% endblock %}

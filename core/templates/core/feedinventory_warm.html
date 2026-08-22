@@ -1,0 +1,21 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans "Mark Warmed" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:feedinventory-list' %}">{% trans "Milk Inventory" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Mark warmed" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Mark warmed:" %} <span class="text-info">{{ object }}</span></h1>
+    <p class="text-muted">
+        {% blocktrans %}Marking a unit warmed is one-way: the 2-hour clock starts and the unit can no longer return to the fridge or freezer (CDC: once warmed, use within 2 h — do not refreeze or return to cold storage).{% endblocktrans %}
+    </p>
+    {% if object.warmed_at %}
+        <div class="alert alert-warning">
+            {% blocktrans with warmed=object.warmed_at %}This unit is already marked as warmed ({{ warmed }}).{% endblocktrans %}
+        </div>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}

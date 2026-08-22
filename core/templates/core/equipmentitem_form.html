@@ -1,0 +1,21 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% if object %}{% trans "Equipment" %}{% else %}{% trans "Add Equipment" %}{% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'core:equipment-list' %}">{% trans "Equipment" %}</a></li>
+    {% if object %}
+        <li class="breadcrumb-item active">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active">{% trans "Add Equipment" %}</li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>{% trans "Update Equipment" %}</h1>
+    {% else %}
+        <h1>{% trans "Add Equipment" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+{% endblock %}

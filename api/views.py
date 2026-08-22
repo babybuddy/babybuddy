@@ -3,8 +3,10 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets, views
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.schemas.openapi import AutoSchema
+from django_filters.rest_framework import DjangoFilterBackend
 
 from core import models
 from babybuddy import models as babybuddy_models
@@ -49,7 +51,7 @@ class DiaperChangeViewSet(viewsets.ModelViewSet):
     queryset = models.DiaperChange.objects.all()
     serializer_class = serializers.DiaperChangeSerializer
     filterset_class = filters.DiaperChangeFilter
-    ordering_fields = ("amount", "time")
+    ordering_fields = ("wet_amount", "solid_amount", "time")
     ordering = "-time"
 
 
@@ -164,6 +166,14 @@ class WeightViewSet(viewsets.ModelViewSet):
     ordering = "-date"
 
 
+class FeedInventoryViewSet(viewsets.ModelViewSet):
+    queryset = models.FeedInventory.objects.all()
+    serializer_class = serializers.FeedInventorySerializer
+    filterset_fields = ["child", "type", "storage_location", "status"]
+    ordering_fields = ("expressed_at",)
+    ordering = "-expressed_at"
+
+
 class ProfileView(views.APIView):
     schema = AutoSchema(operation_id_base="CurrentProfile")
 
@@ -179,3 +189,74 @@ class ProfileView(views.APIView):
         )
         serializer = self.serializer_class(settings)
         return Response(serializer.data)
+
+
+class ProductLineViewSet(viewsets.ModelViewSet):
+    queryset = models.ProductLine.objects.all()
+    serializer_class = serializers.ProductLineSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
+class SupplyItemViewSet(viewsets.ModelViewSet):
+    queryset = models.SupplyItem.objects.all()
+    serializer_class = serializers.SupplyItemSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["child", "product_line", "size"]
+
+
+class SpitUpViewSet(viewsets.ModelViewSet):
+    queryset = models.SpitUp.objects.all()
+    serializer_class = serializers.SpitUpSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["child", "amount", "related_feeding"]
+    ordering_fields = ("time",)
+    ordering = "-time"
+
+
+class EquipmentItemViewSet(viewsets.ModelViewSet):
+    queryset = models.EquipmentItem.objects.all()
+    serializer_class = serializers.EquipmentItemSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["child", "product_line", "disposal_status"]
+    ordering_fields = ("acquired_date",)
+    ordering = "-acquired_date"
+
+
+class FeedInventoryViewSet(viewsets.ModelViewSet):
+    queryset = models.FeedInventory.objects.all()
+    serializer_class = serializers.FeedInventorySerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["child", "type", "storage_location", "status"]
+    ordering_fields = ("expressed_at",)
+    ordering = "-expressed_at"
+
+
+class DoctorVisitViewSet(viewsets.ModelViewSet):
+    queryset = models.DoctorVisit.objects.all()
+    serializer_class = serializers.DoctorVisitSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["child", "appointment_type"]
+    ordering_fields = ("date_time",)
+    ordering = "-date_time"
+
+
+class FormulaStockViewSet(viewsets.ModelViewSet):
+    queryset = models.FormulaStock.objects.all()
+    serializer_class = serializers.FormulaStockSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["product_line", "form", "is_reserve"]
+
+
+class PreparedFeedViewSet(viewsets.ModelViewSet):
+    queryset = models.PreparedFeed.objects.all()
+    serializer_class = serializers.PreparedFeedSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["prepared_from", "status"]
+

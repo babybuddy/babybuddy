@@ -66,7 +66,16 @@ class DiaperChangeFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.DiaperChange
         fields = sorted(
-            TimeFieldFilter.Meta.fields + ["wet", "solid", "color", "amount"]
+            TimeFieldFilter.Meta.fields
+            + [
+                "wet",
+                "solid",
+                "color",
+                "wet_amount",
+                "solid_amount",
+                "blowout",
+                "blowout_direction",
+            ]
         )
 
 

@@ -1,0 +1,60 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}
+    {% if object %}
+        {{ object }}
+    {% else %}
+        {% trans "Add a Product Line" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:productline-list' %}">{% trans "Products" %}</a>
+    </li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add a Product Line" %}</li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>
+            {% trans "Update" %} <span class="text-info">{{ object }}</span>
+        </h1>
+    {% else %}
+        <h1>{% trans "Add a Product Line" %}</h1>
+    {% endif %}
+    {% include 'babybuddy/form.html' %}
+    <script>
+    (function() {
+      // Formula ratio fields (scoop grams / water per scoop) only make
+      // sense on powder formula lines — toggle them with item_type.
+      var typeInputs = document.querySelectorAll('input[name="item_type"]');
+      function update() {
+        var checked = document.querySelector('input[name="item_type"]:checked');
+        var isFormula = checked && checked.value === "formula";
+        // Toggle the entire advanced section, not just the inner rows —
+        // otherwise the "Formula Mixing Ratio (powder only)" header
+        // stays visible (empty) on non-formula lines.
+        var section = document.querySelector("details.advanced-fields");
+        if (section) {
+          section.style.display = isFormula ? "" : "none";
+        }
+        ["id_scoop_grams", "id_water_per_scoop_ml"].forEach(function(id) {
+          var input = document.getElementById(id);
+          if (input && input.closest) {
+            var wrap = input.closest(".row.mb-3");
+            if (wrap) wrap.style.display = isFormula ? "" : "none";
+          }
+        });
+      }
+      if (typeInputs.length) {
+        typeInputs.forEach(function(inp) {
+          inp.addEventListener("change", update);
+        });
+        update();
+      }
+    })();
+    </script>
+{% endblock %}

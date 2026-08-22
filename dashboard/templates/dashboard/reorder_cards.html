@@ -1,0 +1,79 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}{% trans "Reorder Dashboard Cards" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:dashboard' %}">{% trans "Dashboard" %}</a>
+    </li>
+    <li class="breadcrumb-item active">{% trans "Reorder Cards" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Reorder Dashboard Cards" %}</h1>
+    <p class="text-muted">{% trans "Drag cards to reorder them. Hidden cards (from your visibility settings) are shown in italics." %}</p>
+    <form method="post">
+        {% csrf_token %}
+        <ul id="card-order-list" class="list-group mb-3">
+            {% for card in cards %}
+            <li class="list-group-item d-flex align-items-center" data-card-name="{{ card.name }}">
+                <i class="icon-grip me-3" style="cursor: grab;">⠿</i>
+                <div class="flex-grow-1">
+                    <strong>{{ card.label }}</strong>
+                    {% if not card.visible %}
+                    <small class="text-muted fst-italic">({% trans "hidden" %})</small>
+                    {% endif %}
+                </div>
+                <input type="hidden" name="card_order" value="{{ card.name }}">
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">{% trans "Save Order" %}</button>
+            <a href="{% url 'dashboard:dashboard' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+    <script>
+    // Simple drag-to-reorder using HTML5 drag and drop
+    (function() {
+        const list = document.getElementById('card-order-list');
+        let draggedItem = null;
+
+        list.querySelectorAll('li').forEach(item => {
+            item.draggable = true;
+
+            item.addEventListener('dragstart', (e) => {
+                draggedItem = item;
+                item.classList.add('opacity-50');
+            });
+
+            item.addEventListener('dragend', () => {
+                item.classList.remove('opacity-50');
+                draggedItem = null;
+            });
+
+            item.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                if (draggedItem && draggedItem !== item) {
+                    const rect = item.getBoundingClientRect();
+                    const midpoint = rect.top + rect.height / 2;
+                    if (e.clientY < midpoint) {
+                        list.insertBefore(draggedItem, item);
+                    } else {
+                        list.insertBefore(draggedItem, item.nextSibling);
+                    }
+                }
+            });
+        });
+
+        // Update hidden inputs before form submit
+        document.querySelector('form').addEventListener('submit', () => {
+            const inputs = list.querySelectorAll('input[name="card_order"]');
+            const order = Array.from(inputs).map(i => i.value);
+            // Reset and rebuild in DOM order
+            list.querySelectorAll('li').forEach((li, i) => {
+                const input = li.querySelector('input[name="card_order"]');
+                if (input) input.value = order.find(v => li.dataset.cardName === v) || '';
+            });
+        });
+    })();
+    </script>
+{% endblock %}

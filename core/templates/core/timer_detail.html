@@ -26,9 +26,24 @@
             <div class="d-grid gap-4 mb-4">
                 {% if perms.core.add_feeding %}
                     <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:breast-feeding-add' %}"
+                       role="button"><i class="icon-feeding" aria-hidden="true"></i>
+                        {% trans "Breast Feeding" %}
+                    </a>
+                    <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:bottle-feeding-add' %}"
+                       role="button"><i class="icon-feeding" aria-hidden="true"></i>
+                        {% trans "Bottle Feeding" %}
+                    </a>
+                    <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:solid-feeding-add' %}"
+                       role="button"><i class="icon-feeding" aria-hidden="true"></i>
+                        {% trans "Solid Feeding" %}
+                    </a>
+                    <a class="btn btn-success btn-lg"
                        href="{% instance_add_url 'core:feeding-add' %}"
                        role="button"><i class="icon-feeding" aria-hidden="true"></i>
-                        {% trans "Feeding" %}
+                        {% trans "Other Feeding" %}
                     </a>
                 {% endif %}
                 {% if perms.core.add_pumping %}

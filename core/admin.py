@@ -97,6 +97,19 @@ class DiaperChangeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     resource_class = DiaperChangeImportExportResource
 
 
+class FeedingOptionResource(ImportExportResourceBase):
+    class Meta:
+        model = models.FeedingOption
+
+
+@admin.register(models.FeedingOption)
+class FeedingOptionAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("field_type", "value", "parent")
+    list_filter = ("field_type",)
+    search_fields = ("value",)
+    resource_class = FeedingOptionResource
+
+
 class FeedingImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.Feeding
@@ -112,6 +125,7 @@ class FeedingAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "type",
         "method",
         "amount",
+        "feed_inventory",
     )
     list_filter = (
         "child",
@@ -191,6 +205,29 @@ class MedicationAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
         "name",
     )
     resource_class = MedicationImportExportResource
+
+
+class PrescriptionImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.Prescription
+
+
+@admin.register(models.Prescription)
+class PrescriptionAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        "medication_name",
+        "child",
+        "dosage",
+        "dosage_unit",
+        "frequency",
+        "active",
+        "start_date",
+        "end_date",
+    )
+    list_filter = ("active", "dosage_unit", "child")
+    search_fields = ("medication_name", "prescribing_doctor", "notes")
+    date_hierarchy = "start_date"
+    resource_class = PrescriptionImportExportResource
 
 
 class NoteImportExportResource(ImportExportResourceBase):
@@ -318,3 +355,127 @@ class TagAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     search_fields = ("name", "color")
     prepopulated_fields = {"slug": ["name"]}
     resource_class = TagImportExportResource
+
+
+@admin.register(models.ProductLine)
+class ProductLineAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("item_type", "brand", "line")
+    list_filter = ("item_type",)
+    search_fields = ("brand", "line")
+
+
+@admin.register(models.SupplyItem)
+class SupplyItemAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("child", "product_line", "size", "quantity", "purchase_date")
+    list_filter = ("product_line__item_type", "product_line__brand", "size")
+    search_fields = ("product_line__brand", "product_line__line", "size", "notes")
+    raw_id_fields = ("product_line",)
+
+
+@admin.register(models.SpitUp)
+class SpitUpAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("child", "time", "amount", "appearance", "related_feeding")
+    list_filter = ("amount", "appearance")
+    search_fields = ("appearance", "notes")
+    raw_id_fields = ("related_feeding",)
+
+
+@admin.register(models.EquipmentItem)
+class EquipmentItemAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("child", "product_line", "size", "quantity", "acquired_date", "source", "disposal_status")
+    list_filter = ("product_line__item_type", "disposal_status")
+    search_fields = ("source", "notes")
+    raw_id_fields = ("product_line",)
+
+
+class FeedInventoryImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.FeedInventory
+
+
+@admin.register(models.FeedInventory)
+class FeedInventoryAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("type", "amount", "amount_unit", "storage_location", "status", "expressed_at", "child")
+    list_filter = ("type", "storage_location", "status", "child")
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "notes",
+        "amount",
+    )
+    resource_class = FeedInventoryImportExportResource
+
+
+@admin.register(models.DoctorVisit)
+class DoctorVisitAdmin(admin.ModelAdmin):
+    list_display = ("child", "date_time", "appointment_type", "doctor_name", "practice")
+    list_filter = ("appointment_type",)
+    search_fields = ("doctor_name", "reason", "diagnosis")
+@admin.register(models.InventoryTransaction)
+class InventoryTransactionAdmin(admin.ModelAdmin):
+    list_display = ("supply_item", "delta", "transaction_type", "quantity_after", "created_at")
+    list_filter = ("transaction_type",)
+    search_fields = ("note",)
+    ordering = ("-created_at",)
+    readonly_fields = ("supply_item", "delta", "transaction_type", "source_id", "quantity_after", "note", "created_at")
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(models.InventoryAdjustment)
+class InventoryAdjustmentAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("supply_item", "count_time", "physical_count", "adjustment_type", "reason")
+    list_filter = ("adjustment_type",)
+    search_fields = ("reason",)
+    ordering = ("-count_time",)
+
+
+class FormulaStockImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.FormulaStock
+
+
+@admin.register(models.FormulaStock)
+class FormulaStockAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("product_line", "form", "container_size", "quantity", "opened_at", "expiry_date", "is_reserve")
+    list_filter = ("form", "is_reserve")
+    search_fields = ("product_line__brand", "product_line__line", "notes")
+    resource_class = FormulaStockImportExportResource
+
+
+class PreparedFeedImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.PreparedFeed
+
+
+@admin.register(models.PreparedFeed)
+class PreparedFeedAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("prepared_from", "amount", "amount_remaining", "prepared_at", "status")
+    list_filter = ("prepared_from", "status")
+    search_fields = ("notes",)
+    resource_class = PreparedFeedImportExportResource
+
+
+class FormulaStockEventImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.FormulaStockEvent
+
+
+@admin.register(models.FormulaStockEvent)
+class FormulaStockEventAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("type", "stock", "prepared_feed", "delta_grams", "delta_ml", "created_at")
+    list_filter = ("type",)
+    search_fields = ("note",)
+    ordering = ("-created_at",)
+    resource_class = FormulaStockEventImportExportResource
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+

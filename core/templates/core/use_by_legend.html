@@ -1,0 +1,35 @@
+{% load i18n %}
+{% comment %}
+Use-by badge legend (option C hybrid, 2026-08-17): a one-line
+collapsible card that teaches the color system; per-badge tooltips
+carry the exact windows. Collapsed on return visits via
+localStorage ("bb-useby-legend-seen").
+{% endcomment %}
+<div class="card use-by-legend mb-3" id="useByLegend">
+    <div class="card-header d-flex justify-content-between align-items-center py-2"
+         role="button" data-bs-toggle="collapse" data-bs-target="#useByLegendBody"
+         aria-expanded="false" aria-controls="useByLegendBody" id="useByLegendHeader">
+        <span class="small fw-semibold">
+            <svg width="14" height="14" style="vertical-align:-2px" viewBox="0 0 14 14" aria-hidden="true">
+                <circle cx="7" cy="7" r="7" fill="currentColor"/>
+                <text x="7" y="10.5" font-size="9" fill="#fff" text-anchor="middle">i</text>
+            </svg>
+            {% trans "How the use-by badges work" %}
+        </span>
+        <span class="text-muted small">{% trans "show / hide" %}</span>
+    </div>
+    <div class="collapse" id="useByLegendBody">
+        <div class="card-body small py-2 px-3">
+            <p class="mb-2">
+                {% blocktrans %}Each badge shows how long this unit stays usable at its current storage location — moving it changes the clock. Two windows:{% endblocktrans %}
+                <span class="badge text-bg-success">{% trans "green = within CDC optimal" %}</span>
+                <span class="badge text-bg-warning">{% trans "yellow = past optimal, within ABM acceptable" %}</span>
+                <span class="badge text-bg-danger">{% trans "red = expired" %}</span>.
+            </p>
+            <p class="text-muted mb-0">
+                {% blocktrans %}CDC = optimal storage guidance. ABM = Academy of Breastfeeding Medicine protocol, whose research supports longer windows with gradual quality decline. Hover or tap a badge for this unit's exact windows.{% endblocktrans %}
+            </p>
+        </div>
+    </div>
+    <button type="button" class="btn-close visually-hidden" aria-label="{% trans 'Dismiss' %}"></button>
+</div>

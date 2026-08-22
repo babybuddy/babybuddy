@@ -1,0 +1,34 @@
+{% load i18n %}
+<div class="row mb-3" id="blowout-section">
+    <div class="row mb-3">
+        <h4>{% trans "Dirty Diaper Details" %}</h4>
+        {% for field in fieldset.fields %}
+            <div class="row" {% if field.name == "blowout_direction" %}id="blowout-direction-wrapper" style="display: none;"{% endif %}>
+                {% include "babybuddy/form_field.html" %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+(function() {
+  function update() {
+    var selected = document.querySelector('input[name="blowout"]:checked');
+    var val = selected ? selected.value : "";
+    var showDirection = val && val !== "none" && val !== "";
+    var directionWrapper = document.getElementById("blowout-direction-wrapper");
+    if (directionWrapper) {
+      directionWrapper.style.display = showDirection ? "" : "none";
+    }
+  }
+
+  function init() {
+    document.querySelectorAll('input[name="blowout"]').forEach(function(input) {
+      input.addEventListener("change", update);
+    });
+    update();
+  }
+
+  if (document.readyState !== "loading") init();
+  else document.addEventListener("DOMContentLoaded", init);
+})();
+</script>

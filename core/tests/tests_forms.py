@@ -10,6 +10,7 @@ from django.utils.formats import get_format, reset_format_cache
 
 from faker import Faker
 
+from core import forms
 from core import models
 
 
@@ -242,6 +243,7 @@ class DiaperChangeFormsTestCase(FormsTestCaseBase):
         params = {
             "child": child.id,
             "time": self.localtime_string(),
+            "diaper_size": "NB",
             "color": "black",
             "amount": 0.45,
         }
@@ -249,10 +251,26 @@ class DiaperChangeFormsTestCase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Diaper Change entry for {} added".format(str(child)))
 
+    def test_add_requires_size(self):
+        # Fork: diaper_size is required (empty-size changes are invisible
+        # to inventory decrement and burn rate) — v4 backlog #12.
+        child = models.Child.objects.first()
+        params = {
+            "child": child.id,
+            "time": self.localtime_string(),
+            "color": "black",
+            "amount": 0.45,
+        }
+        page = self.c.post("/changes/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertNotContains(page, "entry added")
+        self.assertEqual(models.DiaperChange.objects.count(), 1)
+
     def test_edit(self):
         params = {
             "child": self.change.child.id,
             "time": self.localtime_string(),
+            "diaper_size": "NB",
             "wet": self.change.wet,
             "solid": self.change.solid,
             "color": self.change.color,
@@ -1107,3 +1125,94 @@ class MedicationFormsTestCase(FormsTestCaseBase):
         self.assertFormError(
             page.context["form"], "time", "Date/time can not be in the future."
         )
+
+
+class FeedInventoryFormTestCase(FormsTestCaseBase):
+    """BD-9 regression: pumping_session dropdown shows real session labels."""
+
+    @classmethod
+    def setUpClass(cls):
+        super(FeedInventoryFormTestCase, cls).setUpClass()
+        now = timezone.now()
+        cls.pumping = models.Pumping.objects.create(
+            child=cls.child,
+            start=now - datetime.timedelta(hours=2),
+            end=now - datetime.timedelta(hours=1, minutes=50),
+            amount=120,
+            amount_unit="ml",
+            method="electric pump",
+        )
+
+    def test_pumping_session_choices_are_informative(self):
+        form = forms.FeedInventoryForm()
+        choices = form.fields["pumping_session"].choices
+        values = [str(v) for v, _ in choices]
+        labels = [label for v, label in choices if v]
+
+        # The pumping session appears as an option...
+        self.assertIn(str(self.pumping.pk), values)
+        # ...with an informative label (time range, amount, method), NOT the
+        # generic "Pumping" str() that broke the dropdown (BD-9).
+        self.assertTrue(
+            any("Electric pump" in label for label in labels),
+            "expected method display in labels: {}".format(labels),
+        )
+        self.assertTrue(
+            any("120ml" in label for label in labels),
+            "expected amount in labels: {}".format(labels),
+        )
+        self.assertFalse(
+            any(label.strip() == "Pumping" for label in labels),
+            "generic 'Pumping' label should not appear: {}".format(labels),
+        )
+
+    def test_edit_form_no_other_sessions_linked_session_selected(self):
+        """A2 regression: linked session outside the ±12h window still appears
+        as a selectable option — the old loop skipped it, so the dropdown
+        rendered empty (only the blank placeholder) and every edit-form save
+        silently cleared the pumping_session FK."""
+        # 1 child in DB, pumping auto-created its inventory unit.
+        unit = models.FeedInventory.objects.get(pumping_session=self.pumping)
+        # Drift the unit's expressed_at +48h from the session — outside the
+        # ±12h window. .update() bypasses save() so no auto-relinking.
+        far = unit.expressed_at + datetime.timedelta(hours=48)
+        models.FeedInventory.objects.filter(pk=unit.pk).update(expressed_at=far)
+        unit.refresh_from_db()
+
+        form = forms.FeedInventoryForm(instance=unit)
+        values = [str(v) for v, _ in form.fields["pumping_session"].choices]
+        self.assertIn(
+            str(self.pumping.pk),
+            values,
+            "linked session outside window must still be a choice: {}".format(
+                values
+            ),
+        )
+        # The placeholder stays first (existing UX); the linked session is
+        # now an actual option so re-saving does not wipe the FK.
+        self.assertEqual(values[0], "")
+
+    def test_child_count_cache_not_used_for_default(self):
+        """A1 regression: set_initial_values must gate the single-child
+        default on the real DB count, not Child.count() — the cache can go
+        stale (observed cache=3, DB=1 after child deletions), leaving add
+        forms with no child preselected."""
+        from core import forms as core_forms
+
+        # 1 child in DB (created in setUpClass); poison the cache the way
+        # bulk deletes do.
+        from django.core.cache import cache
+
+        cache.set(models.Child.cache_key_count, 7, None)
+        try:
+            kwargs = {}
+            kwargs = core_forms.set_initial_values(kwargs, forms.DiaperChangeForm)
+            self.assertEqual(kwargs["initial"]["child"], self.child)
+        finally:
+            cache.delete(models.Child.cache_key_count)
+
+    def test_model_verbose_name_renamed(self):
+        """FR-3: FeedInventory verbose_name is 'Milk Inventory' (T5 rename)."""
+        meta = models.FeedInventory._meta
+        self.assertEqual(str(meta.verbose_name), "Milk Inventory")
+        self.assertEqual(str(meta.verbose_name_plural), "Milk Inventory")

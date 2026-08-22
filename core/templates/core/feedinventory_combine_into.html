@@ -1,0 +1,33 @@
+{% extends 'babybuddy/page.html' %}
+{% load babybuddy i18n widget_tweaks %}
+{% block title %}{% trans "Combine Into…" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:feedinventory-list' %}">{% trans "Milk Inventory" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Combine Into…" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Combine Into…" %}</h1>
+    <p class="text-muted">
+        {% blocktranslate with label=object.label remaining=object.amount_remaining %}
+            Merge <strong>{{ label }}</strong> (<strong>{{ remaining }} ml</strong>) into another
+            unit. This unit is absorbed: zeroed, marked used, and preserved in the event
+            ledger. The target keeps its label; clocks min-merge per the combine matrix.
+        {% endblocktranslate %}
+    </p>
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="mb-3">
+            {{ form.target.label_tag }}
+            {{ form.target }}
+            <small class="form-text text-muted">{{ form.target.help_text }}</small>
+            {% if form.target.errors %}<div class="text-danger">{{ form.target.errors }}</div>{% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans "Merge" %}</button>
+        <a href="{% url 'core:feedinventory-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

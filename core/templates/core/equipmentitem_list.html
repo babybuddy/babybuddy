@@ -1,0 +1,70 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime i18n %}
+{% block title %}{% trans "Equipment" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Equipment" %}</li>
+{% endblock %}
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>{% trans "Equipment" %}</h1>
+        <div>
+            {% if not show_all %}
+                <a href="?show_all=1" class="btn btn-sm btn-outline-light">{% trans "Show disposed" %}</a>
+            {% else %}
+                <a href="?" class="btn btn-sm btn-outline-light">{% trans "Owned only" %}</a>
+            {% endif %}
+            {% if perms.core.add_equipmentitem %}
+                <a href="{% url 'core:equipment-add' %}" class="btn btn-sm btn-success">
+                    <i class="icon-add"></i> {% trans "Add Equipment" %}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if grouped_equipment %}
+        {% for item_type, brands in grouped_equipment.items %}
+        <h4 class="mt-4 text-capitalize">{{ item_type|title }}</h4>
+        {% for brand, lines in brands.items %}
+            {% for line, items in lines.items %}
+                {% with total_owned=items|length %}
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between">
+                        <span>{{ brand }}{% if line %} {{ line }}{% endif %}</span>
+                        <span class="text-muted">{{ items|length }} acquisition{{ items|length|pluralize }}</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-sm mb-0">
+                            <thead><tr>
+                                <th>{% trans "Size" %}</th>
+                                <th class="text-center">{% trans "Qty" %}</th>
+                                <th>{% trans "Acquired" %}</th>
+                                <th>{% trans "Source" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th>{% trans "Actions" %}</th>
+                            </tr></thead>
+                            <tbody>
+                                {% for item in items %}
+                                <tr{% if item.disposal_status != 'owned' %} class="table-secondary text-decoration-line-through"{% endif %}>
+                                    <td>{{ item.size|default:"—" }}</td>
+                                    <td class="text-center"><strong>{{ item.quantity }}</strong></td>
+                                    <td>{{ item.acquired_date|default:"—" }}</td>
+                                    <td>{{ item.source|default:"—" }}</td>
+                                    <td>{{ item.get_disposal_status_display }}</td>
+                                    <td>
+                                        <a href="{% url 'core:equipment-update' item.id %}" class="btn btn-sm btn-primary"><i class="icon-update"></i></a>
+                                        <a href="{% url 'core:equipment-delete' item.id %}" class="btn btn-sm btn-danger"><i class="icon-trash"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endwith %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+    {% else %}
+        <p class="text-muted my-5">{% trans "No equipment entries yet." %}</p>
+    {% endif %}
+{% endblock %}

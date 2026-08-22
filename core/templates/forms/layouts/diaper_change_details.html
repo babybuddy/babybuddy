@@ -1,0 +1,45 @@
+{% load i18n %}
+<div class="row mb-3" id="diaper-change-details-section">
+    <div class="row mb-3">
+        {% for field in fieldset.fields %}
+            <div class="row diaper-detail-field" data-field-name="{{ field.name }}">
+                {% include "babybuddy/form_field.html" %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+(function() {
+  function update() {
+    var wetChecked = document.querySelector('input[name="wet"]');
+    var solidChecked = document.querySelector('input[name="solid"]');
+    var wetOn = wetChecked ? wetChecked.checked : false;
+    var solidOn = solidChecked ? solidChecked.checked : false;
+
+    // wet_amount visible only when wet is checked
+    document.querySelectorAll('[data-field-name="wet_amount"]').forEach(function(el) {
+      el.style.display = wetOn ? '' : 'none';
+    });
+    // solid_amount + color visible only when solid is checked
+    document.querySelectorAll('[data-field-name="solid_amount"], [data-field-name="color"]').forEach(function(el) {
+      el.style.display = solidOn ? '' : 'none';
+    });
+
+    // Also toggle blowout section visibility
+    var blowoutSection = document.getElementById('blowout-section');
+    if (blowoutSection) {
+      blowoutSection.style.display = solidOn ? '' : 'none';
+    }
+  }
+
+  function init() {
+    document.querySelectorAll('input[name="wet"], input[name="solid"]').forEach(function(input) {
+      input.addEventListener("change", update);
+    });
+    update();
+  }
+
+  if (document.readyState !== "loading") init();
+  else document.addEventListener("DOMContentLoaded", init);
+})();
+</script>

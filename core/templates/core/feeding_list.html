@@ -17,6 +17,14 @@
                class="btn btn-sm btn-success">
                 <i class="icon-feeding" aria-hidden="true"></i> {% trans "Add Bottle Feeding" %}
             </a>
+            <a href="{% url 'core:breast-feeding-add' %}"
+               class="btn btn-sm btn-success">
+                <i class="icon-feeding" aria-hidden="true"></i> {% trans "Add Breast Feeding" %}
+            </a>
+            <a href="{% url 'core:solid-feeding-add' %}"
+               class="btn btn-sm btn-success">
+                <i class="icon-feeding" aria-hidden="true"></i> {% trans "Add Solid Feeding" %}
+            </a>
         {% endif %}
     </h1>
     {% include 'babybuddy/filter.html' %}
@@ -25,7 +33,8 @@
             <thead>
                 <tr>
                     <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "Start Date/Time" %}</th>
+                    <th>{% trans "End" %}</th>
                     {% if not unique_child %}
                         <th>{% trans "Child" %}</th>
                     {% endif %}
@@ -61,6 +70,7 @@
                                 </div>
                             </td>
                             <th scope="row">{{ feeding.start|datetime_short }}</th>
+                            <td>{{ feeding.end|datetime_short|default_if_none:"" }}</td>
                             {% if not unique_child %}
                                 <td>
                                     <a href="{% url 'core:child' feeding.child.slug %}">{{ feeding.child }}</a>
@@ -73,8 +83,9 @@
                             <td>
                                 {% if prev_feeding %}
                                     {% feeding_time_diff_base prev_feeding as diff_base %}
-                                    {% blocktrans trimmed with time_ago=diff_base|timesince:feeding.start %}
-                                        {{ time_ago }} ago
+                                    {% prev_word as prev_word_var %}
+{% blocktrans trimmed with time_ago=diff_base|timesince:feeding.start %}
+                                        {{ time_ago }} {{ prev_word_var }}
                                     {% endblocktrans %}
                                 {% endif %}
                             </td>
@@ -82,7 +93,7 @@
                         </tr>
                         {% if feeding.notes %}
                             <tr class="{{ row_class }} row-details">
-                                <td colspan="8">
+                                <td colspan="9">
                                     <i class="icon-note me-2" aria-hidden="true"></i>{{ feeding.notes }}
                                 </td>
                             </tr>
@@ -90,7 +101,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="{% if not unique_child %} 9 {% else %} 8 {% endif %}">{% trans "No feedings found." %}</th>
+                        <th colspan="{% if not unique_child %} 10 {% else %} 9 {% endif %}">{% trans "No feedings found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
