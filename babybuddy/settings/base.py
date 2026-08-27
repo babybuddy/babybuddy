@@ -227,6 +227,12 @@ LANGUAGES = [
 
 FORMAT_MODULE_PATH = ["babybuddy.formats"]
 
+# Force 24-hour time display and input for locales that default to a
+# 12-hour clock (the English locale family). Other shipped locales already
+# use 24-hour formats natively, so this is a no-op for them.
+if bool(strtobool(os.environ.get("USE_24_HOUR_TIME_FORMAT") or "False")):
+    FORMAT_MODULE_PATH.insert(0, "babybuddy.formats_24")
+
 
 # Storage
 # https://docs.djangoproject.com/en/5.0/ref/files/storage/
