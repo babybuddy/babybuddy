@@ -75,6 +75,16 @@ class TemplateTagsTestCase(TestCase):
         self.assertIsInstance(data["change"], models.DiaperChange)
         self.assertEqual(data["change"], models.DiaperChange.objects.first())
 
+    def test_card_diaperchange_types_hidden_when_setting_disabled(self):
+        request = MockUserRequest(get_user_model().objects.first())
+        request.user.settings.dashboard_show_diaperchange = False
+        context = {"request": request}
+
+        data = cards.card_diaperchange_types(context, self.child, self.date)
+
+        self.assertTrue(data["empty"])
+        self.assertTrue(data["hide_empty"])
+
     @mock.patch("dashboard.templatetags.cards.timezone")
     def test_card_diaperchange_last_filter_age(self, mocked_timezone):
         request = MockUserRequest(get_user_model().objects.first())
@@ -186,6 +196,16 @@ class TemplateTagsTestCase(TestCase):
             data["feeding_diff_base"], models.Feeding.objects.first().start
         )
 
+    def test_card_feeding_last_hidden_when_setting_disabled(self):
+        request = MockUserRequest(get_user_model().objects.first())
+        request.user.settings.dashboard_show_feeding = False
+        context = {"request": request}
+
+        data = cards.card_feeding_last(context, self.child)
+
+        self.assertTrue(data["empty"])
+        self.assertTrue(data["hide_empty"])
+
     def test_card_feeding_last_method(self):
         data = cards.card_feeding_last_method(self.context, self.child)
         self.assertEqual(data["type"], "feeding")
@@ -264,6 +284,16 @@ class TemplateTagsTestCase(TestCase):
         self.assertFalse(data["hide_empty"])
         self.assertEqual(data["total"], timezone.timedelta(0, 7200))
         self.assertEqual(data["count"], 1)
+
+    def test_card_statistics_hidden_when_setting_disabled(self):
+        request = MockUserRequest(get_user_model().objects.first())
+        request.user.settings.dashboard_show_statistics = False
+        context = {"request": request}
+
+        data = cards.card_statistics(context, self.child)
+
+        self.assertTrue(data["empty"])
+        self.assertTrue(data["hide_empty"])
 
     def test_card_statistics(self):
         data = cards.card_statistics(self.context, self.child)
