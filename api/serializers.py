@@ -108,6 +108,53 @@ class TaggableSerializer(TaggitSerializer, serializers.HyperlinkedModelSerialize
     tags = TagListSerializerField(required=False)
 
 
+class ActivityTypeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.ActivityType
+        fields = (
+            "id",
+            "name",
+            "slug",
+            "icon",
+            "emoji",
+            "color",
+            "has_duration",
+            "active",
+            "order",
+        )
+        extra_kwargs = {"slug": {"required": False, "read_only": True}}
+
+
+class ActivitySerializer(CoreModelWithDurationSerializer, TaggableSerializer):
+    type = serializers.PrimaryKeyRelatedField(
+        queryset=models.ActivityType.objects.all()
+    )
+
+    class Meta(CoreModelWithDurationSerializer.Meta):
+        model = models.Activity
+        fields = (
+            "id",
+            "child",
+            "type",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "notes",
+            "tags",
+        )
+
+    def validate(self, attrs):
+        # Activity types without a duration are a single point in time, so
+        # "end" does not need to be provided.
+        activity_type = attrs.get("type", getattr(self.instance, "type", None))
+        start = attrs.get("start", getattr(self.instance, "start", None))
+        if activity_type and not activity_type.has_duration and start:
+            if not attrs.get("end") and "timer" not in attrs:
+                attrs["end"] = start
+        return super().validate(attrs)
+
+
 class BMISerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.BMI

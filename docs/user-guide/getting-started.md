@@ -25,8 +25,18 @@ an overview of all elements related to your child, including:
 - Today's Naps lists the number of naps taken that day in bold and the total nap time below.
 - Today's Tummy Time lists the total number of logged tummy time entries and then each individual entry below.
 - Diaper Changes provides a view of the diapers logged over the week. Please note that.
+- Custom activities each get their own card listing the most recent entry and today's count. See [Adding Entries](adding-entries.md#custom-activities).
 
 Select the title of any of the cards to see more details.
+
+### Choosing which cards are shown
+
+The cards on the dashboard can be turned on and off per user from
+_User > Settings_. The **Dashboard cards** setting lists every available card,
+including one entry for each custom activity type. Uncheck a card to hide it.
+
+Cards are shown by default, so new cards (and newly created activity types)
+appear without any changes to this setting.
 
 ## Timeline
 
@@ -56,7 +66,8 @@ Add a specific measurement by selecting the add or + measurement.
 ![Baby Buddy activites menu](../assets/images/menu_activities.png)
 
 The Activities menu provides the option to view and track your baby's activities
-such as diaper changes, feedings, sleep, and tummy time.
+such as diaper changes, feedings, sleep, and tummy time. It also provides access
+to custom activities and the activity types that define them.
 
 Selecting any of the activities will open that activities' page with all details
 on recorded activities.

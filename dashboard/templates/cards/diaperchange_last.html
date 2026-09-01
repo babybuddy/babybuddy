@@ -6,7 +6,7 @@
 {% block title %}
     {% if change %}
         <div>
-            {% blocktrans trimmed with time_ago=change.time|deltasince|duration_string:'m' %}
+            {% blocktrans trimmed with time_ago=change.time|timesince %}
                 {{ time_ago }} ago
             {% endblocktrans %}
         </div>

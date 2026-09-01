@@ -12,6 +12,22 @@ from babybuddy import models as babybuddy_models
 from . import serializers, filters
 
 
+class ActivityTypeViewSet(viewsets.ModelViewSet):
+    queryset = models.ActivityType.objects.all()
+    serializer_class = serializers.ActivityTypeSerializer
+    filterset_fields = ("name", "slug", "active", "has_duration")
+    ordering_fields = ("name", "order")
+    ordering = ("order", "name")
+
+
+class ActivityViewSet(viewsets.ModelViewSet):
+    queryset = models.Activity.objects.all()
+    serializer_class = serializers.ActivitySerializer
+    filterset_class = filters.ActivityFilter
+    ordering_fields = ("duration", "end", "start")
+    ordering = "-start"
+
+
 class BMIViewSet(viewsets.ModelViewSet):
     queryset = models.BMI.objects.all()
     serializer_class = serializers.BMISerializer

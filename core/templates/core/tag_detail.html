@@ -75,6 +75,11 @@
             <div class="col-12 col-md-6">
                 <h3>{% trans "Tagged Activities" %}</h3>
                 <div class="list-group">
+                    <a href="{% url 'core:activity-list' %}?tag={{ object.id }}&filtered=1"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        {% trans "Activities" %}
+                        <span class="badge bg-dark rounded-pill">{{ tag.activity__count|default:0 }}</span>
+                    </a>
                     <a href="{% url 'core:diaperchange-list' %}?tag={{ object.id }}&filtered=1"
                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                         {% trans "Diaper Changes" %}

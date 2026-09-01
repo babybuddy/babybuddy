@@ -76,6 +76,101 @@ class TestBase:
             self.assertIsNotNone(obj.end)
 
 
+class ActivityTypeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:activitytype-list")
+    model = models.ActivityType
+
+    def setUp(self):
+        super().setUp()
+        self.activity_type = models.ActivityType.objects.create(
+            name="Bath", has_duration=True
+        )
+        self.delete_id = self.activity_type.id
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["results"][0]["name"], "Bath")
+        self.assertEqual(response.data["results"][0]["slug"], "bath")
+        self.assertTrue(response.data["results"][0]["has_duration"])
+
+    def test_post(self):
+        data = {"name": "Walk", "icon": "activities", "color": "#ff0000"}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.name, "Walk")
+        self.assertEqual(obj.slug, "walk")
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, self.activity_type.id)
+        response = self.client.patch(endpoint, {"name": "Bath Time"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.activity_type.refresh_from_db()
+        self.assertEqual(self.activity_type.slug, "bath-time")
+
+
+class ActivityAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    endpoint = reverse("api:activity-list")
+    model = models.Activity
+
+    def setUp(self):
+        super().setUp()
+        self.activity_type = models.ActivityType.objects.create(
+            name="Bath", has_duration=True
+        )
+        self.point_type = models.ActivityType.objects.create(name="Play")
+        start = timezone.now().replace(microsecond=0) - timezone.timedelta(hours=2)
+        self.activity = models.Activity.objects.create(
+            child=models.Child.objects.first(),
+            type=self.activity_type,
+            start=start,
+            end=start + timezone.timedelta(minutes=15),
+        )
+        self.delete_id = self.activity.id
+        self.timer_test_data = {"type": self.activity_type.id}
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["results"][0]["id"], self.activity.id)
+        self.assertEqual(response.data["results"][0]["type"], self.activity_type.id)
+        self.assertEqual(response.data["results"][0]["duration"], "00:15:00")
+
+    def test_post(self):
+        start = timezone.now() - timezone.timedelta(minutes=20)
+        data = {
+            "child": 1,
+            "type": self.activity_type.id,
+            "start": start.isoformat(),
+            "end": (start + timezone.timedelta(minutes=10)).isoformat(),
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.duration, timezone.timedelta(minutes=10))
+
+    def test_post_without_duration_does_not_require_end(self):
+        start = timezone.now() - timezone.timedelta(minutes=20)
+        data = {
+            "child": 1,
+            "type": self.point_type.id,
+            "start": start.isoformat(),
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = self.model.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.start, obj.end)
+
+    def test_patch(self):
+        endpoint = "{}{}/".format(self.endpoint, self.activity.id)
+        end = self.activity.start + timezone.timedelta(minutes=30)
+        response = self.client.patch(endpoint, {"end": end.isoformat()})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.activity.refresh_from_db()
+        self.assertEqual(self.activity.duration, timezone.timedelta(minutes=30))
+
+
 class BMIAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse("api:bmi-list")
     model = models.BMI

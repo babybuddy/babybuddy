@@ -1,7 +1,7 @@
 {% if not empty or not hide_empty %}
     <div class="card card-dashboard card-{{ type }}">
         <div class="card-header">
-            <i class="icon-{{ type }} pull-left" aria-hidden="true"></i>
+            {% block icon %}<i class="icon-{{ type }} pull-left" aria-hidden="true"></i>{% endblock %}
             {% block header %}{% endblock %}
         </div>
         <div class="card-body">

@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from core.models import Child
+from dashboard import cards
 
 
 class Dashboard(LoginRequiredMixin, TemplateView):
@@ -35,3 +36,11 @@ class ChildDashboard(PermissionRequiredMixin, DetailView):
     model = Child
     permission_required = ("core.view_child",)
     template_name = "dashboard/child.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ChildDashboard, self).get_context_data(**kwargs)
+        context["visible_cards"] = cards.get_visible_card_ids(self.request.user)
+        context["visible_activity_types"] = cards.get_visible_activity_types(
+            self.request.user
+        )
+        return context

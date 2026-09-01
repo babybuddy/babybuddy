@@ -67,6 +67,33 @@ class TemplateTagsTestCase(TestCase):
             timezone.localtime().strptime("2017-11-18", "%Y-%m-%d"),
         )
 
+    def test_card_activity_last(self):
+        activity_type = models.ActivityType.objects.create(
+            name="Bath", has_duration=True, icon="temperature"
+        )
+        start = timezone.localtime() - timezone.timedelta(minutes=30)
+        activity = models.Activity.objects.create(
+            child=self.child,
+            type=activity_type,
+            start=start,
+            end=start + timezone.timedelta(minutes=15),
+        )
+
+        data = cards.card_activity_last(self.context, self.child, activity_type)
+        self.assertEqual(data["type"], "temperature")
+        self.assertFalse(data["empty"])
+        self.assertEqual(data["activity"], activity)
+        self.assertEqual(data["activity_type"], activity_type)
+        self.assertEqual(data["stats"]["count"], 1)
+        self.assertEqual(data["stats"]["total"], timezone.timedelta(minutes=15))
+
+    def test_card_activity_last_empty(self):
+        activity_type = models.ActivityType.objects.create(name="Walk")
+        data = cards.card_activity_last(self.context, self.child, activity_type)
+        self.assertTrue(data["empty"])
+        self.assertIsNone(data["activity"])
+        self.assertEqual(data["stats"]["count"], 0)
+
     def test_card_diaperchange_last(self):
         data = cards.card_diaperchange_last(self.context, self.child)
         self.assertEqual(data["type"], "diaperchange")

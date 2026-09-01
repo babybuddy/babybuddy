@@ -103,6 +103,12 @@ class Settings(models.Model):
             ),
         ],
     )
+    dashboard_hidden_cards = models.JSONField(
+        verbose_name=_("Hidden dashboard cards"),
+        help_text=_("Cards which are not shown on child dashboards."),
+        blank=True,
+        default=list,
+    )
     language = models.CharField(
         choices=settings.LANGUAGES,
         default=settings.LANGUAGE_CODE,

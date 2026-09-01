@@ -66,6 +66,14 @@ def set_initial_values(kwargs, form_type):
                 last_feed_args["method"] = last_method
             kwargs["initial"].update(last_feed_args)
 
+    # Set the ActivityType for Activity instances based on the `type` kwarg.
+    if form_type == ActivityForm:
+        type_slug = kwargs.get("type", None)
+        if type_slug:
+            activity_type = models.ActivityType.objects.filter(slug=type_slug).first()
+            if activity_type:
+                kwargs["initial"].update({"type": activity_type})
+
     # Set default "nap" value for Sleep instances.
     if form_type == SleepForm and "nap" not in kwargs["initial"]:
         try:
@@ -80,7 +88,7 @@ def set_initial_values(kwargs, form_type):
         kwargs["initial"].update({"nap": nap})
 
     # Remove custom kwargs, so they do not interfere with `super` calls.
-    for key in ["child", "timer"]:
+    for key in ["child", "timer", "type"]:
         try:
             kwargs.pop(key)
         except KeyError:
@@ -143,6 +151,83 @@ class TaggableModelForm(forms.ModelForm):
             "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
         ),
     )
+
+
+class ActivityTypeForm(CoreModelForm):
+    fieldsets = [
+        {
+            "fields": ["name", "icon", "emoji", "color"],
+            "layout": "required",
+        },
+        {"fields": ["has_duration", "active", "order"]},
+    ]
+
+    class Meta:
+        model = models.ActivityType
+        fields = [
+            "name",
+            "icon",
+            "emoji",
+            "color",
+            "has_duration",
+            "active",
+            "order",
+        ]
+        widgets = {
+            "color": widgets.TextInput(
+                attrs={"type": "color", "class": "form-control-color"}
+            ),
+        }
+
+
+class ActivityForm(CoreModelForm, TaggableModelForm):
+    fieldsets = [
+        {"fields": ["child", "type", "start", "end"], "layout": "required"},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
+    ]
+
+    class Meta:
+        model = models.Activity
+        fields = ["child", "type", "start", "end", "notes", "tags"]
+        widgets = {
+            "child": ChildRadioSelect,
+            "type": PillRadioSelect(),
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ActivityForm, self).__init__(*args, **kwargs)
+
+        # Only offer active activity types, but never hide the type of an
+        # entry that is being edited.
+        types = models.ActivityType.objects.filter(active=True)
+        instance_type_id = getattr(self.instance, "type_id", None)
+        if instance_type_id:
+            types = types | models.ActivityType.objects.filter(id=instance_type_id)
+        self.fields["type"].queryset = types.distinct()
+
+        # "end" is only meaningful for activity types that track a duration.
+        self.fields["end"].required = False
+        self.fields["end"].help_text = _(
+            "Only used by activities that track a duration."
+        )
+
+    def clean(self):
+        cleaned_data = super(ActivityForm, self).clean()
+        activity_type = cleaned_data.get("type")
+        start = cleaned_data.get("start")
+        end = cleaned_data.get("end")
+        if activity_type and start:
+            if activity_type.has_duration:
+                if not end:
+                    self.add_error("end", _("This activity requires an end time."))
+            else:
+                # Entries without a duration are a single point in time.
+                cleaned_data["end"] = start
+                self.instance.end = start
+        return cleaned_data
 
 
 class BMIForm(CoreModelForm, TaggableModelForm):

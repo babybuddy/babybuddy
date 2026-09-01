@@ -6,6 +6,36 @@ from . import views
 app_name = "core"
 
 urlpatterns = [
+    path("activities/", views.ActivityList.as_view(), name="activity-list"),
+    path("activities/add/", views.ActivityAdd.as_view(), name="activity-add"),
+    path(
+        "activities/<int:pk>/", views.ActivityUpdate.as_view(), name="activity-update"
+    ),
+    path(
+        "activities/<int:pk>/delete/",
+        views.ActivityDelete.as_view(),
+        name="activity-delete",
+    ),
+    path(
+        "activity-types/",
+        views.ActivityTypeList.as_view(),
+        name="activitytype-list",
+    ),
+    path(
+        "activity-types/add/",
+        views.ActivityTypeAdd.as_view(),
+        name="activitytype-add",
+    ),
+    path(
+        "activity-types/<int:pk>/",
+        views.ActivityTypeUpdate.as_view(),
+        name="activitytype-update",
+    ),
+    path(
+        "activity-types/<int:pk>/delete/",
+        views.ActivityTypeDelete.as_view(),
+        name="activitytype-delete",
+    ),
     path("pumping/", views.PumpingList.as_view(), name="pumping-list"),
     path("pumping/add/", views.PumpingAdd.as_view(), name="pumping-add"),
     path(

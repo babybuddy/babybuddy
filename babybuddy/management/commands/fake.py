@@ -20,6 +20,7 @@ class Command(BaseCommand):
         super(Command, self).__init__(*args, **kwargs)
         self.faker = Faker()
         self.child = None
+        self.activity_types = []
         self.weight = None
         self.tags = []
         self.time = None
@@ -43,6 +44,13 @@ class Command(BaseCommand):
         verbosity = int(kwargs["verbosity"])
         children = int(kwargs["children"]) or 1
         days = int(kwargs["days"]) or 31
+
+        self.activity_types = []
+        for name, has_duration in [("Bath", True), ("Walk", True), ("Play", False)]:
+            activity_type, _created = models.ActivityType.objects.get_or_create(
+                name=name, defaults={"has_duration": has_duration}
+            )
+            self.activity_types.append(activity_type)
 
         for i in range(0, 10):
             text = self.faker.password(randint(4, 10))
@@ -118,6 +126,8 @@ class Command(BaseCommand):
                 self._add_tummytime_entry()
             if choice([True, False]):
                 self._add_temperature_entry()
+            if choice([True, False, False]):
+                self._add_activity_entry()
             if choice([True, False]):
                 self._add_pumping_entry()
             if (self.time - last_note_entry_time).days > 1 and choice([True, False]):
@@ -327,6 +337,28 @@ class Command(BaseCommand):
         if end < self.time_now:
             instance = models.TummyTime.objects.create(
                 child=self.child, start=start, end=end, milestone=milestone
+            )
+            instance.save()
+            self._add_tags(instance)
+        self.time = end
+
+    @transaction.atomic
+    def _add_activity_entry(self):
+        """
+        Add an Activity entry for a random activity type and advance self.time.
+        :returns:
+        """
+        if not self.activity_types:
+            return
+        activity_type = choice(self.activity_types)
+        start = self.time + timedelta(minutes=randint(1, 60))
+        end = start
+        if activity_type.has_duration:
+            end = start + timedelta(minutes=randint(5, 30), seconds=randint(0, 59))
+
+        if end < self.time_now:
+            instance = models.Activity.objects.create(
+                child=self.child, type=activity_type, start=start, end=end
             )
             instance.save()
             self._add_tags(instance)

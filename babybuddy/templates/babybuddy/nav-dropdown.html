@@ -42,6 +42,12 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end"
                          aria-labelledby="nav-quick-add-link">
+                        {% if perms.core.add_activity %}
+                            <a class="dropdown-item p-2" href="{% url 'core:activity-add' %}">
+                                <i class="icon-activities" aria-hidden="true"></i>
+                                {% trans "Activity" %}
+                            </a>
+                        {% endif %}
                         {% if perms.core.add_diaperchange %}
                             <a class="dropdown-item p-2" href="{% url 'core:diaperchange-add' %}">
                                 <i class="icon-diaperchange" aria-hidden="true"></i>
@@ -239,6 +245,24 @@
                             {% trans "Activities" %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="nav-activity-menu-link">
+                            {% if perms.core.view_activity %}
+                                <a class="dropdown-item{% if request.path == '/activities/' %} active{% endif %}"
+                                   href="{% url 'core:activity-list' %}"><i class="icon-activities" aria-hidden="true"></i>
+                                    {% trans "Activities" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_activity %}
+                                <a class="dropdown-item ps-5{% if request.path == '/activities/add/' %} active{% endif %}"
+                                   href="{% url 'core:activity-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Activity entry" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.view_activitytype %}
+                                <a class="dropdown-item ps-5{% if request.path == '/activity-types/' %} active{% endif %}"
+                                   href="{% url 'core:activitytype-list' %}"><i class="icon-list" aria-hidden="true"></i>
+                                    {% trans "Activity Types" %}
+                                </a>
+                            {% endif %}
                             {% if perms.core.view_diaperchange %}
                                 <a class="dropdown-item{% if request.path == '/changes/' %} active{% endif %}"
                                    href="{% url 'core:diaperchange-list' %}"><i class="icon-diaperchange" aria-hidden="true"></i>

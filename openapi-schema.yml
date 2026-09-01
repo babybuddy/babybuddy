@@ -3,6 +3,788 @@ info:
   title: Baby Buddy API
   version: ""
 paths:
+  /api/activities/:
+    get:
+      operationId: listActivities
+      description: ""
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: end
+          required: false
+          in: query
+          description: End DateTime
+          schema:
+            type: string
+        - name: end_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: end_min
+          required: false
+          in: query
+          description: Min. End DateTime
+          schema:
+            type: string
+        - name: start
+          required: false
+          in: query
+          description: Start DateTime
+          schema:
+            type: string
+        - name: start_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: start_min
+          required: false
+          in: query
+          description: Min. Start DateTime
+          schema:
+            type: string
+        - name: type
+          required: false
+          in: query
+          description: type
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Activity"
+          description: ""
+      tags:
+        - api
+    post:
+      operationId: createActivity
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Activity"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Activity"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Activity"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+          description: ""
+      tags:
+        - api
+  /api/activities/{id}/:
+    get:
+      operationId: retrieveActivity
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Activity.
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: end
+          required: false
+          in: query
+          description: End DateTime
+          schema:
+            type: string
+        - name: end_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: end_min
+          required: false
+          in: query
+          description: Min. End DateTime
+          schema:
+            type: string
+        - name: start
+          required: false
+          in: query
+          description: Start DateTime
+          schema:
+            type: string
+        - name: start_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: start_min
+          required: false
+          in: query
+          description: Min. Start DateTime
+          schema:
+            type: string
+        - name: type
+          required: false
+          in: query
+          description: type
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateActivity
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Activity.
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: end
+          required: false
+          in: query
+          description: End DateTime
+          schema:
+            type: string
+        - name: end_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: end_min
+          required: false
+          in: query
+          description: Min. End DateTime
+          schema:
+            type: string
+        - name: start
+          required: false
+          in: query
+          description: Start DateTime
+          schema:
+            type: string
+        - name: start_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: start_min
+          required: false
+          in: query
+          description: Min. Start DateTime
+          schema:
+            type: string
+        - name: type
+          required: false
+          in: query
+          description: type
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Activity"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Activity"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Activity"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateActivity
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Activity.
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: end
+          required: false
+          in: query
+          description: End DateTime
+          schema:
+            type: string
+        - name: end_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: end_min
+          required: false
+          in: query
+          description: Min. End DateTime
+          schema:
+            type: string
+        - name: start
+          required: false
+          in: query
+          description: Start DateTime
+          schema:
+            type: string
+        - name: start_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: start_min
+          required: false
+          in: query
+          description: Min. Start DateTime
+          schema:
+            type: string
+        - name: type
+          required: false
+          in: query
+          description: type
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Activity"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Activity"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Activity"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+          description: ""
+      tags:
+        - api
+    delete:
+      operationId: destroyActivity
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Activity.
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: end
+          required: false
+          in: query
+          description: End DateTime
+          schema:
+            type: string
+        - name: end_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: end_min
+          required: false
+          in: query
+          description: Min. End DateTime
+          schema:
+            type: string
+        - name: start
+          required: false
+          in: query
+          description: Start DateTime
+          schema:
+            type: string
+        - name: start_max
+          required: false
+          in: query
+          description: Max. End DateTime
+          schema:
+            type: string
+        - name: start_min
+          required: false
+          in: query
+          description: Min. Start DateTime
+          schema:
+            type: string
+        - name: type
+          required: false
+          in: query
+          description: type
+          schema:
+            type: string
+        - name: tags
+          required: false
+          in: query
+          description: tag
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags:
+        - api
+  /api/activity-types/:
+    get:
+      operationId: listActivityTypes
+      description: ""
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: slug
+          required: false
+          in: query
+          description: slug
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: has_duration
+          required: false
+          in: query
+          description: has_duration
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ActivityType"
+          description: ""
+      tags:
+        - api
+    post:
+      operationId: createActivityType
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivityType"
+          description: ""
+      tags:
+        - api
+  /api/activity-types/{id}/:
+    get:
+      operationId: retrieveActivityType
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Activity Type.
+          schema:
+            type: string
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: slug
+          required: false
+          in: query
+          description: slug
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: has_duration
+          required: false
+          in: query
+          description: has_duration
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivityType"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateActivityType
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Activity Type.
+          schema:
+            type: string
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: slug
+          required: false
+          in: query
+          description: slug
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: has_duration
+          required: false
+          in: query
+          description: has_duration
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivityType"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateActivityType
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Activity Type.
+          schema:
+            type: string
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: slug
+          required: false
+          in: query
+          description: slug
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: has_duration
+          required: false
+          in: query
+          description: has_duration
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ActivityType"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivityType"
+          description: ""
+      tags:
+        - api
+    delete:
+      operationId: destroyActivityType
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Activity Type.
+          schema:
+            type: string
+        - name: name
+          required: false
+          in: query
+          description: name
+          schema:
+            type: string
+        - name: slug
+          required: false
+          in: query
+          description: slug
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: has_duration
+          required: false
+          in: query
+          description: has_duration
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags:
+        - api
   /api/bmi/:
     get:
       operationId: listBMIs
@@ -5619,6 +6401,122 @@ paths:
         - api
 components:
   schemas:
+    Activity:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+          nullable: true
+          description: Required unless a Timer value is provided.
+        type:
+          type: integer
+        start:
+          type: string
+          format: date-time
+          description: Required unless a Timer value is provided.
+        end:
+          type: string
+          format: date-time
+          description: Required unless a Timer value is provided.
+        timer:
+          type: integer
+          writeOnly: true
+          nullable: true
+          description: May be used in place of the Start, End, and/or Child values.
+        duration:
+          type: string
+          readOnly: true
+          nullable: true
+        notes:
+          type: string
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+        - type
+    ActivityType:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          description: The name of the activity, e.g. "Bath" or "Walk".
+          maxLength: 255
+        slug:
+          type: string
+          readOnly: true
+          pattern: ^[-\w]+\z
+        icon:
+          enum:
+            - activities
+            - bmi
+            - calendar
+            - camera
+            - chat
+            - child
+            - clock
+            - dashboard
+            - diaperchange
+            - feeding
+            - graph
+            - head-circumference
+            - height
+            - list
+            - lock
+            - mail
+            - measurements
+            - medication
+            - note
+            - pumping
+            - refresh
+            - sad
+            - sleep
+            - source
+            - stop
+            - tag
+            - temperature
+            - timeline
+            - timer
+            - today
+            - tummytime
+            - user
+            - weight
+          type: string
+        emoji:
+          type: string
+          description:
+            "An emoji to use in place of the icon, e.g. \U0001F6C1 or \U0001F6B6\
+            . Leave blank to use the icon."
+          maxLength: 8
+        color:
+          type: string
+          pattern: ^#[0-9a-fA-F]{6}$
+          maxLength: 32
+        has_duration:
+          type: boolean
+          description:
+            Record a start and end time for this activity. Otherwise only
+            a single point in time is recorded.
+        active:
+          type: boolean
+          description:
+            Inactive activities are hidden from add menus and dashboards
+            but their existing entries are kept.
+        order:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: Activities are sorted by this value, then by name.
+      required:
+        - name
     BMI:
       type: object
       properties:

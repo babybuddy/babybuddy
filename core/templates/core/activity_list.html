@@ -1,0 +1,99 @@
+{% extends 'babybuddy/page.html' %}
+{% load datetime duration i18n widget_tweaks %}
+{% block title %}
+    {% trans "Activities" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Activities" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Activities" %}
+        {% if perms.core.add_activity %}
+            <a href="{% url 'core:activity-add' %}" class="btn btn-sm btn-success">
+                <i class="icon-activities" aria-hidden="true"></i> {% trans "Add Activity" %}
+            </a>
+        {% endif %}
+        {% if perms.core.view_activitytype %}
+            <a href="{% url 'core:activitytype-list' %}"
+               class="btn btn-sm btn-secondary">
+                <i class="icon-list" aria-hidden="true"></i> {% trans "Activity Types" %}
+            </a>
+        {% endif %}
+    </h1>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Activity" %}</th>
+                    <th>{% trans "Start" %}</th>
+                    {% if not unique_child %}
+                        <th>{% trans "Child" %}</th>
+                    {% endif %}
+                    <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Tags" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity in object_list %}
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_activity %}
+                                    <a href="{% url 'core:activity-update' activity.id %}"
+                                       class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.delete_activity %}
+                                    <a href="{% url 'core:activity-delete' activity.id %}"
+                                       class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge badge-pill me-1"
+                                  style="background-color:{{ activity.type.color }};
+                                         color:{{ activity.type.complementary_color }}">
+                                {% include "core/activity_type_icon.html" with activity_type=activity.type %}
+                            </span>
+                            {{ activity.type.name }}
+                        </td>
+                        <th scope="row">{{ activity.start|datetime_short }}</th>
+                        {% if not unique_child %}
+                            <td>
+                                <a href="{% url 'core:child' activity.child.slug %}">{{ activity.child }}</a>
+                            </td>
+                        {% endif %}
+                        <td>
+                            {% if activity.type.has_duration %}
+                                {{ activity.duration|duration_string }}
+                            {% else %}
+                                <span class="text-muted">&mdash;</span>
+                            {% endif %}
+                        </td>
+                        <td>{% include "core/render_tag_list.html" with tags=activity.tags.all %}</td>
+                    </tr>
+                    {% if activity.notes %}
+                        <tr class="{{ row_class }} row-details">
+                            <td colspan="6">
+                                <i class="icon-note me-2" aria-hidden="true"></i>{{ activity.notes }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <th colspan="6">{% trans "No activity entries found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

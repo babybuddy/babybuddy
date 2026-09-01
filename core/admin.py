@@ -20,6 +20,45 @@ class ImportExportResourceBase(resources.ModelResource):
         export_order = ("id", "child_id", "child_first_name", "child_last_name")
 
 
+class ActivityTypeImportExportResource(resources.ModelResource):
+    class Meta:
+        model = models.ActivityType
+        exclude = ("slug",)
+
+
+@admin.register(models.ActivityType)
+class ActivityTypeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        "name",
+        "icon",
+        "emoji",
+        "color",
+        "has_duration",
+        "active",
+        "order",
+    )
+    list_filter = ("active", "has_duration")
+    search_fields = ("name",)
+    resource_class = ActivityTypeImportExportResource
+
+
+class ActivityImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.Activity
+
+
+@admin.register(models.Activity)
+class ActivityAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("type", "start", "end", "duration", "child")
+    list_filter = ("child", "type", "tags")
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "type__name",
+    )
+    resource_class = ActivityImportExportResource
+
+
 class BMIImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.BMI

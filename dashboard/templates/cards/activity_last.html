@@ -1,0 +1,53 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+{% block icon %}
+    <span class="pull-left me-1">{% include "core/activity_type_icon.html" %}</span>
+{% endblock %}
+{% block header %}
+    <a href="{% url "core:activity-list" %}?child={{ child.id }}&type={{ activity_type.id }}&filtered=1">{{ activity_type.name }}</a>
+{% endblock %}
+{% block title %}
+    {% if activity %}
+        <div>
+            {% blocktrans trimmed with time_ago=activity.end|timesince %}
+                {{ time_ago }} ago
+            {% endblocktrans %}
+        </div>
+        <small>{{ activity.end|date:"SHORT_DATETIME_FORMAT" }}</small>
+    {% else %}
+        {% trans "None" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if activity %}
+        {% if activity_type.has_duration and activity.duration %}<div>{{ activity.duration|duration_string }}</div>{% endif %}
+        <div>
+            <small class="text-body-secondary">
+                {% blocktrans trimmed count counter=stats.count %}
+                    {{ counter }} time today
+                {% plural %}
+                    {{ counter }} times today
+                {% endblocktrans %}
+                {% if activity_type.has_duration and stats.total %}({{ stats.total|duration_string:'m' }}){% endif %}
+            </small>
+        </div>
+        {% if activity.notes %}
+            <div class="mt-1">
+                <small class="text-body-secondary">{{ activity.notes|truncatechars:50 }}</small>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+{% block listgroup %}
+    {% if can_add %}
+        <div class="card-footer">
+            <a href="{% url 'core:activity-add' %}?child={{ child.slug }}&type={{ activity_type.slug }}"
+               class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i>
+                {% blocktrans trimmed with name=activity_type.name %}
+                    Add {{ name }}
+                {% endblocktrans %}
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

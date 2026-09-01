@@ -1,0 +1,87 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n widget_tweaks %}
+{% block title %}
+    {% trans "Activity Types" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:activity-list' %}">{% trans "Activities" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Activity Types" %}</li>
+{% endblock %}
+{% block content %}
+    <h1>
+        {% trans "Activity Types" %}
+        {% if perms.core.add_activitytype %}
+            <a href="{% url 'core:activitytype-add' %}"
+               class="btn btn-sm btn-success">
+                <i class="icon-add" aria-hidden="true"></i> {% trans "Add Activity Type" %}
+            </a>
+        {% endif %}
+    </h1>
+    <p class="text-body-secondary">
+        {% trans "Activity types are the custom activities (e.g. bath time or a walk) that can be tracked for a child." %}
+    </p>
+    {% include 'babybuddy/filter.html' %}
+    <div class="table-responsive">
+        <table class="table table-instances table-borderless table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Actions" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    <th class="text-center">{% trans "Track duration" %}</th>
+                    <th class="text-center">{% trans "Active" %}</th>
+                    <th class="text-center">{% trans "Entries" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activitytype in object_list %}
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm"
+                                 role="group"
+                                 aria-label="{% trans "Actions" %}">
+                                {% if perms.core.change_activitytype %}
+                                    <a href="{% url 'core:activitytype-update' activitytype.id %}"
+                                       class="btn btn-primary">
+                                        <i class="icon-update" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.core.delete_activitytype %}
+                                    <a href="{% url 'core:activitytype-delete' activitytype.id %}"
+                                       class="btn btn-danger">
+                                        <i class="icon-delete" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge badge-pill me-1"
+                                  style="background-color:{{ activitytype.color }};
+                                         color:{{ activitytype.complementary_color }}">
+                                {% include "core/activity_type_icon.html" with activity_type=activitytype %}
+                            </span>
+                            {{ activitytype.name }}
+                        </td>
+                        <td class="text-center">
+                            <i class="icon-{{ activitytype.has_duration|yesno:"true,false" }}"
+                               aria-hidden="true"></i>
+                        </td>
+                        <td class="text-center">
+                            <i class="icon-{{ activitytype.active|yesno:"true,false" }}"
+                               aria-hidden="true"></i>
+                        </td>
+                        <td class="text-center">
+                            <a href="{% url 'core:activity-list' %}?type={{ activitytype.id }}&filtered=1">{{ activitytype.entries__count }}</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <th colspan="5">{% trans "No activity types found." %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'babybuddy/paginator.html' %}
+{% endblock %}

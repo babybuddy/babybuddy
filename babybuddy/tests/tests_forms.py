@@ -9,6 +9,8 @@ from django.utils import timezone
 
 from faker import Faker
 
+from core import models
+
 
 class FormsTestCase(TestCase):
     @classmethod
@@ -283,6 +285,38 @@ class FormsTestCase(TestCase):
         self.assertEqual(
             self.user.settings.dashboard_hide_age, datetime.timedelta(days=1)
         )
+
+    def test_user_settings_dashboard_cards(self):
+        self.c.login(**self.credentials)
+
+        # All cards are visible by default.
+        self.assertEqual(self.user.settings.dashboard_hidden_cards, [])
+
+        params = self.settings_template.copy()
+        params["dashboard_cards"] = ["statistics", "timer_list"]
+
+        page = self.c.post("/user/settings/", data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        hidden = self.user.settings.dashboard_hidden_cards
+        self.assertNotIn("statistics", hidden)
+        self.assertNotIn("timer_list", hidden)
+        self.assertIn("sleep_last", hidden)
+
+    def test_user_settings_dashboard_cards_include_activity_types(self):
+        self.c.login(**self.credentials)
+        activity_type = models.ActivityType.objects.create(name="Settings Card Test")
+
+        page = self.c.get("/user/settings/")
+        choices = dict(page.context["form_settings"].fields["dashboard_cards"].choices)
+        self.assertIn(activity_type.card_id, choices)
+
+        params = self.settings_template.copy()
+        params["dashboard_cards"] = ["statistics"]
+        page = self.c.post("/user/settings/", data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertIn(activity_type.card_id, self.user.settings.dashboard_hidden_cards)
 
     def test_csrf_error_handling(self):
         c = HttpClient(enforce_csrf_checks=True)

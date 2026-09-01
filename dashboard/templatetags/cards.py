@@ -26,6 +26,39 @@ def _filter_data_age(context, keyword="end"):
     return filter
 
 
+@register.inclusion_tag("cards/activity_last.html", takes_context=True)
+def card_activity_last(context, child, activity_type):
+    """
+    Information about the most recent entry for a custom activity type.
+    :param child: an instance of the Child model.
+    :param activity_type: an instance of the ActivityType model.
+    :returns: a dictionary with the most recent Activity instance and today's
+              statistics for the activity type.
+    """
+    instances = models.Activity.objects.filter(child=child, type=activity_type)
+    instance = instances.filter(**_filter_data_age(context)).order_by("-end").first()
+
+    date = timezone.localtime().date()
+    today = instances.filter(
+        start__year=date.year, start__month=date.month, start__day=date.day
+    )
+    stats = {
+        "count": today.count(),
+        "total": today.aggregate(Sum("duration"))["duration__sum"],
+    }
+
+    return {
+        "type": activity_type.icon,
+        "child": child,
+        "activity_type": activity_type,
+        "activity": instance,
+        "stats": stats,
+        "can_add": context["request"].user.has_perm("core.add_activity"),
+        "empty": not instance,
+        "hide_empty": _hide_empty(context),
+    }
+
+
 @register.inclusion_tag("cards/diaperchange_last.html", takes_context=True)
 def card_diaperchange_last(context, child):
     """

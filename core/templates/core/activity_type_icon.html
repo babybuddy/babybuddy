@@ -1,0 +1,9 @@
+{% comment %}
+Renders an ActivityType's emoji if one is set, or its icon font glyph.
+Usage: {% include "core/activity_type_icon.html" with activity_type=<instance> %}
+{% endcomment %}
+{% if activity_type.emoji %}
+    <span class="activity-type-emoji" aria-hidden="true">{{ activity_type.emoji }}</span>
+{% else %}
+    <i class="icon-{{ activity_type.icon }}" aria-hidden="true"></i>
+{% endif %}

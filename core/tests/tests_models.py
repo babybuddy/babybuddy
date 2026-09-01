@@ -9,6 +9,80 @@ from django.utils import timezone
 from core import models
 
 
+class ActivityTypeTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+
+    def test_activitytype_create(self):
+        activity_type = models.ActivityType.objects.create(name="Bath Time")
+        self.assertEqual(
+            activity_type, models.ActivityType.objects.get(name="Bath Time")
+        )
+        self.assertEqual(activity_type.slug, "bath-time")
+        self.assertEqual(str(activity_type), "Bath Time")
+        self.assertEqual(activity_type.card_id, "activity:bath-time")
+        self.assertFalse(activity_type.has_duration)
+        self.assertTrue(activity_type.active)
+
+    def test_activitytype_slug_updates_with_name(self):
+        activity_type = models.ActivityType.objects.create(name="Bath")
+        activity_type.name = "Bath Time"
+        activity_type.save()
+        self.assertEqual(activity_type.slug, "bath-time")
+
+    def test_activitytype_emoji_defaults_to_blank(self):
+        activity_type = models.ActivityType.objects.create(name="Bath")
+        self.assertEqual(activity_type.emoji, "")
+        self.assertEqual(activity_type.icon, "activities")
+
+    def test_activitytype_complementary_color(self):
+        activity_type = models.ActivityType.objects.create(name="Bath", color="#FFFFFF")
+        self.assertEqual(activity_type.complementary_color, models.Tag.DARK_COLOR)
+        activity_type.color = "#000000"
+        self.assertEqual(activity_type.complementary_color, models.Tag.LIGHT_COLOR)
+
+
+class ActivityTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+        self.bath = models.ActivityType.objects.create(name="Bath", has_duration=True)
+        self.play = models.ActivityType.objects.create(name="Play")
+
+    def test_activity_create_with_duration(self):
+        start = timezone.localtime() - timezone.timedelta(minutes=30)
+        end = timezone.localtime()
+        activity = models.Activity.objects.create(
+            child=self.child, type=self.bath, start=start, end=end
+        )
+        self.assertEqual(activity, models.Activity.objects.first())
+        self.assertEqual(str(activity), "Activity")
+        self.assertEqual(activity.duration, end - start)
+
+    def test_activity_without_duration_ends_at_start(self):
+        start = timezone.localtime() - timezone.timedelta(minutes=30)
+        activity = models.Activity.objects.create(
+            child=self.child,
+            type=self.play,
+            start=start,
+            end=timezone.localtime(),
+        )
+        self.assertEqual(activity.end, start)
+        self.assertEqual(activity.duration, datetime.timedelta(0))
+
+    def test_activity_deleted_with_type(self):
+        models.Activity.objects.create(
+            child=self.child,
+            type=self.play,
+            start=timezone.localtime(),
+            end=timezone.localtime(),
+        )
+        self.play.delete()
+        self.assertEqual(models.Activity.objects.count(), 0)
+
+
 class BMITestCase(TestCase):
     def setUp(self):
         call_command("migrate", verbosity=0)

@@ -15,6 +15,18 @@ class TagFilter(django_filters.FilterSet):
     )
 
 
+class ActivityFilter(TagFilter):
+    class Meta:
+        model = models.Activity
+        fields = ["child", "type"]
+
+
+class ActivityTypeFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.ActivityType
+        fields = {"name": ["contains"]}
+
+
 class BMIFilter(TagFilter):
     class Meta:
         model = models.BMI

@@ -52,6 +52,17 @@
                         {% trans "Tummy Time" %}
                     </a>
                 {% endif %}
+                {% if perms.core.add_activity %}
+                    {% duration_activity_types as activity_types %}
+                    {% for activity_type in activity_types %}
+                        <a class="btn btn-success btn-lg"
+                           href="{% instance_add_url 'core:activity-add' %}&type={{ activity_type.slug }}"
+                           role="button">
+                            {% include "core/activity_type_icon.html" %}
+                            {{ activity_type.name }}
+                        </a>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="center-block"
                  role="group"

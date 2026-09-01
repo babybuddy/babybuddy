@@ -135,6 +135,148 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertTrue("end" not in page.context["form"].initial)
 
 
+class ActivityTypeFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(ActivityTypeFormsTestCase, cls).setUpClass()
+        cls.activity_type = models.ActivityType.objects.create(name="Walk")
+
+    def test_add(self):
+        params = {
+            "name": "Bath",
+            "icon": "activities",
+            "emoji": "\U0001f6c1",
+            "color": "#ff0000",
+            "has_duration": "on",
+            "active": "on",
+            "order": 0,
+        }
+        page = self.c.post("/activity-types/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Bath added")
+        activity_type = models.ActivityType.objects.get(name="Bath")
+        self.assertEqual(activity_type.slug, "bath")
+        self.assertEqual(activity_type.emoji, "\U0001f6c1")
+        self.assertTrue(activity_type.has_duration)
+
+    def test_edit(self):
+        params = {
+            "name": "Long Walk",
+            "icon": "activities",
+            "color": self.activity_type.color,
+            "active": "on",
+            "order": 1,
+        }
+        page = self.c.post(
+            "/activity-types/{}/".format(self.activity_type.id), params, follow=True
+        )
+        self.assertEqual(page.status_code, 200)
+        self.activity_type.refresh_from_db()
+        self.assertEqual(self.activity_type.name, "Long Walk")
+        self.assertEqual(self.activity_type.slug, "long-walk")
+        self.assertContains(page, "Long Walk updated")
+
+    def test_delete(self):
+        activity_type = models.ActivityType.objects.create(name="Temporary")
+        page = self.c.post(
+            "/activity-types/{}/delete/".format(activity_type.id), follow=True
+        )
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Activity Type entry deleted")
+        self.assertFalse(models.ActivityType.objects.filter(name="Temporary").exists())
+
+
+class ActivityFormsTestCase(FormsTestCaseBase):
+    @classmethod
+    def setUpClass(cls):
+        super(ActivityFormsTestCase, cls).setUpClass()
+        cls.bath = models.ActivityType.objects.create(name="Bath", has_duration=True)
+        cls.play = models.ActivityType.objects.create(name="Play")
+        cls.inactive = models.ActivityType.objects.create(name="Retired", active=False)
+        cls.activity = models.Activity.objects.create(
+            child=cls.child,
+            type=cls.bath,
+            start=timezone.localtime() - timezone.timedelta(hours=2),
+            end=timezone.localtime() - timezone.timedelta(hours=1, minutes=45),
+        )
+
+    def test_add(self):
+        start = timezone.localtime() - timezone.timedelta(minutes=30)
+        end = timezone.localtime() - timezone.timedelta(minutes=10)
+        params = {
+            "child": self.child.id,
+            "type": self.bath.id,
+            "start": self.localtime_string(start),
+            "end": self.localtime_string(end),
+        }
+        page = self.c.post("/activities/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Activity entry for {} added".format(self.child))
+
+    def test_add_without_duration_ignores_end(self):
+        start = timezone.localtime() - timezone.timedelta(minutes=30)
+        params = {
+            "child": self.child.id,
+            "type": self.play.id,
+            "start": self.localtime_string(start),
+        }
+        page = self.c.post("/activities/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        activity = models.Activity.objects.filter(type=self.play).first()
+        self.assertIsNotNone(activity)
+        self.assertEqual(activity.start, activity.end)
+
+    def test_add_with_duration_requires_end(self):
+        params = {
+            "child": self.child.id,
+            "type": self.bath.id,
+            "start": self.localtime_string(
+                timezone.localtime() - timezone.timedelta(minutes=30)
+            ),
+        }
+        page = self.c.post("/activities/add/", params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(
+            page.context["form"], "end", "This activity requires an end time."
+        )
+
+    def test_inactive_types_are_not_selectable(self):
+        page = self.c.get("/activities/add/")
+        types = page.context["form"].fields["type"].queryset
+        self.assertIn(self.play, types)
+        self.assertNotIn(self.inactive, types)
+
+    def test_edit(self):
+        params = {
+            "child": self.activity.child.id,
+            "type": self.activity.type.id,
+            "start": self.localtime_string(self.activity.start),
+            "end": self.localtime_string(
+                self.activity.end + timezone.timedelta(minutes=5)
+            ),
+        }
+        page = self.c.post(
+            "/activities/{}/".format(self.activity.id), params, follow=True
+        )
+        self.assertEqual(page.status_code, 200)
+        self.activity.refresh_from_db()
+        self.assertEqual(self.activity.duration, timezone.timedelta(minutes=20))
+        self.assertContains(
+            page, "Activity entry for {} updated".format(self.activity.child)
+        )
+
+    def test_delete(self):
+        activity = models.Activity.objects.create(
+            child=self.child,
+            type=self.play,
+            start=timezone.localtime(),
+            end=timezone.localtime(),
+        )
+        page = self.c.post("/activities/{}/delete/".format(activity.id), follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Activity entry deleted")
+
+
 class BMIFormsTestCase(FormsTestCaseBase):
     @classmethod
     def setUpClass(cls):

@@ -2,7 +2,7 @@
 from django import template
 from django.urls import reverse
 
-from core.models import Timer, Child
+from core.models import ActivityType, Timer, Child
 
 register = template.Library()
 
@@ -41,3 +41,13 @@ def instance_add_url(context, url_name):
     if timer.child:
         url += "&child={}".format(timer.child.slug)
     return url
+
+
+@register.simple_tag()
+def duration_activity_types():
+    """
+    Get the active ActivityType instances which track a duration (and can
+    therefore be created from a Timer).
+    :returns: an ActivityType queryset.
+    """
+    return ActivityType.objects.filter(active=True, has_duration=True)

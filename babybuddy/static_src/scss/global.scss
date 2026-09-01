@@ -32,6 +32,14 @@
     font-size: 1.65em;
 }
 
+// Emoji used in place of an icon font glyph (activity types).
+.activity-type-emoji,
+.timeline-badge-emoji {
+    display: inline-block;
+    font-style: normal;
+    line-height: 1;
+}
+
 // All modals
 .modal-content {
     color: map.get($theme-colors, 'dark');

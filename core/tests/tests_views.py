@@ -31,6 +31,42 @@ class ViewsTestCase(TestCase):
 
         cls.c.login(**cls.credentials)
 
+    def test_activity_views(self):
+        activity_type = models.ActivityType.objects.create(
+            name="View Test", has_duration=True
+        )
+        entry = models.Activity.objects.create(
+            child=models.Child.objects.first(),
+            type=activity_type,
+            start=timezone.localtime() - timezone.timedelta(minutes=10),
+            end=timezone.localtime(),
+        )
+
+        page = self.c.get("/activities/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/activities/add/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/activities/add/?type={}".format(activity_type.slug))
+        self.assertEqual(page.context["form"].initial["type"], activity_type)
+
+        page = self.c.get("/activities/{}/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/activities/{}/delete/".format(entry.id))
+        self.assertEqual(page.status_code, 200)
+
+    def test_activitytype_views(self):
+        activity_type = models.ActivityType.objects.create(name="Type View Test")
+
+        page = self.c.get("/activity-types/")
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/activity-types/add/")
+        self.assertEqual(page.status_code, 200)
+
+        page = self.c.get("/activity-types/{}/".format(activity_type.id))
+        self.assertEqual(page.status_code, 200)
+        page = self.c.get("/activity-types/{}/delete/".format(activity_type.id))
+        self.assertEqual(page.status_code, 200)
+
     def test_bmi_views(self):
         page = self.c.get("/bmi/")
         self.assertEqual(page.status_code, 200)

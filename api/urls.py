@@ -46,6 +46,8 @@ class CustomRouterWithExtraPaths(routers.DefaultRouter):
 
 
 router = CustomRouterWithExtraPaths()
+router.register(r"activities", views.ActivityViewSet)
+router.register(r"activity-types", views.ActivityTypeViewSet)
 router.register(r"bmi", views.BMIViewSet)
 router.register(r"changes", views.DiaperChangeViewSet)
 router.register(r"children", views.ChildViewSet)

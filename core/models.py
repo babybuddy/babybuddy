@@ -157,6 +157,204 @@ class TaggableManager(TaggitTaggableManager):
     pass
 
 
+# Icons available to ActivityType instances. These are limited to the glyphs
+# that are built in to Baby Buddy's icon font -- the "emoji" field can be used
+# for anything that is not covered here.
+ACTIVITY_ICONS = [
+    ("activities", _("Activities")),
+    ("bmi", _("BMI")),
+    ("calendar", _("Calendar")),
+    ("camera", _("Camera")),
+    ("chat", _("Chat")),
+    ("child", _("Child")),
+    ("clock", _("Clock")),
+    ("dashboard", _("Dashboard")),
+    ("diaperchange", _("Diaper Change")),
+    ("feeding", _("Feeding")),
+    ("graph", _("Graph")),
+    ("head-circumference", _("Head Circumference")),
+    ("height", _("Height")),
+    ("list", _("List")),
+    ("lock", _("Lock")),
+    ("mail", _("Mail")),
+    ("measurements", _("Measurements")),
+    ("medication", _("Medication")),
+    ("note", _("Note")),
+    ("pumping", _("Pumping")),
+    ("refresh", _("Refresh")),
+    ("sad", _("Sad")),
+    ("sleep", _("Sleep")),
+    ("source", _("Source")),
+    ("stop", _("Stop")),
+    ("tag", _("Tag")),
+    ("temperature", _("Temperature")),
+    ("timeline", _("Timeline")),
+    ("timer", _("Timer")),
+    ("today", _("Today")),
+    ("tummytime", _("Tummy Time")),
+    ("user", _("User")),
+    ("weight", _("Weight")),
+]
+
+
+class ActivityType(models.Model):
+    """
+    A user-defined kind of activity (e.g. "Bath", "Walk", "Bottle wash"), used
+    to categorize `Activity` entries.
+    """
+
+    model_name = "activitytype"
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+        verbose_name=_("Name"),
+        help_text=_('The name of the activity, e.g. "Bath" or "Walk".'),
+    )
+    slug = models.SlugField(
+        allow_unicode=True,
+        blank=False,
+        editable=False,
+        max_length=100,
+        unique=True,
+        verbose_name=_("Slug"),
+    )
+    icon = models.CharField(
+        choices=ACTIVITY_ICONS,
+        default="activities",
+        max_length=64,
+        verbose_name=_("Icon"),
+    )
+    emoji = models.CharField(
+        blank=True,
+        default="",
+        max_length=8,
+        verbose_name=_("Emoji"),
+        help_text=_(
+            "An emoji to use in place of the icon, e.g. 🛁 or 🚶. Leave blank to "
+            "use the icon."
+        ),
+    )
+    color = models.CharField(
+        verbose_name=_("Color"),
+        max_length=32,
+        default=random_color,
+        validators=[RegexValidator(r"^#[0-9a-fA-F]{6}$")],
+    )
+    has_duration = models.BooleanField(
+        default=False,
+        verbose_name=_("Track duration"),
+        help_text=_(
+            "Record a start and end time for this activity. Otherwise only a "
+            "single point in time is recorded."
+        ),
+    )
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_("Active"),
+        help_text=_(
+            "Inactive activities are hidden from add menus and dashboards but "
+            "their existing entries are kept."
+        ),
+    )
+    order = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Sort order"),
+        help_text=_("Activities are sorted by this value, then by name."),
+    )
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["order", Lower("name")]
+        verbose_name = _("Activity Type")
+        verbose_name_plural = _("Activity Types")
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name, allow_unicode=True)
+        super(ActivityType, self).save(*args, **kwargs)
+
+    @property
+    def card_id(self):
+        """Identifier used to reference this type's dashboard card."""
+        return "activity:{}".format(self.slug)
+
+    @property
+    def complementary_color(self):
+        """A readable text color for use on top of `color`."""
+        if not self.color:
+            return Tag.DARK_COLOR
+        r, g, b = [int(x, 16) for x in re.match("#(..)(..)(..)", self.color).groups()]
+        yiq = ((r * 299) + (g * 587) + (b * 114)) // 1000
+        return Tag.DARK_COLOR if yiq >= 128 else Tag.LIGHT_COLOR
+
+
+class Activity(models.Model):
+    """
+    An entry for a user-defined `ActivityType`.
+    """
+
+    model_name = "activity"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="activity",
+        verbose_name=_("Child"),
+    )
+    type = models.ForeignKey(
+        "ActivityType",
+        on_delete=models.CASCADE,
+        related_name="entries",
+        verbose_name=_("Activity"),
+    )
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+    )
+    duration = models.DurationField(
+        editable=False, null=True, verbose_name=_("Duration")
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-start"]
+        verbose_name = _("Activity")
+        verbose_name_plural = _("Activities")
+
+    def __str__(self):
+        return str(_("Activity"))
+
+    def save(self, *args, **kwargs):
+        # Activity types without a duration are stored as a single point in
+        # time (start == end) so that they sort and filter like other entries.
+        if self.type_id and not self.type.has_duration:
+            self.end = self.start
+        if self.start and self.end:
+            self.duration = timezone_aware_duration(self.start, self.end)
+        super(Activity, self).save(*args, **kwargs)
+
+    def clean(self):
+        validate_time(self.start, "start")
+        validate_time(self.end, "end")
+        validate_duration(self)
+        if self.type_id:
+            validate_unique_period(
+                Activity.objects.filter(child=self.child, type=self.type), self
+            )
+
+
 class BMI(models.Model):
     model_name = "bmi"
     child = models.ForeignKey(

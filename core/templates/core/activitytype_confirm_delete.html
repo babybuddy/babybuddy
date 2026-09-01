@@ -1,0 +1,28 @@
+{% extends 'babybuddy/page.html' %}
+{% load babybuddy i18n %}
+{% block title %}
+    {% trans "Delete an Activity Type" %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:activitytype-list' %}">{% trans "Activity Types" %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
+{% endblock %}
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        <h1>{% confirm_delete_text object %}</h1>
+        {% if object.entries__count %}
+            <div class="alert alert-danger" role="alert">
+                {% blocktrans trimmed count counter=object.entries__count %}
+                    This will also delete {{ counter }} activity entry.
+                {% plural %}
+                    This will also delete {{ counter }} activity entries.
+                {% endblocktrans %}
+            </div>
+        {% endif %}
+        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+        <a href="{% url 'core:activitytype-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+    </form>
+{% endblock %}

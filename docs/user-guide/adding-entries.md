@@ -2,6 +2,35 @@
 
 ## Adding Activities
 
+### Custom Activities
+
+Baby Buddy ships with a fixed set of activities (diaper changes, feedings,
+sleep, tummy time and so on), but you can define your own for anything else you
+want to track -- bath time, a walk, medicine cabinet checks, etc.
+
+Custom activities are defined as **activity types** from
+_Activities > Activity Types_. Each activity type has:
+
+- **Name** -- what the activity is called, e.g. "Bath".
+- **Icon** and **Emoji** -- how the activity is displayed. Pick one of the
+  built-in icons, or enter an emoji (e.g. 🛁) to use instead of an icon.
+- **Color** -- used for the activity's badge in lists.
+- **Track duration** -- when enabled, entries record a start _and_ an end time
+  and can be created from a [timer](using-timers.md). When disabled, entries
+  record a single point in time.
+- **Active** -- inactive activity types are hidden from the add menus and
+  dashboards, but their existing entries are kept.
+- **Sort order** -- controls the order activity types appear in.
+
+Once an activity type exists, add entries for it from the plus sign in the top
+navigation bar (select Activity), from _Activities > Activity entry_, or from
+the activity's dashboard card.
+
+Each active activity type gets its own dashboard card showing the most recent
+entry and today's count. See
+[Getting Started](getting-started.md#dashboard) for how to choose which cards
+are shown.
+
 ### Diaper Change
 
 <video style="max-width: 320px;" autoplay controls loop muted playsinline>

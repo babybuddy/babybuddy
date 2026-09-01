@@ -6,6 +6,7 @@ from django.utils import timezone, timesince
 from django.utils.translation import gettext as _
 
 from core.models import (
+    Activity,
     DiaperChange,
     Feeding,
     Note,
@@ -28,6 +29,7 @@ def get_objects(date, child=None):
     max_date = date.replace(hour=23, minute=59, second=59)
     events = []
 
+    _add_activities(min_date, max_date, events, child)
     _add_diaper_changes(min_date, max_date, events, child)
     _add_feedings(min_date, max_date, events, child)
     _add_medication(min_date, max_date, events, child)
@@ -46,6 +48,70 @@ def get_objects(date, child=None):
     )
 
     return events
+
+
+def _add_activities(min_date, max_date, events, child=None):
+    instances = (
+        Activity.objects.filter(start__range=(min_date, max_date))
+        .select_related("child", "type")
+        .order_by("-start")
+    )
+    if child:
+        instances = instances.filter(child=child)
+    for instance in instances:
+        details = []
+        if instance.notes:
+            details.append(instance.notes)
+        edit_link = reverse("core:activity-update", args=[instance.id])
+        base_object = {
+            "details": details,
+            "edit_link": edit_link,
+            "model_name": instance.model_name,
+            "icon": instance.type.icon,
+            "emoji": instance.type.emoji,
+            "tags": instance.tags.all(),
+        }
+
+        if not instance.type.has_duration:
+            events.append(
+                {
+                    **base_object,
+                    "time": timezone.localtime(instance.start),
+                    "event": _("%(child)s had %(activity)s.")
+                    % {
+                        "child": instance.child.first_name,
+                        "activity": instance.type.name,
+                    },
+                }
+            )
+            continue
+
+        events.append(
+            {
+                **base_object,
+                "time": timezone.localtime(instance.start),
+                "event": _("%(child)s started %(activity)s.")
+                % {
+                    "child": instance.child.first_name,
+                    "activity": instance.type.name,
+                },
+                "type": "start",
+            }
+        )
+
+        end = {
+            **base_object,
+            "time": timezone.localtime(instance.end),
+            "event": _("%(child)s finished %(activity)s.")
+            % {
+                "child": instance.child.first_name,
+                "activity": instance.type.name,
+            },
+            "type": "end",
+        }
+        if instance.duration and instance.duration > timedelta(seconds=0):
+            end["duration"] = duration_string(instance.duration)
+        events.append(end)
 
 
 def _add_tummy_times(min_date, max_date, events, child=None):

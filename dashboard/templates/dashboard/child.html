@@ -14,21 +14,54 @@
     <div id="dashboard-child"
          class="row"
          data-masonry='{"percentPosition": true }'>
-        <div class="col-sm-6 col-lg-4">{% card_timer_list object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_diaperchange_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_pumping_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_pumping_recent object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_medication_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_last_method object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_recent object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_statistics object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_recent object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_naps_day object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_tummytime_day object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_diaperchange_types object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
+        {% if 'timer_list' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_timer_list object %}</div>
+        {% endif %}
+        {% if 'feeding_last' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_feeding_last object %}</div>
+        {% endif %}
+        {% if 'diaperchange_last' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_diaperchange_last object %}</div>
+        {% endif %}
+        {% if 'pumping_last' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_pumping_last object %}</div>
+        {% endif %}
+        {% if 'pumping_recent' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_pumping_recent object %}</div>
+        {% endif %}
+        {% if 'sleep_last' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_sleep_last object %}</div>
+        {% endif %}
+        {% if 'medication_last' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_medication_last object %}</div>
+        {% endif %}
+        {% if 'feeding_last_method' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_feeding_last_method object %}</div>
+        {% endif %}
+        {% if 'feeding_recent' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_feeding_recent object %}</div>
+        {% endif %}
+        {% if 'statistics' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_statistics object %}</div>
+        {% endif %}
+        {% if 'sleep_recent' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_sleep_recent object %}</div>
+        {% endif %}
+        {% if 'sleep_naps_day' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_sleep_naps_day object %}</div>
+        {% endif %}
+        {% if 'tummytime_day' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_tummytime_day object %}</div>
+        {% endif %}
+        {% if 'diaperchange_types' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_diaperchange_types object %}</div>
+        {% endif %}
+        {% if 'breastfeeding' in visible_cards %}
+            <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
+        {% endif %}
+        {% for activity_type in visible_activity_types %}
+            <div class="col-sm-6 col-lg-4">{% card_activity_last object activity_type %}</div>
+        {% endfor %}
     </div>
 {% endblock %}
 {% block javascript %}

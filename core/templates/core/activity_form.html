@@ -1,0 +1,65 @@
+{% extends 'babybuddy/page.html' %}
+{% load i18n %}
+{% block title %}
+    {% if request.resolver_match.url_name == 'activity-update' %}
+        {% trans "Update an Activity Entry" %}
+    {% else %}
+        {% trans "Add an Activity Entry" %}
+    {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:activity-list' %}">{% trans "Activities" %}</a>
+    </li>
+    {% if object %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add" %}</li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object %}
+        <h1>
+            {% trans "Update" %} <span class="text-info">{{ object.type }}</span>
+        </h1>
+    {% else %}
+        <h1>{% trans "Add an Activity Entry" %}</h1>
+    {% endif %}
+    {% if form.fields.type.queryset.exists %}
+        {% include 'babybuddy/form.html' %}
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            {% trans "No activity types have been created yet." %}
+            {% if perms.core.add_activitytype %}
+                <a href="{% url 'core:activitytype-add' %}" class="alert-link">{% trans "Add an activity type" %}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
+{% block javascript %}
+    <script type="application/javascript">
+        // Activity types that do not track a duration only use the start time,
+        // so the end time field is hidden when one of them is selected.
+        (function () {
+            var durationTypes = {{ duration_type_ids|safe }};
+            var endInput = document.getElementById('id_end');
+            if (!endInput || !endInput.closest) {
+                return;
+            }
+            var endRow = endInput.closest('.row.mb-3');
+            var typeInputs = document.querySelectorAll('input[name="type"]');
+            if (!endRow || !typeInputs.length) {
+                return;
+            }
+            function update() {
+                var selected = document.querySelector('input[name="type"]:checked');
+                var hasDuration = selected && durationTypes.indexOf(parseInt(selected.value, 10)) !== -1;
+                endRow.hidden = !hasDuration;
+            }
+            typeInputs.forEach(function (input) {
+                input.addEventListener('change', update);
+            });
+            update();
+        })();
+    </script>
+{% endblock %}
