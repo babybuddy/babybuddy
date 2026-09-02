@@ -1,5 +1,5 @@
 {% extends 'cards/base.html' %}
-{% load duration i18n %}
+{% load duration i18n time_filters %}
 {% block header %}
     <a href="{% url "core:medication-list" %}">{% trans "Last Medication" %}</a>
 {% endblock %}
@@ -10,7 +10,7 @@
                 {{ time_ago }} ago
             {% endblocktrans %}
         </div>
-        <small>{{ medication.time|time }}</small>
+        <small>{{ medication.time|hour_format }}</small>
     {% else %}
         {% trans "None" %}
     {% endif %}
@@ -27,7 +27,7 @@
                     <span class="badge bg-success">{% trans "Next dose ready" %}</span>
                 {% else %}
                     <small class="text-muted">
-                        {% blocktrans trimmed with next_time=medication.next_dose_time|time %}
+                        {% blocktrans trimmed with next_time=medication.next_dose_time|hour_format %}
                             Next dose at {{ next_time }}
                         {% endblocktrans %}
                     </small>

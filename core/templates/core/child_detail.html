@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load breadcrumb duration i18n imagekit static %}
+{% load breadcrumb duration i18n imagekit static time_filters %}
 {% block title %}{{ object }}{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
@@ -20,7 +20,7 @@
                     {% endif %}
                     <div class="child-name display-4">{{ object }}</div>
                     <p class="lead">
-                        {% trans "Born" %} <span class="text-secondary">{{ object.birth_datetime }}</span>
+                        {% trans "Born" %} <span class="text-secondary">{{ object.birth_datetime|datetime_format }}</span>
                         <br />
                         {% trans "Age" %} <span class="text-secondary">{{ object.birth_datetime|child_age_string }}</span>
                     </p>

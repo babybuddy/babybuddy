@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n time_filters %}
 <h3 class="text-center">
     {% if date_previous %}
         <a class="btn btn-sm btn-default"
@@ -38,7 +38,7 @@
                         {% endif %}
                     </div>
                     <div class="card-footer text-body-secondary">
-                        {% blocktrans trimmed with since=object.time|timesince time=object.time|time %}
+                        {% blocktrans trimmed with since=object.time|timesince time=object.time|hour_format %}
                             {{ since }} ago ({{ time }})
                         {% endblocktrans %}
                         {% if object.duration %}

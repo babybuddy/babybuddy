@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load babybuddy duration i18n timers %}
+{% load babybuddy duration i18n time_filters timers %}
 {% get_child_count as CHILD_COUNT %}
 {% block title %}{{ object }}{% endblock %}
 {% block breadcrumbs %}
@@ -17,7 +17,7 @@
                 <span class="timer-seconds">{{ object.duration|seconds }}</span>s
             </h1>
             {% if timer.child and CHILD_COUNT > 1 %}<h2 class="text-body-secondary">{{ timer.child }}</h2>{% endif %}
-            <p class="lead text-secondary">{% trans "Started" %} {{ object.start }}</p>
+            <p class="lead text-secondary">{% trans "Started" %} {{ object.start|datetime_format }}</p>
             <p class="text-body-secondary">
                 {% blocktrans trimmed with user=object.user_username %}
                     {{ timer }} created by {{ user }}

@@ -4,6 +4,8 @@ from django.conf import settings
 from django.utils import timezone, formats
 from django.utils.translation import gettext_lazy as _
 
+from babybuddy.models import Settings
+
 register = template.Library()
 
 
@@ -16,6 +18,9 @@ def datetime_short(date):
     """
     date_string = None
     time_string = None
+    time_format = (
+        "H:i" if Settings.objects.filter(hour_format=True).exists() else "TIME_FORMAT"
+    )
 
     # The value received from templates will be UTC so it must be converted to
     # localtime here.
@@ -24,7 +29,7 @@ def datetime_short(date):
     now = timezone.localtime()
     if now.date() == date.date():
         date_string = _("Today")
-        time_string = formats.date_format(date, format="TIME_FORMAT")
+        time_string = formats.date_format(date, format=time_format)
     elif (
         now.year == date.year
         and formats.get_format("SHORT_MONTH_DAY_FORMAT") != "SHORT_MONTH_DAY_FORMAT"
@@ -32,7 +37,7 @@ def datetime_short(date):
         # Use the custom `SHORT_MONTH_DAY_FORMAT` format if available for the
         # current locale.
         date_string = formats.date_format(date, format="SHORT_MONTH_DAY_FORMAT")
-        time_string = formats.date_format(date, format="TIME_FORMAT")
+        time_string = formats.date_format(date, format=time_format)
 
     if not date_string:
         date_string = formats.date_format(date, format="SHORT_DATETIME_FORMAT")

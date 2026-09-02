@@ -1,5 +1,5 @@
 {% extends 'cards/base.html' %}
-{% load duration i18n %}
+{% load duration i18n time_filters %}
 {% block header %}
     <a href="{% url "core:tummytime-list" %}">{% trans "Last Tummy Time" %}</a>
 {% endblock %}
@@ -10,7 +10,7 @@
                 {{ time_ago }} ago
             {% endblocktrans %}
         </div>
-        <small>{{ tummytime.time|time }}</small>
+        <small>{{ tummytime.time|hour_format }}</small>
     {% else %}
         {% trans "Never" %}
     {% endif %}

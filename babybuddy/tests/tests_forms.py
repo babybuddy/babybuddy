@@ -271,6 +271,17 @@ class FormsTestCase(TestCase):
         self.user.refresh_from_db()
         self.assertEqual(self.user.settings.pagination_count, 25)
 
+    def test_user_settings_hour_format(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params["hour_format"] = "on"
+
+        page = self.c.post("/user/settings/", data=params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.settings.hour_format)
+
     def test_user_settings_dashboard_hide_age(self):
         self.c.login(**self.credentials)
 

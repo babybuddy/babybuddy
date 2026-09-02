@@ -1,5 +1,5 @@
 {% extends 'cards/base.html' %}
-{% load duration i18n %}
+{% load duration i18n time_filters %}
 {% block header %}
     <a href="{% url "core:feeding-list" %}">{% trans "Last Feeding" %}</a>
 {% endblock %}
@@ -10,8 +10,8 @@
                 {{ time_ago }} ago
             {% endblocktrans %}
         </div>
-        <small>{{ feeding.start|time }}
-            {% if feeding.end != feeding.start %}- {{ feeding.end|time }}{% endif %}
+        <small>{{ feeding.start|hour_format }}
+            {% if feeding.end != feeding.start %}- {{ feeding.end|hour_format }}{% endif %}
         </small>
     {% else %}
         {% trans "None" %}

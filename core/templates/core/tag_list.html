@@ -1,5 +1,5 @@
 {% extends 'babybuddy/page.html' %}
-{% load i18n widget_tweaks %}
+{% load i18n time_filters widget_tweaks %}
 {% block title %}
     {% trans "Tags" %}
 {% endblock %}
@@ -55,7 +55,7 @@
                             <span class="font-monospace">{{ tag.color }}</span>
                         </td>
                         <td class="text-center">{{ tag.core_tagged_items__count }}</td>
-                        <td>{{ tag.last_used }}</td>
+                        <td>{{ tag.last_used|datetime_format }}</td>
                     </tr>
                 {% empty %}
                     <tr>

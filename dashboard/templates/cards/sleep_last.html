@@ -1,5 +1,5 @@
 {% extends 'cards/base.html' %}
-{% load duration i18n %}
+{% load duration i18n time_filters %}
 {% block header %}
     <a href="{% url "core:sleep-list" %}">{% trans "Last Sleep" %}</a>
 {% endblock %}
@@ -10,7 +10,7 @@
                 {{ time_ago }} ago
             {% endblocktrans %}
         </div>
-        <small>{{ sleep.end|time }}</small>
+        <small>{{ sleep.end|hour_format }}</small>
     {% else %}
         {% trans "None" %}
     {% endif %}
