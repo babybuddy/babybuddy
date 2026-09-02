@@ -1,0 +1,65 @@
+.card-body__primary-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-body__secondary-details {
+  display: flex;
+}
+
+.card-body__secondary-details--anchor-left {
+  flex-grow: 1
+}
+
+.card-body__secondary-details--anchor-right {
+  flex-grow: 0
+}
+
+.card-body__notes {
+  border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+.mobile-list {
+  display:none;
+}
+
+.mobile-list > .row {
+    padding: 10px;
+}
+
+.card_body__avatar-layout {
+  display: flex;
+}
+
+// create equal spacing around the image
+.avatar-layout__avatar {
+    margin-right: calc(var(--bs-card-spacer-x) + calc(var(--bs-gutter-x) * 0.5));
+    display: flex;
+    align-items: center;
+    //because of notes we need to make a fixed size for the avatar
+    min-width: 35px;
+    max-width: 35px;
+}
+
+// cards with notes can become all sorts of sizes so we align the image at the top of the card.
+// this ensures that the user always gets the child context
+.card_body__avatar-layout--with-notes {
+  align-items: flex-start;
+}
+
+.avatar-layout__details {
+  flex-grow: 1;
+}
+
+@include media-breakpoint-down(md) {
+.mobile-list {
+    display: block;
+  }
+
+  .mobile-list + .table-responsive {
+    display: none;
+  }
+
+}

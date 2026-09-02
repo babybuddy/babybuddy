@@ -15,6 +15,7 @@
         {% endif %}
     </h1>
     {% include 'babybuddy/filter.html' %}
+    {% include "mobile/base/list.html" with list_item_template="mobile/tummytime_list_item.html" object_list=object_list %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
