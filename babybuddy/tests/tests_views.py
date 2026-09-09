@@ -136,3 +136,30 @@ class ViewsTestCase(TestCase):
         }
         page = self.c.post(page.request["PATH_INFO"], data=data, follow=True)
         self.assertEqual(page.status_code, 200)
+
+
+class ErrorPageTestCase(TestCase):
+    """
+    The 404 template is only rendered with `DEBUG` off, which no other test
+    exercises, so a syntax error in it went unnoticed.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        super(ErrorPageTestCase, cls).setUpClass()
+        fake = Faker()
+        cls.c = HttpClient()
+        fake_user = fake.simple_profile()
+        cls.credentials = {
+            "username": fake_user["username"],
+            "password": fake.password(),
+        }
+        get_user_model().objects.create_user(is_superuser=True, **cls.credentials)
+
+    @override_settings(DEBUG=False)
+    def test_404_page_renders(self):
+        self.c.login(**self.credentials)
+        page = self.c.get("/this-path-does-not-exist/")
+        self.assertEqual(page.status_code, 404)
+        self.assertIn("Page Not Found", page.content.decode())
+        self.assertIn("/this-path-does-not-exist/", page.content.decode())
