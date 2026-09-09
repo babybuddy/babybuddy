@@ -134,6 +134,38 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertTrue("start" not in page.context["form"].initial)
         self.assertTrue("end" not in page.context["form"].initial)
 
+    def test_timer_name_set_from_timer(self):
+        timer = models.Timer.objects.create(
+            user=self.user,
+            name="Timer Test",
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+        )
+
+        page = self.c.get("/sleep/add/?timer={}".format(timer.id))
+        self.assertEqual(page.context["form"].initial["timer"], "Timer Test")
+        self.assertEqual(page.context["form"].fields["timer"].label, "Timer")
+        self.assertContains(page, 'id="id_timer"')
+        self.assertContains(page, 'value="Timer Test"')
+
+    def test_timer_name_placed_after_child(self):
+        timer = models.Timer.objects.create(
+            user=self.user,
+            name="Timer Test",
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+        )
+
+        page = self.c.get("/sleep/add/?timer={}".format(timer.id))
+        field_names = list(page.context["form"].fields)
+        self.assertEqual(field_names.index("timer"), field_names.index("child") + 1)
+
+    def test_timer_name_not_set_without_timer(self):
+        page = self.c.get("/sleep/add/")
+        self.assertNotIn("timer", page.context["form"].fields)
+
+    def test_timer_name_not_set_from_invalid_timer(self):
+        page = self.c.get("/sleep/add/?timer={}".format(42))
+        self.assertNotIn("timer", page.context["form"].fields)
+
 
 class BMIFormsTestCase(FormsTestCaseBase):
     @classmethod
