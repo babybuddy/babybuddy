@@ -592,6 +592,22 @@ class SleepFormsTestCase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Sleep entry for {} added".format(str(self.child)))
 
+    def test_add_with_invalid_timer(self):
+        # Prevent potential sleep entry intersection errors.
+        models.Sleep.objects.all().delete()
+
+        end = timezone.localtime()
+        start = end - timezone.timedelta(minutes=2)
+        params = {
+            "child": self.child.id,
+            "start": self.localtime_string(start),
+            "end": self.localtime_string(end),
+        }
+
+        page = self.c.post("/sleep/add/?timer={}".format(42), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Sleep entry for {} added".format(str(self.child)))
+
     def test_edit(self):
         end = timezone.localtime()
         start = end - timezone.timedelta(minutes=2)

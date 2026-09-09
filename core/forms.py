@@ -133,10 +133,13 @@ class CoreModelForm(forms.ModelForm):
     @staticmethod
     def move_after(fields, item, anchor):
         """Return the fields with `item` placed directly after `anchor`."""
-        if anchor not in fields:
+        if item == anchor or anchor not in fields:
             return fields
 
         if isinstance(fields, dict):
+            if item not in fields:
+                return fields
+
             items = list(fields.items())
             entry = items.pop([key for key, _ in items].index(item))
             items.insert([key for key, _ in items].index(anchor) + 1, entry)
@@ -152,8 +155,9 @@ class CoreModelForm(forms.ModelForm):
         # If `timer_id` is present, stop the Timer.
         instance = super(CoreModelForm, self).save(commit=False)
         if self.timer_id:
-            timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop()
+            timer = models.Timer.objects.filter(id=self.timer_id).first()
+            if timer:
+                timer.stop()
         if commit:
             instance.save()
             self.save_m2m()
