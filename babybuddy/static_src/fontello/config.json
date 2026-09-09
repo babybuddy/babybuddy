@@ -281,6 +281,12 @@
       "css": "angle-double-right",
       "code": 61697,
       "src": "fontawesome"
+    },
+    {
+      "uid": "46120eb259799eab0dac0691137e5706",
+      "css": "medication",
+      "code": 61690,
+      "src": "fontawesome"
     }
   ]
 }

@@ -54,6 +54,12 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/user/settings/")
         self.assertEqual(page.status_code, 200)
 
+    def test_api_key_regenerate(self):
+        original_key = str(self.user.settings.api_key())
+        page = self.c.post("/user/settings/", {"api_key_regenerate": ""}, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertNotEqual(str(self.user.settings.api_key()), original_key)
+
     def test_add_device_page(self):
         page = self.c.get("/user/add-device/")
         self.assertRegex(

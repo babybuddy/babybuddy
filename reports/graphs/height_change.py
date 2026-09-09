@@ -35,6 +35,7 @@ def height_change(
     )
 
     if percentile_heights:
+        percentile_heights = percentile_heights.order_by("age_in_days")
         dates = list(
             map(
                 lambda timedelta: birthday + timedelta,
@@ -45,36 +46,37 @@ def height_change(
         # reduce percentile data xrange to end 1 day after last height measurement in for formatting purposes
         # https://github.com/babybuddy/babybuddy/pull/708#discussion_r1332335789
         last_date_for_percentiles = min(max(dates), max(measuring_dates))
-        dates = dates[: dates.index(last_date_for_percentiles) + 1]
+        end_index = dates.index(last_date_for_percentiles) + 1
+        dates = dates[:end_index]
 
         percentile_height_3_trace = go.Scatter(
             name=_("P3"),
             x=dates,
-            y=list(percentile_heights.values_list("p3_height", flat=True)),
+            y=list(percentile_heights.values_list("p3_height", flat=True))[:end_index],
             line={"color": "red"},
         )
         percentile_height_15_trace = go.Scatter(
             name=_("P15"),
             x=dates,
-            y=list(percentile_heights.values_list("p15_height", flat=True)),
+            y=list(percentile_heights.values_list("p15_height", flat=True))[:end_index],
             line={"color": "orange"},
         )
         percentile_height_50_trace = go.Scatter(
             name=_("P50"),
             x=dates,
-            y=list(percentile_heights.values_list("p50_height", flat=True)),
+            y=list(percentile_heights.values_list("p50_height", flat=True))[:end_index],
             line={"color": "green"},
         )
         percentile_height_85_trace = go.Scatter(
             name=_("P85"),
             x=dates,
-            y=list(percentile_heights.values_list("p85_height", flat=True)),
+            y=list(percentile_heights.values_list("p85_height", flat=True))[:end_index],
             line={"color": "orange"},
         )
         percentile_height_97_trace = go.Scatter(
             name=_("P97"),
             x=dates,
-            y=list(percentile_heights.values_list("p97_height", flat=True)),
+            y=list(percentile_heights.values_list("p97_height", flat=True))[:end_index],
             line={"color": "red"},
         )
 

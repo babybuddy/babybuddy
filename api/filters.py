@@ -76,6 +76,12 @@ class FeedingFilter(StartEndFieldFilter, TagsFieldFilter):
         fields = sorted(StartEndFieldFilter.Meta.fields + ["type", "method"])
 
 
+class MedicationFilter(TimeFieldFilter, TagsFieldFilter):
+    class Meta(TimeFieldFilter.Meta):
+        model = models.Medication
+        fields = sorted(TimeFieldFilter.Meta.fields + ["name", "dosage_unit"])
+
+
 class NoteFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.Note

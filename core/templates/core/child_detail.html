@@ -25,10 +25,10 @@
                         {% trans "Age" %} <span class="text-secondary">{{ object.birth_datetime|child_age_string }}</span>
                     </p>
                     {% include 'dashboard/child_button_group.html' %}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 offset-lg-4 col-md-6 offset-md-6 z-2">{% include 'timeline/_timeline.html' %}</div>
-        </div>
-    {% endblock %}
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-4 col-md-6 offset-md-6 z-2">{% include 'timeline/_timeline.html' %}</div>
+                    </div>
+                {% endblock %}

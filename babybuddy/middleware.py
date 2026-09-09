@@ -1,3 +1,4 @@
+import copy
 import logging
 from os import getenv
 from time import time
@@ -216,6 +217,11 @@ class HomeAssistant:
                         for key, value in response.headers.items()
                         if not key.lower().startswith("content-")
                     }
+                    # Set-Cookie (CSRF, session) lives on response.cookies; it is not
+                    # reliably present in response.headers.items(). Rebuilding
+                    # HttpResponse without copying drops csrftoken/sessionid behind
+                    # Home Assistant ingress.
+                    preserved_cookies = copy.copy(response.cookies)
                     response = HttpResponse(
                         content.encode(),
                         status=response.status_code,
@@ -223,5 +229,6 @@ class HomeAssistant:
                         charset=response.charset,
                         headers=filtered_headers,
                     )
+                    response.cookies = preserved_cookies
 
         return response

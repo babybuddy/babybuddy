@@ -46,6 +46,7 @@ const config = {
       "node_modules/plotly.js/dist/plotly-locale-hr.js",
       "node_modules/plotly.js/dist/plotly-locale-hu.js",
       "node_modules/plotly.js/dist/plotly-locale-it.js",
+      "node_modules/plotly.js/dist/plotly-locale-ko.js",
       "node_modules/plotly.js/dist/plotly-locale-ja.js",
       "node_modules/plotly.js/dist/plotly-locale-no.js",
       "node_modules/plotly.js/dist/plotly-locale-nl.js",
@@ -58,6 +59,8 @@ const config = {
       "node_modules/plotly.js/dist/plotly-locale-tr.js",
       "node_modules/plotly.js/dist/plotly-locale-uk.js",
       "node_modules/plotly.js/dist/plotly-locale-zh-cn.js",
+      "node_modules/plotly.js/dist/plotly-locale-zh-hk.js",
+      "node_modules/plotly.js/dist/plotly-locale-zh-tw.js",
     ],
     app: [
       "babybuddy/static_src/js/babybuddy.js",

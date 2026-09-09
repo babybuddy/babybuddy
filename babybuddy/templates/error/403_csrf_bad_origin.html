@@ -10,7 +10,7 @@
             <h2>{% trans "How to Fix" %}</h2>
             {% blocktrans trimmed with value="<samp>"|add:origin|add:"</samp>"|safe variable="<code>CSRF_TRUSTED_ORIGINS</code>"|safe %}
             Add {{ value }} to the {{ variable }} environment variable. If multiple origins are required separate with commas.
-        {% endblocktrans %}
-    </div>
+{% endblocktrans %}
+</div>
 </div>
 {% endblock %}

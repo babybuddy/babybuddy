@@ -13,7 +13,7 @@
     <form role="form" method="post">
         {% csrf_token %}
         <h1>{% confirm_delete_text object %}</h1>
-        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
+        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
         <a href="{% url 'core:height-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
     </form>
 {% endblock %}

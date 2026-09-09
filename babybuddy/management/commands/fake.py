@@ -101,6 +101,9 @@ class Command(BaseCommand):
         self._add_note_entry()
         last_note_entry_time = self.time
 
+        self._add_medication_entry()
+        last_medication_entry_time = self.time
+
         while self.time < self.time_now:
             self._add_sleep_entry()
             if choice([True, False]):
@@ -120,6 +123,9 @@ class Command(BaseCommand):
             if (self.time - last_note_entry_time).days > 1 and choice([True, False]):
                 self._add_note_entry()
                 last_note_entry_time = self.time
+            if choice([True, False, False]):
+                self._add_medication_entry()
+                last_medication_entry_time = self.time
             if (self.time - last_weight_entry_time).days > 6:
                 self._add_weight_entry()
                 last_weight_entry_time = self.time
@@ -269,6 +275,40 @@ class Command(BaseCommand):
         )
         instance.save()
         self._add_tags(instance)
+
+    @transaction.atomic
+    def _add_medication_entry(self):
+        """
+        Add a Medication entry.
+        :returns:
+        """
+        names = ["Tylenol", "Ibuprofen", "Vitamin D", "Amoxicillin", "Gripe Water"]
+        units = ["mg", "ml", "drops", "tablets"]
+        name = choice(names)
+        dosage = round(uniform(0.5, 10.0), 1)
+        dosage_unit = choice(units)
+        time = self.time + timedelta(minutes=randint(1, 60))
+
+        notes = ""
+        if choice([True, False, False, False]):
+            notes = " ".join(self.faker.sentences(randint(1, 3)))
+
+        next_dose_interval = None
+        if choice([True, False]):
+            next_dose_interval = timedelta(hours=choice([4, 6, 8, 12]))
+
+        if time < self.time_now:
+            instance = models.Medication.objects.create(
+                child=self.child,
+                name=name,
+                dosage=dosage,
+                dosage_unit=dosage_unit,
+                time=time,
+                next_dose_interval=next_dose_interval,
+                notes=notes,
+            )
+            instance.save()
+            self._add_tags(instance)
 
     @transaction.atomic
     def _add_tummytime_entry(self):

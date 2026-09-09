@@ -88,11 +88,11 @@ class ChildRadioSelect(RadioSelect):
     input_type = "radio"
     template_name = "core/child_radio.html"
     option_template_name = "core/child_radio_option.html"
-    attrs = {"class": "btn-check"}
+    attrs = {"class": "btn-check d-none"}
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs["class"] += " btn-check"
+        attrs["class"] += " btn-check d-none"
         return attrs
 
     def create_option(
@@ -111,9 +111,9 @@ class PillRadioSelect(RadioSelect):
     template_name = "core/pill_radio.html"
     option_template_name = "core/pill_radio_option.html"
 
-    attrs = {"class": "btn-check"}
+    attrs = {"class": "btn-check d-none"}
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs["class"] += " btn-check"
+        attrs["class"] += " btn-check d-none"
         return attrs

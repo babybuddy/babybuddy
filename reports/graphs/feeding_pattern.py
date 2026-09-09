@@ -6,15 +6,22 @@ from django.utils.translation import gettext as _
 
 import plotly.offline as plotly
 import plotly.graph_objs as go
+import plotly.colors as colors
 
 from core.utils import duration_string
+from core.models import Feeding
 
 from reports import utils
 
 from datetime import timedelta
 
-FEEDING_COLOR = "rgb(35, 110, 150)"
+FEEDING_COLORS = {
+    method: colors.DEFAULT_PLOTLY_COLORS[i]
+    for i, (method, _) in enumerate(Feeding.method.field.choices)
+}
 NOT_FEEDING_COLOR = "rgba(255, 255, 255, 0)"
+
+FEEDING_METHOD_LOOKUP = dict(Feeding.method.field.choices)
 
 
 def feeding_pattern(feedings):
@@ -51,6 +58,7 @@ def feeding_pattern(feedings):
                 "start_time": adj_start_time,
                 "end_time": end_time,
                 "duration": end_time - adj_start_time,
+                "method": feeding.method,
             }
 
             # Adjust end_time for the current entry.
@@ -73,6 +81,7 @@ def feeding_pattern(feedings):
                     {
                         "time": (last_midnight - last_end_time).seconds / 60,
                         "label": None,
+                        "method": None,
                     }
                 )
                 last_end_time = start_time.replace(hour=0, minute=0, second=0)
@@ -82,14 +91,19 @@ def feeding_pattern(feedings):
 
         # Not feeding time.
         days[start_date].append(
-            {"time": (start_time - last_end_time).seconds / 60, "label": None}
+            {
+                "time": (start_time - last_end_time).seconds / 60,
+                "label": None,
+                "method": None,
+            }
         )
 
         # Feeding time.
         days[start_date].append(
             {
                 "time": duration.seconds / 60,
-                "label": _format_label(duration, start_time, end_time),
+                "label": _format_label(duration, start_time, end_time, feeding.method),
+                "method": feeding.method,
             }
         )
 
@@ -102,7 +116,8 @@ def feeding_pattern(feedings):
             yesterday = yesterday.date().isoformat()
             days[yesterday][len(days[yesterday]) - 1] = {
                 "time": duration.seconds / 60,
-                "label": _format_label(duration, start_time, end_time),
+                "label": _format_label(duration, start_time, end_time, feeding.method),
+                "method": feeding.method,
             }
 
         last_end_time = end_time
@@ -118,7 +133,6 @@ def feeding_pattern(feedings):
         dates.append("{} 12:00:00".format(time))
 
     traces = []
-    color = NOT_FEEDING_COLOR
 
     # Set iterator and determine maximum iteration for dates.
     i = 0
@@ -128,13 +142,18 @@ def feeding_pattern(feedings):
     while i < max_i:
         y = {}
         text = {}
+        color = []
         for date in days.keys():
             try:
                 y[date] = days[date][i]["time"]
                 text[date] = days[date][i]["label"]
+                color.append(
+                    FEEDING_COLORS.get(days[date][i]["method"]) or NOT_FEEDING_COLOR
+                )
             except IndexError:
                 y[date] = None
                 text[date] = None
+                color.append(NOT_FEEDING_COLOR)
         i += 1
         traces.append(
             go.Bar(
@@ -149,10 +168,6 @@ def feeding_pattern(feedings):
                 showlegend=False,
             )
         )
-        if color == NOT_FEEDING_COLOR:
-            color = FEEDING_COLOR
-        else:
-            color = NOT_FEEDING_COLOR
 
     layout_args = utils.default_graph_layout_options()
     layout_args["margin"]["b"] = 100
@@ -205,29 +220,31 @@ def _add_adjustment(adjustment, days):
     :param blocks: List of days
     """
     column = adjustment.pop("column")
-    if not column in days:
+    if column not in days:
         days[column] = []
-    # Fake (0) entry to keep the color switching logic working.
-    days[column].append({"time": 0, "label": 0})
 
     # Real adjustment entry.
     days[column].append(
         {
             "time": adjustment["duration"].seconds / 60,
             "label": _format_label(**adjustment),
+            "method": adjustment["method"],
         }
     )
 
 
-def _format_label(duration, start_time, end_time):
+def _format_label(duration, start_time, end_time, method):
     """
     Formats a time block label.
     :param duration: Duration.
     :param start_time: Start time.
     :param end_time: End time.
+    :param method: Feeding method.
     :return: Formatted string with duration, start, and end time.
     """
-    return "Feeding {} ({} to {})".format(
+    readable_method = FEEDING_METHOD_LOOKUP.get(method)
+    return "{} feeding {} ({} to {})".format(
+        readable_method,
         duration_string(duration),
         formats.time_format(start_time, "TIME_FORMAT"),
         formats.time_format(end_time, "TIME_FORMAT"),

@@ -25,60 +25,60 @@
             </p>
             <div class="d-grid gap-4 mb-4">
                 {% if perms.core.add_feeding %}
-                <a class="btn btn-success btn-lg"
-                   href="{% instance_add_url 'core:feeding-add' %}"
-                   role="button"><i class="icon-feeding" aria-hidden="true"></i>
-                {% trans "Feeding" %}
-            </a>
-        {% endif %}
-        {% if perms.core.add_pumping %}
-        <a class="btn btn-success btn-lg"
-           href="{% instance_add_url 'core:pumping-add' %}"
-           role="button"><i class="icon-pumping" aria-hidden="true"></i>
-        {% trans "Pumping" %}
-    </a>
-{% endif %}
-{% if perms.core.add_sleep %}
-<a class="btn btn-success btn-lg"
-   href="{% instance_add_url 'core:sleep-add' %}"
-   role="button"><i class="icon-sleep" aria-hidden="true"></i>
-{% trans "Sleep" %}
-</a>
-{% endif %}
-{% if perms.core.add_tummytime %}
-<a class="btn btn-success btn-lg"
-   href="{% instance_add_url 'core:tummytime-add' %}"
-   role="button"><i class="icon-tummytime" aria-hidden="true"></i>
-{% trans "Tummy Time" %}
-</a>
-{% endif %}
-</div>
-<div class="center-block"
-     role="group"
-     aria-label="{% trans "Timer actions" %}">
-    {% if perms.core.delete_timer %}
-        <a class="btn btn-lg btn-danger"
-           href="{% url 'core:timer-delete' timer.id %}"
-           role="button"><i class="icon-delete" aria-hidden="true"></i></a>
-    {% endif %}
-    {% if perms.core.change_timer %}
-        <a class="btn btn-lg btn-primary"
-           href="{% url 'core:timer-update' timer.id %}"
-           role="button"><i class="icon-update" aria-hidden="true"></i></a>
-        <form action="{% url 'core:timer-restart' timer.id %}"
-              role="form"
-              method="post"
-              class="d-inline">
-            {% csrf_token %}
-            <label class="visually-hidden">{% trans "Restart timer" %}</label>
-            <button type="submit" class="btn btn-lg btn-secondary">
-                <i class="icon-refresh" aria-hidden="true"></i>
-            </button>
-        </form>
-    {% endif %}
-</div>
-</div>
-</div>
+                    <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:feeding-add' %}"
+                       role="button"><i class="icon-feeding" aria-hidden="true"></i>
+                        {% trans "Feeding" %}
+                    </a>
+                {% endif %}
+                {% if perms.core.add_pumping %}
+                    <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:pumping-add' %}"
+                       role="button"><i class="icon-pumping" aria-hidden="true"></i>
+                        {% trans "Pumping" %}
+                    </a>
+                {% endif %}
+                {% if perms.core.add_sleep %}
+                    <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:sleep-add' %}"
+                       role="button"><i class="icon-sleep" aria-hidden="true"></i>
+                        {% trans "Sleep" %}
+                    </a>
+                {% endif %}
+                {% if perms.core.add_tummytime %}
+                    <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:tummytime-add' %}"
+                       role="button"><i class="icon-tummytime" aria-hidden="true"></i>
+                        {% trans "Tummy Time" %}
+                    </a>
+                {% endif %}
+            </div>
+            <div class="center-block"
+                 role="group"
+                 aria-label="{% trans "Timer actions" %}">
+                {% if perms.core.delete_timer %}
+                    <a class="btn btn-lg btn-danger"
+                       href="{% url 'core:timer-delete' timer.id %}"
+                       role="button"><i class="icon-delete" aria-hidden="true"></i></a>
+                {% endif %}
+                {% if perms.core.change_timer %}
+                    <a class="btn btn-lg btn-primary"
+                       href="{% url 'core:timer-update' timer.id %}"
+                       role="button"><i class="icon-update" aria-hidden="true"></i></a>
+                    <form action="{% url 'core:timer-restart' timer.id %}"
+                          role="form"
+                          method="post"
+                          class="d-inline">
+                        {% csrf_token %}
+                        <label class="visually-hidden">{% trans "Restart timer" %}</label>
+                        <button type="submit" class="btn btn-lg btn-secondary">
+                            <i class="icon-refresh" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block javascript %}
     <script type="application/javascript">BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');</script>

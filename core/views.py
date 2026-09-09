@@ -59,7 +59,7 @@ class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
 class CoreUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_success_message(self, cleaned_data):
         cleaned_data["model"] = self.model._meta.verbose_name.title()
-        if "child" in cleaned_data:
+        if cleaned_data.get("child"):
             self.success_message = _("%(model)s entry for %(child)s updated.")
         else:
             self.success_message = _("%(model)s entry updated.")
@@ -269,6 +269,35 @@ class HeightDelete(CoreDeleteView):
     model = models.Height
     permission_required = ("core.delete_height",)
     success_url = reverse_lazy("core:height-list")
+
+
+class MedicationList(
+    PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilterView
+):
+    model = models.Medication
+    template_name = "core/medication_list.html"
+    permission_required = ("core.view_medication",)
+    filterset_class = filters.MedicationFilter
+
+
+class MedicationAdd(CoreAddView):
+    model = models.Medication
+    permission_required = ("core.add_medication",)
+    form_class = forms.MedicationForm
+    success_url = reverse_lazy("core:medication-list")
+
+
+class MedicationUpdate(CoreUpdateView):
+    model = models.Medication
+    permission_required = ("core.change_medication",)
+    form_class = forms.MedicationForm
+    success_url = reverse_lazy("core:medication-list")
+
+
+class MedicationDelete(CoreDeleteView):
+    model = models.Medication
+    permission_required = ("core.delete_medication",)
+    success_url = reverse_lazy("core:medication-list")
 
 
 class NoteList(PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilterView):

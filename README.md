@@ -6,7 +6,6 @@
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/babybuddy/Lobby)
 [![CI Status](https://github.com/babybuddy/babybuddy/actions/workflows/ci.yml/badge.svg)](https://github.com/babybuddy/babybuddy/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/babybuddy/babybuddy/badge.svg?branch=master)](https://coveralls.io/github/babybuddy/babybuddy?branch=master)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/babybuddy/babybuddy)
 [![Open in GitHub Codespaces ready-to-code](https://img.shields.io/badge/Codespace-ready--to--code-blue?logo=github)](https://codespaces.new/babybuddy/babybuddy?quickstart=1)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
@@ -44,13 +43,17 @@ for information about how to create/update translations.
 
 ### Available languages
 
-:brazil: Brazilian Portuguese, :es: Catalan, :cn: Chinese (simplified), :croatia: Croatian, :czech_republic: Czech, :denmark: Danish, :netherlands: Dutch, :uk: English (U.K.), :us: English (U.S.) (base), :finland: Finnish, :fr: French, :de: German, :israel: Hebrew, :hungary: Hungarian, :it: Italian, :jp: Japanese, :norway: Norwegian Bokmål, :poland: Polish, :portugal: Portuguese, :ru: Russian, :serbia: Serbian, :mexico: :es: Spanish, :sweden: Swedish, :tr: Turkish, :ukraine: Ukrainian
+:brazil: Brazilian Portuguese, :es: Catalan, :cn: Chinese (simplified), :hong_kong: Chinese (traditional), :taiwan: Chinese (Taiwan), :croatia: Croatian, :czech_republic: Czech, :denmark: Danish, :netherlands: Dutch, :uk: English (U.K.), :us: English (U.S.) (base), :finland: Finnish, :fr: French, :de: German, :israel: Hebrew, :hungary: Hungarian, :it: Italian, :jp: Japanese, :kr: Korean, :norway: Norwegian Bokmål, :poland: Polish, :portugal: Portuguese, :ru: Russian, :serbia: Serbian, :mexico: :es: Spanish, :sweden: Swedish, :tr: Turkish, :ukraine: Ukrainian
 
 ## 🌐 Baby Buddy on the Web
 
 This is a non-exhaustive list of neat projects and blog posts that either extend
 or use Baby Buddy in fun ways. If you have a project to share please open a PR
 adding it here or reach out via GitHub Issues or Discussions or on Gitter!
+
+### AI
+
+- [Baby Buddy MCP server](https://github.com/babybuddy/babybuddy-mcp) - A [Model Context Protocol](https://modelcontextprotocol.io) server for logging and querying Baby Buddy data with AI assistants. See the [MCP documentation](https://docs.baby-buddy.net/mcp/).
 
 ### Smart home
 
@@ -71,6 +74,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 
 ### Mobile
 
+- [Baby Buddy Companion for iOS](https://apps.apple.com/app/id6788966667) ([Source](https://github.com/kguy18/babybuddyios/))
 - [Baby Buddy for Android](https://play.google.com/store/apps/details?id=eu.pkgsoftware.babybuddywidgets) ([Source](https://github.com/babybuddy/babybuddy-for-android))
 - [iOS shortcuts](https://github.com/babybuddy/babybuddy/discussions/300)
 - [Convert exported data from "Baby tracker - feeding, sleep and diaper" mobile app to Baby Buddy](https://github.com/babybuddy/babybuddy/discussions/424)

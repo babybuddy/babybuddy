@@ -18,10 +18,7 @@
                     <form method="post">
                         {% csrf_token %}
                         <samp>{{ user.settings.api_key }}</samp>
-                        <input type="submit"
-                               name="api_key_regenerate"
-                               value="{% trans "Regenerate" %}"
-                               class="btn btn-danger btn-xs" />
+                        <button type="submit" name="api_key_regenerate" class="btn btn-danger btn-xs">{% trans "Regenerate" %}</button>
                     </form>
                 </div>
             </div>

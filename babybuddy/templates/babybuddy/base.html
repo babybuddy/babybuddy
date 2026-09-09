@@ -1,9 +1,12 @@
 {% load babybuddy i18n static %}
 {% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 {% get_current_locale as LOCALE %}
 {% get_current_timezone as TIMEZONE %}
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="{{ LANGUAGE_CODE }}"
+      data-bs-theme="dark"
+      dir="{{ LANGUAGE_BIDI|yesno:"rtl,ltr" }}">
     <head>
         <meta charset="utf-8" />
         <title>
@@ -18,6 +21,7 @@
               type="image/svg+xml"
               href="{% static "babybuddy/root/favicon.svg" %}?v=20210925" />
         <link rel="manifest"
+              crossorigin="use-credentials"
               href="{% static "babybuddy/root/site.webmanifest" %}?v=20211225" />
         <link rel="mask-icon"
               href="{% static "babybuddy/root/safari-pinned-tab.svg" %}?v=20211218"
