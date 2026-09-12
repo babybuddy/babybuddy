@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load i18n imagekit static widget_tweaks %}
 {% block title %}
     {% trans "Children" %}
@@ -15,7 +15,7 @@
             </a>
         {% endif %}
     </h1>
-    {% include 'babybuddy/filter.html' %}
+    {% include "babybuddy/filter.html" %}
     <div class="table-responsive">
         <table class="table table-borderless table-striped table-hover align-middle">
             <thead>
@@ -74,5 +74,5 @@
             </tbody>
         </table>
     </div>
-    {% include 'babybuddy/paginator.html' %}
+    {% include "babybuddy/paginator.html" %}
 {% endblock %}

@@ -812,6 +812,18 @@ class TimerFormsTestCase(FormsTestCaseBase):
         self.timer.refresh_from_db()
         self.assertEqual(self.localtime_string(self.timer.start), params["start"])
 
+    def test_edit_without_child_message(self):
+        timer = models.Timer.objects.create(user=self.user)
+        params = {
+            "child": "",
+            "name": "Childless Timer",
+            "start": self.localtime_string(timer.start),
+        }
+        page = self.c.post("/timers/{}/edit/".format(timer.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertNotContains(page, "Timer entry for None updated.")
+        self.assertContains(page, "Timer entry updated.")
+
 
 class ValidationsTestCase(FormsTestCaseBase):
     def test_validate_date(self):
