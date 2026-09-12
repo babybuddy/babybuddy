@@ -1,7 +1,7 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load datetime i18n %}
 {% block title %}
-    {% if request.resolver_match.url_name == 'note-update' %}
+    {% if request.resolver_match.url_name == "note-update" %}
         {% trans "Update a Note" %}
     {% else %}
         {% trans "Add a Note" %}
@@ -25,5 +25,5 @@
     {% else %}
         <h1>{% trans "Add a Note" %}</h1>
     {% endif %}
-    {% include 'babybuddy/form.html' %}
+    {% include "babybuddy/form.html" %}
 {% endblock %}

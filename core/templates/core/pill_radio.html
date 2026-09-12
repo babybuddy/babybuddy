@@ -2,7 +2,7 @@
     <div {% if id %}id="{{ id }}"{% endif %} class="pill-container">
         {% for group, options, index in widget.optgroups %}
             {% for option in options %}
-                {% if option.value != '' %}
+                {% if option.value != "" %}
                     {% include option.template_name with widget=option %}
                 {% endif %}
             {% endfor %}
