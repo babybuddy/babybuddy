@@ -24,14 +24,15 @@
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">{% trans "Quick Start Timer For…" %}</h6>
                 {% for child in children %}
-                    <div>
+                    <div class="dropdown-item p-0">
                         <form action="{% url 'core:timer-add-quick' %}"
                               role="form"
                               method="post"
                               class="d-inline">
                             {% csrf_token %}
                             <input type="hidden" name="child" value="{{ child.pk }}">
-                            <button class="dropdown-item d-flex align-items-center" type="submit">
+                            <button class="d-flex align-items-center w-100 border-0 bg-transparent text-start px-3 py-1"
+                                    type="submit">
                                 {% include "core/child_thumbnail.html" %}
                                 <span class="text-wrap ms-2">{{ child }}</span>
                             </button>
