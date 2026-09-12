@@ -31,8 +31,14 @@ class TimelineTestCase(TestCase):
 
         for model in models_to_test:
             with self.subTest(model=model.__name__):
-                instance = model.objects.create(
-                    child=self.child, start=start_time, end=end_time
+                create_kwargs = {
+                    "child": self.child,
+                    "start": start_time,
+                    "end": end_time,
+                }
+                if model is models.Feeding:
+                    create_kwargs.update(type="formula", method="bottle")
+                instance = model.objects.create(**create_kwargs)
                 )
 
                 events_day_1 = get_objects(date=day_1, child=self.child)
