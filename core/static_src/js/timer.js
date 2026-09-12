@@ -99,3 +99,84 @@ BabyBuddy.Timer = (function ($) {
 
   return Timer;
 })(jQuery);
+
+/* Baby Buddy Screen Wake Lock
+ *
+ * Keeps the device screen on while a timer page is open, via the Screen
+ * Wake Lock API. The toggle state persists in sessionStorage so it is
+ * restored on every timer page during the same browser session. The lock
+ * is re-acquired automatically when the page becomes visible again
+ * (browsers release wake locks on tab switch / minimize) and released
+ * when the toggle is turned off or the page is left.
+ */
+BabyBuddy.WakeLock = (function () {
+  var sentinel = null;
+  var checkbox = null;
+  var storageKey = "babybuddy:keep-screen-on";
+
+  function acquire() {
+    navigator.wakeLock
+      .request("screen")
+      .then(function (lock) {
+        sentinel = lock;
+      })
+      .catch(function (error) {
+        // Browsers refuse e.g. in battery saver mode. Reflect reality in
+        // the UI instead of pretending the screen will stay on.
+        console.warn("BBWakeLock: request failed:", error);
+        checkbox.checked = false;
+        window.sessionStorage.setItem(storageKey, "false");
+      });
+  }
+
+  function release() {
+    if (sentinel !== null) {
+      sentinel.release();
+      sentinel = null;
+    }
+  }
+
+  var WakeLock = {
+    init: function (checkbox_id, container_id) {
+      checkbox = document.getElementById(checkbox_id);
+      if (!checkbox) {
+        console.error("BBWakeLock: Checkbox element not found.");
+        return false;
+      }
+
+      if (!("wakeLock" in navigator)) {
+        // Unsupported browser (or insecure context): hide the toggle
+        // entirely rather than offering a control that cannot work.
+        var container = document.getElementById(container_id);
+        if (container) {
+          container.hidden = true;
+        }
+        return false;
+      }
+
+      checkbox.addEventListener("change", function () {
+        window.sessionStorage.setItem(storageKey, String(checkbox.checked));
+        if (checkbox.checked) {
+          acquire();
+        } else {
+          release();
+        }
+      });
+
+      // Wake locks are released by the browser when the page is hidden;
+      // re-acquire when it becomes visible again and the toggle is on.
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible" && checkbox.checked) {
+          acquire();
+        }
+      });
+
+      if (window.sessionStorage.getItem(storageKey) === "true") {
+        checkbox.checked = true;
+        acquire();
+      }
+    },
+  };
+
+  return WakeLock;
+})();
