@@ -39,7 +39,6 @@ class TimelineTestCase(TestCase):
                 if model is models.Feeding:
                     create_kwargs.update(type="formula", method="bottle")
                 instance = model.objects.create(**create_kwargs)
-                )
 
                 events_day_1 = get_objects(date=day_1, child=self.child)
                 events_day_2 = get_objects(date=day_2, child=self.child)
