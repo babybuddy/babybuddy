@@ -36,7 +36,9 @@
           method="post"
           class="mr-2">
         {% csrf_token %}
-        <button class="btn m-0 p-0 text-success" aria-label="{% trans "Quick Start Timer" %}">
+        <button class="btn m-0 p-0 text-success"
+                type="submit"
+                aria-label="{% trans "Quick Start Timer" %}">
             <i class="icon-2x icon-timer" aria-hidden="true"></i>
         </button>
     </form>
