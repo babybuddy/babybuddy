@@ -229,6 +229,17 @@ class ViewsTestCase(TestCase):
         self.assertContains(page, 'type="hidden" name="child"')
         self.assertNotRegex(page.content.decode("utf-8"), r"<button[^>]*name=\"child\"")
 
+    def test_compact_quick_timer_buttons_post_child_as_hidden_input(self):
+        models.Child.objects.create(
+            first_name="Second", last_name="Child", birth_date="2000-01-01"
+        )
+        child = models.Child.objects.first()
+        page = self.c.get("/children/{}/".format(child.slug))
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, 'id="quick-timer-menu-toggle"')
+        self.assertContains(page, 'type="hidden" name="child"')
+        self.assertNotRegex(page.content.decode("utf-8"), r"<button[^>]*name=\"child\"")
+
     def test_timeline_views(self):
         child = models.Child.objects.first()
         response = self.c.get("/timeline/")
