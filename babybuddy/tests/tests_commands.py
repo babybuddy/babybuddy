@@ -2,7 +2,7 @@
 from django.test import TransactionTestCase
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.management import call_command
+from django.core.management import CommandError, call_command
 
 from core.models import Child
 
@@ -73,3 +73,50 @@ class CommandsTestCase(TransactionTestCase):
                 name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
             ).exists()
         )
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+
+        call_command(
+            "createuser",
+            "--caregiver",
+            username="caregiveruser",
+            email="caregiveruser@test.test",
+            password="test",
+            verbosity=0,
+        )
+        user = get_user_model().objects.get(username="caregiveruser")
+        self.assertIsInstance(user, get_user_model())
+        self.assertFalse(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
+        # Caregivers can log feedings, diaper changes and sleep, but nothing
+        # sensitive (e.g. medication, user admin).
+        self.assertTrue(user.has_perm("core.add_feeding"))
+        self.assertTrue(user.has_perm("core.add_diaperchange"))
+        self.assertTrue(user.has_perm("core.add_sleep"))
+        self.assertTrue(user.has_perm("core.add_timer"))
+        self.assertFalse(user.has_perm("core.add_medication"))
+        self.assertFalse(user.has_perm("core.delete_feeding"))
+
+        with self.assertRaises(CommandError):
+            call_command(
+                "createuser",
+                "--read-only",
+                "--caregiver",
+                username="bothuser",
+                email="both@test.test",
+                password="test",
+                verbosity=0,
+            )

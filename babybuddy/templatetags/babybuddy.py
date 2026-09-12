@@ -89,6 +89,11 @@ def user_is_read_only(user):
 
 
 @register.simple_tag()
+def user_is_caregiver(user):
+    return user.groups.filter(name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]).exists()
+
+
+@register.simple_tag()
 def confirm_delete_text(object):
     return mark_safe_lazy(
         _("Are you sure you want to delete %(name)s?")

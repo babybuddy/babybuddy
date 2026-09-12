@@ -36,6 +36,7 @@ class FormsTestCase(TestCase):
             "email": "user@user.user",
             "is_staff": False,
             "is_read_only": False,
+            "is_caregiver": False,
             "password1": "d47o8dD&#hu3ulu3",
             "password2": "d47o8dD&#hu3ulu3",
         }
@@ -165,6 +166,73 @@ class FormsTestCase(TestCase):
                 name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
             ).exists()
         )
+
+    def test_add_caregiver_user(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params["is_caregiver"] = True
+        # Permission checks below go through `ModelBackend`, which reports no
+        # permissions at all for an inactive user.
+        params["is_active"] = True
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+        self.assertIsInstance(user, get_user_model())
+        self.assertFalse(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+        self.assertTrue(user.has_perm("core.add_feeding"))
+        self.assertTrue(user.has_perm("core.add_diaperchange"))
+        self.assertTrue(user.has_perm("core.add_sleep"))
+        self.assertFalse(user.has_perm("core.add_medication"))
+        self.assertFalse(user.has_perm("core.delete_feeding"))
+
+    def test_read_only_and_caregiver_are_exclusive(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params["is_read_only"] = True
+        params["is_caregiver"] = True
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFalse(get_user_model().objects.filter(username="username").exists())
+
+    def test_edit_user_to_caregiver(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        new_user = get_user_model().objects.get(username="username")
+
+        # Edit to caregiver
+        params["is_caregiver"] = True
+        page = self.c.post(f"/users/{new_user.id}/edit/", params)
+        self.assertEqual(page.status_code, 302)
+        new_user.refresh_from_db()
+        self.assertTrue(
+            new_user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+
+        # Verify edit form has is_caregiver initially checked
+        page = self.c.get(f"/users/{new_user.id}/edit/")
+        self.assertEqual(page.status_code, 200)
+        self.assertTrue(page.context["form"].initial["is_caregiver"])
 
     def test_user_settings(self):
         self.c.login(**self.credentials)
