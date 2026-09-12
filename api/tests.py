@@ -974,3 +974,29 @@ class TestProfileAPITestCase(APITestCase):
         self.assertIn("api_key", response.data)
         self.assertTrue(isinstance(response.data["api_key"], str))
         self.assertGreater(len(response.data["api_key"]), 30)
+
+
+class TestSchemaAPITestCase(APITestCase):
+    endpoint = reverse("api:openapi-schema")
+
+    def setUp(self):
+        self.client.login(username="admin", password="admin")
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_includes_filter_parameters(self):
+        """
+        Filter parameters must appear in the schema.
+
+        django-filter removed its built-in schema generation methods in 25.1,
+        which made this endpoint raise an AttributeError.
+        """
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        parameters = response.data["paths"]["/api/feedings/"]["get"]["parameters"]
+        names = [parameter["name"] for parameter in parameters]
+        for name in ("child", "start", "start_min", "end", "end_max", "tags"):
+            self.assertIn(name, names)
