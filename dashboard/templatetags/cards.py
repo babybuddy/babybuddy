@@ -909,3 +909,39 @@ def card_medication_last(context, child):
         "empty": not instance,
         "hide_empty": _hide_empty(context),
     }
+
+
+@register.inclusion_tag("cards/spitup.html", takes_context=True)
+def card_spitup(context, child):
+    """
+    Recent spit-up summary: count in last 24h, last episode, and
+    frequency by amount severity.
+    """
+    from datetime import timedelta
+    from collections import Counter
+
+    now = timezone.now()
+    cutoff_24h = now - timedelta(hours=24)
+
+    recent = models.SpitUp.objects.filter(child=child).order_by("-time")[:10]
+
+    last_24h = [s for s in recent if s.time >= cutoff_24h]
+    count_24h = len(last_24h)
+
+    # Count by severity in last 24h
+    by_amount = Counter(s.get_amount_display() for s in last_24h if s.amount)
+
+    # Most recent episode
+    latest = recent[0] if recent else None
+
+    empty = len(recent) == 0
+
+    return {
+        "type": "note",
+        "recent": list(reversed(recent))[:5],  # newest first for display
+        "count_24h": count_24h,
+        "by_amount": dict(by_amount),
+        "latest": latest,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }

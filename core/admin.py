@@ -299,6 +299,14 @@ class WeightAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     resource_class = WeightImportExportResource
 
 
+@admin.register(models.SpitUp)
+class SpitUpAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = ("child", "time", "amount", "appearance", "related_feeding")
+    list_filter = ("amount", "appearance")
+    search_fields = ("appearance", "notes")
+    raw_id_fields = ("related_feeding",)
+
+
 class TaggedItemInline(admin.StackedInline):
     model = models.Tagged
 

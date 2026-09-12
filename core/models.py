@@ -881,3 +881,68 @@ class WeightPercentile(models.Model):
 
     def __str__(self):
         return f"Sex: {self.sex}, Age: {self.age_in_days} days, p3: {self.p3_weight} kg, p15: {self.p15_weight} kg, p50: {self.p50_weight} kg, p85: {self.p85_weight} kg, p97: {self.p97_weight} kg"
+
+
+class SpitUp(models.Model):
+    """
+    Spit-up tracking — time, relative amount, appearance, optional link
+    to preceding feeding. Enables correlation analysis (e.g., "does he
+    spit up more after bottle feedings than breast?").
+    """
+
+    model_name = "spit_up"
+
+    AMOUNT_CHOICES = [
+        ("trace", _("Trace (just a spot)")),
+        ("dribble", _("Dribble (a little)")),
+        ("moderate", _("Moderate (noticeable)")),
+        ("large", _("Large (soaks clothes)")),
+        ("projectile", _("Projectile / lots")),
+    ]
+
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="spit_ups",
+        verbose_name=_("Child"),
+    )
+    time = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Time"),
+    )
+    amount = models.CharField(
+        max_length=50,
+        choices=AMOUNT_CHOICES,
+        blank=True,
+        default="",
+        verbose_name=_("Amount"),
+    )
+    appearance = models.CharField(
+        blank=True,
+        default="",
+        max_length=255,
+        verbose_name=_("Appearance"),
+        help_text=_("e.g., curdled, watery, clear, milky"),
+    )
+    related_feeding = models.ForeignKey(
+        "Feeding",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="spit_ups",
+        verbose_name=_("Related feeding"),
+    )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-time"]
+        verbose_name = _("Spit-Up")
+        verbose_name_plural = _("Spit-Up")
+
+    def __str__(self):
+        return str(_("Spit-Up"))

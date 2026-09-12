@@ -179,3 +179,11 @@ class ProfileView(views.APIView):
         )
         serializer = self.serializer_class(settings)
         return Response(serializer.data)
+
+
+class SpitUpViewSet(viewsets.ModelViewSet):
+    queryset = models.SpitUp.objects.all()
+    serializer_class = serializers.SpitUpSerializer
+    filterset_fields = ["child", "amount", "related_feeding"]
+    ordering_fields = ("time",)
+    ordering = "-time"

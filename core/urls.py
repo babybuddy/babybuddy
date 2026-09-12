@@ -139,4 +139,10 @@ urlpatterns = [
     path("bmi/add/", views.BMIAdd.as_view(), name="bmi-add"),
     path("bmi/<int:pk>/", views.BMIUpdate.as_view(), name="bmi-update"),
     path("bmi/<int:pk>/delete/", views.BMIDelete.as_view(), name="bmi-delete"),
+    path("spit-up/", views.SpitUpList.as_view(), name="spitup-list"),
+    path("spit-up/add/", views.SpitUpAdd.as_view(), name="spitup-add"),
+    path("spit-up/<int:pk>/", views.SpitUpUpdate.as_view(), name="spitup-update"),
+    path(
+        "spit-up/<int:pk>/delete/", views.SpitUpDelete.as_view(), name="spitup-delete"
+    ),
 ]

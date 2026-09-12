@@ -61,6 +61,7 @@ router.register(r"temperature", views.TemperatureViewSet)
 router.register(r"timers", views.TimerViewSet)
 router.register(r"tummy-times", views.TummyTimeViewSet)
 router.register(r"weight", views.WeightViewSet)
+router.register(r"spit-up", views.SpitUpViewSet, basename="spitup")
 
 router.add_detail_path("profile", "profile", views.ProfileView.as_view())
 router.add_detail_path(

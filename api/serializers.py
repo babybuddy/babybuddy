@@ -331,3 +331,17 @@ class ProfileSerializer(serializers.ModelSerializer):
             "api_key",
         )
         extra_kwargs = {k: {"read_only": True} for k in fields}
+
+
+class SpitUpSerializer(CoreModelSerializer):
+    class Meta:
+        model = models.SpitUp
+        fields = (
+            "id",
+            "child",
+            "time",
+            "amount",
+            "appearance",
+            "related_feeding",
+            "notes",
+        )

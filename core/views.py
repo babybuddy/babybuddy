@@ -11,6 +11,7 @@ from django.utils.translation import gettext as _
 from django.views.generic.base import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.list import ListView
 
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from babybuddy.views import BabyBuddyFilterView, BabyBuddyPaginatedView
@@ -632,3 +633,32 @@ class WeightDelete(CoreDeleteView):
     model = models.Weight
     permission_required = ("core.delete_weight",)
     success_url = reverse_lazy("core:weight-list")
+
+
+class SpitUpList(PermissionRequiredMixin, ListView):
+    model = models.SpitUp
+    template_name = "core/spitup_list.html"
+    permission_required = ("core.view_spitup",)
+    paginate_by = 30
+
+
+class SpitUpAdd(CoreAddView):
+    model = models.SpitUp
+    permission_required = ("core.add_spitup",)
+    form_class = forms.SpitUpForm
+    success_url = reverse_lazy("core:spitup-list")
+    success_message = _("Spit-up entry added!")
+
+
+class SpitUpUpdate(CoreUpdateView):
+    model = models.SpitUp
+    permission_required = ("core.change_spitup",)
+    form_class = forms.SpitUpForm
+    success_url = reverse_lazy("core:spitup-list")
+    success_message = _("Spit-up entry updated.")
+
+
+class SpitUpDelete(CoreDeleteView):
+    model = models.SpitUp
+    permission_required = ("core.delete_spitup",)
+    success_url = reverse_lazy("core:spitup-list")
