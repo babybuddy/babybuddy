@@ -9,7 +9,7 @@
 {% block content %}
     <h1>
         {% trans "Head Circumference" %}
-        {% if perms.core.add_head_circumference %}
+        {% if perms.core.add_headcircumference %}
             <a href="{% url 'core:head-circumference-add' %}"
                class="btn btn-sm btn-success">
                 <i class="icon-head-circumference" aria-hidden="true"></i> {% trans "Add Head Circumference" %}
@@ -37,13 +37,13 @@
                             <div class="btn-group btn-group-sm"
                                  role="group"
                                  aria-label="{% trans "Actions" %}">
-                                {% if perms.core.change_head_circumference %}
+                                {% if perms.core.change_headcircumference %}
                                     <a href="{% url 'core:head-circumference-update' head_circumference.id %}"
                                        class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-                                {% if perms.core.delete_head_circumference %}
+                                {% if perms.core.delete_headcircumference %}
                                     <a href="{% url 'core:head-circumference-delete' head_circumference.id %}"
                                        class="btn btn-danger">
                                         <i class="icon-delete" aria-hidden="true"></i>
