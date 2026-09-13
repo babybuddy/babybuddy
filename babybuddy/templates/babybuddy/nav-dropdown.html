@@ -177,14 +177,14 @@
                                     {% trans "BMI entry" %}
                                 </a>
                             {% endif %}
-                            {% if perms.core.view_head_circumference %}
+                            {% if perms.core.view_headcircumference %}
                                 <a class="dropdown-item{% if request.path == '/head-circumference/' %} active{% endif %}"
                                    href="{% url 'core:head-circumference-list' %}">
                                     <i class="icon-head-circumference" aria-hidden="true"></i>
                                     {% trans "Head Circumference" %}
                                 </a>
                             {% endif %}
-                            {% if perms.core.add_head_circumference %}
+                            {% if perms.core.add_headcircumference %}
                                 <a class="dropdown-item ps-5{% if request.path == '/head-circumference/add/' %} active{% endif %}"
                                    href="{% url 'core:head-circumference-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Head Circumference entry" %}
