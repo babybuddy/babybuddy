@@ -115,3 +115,4 @@ class CoreConfig(AppConfig):
         post_migrate.connect(
             add_caregiver_group_permissions,
             dispatch_uid="core.add_caregiver_group_permissions",
+        )
