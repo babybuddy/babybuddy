@@ -17,10 +17,10 @@ from babybuddy.views import BabyBuddyFilterView, BabyBuddyPaginatedView
 from core import filters, forms, models, timeline
 
 
-def _prepare_timeline_context_data(context, date, child=None):
+def _prepare_timeline_context_data(context, date, child=None, user=None):
     date = timezone.datetime.strptime(date, "%Y-%m-%d")
     date = timezone.localtime(timezone.make_aware(date))
-    context["timeline_objects"] = timeline.get_objects(date, child)
+    context["timeline_objects"] = timeline.get_objects(date, child, user)
     context["date"] = date
     context["date_previous"] = date - timezone.timedelta(days=1)
     if date.date() < timezone.localdate():
@@ -122,7 +122,7 @@ class ChildDetail(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(ChildDetail, self).get_context_data(**kwargs)
         date = self.request.GET.get("date", str(timezone.localdate()))
-        _prepare_timeline_context_data(context, date, self.object)
+        _prepare_timeline_context_data(context, date, self.object, self.request.user)
         return context
 
 
@@ -491,7 +491,7 @@ class Timeline(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Timeline, self).get_context_data(**kwargs)
         date = self.request.GET.get("date", str(timezone.localdate()))
-        _prepare_timeline_context_data(context, date)
+        _prepare_timeline_context_data(context, date, user=self.request.user)
         return context
 
 
