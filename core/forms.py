@@ -523,16 +523,17 @@ class TummyTimeForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
         {"fields": ["child", "start", "end"], "layout": "required"},
         {"fields": ["milestone"]},
-        {"fields": ["tags"], "layout": "advanced"},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
         model = models.TummyTime
-        fields = ["child", "start", "end", "milestone", "tags"]
+        fields = ["child", "start", "end", "milestone", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
             "end": DateTimeInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
