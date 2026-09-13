@@ -313,6 +313,7 @@ class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "timer",
             "duration",
             "milestone",
+            "notes",
             "tags",
         )
 
