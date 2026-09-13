@@ -1,4 +1,4 @@
-{% extends 'babybuddy/base.html' %}
+{% extends "babybuddy/base.html" %}
 {% load babybuddy i18n static timers %}
 {% block nav %}
     <nav class="navbar navbar-expand-md navbar bg-dark sticky-top">
@@ -17,14 +17,16 @@
                 <div>
                     <a class="text-body-secondary"
                        href="{% url 'dashboard:dashboard' %}"
-                       aria-expanded="false"><i class="icon-2x icon-dashboard" aria-hidden="true"></i>
+                       aria-expanded="false"><i class="icon-2x icon-dashboard"
+   aria-hidden="true"></i>
                     </a>
                     &nbsp;
                 </div>
                 <div>
                     <a class="text-body-secondary"
                        href="{% url 'core:timeline' %}"
-                       aria-expanded="false"><i class="icon-2x icon-timeline" aria-hidden="true"></i>
+                       aria-expanded="false"><i class="icon-2x icon-timeline"
+   aria-hidden="true"></i>
                     </a>
                     &nbsp;
                 </div>
@@ -175,14 +177,14 @@
                                     {% trans "BMI entry" %}
                                 </a>
                             {% endif %}
-                            {% if perms.core.view_head_circumference %}
+                            {% if perms.core.view_headcircumference %}
                                 <a class="dropdown-item{% if request.path == '/head-circumference/' %} active{% endif %}"
                                    href="{% url 'core:head-circumference-list' %}">
                                     <i class="icon-head-circumference" aria-hidden="true"></i>
                                     {% trans "Head Circumference" %}
                                 </a>
                             {% endif %}
-                            {% if perms.core.add_head_circumference %}
+                            {% if perms.core.add_headcircumference %}
                                 <a class="dropdown-item ps-5{% if request.path == '/head-circumference/add/' %} active{% endif %}"
                                    href="{% url 'core:head-circumference-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Head Circumference entry" %}
@@ -339,9 +341,12 @@
                             <div class="dropdown-menu dropdown-menu-end"
                                  aria-labelledby="nav-user-menu-link">
                                 <h6 class="dropdown-header">{% trans "User" %}</h6>
-                                <a href="{% url 'babybuddy:user-settings' %}" class="dropdown-item">{% trans "Settings" %}</a>
-                                <a href="{% url 'babybuddy:user-password' %}" class="dropdown-item">{% trans "Password" %}</a>
-                                <a href="{% url 'babybuddy:user-add-device' %}" class="dropdown-item">{% trans "Add a device" %}</a>
+                                <a href="{% url 'babybuddy:user-settings' %}"
+                                   class="dropdown-item">{% trans "Settings" %}</a>
+                                <a href="{% url 'babybuddy:user-password' %}"
+                                   class="dropdown-item">{% trans "Password" %}</a>
+                                <a href="{% url 'babybuddy:user-add-device' %}"
+                                   class="dropdown-item">{% trans "Add a device" %}</a>
                                 <form action="{% url 'babybuddy:logout' %}" role="form" method="post">
                                     {% csrf_token %}
                                     <button class="dropdown-item">{% trans "Logout" %}</button>
@@ -349,10 +354,13 @@
                                 <h6 class="dropdown-header">{% trans "Site" %}</h6>
                                 <a href="{% url 'api:api-root' %}" class="dropdown-item">{% trans "API Browser" %}</a>
                                 {% if request.user.is_staff %}
-                                    <a href="{% url 'babybuddy:site_settings' %}" class="dropdown-item">{% trans "Settings" %}</a>
+                                    <a href="{% url 'babybuddy:site_settings' %}"
+                                       class="dropdown-item">{% trans "Settings" %}</a>
                                     <a href="{% url 'core:tag-list' %}" class="dropdown-item">{% trans "Tags" %}</a>
-                                    <a href="{% url 'babybuddy:user-list' %}" class="dropdown-item">{% trans "Users" %}</a>
-                                    <a href="{% url 'admin:index' %}" class="dropdown-item">{% trans "Database Admin" %}</a>
+                                    <a href="{% url 'babybuddy:user-list' %}"
+                                       class="dropdown-item">{% trans "Users" %}</a>
+                                    <a href="{% url 'admin:index' %}"
+                                       class="dropdown-item">{% trans "Database Admin" %}</a>
                                 {% endif %}
                                 <h6 class="dropdown-header">{% trans "Support" %}</h6>
                                 <a href="https://github.com/babybuddy/babybuddy" class="dropdown-item">

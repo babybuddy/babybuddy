@@ -1,10 +1,10 @@
-{% extends 'reports/report_base.html' %}
+{% extends "reports/report_base.html" %}
 {% load i18n %}
 {% block title %}
     {% trans "Sleep Totals" %} - {{ object }}
 {% endblock %}
 {% block breadcrumbs %}
     {{ block.super }}
-    {% include 'reports/breadcrumb_common_chunk.html' with target_url='reports:report-sleep-totals-child' %}
+    {% include "reports/breadcrumb_common_chunk.html" with target_url="reports:report-sleep-totals-child" %}
     <li class="breadcrumb-item active" aria-current="page">{% trans "Sleep Totals" %}</li>
 {% endblock %}

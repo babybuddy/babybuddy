@@ -2,7 +2,7 @@
 import re
 import time
 
-from django.test import TestCase, override_settings, tag
+from django.test import TestCase, override_settings
 from django.test import Client as HttpClient
 from django.contrib.auth import get_user_model
 from django.core import mail
@@ -107,18 +107,21 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/logout/")
         self.assertEqual(page.status_code, 405)
 
-    @tag("isolate")
     def test_password_reset(self):
         """
         Testing this class primarily ensures Baby Buddy's custom templates are correctly
         configured for Django's password reset flow.
-        """
-        self.c.logout()
 
-        page = self.c.get("/reset/")
+        This test logs out, which would leave every later test in this class using
+        a logged-out client, so it takes its own client rather than the shared
+        `self.c`.
+        """
+        client = HttpClient()
+
+        page = client.get("/reset/")
         self.assertEqual(page.status_code, 200)
 
-        page = self.c.post("/reset/", data={"email": self.user.email}, follow=True)
+        page = client.post("/reset/", data={"email": self.user.email}, follow=True)
         self.assertEqual(page.status_code, 200)
 
         self.assertEqual(len(mail.outbox), 1)
@@ -126,7 +129,7 @@ class ViewsTestCase(TestCase):
         path = re.search(
             "http://testserver(?P<path>[^\\s]+)", mail.outbox[0].body
         ).group("path")
-        page = self.c.get(path, follow=True)
+        page = client.get(path, follow=True)
         self.assertEqual(page.status_code, 200)
 
         new_password = "xZZVN6z4TvhFg6S"
@@ -134,5 +137,32 @@ class ViewsTestCase(TestCase):
             "new_password1": new_password,
             "new_password2": new_password,
         }
-        page = self.c.post(page.request["PATH_INFO"], data=data, follow=True)
+        page = client.post(page.request["PATH_INFO"], data=data, follow=True)
         self.assertEqual(page.status_code, 200)
+
+
+class ErrorPageTestCase(TestCase):
+    """
+    The 404 template is only rendered with `DEBUG` off, which no other test
+    exercises, so a syntax error in it went unnoticed.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        super(ErrorPageTestCase, cls).setUpClass()
+        fake = Faker()
+        cls.c = HttpClient()
+        fake_user = fake.simple_profile()
+        cls.credentials = {
+            "username": fake_user["username"],
+            "password": fake.password(),
+        }
+        get_user_model().objects.create_user(is_superuser=True, **cls.credentials)
+
+    @override_settings(DEBUG=False)
+    def test_404_page_renders(self):
+        self.c.login(**self.credentials)
+        page = self.c.get("/this-path-does-not-exist/")
+        self.assertEqual(page.status_code, 404)
+        self.assertIn("Page Not Found", page.content.decode())
+        self.assertIn("/this-path-does-not-exist/", page.content.decode())

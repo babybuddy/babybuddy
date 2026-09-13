@@ -1,7 +1,7 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load datetime i18n %}
 {% block title %}
-    {% if request.resolver_match.url_name == 'diaperchange-update' %}
+    {% if request.resolver_match.url_name == "diaperchange-update" %}
         {% trans "Update a Diaper Change" %}
     {% else %}
         {% trans "Add a Diaper Change" %}
@@ -25,5 +25,5 @@
     {% else %}
         <h1>{% trans "Add a Diaper Change" %}</h1>
     {% endif %}
-    {% include 'babybuddy/form.html' %}
+    {% include "babybuddy/form.html" %}
 {% endblock %}

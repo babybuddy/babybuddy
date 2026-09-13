@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load babybuddy bootstrap i18n widget_tweaks %}
 {% block title %}
     {% trans "Users" %}
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
     <h1>Users</h1>
-    {% include 'babybuddy/filter.html' %}
+    {% include "babybuddy/filter.html" %}
     <div class="table-responsive">
         <table class="table table-borderless table-striped table-hover align-middle">
             <thead>
@@ -62,7 +62,7 @@
             </tbody>
         </table>
     </div>
-    {% include 'babybuddy/paginator.html' %}
+    {% include "babybuddy/paginator.html" %}
     {% if perms.admin.add_user %}
         <a href="{% url 'babybuddy:user-add' %}" class="btn btn-sm btn-success">
             <i class="icon-add" aria-hidden="true"></i> {% trans "Create User" %}

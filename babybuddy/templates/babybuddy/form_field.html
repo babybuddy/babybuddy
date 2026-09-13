@@ -4,7 +4,7 @@
            class="col-sm-2 col-form-label{% if field|field_type == 'booleanfield' %} boolean-label{% endif %}">
         {{ field.label }}
     </label>
-    <div class="col-sm-10{% if field|widget_type == 'childradioselect' %} overflow-auto"{% endif %}">
-        {% include 'babybuddy/form_field_no_label.html' %}
+    <div class="col-sm-10{% if field|widget_type == "childradioselect" %} overflow-auto"{% endif %}">
+        {% include "babybuddy/form_field_no_label.html" %}
     </div>
 </div>

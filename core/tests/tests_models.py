@@ -110,6 +110,27 @@ class DiaperChangeTestCase(TestCase):
     def test_diaperchange_attributes(self):
         self.assertListEqual(self.change.attributes(), ["Wet", "Solid", "Black"])
 
+    def test_diaperchange_color_choices(self):
+        colors = [
+            choice[0] for choice in models.DiaperChange._meta.get_field("color").choices
+        ]
+        # Create a fresh child so the setUp fixture's DiaperChange doesn't
+        # interfere with the count.
+        child = models.Child.objects.create(
+            first_name="Color", last_name="Test", birth_date=timezone.localdate()
+        )
+        for color in colors:
+            models.DiaperChange.objects.create(
+                child=child,
+                time=timezone.localtime(),
+                wet=False,
+                solid=False,
+                color=color,
+            )
+        self.assertEqual(
+            models.DiaperChange.objects.filter(child=child).count(), len(colors)
+        )
+
 
 class FeedingTestCase(TestCase):
     def setUp(self):
