@@ -87,7 +87,26 @@ class CoreConfig(AppConfig):
     name = "core"
 
     def ready(self):
-        post_migrate.connect(add_read_only_group_permissions, sender=self)
+        # The read only group receiver deliberately has no `sender` filter.
+        # `post_migrate` is emitted once per application, in `INSTALLED_APPS`
+        # order, and both of the things this receiver depends on are only in
+        # place part way through that sequence:
+        #
+        # - `core`'s permissions are created by `django.contrib.auth`, whose
+        #   receiver is connected after this one (`django.contrib.auth` is
+        #   listed after `core` in `INSTALLED_APPS`), so on `core`'s own signal
+        #   they do not exist yet.
+        # - the read-only group itself is created on `babybuddy`'s signal.
+        #
+        # Restricted to `sender=self` the receiver therefore ran exactly once,
+        # too early, and a freshly migrated database ended up with an empty
+        # read-only group. Running on every application's signal converges to
+        # the complete set instead, and `Permission.objects.add()` makes the
+        # repeats idempotent.
+        post_migrate.connect(
+            add_read_only_group_permissions,
+            dispatch_uid="core.add_read_only_group_permissions",
+        )
         # The caregiver receiver deliberately has no `sender` filter:
         # `post_migrate` is emitted once per application, in `INSTALLED_APPS`
         # order, and `core`'s permissions are created by
@@ -96,4 +115,3 @@ class CoreConfig(AppConfig):
         post_migrate.connect(
             add_caregiver_group_permissions,
             dispatch_uid="core.add_caregiver_group_permissions",
-        )
