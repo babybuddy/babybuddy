@@ -101,13 +101,21 @@ class CommandsTestCase(TransactionTestCase):
                 name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
             ).exists()
         )
-        # Caregivers can log feedings, diaper changes and sleep, but nothing
-        # sensitive (e.g. medication, user admin).
+        # Caregivers can log the care entries, but nothing administrative.
         self.assertTrue(user.has_perm("core.add_feeding"))
         self.assertTrue(user.has_perm("core.add_diaperchange"))
         self.assertTrue(user.has_perm("core.add_sleep"))
         self.assertTrue(user.has_perm("core.add_timer"))
-        self.assertFalse(user.has_perm("core.add_medication"))
+        self.assertTrue(user.has_perm("core.add_medication"))
+        self.assertTrue(user.has_perm("core.add_temperature"))
+        self.assertTrue(user.has_perm("core.add_weight"))
+        self.assertTrue(user.has_perm("core.add_note"))
+        self.assertTrue(user.has_perm("core.add_tummytime"))
+        self.assertFalse(user.has_perm("core.add_pumping"))
+        self.assertFalse(user.has_perm("core.add_height"))
+        self.assertFalse(user.has_perm("core.add_bmi"))
+        self.assertFalse(user.has_perm("core.add_headcircumference"))
+        self.assertFalse(user.has_perm("core.add_tag"))
         self.assertFalse(user.has_perm("core.delete_feeding"))
 
         with self.assertRaises(CommandError):

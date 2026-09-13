@@ -6,12 +6,25 @@ from django.db.models.signals import post_migrate
 # Models a caregiver may see. `view` is granted for all of them so the child
 # dashboard and the recent-entry lists render; `add`/`change` only for the
 # entry types a caregiver is expected to log.
+#
+# A caregiver is deliberately given most of the care-entry types: someone
+# looking after a child needs to record what happened, and the model is rigid
+# (a permission is instance-wide and the group is the only role), so the safer
+# default is more access rather than less. What stays out is what a caregiver
+# has no reason to record: pumping, the growth measurements that are tracked
+# over months (height, BMI, head circumference), and everything administrative
+# — children, users, tags and site settings. `delete` is never granted.
 CAREGIVER_VIEW_MODELS = (
     "child",
     "timer",
     "feeding",
     "diaperchange",
     "sleep",
+    "medication",
+    "temperature",
+    "weight",
+    "note",
+    "tummytime",
 )
 
 CAREGIVER_ADD_CHANGE_MODELS = (
@@ -19,6 +32,11 @@ CAREGIVER_ADD_CHANGE_MODELS = (
     "feeding",
     "diaperchange",
     "sleep",
+    "medication",
+    "temperature",
+    "weight",
+    "note",
+    "tummytime",
 )
 
 

@@ -3,6 +3,7 @@ import datetime
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.core.management import call_command
 from django.test import Client as HttpClient, override_settings, TestCase
 from django.utils import timezone
@@ -192,8 +193,16 @@ class FormsTestCase(TestCase):
         self.assertTrue(user.has_perm("core.add_feeding"))
         self.assertTrue(user.has_perm("core.add_diaperchange"))
         self.assertTrue(user.has_perm("core.add_sleep"))
-        self.assertFalse(user.has_perm("core.add_medication"))
+        self.assertTrue(user.has_perm("core.add_medication"))
+        self.assertTrue(user.has_perm("core.add_temperature"))
+        self.assertTrue(user.has_perm("core.add_weight"))
+        self.assertTrue(user.has_perm("core.add_note"))
+        self.assertTrue(user.has_perm("core.add_tummytime"))
+        # Still out of reach for the default caregiver scope.
+        self.assertFalse(user.has_perm("core.add_pumping"))
+        self.assertFalse(user.has_perm("core.add_height"))
         self.assertFalse(user.has_perm("core.delete_feeding"))
+        self.assertFalse(user.has_perm("core.delete_medication"))
 
     def test_read_only_and_caregiver_are_exclusive(self):
         self.user.is_staff = True
@@ -233,6 +242,53 @@ class FormsTestCase(TestCase):
         page = self.c.get(f"/users/{new_user.id}/edit/")
         self.assertEqual(page.status_code, 200)
         self.assertTrue(page.context["form"].initial["is_caregiver"])
+
+    def test_caregiver_permissions_can_be_adjusted_per_user(self):
+        """
+        The caregiver group is a default, not a cage: a permission granted to
+        one caregiver on top of the group survives saving that user through the
+        Baby Buddy form.
+
+        Django has no per-user deny, so the granularity is additive only: an
+        individual can be given more than the group, not less.
+        """
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        # `ModelBackend` reports no permissions at all for an inactive user.
+        params["is_active"] = True
+
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        new_user = get_user_model().objects.get(username="username")
+
+        params["is_caregiver"] = True
+        page = self.c.post(f"/users/{new_user.id}/edit/", params)
+        self.assertEqual(page.status_code, 302)
+
+        def reload():
+            return get_user_model().objects.get(pk=new_user.pk)
+
+        # The default scope is in place, and the extra permission is not in it.
+        self.assertTrue(reload().has_perm("core.add_feeding"))
+        self.assertFalse(reload().has_perm("core.view_pumping"))
+
+        # Grant something the group does not include, and save the user again
+        # through the same form. The grant has to survive that save.
+        new_user.user_permissions.add(Permission.objects.get(codename="view_pumping"))
+        page = self.c.post(f"/users/{new_user.id}/edit/", params)
+        self.assertEqual(page.status_code, 302)
+
+        refreshed = reload()
+        self.assertTrue(
+            refreshed.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+        self.assertTrue(refreshed.has_perm("core.view_pumping"))
+        self.assertTrue(refreshed.has_perm("core.add_feeding"))
 
     def test_user_settings(self):
         self.c.login(**self.credentials)

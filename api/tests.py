@@ -1058,19 +1058,41 @@ class CaregiverAPITestCase(APITestCase):
         response = self.client.delete(endpoint)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_caregiver_cannot_add_medication(self):
+    def test_caregiver_can_add_medication(self):
         data = {"child": 1, "name": "Tylenol", "time": "2017-11-18T12:00:00-05:00"}
         response = self.client.post(reverse("api:medication-list"), data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         response = self.client.get(reverse("api:medication-list"))
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_caregiver_cannot_add_weight(self):
+    def test_caregiver_can_add_temperature_note_and_tummy_time(self):
+        endpoints_and_data = (
+            (reverse("api:temperature-list"), {"child": 1, "temperature": 38.5}),
+            (reverse("api:note-list"), {"child": 1, "note": "A note"}),
+            (
+                reverse("api:tummytime-list"),
+                {
+                    "child": 1,
+                    "start": "2017-11-18T12:00:00-05:00",
+                    "end": "2017-11-18T12:15:00-05:00",
+                },
+            ),
+        )
+        for endpoint, data in endpoints_and_data:
+            response = self.client.post(endpoint, data, format="json")
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED, endpoint)
+
+    def test_caregiver_can_add_weight(self):
         response = self.client.post(
             reverse("api:weight-list"),
             {"child": 1, "weight": 8.5, "date": "2017-11-18"},
             format="json",
         )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_caregiver_cannot_delete_medication(self):
+        endpoint = "{}1/".format(reverse("api:medication-list"))
+        response = self.client.delete(endpoint)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_caregiver_cannot_tag_admin(self):

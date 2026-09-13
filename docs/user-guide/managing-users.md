@@ -26,19 +26,33 @@ more.
 
 A caregiver can:
 
-- view children, timers, feedings, diaper changes and sleep entries;
-- add and edit feedings, diaper changes, sleep entries and timers, through both
-  the web interface and the API;
-- open the child dashboard, the timeline and the feeding, sleep and diaper
-  change reports.
+- view children, timers, feedings, diaper changes, sleep entries, medication,
+  temperature, weight, notes and tummy time;
+- add and edit feedings, diaper changes, sleep entries, timers, medication,
+  temperature, weight, notes and tummy time, through both the web interface and
+  the API;
+- open the child dashboard, the timeline and the reports for those entry types.
 
 A caregiver cannot:
 
 - delete any entry;
-- see or record medication, temperature, growth (height, weight, BMI, head
-  circumference), notes, pumping or tummy time, in lists, on the dashboard, in
-  the timeline or in reports;
-- manage users, change site settings or reach the database admin area.
+- see or record pumping, height, BMI or head circumference, in lists, on the
+  dashboard, in the timeline or in reports;
+- manage children, tags, users, change site settings or reach the database
+  admin area.
+
+The group is a starting point, not a fixed role. A caregiver is an ordinary
+Django user, so the permissions can be extended per user afterwards — grant the
+ones the group does not include, such as pumping or the growth measurements —
+from the database admin area at `/admin/`, where Django's built-in permission
+picker lives. The granularity is **additive only**: Django has no per-user deny,
+so an individual can be given more than the group, not less. Take a permission
+away from one caregiver and it either stays granted through the group or has to
+be removed for everybody.
+
+The group itself is only populated at migration time, so editing the group
+applies to users who migrate afterwards; per-user permissions are the direct
+way to give one caregiver more than the default.
 
 !!! warning "The role is not limited to one child"
 

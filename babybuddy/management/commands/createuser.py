@@ -64,8 +64,9 @@ class Command(BaseCommand):
             default=False,
             help=(
                 "Specifies caregiver privileges for the user: add and edit "
-                "feedings, diaper changes, sleep and timers for every child, "
-                "without access to medication, growth data, notes, user "
+                "care entries (feedings, diaper changes, sleep, timers, "
+                "medication, temperature, weight, notes and tummy time) for "
+                "every child, without access to pumping, growth data, user "
                 "management or settings. Default is False."
             ),
         )

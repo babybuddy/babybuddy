@@ -19,9 +19,10 @@ class BabyBuddyUserForm(forms.ModelForm):
         required=False,
         label=_("Caregiver"),
         help_text=_(
-            "Allows adding and editing feedings, diaper changes, sleep and "
-            "timers for every child. Cannot delete entries or reach "
-            "medication, growth data, notes, user management or settings."
+            "Allows adding and editing care entries (feedings, diaper changes, "
+            "sleep, timers, medication, temperature, weight, notes and tummy "
+            "time) for every child. Cannot delete entries or reach pumping, "
+            "growth data, user management or settings."
         ),
     )
 
