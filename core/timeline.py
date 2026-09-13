@@ -19,24 +19,36 @@ from core.utils import duration_string
 from django.db.models import Q, F
 
 
-def get_objects(date, child=None):
+def get_objects(date, child=None, user=None):
     """
     Create a time-sorted dictionary of all events for a child.
     :param date: a DateTime instance for the day to be summarized.
     :param child: Child instance to filter results for (no filter if `None`).
+    :param user: User the timeline is rendered for. Event types the user has no
+        `view` permission for are left out. All types are included if `None`.
     :returns: a list of the day's events.
     """
     min_date = date
     max_date = date.replace(hour=23, minute=59, second=59)
     events = []
 
-    _add_diaper_changes(min_date, max_date, events, child)
-    _add_feedings(min_date, max_date, events, child)
-    _add_medication(min_date, max_date, events, child)
-    _add_sleeps(min_date, max_date, events, child)
-    _add_tummy_times(min_date, max_date, events, child)
-    _add_notes(min_date, max_date, events, child)
-    _add_temperature_measurements(min_date, max_date, events, child)
+    def permitted(model_name):
+        return user is None or user.has_perm(f"core.view_{model_name}")
+
+    if permitted("diaperchange"):
+        _add_diaper_changes(min_date, max_date, events, child)
+    if permitted("feeding"):
+        _add_feedings(min_date, max_date, events, child)
+    if permitted("medication"):
+        _add_medication(min_date, max_date, events, child)
+    if permitted("sleep"):
+        _add_sleeps(min_date, max_date, events, child)
+    if permitted("tummytime"):
+        _add_tummy_times(min_date, max_date, events, child)
+    if permitted("note"):
+        _add_notes(min_date, max_date, events, child)
+    if permitted("temperature"):
+        _add_temperature_measurements(min_date, max_date, events, child)
 
     explicit_type_ordering = {"start": 0, "end": 1}
     events.sort(

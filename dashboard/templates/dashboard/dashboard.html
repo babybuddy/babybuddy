@@ -8,7 +8,9 @@
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-12">{% card_timer_list %}</div>
+        {% if perms.core.view_timer %}
+            <div class="col-lg-4 col-md-4 col-sm-12">{% card_timer_list %}</div>
+        {% endif %}
         <div class="col-lg-8 col-md-8 col-sm-12">
             <div class="row">
                 {% for object in objects %}
