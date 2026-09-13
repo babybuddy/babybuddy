@@ -850,6 +850,7 @@ class TummyTimeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
                 "end": "2017-11-18T15:30:45-05:00",
                 "duration": "00:00:45",
                 "milestone": "",
+                "notes": None,
                 "tags": [],
             },
         )
@@ -865,6 +866,19 @@ class TummyTimeAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         obj = models.TummyTime.objects.get(pk=response.data["id"])
         self.assertEqual(str(obj.duration), "0:05:30")
+
+    def test_post_notes(self):
+        data = {
+            "child": 1,
+            "start": "2017-11-18T12:30:00-05:00",
+            "end": "2017-11-18T12:35:30-05:00",
+            "milestone": "Rolled over.",
+            "notes": "First time on the play mat.",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.TummyTime.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.notes, data["notes"])
 
     def test_patch(self):
         endpoint = "{}{}/".format(self.endpoint, 3)

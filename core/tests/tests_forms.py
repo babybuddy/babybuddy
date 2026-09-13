@@ -769,11 +769,13 @@ class TummyTimeFormsTestCase(FormsTestCaseBase):
             "start": self.localtime_string(start),
             "end": self.localtime_string(end),
             "milestone": "Moved head!",
+            "notes": "Seemed to enjoy it.",
         }
         page = self.c.post("/tummy-time/{}/".format(self.tt.id), params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.tt.refresh_from_db()
         self.assertEqual(self.tt.milestone, params["milestone"])
+        self.assertEqual(self.tt.notes, params["notes"])
         self.assertContains(
             page, "Tummy Time entry for {} updated".format(str(self.tt.child))
         )

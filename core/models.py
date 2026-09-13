@@ -710,6 +710,7 @@ class TummyTime(models.Model):
     milestone = models.CharField(
         blank=True, max_length=255, verbose_name=_("Milestone")
     )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
