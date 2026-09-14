@@ -17,10 +17,10 @@ from babybuddy.views import BabyBuddyFilterView, BabyBuddyPaginatedView
 from core import filters, forms, models, timeline
 
 
-def _prepare_timeline_context_data(context, date, child=None):
+def _prepare_timeline_context_data(context, date, child=None, user=None):
     date = timezone.datetime.strptime(date, "%Y-%m-%d")
     date = timezone.localtime(timezone.make_aware(date))
-    context["timeline_objects"] = timeline.get_objects(date, child)
+    context["timeline_objects"] = timeline.get_objects(date, child, user)
     context["date"] = date
     context["date_previous"] = date - timezone.timedelta(days=1)
     if date.date() < timezone.localdate():
@@ -122,7 +122,7 @@ class ChildDetail(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(ChildDetail, self).get_context_data(**kwargs)
         date = self.request.GET.get("date", str(timezone.localdate()))
-        _prepare_timeline_context_data(context, date, self.object)
+        _prepare_timeline_context_data(context, date, self.object, self.request.user)
         return context
 
 
@@ -217,14 +217,14 @@ class HeadCircumferenceList(
 ):
     model = models.HeadCircumference
     template_name = "core/head_circumference_list.html"
-    permission_required = ("core.view_head_circumference",)
+    permission_required = ("core.view_headcircumference",)
     filterset_class = filters.HeadCircumferenceFilter
 
 
 class HeadCircumferenceAdd(CoreAddView):
     model = models.HeadCircumference
     template_name = "core/head_circumference_form.html"
-    permission_required = ("core.add_head_circumference",)
+    permission_required = ("core.add_headcircumference",)
     form_class = forms.HeadCircumferenceForm
     success_url = reverse_lazy("core:head-circumference-list")
 
@@ -232,7 +232,7 @@ class HeadCircumferenceAdd(CoreAddView):
 class HeadCircumferenceUpdate(CoreUpdateView):
     model = models.HeadCircumference
     template_name = "core/head_circumference_form.html"
-    permission_required = ("core.change_head_circumference",)
+    permission_required = ("core.change_headcircumference",)
     form_class = forms.HeadCircumferenceForm
     success_url = reverse_lazy("core:head-circumference-list")
 
@@ -240,7 +240,7 @@ class HeadCircumferenceUpdate(CoreUpdateView):
 class HeadCircumferenceDelete(CoreDeleteView):
     model = models.HeadCircumference
     template_name = "core/head_circumference_confirm_delete.html"
-    permission_required = ("core.delete_head_circumference",)
+    permission_required = ("core.delete_headcircumference",)
     success_url = reverse_lazy("core:head-circumference-list")
 
 
@@ -388,7 +388,7 @@ class TagAdminList(
 ):
     model = models.Tag
     template_name = "core/tag_list.html"
-    permission_required = ("core.view_tags",)
+    permission_required = ("core.view_tag",)
     filterset_class = filters.TagFilter
 
     def get_queryset(self):
@@ -402,7 +402,7 @@ class TagAdminList(
 
 class TagAdminDetail(PermissionRequiredMixin, DetailView):
     model = models.Tag
-    permission_required = ("core.view_tags",)
+    permission_required = ("core.view_tag",)
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -491,7 +491,7 @@ class Timeline(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Timeline, self).get_context_data(**kwargs)
         date = self.request.GET.get("date", str(timezone.localdate()))
-        _prepare_timeline_context_data(context, date)
+        _prepare_timeline_context_data(context, date, user=self.request.user)
         return context
 
 
