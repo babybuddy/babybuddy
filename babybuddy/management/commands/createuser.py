@@ -66,8 +66,8 @@ class Command(BaseCommand):
                 "Specifies caregiver privileges for the user: add and edit "
                 "care entries (feedings, diaper changes, sleep, timers, "
                 "medication, temperature, weight, notes and tummy time) for "
-                "every child, without access to pumping, growth data, user "
-                "management or settings. Default is False."
+                "every child, without access to pumping, height, BMI, head "
+                "circumference, user management or settings. Default is False."
             ),
         )
         parser.add_argument(
@@ -88,6 +88,11 @@ class Command(BaseCommand):
             raise CommandError(
                 "A user cannot be both read-only and caregiver. "
                 "Choose one of --read-only or --caregiver."
+            )
+        if is_caregiver and options.get("is_staff"):
+            raise CommandError(
+                "A user cannot be both staff and caregiver. "
+                "Choose one of --is-staff or --caregiver."
             )
 
         user_data = {}

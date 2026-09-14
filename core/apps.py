@@ -46,7 +46,11 @@ def _permissions(codenames):
     permissions = []
     for codename in codenames:
         try:
-            permissions.append(Permission.objects.get(codename=codename))
+            permissions.append(
+                Permission.objects.get(
+                    content_type__app_label="core", codename=codename
+                )
+            )
         except Permission.DoesNotExist:
             continue
     return permissions

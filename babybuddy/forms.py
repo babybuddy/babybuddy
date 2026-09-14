@@ -22,7 +22,7 @@ class BabyBuddyUserForm(forms.ModelForm):
             "Allows adding and editing care entries (feedings, diaper changes, "
             "sleep, timers, medication, temperature, weight, notes and tummy "
             "time) for every child. Cannot delete entries or reach pumping, "
-            "growth data, user management or settings."
+            "height, BMI, head circumference, user management or settings."
         ),
     )
 
@@ -56,12 +56,15 @@ class BabyBuddyUserForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        # Read-only and caregiver are mutually exclusive roles. A caregiver
-        # can create care entries, so "read only" must win if both are set.
         if cleaned_data.get("is_read_only") and cleaned_data.get("is_caregiver"):
             self.add_error(
                 "is_caregiver",
                 _("A user cannot be both read only and caregiver."),
+            )
+        if cleaned_data.get("is_staff") and cleaned_data.get("is_caregiver"):
+            self.add_error(
+                "is_caregiver",
+                _("A user cannot be both staff and caregiver."),
             )
         return cleaned_data
 

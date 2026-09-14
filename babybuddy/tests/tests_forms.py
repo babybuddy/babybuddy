@@ -217,6 +217,71 @@ class FormsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertFalse(get_user_model().objects.filter(username="username").exists())
 
+    def test_add_staff_caregiver_is_rejected(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params.update(is_staff=True, is_caregiver=True)
+        page = self.c.post("/users/add/", params)
+
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(
+            page.context["form"],
+            "is_caregiver",
+            "A user cannot be both staff and caregiver.",
+        )
+        self.assertFalse(get_user_model().objects.filter(username="username").exists())
+
+    def test_edit_staff_user_to_caregiver_is_rejected(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params["is_staff"] = True
+        page = self.c.post("/users/add/", params)
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+
+        params["is_caregiver"] = True
+        page = self.c.post(f"/users/{user.pk}/edit/", params)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(
+            page.context["form"],
+            "is_caregiver",
+            "A user cannot be both staff and caregiver.",
+        )
+        user.refresh_from_db()
+        self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_superuser)
+        self.assertFalse(user.groups.exists())
+
+    def test_add_read_only_staff_user(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.c.login(**self.credentials)
+
+        params = self.user_template.copy()
+        params.update(is_staff=True, is_read_only=True)
+        page = self.c.post("/users/add/", params)
+
+        self.assertEqual(page.status_code, 302)
+        user = get_user_model().objects.get(username="username")
+        self.assertTrue(user.is_staff)
+        self.assertFalse(user.is_superuser)
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+
     def test_edit_user_to_caregiver(self):
         self.user.is_staff = True
         self.user.save()

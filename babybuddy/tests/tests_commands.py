@@ -28,6 +28,47 @@ class CommandsTestCase(TransactionTestCase):
         )
         self.assertEqual(Child.objects.count(), 1)
 
+    def test_createuser_staff_caregiver_is_rejected(self):
+        call_command("migrate", verbosity=0)
+        with self.assertRaisesMessage(
+            CommandError, "A user cannot be both staff and caregiver."
+        ):
+            call_command(
+                "createuser",
+                "--caregiver",
+                "--is-staff",
+                username="staffcaregiver",
+                password="test",
+                verbosity=0,
+            )
+        self.assertFalse(
+            get_user_model().objects.filter(username="staffcaregiver").exists()
+        )
+
+    def test_createuser_read_only_staff(self):
+        call_command("migrate", verbosity=0)
+        call_command(
+            "createuser",
+            "--read-only",
+            "--is-staff",
+            username="readonlystaff",
+            password="test",
+            verbosity=0,
+        )
+        user = get_user_model().objects.get(username="readonlystaff")
+        self.assertTrue(user.is_staff)
+        self.assertFalse(user.is_superuser)
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+
     def test_createuser(self):
         call_command("migrate", verbosity=0)
         call_command(
