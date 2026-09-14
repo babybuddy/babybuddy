@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Baby Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 17:22+0000\n"
+"POT-Creation-Date: 2026-09-13 23:37+0000\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,14 +12,14 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: babybuddy/admin.py:12 babybuddy/admin.py:13
-#: babybuddy/templates/babybuddy/nav-dropdown.html:342
-#: babybuddy/templates/babybuddy/nav-dropdown.html:352
+#: babybuddy/templates/babybuddy/nav-dropdown.html:345
+#: babybuddy/templates/babybuddy/nav-dropdown.html:358
 #: babybuddy/templates/babybuddy/user_settings_form.html:8
 #: babybuddy/templates/dbsettings/site_settings.html:8
 msgid "Settings"
 msgstr "Налаштування"
 
-#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:108
+#: babybuddy/admin.py:17 babybuddy/templates/babybuddy/nav-dropdown.html:110
 #: babybuddy/templates/babybuddy/user_settings_form.html:60
 #: dashboard/templates/dashboard/child.html:4
 #: dashboard/templates/dashboard/child.html:11
@@ -147,86 +147,96 @@ msgid "Chinese (simplified)"
 msgstr "Chinese (simplified)"
 
 #: babybuddy/settings/base.py:199
+msgid "Chinese (traditional)"
+msgstr ""
+
+#: babybuddy/settings/base.py:200
+#, fuzzy
+#| msgid "Chinese (simplified)"
+msgid "Chinese (Taiwan)"
+msgstr "Chinese (simplified)"
+
+#: babybuddy/settings/base.py:201
 msgid "Danish"
 msgstr "Danish"
 
-#: babybuddy/settings/base.py:200
+#: babybuddy/settings/base.py:202
 msgid "Dutch"
 msgstr "Dutch"
 
-#: babybuddy/settings/base.py:201
+#: babybuddy/settings/base.py:203
 msgid "English (US)"
 msgstr "English (US)"
 
-#: babybuddy/settings/base.py:202
+#: babybuddy/settings/base.py:204
 msgid "English (UK)"
 msgstr "English (UK)"
 
-#: babybuddy/settings/base.py:203
+#: babybuddy/settings/base.py:205
 msgid "French"
 msgstr "French"
 
-#: babybuddy/settings/base.py:204
+#: babybuddy/settings/base.py:206
 msgid "Finnish"
 msgstr "Finnish"
 
-#: babybuddy/settings/base.py:205
+#: babybuddy/settings/base.py:207
 msgid "German"
 msgstr "German"
 
-#: babybuddy/settings/base.py:206
+#: babybuddy/settings/base.py:208
 msgid "Hebrew"
 msgstr ""
 
-#: babybuddy/settings/base.py:207
+#: babybuddy/settings/base.py:209
 msgid "Hungarian"
 msgstr "Hungarian"
 
-#: babybuddy/settings/base.py:208
+#: babybuddy/settings/base.py:210
 msgid "Italian"
 msgstr "Italian"
 
-#: babybuddy/settings/base.py:209
+#: babybuddy/settings/base.py:211
 msgid "Korean"
 msgstr ""
 
-#: babybuddy/settings/base.py:210
+#: babybuddy/settings/base.py:212
 msgid "Japanese"
 msgstr ""
 
-#: babybuddy/settings/base.py:211
+#: babybuddy/settings/base.py:213
 msgid "Norwegian Bokmål"
 msgstr "Norwegian Bokmål"
 
-#: babybuddy/settings/base.py:212
+#: babybuddy/settings/base.py:214
 msgid "Polish"
 msgstr "Polish"
 
-#: babybuddy/settings/base.py:213
+#: babybuddy/settings/base.py:215
 msgid "Portuguese"
 msgstr "Portuguese"
 
-#: babybuddy/settings/base.py:214
+#: babybuddy/settings/base.py:216
 msgid "Russian"
 msgstr "Russian"
 
-#: babybuddy/settings/base.py:215
+#: babybuddy/settings/base.py:217
 msgid "Serbian"
 msgstr ""
 
-#: babybuddy/settings/base.py:216
+#: babybuddy/settings/base.py:218
 msgid "Spanish"
 msgstr "Spanish"
 
-#: babybuddy/settings/base.py:217
+#: babybuddy/settings/base.py:219
 msgid "Swedish"
 msgstr "Swedish"
 
-#: babybuddy/settings/base.py:218
+#: babybuddy/settings/base.py:220
 msgid "Turkish"
 msgstr "Turkish"
 
-#: babybuddy/settings/base.py:219
+#: babybuddy/settings/base.py:221
 msgid "Ukrainian"
 msgstr ""
 
@@ -267,11 +277,11 @@ msgstr ""
 
 #: babybuddy/templates/admin/base_site.html:4
 #: babybuddy/templates/admin/base_site.html:8
-#: babybuddy/templates/babybuddy/nav-dropdown.html:355
+#: babybuddy/templates/babybuddy/nav-dropdown.html:363
 msgid "Database Admin"
 msgstr "Адміністратор бази даних"
 
-#: babybuddy/templates/babybuddy/base.html:46
+#: babybuddy/templates/babybuddy/base.html:50
 msgid "Home"
 msgstr "Головна"
 
@@ -288,7 +298,7 @@ msgid "Filters"
 msgstr "Фільтри"
 
 #: babybuddy/templates/babybuddy/form.html:19
-#: babybuddy/templates/babybuddy/user_settings_form.html:88
+#: babybuddy/templates/babybuddy/user_settings_form.html:90
 msgid "Submit"
 msgstr "Відправити"
 
@@ -308,27 +318,27 @@ msgstr ""
 "<strong>Помилка:</strong> Деякі поля містять помилки. Подробиці наведено "
 "нижче."
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:48 core/models.py:282
-#: core/models.py:286
+#: babybuddy/templates/babybuddy/nav-dropdown.html:50 core/models.py:286
+#: core/models.py:290
 msgid "Diaper Change"
 msgstr "Зміна підгузків"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:54
-#: babybuddy/templates/babybuddy/nav-dropdown.html:263 core/models.py:355
-#: core/models.py:359 core/templates/core/timer_detail.html:31
+#: babybuddy/templates/babybuddy/nav-dropdown.html:56
+#: babybuddy/templates/babybuddy/nav-dropdown.html:265 core/models.py:359
+#: core/models.py:363 core/templates/core/timer_detail.html:31
 msgid "Feeding"
 msgstr "Годування"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:58
-#: babybuddy/templates/babybuddy/nav-dropdown.html:269
+#: babybuddy/templates/babybuddy/nav-dropdown.html:60
+#: babybuddy/templates/babybuddy/nav-dropdown.html:271
 #, fuzzy
 msgid "Bottle Feeding"
 msgstr "Всього годувань"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:64
-#: babybuddy/templates/babybuddy/nav-dropdown.html:275
-#: babybuddy/templates/babybuddy/nav-dropdown.html:281 core/models.py:826
-#: core/models.py:855 core/templates/core/medication_confirm_delete.html:8
+#: babybuddy/templates/babybuddy/nav-dropdown.html:66
+#: babybuddy/templates/babybuddy/nav-dropdown.html:277
+#: babybuddy/templates/babybuddy/nav-dropdown.html:283 core/models.py:830
+#: core/models.py:859 core/templates/core/medication_confirm_delete.html:8
 #: core/templates/core/medication_form.html:12
 #: core/templates/core/medication_list.html:4
 #: core/templates/core/medication_list.html:7
@@ -338,9 +348,9 @@ msgstr "Всього годувань"
 msgid "Medication"
 msgstr "Додати годування"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:70
-#: babybuddy/templates/babybuddy/nav-dropdown.html:288 core/models.py:519
-#: core/models.py:520 core/models.py:523
+#: babybuddy/templates/babybuddy/nav-dropdown.html:72
+#: babybuddy/templates/babybuddy/nav-dropdown.html:290 core/models.py:523
+#: core/models.py:524 core/models.py:527
 #: core/templates/core/pumping_confirm_delete.html:8
 #: core/templates/core/pumping_form.html:12
 #: core/templates/core/pumping_list.html:4
@@ -352,16 +362,16 @@ msgstr "Додати годування"
 msgid "Pumping"
 msgstr "Зціджування"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:76
-#: babybuddy/templates/babybuddy/nav-dropdown.html:150 core/models.py:464
-#: core/models.py:478 core/models.py:482 core/templates/core/note_list.html:29
+#: babybuddy/templates/babybuddy/nav-dropdown.html:78
+#: babybuddy/templates/babybuddy/nav-dropdown.html:152 core/models.py:468
+#: core/models.py:482 core/models.py:486 core/templates/core/note_list.html:29
 msgid "Note"
 msgstr "Нотатка"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:82
-#: babybuddy/templates/babybuddy/nav-dropdown.html:300
-#: babybuddy/templates/babybuddy/welcome.html:47 core/models.py:563
-#: core/models.py:564 core/models.py:567
+#: babybuddy/templates/babybuddy/nav-dropdown.html:84
+#: babybuddy/templates/babybuddy/nav-dropdown.html:302
+#: babybuddy/templates/babybuddy/welcome.html:47 core/models.py:567
+#: core/models.py:568 core/models.py:571
 #: core/templates/core/sleep_confirm_delete.html:8
 #: core/templates/core/sleep_form.html:12 core/templates/core/sleep_list.html:4
 #: core/templates/core/sleep_list.html:7 core/templates/core/sleep_list.html:11
@@ -369,10 +379,10 @@ msgstr "Нотатка"
 msgid "Sleep"
 msgstr "Сон"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:88
-#: babybuddy/templates/babybuddy/nav-dropdown.html:312
-#: babybuddy/templates/babybuddy/welcome.html:57 core/models.py:720
-#: core/models.py:721 core/models.py:724
+#: babybuddy/templates/babybuddy/nav-dropdown.html:90
+#: babybuddy/templates/babybuddy/nav-dropdown.html:314
+#: babybuddy/templates/babybuddy/welcome.html:57 core/models.py:724
+#: core/models.py:725 core/models.py:728
 #: core/templates/core/timer_detail.html:52
 #: core/templates/core/tummytime_confirm_delete.html:8
 #: core/templates/core/tummytime_form.html:12
@@ -382,15 +392,15 @@ msgstr "Сон"
 msgid "Tummy Time"
 msgstr "Час на животику"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:114
+#: babybuddy/templates/babybuddy/nav-dropdown.html:116
 #: core/templates/timeline/timeline.html:4
 #: core/templates/timeline/timeline.html:7
 #: dashboard/templates/dashboard/child_button_group.html:13
 msgid "Timeline"
 msgstr "Хронологія"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:124
-#: babybuddy/templates/babybuddy/nav-dropdown.html:131 core/models.py:215
+#: babybuddy/templates/babybuddy/nav-dropdown.html:126
+#: babybuddy/templates/babybuddy/nav-dropdown.html:133 core/models.py:215
 #: core/templates/core/child_confirm_delete.html:8
 #: core/templates/core/child_detail.html:6
 #: core/templates/core/child_form.html:12 core/templates/core/child_list.html:4
@@ -400,11 +410,11 @@ msgstr "Хронологія"
 msgid "Children"
 msgstr "Діти"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:137 core/models.py:163
-#: core/models.py:214 core/models.py:255 core/models.py:308 core/models.py:378
-#: core/models.py:410 core/models.py:462 core/models.py:491 core/models.py:539
-#: core/models.py:593 core/models.py:627 core/models.py:696 core/models.py:744
-#: core/models.py:775 core/templates/core/bmi_list.html:26
+#: babybuddy/templates/babybuddy/nav-dropdown.html:139 core/models.py:163
+#: core/models.py:214 core/models.py:255 core/models.py:312 core/models.py:382
+#: core/models.py:414 core/models.py:466 core/models.py:495 core/models.py:543
+#: core/models.py:597 core/models.py:631 core/models.py:700 core/models.py:748
+#: core/models.py:779 core/templates/core/bmi_list.html:26
 #: core/templates/core/diaperchange_list.html:27
 #: core/templates/core/feeding_list.html:30
 #: core/templates/core/head_circumference_list.html:27
@@ -420,21 +430,21 @@ msgstr "Діти"
 msgid "Child"
 msgstr "Дитина"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:144 core/models.py:169
-#: core/models.py:274 core/models.py:345 core/models.py:386 core/models.py:416
-#: core/models.py:479 core/models.py:511 core/models.py:554 core/models.py:601
-#: core/models.py:750 core/models.py:819
+#: babybuddy/templates/babybuddy/nav-dropdown.html:146 core/models.py:169
+#: core/models.py:278 core/models.py:349 core/models.py:390 core/models.py:420
+#: core/models.py:483 core/models.py:515 core/models.py:558 core/models.py:605
+#: core/models.py:754 core/models.py:823
 #: core/templates/core/note_confirm_delete.html:8
 #: core/templates/core/note_form.html:12 core/templates/core/note_list.html:4
 #: core/templates/core/note_list.html:7 core/templates/core/note_list.html:11
 msgid "Notes"
 msgstr "Нотатки"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:162
+#: babybuddy/templates/babybuddy/nav-dropdown.html:164
 msgid "Measurements"
 msgstr "Виміри"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:169 core/models.py:165
+#: babybuddy/templates/babybuddy/nav-dropdown.html:171 core/models.py:165
 #: core/models.py:177 core/models.py:178 core/models.py:181
 #: core/templates/core/bmi_confirm_delete.html:8
 #: core/templates/core/bmi_form.html:12 core/templates/core/bmi_list.html:4
@@ -446,12 +456,12 @@ msgstr "Виміри"
 msgid "BMI"
 msgstr "ІМТ"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:175
+#: babybuddy/templates/babybuddy/nav-dropdown.html:177
 msgid "BMI entry"
 msgstr "Ввечення ІМТ"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:182 core/models.py:381
-#: core/models.py:394 core/models.py:395 core/models.py:398
+#: babybuddy/templates/babybuddy/nav-dropdown.html:184 core/models.py:385
+#: core/models.py:398 core/models.py:399 core/models.py:402
 #: core/templates/core/head_circumference_confirm_delete.html:8
 #: core/templates/core/head_circumference_form.html:12
 #: core/templates/core/head_circumference_list.html:4
@@ -463,88 +473,88 @@ msgstr "Ввечення ІМТ"
 #: reports/graphs/head_circumference_change.py:30
 #: reports/templates/reports/head_circumference_change.html:4
 #: reports/templates/reports/head_circumference_change.html:9
-#: reports/templates/reports/report_list.html:34
+#: reports/templates/reports/report_list.html:41
 msgid "Head Circumference"
 msgstr "Окружність голови"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:188
+#: babybuddy/templates/babybuddy/nav-dropdown.html:190
 msgid "Head Circumference entry"
 msgstr "Введення окружності голови"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:195 core/models.py:412
-#: core/models.py:424 core/models.py:425 core/models.py:428
+#: babybuddy/templates/babybuddy/nav-dropdown.html:197 core/models.py:416
+#: core/models.py:428 core/models.py:429 core/models.py:432
 #: core/templates/core/height_confirm_delete.html:8
 #: core/templates/core/height_form.html:12
 #: core/templates/core/height_list.html:4
 #: core/templates/core/height_list.html:7
 #: core/templates/core/height_list.html:11
 #: core/templates/core/height_list.html:28 reports/graphs/height_change.py:30
-#: reports/graphs/height_change.py:86 reports/graphs/height_change.py:89
+#: reports/graphs/height_change.py:88 reports/graphs/height_change.py:91
 #: reports/templates/reports/height_change.html:4
 #: reports/templates/reports/height_change.html:9
-#: reports/templates/reports/report_list.html:36
+#: reports/templates/reports/report_list.html:45
 msgid "Height"
 msgstr "Зріст"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:201
+#: babybuddy/templates/babybuddy/nav-dropdown.html:203
 msgid "Height entry"
 msgstr "Введення зросту"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:208 core/models.py:596
-#: core/models.py:609 core/models.py:610 core/models.py:613
+#: babybuddy/templates/babybuddy/nav-dropdown.html:210 core/models.py:600
+#: core/models.py:613 core/models.py:614 core/models.py:617
 #: core/templates/core/temperature_confirm_delete.html:8
 #: core/templates/core/temperature_form.html:12
 #: core/templates/core/temperature_list.html:4
 #: core/templates/core/temperature_list.html:7
 #: core/templates/core/temperature_list.html:11
-#: core/templates/core/temperature_list.html:29 core/timeline.py:297
+#: core/templates/core/temperature_list.html:29 core/timeline.py:325
 #: reports/graphs/temperature_change.py:19
 #: reports/graphs/temperature_change.py:26
 #: reports/graphs/temperature_change.py:32
-#: reports/templates/reports/report_list.html:52
+#: reports/templates/reports/report_list.html:69
 #: reports/templates/reports/temperature_change.html:4
 #: reports/templates/reports/temperature_change.html:9
 msgid "Temperature"
 msgstr "Температура"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:214
+#: babybuddy/templates/babybuddy/nav-dropdown.html:216
 msgid "Temperature reading"
 msgstr "Значення температури"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:221 core/models.py:746
-#: core/models.py:758 core/models.py:759 core/models.py:762
+#: babybuddy/templates/babybuddy/nav-dropdown.html:223 core/models.py:750
+#: core/models.py:762 core/models.py:763 core/models.py:766
 #: core/templates/core/weight_confirm_delete.html:8
 #: core/templates/core/weight_form.html:12
 #: core/templates/core/weight_list.html:4
 #: core/templates/core/weight_list.html:7
 #: core/templates/core/weight_list.html:11
 #: core/templates/core/weight_list.html:28 reports/graphs/weight_change.py:28
-#: reports/graphs/weight_change.py:84 reports/graphs/weight_change.py:87
-#: reports/templates/reports/report_list.html:56
+#: reports/graphs/weight_change.py:86 reports/graphs/weight_change.py:89
+#: reports/templates/reports/report_list.html:77
 #: reports/templates/reports/weight_change.html:4
 #: reports/templates/reports/weight_change.html:9
 msgid "Weight"
 msgstr "Вага"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:227
+#: babybuddy/templates/babybuddy/nav-dropdown.html:229
 msgid "Weight entry"
 msgstr "Запис ваги"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:239
+#: babybuddy/templates/babybuddy/nav-dropdown.html:241
 msgid "Activities"
 msgstr "Активності"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:245
+#: babybuddy/templates/babybuddy/nav-dropdown.html:247
 #: reports/graphs/diaperchange_lifetimes.py:27
 msgid "Changes"
 msgstr "Зміни"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:251
+#: babybuddy/templates/babybuddy/nav-dropdown.html:253
 msgid "Change"
 msgstr "Змінити"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:257
-#: babybuddy/templates/babybuddy/welcome.html:37 core/models.py:356
+#: babybuddy/templates/babybuddy/nav-dropdown.html:259
+#: babybuddy/templates/babybuddy/welcome.html:37 core/models.py:360
 #: core/templates/core/feeding_confirm_delete.html:8
 #: core/templates/core/feeding_form.html:14
 #: core/templates/core/feeding_list.html:4
@@ -554,52 +564,52 @@ msgstr "Змінити"
 msgid "Feedings"
 msgstr "Годування"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:294
+#: babybuddy/templates/babybuddy/nav-dropdown.html:296
 msgid "Pumping entry"
 msgstr "Запис зціджування"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:306
+#: babybuddy/templates/babybuddy/nav-dropdown.html:308
 msgid "Sleep entry"
 msgstr "Запис сну"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:318
+#: babybuddy/templates/babybuddy/nav-dropdown.html:320
 msgid "Tummy Time entry"
 msgstr "Запис часу на животику"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:341
+#: babybuddy/templates/babybuddy/nav-dropdown.html:343
 #: babybuddy/templates/babybuddy/user_add_device.html:7
 #: babybuddy/templates/babybuddy/user_list.html:16
 #: babybuddy/templates/babybuddy/user_password_form.html:7
-#: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:640
+#: babybuddy/templates/babybuddy/user_settings_form.html:7 core/models.py:644
 #: core/templates/core/timer_list.html:28
 msgid "User"
 msgstr "Користувач"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:343
+#: babybuddy/templates/babybuddy/nav-dropdown.html:347
 msgid "Password"
 msgstr "Пароль"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:344
+#: babybuddy/templates/babybuddy/nav-dropdown.html:349
 #: babybuddy/templates/babybuddy/user_add_device.html:4
 #: babybuddy/templates/babybuddy/user_add_device.html:8
 #: babybuddy/templates/babybuddy/user_add_device.html:11
 msgid "Add a device"
 msgstr "Додати пристрій"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:347
+#: babybuddy/templates/babybuddy/nav-dropdown.html:352
 msgid "Logout"
 msgstr "Вийти"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:349
+#: babybuddy/templates/babybuddy/nav-dropdown.html:354
 #: babybuddy/templates/dbsettings/site_settings.html:7
 msgid "Site"
 msgstr "Сайт"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:350
+#: babybuddy/templates/babybuddy/nav-dropdown.html:355
 msgid "API Browser"
 msgstr "Перегляд API"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:353 core/forms.py:138
+#: babybuddy/templates/babybuddy/nav-dropdown.html:359 core/forms.py:138
 #: core/models.py:123 core/templates/core/bmi_list.html:29
 #: core/templates/core/diaperchange_list.html:33
 #: core/templates/core/feeding_list.html:39
@@ -619,7 +629,7 @@ msgstr "Перегляд API"
 msgid "Tags"
 msgstr "Мітки"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:354
+#: babybuddy/templates/babybuddy/nav-dropdown.html:361
 #: babybuddy/templates/babybuddy/user_confirm_delete.html:8
 #: babybuddy/templates/babybuddy/user_confirm_unlock.html:8
 #: babybuddy/templates/babybuddy/user_form.html:12
@@ -628,15 +638,15 @@ msgstr "Мітки"
 msgid "Users"
 msgstr "Користувачі"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:357
+#: babybuddy/templates/babybuddy/nav-dropdown.html:365
 msgid "Support"
 msgstr "Підтримка"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:359
+#: babybuddy/templates/babybuddy/nav-dropdown.html:367
 msgid "Source Code"
 msgstr "Вихідний код"
 
-#: babybuddy/templates/babybuddy/nav-dropdown.html:361
+#: babybuddy/templates/babybuddy/nav-dropdown.html:369
 msgid "Chat / Support"
 msgstr "Чат / Підтримка"
 
@@ -690,12 +700,12 @@ msgstr "Методи аутентифікації"
 msgid "Key"
 msgstr "Ключ"
 
-#: babybuddy/templates/babybuddy/user_add_device.html:21
-#: babybuddy/templates/babybuddy/user_settings_form.html:83
+#: babybuddy/templates/babybuddy/user_add_device.html:23
+#: babybuddy/templates/babybuddy/user_settings_form.html:85
 msgid "Regenerate"
 msgstr "Перестворити"
 
-#: babybuddy/templates/babybuddy/user_add_device.html:26
+#: babybuddy/templates/babybuddy/user_add_device.html:28
 msgid "Login QR code"
 msgstr "QR код для входу"
 
@@ -817,7 +827,7 @@ msgstr "Email"
 msgid "Staff"
 msgstr "Персонал"
 
-#: babybuddy/templates/babybuddy/user_list.html:22 core/models.py:635
+#: babybuddy/templates/babybuddy/user_list.html:22 core/models.py:639
 msgid "Active"
 msgstr "Активний"
 
@@ -887,14 +897,18 @@ msgid "Welcome to Baby Buddy!"
 msgstr "Вітаємо у Baby Buddy!"
 
 #: babybuddy/templates/babybuddy/welcome.html:14
+#, fuzzy
+#| msgid ""
+#| "Learn about and predict baby's needs without (<em>as much</em>) guess "
+#| "work by using Baby Buddy to track &mdash;"
 msgid ""
 "Learn about and predict baby's needs without (<em>as much</em>) guess work "
-"by using Baby Buddy to track &mdash;"
+"by using Baby Buddy to track —"
 msgstr ""
 "Навчіться розуміти і передбачувати потреби дитини використовуючи Baby Buddy "
 "для відслідковування &mdash;"
 
-#: babybuddy/templates/babybuddy/welcome.html:27 core/models.py:283
+#: babybuddy/templates/babybuddy/welcome.html:27 core/models.py:287
 #: core/templates/core/diaperchange_confirm_delete.html:8
 #: core/templates/core/diaperchange_form.html:12
 #: core/templates/core/diaperchange_list.html:4
@@ -1196,7 +1210,7 @@ msgstr "Запис зціджування"
 msgid "Date/time can not be in the future."
 msgstr "Дата/час не можуть бути в майбутньому."
 
-#: core/models.py:108 core/models.py:271
+#: core/models.py:108 core/models.py:275
 #: core/templates/core/diaperchange_list.html:30
 #: core/templates/core/tag_list.html:25
 msgid "Color"
@@ -1206,7 +1220,7 @@ msgstr "Колір"
 msgid "Last used"
 msgstr "Останнє використання"
 
-#: core/models.py:167 core/models.py:384 core/models.py:414 core/models.py:748
+#: core/models.py:167 core/models.py:388 core/models.py:418 core/models.py:752
 #: core/templates/core/bmi_list.html:24
 #: core/templates/core/feeding_list.html:28
 #: core/templates/core/head_circumference_list.html:25
@@ -1220,11 +1234,11 @@ msgstr "Останнє використання"
 #: reports/graphs/feeding_duration.py:58 reports/graphs/feeding_intervals.py:42
 #: reports/graphs/feeding_pattern.py:181
 #: reports/graphs/head_circumference_change.py:28
-#: reports/graphs/height_change.py:87 reports/graphs/medication_frequency.py:39
+#: reports/graphs/height_change.py:89 reports/graphs/medication_frequency.py:39
 #: reports/graphs/medication_intervals.py:47
 #: reports/graphs/pumping_amounts.py:60 reports/graphs/sleep_pattern.py:168
 #: reports/graphs/sleep_totals.py:59 reports/graphs/tummytime_duration.py:51
-#: reports/graphs/weight_change.py:85
+#: reports/graphs/weight_change.py:87
 msgid "Date"
 msgstr "Дата"
 
@@ -1252,7 +1266,7 @@ msgstr "Slug"
 msgid "Picture"
 msgstr "Фото"
 
-#: core/models.py:258 core/models.py:466 core/models.py:599
+#: core/models.py:258 core/models.py:470 core/models.py:603
 #: core/templates/core/diaperchange_list.html:25
 #: core/templates/core/note_list.html:24
 #: core/templates/core/temperature_list.html:25
@@ -1281,30 +1295,48 @@ msgid "Brown"
 msgstr "Коричневі"
 
 #: core/models.py:267
+msgid "Gray"
+msgstr ""
+
+#: core/models.py:268
 msgid "Green"
 msgstr "Зелені"
 
-#: core/models.py:268
+#: core/models.py:269
+#, fuzzy
+#| msgid "Change"
+msgid "Orange"
+msgstr "Змінити"
+
+#: core/models.py:270
+msgid "Red"
+msgstr ""
+
+#: core/models.py:271
+msgid "White"
+msgstr ""
+
+#: core/models.py:272
 msgid "Yellow"
 msgstr "Жовті"
 
-#: core/models.py:273 core/models.py:344 core/models.py:510
+#: core/models.py:277 core/models.py:348 core/models.py:514
 #: core/templates/core/diaperchange_list.html:31
-#: core/templates/core/pumping_list.html:28 core/timeline.py:151
+#: core/templates/core/pumping_list.html:28 core/timeline.py:167
 #: dashboard/templates/cards/pumping_last.html:20
 msgid "Amount"
 msgstr "Кількість"
 
-#: core/models.py:314 core/models.py:497 core/models.py:545 core/models.py:633
-#: core/models.py:702
+#: core/models.py:318 core/models.py:501 core/models.py:549 core/models.py:637
+#: core/models.py:706
 msgid "Start time"
 msgstr "Початок"
 
-#: core/models.py:317 core/models.py:503 core/models.py:548 core/models.py:705
+#: core/models.py:321 core/models.py:507 core/models.py:552 core/models.py:709
 msgid "End time"
 msgstr "Кінець"
 
-#: core/models.py:320 core/models.py:508 core/models.py:552 core/models.py:708
+#: core/models.py:324 core/models.py:512 core/models.py:556 core/models.py:712
 #: core/templates/core/feeding_list.html:37
 #: core/templates/core/pumping_list.html:29
 #: core/templates/core/sleep_list.html:29
@@ -1312,84 +1344,84 @@ msgstr "Кінець"
 msgid "Duration"
 msgstr "Тривалість"
 
-#: core/models.py:324
+#: core/models.py:328
 msgid "Breast milk"
 msgstr "Грудне молоко"
 
-#: core/models.py:325
+#: core/models.py:329
 msgid "Formula"
 msgstr "Формула"
 
-#: core/models.py:326
+#: core/models.py:330
 msgid "Fortified breast milk"
 msgstr "Збагачене грудне молоко"
 
-#: core/models.py:327
+#: core/models.py:331
 msgid "Solid food"
 msgstr "Тверда їжа"
 
-#: core/models.py:330 core/templates/core/feeding_list.html:33
+#: core/models.py:334 core/templates/core/feeding_list.html:33
 msgid "Type"
 msgstr "Тип"
 
-#: core/models.py:334
+#: core/models.py:338
 msgid "Bottle"
 msgstr "Пляшка"
 
-#: core/models.py:335
+#: core/models.py:339
 msgid "Left breast"
 msgstr "Ліва грудь"
 
-#: core/models.py:336
+#: core/models.py:340
 msgid "Right breast"
 msgstr "Права грудь"
 
-#: core/models.py:337
+#: core/models.py:341
 msgid "Both breasts"
 msgstr "Обидві груди"
 
-#: core/models.py:338
+#: core/models.py:342
 msgid "Parent fed"
 msgstr "Годували батьки"
 
-#: core/models.py:339
+#: core/models.py:343
 msgid "Self fed"
 msgstr "Самостійне годування"
 
-#: core/models.py:342 core/templates/core/feeding_list.html:32
+#: core/models.py:346 core/templates/core/feeding_list.html:32
 msgid "Method"
 msgstr "Метод"
 
-#: core/models.py:446 core/models.py:870
+#: core/models.py:450 core/models.py:874
 msgid "Girl"
 msgstr "Дівчинка"
 
-#: core/models.py:447 core/models.py:871
+#: core/models.py:451 core/models.py:875
 msgid "Boy"
 msgstr "Хлопчик"
 
-#: core/models.py:469 core/templates/core/note_list.html:28
+#: core/models.py:473 core/templates/core/note_list.html:28
 msgid "Image"
 msgstr "Фото"
 
-#: core/models.py:550 core/templates/core/sleep_list.html:31
+#: core/models.py:554 core/templates/core/sleep_list.html:31
 msgid "Nap"
 msgstr "Денний сон"
 
-#: core/models.py:558
+#: core/models.py:562
 msgid "Nap settings"
 msgstr "Налаштування денного сну"
 
-#: core/models.py:630 core/templates/core/tag_list.html:24
+#: core/models.py:634 core/templates/core/tag_list.html:24
 #: core/templates/core/timer_list.html:24
 msgid "Name"
 msgstr "Ім'я"
 
-#: core/models.py:648 core/templates/core/timer_form.html:4
+#: core/models.py:652 core/templates/core/timer_form.html:4
 msgid "Timer"
 msgstr "Таймер"
 
-#: core/models.py:649 core/templates/core/timer_confirm_delete.html:8
+#: core/models.py:653 core/templates/core/timer_confirm_delete.html:8
 #: core/templates/core/timer_detail.html:7
 #: core/templates/core/timer_form.html:8 core/templates/core/timer_list.html:4
 #: core/templates/core/timer_list.html:7 core/templates/core/timer_list.html:11
@@ -1398,69 +1430,69 @@ msgstr "Таймер"
 msgid "Timers"
 msgstr "Таймери"
 
-#: core/models.py:652
+#: core/models.py:656
 #, python-brace-format
 msgid "Timer #{id}"
 msgstr "Таймер #{id}"
 
-#: core/models.py:711 core/templates/core/tummytime_list.html:30
+#: core/models.py:715 core/templates/core/tummytime_list.html:30
 msgid "Milestone"
 msgstr "Етап"
 
-#: core/models.py:783 core/templates/core/medication_list.html:28
+#: core/models.py:787 core/templates/core/medication_list.html:28
 msgid "Medication Name"
 msgstr ""
 
-#: core/models.py:784
+#: core/models.py:788
 msgid "Name of the medication administered"
 msgstr ""
 
-#: core/models.py:790 core/templates/core/medication_list.html:29
-#: core/timeline.py:227
+#: core/models.py:794 core/templates/core/medication_list.html:29
+#: core/timeline.py:254
 msgid "Dosage"
 msgstr ""
 
-#: core/models.py:791
+#: core/models.py:795
 msgid "Amount of medication given"
 msgstr ""
 
-#: core/models.py:796
+#: core/models.py:800
 msgid "MG"
 msgstr ""
 
-#: core/models.py:797
+#: core/models.py:801
 msgid "ML"
 msgstr ""
 
-#: core/models.py:798
+#: core/models.py:802
 msgid "Tablets"
 msgstr ""
 
-#: core/models.py:799
+#: core/models.py:803
 msgid "Drops"
 msgstr ""
 
-#: core/models.py:804
+#: core/models.py:808
 msgid "Dosage Unit"
 msgstr ""
 
-#: core/models.py:810
+#: core/models.py:814
 #, fuzzy
 #| msgid "Timer actions"
 msgid "Time Taken"
 msgstr "Дії з таймером"
 
-#: core/models.py:816 core/templates/core/medication_list.html:30
+#: core/models.py:820 core/templates/core/medication_list.html:30
 #, fuzzy
 #| msgid "Diaper Intervals"
 msgid "Next Dose Interval"
 msgstr "Інтервали зміни підгузка"
 
-#: core/models.py:817
+#: core/models.py:821
 msgid "Time until next dose can be given"
 msgstr ""
 
-#: core/models.py:827
+#: core/models.py:831
 #, fuzzy
 #| msgid "Actions"
 msgid "Medications"
@@ -1492,12 +1524,12 @@ msgid "To confirm this action. Type the full name of the child below."
 msgstr "Введіть повне ім'я дитини нижче, щоб підтвердити ваші наміри."
 
 #: core/templates/core/child_detail.html:23
-#: dashboard/templates/dashboard/dashboard.html:30
+#: dashboard/templates/dashboard/dashboard.html:32
 msgid "Born"
 msgstr "День народження"
 
 #: core/templates/core/child_detail.html:25
-#: dashboard/templates/dashboard/dashboard.html:32
+#: dashboard/templates/dashboard/dashboard.html:34
 msgid "Age"
 msgstr "Вік"
 
@@ -1934,6 +1966,7 @@ msgstr "Переглянути таймери"
 #: dashboard/templates/cards/feeding_recent.html:18
 #: dashboard/templates/cards/feeding_recent.html:52
 #: dashboard/templates/cards/medication_last.html:15
+#: dashboard/templates/cards/notes_recent.html:11
 #: dashboard/templates/cards/pumping_last.html:15
 #: dashboard/templates/cards/pumping_recent.html:18
 #: dashboard/templates/cards/pumping_recent.html:52
@@ -1992,27 +2025,27 @@ msgstr "Ім'я мітки"
 msgid "Recently used:"
 msgstr "Нещодавно використано:"
 
-#: core/templates/core/widget_tag_editor.html:57
+#: core/templates/core/widget_tag_editor.html:55
 msgctxt "Error modal"
 msgid "Error"
 msgstr "Помилка"
 
-#: core/templates/core/widget_tag_editor.html:61
+#: core/templates/core/widget_tag_editor.html:59
 msgctxt "Error modal"
 msgid "An error ocurred."
 msgstr "Виникла помилка."
 
-#: core/templates/core/widget_tag_editor.html:62
+#: core/templates/core/widget_tag_editor.html:60
 msgctxt "Error modal"
 msgid "Invalid tag name."
 msgstr "Неправильне ім'я мітки."
 
-#: core/templates/core/widget_tag_editor.html:63
+#: core/templates/core/widget_tag_editor.html:61
 msgctxt "Error modal"
 msgid "Failed to create tag."
 msgstr "Не вийшло створити мітку."
 
-#: core/templates/core/widget_tag_editor.html:64
+#: core/templates/core/widget_tag_editor.html:62
 msgctxt "Error modal"
 msgid "Failed to obtain tag data."
 msgstr "Не вдалося отримати дані мітки."
@@ -2068,59 +2101,59 @@ msgstr "сьогодні"
 msgid "yesterday"
 msgstr "вчора"
 
-#: core/timeline.py:65
+#: core/timeline.py:80
 #, python-format
 msgid "%(child)s started tummy time!"
 msgstr "%(child)s почав лежання на животику!"
 
-#: core/timeline.py:77
+#: core/timeline.py:93
 #, python-format
 msgid "%(child)s finished tummy time."
 msgstr "%(child)s закінчив лежання на животику."
 
-#: core/timeline.py:105
+#: core/timeline.py:122
 #, python-format
 msgid "%(child)s fell asleep."
 msgstr "%(child)s заснув."
 
-#: core/timeline.py:117
+#: core/timeline.py:135
 #, python-format
 msgid "%(child)s woke up."
 msgstr "%(child)s прокинувся."
 
-#: core/timeline.py:164
+#: core/timeline.py:181
 #, python-format
 msgid "%(child)s started feeding."
 msgstr "%(child)s почав годування."
 
-#: core/timeline.py:173
+#: core/timeline.py:192
 #, python-format
 msgid "%(child)s finished feeding."
 msgstr "%(child)s закінчив годування."
 
-#: core/timeline.py:183
+#: core/timeline.py:203
 #, fuzzy, python-format
 msgid "%(child)s had a feeding."
 msgstr "%(child)s почав годування."
 
-#: core/timeline.py:205
+#: core/timeline.py:225
 #, python-format
 msgid "%(child)s had a %(type)s diaper change."
 msgstr "У %(child)s була зміна %(type)s підгузка."
 
-#: core/timeline.py:240
+#: core/timeline.py:268
 #, fuzzy, python-format
 #| msgid "%(child)s started feeding."
 msgid "%(child)s took %(medication)s."
 msgstr "%(child)s почав годування."
 
-#: core/timeline.py:256
+#: core/timeline.py:284
 #, fuzzy, python-format
 #| msgid "%(child)s started feeding."
 msgid "%(child)s's %(medication)s dose wore off."
 msgstr "%(child)s почав годування."
 
-#: core/timeline.py:301
+#: core/timeline.py:329
 #, python-format
 msgid "%(child)s had a temperature measurement."
 msgstr "У %(child)s виміряли температуру."
@@ -2281,6 +2314,24 @@ msgstr ""
 msgid "Next dose at %(next_time)s"
 msgstr ""
 
+#: dashboard/templates/cards/notes_recent.html:4
+#, fuzzy
+#| msgid "Recent Feedings"
+msgid "Recent Notes"
+msgstr "Нещодавні годування"
+
+#: dashboard/templates/cards/notes_recent.html:8
+#, fuzzy
+#| msgid "most recent"
+msgid "recent"
+msgstr "останні"
+
+#: dashboard/templates/cards/notes_recent.html:23
+#, fuzzy
+#| msgid "Notes"
+msgid "No notes"
+msgstr "Нотатки"
+
 #: dashboard/templates/cards/pumping_last.html:4
 msgid "Last Pumping"
 msgstr "Останнє зціджування"
@@ -2386,59 +2437,59 @@ msgstr "Дії"
 msgid "Reports"
 msgstr "Звіти"
 
-#: dashboard/templatetags/cards.py:491
+#: dashboard/templatetags/cards.py:502
 msgid "Average nap duration"
 msgstr "Середня тривалість денного сну"
 
-#: dashboard/templatetags/cards.py:498
+#: dashboard/templatetags/cards.py:509
 msgid "Average naps per day"
 msgstr "Середня кількість сну в день"
 
-#: dashboard/templatetags/cards.py:508
+#: dashboard/templatetags/cards.py:519
 msgid "Average sleep duration"
 msgstr "Середня тривалість сну"
 
-#: dashboard/templatetags/cards.py:515
+#: dashboard/templatetags/cards.py:526
 msgid "Average awake duration"
 msgstr "Середня тривалість неспання"
 
-#: dashboard/templatetags/cards.py:525
+#: dashboard/templatetags/cards.py:536
 msgid "Weight change per week"
 msgstr "Зміна ваги за тиждень"
 
-#: dashboard/templatetags/cards.py:535
+#: dashboard/templatetags/cards.py:546
 msgid "Height change per week"
 msgstr "Зміна зросту за тиждень"
 
-#: dashboard/templatetags/cards.py:545
+#: dashboard/templatetags/cards.py:560
 msgid "Head circumference change per week"
 msgstr "Зміна окружності голови за тиждень"
 
-#: dashboard/templatetags/cards.py:555
+#: dashboard/templatetags/cards.py:570
 msgid "BMI change per week"
 msgstr "Зміна ІМТ за тиждень"
 
-#: dashboard/templatetags/cards.py:573
+#: dashboard/templatetags/cards.py:588
 msgid "Diaper change frequency (past 3 days)"
 msgstr "Частота зміни підгузка (останні 3 дні)"
 
-#: dashboard/templatetags/cards.py:577
+#: dashboard/templatetags/cards.py:592
 msgid "Diaper change frequency (past 2 weeks)"
 msgstr "Частота зміни підгузка (останні 2 тижні)"
 
-#: dashboard/templatetags/cards.py:581
+#: dashboard/templatetags/cards.py:596
 msgid "Diaper change frequency"
 msgstr "Частота зміни підгузків"
 
-#: dashboard/templatetags/cards.py:620
+#: dashboard/templatetags/cards.py:635
 msgid "Feeding frequency (past 3 days)"
 msgstr "Частота годувань (останні 3 дні)"
 
-#: dashboard/templatetags/cards.py:624
+#: dashboard/templatetags/cards.py:639
 msgid "Feeding frequency (past 2 weeks)"
 msgstr "Частота годувань (останні 2 тижні)"
 
-#: dashboard/templatetags/cards.py:628
+#: dashboard/templatetags/cards.py:643
 msgid "Feeding frequency"
 msgstr "Частота годувань"
 
@@ -2447,7 +2498,7 @@ msgid "Diaper change amount"
 msgstr "Кількість змін підгузків"
 
 #: reports/graphs/diaperchange_amounts.py:36
-#: reports/templates/reports/report_list.html:18
+#: reports/templates/reports/report_list.html:21
 msgid "Diaper Change Amounts"
 msgstr "Кількість змін підгузків"
 
@@ -2473,7 +2524,7 @@ msgstr "Інтервал (години)"
 #: reports/graphs/diaperchange_lifetimes.py:35
 #: reports/templates/reports/diaperchange_lifetimes.html:4
 #: reports/templates/reports/diaperchange_lifetimes.html:9
-#: reports/templates/reports/report_list.html:24
+#: reports/templates/reports/report_list.html:27
 msgid "Diaper Lifetimes"
 msgstr "Термін використання підгузка"
 
@@ -2484,7 +2535,7 @@ msgstr "Час між змінами (години)"
 #: reports/graphs/diaperchange_types.py:48
 #: reports/templates/reports/diaperchange_types.html:4
 #: reports/templates/reports/diaperchange_types.html:9
-#: reports/templates/reports/report_list.html:20
+#: reports/templates/reports/report_list.html:23
 msgid "Diaper Change Types"
 msgstr "Що було в підгузках"
 
@@ -2540,7 +2591,7 @@ msgstr "Інтервал годування (години)"
 #: reports/graphs/feeding_pattern.py:178
 #: reports/templates/reports/feeding_pattern.html:4
 #: reports/templates/reports/feeding_pattern.html:9
-#: reports/templates/reports/report_list.html:32
+#: reports/templates/reports/report_list.html:37
 #, fuzzy
 msgid "Feeding Pattern"
 msgstr "Розклад сну"
@@ -2549,23 +2600,23 @@ msgstr "Розклад сну"
 msgid "Time of day"
 msgstr "Час доби"
 
-#: reports/graphs/height_change.py:51 reports/graphs/weight_change.py:49
+#: reports/graphs/height_change.py:53 reports/graphs/weight_change.py:51
 msgid "P3"
 msgstr "П3"
 
-#: reports/graphs/height_change.py:57 reports/graphs/weight_change.py:55
+#: reports/graphs/height_change.py:59 reports/graphs/weight_change.py:57
 msgid "P15"
 msgstr "П15"
 
-#: reports/graphs/height_change.py:63 reports/graphs/weight_change.py:61
+#: reports/graphs/height_change.py:65 reports/graphs/weight_change.py:63
 msgid "P50"
 msgstr "П50"
 
-#: reports/graphs/height_change.py:69 reports/graphs/weight_change.py:67
+#: reports/graphs/height_change.py:71 reports/graphs/weight_change.py:69
 msgid "P85"
 msgstr "П85"
 
-#: reports/graphs/height_change.py:75 reports/graphs/weight_change.py:73
+#: reports/graphs/height_change.py:77 reports/graphs/weight_change.py:75
 msgid "P97"
 msgstr "П97"
 
@@ -2608,7 +2659,7 @@ msgid "Pumping Amount"
 msgstr "Кількість зціджень"
 
 #: reports/graphs/sleep_pattern.py:165
-#: reports/templates/reports/report_list.html:48
+#: reports/templates/reports/report_list.html:63
 #: reports/templates/reports/sleep_pattern.html:4
 #: reports/templates/reports/sleep_pattern.html:9
 msgid "Sleep Pattern"
@@ -2619,7 +2670,7 @@ msgid "Total sleep"
 msgstr "Всього сну"
 
 #: reports/graphs/sleep_totals.py:58
-#: reports/templates/reports/report_list.html:50
+#: reports/templates/reports/report_list.html:65
 #: reports/templates/reports/sleep_totals.html:4
 #: reports/templates/reports/sleep_totals.html:9
 msgid "Sleep Totals"
@@ -2655,19 +2706,19 @@ msgstr "Кількість підгузків"
 
 #: reports/templates/reports/feeding_amounts.html:4
 #: reports/templates/reports/feeding_amounts.html:9
-#: reports/templates/reports/report_list.html:26
+#: reports/templates/reports/report_list.html:31
 msgid "Feeding Amounts"
 msgstr "Кількість годувань"
 
 #: reports/templates/reports/feeding_intervals.html:4
 #: reports/templates/reports/feeding_intervals.html:9
-#: reports/templates/reports/report_list.html:30
+#: reports/templates/reports/report_list.html:35
 msgid "Feeding Intervals"
 msgstr "Інтервали годування"
 
 #: reports/templates/reports/medication_frequency.html:4
 #: reports/templates/reports/medication_frequency.html:9
-#: reports/templates/reports/report_list.html:42
+#: reports/templates/reports/report_list.html:53
 #, fuzzy
 #| msgid "Feeding frequency"
 msgid "Medication Frequency"
@@ -2675,7 +2726,7 @@ msgstr "Частота годувань"
 
 #: reports/templates/reports/medication_intervals.html:4
 #: reports/templates/reports/medication_intervals.html:9
-#: reports/templates/reports/report_list.html:44
+#: reports/templates/reports/report_list.html:55
 #, fuzzy
 #| msgid "Feeding Intervals"
 msgid "Medication Intervals"
@@ -2685,39 +2736,39 @@ msgstr "Інтервали годування"
 msgid "There is not enough data to generate this report."
 msgstr "Недостатньо даних для створення звіту."
 
-#: reports/templates/reports/report_list.html:16
+#: reports/templates/reports/report_list.html:17
 msgid "Body Mass Index (BMI)"
 msgstr "Індекс Маси Тіла (ІМТ)"
 
-#: reports/templates/reports/report_list.html:22
+#: reports/templates/reports/report_list.html:25
 msgid "Diaper Intervals"
 msgstr "Інтервали зміни підгузка"
 
-#: reports/templates/reports/report_list.html:28
+#: reports/templates/reports/report_list.html:33
 msgid "Feeding Durations (Average)"
 msgstr "Тривалість годування (середня)"
 
-#: reports/templates/reports/report_list.html:38
+#: reports/templates/reports/report_list.html:47
 msgid "WHO Height Percentiles for Boys in cm"
 msgstr "Процентиль зросту для хлопчиків у см (ВООЗ)"
 
-#: reports/templates/reports/report_list.html:40
+#: reports/templates/reports/report_list.html:49
 msgid "WHO Height Percentiles for Girls in cm"
 msgstr "Процентиль зросту для дівчаток у см (ВООЗ)"
 
-#: reports/templates/reports/report_list.html:46
+#: reports/templates/reports/report_list.html:59
 msgid "Pumping Amounts"
 msgstr "Кількість зціджень"
 
-#: reports/templates/reports/report_list.html:54
+#: reports/templates/reports/report_list.html:73
 msgid "Tummy Time Durations (Sum)"
 msgstr "Час на животику (сума)"
 
-#: reports/templates/reports/report_list.html:58
+#: reports/templates/reports/report_list.html:79
 msgid "WHO Weight Percentiles for Boys in kg"
 msgstr "Процентилі ваги для хлопчиків в кг (ВООЗ)"
 
-#: reports/templates/reports/report_list.html:60
+#: reports/templates/reports/report_list.html:81
 msgid "WHO Weight Percentiles for Girls in kg"
 msgstr "Процентилі ваги для дівчаток в кг (ВООЗ)"
 

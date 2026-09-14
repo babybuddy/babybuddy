@@ -20,6 +20,9 @@
         {% if perms.core.view_feeding %}
             <div class="col-sm-6 col-lg-4">{% card_feeding_last object %}</div>
         {% endif %}
+        {% if perms.core.view_note %}
+            <div class="col-sm-6 col-lg-4">{% card_notes_recent object %}</div>
+        {% endif %}
         {% if perms.core.view_diaperchange %}
             <div class="col-sm-6 col-lg-4">{% card_diaperchange_last object %}</div>
         {% endif %}
