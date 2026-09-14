@@ -211,6 +211,36 @@ class ViewsTestCase(TestCase):
         page = self.c.post("/timers/{}/restart/".format(entry.id), follow=True)
         self.assertEqual(page.status_code, 200)
 
+    def test_timer_add_quick_assigns_posted_child(self):
+        child = models.Child.objects.first()
+        models.Child.objects.create(
+            first_name="Second", last_name="Child", birth_date="2000-01-01"
+        )
+        response = self.c.post("/timers/add/quick/", {"child": child.pk}, follow=True)
+        self.assertEqual(response.status_code, 200)
+        timer = models.Timer.objects.latest("id")
+        self.assertEqual(timer.child, child)
+
+    def test_quick_timer_buttons_post_child_as_hidden_input(self):
+        models.Child.objects.create(
+            first_name="Second", last_name="Child", birth_date="2000-01-01"
+        )
+        page = self.c.get("/timers/")
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, 'type="hidden" name="child"')
+        self.assertNotRegex(page.content.decode("utf-8"), r"<button[^>]*name=\"child\"")
+
+    def test_compact_quick_timer_buttons_post_child_as_hidden_input(self):
+        models.Child.objects.create(
+            first_name="Second", last_name="Child", birth_date="2000-01-01"
+        )
+        child = models.Child.objects.first()
+        page = self.c.get("/children/{}/".format(child.slug))
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, 'id="quick-timer-menu-toggle"')
+        self.assertContains(page, 'type="hidden" name="child"')
+        self.assertNotRegex(page.content.decode("utf-8"), r"<button[^>]*name=\"child\"")
+
     def test_timeline_views(self):
         child = models.Child.objects.first()
         response = self.c.get("/timeline/")
