@@ -80,7 +80,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="6">{% trans "No pumping entries found." %}</th>
+                        <th colspan="{% if not unique_child %}7{% else %}6{% endif %}">{% trans "No pumping entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

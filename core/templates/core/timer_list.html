@@ -46,7 +46,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No timer entries found." %}</th>
+                        <th colspan="{% if not unique_child %}4{% else %}3{% endif %}">{% trans "No timer entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
