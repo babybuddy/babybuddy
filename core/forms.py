@@ -95,13 +95,69 @@ class CoreModelForm(forms.ModelForm):
         self.timer_id = kwargs.get("timer", None)
         kwargs = set_initial_values(kwargs, type(self))
         super(CoreModelForm, self).__init__(*args, **kwargs)
+        self.add_timer_field()
+
+    def add_timer_field(self):
+        """
+        Add a read-only field with the name of the Timer being stopped.
+
+        The form is usually opened from a Timer, so showing which Timer the
+        entry belongs to makes it possible to identify the timer after the
+        fact. The Timer is only a source of initial values, so the field is
+        disabled and not used when the form is saved.
+        """
+        if not self.timer_id:
+            return
+
+        timer = models.Timer.objects.filter(id=self.timer_id).first()
+        if not timer:
+            return
+
+        self.fields["timer"] = forms.CharField(
+            label=_("Timer"),
+            required=False,
+            disabled=True,
+        )
+        self.initial["timer"] = timer.title_with_child
+        self.fields = self.move_after(self.fields, "timer", "child")
+
+        if hasattr(self, "fieldsets"):
+            self.fieldsets = [
+                {
+                    **fieldset,
+                    "fields": self.move_after(fieldset["fields"], "timer", "child"),
+                }
+                for fieldset in self.fieldsets
+            ]
+
+    @staticmethod
+    def move_after(fields, item, anchor):
+        """Return the fields with `item` placed directly after `anchor`."""
+        if item == anchor or anchor not in fields:
+            return fields
+
+        if isinstance(fields, dict):
+            if item not in fields:
+                return fields
+
+            items = list(fields.items())
+            entry = items.pop([key for key, _ in items].index(item))
+            items.insert([key for key, _ in items].index(anchor) + 1, entry)
+            return dict(items)
+
+        fields = list(fields)
+        if item in fields:
+            fields.remove(item)
+        fields.insert(fields.index(anchor) + 1, item)
+        return fields
 
     def save(self, commit=True):
         # If `timer_id` is present, stop the Timer.
         instance = super(CoreModelForm, self).save(commit=False)
         if self.timer_id:
-            timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop()
+            timer = models.Timer.objects.filter(id=self.timer_id).first()
+            if timer:
+                timer.stop()
         if commit:
             instance.save()
             self.save_m2m()

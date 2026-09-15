@@ -134,6 +134,38 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertTrue("start" not in page.context["form"].initial)
         self.assertTrue("end" not in page.context["form"].initial)
 
+    def test_timer_name_set_from_timer(self):
+        timer = models.Timer.objects.create(
+            user=self.user,
+            name="Timer Test",
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+        )
+
+        page = self.c.get("/sleep/add/?timer={}".format(timer.id))
+        self.assertEqual(page.context["form"].initial["timer"], "Timer Test")
+        self.assertEqual(page.context["form"].fields["timer"].label, "Timer")
+        self.assertContains(page, 'id="id_timer"')
+        self.assertContains(page, 'value="Timer Test"')
+
+    def test_timer_name_placed_after_child(self):
+        timer = models.Timer.objects.create(
+            user=self.user,
+            name="Timer Test",
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+        )
+
+        page = self.c.get("/sleep/add/?timer={}".format(timer.id))
+        field_names = list(page.context["form"].fields)
+        self.assertEqual(field_names.index("timer"), field_names.index("child") + 1)
+
+    def test_timer_name_not_set_without_timer(self):
+        page = self.c.get("/sleep/add/")
+        self.assertNotIn("timer", page.context["form"].fields)
+
+    def test_timer_name_not_set_from_invalid_timer(self):
+        page = self.c.get("/sleep/add/?timer={}".format(42))
+        self.assertNotIn("timer", page.context["form"].fields)
+
 
 class BMIFormsTestCase(FormsTestCaseBase):
     @classmethod
@@ -557,6 +589,22 @@ class SleepFormsTestCase(FormsTestCaseBase):
         }
 
         page = self.c.post("/sleep/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Sleep entry for {} added".format(str(self.child)))
+
+    def test_add_with_invalid_timer(self):
+        # Prevent potential sleep entry intersection errors.
+        models.Sleep.objects.all().delete()
+
+        end = timezone.localtime()
+        start = end - timezone.timedelta(minutes=2)
+        params = {
+            "child": self.child.id,
+            "start": self.localtime_string(start),
+            "end": self.localtime_string(end),
+        }
+
+        page = self.c.post("/sleep/add/?timer={}".format(42), params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Sleep entry for {} added".format(str(self.child)))
 
