@@ -526,9 +526,7 @@ class NoteFormsTestCase(FormsTestCaseBase):
             self.assertEqual(page.status_code, 200)
             note = models.Note.objects.exclude(image="").latest("id")
             self.assertTrue(note.image.name.startswith("notes/images/"))
-            self.assertContains(
-                page, "Note entry for {} added".format(str(self.child))
-            )
+            self.assertContains(page, "Note entry for {} added".format(str(self.child)))
 
     def test_add_rejects_invalid_image(self):
         params = {
@@ -542,7 +540,9 @@ class NoteFormsTestCase(FormsTestCaseBase):
         ):
             page = self.c.post("/notes/add/", params)
             self.assertEqual(page.status_code, 200)
-            self.assertIn("Upload a valid image", page.context["form"].errors["image"][0])
+            self.assertIn(
+                "Upload a valid image", page.context["form"].errors["image"][0]
+            )
 
     def test_edit(self):
         params = {
