@@ -80,7 +80,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="8">{% trans "No sleep entries found." %}</th>
+                        <th colspan="{% if not unique_child %}8{% else %}7{% endif %}">{% trans "No sleep entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

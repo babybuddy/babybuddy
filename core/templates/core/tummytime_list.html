@@ -74,7 +74,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="8">{% trans "No tummy time entries found." %}</th>
+                        <th colspan="{% if not unique_child %}8{% else %}7{% endif %}">{% trans "No tummy time entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
