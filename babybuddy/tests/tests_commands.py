@@ -2,7 +2,7 @@
 from django.test import TransactionTestCase
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.management import call_command
+from django.core.management import CommandError, call_command
 
 from core.models import Child
 
@@ -27,6 +27,47 @@ class CommandsTestCase(TransactionTestCase):
             get_user_model().objects.get(username="admin"), get_user_model()
         )
         self.assertEqual(Child.objects.count(), 1)
+
+    def test_createuser_staff_caregiver_is_rejected(self):
+        call_command("migrate", verbosity=0)
+        with self.assertRaisesMessage(
+            CommandError, "A user cannot be both staff and caregiver."
+        ):
+            call_command(
+                "createuser",
+                "--caregiver",
+                "--is-staff",
+                username="staffcaregiver",
+                password="test",
+                verbosity=0,
+            )
+        self.assertFalse(
+            get_user_model().objects.filter(username="staffcaregiver").exists()
+        )
+
+    def test_createuser_read_only_staff(self):
+        call_command("migrate", verbosity=0)
+        call_command(
+            "createuser",
+            "--read-only",
+            "--is-staff",
+            username="readonlystaff",
+            password="test",
+            verbosity=0,
+        )
+        user = get_user_model().objects.get(username="readonlystaff")
+        self.assertTrue(user.is_staff)
+        self.assertFalse(user.is_superuser)
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
 
     def test_createuser(self):
         call_command("migrate", verbosity=0)
@@ -73,3 +114,58 @@ class CommandsTestCase(TransactionTestCase):
                 name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
             ).exists()
         )
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+
+        call_command(
+            "createuser",
+            "--caregiver",
+            username="caregiveruser",
+            email="caregiveruser@test.test",
+            password="test",
+            verbosity=0,
+        )
+        user = get_user_model().objects.get(username="caregiveruser")
+        self.assertIsInstance(user, get_user_model())
+        self.assertFalse(user.is_superuser)
+        self.assertFalse(user.is_staff)
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+        self.assertFalse(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
+            ).exists()
+        )
+        # Caregivers can log the care entries, but nothing administrative.
+        self.assertTrue(user.has_perm("core.add_feeding"))
+        self.assertTrue(user.has_perm("core.add_diaperchange"))
+        self.assertTrue(user.has_perm("core.add_sleep"))
+        self.assertTrue(user.has_perm("core.add_timer"))
+        self.assertTrue(user.has_perm("core.add_medication"))
+        self.assertTrue(user.has_perm("core.add_temperature"))
+        self.assertTrue(user.has_perm("core.add_weight"))
+        self.assertTrue(user.has_perm("core.add_note"))
+        self.assertTrue(user.has_perm("core.add_tummytime"))
+        self.assertFalse(user.has_perm("core.add_pumping"))
+        self.assertFalse(user.has_perm("core.add_height"))
+        self.assertFalse(user.has_perm("core.add_bmi"))
+        self.assertFalse(user.has_perm("core.add_headcircumference"))
+        self.assertFalse(user.has_perm("core.add_tag"))
+        self.assertFalse(user.has_perm("core.delete_feeding"))
+
+        with self.assertRaises(CommandError):
+            call_command(
+                "createuser",
+                "--read-only",
+                "--caregiver",
+                username="bothuser",
+                email="both@test.test",
+                password="test",
+                verbosity=0,
+            )

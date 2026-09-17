@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load i18n widget_tweaks babybuddy qr_code %}
 {% block title %}
     {% trans "Add a device" %}
@@ -18,7 +18,9 @@
                     <form method="post">
                         {% csrf_token %}
                         <samp>{{ user.settings.api_key }}</samp>
-                        <button type="submit" name="api_key_regenerate" class="btn btn-danger btn-xs">{% trans "Regenerate" %}</button>
+                        <button type="submit"
+                                name="api_key_regenerate"
+                                class="btn btn-danger btn-xs">{% trans "Regenerate" %}</button>
                     </form>
                 </div>
             </div>

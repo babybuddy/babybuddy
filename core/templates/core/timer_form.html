@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load datetime duration i18n %}
 {% block title %}
     {% trans "Timer" %}
@@ -24,5 +24,5 @@
     {% else %}
         <h1>{% trans "Start Timer" %}</h1>
     {% endif %}
-    {% include 'babybuddy/form.html' %}
+    {% include "babybuddy/form.html" %}
 {% endblock %}

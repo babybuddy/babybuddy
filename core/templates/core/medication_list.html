@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load datetime i18n widget_tweaks %}
 {% block title %}
     {% trans "Medication" %}
@@ -15,7 +15,7 @@
             </a>
         {% endif %}
     </h1>
-    {% include 'babybuddy/filter.html' %}
+    {% include "babybuddy/filter.html" %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
@@ -78,11 +78,11 @@
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No medication entries found." %}</th>
+                        <th colspan="{% if not unique_child %}7{% else %}6{% endif %}">{% trans "No medication entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    {% include 'babybuddy/paginator.html' %}
+    {% include "babybuddy/paginator.html" %}
 {% endblock %}

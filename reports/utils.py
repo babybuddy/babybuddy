@@ -37,12 +37,12 @@ def default_graph_layout_options():
         },
         "margin": {"b": 80, "t": 80},
         "xaxis": {
-            "titlefont": {"color": "rgba(255, 255, 255, 0.5)"},
+            "title": {"font": {"color": "rgba(255, 255, 255, 0.5)"}},
             "gridcolor": "rgba(0, 0, 0, 0.25)",
             "zerolinecolor": "rgba(0, 0, 0, 0.5)",
         },
         "yaxis": {
-            "titlefont": {"color": "rgba(255, 255, 255, 0.5)"},
+            "title": {"font": {"color": "rgba(255, 255, 255, 0.5)"}},
             "gridcolor": "rgba(0, 0, 0, 0.25)",
             "zerolinecolor": "rgba(0, 0, 0, 0.5)",
         },

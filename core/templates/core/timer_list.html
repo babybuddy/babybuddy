@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load bootstrap datetime duration i18n widget_tweaks %}
 {% block title %}
     {% trans "Timers" %}
@@ -15,7 +15,7 @@
             </a>
         {% endif %}
     </h1>
-    {% include 'babybuddy/filter.html' %}
+    {% include "babybuddy/filter.html" %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
@@ -46,11 +46,11 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No timer entries found." %}</th>
+                        <th colspan="{% if not unique_child %}4{% else %}3{% endif %}">{% trans "No timer entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    {% include 'babybuddy/paginator.html' %}
+    {% include "babybuddy/paginator.html" %}
 {% endblock %}

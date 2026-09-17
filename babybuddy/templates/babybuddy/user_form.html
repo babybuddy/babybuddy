@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load babybuddy i18n %}
 {% block title %}
     {% if object %}
@@ -34,5 +34,5 @@
     {% else %}
         <h1>{% trans "Create User" %}</h1>
     {% endif %}
-    {% include 'babybuddy/form.html' %}
+    {% include "babybuddy/form.html" %}
 {% endblock %}

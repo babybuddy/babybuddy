@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load babybuddy bootstrap i18n widget_tweaks %}
 {% block title %}
     {% trans "Users" %}
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
     <h1>Users</h1>
-    {% include 'babybuddy/filter.html' %}
+    {% include "babybuddy/filter.html" %}
     <div class="table-responsive">
         <table class="table table-borderless table-striped table-hover align-middle">
             <thead>
@@ -18,6 +18,7 @@
                     <th>{% trans "Last Name" %}</th>
                     <th>{% trans "Email" %}</th>
                     <th class="text-center">{% trans "Read only" %}</th>
+                    <th class="text-center">{% trans "Caregiver" %}</th>
                     <th class="text-center">{% trans "Staff" %}</th>
                     <th class="text-center">{% trans "Active" %}</th>
                     <th class="text-center">{% trans "Locked" %}</th>
@@ -33,6 +34,8 @@
                         <td>{{ object.email }}</td>
                         {% user_is_read_only object as is_read_only %}
                         <td class="text-center">{{ is_read_only|bool_icon }}</td>
+                        {% user_is_caregiver object as is_caregiver %}
+                        <td class="text-center">{{ is_caregiver|bool_icon }}</td>
                         <td class="text-center">{{ object.is_staff|bool_icon }}</td>
                         <td class="text-center">{{ object.is_active|bool_icon }}</td>
                         {% user_is_locked object as is_locked %}
@@ -62,7 +65,7 @@
             </tbody>
         </table>
     </div>
-    {% include 'babybuddy/paginator.html' %}
+    {% include "babybuddy/paginator.html" %}
     {% if perms.admin.add_user %}
         <a href="{% url 'babybuddy:user-add' %}" class="btn btn-sm btn-success">
             <i class="icon-add" aria-hidden="true"></i> {% trans "Create User" %}

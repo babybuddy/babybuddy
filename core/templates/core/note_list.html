@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load datetime i18n imagekit widget_tweaks %}
 {% block title %}
     {% trans "Notes" %}
@@ -15,7 +15,7 @@
             </a>
         {% endif %}
     </h1>
-    {% include 'babybuddy/filter.html' %}
+    {% include "babybuddy/filter.html" %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
@@ -68,11 +68,11 @@
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <th colspan="5">{% trans "No notes found." %}</th>
+                                    <th colspan="{% if not unique_child %}6{% else %}5{% endif %}">{% trans "No notes found." %}</th>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                     </div>
-                    {% include 'babybuddy/paginator.html' %}
+                    {% include "babybuddy/paginator.html" %}
                 {% endblock %}

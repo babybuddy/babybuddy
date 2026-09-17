@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load i18n %}
 {% block title %}
     {% trans "Site Settings" %}
@@ -9,5 +9,5 @@
 {% endblock %}
 {% block content %}
     <h1>{% trans "Site Settings" %}</h1>
-    {% include 'babybuddy/form.html' %}
+    {% include "babybuddy/form.html" %}
 {% endblock %}

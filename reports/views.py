@@ -13,7 +13,10 @@ class BMIChangeChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_bmi",
+    )
     template_name = "reports/bmi_change.html"
 
     def get_context_data(self, **kwargs):
@@ -41,7 +44,10 @@ class DiaperChangeAmounts(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_diaperchange",
+    )
     template_name = "reports/diaperchange_amounts.html"
 
     def get_context_data(self, **kwargs):
@@ -59,7 +65,10 @@ class DiaperChangeLifetimesChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_diaperchange",
+    )
     template_name = "reports/diaperchange_lifetimes.html"
 
     def get_context_data(self, **kwargs):
@@ -79,7 +88,10 @@ class DiaperChangeTypesChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_diaperchange",
+    )
     template_name = "reports/diaperchange_types.html"
 
     def get_context_data(self, **kwargs):
@@ -97,7 +109,10 @@ class DiaperChangeIntervalsChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_diaperchange",
+    )
     template_name = "reports/diaperchange_intervals.html"
 
     def get_context_data(self, **kwargs):
@@ -117,7 +132,10 @@ class FeedingAmountsChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_feeding",
+    )
     template_name = "reports/feeding_amounts.html"
 
     def __init__(self):
@@ -140,7 +158,10 @@ class FeedingDurationChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_feeding",
+    )
     template_name = "reports/feeding_duration.html"
 
     def __init__(self):
@@ -163,7 +184,10 @@ class FeedingIntervalsChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_feeding",
+    )
     template_name = "reports/feeding_intervals.html"
 
     def get_context_data(self, **kwargs):
@@ -181,7 +205,10 @@ class FeedingPatternChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_feeding",
+    )
     template_name = "reports/feeding_pattern.html"
 
     def __init__(self):
@@ -204,7 +231,10 @@ class HeadCircumferenceChangeChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_headcircumference",
+    )
     template_name = "reports/head_circumference_change.html"
 
     def get_context_data(self, **kwargs):
@@ -230,7 +260,10 @@ class HeightChangeChildReport(PermissionRequiredMixin, DetailView):
         self, sex=None, target_url="reports:report-height-change-child"
     ) -> None:
         self.model = models.Child
-        self.permission_required = ("core.view_child",)
+        self.permission_required = (
+            "core.view_child",
+            "core.view_height",
+        )
         self.template_name = "reports/height_change.html"
         self.sex = sex
         self.target_url = target_url
@@ -269,7 +302,10 @@ class PumpingAmounts(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_pumping",
+    )
     template_name = "reports/pumping_amounts.html"
 
     def get_context_data(self, **kwargs):
@@ -287,7 +323,10 @@ class SleepPatternChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_sleep",
+    )
     template_name = "reports/sleep_pattern.html"
 
     def __init__(self):
@@ -310,7 +349,10 @@ class SleepTotalsChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_sleep",
+    )
     template_name = "reports/sleep_totals.html"
 
     def __init__(self):
@@ -333,7 +375,10 @@ class TemperatureChangeChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_temperature",
+    )
     template_name = "reports/temperature_change.html"
 
     def get_context_data(self, **kwargs):
@@ -351,7 +396,10 @@ class TummyTimeDurationChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_tummytime",
+    )
     template_name = "reports/tummytime_duration.html"
 
     def __init__(self):
@@ -377,7 +425,10 @@ class WeightChangeChildReport(PermissionRequiredMixin, DetailView):
         self, sex=None, target_url="reports:report-weight-change-child"
     ) -> None:
         self.model = models.Child
-        self.permission_required = ("core.view_child",)
+        self.permission_required = (
+            "core.view_child",
+            "core.view_weight",
+        )
         self.template_name = "reports/weight_change.html"
         self.sex = sex
         self.target_url = target_url
@@ -416,7 +467,10 @@ class MedicationFrequencyChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_medication",
+    )
     template_name = "reports/medication_frequency.html"
 
     def get_context_data(self, **kwargs):
@@ -434,7 +488,10 @@ class MedicationIntervalsChildReport(PermissionRequiredMixin, DetailView):
     """
 
     model = models.Child
-    permission_required = ("core.view_child",)
+    permission_required = (
+        "core.view_child",
+        "core.view_medication",
+    )
     template_name = "reports/medication_intervals.html"
 
     def get_context_data(self, **kwargs):

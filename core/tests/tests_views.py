@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.core.management import call_command
 from django.test import TestCase
 from django.test import Client as HttpClient
@@ -210,6 +211,36 @@ class ViewsTestCase(TestCase):
         page = self.c.post("/timers/{}/restart/".format(entry.id), follow=True)
         self.assertEqual(page.status_code, 200)
 
+    def test_timer_add_quick_assigns_posted_child(self):
+        child = models.Child.objects.first()
+        models.Child.objects.create(
+            first_name="Second", last_name="Child", birth_date="2000-01-01"
+        )
+        response = self.c.post("/timers/add/quick/", {"child": child.pk}, follow=True)
+        self.assertEqual(response.status_code, 200)
+        timer = models.Timer.objects.latest("id")
+        self.assertEqual(timer.child, child)
+
+    def test_quick_timer_buttons_post_child_as_hidden_input(self):
+        models.Child.objects.create(
+            first_name="Second", last_name="Child", birth_date="2000-01-01"
+        )
+        page = self.c.get("/timers/")
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, 'type="hidden" name="child"')
+        self.assertNotRegex(page.content.decode("utf-8"), r"<button[^>]*name=\"child\"")
+
+    def test_compact_quick_timer_buttons_post_child_as_hidden_input(self):
+        models.Child.objects.create(
+            first_name="Second", last_name="Child", birth_date="2000-01-01"
+        )
+        child = models.Child.objects.first()
+        page = self.c.get("/children/{}/".format(child.slug))
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, 'id="quick-timer-menu-toggle"')
+        self.assertContains(page, 'type="hidden" name="child"')
+        self.assertNotRegex(page.content.decode("utf-8"), r"<button[^>]*name=\"child\"")
+
     def test_timeline_views(self):
         child = models.Child.objects.first()
         response = self.c.get("/timeline/")
@@ -244,3 +275,99 @@ class ViewsTestCase(TestCase):
         self.assertEqual(page.status_code, 200)
         page = self.c.get("/weight/{}/delete/".format(entry.id))
         self.assertEqual(page.status_code, 200)
+
+
+CARE_ENTRY_PERMISSIONS = (
+    "view_child",
+    "view_timer",
+    "view_feeding",
+    "view_diaperchange",
+    "view_sleep",
+)
+
+
+class TimelinePermissionsTestCase(TestCase):
+    """
+    The timeline pulls events from every core model. It only includes the
+    event types the user has the matching `view` permission for.
+    """
+
+    fixtures = ["tests.json"]
+
+    def setUp(self):
+        self.child = models.Child.objects.first()
+        now = timezone.localtime()
+        models.Medication.objects.create(
+            child=self.child, name="Timeline Medication", time=now
+        )
+        models.Note.objects.create(
+            child=self.child, note="Timeline private note", time=now
+        )
+        models.Temperature.objects.create(child=self.child, temperature=38.9, time=now)
+        models.TummyTime.objects.create(
+            child=self.child, start=now, end=now + timezone.timedelta(minutes=5)
+        )
+        models.Feeding.objects.create(
+            child=self.child,
+            start=now,
+            end=now + timezone.timedelta(minutes=10),
+            type="formula",
+            method="bottle",
+            amount=100,
+        )
+        self.c = HttpClient()
+        self.url = "/children/{}/".format(self.child.slug)
+
+    def _login(self, username, codenames=None, read_only=False):
+        user = get_user_model().objects.create_user(
+            username=username, password="password", is_active=True
+        )
+        if read_only:
+            # The `read_only` group holds `view` on every core model. The
+            # permissions are granted to the user directly, rather than by
+            # looking the group up, so this keeps working whether or not the
+            # group has been populated.
+            codenames = tuple(
+                Permission.objects.filter(
+                    content_type__app_label="core", codename__startswith="view_"
+                ).values_list("codename", flat=True)
+            )
+        if codenames:
+            user.user_permissions.add(
+                *Permission.objects.filter(
+                    content_type__app_label="core", codename__in=codenames
+                )
+            )
+        self.c.login(username=username, password="password")
+        return user
+
+    def _model_names(self, page):
+        return {event.get("model_name") for event in page.context["timeline_objects"]}
+
+    def test_timeline_excludes_models_without_permission(self):
+        self._login("carer", codenames=CARE_ENTRY_PERMISSIONS)
+        page = self.c.get(self.url)
+        self.assertEqual(page.status_code, 200)
+
+        model_names = self._model_names(page)
+        self.assertIn("feeding", model_names)
+        for excluded in ["medication", "note", "temperature", "tummytime"]:
+            self.assertNotIn(excluded, model_names)
+
+        content = page.content.decode()
+        self.assertNotIn("Timeline Medication", content)
+        self.assertNotIn("Timeline private note", content)
+
+    def test_read_only_user_sees_the_whole_timeline(self):
+        self._login("readonly", read_only=True)
+        page = self.c.get(self.url)
+        self.assertEqual(page.status_code, 200)
+
+        model_names = self._model_names(page)
+        self.assertIn("feeding", model_names)
+        self.assertIn("medication", model_names)
+        self.assertIn("note", model_names)
+
+        content = page.content.decode()
+        self.assertIn("Timeline Medication", content)
+        self.assertIn("Timeline private note", content)
