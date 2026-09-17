@@ -15,6 +15,7 @@ def create_read_only_group(sender, **kwargs):
     from django.contrib.auth.models import Group
 
     Group.objects.get_or_create(name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"])
+    Group.objects.get_or_create(name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"])
 
 
 def set_default_site_settings(sender, **kwargs):

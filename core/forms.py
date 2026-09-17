@@ -2,10 +2,12 @@
 from django import forms
 from django.forms import widgets
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from taggit.forms import TagField
+from taggit.forms import TagField, TagWidgetMixin
 
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
@@ -24,6 +26,8 @@ def set_initial_values(kwargs, form_type):
 
     # Never update initial values for existing instance (e.g. edit operation).
     if kwargs.get("instance", None):
+        kwargs.pop("child", None)
+        kwargs.pop("timer", None)
         return kwargs
 
     # Add the "initial" kwarg if it does not already exist.
@@ -49,7 +53,7 @@ def set_initial_values(kwargs, form_type):
             kwargs["initial"].update(
                 {"timer": timer, "start": timer.start, "end": timezone.now()}
             )
-        except Timer.DoesNotExist:
+        except (Timer.DoesNotExist, ValueError, TypeError, OverflowError):
             pass
 
     # Set type and method values for Feeding instance based on last feed.
@@ -91,20 +95,43 @@ def set_initial_values(kwargs, form_type):
 
 class CoreModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        # Set `timer_id` so the Timer can be stopped in the `save` method.
+        self.user = kwargs.pop("user", getattr(self, "user", None))
+        # Set `timer_id` so the Timer can be consumed only after a successful save.
         self.timer_id = kwargs.get("timer", None)
         kwargs = set_initial_values(kwargs, type(self))
         super(CoreModelForm, self).__init__(*args, **kwargs)
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if self.timer_id is not None:
+            if self.user is None or not self.user.has_perm("core.delete_timer"):
+                raise PermissionDenied(
+                    _("You do not have permission to consume timers.")
+                )
+            try:
+                models.Timer.objects.get(pk=self.timer_id)
+            except (Timer.DoesNotExist, ValueError, TypeError, OverflowError):
+                raise forms.ValidationError(_("This timer does not exist."))
+        return cleaned_data
+
+    @transaction.atomic
     def save(self, commit=True):
-        # If `timer_id` is present, stop the Timer.
-        instance = super(CoreModelForm, self).save(commit=False)
-        if self.timer_id:
-            timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop()
+        instance = super().save(commit=False)
         if commit:
+            timer = None
+            if self.timer_id is not None:
+                # Lock until the entry and its tags have been saved successfully.
+                timer = (
+                    models.Timer.objects.select_for_update()
+                    .filter(pk=self.timer_id)
+                    .first()
+                )
+                if timer is None:
+                    raise forms.ValidationError(_("This timer no longer exists."))
             instance.save()
             self.save_m2m()
+            if timer is not None:
+                timer.stop()
         return instance
 
     @property
@@ -133,6 +160,10 @@ class CoreModelForm(forms.ModelForm):
         return hydrated_fieldsets
 
 
+class HiddenTagWidget(TagWidgetMixin, forms.HiddenInput):
+    """Hidden tag input that still renders tag names instead of object reprs."""
+
+
 class TaggableModelForm(forms.ModelForm):
     tags = TagField(
         label=_("Tags"),
@@ -143,6 +174,23 @@ class TaggableModelForm(forms.ModelForm):
             "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
         ),
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.user is None or not self.user.has_perm("core.change_tag"):
+            # Without `change_tag` the field stays in the form (the layout and
+            # the preserved value depend on it) but is only a carrier for the
+            # current tag names, which `clean_tags` accepts unchanged.
+            self.fields["tags"].widget = HiddenTagWidget()
+            self.fields["tags"].help_text = None
+
+    def clean_tags(self):
+        current = list(self.instance.tags.names()) if self.instance.pk else []
+        if self.add_prefix("tags") not in self.data:
+            return current
+        tags = self.cleaned_data["tags"]
+        models.Tag.check_assignment_permissions(self.user, tags, current)
+        return tags
 
 
 class BMIForm(CoreModelForm, TaggableModelForm):
@@ -177,13 +225,9 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
         return cleaned_data
 
     def save(self, commit=True):
-        instance = super(BottleFeedingForm, self).save(commit=False)
-        instance.method = "bottle"
-        instance.end = instance.start
-        if commit:
-            instance.save()
-            self.save_m2m()
-        return instance
+        self.instance.method = "bottle"
+        self.instance.end = self.instance.start
+        return super().save(commit=commit)
 
     class Meta:
         model = models.Feeding
