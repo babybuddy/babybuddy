@@ -58,11 +58,10 @@ Per-user permissions are the way to extend one caregiver's access without
 changing everybody else's defaults.
 
 Converting a timer into a feeding, sleep or tummy-time entry deletes the timer.
-That operation requires `core.delete_timer`, even for a timer the caregiver
-created. Without it, the caregiver can record the entry using start and end
-times instead; the timer remains until someone with deletion permission removes
-it. Granting `core.delete_timer` also permits deleting other users' timers, not
-just completing the caregiver's own timers.
+A caregiver can do this for the timers they started. Converting another user's
+timer requires `core.delete_timer`, which also permits deleting any timer.
+Editing a timer does not change who it belongs to, and changing the user of an
+existing timer through the API also requires `core.delete_timer`.
 
 Tags already attached to an entry remain visible and are preserved when a
 caregiver edits the entry without changing its tags. Changing tag assignments

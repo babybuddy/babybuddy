@@ -1103,8 +1103,9 @@ class CaregiverAPITestCase(APITestCase):
             )
         )
 
-    def test_timer_consumption_requires_delete_permission_even_for_owner(self):
+    def test_timer_consumption_without_delete_permission_is_limited_to_owner(self):
         self.grant("add_pumping")
+        admin = get_user_model().objects.get(username="admin")
         for model, endpoint, extra in (
             (
                 models.Feeding,
@@ -1115,10 +1116,7 @@ class CaregiverAPITestCase(APITestCase):
             (models.TummyTime, "tummytime", {}),
             (models.Pumping, "pumping", {"amount": 2}),
         ):
-            for owner in (
-                self.caregiver,
-                get_user_model().objects.get(username="admin"),
-            ):
+            for owner, allowed in ((self.caregiver, True), (admin, False)):
                 with self.subTest(endpoint=endpoint, owner=owner.username):
                     timer = models.Timer.objects.create(
                         child_id=1,
@@ -1131,9 +1129,50 @@ class CaregiverAPITestCase(APITestCase):
                         {"timer": timer.pk, **extra},
                         format="json",
                     )
-                    self.assertEqual(response.status_code, 403)
-                    self.assertEqual(model.objects.count(), count)
-                    self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
+                    if allowed:
+                        self.assertEqual(response.status_code, 201, response.data)
+                        self.assertEqual(model.objects.count(), count + 1)
+                    else:
+                        self.assertEqual(response.status_code, 403)
+                        self.assertEqual(model.objects.count(), count)
+                    self.assertEqual(
+                        models.Timer.objects.filter(pk=timer.pk).exists(), not allowed
+                    )
+
+    def test_timer_owner_is_kept_without_delete_permission(self):
+        admin = get_user_model().objects.get(username="admin")
+        timer = models.Timer.objects.create(
+            child_id=1, user=admin, start=timezone.now() - timezone.timedelta(minutes=5)
+        )
+        endpoint = f"{reverse('api:timer-list')}{timer.pk}/"
+        response = self.client.patch(endpoint, {"name": "Renamed"}, format="json")
+        self.assertEqual(response.status_code, 200)
+        timer.refresh_from_db()
+        self.assertEqual(timer.user, admin)
+        response = self.client.patch(
+            endpoint, {"user": self.caregiver.pk}, format="json"
+        )
+        self.assertEqual(response.status_code, 403)
+        timer.refresh_from_db()
+        self.assertEqual(timer.user, admin)
+        response = self.client.post(
+            reverse("api:sleep-list"), {"timer": timer.pk}, format="json"
+        )
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
+
+    def test_delete_timer_grant_allows_changing_timer_user(self):
+        self.grant("delete_timer")
+        admin = get_user_model().objects.get(username="admin")
+        timer = models.Timer.objects.create(child_id=1, user=admin)
+        response = self.client.patch(
+            f"{reverse('api:timer-list')}{timer.pk}/",
+            {"user": self.caregiver.pk},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 200)
+        timer.refresh_from_db()
+        self.assertEqual(timer.user, self.caregiver)
 
     def test_timer_grant_consumes_only_after_successful_validation(self):
         self.grant("delete_timer")
