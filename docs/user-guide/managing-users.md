@@ -72,9 +72,9 @@ requires `core.change_tag`; creating new tag names additionally requires
 !!! warning "The role is not limited to one child"
 
     A caregiver has access to every child on the instance, and may edit entries
-    that other users created. There is no per-child grant, no expiry on the
-    access, and Baby Buddy does not record which user created an entry, so a
-    caregiver's entries cannot be told apart from anyone else's afterwards.
+    that other users created. There is no per-child grant, and Baby Buddy does
+    not record which user created an entry, so a caregiver's entries cannot be
+    told apart from anyone else's afterwards.
 
 To withdraw access, clear the **Active** checkbox on the user, or delete the
 user. Subsequent web and API requests are denied, including requests using an
@@ -90,6 +90,14 @@ staff access opens administrative pages. When converting an existing account,
 review its other groups and individual permissions as well. Changing a role
 does not remove those additional grants, so switching an extended caregiver to
 read only does not necessarily remove all write access.
+
+## Access Expiry
+
+A user can be given an **Access expires** time in the user form, for example
+for a babysitter who helps out for a weekend. From that time on, the user is
+signed out, cannot sign in and cannot use the API, including with an existing
+API key. The account itself is left unchanged: clearing or moving the time
+restores access. Users cannot change their own expiry time.
 
 ## Creating a User from the Command Line
 
