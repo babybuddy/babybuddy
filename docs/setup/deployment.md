@@ -97,6 +97,10 @@ and unique. Digital Ocean's automatic secret generator does not work with Baby B
 
 [![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/babybuddy/babybuddy/tree/master&refcode=dd79e4cfd7b6)
 
+## Easypanel
+
+[Easypanel](https://easypanel.io/) can deploy Baby Buddy with one click using its [official template](https://easypanel.io/templates/babybuddy), which runs the Docker image for you with a persistent config volume.
+
 ## Clever Cloud
 
 To deploy on [Clever Cloud](https://www.clever-cloud.com), log in to your
