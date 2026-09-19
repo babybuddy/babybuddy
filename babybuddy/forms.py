@@ -124,4 +124,5 @@ class UserSettingsForm(forms.ModelForm):
             "language",
             "timezone",
             "pagination_count",
+            "display_feed_end_time",
         ]
