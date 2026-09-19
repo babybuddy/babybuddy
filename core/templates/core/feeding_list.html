@@ -73,8 +73,9 @@
                             <td>
                                 {% if prev_feeding %}
                                     {% feeding_time_diff_base prev_feeding as diff_base %}
+                                    {% prev_word as prev_word_var %}
                                     {% blocktrans trimmed with time_ago=diff_base|timesince:feeding.start %}
-                                        {{ time_ago }} ago
+                                        {{ time_ago }} {{ prev_word_var }}
                                     {% endblocktrans %}
                                 {% endif %}
                             </td>

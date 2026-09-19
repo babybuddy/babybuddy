@@ -73,8 +73,9 @@
                             <td>{{ change.amount|default_if_none:"" }}</td>
                             <td>
                                 {% if prev_change %}
+                                    {% prev_word as prev_word_var %}
                                     {% blocktrans trimmed with time_ago=prev_change.time|timesince:change.time %}
-                                        {{ time_ago }} ago
+                                        {{ time_ago }} {{ prev_word_var }}
                                     {% endblocktrans %}
                                 {% endif %}
                             </td>
