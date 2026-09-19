@@ -12,5 +12,5 @@ class TokenAuthentication(authentication.TokenAuthentication):
     def authenticate_credentials(self, key):
         user, token = super().authenticate_credentials(key)
         if access_expired(user):
-            raise exceptions.AuthenticationFailed(_("User inactive or deleted."))
+            raise exceptions.AuthenticationFailed(_("Your access has expired."))
         return user, token

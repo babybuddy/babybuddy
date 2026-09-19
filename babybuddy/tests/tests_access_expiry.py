@@ -50,6 +50,9 @@ class AccessExpiryTestCase(APITestCase):
         self.assertEqual(self.api_status(), 200)
         self.expire_in(-timezone.timedelta(minutes=1))
         self.assertIn(self.api_status(), (401, 403))
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
+        response = self.client.get(reverse("api:child-list"))
+        self.assertEqual(response.data["detail"], "Your access has expired.")
 
     def test_expired_user_cannot_sign_in(self):
         self.expire_in(-timezone.timedelta(minutes=1))
