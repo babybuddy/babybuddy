@@ -72,6 +72,8 @@ def _add_tummy_times(min_date, max_date, events, child=None):
         details = []
         if instance.milestone:
             details.append(instance.milestone)
+        if instance.notes:
+            details.append(instance.notes)
         edit_link = reverse("core:tummytime-update", args=[instance.id])
         if min_date <= instance.start <= max_date:
             events.append(

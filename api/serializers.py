@@ -4,6 +4,8 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.utils import timezone
 
 from taggit.serializers import TagListSerializerField, TaggitSerializer
@@ -74,8 +76,11 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
         if "timer" in attrs:
             # Remove the "timer" attribute (super validation would fail as it
             # is not a true field on the model).
-            timer = attrs["timer"]
-            attrs.pop("timer")
+            timer = attrs.pop("timer")
+            if timer is None:
+                raise ValidationError({"timer": "This field may not be null."})
+            if not self.context["request"].user.has_perm("core.delete_timer"):
+                raise PermissionDenied("You do not have permission to consume timers.")
 
             if timer.child:
                 attrs["child"] = timer.child
@@ -97,15 +102,32 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
 
         attrs = super().validate(attrs)
 
-        # Only actually stop the timer if all validation passed.
-        if timer:
-            timer.stop()
-
+        self.timer = timer
         return attrs
+
+    @transaction.atomic
+    def save(self, **kwargs):
+        timer = getattr(self, "timer", None)
+        if timer is not None:
+            try:
+                timer = models.Timer.objects.select_for_update().get(pk=timer.pk)
+            except models.Timer.DoesNotExist:
+                raise ValidationError({"timer": "This timer no longer exists."})
+        instance = super().save(**kwargs)
+        if timer is not None:
+            timer.stop()
+        return instance
 
 
 class TaggableSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
     tags = TagListSerializerField(required=False)
+
+    def validate_tags(self, tags):
+        current = self.instance.tags.names() if self.instance else ()
+        models.Tag.check_assignment_permissions(
+            self.context["request"].user, tags, current
+        )
+        return tags
 
 
 class BMISerializer(CoreModelSerializer, TaggableSerializer):
@@ -291,6 +313,7 @@ class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "timer",
             "duration",
             "milestone",
+            "notes",
             "tags",
         )
 

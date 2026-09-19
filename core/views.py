@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
 from django.db.models.functions import Lower
-from django.forms import Form
+from django.forms import Form, ValidationError
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
@@ -28,7 +28,24 @@ def _prepare_timeline_context_data(context, date, child=None, user=None):
     pass
 
 
-class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class CoreFormMixin:
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if issubclass(self.get_form_class(), forms.CoreModelForm):
+            kwargs["user"] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        try:
+            return super().form_valid(form)
+        except ValidationError as error:
+            form.add_error(None, error)
+            return self.form_invalid(form)
+
+
+class CoreAddView(
+    CoreFormMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
     def get_success_message(self, cleaned_data):
         cleaned_data["model"] = self.model._meta.verbose_name.title()
         if "child" in cleaned_data:
@@ -49,14 +66,16 @@ class CoreAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
         :return: Updated keyword arguments.
         """
         kwargs = super(CoreAddView, self).get_form_kwargs()
-        for parameter in ["child", "timer"]:
-            value = self.request.GET.get(parameter, None)
-            if value:
-                kwargs.update({parameter: value})
+        if issubclass(self.get_form_class(), forms.CoreModelForm):
+            for parameter in ["child", "timer"]:
+                if parameter in self.request.GET:
+                    kwargs[parameter] = self.request.GET[parameter]
         return kwargs
 
 
-class CoreUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class CoreUpdateView(
+    CoreFormMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
+):
     def get_success_message(self, cleaned_data):
         cleaned_data["model"] = self.model._meta.verbose_name.title()
         if cleaned_data.get("child"):

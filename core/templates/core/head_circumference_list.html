@@ -69,7 +69,7 @@
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No head circumference entries found." %}</th>
+                        <th colspan="{% if not unique_child %}5{% else %}4{% endif %}">{% trans "No head circumference entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

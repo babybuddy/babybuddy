@@ -20,6 +20,10 @@ def diaperchange_intervals(changes):
     """
 
     changes = changes.order_by("time")
+    change_times = list(changes.values_list("time", flat=True))[1:]
+    times = []
+    times_solid = []
+    times_wet = []
     intervals = []
     intervals_solid = []
     intervals_wet = []
@@ -27,17 +31,20 @@ def diaperchange_intervals(changes):
     for change in changes[1:]:
         interval = change.time - last_change.time
         if interval.total_seconds() > 0:
+            times.append(change.time)
             intervals.append(interval)
             if change.solid:
+                times_solid.append(change.time)
                 intervals_solid.append(interval)
             if change.wet:
+                times_wet.append(change.time)
                 intervals_wet.append(interval)
         last_change = change
 
     trace_solid = go.Scatter(
         name=_("Solid"),
         line=dict(shape="spline"),
-        x=list(changes.values_list("time", flat=True))[1:],
+        x=times_solid,
         y=[i.total_seconds() / 3600 for i in intervals_solid],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals_solid],
@@ -46,7 +53,7 @@ def diaperchange_intervals(changes):
     trace_wet = go.Scatter(
         name=_("Wet"),
         line=dict(shape="spline"),
-        x=list(changes.values_list("time", flat=True))[1:],
+        x=times_wet,
         y=[i.total_seconds() / 3600 for i in intervals_wet],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals_wet],
@@ -55,7 +62,7 @@ def diaperchange_intervals(changes):
     trace_total = go.Scatter(
         name=_("Total"),
         line=dict(shape="spline"),
-        x=list(changes.values_list("time", flat=True))[1:],
+        x=times,
         y=[i.total_seconds() / 3600 for i in intervals],
         hoverinfo="text",
         text=[_duration_string_hms(i) for i in intervals],
@@ -67,7 +74,7 @@ def diaperchange_intervals(changes):
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["type"] = "date"
     layout_args["xaxis"]["autorange"] = True
-    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(trace_total.x)
+    layout_args["xaxis"]["autorangeoptions"] = utils.autorangeoptions(change_times)
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Interval (hours)")
 

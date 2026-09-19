@@ -6067,6 +6067,9 @@ components:
         milestone:
           type: string
           maxLength: 255
+        notes:
+          type: string
+          nullable: true
         tags:
           type: array
           items:

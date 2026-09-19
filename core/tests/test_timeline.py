@@ -55,6 +55,30 @@ class TimelineTestCase(TestCase):
 
                 instance.delete()
 
+    def test_tummy_time_notes_appear_in_timeline(self):
+        """
+        Notes on a Tummy Time entry should reach the timeline events, like the
+        notes of the other care entry models do.
+        """
+        day = timezone.make_aware(datetime.datetime(2023, 1, 1))
+        start = day.replace(hour=10, minute=0)
+        end = day.replace(hour=10, minute=10)
+
+        models.TummyTime.objects.create(
+            child=self.child,
+            start=start,
+            end=end,
+            milestone="Lifted head",
+            notes="Seemed tired today",
+        )
+
+        events = get_objects(date=day, child=self.child)
+
+        self.assertEqual(len(events), 2)
+        for event in events:
+            self.assertIn("Lifted head", event["details"])
+            self.assertIn("Seemed tired today", event["details"])
+
     def test_medication_next_dose_spanning_midnight(self):
         """
         Medication doses with a next_dose_interval that wear off on the next day

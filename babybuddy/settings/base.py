@@ -401,6 +401,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 BABY_BUDDY = {
     "ALLOW_UPLOADS": bool(strtobool(os.environ.get("ALLOW_UPLOADS") or "True")),
     "READ_ONLY_GROUP_NAME": "read_only",
+    "CAREGIVER_GROUP_NAME": "caregiver",
 }
 
 # Home assistant specific configuration

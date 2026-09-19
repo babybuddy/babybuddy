@@ -20,29 +20,34 @@
             </a>
         {% endif %}
         {% if perms.core.add_timer %}
-            <form action="{% url 'core:timer-add-quick' %}"
-                  role="form"
-                  method="post"
-                  class="d-inline">
-                {% csrf_token %}
-                {% if children.count > 1 %}
-                    <div class="dropdown-divider"></div>
-                    <h6 class="dropdown-header">{% trans "Quick Start Timer For…" %}</h6>
-                    {% for child in children %}
-                        <button class="dropdown-item d-flex align-items-center"
-                                type="submit"
-                                name="child"
-                                value="{{ child.pk }}">
+            {% if children.count > 1 %}
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">{% trans "Quick Start Timer For…" %}</h6>
+                {% for child in children %}
+                    <form action="{% url 'core:timer-add-quick' %}"
+                          role="form"
+                          method="post"
+                          class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="child" value="{{ child.pk }}">
+                        <button class="dropdown-item d-flex align-items-center w-100 border-0 bg-transparent text-start px-3 py-1"
+                                type="submit">
                             {% include "core/child_thumbnail.html" %}
                             <span class="text-wrap ms-2">{{ child }}</span>
                         </button>
-                    {% endfor %}
-                {% else %}
+                    </form>
+                {% endfor %}
+            {% else %}
+                <form action="{% url 'core:timer-add-quick' %}"
+                      role="form"
+                      method="post"
+                      class="d-inline">
+                    {% csrf_token %}
                     <button class="dropdown-item" type="submit">
                         <i class="icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
                     </button>
-                {% endif %}
-            </form>
+                </form>
+            {% endif %}
         {% endif %}
         {% if timers %}
             <div class="dropdown-divider"></div>
