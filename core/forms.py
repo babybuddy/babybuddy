@@ -104,14 +104,14 @@ class CoreModelForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         if self.timer_id is not None:
-            if self.user is None or not self.user.has_perm("core.delete_timer"):
+            try:
+                timer = models.Timer.objects.get(pk=self.timer_id)
+            except (Timer.DoesNotExist, ValueError, TypeError, OverflowError):
+                raise forms.ValidationError(_("This timer does not exist."))
+            if self.user is None or not timer.can_be_consumed_by(self.user):
                 raise PermissionDenied(
                     _("You do not have permission to consume timers.")
                 )
-            try:
-                models.Timer.objects.get(pk=self.timer_id)
-            except (Timer.DoesNotExist, ValueError, TypeError, OverflowError):
-                raise forms.ValidationError(_("This timer does not exist."))
         return cleaned_data
 
     @transaction.atomic
@@ -128,6 +128,11 @@ class CoreModelForm(forms.ModelForm):
                 )
                 if timer is None:
                     raise forms.ValidationError(_("This timer no longer exists."))
+                # The timer may have changed owner since validation.
+                if self.user is None or not timer.can_be_consumed_by(self.user):
+                    raise PermissionDenied(
+                        _("You do not have permission to consume timers.")
+                    )
             instance.save()
             self.save_m2m()
             if timer is not None:
@@ -514,8 +519,13 @@ class TimerForm(CoreModelForm):
 
     def save(self, commit=True):
         instance = super(TimerForm, self).save(commit=False)
-        instance.user = self.user
-        instance.save()
+        if instance.user_id is None:
+            instance.user = self.user
+            instance.save()
+        else:
+            # Editing a timer does not change its owner, including an owner
+            # changed by someone else while the form was open.
+            instance.save(update_fields=self._meta.fields)
         return instance
 
 

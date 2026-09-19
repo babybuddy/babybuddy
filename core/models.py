@@ -693,6 +693,13 @@ class Timer(models.Model):
         """Stop (delete) the timer."""
         self.delete()
 
+    def can_be_consumed_by(self, user):
+        """
+        Check if a user may convert the timer into an entry. Doing so deletes the
+        timer, so it requires `core.delete_timer` unless the user owns the timer.
+        """
+        return self.user_id == user.pk or user.has_perm("core.delete_timer")
+
     def save(self, *args, **kwargs):
         self.name = self.name or None
         super(Timer, self).save(*args, **kwargs)
