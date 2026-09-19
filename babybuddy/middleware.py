@@ -106,7 +106,7 @@ class CustomRemoteUser(RemoteUserMiddleware):
 
     def process_request(self, request):
         # Exclude API paths using token authentication.
-        if request.path.startswith("api/"):
+        if request.path.startswith("/api/"):
             return None
         return super().process_request(request)
 
