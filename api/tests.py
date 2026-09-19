@@ -2,13 +2,15 @@
 from unittest.mock import patch
 
 from babybuddy.models import get_user_model
+from api import serializers
 from core import models
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APIRequestFactory, APITestCase
 
 
 class TestBase:
@@ -1160,6 +1162,61 @@ class CaregiverAPITestCase(APITestCase):
         )
         self.assertEqual(response.status_code, 403)
         self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
+
+    def request_as_caregiver(self):
+        request = APIRequestFactory().post("/")
+        request.user = self.caregiver
+        return {"request": request}
+
+    def test_timer_reassigned_after_validation_is_not_consumed(self):
+        admin = get_user_model().objects.get(username="admin")
+        timer = models.Timer.objects.create(
+            child_id=1,
+            user=self.caregiver,
+            start=timezone.now() - timezone.timedelta(minutes=5),
+        )
+        serializer = serializers.SleepSerializer(
+            data={"timer": timer.pk}, context=self.request_as_caregiver()
+        )
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        models.Timer.objects.filter(pk=timer.pk).update(user=admin)
+        count = models.Sleep.objects.count()
+        with self.assertRaises(PermissionDenied):
+            serializer.save()
+        self.assertEqual(models.Sleep.objects.count(), count)
+        self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
+
+    def test_timer_update_does_not_restore_a_stale_owner(self):
+        admin = get_user_model().objects.get(username="admin")
+        timer = models.Timer.objects.create(child_id=1, user=self.caregiver)
+        serializer = serializers.TimerSerializer(
+            timer,
+            data={"name": "Renamed"},
+            partial=True,
+            context=self.request_as_caregiver(),
+        )
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        models.Timer.objects.filter(pk=timer.pk).update(user=admin)
+        serializer.save()
+        timer.refresh_from_db()
+        self.assertEqual(timer.name, "Renamed")
+        self.assertEqual(timer.user, admin)
+
+    def test_timer_reassigned_after_validation_cannot_be_taken_back(self):
+        admin = get_user_model().objects.get(username="admin")
+        timer = models.Timer.objects.create(child_id=1, user=self.caregiver)
+        serializer = serializers.TimerSerializer(
+            timer,
+            data={"user": self.caregiver.pk},
+            partial=True,
+            context=self.request_as_caregiver(),
+        )
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        models.Timer.objects.filter(pk=timer.pk).update(user=admin)
+        with self.assertRaises(PermissionDenied):
+            serializer.save()
+        timer.refresh_from_db()
+        self.assertEqual(timer.user, admin)
 
     def test_delete_timer_grant_allows_changing_timer_user(self):
         self.grant("delete_timer")

@@ -113,6 +113,9 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
                 timer = models.Timer.objects.select_for_update().get(pk=timer.pk)
             except models.Timer.DoesNotExist:
                 raise ValidationError({"timer": "This timer no longer exists."})
+            # The timer may have changed owner since validation.
+            if not timer.can_be_consumed_by(self.context["request"].user):
+                raise PermissionDenied("You do not have permission to consume timers.")
         instance = super().save(**kwargs)
         if timer is not None:
             timer.stop()
@@ -312,6 +315,23 @@ class TimerSerializer(CoreModelSerializer):
                 )
 
         return attrs
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        # Work on the stored timer, whose owner may have changed since
+        # validation, so the check uses it and a stale owner is never saved back.
+        instance = models.Timer.objects.select_for_update().get(pk=instance.pk)
+        user = validated_data.get("user", instance.user)
+        if user != instance.user and not self.context["request"].user.has_perm(
+            "core.delete_timer"
+        ):
+            raise PermissionDenied(
+                "You do not have permission to change the user of a timer."
+            )
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
 
 
 class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):

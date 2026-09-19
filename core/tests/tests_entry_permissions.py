@@ -5,6 +5,7 @@ from unittest.mock import patch
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from django.utils import timezone
 
@@ -159,6 +160,37 @@ class EntryPermissionsTestCase(TestCase):
                 self.assertTrue(response.context["form"].non_field_errors())
                 self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
                 self.assertEqual(model.objects.count(), count)
+
+    def test_timer_reassigned_after_validation_is_not_consumed(self):
+        timer = self.timer(self.user)
+        form = forms.SleepForm(
+            data=self.entry_data("sleep"), user=self.user, timer=timer.pk
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+        models.Timer.objects.filter(pk=timer.pk).update(user=self.other)
+        count = models.Sleep.objects.count()
+        with self.assertRaises(PermissionDenied):
+            form.save()
+        self.assertEqual(models.Sleep.objects.count(), count)
+        self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
+
+    def test_editing_timer_does_not_restore_a_stale_owner(self):
+        timer = self.timer(self.user)
+        form = forms.TimerForm(
+            data={
+                "child": self.child.pk,
+                "name": "Renamed",
+                "start": timer.start.isoformat(),
+            },
+            instance=timer,
+            user=self.user,
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+        models.Timer.objects.filter(pk=timer.pk).update(user=self.other)
+        form.save()
+        timer.refresh_from_db()
+        self.assertEqual(timer.name, "Renamed")
+        self.assertEqual(timer.user, self.other)
 
     def test_deferred_save_does_not_consume_timer_or_save_entry(self):
         self.grant("delete_timer")
