@@ -7,6 +7,7 @@ from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
 from .models import Settings
+from .widgets import DateTimeInput
 
 
 class BabyBuddyUserForm(forms.ModelForm):
@@ -25,6 +26,15 @@ class BabyBuddyUserForm(forms.ModelForm):
             "height, BMI, head circumference, user management or settings."
         ),
     )
+    access_expires = forms.DateTimeField(
+        required=False,
+        label=_("Access expires"),
+        help_text=_(
+            "Optional. After this time the user can no longer sign in or use "
+            "the API."
+        ),
+        widget=DateTimeInput(),
+    )
 
     class Meta:
         model = get_user_model()
@@ -37,6 +47,7 @@ class BabyBuddyUserForm(forms.ModelForm):
             "is_read_only",
             "is_caregiver",
             "is_active",
+            "access_expires",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -50,6 +61,7 @@ class BabyBuddyUserForm(forms.ModelForm):
                     "is_caregiver": user.groups.filter(
                         name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
                     ).exists(),
+                    "access_expires": user.settings.access_expires,
                 }
             )
         super(BabyBuddyUserForm, self).__init__(*args, **kwargs)
@@ -78,6 +90,8 @@ class BabyBuddyUserForm(forms.ModelForm):
             user.is_superuser = True
         if commit:
             user.save()
+            user.settings.access_expires = self.cleaned_data.get("access_expires")
+            user.settings.save(update_fields=["access_expires"])
         readonly_group = Group.objects.get(
             name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"]
         )

@@ -129,6 +129,15 @@ class Settings(models.Model):
         default=25,
         verbose_name=_("Items Per Page"),
     )
+    access_expires = models.DateTimeField(
+        blank=True,
+        null=True,
+        help_text=_(
+            "Optional. After this time the user can no longer sign in or use "
+            "the API."
+        ),
+        verbose_name=_("Access expires"),
+    )
 
     def __str__(self):
         return str(format_lazy(_("{user}'s Settings"), user=self.user))
@@ -144,6 +153,10 @@ class Settings(models.Model):
         return Token.objects.get_or_create(user=self.user)[0]
 
     @property
+    def access_expired(self):
+        return self.access_expires is not None and self.access_expires <= timezone.now()
+
+    @property
     def dashboard_refresh_rate_milliseconds(self):
         """
         Convert seconds to milliseconds to be used in a Javascript setInterval
@@ -153,6 +166,18 @@ class Settings(models.Model):
         if self.dashboard_refresh_rate:
             return self.dashboard_refresh_rate.seconds * 1000
         return None
+
+
+def access_expired(user):
+    """
+    Check if a user's access has expired.
+    :param user: The user to check.
+    :return: True if the user has an access expiry time that has passed.
+    """
+    try:
+        return user.settings.access_expired
+    except Settings.DoesNotExist:
+        return False
 
 
 @receiver(post_save, sender=get_user_model())
