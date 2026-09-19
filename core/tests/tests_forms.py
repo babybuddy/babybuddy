@@ -1187,3 +1187,54 @@ class MedicationFormsTestCase(FormsTestCaseBase):
         self.assertFormError(
             page.context["form"], "time", "Date/time can not be in the future."
         )
+
+    def test_name_datalist_populated_with_distinct_names(self):
+        # A second child with a duplicate name to prove suggestions are
+        # global and de-duplicated.
+        other_child = models.Child.objects.create(
+            first_name="Child", last_name="Two", birth_date=timezone.localdate()
+        )
+        models.Medication.objects.create(
+            child=other_child,
+            name="Tylenol",  # duplicate of setUpClass medication
+            time=timezone.localtime() - timezone.timedelta(hours=1),
+        )
+        models.Medication.objects.create(
+            child=other_child,
+            name="Amoxicillin",
+            time=timezone.localtime(),
+        )
+        page = self.c.get("/medication/add/")
+        content = page.content.decode()
+        self.assertContains(page, '<datalist id="medication-name-list">')
+        self.assertContains(page, '<option value="Amoxicillin">')
+        self.assertContains(page, '<option value="Tylenol">')
+        # "Tylenol" must appear exactly once despite two records using it.
+        self.assertEqual(content.count('<option value="Tylenol">'), 1)
+        # Input opts into the datalist.
+        self.assertContains(page, 'list="medication-name-list"')
+
+    def test_previously_used_name_is_suggested(self):
+        page = self.c.get("/medication/add/")
+        # "Tylenol" was created in setUpClass.
+        self.assertContains(page, '<option value="Tylenol">')
+
+    def test_brand_new_name_is_accepted_and_persists(self):
+        params = {
+            "child": self.child.id,
+            "name": "Totally New Medicine",
+            "dosage": "1.0",
+            "dosage_unit": "ml",
+            "time": self.localtime_string(),
+        }
+        page = self.c.post("/medication/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(
+            page, "Medication entry for {} added".format(str(self.child))
+        )
+        self.assertTrue(
+            models.Medication.objects.filter(name="Totally New Medicine").exists()
+        )
+        # And the newly-used name becomes a suggestion next time.
+        page = self.c.get("/medication/add/")
+        self.assertContains(page, '<option value="Totally New Medicine">')
