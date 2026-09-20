@@ -100,18 +100,77 @@ class CoreModelForm(forms.ModelForm):
         self.timer_id = kwargs.get("timer", None)
         kwargs = set_initial_values(kwargs, type(self))
         super(CoreModelForm, self).__init__(*args, **kwargs)
+        self.add_timer_field()
+
+    def add_timer_field(self):
+        """
+        Add a read-only field with the name of the Timer being stopped.
+
+        The form is usually opened from a Timer, so showing which Timer the
+        entry belongs to makes it possible to identify the timer after the
+        fact. The Timer is only a source of initial values, so the field is
+        disabled and not used when the form is saved.
+        """
+        if not self.timer_id:
+            return
+
+        try:
+            timer = models.Timer.objects.filter(id=self.timer_id).first()
+        except (ValueError, TypeError, OverflowError):
+            return
+
+        if not timer:
+            return
+
+        self.fields["timer"] = forms.CharField(
+            label=_("Timer"),
+            required=False,
+            disabled=True,
+        )
+        self.initial["timer"] = timer.title_with_child
+        self.fields = self.move_after(self.fields, "timer", "child")
+
+        if hasattr(self, "fieldsets"):
+            self.fieldsets = [
+                {
+                    **fieldset,
+                    "fields": self.move_after(fieldset["fields"], "timer", "child"),
+                }
+                for fieldset in self.fieldsets
+            ]
+
+    @staticmethod
+    def move_after(fields, item, anchor):
+        """Return the fields with `item` placed directly after `anchor`."""
+        if item == anchor or anchor not in fields:
+            return fields
+
+        if isinstance(fields, dict):
+            if item not in fields:
+                return fields
+
+            items = list(fields.items())
+            entry = items.pop([key for key, _ in items].index(item))
+            items.insert([key for key, _ in items].index(anchor) + 1, entry)
+            return dict(items)
+
+        fields = list(fields)
+        if item in fields:
+            fields.remove(item)
+        fields.insert(fields.index(anchor) + 1, item)
+        return fields
 
     def clean(self):
         cleaned_data = super().clean()
         if self.timer_id is not None:
-            if self.user is None or not self.user.has_perm("core.delete_timer"):
+            try:
+                timer = models.Timer.objects.get(pk=self.timer_id)
+            except (Timer.DoesNotExist, ValueError, TypeError, OverflowError):
+                raise forms.ValidationError(_("This timer does not exist."))
+            if self.user is None or not timer.can_be_consumed_by(self.user):
                 raise PermissionDenied(
                     _("You do not have permission to consume timers.")
                 )
-            try:
-                models.Timer.objects.get(pk=self.timer_id)
-            except (Timer.DoesNotExist, ValueError, TypeError, OverflowError):
-                raise forms.ValidationError(_("This timer does not exist."))
         return cleaned_data
 
     @transaction.atomic
@@ -128,6 +187,11 @@ class CoreModelForm(forms.ModelForm):
                 )
                 if timer is None:
                     raise forms.ValidationError(_("This timer no longer exists."))
+                # The timer may have changed owner since validation.
+                if self.user is None or not timer.can_be_consumed_by(self.user):
+                    raise PermissionDenied(
+                        _("You do not have permission to consume timers.")
+                    )
             instance.save()
             self.save_m2m()
             if timer is not None:
@@ -514,8 +578,13 @@ class TimerForm(CoreModelForm):
 
     def save(self, commit=True):
         instance = super(TimerForm, self).save(commit=False)
-        instance.user = self.user
-        instance.save()
+        if instance.user_id is None:
+            instance.user = self.user
+            instance.save()
+        else:
+            # Editing a timer does not change its owner, including an owner
+            # changed by someone else while the form was open.
+            instance.save(update_fields=self._meta.fields)
         return instance
 
 
@@ -523,16 +592,17 @@ class TummyTimeForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
         {"fields": ["child", "start", "end"], "layout": "required"},
         {"fields": ["milestone"]},
-        {"fields": ["tags"], "layout": "advanced"},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
         model = models.TummyTime
-        fields = ["child", "start", "end", "milestone", "tags"]
+        fields = ["child", "start", "end", "milestone", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
             "end": DateTimeInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 

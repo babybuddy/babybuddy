@@ -58,11 +58,10 @@ Per-user permissions are the way to extend one caregiver's access without
 changing everybody else's defaults.
 
 Converting a timer into a feeding, sleep or tummy-time entry deletes the timer.
-That operation requires `core.delete_timer`, even for a timer the caregiver
-created. Without it, the caregiver can record the entry using start and end
-times instead; the timer remains until someone with deletion permission removes
-it. Granting `core.delete_timer` also permits deleting other users' timers, not
-just completing the caregiver's own timers.
+A caregiver can do this for the timers they started. Converting another user's
+timer requires `core.delete_timer`, which also permits deleting any timer.
+Editing a timer does not change who it belongs to, and changing the user of an
+existing timer through the API also requires `core.delete_timer`.
 
 Tags already attached to an entry remain visible and are preserved when a
 caregiver edits the entry without changing its tags. Changing tag assignments
@@ -72,9 +71,9 @@ requires `core.change_tag`; creating new tag names additionally requires
 !!! warning "The role is not limited to one child"
 
     A caregiver has access to every child on the instance, and may edit entries
-    that other users created. There is no per-child grant, no expiry on the
-    access, and Baby Buddy does not record which user created an entry, so a
-    caregiver's entries cannot be told apart from anyone else's afterwards.
+    that other users created. There is no per-child grant, and Baby Buddy does
+    not record which user created an entry, so a caregiver's entries cannot be
+    told apart from anyone else's afterwards.
 
 To withdraw access, clear the **Active** checkbox on the user, or delete the
 user. Subsequent web and API requests are denied, including requests using an
@@ -90,6 +89,14 @@ staff access opens administrative pages. When converting an existing account,
 review its other groups and individual permissions as well. Changing a role
 does not remove those additional grants, so switching an extended caregiver to
 read only does not necessarily remove all write access.
+
+## Access Expiry
+
+A user can be given an **Access expires** time in the user form, for example
+for a babysitter who helps out for a weekend. From that time on, the user is
+signed out, cannot sign in and cannot use the API, including with an existing
+API key. The account itself is left unchanged: clearing or moving the time
+restores access. Users cannot change their own expiry time.
 
 ## Creating a User from the Command Line
 

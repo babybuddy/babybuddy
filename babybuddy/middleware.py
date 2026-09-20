@@ -7,7 +7,10 @@ from functools import wraps
 from urllib.parse import urlunsplit, urlsplit
 
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import logout
 from django.utils import timezone, translation
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.middleware import RemoteUserMiddleware
 from django.http import (
     HttpRequest,
@@ -16,6 +19,8 @@ from django.http import (
     StreamingHttpResponse,
 )
 from django.urls.base import set_script_prefix, get_script_prefix
+
+from .models import access_expired
 
 
 class UserLanguageMiddleware:
@@ -101,7 +106,7 @@ class CustomRemoteUser(RemoteUserMiddleware):
 
     def process_request(self, request):
         # Exclude API paths using token authentication.
-        if request.path.startswith("api/"):
+        if request.path.startswith("/api/"):
             return None
         return super().process_request(request)
 
@@ -232,3 +237,25 @@ class HomeAssistant:
                     response.cookies = preserved_cookies
 
         return response
+
+
+class AccessExpiry:
+    """
+    Signs out a user whose access has expired. This runs as a view hook so
+    that it also applies to users authenticated by `CustomRemoteUser`, which
+    is added after this middleware. API token authentication is checked by
+    `api.authentication.TokenAuthentication`.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        return self.get_response(request)
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        user = getattr(request, "user", None)
+        if user is not None and user.is_authenticated and access_expired(user):
+            logout(request)
+            messages.error(request, _("Your access has expired."))
+        return None

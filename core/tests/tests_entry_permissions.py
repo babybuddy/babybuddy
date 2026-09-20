@@ -5,6 +5,7 @@ from unittest.mock import patch
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from django.utils import timezone
 
@@ -61,19 +62,49 @@ class EntryPermissionsTestCase(TestCase):
             user=owner, child=self.child, start=self.start
         )
 
-    def test_caregiver_cannot_consume_own_or_other_timer(self):
+    def test_caregiver_can_consume_own_timer(self):
         self.assertFalse(self.user.has_perm("core.delete_timer"))
         for path, model in self.timer_entries:
-            for owner in (self.user, self.other):
-                with self.subTest(entry=path, owner=owner.username):
-                    timer = self.timer(owner)
-                    count = model.objects.count()
-                    response = self.client.post(
-                        f"/{path}/add/?timer={timer.pk}", self.entry_data(path)
-                    )
-                    self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
-                    self.assertEqual(model.objects.count(), count)
-                    self.assertIn(response.status_code, (200, 400, 403))
+            with self.subTest(entry=path):
+                timer = self.timer(self.user)
+                count = model.objects.count()
+                response = self.client.post(
+                    f"/{path}/add/?timer={timer.pk}", self.entry_data(path)
+                )
+                self.assertEqual(response.status_code, 302)
+                self.assertEqual(model.objects.count(), count + 1)
+                self.assertFalse(models.Timer.objects.filter(pk=timer.pk).exists())
+
+    def test_caregiver_cannot_consume_other_timer(self):
+        for path, model in self.timer_entries:
+            with self.subTest(entry=path):
+                timer = self.timer(self.other)
+                count = model.objects.count()
+                response = self.client.post(
+                    f"/{path}/add/?timer={timer.pk}", self.entry_data(path)
+                )
+                self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
+                self.assertEqual(model.objects.count(), count)
+                self.assertIn(response.status_code, (200, 400, 403))
+
+    def test_editing_timer_keeps_its_owner(self):
+        timer = self.timer(self.other)
+        response = self.client.post(
+            f"/timers/{timer.pk}/edit/",
+            {
+                "child": self.child.pk,
+                "name": "Renamed",
+                "start": timer.start.isoformat(),
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        timer.refresh_from_db()
+        self.assertEqual(timer.name, "Renamed")
+        self.assertEqual(timer.user, self.other)
+        response = self.client.post(
+            f"/sleep/add/?timer={timer.pk}", self.entry_data("sleep")
+        )
+        self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
 
     def test_delete_timer_grant_allows_own_and_other_timer(self):
         self.grant("delete_timer")
@@ -129,6 +160,37 @@ class EntryPermissionsTestCase(TestCase):
                 self.assertTrue(response.context["form"].non_field_errors())
                 self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
                 self.assertEqual(model.objects.count(), count)
+
+    def test_timer_reassigned_after_validation_is_not_consumed(self):
+        timer = self.timer(self.user)
+        form = forms.SleepForm(
+            data=self.entry_data("sleep"), user=self.user, timer=timer.pk
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+        models.Timer.objects.filter(pk=timer.pk).update(user=self.other)
+        count = models.Sleep.objects.count()
+        with self.assertRaises(PermissionDenied):
+            form.save()
+        self.assertEqual(models.Sleep.objects.count(), count)
+        self.assertTrue(models.Timer.objects.filter(pk=timer.pk).exists())
+
+    def test_editing_timer_does_not_restore_a_stale_owner(self):
+        timer = self.timer(self.user)
+        form = forms.TimerForm(
+            data={
+                "child": self.child.pk,
+                "name": "Renamed",
+                "start": timer.start.isoformat(),
+            },
+            instance=timer,
+            user=self.user,
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+        models.Timer.objects.filter(pk=timer.pk).update(user=self.other)
+        form.save()
+        timer.refresh_from_db()
+        self.assertEqual(timer.name, "Renamed")
+        self.assertEqual(timer.user, self.other)
 
     def test_deferred_save_does_not_consume_timer_or_save_entry(self):
         self.grant("delete_timer")
