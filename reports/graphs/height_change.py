@@ -31,8 +31,11 @@ def height_change(
     # When a due date later than the birthday is recorded the child was born
     # preterm; anchor the percentile curves to the due date so that they line
     # up with corrected age. The actual measurements remain on their true
-    # dates.
-    correct_for_prematurity = bool(due_date and due_date > birthday)
+    # dates. Reports without percentile data (no sex selected) are left
+    # untouched, so their title never claims a correction that is not shown.
+    correct_for_prematurity = bool(
+        percentile_heights and due_date and due_date > birthday
+    )
     percentile_anchor = due_date if correct_for_prematurity else birthday
 
     measuring_dates: list[datetime] = list(

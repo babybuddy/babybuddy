@@ -31,8 +31,11 @@ def weight_change(
     # When a due date later than the birthday is recorded the child was born
     # preterm; anchor the percentile curves to the due date so that they line
     # up with corrected age. The actual measurements remain on their true
-    # dates.
-    correct_for_prematurity = bool(due_date and due_date > birthday)
+    # dates. Reports without percentile data (no sex selected) are left
+    # untouched, so their title never claims a correction that is not shown.
+    correct_for_prematurity = bool(
+        percentile_weights and due_date and due_date > birthday
+    )
     percentile_anchor = due_date if correct_for_prematurity else birthday
 
     weighing_dates: list[datetime] = list(actual_weights.values_list("date", flat=True))
