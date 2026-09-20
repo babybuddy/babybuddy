@@ -50,11 +50,14 @@ def get_objects(date, child=None, user=None):
     if permitted("temperature"):
         _add_temperature_measurements(min_date, max_date, events, child)
 
-    explicit_type_ordering = {"start": 0, "end": 1}
+    # At equal timestamps, an activity ending there sorts before an
+    # instantaneous event there, which sorts before an activity starting
+    # there (i.e. "finished" is always shown before "started").
+    explicit_type_ordering = {"start": -1, "end": 1}
     events.sort(
         key=lambda x: (
             x["time"],
-            explicit_type_ordering.get(x.get("type"), -1),
+            explicit_type_ordering.get(x.get("type"), 0),
         ),
         reverse=True,
     )

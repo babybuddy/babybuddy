@@ -111,3 +111,34 @@ class TimelineTestCase(TestCase):
         self.assertEqual(events_day_2[0]["time"], start_time + interval)
 
         instance.delete()
+
+    def test_same_timestamp_end_before_instant_before_start(self):
+        day = timezone.make_aware(datetime.datetime(2023, 1, 1))
+        shared_time = day.replace(hour=11, minute=44, second=0)
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=day.replace(hour=11, minute=0),
+            end=shared_time,
+            type="formula",
+            method="bottle",
+        )
+        diaper = models.DiaperChange.objects.create(
+            child=self.child, time=shared_time, wet=True, solid=False
+        )
+        sleep = models.Sleep.objects.create(
+            child=self.child,
+            start=shared_time,
+            end=day.replace(hour=12, minute=0),
+        )
+        events = get_objects(date=day, child=self.child)
+        same_time_events = [e for e in events if e["time"] == shared_time]
+        self.assertEqual(len(same_time_events), 3)
+        self.assertEqual(same_time_events[0]["type"], "end")
+        self.assertEqual(same_time_events[0]["model_name"], "feeding")
+        self.assertIsNone(same_time_events[1].get("type"))
+        self.assertEqual(same_time_events[1]["model_name"], "diaperchange")
+        self.assertEqual(same_time_events[2]["type"], "start")
+        self.assertEqual(same_time_events[2]["model_name"], "sleep")
+        feeding.delete()
+        diaper.delete()
+        sleep.delete()
