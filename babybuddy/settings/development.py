@@ -3,6 +3,10 @@ from .base import *
 # Quick-start development settings - unsuitable for production
 # https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+ALLOWED_HOSTS = [
+    x.strip()
+    for x in os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost,::1").split(",")
+]
 SECRET_KEY = os.environ.get("SECRET_KEY") or "DEVELOPMENT!!"
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "True"))
 

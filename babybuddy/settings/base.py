@@ -22,11 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 # Environment variables
 # Check for and load environment variables from a .env file.
-
 load_dotenv(find_dotenv())
 
 # Required settings
-ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "*").split(",")]
+ALLOWED_HOSTS = [x.strip() for x in os.environ.get("ALLOWED_HOSTS", "").split(",")]
 SECRET_KEY = os.environ.get("SECRET_KEY") or None
 DEBUG = bool(strtobool(os.environ.get("DEBUG") or "False"))
 
