@@ -99,7 +99,7 @@ class TimelineTestCase(TestCase):
             method="bottle",
         )
         diaper = models.DiaperChange.objects.create(
-            child=self.child, time=shared_time
+            child=self.child, time=shared_time, wet=True, solid=False
         )
         sleep = models.Sleep.objects.create(
             child=self.child,
