@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load cards i18n imagekit static %}
 {% block title %}
     {% trans "Dashboard" %}
@@ -8,7 +8,9 @@
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-12">{% card_timer_list %}</div>
+        {% if perms.core.view_timer %}
+            <div class="col-lg-4 col-md-4 col-sm-12">{% card_timer_list %}</div>
+        {% endif %}
         <div class="col-lg-8 col-md-8 col-sm-12">
             <div class="row">
                 {% for object in objects %}
@@ -31,7 +33,7 @@
                                                 <br />
                                                 {% trans "Age" %} <span class="text-secondary">{{ object.birth_date|timesince }}</span>
                                             </p>
-                                            {% include 'dashboard/child_button_group.html' %}
+                                            {% include "dashboard/child_button_group.html" %}
                                         </div>
                                     </div>
                                     </div>

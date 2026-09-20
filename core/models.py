@@ -3,7 +3,7 @@ import datetime
 import re
 
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.functions import Lower
@@ -121,6 +121,16 @@ class Tag(TagBase):
         ordering = [Lower("name")]
         verbose_name = _("Tag")
         verbose_name_plural = _("Tags")
+
+    @classmethod
+    def check_assignment_permissions(cls, user, names, current=()):
+        if set(names) == set(current):
+            return
+        if user is None or not user.has_perm("core.change_tag"):
+            raise PermissionDenied(_("You do not have permission to change tags."))
+        existing = cls.objects.filter(name__in=names).values_list("name", flat=True)
+        if set(names) - set(existing) and not user.has_perm("core.add_tag"):
+            raise PermissionDenied(_("You do not have permission to create tags."))
 
     @property
     def complementary_color(self):
@@ -264,7 +274,11 @@ class DiaperChange(models.Model):
         choices=[
             ("black", _("Black")),
             ("brown", _("Brown")),
+            ("gray", _("Gray")),
             ("green", _("Green")),
+            ("orange", _("Orange")),
+            ("red", _("Red")),
+            ("white", _("White")),
             ("yellow", _("Yellow")),
         ],
         max_length=255,
@@ -679,6 +693,13 @@ class Timer(models.Model):
         """Stop (delete) the timer."""
         self.delete()
 
+    def can_be_consumed_by(self, user):
+        """
+        Check if a user may convert the timer into an entry. Doing so deletes the
+        timer, so it requires `core.delete_timer` unless the user owns the timer.
+        """
+        return self.user_id == user.pk or user.has_perm("core.delete_timer")
+
     def save(self, *args, **kwargs):
         self.name = self.name or None
         super(Timer, self).save(*args, **kwargs)
@@ -710,6 +731,7 @@ class TummyTime(models.Model):
     milestone = models.CharField(
         blank=True, max_length=255, verbose_name=_("Milestone")
     )
+    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()

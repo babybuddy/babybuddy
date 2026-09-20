@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load bootstrap datetime duration misc i18n widget_tweaks %}
 {% block title %}
     {% trans "Sleep" %}
@@ -15,7 +15,7 @@
             </a>
         {% endif %}
     </h1>
-    {% include 'babybuddy/filter.html' %}
+    {% include "babybuddy/filter.html" %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
@@ -80,11 +80,11 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="8">{% trans "No sleep entries found." %}</th>
+                        <th colspan="{% if not unique_child %}8{% else %}7{% endif %}">{% trans "No sleep entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    {% include 'babybuddy/paginator.html' %}
+    {% include "babybuddy/paginator.html" %}
 {% endblock %}

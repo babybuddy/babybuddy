@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load datetime duration misc i18n widget_tweaks %}
 {% block title %}
     {% trans "Tummy Time" %}
@@ -14,7 +14,7 @@
                 <i class="icon-tummytime" aria-hidden="true"></i> {% trans "Add Tummy Time" %}</a>
         {% endif %}
     </h1>
-    {% include 'babybuddy/filter.html' %}
+    {% include "babybuddy/filter.html" %}
     <div class="table-responsive">
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
@@ -71,14 +71,21 @@
                             <td>{{ tummytime.milestone }}</td>
                             <td>{% include "core/render_tag_list.html" with tags=tummytime.tags.all %}</td>
                         </tr>
+                        {% if tummytime.notes %}
+                            <tr class="row-details">
+                                <td colspan="{% if not unique_child %}8{% else %}7{% endif %}">
+                                    <i class="icon-note me-2" aria-hidden="true"></i>{{ tummytime.notes }}
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="8">{% trans "No tummy time entries found." %}</th>
+                        <th colspan="{% if not unique_child %}8{% else %}7{% endif %}">{% trans "No tummy time entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    {% include 'babybuddy/paginator.html' %}
+    {% include "babybuddy/paginator.html" %}
 {% endblock %}

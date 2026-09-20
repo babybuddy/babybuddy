@@ -6,8 +6,8 @@
     "ghcr.io/devcontainers/features/node:1": {
       "version": "24"
     },
-    "ghcr.io/devcontainers-extras/features/gulp-cli:2": {},
-    "ghcr.io/devcontainers-extras/features/pipenv:2": {}
+    "ghcr.io/devcontainers-extra/features/gulp-cli:2": {},
+    "ghcr.io/devcontainers-extra/features/pipenv:2": {}
   },
   "customizations": {
     "vscode": {
@@ -37,5 +37,5 @@
     "PIPENV_VENV_IN_PROJECT": "1"
   },
   "postCreateCommand": "pipenv install --dev && npm install --include=dev && gulp migrate",
-  "forwardPorts": [8000]
+  "appPort": [8000]
 }

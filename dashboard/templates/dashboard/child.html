@@ -1,4 +1,4 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load breadcrumb cards i18n %}
 {% block title %}
     {% trans "Dashboard" %} - {{ object }}
@@ -14,21 +14,46 @@
     <div id="dashboard-child"
          class="row"
          data-masonry='{"percentPosition": true }'>
-        <div class="col-sm-6 col-lg-4">{% card_timer_list object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_diaperchange_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_pumping_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_pumping_recent object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_medication_last object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_last_method object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_feeding_recent object %}</div>
+        {% if perms.core.view_timer %}
+            <div class="col-sm-6 col-lg-4">{% card_timer_list object %}</div>
+        {% endif %}
+        {% if perms.core.view_feeding %}
+            <div class="col-sm-6 col-lg-4">{% card_feeding_last object %}</div>
+        {% endif %}
+        {% if perms.core.view_note %}
+            <div class="col-sm-6 col-lg-4">{% card_notes_recent object %}</div>
+        {% endif %}
+        {% if perms.core.view_diaperchange %}
+            <div class="col-sm-6 col-lg-4">{% card_diaperchange_last object %}</div>
+        {% endif %}
+        {% if perms.core.view_pumping %}
+            <div class="col-sm-6 col-lg-4">{% card_pumping_last object %}</div>
+            <div class="col-sm-6 col-lg-4">{% card_pumping_recent object %}</div>
+        {% endif %}
+        {% if perms.core.view_sleep %}
+            <div class="col-sm-6 col-lg-4">{% card_sleep_last object %}</div>
+        {% endif %}
+        {% if perms.core.view_medication %}
+            <div class="col-sm-6 col-lg-4">{% card_medication_last object %}</div>
+        {% endif %}
+        {% if perms.core.view_feeding %}
+            <div class="col-sm-6 col-lg-4">{% card_feeding_last_method object %}</div>
+            <div class="col-sm-6 col-lg-4">{% card_feeding_recent object %}</div>
+        {% endif %}
         <div class="col-sm-6 col-lg-4">{% card_statistics object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_recent object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_sleep_naps_day object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_tummytime_day object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_diaperchange_types object %}</div>
-        <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
+        {% if perms.core.view_sleep %}
+            <div class="col-sm-6 col-lg-4">{% card_sleep_recent object %}</div>
+            <div class="col-sm-6 col-lg-4">{% card_sleep_naps_day object %}</div>
+        {% endif %}
+        {% if perms.core.view_tummytime %}
+            <div class="col-sm-6 col-lg-4">{% card_tummytime_day object %}</div>
+        {% endif %}
+        {% if perms.core.view_diaperchange %}
+            <div class="col-sm-6 col-lg-4">{% card_diaperchange_types object %}</div>
+        {% endif %}
+        {% if perms.core.view_feeding %}
+            <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
+        {% endif %}
     </div>
 {% endblock %}
 {% block javascript %}

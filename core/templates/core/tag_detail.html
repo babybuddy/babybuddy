@@ -1,7 +1,7 @@
-{% extends 'babybuddy/page.html' %}
+{% extends "babybuddy/page.html" %}
 {% load i18n %}
 {% block title %}
-    {% if request.resolver_match.url_name == 'tag-update' %}
+    {% if request.resolver_match.url_name == "tag-update" %}
         {% trans "Update a Tag" %}
     {% else %}
         {% trans "Add a Tag" %}

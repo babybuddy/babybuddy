@@ -4,6 +4,8 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.utils import timezone
 
 from taggit.serializers import TagListSerializerField, TaggitSerializer
@@ -74,8 +76,11 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
         if "timer" in attrs:
             # Remove the "timer" attribute (super validation would fail as it
             # is not a true field on the model).
-            timer = attrs["timer"]
-            attrs.pop("timer")
+            timer = attrs.pop("timer")
+            if timer is None:
+                raise ValidationError({"timer": "This field may not be null."})
+            if not timer.can_be_consumed_by(self.context["request"].user):
+                raise PermissionDenied("You do not have permission to consume timers.")
 
             if timer.child:
                 attrs["child"] = timer.child
@@ -97,15 +102,35 @@ class CoreModelWithDurationSerializer(CoreModelSerializer):
 
         attrs = super().validate(attrs)
 
-        # Only actually stop the timer if all validation passed.
-        if timer:
-            timer.stop()
-
+        self.timer = timer
         return attrs
+
+    @transaction.atomic
+    def save(self, **kwargs):
+        timer = getattr(self, "timer", None)
+        if timer is not None:
+            try:
+                timer = models.Timer.objects.select_for_update().get(pk=timer.pk)
+            except models.Timer.DoesNotExist:
+                raise ValidationError({"timer": "This timer no longer exists."})
+            # The timer may have changed owner since validation.
+            if not timer.can_be_consumed_by(self.context["request"].user):
+                raise PermissionDenied("You do not have permission to consume timers.")
+        instance = super().save(**kwargs)
+        if timer is not None:
+            timer.stop()
+        return instance
 
 
 class TaggableSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
     tags = TagListSerializerField(required=False)
+
+    def validate_tags(self, tags):
+        current = self.instance.tags.names() if self.instance else ()
+        models.Tag.check_assignment_permissions(
+            self.context["request"].user, tags, current
+        )
+        return tags
 
 
 class BMISerializer(CoreModelSerializer, TaggableSerializer):
@@ -272,12 +297,41 @@ class TimerSerializer(CoreModelSerializer):
 
     def validate(self, attrs):
         attrs = super(TimerSerializer, self).validate(attrs)
+        request_user = self.context["request"].user
 
-        # Set user to current user if no value is provided.
-        if "user" not in attrs or attrs["user"] is None:
-            attrs["user"] = self.context["request"].user
+        if self.instance is None:
+            # Set user to current user if no value is provided.
+            if "user" not in attrs or attrs["user"] is None:
+                attrs["user"] = request_user
+        elif "user" in attrs:
+            # The owner may consume the timer, so taking over another user's
+            # timer requires the same permission as consuming it.
+            attrs["user"] = attrs["user"] or request_user
+            if attrs["user"] != self.instance.user and not request_user.has_perm(
+                "core.delete_timer"
+            ):
+                raise PermissionDenied(
+                    "You do not have permission to change the user of a timer."
+                )
 
         return attrs
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        # Work on the stored timer, whose owner may have changed since
+        # validation, so the check uses it and a stale owner is never saved back.
+        instance = models.Timer.objects.select_for_update().get(pk=instance.pk)
+        user = validated_data.get("user", instance.user)
+        if user != instance.user and not self.context["request"].user.has_perm(
+            "core.delete_timer"
+        ):
+            raise PermissionDenied(
+                "You do not have permission to change the user of a timer."
+            )
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
 
 
 class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
@@ -291,6 +345,7 @@ class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "timer",
             "duration",
             "milestone",
+            "notes",
             "tags",
         )
 
