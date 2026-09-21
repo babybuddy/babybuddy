@@ -300,9 +300,9 @@ class TemplateTagsTestCase(TestCase):
                 "title": "Feeding frequency (past 2 weeks)",
             },
             {
-                "type": "duration",
-                "stat": timezone.timedelta(days=1, seconds=39780),
                 "title": "Feeding frequency",
+                "stat": timezone.timedelta(days=1, seconds=39780),
+                "type": "duration",
             },
             {
                 "title": "Average nap duration",
@@ -333,6 +333,31 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(data["stats"], stats)
         self.assertFalse(data["empty"])
         self.assertFalse(data["hide_empty"])
+
+    def test_weight_change_weekly_requires_one_week_span(self):
+        """
+        Dashboard weekly change must not project a full week from a short
+        span between measurements (#587).
+        """
+        models.Weight.objects.filter(child=self.child).delete()
+        day = timezone.localtime().date()
+
+        models.Weight.objects.create(
+            child=self.child, weight=2490.0, date=day - timezone.timedelta(days=1)
+        )
+        models.Weight.objects.create(child=self.child, weight=2420.0, date=day)
+
+        stats = cards._weight_statistics(self.child)
+        self.assertIsNotNone(stats)
+        self.assertIsNone(stats["change_weekly"])
+
+        models.Weight.objects.create(
+            child=self.child, weight=2400.0, date=day + timezone.timedelta(days=7)
+        )
+        stats = cards._weight_statistics(self.child)
+        # oldest 2490 -> newest 2400 over 8 days = -90g / (8/7) week
+        self.assertIsNotNone(stats["change_weekly"])
+        self.assertAlmostEqual(stats["change_weekly"], -90 / (8 / 7))
 
     def test_card_timer_list(self):
         user = get_user_model().objects.first()
