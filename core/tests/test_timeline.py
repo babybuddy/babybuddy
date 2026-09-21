@@ -112,21 +112,20 @@ class TimelineTestCase(TestCase):
 
         instance.delete()
 
-
     def test_same_timestamp_end_before_start(self):
         """
         When one activity ends at the same timestamp another starts, the end
         event should sort before the start event on the timeline (#928).
         """
         day = timezone.make_aware(datetime.datetime(2023, 1, 1))
-        stamp = day.replace(hour=11, minute=44, second=0)
+        stamp = day.replace(hour=11, minute=44, second=0, microsecond=0)
 
         feeding = models.Feeding.objects.create(
             child=self.child,
             start=stamp - datetime.timedelta(minutes=10),
             end=stamp,
-            type="breast milk",
-            method="left breast",
+            type="formula",
+            method="bottle",
         )
         sleep = models.Sleep.objects.create(
             child=self.child,
@@ -136,17 +135,32 @@ class TimelineTestCase(TestCase):
 
         events = get_objects(date=day, child=self.child)
 
-        end_indexes = [i for i, e in enumerate(events) if e.get("type") == "end"]
-        start_indexes = [i for i, e in enumerate(events) if e.get("type") == "start"]
-        self.assertTrue(end_indexes)
-        self.assertTrue(start_indexes)
-        # Timeline is newest-first; end must appear before start at equal time.
-        self.assertLess(min(end_indexes), max(start_indexes))
-        end_events = [e for e in events if e.get("type") == "end" and e["time"] == stamp]
-        start_events = [e for e in events if e.get("type") == "start" and e["time"] == stamp]
-        self.assertEqual(len(end_events), 1)
-        self.assertEqual(len(start_events), 1)
-        self.assertLess(events.index(end_events[0]), events.index(start_events[0]))
+        at_stamp_end = [
+            e
+            for e in events
+            if e.get("type") == "end" and e.get("model_name") == "feeding"
+        ]
+        at_stamp_start = [
+            e
+            for e in events
+            if e.get("type") == "start" and e.get("model_name") == "sleep"
+        ]
+
+        self.assertEqual(len(at_stamp_end), 1)
+        self.assertEqual(len(at_stamp_start), 1)
+
+        end_idx = next(
+            i
+            for i, e in enumerate(events)
+            if e.get("type") == "end" and e.get("model_name") == "feeding"
+        )
+        start_idx = next(
+            i
+            for i, e in enumerate(events)
+            if e.get("type") == "start" and e.get("model_name") == "sleep"
+        )
+        # Timeline list is newest-first; end must come before start at equal time.
+        self.assertLess(end_idx, start_idx)
 
         feeding.delete()
         sleep.delete()
