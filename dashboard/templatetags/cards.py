@@ -747,7 +747,7 @@ def _period_change_statistics(instances, value_attr):
     """
     stats = {"change_weekly": None}
 
-    if not instances or len(instances) == 0:
+    if not instances.exists():
         return False
 
     newest = instances.first()
@@ -809,6 +809,7 @@ def _bmi_statistics(child):
         models.BMI.objects.filter(child=child).order_by("-date"), "bmi"
     )
 
+@register.inclusion_tag("cards/timer_list.html", takes_context=True)
 def card_timer_list(context, child=None):
     """
     Filters for currently active Timer instances, optionally by child.
