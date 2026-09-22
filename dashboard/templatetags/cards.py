@@ -735,27 +735,45 @@ def _sleep_statistics(child):
     return sleep
 
 
+
+
+def _period_change_statistics(instances, value_attr):
+    """
+    Average change per week for a measurement series.
+
+    Weekly rates are only reported when the oldest and newest entries are at
+    least seven days apart. Shorter spans would project a full week from a
+    few days of data and show a misleading dashboard number (#587).
+    """
+    stats = {"change_weekly": None}
+
+    if not instances.exists():
+        return False
+
+    newest = instances.first()
+    oldest = instances.last()
+
+    if newest == oldest:
+        return stats
+
+    days = (newest.date - oldest.date).days
+    if days < 7:
+        return stats
+
+    change = getattr(newest, value_attr) - getattr(oldest, value_attr)
+    stats["change_weekly"] = change / (days / 7)
+    return stats
+
+
 def _weight_statistics(child):
     """
     Statistical weight data.
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    weight = {"change_weekly": 0.0}
-
-    instances = models.Weight.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
-        return False
-
-    newest = instances.first()
-    oldest = instances.last()
-
-    if newest != oldest:
-        weight_change = newest.weight - oldest.weight
-        weeks = (newest.date - oldest.date).days / 7
-        weight["change_weekly"] = weight_change / weeks
-
-    return weight
+    return _period_change_statistics(
+        models.Weight.objects.filter(child=child).order_by("-date"), "weight"
+    )
 
 
 def _height_statistics(child):
@@ -764,21 +782,9 @@ def _height_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    height = {"change_weekly": 0.0}
-
-    instances = models.Height.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
-        return False
-
-    newest = instances.first()
-    oldest = instances.last()
-
-    if newest != oldest:
-        height_change = newest.height - oldest.height
-        weeks = (newest.date - oldest.date).days / 7
-        height["change_weekly"] = height_change / weeks
-
-    return height
+    return _period_change_statistics(
+        models.Height.objects.filter(child=child).order_by("-date"), "height"
+    )
 
 
 def _head_circumference_statistics(child):
@@ -787,21 +793,10 @@ def _head_circumference_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    head_circumference = {"change_weekly": 0.0}
-
-    instances = models.HeadCircumference.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
-        return False
-
-    newest = instances.first()
-    oldest = instances.last()
-
-    if newest != oldest:
-        hc_change = newest.head_circumference - oldest.head_circumference
-        weeks = (newest.date - oldest.date).days / 7
-        head_circumference["change_weekly"] = hc_change / weeks
-
-    return head_circumference
+    return _period_change_statistics(
+        models.HeadCircumference.objects.filter(child=child).order_by("-date"),
+        "head_circumference",
+    )
 
 
 def _bmi_statistics(child):
@@ -810,22 +805,9 @@ def _bmi_statistics(child):
     :param child: an instance of the Child model.
     :returns: a dictionary of statistics.
     """
-    bmi = {"change_weekly": 0.0}
-
-    instances = models.BMI.objects.filter(child=child).order_by("-date")
-    if len(instances) == 0:
-        return False
-
-    newest = instances.first()
-    oldest = instances.last()
-
-    if newest != oldest:
-        bmi_change = newest.bmi - oldest.bmi
-        weeks = (newest.date - oldest.date).days / 7
-        bmi["change_weekly"] = bmi_change / weeks
-
-    return bmi
-
+    return _period_change_statistics(
+        models.BMI.objects.filter(child=child).order_by("-date"), "bmi"
+    )
 
 @register.inclusion_tag("cards/timer_list.html", takes_context=True)
 def card_timer_list(context, child=None):
