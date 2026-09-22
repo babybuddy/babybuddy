@@ -93,6 +93,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
   - [part 3](https://lutzky.net/2021/10/10/software-parenting-3/)
 - [High Level Developer Documentation (AI-Generated)](https://wiki.mutable.ai/babybuddy/babybuddy)
 - [Example custom TypeScript frontend](https://github.com/jkjustjoshing/maddie-buddy) (based on [Remix](https://remix.run/))
+- [Minbao Feeding Tools](https://yy520-xx.github.io/minbao-feeding-tools/) - Free web tool for parents of babies with food allergies (e.g., cow's milk protein allergy): ingredient label checker, food safety guide, and feeding diary. Complements Baby Buddy's feeding tracking with allergy-specific food safety features.
 
 ## 🔐 Reporting Vulnerabilities
 
