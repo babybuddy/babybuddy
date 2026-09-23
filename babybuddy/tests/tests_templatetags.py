@@ -30,3 +30,17 @@ class TemplateTagsTestCase(TestCase):
         group = Group.objects.get(name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"])
         user.groups.add(group)
         self.assertTrue(babybuddy.user_is_read_only(user))
+
+    def test_user_is_caregiver(self):
+        user = get_user_model().objects.create_user(
+            username="caregiver",
+            password="caregiver",
+            is_superuser=False,
+            is_staff=False,
+        )
+        self.assertFalse(babybuddy.user_is_caregiver(user))
+
+        group = Group.objects.get(name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"])
+        user.groups.add(group)
+        self.assertTrue(babybuddy.user_is_caregiver(user))
+        self.assertFalse(babybuddy.user_is_read_only(user))

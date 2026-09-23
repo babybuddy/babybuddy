@@ -44,18 +44,18 @@ from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin, StaffO
 def csrf_failure(request, reason=""):
     """
     Overrides the 403 CSRF failure template for bad origins in order to provide more
-    userful information about how to resolve the issue.
+    useful information about how to resolve the issue.
     """
 
     if (
         "HTTP_ORIGIN" in request.META
-        and reason == REASON_BAD_ORIGIN % request.META["HTTP_ORIGIN"]
+        and reason == REASON_BAD_ORIGIN % request.META.get("HTTP_ORIGIN")
     ):
         context = {
             "title": _("Forbidden"),
             "main": _("CSRF verification failed. Request aborted."),
             "reason": reason,
-            "origin": request.META["HTTP_ORIGIN"],
+            "origin": request.META.get("HTTP_ORIGIN"),
         }
         template = loader.get_template("error/403_csrf_bad_origin.html")
         return HttpResponseForbidden(template.render(context), content_type="text/html")

@@ -2,7 +2,7 @@
 
 ## `ALLOWED_HOSTS`
 
-_Default:_ `*` (any host)
+_Default:_ `""` (empty)
 
 Set this variable to a single host or comma-separated list of hosts.
 This should _always_ be set to a specific host or hosts in production deployments.

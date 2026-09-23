@@ -37,5 +37,5 @@
     "PIPENV_VENV_IN_PROJECT": "1"
   },
   "postCreateCommand": "pipenv install --dev && npm install --include=dev && gulp migrate",
-  "forwardPorts": [8000]
+  "appPort": [8000]
 }

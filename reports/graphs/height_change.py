@@ -10,16 +10,33 @@ from reports import utils
 
 
 def height_change(
-    actual_heights: BaseManager, percentile_heights: BaseManager, birthday: datetime
+    actual_heights: BaseManager,
+    percentile_heights: BaseManager,
+    birthday: datetime,
+    due_date: datetime = None,
 ):
     """
     Create a graph showing height over time.
     :param actual_heights: a QuerySet of Height instances.
     :param percentile_heights: a QuerySet of Height Percentile instances.
     :param birthday: a datetime of the child's birthday
+    :param due_date: an optional datetime of the child's due date. When set and
+        later than the birthday (i.e. the child was born preterm), percentile
+        curves are anchored to the due date so they are plotted against
+        corrected age.
     :returns: a tuple of the graph's html and javascript.
     """
     actual_heights = actual_heights.order_by("-date")
+
+    # When a due date later than the birthday is recorded the child was born
+    # preterm; anchor the percentile curves to the due date so that they line
+    # up with corrected age. The actual measurements remain on their true
+    # dates. Reports without percentile data (no sex selected) are left
+    # untouched, so their title never claims a correction that is not shown.
+    correct_for_prematurity = bool(
+        percentile_heights and due_date and due_date > birthday
+    )
+    percentile_anchor = due_date if correct_for_prematurity else birthday
 
     measuring_dates: list[datetime] = list(
         actual_heights.values_list("date", flat=True)
@@ -38,15 +55,18 @@ def height_change(
         percentile_heights = percentile_heights.order_by("age_in_days")
         dates = list(
             map(
-                lambda timedelta: birthday + timedelta,
+                lambda age: percentile_anchor + age,
                 percentile_heights.values_list("age_in_days", flat=True),
             )
         )
 
         # reduce percentile data xrange to end 1 day after last height measurement in for formatting purposes
         # https://github.com/babybuddy/babybuddy/pull/708#discussion_r1332335789
+        # When anchored to the due date the last measurement may fall before the
+        # first percentile point, so slice by comparison rather than index.
         last_date_for_percentiles = min(max(dates), max(measuring_dates))
-        end_index = dates.index(last_date_for_percentiles) + 1
+        visible_points = sum(1 for date in dates if date <= last_date_for_percentiles)
+        end_index = max(visible_points, 1)
         dates = dates[:end_index]
 
         percentile_height_3_trace = go.Scatter(
@@ -86,6 +106,10 @@ def height_change(
     layout_args = utils.default_graph_layout_options()
     layout_args["barmode"] = "stack"
     layout_args["title"] = "<b>" + _("Height") + "</b>"
+    if correct_for_prematurity:
+        layout_args["title"] += (
+            "<br><sup>" + _("Percentiles plotted by corrected age") + "</sup>"
+        )
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
     layout_args["yaxis"]["title"] = _("Height")

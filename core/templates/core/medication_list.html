@@ -78,7 +78,7 @@
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No medication entries found." %}</th>
+                        <th colspan="{% if not unique_child %}7{% else %}6{% endif %}">{% trans "No medication entries found." %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -2,10 +2,12 @@
 from django import forms
 from django.forms import widgets
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from taggit.forms import TagField
+from taggit.forms import TagField, TagWidgetMixin
 
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
@@ -24,6 +26,8 @@ def set_initial_values(kwargs, form_type):
 
     # Never update initial values for existing instance (e.g. edit operation).
     if kwargs.get("instance", None):
+        kwargs.pop("child", None)
+        kwargs.pop("timer", None)
         return kwargs
 
     # Add the "initial" kwarg if it does not already exist.
@@ -49,7 +53,7 @@ def set_initial_values(kwargs, form_type):
             kwargs["initial"].update(
                 {"timer": timer, "start": timer.start, "end": timezone.now()}
             )
-        except Timer.DoesNotExist:
+        except (Timer.DoesNotExist, ValueError, TypeError, OverflowError):
             pass
 
     # Set type and method values for Feeding instance based on last feed.
@@ -91,20 +95,107 @@ def set_initial_values(kwargs, form_type):
 
 class CoreModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        # Set `timer_id` so the Timer can be stopped in the `save` method.
+        self.user = kwargs.pop("user", getattr(self, "user", None))
+        # Set `timer_id` so the Timer can be consumed only after a successful save.
         self.timer_id = kwargs.get("timer", None)
         kwargs = set_initial_values(kwargs, type(self))
         super(CoreModelForm, self).__init__(*args, **kwargs)
+        self.add_timer_field()
 
+    def add_timer_field(self):
+        """
+        Add a read-only field with the name of the Timer being stopped.
+
+        The form is usually opened from a Timer, so showing which Timer the
+        entry belongs to makes it possible to identify the timer after the
+        fact. The Timer is only a source of initial values, so the field is
+        disabled and not used when the form is saved.
+        """
+        if not self.timer_id:
+            return
+
+        try:
+            timer = models.Timer.objects.filter(id=self.timer_id).first()
+        except (ValueError, TypeError, OverflowError):
+            return
+
+        if not timer:
+            return
+
+        self.fields["timer"] = forms.CharField(
+            label=_("Timer"),
+            required=False,
+            disabled=True,
+        )
+        self.initial["timer"] = timer.title_with_child
+        self.fields = self.move_after(self.fields, "timer", "child")
+
+        if hasattr(self, "fieldsets"):
+            self.fieldsets = [
+                {
+                    **fieldset,
+                    "fields": self.move_after(fieldset["fields"], "timer", "child"),
+                }
+                for fieldset in self.fieldsets
+            ]
+
+    @staticmethod
+    def move_after(fields, item, anchor):
+        """Return the fields with `item` placed directly after `anchor`."""
+        if item == anchor or anchor not in fields:
+            return fields
+
+        if isinstance(fields, dict):
+            if item not in fields:
+                return fields
+
+            items = list(fields.items())
+            entry = items.pop([key for key, _ in items].index(item))
+            items.insert([key for key, _ in items].index(anchor) + 1, entry)
+            return dict(items)
+
+        fields = list(fields)
+        if item in fields:
+            fields.remove(item)
+        fields.insert(fields.index(anchor) + 1, item)
+        return fields
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if self.timer_id is not None:
+            try:
+                timer = models.Timer.objects.get(pk=self.timer_id)
+            except (Timer.DoesNotExist, ValueError, TypeError, OverflowError):
+                raise forms.ValidationError(_("This timer does not exist."))
+            if self.user is None or not timer.can_be_consumed_by(self.user):
+                raise PermissionDenied(
+                    _("You do not have permission to consume timers.")
+                )
+        return cleaned_data
+
+    @transaction.atomic
     def save(self, commit=True):
-        # If `timer_id` is present, stop the Timer.
-        instance = super(CoreModelForm, self).save(commit=False)
-        if self.timer_id:
-            timer = models.Timer.objects.get(id=self.timer_id)
-            timer.stop()
+        instance = super().save(commit=False)
         if commit:
+            timer = None
+            if self.timer_id is not None:
+                # Lock until the entry and its tags have been saved successfully.
+                timer = (
+                    models.Timer.objects.select_for_update()
+                    .filter(pk=self.timer_id)
+                    .first()
+                )
+                if timer is None:
+                    raise forms.ValidationError(_("This timer no longer exists."))
+                # The timer may have changed owner since validation.
+                if self.user is None or not timer.can_be_consumed_by(self.user):
+                    raise PermissionDenied(
+                        _("You do not have permission to consume timers.")
+                    )
             instance.save()
             self.save_m2m()
+            if timer is not None:
+                timer.stop()
         return instance
 
     @property
@@ -133,6 +224,10 @@ class CoreModelForm(forms.ModelForm):
         return hydrated_fieldsets
 
 
+class HiddenTagWidget(TagWidgetMixin, forms.HiddenInput):
+    """Hidden tag input that still renders tag names instead of object reprs."""
+
+
 class TaggableModelForm(forms.ModelForm):
     tags = TagField(
         label=_("Tags"),
@@ -143,6 +238,23 @@ class TaggableModelForm(forms.ModelForm):
             "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
         ),
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.user is None or not self.user.has_perm("core.change_tag"):
+            # Without `change_tag` the field stays in the form (the layout and
+            # the preserved value depend on it) but is only a carrier for the
+            # current tag names, which `clean_tags` accepts unchanged.
+            self.fields["tags"].widget = HiddenTagWidget()
+            self.fields["tags"].help_text = None
+
+    def clean_tags(self):
+        current = list(self.instance.tags.names()) if self.instance.pk else []
+        if self.add_prefix("tags") not in self.data:
+            return current
+        tags = self.cleaned_data["tags"]
+        models.Tag.check_assignment_permissions(self.user, tags, current)
+        return tags
 
 
 class BMIForm(CoreModelForm, TaggableModelForm):
@@ -177,13 +289,9 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
         return cleaned_data
 
     def save(self, commit=True):
-        instance = super(BottleFeedingForm, self).save(commit=False)
-        instance.method = "bottle"
-        instance.end = instance.start
-        if commit:
-            instance.save()
-            self.save_m2m()
-        return instance
+        self.instance.method = "bottle"
+        self.instance.end = self.instance.start
+        return super().save(commit=commit)
 
     class Meta:
         model = models.Feeding
@@ -199,12 +307,13 @@ class BottleFeedingForm(CoreModelForm, TaggableModelForm):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = models.Child
-        fields = ["first_name", "last_name", "birth_date", "birth_time"]
+        fields = ["first_name", "last_name", "birth_date", "birth_time", "due_date"]
         if settings.BABY_BUDDY["ALLOW_UPLOADS"]:
             fields.append("picture")
         widgets = {
             "birth_date": DateInput(),
             "birth_time": TimeInput(),
+            "due_date": DateInput(),
         }
 
 
@@ -470,8 +579,13 @@ class TimerForm(CoreModelForm):
 
     def save(self, commit=True):
         instance = super(TimerForm, self).save(commit=False)
-        instance.user = self.user
-        instance.save()
+        if instance.user_id is None:
+            instance.user = self.user
+            instance.save()
+        else:
+            # Editing a timer does not change its owner, including an owner
+            # changed by someone else while the form was open.
+            instance.save(update_fields=self._meta.fields)
         return instance
 
 
@@ -479,16 +593,17 @@ class TummyTimeForm(CoreModelForm, TaggableModelForm):
     fieldsets = [
         {"fields": ["child", "start", "end"], "layout": "required"},
         {"fields": ["milestone"]},
-        {"fields": ["tags"], "layout": "advanced"},
+        {"fields": ["notes", "tags"], "layout": "advanced"},
     ]
 
     class Meta:
         model = models.TummyTime
-        fields = ["child", "start", "end", "milestone", "tags"]
+        fields = ["child", "start", "end", "milestone", "notes", "tags"]
         widgets = {
             "child": ChildRadioSelect,
             "start": DateTimeInput(),
             "end": DateTimeInput(),
+            "notes": forms.Textarea(attrs={"rows": 5}),
         }
 
 
