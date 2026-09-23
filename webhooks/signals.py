@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from django.db import transaction
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
@@ -35,22 +36,35 @@ def record_event(instance, verb):
     """
     Queue one event per active endpoint for a change to ``instance``.
 
-    A failure here is logged and swallowed. This runs inside the transaction
-    that saves the entry, so raising would roll back a parent's record over a
-    notification about it.
+    Each endpoint is attempted on its own, inside its own savepoint. Two things
+    ride on that. One endpoint failing must not cost the others their event,
+    and a failure to write an event must leave the caller's transaction usable:
+    on a database that aborts a transaction at the first failed statement, an
+    unwrapped failure would leave the caller's own save to be rolled back at
+    commit time, which is the opposite of what this is for.
     :param instance: the record that changed
     :param verb: one of "created", "updated" or "deleted"
     """
-    event_type = "{}.{}".format(instance._meta.model_name, verb)
+    event_type = "{}.{}".format(instance.model_name, verb)
+    # The lookup is guarded as well: not being able to read the endpoints must
+    # not reach the caller any more than failing to write an event does.
     try:
-        for endpoint in WebhookEndpoint.objects.filter(active=True):
-            WebhookEvent.objects.create(
-                endpoint=endpoint,
-                type=event_type,
-                object_id=str(instance.pk),
-            )
+        endpoints = list(WebhookEndpoint.objects.filter(active=True))
     except Exception:
-        logger.exception("Could not queue webhook event %s.", event_type)
+        logger.exception("Could not look up webhook endpoints for %s.", event_type)
+        return
+    for endpoint in endpoints:
+        try:
+            with transaction.atomic():
+                WebhookEvent.objects.create(
+                    endpoint=endpoint,
+                    type=event_type,
+                    object_id=str(instance.pk),
+                )
+        except Exception:
+            logger.exception(
+                "Could not queue webhook event %s for %s.", event_type, endpoint.name
+            )
 
 
 @receiver(post_save, dispatch_uid="webhooks.record_event_on_save")

@@ -19,10 +19,10 @@ class WebhookEndpoint(models.Model):
     """
     A URL to notify when a record changes.
 
-    The request names the change and carries nothing about its contents, so an
-    endpoint cannot learn anything about a child from the traffic it receives.
-    Anything that wants the details reads them back through the API with its
-    own credentials.
+    The request names the change and carries none of its contents. An endpoint
+    learns which record kind changed and when, and nothing else: not the name
+    of a child, not how much was fed, not where anyone was. Anything that wants
+    the details reads them back through the API with its own credentials.
     """
 
     name = models.CharField(max_length=255, verbose_name=_("Name"))
@@ -55,9 +55,12 @@ class WebhookEvent(models.Model):
     """
     One change, waiting to go to one endpoint.
 
-    The row is written in the same transaction as the change that caused it, so
-    an entry and its events are either both there or neither is. A save is never
-    left half recorded because the process stopped at the wrong moment.
+    The row is written while the change is being saved, and where that save is
+    part of a larger transaction the two commit together or not at all. Outside
+    one -- a bare ``.save()`` in autocommit -- the entry commits first and the
+    events follow, so a process that stops in between keeps the entry and loses
+    its announcement. The entry is the important half of that pair: an
+    announcement can be missed, a feeding cannot be allowed to vanish.
     """
 
     endpoint = models.ForeignKey(
@@ -69,7 +72,8 @@ class WebhookEvent(models.Model):
         verbose_name=_("Event ID"),
         help_text=_(
             "Sent with every attempt so the receiving application can discard "
-            "a repeat."
+            "a repeat. It is in the body too, and that copy is the one covered "
+            "by the signature."
         ),
     )
     type = models.CharField(

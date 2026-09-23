@@ -34,8 +34,12 @@ TIMEOUT = 10
 def signature(secret, timestamp, body):
     """
     The value of the ``X-BabyBuddy-Signature`` header.
-    The timestamp is covered along with the body, so a request that was
-    captured cannot be replayed an hour later as it stands.
+    The timestamp is covered along with the body, so the timestamp of a
+    captured request cannot be moved to make an old body look fresh. It does
+    not stop someone sending a captured request again exactly as it stands --
+    the digest is the same and it verifies forever. Rejecting a stale timestamp
+    and keeping the event ids already seen is what stops that, and it is the
+    receiver that has to do both.
     :param secret: the endpoint's signing secret
     :param timestamp: the request time, in whole seconds since the epoch
     :param body: the request body, as sent
@@ -68,8 +72,11 @@ def body_for(event):
 def post(endpoint, event, timeout=TIMEOUT):
     """
     Send one event to one endpoint.
+
     Redirects are deliberately not followed: a signature would otherwise go out
-    to whatever host the endpoint points at next.
+    to whatever host the endpoint points at next. The signed message covers the
+    timestamp and the body only, so the headers are a convenience and the body
+    is what a receiver should read.
     :param endpoint: a WebhookEndpoint instance
     :param event: a WebhookEvent instance
     :param timeout: seconds to wait for a response
@@ -118,9 +125,12 @@ def deliver_pending(timeout=TIMEOUT, now=None):
     """
     Send every event that is due.
 
-    One endpoint that is down holds up nobody else: each event settles on its
-    own, and a failure costs only the events meant for that endpoint. An
-    endpoint that has been switched off is left out entirely, and what was
+    One endpoint that is down costs only its own events: each settles on its
+    own, and the others are still sent afterwards in the same run. What a slow
+    endpoint can cost is time -- the run goes through the list in order and
+    waits up to ``timeout`` for each one.
+
+    An endpoint that has been switched off is left out entirely, and what was
     queued for it waits rather than arriving somewhere nobody wants it.
 
     :param timeout: seconds to wait for a response

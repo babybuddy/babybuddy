@@ -11,6 +11,8 @@ from django.core.management import call_command
 from django.test import TestCase
 from django.utils import timezone
 
+from core import models
+
 from webhooks import delivery
 from webhooks.models import WebhookEndpoint, WebhookEvent
 
@@ -142,12 +144,27 @@ class RecordingServerTestCase(TestCase):
 
         self.assertNotEqual(headers["X-BabyBuddy-Signature"], "v1=" + expected)
 
-    def test_the_timestamp_covers_a_replay(self):
-        # A captured request cannot be sent again an hour later as it stands:
-        # the signature is taken over the timestamp too.
+    def test_the_timestamp_cannot_be_moved(self):
+        # What covering the timestamp buys: nobody can take a captured body and
+        # give it a new timestamp to make it look fresh.
         secret = "the secret of this endpoint"
-        first = delivery.signature(secret, 1000, "{}")
-        self.assertNotEqual(first, delivery.signature(secret, 1001, "{}"))
+        body = "{}"
+        self.assertNotEqual(
+            delivery.signature(secret, 1000, body),
+            delivery.signature(secret, 1001, body),
+        )
+
+    def test_a_verbatim_replay_still_verifies(self):
+        # The limit, named so nobody assumes otherwise. A request sent again
+        # exactly as it was captured is byte for byte the same request and its
+        # digest is the same, so it verifies however long ago it was taken.
+        # Signing the timestamp does not stop that: refusing a stale timestamp
+        # and keeping the event ids already seen is what does, and both are the
+        # receiver's to do. See docs/configuration/webhooks.md.
+        secret = "the secret of this endpoint"
+        body = "{}"
+        captured = delivery.signature(secret, 1000, body)
+        self.assertEqual(captured, delivery.signature(secret, 1000, body))
 
     def test_the_command_delivers(self):
         out = StringIO()
@@ -215,6 +232,44 @@ class RecordingServerTestCase(TestCase):
         before = len(self.received)
         delivery.deliver_pending(now=now + datetime.timedelta(days=1))
         self.assertEqual(len(self.received), before)
+
+    def test_one_endpoint_that_cannot_be_queued_costs_only_its_own_event(self):
+        # The write of one event failing must not leave the other endpoints
+        # with nothing. Each is written in its own savepoint and each is
+        # attempted on its own.
+        WebhookEvent.objects.all().delete()
+        other = WebhookEndpoint.objects.create(
+            name="Other", url="http://127.0.0.1:1/hook", secret="secret"
+        )
+        feeding = models.Feeding.objects.create(
+            child=models.Child.objects.create(
+                first_name="First", birth_date=timezone.localdate()
+            ),
+            start=timezone.localtime(),
+            end=timezone.localtime(),
+            type="formula",
+        )
+        WebhookEvent.objects.all().delete()
+
+        original = WebhookEvent.objects.create
+        calls = []
+
+        def fragile(**kwargs):
+            calls.append(kwargs["endpoint"].name)
+            if kwargs["endpoint"].name == "Home":
+                raise RuntimeError("no room")
+            return original(**kwargs)
+
+        WebhookEvent.objects.create = fragile
+        self.addCleanup(setattr, WebhookEvent.objects, "create", original)
+        from webhooks import signals as webhook_signals
+
+        with self.assertLogs("webhooks.signals", level="ERROR"):
+            webhook_signals.record_event(feeding, "created")
+
+        self.assertEqual(sorted(calls), ["Home", "Other"])
+        self.assertEqual(WebhookEvent.objects.count(), 1)
+        self.assertEqual(WebhookEvent.objects.get().endpoint, other)
 
     def test_a_switched_off_endpoint_is_left_out(self):
         # Turning an endpoint off has to stop it being told things, including

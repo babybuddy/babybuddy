@@ -19,9 +19,11 @@ The body names the change and carries nothing about its contents:
 identifies the record. Anything that wants the details reads them back through
 the [API](../api.md) with its own credentials.
 
-This is deliberate. An endpoint is a URL that somebody configured once and then
-left alone, and it is not told the name of a child, how much was fed or what
-time anything happened.
+That is all it is told. An endpoint is a URL that somebody configured once and
+then left alone, and it is not given the name of a child, how much was fed or
+where anyone was. It does see which record kinds changed and when they changed,
+which is enough to tell that a household is awake -- so an endpoint is still a
+place that knows something about a family, and it is worth treating as one.
 
 ## Checking that a request came from Baby Buddy
 
@@ -29,16 +31,23 @@ Every request carries four headers:
 
 | Header | Contents |
 | --- | --- |
-| `X-BabyBuddy-Event-Id` | Identifies the change, and is the same on every attempt so a repeat can be discarded |
+| `X-BabyBuddy-Event-Id` | The same value as `id` in the body, for the sake of a receiver that has not parsed it yet |
 | `X-BabyBuddy-Event-Type` | The same value as `type` in the body |
 | `X-BabyBuddy-Timestamp` | The request time, in whole seconds since the epoch |
 | `X-BabyBuddy-Signature` | `v1=` followed by an HMAC-SHA256 hex digest |
 
-The signature is taken over the timestamp and the body, joined with a period:
+The signature covers the timestamp and the body, joined with a period. It does
+not cover the headers, so read `id` and `type` out of the body -- that copy is
+the one the signature vouches for.
 
 ```python
 import hashlib
 import hmac
+
+received = request.headers["X-BabyBuddy-Signature"].removeprefix("v1=")
+timestamp = request.headers["X-BabyBuddy-Timestamp"]
+body = request.raw_body  # exactly as it arrived; re-encoding parsed JSON
+                         # changes the bytes, and the digest with them
 
 expected = hmac.new(
     secret.encode(),
@@ -46,15 +55,23 @@ expected = hmac.new(
     hashlib.sha256,
 ).hexdigest()
 
-hmac.compare_digest(expected, received_signature)
+assert hmac.compare_digest(expected, received)  # not ==, so guessing does
+                                                # not get easier as it closes in
 ```
 
-Compare it against what follows `v1=` in `X-BabyBuddy-Signature`, using the
-secret from the endpoint's settings. `compare_digest` rather than `==`, so that
-guessing a signature does not get easier as it gets closer.
+Three things make that check worth something, and two of them are on this side
+of the connection:
 
-Because the timestamp is covered too, a request that was captured cannot be
-sent again later as it stands.
+1. **Check the timestamp** against the current time and refuse anything too far
+   off -- a few minutes is usual. Signing the timestamp stops someone *moving*
+   it to dress an old body up as a fresh one. It does not stop them sending a
+   captured request again exactly as it stands: the digest is the same and it
+   verifies forever.
+2. **Remember the event ids** you have already acted on, and ignore a repeat.
+   Two attempts carry the same `id`, so this also covers a retry.
+3. **Compare with `compare_digest`** as above.
+
+Without the first two, a captured request is one that can be used again.
 
 Redirects are not followed. A signature would otherwise end up at whatever host
 the endpoint points at next.
@@ -67,13 +84,17 @@ Events are queued as records change and are sent by a command:
 python manage.py deliver_webhooks
 ```
 
-Run it from cron or a systemd timer. Anything that is not delivered is tried
+Run it from cron or a systemd timer. Use `https` for anything on another
+machine: over plain `http` the secret and the body travel in the clear, and the
+signature then proves nothing about where they have been. Anything that is not delivered is tried
 again on the next run, waiting twice as long as the previous attempt: one, two,
 four and eight minutes. After five attempts the event is left alone and stays
 in the database as a record of what happened.
 
-One endpoint that is down holds up nobody else. Each event settles on its own,
-and a failure costs only the events meant for that endpoint.
+One endpoint that is down costs only its own events: they are the ones that
+fail, and everything else still goes out in the same run. What a slow endpoint
+costs is time, since the run works through the list in order and waits up to
+ten seconds for each.
 
 ## Configuring an endpoint
 
@@ -94,9 +115,10 @@ There is one place where nothing is announced: `QuerySet.update()` writes rows
 without calling `save()`, so no signal fires. It is used in migrations and tests
 only. A bulk write elsewhere would go unannounced.
 
-An endpoint receives every one of these. If it only cares about some, it
-ignores the rest — the body carries no data worth filtering on, so there is
-nothing to filter by either.
+An endpoint receives every one of these. `type` is enough to keep what you
+want and drop the rest at the receiving end, so there is no filter to configure
+here and no way to end up with an endpoint that is quietly not being told about
+something you expected it to hear.
 
 ## What this does not do
 

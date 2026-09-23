@@ -66,14 +66,16 @@ class WebhookSignalTestCase(TestCase):
         from django.db.models import Model
 
         watched = set(signals.WATCHED)
+        excluded = {
+            models.Tag,
+            models.Tagged,
+            models.HeightPercentile,
+            models.WeightPercentile,
+        }
         for candidate in apps.get_app_config("core").get_models():
             if not issubclass(candidate, Model):
                 continue
-            if not hasattr(candidate, "model_name"):
-                continue
-            if "percentile" in candidate.__name__.lower():
-                continue
-            if candidate in (models.Tag, models.Tagged):
+            if candidate in excluded:
                 continue
             self.assertIn(
                 candidate,
@@ -82,9 +84,25 @@ class WebhookSignalTestCase(TestCase):
                     candidate.__name__
                 ),
             )
+            # And the name in the event has to come from somewhere, so a new
+            # record kind cannot arrive with a type nothing can match.
+            self.assertTrue(
+                hasattr(candidate, "model_name"),
+                "{} has no model_name".format(candidate.__name__),
+            )
         self.assertEqual(
             watched,
             set(apps.get_app_config("core").get_models()) & watched,
+        )
+
+    def test_the_type_uses_the_name_the_rest_of_baby_buddy_uses(self):
+        # Not `Meta.model_name`, which runs words together. The record kinds
+        # have a name of their own and the rest of the code speaks it.
+        models.HeadCircumference.objects.create(
+            child=self.child, date=timezone.localdate(), head_circumference=34.0
+        )
+        self.assertEqual(
+            WebhookEvent.objects.latest("id").type, "head_circumference.created"
         )
 
     def test_a_measurement_announces_the_measurement_only(self):
