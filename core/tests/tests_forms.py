@@ -1026,6 +1026,31 @@ class ValidationsTestCase(FormsTestCaseBase):
             "/tummy-time/{}/".format(entry.id),
         )
 
+    def test_validate_unique_period_without_child(self):
+        end = timezone.localtime() - timezone.timedelta(minutes=5)
+        start = end - timezone.timedelta(minutes=10)
+        params = {
+            "start": self.localtime_string(start),
+            "end": self.localtime_string(end),
+            "amount": "50.0",
+            "type": "formula",
+            "method": "bottle",
+            "milestone": "",
+        }
+
+        for path in [
+            "/feedings/add/",
+            "/pumping/add/",
+            "/sleep/add/",
+            "/tummy-time/add/",
+        ]:
+            with self.subTest(path=path):
+                page = self.c.post(path, params, follow=True)
+                self.assertEqual(page.status_code, 200)
+                self.assertFormError(
+                    page.context["form"], "child", "This field is required."
+                )
+
 
 class WeightFormsTestCase(FormsTestCaseBase):
     @classmethod
