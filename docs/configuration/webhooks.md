@@ -89,7 +89,15 @@ Events are queued as records change and are sent by a command:
 python manage.py deliver_webhooks
 ```
 
-Run it from cron or a systemd timer. Use `https` for anything on another
+Run it from cron or a systemd timer. A Docker install has no cron to add to, so
+there the command runs from a second container that shares the configuration
+and database with the app, on a short loop:
+
+```bash
+while true; do python manage.py deliver_webhooks; sleep 30; done
+```
+
+Use `https` for anything on another
 machine: over plain `http` the secret and the body travel in the clear, and the
 signature then proves nothing about where they have been. Anything that is not delivered is tried
 again on the next run, waiting twice as long as the previous attempt: one, two,
