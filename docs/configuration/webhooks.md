@@ -11,7 +11,12 @@ application decides what to do with it.
 The body names the change and carries nothing about its contents:
 
 ```json
-{"created":"2026-09-23T18:04:11.512341+00:00","id":"6f0d1f1e-2d67-4a1e-9a1e-3f9d0c0f0a11","object_id":"42","type":"feeding.created"}
+{
+  "created": "2026-09-23T18:04:11.512341+00:00",
+  "id": "6f0d1f1e-2d67-4a1e-9a1e-3f9d0c0f0a11",
+  "object_id": "42",
+  "type": "feeding.created"
+}
 ```
 
 `type` is the record kind and what happened to it, so `feeding.created`,
@@ -29,12 +34,12 @@ place that knows something about a family, and it is worth treating as one.
 
 Every request carries four headers:
 
-| Header | Contents |
-| --- | --- |
-| `X-BabyBuddy-Event-Id` | The same value as `id` in the body, for the sake of a receiver that has not parsed it yet |
-| `X-BabyBuddy-Event-Type` | The same value as `type` in the body |
-| `X-BabyBuddy-Timestamp` | The request time, in whole seconds since the epoch |
-| `X-BabyBuddy-Signature` | `v1=` followed by an HMAC-SHA256 hex digest |
+| Header                   | Contents                                                                                  |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| `X-BabyBuddy-Event-Id`   | The same value as `id` in the body, for the sake of a receiver that has not parsed it yet |
+| `X-BabyBuddy-Event-Type` | The same value as `type` in the body                                                      |
+| `X-BabyBuddy-Timestamp`  | The request time, in whole seconds since the epoch                                        |
+| `X-BabyBuddy-Signature`  | `v1=` followed by an HMAC-SHA256 hex digest                                               |
 
 The signature covers the timestamp and the body, joined with a period. It does
 not cover the headers, so read `id` and `type` out of the body -- that copy is
@@ -63,7 +68,7 @@ Three things make that check worth something, and two of them are on this side
 of the connection:
 
 1. **Check the timestamp** against the current time and refuse anything too far
-   off -- a few minutes is usual. Signing the timestamp stops someone *moving*
+   off -- a few minutes is usual. Signing the timestamp stops someone _moving_
    it to dress an old body up as a fresh one. It does not stop them sending a
    captured request again exactly as it stands: the digest is the same and it
    verifies forever.
