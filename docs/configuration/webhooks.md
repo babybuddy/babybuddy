@@ -117,6 +117,26 @@ URL and a secret; the secret is generated when the endpoint is created and can
 be replaced at any time. Deactivating an endpoint stops it being told anything, including events
 that were still queued when it went off; those wait until it is turned back on.
 
+### From another application
+
+An application can also set up its own endpoint through the [API](../api.md),
+at `/api/webhook-endpoints/`, with the same permissions as the admin area: a
+user who can add webhook endpoints there can add them here, and caregivers and
+read-only users can do neither.
+
+```bash
+curl -X POST https://baby.example.com/api/webhook-endpoints/ \
+  -H "Authorization: Token <api key>" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "My phone", "url": "https://receiver.example.com/hook/123"}'
+```
+
+The secret is the one field that is never read back. Send `secret` along if the
+receiving application issued one — it has to be at least 16 characters — or
+leave it out and Baby Buddy generates it and returns it in the response to that
+request, the only time it appears. Replacing it later is a `PATCH` with a new
+`secret`; switching the endpoint off is a `PATCH` with `"active": false`.
+
 ## What is announced
 
 Changes to children and to the entries that can be recorded for them: BMI,

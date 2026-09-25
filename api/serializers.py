@@ -12,6 +12,7 @@ from taggit.serializers import TagListSerializerField, TaggitSerializer
 
 from core import models
 from babybuddy import models as babybuddy_models
+from webhooks import models as webhooks_models
 
 
 class CoreModelSerializer(serializers.HyperlinkedModelSerializer):
@@ -387,3 +388,27 @@ class ProfileSerializer(serializers.ModelSerializer):
             "api_key",
         )
         extra_kwargs = {k: {"read_only": True} for k in fields}
+
+
+class WebhookEndpointSerializer(serializers.ModelSerializer):
+    """
+    A webhook endpoint as another application sets it up for itself.
+
+    The secret can be written and is never read back. An application that
+    chose its own sends it here; one that did not is given the generated
+    secret once, in the response to the request that created the endpoint.
+    """
+
+    # DRF leaves the model's URLValidator out of a URLField and puts its own
+    # in, which also allows ftp. Nothing is ever sent to ftp, so the model's
+    # own validators apply here as they do in the admin area.
+    url = serializers.URLField(
+        max_length=1000,
+        validators=webhooks_models.WebhookEndpoint._meta.get_field("url").validators,
+    )
+
+    class Meta:
+        model = webhooks_models.WebhookEndpoint
+        fields = ("id", "name", "url", "secret", "active", "created", "last_delivery")
+        read_only_fields = ("created", "last_delivery")
+        extra_kwargs = {"secret": {"write_only": True, "min_length": 16}}

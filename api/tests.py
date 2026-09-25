@@ -12,6 +12,8 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase
 
+from webhooks.models import WebhookEndpoint
+
 
 class TestBase:
     class BabyBuddyAPITestCaseBase(APITestCase):
@@ -1399,3 +1401,104 @@ class CaregiverWebTestCase(APITestCase):
                 (status.HTTP_302_FOUND, status.HTTP_403_FORBIDDEN),
                 f"caregiver should be blocked from {url}",
             )
+
+
+class WebhookEndpointAPITestCase(APITestCase):
+    """
+    Another application can set up its own webhook endpoint, and nobody can
+    read a secret back once it has been set.
+    """
+
+    fixtures = ["tests.json"]
+    endpoint = reverse("api:webhookendpoint-list")
+
+    def setUp(self):
+        self.client.login(username="admin", password="admin")
+
+    def test_create_returns_the_generated_secret_once(self):
+        response = self.client.post(
+            self.endpoint,
+            {"name": "Phone", "url": "https://push.example.com/hook/abc"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        endpoint = WebhookEndpoint.objects.get(pk=response.data["id"])
+        self.assertEqual(response.data["secret"], endpoint.secret)
+        self.assertGreaterEqual(len(endpoint.secret), 16)
+        detail = self.client.get("{}{}/".format(self.endpoint, endpoint.pk))
+        self.assertNotIn("secret", detail.data)
+        listed = self.client.get(self.endpoint)
+        self.assertNotIn("secret", listed.data["results"][0])
+
+    def test_create_keeps_a_secret_the_client_chose(self):
+        secret = "a-secret-the-receiver-issued-0123"
+        response = self.client.post(
+            self.endpoint,
+            {
+                "name": "Phone",
+                "url": "https://push.example.com/hook/abc",
+                "secret": secret,
+            },
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(
+            WebhookEndpoint.objects.get(pk=response.data["id"]).secret, secret
+        )
+        self.assertEqual(response.data["secret"], secret)
+
+    def test_a_short_secret_or_a_url_nothing_is_sent_to_is_refused(self):
+        for data in (
+            {
+                "name": "Short",
+                "url": "https://push.example.com/hook",
+                "secret": "too-short",
+            },
+            {"name": "FTP", "url": "ftp://push.example.com/hook"},
+        ):
+            response = self.client.post(self.endpoint, data, format="json")
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, data)
+        self.assertFalse(WebhookEndpoint.objects.exists())
+
+    def test_patch_switches_off_and_replaces_the_secret(self):
+        endpoint = WebhookEndpoint.objects.create(
+            name="Phone", url="https://push.example.com/hook/abc"
+        )
+        new_secret = "a-replacement-secret-0123456789"
+        response = self.client.patch(
+            "{}{}/".format(self.endpoint, endpoint.pk),
+            {"active": False, "secret": new_secret},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertNotIn("secret", response.data)
+        endpoint.refresh_from_db()
+        self.assertFalse(endpoint.active)
+        self.assertEqual(endpoint.secret, new_secret)
+
+    def test_delete(self):
+        endpoint = WebhookEndpoint.objects.create(
+            name="Phone", url="https://push.example.com/hook/abc"
+        )
+        response = self.client.delete("{}{}/".format(self.endpoint, endpoint.pk))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(WebhookEndpoint.objects.exists())
+
+    def test_caregivers_and_read_only_users_cannot_see_or_add_endpoints(self):
+        WebhookEndpoint.objects.create(name="Phone", url="https://push.example.com/a")
+        for group in ("CAREGIVER_GROUP_NAME", "READ_ONLY_GROUP_NAME"):
+            user = get_user_model().objects.create_user(
+                username=group.lower(), password="password"
+            )
+            user.groups.add(Group.objects.get(name=settings.BABY_BUDDY[group]))
+            self.client.login(username=group.lower(), password="password")
+            self.assertEqual(
+                self.client.get(self.endpoint).status_code, status.HTTP_403_FORBIDDEN
+            )
+            response = self.client.post(
+                self.endpoint,
+                {"name": "Mine", "url": "https://elsewhere.example.com/"},
+                format="json",
+            )
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(WebhookEndpoint.objects.count(), 1)
