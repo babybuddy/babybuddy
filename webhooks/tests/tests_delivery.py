@@ -179,12 +179,10 @@ class RecordingServerTestCase(TestCase):
         self.assertIn("Nothing to deliver", out.getvalue())
         self.assertEqual(self.received, [])
 
-    def test_a_delivery_is_recorded(self):
+    def test_a_delivered_event_is_removed(self):
         delivered = delivery.deliver_pending()
         self.assertEqual(delivered, 1)
-        self.event.refresh_from_db()
-        self.assertIsNotNone(self.event.delivered)
-        self.assertEqual(self.event.attempts, 0)
+        self.assertFalse(WebhookEvent.objects.filter(pk=self.event.pk).exists())
         self.endpoint.refresh_from_db()
         self.assertIsNotNone(self.endpoint.last_delivery)
 
@@ -193,15 +191,13 @@ class RecordingServerTestCase(TestCase):
         now = timezone.now()
         delivery.deliver_pending(now=now)
         self.event.refresh_from_db()
-        self.assertIsNone(self.event.delivered)
         self.assertEqual(self.event.attempts, 1)
         self.assertEqual(self.event.last_error, "HTTP 500")
         self.assertEqual(self.event.next_attempt, now + datetime.timedelta(minutes=1))
         # And it goes out again once the wait is over.
         self.status = 200
         delivery.deliver_pending(now=now + datetime.timedelta(minutes=2))
-        self.event.refresh_from_db()
-        self.assertIsNotNone(self.event.delivered)
+        self.assertFalse(WebhookEvent.objects.filter(pk=self.event.pk).exists())
 
     def test_the_waits_double(self):
         self.status = 500
@@ -303,11 +299,9 @@ class RecordingServerTestCase(TestCase):
         delivered = delivery.deliver_pending(now=now, timeout=1)
         self.assertEqual(delivered, 1)
 
-        self.event.refresh_from_db()
-        self.assertIsNotNone(self.event.delivered)
+        self.assertFalse(WebhookEvent.objects.filter(pk=self.event.pk).exists())
 
         failed = WebhookEvent.objects.get(endpoint=other)
-        self.assertIsNone(failed.delivered)
         self.assertEqual(failed.attempts, 1)
         self.assertTrue(failed.last_error)
 

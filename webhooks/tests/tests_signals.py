@@ -32,7 +32,7 @@ class WebhookSignalTestCase(TestCase):
         self.assertEqual(event.type, "feeding.created")
         self.assertEqual(event.object_id, str(models.Feeding.objects.latest("id").pk))
         self.assertEqual(event.endpoint, self.endpoint)
-        self.assertIsNone(event.delivered)
+        self.assertEqual(event.attempts, 0)
         self.assertEqual(WebhookEvent.objects.count(), self.event_count + 1)
 
     def test_update_is_announced(self):

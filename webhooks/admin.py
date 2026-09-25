@@ -19,7 +19,6 @@ class WebhookEventAdmin(admin.ModelAdmin):
         "object_id",
         "endpoint",
         "created",
-        "delivered",
         "attempts",
         "next_attempt",
     )
@@ -31,7 +30,6 @@ class WebhookEventAdmin(admin.ModelAdmin):
         "type",
         "object_id",
         "created",
-        "delivered",
         "attempts",
         "next_attempt",
         "last_error",

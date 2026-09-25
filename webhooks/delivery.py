@@ -133,6 +133,9 @@ def deliver_pending(timeout=TIMEOUT, now=None):
     An endpoint that has been switched off is left out entirely, and what was
     queued for it waits rather than arriving somewhere nobody wants it.
 
+    An event that goes out is removed, so the table holds only what still has
+    to be sent or has been given up on and is not read through again.
+
     :param timeout: seconds to wait for a response
     :param now: the current time, defaulting to the real one
     :return: the number of events delivered
@@ -140,7 +143,7 @@ def deliver_pending(timeout=TIMEOUT, now=None):
     now = now or timezone.now()
     delivered = 0
     for event in WebhookEvent.objects.filter(
-        delivered__isnull=True, next_attempt__lte=now, endpoint__active=True
+        next_attempt__lte=now, endpoint__active=True
     ).select_related("endpoint"):
         endpoint = event.endpoint
         try:
@@ -160,8 +163,7 @@ def deliver_pending(timeout=TIMEOUT, now=None):
             )
         else:
             delivered += 1
-            event.delivered = now
-            event.save(update_fields=["delivered"])
             endpoint.last_delivery = now
             endpoint.save(update_fields=["last_delivery"])
+            event.delete()
     return delivered
