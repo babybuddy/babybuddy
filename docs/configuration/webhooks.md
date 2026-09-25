@@ -89,13 +89,22 @@ Events are queued as records change and are sent by a command:
 python manage.py deliver_webhooks
 ```
 
-Run it from cron or a systemd timer. A Docker install has no cron to add to, so
-there the command runs from a second container that shares the configuration
-and database with the app, on a short loop:
+Run it from cron or a systemd timer, and each run sends what is due and exits.
+
+For anything that should hear about a change within seconds, and for a Docker
+install, which has no cron to add to, the command can keep running instead:
 
 ```bash
-while true; do python manage.py deliver_webhooks; sleep 30; done
+python manage.py deliver_webhooks --every 1
 ```
+
+That checks the queue once a second from one process. Checking an empty queue
+is one small query, so a second costs next to nothing; starting the command
+anew from a loop every second would start Django every second. In Docker it
+runs from a second container that shares the configuration and database with
+the app, with this as its command. A run that fails — the database briefly
+unreachable, or not migrated yet while the app starts — is reported and the
+next one goes ahead, and only a run that sent something is written to the log.
 
 Use `https` for anything on another
 machine: over plain `http` the secret and the body travel in the clear, and the

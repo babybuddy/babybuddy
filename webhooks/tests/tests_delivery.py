@@ -5,9 +5,11 @@ import hmac
 import json
 import threading
 from io import StringIO
+from unittest.mock import patch
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.test import TestCase
 from django.utils import timezone
 
@@ -178,6 +180,52 @@ class RecordingServerTestCase(TestCase):
         call_command("deliver_webhooks", stdout=out, timeout=5)
         self.assertIn("Nothing to deliver", out.getvalue())
         self.assertEqual(self.received, [])
+
+    def test_every_keeps_delivering_until_stopped(self):
+        # Two runs, then the sleep after the second one is where it stops.
+        naps = []
+
+        def sleep(seconds):
+            naps.append(seconds)
+            if len(naps) == 2:
+                raise KeyboardInterrupt
+            WebhookEvent.objects.create(endpoint=self.endpoint, type="feeding.updated")
+
+        out = StringIO()
+        with patch("webhooks.management.commands.deliver_webhooks.time.sleep", sleep):
+            call_command("deliver_webhooks", stdout=out, timeout=5, every=1)
+        self.assertEqual(naps, [1.0, 1.0])
+        self.assertEqual(len(self.received), 2)
+        self.assertEqual(out.getvalue().count("Delivered 1 event(s)."), 2)
+
+    def test_every_is_quiet_while_there_is_nothing_to_send(self):
+        WebhookEvent.objects.all().delete()
+        out = StringIO()
+        with patch(
+            "webhooks.management.commands.deliver_webhooks.time.sleep",
+            side_effect=[None, KeyboardInterrupt],
+        ):
+            call_command("deliver_webhooks", stdout=out, timeout=5, every=1)
+        self.assertEqual(out.getvalue(), "")
+
+    def test_a_failed_run_does_not_stop_every(self):
+        err = StringIO()
+        with patch(
+            "webhooks.management.commands.deliver_webhooks.deliver_pending",
+            side_effect=[RuntimeError("no such table: webhooks_webhookevent"), 1],
+        ), patch(
+            "webhooks.management.commands.deliver_webhooks.time.sleep",
+            side_effect=[None, KeyboardInterrupt],
+        ):
+            call_command(
+                "deliver_webhooks", stdout=StringIO(), stderr=err, timeout=5, every=1
+            )
+        self.assertIn("no such table", err.getvalue())
+
+    def test_every_must_be_positive(self):
+        for value in ("0", "-1", "soon"):
+            with self.assertRaises(CommandError):
+                call_command("deliver_webhooks", "--every", value, stdout=StringIO())
 
     def test_a_delivered_event_is_removed(self):
         delivered = delivery.deliver_pending()
