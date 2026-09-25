@@ -67,9 +67,14 @@ class Command(BaseCommand):
                 delivered = deliver_pending(timeout=timeout)
             except Exception as error:
                 self.stderr.write("Delivery run failed: {}".format(error))
+                self.stderr.flush()
             else:
                 if delivered:
                     self.stdout.write(
                         self.style.SUCCESS("Delivered {} event(s).".format(delivered))
                     )
+                    # Under Docker stdout is not a terminal and is written out
+                    # in blocks, so without this a line can sit in the buffer
+                    # long after the delivery it reports.
+                    self.stdout.flush()
             time.sleep(seconds)

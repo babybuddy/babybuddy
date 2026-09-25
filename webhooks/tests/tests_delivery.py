@@ -198,6 +198,21 @@ class RecordingServerTestCase(TestCase):
         self.assertEqual(len(self.received), 2)
         self.assertEqual(out.getvalue().count("Delivered 1 event(s)."), 2)
 
+    def test_every_writes_each_delivery_out_straight_away(self):
+        class Buffered(StringIO):
+            flushed = ""
+
+            def flush(self):
+                self.flushed = self.getvalue()
+
+        out = Buffered()
+        with patch(
+            "webhooks.management.commands.deliver_webhooks.time.sleep",
+            side_effect=[KeyboardInterrupt],
+        ):
+            call_command("deliver_webhooks", stdout=out, timeout=5, every=1)
+        self.assertIn("Delivered 1 event(s).", out.flushed)
+
     def test_every_is_quiet_while_there_is_nothing_to_send(self):
         WebhookEvent.objects.all().delete()
         out = StringIO()
