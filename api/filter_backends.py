@@ -18,6 +18,16 @@ class FilterBackend(DjangoFilterBackend):
     already exist in ``openapi-schema.yml`` in the generated schema, without
     depending on whether a filter backend happens to implement it.
 
+    This is deliberately a stopgap, not a rejection of ``drf-spectacular``.
+    Migrating the schema layer to it is worth doing, but it is a migration
+    rather than a like-for-like swap: it renames every ``operationId`` in the
+    published schema, moves every response body out of line into
+    ``components/schemas``, and rejects the explicit
+    ``AutoSchema(operation_id_base=...)`` set on ``api.views.ProfileView``.
+    That belongs in a PR of its own. Until one lands, this subclass keeps the
+    schema stable for anything already generating a client from
+    ``openapi-schema.yml``, and it can be deleted wholesale afterwards.
+
     Adapted from django-filter 24.3's ``DjangoFilterBackend``, which is
     distributed under the BSD license, like Baby Buddy itself.
     """
