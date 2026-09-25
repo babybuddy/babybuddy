@@ -3,7 +3,9 @@ from copy import deepcopy
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.utils import timezone
@@ -387,3 +389,50 @@ class ProfileSerializer(serializers.ModelSerializer):
             "api_key",
         )
         extra_kwargs = {k: {"read_only": True} for k in fields}
+
+
+class CaregiverSerializer(serializers.ModelSerializer):
+    """
+    A caregiver account, created and managed without the admin area.
+
+    Only the fields a caregiver account needs are here. The role cannot be
+    changed through them: there is no staff or superuser flag and no groups
+    field, so an account made here stays a caregiver whatever is sent later.
+    The account has no password; it is used through its API key, which is
+    returned once, when the account is created.
+    """
+
+    access_expires = serializers.DateTimeField(
+        source="settings.access_expires", required=False, allow_null=True
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "is_active",
+            "access_expires",
+        )
+
+    def create(self, validated_data):
+        expires = validated_data.pop("settings", {}).get("access_expires")
+        with transaction.atomic():
+            user = get_user_model().objects.create_user(**validated_data)
+            user.groups.add(
+                Group.objects.get(name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"])
+            )
+            user.settings.access_expires = expires
+            user.settings.save()
+        return user
+
+    def update(self, instance, validated_data):
+        user_settings = validated_data.pop("settings", {})
+        with transaction.atomic():
+            user = super().update(instance, validated_data)
+            if "access_expires" in user_settings:
+                user.settings.access_expires = user_settings["access_expires"]
+                user.settings.save()
+        return user
