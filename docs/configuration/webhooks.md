@@ -51,17 +51,17 @@ import hmac
 
 received = request.headers["X-BabyBuddy-Signature"].removeprefix("v1=")
 timestamp = request.headers["X-BabyBuddy-Timestamp"]
-body = request.raw_body  # exactly as it arrived; re-encoding parsed JSON
-                         # changes the bytes, and the digest with them
+body = request.body  # exactly as it arrived; re-encoding parsed JSON
+                     # changes the bytes, and the digest with them
 
 expected = hmac.new(
     secret.encode(),
-    f"{timestamp}.{body}".encode(),
+    timestamp.encode() + b"." + body,
     hashlib.sha256,
 ).hexdigest()
 
-assert hmac.compare_digest(expected, received)  # not ==, so guessing does
-                                                # not get easier as it closes in
+if not hmac.compare_digest(expected, received):  # not ==, so guessing does not
+    raise PermissionError("signature mismatch")  # get easier as it closes in
 ```
 
 Three things make that check worth something, and two of them are on this side
@@ -102,7 +102,8 @@ machine: over plain `http` the secret and the body travel in the clear, and the
 signature then proves nothing about where they have been. Anything that is not delivered is tried
 again on the next run, waiting twice as long as the previous attempt: one, two,
 four and eight minutes. After five attempts the event is left alone and stays
-in the database as a record of what happened.
+in the database as a record of what happened. An event that is delivered is
+removed, so what remains is only what is still waiting or has been given up on.
 
 One endpoint that is down costs only its own events: they are the ones that
 fail, and everything else still goes out in the same run. What a slow endpoint
