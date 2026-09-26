@@ -259,6 +259,237 @@ paths:
           description: ""
       tags:
         - api
+  /api/caregivers/:
+    get:
+      operationId: listCaregivers
+      description:
+        "Caregiver accounts only. Accounts in any other role, and anything
+        with
+
+        staff or superuser status, are not reachable here at all. There is no
+
+        delete; access is withdrawn by setting `is_active` to false, the same way
+
+        the user guide already tells an administrator to withdraw it."
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: is_active
+          required: false
+          in: query
+          description: is_active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Caregiver"
+          description: ""
+      tags:
+        - api
+    post:
+      operationId: createCaregiver
+      description: Create a caregiver and return their API key this one time.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Caregiver"
+          description: ""
+      tags:
+        - api
+  /api/caregivers/{id}/:
+    get:
+      operationId: retrieveCaregiver
+      description:
+        "Caregiver accounts only. Accounts in any other role, and anything
+        with
+
+        staff or superuser status, are not reachable here at all. There is no
+
+        delete; access is withdrawn by setting `is_active` to false, the same way
+
+        the user guide already tells an administrator to withdraw it."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+        - name: is_active
+          required: false
+          in: query
+          description: is_active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Caregiver"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateCaregiver
+      description:
+        "Caregiver accounts only. Accounts in any other role, and anything
+        with
+
+        staff or superuser status, are not reachable here at all. There is no
+
+        delete; access is withdrawn by setting `is_active` to false, the same way
+
+        the user guide already tells an administrator to withdraw it."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+        - name: is_active
+          required: false
+          in: query
+          description: is_active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Caregiver"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateCaregiver
+      description:
+        "Caregiver accounts only. Accounts in any other role, and anything
+        with
+
+        staff or superuser status, are not reachable here at all. There is no
+
+        delete; access is withdrawn by setting `is_active` to false, the same way
+
+        the user guide already tells an administrator to withdraw it."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+        - name: is_active
+          required: false
+          in: query
+          description: is_active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Caregiver"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Caregiver"
+          description: ""
+      tags:
+        - api
   /api/changes/:
     get:
       operationId: listDiaperChanges
@@ -5892,6 +6123,40 @@ components:
       required:
         - child
         - bmi
+    Caregiver:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_active:
+          type: boolean
+          description:
+            Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        access_expires:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - username
     DiaperChange:
       type: object
       properties:

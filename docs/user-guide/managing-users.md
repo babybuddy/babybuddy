@@ -98,6 +98,38 @@ signed out, cannot sign in and cannot use the API, including with an existing
 API key. The account itself is left unchanged: clearing or moving the time
 restores access. Users cannot change their own expiry time.
 
+## Caregivers from Another Application
+
+An application can create a caregiver without the admin area, through the
+[API](../api.md) at `/api/caregivers/`. It needs the same permissions as adding
+a user in the admin area, so caregivers and read-only users cannot create
+caregivers of their own.
+
+```bash
+curl -X POST https://baby.example.com/api/caregivers/ \
+  -H "Authorization: Token <api key>" \
+  -H "Content-Type: application/json" \
+  -d '{"username": "grandma", "email": "grandma@example.com", "first_name": "Grandma", "access_expires": "2026-10-04T18:00:00+02:00"}'
+```
+
+The account is a caregiver with the group defaults described above. It is meant
+to be used through its API key, which is returned in the response to that
+request and not again.
+
+An `email` address is optional, whether it is given when the account is created
+or later. Without one the account has no usable password and the API key is the
+only way in. With one it has a password nobody knows, so its owner can use the
+forgot-password flow to set a password of their own and sign in to Baby Buddy
+directly. `access_expires` is optional and is the same
+[Access Expiry](#access-expiry) as in the user form.
+
+The route reaches caregiver accounts and nothing else. An account in any other
+role, or with staff or superuser status, cannot be read or changed through it,
+and the role of an account made here cannot be raised through it either —
+there is no staff, superuser or groups field to send. There is no delete: to
+withdraw access, `PATCH` the account with `"is_active": false`, or set an
+`access_expires` in the past.
+
 ## Creating a User from the Command Line
 
 A user's type can be:

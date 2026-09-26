@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+import secrets
 from copy import deepcopy
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.utils import timezone
@@ -412,3 +415,65 @@ class WebhookEndpointSerializer(serializers.ModelSerializer):
         fields = ("id", "name", "url", "secret", "active", "created", "last_delivery")
         read_only_fields = ("created", "last_delivery")
         extra_kwargs = {"secret": {"write_only": True, "min_length": 16}}
+
+
+class CaregiverSerializer(serializers.ModelSerializer):
+    """
+    A caregiver account, created and managed without the admin area.
+
+    Only the fields a caregiver account needs are here. The role cannot be
+    changed through them: there is no staff or superuser flag and no groups
+    field, so an account made here stays a caregiver whatever is sent later.
+
+    The account is used through its API key, which is returned once, when the
+    account is created. It has no password unless an email address is given,
+    in which case it is created with one nobody knows so that the reset flow
+    can reach it and its owner can set a real one.
+    """
+
+    access_expires = serializers.DateTimeField(
+        source="settings.access_expires", required=False, allow_null=True
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = (
+            "id",
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "is_active",
+            "access_expires",
+        )
+
+    def create(self, validated_data):
+        expires = validated_data.pop("settings", {}).get("access_expires")
+        # Django's reset form skips accounts whose password is unusable, so an
+        # address on its own would never receive anything. With one the account
+        # gets a usable password that nobody knows; without one it gets none.
+        password = secrets.token_urlsafe(32) if validated_data.get("email") else None
+        with transaction.atomic():
+            user = get_user_model().objects.create_user(
+                password=password, **validated_data
+            )
+            user.groups.add(
+                Group.objects.get(name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"])
+            )
+            user.settings.access_expires = expires
+            user.settings.save()
+        return user
+
+    def update(self, instance, validated_data):
+        user_settings = validated_data.pop("settings", {})
+        with transaction.atomic():
+            user = super().update(instance, validated_data)
+            if user.email and not user.has_usable_password():
+                # The address is what the reset flow needs, so an account that
+                # gains one has to gain a usable password with it.
+                user.set_password(secrets.token_urlsafe(32))
+                user.save(update_fields=["password"])
+            if "access_expires" in user_settings:
+                user.settings.access_expires = user_settings["access_expires"]
+                user.settings.save()
+        return user

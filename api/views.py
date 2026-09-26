@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
-from rest_framework import status, viewsets, views
+from rest_framework import mixins, status, viewsets, views
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.schemas.openapi import AutoSchema
@@ -198,6 +200,51 @@ class WebhookEndpointViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         endpoint = serializer.save()
         data = dict(serializer.data, secret=endpoint.secret)
+        return Response(
+            data,
+            status=status.HTTP_201_CREATED,
+            headers=self.get_success_headers(serializer.data),
+        )
+
+
+class CaregiverViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
+    """
+    Caregiver accounts only. Accounts in any other role, and anything with
+    staff or superuser status, are not reachable here at all. There is no
+    delete; access is withdrawn by setting `is_active` to false, the same way
+    the user guide already tells an administrator to withdraw it.
+    """
+
+    serializer_class = serializers.CaregiverSerializer
+    filterset_fields = ("is_active",)
+    ordering_fields = ("username", "date_joined")
+    ordering = "username"
+
+    def get_queryset(self):
+        return (
+            get_user_model()
+            .objects.filter(
+                groups__name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"],
+                is_staff=False,
+                is_superuser=False,
+            )
+            .select_related("settings")
+        )
+
+    def create(self, request, *args, **kwargs):
+        """
+        Create a caregiver and return their API key this one time.
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        data = dict(serializer.data, api_key=user.settings.api_key().key)
         return Response(
             data,
             status=status.HTTP_201_CREATED,
