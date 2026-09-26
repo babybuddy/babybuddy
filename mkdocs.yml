@@ -22,6 +22,7 @@ nav:
       - "configuration/homeassistant.md"
       - "configuration/security.md"
       - "configuration/storage.md"
+      - "configuration/webhooks.md"
   - "User Guide":
       - "user-guide/getting-started.md"
       - "user-guide/managing-users.md"

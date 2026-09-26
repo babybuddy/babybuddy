@@ -10,6 +10,7 @@ from rest_framework.schemas.openapi import AutoSchema
 
 from core import models
 from babybuddy import models as babybuddy_models
+from webhooks import models as webhooks_models
 
 from . import serializers, filters
 
@@ -181,6 +182,29 @@ class ProfileView(views.APIView):
         )
         serializer = self.serializer_class(settings)
         return Response(serializer.data)
+
+
+class WebhookEndpointViewSet(viewsets.ModelViewSet):
+    queryset = webhooks_models.WebhookEndpoint.objects.all()
+    serializer_class = serializers.WebhookEndpointSerializer
+    filterset_fields = ("active",)
+    ordering_fields = ("name", "created", "last_delivery")
+    ordering = "name"
+
+    def create(self, request, *args, **kwargs):
+        """
+        Create an endpoint and return its secret this one time, since the
+        secret is never part of a response afterwards.
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        endpoint = serializer.save()
+        data = dict(serializer.data, secret=endpoint.secret)
+        return Response(
+            data,
+            status=status.HTTP_201_CREATED,
+            headers=self.get_success_headers(serializer.data),
+        )
 
 
 class CaregiverViewSet(
