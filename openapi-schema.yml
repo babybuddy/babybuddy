@@ -5337,6 +5337,236 @@ paths:
           description: ""
       tags:
         - api
+  /api/webhook-endpoints/:
+    get:
+      operationId: listWebhookEndpoints
+      description: ""
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/WebhookEndpoint"
+          description: ""
+      tags:
+        - api
+    post:
+      operationId: createWebhookEndpoint
+      description:
+        "Create an endpoint and return its secret this one time, since
+        the
+
+        secret is never part of a response afterwards."
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookEndpoint"
+          description: ""
+      tags:
+        - api
+  /api/webhook-endpoints/{id}/:
+    get:
+      operationId: retrieveWebhookEndpoint
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Webhook endpoint.
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookEndpoint"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateWebhookEndpoint
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Webhook endpoint.
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookEndpoint"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateWebhookEndpoint
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Webhook endpoint.
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/WebhookEndpoint"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookEndpoint"
+          description: ""
+      tags:
+        - api
+    delete:
+      operationId: destroyWebhookEndpoint
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this Webhook endpoint.
+          schema:
+            type: string
+        - name: active
+          required: false
+          in: query
+          description: active
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags:
+        - api
   /api/weight/:
     get:
       operationId: listWeights
@@ -6082,6 +6312,47 @@ components:
           type: array
           items:
             type: string
+    WebhookEndpoint:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        url:
+          type: string
+          format: uri
+          pattern:
+            "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4][0-9]|1[0-9]?[0-9]?|[1-9][0-9]?)(?:\\\
+            .(?:0|25[0-5]|2[0-4][0-9]|1[0-9]?[0-9]?|[1-9][0-9]?)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::[0-9]{1,5})?(?:[/?#][^\\s]*)?\\z"
+          maxLength: 1000
+        secret:
+          type: string
+          writeOnly: true
+          description:
+            Requests are signed with this value. Give it to the receiving
+            application so it can check that a request came from here.
+          maxLength: 255
+          minLength: 16
+        active:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        last_delivery:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+        - name
+        - url
     Weight:
       type: object
       properties:
