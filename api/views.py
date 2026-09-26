@@ -193,7 +193,7 @@ class CaregiverViewSet(
     """
     Caregiver accounts only. Accounts in any other role, and anything with
     staff or superuser status, are not reachable here at all. There is no
-    delete: access is withdrawn by setting `is_active` to false, the same way
+    delete; access is withdrawn by setting `is_active` to false, the same way
     the user guide already tells an administrator to withdraw it.
     """
 
