@@ -5720,6 +5720,14 @@ components:
         birth_time:
           type: string
           nullable: true
+        due_date:
+          type: string
+          format: date
+          nullable: true
+          description:
+            Estimated due date. When set and later than the birth date
+            (i.e. the child was born preterm), growth percentiles are plotted against
+            corrected age.
         slug:
           type: string
           readOnly: true
