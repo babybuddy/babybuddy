@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
 from django import template
 from django.db.models import Avg, Count, Q, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 from django.utils.translation import gettext as _
+
 
 import collections
 
@@ -160,11 +162,15 @@ def card_breastfeeding(context, child, date=None):
     for key, day_instances in per_day.items():
         left_count = 0
         right_count = 0
+        left_duration = timedelta()
+        right_duration = timedelta()
         for instance in day_instances:
             if instance.method in ("left breast", "both breasts"):
                 left_count += 1
+                left_duration += instance.duration
             if instance.method in ("right breast", "both breasts"):
                 right_count += 1
+                right_duration += instance.duration
 
         stats[key] = {
             "count": len(day_instances),
@@ -172,6 +178,8 @@ def card_breastfeeding(context, child, date=None):
                 (instance.duration for instance in day_instances),
                 start=timezone.timedelta(),
             ),
+            "left_duration": left_duration,
+            "right_duration": right_duration,
             "left_count": left_count,
             "right_count": right_count,
             "left_pct": 100 * left_count // (left_count + right_count),
