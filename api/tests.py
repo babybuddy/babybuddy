@@ -5,6 +5,7 @@ from babybuddy.models import get_user_model
 from api import serializers
 from core import models
 from django.conf import settings
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
@@ -1446,6 +1447,37 @@ class CaregiverManagementAPITestCase(APITestCase):
         )
         self.assertEqual(
             sitter.get(self.endpoint).status_code, status.HTTP_403_FORBIDDEN
+        )
+
+    def test_an_email_lets_the_caregiver_claim_the_account(self):
+        self.create(email="grandma@example.com")
+        user = get_user_model().objects.get(username="grandma")
+        self.assertEqual(user.email, "grandma@example.com")
+        self.assertTrue(user.has_usable_password())
+
+        # This is what the address buys: the reset form skips accounts whose
+        # password is unusable, and this one has a password nobody knows, so
+        # the mailbox holder is the one who can set a real one.
+        form = PasswordResetForm({"email": "grandma@example.com"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(list(form.get_users("grandma@example.com")), [user])
+
+    def test_an_email_added_later_opens_the_same_route(self):
+        self.create()
+        user = get_user_model().objects.get(username="grandma")
+        self.assertFalse(user.has_usable_password())
+
+        response = self.client.patch(
+            "{}{}/".format(self.endpoint, user.pk),
+            {"email": "grandma@example.com"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        user.refresh_from_db()
+        self.assertTrue(user.has_usable_password())
+        self.assertEqual(
+            list(PasswordResetForm({"email": user.email}).get_users(user.email)),
+            [user],
         )
 
     def test_the_role_cannot_be_raised_through_the_request(self):

@@ -109,13 +109,19 @@ caregivers of their own.
 curl -X POST https://baby.example.com/api/caregivers/ \
   -H "Authorization: Token <api key>" \
   -H "Content-Type: application/json" \
-  -d '{"username": "grandma", "first_name": "Grandma", "access_expires": "2026-10-04T18:00:00+02:00"}'
+  -d '{"username": "grandma", "email": "grandma@example.com", "first_name": "Grandma", "access_expires": "2026-10-04T18:00:00+02:00"}'
 ```
 
-The account is a caregiver with the group defaults described above. It has no
-password: it is meant to be used through its API key, which is returned in the
-response to that request and not again. `access_expires` is optional and is the
-same [Access Expiry](#access-expiry) as in the user form.
+The account is a caregiver with the group defaults described above. It is meant
+to be used through its API key, which is returned in the response to that
+request and not again.
+
+An `email` address is optional, whether it is given when the account is created
+or later. Without one the account has no usable password and the API key is the
+only way in. With one it has a password nobody knows, so its owner can use the
+forgot-password flow to set a password of their own and sign in to Baby Buddy
+directly. `access_expires` is optional and is the same
+[Access Expiry](#access-expiry) as in the user form.
 
 The route reaches caregiver accounts and nothing else. An account in any other
 role, or with staff or superuser status, cannot be read or changed through it,
