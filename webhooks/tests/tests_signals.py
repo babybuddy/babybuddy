@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.apps import apps
 from django.core.management import call_command
+from django.db import DatabaseError, transaction
 from django.test import TestCase
 from django.utils import timezone
 
@@ -205,3 +206,25 @@ class WebhookSignalTestCase(TestCase):
             )
         self.assertIsNotNone(feeding.pk)
         self.assertEqual(models.Feeding.objects.count(), 1)
+
+    def test_a_failed_lookup_leaves_the_callers_transaction_usable(self):
+        # On PostgreSQL a failed statement aborts the transaction it ran in.
+        # Catching the error is not enough: without a savepoint of its own the
+        # caller's transaction is left broken and its save rolls back.
+        original = WebhookEndpoint.objects.filter
+
+        def broken(*args, **kwargs):
+            transaction.set_rollback(True)
+            raise DatabaseError("no")
+
+        WebhookEndpoint.objects.filter = broken
+        self.addCleanup(setattr, WebhookEndpoint.objects, "filter", original)
+        with self.assertLogs("webhooks.signals", level="ERROR"):
+            with transaction.atomic():
+                models.Feeding.objects.create(
+                    child=self.child,
+                    start=timezone.localtime(),
+                    end=timezone.localtime(),
+                    type="formula",
+                )
+                self.assertEqual(models.Feeding.objects.count(), 1)

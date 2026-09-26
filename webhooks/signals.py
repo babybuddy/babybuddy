@@ -46,10 +46,12 @@ def record_event(instance, verb):
     :param verb: one of "created", "updated" or "deleted"
     """
     event_type = "{}.{}".format(instance.model_name, verb)
-    # The lookup is guarded as well: not being able to read the endpoints must
-    # not reach the caller any more than failing to write an event does.
+    # The lookup is guarded as well, in its own savepoint for the same reason:
+    # not being able to read the endpoints must not reach the caller any more
+    # than failing to write an event does.
     try:
-        endpoints = list(WebhookEndpoint.objects.filter(active=True))
+        with transaction.atomic():
+            endpoints = list(WebhookEndpoint.objects.filter(active=True))
     except Exception:
         logger.exception("Could not look up webhook endpoints for %s.", event_type)
         return
