@@ -5,6 +5,7 @@ from babybuddy.models import get_user_model
 from api import serializers
 from core import models
 from django.conf import settings
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
@@ -1399,6 +1400,178 @@ class CaregiverWebTestCase(APITestCase):
                 (status.HTTP_302_FOUND, status.HTTP_403_FORBIDDEN),
                 f"caregiver should be blocked from {url}",
             )
+
+
+class CaregiverManagementAPITestCase(APITestCase):
+    """
+    A caregiver account can be created and withdrawn through the API, and
+    that route reaches caregiver accounts and nothing else.
+    """
+
+    fixtures = ["tests.json"]
+    endpoint = reverse("api:caregiver-list")
+
+    def setUp(self):
+        self.client.login(username="admin", password="admin")
+
+    def create(self, **extra):
+        data = {"username": "grandma", "first_name": "Grandma", **extra}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        return response
+
+    def with_key(self, key):
+        client = self.client_class()
+        client.credentials(HTTP_AUTHORIZATION="Token " + key)
+        return client
+
+    def test_create_makes_a_caregiver_and_returns_their_key_once(self):
+        response = self.create()
+        user = get_user_model().objects.get(username="grandma")
+        self.assertTrue(
+            user.groups.filter(
+                name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]
+            ).exists()
+        )
+        self.assertFalse(user.is_staff)
+        self.assertFalse(user.is_superuser)
+        self.assertFalse(user.has_usable_password())
+        self.assertEqual(response.data["api_key"], user.settings.api_key().key)
+        detail = self.client.get("{}{}/".format(self.endpoint, user.pk))
+        self.assertNotIn("api_key", detail.data)
+
+        # The key works within the caregiver's scope and not beyond it.
+        sitter = self.with_key(response.data["api_key"])
+        self.assertEqual(
+            sitter.get(reverse("api:feeding-list")).status_code, status.HTTP_200_OK
+        )
+        self.assertEqual(
+            sitter.get(self.endpoint).status_code, status.HTTP_403_FORBIDDEN
+        )
+
+    def test_an_email_lets_the_caregiver_claim_the_account(self):
+        self.create(email="grandma@example.com")
+        user = get_user_model().objects.get(username="grandma")
+        self.assertEqual(user.email, "grandma@example.com")
+        self.assertTrue(user.has_usable_password())
+
+        # This is what the address buys: the reset form skips accounts whose
+        # password is unusable, and this one has a password nobody knows, so
+        # the mailbox holder is the one who can set a real one.
+        form = PasswordResetForm({"email": "grandma@example.com"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(list(form.get_users("grandma@example.com")), [user])
+
+    def test_an_email_added_later_opens_the_same_route(self):
+        self.create()
+        user = get_user_model().objects.get(username="grandma")
+        self.assertFalse(user.has_usable_password())
+
+        response = self.client.patch(
+            "{}{}/".format(self.endpoint, user.pk),
+            {"email": "grandma@example.com"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        user.refresh_from_db()
+        self.assertTrue(user.has_usable_password())
+        self.assertEqual(
+            list(PasswordResetForm({"email": user.email}).get_users(user.email)),
+            [user],
+        )
+
+    def test_the_role_cannot_be_raised_through_the_request(self):
+        self.create(is_staff=True, is_superuser=True, groups=[1])
+        user = get_user_model().objects.get(username="grandma")
+        self.assertFalse(user.is_staff)
+        self.assertFalse(user.is_superuser)
+        self.assertEqual(
+            list(user.groups.values_list("name", flat=True)),
+            [settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"]],
+        )
+        response = self.client.patch(
+            "{}{}/".format(self.endpoint, user.pk),
+            {"is_staff": True, "is_superuser": True},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        user.refresh_from_db()
+        self.assertFalse(user.is_staff or user.is_superuser)
+
+    def test_other_accounts_are_out_of_reach(self):
+        admin = get_user_model().objects.get(username="admin")
+        self.assertEqual(
+            self.client.get("{}{}/".format(self.endpoint, admin.pk)).status_code,
+            status.HTTP_404_NOT_FOUND,
+        )
+        response = self.client.patch(
+            "{}{}/".format(self.endpoint, admin.pk), {"is_active": False}, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        admin.refresh_from_db()
+        self.assertTrue(admin.is_active)
+        self.create()
+        listed = self.client.get(self.endpoint)
+        self.assertEqual(
+            [row["username"] for row in listed.data["results"]], ["grandma"]
+        )
+
+    def test_deactivating_or_an_expiry_in_the_past_ends_access(self):
+        key = self.create().data["api_key"]
+        user = get_user_model().objects.get(username="grandma")
+        detail = "{}{}/".format(self.endpoint, user.pk)
+        self.client.patch(
+            detail,
+            {
+                "access_expires": (
+                    timezone.now() - timezone.timedelta(hours=1)
+                ).isoformat()
+            },
+            format="json",
+        )
+        self.assertIn(
+            self.with_key(key).get(reverse("api:feeding-list")).status_code,
+            (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN),
+        )
+        self.client.patch(
+            detail, {"access_expires": None, "is_active": False}, format="json"
+        )
+        self.assertIn(
+            self.with_key(key).get(reverse("api:feeding-list")).status_code,
+            (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN),
+        )
+        self.client.patch(detail, {"is_active": True}, format="json")
+        self.assertEqual(
+            self.with_key(key).get(reverse("api:feeding-list")).status_code,
+            status.HTTP_200_OK,
+        )
+
+    def test_an_expiry_can_be_set_when_the_account_is_created(self):
+        expires = timezone.now() + timezone.timedelta(days=1)
+        response = self.create(access_expires=expires.isoformat())
+        user = get_user_model().objects.get(username="grandma")
+        self.assertEqual(user.settings.access_expires, expires)
+        self.assertIsNotNone(response.data["access_expires"])
+
+    def test_there_is_no_delete(self):
+        self.create()
+        user = get_user_model().objects.get(username="grandma")
+        response = self.client.delete("{}{}/".format(self.endpoint, user.pk))
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertTrue(get_user_model().objects.filter(username="grandma").exists())
+
+    def test_caregivers_and_read_only_users_cannot_manage_caregivers(self):
+        for group in ("CAREGIVER_GROUP_NAME", "READ_ONLY_GROUP_NAME"):
+            user = get_user_model().objects.create_user(
+                username=group.lower(), password="password"
+            )
+            user.groups.add(Group.objects.get(name=settings.BABY_BUDDY[group]))
+            self.client.login(username=group.lower(), password="password")
+            response = self.client.post(
+                self.endpoint, {"username": "someone"}, format="json"
+            )
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertFalse(get_user_model().objects.filter(username="someone").exists())
 
 
 class TestSchemaAPITestCase(APITestCase):
