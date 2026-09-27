@@ -111,3 +111,56 @@ class TimelineTestCase(TestCase):
         self.assertEqual(events_day_2[0]["time"], start_time + interval)
 
         instance.delete()
+
+    def test_same_timestamp_end_before_start(self):
+        """
+        When one activity ends at the same timestamp another starts, the end
+        event should sort before the start event on the timeline (#928).
+        """
+        day = timezone.make_aware(datetime.datetime(2023, 1, 1))
+        stamp = day.replace(hour=11, minute=44, second=0, microsecond=0)
+
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=stamp - datetime.timedelta(minutes=10),
+            end=stamp,
+            type="formula",
+            method="bottle",
+        )
+        sleep = models.Sleep.objects.create(
+            child=self.child,
+            start=stamp,
+            end=stamp + datetime.timedelta(minutes=30),
+        )
+
+        events = get_objects(date=day, child=self.child)
+
+        at_stamp_end = [
+            e
+            for e in events
+            if e.get("type") == "end" and e.get("model_name") == "feeding"
+        ]
+        at_stamp_start = [
+            e
+            for e in events
+            if e.get("type") == "start" and e.get("model_name") == "sleep"
+        ]
+
+        self.assertEqual(len(at_stamp_end), 1)
+        self.assertEqual(len(at_stamp_start), 1)
+
+        end_idx = next(
+            i
+            for i, e in enumerate(events)
+            if e.get("type") == "end" and e.get("model_name") == "feeding"
+        )
+        start_idx = next(
+            i
+            for i, e in enumerate(events)
+            if e.get("type") == "start" and e.get("model_name") == "sleep"
+        )
+        # Timeline list is newest-first; end must come before start at equal time.
+        self.assertLess(end_idx, start_idx)
+
+        feeding.delete()
+        sleep.delete()
