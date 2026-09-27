@@ -15,9 +15,17 @@
         {% if info.left_count > 0 or info.right_count > 0 %}
             <div class="progress mt-3" role="progressbar">
                 <div class="progress-bar bg-primary lead"
-                     style="width: {{ info.left_pct|safe }}%">{{ info.left_count }}&nbsp;{% trans "left" %}</div>
+                     style="width: {{ info.left_pct|safe }}%">{{ info.left_count }}&nbsp;{% trans "left" %}
+                    {% if info.left_duration %}
+                        &nbsp;({{ info.left_duration|duration_string:'m' }})
+                    {% endif %}
+                </div>
                 <div class="progress-bar bg-secondary lead"
-                     style="width: {{ info.right_pct|safe }}%">{{ info.right_count }}&nbsp;{% trans "right" %}</div>
+                     style="width: {{ info.right_pct|safe }}%">{{ info.right_count }}&nbsp;{% trans "right" %}
+                    {% if info.right_duration %}
+                        &nbsp;({{ info.right_duration|duration_string:'m' }})
+                    {% endif %}
+                </div>
             </div>
             <div class="text-center text-light small">
                 {% if key == 0 %}
