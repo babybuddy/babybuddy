@@ -91,7 +91,6 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
   - [part 1](https://lutzky.net/2021/10/03/software-parenting-1/)
   - [part 2](https://lutzky.net/2021/10/05/software-parenting-2/)
   - [part 3](https://lutzky.net/2021/10/10/software-parenting-3/)
-- [High Level Developer Documentation (AI-Generated)](https://wiki.mutable.ai/babybuddy/babybuddy)
 - [Example custom TypeScript frontend](https://github.com/jkjustjoshing/maddie-buddy) (based on [Remix](https://remix.run/))
 
 ## 🔐 Reporting Vulnerabilities
@@ -115,6 +114,4 @@ The following organizations and services support Baby Buddy contributors in vari
 
 _Some of the links below use referral codes -- all referral proceeds are treated as contributions to the Baby Buddy project._
 
-[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=dd79e4cfd7b6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-[<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="100" alt="JetBrains Logo (Main) logo.">](https://www.jetbrains.com/community/opensource/)
 [![POEditor](https://poeditor.com/public/images/ui/logos/logo_dark.svg)](https://poeditor.com/)
