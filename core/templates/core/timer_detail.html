@@ -23,6 +23,15 @@
                     {{ timer }} created by {{ user }}
                 {% endblocktrans %}
             </p>
+            <div id="keep-screen-on-container"
+                 class="form-check form-switch d-inline-block mb-4">
+                <input class="form-check-input"
+                       type="checkbox"
+                       role="switch"
+                       id="keep-screen-on">
+                <label class="form-check-label text-body-secondary"
+                       for="keep-screen-on">{% trans "Keep screen on" %}</label>
+            </div>
             <div class="d-grid gap-4 mb-4">
                 {% if perms.core.add_feeding %}
                     <a class="btn btn-success btn-lg"
@@ -81,5 +90,8 @@
     </div>
 {% endblock %}
 {% block javascript %}
-    <script type="application/javascript">BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');</script>
+    <script type="application/javascript">
+        BabyBuddy.Timer.run({{ timer.id }}, 'timer-status');
+        BabyBuddy.WakeLock.init('keep-screen-on', 'keep-screen-on-container');
+    </script>
 {% endblock %}
