@@ -10,11 +10,11 @@
             <h2>{% trans "How to Fix" %}</h2>
             {% with escaped_origin=origin|escape %}
                 {% with formatted_origin="<samp>"|add:escaped_origin|add:"</samp>" %}
-                {% blocktrans trimmed with value=formatted_origin|safe variable="<code>CSRF_TRUSTED_ORIGINS</code>"|safe %}
-                Add {{ value }} to the {{ variable }} environment variable. If multiple origins are required separate with commas.
-            {% endblocktrans %}
-{% endwith %}
-{% endwith %}
-</div>
-</div>
+                    {% blocktrans trimmed with value=formatted_origin|safe variable="<code>CSRF_TRUSTED_ORIGINS</code>"|safe %}
+                        Add {{ value }} to the {{ variable }} environment variable. If multiple origins are required separate with commas.
+                    {% endblocktrans %}
+                {% endwith %}
+            {% endwith %}
+        </div>
+    </div>
 {% endblock %}
