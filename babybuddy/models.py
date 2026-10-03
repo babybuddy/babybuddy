@@ -120,18 +120,22 @@ class Settings(models.Model):
         verbose_name=_("Timezone"),
     )
     theme = models.CharField(
+        # Built-in themes, plus any extra theme file in scss/themes. Sorted
+        # and deduplicated so the choices are stable across systems (and
+        # migrations do not drift); glob() also tolerates a missing folder.
         choices=[
             ("dark", _("Dark")),
             ("light", _("Light")),
         ]
-        + list(
-            map(
-                lambda p: (p.stem, _(p.stem.capitalize())),
+        + [
+            (path.stem, path.stem.capitalize())
+            for path in sorted(
                 Path(
                     settings.BASE_DIR, "babybuddy", "static_src", "scss", "themes"
-                ).iterdir(),
+                ).glob("*.scss")
             )
-        ),
+            if path.stem not in ("dark", "light")
+        ],
         default="dark",
         max_length=100,
         verbose_name=_("Theme"),
