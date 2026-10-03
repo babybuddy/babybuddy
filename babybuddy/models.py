@@ -13,6 +13,8 @@ from django.utils.translation import ngettext_lazy
 
 from rest_framework.authtoken.models import Token
 
+from pathlib import Path
+
 
 class Settings(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -116,6 +118,23 @@ class Settings(models.Model):
         default=timezone.get_default_timezone_name(),
         max_length=100,
         verbose_name=_("Timezone"),
+    )
+    theme = models.CharField(
+        choices=[
+            ("dark", _("Dark")),
+            ("light", _("Light")),
+        ]
+        + list(
+            map(
+                lambda p: (p.stem, _(p.stem.capitalize())),
+                Path(
+                    settings.BASE_DIR, "babybuddy", "static_src", "scss", "themes"
+                ).iterdir(),
+            )
+        ),
+        default="dark",
+        max_length=100,
+        verbose_name=_("Theme"),
     )
     pagination_count = models.PositiveIntegerField(
         choices=[
