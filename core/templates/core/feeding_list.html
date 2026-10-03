@@ -68,9 +68,7 @@
                             {% endif %}
                             <td>{{ feeding.get_method_display }}</td>
                             <td>{{ feeding.get_type_display }}</td>
-                            <td>
-                                {% if feeding.amount %}{{ feeding.amount }}{% endif %}
-                            </td>
+                            <td>{% if feeding.amount %}{{ feeding.amount }}{% endif %}</td>
                             <td>{{ feeding.duration|duration_string }}</td>
                             <td>
                                 {% if prev_feeding %}
