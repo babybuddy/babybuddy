@@ -27,9 +27,7 @@
                    placeholder="{% trans "Tag name" %}">
             {% if widget.tag_suggestions.most %}
                 <datalist id="tag-list">
-                    {% for t in widget.tag_suggestions.most %}
-                        <option value="{{ t.name }}" />
-                    {% endfor %}
+                    {% for t in widget.tag_suggestions.most %}<option value="{{ t.name }}" />{% endfor %}
                 </datalist>
             {% endif %}
             <button id="add-tag" class="btn btn-outline-primary bg" type="button">{% trans "Add" %}</button>
