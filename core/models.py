@@ -325,6 +325,9 @@ class DiaperChange(models.Model):
 
 class Feeding(models.Model):
     model_name = "feeding"
+    BREAST_METHODS = ("left breast", "right breast", "both breasts")
+    # Feeding types that never come from the breast.
+    NOT_FROM_THE_BREAST = ("formula", "solid food")
     child = models.ForeignKey(
         "Child",
         on_delete=models.CASCADE,
@@ -391,6 +394,11 @@ class Feeding(models.Model):
         validate_time(self.start, "start")
         validate_duration(self)
         validate_unique_period(Feeding.objects.filter(child_id=self.child_id), self)
+        if self.type in self.NOT_FROM_THE_BREAST and self.method in self.BREAST_METHODS:
+            raise ValidationError(
+                {"method": _("Formula and solid food can't be given from the breast.")},
+                code="method_not_for_type",
+            )
 
 
 class HeadCircumference(models.Model):

@@ -383,6 +383,24 @@ class FeedingFormsTestCase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Feeding entry for {} added".format(str(self.child)))
 
+    def test_formula_from_the_breast_is_refused(self):
+        end = timezone.localtime()
+        start = end - timezone.timedelta(minutes=30)
+        params = {
+            "child": self.child.id,
+            "start": self.localtime_string(start),
+            "end": self.localtime_string(end),
+            "type": "formula",
+            "method": "left breast",
+        }
+        page = self.c.post("/feedings/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(
+            page.context["form"],
+            "method",
+            "Formula and solid food can't be given from the breast.",
+        )
+
     def test_edit(self):
         end = timezone.localtime()
         start = end - timezone.timedelta(minutes=30)
