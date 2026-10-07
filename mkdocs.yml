@@ -35,6 +35,7 @@ nav:
       - "contributing/gulp-command-reference.md"
   - "import-export.md"
   - "api.md"
+  - "login-qr-code.md"
   - "mcp.md"
 theme:
   name: material
