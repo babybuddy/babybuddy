@@ -22,10 +22,10 @@ followed by a JSON object.
 BABYBUDDY-LOGIN:{"url": "https://baby.example.com/", "api_key": "2h23807gd72h7hop382p98hd823dw3g665g56", "session_cookies": {}}
 ```
 
-| Field | Type | Description |
-| --- | --- | --- |
-| `url` | string | Absolute base URL of the instance, with a trailing slash. |
-| `api_key` | string | The user's API token — the same value shown as **Key**. |
+| Field             | Type   | Description                                                                                                                             |
+| ----------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`             | string | Absolute base URL of the instance, with a trailing slash.                                                                               |
+| `api_key`         | string | The user's API token — the same value shown as **Key**.                                                                                 |
 | `session_cookies` | object | Cookies the app has to send back. Empty unless Home Assistant support is enabled, see [Home Assistant](configuration/homeassistant.md). |
 
 ## Reading it
