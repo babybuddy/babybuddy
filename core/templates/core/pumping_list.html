@@ -63,8 +63,9 @@
                             <td>{{ pumping.duration|duration_string }}</td>
                             <td>
                                 {% if prev_pumping %}
+                                    {% prev_word as prev_word_var %}
                                     {% blocktrans trimmed with time_ago=prev_pumping.start|timesince:pumping.start %}
-                                        {{ time_ago }} ago
+                                        {{ time_ago }} {{ prev_word_var }}
                                     {% endblocktrans %}
                                 {% endif %}
                             </td>
