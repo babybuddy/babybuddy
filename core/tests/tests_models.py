@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
+from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
@@ -170,6 +171,31 @@ class FeedingTestCase(TestCase):
         self.assertEqual(feeding, models.Feeding.objects.first())
         self.assertEqual(str(feeding), "Feeding")
         self.assertEqual(feeding.duration, feeding.end - feeding.start)
+
+    def test_formula_and_solid_food_not_from_the_breast(self):
+        start = timezone.localtime() - timezone.timedelta(minutes=30)
+        for feeding_type in ("formula", "solid food"):
+            for method in ("left breast", "right breast", "both breasts"):
+                with self.subTest(type=feeding_type, method=method):
+                    feeding = models.Feeding(
+                        child=self.child,
+                        start=start,
+                        end=start + timezone.timedelta(minutes=10),
+                        type=feeding_type,
+                        method=method,
+                    )
+                    with self.assertRaises(ValidationError) as error:
+                        feeding.full_clean()
+                    self.assertIn("method", error.exception.message_dict)
+        for feeding_type in ("breast milk", "fortified breast milk"):
+            with self.subTest(type=feeding_type):
+                models.Feeding(
+                    child=self.child,
+                    start=start,
+                    end=start + timezone.timedelta(minutes=10),
+                    type=feeding_type,
+                    method="left breast",
+                ).full_clean()
 
     def test_method_both_breasts(self):
         feeding = models.Feeding.objects.create(
