@@ -24,7 +24,9 @@ process will look something like this:
 
 4. Start translating! Each translatable string will have a `msgid` value with
    the string in English and a corresponding (empty) `msgstr` value where a
-   translated string can be filled in.
+   translated string can be filled in. Strings that are pluralized are the one
+   exception: they have several `msgstr` values, one per plural form your
+   language needs. See [Plural forms](#plural-forms) below.
 
 5. Once all strings have been translated, run `gulp compilemessages -l xx` to
    compile an optimized translation file (`locale/xx/LC_MESSAGES/django.mo`).
@@ -47,3 +49,53 @@ and [create a pull request](pull-requests.md) for review.
 
 For more information on the Django translation process, see Django's
 documentation section: [Translation](https://docs.djangoproject.com/en/5.0/topics/i18n/translation/).
+
+## Plural forms
+
+Some source strings are pluralized. Where an ordinary string has a single
+`msgstr`, a pluralized one has an English singular and plural followed by **one
+translated string per plural form your language has**:
+
+```po
+#: dashboard/templates/cards/timer_list.html:8
+#, python-format
+msgid "%(count)s active timer"
+msgid_plural "%(count)s active timers"
+msgstr[0] "%(count)s aktywny stoper"
+msgstr[1] "%(count)s stopery"
+msgstr[2] "%(count)s stoperów"
+msgstr[3] "%(count)s stoperów"
+```
+
+**How many `msgstr[n]` entries you fill is decided by your language, not by
+English.** Of the pluralized strings currently in the project, the shipped
+locale files carry:
+
+| Locale     | `msgstr[n]` entries per string |
+| ---------- | ------------------------------ |
+| `ja`       | 1                              |
+| `fr`, `he` | 2                              |
+| `ru`, `cs` | 3                              |
+| `pl`, `uk` | 4                              |
+
+Your language's count is declared in the `django.po` header as
+`Plural-Forms: nplurals=N; …` (`nplurals=1` for `ja`, `nplurals=4` for `pl`).
+`gulp makemessages` writes it for you, and POEditor renders the same numbered
+fields, so you do not need to work out the rule yourself — just fill the fields
+the file already has.
+
+**Fill every form your language declares.** An empty `msgstr[n]` counts as
+untranslated, so exactly the counts that use that form fall back to English.
+That produces the confusing report where a string appears in your language for
+some numbers and not others.
+
+**Do not use `%(plural)s`.** Older strings written that way — for example
+`%(count)s nap%(plural)s` — are obsolete and are no longer in the code. A suffix
+standing in for the plural ending can only tell two cases apart, so it cannot
+express the three- and four-form languages above. The strings now use proper
+plural entries, which is why Japanese, Polish and English can each read the same
+string naturally.
+
+For the placeholder rules themselves, see Django's
+[pluralization](https://docs.djangoproject.com/en/6.0/topics/i18n/translation/#pluralization)
+section.
