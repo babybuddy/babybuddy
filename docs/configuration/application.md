@@ -19,3 +19,12 @@ application configuration.
 
 Additional steps are required! See [Subdirectory configuration](../setup/subdirectory.md) for
 details.
+
+## `USE_24_HOUR_TIME_FORMAT`
+
+_Default:_ `False`
+
+Force 24-hour time display and input formats for locales that default to a
+12-hour clock (the English locale family: English (US) and English (UK)).
+Other supported locales already use 24-hour time formats natively, so this
+setting has no effect on them.
