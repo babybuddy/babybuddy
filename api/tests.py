@@ -366,6 +366,18 @@ class FeedingAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(obj.type, data["type"])
         self.assertEqual(obj.notes, data["notes"])
 
+    def test_post_solid_food_from_the_breast_is_refused(self):
+        data = {
+            "child": 1,
+            "start": "2017-11-19T14:00:00-05:00",
+            "end": "2017-11-19T14:15:00-05:00",
+            "type": "solid food",
+            "method": "both breasts",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("method", response.data)
+
     def test_patch(self):
         endpoint = "{}{}/".format(self.endpoint, 3)
         response = self.client.get(endpoint)
