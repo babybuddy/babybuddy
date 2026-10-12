@@ -922,7 +922,11 @@ def card_notes_recent(context, child):
     time and text so caregivers can see what's been recorded without
     navigating to the notes list.
     """
-    recent = models.Note.objects.filter(child=child).order_by("-time")[:4]
+    recent = (
+        models.Note.objects.filter(child=child)
+        .filter(**_filter_data_age(context, "time"))
+        .order_by("-time")[:4]
+    )
 
     empty = len(recent) == 0
 
