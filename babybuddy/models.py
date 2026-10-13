@@ -13,6 +13,8 @@ from django.utils.translation import ngettext_lazy
 
 from rest_framework.authtoken.models import Token
 
+from pathlib import Path
+
 
 class Settings(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -116,6 +118,27 @@ class Settings(models.Model):
         default=timezone.get_default_timezone_name(),
         max_length=100,
         verbose_name=_("Timezone"),
+    )
+    theme = models.CharField(
+        # Built-in themes, plus any extra theme file in scss/themes. Sorted
+        # and deduplicated so the choices are stable across systems (and
+        # migrations do not drift); glob() also tolerates a missing folder.
+        choices=[
+            ("dark", _("Dark")),
+            ("light", _("Light")),
+        ]
+        + [
+            (path.stem, path.stem.capitalize())
+            for path in sorted(
+                Path(
+                    settings.BASE_DIR, "babybuddy", "static_src", "scss", "themes"
+                ).glob("*.scss")
+            )
+            if path.stem not in ("dark", "light")
+        ],
+        default="dark",
+        max_length=100,
+        verbose_name=_("Theme"),
     )
     pagination_count = models.PositiveIntegerField(
         choices=[

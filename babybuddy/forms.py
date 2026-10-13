@@ -137,5 +137,6 @@ class UserSettingsForm(forms.ModelForm):
             "dashboard_hide_age",
             "language",
             "timezone",
+            "theme",
             "pagination_count",
         ]

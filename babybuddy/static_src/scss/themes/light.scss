@@ -1,0 +1,29 @@
+@use 'sass:map';
+
+@include color-mode("light") {
+    .navbar {
+      background-color: var(--bs-body-bg);
+    }
+    .card-statistics, .card-timer {
+        .card-body {
+            color: map.get($theme-colors, 'dark');
+        }
+    }
+    .card-dashboard {
+        .list-group {
+            .list-group-item {
+                color: map.get($theme-colors, 'dark');
+            }
+        }
+    }
+    table {
+        --bs-table-striped-bg: var(--bs-gray-100);
+    }
+
+    .btn-outline-light, .btn-check {
+      --bs-btn-active-bg: var(--bs-tertiary-bg);
+      --bs-btn-active-border-color: var(--bs-tertiary-bg);
+      --bs-btn-color: var(--bs-body-color);
+      --bs-btn-border-color: var(--bs-body-color);
+    }
+}
