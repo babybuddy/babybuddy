@@ -8,7 +8,15 @@ from django.utils import timezone
 
 from faker import Faker
 
-from core.models import Child, Medication, Pumping, TummyTime
+from core.models import (
+    Child,
+    DiaperChange,
+    Feeding,
+    Medication,
+    Pumping,
+    Sleep,
+    TummyTime,
+)
 
 
 class ViewsTestCase(TestCase):
@@ -60,6 +68,23 @@ CARE_ENTRY_PERMISSIONS = (
     "view_feeding",
     "view_diaperchange",
     "view_sleep",
+)
+
+# The dashboard 'last' cards that stand for a single entry, with the heading they
+# render and the URL prefix of the form that edits that entry.
+EDITABLE_LAST_CARDS = (
+    (Feeding, "Last Feeding", r"/feedings/\d+/"),
+    (DiaperChange, "Last Diaper Change", r"/changes/\d+/"),
+    (Sleep, "Last Sleep", r"/sleep/\d+/"),
+    (Pumping, "Last Pumping", r"/pumping/\d+/"),
+    (Medication, "Last Medication", r"/medication/\d+/"),
+)
+
+# view to get the card on the page at all, change for its edit link to appear.
+CHANGE_ENTRY_PERMISSIONS = (
+    CARE_ENTRY_PERMISSIONS
+    + tuple("view_" + model._meta.model_name for model, _, _ in EDITABLE_LAST_CARDS)
+    + tuple("change_" + model._meta.model_name for model, _, _ in EDITABLE_LAST_CARDS)
 )
 
 
@@ -150,3 +175,31 @@ class DashboardCardPermissionsTestCase(TestCase):
         content = page.content.decode()
         self.assertIn("Dashboard Test Medication", content)
         self.assertIn("Last Feeding", content)
+
+    def test_last_cards_link_to_the_entry_that_edits_them(self):
+        self._login("editor", codenames=CHANGE_ENTRY_PERMISSIONS)
+        page = self.c.get(self.url)
+        self.assertEqual(page.status_code, 200)
+        content = page.content.decode()
+
+        for _, heading, pattern in EDITABLE_LAST_CARDS:
+            self.assertIn(heading, content)
+            self.assertRegex(
+                content,
+                pattern,
+                "the {} card is missing its edit link".format(heading),
+            )
+
+    def test_last_cards_offer_no_edit_without_change_permission(self):
+        self._login("readonly", read_only=True)
+        page = self.c.get(self.url)
+        self.assertEqual(page.status_code, 200)
+        content = page.content.decode()
+
+        for _, heading, pattern in EDITABLE_LAST_CARDS:
+            self.assertIn(heading, content)
+            self.assertNotRegex(
+                content,
+                pattern,
+                "the {} card offers an edit link to a read-only user".format(heading),
+            )

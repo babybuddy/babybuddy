@@ -28,6 +28,16 @@ def _can_view(context, model_name):
     return context["request"].user.has_perm(f"core.view_{model_name}")
 
 
+def _can_change(context, model_name):
+    """
+    Whether the user the card is rendered for may change a core model. The
+    'last' cards offer an edit link to the entry they show, so they ask this
+    rather than reading `perms`: a card is rendered through an inclusion tag,
+    which does not carry the page's `perms` into the card's own template.
+    """
+    return context["request"].user.has_perm(f"core.change_{model_name}")
+
+
 def _filter_data_age(context, keyword="end"):
     filter = {}
     if context["request"].user.settings.dashboard_hide_age:
@@ -55,6 +65,7 @@ def card_diaperchange_last(context, child):
     return {
         "type": "diaperchange",
         "change": instance,
+        "can_edit": _can_change(context, "diaperchange"),
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }
@@ -258,6 +269,7 @@ def card_feeding_last(context, child):
     return {
         "type": "feeding",
         "feeding": instance,
+        "can_edit": _can_change(context, "feeding"),
         "feeding_diff_base": feeding_time_diff_base(context, instance),
         "empty": empty,
         "hide_empty": _hide_empty(context),
@@ -306,6 +318,7 @@ def card_pumping_last(context, child):
     return {
         "type": "pumping",
         "pumping": instance,
+        "can_edit": _can_change(context, "pumping"),
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }
@@ -367,6 +380,7 @@ def card_sleep_last(context, child):
     return {
         "type": "sleep",
         "sleep": instance,
+        "can_edit": _can_change(context, "sleep"),
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }
@@ -910,6 +924,7 @@ def card_medication_last(context, child):
     return {
         "type": "medication",
         "medication": instance,
+        "can_edit": _can_change(context, "medication"),
         "empty": not instance,
         "hide_empty": _hide_empty(context),
     }
