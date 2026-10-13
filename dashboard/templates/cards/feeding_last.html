@@ -3,6 +3,15 @@
 {% block header %}
     <a href="{% url "core:feeding-list" %}">{% trans "Last Feeding" %}</a>
 {% endblock %}
+{% block actions %}
+    {% if feeding and can_edit %}
+        <a class="float-end text-body-secondary"
+           href="{% url 'core:feeding-update' feeding.id %}"
+           title="{% trans "Edit" %}">
+            <i class="icon-update" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+{% endblock %}
 {% block title %}
     {% if feeding %}
         <div>

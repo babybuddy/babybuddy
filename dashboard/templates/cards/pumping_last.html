@@ -3,6 +3,15 @@
 {% block header %}
     <a href="{% url "core:pumping-list" %}">{% trans "Last Pumping" %}</a>
 {% endblock %}
+{% block actions %}
+    {% if pumping and can_edit %}
+        <a class="float-end text-body-secondary"
+           href="{% url 'core:pumping-update' pumping.id %}"
+           title="{% trans "Edit" %}">
+            <i class="icon-update" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+{% endblock %}
 {% block title %}
     {% if pumping %}
         <div>

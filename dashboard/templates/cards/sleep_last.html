@@ -3,6 +3,15 @@
 {% block header %}
     <a href="{% url "core:sleep-list" %}">{% trans "Last Sleep" %}</a>
 {% endblock %}
+{% block actions %}
+    {% if sleep and can_edit %}
+        <a class="float-end text-body-secondary"
+           href="{% url 'core:sleep-update' sleep.id %}"
+           title="{% trans "Edit" %}">
+            <i class="icon-update" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+{% endblock %}
 {% block title %}
     {% if sleep %}
         <div>
