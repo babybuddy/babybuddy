@@ -143,6 +143,18 @@ terraform init
 terraform apply -var project_id=<project-id> -var project_name=<project-name> -var billing_account=<billing-account-id>
 ```
 
+## RepoCloud
+
+One-click template, no other instructions required.
+
+<a href="https://repocloud.io/details/Baby%20Buddy/"><img src="https://d16t0pc4846x52.cloudfront.net/deploylobe.svg" alt="Deploy on RepoCloud" height="42"></a>
+
+## Railway
+
+Setup instructions are on the [Railway template page](https://railway.com/deploy/baby-buddy).
+
+<a href="https://railway.com/deploy/baby-buddy"><img src="https://railway.com/button.svg" alt="Deploy on Railway" height="42"></a>
+
 ## Manual
 
 There are many ways to deploy Baby Buddy manually to any server/VPS. The basic
