@@ -26,7 +26,7 @@
                     {{ timer }} created by {{ user }}
                 {% endblocktrans %}
             </p>
-            <div class="d-grid gap-4 mb-4">
+            <div id="timer-entry-actions" class="d-grid gap-4 mb-4">
                 {% if perms.core.add_feeding %}
                     <a class="btn btn-success btn-lg"
                        href="{% instance_add_url 'core:feeding-add' %}"
