@@ -90,22 +90,10 @@ def sleep_pattern(sleeps):
         # Asleep time.
         days[start_date].append(
             {
-                "time": duration.seconds / 60,
+                "time": (end_time - start_time).seconds / 60,
                 "label": _format_asleep_label(duration, start_time, end_time),
             }
         )
-
-        # Update the previous entry duration if an offset change occurred.
-        # This can happen when an entry crosses a daylight savings time change.
-        if start_time.utcoffset() != end_time.utcoffset():
-            diff = start_time.utcoffset() - end_time.utcoffset()
-            duration -= timezone.timedelta(seconds=diff.seconds)
-            yesterday = end_time - timezone.timedelta(days=1)
-            yesterday = yesterday.date().isoformat()
-            days[yesterday][len(days[yesterday]) - 1] = {
-                "time": duration.seconds / 60,
-                "label": _format_asleep_label(duration, start_time, end_time),
-            }
 
         last_end_time = end_time
 
