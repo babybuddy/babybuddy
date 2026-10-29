@@ -37,6 +37,19 @@ class ViewsTestCase(TestCase):
         page = self.c.get("/")
         self.assertEqual(page.url, "/dashboard/")
 
+    def test_theme_attribute(self):
+        page = self.c.get("/dashboard/", follow=True)
+        self.assertContains(page, 'data-bs-theme="dark"')
+
+        self.user.settings.theme = "light"
+        self.user.settings.save()
+        page = self.c.get("/dashboard/", follow=True)
+        self.assertContains(page, 'data-bs-theme="light"')
+
+        # Pages without a logged in user fall back to the dark theme.
+        page = HttpClient().get("/login/")
+        self.assertContains(page, 'data-bs-theme="dark"')
+
     @override_settings(ROLLING_SESSION_REFRESH=1)
     def test_rolling_sessions(self):
         self.c.get("/")
