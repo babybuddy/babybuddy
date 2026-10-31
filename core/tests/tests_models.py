@@ -2,11 +2,67 @@
 import datetime
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.core.management import call_command
+from django.db import IntegrityError, transaction
 from django.test import TestCase
 from django.utils import timezone
 
 from core import models
+
+
+class AppDataTestCase(TestCase):
+    def setUp(self):
+        call_command("migrate", verbosity=0)
+        self.child = models.Child.objects.create(
+            first_name="First", last_name="Last", birth_date=timezone.localdate()
+        )
+
+    def test_app_data_create(self):
+        entry = models.AppData.objects.create(
+            child=self.child, app="my-app", key="sleep-plan", value={"naps": 3}
+        )
+        self.assertEqual(entry, models.AppData.objects.first())
+        self.assertEqual(str(entry), "my-app: sleep-plan")
+        self.assertEqual(entry.value, {"naps": 3})
+        self.assertIsNotNone(entry.created)
+        self.assertIsNotNone(entry.updated)
+
+    def test_one_value_per_child_app_and_key(self):
+        models.AppData.objects.create(
+            child=self.child, app="my-app", key="sleep-plan", value=1
+        )
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            models.AppData.objects.create(
+                child=self.child, app="my-app", key="sleep-plan", value=2
+            )
+        self.assertEqual(models.AppData.objects.get().value, 1)
+
+    def test_a_value_over_the_limit_does_not_validate(self):
+        # The limit lives in the model, so the admin area keeps to it as well.
+        entry = models.AppData(
+            child=self.child,
+            app="my-app",
+            key="big",
+            value="x" * models.AppData.max_value_size,
+        )
+        with self.assertRaises(ValidationError) as context:
+            entry.full_clean()
+        self.assertIn("value", context.exception.message_dict)
+
+    def test_an_empty_value_validates(self):
+        for value in ({}, [], ""):
+            with self.subTest(value=value):
+                models.AppData(
+                    child=self.child, app="my-app", key="empty", value=value
+                ).full_clean()
+
+    def test_deleting_a_child_deletes_its_app_data(self):
+        models.AppData.objects.create(
+            child=self.child, app="my-app", key="sleep-plan", value=1
+        )
+        self.child.delete()
+        self.assertFalse(models.AppData.objects.exists())
 
 
 class BMITestCase(TestCase):

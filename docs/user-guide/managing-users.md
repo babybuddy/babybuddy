@@ -31,7 +31,9 @@ With the default group permissions, a caregiver can:
 - add and edit feedings, diaper changes, sleep entries, timers, medication,
   temperature, weight, notes and tummy time, through both the web interface and
   the API;
-- open the child dashboard, the timeline and the reports for those entry types.
+- open the child dashboard, the timeline and the reports for those entry types;
+- read the [app data](../api.md#app-data) that applications keep through the
+  API, without changing it.
 
 With those defaults, a caregiver cannot:
 

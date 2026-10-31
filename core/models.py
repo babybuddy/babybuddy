@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import json
 import re
 
 from django.core.cache import cache
@@ -913,3 +914,77 @@ class WeightPercentile(models.Model):
 
     def __str__(self):
         return f"Sex: {self.sex}, Age: {self.age_in_days} days, p3: {self.p3_weight} kg, p15: {self.p15_weight} kg, p50: {self.p50_weight} kg, p85: {self.p85_weight} kg, p97: {self.p97_weight} kg"
+
+
+class AppData(models.Model):
+    """
+    A value an application keeps about a child for itself.
+
+    Settings that an application shares between the devices it runs on -- a
+    schedule, a preference -- are not something that happened to a child. Kept
+    as a note, they would show up wherever notes do. These are reachable
+    through the API and the admin area and are shown nowhere else.
+
+    Each application writes under its own ``app`` name, and a ``key`` holds
+    one value for one child. Baby Buddy does not look inside the value.
+    """
+
+    model_name = "app_data"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="app_data",
+        verbose_name=_("Child"),
+    )
+    app = models.SlugField(
+        max_length=100,
+        verbose_name=_("App"),
+        help_text=_('The application the value belongs to, e.g. "my-app".'),
+    )
+    key = models.SlugField(max_length=255, verbose_name=_("Key"))
+    # `blank` lets an empty object or list be stored; a missing value is still
+    # refused, because the column is not nullable.
+    value = models.JSONField(
+        blank=True,
+        verbose_name=_("Value"),
+        help_text=_("Any JSON value of up to 64 KiB."),
+    )
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_("Created"))
+    updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
+
+    objects = models.Manager()
+
+    #: The largest value accepted, in bytes of compact UTF-8 JSON. This is a
+    #: place for settings rather than for files or history.
+    max_value_size = 64 * 1024
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["child", "app", "key"], name="unique_app_data_key"
+            )
+        ]
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["child", "app", "key"]
+        verbose_name = _("App data")
+        verbose_name_plural = _("App data")
+
+    def __str__(self):
+        return "{}: {}".format(self.app, self.key)
+
+    def clean(self):
+        encoded = json.dumps(self.value, ensure_ascii=False, separators=(",", ":"))
+        size = len(encoded.encode("utf-8"))
+        if size > self.max_value_size:
+            raise ValidationError(
+                {
+                    "value": ValidationError(
+                        _(
+                            "Value is %(size)s bytes as JSON. The limit is "
+                            "%(limit)s bytes."
+                        ),
+                        code="max_size",
+                        params={"size": size, "limit": self.max_value_size},
+                    )
+                }
+            )
