@@ -32,6 +32,38 @@ class ViewsTestCase(TestCase):
 
         cls.c.login(**cls.credentials)
 
+    def test_app_data_is_shown_in_the_admin_area_only(self):
+        child = models.Child.objects.first()
+        entry = models.AppData.objects.create(
+            child=child,
+            app="some-app",
+            key="hidden-setting",
+            value={"marker": "kept-out-of-sight"},
+        )
+        for url in (
+            "/dashboard/",
+            "/children/{}/".format(child.slug),
+            "/children/{}/dashboard/".format(child.slug),
+            "/children/{}/reports".format(child.slug),
+            "/notes/",
+            "/timeline/",
+        ):
+            with self.subTest(url=url):
+                page = self.c.get(url, follow=True)
+                self.assertEqual(page.status_code, 200)
+                self.assertNotContains(page, "hidden-setting")
+                self.assertNotContains(page, "kept-out-of-sight")
+
+        get_user_model().objects.create_user(
+            username="staff", password="staff", is_staff=True, is_superuser=True
+        )
+        staff = HttpClient()
+        staff.login(username="staff", password="staff")
+        page = staff.get("/admin/core/appdata/")
+        self.assertContains(page, "hidden-setting")
+        page = staff.get("/admin/core/appdata/{}/change/".format(entry.id))
+        self.assertContains(page, "kept-out-of-sight")
+
     def test_bmi_views(self):
         page = self.c.get("/bmi/")
         self.assertEqual(page.status_code, 200)

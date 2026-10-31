@@ -82,13 +82,14 @@ class CaregiverGroupPermissionsTestCase(TestCase):
         "view_tummytime",
         "add_tummytime",
         "change_tummytime",
+        "view_appdata",
     }
 
     def setUp(self):
         self.group = Group.objects.get(name=settings.BABY_BUDDY["CAREGIVER_GROUP_NAME"])
 
     def test_fresh_group_has_exact_default_permissions(self):
-        self.assertEqual(self.group.permissions.count(), 28)
+        self.assertEqual(self.group.permissions.count(), 29)
         self.assertEqual(
             set(
                 self.group.permissions.values_list(
@@ -124,7 +125,7 @@ class CaregiverGroupPermissionsTestCase(TestCase):
         self.assertEqual(
             set(self.group.permissions.values_list("pk", flat=True)), original_ids
         )
-        self.assertEqual(self.group.permissions.count(), 28)
+        self.assertEqual(self.group.permissions.count(), 29)
 
     def test_missing_early_permission_is_skipped_until_next_sync(self):
         permission = Permission.objects.get(
@@ -146,7 +147,7 @@ class CaregiverGroupPermissionsTestCase(TestCase):
         )
         add_caregiver_group_permissions(sender=None)
         self.assertIn(permission, self.group.permissions.all())
-        self.assertEqual(self.group.permissions.count(), 28)
+        self.assertEqual(self.group.permissions.count(), 29)
 
     def test_sync_restores_defaults_and_retains_manual_permissions(self):
         default = Permission.objects.get(

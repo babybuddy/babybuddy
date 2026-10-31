@@ -20,6 +20,14 @@ class ImportExportResourceBase(resources.ModelResource):
         export_order = ("id", "child_id", "child_first_name", "child_last_name")
 
 
+@admin.register(models.AppData)
+class AppDataAdmin(admin.ModelAdmin):
+    list_display = ("child", "app", "key", "updated")
+    list_filter = ("app", "child")
+    search_fields = ("app", "key")
+    readonly_fields = ("created", "updated")
+
+
 class BMIImportExportResource(ImportExportResourceBase):
     class Meta:
         model = models.BMI

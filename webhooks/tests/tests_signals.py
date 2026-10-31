@@ -106,6 +106,26 @@ class WebhookSignalTestCase(TestCase):
             WebhookEvent.objects.latest("id").type, "head_circumference.created"
         )
 
+    def test_app_data_is_announced_under_its_own_name(self):
+        # Another device of the same application is what wants to hear about
+        # this, and it reads the value back through the API like anything else.
+        entry = models.AppData.objects.create(
+            child=self.child, app="my-app", key="sleep-plan", value={"naps": 3}
+        )
+        entry.value = {"naps": 2}
+        entry.save()
+        primary_key = str(entry.pk)
+        entry.delete()
+        events = WebhookEvent.objects.order_by("id")[self.event_count :]
+        self.assertEqual(
+            [(event.type, event.object_id) for event in events],
+            [
+                ("app_data.created", primary_key),
+                ("app_data.updated", primary_key),
+                ("app_data.deleted", primary_key),
+            ],
+        )
+
     def test_a_measurement_announces_the_measurement_only(self):
         # The percentiles are computed rather than written, so a change to a
         # measurement must not announce twice: once for the measurement and

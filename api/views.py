@@ -1,18 +1,70 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.db import IntegrityError, transaction
 from django.shortcuts import get_object_or_404
 
 from rest_framework import mixins, status, viewsets, views
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.schemas.openapi import AutoSchema
+from rest_framework.settings import api_settings
+from rest_framework.validators import UniqueTogetherValidator
 
 from core import models
 from babybuddy import models as babybuddy_models
 from webhooks import models as webhooks_models
 
 from . import serializers, filters
+
+
+class AppDataSchema(AutoSchema):
+    def map_field(self, field):
+        # DRF describes every JSONField as an object, which would have a client
+        # generated from the schema refuse a list or a string here.
+        if field.field_name == "value":
+            return {}
+        return super().map_field(field)
+
+
+class AppDataViewSet(viewsets.ModelViewSet):
+    schema = AppDataSchema()
+    queryset = models.AppData.objects.all()
+    serializer_class = serializers.AppDataSerializer
+    filterset_class = filters.AppDataFilter
+    ordering_fields = ("app", "key", "updated")
+    ordering = ("child", "app", "key")
+
+    def get_view_name(self):
+        """
+        Gets the view name without changing the case of the model verbose name.
+        """
+        name = models.AppData._meta.verbose_name
+        if self.suffix:
+            name += " " + self.suffix
+        return name
+
+    def perform_create(self, serializer):
+        # Two devices writing the same new key at the same moment can both
+        # pass the uniqueness check. The database settles it, and the one that
+        # loses is told what it would have been told a moment later.
+        try:
+            with transaction.atomic():
+                serializer.save()
+        except IntegrityError:
+            data = serializer.validated_data
+            taken = models.AppData.objects.filter(
+                child=data["child"], app=data["app"], key=data["key"]
+            ).exists()
+            if not taken:
+                raise
+            message = UniqueTogetherValidator.message.format(
+                field_names="child, app, key"
+            )
+            raise ValidationError(
+                {api_settings.NON_FIELD_ERRORS_KEY: [message]}, code="unique"
+            )
 
 
 class BMIViewSet(viewsets.ModelViewSet):

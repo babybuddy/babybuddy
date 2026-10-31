@@ -85,6 +85,278 @@ class TestBase:
             self.assertIsNotNone(obj.end)
 
 
+class AppDataAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
+    """
+    An application keeps values about a child for itself, one per key, and
+    nothing about them reaches the rest of Baby Buddy.
+    """
+
+    endpoint = reverse("api:appdata-list")
+    model = models.AppData
+
+    def setUp(self):
+        super().setUp()
+        self.child = models.Child.objects.get(pk=1)
+        self.other_child = models.Child.objects.create(
+            first_name="Other", birth_date=timezone.localdate()
+        )
+        self.entry = models.AppData.objects.create(
+            child=self.child,
+            app="my-app",
+            key="sleep-plan",
+            value={"naps": 3, "bedtime": "19:30"},
+        )
+        self.delete_id = self.entry.pk
+
+    def detail(self, entry):
+        return "{}{}/".format(self.endpoint, entry.pk)
+
+    def test_get(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+        result = response.data["results"][0]
+        self.assertEqual(
+            {k: v for k, v in result.items() if k not in ("created", "updated")},
+            {
+                "id": self.entry.pk,
+                "child": 1,
+                "app": "my-app",
+                "key": "sleep-plan",
+                "value": {"naps": 3, "bedtime": "19:30"},
+            },
+        )
+        self.assertIsNotNone(result["created"])
+        self.assertIsNotNone(result["updated"])
+
+    def test_post(self):
+        data = {
+            "child": 1,
+            "app": "my-app",
+            "key": "recipes",
+            "value": [{"name": "Porridge", "ingredients": ["oats", "milk"]}],
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.AppData.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.value, data["value"])
+        self.assertEqual(obj.app, "my-app")
+        self.assertEqual(obj.key, "recipes")
+
+    def test_any_json_value_can_be_stored(self):
+        for index, value in enumerate(({}, [], "", 0, False, "text", 1.5, [None])):
+            with self.subTest(value=value):
+                response = self.client.post(
+                    self.endpoint,
+                    {"child": 1, "app": "my-app", "key": f"k{index}", "value": value},
+                    format="json",
+                )
+                self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+                self.assertEqual(
+                    models.AppData.objects.get(pk=response.data["id"]).value, value
+                )
+
+    def test_a_missing_or_null_value_is_refused(self):
+        for data in (
+            {"child": 1, "app": "my-app", "key": "missing"},
+            {"child": 1, "app": "my-app", "key": "null", "value": None},
+        ):
+            with self.subTest(data=data):
+                response = self.client.post(self.endpoint, data, format="json")
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                self.assertIn("value", response.data)
+        self.assertEqual(models.AppData.objects.count(), 1)
+
+    def test_app_and_key_are_slugs(self):
+        for field in ("app", "key"):
+            data = {"child": 1, "app": "my-app", "key": "fine", "value": 1}
+            data[field] = "not a slug"
+            with self.subTest(field=field):
+                response = self.client.post(self.endpoint, data, format="json")
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                self.assertIn(field, response.data)
+        self.assertEqual(models.AppData.objects.count(), 1)
+
+    def test_the_same_key_for_the_same_child_and_app_is_refused(self):
+        response = self.client.post(
+            self.endpoint,
+            {"child": 1, "app": "my-app", "key": "sleep-plan", "value": {"naps": 2}},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("non_field_errors", response.data)
+        self.entry.refresh_from_db()
+        self.assertEqual(self.entry.value, {"naps": 3, "bedtime": "19:30"})
+
+    def test_the_same_key_for_another_child_or_app_is_its_own_entry(self):
+        for child, app in ((self.other_child.pk, "my-app"), (1, "other-app")):
+            with self.subTest(child=child, app=app):
+                response = self.client.post(
+                    self.endpoint,
+                    {"child": child, "app": app, "key": "sleep-plan", "value": 1},
+                    format="json",
+                )
+                self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.AppData.objects.filter(key="sleep-plan").count(), 3)
+
+    def test_a_key_written_at_the_same_moment_is_refused_not_an_error(self):
+        # Another device creates the key between this request's uniqueness
+        # check and its insert. The database refuses the second row, and the
+        # client hears the same thing it would have heard a moment later.
+        original = serializers.AppDataSerializer.validate
+
+        def validate_while_another_device_writes(serializer, attrs):
+            attrs = original(serializer, attrs)
+            models.AppData.objects.create(
+                child=self.child, app="my-app", key="schedule", value="theirs"
+            )
+            return attrs
+
+        with patch.object(
+            serializers.AppDataSerializer,
+            "validate",
+            validate_while_another_device_writes,
+        ):
+            response = self.client.post(
+                self.endpoint,
+                {"child": 1, "app": "my-app", "key": "schedule", "value": "mine"},
+                format="json",
+            )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("non_field_errors", response.data)
+        self.assertEqual(
+            models.AppData.objects.get(key="schedule").value,
+            "theirs",
+        )
+
+    def test_patch(self):
+        before = self.entry.updated
+        response = self.client.patch(
+            self.detail(self.entry),
+            {"value": {"naps": 2, "bedtime": "19:00"}},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["value"], {"naps": 2, "bedtime": "19:00"})
+        self.entry.refresh_from_db()
+        self.assertEqual(self.entry.value, {"naps": 2, "bedtime": "19:00"})
+        self.assertGreater(self.entry.updated, before)
+
+    def test_patch_onto_another_existing_key_is_refused(self):
+        other = models.AppData.objects.create(
+            child=self.child, app="my-app", key="other", value=1
+        )
+        response = self.client.patch(
+            self.detail(other), {"key": "sleep-plan"}, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        other.refresh_from_db()
+        self.assertEqual(other.key, "other")
+
+    def test_a_value_over_the_limit_is_refused(self):
+        limit = models.AppData.max_value_size
+        # Two bytes for the quotes of a JSON string.
+        at_limit = "x" * (limit - 2)
+        response = self.client.post(
+            self.endpoint,
+            {"child": 1, "app": "my-app", "key": "at-limit", "value": at_limit},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response = self.client.post(
+            self.endpoint,
+            {"child": 1, "app": "my-app", "key": "over", "value": at_limit + "x"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("value", response.data)
+        self.assertFalse(models.AppData.objects.filter(key="over").exists())
+
+        response = self.client.patch(
+            self.detail(self.entry), {"value": at_limit + "x"}, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.entry.refresh_from_db()
+        self.assertEqual(self.entry.value, {"naps": 3, "bedtime": "19:30"})
+
+    def test_the_limit_counts_bytes_not_characters(self):
+        # "é" is one character and two bytes in UTF-8.
+        half = models.AppData.max_value_size // 2
+        response = self.client.post(
+            self.endpoint,
+            {"child": 1, "app": "my-app", "key": "accents", "value": "é" * half},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_filters(self):
+        models.AppData.objects.create(
+            child=self.other_child, app="my-app", key="sleep-plan", value=1
+        )
+        models.AppData.objects.create(
+            child=self.child, app="other-app", key="theme", value="dark"
+        )
+        for query, expected in (
+            ({"child": self.other_child.pk}, 1),
+            ({"app": "my-app"}, 2),
+            ({"app": "my-app", "key": "sleep-plan", "child": 1}, 1),
+            ({"key": "theme"}, 1),
+            ({"app": "missing"}, 0),
+        ):
+            with self.subTest(query=query):
+                response = self.client.get(self.endpoint, query)
+                self.assertEqual(response.status_code, status.HTTP_200_OK)
+                self.assertEqual(response.data["count"], expected)
+
+    def test_updated_filters(self):
+        models.AppData.objects.filter(pk=self.entry.pk).update(
+            updated=timezone.now() - timezone.timedelta(days=2)
+        )
+        recent = models.AppData.objects.create(
+            child=self.child, app="my-app", key="recent", value=1
+        )
+        since = (timezone.now() - timezone.timedelta(days=1)).isoformat()
+        response = self.client.get(self.endpoint, {"updated_min": since})
+        self.assertEqual([r["id"] for r in response.data["results"]], [recent.pk])
+        response = self.client.get(self.endpoint, {"updated_max": since})
+        self.assertEqual([r["id"] for r in response.data["results"]], [self.entry.pk])
+
+    def test_read_only_users_and_caregivers_can_read_but_not_write(self):
+        for group in ("READ_ONLY_GROUP_NAME", "CAREGIVER_GROUP_NAME"):
+            with self.subTest(group=group):
+                user = get_user_model().objects.create_user(
+                    username=group.lower(), password="password"
+                )
+                user.groups.add(Group.objects.get(name=settings.BABY_BUDDY[group]))
+                self.client.login(username=group.lower(), password="password")
+
+                response = self.client.get(self.endpoint)
+                self.assertEqual(response.status_code, status.HTTP_200_OK)
+                self.assertEqual(response.data["count"], 1)
+                response = self.client.post(
+                    self.endpoint,
+                    {"child": 1, "app": "my-app", "key": "mine", "value": 1},
+                    format="json",
+                )
+                self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+                response = self.client.patch(
+                    self.detail(self.entry), {"value": 1}, format="json"
+                )
+                self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+                response = self.client.delete(self.detail(self.entry))
+                self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.entry.refresh_from_db()
+        self.assertEqual(self.entry.value, {"naps": 3, "bedtime": "19:30"})
+        self.assertEqual(models.AppData.objects.count(), 1)
+
+    def test_a_user_without_the_permission_cannot_read(self):
+        get_user_model().objects.create_user(username="nobody", password="password")
+        self.client.login(username="nobody", password="password")
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
 class BMIAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
     endpoint = reverse("api:bmi-list")
     model = models.BMI
@@ -1701,3 +1973,14 @@ class TestSchemaAPITestCase(APITestCase):
         names = [parameter["name"] for parameter in parameters]
         for name in ("child", "start", "start_min", "end", "end_max", "tags"):
             self.assertIn(name, names)
+
+    def test_app_data_is_in_the_schema_with_a_value_of_any_type(self):
+        response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        parameters = response.data["paths"]["/api/app-data/"]["get"]["parameters"]
+        names = [parameter["name"] for parameter in parameters]
+        for name in ("child", "app", "key", "updated_min", "updated_max"):
+            self.assertIn(name, names)
+        value = response.data["components"]["schemas"]["AppData"]["properties"]["value"]
+        self.assertNotIn("type", value)

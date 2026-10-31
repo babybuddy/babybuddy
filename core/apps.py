@@ -14,6 +14,10 @@ from django.db.models.signals import post_migrate
 # has no reason to record: pumping, the growth measurements that are tracked
 # over months (height, BMI, head circumference), and everything administrative
 # — children, users, tags and site settings. `delete` is never granted.
+#
+# App data is view-only: it is what lets an application a caregiver uses read
+# the settings the family's own application keeps there, and changing them is
+# left to the family.
 CAREGIVER_VIEW_MODELS = (
     "child",
     "timer",
@@ -25,6 +29,7 @@ CAREGIVER_VIEW_MODELS = (
     "weight",
     "note",
     "tummytime",
+    "appdata",
 )
 
 CAREGIVER_ADD_CHANGE_MODELS = (

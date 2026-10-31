@@ -11,6 +11,7 @@ authorization.
 Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 `POST` requests:
 
+- `/api/app-data/` (see [App Data](#app-data))
 - `/api/bmi/` (Body Mass Index)
 - `/api/children/`
 - `/api/changes/` (Diaper Changes)
@@ -302,3 +303,65 @@ curl -X DELETE https://[...]/api/changes/947/ -H 'Authorization: Token [...]'
 Returns an empty response with HTTP status code `204` on success, or a JSON
 encoded error detail if an error occurred (e.g. `{"detail":"Not found."}` if
 the requested ID does not exist).
+
+## App Data
+
+An application that works with Baby Buddy sometimes needs to keep something of
+its own about a child: a schedule it worked out, or a setting shared between the
+devices it runs on. That is not an entry, and kept as a note it would show up
+wherever notes do. `/api/app-data/` is the place for it instead. App data is
+reachable through the API and the admin area only; it does not appear in the
+timeline, on the dashboard, in reports or on a child's page.
+
+Each entry belongs to one child and is named by `app`, the application's own
+name, and `key`. Both are slugs: letters, numbers, `-` and `_`. There is one
+entry for each child, app and key. `value` can be any JSON value -- an object, a
+list, a string, a number -- of up to 64 KiB, measured as compact UTF-8 JSON.
+Baby Buddy stores it as it is and does not look inside.
+
+```shell
+curl -X POST https://[...]/api/app-data/ \
+    -H 'Authorization: Token [...]' \
+    -H 'Content-Type: application/json' \
+    -d '{"child": 1, "app": "my-app", "key": "sleep-plan", "value": {"naps": 3, "bedtime": "19:30"}}'
+```
+
+```json
+{
+  "id": 12,
+  "child": 1,
+  "app": "my-app",
+  "key": "sleep-plan",
+  "value": { "naps": 3, "bedtime": "19:30" },
+  "created": "2026-10-31T09:12:44.218041+01:00",
+  "updated": "2026-10-31T09:12:44.218068+01:00"
+}
+```
+
+A second `POST` for the same child, app and key is refused with `400 Bad
+Request` rather than taken as an update, so two devices that both create a key
+cannot overwrite each other without knowing it. To change a value, find its
+entry and send a `PATCH` to it:
+
+```shell
+curl -X GET 'https://[...]/api/app-data/?child=1&app=my-app&key=sleep-plan' \
+    -H 'Authorization: Token [...]'
+
+curl -X PATCH https://[...]/api/app-data/12/ \
+    -H 'Authorization: Token [...]' \
+    -H 'Content-Type: application/json' \
+    -d '{"value": {"naps": 2, "bedtime": "19:00"}}'
+```
+
+The list can be filtered on `child`, `app` and `key`, and on `updated_min` and
+`updated_max` for an application that wants to know what changed since it last
+looked. A deleted entry does not show up there; [webhooks](configuration/webhooks.md)
+announce `app_data.created`, `app_data.updated` and `app_data.deleted` like any
+other change.
+
+App data uses the same model permissions as the rest of the API:
+`core.view_appdata`, `core.add_appdata`, `core.change_appdata` and
+`core.delete_appdata`. Read-only users and caregivers can read it and cannot
+change it. Permissions apply to the model, not to an application, so anyone who
+can read app data reads all of it, for every application and every child. It is
+no place for passwords, tokens or anything else that has to stay secret.
