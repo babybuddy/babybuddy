@@ -3,6 +3,352 @@ info:
   title: Baby Buddy API
   version: ""
 paths:
+  /api/app-data/:
+    get:
+      operationId: listAppData
+      description: ""
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: app
+          required: false
+          in: query
+          description: app
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: key
+          required: false
+          in: query
+          description: key
+          schema:
+            type: string
+        - name: updated_max
+          required: false
+          in: query
+          description: Max. Updated DateTime
+          schema:
+            type: string
+        - name: updated_min
+          required: false
+          in: query
+          description: Min. Updated DateTime
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AppData"
+          description: ""
+      tags:
+        - api
+    post:
+      operationId: createAppData
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppData"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/AppData"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/AppData"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppData"
+          description: ""
+      tags:
+        - api
+  /api/app-data/{id}/:
+    get:
+      operationId: retrieveAppData
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this App data.
+          schema:
+            type: string
+        - name: app
+          required: false
+          in: query
+          description: app
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: key
+          required: false
+          in: query
+          description: key
+          schema:
+            type: string
+        - name: updated_max
+          required: false
+          in: query
+          description: Max. Updated DateTime
+          schema:
+            type: string
+        - name: updated_min
+          required: false
+          in: query
+          description: Min. Updated DateTime
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppData"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateAppData
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this App data.
+          schema:
+            type: string
+        - name: app
+          required: false
+          in: query
+          description: app
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: key
+          required: false
+          in: query
+          description: key
+          schema:
+            type: string
+        - name: updated_max
+          required: false
+          in: query
+          description: Max. Updated DateTime
+          schema:
+            type: string
+        - name: updated_min
+          required: false
+          in: query
+          description: Min. Updated DateTime
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppData"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/AppData"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/AppData"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppData"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateAppData
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this App data.
+          schema:
+            type: string
+        - name: app
+          required: false
+          in: query
+          description: app
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: key
+          required: false
+          in: query
+          description: key
+          schema:
+            type: string
+        - name: updated_max
+          required: false
+          in: query
+          description: Max. Updated DateTime
+          schema:
+            type: string
+        - name: updated_min
+          required: false
+          in: query
+          description: Min. Updated DateTime
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppData"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/AppData"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/AppData"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppData"
+          description: ""
+      tags:
+        - api
+    delete:
+      operationId: destroyAppData
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this App data.
+          schema:
+            type: string
+        - name: app
+          required: false
+          in: query
+          description: app
+          schema:
+            type: string
+        - name: child
+          required: false
+          in: query
+          description: child
+          schema:
+            type: string
+        - name: key
+          required: false
+          in: query
+          description: key
+          schema:
+            type: string
+        - name: updated_max
+          required: false
+          in: query
+          description: Max. Updated DateTime
+          schema:
+            type: string
+        - name: updated_min
+          required: false
+          in: query
+          description: Min. Updated DateTime
+          schema:
+            type: string
+        - name: ordering
+          required: false
+          in: query
+          description: Which field to use when ordering the results.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags:
+        - api
   /api/bmi/:
     get:
       operationId: listBMIs
@@ -6100,6 +6446,38 @@ paths:
         - api
 components:
   schemas:
+    AppData:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+        app:
+          type: string
+          description: The application the value belongs to, e.g. "my-app".
+          maxLength: 100
+          pattern: ^[-a-zA-Z0-9_]+$
+        key:
+          type: string
+          maxLength: 255
+          pattern: ^[-a-zA-Z0-9_]+$
+        value:
+          description: Any JSON value of up to 64 KiB.
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        updated:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - child
+        - app
+        - key
+        - value
     BMI:
       type: object
       properties:
