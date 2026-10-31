@@ -117,3 +117,29 @@ class PillRadioSelect(RadioSelect):
         attrs = super().build_attrs(base_attrs, extra_attrs)
         attrs["class"] += " btn-check d-none"
         return attrs
+
+
+class DatalistTextInput(widgets.TextInput):
+    """
+    A free-text input that also renders an HTML5 ``<datalist>`` of
+    suggestions. Users can pick an existing suggestion or type a brand-new
+    value (which is accepted as-is). Pure HTML, no JavaScript required.
+
+    Pass ``suggestions`` (an iterable of strings) and a unique ``datalist_id``.
+    """
+
+    template_name = "core/widget_datalist_text.html"
+
+    def __init__(self, attrs=None, suggestions=None, datalist_id="datalist-options"):
+        self.suggestions = list(suggestions or [])
+        self.datalist_id = datalist_id
+        default_attrs = {"list": datalist_id, "autocomplete": "off"}
+        if attrs:
+            default_attrs.update(attrs)
+        super().__init__(default_attrs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context["widget"]["datalist_id"] = self.datalist_id
+        context["widget"]["suggestions"] = self.suggestions
+        return context
