@@ -154,6 +154,11 @@ pumping, sleep, temperature, timers, tummy time and weight. Percentiles are
 left out because they are computed rather than written, so announcing them
 would send an event for every measurement that merely moved a curve.
 
+The [app data](../api.md#app-data) that applications keep through the API is
+announced as well, as `app_data.created`, `app_data.updated` and
+`app_data.deleted`, so another device of the same application can tell that a
+value it relies on has changed.
+
 There is one place where nothing is announced: `QuerySet.update()` writes rows
 without calling `save()`, so no signal fires. It is used in migrations and tests
 only. A bulk write elsewhere would go unannounced.

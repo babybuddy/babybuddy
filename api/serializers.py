@@ -137,6 +137,24 @@ class TaggableSerializer(TaggitSerializer, serializers.HyperlinkedModelSerialize
         return tags
 
 
+class AppDataSerializer(CoreModelSerializer):
+    """
+    A value an application keeps about a child for itself.
+
+    A key is created once and changed afterwards with a PATCH to its own
+    entry; a second POST for the same child, app and key is refused rather
+    than taken as an update.
+    """
+
+    class Meta:
+        model = models.AppData
+        fields = ("id", "child", "app", "key", "value", "created", "updated")
+        read_only_fields = ("created", "updated")
+        # The model field is blank so an empty object or list can be stored,
+        # which DRF would otherwise also take to mean the value is optional.
+        extra_kwargs = {"value": {"required": True}}
+
+
 class BMISerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:
         model = models.BMI

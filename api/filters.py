@@ -62,6 +62,21 @@ class StartEndFieldFilter(ChildFieldFilter):
         )
 
 
+class AppDataFilter(ChildFieldFilter):
+    updated_max = filters.IsoDateTimeFilter(
+        field_name="updated", label="Max. Updated DateTime", lookup_expr="lte"
+    )
+    updated_min = filters.IsoDateTimeFilter(
+        field_name="updated", label="Min. Updated DateTime", lookup_expr="gte"
+    )
+
+    class Meta(ChildFieldFilter.Meta):
+        model = models.AppData
+        fields = sorted(
+            ChildFieldFilter.Meta.fields + ["app", "key", "updated_max", "updated_min"]
+        )
+
+
 class DiaperChangeFilter(TimeFieldFilter, TagsFieldFilter):
     class Meta(TimeFieldFilter.Meta):
         model = models.DiaperChange
