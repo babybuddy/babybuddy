@@ -298,7 +298,13 @@ class TimerSerializer(CoreModelSerializer):
 
     class Meta:
         model = models.Timer
-        fields = ("id", "child", "name", "start", "duration", "user")
+        fields = ("id", "child", "name", "start", "duration", "user", "context")
+        extra_kwargs = {
+            "context": {
+                "help_text": "Data about what the Timer is for. A request with "
+                "an invalid `_babybuddy` namespace is rejected.",
+            },
+        }
 
     def validate(self, attrs):
         attrs = super(TimerSerializer, self).validate(attrs)

@@ -6540,6 +6540,12 @@ components:
         user:
           type: integer
           nullable: true
+        context:
+          type: object
+          nullable: true
+          description:
+            Data about what the Timer is for. A request with an invalid
+            `_babybuddy` namespace is rejected.
     TummyTime:
       type: object
       properties:

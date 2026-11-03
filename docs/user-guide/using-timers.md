@@ -23,6 +23,12 @@ to stop the timer.
 
 ## Creating Entries from Timers
 
+Timers started by other applications (e.g. a voice assistant) may record what
+they were started for, such as a formula bottle feeding. When an entry is made
+from such a timer, its form starts with those values filled in. They can still
+be changed before the entry is saved. See [Timer Context](../api.md#timer-context)
+for details.
+
 ### Create a Feeding Entry
 
 <video style="max-width: 320px;" autoplay controls loop muted playsinline>

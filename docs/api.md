@@ -223,7 +223,8 @@ Note the timer `id` in the response:
   "name": null,
   "start": "2022-05-28T19:59:40.013914Z",
   "duration": null,
-  "user": 1
+  "user": 1,
+  "context": null
 }
 ```
 
@@ -251,6 +252,46 @@ Note that `child` and `start` match the timer values (and `end` is auto-populate
 ```
 
 Also note that the timer has been deleted.
+
+### Timer Context
+
+Timers accept an optional `context` field, a JSON object recording what the timer
+was started for. Applications are free to keep their own data in it under a
+namespace of their own (e.g. `_babybuddy-alexa`).
+
+The `_babybuddy` namespace is reserved for data Baby Buddy itself uses. When an
+entry is made from the timer in the web interface, the `fields` of this namespace
+are used as the initial values of the entry form:
+
+```json
+{
+  "_babybuddy": {
+    "version": 1,
+    "model": "Feeding",
+    "fields": {
+      "type": "formula",
+      "method": "bottle"
+    }
+  },
+  "_babybuddy-alexa": {
+    "intent": "StartFeeding"
+  }
+}
+```
+
+- `version` must be `1`.
+- `model` must be one of `Feeding`, `Pumping`, `Sleep` or `TummyTime`.
+- `fields` is optional and may contain these fields of the model, with values
+  valid for that model:
+  - `Feeding`: `type`, `method`, `amount`, `notes`
+  - `Pumping`: `amount`, `notes`
+  - `Sleep`: `nap`, `notes`
+  - `TummyTime`: `milestone`, `notes`
+
+The `_babybuddy` namespace is validated when it is written. A request with an
+invalid namespace is rejected with a `400` response and nothing is saved. The
+`context` value is replaced as a whole on each write, so include any keys that
+should be kept.
 
 ### Response
 
