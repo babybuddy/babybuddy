@@ -4,7 +4,7 @@ import datetime
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
-from django.utils import timezone
+from django.utils import timezone, translation
 
 from core import models
 
@@ -481,6 +481,14 @@ class MedicationTestCase(TestCase):
         self.medication.tags.add("fever", "morning")
         self.assertEqual(self.medication.tags.count(), 2)
         self.assertTrue(self.medication.tags.filter(name="fever").exists())
+
+    def test_medication_field_labels_translated(self):
+        # Fails if locale/fr/LC_MESSAGES/django.mo is not recompiled.
+        labels = {"time": "Time Taken", "dosage_unit": "Dosage Unit"}
+        with translation.override("fr"):
+            for field, english in labels.items():
+                label = models.Medication._meta.get_field(field).verbose_name
+                self.assertNotEqual(str(label), english)
 
     def test_medication_validation_future_time(self):
         from django.core.exceptions import ValidationError
