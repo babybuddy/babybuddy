@@ -118,6 +118,10 @@ def timer_context_model(name):
     :param name: the `model` value from the core context.
     :return: the model, or None if a Timer can't be used for it.
     """
+    # The name comes from JSON, so it could be a list or an object. Looking one of
+    # those up in a dict (even with `in`) raises a TypeError, so check it first.
+    if not isinstance(name, str):
+        return None
     models_by_name = {
         "Feeding": Feeding,
         "Pumping": Pumping,
@@ -166,7 +170,14 @@ def _validate_timer_core_context(core_context):
             field = model._meta.get_field(name)
         except FieldDoesNotExist:
             raise field_error
-        field.clean(value, None)
+        # The value is saved as sent, so it must already be the field's own type
+        # (e.g. false, not "0", for a checkbox).
+        if field.clean(value, None) != value:
+            raise ValidationError(
+                _("%(field)s has the wrong type in the _babybuddy context."),
+                code="invalid_context",
+                params={"field": name},
+            )
 
 
 def validate_timer_context(context):

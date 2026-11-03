@@ -421,10 +421,12 @@ class TimerTestCase(TestCase):
             {"_babybuddy": "Feeding"},
             {"_babybuddy": {"model": "Feeding"}},
             {"_babybuddy": self.core_context(model="Timer")},
+            {"_babybuddy": self.core_context(model=[])},
             {"_babybuddy": {"version": 1, "model": "Feeding", "fields": ["type"]}},
             {"_babybuddy": self.core_context(start="2020-01-01T00:00:00Z")},
             {"_babybuddy": self.core_context(nap=True)},
             {"_babybuddy": self.core_context(type="formulaohno")},
+            {"_babybuddy": self.core_context(model="Sleep", nap="0")},
         ]
         for context in invalid_contexts:
             self.unnamed.context = context
