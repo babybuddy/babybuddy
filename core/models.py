@@ -942,8 +942,7 @@ class AppData(models.Model):
         help_text=_('The application the value belongs to, e.g. "my-app".'),
     )
     key = models.SlugField(max_length=255, verbose_name=_("Key"))
-    # `blank` lets an empty object or list be stored; a missing value is still
-    # refused, because the column is not nullable.
+    # `blank` lets an empty object or list be stored; clean() still refuses null.
     value = models.JSONField(
         blank=True,
         verbose_name=_("Value"),
@@ -973,8 +972,25 @@ class AppData(models.Model):
         return "{}: {}".format(self.app, self.key)
 
     def clean(self):
+        if self.value is None:
+            raise ValidationError(
+                {
+                    "value": ValidationError(
+                        _("This field may not be null."), code="null"
+                    )
+                }
+            )
         encoded = json.dumps(self.value, ensure_ascii=False, separators=(",", ":"))
-        size = len(encoded.encode("utf-8"))
+        try:
+            size = len(encoded.encode("utf-8"))
+        except UnicodeEncodeError:
+            raise ValidationError(
+                {
+                    "value": ValidationError(
+                        _("Value must contain valid Unicode."), code="invalid"
+                    )
+                }
+            )
         if size > self.max_value_size:
             raise ValidationError(
                 {

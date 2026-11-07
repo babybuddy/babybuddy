@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.db import IntegrityError, transaction
+from django.forms import modelform_factory
 from django.test import TestCase
 from django.utils import timezone, translation
 
@@ -56,6 +57,47 @@ class AppDataTestCase(TestCase):
                 models.AppData(
                     child=self.child, app="my-app", key="empty", value=value
                 ).full_clean()
+
+    def test_null_and_lone_surrogates_do_not_validate(self):
+        for value in (None, "\ud800", "\udfff", {"\ud800": "text"}, ["\udfff"]):
+            with self.subTest(value=repr(value)):
+                entry = models.AppData(
+                    child=self.child, app="my-app", key="invalid", value=value
+                )
+                with self.assertRaises(ValidationError) as context:
+                    entry.full_clean()
+                self.assertIn("value", context.exception.message_dict)
+
+    def test_admin_form_rejects_blank_null_and_lone_surrogates(self):
+        form_class = modelform_factory(models.AppData, fields="__all__")
+        for value in ("", "null", '"\\ud800"', '{"key": "\\udfff"}'):
+            with self.subTest(value=value):
+                form = form_class(
+                    data={
+                        "child": self.child.pk,
+                        "app": "my-app",
+                        "key": "invalid",
+                        "value": value,
+                    }
+                )
+                self.assertFalse(form.is_valid())
+                self.assertIn("value", form.errors)
+        self.assertFalse(models.AppData.objects.exists())
+
+    def test_admin_form_accepts_empty_json_values(self):
+        form_class = modelform_factory(models.AppData, fields="__all__")
+        for index, value in enumerate(("{}", "[]", '""', "false", "0")):
+            with self.subTest(value=value):
+                form = form_class(
+                    data={
+                        "child": self.child.pk,
+                        "app": "my-app",
+                        "key": f"empty-{index}",
+                        "value": value,
+                    }
+                )
+                self.assertTrue(form.is_valid(), form.errors)
+                form.save()
 
     def test_deleting_a_child_deletes_its_app_data(self):
         models.AppData.objects.create(

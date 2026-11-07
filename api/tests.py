@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from unittest.mock import patch
 
 from babybuddy.models import get_user_model
@@ -252,6 +253,83 @@ class AppDataAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         other.refresh_from_db()
         self.assertEqual(other.key, "other")
+
+    def test_patch_conflicts_after_validation_are_refused(self):
+        for changes in (
+            {"child": self.other_child.pk},
+            {"app": "other-app"},
+            {"key": "schedule"},
+            {"child": self.other_child.pk, "app": "other-app", "key": "schedule"},
+        ):
+            with self.subTest(changes=changes):
+                original = serializers.AppDataSerializer.validate
+                competing = []
+
+                def validate_while_another_device_writes(serializer, attrs):
+                    attrs = original(serializer, attrs)
+                    competing.append(
+                        models.AppData.objects.create(
+                            child=attrs.get("child", self.entry.child),
+                            app=attrs.get("app", self.entry.app),
+                            key=attrs.get("key", self.entry.key),
+                            value="theirs",
+                        )
+                    )
+                    return attrs
+
+                with patch.object(
+                    serializers.AppDataSerializer,
+                    "validate",
+                    validate_while_another_device_writes,
+                ):
+                    response = self.client.patch(
+                        self.detail(self.entry),
+                        {**changes, "value": "mine"},
+                        format="json",
+                    )
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                self.assertIn("non_field_errors", response.data)
+                self.entry.refresh_from_db()
+                self.assertEqual(self.entry.child, self.child)
+                self.assertEqual(self.entry.app, "my-app")
+                self.assertEqual(self.entry.key, "sleep-plan")
+                self.assertEqual(self.entry.value, {"naps": 3, "bedtime": "19:30"})
+                competing[0].refresh_from_db()
+                self.assertEqual(competing[0].value, "theirs")
+                competing[0].delete()
+
+    def test_patch_does_not_hide_unrelated_integrity_errors(self):
+        from django.db import IntegrityError
+
+        with patch.object(
+            serializers.AppDataSerializer, "update", side_effect=IntegrityError
+        ):
+            with self.assertRaises(IntegrityError):
+                self.client.patch(
+                    self.detail(self.entry), {"value": "mine"}, format="json"
+                )
+        self.entry.refresh_from_db()
+        self.assertEqual(self.entry.value, {"naps": 3, "bedtime": "19:30"})
+
+    def test_lone_surrogates_are_refused_on_post_and_patch(self):
+        for value in ("\ud800", "\udfff", {"\ud800": "text"}, ["\udfff"]):
+            for method in ("post", "patch"):
+                with self.subTest(value=repr(value), method=method):
+                    data = {"value": value}
+                    url = self.detail(self.entry)
+                    if method == "post":
+                        url = self.endpoint
+                        data.update(child=1, app="my-app", key="invalid-unicode")
+                    # Escaped surrogates are valid JSON syntax but cannot be
+                    # encoded as UTF-8 once parsed.
+                    response = getattr(self.client, method)(
+                        url, json.dumps(data), content_type="application/json"
+                    )
+                    self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                    self.assertIn("value", response.data)
+        self.assertEqual(models.AppData.objects.count(), 1)
+        self.entry.refresh_from_db()
+        self.assertEqual(self.entry.value, {"naps": 3, "bedtime": "19:30"})
 
     def test_a_value_over_the_limit_is_refused(self):
         limit = models.AppData.max_value_size

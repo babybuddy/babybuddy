@@ -46,18 +46,27 @@ class AppDataViewSet(viewsets.ModelViewSet):
         return name
 
     def perform_create(self, serializer):
-        # Two devices writing the same new key at the same moment can both
-        # pass the uniqueness check. The database settles it, and the one that
-        # loses is told what it would have been told a moment later.
+        self.save_with_conflict_handling(serializer)
+
+    def perform_update(self, serializer):
+        self.save_with_conflict_handling(serializer)
+
+    def save_with_conflict_handling(self, serializer):
+        instance = serializer.instance
+        identity = {
+            field: serializer.validated_data.get(field, getattr(instance, field, None))
+            for field in ("child", "app", "key")
+        }
+        # A competing request can claim the key after validation. Use a
+        # savepoint so that checking for that conflict remains safe on failure.
         try:
             with transaction.atomic():
                 serializer.save()
         except IntegrityError:
-            data = serializer.validated_data
-            taken = models.AppData.objects.filter(
-                child=data["child"], app=data["app"], key=data["key"]
-            ).exists()
-            if not taken:
+            conflicts = models.AppData.objects.filter(**identity)
+            if instance is not None:
+                conflicts = conflicts.exclude(pk=instance.pk)
+            if not conflicts.exists():
                 raise
             message = UniqueTogetherValidator.message.format(
                 field_names="child, app, key"
