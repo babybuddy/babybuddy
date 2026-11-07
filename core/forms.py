@@ -425,6 +425,19 @@ class HeightForm(CoreModelForm, TaggableModelForm):
         }
 
 
+def recent_medication_names():
+    """
+    Previously-used medication names, most recently used first. Names are
+    global across all children (medications recur between siblings).
+    """
+    return (
+        models.Medication.objects.values("name")
+        .annotate(last_used=Max("time"))
+        .order_by("-last_used", "name")
+        .values_list("name", flat=True)
+    )
+
+
 class MedicationForm(CoreModelForm, TaggableModelForm):
     next_dose_interval = forms.DecimalField(
         label=_("Time Until Next Dosage"),
@@ -466,6 +479,10 @@ class MedicationForm(CoreModelForm, TaggableModelForm):
             "dosage_unit": PillRadioSelect(),
             "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
+            "name": DatalistTextInput(
+                suggestions=recent_medication_names,
+                datalist_id="medication-name-list",
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -474,19 +491,6 @@ class MedicationForm(CoreModelForm, TaggableModelForm):
         if self.instance and self.instance.next_dose_interval:
             total_seconds = self.instance.next_dose_interval.total_seconds()
             self.initial["next_dose_interval"] = total_seconds / 3600
-
-        # Offer previously-used medication names as free-text autocomplete
-        # suggestions. Names are global across all children (medications
-        # recur between siblings) and ordered by most-recent use.
-        suggestions = list(
-            models.Medication.objects.values("name")
-            .annotate(last_used=Max("time"))
-            .order_by("-last_used")
-            .values_list("name", flat=True)
-        )
-        self.fields["name"].widget = DatalistTextInput(
-            suggestions=suggestions, datalist_id="medication-name-list"
-        )
 
     def clean_next_dose_interval(self):
         hours = self.cleaned_data.get("next_dose_interval")

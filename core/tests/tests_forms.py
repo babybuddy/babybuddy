@@ -1276,6 +1276,37 @@ class MedicationFormsTestCase(FormsTestCaseBase):
         # Input opts into the datalist.
         self.assertContains(page, 'list="medication-name-list"')
 
+    def test_name_datalist_ordered_by_most_recent_use(self):
+        now = timezone.localtime()
+        models.Medication.objects.create(
+            child=self.child, name="Older", time=now - timezone.timedelta(days=30)
+        )
+        models.Medication.objects.create(child=self.child, name="Newest", time=now)
+        content = self.c.get("/medication/add/").content.decode()
+        self.assertLess(
+            content.index('<option value="Newest">'),
+            content.index('<option value="Older">'),
+        )
+
+    def test_name_datalist_is_capped(self):
+        now = timezone.localtime()
+        for i in range(60):
+            models.Medication.objects.create(
+                child=self.child,
+                name="Capped {:02d}".format(i),
+                time=now - timezone.timedelta(minutes=i),
+            )
+        content = self.c.get("/medication/add/").content.decode()
+        datalist = content[content.index('<datalist id="medication-name-list">') :]
+        datalist = datalist[: datalist.index("</datalist>")]
+        self.assertEqual(datalist.count("<option "), 50)
+        # The most recent ones are kept.
+        self.assertIn('<option value="Capped 00">', datalist)
+        self.assertNotIn('<option value="Capped 59">', datalist)
+
+    def test_name_input_keeps_model_maxlength(self):
+        self.assertContains(self.c.get("/medication/add/"), 'maxlength="255"')
+
     def test_previously_used_name_is_suggested(self):
         page = self.c.get("/medication/add/")
         # "Tylenol" was created in setUpClass.
