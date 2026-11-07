@@ -4,7 +4,7 @@ import json
 import re
 
 from django.core.cache import cache
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import FieldDoesNotExist, PermissionDenied, ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.functions import Lower
@@ -98,6 +98,100 @@ def validate_time(time, field_name):
         raise ValidationError(
             {field_name: _("Date/time can not be in the future.")}, code="time_invalid"
         )
+
+
+# The core namespace of a Timer's context, the only part Baby Buddy itself reads
+# and validates. Every other top-level key belongs to the application that wrote
+# it and is saved as sent.
+CORE_CONTEXT_NAMESPACE = "_babybuddy"
+CORE_CONTEXT_VERSION = 1
+
+# The entry fields a Timer context may fill in. A new field on Feeding, Pumping,
+# Sleep or TummyTime is only filled in from a Timer's context once it is added
+# here (and to the Timer Context section of docs/api.md). The child, start and
+# end are not listed because they come from the Timer itself.
+CORE_CONTEXT_FIELDS = ("type", "method", "amount", "notes", "nap", "milestone")
+
+
+def timer_context_model(name):
+    """
+    Look up a model by the name used in a Timer's context, e.g. "Feeding".
+    :param name: the `model` value from the core context.
+    :return: the model, or None if a Timer can't be used for it.
+    """
+    # The name comes from JSON, so it could be a list or an object. Looking one of
+    # those up in a dict (even with `in`) raises a TypeError, so check it first.
+    if not isinstance(name, str):
+        return None
+    models_by_name = {
+        "Feeding": Feeding,
+        "Pumping": Pumping,
+        "Sleep": Sleep,
+        "TummyTime": TummyTime,
+    }
+    return models_by_name.get(name)
+
+
+def _validate_timer_core_context(core_context):
+    """
+    Check the `_babybuddy` part of a Timer's context: it must have the current
+    version, a known model (see `timer_context_model`), and only fields from
+    CORE_CONTEXT_FIELDS with values that model accepts.
+    :param core_context: the value of `context["_babybuddy"]`.
+    :return:
+    """
+    if not isinstance(core_context, dict):
+        raise ValidationError(
+            _("The _babybuddy context must be an object."), code="invalid_context"
+        )
+    if core_context.get("version") != CORE_CONTEXT_VERSION:
+        raise ValidationError(
+            _("Unsupported _babybuddy context version."), code="invalid_context"
+        )
+    model = timer_context_model(core_context.get("model"))
+    if model is None:
+        raise ValidationError(
+            _("Unknown _babybuddy context model."), code="invalid_context"
+        )
+    fields = core_context.get("fields", {})
+    if not isinstance(fields, dict):
+        raise ValidationError(
+            _("The _babybuddy context fields must be an object."),
+            code="invalid_context",
+        )
+    for name, value in fields.items():
+        field_error = ValidationError(
+            _("%(field)s can not be set from the _babybuddy context."),
+            code="invalid_context",
+            params={"field": name},
+        )
+        if name not in CORE_CONTEXT_FIELDS:
+            raise field_error
+        try:
+            field = model._meta.get_field(name)
+        except FieldDoesNotExist:
+            raise field_error
+        # The value is saved as sent, so it must already be the field's own type
+        # (e.g. false, not "0", for a checkbox).
+        if field.clean(value, None) != value:
+            raise ValidationError(
+                _("%(field)s has the wrong type in the _babybuddy context."),
+                code="invalid_context",
+                params={"field": name},
+            )
+
+
+def validate_timer_context(context):
+    """
+    Check a Timer's context before it is saved: it must be a JSON object, and
+    its `_babybuddy` part (if it has one) must be valid.
+    :param context: the Timer's context.
+    :return:
+    """
+    if not isinstance(context, dict):
+        raise ValidationError(_("Context must be an object."), code="invalid_context")
+    if CORE_CONTEXT_NAMESPACE in context:
+        _validate_timer_core_context(context[CORE_CONTEXT_NAMESPACE])
 
 
 class Tag(TagBase):
@@ -664,6 +758,13 @@ class Timer(models.Model):
         related_name="timers",
         verbose_name=_("User"),
     )
+    context = models.JSONField(
+        blank=True,
+        default=None,
+        null=True,
+        validators=[validate_timer_context],
+        verbose_name=_("Context"),
+    )
 
     objects = models.Manager()
 
@@ -710,6 +811,19 @@ class Timer(models.Model):
         timer, so it requires `core.delete_timer` unless the user owns the timer.
         """
         return self.user_id == user.pk or user.has_perm("core.delete_timer")
+
+    def extract_context_fields_for(self, model):
+        """
+        Get the values to prefill when an entry of `model` is made from this
+        Timer, e.g. {"type": "formula"} for a Feeding.
+        :param model: the model of the entry being made, e.g. Feeding.
+        :return: the field values, or {} if the context has none for `model`.
+        """
+        # The core context is validated when it is saved, so it can be used as is.
+        core_context = (self.context or {}).get(CORE_CONTEXT_NAMESPACE)
+        if not core_context or core_context["model"] != model.__name__:
+            return {}
+        return core_context.get("fields", {})
 
     def save(self, *args, **kwargs):
         self.name = self.name or None

@@ -501,6 +501,35 @@ class TimerTestCase(TestCase):
             timer.duration().seconds, timezone.timedelta(minutes=30).seconds
         )
 
+    @staticmethod
+    def core_context(model="Feeding", **fields):
+        return {"version": 1, "model": model, "fields": fields}
+
+    def test_timer_context_valid(self):
+        self.unnamed.context = {
+            "_babybuddy": self.core_context(type="formula", method="bottle"),
+            "_babybuddy-alexa": {"intent": "feeding"},
+        }
+        self.unnamed.full_clean()
+
+    def test_timer_context_invalid(self):
+        invalid_contexts = [
+            ["feeding"],
+            {"_babybuddy": "Feeding"},
+            {"_babybuddy": {"model": "Feeding"}},
+            {"_babybuddy": self.core_context(model="Timer")},
+            {"_babybuddy": self.core_context(model=[])},
+            {"_babybuddy": {"version": 1, "model": "Feeding", "fields": ["type"]}},
+            {"_babybuddy": self.core_context(start="2020-01-01T00:00:00Z")},
+            {"_babybuddy": self.core_context(nap=True)},
+            {"_babybuddy": self.core_context(type="formulaohno")},
+            {"_babybuddy": self.core_context(model="Sleep", nap="0")},
+        ]
+        for context in invalid_contexts:
+            self.unnamed.context = context
+            with self.assertRaises(ValidationError, msg=context):
+                self.unnamed.full_clean()
+
 
 class TummyTimeTestCase(TestCase):
     def setUp(self):

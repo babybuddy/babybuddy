@@ -47,6 +47,7 @@ def set_initial_values(kwargs, form_type):
 
     # Set start and end time based on Timer from `timer` kwarg.
     timer_id = kwargs.get("timer", None)
+    timer = None
     if timer_id:
         try:
             timer = models.Timer.objects.get(id=timer_id)
@@ -69,6 +70,13 @@ def set_initial_values(kwargs, form_type):
             if last_method not in ["left breast", "right breast"]:
                 last_feed_args["method"] = last_method
             kwargs["initial"].update(last_feed_args)
+
+    # Set values the Timer's context holds for this form's model. These come
+    # after the defaults above because they record what the Timer was started for.
+    if timer:
+        kwargs["initial"].update(
+            timer.extract_context_fields_for(form_type._meta.model)
+        )
 
     # Set default "nap" value for Sleep instances.
     if form_type == SleepForm and "nap" not in kwargs["initial"]:
