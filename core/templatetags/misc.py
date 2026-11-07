@@ -2,6 +2,7 @@
 from django import template
 
 from core.models import Feeding
+from babybuddy.site_settings import DisplaySettings
 
 register = template.Library()
 
@@ -38,3 +39,12 @@ def feeding_time_diff_base(context, feeding):
         return feeding.end if Feeding.settings.feeding_diff_end else feeding.start
     else:
         return None
+
+
+@register.simple_tag
+def prev_word():
+    """Configurable trailing word for the Previous column time gap."""
+    try:
+        return str(DisplaySettings().prev_word or "ago")
+    except Exception:
+        return "ago"
