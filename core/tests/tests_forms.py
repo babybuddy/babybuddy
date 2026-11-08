@@ -1273,19 +1273,25 @@ class MedicationFormsTestCase(FormsTestCaseBase):
         self.assertContains(page, '<option value="Tylenol">')
         # "Tylenol" must appear exactly once despite two records using it.
         self.assertEqual(content.count('<option value="Tylenol">'), 1)
+        # Most recently used first: Amoxicillin (now) before Tylenol (1h ago).
+        self.assertLess(
+            content.index('<option value="Amoxicillin">'),
+            content.index('<option value="Tylenol">'),
+        )
         # Input opts into the datalist.
         self.assertContains(page, 'list="medication-name-list"')
 
     def test_name_datalist_ordered_by_most_recent_use(self):
+        # Recency and alphabetical order disagree, so a name-sorted list fails.
         now = timezone.localtime()
         models.Medication.objects.create(
-            child=self.child, name="Older", time=now - timezone.timedelta(days=30)
+            child=self.child, name="Aspirin", time=now - timezone.timedelta(days=30)
         )
-        models.Medication.objects.create(child=self.child, name="Newest", time=now)
+        models.Medication.objects.create(child=self.child, name="Zinc", time=now)
         content = self.c.get("/medication/add/").content.decode()
         self.assertLess(
-            content.index('<option value="Newest">'),
-            content.index('<option value="Older">'),
+            content.index('<option value="Zinc">'),
+            content.index('<option value="Aspirin">'),
         )
 
     def test_name_datalist_is_capped(self):
