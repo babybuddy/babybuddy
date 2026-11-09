@@ -6413,6 +6413,19 @@ paths:
           description: ""
       tags:
         - api
+  /api/version:
+    get:
+      operationId: retrieveVersion
+      description: Installed Baby Buddy version and the latest released version.
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: ""
+      tags:
+        - api
   /api/timers/{id}/restart/:
     patch:
       operationId: restartTimer

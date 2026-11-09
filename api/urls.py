@@ -66,6 +66,7 @@ router.register(r"webhook-endpoints", views.WebhookEndpointViewSet)
 router.register(r"weight", views.WeightViewSet)
 
 router.add_detail_path("profile", "profile", views.ProfileView.as_view())
+router.add_detail_path("version", "version", views.VersionView.as_view())
 router.add_detail_path(
     "schema",
     "openapi-schema",

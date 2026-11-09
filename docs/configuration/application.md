@@ -28,3 +28,12 @@ Force 24-hour time display and input formats for locales that default to a
 12-hour clock (the English locale family: English (US) and English (UK)).
 Other supported locales already use 24-hour time formats natively, so this
 setting has no effect on them.
+
+## `VERSION_CHECK`
+
+_Default:_ `True`
+
+Allow `/api/version/` to look up the latest Baby Buddy release on GitHub
+(`api.github.com`). The lookup happens only when an API client asks for the
+version, and the result is cached for six hours. Set to `False` to never contact
+GitHub; the endpoint then reports `latest_version` as `"disabled"`.

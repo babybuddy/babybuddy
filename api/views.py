@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import mixins, status, viewsets, views
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.schemas.openapi import AutoSchema
 from rest_framework.settings import api_settings
@@ -14,6 +15,7 @@ from rest_framework.validators import UniqueTogetherValidator
 
 from core import models
 from babybuddy import models as babybuddy_models
+from babybuddy import version_check
 from webhooks import models as webhooks_models
 
 from . import serializers, filters
@@ -243,6 +245,23 @@ class ProfileView(views.APIView):
         )
         serializer = self.serializer_class(settings)
         return Response(serializer.data)
+
+
+class VersionView(views.APIView):
+    """Installed Baby Buddy version and the latest released version.
+
+    ``latest_version`` is "disabled" when ``VERSION_CHECK`` is off and
+    "unknown" when the release lookup failed.
+    """
+
+    schema = AutoSchema(operation_id_base="Version")
+
+    action = "get"
+    basename = "version"
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response(version_check.get_version_info())
 
 
 class WebhookEndpointViewSet(viewsets.ModelViewSet):

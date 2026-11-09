@@ -27,6 +27,25 @@ Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 - `/api/tummy-times/`
 - `/api/weight/`
 
+### Version
+
+`GET /api/version/` returns the installed Baby Buddy version and the latest
+released version, so clients (such as the Home Assistant integration) can tell
+when an update is available. Any authenticated user can read it.
+
+```json
+{
+  "version": "2.10.1",
+  "latest_version": "2.11.0",
+  "release_url": "https://github.com/babybuddy/babybuddy/releases/tag/v2.11.0"
+}
+```
+
+The latest version is looked up on GitHub only when this endpoint is called and
+is cached for six hours. `latest_version` is `"unknown"` when the lookup failed
+and `"disabled"` when [`VERSION_CHECK`](configuration/application.md#version_check)
+is off; `release_url` is `null` in both cases.
+
 ## Authentication
 
 The [TokenAuthentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
