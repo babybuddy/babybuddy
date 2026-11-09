@@ -21,6 +21,9 @@ def diaperchange_intervals(changes):
 
     changes = changes.order_by("time")
     change_times = list(changes.values_list("time", flat=True))[1:]
+    if not change_times:
+        # Fewer than two changes means there are no intervals to plot.
+        return None, None
     times = []
     times_solid = []
     times_wet = []
