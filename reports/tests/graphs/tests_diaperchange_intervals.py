@@ -39,3 +39,20 @@ class DiaperChangeIntervalsTestCase(TestCase):
         )
         self.assertIsNotNone(html)
         self.assertIsNotNone(js)
+
+    def test_diaperchange_intervals_single_change(self):
+        c = models.Child(birth_date=dt.datetime.now())
+        c.save()
+
+        models.DiaperChange.objects.create(
+            child=c,
+            time=dt.datetime(2000, 1, 1, 0, 0, tzinfo=dt.timezone.utc),
+            wet=True,
+            solid=False,
+        )
+
+        html, js = diaperchange_intervals(
+            models.DiaperChange.objects.filter(child=c).order_by("time")
+        )
+        self.assertIsNone(html)
+        self.assertIsNone(js)
