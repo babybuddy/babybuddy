@@ -6731,12 +6731,8 @@ components:
           nullable: true
           description: Amount of medication given
         dosage_unit:
-          enum:
-            - mg
-            - ml
-            - tablets
-            - drops
           type: string
+          maxLength: 20
         time:
           type: string
           format: date-time
