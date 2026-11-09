@@ -1062,6 +1062,17 @@ class WeightFormsTestCase(FormsTestCaseBase):
             date=timezone.localdate() - timezone.timedelta(days=2),
         )
 
+    def test_add_decimal_comma(self):
+        params = {
+            "child": self.child.id,
+            "weight": "3,5",
+            "date": self.localdate_string(),
+        }
+
+        page = self.c.post("/weight/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertEqual(models.Weight.objects.latest("id").weight, 3.5)
+
     def test_add(self):
         params = {
             "child": self.child.id,
