@@ -3,7 +3,7 @@
     <div class="card card-dashboard card-statistics">
         <div class="card-header">
             <i class="icon-graph pull-left" aria-hidden="true"></i>
-            {% trans "Statistics" %}
+            <a href="{% url 'dashboard:statistics-child' child.slug %}">{% trans "Statistics" %}</a>
         </div>
         <div class="card-body text-center">
             {% if stats|length > 0 %}
@@ -13,19 +13,7 @@
                     <div class="carousel-inner">
                         {% for stat in stats %}
                             <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
-                                <span class="card-title">
-                                    {% if stat.stat %}
-                                        {% if stat.type == "duration" %}
-                                            {{ stat.stat|duration_string:'m' }}
-                                        {% elif stat.type == "float" %}
-                                            {{ stat.stat|floatformat }}
-                                        {% else %}
-                                            {{ stat.stat }}
-                                        {% endif %}
-                                    {% else %}
-                                        <em>{% trans "Not enough data" %}</em>
-                                    {% endif %}
-                                </span>
+                                <span class="card-title">{% include "dashboard/statistic_value.html" %}</span>
                                 <div class="card-text">{{ stat.title }}</div>
                             </div>
                         {% endfor %}
