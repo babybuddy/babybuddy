@@ -1,0 +1,37 @@
+{% extends "babybuddy/page.html" %}
+{% load breadcrumb i18n %}
+{% block title %}
+    {% trans "Statistics" %} - {{ object }}
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'core:child-list' %}">{% trans "Children" %}</a>
+    </li>
+    <li class="breadcrumb-item fw-bold">{% child_quick_switch object 'dashboard:statistics-child' %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Statistics" %}</li>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <h1>{% trans "Statistics" %}</h1>
+        {% if stats %}
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+                {% for stat in stats %}
+                    <div class="col">
+                        <div class="card card-dashboard card-statistics h-100">
+                            <div class="card-body text-center">
+                                <span class="card-title">
+                                    {% include "dashboard/statistic_value.html" %}
+                                </span>
+                                <div class="card-text">{{ stat.title }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>
+                <strong>{% trans "No data yet" %}</strong>
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

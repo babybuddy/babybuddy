@@ -482,10 +482,10 @@ def card_sleep_naps_day(context, child, date=None):
     }
 
 
-@register.inclusion_tag("cards/statistics.html", takes_context=True)
-def card_statistics(context, child):
+def child_statistics(context, child):
     """
-    Statistics data for all models.
+    Statistics data for all models the user may view.
+    :param context: a template context (or a dictionary) holding the "request".
     :param child: an instance of the Child model.
     :returns: a list of dictionaries with "type", "stat" and "title" entries.
     """
@@ -593,9 +593,24 @@ def card_statistics(context, child):
             }
         )
 
-    empty = len(stats) == 0
+    return stats
 
-    return {"stats": stats, "empty": empty, "hide_empty": _hide_empty(context)}
+
+@register.inclusion_tag("cards/statistics.html", takes_context=True)
+def card_statistics(context, child):
+    """
+    Statistics data for all models.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the "stats" list of dictionaries (see
+        `child_statistics`).
+    """
+    stats = child_statistics(context, child)
+    return {
+        "stats": stats,
+        "child": child,
+        "empty": len(stats) == 0,
+        "hide_empty": _hide_empty(context),
+    }
 
 
 def _diaperchange_statistics(child):
