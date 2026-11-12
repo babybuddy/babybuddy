@@ -29,7 +29,7 @@ Currently, the following endpoints are available for `GET`, `OPTIONS`, and
 
 ### Version
 
-`GET /api/version/` returns the installed Baby Buddy version and the latest
+`GET /api/version` returns the installed Baby Buddy version and the latest
 released version, so clients (such as the Home Assistant integration) can tell
 when an update is available. Any authenticated user can read it.
 

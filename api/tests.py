@@ -1364,6 +1364,52 @@ class VersionAPITestCase(APITestCase):
         response = self.client.get(reverse("api:api-root"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn("version", response.data)
+        self.assertTrue(response.data["version"].endswith("/api/version"))
+
+    def test_documented_path(self):
+        # The literal URL from docs/api.md, not reverse(), so a mismatch
+        # between the docs and the registered route is caught.
+        with patch.object(version_check, "_fetch_latest_version", return_value="9.9.9"):
+            response = self.client.get("/api/version")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["latest_version"], "9.9.9")
+
+    def test_failure_does_not_replace_cached_version(self):
+        from django.core.cache import cache
+
+        # Another request cached a good version after this one's cache miss.
+        cache.set(version_check.CACHE_KEY, "2.11.0", version_check.CACHE_TIMEOUT)
+        real_get = cache.get
+        calls = []
+
+        def get_missing_first(key, *args, **kwargs):
+            calls.append(key)
+            return None if len(calls) == 1 else real_get(key, *args, **kwargs)
+
+        with patch.object(
+            version_check.cache, "get", side_effect=get_missing_first
+        ), patch.object(
+            version_check, "_fetch_latest_version", side_effect=OSError("rate limited")
+        ):
+            latest = version_check.get_latest_version()
+
+        self.assertEqual(latest, "2.11.0")
+        self.assertEqual(cache.get(version_check.CACHE_KEY), "2.11.0")
+
+    def test_success_replaces_cached_failure(self):
+        from django.core.cache import cache
+
+        # Another request cached a failure after this one's cache miss.
+        cache.set(
+            version_check.CACHE_KEY,
+            version_check.LATEST_UNKNOWN,
+            version_check.CACHE_TIMEOUT_FAILURE,
+        )
+        with patch.object(version_check.cache, "get", return_value=None), patch.object(
+            version_check, "_fetch_latest_version", return_value="2.11.0"
+        ):
+            self.assertEqual(version_check.get_latest_version(), "2.11.0")
+        self.assertEqual(cache.get(version_check.CACHE_KEY), "2.11.0")
 
     def test_requires_authentication(self):
         self.client.logout()

@@ -33,7 +33,7 @@ setting has no effect on them.
 
 _Default:_ `True`
 
-Allow `/api/version/` to look up the latest Baby Buddy release on GitHub
+Allow `/api/version` to look up the latest Baby Buddy release on GitHub
 (`api.github.com`). The lookup happens only when an API client asks for the
 version, and the result is cached for six hours. Set to `False` to never contact
 GitHub; the endpoint then reports `latest_version` as `"disabled"`.

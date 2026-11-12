@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Look up the latest Baby Buddy release, for the API's version endpoint.
 
-The lookup only runs when a client asks for it (``/api/version/``), and the
+The lookup only runs when a client asks for it (``/api/version``), and the
 result is cached so GitHub is contacted at most once per ``CACHE_TIMEOUT``.
 """
 
@@ -53,13 +53,16 @@ def get_latest_version():
 
     try:
         latest = _fetch_latest_version()
-        timeout = CACHE_TIMEOUT
     except Exception as error:  # noqa: BLE001 - any failure means "unknown"
         logger.warning("Could not check for a new Baby Buddy release: %s", error)
-        latest = LATEST_UNKNOWN
-        timeout = CACHE_TIMEOUT_FAILURE
+        # A concurrent request may have cached a good version since our
+        # cache miss. add() only writes when the key is absent, so a failed
+        # lookup never replaces a successful one.
+        if not cache.add(CACHE_KEY, LATEST_UNKNOWN, CACHE_TIMEOUT_FAILURE):
+            return cache.get(CACHE_KEY) or LATEST_UNKNOWN
+        return LATEST_UNKNOWN
 
-    cache.set(CACHE_KEY, latest, timeout)
+    cache.set(CACHE_KEY, latest, CACHE_TIMEOUT)
     return latest
 
 
