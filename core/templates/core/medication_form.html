@@ -26,4 +26,9 @@
         <h1>{% trans "Add a Medication Entry" %}</h1>
     {% endif %}
     {% include "babybuddy/form.html" %}
+    <datalist id="medication-dosage-units">
+        {% for value, label in form.dosage_unit_suggestions.items %}
+            <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
+    </datalist>
 {% endblock %}

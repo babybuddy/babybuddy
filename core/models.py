@@ -800,6 +800,12 @@ class Weight(models.Model):
 
 class Medication(models.Model):
     model_name = "medication"
+    DOSAGE_UNIT_LABELS = {
+        "mg": _("MG"),
+        "ml": _("ML"),
+        "tablets": _("Tablets"),
+        "drops": _("Drops"),
+    }
 
     child = models.ForeignKey(
         "Child",
@@ -825,16 +831,16 @@ class Medication(models.Model):
     )
     dosage_unit = models.CharField(
         max_length=20,
-        choices=[
-            ("mg", _("MG")),
-            ("ml", _("ML")),
-            ("tablets", _("Tablets")),
-            ("drops", _("Drops")),
-        ],
         blank=True,
         null=False,
         default="",
         verbose_name=_("Dosage Unit"),
+        validators=[
+            RegexValidator(
+                r"\A[^\x00-\x1f\x7f-\x9f\u2028\u2029]*\Z",
+                _("Enter the dosage unit on one line."),
+            )
+        ],
     )
     time = models.DateTimeField(
         blank=False,
@@ -859,6 +865,9 @@ class Medication(models.Model):
         verbose_name = _("Medication")
         verbose_name_plural = _("Medications")
         default_permissions = ("view", "add", "change", "delete")
+
+    def get_dosage_unit_display(self):
+        return self.DOSAGE_UNIT_LABELS.get(self.dosage_unit, self.dosage_unit)
 
     @property
     def next_dose_time(self):
