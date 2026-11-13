@@ -30,4 +30,28 @@
         <h1>{% trans "Add a Feeding" %}</h1>
     {% endif %}
     {% include "babybuddy/form.html" %}
+    <script>
+    (function () {
+        // Formula and solid food can't be given from the breast.
+        const notFromTheBreast = ["formula", "solid food"];
+        const breastMethods = ["left breast", "right breast", "both breasts"];
+        function sync() {
+            const type = document.querySelector("input[name=type]:checked")?.value;
+            const blocked = notFromTheBreast.includes(type);
+            breastMethods.forEach((method) => {
+                const input = document.querySelector(`input[name=method][value="${method}"]`);
+                if (!input) return;
+                input.disabled = blocked;
+                if (blocked && input.checked) {
+                    input.checked = false;
+                    // Let anything that follows the method see it was cleared.
+                    input.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+            });
+        }
+        document.querySelectorAll("input[name=type]")
+            .forEach((el) => el.addEventListener("change", sync));
+        sync();
+    })();
+    </script>
 {% endblock %}

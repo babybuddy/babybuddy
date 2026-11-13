@@ -198,6 +198,9 @@ class Command(BaseCommand):
         :returns:
         """
         method = choice(models.Feeding._meta.get_field("method").choices)[0]
+        types = [t for t, label in models.Feeding._meta.get_field("type").choices]
+        if method in models.Feeding.BREAST_METHODS:
+            types = [t for t in types if t not in models.Feeding.NOT_FROM_THE_BREAST]
         amount = None
         if method == "bottle":
             amount = Decimal("%d.%d" % (randint(0, 6), randint(0, 9)))
@@ -213,7 +216,7 @@ class Command(BaseCommand):
                 child=self.child,
                 start=start,
                 end=end,
-                type=choice(models.Feeding._meta.get_field("type").choices)[0],
+                type=choice(types),
                 method=method,
                 amount=amount,
                 notes=notes,
