@@ -100,7 +100,27 @@ class CoreModelForm(forms.ModelForm):
         self.timer_id = kwargs.get("timer", None)
         kwargs = set_initial_values(kwargs, type(self))
         super(CoreModelForm, self).__init__(*args, **kwargs)
+        self.accept_decimal_comma()
         self.add_timer_field()
+
+    def accept_decimal_comma(self):
+        """
+        Read a decimal comma as a point in number fields.
+
+        Mobile keyboards in comma-decimal regions may offer no point at all.
+        """
+        if not self.is_bound:
+            return
+
+        self.data = self.data.copy()
+        for name, field in self.fields.items():
+            value = self.data.get(self.add_prefix(name))
+            if (
+                isinstance(field, forms.FloatField)
+                and isinstance(value, str)
+                and value.count(",") == 1
+            ):
+                self.data[self.add_prefix(name)] = value.replace(",", ".")
 
     def add_timer_field(self):
         """
