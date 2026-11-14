@@ -12,6 +12,8 @@
     <div class="container-fluid">
         <h1>Reports</h1>
         <div class="reports-list list-group">
+            <a href="{% url 'dashboard:statistics-child' object.slug %}"
+               class="list-group-item list-group-item-action">{% trans "Statistics" %}</a>
             {% if perms.core.view_bmi %}
                 <a href="{% url 'reports:report-bmi-change-child' object.slug %}"
                    class="list-group-item list-group-item-action">{% trans "Body Mass Index (BMI)" %}</a>

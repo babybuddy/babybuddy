@@ -168,6 +168,46 @@ class DashboardCardPermissionsTestCase(TestCase):
         ]:
             self.assertNotIn(title, content)
 
+    def test_statistics_page_lists_every_statistic(self):
+        self._login("readonly", read_only=True)
+        page = self.c.get("/children/{}/statistics/".format(self.child.slug))
+        self.assertEqual(page.status_code, 200)
+        self.assertTemplateUsed(page, "dashboard/statistics.html")
+        content = page.content.decode()
+        for title in [
+            "Diaper change frequency",
+            "Feeding frequency",
+            "Average sleep duration",
+            "Weight change per week",
+        ]:
+            self.assertIn(title, content)
+
+    def test_statistics_page_excludes_models_without_permission(self):
+        self._login("carer", codenames=CARE_ENTRY_PERMISSIONS)
+        page = self.c.get("/children/{}/statistics/".format(self.child.slug))
+        self.assertEqual(page.status_code, 200)
+        content = page.content.decode()
+        self.assertIn("Feeding frequency", content)
+        for title in [
+            "Weight change per week",
+            "Height change per week",
+            "Head circumference change per week",
+            "BMI change per week",
+        ]:
+            self.assertNotIn(title, content)
+
+    def test_statistics_page_requires_view_child_permission(self):
+        self._login("nobody", codenames=("view_feeding",))
+        page = self.c.get("/children/{}/statistics/".format(self.child.slug))
+        self.assertEqual(page.status_code, 403)
+
+    def test_statistics_card_links_to_statistics_page(self):
+        self._login("readonly", read_only=True)
+        page = self.c.get(self.url)
+        self.assertContains(
+            page, 'href="/children/{}/statistics/"'.format(self.child.slug)
+        )
+
     def test_read_only_user_still_sees_every_card(self):
         self._login("readonly", read_only=True)
         page = self.c.get(self.url)
