@@ -37,6 +37,19 @@ class WeightChangeCorrectedAgeTestCase(TestCase):
         self.assertIsNotNone(match, "no percentile dates found for {}".format(name))
         return dt.date.fromisoformat(match.group(1))
 
+    def _expected_first_date(self, anchor):
+        """Where the curves should start: the anchor plus the earliest age.
+
+        The reference data covers the weeks before term, so the first plotted
+        date is earlier than the anchor itself by that many days.
+        """
+        earliest_age = (
+            self.percentiles.order_by("age_in_days")
+            .values_list("age_in_days", flat=True)
+            .first()
+        )
+        return anchor + earliest_age
+
     def test_corrected_age_note_shown_for_preterm(self):
         # Born 23 days before the due date -> percentiles use corrected age.
         birth_date = dt.date(2025, 6, 1)
@@ -53,8 +66,10 @@ class WeightChangeCorrectedAgeTestCase(TestCase):
             child.due_date,
         )
         self.assertIn(CORRECTED_AGE_NOTE, js)
-        # The curves start at the due date rather than the birth date.
-        self.assertEqual(self._first_percentile_date(js), due_date)
+        # The curves are anchored to the due date rather than the birth date.
+        self.assertEqual(
+            self._first_percentile_date(js), self._expected_first_date(due_date)
+        )
 
     def test_no_correction_without_due_date(self):
         birth_date = dt.date(2025, 6, 1)
@@ -70,7 +85,9 @@ class WeightChangeCorrectedAgeTestCase(TestCase):
             child.due_date,
         )
         self.assertNotIn(CORRECTED_AGE_NOTE, js)
-        self.assertEqual(self._first_percentile_date(js), birth_date)
+        self.assertEqual(
+            self._first_percentile_date(js), self._expected_first_date(birth_date)
+        )
 
     def test_no_correction_when_due_date_before_birth(self):
         # Post-term birth: do not apply a (negative) correction.
@@ -88,7 +105,9 @@ class WeightChangeCorrectedAgeTestCase(TestCase):
             child.due_date,
         )
         self.assertNotIn(CORRECTED_AGE_NOTE, js)
-        self.assertEqual(self._first_percentile_date(js), birth_date)
+        self.assertEqual(
+            self._first_percentile_date(js), self._expected_first_date(birth_date)
+        )
 
     def test_no_note_without_percentile_data(self):
         # The plain weight report has no percentile curves to correct, so its
