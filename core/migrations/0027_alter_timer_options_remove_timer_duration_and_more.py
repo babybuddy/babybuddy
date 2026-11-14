@@ -2,10 +2,11 @@ from django.db import migrations
 
 
 def delete_inactive_timers(apps, schema_editor):
-    from core import models
-
-    for timer in models.Timer.objects.filter(active=False):
-        timer.delete()
+    # Importing Timer from core.models would include fields added by later
+    # migrations. Their columns don't exist yet when this runs, so the query
+    # would fail. This gets Timer as it was when this migration was written.
+    Timer = apps.get_model("core", "Timer")
+    Timer.objects.filter(active=False).delete()
 
 
 class Migration(migrations.Migration):

@@ -1180,6 +1180,27 @@ class TimerAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["name"], entry["name"])
 
+    def test_post_context(self):
+        data = {
+            "context": {
+                "_babybuddy": {
+                    "version": 1,
+                    "model": "Feeding",
+                    "fields": {"type": "formula", "method": "bottle"},
+                },
+            },
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        obj = models.Timer.objects.get(pk=response.data["id"])
+        self.assertEqual(obj.context, data["context"])
+
+    def test_post_context_invalid(self):
+        data = {"context": {"_babybuddy": {"version": 1, "model": "Nope"}}}
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("context", response.data)
+
     def test_start_restart_timer(self):
         endpoint = "{}{}/".format(self.endpoint, 1)
         response = self.client.get(endpoint)

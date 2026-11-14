@@ -142,6 +142,35 @@ class InitialValuesTestCase(FormsTestCaseBase):
         self.assertTrue("start" in page.context["form"].initial)
         self.assertTrue("end" in page.context["form"].initial)
 
+    def test_values_set_from_timer_context(self):
+        models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(hours=2),
+            end=timezone.localtime() - timezone.timedelta(hours=1, minutes=30),
+            type="breast milk",
+            method="both breasts",
+        )
+        timer = models.Timer.objects.create(
+            user=self.user,
+            child=self.child,
+            context={
+                "_babybuddy": {
+                    "version": 1,
+                    "model": "Feeding",
+                    "fields": {"type": "formula", "method": "bottle"},
+                },
+            },
+        )
+
+        # The context is preferred over the values of the last feeding.
+        page = self.c.get("/feedings/add/?timer={}".format(timer.id))
+        self.assertEqual(page.context["form"].initial["type"], "formula")
+        self.assertEqual(page.context["form"].initial["method"], "bottle")
+
+        # The context is only used for the model it names.
+        page = self.c.get("/sleep/add/?timer={}".format(timer.id))
+        self.assertNotIn("type", page.context["form"].initial)
+
     def test_start_end_not_set_from_invalid_timer(self):
         page = self.c.get("/sleep/add/?timer={}".format(42))
         self.assertTrue("start" not in page.context["form"].initial)
@@ -940,6 +969,15 @@ class TimerFormsTestCase(FormsTestCaseBase):
         self.assertEqual(page.status_code, 200)
         self.assertNotContains(page, "Timer entry for None updated.")
         self.assertContains(page, "Timer entry updated.")
+
+    def test_edit_keeps_context(self):
+        context = {"_babybuddy-alexa": {"intent": "feeding"}}
+        timer = models.Timer.objects.create(user=self.user, context=context)
+        params = {"name": "Renamed", "start": self.localtime_string(timer.start)}
+        page = self.c.post("/timers/{}/edit/".format(timer.id), params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        timer.refresh_from_db()
+        self.assertEqual(timer.context, context)
 
 
 class ValidationsTestCase(FormsTestCaseBase):
