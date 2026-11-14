@@ -633,14 +633,28 @@ class WeightList(PermissionRequiredMixin, BabyBuddyPaginatedView, BabyBuddyFilte
     filterset_class = filters.WeightFilter
 
 
-class WeightAdd(CoreAddView):
+class WeightFormMixin:
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if not form.errors and form.cleaned_data["weight"] > 1000:
+            messages.warning(
+                self.request,
+                _(
+                    "Weight is measured in kilograms (kg). Please check that you "
+                    "have not entered the weight in grams."
+                ),
+            )
+        return response
+
+
+class WeightAdd(WeightFormMixin, CoreAddView):
     model = models.Weight
     permission_required = ("core.add_weight",)
     form_class = forms.WeightForm
     success_url = reverse_lazy("core:weight-list")
 
 
-class WeightUpdate(CoreUpdateView):
+class WeightUpdate(WeightFormMixin, CoreUpdateView):
     model = models.Weight
     permission_required = ("core.change_weight",)
     form_class = forms.WeightForm

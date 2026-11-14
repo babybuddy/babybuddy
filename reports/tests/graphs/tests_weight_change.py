@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime as dt
 import re
+from unittest.mock import patch
 
 from django.test import TestCase
 
@@ -8,6 +9,31 @@ from core import models
 from reports.graphs.weight_change import weight_change
 
 CORRECTED_AGE_NOTE = "Percentiles plotted by corrected age"
+
+
+class WeightChangeUnitsTestCase(TestCase):
+    @patch(
+        "reports.graphs.weight_change.plotly.plot",
+        return_value="<div><script></script></div>",
+    )
+    def test_y_axis_unit_for_all_weight_reports(self, plot):
+        child = models.Child.objects.create(
+            first_name="Test", last_name="Child", birth_date=dt.date(2025, 1, 1)
+        )
+        models.Weight.objects.create(
+            child=child, date=dt.date(2025, 1, 2), weight=3.562
+        )
+
+        for sex in [None, "boy", "girl"]:
+            with self.subTest(sex=sex):
+                weight_change(
+                    child.weight.all(),
+                    models.WeightPercentile.objects.filter(sex=sex),
+                    child.birth_date,
+                )
+                figure = plot.call_args.args[0]
+                self.assertEqual(figure.layout.yaxis.title.text, "Weight (kg)")
+                self.assertEqual(list(figure.data[0].y), [3.562])
 
 
 class WeightChangeCorrectedAgeTestCase(TestCase):

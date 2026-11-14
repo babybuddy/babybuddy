@@ -235,6 +235,13 @@ function styles() {
 }
 
 /**
+ * Runs JavaScript tests using Node's built-in test runner.
+ */
+function testJavaScript() {
+  return _runCommand("node", ["--test", "core/tests/js/*.test.js"]);
+}
+
+/**
  * Runs all tests _not_ tagged "isolate".
  *
  * @param cb
@@ -386,7 +393,7 @@ gulp.task("generateschema", () => {
 
 gulp.task("clean", clean);
 
-gulp.task("coverage", coverage);
+gulp.task("coverage", gulp.series(testJavaScript, coverage));
 
 gulp.task("docs:build", docsBuild);
 
@@ -404,7 +411,7 @@ gulp.task("scripts", scripts);
 
 gulp.task("styles", styles);
 
-gulp.task("test", test);
+gulp.task("test", gulp.series(testJavaScript, test));
 
 gulp.task("updateglyphs", updateGlyphs);
 
