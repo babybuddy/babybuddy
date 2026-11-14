@@ -52,3 +52,21 @@ class FeedingSettings(dbsettings.Group):
         ),
         widget=CheckboxInput,
     )
+
+
+class DisplaySettings(dbsettings.Group):
+    prev_word = dbsettings.StringValue(
+        default="ago",
+        choices=[("ago", "ago"), ("prior", "prior"), ("before", "before")],
+        required=False,
+        description=_("Previous-entry wording"),
+        help_text=_(
+            "Word displayed after the time gap in the 'Previous' column of "
+            "activity list pages (e.g. '5 minutes ago')."
+        ),
+    )
+
+
+# Instantiate at import so the value registers with dbsettings immediately
+# (unattached groups only register on first instantiation).
+DisplaySettings()
