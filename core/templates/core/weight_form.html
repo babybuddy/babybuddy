@@ -25,5 +25,12 @@
     {% else %}
         <h1>{% trans "Add a Weight Entry" %}</h1>
     {% endif %}
+    <div id="weight-unit-warning"
+         class="alert alert-warning d-none"
+         role="alert">
+        {% blocktrans trimmed %}
+            Weight is measured in kilograms (kg). Please check that you have not entered the weight in grams.
+        {% endblocktrans %}
+    </div>
     {% include "babybuddy/form.html" %}
 {% endblock %}

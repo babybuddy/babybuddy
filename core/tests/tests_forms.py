@@ -3,6 +3,7 @@ import datetime
 import io
 import tempfile
 
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management import call_command
@@ -1053,6 +1054,11 @@ class ValidationsTestCase(FormsTestCaseBase):
 
 
 class WeightFormsTestCase(FormsTestCaseBase):
+    warning_message = (
+        "Weight is measured in kilograms (kg). Please check that you "
+        "have not entered the weight in grams."
+    )
+
     @classmethod
     def setUpClass(cls):
         super(WeightFormsTestCase, cls).setUpClass()
@@ -1091,6 +1097,71 @@ class WeightFormsTestCase(FormsTestCaseBase):
         page = self.c.post("/weight/{}/delete/".format(self.weight.id), follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertContains(page, "Weight entry deleted")
+
+    def test_weight_unit_labels(self):
+        for path in ["/weight/add/", "/weight/{}/".format(self.weight.id)]:
+            with self.subTest(path=path):
+                page = self.c.get(path)
+                self.assertEqual(
+                    page.context["form"].fields["weight"].label, "Weight (kg)"
+                )
+                self.assertContains(page, "Weight (kg)")
+
+        page = self.c.get("/weight/")
+        self.assertContains(page, "<th>Weight (kg)</th>", html=True)
+
+    def test_large_weight_warning(self):
+        for path in ["/weight/add/", "/weight/{}/".format(self.weight.id)]:
+            for weight in [8.5, 999.99, 1000, 1000.01, 3562]:
+                with self.subTest(path=path, weight=weight):
+                    params = {
+                        "child": self.child.id,
+                        "weight": weight,
+                        "date": self.localdate_string(),
+                    }
+                    page = self.c.post(path, params, follow=True)
+                    self.assertRedirects(page, "/weight/")
+                    warnings = [
+                        str(message)
+                        for message in page.context["messages"]
+                        if message.level == messages.WARNING
+                    ]
+                    self.assertEqual(
+                        warnings, [self.warning_message] if weight > 1000 else []
+                    )
+                    if path == "/weight/add/":
+                        entry = models.Weight.objects.latest("id")
+                    else:
+                        self.weight.refresh_from_db()
+                        entry = self.weight
+                    self.assertEqual(entry.weight, weight)
+
+    def test_inline_weight_warning_on_add_and_edit_forms(self):
+        for path in ["/weight/add/", "/weight/{}/".format(self.weight.id)]:
+            with self.subTest(path=path):
+                page = self.c.get(path)
+                self.assertContains(page, 'id="weight-unit-warning"')
+                self.assertContains(page, 'aria-describedby="weight-unit-warning"')
+                self.assertContains(page, self.warning_message)
+                self.assertContains(page, 'class="alert alert-warning d-none"')
+
+    def test_invalid_weight_submission_does_not_warn(self):
+        for weight in ["", "invalid", 3562]:
+            with self.subTest(weight=weight):
+                count = models.Weight.objects.count()
+                page = self.c.post(
+                    "/weight/add/",
+                    {"weight": weight, "date": self.localdate_string()},
+                )
+                self.assertEqual(page.status_code, 200)
+                self.assertTrue(page.context["form"].errors)
+                self.assertFalse(
+                    any(
+                        message.level == messages.WARNING
+                        for message in page.context["messages"]
+                    )
+                )
+                self.assertEqual(models.Weight.objects.count(), count)
 
 
 class MedicationFormsTestCase(FormsTestCaseBase):

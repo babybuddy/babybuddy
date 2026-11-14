@@ -54,7 +54,7 @@ for more details about other options and functionality of this command.
 
 ### `coverage`
 
-Create a test coverage report. See [`.coveragerc`](https://github.com/babybuddy/babybuddy/tree/master/.coveragerc)
+Runs JavaScript tests, then creates a Python test coverage report. See [`.coveragerc`](https://github.com/babybuddy/babybuddy/tree/master/.coveragerc)
 for default settings information.
 
 ### `extras`
@@ -128,7 +128,7 @@ not need to be executed independently - see the `build` command.
 
 ### `test`
 
-Executes Baby Buddy's suite of tests.
+Executes Baby Buddy's JavaScript and Python test suites.
 
 Gulp also passes along non-overlapping arguments for this command, however
 individual tests cannot be run with this command. `python manage.py test` can be

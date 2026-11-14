@@ -110,7 +110,7 @@ def weight_change(
         )
     layout_args["xaxis"]["title"] = _("Date")
     layout_args["xaxis"]["rangeselector"] = utils.rangeselector_date()
-    layout_args["yaxis"]["title"] = _("Weight")
+    layout_args["yaxis"]["title"] = _("Weight (kg)")
     if percentile_weights:
         # zoom in on the relevant dates
         layout_args["xaxis"]["range"] = [

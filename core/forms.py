@@ -619,8 +619,12 @@ class WeightForm(CoreModelForm, TaggableModelForm):
     class Meta:
         model = models.Weight
         fields = ["child", "weight", "date", "notes", "tags"]
+        labels = {"weight": _("Weight (kg)")}
         widgets = {
             "child": ChildRadioSelect,
+            "weight": widgets.NumberInput(
+                attrs={"aria-describedby": "weight-unit-warning"}
+            ),
             "date": DateInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
