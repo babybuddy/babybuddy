@@ -2,6 +2,7 @@
 import json
 from unittest.mock import patch
 
+from babybuddy import VERSION, version_check
 from babybuddy.models import get_user_model
 from api import serializers
 from core import models
@@ -1348,6 +1349,146 @@ class TestProfileAPITestCase(APITestCase):
         self.assertIn("api_key", response.data)
         self.assertTrue(isinstance(response.data["api_key"], str))
         self.assertGreater(len(response.data["api_key"]), 30)
+
+
+class VersionAPITestCase(APITestCase):
+    endpoint = reverse("api:version")
+
+    def setUp(self):
+        from django.core.cache import cache
+
+        cache.delete(version_check.CACHE_KEY)
+        self.client.login(username="admin", password="admin")
+
+    def test_listed_in_api_root(self):
+        response = self.client.get(reverse("api:api-root"))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("version", response.data)
+        self.assertTrue(response.data["version"].endswith("/api/version"))
+
+    def test_documented_path(self):
+        # The literal URL from docs/api.md, not reverse(), so a mismatch
+        # between the docs and the registered route is caught.
+        with patch.object(version_check, "_fetch_latest_version", return_value="9.9.9"):
+            response = self.client.get("/api/version")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["latest_version"], "9.9.9")
+
+    def test_failure_does_not_replace_cached_version(self):
+        from django.core.cache import cache
+
+        # Another request cached a good version after this one's cache miss.
+        cache.set(version_check.CACHE_KEY, "2.11.0", version_check.CACHE_TIMEOUT)
+        real_get = cache.get
+        calls = []
+
+        def get_missing_first(key, *args, **kwargs):
+            calls.append(key)
+            return None if len(calls) == 1 else real_get(key, *args, **kwargs)
+
+        with patch.object(
+            version_check.cache, "get", side_effect=get_missing_first
+        ), patch.object(
+            version_check, "_fetch_latest_version", side_effect=OSError("rate limited")
+        ):
+            latest = version_check.get_latest_version()
+
+        self.assertEqual(latest, "2.11.0")
+        self.assertEqual(cache.get(version_check.CACHE_KEY), "2.11.0")
+
+    def test_success_replaces_cached_failure(self):
+        from django.core.cache import cache
+
+        # Another request cached a failure after this one's cache miss.
+        cache.set(
+            version_check.CACHE_KEY,
+            version_check.LATEST_UNKNOWN,
+            version_check.CACHE_TIMEOUT_FAILURE,
+        )
+        with patch.object(version_check.cache, "get", return_value=None), patch.object(
+            version_check, "_fetch_latest_version", return_value="2.11.0"
+        ):
+            self.assertEqual(version_check.get_latest_version(), "2.11.0")
+        self.assertEqual(cache.get(version_check.CACHE_KEY), "2.11.0")
+
+    def test_requires_authentication(self):
+        self.client.logout()
+        response = self.client.get(self.endpoint)
+        self.assertIn(
+            response.status_code,
+            (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN),
+        )
+
+    def test_read_only_user_allowed(self):
+        user = get_user_model().objects.create_user(
+            username="readonly", password="readonly"
+        )
+        user.groups.add(
+            Group.objects.get(name=settings.BABY_BUDDY["READ_ONLY_GROUP_NAME"])
+        )
+        self.client.logout()
+        self.client.login(username="readonly", password="readonly")
+        with patch.object(version_check, "_fetch_latest_version", return_value="9.9.9"):
+            response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get(self):
+        with patch.object(
+            version_check, "_fetch_latest_version", return_value="9.9.9"
+        ) as fetch:
+            response = self.client.get(self.endpoint)
+            # Second call is served from the cache.
+            self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data,
+            {
+                "version": VERSION,
+                "latest_version": "9.9.9",
+                "release_url": "https://github.com/babybuddy/babybuddy/releases/tag/v9.9.9",
+            },
+        )
+        fetch.assert_called_once()
+
+    def test_lookup_failure(self):
+        with patch.object(
+            version_check, "_fetch_latest_version", side_effect=OSError("offline")
+        ):
+            response = self.client.get(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["version"], VERSION)
+        self.assertEqual(response.data["latest_version"], "unknown")
+        self.assertIsNone(response.data["release_url"])
+
+    def test_disabled(self):
+        bb_settings = {**settings.BABY_BUDDY, "VERSION_CHECK": False}
+        with self.settings(BABY_BUDDY=bb_settings), patch.object(
+            version_check, "_fetch_latest_version"
+        ) as fetch:
+            response = self.client.get(self.endpoint)
+        self.assertEqual(response.data["latest_version"], "disabled")
+        self.assertIsNone(response.data["release_url"])
+        fetch.assert_not_called()
+
+    def test_strips_v_prefix(self):
+        class FakeResponse:
+            def __init__(self, body):
+                self.body = body
+
+            def read(self, *args):
+                return self.body
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+        with patch(
+            "urllib.request.urlopen",
+            return_value=FakeResponse(b'{"tag_name": "v2.12.0"}'),
+        ):
+            self.assertEqual(version_check._fetch_latest_version(), "2.12.0")
 
 
 class CaregiverAPITestCase(APITestCase):

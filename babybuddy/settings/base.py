@@ -409,6 +409,7 @@ BABY_BUDDY = {
     "ALLOW_UPLOADS": bool(strtobool(os.environ.get("ALLOW_UPLOADS") or "True")),
     "READ_ONLY_GROUP_NAME": "read_only",
     "CAREGIVER_GROUP_NAME": "caregiver",
+    "VERSION_CHECK": bool(strtobool(os.environ.get("VERSION_CHECK") or "True")),
 }
 
 # Home assistant specific configuration
