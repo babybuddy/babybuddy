@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.db.models import Max
 from django.forms import widgets
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -12,7 +13,12 @@ from taggit.forms import TagField, TagWidgetMixin
 from babybuddy.widgets import DateInput, DateTimeInput, TimeInput
 from core import models
 from core.models import Timer
-from core.widgets import TagsEditor, ChildRadioSelect, PillRadioSelect
+from core.widgets import (
+    TagsEditor,
+    ChildRadioSelect,
+    PillRadioSelect,
+    DatalistTextInput,
+)
 
 
 def set_initial_values(kwargs, form_type):
@@ -419,6 +425,19 @@ class HeightForm(CoreModelForm, TaggableModelForm):
         }
 
 
+def recent_medication_names():
+    """
+    Previously-used medication names, most recently used first. Names are
+    global across all children (medications recur between siblings).
+    """
+    return (
+        models.Medication.objects.values("name")
+        .annotate(last_used=Max("time"))
+        .order_by("-last_used", "name")
+        .values_list("name", flat=True)
+    )
+
+
 class MedicationForm(CoreModelForm, TaggableModelForm):
     next_dose_interval = forms.DecimalField(
         label=_("Time Until Next Dosage"),
@@ -460,6 +479,10 @@ class MedicationForm(CoreModelForm, TaggableModelForm):
             "dosage_unit": PillRadioSelect(),
             "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
+            "name": DatalistTextInput(
+                suggestions=recent_medication_names,
+                datalist_id="medication-name-list",
+            ),
         }
 
     def __init__(self, *args, **kwargs):

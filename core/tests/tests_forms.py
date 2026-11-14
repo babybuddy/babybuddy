@@ -1249,3 +1249,91 @@ class MedicationFormsTestCase(FormsTestCaseBase):
         self.assertFormError(
             page.context["form"], "time", "Date/time can not be in the future."
         )
+
+    def test_name_datalist_populated_with_distinct_names(self):
+        # A second child with a duplicate name to prove suggestions are
+        # global and de-duplicated.
+        other_child = models.Child.objects.create(
+            first_name="Child", last_name="Two", birth_date=timezone.localdate()
+        )
+        models.Medication.objects.create(
+            child=other_child,
+            name="Tylenol",  # duplicate of setUpClass medication
+            time=timezone.localtime() - timezone.timedelta(hours=1),
+        )
+        models.Medication.objects.create(
+            child=other_child,
+            name="Amoxicillin",
+            time=timezone.localtime(),
+        )
+        page = self.c.get("/medication/add/")
+        content = page.content.decode()
+        self.assertContains(page, '<datalist id="medication-name-list">')
+        self.assertContains(page, '<option value="Amoxicillin">')
+        self.assertContains(page, '<option value="Tylenol">')
+        # "Tylenol" must appear exactly once despite two records using it.
+        self.assertEqual(content.count('<option value="Tylenol">'), 1)
+        # Most recently used first: Amoxicillin (now) before Tylenol (1h ago).
+        self.assertLess(
+            content.index('<option value="Amoxicillin">'),
+            content.index('<option value="Tylenol">'),
+        )
+        # Input opts into the datalist.
+        self.assertContains(page, 'list="medication-name-list"')
+
+    def test_name_datalist_ordered_by_most_recent_use(self):
+        # Recency and alphabetical order disagree, so a name-sorted list fails.
+        now = timezone.localtime()
+        models.Medication.objects.create(
+            child=self.child, name="Aspirin", time=now - timezone.timedelta(days=30)
+        )
+        models.Medication.objects.create(child=self.child, name="Zinc", time=now)
+        content = self.c.get("/medication/add/").content.decode()
+        self.assertLess(
+            content.index('<option value="Zinc">'),
+            content.index('<option value="Aspirin">'),
+        )
+
+    def test_name_datalist_is_capped(self):
+        now = timezone.localtime()
+        for i in range(60):
+            models.Medication.objects.create(
+                child=self.child,
+                name="Capped {:02d}".format(i),
+                time=now - timezone.timedelta(minutes=i),
+            )
+        content = self.c.get("/medication/add/").content.decode()
+        datalist = content[content.index('<datalist id="medication-name-list">') :]
+        datalist = datalist[: datalist.index("</datalist>")]
+        self.assertEqual(datalist.count("<option "), 50)
+        # The most recent ones are kept.
+        self.assertIn('<option value="Capped 00">', datalist)
+        self.assertNotIn('<option value="Capped 59">', datalist)
+
+    def test_name_input_keeps_model_maxlength(self):
+        self.assertContains(self.c.get("/medication/add/"), 'maxlength="255"')
+
+    def test_previously_used_name_is_suggested(self):
+        page = self.c.get("/medication/add/")
+        # "Tylenol" was created in setUpClass.
+        self.assertContains(page, '<option value="Tylenol">')
+
+    def test_brand_new_name_is_accepted_and_persists(self):
+        params = {
+            "child": self.child.id,
+            "name": "Totally New Medicine",
+            "dosage": "1.0",
+            "dosage_unit": "ml",
+            "time": self.localtime_string(),
+        }
+        page = self.c.post("/medication/add/", params, follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(
+            page, "Medication entry for {} added".format(str(self.child))
+        )
+        self.assertTrue(
+            models.Medication.objects.filter(name="Totally New Medicine").exists()
+        )
+        # And the newly-used name becomes a suggestion next time.
+        page = self.c.get("/medication/add/")
+        self.assertContains(page, '<option value="Totally New Medicine">')
