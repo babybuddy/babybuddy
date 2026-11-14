@@ -36,6 +36,6 @@
     "DJANGO_SETTINGS_MODULE": "babybuddy.settings.development",
     "PIPENV_VENV_IN_PROJECT": "1"
   },
-  "postCreateCommand": "pipenv install --dev && npm install --include=dev && gulp migrate",
+  "postCreateCommand": "bash -c '. \"$NVM_DIR/nvm.sh\" && nvm use && pipenv install --dev && npm install --include=dev && npx gulp migrate'",
   "appPort": [8000]
 }
