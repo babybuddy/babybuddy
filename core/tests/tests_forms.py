@@ -1124,6 +1124,23 @@ class MedicationFormsTestCase(FormsTestCaseBase):
             page, "Medication entry for {} added".format(str(self.child))
         )
 
+    def test_custom_dosage_unit(self):
+        page = self.c.get("/medication/add/")
+        self.assertContains(page, 'list="medication-dosage-units"')
+        self.assertContains(page, '<option value="drops">Drops</option>', html=True)
+        params = {
+            "child": self.child.id,
+            "name": "Example medication",
+            "dosage": "123.5",
+            "dosage_unit": "IE",
+            "time": self.localtime_string(),
+        }
+        page = self.c.post("/medication/add/", params, follow=True)
+        self.assertContains(page, "Medication entry for")
+        medication = models.Medication.objects.get(name=params["name"])
+        self.assertEqual(medication.get_dosage_unit_display(), "IE")
+        self.assertEqual(self.medication.get_dosage_unit_display(), "ML")
+
     def test_add_without_interval(self):
         params = {
             "child": self.child.id,

@@ -881,6 +881,38 @@ class MedicationAPITestCase(TestBase.BabyBuddyAPITestCaseBase):
         self.assertEqual(obj.notes, data["notes"])
         self.assertEqual(obj.next_dose_interval.total_seconds(), 4 * 3600)
 
+    def test_custom_dosage_unit(self):
+        data = {
+            "child": 1,
+            "name": "Example medication",
+            "dosage": 123.5,
+            "dosage_unit": "IE",
+        }
+        response = self.client.post(self.endpoint, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        endpoint = f"{self.endpoint}{response.data['id']}/"
+        saved = self.client.get(endpoint).data
+        self.assertEqual(saved["dosage"], 123.5)
+        self.assertEqual(saved["dosage_unit"], "IE")
+
+        response = self.client.patch(endpoint, {"notes": "Test note"}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["dosage_unit"], "IE")
+        for invalid in ("x" * 21, "unit\nlabel", "unit\u2028label"):
+            with self.subTest(unit=invalid):
+                response = self.client.patch(
+                    endpoint, {"dosage_unit": invalid}, format="json"
+                )
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                self.assertIn("dosage_unit", response.data)
+
+    def test_options_advertise_custom_dosage_unit(self):
+        response = self.client.options(self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        field = response.data["actions"]["POST"]["dosage_unit"]
+        self.assertEqual(field["type"], "string")
+        self.assertEqual(field["max_length"], 20)
+
     def test_post_null_time(self):
         data = {
             "child": 1,

@@ -420,6 +420,8 @@ class HeightForm(CoreModelForm, TaggableModelForm):
 
 
 class MedicationForm(CoreModelForm, TaggableModelForm):
+    dosage_unit_suggestions = models.Medication.DOSAGE_UNIT_LABELS
+
     next_dose_interval = forms.DecimalField(
         label=_("Time Until Next Dosage"),
         required=False,
@@ -457,7 +459,7 @@ class MedicationForm(CoreModelForm, TaggableModelForm):
         ]
         widgets = {
             "child": ChildRadioSelect,
-            "dosage_unit": PillRadioSelect(),
+            "dosage_unit": forms.TextInput(attrs={"list": "medication-dosage-units"}),
             "time": DateTimeInput(),
             "notes": forms.Textarea(attrs={"rows": 5}),
         }
