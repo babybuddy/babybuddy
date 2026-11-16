@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import zoneinfo
-
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -12,6 +10,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy
 
 from rest_framework.authtoken.models import Token
+
+from babybuddy.timezones import timezone_choices
 
 
 class Settings(models.Model):
@@ -110,9 +110,7 @@ class Settings(models.Model):
         verbose_name=_("Language"),
     )
     timezone = models.CharField(
-        choices=sorted(
-            tuple(zip(zoneinfo.available_timezones(), zoneinfo.available_timezones()))
-        ),
+        choices=timezone_choices,
         default=timezone.get_default_timezone_name(),
         max_length=100,
         verbose_name=_("Timezone"),

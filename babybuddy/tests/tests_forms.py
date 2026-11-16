@@ -420,10 +420,24 @@ class FormsTestCase(TestCase):
 
         self.assertEqual(timezone.get_default_timezone_name(), "UTC")
         params = self.settings_template.copy()
-        params["timezone"] = "US/Pacific"
+        params["timezone"] = "America/Los_Angeles"
         page = self.c.post("/user/settings/", data=params, follow=True)
         self.assertEqual(page.status_code, 200)
         self.assertEqual(timezone.get_current_timezone_name(), params["timezone"])
+
+    def test_user_settings_timezone_link_name(self):
+        self.c.login(**self.credentials)
+
+        params = self.settings_template.copy()
+        params["timezone"] = "US/Pacific"
+        page = self.c.post("/user/settings/", data=params)
+
+        self.assertEqual(page.status_code, 200)
+        self.assertFormError(
+            page.context["settings_form"],
+            "timezone",
+            "Select a valid choice. US/Pacific is not one of the available choices.",
+        )
 
     def test_user_settings_dashboard_hide_empty_on(self):
         self.c.login(**self.credentials)
