@@ -5,7 +5,7 @@
 {% get_current_timezone as TIMEZONE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}"
-      data-bs-theme="dark"
+      data-bs-theme="{{ user.settings.theme|default:'dark' }}"
       dir="{{ LANGUAGE_BIDI|yesno:"rtl,ltr" }}">
     <head>
         <meta charset="utf-8" />

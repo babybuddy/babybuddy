@@ -23,3 +23,9 @@ class SettingsTestCase(TestCase):
         user.settings.language = "fr"
         user.save()
         self.assertEqual(user.settings.language, "fr")
+
+    def test_theme_choices(self):
+        themes = [choice[0] for choice in Settings._meta.get_field("theme").choices]
+        self.assertEqual(len(themes), len(set(themes)))
+        self.assertIn("dark", themes)
+        self.assertIn("light", themes)
