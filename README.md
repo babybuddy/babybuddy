@@ -76,6 +76,7 @@ adding it here or reach out via GitHub Issues or Discussions or on Gitter!
 
 - [Baby Buddy Companion for iOS](https://apps.apple.com/app/id6788966667) ([Source](https://github.com/kguy18/babybuddyios/))
 - [Baby Buddy for Android](https://play.google.com/store/apps/details?id=eu.pkgsoftware.babybuddywidgets) ([Source](https://github.com/babybuddy/babybuddy-for-android))
+- [BabyMate for Android](https://play.google.com/store/apps/details?id=net.samprim.babymate) (US$0.99 once; requires a Baby Buddy server with HTTPS)
 - [iOS shortcuts](https://github.com/babybuddy/babybuddy/discussions/300)
 - [Convert exported data from "Baby tracker - feeding, sleep and diaper" mobile app to Baby Buddy](https://github.com/babybuddy/babybuddy/discussions/424)
 
