@@ -1,0 +1,47 @@
+{% extends "cards/base.html" %}
+{% load i18n %}
+{% block header %}
+    <a href="{% url "core:feeding-list" %}">{% trans "Feeding rhythm" %}</a>
+{% endblock %}
+{% block title %}
+    {% trans "Past Week" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex flex-wrap gap-3 small my-2">
+        <span><span class="d-inline-block rounded-pill me-1"
+      style="width:14px;
+             height:7px;
+             background:#d0664d"></span>{% trans "Nursing" %}</span>
+        <span><span class="d-inline-block rounded-pill me-1"
+      style="width:14px;
+             height:7px;
+             background:#e5a65c"></span>{% trans "Bottle" %}</span>
+        <span><span class="d-inline-block align-middle me-1"
+      style="width:14px;
+             height:2px;
+             background:#a9b86a"></span>{% trans "Longest gap" %}</span>
+    </div>
+    <svg viewBox="0 0 {{ chart.width }} {{ chart.height }}"
+         class="w-100 h-auto d-block"
+         style="max-width: 640px"
+         role="img"
+         aria-label="{% trans "Feeding rhythm" %}">
+        {% include "cards/rhythm_axes.html" %}
+        {% for row in chart.rows %}
+            {% for mark in row.marks %}
+                <rect x="{{ mark.x|stringformat:'s' }}" y="{{ row.y|add:4 }}" width="{{ mark.width|stringformat:'s' }}" height="13" rx="1.75" fill="{% if mark.bottle %}#e5a65c{% else %}#d0664d{% endif %}"><title>{{ mark.title }}</title></rect>
+            {% endfor %}
+            {% if row.gap %}
+                {% if row.gap.inline %}
+                    <g stroke="#a9b86a" stroke-width="1.6">
+                    <line x1="{{ row.gap.x1|stringformat:'s' }}" x2="{{ row.gap.x2|stringformat:'s' }}" y1="{{ row.mid|stringformat:'s' }}" y2="{{ row.mid|stringformat:'s' }}" />
+                    <line x1="{{ row.gap.x1|stringformat:'s' }}" x2="{{ row.gap.x1|stringformat:'s' }}" y1="{{ row.y|add:5 }}" y2="{{ row.y|add:16 }}" />
+                    <line x1="{{ row.gap.x2|stringformat:'s' }}" x2="{{ row.gap.x2|stringformat:'s' }}" y1="{{ row.y|add:5 }}" y2="{{ row.y|add:16 }}" />
+                    </g>
+                {% endif %}
+                <text x="{{ chart.margin_x }}" y="{{ row.text_y|stringformat:'s' }}" fill="#a9b86a" font-size="13">{{ row.gap.label }}</text>
+            {% endif %}
+        {% endfor %}
+    </svg>
+    {% if summary %}<p class="mt-3 mb-0">{{ summary }}</p>{% endif %}
+{% endblock %}

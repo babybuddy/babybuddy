@@ -54,6 +54,15 @@
         {% if perms.core.view_feeding %}
             <div class="col-sm-6 col-lg-4">{% card_breastfeeding object %}</div>
         {% endif %}
+        {% if perms.core.view_feeding %}
+            <div class="col-sm-6 col-lg-4">{% card_feeding_rhythm object %}</div>
+        {% endif %}
+        {% if perms.core.view_sleep %}
+            <div class="col-sm-6 col-lg-4">{% card_sleep_rhythm object %}</div>
+        {% endif %}
+        {% if perms.core.view_diaperchange %}
+            <div class="col-sm-6 col-lg-4">{% card_diaperchange_rhythm object %}</div>
+        {% endif %}
     </div>
 {% endblock %}
 {% block javascript %}

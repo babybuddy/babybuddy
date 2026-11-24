@@ -458,3 +458,107 @@ class TemplateTagsTestCase(TestCase):
         data = cards.card_notes_recent(context, self.child)
         self.assertTrue(data["empty"])
         self.assertEqual(data["notes"], [])
+
+
+class RhythmCardsTestCase(TestCase):
+    fixtures = ["tests.json"]
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.child = models.Child.objects.first()
+        cls.context = {"request": MockUserRequest(get_user_model().objects.first())}
+        timezone.activate(Settings.objects.first().timezone)
+        # A day with no fixture data around it.
+        cls.day = timezone.datetime(2018, 3, 10).date()
+
+    def at(self, days_ago, hour, minute=0):
+        return timezone.make_aware(
+            timezone.datetime.combine(
+                self.day - timezone.timedelta(days=days_ago),
+                timezone.datetime.min.time(),
+            )
+            + timezone.timedelta(hours=hour, minutes=minute)
+        )
+
+    def feed(self, start, minutes, method="left breast"):
+        return models.Feeding.objects.create(
+            child=self.child,
+            start=start,
+            end=start + timezone.timedelta(minutes=minutes),
+            type="breast milk" if method != "bottle" else "formula",
+            method=method,
+        )
+
+    def test_card_feeding_rhythm(self):
+        self.feed(self.at(1, 22), 20)
+        self.feed(self.at(0, 1), 20)
+        self.feed(self.at(0, 4), 15, method="bottle")
+        data = cards.card_feeding_rhythm(self.context, self.child, self.day)
+        self.assertEqual(data["type"], "feeding")
+        self.assertFalse(data["empty"])
+        rows = data["chart"]["rows"]
+        self.assertEqual(len(rows), 8)
+        self.assertTrue(rows[0]["today"])
+        self.assertEqual([m["bottle"] for m in rows[0]["marks"]], [False, True])
+        # Yesterday's longest gap runs past midnight: labelled in the margin.
+        self.assertEqual(rows[1]["gap"], {"label": "2h 40m", "inline": False})
+        # Today's gap stays within the day: drawn as a line.
+        self.assertTrue(rows[0]["gap"]["inline"])
+        self.assertEqual(rows[0]["gap"]["label"], "2h 40m")
+        # Today is left out of the average.
+        self.assertEqual(
+            data["summary"], "Longest stretch: 2h 40m on average this week."
+        )
+
+    def test_card_sleep_rhythm(self):
+        models.Sleep.objects.create(
+            child=self.child, start=self.at(1, 20), end=self.at(0, 6), nap=False
+        )
+        models.Sleep.objects.create(
+            child=self.child, start=self.at(0, 13), end=self.at(0, 14), nap=True
+        )
+        data = cards.card_sleep_rhythm(self.context, self.child, self.day)
+        self.assertEqual(data["type"], "sleep")
+        rows = data["chart"]["rows"]
+        # Night sleep is split at midnight across both days.
+        self.assertEqual([m["nap"] for m in rows[0]["marks"]], [False, True])
+        self.assertEqual(len(rows[1]["marks"]), 1)
+        self.assertEqual(rows[1]["marks"][0]["x"], 293.0)  # 20:00
+        self.assertEqual(
+            data["summary"],
+            "Sleep: 4h 00m a day on average this week, "
+            "longest night stretch 10h 00m.",
+        )
+
+    def test_card_diaperchange_rhythm(self):
+        for days_ago, hour, wet, solid in (
+            (0, 8, True, False),
+            (0, 9, False, True),
+            (1, 10, True, True),
+        ):
+            models.DiaperChange.objects.create(
+                child=self.child, time=self.at(days_ago, hour), wet=wet, solid=solid
+            )
+        data = cards.card_diaperchange_rhythm(self.context, self.child, self.day)
+        self.assertEqual(data["type"], "diaperchange")
+        rows = data["chart"]["rows"]
+        self.assertEqual([m["solid"] for m in rows[0]["marks"]], [False, True])
+        self.assertEqual(rows[0]["label"], "2 · 1 solid")
+        self.assertEqual(rows[1]["label"], "1 · 1 solid")
+        self.assertEqual(rows[2]["label"], "")
+        self.assertEqual(
+            data["summary"],
+            "Changes: 1.0 a day on average this week, 1.0 of them solid.",
+        )
+
+    def test_rhythm_cards_empty(self):
+        day = timezone.datetime(2019, 1, 1).date()
+        for card in (
+            cards.card_feeding_rhythm,
+            cards.card_sleep_rhythm,
+            cards.card_diaperchange_rhythm,
+        ):
+            data = card(self.context, self.child, day)
+            self.assertTrue(data["empty"])
+            self.assertEqual(data["summary"], "")

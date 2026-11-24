@@ -2665,3 +2665,7 @@ msgstr ""
 
 #~ msgid "<b>Diaper Change Types</b>"
 #~ msgstr "<b>Nappy Change Types</b>"
+
+#: dashboard/templates/cards/diaperchange_rhythm.html
+msgid "Diaper change rhythm"
+msgstr "Nappy change rhythm"
