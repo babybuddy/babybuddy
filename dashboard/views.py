@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
 from babybuddy.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from core.models import Child
+from core.models import Child, Timer
 
 
 class Dashboard(LoginRequiredMixin, TemplateView):
@@ -35,3 +36,11 @@ class ChildDashboard(PermissionRequiredMixin, DetailView):
     model = Child
     permission_required = ("core.view_child",)
     template_name = "dashboard/child.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # The timer card is only shown while there is a timer to list.
+        context["has_timers"] = Timer.objects.filter(
+            Q(child=self.object) | Q(child=None)
+        ).exists()
+        return context

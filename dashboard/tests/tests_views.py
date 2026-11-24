@@ -15,6 +15,7 @@ from core.models import (
     Medication,
     Pumping,
     Sleep,
+    Timer,
     TummyTime,
 )
 
@@ -60,6 +61,21 @@ class ViewsTestCase(TestCase):
         )
         page = self.c.get("/dashboard/")
         self.assertEqual(page.status_code, 200)
+
+    def test_child_dashboard_timer_card_only_with_timers(self):
+        call_command("fake", verbosity=0, children=1, days=1)
+        child = Child.objects.first()
+        Timer.objects.all().delete()
+        url = "/children/{}/dashboard/".format(child.slug)
+
+        page = self.c.get(url)
+        self.assertFalse(page.context["has_timers"])
+        self.assertNotContains(page, "card-timer")
+
+        Timer.objects.create(child=child, user=self.user)
+        page = self.c.get(url)
+        self.assertTrue(page.context["has_timers"])
+        self.assertContains(page, "card-timer")
 
 
 CARE_ENTRY_PERMISSIONS = (
