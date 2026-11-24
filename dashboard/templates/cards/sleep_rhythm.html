@@ -1,0 +1,33 @@
+{% extends "cards/base.html" %}
+{% load i18n %}
+{% block header %}
+    <a href="{% url "core:sleep-list" %}">{% trans "Sleep rhythm" %}</a>
+{% endblock %}
+{% block title %}
+    {% trans "Past Week" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex flex-wrap gap-3 small my-2">
+        <span><span class="d-inline-block rounded-pill me-1"
+      style="width:16px;
+             height:9px;
+             background:#b27a9c"></span>{% trans "Night sleep" %}</span>
+        <span><span class="d-inline-block rounded-pill me-1"
+      style="width:16px;
+             height:9px;
+             background:#6e5568"></span>{% trans "Nap" %}</span>
+    </div>
+    <svg viewBox="0 0 {{ chart.width }} {{ chart.height }}"
+         class="w-100 h-auto d-block"
+         style="max-width: 640px"
+         role="img"
+         aria-label="{% trans "Sleep rhythm" %}">
+        {% include "cards/rhythm_axes.html" %}
+        {% for row in chart.rows %}
+            {% for mark in row.marks %}
+                <rect x="{{ mark.x|stringformat:'s' }}" y="{{ row.y|add:3 }}" width="{{ mark.width|stringformat:'s' }}" height="{{ chart.bar_height }}" rx="{{ chart.bar_radius|stringformat:'s' }}" fill="{% if mark.nap %}#6e5568{% else %}#b27a9c{% endif %}"><title>{{ mark.title }}</title></rect>
+            {% endfor %}
+        {% endfor %}
+    </svg>
+    {% if summary %}<p class="mt-3 mb-0">{{ summary }}</p>{% endif %}
+{% endblock %}

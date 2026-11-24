@@ -1,0 +1,36 @@
+{% extends "cards/base.html" %}
+{% load i18n %}
+{% block header %}
+    <a href="{% url "core:diaperchange-list" %}">{% trans "Diaper change rhythm" %}</a>
+{% endblock %}
+{% block title %}
+    {% trans "Past Week" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex flex-wrap gap-3 small my-2">
+        <span><span class="d-inline-block rounded-circle me-1"
+      style="width:10px;
+             height:10px;
+             background:#71b3dc"></span>{% trans "Wet" %}</span>
+        <span><span class="d-inline-block rounded-circle me-1"
+      style="width:10px;
+             height:10px;
+             background:#c99a45"></span>{% trans "Solid" %}</span>
+    </div>
+    <svg viewBox="0 0 {{ chart.width }} {{ chart.height }}"
+         class="w-100 h-auto d-block"
+         style="max-width: 640px"
+         role="img"
+         aria-label="{% trans "Diaper change rhythm" %}">
+        {% include "cards/rhythm_axes.html" %}
+        {% for row in chart.rows %}
+            {% for mark in row.marks %}
+                <circle cx="{{ mark.x|stringformat:'s' }}" cy="{{ row.mid|stringformat:'s' }}" r="5" fill="{% if mark.solid %}#c99a45{% else %}#71b3dc{% endif %}"><title>{{ mark.title }}</title></circle>
+            {% endfor %}
+            {% if row.label %}
+                <text x="{{ chart.margin_x }}" y="{{ row.text_y|stringformat:'s' }}" fill="currentColor" fill-opacity="0.75" font-size="13">{{ row.label }}</text>
+            {% endif %}
+        {% endfor %}
+    </svg>
+    {% if summary %}<p class="mt-3 mb-0">{{ summary }}</p>{% endif %}
+{% endblock %}
