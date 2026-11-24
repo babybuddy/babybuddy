@@ -1,0 +1,11 @@
+{% load i18n %}
+{% for band in chart.night %}
+    <rect x="{{ band.x|stringformat:'s' }}" y="{{ chart.top }}" width="{{ band.width|stringformat:'s' }}" height="{{ chart.plot_height }}" fill="currentColor" fill-opacity="0.06" />
+{% endfor %}
+{% for tick in chart.ticks %}
+    <line x1="{{ tick.x|stringformat:'s' }}" x2="{{ tick.x|stringformat:'s' }}" y1="{{ chart.top }}" y2="{{ chart.top|add:chart.plot_height }}" stroke="currentColor" stroke-opacity="0.14" />
+    <text x="{{ tick.x|stringformat:'s' }}" y="{{ chart.tick_y }}" text-anchor="middle" fill="currentColor" font-size="13">{{ tick.label }}</text>
+{% endfor %}
+{% for row in chart.rows %}
+    <text x="0" y="{{ row.text_y|stringformat:'s' }}" fill="currentColor" font-size="13"{% if row.today %} font-weight="700"{% endif %}>{% if row.today %}{% trans "Today" %}{% else %}{{ row.date|date:"D j" }}{% endif %}</text>
+{% endfor %}

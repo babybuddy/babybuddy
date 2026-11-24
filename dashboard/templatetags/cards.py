@@ -951,3 +951,53 @@ def card_notes_recent(context, child):
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }
+
+
+def _rhythm_card(context, child, kind, date):
+    from dashboard import rhythm
+
+    today = date or timezone.localdate()
+    data = getattr(rhythm, kind)(child, today)
+    data.update(
+        {
+            "type": kind,
+            "hide_empty": _hide_empty(context),
+        }
+    )
+    return data
+
+
+@register.inclusion_tag("cards/feeding_rhythm.html", takes_context=True)
+def card_feeding_rhythm(context, child, date=None):
+    """
+    Feedings for today and the seven days before it on a 24-hour axis, with
+    the longest gap between feeds marked for each day.
+    :param child: an instance of the Child model.
+    :param date: a date object for the last (top) day; defaults to today.
+    :returns: a dictionary with the chart geometry and a summary line.
+    """
+    return _rhythm_card(context, child, "feeding", date)
+
+
+@register.inclusion_tag("cards/sleep_rhythm.html", takes_context=True)
+def card_sleep_rhythm(context, child, date=None):
+    """
+    Night sleep and naps for today and the seven days before it on a 24-hour
+    axis. Sleep crossing midnight is split across both days.
+    :param child: an instance of the Child model.
+    :param date: a date object for the last (top) day; defaults to today.
+    :returns: a dictionary with the chart geometry and a summary line.
+    """
+    return _rhythm_card(context, child, "sleep", date)
+
+
+@register.inclusion_tag("cards/diaperchange_rhythm.html", takes_context=True)
+def card_diaperchange_rhythm(context, child, date=None):
+    """
+    Diaper changes for today and the seven days before it on a 24-hour axis,
+    with a count per day.
+    :param child: an instance of the Child model.
+    :param date: a date object for the last (top) day; defaults to today.
+    :returns: a dictionary with the chart geometry and a summary line.
+    """
+    return _rhythm_card(context, child, "diaperchange", date)
