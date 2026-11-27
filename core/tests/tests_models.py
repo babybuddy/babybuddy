@@ -281,6 +281,17 @@ class FeedingTestCase(TestCase):
         self.assertEqual(str(feeding), "Feeding")
         self.assertEqual(feeding.method, "both breasts")
 
+    def test_method_parent_fed_display(self):
+        feeding = models.Feeding.objects.create(
+            child=self.child,
+            start=timezone.localtime() - timezone.timedelta(minutes=30),
+            end=timezone.localtime(),
+            type="solid food",
+            method="parent fed",
+        )
+        self.assertEqual(feeding.method, "parent fed")
+        self.assertEqual(feeding.get_method_display(), "Caregiver fed")
+
 
 class HeadCircumferenceTestCase(TestCase):
     def setUp(self):

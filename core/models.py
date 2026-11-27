@@ -360,7 +360,7 @@ class Feeding(models.Model):
             ("left breast", _("Left breast")),
             ("right breast", _("Right breast")),
             ("both breasts", _("Both breasts")),
-            ("parent fed", _("Parent fed")),
+            ("parent fed", _("Caregiver fed")),
             ("self fed", _("Self fed")),
         ],
         max_length=255,
